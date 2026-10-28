@@ -80,6 +80,18 @@ void LogWer() {
 }
 } // namespace
 
+// Mode 1 relies on our top-level filter. If the game (or an overlay) replaces it after DllMain, mode 1 silently never dumps (the
+// empire-remastered trap that mode 2 exists for), so this reads the current filter and says who owns it. Set-and-restore: never changes behaviour.
+void CrashCheckFilter(const char* when) {
+    if (s_mode <= 0) return;
+    LPTOP_LEVEL_EXCEPTION_FILTER cur = SetUnhandledExceptionFilter(TopLevel);
+    if (cur == TopLevel) { LOGI("crash: top-level filter at %s: still ours", when); return; }
+    SetUnhandledExceptionFilter(cur);   // put theirs back
+    char w[300] = "none"; if (cur) Where((void*)cur, w, sizeof w);
+    LOGW("crash: top-level filter at %s: REPLACED by %s - mode %d %s", when, w, s_mode,
+         s_mode >= 2 ? "still dumps the first fatal first-chance exception" : "will not dump an unhandled crash in-process (set proxy.minidump=2; WER LocalDumps still works)");
+}
+
 void CrashInstall(int mode) {
     LogWer();
     s_mode = mode;

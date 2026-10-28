@@ -91,6 +91,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE inst, DWORD reason, LPVOID reserved) {
         DisableThreadLibraryCalls(inst);
         wsp::Init(inst);
     } else if (reason == DLL_PROCESS_DETACH) {
+        if (wsp::Rt().enabled) wsp::CrashCheckFilter("process detach");
         LOGI("process detach (%s)", reserved ? "process exit" : "FreeLibrary");
     }
     return TRUE;

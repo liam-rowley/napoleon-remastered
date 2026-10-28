@@ -68,7 +68,7 @@ if [[ "$WHAT" == smoke ]]; then
   G="$OUT/smoke/game"; rm -rf "$OUT/smoke"; mkdir -p "$G"
   "$CXX" -O1 -static -o "$G/Napoleon.exe" "$ROOT/proxy/tests/smoke_host.cpp"
   cp "$OUT/$ADAPTER/d3d9.dll" "$G/"
-  run() { (cd "$G" && WINEDEBUG=-all WINEDLLOVERRIDES="d3d9=n,b" timeout 120 wine Napoleon.exe) ; }
+  run() { (cd "$G" && WINEDEBUG=-all WINEDLLOVERRIDES="d3d9=n,b;winedbg.exe=d" timeout 120 wine Napoleon.exe "$@") ; }
   check() { grep -q "$1" "$G/napoleon_remastered/logs/proxy.log" || { echo "build.sh smoke: '$1' not in the log"; cat "$G/napoleon_remastered/logs/proxy.log"; exit 1; }; }
   # 1) default config: the stand-in exe is not the pinned build -> MISMATCH, pass-through, notice, system fallback (no DXVK), clean detach
   run; check "exe_guard: MISMATCH"; check "PASS-THROUGH"; check "patch_engine: not run"; check "backend: dxvk unavailable"; check "process detach"
@@ -80,5 +80,16 @@ if [[ "$WHAT" == smoke ]]; then
   # 3) forced mismatch wins over the override
   printf '[proxy]\r\nbackend=system\r\nexe_guard=0\r\nexe_guard_force_mismatch=1\r\n' > "$G/napoleon_remastered.ini"
   run; check "FORCED MISMATCH"; check "process detach"
-  echo "build.sh smoke: passed (3 launches under wine)"
+  # 4) crash capture end to end: an access violation in the host -> our filter (still ours at the first create) -> a .dmp named in the log
+  printf '[proxy]\r\nbackend=system\r\n' > "$G/napoleon_remastered.ini"
+  run crash || true
+  check "top-level filter at first Direct3DCreate9: still ours"; check "UNHANDLED exception 0xc0000005"; check "minidump (unhandled) written"
+  dmp="$(grep -o 'minidump (unhandled) written: .*' "$G/napoleon_remastered/logs/proxy.log" | sed 's/.*\\//' | tr -d '\r')"
+  [[ -s "$G/napoleon_remastered/dumps/$dmp" ]] || { echo "build.sh smoke: the dump the log names ($dmp) is missing or empty"; ls -la "$G/napoleon_remastered/dumps"; exit 1; }
+  [[ "$(head -c4 "$G/napoleon_remastered/dumps/$dmp")" == MDMP ]] || { echo "build.sh smoke: $dmp is not a minidump (no MDMP signature)"; exit 1; }
+  # 5) the host replaces the top-level filter (as a game may): logged as REPLACED; mode 2 still dumps the first-chance AV
+  printf '[proxy]\r\nbackend=system\r\nminidump=2\r\n' > "$G/napoleon_remastered.ini"
+  run replace crash || true
+  check "top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe"; check "minidump (first-chance) written"
+  echo "build.sh smoke: passed (5 launches under wine, 2 dumps)"
 fi

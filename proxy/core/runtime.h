@@ -34,7 +34,8 @@ std::wstring LogPath();
 #define LOGE(...) ::wsp::LogWrite(::wsp::LogLevel::Error, __VA_ARGS__)
 
 // crash.cpp
-void CrashInstall(int mode);   // 0 off, 1 unhandled exceptions (default), 2 also the first fatal first-chance exception
+void CrashInstall(int mode);
+void CrashCheckFilter(const char* when);   // logs whether the top-level filter is still ours (first export call, detach)   // 0 off, 1 unhandled exceptions (default), 2 also the first fatal first-chance exception
 
 // guard_driver.cpp
 void GuardRun();               // sets Rt().engineOk and writes or removes the notice

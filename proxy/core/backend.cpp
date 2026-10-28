@@ -109,9 +109,17 @@ const char* BackendName() { return s_name; }
 
 using namespace wsp;
 
+namespace {
+volatile LONG s_filterChecked = 0;
+// The game installs its own handlers during start-up; by its first Direct3DCreate9 that is done, so this is where a replaced
+// top-level filter shows (J1 review finding 5).
+void FirstCreateChecks() { if (!InterlockedExchange(&s_filterChecked, 1)) CrashCheckFilter("first Direct3DCreate9"); }
+}
+
 extern "C" {
 
 void* WINAPI Direct3DCreate9(UINT sdk) {
+    FirstCreateChecks();
     if (!BackendEnsure() || !p_Create9) return nullptr;
     void* d3d = p_Create9(sdk);
     LOGI("Direct3DCreate9(sdk=%u) -> %p [%s]", sdk, d3d, BackendName());
@@ -119,6 +127,7 @@ void* WINAPI Direct3DCreate9(UINT sdk) {
 }
 
 HRESULT WINAPI Direct3DCreate9Ex(UINT sdk, void** out) {
+    FirstCreateChecks();
     if (!BackendEnsure()) return E_FAIL;
     if (!p_Create9Ex) return E_NOTIMPL;
     const HRESULT hr = p_Create9Ex(sdk, out);
