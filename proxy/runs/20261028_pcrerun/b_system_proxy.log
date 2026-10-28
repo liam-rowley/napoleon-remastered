@@ -1,0 +1,25 @@
+2026-10-28T21:56:49.845Z [INFO ] [t27352] launch 20261028T215649Z-p14112: Napoleon: Total War proxy d3d9.dll build 30a7b815163a loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 14112, base 00610000)
+2026-10-28T21:56:49.845Z [INFO ] [t27352] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.backend                      = system      
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.enabled                      = 1           
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.exe_guard                    = 1           
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.log_level                    = info        
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.minidump                     = 1           
+2026-10-28T21:56:49.845Z [INFO ] [t27352] config:   proxy.runtime_patches              = 1           
+2026-10-28T21:56:49.845Z [INFO ] [t27352] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-10-28T21:56:49.845Z [INFO ] [t27352] crash: minidump mode 1 (unhandled only), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-10-28T21:56:49.885Z [INFO ] [t27352] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 47 ms)
+2026-10-28T21:56:49.885Z [INFO ] [t27352] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-10-28T21:56:49.885Z [INFO ] [t27352] patch_engine: image base 00610000 (file ImageBase 0x00400000, delta 0x00210000)
+2026-10-28T21:56:49.885Z [INFO ] [t27352] patch_engine: nothing to do - 0 sites: 0 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 0 hooks verified
+2026-10-28T21:56:49.885Z [INFO ] [t27352] patch_engine: 0 of 0 planned sites written
+2026-10-28T21:56:49.885Z [INFO ] [t27352] init done; the system backend loads at the first d3d9 call
+2026-10-28T21:56:50.975Z [WARN ] [t27352] crash: top-level filter at first Direct3DCreate9: REPLACED by CSERHelper.dll+0x12571 - mode 1 will not dump an unhandled crash in-process (set proxy.minidump=2; WER LocalDumps still works)
+2026-10-28T21:56:50.975Z [INFO ] [t27352] backend: system d3d9 loaded from C:\WINDOWS\system32\d3d9.dll
+2026-10-28T21:56:50.975Z [INFO ] [t27352] backend: system ready (Direct3DCreate9=695115d0)
+2026-10-28T21:56:51.044Z [INFO ] [t27352] Direct3DCreate9(sdk=32) -> 14e3e2f0 [system]
+2026-10-28T21:57:05.287Z [WARN ] [t27352] crash: top-level filter at process detach: REPLACED by Napoleon.exe+0xe6f074 - mode 1 will not dump an unhandled crash in-process (set proxy.minidump=2; WER LocalDumps still works)
+2026-10-28T21:57:05.287Z [INFO ] [t27352] process detach (process exit)

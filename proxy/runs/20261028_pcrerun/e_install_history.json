@@ -1,0 +1,55 @@
+{
+  "pre_snapshot": "snapshots/pre_install_20261028T212314Z.json",
+  "backups": [],
+  "history": [
+    {
+      "utc": "20261028T212314Z",
+      "action": "install started",
+      "kit_id": "kit_20261028T212023Z_30a7b815163a"
+    },
+    {
+      "utc": "20261028T212314Z",
+      "action": "install",
+      "kit_id": "kit_20261028T212023Z_30a7b815163a"
+    },
+    {
+      "utc": "20261028T215920Z",
+      "action": "uninstall",
+      "identical": true,
+      "diffs": []
+    }
+  ],
+  "kit_id": "kit_20261028T212023Z_30a7b815163a",
+  "build_id": "30a7b815163a",
+  "installed_utc": "20261028T212314Z",
+  "files": [
+    {
+      "path": "d3d9.dll",
+      "sha256": "b15bf2bba2f6fb97fac57429d295da7158cf5ef289b2f0cda4392670ea774e36",
+      "size": 388096
+    },
+    {
+      "path": "napoleon_remastered.ini",
+      "sha256": "94b59cb3bab449a205490f6fe0eaa2ae391d3ee07fc47dcb0f8ab285095f22d0",
+      "size": 1764
+    },
+    {
+      "path": "napoleon_remastered/dxvk/d3d9_dxvk.dll",
+      "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+      "size": 7856142
+    },
+    {
+      "path": "napoleon_remastered/LICENSE.dxvk.txt",
+      "sha256": "a5cb1a6ded7d2d7e92d550ba28edd21be2d1d4044662b399887351023e30ce64",
+      "size": 1074
+    }
+  ],
+  "owned": [
+    "d3d9.dll",
+    "napoleon_remastered.ini",
+    "napoleon_remastered/"
+  ],
+  "mod_dir": "napoleon_remastered",
+  "exe_name": "Napoleon.exe",
+  "config_file": "napoleon_remastered.ini"
+}

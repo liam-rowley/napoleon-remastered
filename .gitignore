@@ -4,6 +4,8 @@ _scratch/
 __pycache__/
 *.pyc
 *.log
+# run evidence (PC logs) is committed: proxy/runs/<run>/
+!proxy/runs/**/*.log
 *.dmp
 *.bak
 *.orig

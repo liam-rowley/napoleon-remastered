@@ -1,0 +1,26 @@
+2026-10-28T20:52:15.108Z [INFO ] [t26512] launch 20261028T205215Z-p12440: Napoleon: Total War proxy d3d9.dll build 690ec1a93fd3 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 12440, base 00610000)
+2026-10-28T20:52:15.108Z [INFO ] [t26512] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.backend                      = dxvk        
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.enabled                      = 1           
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.exe_guard                    = 1           
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.exe_guard_force_mismatch     = 1           
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.log_level                    = info        
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.minidump                     = 1           
+2026-10-28T20:52:15.108Z [INFO ] [t26512] config:   proxy.runtime_patches              = 1           
+2026-10-28T20:52:15.108Z [INFO ] [t26512] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-10-28T20:52:15.108Z [INFO ] [t26512] crash: minidump mode 1 (unhandled only), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-10-28T20:52:15.146Z [WARN ] [t26512] exe_guard: FORCED MISMATCH (exe_guard_force_mismatch=1) - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> PASS-THROUGH: backend only, no hooks, no patches, no engine reads
+2026-10-28T20:52:15.147Z [INFO ] [t26512] exe_guard: notice written: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\EXE_MISMATCH.txt
+2026-10-28T20:52:15.147Z [INFO ] [t26512] plan: patches=0 engine_hooks=0 d3d_hooks=0 engine_reads=0
+2026-10-28T20:52:15.147Z [INFO ] [t26512] patch_engine: not run (pass-through)
+2026-10-28T20:52:15.147Z [INFO ] [t26512] init done; the dxvk backend loads at the first d3d9 call
+2026-10-28T20:52:16.203Z [INFO ] [t26512] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-10-28T20:52:16.203Z [INFO ] [t26512] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-28T20:52:16.203Z [INFO ] [t26512] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-10-28T20:52:16.203Z [INFO ] [t26512] backend: DXVK_STATE_CACHE_PATH already set by the environment, left alone
+2026-10-28T20:52:16.206Z [INFO ] [t26512] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-28T20:52:16.206Z [INFO ] [t26512] backend: dxvk ready (Direct3DCreate9=5cd01530)
+2026-10-28T20:52:16.589Z [INFO ] [t26512] Direct3DCreate9(sdk=32) -> 0d585ee8 [dxvk]
+2026-10-28T20:52:49.835Z [INFO ] [t26512] process detach (process exit)

@@ -1,0 +1,105 @@
+// crash.cpp - in-process crash capture: a minidump into <mod>\dumps\<launch id>_<code>.dmp, named in the log.
+// Mode (config proxy.minidump): 0 off; 1 (default) unhandled exceptions only, through the top-level filter, so a first-chance
+// exception the engine handles itself never leaves a dump (the PC test counts dumps); 2 also dumps the first fatal first-chance
+// exception (the empire-remastered behaviour; for when the engine's own top-level filter replaces ours). In every mode >= 1 the vectored handler
+// logs the first few fatal first-chance exceptions with module+offset, as evidence.
+// The in-process dump is empty when the heap is corrupt (empire-remastered LEARNINGS lesson 23): WER LocalDumps (proxy/tools/wer_localdumps.ps1)
+// is the out-of-process backstop; read WER first.
+#include "runtime.h"
+#include <dbghelp.h>
+
+namespace wsp {
+namespace {
+int s_mode = 0;
+LPTOP_LEVEL_EXCEPTION_FILTER s_prev = nullptr;
+volatile LONG s_dumped = 0, s_logged = 0;
+
+bool Fatal(DWORD c) {
+    return c == EXCEPTION_ACCESS_VIOLATION || c == EXCEPTION_ILLEGAL_INSTRUCTION || c == EXCEPTION_STACK_OVERFLOW || c == EXCEPTION_INT_DIVIDE_BY_ZERO ||
+           c == EXCEPTION_PRIV_INSTRUCTION || c == EXCEPTION_IN_PAGE_ERROR || c == 0xC0000374 /* STATUS_HEAP_CORRUPTION */ || c == 0xC0000409 /* stack buffer overrun */;
+}
+
+void Where(void* addr, char* out, size_t n) {
+    HMODULE mod = nullptr; wchar_t name[MAX_PATH] = L"?";
+    GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCWSTR)addr, &mod);
+    if (mod) GetModuleFileNameW(mod, name, MAX_PATH);
+    const wchar_t* base = wcsrchr(name, L'\\');
+    snprintf(out, n, "%ls+0x%lx", base ? base + 1 : name, mod ? (unsigned long)((BYTE*)addr - (BYTE*)mod) : 0ul);
+}
+
+void Dump(EXCEPTION_POINTERS* ep, const char* why) {
+    if (InterlockedExchange(&s_dumped, 1)) return;   // one dump per launch
+    const std::wstring dir = Rt().modDir + L"dumps\\";
+    CreateDirectoryW(dir.c_str(), nullptr);
+    wchar_t name[MAX_PATH];
+    swprintf(name, MAX_PATH, L"%ls%hs_%08lx.dmp", dir.c_str(), Rt().launchId.c_str(), ep->ExceptionRecord->ExceptionCode);
+    HANDLE f = CreateFileW(name, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (f == INVALID_HANDLE_VALUE) { LOGE("crash: cannot create %ls (%lu)", name, GetLastError()); return; }
+    MINIDUMP_EXCEPTION_INFORMATION mei{ GetCurrentThreadId(), ep, FALSE };
+    const BOOL ok = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), f,
+                                      (MINIDUMP_TYPE)(MiniDumpWithIndirectlyReferencedMemory | MiniDumpWithDataSegs | MiniDumpWithThreadInfo | MiniDumpWithUnloadedModules),
+                                      &mei, nullptr, nullptr);
+    CloseHandle(f);
+    LOGE("crash: minidump (%s) %s: %ls", why, ok ? "written" : "FAILED", name);
+}
+
+LONG WINAPI TopLevel(EXCEPTION_POINTERS* ep) {
+    char w[300]; Where(ep->ExceptionRecord->ExceptionAddress, w, sizeof w);
+    LOGE("crash: UNHANDLED exception 0x%08lx at %p = %s (thread %lu)", ep->ExceptionRecord->ExceptionCode, ep->ExceptionRecord->ExceptionAddress, w, GetCurrentThreadId());
+    Dump(ep, "unhandled");
+    return s_prev ? s_prev(ep) : EXCEPTION_CONTINUE_SEARCH;
+}
+
+LONG WINAPI Vectored(EXCEPTION_POINTERS* ep) {
+    const DWORD code = ep->ExceptionRecord->ExceptionCode;
+    if (!Fatal(code)) return EXCEPTION_CONTINUE_SEARCH;
+    if (InterlockedIncrement(&s_logged) <= 5) {
+        char w[300]; Where(ep->ExceptionRecord->ExceptionAddress, w, sizeof w);
+        LOGW("crash: first-chance exception 0x%08lx at %s (thread %lu)%s - may be handled by the game", code, w, GetCurrentThreadId(),
+             code == EXCEPTION_ACCESS_VIOLATION ? (ep->ExceptionRecord->ExceptionInformation[0] ? ", writing" : ", reading") : "");
+        if (code == EXCEPTION_ACCESS_VIOLATION) LOGW("crash:   faulting address %p", (void*)ep->ExceptionRecord->ExceptionInformation[1]);
+    }
+    if (s_mode >= 2) Dump(ep, "first-chance");
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+// WER LocalDumps (out of process, works on a corrupt heap) is set per exe name under HKLM, 64-bit view; logged so a run report
+// can say where a crash dump would be.
+void LogWer() {
+    wchar_t exe[MAX_PATH]; GetModuleFileNameW(nullptr, exe, MAX_PATH);
+    const wchar_t* name = wcsrchr(exe, L'\\'); name = name ? name + 1 : exe;
+    std::wstring key = std::wstring(L"SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\\LocalDumps\\") + name;
+    HKEY k = nullptr;
+    if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, key.c_str(), 0, KEY_READ | KEY_WOW64_64KEY, &k) != ERROR_SUCCESS) {
+        LOGI("crash: WER LocalDumps for %ls: off (proxy/tools/wer/Enable crash dumps.cmd turns it on)", name); return;
+    }
+    wchar_t folder[MAX_PATH] = L"(default %LOCALAPPDATA%\\CrashDumps)"; DWORD type = 0, sz = sizeof folder, dt = 0, dsz = sizeof dt;
+    RegQueryValueExW(k, L"DumpFolder", nullptr, &type, (LPBYTE)folder, &sz);
+    RegQueryValueExW(k, L"DumpType", nullptr, nullptr, (LPBYTE)&dt, &dsz);
+    RegCloseKey(k);
+    LOGI("crash: WER LocalDumps for %ls: on, DumpType %lu, folder %ls", name, dt, folder);
+}
+} // namespace
+
+// Mode 1 relies on our top-level filter. If the game (or an overlay) replaces it after DllMain, mode 1 silently never dumps (the
+// empire-remastered trap that mode 2 exists for), so this reads the current filter and says who owns it. Set-and-restore: never changes behaviour.
+void CrashCheckFilter(const char* when) {
+    if (s_mode <= 0) return;
+    LPTOP_LEVEL_EXCEPTION_FILTER cur = SetUnhandledExceptionFilter(TopLevel);
+    if (cur == TopLevel) { LOGI("crash: top-level filter at %s: still ours", when); return; }
+    SetUnhandledExceptionFilter(cur);   // put theirs back
+    char w[300] = "none"; if (cur) Where((void*)cur, w, sizeof w);
+    LOGW("crash: top-level filter at %s: REPLACED by %s - mode %d %s", when, w, s_mode,
+         s_mode >= 2 ? "still dumps the first fatal first-chance exception" : "will not dump an unhandled crash in-process (set proxy.minidump=2; WER LocalDumps still works)");
+}
+
+void CrashInstall(int mode) {
+    LogWer();
+    s_mode = mode;
+    if (mode <= 0) { LOGI("crash: in-process minidumps off (proxy.minidump=0); WER LocalDumps still applies if enabled"); return; }
+    s_prev = SetUnhandledExceptionFilter(TopLevel);
+    AddVectoredExceptionHandler(1, Vectored);
+    LOGI("crash: minidump mode %d (%s), dumps go to %ls", mode, mode >= 2 ? "unhandled + first fatal first-chance" : "unhandled only",
+         (Rt().modDir + L"dumps\\").c_str());
+}
+
+} // namespace wsp

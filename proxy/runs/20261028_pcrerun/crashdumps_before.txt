@@ -1,0 +1,21 @@
+listing of %LOCALAPPDATA%\CrashDumps (recursive) captured 2026-10-28T21:22:56Z before run 20261028_pcrerun
+/sessions/rcw-012gyst2wgieh6e9fbxeyubt/mnt/CrashDumps:
+total 104360
+drwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt     4096 Oct 28 20:56 .
+drwxr-xr-x 5 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt     4096 Oct 28 21:22 ..
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt  5164975 Oct 22 20:44 Empire.exe(1).10872.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt  5161999 Oct 22 20:44 Empire.exe.10872.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt 15583283 Oct 21 22:01 Empire.exe.18528.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt 15840194 Oct 21 20:51 Empire.exe.19568.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt  5100754 Oct 22 08:41 Empire.exe.22484.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt  5143050 Oct 22 22:53 Empire.exe.25112.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt  5158411 Oct 22 20:57 Empire.exe.3116.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt  5149953 Oct 22 22:55 Empire.exe.6924.dmp
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt 36873794 Oct 28 20:56 GameBar.exe.10180.dmp
+drwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt     4096 Oct 28 20:44 napoleon_remastered
+-rwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt  7663385 Oct 24 15:19 steamwebhelper.exe.10936.dmp
+
+/sessions/rcw-012gyst2wgieh6e9fbxeyubt/mnt/CrashDumps/napoleon_remastered:
+total 0
+drwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt 4096 Oct 28 20:44 .
+drwx------ 1 rcw-012gyst2wgieh6e9fbxeyubt rcw-012gyst2wgieh6e9fbxeyubt 4096 Oct 28 20:56 ..

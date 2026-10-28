@@ -1,0 +1,8 @@
+Napoleon: Total War Remastered: the mod's d3d9.dll is running as a plain pass-through.
+Written 2026-10-28T20:52:15Z by launch 20261028T205215Z-p12440.
+
+Why: the test key exe_guard_force_mismatch=1 is set in napoleon_remastered.ini (nothing is wrong with Napoleon.exe).
+
+The game runs as vanilla. Nothing on disk was changed, and the mod did not touch the game's memory.
+What to do: install a mod build made for this game version, or uninstall the mod (the game is then exactly vanilla).
+This file is rewritten at every pass-through start and removed at the next start whose exe matches.
