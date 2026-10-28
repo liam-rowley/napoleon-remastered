@@ -1,0 +1,11 @@
+{
+  "game": "Napoleon: Total War",
+  "exe_name": "Napoleon.exe",
+  "sha1": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+  "time_date_stamp": "0x645e917f",
+  "size_of_image": "0x014eb000",
+  "config_file": "napoleon_remastered.ini",
+  "mod_dir": "napoleon_remastered",
+  "instance_mutex": "napoleon_remastered_proxy_instance",
+  "evidence": "proxy/runs/20261028_exeinfo/README.md"
+}

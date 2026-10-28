@@ -6,6 +6,7 @@
 *.cmd                   text=auto eol=crlf
 *.bat                   text=auto eol=crlf
 *.ps1                   text=auto eol=crlf
+*.ini                   text=auto eol=crlf
 
 *.pack                  binary
 *.dds                   binary
