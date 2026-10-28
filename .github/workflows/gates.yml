@@ -1,4 +1,4 @@
-# purpose: CI gates on every push and pull request: the full warscape-core `wsc gates` set for this repo.
+# purpose: CI on every push and pull request: the full warscape-core `wsc gates` set, and the proxy DLL build, host tests and wine smoke test (job proxy).
 # usage: runs on GitHub Actions; locally: python3 core/wsc.py gates
 # when: automatic; require the "gates" check in branch protection for main.
 # not-a-verb: GitHub runs workflows by file; this one only calls `wsc gates`.
@@ -23,3 +23,22 @@ jobs:
         with:
           python-version: '3.12'
       - run: python core/wsc.py gates
+  # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the cloud
+  # container: proxy/README.md "Build") and run its host tests; the DLL is kept as a workflow artifact.
+  proxy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
+      - run: proxy/tools/build.sh all
+      - name: smoke test the DLL under wine (a stand-in exe loads it; guard verdicts, config, log, clean detach)
+        run: |
+          sudo dpkg --add-architecture i386 && sudo apt-get update -q
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends wine wine32:i386
+          proxy/tools/build.sh smoke
+      - uses: actions/upload-artifact@v4
+        with:
+          name: proxy-d3d9-napoleon
+          path: build/proxy/napoleon/d3d9.dll
+          if-no-files-found: error
