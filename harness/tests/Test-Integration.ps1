@@ -297,7 +297,11 @@ try {
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after release' | Out-Null
         Assert-Match (Get-Log) 'AUTO-RESTORE under owner=ci6 .*released or expired' 'release logged'
         # c) changes owner
-        Set-Lock 'ci7'; Run-Job 'profile proxy-dxvk owner=ci7' 'c1' | Out-Null; Set-Lock 'intruder'
+        Set-Lock 'ci7'; Run-Job 'profile proxy-dxvk owner=ci7' 'c1' | Out-Null
+        # a lock mid-rewrite (0 bytes) is not a release: no restore on it
+        [IO.File]::WriteAllBytes((Join-Path $root 'game.lock'), [byte[]]@()); Start-Sleep -Seconds 5
+        Assert-True ((Hashes) -ne $baseline) 'a 0-byte lock (mid-rewrite) does not trigger a restore'
+        Set-Lock 'intruder'
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after the owner changed' | Out-Null
         Assert-Match (Get-Log) "AUTO-RESTORE under owner=ci7 .*now belongs to 'intruder'" 'owner change logged'
         Clear-Lock

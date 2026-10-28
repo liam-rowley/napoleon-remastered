@@ -556,6 +556,9 @@ function Auto-Restore {
     $active = Get-Active
     if (-not $active) { $script:PendingRestoreLogged = $false; return }
     $l = Get-Lock
+    # a lock file that exists but reads empty or unreadable is mid-rewrite (WriteAllText truncates first): decide on the next pass,
+    # or a lock handed to a new owner is misread as released (J2 CI round 6, run 40787404204)
+    if (-not $l -and (Test-Path -LiteralPath (RootPath 'game.lock'))) { return }
     $reason = $null
     if (-not $l) { $reason = "game.lock of owner=$($active.owner) was released or expired" }
     elseif ($l.stale) { return }                                      # expired on the next pass, then restored
