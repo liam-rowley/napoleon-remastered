@@ -8,7 +8,11 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 WHAT="${1:-all}"; ADAPTER="napoleon"
 [[ "${2:-}" == "--adapter" ]] && ADAPTER="${3:?adapter name}"
 OUT="$ROOT/build/proxy"; mkdir -p "$OUT/$ADAPTER" "$OUT/tests"
-BUILD_ID="$(git -C "$ROOT" rev-parse --short=12 HEAD 2>/dev/null || echo nogit)$(git -C "$ROOT" diff --quiet -- proxy 2>/dev/null || echo -dirty)"
+# Build id = the last commit that changed the DLL's inputs, not HEAD: a later report or run commit must not change the binary, or
+# the DLL tested on the PC is never the head DLL (J1 review finding 2). -dirty when an input has local changes.
+DLL_INPUTS=(proxy/core proxy/napoleon proxy/tools/build.sh)
+BUILD_ID="$(git -C "$ROOT" log -1 --format=%h --abbrev=12 -- "${DLL_INPUTS[@]}" 2>/dev/null || true)"; BUILD_ID="${BUILD_ID:-nogit}"
+BUILD_ID="$BUILD_ID$(git -C "$ROOT" diff --quiet HEAD -- "${DLL_INPUTS[@]}" 2>/dev/null || echo -dirty)"
 
 # One compile line for every build (dll and repro): $1 = source root, $2 = output DLL. Uses $CXX, $ADAPTER, $BUILD_ID.
 build_dll() {
