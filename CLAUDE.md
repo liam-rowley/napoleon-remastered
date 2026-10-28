@@ -17,6 +17,21 @@
 - **Never change files inside `core/`.** A change the game needs goes to warscape-core as a PR and arrives with a new tag
   (`core/docs/CONSUMING.md`); the `core_pin` gate fails on local edits.
 
+## Jobs (D16): what Liam means by "pick up the next job" and "review the next job"
+- The queue is the `jobs` registry (`registries/jobs.jsonl`; status page: the generated `registries/jobs.md`). Each job has a folder
+  `jobs/<id>/` with `brief.md` (the full prompt), then `report.md` and `review.md`. Statuses on `main`: `needs_brief`, `queued`,
+  `review`, `done` (reviewed and merged), `blocked`. A job in progress is a remote branch `job/<id>`.
+- **"Pick up the next job":** `git pull`; take the lowest-numbered job with status `queued` whose `depends_on` are all `done` and
+  that has no remote `job/<id>` branch (`git ls-remote origin "job/*"`). Say which job you took, then follow its brief on branch
+  `job/<id>`. Finish with `jobs/<id>/report.md` and `wsc reg set jobs <id> status=review report=jobs/<id>/report.md`, pushed.
+  If the next job is `needs_brief` instead: write `jobs/<id>/brief.md` from the row, `docs/plans/PLAN.md` and what earlier reports
+  found (same shape as `jobs/J1/brief.md`), set it `queued` with `brief=`, push on branch `brief/<id>`, and stop for Liam's merge.
+  If nothing is ready, say what each open job is waiting for.
+- **"Review the next job":** find the remote `job/<id>` branch whose row on that branch says `review` and that has no
+  `jobs/<id>/review.md`; follow `docs/REVIEW.md` on that branch. With a `merge` verdict, set
+  `status=done review=jobs/<id>/review.md` on the branch, so merging marks it done.
+- Never mark your own job `done`, and never review a job you built.
+
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only by a merge Liam (or the orchestrator, once
   there is one) approves, after an independent review (`docs/REVIEW.md`). End every job with a report: what was built, evidence

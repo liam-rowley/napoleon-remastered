@@ -3,19 +3,14 @@
 Every job branch gets an independent review before Liam merges it. The reviewer is a fresh chat that did not build the branch
 (Opus is allowed: D15 names independent checks). It starts cold from this file, the job prompt and the job's report.
 
-## Starting a review (the prompt Liam pastes)
-
-```
-Independent review of branch <branch> in liam-rowley/napoleon-remastered (job: <job name>).
-Follow docs/REVIEW.md. Budget about 60 tool calls.
-Job prompt:
-<paste the job prompt>
-```
+## Starting a review
+Liam says "review the next job" (or "review J<n>"). `CLAUDE.md` Jobs says how to find the branch. The job's own brief is
+`jobs/<id>/brief.md` on that branch: it is what you check the work against, so nothing needs pasting.
 
 ## Setup
-Attach (push) and clone napoleon-remastered with `--recurse-submodules`, check out the branch, attach warscape-core (read).
-Follow `CLAUDE.md`. Read, in this order: the job prompt, the job's report, `docs/DECISIONS.md`, then `git diff --stat main...HEAD`.
-You did not build this branch: do not trust its report.
+Attach (push) and clone napoleon-remastered with `--recurse-submodules`, check out the job branch, attach warscape-core (read).
+Follow `CLAUDE.md`. Read, in this order: `jobs/<id>/brief.md`, `jobs/<id>/report.md`, `docs/DECISIONS.md`, then
+`git diff --stat main...HEAD`. You did not build this branch: do not trust its report. Budget about 60 tool calls.
 
 ## Steps
 1. **Run the machines first.** `python3 core/wsc.py gates`, plus any build or host tests the branch adds. Note failures. Do not
@@ -35,7 +30,8 @@ A verdict (`merge`, `merge after fixes`, `do not merge`) and findings ranked **b
 - Fix small should-fix items yourself on the branch: one commit each, with a test where the code allows, listed in the review.
 - Leave blockers and larger items as findings for the job chat.
 - **Later** items for the core go to warscape-core `docs/BACKLOG.md` through a warscape-core PR; for this repo, into the review.
-- Write the review as `reviews/<YYYY-MM-DD>_<branch-slug>.md` on the branch (a dated record: exempt from the doc size cap).
+- Write the review as `jobs/<id>/review.md` on the branch, dated at the top. With a `merge` verdict, set the row to
+  `status=done review=jobs/<id>/review.md` (`CLAUDE.md` Jobs); otherwise leave it at `review` and say what must change.
 
 ## Keeping this file useful
 When a review finds something a gate could have caught, the fix is a new gate (in warscape-core if it is game-agnostic), not a

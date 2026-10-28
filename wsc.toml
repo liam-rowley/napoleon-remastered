@@ -11,6 +11,7 @@ engine_sites = "core:engine_sites"
 config_keys = "core:config_keys"
 hotkeys = "core:hotkeys"
 engine_facts = "core:engine_facts"
+jobs = "schemas/jobs.schema.json"          # the job queue (D16); repo-local schema
 
 [core]
 version = "v0.1.0"

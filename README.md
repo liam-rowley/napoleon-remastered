@@ -14,6 +14,7 @@ folder are generated from it or deployed from it, never edited.
 | `docs/DECISIONS.md` | Every decision, dated, one line each. Append only. |
 | `docs/plans/PLAN.md` | Goals, scope, phases and gates. |
 | `docs/plans/UI_PIPELINE.md` | How a UI screen goes from concept to proven in game. |
+| `registries/jobs.md`, `jobs/` | The job queue (generated status page) and each job's brief, report and review. Say "pick up the next job". |
 | `docs/REVIEW.md` | How every job branch is reviewed before merge. |
 | `wsc.toml`, `registries/` | What this repo declares to the core CLI, and the registries themselves (search with `python3 core/wsc.py find <words>`). |
 | `core/` | warscape-core as a submodule, pinned at a tag. Never edited here. |
