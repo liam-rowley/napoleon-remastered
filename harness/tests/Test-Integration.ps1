@@ -39,7 +39,7 @@ public static class FAKECLASS {
 function New-Fake([string]$exe, [string]$cls, [string]$platform) {
     $prov = New-Object Microsoft.CSharp.CSharpCodeProvider
     $cp = New-Object System.CodeDom.Compiler.CompilerParameters
-    $cp.GenerateExecutable = $true; $cp.OutputAssembly = $exe; $cp.CompilerOptions = "/platform:$platform"
+    $cp.ReferencedAssemblies.Add("System.dll") | Out-Null; $cp.GenerateExecutable = $true; $cp.OutputAssembly = $exe; $cp.CompilerOptions = "/platform:$platform"
     $res = $prov.CompileAssemblyFromSource($cp, $fakeSrc.Replace('FAKECLASS', $cls))
     if ($res.Errors.HasErrors) { throw ("fake game compile failed: " + (($res.Errors | ForEach-Object { $_.ToString() }) -join '; ')) }
 }
