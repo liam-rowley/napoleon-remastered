@@ -1,0 +1,23 @@
+2026-10-28T20:50:19.679Z [INFO ] [t20616] launch 20261028T205019Z-p16716: Napoleon: Total War proxy d3d9.dll build 690ec1a93fd3 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 16716, base 00610000)
+2026-10-28T20:50:19.679Z [INFO ] [t20616] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.backend                      = system      
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.enabled                      = 1           
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.exe_guard                    = 1           
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.log_level                    = info        
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.minidump                     = 1           
+2026-10-28T20:50:19.679Z [INFO ] [t20616] config:   proxy.runtime_patches              = 1           
+2026-10-28T20:50:19.679Z [INFO ] [t20616] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-10-28T20:50:19.679Z [INFO ] [t20616] crash: minidump mode 1 (unhandled only), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-10-28T20:50:19.714Z [INFO ] [t20616] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 32 ms)
+2026-10-28T20:50:19.714Z [INFO ] [t20616] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-10-28T20:50:19.714Z [INFO ] [t20616] patch_engine: image base 00610000 (preferred 0x00610000, delta 0x00000000)
+2026-10-28T20:50:19.714Z [INFO ] [t20616] patch_engine: nothing to do - 0 sites: 0 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 0 hooks verified
+2026-10-28T20:50:19.714Z [INFO ] [t20616] patch_engine: 0 of 0 planned sites written
+2026-10-28T20:50:19.714Z [INFO ] [t20616] init done; the system backend loads at the first d3d9 call
+2026-10-28T20:50:20.804Z [INFO ] [t20616] backend: system d3d9 loaded from C:\WINDOWS\system32\d3d9.dll
+2026-10-28T20:50:20.804Z [INFO ] [t20616] backend: system ready (Direct3DCreate9=695115d0)
+2026-10-28T20:50:20.888Z [INFO ] [t20616] Direct3DCreate9(sdk=32) -> 14f9ce58 [system]
+2026-10-28T20:51:16.288Z [INFO ] [t20616] process detach (process exit)
