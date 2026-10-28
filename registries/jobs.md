@@ -8,7 +8,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 
 | id | status | title | phase | model | needs_pc | depends_on | brief | report | review |
 |---|---|---|---|---|---|---|---|---|---|
-| `J1` | review | Proxy DLL skeleton | 1 | opus | yes |  | jobs/J1/brief.md | jobs/J1/report.md |  |
+| `J1` | done | Proxy DLL skeleton | 1 | opus | yes |  | jobs/J1/brief.md | jobs/J1/report.md | jobs/J1/review.md |
 | `J2` | needs_brief | Watcher and PC sync | 1 | sonnet | yes | J1 |  |  |  |
 | `J3` | needs_brief | Dev control and load time | 1 | opus | yes | J1, J2 |  |  |  |
 | `J4` | needs_brief | Scenario library, control API, acceptance gate | 1 | sonnet | yes | J3 |  |  |  |
