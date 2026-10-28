@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # purpose: build the proxy d3d9.dll (mingw-w64 i686, the release route) and/or build and run the host tests (g++)
-# usage: proxy/tools/build.sh [dll|tests|all|smoke] [--adapter napoleon]   (smoke: run the built DLL under wine with a stand-in exe)   (outputs in build/proxy/; needs g++-mingw-w64-i686 for dll)
+# usage: proxy/tools/build.sh [dll|tests|all|smoke|repro] [--adapter napoleon]   (smoke: run the built DLL under wine with a stand-in exe; repro: rebuild from a copy at another path, fail unless byte-identical)   (outputs in build/proxy/; needs g++-mingw-w64-i686 for dll)
 # when: after any change under proxy/ (CI runs `all` on every push); the DLL in build/proxy/<adapter>/d3d9.dll is what proxy/tools/pc_deploy.py kits
 # not-a-verb: a compiler driver for C++ sources, not a registry operation; CI and agents call it directly
 set -euo pipefail
@@ -10,17 +10,24 @@ WHAT="${1:-all}"; ADAPTER="napoleon"
 OUT="$ROOT/build/proxy"; mkdir -p "$OUT/$ADAPTER" "$OUT/tests"
 BUILD_ID="$(git -C "$ROOT" rev-parse --short=12 HEAD 2>/dev/null || echo nogit)$(git -C "$ROOT" diff --quiet -- proxy 2>/dev/null || echo -dirty)"
 
+# One compile line for every build (dll and repro): $1 = source root, $2 = output DLL. Uses $CXX, $ADAPTER, $BUILD_ID.
+build_dll() {
+  local R="$1" O="$2"
+  # -win32 thread model (no winpthread DLL), static libgcc/libstdc++ (the DLL depends on system DLLs only), no PE timestamp and
+  # relative file names (the same sources give the same bytes: the PC test binary is the CI binary). --disable-auto-image-base: mingw
+  # ld otherwise hashes the OUTPUT PATH into the DLL's ImageBase, so the container, CI and a worktree gave three different DLLs for
+  # one commit (review of J1, 2026-10-28). `build.sh repro` proves it stays fixed.
+  "$CXX" -std=c++17 -O2 -s -shared -Wall -Wextra -Werror -DWSP_BUILD_ID="\"$BUILD_ID\"" -D_WIN32_WINNT=0x0601 -DUNICODE -D_UNICODE \
+    -ffile-prefix-map="$R/"= -static-libgcc -static-libstdc++ -Wl,--no-insert-timestamp -Wl,--disable-auto-image-base -Wl,--enable-stdcall-fixup \
+    -o "$O" "$R"/proxy/core/*.cpp "$R/proxy/$ADAPTER/adapter.cpp" "$R/proxy/core/d3d9.def" -ldbghelp -ladvapi32
+}
+
 python3 "$ROOT/proxy/tools/gen_tables.py" --adapter "proxy/$ADAPTER" --check
 
 if [[ "$WHAT" == dll || "$WHAT" == all ]]; then
   CXX="$(command -v i686-w64-mingw32-g++-win32 || command -v i686-w64-mingw32-g++ || true)"
   [[ -n "$CXX" ]] || { echo "build.sh: no i686 mingw-w64 g++ (apt-get install g++-mingw-w64-i686)"; exit 2; }
-  SRC=("$ROOT"/proxy/core/*.cpp "$ROOT/proxy/$ADAPTER/adapter.cpp")
-  # -win32 thread model (no winpthread DLL), static libgcc/libstdc++ (the DLL depends on system DLLs only), no PE timestamp and
-  # relative file names (the same sources give the same bytes: the PC test binary is the CI binary).
-  "$CXX" -std=c++17 -O2 -s -shared -Wall -Wextra -Werror -DWSP_BUILD_ID="\"$BUILD_ID\"" -D_WIN32_WINNT=0x0601 -DUNICODE -D_UNICODE \
-    -ffile-prefix-map="$ROOT/"= -static-libgcc -static-libstdc++ -Wl,--no-insert-timestamp -Wl,--enable-stdcall-fixup \
-    -o "$OUT/$ADAPTER/d3d9.dll" "${SRC[@]}" "$ROOT/proxy/core/d3d9.def" -ldbghelp -ladvapi32
+  build_dll "$ROOT" "$OUT/$ADAPTER/d3d9.dll"
   echo "build.sh: $OUT/$ADAPTER/d3d9.dll build $BUILD_ID sha256 $(sha256sum "$OUT/$ADAPTER/d3d9.dll" | cut -c1-64)"
   if command -v i686-w64-mingw32-objdump >/dev/null; then
     DEPS="$(i686-w64-mingw32-objdump -p "$OUT/$ADAPTER/d3d9.dll" | awk '/DLL Name/{print tolower($3)}' | sort -u | tr '\n' ' ')"
@@ -42,6 +49,17 @@ if [[ "$WHAT" == tests || "$WHAT" == all ]]; then
     if "$OUT/tests/$n" --root "$ROOT"; then :; else echo "build.sh: $n FAILED"; fail=1; fi
   done
   [[ $fail == 0 ]] && echo "build.sh: host tests passed" || exit 1
+fi
+
+if [[ "$WHAT" == repro ]]; then
+  # The same commit must give the same bytes from any checkout path (container, CI runner, worktree): build again from a copy.
+  [[ -f "$OUT/$ADAPTER/d3d9.dll" ]] || { echo "build.sh repro: build the dll first"; exit 2; }
+  R="$(mktemp -d)/elsewhere_$RANDOM"; mkdir -p "$R"
+  cp -a "$ROOT/proxy" "$R/proxy"; mkdir -p "$R/.git"   # no git in the copy: pass the same build id
+  CXX="$(command -v i686-w64-mingw32-g++-win32 || command -v i686-w64-mingw32-g++)"
+  build_dll "$R" "$R/other.dll"
+  if cmp -s "$OUT/$ADAPTER/d3d9.dll" "$R/other.dll"; then echo "build.sh repro: identical from another path"; rm -rf "$(dirname "$R")"
+  else echo "build.sh repro: FAILED: the DLL depends on the checkout path"; cmp -l "$OUT/$ADAPTER/d3d9.dll" "$R/other.dll" | head -5; exit 1; fi
 fi
 
 if [[ "$WHAT" == smoke ]]; then
