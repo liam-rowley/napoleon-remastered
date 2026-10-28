@@ -1,0 +1,28 @@
+# Line endings: text is LF in the index; Windows scripts are CRLF in the working tree; binaries are never converted.
+# (Policy carried from empire-remastered, where it was settled 2026-10-28 after mixed endings caused phantom diffs.)
+*                       text=auto eol=lf
+*.py                    text eol=lf
+*.sh                    text eol=lf
+*.cmd                   text=auto eol=crlf
+*.bat                   text=auto eol=crlf
+*.ps1                   text=auto eol=crlf
+
+*.pack                  binary
+*.dds                   binary
+*.tga                   binary
+*.png                   binary
+*.jpg                   binary
+*.jpeg                  binary
+*.webp                  binary
+*.ico                   binary
+*.cur                   binary
+*.ttf                   binary
+*.otf                   binary
+*.cuf                   binary
+*.dll                   binary
+*.pdb                   binary
+*.exe                   binary
+*.lib                   binary
+*.obj                   binary
+*.wasm                  binary
+*.sqlite                binary

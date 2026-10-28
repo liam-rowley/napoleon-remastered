@@ -1,0 +1,16 @@
+# Generated or disposable
+_to_delete*/
+_scratch/
+__pycache__/
+*.pyc
+*.log
+*.dmp
+*.bak
+*.orig
+
+# Game-derived extracts never go in the repo (private or public); the index records ids, paths and hashes instead.
+/extract/
+
+# Build output
+/build/
+/out/
