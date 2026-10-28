@@ -62,9 +62,26 @@ LONG WINAPI Vectored(EXCEPTION_POINTERS* ep) {
     if (s_mode >= 2) Dump(ep, "first-chance");
     return EXCEPTION_CONTINUE_SEARCH;
 }
+// WER LocalDumps (out of process, works on a corrupt heap) is set per exe name under HKLM, 64-bit view; logged so a run report
+// can say where a crash dump would be.
+void LogWer() {
+    wchar_t exe[MAX_PATH]; GetModuleFileNameW(nullptr, exe, MAX_PATH);
+    const wchar_t* name = wcsrchr(exe, L'\\'); name = name ? name + 1 : exe;
+    std::wstring key = std::wstring(L"SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\\LocalDumps\\") + name;
+    HKEY k = nullptr;
+    if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, key.c_str(), 0, KEY_READ | KEY_WOW64_64KEY, &k) != ERROR_SUCCESS) {
+        LOGI("crash: WER LocalDumps for %ls: off (proxy/tools/wer/Enable crash dumps.cmd turns it on)", name); return;
+    }
+    wchar_t folder[MAX_PATH] = L"(default %LOCALAPPDATA%\\CrashDumps)"; DWORD type = 0, sz = sizeof folder, dt = 0, dsz = sizeof dt;
+    RegQueryValueExW(k, L"DumpFolder", nullptr, &type, (LPBYTE)folder, &sz);
+    RegQueryValueExW(k, L"DumpType", nullptr, nullptr, (LPBYTE)&dt, &dsz);
+    RegCloseKey(k);
+    LOGI("crash: WER LocalDumps for %ls: on, DumpType %lu, folder %ls", name, dt, folder);
+}
 } // namespace
 
 void CrashInstall(int mode) {
+    LogWer();
     s_mode = mode;
     if (mode <= 0) { LOGI("crash: in-process minidumps off (proxy.minidump=0); WER LocalDumps still applies if enabled"); return; }
     s_prev = SetUnhandledExceptionFilter(TopLevel);
