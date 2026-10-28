@@ -32,6 +32,8 @@ jobs:
       - uses: actions/checkout@v5
       - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
       - run: proxy/tools/build.sh all
+      - name: the DLL is byte-identical when built from another checkout path
+        run: proxy/tools/build.sh repro
       - name: smoke test the DLL under wine (a stand-in exe loads it; guard verdicts, config, log, clean detach)
         run: |
           sudo dpkg --add-architecture i386 && sudo apt-get update -q
