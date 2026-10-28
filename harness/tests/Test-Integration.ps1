@@ -12,7 +12,7 @@ $tmp = New-Tmp 'int'
 $state = Join-Path $tmp 'state'; $root = Join-Path $state 'watcher'; $kits = Join-Path $state 'kits'
 $game = Join-Path $tmp 'game'; $app = Join-Path $tmp 'appdata'
 New-Item -ItemType Directory -Path (Join-Path $root 'src'), $kits -Force | Out-Null
-$G = @{ n = 0; tz = $null }
+$SuiteState = @{ n = 0; tz = $null }
 
 # ---- fake games (compiled here): FakeNapoleon.exe is 32-bit like the real game (the dump path must cope with WoW64) -----------------
 $fakeSrc = @'
@@ -80,7 +80,7 @@ function Start-TestWatcher {
     $cmd = Join-Path $root 'src\watch.cmd'
     $a = "/d /s /c `"`"$cmd`" -Root `"$root`" -Adapter `"$adapterPath`"`""
     $p = Start-Process -FilePath $env:ComSpec -ArgumentList $a -WindowStyle Hidden -PassThru
-    $G.launcher = $p
+    $SuiteState.launcher = $p
     return (Wait-Watcher 40)
 }
 function Stop-TestWatcher {
@@ -89,7 +89,7 @@ function Stop-TestWatcher {
     while ((Get-Date) -lt $deadline -and (Alive-Age) -lt 4) { Start-Sleep -Milliseconds 300 }
     Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($tmp) -and ($_.Name -in 'powershell.exe', 'cmd.exe') -and $_.ProcessId -ne $PID } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 }
-function New-JobId([string]$tag) { $G.n++; return ('t-{0}-{1}-{2}' -f $tag, (Get-Date).ToUniversalTime().ToString('HHmmss'), $G.n) }
+function New-JobId([string]$tag) { $SuiteState.n++; return ('t-{0}-{1}-{2}' -f $tag, (Get-Date).ToUniversalTime().ToString('HHmmss'), $SuiteState.n) }
 function Submit([string]$body, [string]$id) {
     $j = Join-Path $root 'jobs'
     [IO.File]::WriteAllText((Join-Path $j "$id.tmp"), $body, $Utf8NoBom)
@@ -111,7 +111,7 @@ function Set-Lock([string]$owner, [string]$extra = '') {
 function UtcNow-Str { return (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd\THH:mm:ss\Z', $Inv) }
 function Clear-Lock {
     $l = Join-Path $root 'game.lock'
-    if (Test-Path -LiteralPath $l) { $d = Join-Path $root '_to_delete'; New-Item -ItemType Directory -Path $d -Force | Out-Null; $G.n++; Move-Item -LiteralPath $l -Destination (Join-Path $d "game.lock.test$($G.n)") -Force }
+    if (Test-Path -LiteralPath $l) { $d = Join-Path $root '_to_delete'; New-Item -ItemType Directory -Path $d -Force | Out-Null; $SuiteState.n++; Move-Item -LiteralPath $l -Destination (Join-Path $d "game.lock.test$($SuiteState.n)") -Force }
 }
 function Stop-Fakes { foreach ($n in 'FakeNapoleon', 'FakeEmpire', 'Fake64') { Get-Process -Name $n -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue } }
 function Fake-Procs([string]$n = 'FakeNapoleon') { return @(Get-Process -Name $n -ErrorAction SilentlyContinue) }
@@ -122,7 +122,7 @@ function Pid-Of-Watcher { return [int](Get-St).pid }
 
 try {
     # the machine's time zone is moved far from UTC while the watcher runs: any local-time-with-a-Z-suffix bug shows as a 9 h error
-    $G.tz = (& tzutil.exe /g).Trim()
+    $SuiteState.tz = (& tzutil.exe /g).Trim()
     & tzutil.exe /s 'Tokyo Standard Time'
     [IO.File]::WriteAllBytes($prefs, [byte[]](0, 255, 13, 10, 10, 13, 0xC3, 0xA9, 200, 1, 2, 3))
     [IO.File]::WriteAllText($keys, '<keys/>', $Utf8NoBom)
@@ -307,11 +307,11 @@ try {
         Clear-Lock
         # d) deferred while the game runs
         Set-Lock 'ci8'; Run-Job 'profile proxy-dxvk owner=ci8' 'd1' | Out-Null
-        $g = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'idle' -PassThru
+        $idleGame = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'idle' -PassThru
         Clear-Lock
         Wait-Until { (Get-Log) -match "auto-restore of 'proxy-dxvk' \(owner=ci8\) pending" } 15 'pending is logged' | Out-Null
         Assert-True ((Hashes) -ne $baseline) 'not restored while the game is open'
-        Stop-Process -Id $g.Id -Force
+        Stop-Process -Id $idleGame.Id -Force
         Wait-Until { (Hashes) -eq $baseline } 20 'restored once the game exited' | Out-Null
     }
     Test-Case 'hang watchdog: a suspended game is caught (no CPU, no log write), minidumped out of process, archived, killed; busy and unarmed games are left alone' {
@@ -488,7 +488,7 @@ finally {
     try { Stop-TestWatcher } catch { }
     Stop-Fakes
     Get-ScheduledTask -TaskName 'napoleon_remastered watcher citest' -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
-    if ($G.tz) { & tzutil.exe /s $G.tz }
+    if ($SuiteState.tz) { & tzutil.exe /s $SuiteState.tz }
     if ($script:Fail) {
         Write-Host '---- watcher.log (last 120 lines) ----'
         try { (Get-Log) -split "`r?`n" | Select-Object -Last 120 | ForEach-Object { Write-Host $_ } } catch { }
