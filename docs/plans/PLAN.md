@@ -75,6 +75,10 @@ Empire is not touched until a quiet time, when it moves onto the core.
 
 Rule: a game repo never patches the core in place; it files a change against the core repo.
 
+Promotion: core candidates are built in this repo under a `*/core/` folder next to their adapter, and move to the core once their
+interface has settled, in one promotion job per phase that depends on that phase's gate (phase 1: J12, after the J4 acceptance gate).
+Jobs that build heavily on a candidate depend on its promotion job, so their briefs cite core paths from the start.
+
 ## 5. Phases
 
 **U** = unattended (agents and the PC), **L** = needs Liam. One game at a time (D11); within Napoleon, phases overlap once the
