@@ -87,7 +87,8 @@ then a PC run that logs `patch_engine: apply` and the site `stock`, and set `ver
   its DXVK paths; a clean exit ends with `process detach (process exit)`. A second process logs to `proxy.p<pid>.log`.
 - **Crash**: `proxy.minidump` 1 (default) = a minidump for an unhandled exception, 2 = also the first fatal first-chance one; dumps go
   to `napoleon_remastered\dumps\<launch id>_<code>.dmp` and the log names them; the first five fatal first-chance exceptions are logged
-  either way. WER LocalDumps (out of process, works on a corrupt heap) is the backstop: Liam runs `tools/wer/Enable crash dumps.cmd`
+  either way. On Napoleon the top-level filter is replaced after DllMain (run `20261028_pcrerun`), so mode 1 does not dump in-process;
+  the log warns at the first export call and at detach. WER LocalDumps (out of process, works on a corrupt heap) is the backstop: Liam runs `tools/wer/Enable crash dumps.cmd`
   once (admin); dumps go to `%LOCALAPPDATA%\CrashDumps\napoleon_remastered`, outside the game folder; the log states the key at start.
 
 ## DXVK
@@ -117,4 +118,8 @@ out of the game folder from the device VM needs deletion allowed there for the s
 
 1. `engine_sites` has no field for where the stock bytes start relative to the anchor; the fixed layout above works, a core field
    (`value_offset`) would allow anchors after the value. Core change (B2-style) if a real site needs it.
-2. Real-display pass-through through DXVK in exclusive fullscreen is untested on Empire; the PC test (d) is its first run here.
+2. Exclusive fullscreen through DXVK: with the proxy on DXVK the main menu ran borderless (Liam, run `20261028_pcrerun` step d;
+   fact `napoleon.dxvk.menu_display_mode`, open). Whether vanilla runs exclusive on this PC, and what the game's own display setting
+   is, is not recorded yet.
+3. `proxy.minidump` release value: the game replaces the top-level filter (fact `napoleon.crash.toplevel_filter_replaced`), so
+   mode 1 never dumps in-process; mode 2 is the candidate (`jobs/J1/report.md` open question 1).
