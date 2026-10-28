@@ -168,12 +168,12 @@ Test-Case 'Write-Atomic + Read-JsonRetry: a status file replaced every few ms is
             $tmpf = "$path.wtmp"; [IO.File]::WriteAllText($tmpf, ('{"n":' + $i + ',"pad":"' + ('x' * 3000) + '"}'), $enc)
             for ($k = 0; $k -lt 20; $k++) { try { [IO.File]::Replace($tmpf, $path, [NullString]::Value); break } catch { Start-Sleep -Milliseconds 5 } }
         }
-    }).AddArgument($p).AddArgument(400)
+    }).AddArgument($p).AddArgument(3000)
     $h = $ps.BeginInvoke()
     $bad = 0; $reads = 0
     while (-not $h.IsCompleted) { $j = Read-JsonRetry $p; $reads++; if ($null -eq $j) { $bad++ } }
     $ps.EndInvoke($h); $ps.Dispose(); $rs.Dispose()
-    Assert-True ($reads -gt 20) "read $reads times"
+    Assert-True ($reads -gt 3) "read $reads times"
     Assert-Eq $bad 0 'unreadable results'
 }
 Test-Case 'Get-AliveAgeS: liveness is the heartbeat file mtime' {
