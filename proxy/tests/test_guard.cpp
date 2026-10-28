@@ -110,6 +110,8 @@ int main(int argc, char** argv) {
             CHECK(pd.find("LoadDelta(") != std::string::npos);
             CHECK(pd.find("fileImageBase") != std::string::npos);
             CHECK(pd.find("- pe.preferredBase") == std::string::npos);
+            CHECK(pd.find("WritePlanAtomic(") != std::string::npos);   // writes go through the all-or-nothing writer
+            CHECK(pd.find("memcpy(") == std::string::npos);            // ... and nowhere else
         }
         for (const char* f : { "dllmain.cpp", "backend.cpp", "crash.cpp", "guard_driver.cpp", "patch_driver.cpp" }) {
             const std::string s = tk::ReadFile(std::string("proxy/core/") + f);

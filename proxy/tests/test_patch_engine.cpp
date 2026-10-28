@@ -32,6 +32,14 @@ static std::vector<SiteDef> Sites() {
              Hook("fn.tick", 0x2000, { 0xCC, 0xCC }, { 0x68, 0x00, 0xA0, 0x40, 0x00, 0x8B, 0xC1 }) };
 }
 
+// Fake memory protection for WritePlanAtomic: fails Unprotect on call number failAt (0-based), counts what is still writable.
+struct FakeMem : MemOps {
+    int failAt = -1, calls = 0, writable = 0, flushes = 0; bool failRestore = false;
+    bool Unprotect(uint8_t*, size_t, uint32_t& old) override { if (calls++ == failAt) return false; old = 0x20; ++writable; return true; }
+    bool Reprotect(uint8_t*, size_t, uint32_t old) override { CHECK_EQ(old, 0x20u); if (failRestore) return false; --writable; return true; }
+    void Flush(uint8_t*, size_t) override { ++flushes; }
+};
+
 int main(int argc, char** argv) {
     tk::Args(argc, argv);
     const tk::Image im = Fixture();
@@ -134,6 +142,32 @@ int main(int argc, char** argv) {
         if (gen::kSiteCount == 0) CHECK(pl.verdict == PlanVerdict::NothingToDo);
         CHECK(gen::kSites[gen::kSiteCount].id == nullptr);   // sentinel
         for (size_t i = 0; i < gen::kSiteCount; ++i) { CHECK(gen::kSites[i].anchorLen > 0); CHECK(gen::kSites[i].len > 0); }
+    }
+    {   // all-or-nothing at WRITE time (J1 review finding 4): one Unprotect failure writes nothing and restores the others
+        std::vector<uint8_t> m = im.Mapped(0x00610000u);
+        PeInfo pe; ImageView v = tk::MappedView(m, pe);
+        const PatchPlan pl = MakePatchPlan(v, 0x00610000u - 0x400000u, s.data(), s.size(), on);
+        CHECK(pl.verdict == PlanVerdict::Apply); CHECK_EQ(pl.nWrite, 2);
+        for (int failAt : { 0, 1 }) {
+            std::vector<uint8_t> mm = m; FakeMem f; f.failAt = failAt;
+            const WriteResult r = WritePlanAtomic(mm.data(), pl, s.data(), f);
+            CHECK(!r.ok); CHECK_EQ(r.written, 0); CHECK(mm == m); CHECK_EQ(f.writable, 0); CHECK_EQ(f.flushes, 0);
+            CHECK_EQ(r.failedSite, failAt == 0 ? 0 : 1);
+        }
+        {   std::vector<uint8_t> mm = m; FakeMem f;
+            const WriteResult r = WritePlanAtomic(mm.data(), pl, s.data(), f);
+            CHECK(r.ok); CHECK_EQ(r.written, 2); CHECK_EQ(f.writable, 0); CHECK_EQ(f.flushes, 2); CHECK_EQ(r.reprotectFailures, 0);
+            CHECK(mm[0x1104] == 0x20 && mm[0x5016] == 0xC8);
+            std::vector<uint8_t> want = m; ApplyPlanToBuffer(want.data(), pl, s.data()); CHECK(mm == want);   // same bytes as the pure apply
+        }
+        {   std::vector<uint8_t> mm = m; FakeMem f; f.failRestore = true;   // restore failing: written, counted, never half-written
+            const WriteResult r = WritePlanAtomic(mm.data(), pl, s.data(), f);
+            CHECK(r.ok); CHECK_EQ(r.written, 2); CHECK_EQ(r.reprotectFailures, 2);
+        }
+        {   PatchPlan bad = pl; bad.verdict = PlanVerdict::Refuse; std::vector<uint8_t> mm = m; FakeMem f;
+            const WriteResult r = WritePlanAtomic(mm.data(), bad, s.data(), f);
+            CHECK(!r.ok); CHECK_EQ(f.calls, 0); CHECK(mm == m);                       // a refused plan never touches protection
+        }
     }
     return tk::Done("test_patch_engine");
 }

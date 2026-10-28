@@ -44,20 +44,31 @@ void PatchesRun() {
     const std::string sum = PlanSummary(pl, ad.nSites);
     if (pl.verdict == PlanVerdict::Refuse) { LOGE("%s", sum.c_str()); return; }
     LOGI("%s", sum.c_str());
-    int written = 0;
-    for (size_t i = 0; i < ad.nSites; ++i) {
-        if (!pl.sites[i].write) continue;
-        const SiteDef& d = ad.sites[i];
-        uint8_t* p = base + pl.sites[i].valueRva;
-        DWORD old = 0;
-        if (!VirtualProtect(p, d.len, PAGE_EXECUTE_READWRITE, &old)) { LOGE("patch_engine: VirtualProtect failed at %p (%lu): %s not written", p, GetLastError(), d.id); continue; }
-        memcpy(p, d.patch, d.len);
-        DWORD tmp = 0; VirtualProtect(p, d.len, old, &tmp);
-        FlushInstructionCache(GetCurrentProcess(), p, d.len);
-        LOGI("patch_engine: wrote %s at %p: [%s] -> [%s]", d.id, p, Hex(pl.sites[i].cur, d.len).c_str(), Hex(d.patch, d.len).c_str());
-        ++written;
+    struct WinMem : MemOps {
+        bool Unprotect(uint8_t* p, size_t n, uint32_t& old) override {
+            DWORD o = 0;
+            if (!VirtualProtect(p, n, PAGE_EXECUTE_READWRITE, &o)) { LOGE("patch_engine: VirtualProtect(RWX) failed at %p (%lu)", p, GetLastError()); return false; }
+            old = o; return true;
+        }
+        bool Reprotect(uint8_t* p, size_t n, uint32_t old) override {
+            DWORD o = 0;
+            if (!VirtualProtect(p, n, old, &o)) { LOGE("patch_engine: restoring protection failed at %p (%lu): left writable", p, GetLastError()); return false; }
+            return true;
+        }
+        void Flush(uint8_t* p, size_t n) override { FlushInstructionCache(GetCurrentProcess(), p, n); }
+    } mem;
+    const WriteResult w = WritePlanAtomic(base, pl, ad.sites, mem);
+    if (!w.ok) {
+        LOGE("patch_engine: REFUSED at write time - %s could not be made writable: nothing written (all-or-nothing)%s",
+             w.failedSite >= 0 ? ad.sites[w.failedSite].id : "?", w.reprotectFailures ? ", a protection restore also failed" : "");
+        return;
     }
-    LOGI("patch_engine: %d of %d planned sites written", written, pl.nWrite);
+    for (size_t i = 0; i < ad.nSites; ++i)
+        if (pl.sites[i].write)
+            LOGI("patch_engine: wrote %s at %p: [%s] -> [%s]", ad.sites[i].id, base + pl.sites[i].valueRva, Hex(pl.sites[i].cur, ad.sites[i].len).c_str(),
+                 Hex(ad.sites[i].patch, ad.sites[i].len).c_str());
+    if (w.reprotectFailures) LOGW("patch_engine: %d site(s) left writable (protection restore failed)", w.reprotectFailures);
+    LOGI("patch_engine: %d of %d planned sites written", w.written, pl.nWrite);
 }
 
 } // namespace wsp

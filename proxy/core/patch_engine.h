@@ -136,6 +136,47 @@ inline int ApplyPlanToBuffer(uint8_t* image, const PatchPlan& pl, const SiteDef*
     return changed;
 }
 
+// Memory protection behind an interface so the write step is host-testable (patch_driver.cpp: VirtualProtect).
+struct MemOps {
+    virtual bool Unprotect(uint8_t* p, size_t n, uint32_t& old) = 0;   // make writable, return the old protection
+    virtual bool Reprotect(uint8_t* p, size_t n, uint32_t old) = 0;
+    virtual void Flush(uint8_t*, size_t) {}
+    virtual ~MemOps() {}
+};
+struct WriteResult {
+    bool ok = false;          // every planned site written (or nothing to write)
+    int written = 0;          // sites written: 0 or pl.nWrite, never in between
+    int failedSite = -1;      // the site whose Unprotect failed
+    int reprotectFailures = 0;
+};
+// All-or-nothing at write time: every site is made writable FIRST; one failure restores the ones already changed and writes
+// nothing (J1 review finding 4: a VirtualProtect failure used to skip one site and keep the others). Then all bytes are written,
+// then protections restored. A failed restore leaves a site writable (counted, logged), never half-written.
+inline WriteResult WritePlanAtomic(uint8_t* base, const PatchPlan& pl, const SiteDef* s, MemOps& ops) {
+    WriteResult r;
+    if (pl.verdict != PlanVerdict::Apply) { r.ok = pl.verdict == PlanVerdict::NothingToDo; return r; }
+    std::vector<size_t> idx; std::vector<uint32_t> old;
+    for (size_t i = 0; i < pl.sites.size(); ++i) {
+        if (!pl.sites[i].write) continue;
+        uint32_t o = 0;
+        if (!ops.Unprotect(base + pl.sites[i].valueRva, s[i].len, o)) {
+            for (size_t k = idx.size(); k-- > 0;)
+                if (!ops.Reprotect(base + pl.sites[idx[k]].valueRva, s[idx[k]].len, old[k])) ++r.reprotectFailures;
+            r.failedSite = (int)i;
+            return r;
+        }
+        idx.push_back(i); old.push_back(o);
+    }
+    for (size_t i : idx) memcpy(base + pl.sites[i].valueRva, s[i].patch, s[i].len);
+    for (size_t k = 0; k < idx.size(); ++k) {
+        uint8_t* p = base + pl.sites[idx[k]].valueRva;
+        if (!ops.Reprotect(p, s[idx[k]].len, old[k])) ++r.reprotectFailures;
+        ops.Flush(p, s[idx[k]].len);
+    }
+    r.ok = true; r.written = (int)idx.size();
+    return r;
+}
+
 inline std::string PlanSummary(const PatchPlan& pl, size_t n) {
     char b[300];
     snprintf(b, sizeof b, "patch_engine: %s - %u sites: %d ok, %d bad, %d to write (%d bytes), %d already patched, %d hooks verified%s%s",
