@@ -201,20 +201,28 @@ def install(kit, game, state, assume_closed=False):
     stamp = utc_stamp()
     rec_path = state / STATE_FILE
     rec = json.loads(rec_path.read_text(encoding='utf-8')) if rec_path.exists() else None
+    def save():   # the record is on disk BEFORE each change to the game folder, so a failed install can still be uninstalled
+        rec_path.write_text(json.dumps(rec, indent=2) + '\n', encoding='utf-8')
     if rec is None:
         pre = snapshot(game)
         (state / 'snapshots').mkdir(exist_ok=True)
         pre_path = state / 'snapshots' / f'pre_install_{stamp}.json'
         pre_path.write_text(json.dumps(pre), encoding='utf-8')
-        rec = {'pre_snapshot': str(pre_path.relative_to(state)), 'backups': [], 'history': []}
+        rec = {'pre_snapshot': str(pre_path.relative_to(state)), 'backups': [], 'history': [], 'kit_id': None, 'build_id': None,
+               'installed_utc': None, 'files': []}
+        rec.update({'owned': man['owned'], 'mod_dir': man['mod_dir'], 'exe_name': man['exe_name'], 'config_file': man['config_file']})
+        save()
         # anything already at a path the kit owns is foreign (not ours): back it up for the uninstall to restore
         for o in man['owned']:
             p = game / o.rstrip('/')
             if p.exists():
                 b = state / 'backup' / stamp / o.rstrip('/')
-                move_out(p, b)
                 rec['backups'].append({'path': o.rstrip('/'), 'backup': str(b.relative_to(state))})
+                save()
+                move_out(p, b)
                 print(f'pc_deploy install: backed up the existing {o} to {b}')
+    rec['history'].append({'utc': stamp, 'action': 'install started', 'kit_id': man['kit_id']})
+    save()
     for e in man['files']:
         dest = game / e['path']
         if dest.exists():   # ours from an earlier kit: out of the way, never deleted
@@ -251,6 +259,8 @@ def uninstall(game, state, assume_closed=False):
             move_out(p, state / '_to_delete' / f'uninstall_{stamp}' / o.rstrip('/'))
             print(f'pc_deploy uninstall: moved {o} to _to_delete')
     for b in rec['backups']:
+        if not (state / b['backup']).exists():   # recorded just before a backup move that never happened (a failed install)
+            continue
         move_out(state / b['backup'], game / b['path'])
         print(f"pc_deploy uninstall: restored the original {b['path']}")
     pre = json.loads((state / rec['pre_snapshot']).read_text(encoding='utf-8'))

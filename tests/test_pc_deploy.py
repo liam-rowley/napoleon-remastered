@@ -83,6 +83,27 @@ class Deploy(unittest.TestCase):
         self.assertTrue(pd.uninstall(self.game, self.state))
         self.assertEqual(pd.diff_snapshots(before, pd.snapshot(self.game)), [])
 
+    def test_failed_install_still_uninstalls(self):
+        """A copy failing half-way (disk full, file locked) must leave a record the uninstall can restore from (review of J1)."""
+        (self.game / 'd3d9.dll').write_bytes(b'someone else\'s d3d9 wrapper')
+        before = pd.snapshot(self.game)
+        real, calls = pd.shutil.copyfile, []
+        def flaky(src, dst):
+            calls.append(dst)
+            if len(calls) == 2:
+                raise OSError('disk full')
+            return real(src, dst)
+        pd.shutil.copyfile = flaky
+        try:
+            with self.assertRaises(OSError):
+                pd.install(self.kit, self.game, self.state)
+        finally:
+            pd.shutil.copyfile = real
+        self.assertTrue((self.state / 'install.json').exists())
+        self.assertTrue(pd.uninstall(self.game, self.state))
+        self.assertEqual((self.game / 'd3d9.dll').read_bytes(), b'someone else\'s d3d9 wrapper')
+        self.assertEqual(pd.diff_snapshots(before, pd.snapshot(self.game)), [])
+
     def test_stray_file_reported(self):
         pd.install(self.kit, self.game, self.state)
         (self.game / 'Napoleon_d3d9.log').write_text('dxvk wrote into the game folder')   # what the env redirect prevents
