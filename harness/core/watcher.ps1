@@ -788,7 +788,7 @@ function Script-TouchesConfig([string]$body) {
     foreach ($line in ($body -split "`r?`n")) {
         $t = $line.Trim()
         if ($t -match '^(@?rem\b|::|#)') { continue }
-        if ($t -match "($leafs)" -and $t -match '(\b(copy|move|xcopy|robocopy|del|erase|ren|rename|Set-Content|Add-Content|Out-File|Copy-Item|Move-Item|Remove-Item|Rename-Item|WriteAll\w*|AppendAll\w*)\b|>)') { return $t }
+        if ($t -match "($leafs)" -and $t -match '(\b(copy|move|xcopy|robocopy|del|erase|ren|rename|(Set|Add|Out)-\w+|Copy-Item|Move-Item|Remove-Item|Rename-Item|WriteAll\w*|AppendAll\w*)\b|>)') { return $t }
     }
     return $null
 }
