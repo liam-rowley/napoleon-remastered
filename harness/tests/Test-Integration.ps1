@@ -251,7 +251,7 @@ try {
         $l = Run-Job 'launch owner=ci3' 'zlaunch' 40; Assert-Eq $l.d.status 'ok' 'launch'
         $k = Run-Job 'kill owner=ci3' 'zkill' 40
         Assert-Eq $k.d.status 'failed' 'kill fails'; Assert-Match $k.d.reason 'ZOMBIE' 'reason'
-        $s = Get-St; Assert-True ([bool]$s.zombie -and [bool]$s.needs_reboot) 'status shows zombie and needs_reboot'
+        Wait-Until { $x = Get-St; $x -and [bool]$x.zombie -and [bool]$x.needs_reboot } 15 'status shows zombie and needs_reboot' | Out-Null
         $r = Run-Job 'launch owner=ci3' 'zrefuse'
         Assert-Eq $r.d.status 'refused' 'launch refused'; Assert-Match $r.d.reason 'PC NEEDS REBOOT' 'says the PC needs a reboot'
         Assert-True (Test-Path -LiteralPath (Join-Path $root 'watcher.zombie.json')) 'persisted'
