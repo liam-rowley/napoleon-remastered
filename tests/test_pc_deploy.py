@@ -144,5 +144,88 @@ class Deploy(unittest.TestCase):
         self.assertEqual(pd.diff_snapshots(a, pd.snapshot(self.game, big=1000)), ['touched data/big.pack (large file: same size, other mtime)'])
 
 
+class HarnessKit(unittest.TestCase):
+    """The watcher kit (J2): unique ids, sha-checked manifest, CRLF/ASCII guard for PC scripts, and the install-time game check that
+    asks the watcher (not the device VM) which processes run."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.t = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_kit_manifest_and_stale_guard(self):
+        kit = pd.build_harness_kit(self.t / 'kits', build_id='test')
+        man, bad = pd.verify_harness_kit(kit)
+        self.assertEqual(bad, [])
+        self.assertEqual(man['kind'], 'harness')
+        self.assertTrue(man['kit_id'].startswith('harness_'))
+        paths = {e['path'] for e in man['files']}
+        for want in ('src/watcher.ps1', 'src/watch.cmd', 'src/update.ps1', 'src/adapter.json', 'profiles/vanilla/profile.json',
+                     'profiles/vanilla/mod_ini.absent', 'profiles/proxy-dxvk/mod_ini.set'):
+            self.assertIn(want, paths)
+        self.assertEqual({k['name'] for k in man['kit_files']}, {'install.ps1', 'Install watcher.cmd', 'Uninstall watcher.cmd', 'job.sh', 'adapter.json'})
+        self.assertRegex(man['watcher_version'], r'^\d+\.\d+\.\d+')
+        self.assertTrue(man['watcher_root'].endswith('\\watcher'))
+        for e in man['files']:
+            self.assertTrue(e['staged'].startswith(e['sha256'][:12] + '__'))
+        # every Windows script in the kit is CRLF and ASCII, whatever the checkout had
+        for e in man['files']:
+            if e['path'].endswith(('.ps1', '.cmd')):
+                b = (kit / e['staged']).read_bytes()
+                self.assertNotIn(b'\n', b.replace(b'\r\n', b''), e['path'])
+                b.decode('ascii')
+        # a stale resend of one staged file is caught
+        (kit / man['files'][0]['staged']).write_bytes(b'old cached copy')
+        self.assertTrue(pd.verify_harness_kit(kit)[1])
+        (kit / 'install.ps1').write_bytes(b'old installer')
+        self.assertTrue(any('install.ps1' in x for x in pd.verify_harness_kit(kit)[1]))
+
+    def test_new_id_every_time(self):
+        a = pd.build_harness_kit(self.t / 'kits', build_id='a')
+        b = pd.build_harness_kit(self.t / 'kits', build_id='b')
+        self.assertNotEqual(a.name, b.name)
+
+    def test_norm_for_pc(self):
+        self.assertEqual(pd.norm_for_pc('x.cmd', b'a\nb\r\nc\n'), b'a\r\nb\r\nc\r\n')
+        self.assertEqual(pd.norm_for_pc('x.json', b'a\nb\n'), b'a\nb\n')
+        with self.assertRaises(SystemExit) as e:
+            pd.norm_for_pc('x.ps1', 'caf\u00e9'.encode('utf-8'))
+        self.assertIn('non-ASCII', str(e.exception))
+
+    def _status(self, procs, age=1.0, alive=True):
+        w = self.t / 'state' / 'watcher'
+        w.mkdir(parents=True, exist_ok=True)
+        (w / 'watcher.status').write_text(json.dumps({'processes': procs}), encoding='utf-8')
+        if alive:
+            (w / 'watcher.alive').write_text('x')
+            os.utime(w / 'watcher.alive', (time.time() - age, time.time() - age))
+        return self.t / 'state'
+
+    def test_running_check_asks_the_watcher_for_both_titles(self):
+        game = self.t / 'game'
+        game.mkdir()
+        st = self._status([{'image': 'Empire.exe', 'pid': 42}])
+        why = pd.running_check(game, 'napoleon_remastered', 'Napoleon.exe', state=st, other_exes=['Empire.exe'])
+        self.assertIn('Empire.exe (pid 42)', why)
+        st = self._status([{'image': 'Napoleon.exe', 'pid': 7}])
+        self.assertIn('Napoleon.exe (pid 7)', pd.running_check(game, 'napoleon_remastered', 'Napoleon.exe', state=st, other_exes=['Empire.exe']))
+        st = self._status([])
+        self.assertEqual(pd.running_check(game, 'napoleon_remastered', 'Napoleon.exe', state=st, other_exes=['Empire.exe']), '')
+
+    def test_stale_watcher_cannot_vouch_and_no_watcher_falls_back(self):
+        game = self.t / 'game'
+        game.mkdir()
+        st = self._status([], age=120)
+        self.assertIn('heartbeat is', pd.running_check(game, 'm', 'Napoleon.exe', state=st))
+        # the status file says nothing was running but nobody is watching: refuse rather than guess
+        self.assertEqual(pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'), '')   # never installed: the old log heuristic
+        log = game / 'm' / 'logs' / 'proxy.log'
+        log.parent.mkdir(parents=True)
+        log.write_text('launch x\nstarted\n')
+        self.assertIn('may be running', pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'))
+
+
 if __name__ == '__main__':
     unittest.main()
