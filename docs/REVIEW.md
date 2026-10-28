@@ -24,7 +24,8 @@ Follow `CLAUDE.md`. Read, in this order: `jobs/<id>/brief.md`, `jobs/<id>/report
 5. **Empire repeats.** Anything left as prose (a timing, a trap, a rule) that could be a default, a guard or a gate is a finding.
 
 ## Output
-A verdict (`merge`, `merge after fixes`, `do not merge`) and findings ranked **blocker**, **should-fix**, **later**, each with
+A verdict line, exactly `**Verdict: merge.**`, `**Verdict: merge after fixes.**` or `**Verdict: do not merge.**` (CI's `policy`
+check reads it: only `merge` lets the branch merge), and findings ranked **blocker**, **should-fix**, **later**, each with
 `file:line`, what fails, and how to see it fail.
 
 - Fix small should-fix items yourself on the branch: one commit each, with a test where the code allows, listed in the review.

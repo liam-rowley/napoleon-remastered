@@ -44,3 +44,17 @@ jobs:
           name: proxy-d3d9-napoleon
           path: build/proxy/napoleon/d3d9.dll
           if-no-files-found: error
+
+  policy:
+    # Every pull request must be a reviewed job, a brief, a planning change or an infrastructure change (D21, tools/pr_policy.py).
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python tools/pr_policy.py --branch "${{ github.head_ref }}" --base "origin/${{ github.base_ref }}"

@@ -66,7 +66,7 @@ Read in depth: `pc_deploy.py` (writes to the PC, the only code that moves files 
 `patch_driver.cpp` (engine memory), `guard_driver.cpp`, `dllmain.cpp`, `backend.cpp`, `crash.cpp` (all run under the loader lock in
 the game). Skimmed: config, log, sha1, generator, fetch_dxvk, WER scripts, tests. The guard contract matches the brief: one
 evaluation before the plan, pass-through touches no engine memory, forced mismatch wins over the override, notice written and
-cleared, unpinned fails closed (a stated, recorded deviation from Empire: D22). DXVK is stock 3.1.1, sha-pinned, never committed,
+cleared, unpinned fails closed (a stated, recorded deviation from Empire: D23, numbered D22 before main gained D21). DXVK is stock 3.1.1, sha-pinned, never committed,
 and its log and caches are redirected out of the game folder (the byte-exact uninstall depends on it). Nothing out of scope found.
 
 ## Commits by the reviewer (branch `review/J1-fixes`, on top of 846b72a)

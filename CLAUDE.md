@@ -31,6 +31,11 @@
   `jobs/<id>/review.md`; follow `docs/REVIEW.md` on that branch. With a `merge` verdict, set
   `status=done review=jobs/<id>/review.md` on the branch, so merging marks it done.
 - Never mark your own job `done`, and never review a job you built.
+- **All work goes through the queue (D21).** Branch names decide what a pull request may change, and CI's `policy` check refuses
+  anything else (`tools/pr_policy.py`): `job/J<n>` (a reviewed job, report and `Verdict: merge` review on the branch), `brief/J<n>`
+  (only that brief and its row), `plan/*` (docs, briefs, the jobs registry, README, CLAUDE.md), `meta/*` (repo infrastructure: CI,
+  tools, tests, schemas, registries, the core pin; never game code). If Liam asks for work that isn't in the queue, add it as a
+  `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself, never on a separate branch.
 
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only by a merge Liam (or the orchestrator, once
