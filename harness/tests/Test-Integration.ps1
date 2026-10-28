@@ -253,7 +253,7 @@ try {
         Assert-Eq $k.d.status 'failed' 'kill fails'; Assert-Match $k.d.reason 'ZOMBIE' 'reason'
         Wait-Until { $x = Get-St; $x -and [bool]$x.zombie -and [bool]$x.needs_reboot } 15 'status shows zombie and needs_reboot' | Out-Null
         $r = Run-Job 'launch owner=ci3' 'zrefuse'
-        Assert-Eq $r.d.status 'refused' 'launch refused'; Assert-Match $r.d.reason 'PC NEEDS REBOOT' 'says the PC needs a reboot'
+        Assert-Eq $r.d.status 'failed' 'launch is refused loudly (failed, exit 1) so no agent mistakes it for a policy refusal'; Assert-Match $r.d.reason 'PC NEEDS REBOOT' 'says the PC needs a reboot'
         Assert-True (Test-Path -LiteralPath (Join-Path $root 'watcher.zombie.json')) 'persisted'
         $old = Pid-Of-Watcher
         Run-Job 'restart' 'zrestart' | Out-Null
