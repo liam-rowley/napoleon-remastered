@@ -55,6 +55,23 @@ int main(int argc, char** argv) {
         PatchPlan again = MakePatchPlan(v2, base - 0x400000u, s.data(), s.size(), on);
         CHECK(again.verdict == PlanVerdict::NothingToDo); CHECK_EQ(again.nDone, 2);
     }
+    {   // the delta comes from the FILE's ImageBase: the loader rewrites the mapped header to the actual base (PC 2026-10-28,
+        // proxy/runs/20261028_pctest), so a delta from the mapped header is 0 and every relocated anchor fails under ASLR
+        PeInfo fpe; tk::FileView(im, fpe);
+        CHECK_EQ(fpe.preferredBase, 0x400000u);
+        for (uint32_t base : { 0x400000u, 0x00610000u, 0x7ff00000u }) {
+            std::vector<uint8_t> m = im.Mapped(base);
+            PeInfo pe; ImageView v = tk::MappedView(m, pe);
+            CHECK_EQ(pe.preferredBase, base);                       // the trap: the mapped header holds the actual base
+            uint32_t d = 1;
+            CHECK(LoadDelta(base, fpe.preferredBase, d)); CHECK_EQ(d, base - 0x400000u);
+            CHECK(MakePatchPlan(v, d, s.data(), s.size(), on).verdict == PlanVerdict::Apply);
+            uint32_t bad = 1; CHECK(LoadDelta(base, pe.preferredBase, bad)); CHECK_EQ(bad, 0u);
+            if (base != 0x400000u) CHECK(MakePatchPlan(v, bad, s.data(), s.size(), on).verdict == PlanVerdict::Refuse);
+        }
+        uint32_t d = 7;
+        CHECK(!LoadDelta(0x00610000u, 0, d)); CHECK(!LoadDelta(0x00610000u, 0x00401000u, d));   // unknown or unaligned base: no delta
+    }
     {   // without taking the delta off, the hook's relocated dword would not match: the rebase is what makes ASLR work
         std::vector<uint8_t> m = im.Mapped(0x01230000);
         PeInfo pe; ImageView v = tk::MappedView(m, pe);

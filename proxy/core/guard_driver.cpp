@@ -18,15 +18,17 @@ bool Readable(const void* p, size_t n) {
     return true;
 }
 
-bool HashFile(const std::wstring& path, std::string& hex, std::string& err) {
+// Also parses the PE header from the file's first read: the only place the preferred ImageBase survives (pe.h LoadDelta).
+bool HashFile(const std::wstring& path, std::string& hex, std::string& err, uint32_t& fileImageBase) {
     HANDLE f = CreateFileW(path.c_str(), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, nullptr, OPEN_EXISTING,
                            FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
     if (f == INVALID_HANDLE_VALUE) { err = "cannot open the exe (error " + std::to_string(GetLastError()) + ")"; return false; }
     Sha1 h; std::vector<uint8_t> buf(1 << 20); DWORD got = 0;
-    bool ok = true;
+    bool ok = true, first = true;
     for (;;) {
         if (!ReadFile(f, buf.data(), (DWORD)buf.size(), &got, nullptr)) { err = "read error " + std::to_string(GetLastError()); ok = false; break; }
         if (!got) break;
+        if (first) { const PeInfo fp = ParsePe(buf.data(), got); if (fp.ok) fileImageBase = fp.preferredBase; first = false; }
         h.Update(buf.data(), got);
     }
     CloseHandle(f);
@@ -61,7 +63,7 @@ void GuardRun() {
     Observed o; o.mapped = &pe;
     wchar_t exe[MAX_PATH]; GetModuleFileNameW(nullptr, exe, MAX_PATH);
     const DWORD t0 = GetTickCount();
-    HashFile(exe, o.fileSha1, o.fileError);
+    HashFile(exe, o.fileSha1, o.fileError, rt.fileImageBase);
     const GuardResult r = Evaluate(o, ad.identity, c);
     rt.engineOk = r.engineOk;
 
