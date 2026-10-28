@@ -184,9 +184,10 @@ try {
         Start-Sleep -Milliseconds 800
         $doneNow = ReadText (Join-Path $root "jobs\$($first.id).done")
         Assert-Match $doneNow '"status":\s*"ok"' 'the old result is still there while the new request waits in the queue'
+        Get-Result $long | Out-Null
+        Wait-Until { (ReadText (Join-Path $root "jobs\$($first.id).done")) -match 'refused' } 30 'the reuse to be refused' | Out-Null
         $r = Get-Result $first.id 40
         Assert-Eq $r.d.status 'refused' 'reused id'; Assert-Match $r.d.reason 'already used' 'reason'
-        Get-Result $long | Out-Null
     }
     Test-Case 'job timeout kills the job tree but spares the game; a game started by the job does not block the next job' {
         Set-Lock 'ci1'
@@ -243,7 +244,7 @@ try {
         Clear-Lock
     }
     Test-Case 'zombie: a process that survives the kill is flagged, persisted across a watcher restart, every launch refused until it is gone' {
-        Add-Content -LiteralPath (Join-Path $root 'watcher.ini') -Value 'test_fake_zombie=1' -Encoding Ascii
+        Add-Content -LiteralPath (Join-Path $root 'watcher.ini') -Value "`r`ntest_fake_zombie=1" -Encoding Ascii
         Wait-Until { (Get-Log) -match 'settings: watcher.ini reloaded' } 10 'ini reloaded' | Out-Null
         Start-Sleep -Milliseconds 600
         Set-Lock 'ci3'

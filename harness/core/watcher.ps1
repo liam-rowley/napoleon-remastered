@@ -53,7 +53,7 @@ function Load-Settings {
         $script:IniStamp = (Get-Item -LiteralPath $ini).LastWriteTimeUtc
     } else { $script:IniStamp = $null }
 }
-function IntSet([string]$k) { return [int]$S[$k] }
+function IntSet([string]$k) { $v = 0; if ([int]::TryParse([string]$S[$k], [ref]$v)) { return $v }; return [int]$Defaults[$k] }
 function NumSet([string]$k) { return [double]::Parse([string]$S[$k], $Inv) }
 
 # ------------------------------------------------------------------------------------------------ adapter -----------
@@ -594,7 +594,7 @@ function Heartbeat-Newest($since) {
         $p = GamePath $f
         if (Test-Path -LiteralPath $p) { $t = (Get-Item -LiteralPath $p).LastWriteTime; if ($null -eq $best -or $t -gt $best) { $best = $t } }
     }
-    if ($null -ne $best -and $best -lt $since) { $best = $since }
+    if ($null -eq $best -or $best -lt $since) { $best = $since }   # no file yet (or only an older one): the game has written nothing since it started
     return $best
 }
 function Window-State($p) {
