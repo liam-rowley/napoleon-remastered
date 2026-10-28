@@ -23,3 +23,4 @@ the one it replaces. Detail lives in the doc that owns the topic, never here.
 | D16 | 2026-10-28 | Liam | No Empire-style orchestrator lease and hand-kept state file: live state is a job queue file plus a status page generated from it and the registries. | yes |
 | D17 | 2026-10-28 | Liam | One review page for all UI screens (screen list with statuses, the player, fixture and scale pickers, comments tagged by screen). | yes |
 | D18 | 2026-10-28 | Liam | Shared core repo is `liam-rowley/warscape-core` (private). | yes |
+| D19 | 2026-10-28 | Liam | UI scale model: dp ratio = (height / 1080) × slider; slider 85-125 % in 5 % steps, default 100 %; minimum text 14 dp; UI art mastered at 2.5× the 1080p reference with mipmaps (`docs/plans/UI_PIPELINE.md` section 2.5). | yes |

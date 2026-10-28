@@ -39,7 +39,7 @@ and build skills (about 120 KB of instructions). The causes, and the change for 
    RCSS, art and fonts, the screen's own Lua view code, and engine stubs generated from the screen's fixtures. **Playing the design runs
    the shipped view logic against captured data; only the engine is stubbed.** The same build in headless Chromium (Playwright,
    already in the cloud container) renders PNGs for the gates. One renderer serves both review and checks.
-5. **Scale model** (D5; recommended 2026-10-28, awaiting Liam's confirmation). Every length in `dp`; reference 1 dp = 1 px at 1080p.
+5. **Scale model** (D5, D19). Every length in `dp`; reference 1 dp = 1 px at 1080p.
    Runtime dp ratio = (backbuffer height / 1080) × slider, so 100% gives the same physical layout at 1080p, 1440p and 4K. Slider
    85-125 % in 5 % steps, default 100 %. Minimum text 14 dp (about 12 px at 1080p × 85 %). Text is rasterised by FreeType at the
    final size, so it is crisp at every step. Art masters at 2.5× the reference (the largest dp in use, 4K × 125 %), with mipmaps
@@ -83,4 +83,4 @@ page; agents pick up the comments, change the source and republish. Status chang
 
 ## 5. Open questions for Liam
 
-1. Confirm the scale model (section 2.5: slider 85-125 %, art at 2.5×) and the proving screens (section 2.6).
+1. Confirm the proving screens (section 2.6).
