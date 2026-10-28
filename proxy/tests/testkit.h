@@ -94,6 +94,10 @@ struct Image {
         for (size_t i = 0; i < secs.size(); ++i) memcpy(&m[secs[i].rva], &file[rawOff[i]], secs[i].rawSize);
         const uint32_t d = base - preferredBase;
         for (uint32_t r : relocs) wsp::Wr32(&m[r], wsp::Rd32(&m[r]) + d);
+        // The Windows loader rewrites OptionalHeader.ImageBase in the MAPPED header to the actual base (seen on the PC,
+        // proxy/runs/20261028_pctest: the log read "preferred 0x00610000"); the preferred base only survives in the file.
+        const uint32_t lfanew = wsp::Rd32(&m[0x3c]);
+        wsp::Wr32(&m[lfanew + 24 + 28], base);
         return m;
     }
 };

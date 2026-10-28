@@ -111,6 +111,15 @@ inline void RelocsInRange(const ImageView& v, uint32_t lo, uint32_t hi, std::vec
     }
 }
 
+// Load delta for ReadUnrelocated: actual base - the FILE's OptionalHeader.ImageBase. Never take the preferred base from the
+// mapped header: the loader rewrites it to the actual base, so the delta would always be 0 (PC 2026-10-28,
+// proxy/runs/20261028_pctest). fileImageBase 0 (the file header was not read) = no delta: the caller must not patch.
+inline bool LoadDelta(uintptr_t actualBase, uint32_t fileImageBase, uint32_t& delta) {
+    if (!fileImageBase || (fileImageBase & 0xFFFF)) return false;   // PE image bases are 64 KiB aligned
+    delta = (uint32_t)actualBase - fileImageBase;
+    return true;
+}
+
 // Reads [rva, rva+len) as the FILE holds it: every relocated dword that overlaps the range has the load delta (actual base -
 // preferred base) taken off, so a static address compares equal at any ASLR base. delta 0 for a file view. false = unreadable.
 inline bool ReadUnrelocated(const ImageView& v, uint32_t rva, uint32_t len, uint32_t delta, uint8_t* out) {

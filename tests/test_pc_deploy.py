@@ -107,6 +107,15 @@ class Deploy(unittest.TestCase):
         o = pd.edit_ini(t, {'proxy.backend': 'system', 'proxy.exe_guard_force_mismatch': '1', 'other.x': '2'})
         self.assertEqual(o, '; c\r\n[proxy]\r\nexe_guard_force_mismatch=1\r\n; d\r\nbackend=system\r\nenabled=1\r\n\r\n[other]\r\nx=2\r\n')
 
+    def test_resolve_bare_keys(self):
+        t = '[proxy]\nbackend=dxvk\nenabled=1\n[other]\nenabled=0\n'
+        self.assertEqual(pd.resolve_keys(t, {'backend': 'system', 'other.enabled': '1'}),
+                         {'proxy.backend': 'system', 'other.enabled': '1'})
+        with self.assertRaisesRegex(SystemExit, 'ambiguous'):
+            pd.resolve_keys(t, {'enabled': '1'})
+        with self.assertRaisesRegex(SystemExit, 'not in the file'):
+            pd.resolve_keys(t, {'nope': '1'})
+
     def test_snapshot_big_files_by_mtime(self):
         a = pd.snapshot(self.game, big=1000)
         self.assertIsNone(a['data/big.pack']['sha256'])

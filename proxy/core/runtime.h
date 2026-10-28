@@ -19,6 +19,7 @@ struct Runtime {
     Config       cfg;
     bool         enabled = false;     // proxy.enabled and not a second instance
     bool         engineOk = false;    // exe-identity guard verdict (false until it ran)
+    uint32_t     fileImageBase = 0;   // OptionalHeader.ImageBase from the exe FILE (guard_driver); the mapped header holds the actual base
     EnginePlan   plan;                // PlanEngine(enabled, engineOk): the only switch engine-side code asks
 };
 Runtime& Rt();

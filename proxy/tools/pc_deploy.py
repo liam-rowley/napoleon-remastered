@@ -296,10 +296,38 @@ def edit_ini(text, sets):
     return nl.join(lines) + nl
 
 
+def resolve_keys(text, sets):
+    """Bare names (`backend=system`) take the one section of the file that has them; an unknown or ambiguous bare name is a
+    clear error, never a traceback (2026-10-28 PC test, proxy/runs/20261028_pctest: a bare key crashed `set`)."""
+    sec, have = None, {}
+    for l in text.splitlines():
+        s = l.strip()
+        if s.startswith('[') and ']' in s:
+            sec = s[1:s.index(']')].strip().lower()
+        elif sec and '=' in s and not s.startswith((';', '#')):
+            have.setdefault(s.split('=', 1)[0].strip().lower(), []).append(sec)
+    out = {}
+    for k, v in sets.items():
+        k = k.strip().lower()
+        if '.' not in k:
+            secs = have.get(k, [])
+            if len(secs) != 1:
+                known = ', '.join(sorted(f'{s}.{n}' for n, ss in have.items() for s in ss))
+                raise SystemExit(f'pc_deploy set: key {k!r} is ' + ('ambiguous' if secs else 'not in the file')
+                                 + f'; use section.key, one of: {known}')
+            k = f'{secs[0]}.{k}'
+        out[k] = v
+    return out
+
+
 def set_keys(game, pairs, config_file):
     p = Path(game) / config_file
-    sets = dict(x.split('=', 1) for x in pairs)
-    p.write_bytes(edit_ini(p.read_bytes().decode('utf-8'), sets).encode('utf-8'))
+    bad = [x for x in pairs if '=' not in x]
+    if bad:
+        raise SystemExit(f'pc_deploy set: expected key=value, got {bad}')
+    text = p.read_bytes().decode('utf-8')
+    sets = resolve_keys(text, dict(x.split('=', 1) for x in pairs))
+    p.write_bytes(edit_ini(text, sets).encode('utf-8'))
     print(f'pc_deploy set: {p.name}: ' + ', '.join(f'{k}={v}' for k, v in sets.items()))
 
 

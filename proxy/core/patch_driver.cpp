@@ -27,11 +27,15 @@ void PatchesRun() {
     uint8_t* base = (uint8_t*)GetModuleHandleW(nullptr);
     PeInfo pe = Readable(base, 0x1000) ? ParsePe(base, 0x1000) : PeInfo{};
     ImageView v; v.data = base; v.size = pe.ok ? pe.sizeOfImage : 0; v.pe = &pe; v.file = false; v.readable = Readable;
-    const uint32_t delta = (uint32_t)(uintptr_t)base - pe.preferredBase;
+    uint32_t delta = 0;
+    if (!LoadDelta((uintptr_t)base, rt.fileImageBase, delta)) {
+        LOGE("patch_engine: refused - the exe file's ImageBase is unknown (0x%08x), so no rebase delta: nothing written", (unsigned)rt.fileImageBase);
+        return;
+    }
     std::unique_ptr<bool[]> en(new bool[ad.nSites + 1]);
     for (size_t i = 0; i < ad.nSites; ++i) en[i] = !ad.sites[i].configKey || rt.cfg.Bool(ad.sites[i].configKey);
     const PatchPlan pl = MakePatchPlan(v, delta, ad.sites, ad.nSites, en.get());
-    LOGI("patch_engine: image base %p (preferred 0x%08x, delta 0x%08x)", base, (unsigned)pe.preferredBase, (unsigned)delta);
+    LOGI("patch_engine: image base %p (file ImageBase 0x%08x, delta 0x%08x)", base, (unsigned)rt.fileImageBase, (unsigned)delta);
     for (size_t i = 0; i < ad.nSites; ++i) {
         const SiteDef& d = ad.sites[i]; const SiteCheck& c = pl.sites[i];
         LOGI("patch_engine:   %-32s %s RVA 0x%08x -> %p: %s%s cur [%s]", d.id, d.kind == kHook ? "hook " : "patch", (unsigned)c.valueRva, base + c.valueRva,

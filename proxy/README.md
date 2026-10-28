@@ -68,7 +68,8 @@ gates). **Byte layout** (the registry has one RVA): `anchor_bytes` start at `rva
 `rva + len(anchor)`; a patch replaces exactly the stock bytes with `patch_bytes`, a hook detours at `rva + len(anchor)` (at least
 5 stock bytes). A function-entry hook anchors on the bytes before the entry (padding or the previous `ret`).
 Checks per site after rebasing (`patch_engine.h`): inside one section's file-backed bytes (a hook in an executable one); anchor and
-stock equal after taking the load delta off every relocated dword; a patch's own bytes carry no relocation; no overlap. Already
+stock equal after taking the load delta off every relocated dword; a patch's own bytes carry no relocation; no overlap. The load delta is the actual base minus the exe FILE's ImageBase (read by the guard while hashing): the loader rewrites
+ImageBase in the mapped header, so a delta from memory is always 0 (`pe.h` `LoadDelta`, PC run `20261028_pctest`). Already
 patched counts as done. **Any bad site -> nothing is written**, every site still logged. A site with a `config_key` (a boolean key) is
 checked always and written only when the key is on. No real sites yet: `tests/test_patch_engine.cpp` proves the engine on a synthetic
 image with Napoleon's section layout at three load bases.
