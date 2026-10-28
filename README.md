@@ -13,7 +13,9 @@ folder are generated from it or deployed from it, never edited.
 | `CLAUDE.md` | Rules for every chat and agent. Read first. |
 | `docs/DECISIONS.md` | Every decision, dated, one line each. Append only. |
 | `docs/plans/PLAN.md` | Goals, scope, phases and gates. |
-| `docs/plans/UI_PIPELINE.md` | How a UI screen goes from concept to verified in game. |
+| `docs/plans/UI_PIPELINE.md` | How a UI screen goes from concept to proven in game. |
+| `wsc.toml`, `registries/` | What this repo declares to the core CLI, and the registries themselves (search with `python3 core/wsc.py find <words>`). |
+| `core/` | warscape-core as a submodule, pinned at a tag. Never edited here. |
 
 ## Related repos
 - `liam-rowley/warscape-core` (private): the shared core (harness, registries, CLI, review viewer, game-agnostic tools); split in `docs/plans/PLAN.md` section 4.

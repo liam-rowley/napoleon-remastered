@@ -7,7 +7,15 @@
 2. Look things up before rediscovering them: the registries (tools, scenarios, assets, UI elements, engine sites, config keys,
    hotkeys, engine facts) once they exist (`docs/plans/PLAN.md` section 3). Until then, `empire-remastered` holds the evidence:
    `docs/learnings/` and `docs/plans/PIPELINE_V2.md`. Napoleon is the same engine lineage, but every Empire fact about the exe,
-   shaders or Lua API is re-verified for Napoleon before it is relied on.
+   shaders or Lua API is checked again on Napoleon before it is relied on.
+
+## The core (`core/`, warscape-core pinned at a tag)
+- Clone with `git clone --recurse-submodules` (or `git submodule update --init` after a plain clone); set the hook once per clone:
+  `git config core.hooksPath core/.githooks`. Agent sessions attach `liam-rowley/warscape-core` too (read is enough here).
+- Everything goes through `python3 core/wsc.py <verb>`: `find <words>` searches every registry, `reg add|set|render` changes them,
+  `gates` runs the checks CI runs (`--fast` is what the pre-push hook runs). Never edit a generated `registries/*.md` view.
+- **Never change files inside `core/`.** A change the game needs goes to warscape-core as a PR and arrives with a new tag
+  (`core/docs/CONSUMING.md`); the `core_pin` gate fails on local edits.
 
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only by a merge Liam (or the orchestrator, once
