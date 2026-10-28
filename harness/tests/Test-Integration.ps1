@@ -51,8 +51,8 @@ $logPath = Join-Path $game 'logs\proxy.log'
 $adapterPath = New-TestAdapter $tmp 'FakeNapoleon.exe' 'FakeEmpire.exe' ("log `"$logPath`"")
 foreach ($f in 'watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1') { Copy-Item -LiteralPath (Join-Path $core $f) -Destination (Join-Path $root 'src') }
 Copy-Item -LiteralPath $adapterPath -Destination (Join-Path $root 'src\adapter.json')
-Copy-Item -Path (Join-Path $Repo 'harness\napoleon\profiles\*') -Destination (Join-Path $root 'profiles') -Recurse -Force -ErrorAction SilentlyContinue
-if (-not (Test-Path (Join-Path $root 'profiles'))) { New-Item -ItemType Directory -Path (Join-Path $root 'profiles') | Out-Null; Copy-Item -Path (Join-Path $Repo 'harness\napoleon\profiles\*') -Destination (Join-Path $root 'profiles') -Recurse -Force }
+New-Item -ItemType Directory -Path (Join-Path $root 'profiles') -Force | Out-Null
+Copy-Item -Path (Join-Path $Repo 'harness\napoleon\profiles\*') -Destination (Join-Path $root 'profiles') -Recurse -Force
 $ini = @"
 hang_s=600
 hang_startup_s=2
@@ -342,7 +342,7 @@ try {
         Assert-True (@(Get-ChildItem $dir -Filter '*proxy.log').Count -eq 1) 'the proxy log was archived'
         Assert-True (Test-Path -LiteralPath (Join-Path $dir 'game.lock')) 'the lock was archived'
         Assert-Match (Get-Log) 'HANG: FakeNapoleon.exe' 'logged'
-        $st = Get-St; Assert-True ([bool]$st.last_hang.killed) 'status.last_hang.killed'
+        Wait-Until { $x = Get-St; $x -and $x.last_hang -and [bool]$x.last_hang.killed } 15 'status.last_hang.killed' | Out-Null
         Assert-True ((Fake-Procs).Count -eq 0) 'process gone'
         Clear-Lock
     }
