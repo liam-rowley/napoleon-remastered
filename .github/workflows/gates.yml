@@ -1,0 +1,25 @@
+# purpose: CI gates on every push and pull request: the full warscape-core `wsc gates` set for this repo.
+# usage: runs on GitHub Actions; locally: python3 core/wsc.py gates
+# when: automatic; require the "gates" check in branch protection for main.
+# not-a-verb: GitHub runs workflows by file; this one only calls `wsc gates`.
+# The core is a private submodule: WARSCAPE_CORE_TOKEN (fine-grained, Contents read on warscape-core and this repo) lets checkout fetch it.
+name: gates
+on: [push, pull_request]
+permissions:
+  contents: read
+concurrency:
+  group: gates-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+          token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python core/wsc.py gates

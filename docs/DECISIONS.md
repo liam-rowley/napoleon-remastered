@@ -24,3 +24,4 @@ the one it replaces. Detail lives in the doc that owns the topic, never here.
 | D17 | 2026-10-28 | Liam | One review page for all UI screens (screen list with statuses, the player, fixture and scale pickers, comments tagged by screen). | yes |
 | D18 | 2026-10-28 | Liam | Shared core repo is `liam-rowley/warscape-core` (private). | yes |
 | D19 | 2026-10-28 | Liam | UI scale model: dp ratio = (height / 1080) × slider; slider 85-125 % in 5 % steps, default 100 %; minimum text 14 dp; UI art mastered at 2.5× the 1080p reference with mipmaps (`docs/plans/UI_PIPELINE.md` section 2.5). | yes |
+| D20 | 2026-10-28 | Liam | The core is a git submodule at `core/` pinned to a release tag (v0.1.0 first), repeated in `wsc.toml`; CI reads it with the `WARSCAPE_CORE_TOKEN` secret (`core/docs/CONSUMING.md`). | yes |

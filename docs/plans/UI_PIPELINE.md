@@ -1,4 +1,4 @@
-# UI pipeline: from concept to verified in game
+# UI pipeline: from concept to proven in game
 
 Draft 2026-10-28, for Liam's review. Rests on D5-D9 (`docs/DECISIONS.md`): every screen is RmlUi, own design language, a scale
 slider, Liam reviews by playing designs, agents own the source.
@@ -61,7 +61,7 @@ Statuses in the `ui_elements` registry; the review page's titles are generated f
 | `contract` | **data contract:** model schema with a source per field (getter, db or loc); fixtures captured from the live game (normal cases plus edges: empty lists, longest names, maximum values, negatives); every vanilla interaction marked kept, changed or dropped, with a reason; states; engine questions answered by probe | every field sourced and present in a fixture; every interaction classified; no `open` item in `engine_facts` for this screen |
 | `design` | optional free concept sketch (only for genuinely new layouts; never translated), then RML and RCSS assembled from library components, bound to the contract's model, with the view logic in Lua | lint (tokens only, library classes or the screen's prefix, `dp` only, minimum text size, contrast); every fixture renders at slider 1.0, 1.5 and 2.0 with no overflow or clipping (detected by the renderer, not by eye); every kept or changed interaction bound |
 | `locked` | Liam plays it in the viewer and locks it | **Liam** |
-| `built` | the Lua feeder maps the contract to engine getters and actions; host tests against the stubs; deterministic pack; sha-checked install | host tests green; pack sha recorded; install verified |
+| `built` | the Lua feeder maps the contract to engine getters and actions; host tests against the stubs; deterministic pack; sha-checked install | host tests green; pack sha recorded; installed sha matches |
 | `verified` | the harness opens the screen in game, takes a shot **and captures the live model data at the same moment**; the viewer renders that same data; the images are diffed; every interaction in the contract is walked | diff under the calibrated threshold; interaction walk passes; log clean; frame cost within the UI budget; checker is not the builder |
 
 **Library and token changes:** any change re-renders every screen's fixtures and reports which screens changed. A locked screen

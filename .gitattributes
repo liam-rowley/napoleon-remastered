@@ -26,3 +26,7 @@
 *.obj                   binary
 *.wasm                  binary
 *.sqlite                binary
+
+# Registries (warscape-core C7): JSONL merges by union (a kept duplicate id then fails `wsc reg check`); views are generated.
+registries/*.jsonl      merge=union
+registries/*.md         linguist-generated=true

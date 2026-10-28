@@ -1,0 +1,25 @@
+# wsc.toml: what napoleon-remastered declares to the warscape-core CLI. Run from the repo root: python3 core/wsc.py <verb>
+# Any key not set here takes the core's default (core/warscape/repo.py DEFAULTS); how to pin and upgrade: core/docs/CONSUMING.md.
+registries_dir = "registries"
+
+[registries]
+tools = "core:tools"
+scenarios = "core:scenarios"
+assets = "core:assets"
+ui_elements = "core:ui_elements"
+engine_sites = "core:engine_sites"
+config_keys = "core:config_keys"
+hotkeys = "core:hotkeys"
+engine_facts = "core:engine_facts"
+
+[core]
+version = "v0.1.0"
+
+[tools]
+exempt = ["tests/**", "**/runs/**"]
+
+[docs]
+max_kb = 30
+
+[cli]
+verb_dirs = []        # game-specific verbs go here, e.g. ["adapter/verbs"] (same contract as core/warscape/verbs/)

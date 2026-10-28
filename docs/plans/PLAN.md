@@ -43,7 +43,7 @@ agent may need to load. Most harness learnings are workarounds every agent must 
    | scenarios | kind (land, siege, naval, campaign, historical), map, pinned time of day and weather, armies or save, camera poses by id, launch recipe, measured load time, good for |
    | assets | pack, path, format, size, hash, role, used by (screen, element), upscale method and status |
    | ui_elements | screen, vanilla source (layout, script), data fields with sources, interactions, **status** (UI_PIPELINE section 3), review link |
-   | engine_sites | purpose, RVA, anchor bytes, stock bytes, patch or hook, config key, verified (date, run) |
+   | engine_sites | purpose, RVA, anchor bytes, stock bytes, patch or hook, config key, `verified` (date, run) |
    | config_keys | default, release value, owner, what it does |
    | hotkeys | binding, action, context, source (vanilla key file or mod): a gate fails on any clash |
    | engine_facts | claim, evidence (run id), date, state (`verified`, `open`, `refuted`): replaces prose engine learnings and VERIFY lists |
