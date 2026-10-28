@@ -25,7 +25,7 @@
 - Windows-safe names only: no CON/PRN/AUX/NUL/COM1-9/LPT1-9, no `<>:"|?*`, no trailing dot or space, no names differing only in case.
 - Never edit generated copies: the claude.ai Project docs, review pages and anything a generator writes. Change the source and regenerate.
 
-## Usage (carried from Empire; Liam to confirm for Napoleon)
+## Usage (D15)
 Sonnet medium by default; Opus only with a reason in the brief (reverse engineering, shaders, DLL, crashes, independent checks);
 at most 2 agents at once; every job brief states a call budget and a kill criterion; waiting and polling belong to the harness, not
 to an agent making repeated calls.

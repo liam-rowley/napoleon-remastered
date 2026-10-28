@@ -18,3 +18,8 @@ the one it replaces. Detail lives in the doc that owns the topic, never here.
 | D11 | 2026-10-28 | Liam | **One game at a time:** Napoleon and Empire work never run in parallel (one PC, one game lock, one usage budget). | yes |
 | D12 | 2026-10-28 | Liam | Shadows: higher resolution **and cascaded**, to remove the slicing artefacts and the blob shadows. | yes |
 | D13 | 2026-10-23 | Liam | NVIDIA only (decided on Empire for both games, `empire-remastered/docs/plans/PIPELINE_V2.md` section 1). | yes |
+| D14 | 2026-10-28 | Liam | **Scope is D1 and nothing else**: everything not named there is out of scope. Keep it tight and release fast-ish. | no |
+| D15 | 2026-10-28 | Liam | Empire's usage rules apply (Sonnet medium default, Opus only with a stated reason, at most 2 agents, a call budget and kill criterion per job, no polling by agents). | yes |
+| D16 | 2026-10-28 | Liam | No Empire-style orchestrator lease and hand-kept state file: live state is a job queue file plus a status page generated from it and the registries. | yes |
+| D17 | 2026-10-28 | Liam | One review page for all UI screens (screen list with statuses, the player, fixture and scale pickers, comments tagged by screen). | yes |
+| D18 | 2026-10-28 | Liam | Shared core repo is `liam-rowley/warscape-core` (private). | yes |

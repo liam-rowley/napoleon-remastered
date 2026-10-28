@@ -16,6 +16,6 @@ folder are generated from it or deployed from it, never edited.
 | `docs/plans/UI_PIPELINE.md` | How a UI screen goes from concept to verified in game. |
 
 ## Related repos
-- Shared core (harness, registries, CLI, review viewer, game-agnostic tools): not created yet (`docs/plans/PLAN.md` section 4).
+- `liam-rowley/warscape-core` (private): the shared core (harness, registries, CLI, review viewer, game-agnostic tools); split in `docs/plans/PLAN.md` section 4.
 - `liam-rowley/empire-remastered`: the first game. Its learnings and `docs/plans/PIPELINE_V2.md` are this plan's evidence base.
   Empire is not modified by Napoleon work; it moves onto the shared core later, at a quiet time.

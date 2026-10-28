@@ -21,10 +21,11 @@ Vanilla install, no saves yet. The key file (`custom_keys.keys.xml`) binds Alt+1
 
 ## 2. Scope
 
-**Out of scope unless Liam adds them (proposed; confirm):** lighting or shader remaster beyond what the shadow work needs, PBR or
-texture remaster beyond UI art, upscalers (FSR, DLSS) and the 64-bit bridge, AMD and Intel GPUs (D13), languages other than English,
-compatibility with overhaul mods, multiplayer-specific work. Empire's scope grew piece by piece; anything new enters through a
-dated decision with its own kill criterion.
+**Section 1 is the whole scope (D14); everything else is out.** The aim is a tight scope and a fast-ish release. For the avoidance
+of doubt, out includes: lighting or shader remaster beyond what the shadow work needs, PBR or texture remaster beyond UI art,
+upscalers (FSR, DLSS) and the 64-bit bridge, AMD and Intel GPUs (D13), languages other than English, compatibility with overhaul
+mods, multiplayer-specific work. Empire's scope grew piece by piece; anything new enters only through a dated decision with its own
+kill criterion.
 
 ## 3. How the pipeline changes from Empire
 
@@ -52,12 +53,14 @@ agent may need to load. Most harness learnings are workarounds every agent must 
 4. **Doc budget enforced.** A gate fails any living doc over a size cap (proposal: 30 KB) and any undated "verified".
 5. **Gates from the first commit.** CI on every push (registries `check`, schemas, strict JSON, Windows paths, doc budget, host
    tests); a pre-push hook for the fast set; PC jobs verify against a baseline file.
-6. **Live state stays small.** Empire's `ORCHESTRATOR.md` reached 86 KB. Proposal: live state is a short generated status page
-   (from the registries and the job queue) plus a job queue file; history goes to dated reports, never into the state file.
+6. **Live state stays small (D16).** Empire's `ORCHESTRATOR.md` reached 86 KB of hand-kept prose. Here live state is a job queue
+   file (one entry per job: brief, model, budget, PC needed, status, report link) plus a status page generated from it and the
+   registries (what is waiting for Liam, PC state, what ran, usage this week). A dispatching chat reads and writes the queue; nobody
+   hand-maintains a state document. History goes to dated reports.
 
 ## 4. Shared core (D10)
 
-A separate repo that Napoleon pins by version. Liam creates it (sessions cannot create repos); proposed name `warscape-core`.
+A separate private repo, `liam-rowley/warscape-core` (D18), that Napoleon pins by version.
 Empire is not touched until a quiet time, when it moves onto the core.
 
 | Core (shared) | Per-game adapter (here) |
@@ -145,7 +148,4 @@ OFL, …); versioned releases with generated release notes.
 
 ## 6. Open questions for Liam
 
-1. Shared core: name (`warscape-core`?) and visibility. It needs creating before phase 1 starts.
-2. Confirm the out-of-scope list (section 2) and the usage rules carried from Empire (`CLAUDE.md`).
-3. Live state: the small generated status page plus a job queue (section 3.6), or Empire's orchestrator-and-lease model?
-4. Doc size cap: 30 KB, or another number?
+1. Doc size cap: 30 KB per living doc (dated records exempt), or another number?
