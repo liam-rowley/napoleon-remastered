@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Kit, install, uninstall and check the proxy on the PC with sha-checked copies and a byte-exact uninstall.
 
-purpose: build a proxy kit (built DLL, default config, pinned DXVK; manifest with sha256 and unique staged names), install it into the game folder with sha-checked copies, uninstall it back to the pre-install snapshot, edit the installed config, snapshot and diff a game folder
-usage: pc_deploy.py kit [--out DIR] | snapshot --game G --out F | install --kit DIR --game G --state S [--assume-closed] | uninstall --game G --state S [--assume-closed] | set --game G key=value... | status --game G --state S | diff A B
-when: every time built proxy files go to the PC or come off it (never copy them by hand); `kit` in the cloud, the rest on the PC's device VM (python3, the game folder mounted) or on Windows
+purpose: build a proxy kit (built DLL, default config, pinned DXVK) or a harness kit (the watcher, its adapter and profiles; manifest with sha256 and unique staged names), install the proxy into the game folder with sha-checked copies, uninstall it back to the pre-install snapshot, edit the installed config, snapshot and diff a game folder
+usage: pc_deploy.py kit [--what proxy|harness] [--out DIR] | snapshot --game G --out F | install --kit DIR --game G --state S [--assume-closed] | uninstall --game G --state S [--assume-closed] | set --game G key=value... | status --game G --state S | diff A B
+when: every time built proxy or harness files go to the PC or come off it (never copy them by hand); `kit` in the cloud, the rest on the PC's device VM (python3, the game folder mounted) or on Windows; install/uninstall ask the running watcher (<state>/watcher/watcher.status) whether a game of either title is running
 not-a-verb: it runs on the PC's device VM, which has no repo checkout or core submodule (copy this one file there with the kit); stdlib only
 """
 import argparse
@@ -11,6 +11,7 @@ import datetime
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -70,7 +71,7 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None):
         (kdir / staged).write_bytes(b)
         entries.append({'path': dest, 'staged': staged, 'sha256': h, 'size': len(b), 'role': role})
     man = {'kit_id': kit_id, 'build_id': build_id, 'created_utc': utc_stamp(), 'game': ident['game'], 'exe_name': ident['exe_name'],
-           'mod_dir': mod, 'config_file': ini, 'owned': ['d3d9.dll', ini, mod + '/'], 'files': entries}
+           'other_exes': ident.get('other_exes', ['Empire.exe']), 'mod_dir': mod, 'config_file': ini, 'owned': ['d3d9.dll', ini, mod + '/'], 'files': entries}
     (kdir / 'manifest.json').write_text(json.dumps(man, indent=2) + '\n', encoding='utf-8')
     shutil.copy2(__file__, kdir / 'pc_deploy.py')
     print(f'pc_deploy kit: {kdir} ({len(entries)} files)')
@@ -92,6 +93,86 @@ def verify_kit(kdir):
             bad.append(f"{e['path']}: not a relative path inside the game folder")
         if not any(e['path'] == o or (o.endswith('/') and e['path'].startswith(o)) for o in man['owned']):
             bad.append(f"{e['path']}: outside the paths the kit owns")
+    return man, bad
+
+
+# ---- harness kit (cloud): the watcher and what it needs on the PC ------------------------------------------------------------
+HARNESS_SRC = ['watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1']
+HARNESS_KIT_FILES = ['install.ps1', 'Install watcher.cmd', 'Uninstall watcher.cmd', 'job.sh']   # real names at the top of the kit folder
+WIN_TEXT = ('.ps1', '.cmd', '.bat')
+
+
+def norm_for_pc(name, b):
+    """Windows scripts reach the PC with CRLF whatever the checkout had (a LF-only .cmd can break goto/labels), and as ASCII: Windows
+    PowerShell 5.1 reads a script without a BOM as ANSI, so a non-ASCII byte silently becomes another character."""
+    if name.lower().endswith(WIN_TEXT):
+        try:
+            b.decode('ascii')
+        except UnicodeDecodeError as e:
+            raise SystemExit(f'pc_deploy kit: {name} contains a non-ASCII byte at {e.start}: Windows PowerShell 5.1 would misread it; keep PC scripts ASCII')
+        b = b.replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
+    return b
+
+
+def build_harness_kit(out, adapter='napoleon', build_id=None):
+    """Kit folder for the watcher: manifest.json (kind harness) + payload files stored FLAT under unique names (<sha12>__<path>) whose
+    paths are relative to the watcher root (src/..., profiles/...), + the installer and job.sh under their real names (kit_files, sha256 in
+    the manifest), + pc_deploy.py. Every kit has a new id; install.ps1 and update.ps1 check every sha256 before anything is written."""
+    hdir = ROOT / 'harness'
+    adir = hdir / adapter
+    ad = json.loads((adir / 'adapter.json').read_text(encoding='utf-8'))
+    files = [(hdir / 'core' / n, 'src/' + n, 'watcher') for n in HARNESS_SRC] + [(adir / 'adapter.json', 'src/adapter.json', 'adapter')]
+    for p in sorted((adir / 'profiles').rglob('*')):
+        if p.is_file():
+            files.append((p, 'profiles/' + p.relative_to(adir / 'profiles').as_posix(), 'profile'))
+    if build_id is None:
+        try:
+            build_id = subprocess.run(['git', '-C', str(ROOT), 'rev-parse', '--short=12', 'HEAD'], capture_output=True, text=True).stdout.strip() or 'nogit'
+        except OSError:
+            build_id = 'nogit'
+    kit_id = f'harness_{utc_stamp()}_{build_id}'
+    kdir = Path(out) / kit_id
+    kdir.mkdir(parents=True)
+    entries = []
+    for src, dest, role in files:
+        b = norm_for_pc(src.name, Path(src).read_bytes())
+        h = hashlib.sha256(b).hexdigest()
+        staged = f'{h[:12]}__{dest.replace("/", "__")}'
+        (kdir / staged).write_bytes(b)
+        entries.append({'path': dest, 'staged': staged, 'sha256': h, 'size': len(b), 'role': role})
+    kit_files = []
+    for n in HARNESS_KIT_FILES + ['adapter.json']:
+        src = adir / 'adapter.json' if n == 'adapter.json' else hdir / 'core' / n
+        b = norm_for_pc(n, src.read_bytes())
+        (kdir / n).write_bytes(b)
+        kit_files.append({'name': n, 'sha256': hashlib.sha256(b).hexdigest()})
+    m = re.search(r"\$Version\s*=\s*'([^']+)'", (hdir / 'core' / 'watcher.ps1').read_text(encoding='ascii'))
+    wroot = ad['state_dir'].rstrip('\\') + '\\' + ad['watcher_subdir']
+    man = {'kind': 'harness', 'kit_id': kit_id, 'build_id': build_id, 'created_utc': utc_stamp(), 'game': ad['game'],
+           'watcher_version': m.group(1) if m else None, 'watcher_root': wroot, 'task_name': ad['task_name'], 'files': entries, 'kit_files': kit_files}
+    (kdir / 'manifest.json').write_text(json.dumps(man, indent=2) + '\n', encoding='utf-8')
+    shutil.copy2(__file__, kdir / 'pc_deploy.py')
+    print(f'pc_deploy kit: {kdir} ({len(entries)} files + {len(kit_files)} kit files; watcher {man["watcher_version"]})')
+    return kdir
+
+
+def verify_harness_kit(kdir):
+    """Same stale-resend guard as verify_kit, for a harness kit. Returns (manifest, problems)."""
+    kdir = Path(kdir)
+    man = json.loads((kdir / 'manifest.json').read_text(encoding='utf-8'))
+    bad = []
+    if man.get('kind') != 'harness':
+        bad.append('not a harness kit')
+    for e in man['files']:
+        p = kdir / e['staged']
+        if not p.exists() or p.stat().st_size != e['size'] or sha256_file(p) != e['sha256']:
+            bad.append(f"{e['staged']}: missing or sha256 differs from the manifest (stale or partial copy: re-send under a new name)")
+        if '..' in e['path'].split('/') or e['path'].startswith('/') or e['path'].split('/')[0] not in ('src', 'profiles'):
+            bad.append(f"{e['path']}: outside src/ and profiles/")
+    for k in man['kit_files']:
+        p = kdir / k['name']
+        if not p.exists() or sha256_file(p) != k['sha256']:
+            bad.append(f"{k['name']}: missing or sha256 differs from the manifest")
     return man, bad
 
 
@@ -130,13 +211,46 @@ def diff_snapshots(a, b):
 
 
 # ---- game-closed check ------------------------------------------------------------------------------------------------------------
-def running_check(game, mod_dir, exe_name, now=None):
-    """'' when the game looks closed, else why not. Windows: tasklist. Device VM (no process list): the proxy's own log - a launch
-    whose log has no final 'process detach' line and was written in the last 10 minutes is taken as running."""
+def watcher_view(state, now=None):
+    """The watcher's own view of the PC's processes: ('', None) when no watcher was ever installed under <state>/watcher, else
+    (why-not-usable, status dict). A watcher whose heartbeat (watcher.alive mtime) is older than 30 s cannot vouch for anything."""
+    if state is None:
+        return '', None
+    wdir = Path(state) / 'watcher'
+    if not (wdir / 'watcher.status').exists() and not (wdir / 'watcher.alive').exists():
+        return '', None
+    try:
+        age = (now or time.time()) - (wdir / 'watcher.alive').stat().st_mtime
+    except OSError:
+        return 'the watcher folder exists but has no heartbeat (watcher.alive): the watcher cannot tell whether a game is running', None
+    if age > 30:
+        return f'the watcher heartbeat is {int(age)} s old (watcher not running): it cannot tell whether a game is running', None
+    for _ in range(8):   # watcher.status is replaced every 2 s: a read can hit the swap
+        try:
+            return '', json.loads((wdir / 'watcher.status').read_bytes().decode('utf-8'))
+        except (OSError, ValueError):
+            time.sleep(0.1)
+    return 'watcher.status could not be read', None
+
+
+def running_check(game, mod_dir, exe_name, now=None, state=None, other_exes=()):
+    """'' when no game looks open, else why not. With a watcher installed (<state>/watcher) its process list is authoritative for BOTH
+    titles (the device VM cannot see Windows processes). Without one: on Windows tasklist; on the device VM the proxy's own log - a launch
+    whose log has no final 'process detach' line and was written in the last 10 minutes is taken as running (a vanilla game is invisible
+    to that, which is why the first install should happen with the watcher running)."""
+    why, st = watcher_view(state, now)
+    if why:
+        return why
+    if st is not None:
+        titles = {x.lower() for x in [exe_name, *other_exes]}
+        hits = [p for p in st.get('processes', []) if str(p.get('image', '')).lower() in titles]
+        return ('watcher process list: ' + ', '.join(f"{p['image']} (pid {p['pid']})" for p in hits) + ' is running') if hits else ''
     if os.name == 'nt':
         try:
-            r = subprocess.run(['tasklist', '/FI', f'IMAGENAME eq {exe_name}', '/NH'], capture_output=True, text=True, timeout=30)
-            return f'{exe_name} is running' if exe_name.lower() in r.stdout.lower() else ''
+            r = subprocess.run(['tasklist', '/NH'], capture_output=True, text=True, timeout=30)
+            out = r.stdout.lower()
+            hit = [x for x in [exe_name, *other_exes] if x.lower() in out]
+            return f"{', '.join(hit)} is running" if hit else ''
         except (OSError, subprocess.SubprocessError):
             return 'tasklist failed: cannot tell whether the game is running'
     log = Path(game) / mod_dir / 'logs' / 'proxy.log'
@@ -150,8 +264,8 @@ def running_check(game, mod_dir, exe_name, now=None):
     return ''
 
 
-def require_closed(game, man, assume):
-    why = running_check(game, man['mod_dir'], man['exe_name'])
+def require_closed(game, man, assume, state=None):
+    why = running_check(game, man['mod_dir'], man['exe_name'], state=state, other_exes=man.get('other_exes', ['Empire.exe']))
     if why and not assume:
         raise SystemExit(f'pc_deploy: refusing: {why}. Close the game first (or pass --assume-closed once Liam has confirmed it is closed).')
     if why:
@@ -196,7 +310,7 @@ def install(kit, game, state, assume_closed=False):
         raise SystemExit('pc_deploy install: kit does not verify, nothing installed:\n  ' + '\n  '.join(bad))
     if not (game / man['exe_name']).exists():
         raise SystemExit(f"pc_deploy install: {game / man['exe_name']} not found: wrong game folder")
-    require_closed(game, man, assume_closed)
+    require_closed(game, man, assume_closed, state)
     state.mkdir(parents=True, exist_ok=True)
     stamp = utc_stamp()
     rec_path = state / STATE_FILE
@@ -210,7 +324,7 @@ def install(kit, game, state, assume_closed=False):
         pre_path.write_text(json.dumps(pre), encoding='utf-8')
         rec = {'pre_snapshot': str(pre_path.relative_to(state)), 'backups': [], 'history': [], 'kit_id': None, 'build_id': None,
                'installed_utc': None, 'files': []}
-        rec.update({'owned': man['owned'], 'mod_dir': man['mod_dir'], 'exe_name': man['exe_name'], 'config_file': man['config_file']})
+        rec.update({'owned': man['owned'], 'mod_dir': man['mod_dir'], 'exe_name': man['exe_name'], 'config_file': man['config_file'], 'other_exes': man.get('other_exes', ['Empire.exe'])})
         save()
         # anything already at a path the kit owns is foreign (not ours): back it up for the uninstall to restore
         for o in man['owned']:
@@ -251,7 +365,7 @@ def uninstall(game, state, assume_closed=False):
     if not rec_path.exists():
         raise SystemExit(f'pc_deploy uninstall: no {STATE_FILE} in {state}: nothing installed by this tool')
     rec = json.loads(rec_path.read_text(encoding='utf-8'))
-    require_closed(game, rec, assume_closed)
+    require_closed(game, rec, assume_closed, state)
     stamp = utc_stamp()
     for o in rec['owned']:   # the whole owned set, including what the DLL wrote at runtime (logs, dumps, DXVK caches, the notice)
         p = game / o.rstrip('/')
@@ -365,7 +479,7 @@ def status(game, state):
 def main():
     ap = argparse.ArgumentParser(description='proxy kit, install, uninstall')
     sub = ap.add_subparsers(dest='cmd', required=True)
-    k = sub.add_parser('kit'); k.add_argument('--out', default=str(ROOT / 'build' / 'kits')); k.add_argument('--adapter', default='napoleon'); k.add_argument('--dll')
+    k = sub.add_parser('kit'); k.add_argument('--out', default=str(ROOT / 'build' / 'kits')); k.add_argument('--adapter', default='napoleon'); k.add_argument('--dll'); k.add_argument('--what', choices=['proxy', 'harness'], default='proxy')
     s = sub.add_parser('snapshot'); s.add_argument('--game', required=True); s.add_argument('--out', required=True)
     i = sub.add_parser('install'); i.add_argument('--kit', required=True); i.add_argument('--game', required=True); i.add_argument('--state', required=True); i.add_argument('--assume-closed', action='store_true')
     u = sub.add_parser('uninstall'); u.add_argument('--game', required=True); u.add_argument('--state', required=True); u.add_argument('--assume-closed', action='store_true')
@@ -374,7 +488,10 @@ def main():
     d = sub.add_parser('diff'); d.add_argument('a'); d.add_argument('b')
     a = ap.parse_args()
     if a.cmd == 'kit':
-        build_kit(a.out, a.adapter, a.dll)
+        if a.what == 'harness':
+            build_harness_kit(a.out, a.adapter)
+        else:
+            build_kit(a.out, a.adapter, a.dll)
     elif a.cmd == 'snapshot':
         snap = snapshot(a.game)
         Path(a.out).write_text(json.dumps(snap), encoding='utf-8')

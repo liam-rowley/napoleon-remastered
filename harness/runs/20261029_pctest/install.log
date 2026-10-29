@@ -1,0 +1,5 @@
+[2026-10-28T23:07:43Z] 14 files installed under C:\napoleon_remastered_pc\watcher (sha256 verified), kit harness_20261028T230555Z_8421be73be1c, watcher 1.0.0
+[2026-10-28T23:07:44Z] task: 'napoleon_remastered watcher' state=Ready trigger=AtLogOn user=OFFICEPC\liamr action=C:\WINDOWS\system32\cmd.exe /c start "napoleon_remastered watcher" /min "C:\napoleon_remastered_pc\watcher\src\watch.cmd"
+[2026-10-28T23:07:44Z] started the launcher (pid 26440, rc 0)
+[2026-10-28T23:07:46Z] watcher 1.0.0 is running (pid 28880, 5.1.26100.9711)
+[2026-10-28T23:07:46Z] installed: watcher root C:\napoleon_remastered_pc\watcher, task 'napoleon_remastered watcher'

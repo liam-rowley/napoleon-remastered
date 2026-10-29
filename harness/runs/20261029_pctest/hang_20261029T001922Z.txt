@@ -1,0 +1,11 @@
+hang detected 2026-10-29T00:19:22Z by watcher 1.0.0: pid 24052 started 2026-10-29T00:15:42Z, no CPU-time progress for 31 s and no heartbeat-file write for 220 s (limit 30), window=not_responding
+game.lock: owner=j2agent purpose=J2 hang test age=220s
+minidump: Napoleon.exe.24052.dmp (25561966 bytes)
+tasklist before kill:
+
+Image Name                     PID Session Name        Session#    Mem Usage Status          User Name                                              CPU Time Window Title                                                            
+========================= ======== ================ =========== ============ =============== ================================================== ============ ========================================================================
+Napoleon.exe                 24052 Console                    1    474,044 K Not Responding  OFFICEPC\liamr                                          0:03:11 Total War: NAPOLEON                                                     
+
+taskkill /F /T /PID 24052 (Napoleon): SUCCESS: The process with PID 24052 (child process of PID 3784) has been terminated.
+killed: Napoleon 24052

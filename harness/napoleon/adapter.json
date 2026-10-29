@@ -1,0 +1,36 @@
+{
+  "game": "napoleon",
+  "title": "Napoleon: Total War",
+  "state_dir": "C:\\napoleon_remastered_pc",
+  "watcher_subdir": "watcher",
+  "device_mount": "napoleon_remastered_pc",
+  "task_name": "napoleon_remastered watcher",
+  "game_dir": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War",
+  "appdata_dir": "%APPDATA%\\The Creative Assembly\\Napoleon",
+  "game_image": "Napoleon.exe",
+  "other_images": ["Empire.exe"],
+  "launch": {
+    "route": "exe",
+    "exe": "Napoleon.exe",
+    "args": "",
+    "steam_uri": "steam://rungameid/34030",
+    "steam_wait_s": 90
+  },
+  "heartbeat_files": ["napoleon_remastered\\logs\\proxy.log"],
+  "archive": {
+    "dirs_log": ["napoleon_remastered\\logs", "napoleon_remastered\\dxvk"],
+    "dirs_dump": ["napoleon_remastered\\dumps"],
+    "files": ["napoleon_remastered.ini", "dxvk.conf"]
+  },
+  "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
+  "config_files": [
+    {"id": "prefs", "anchor": "appdata", "path": "scripts\\preferences.script.txt", "style": "none",
+     "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); no overlay style for that yet, so profiles ship a full copy"},
+    {"id": "keys", "anchor": "appdata", "path": "custom_keys.keys.xml", "style": "none",
+     "note": "key bindings (XML); full copy only"},
+    {"id": "mod_ini", "anchor": "game", "path": "napoleon_remastered.ini", "style": "ini",
+     "note": "the proxy's config; present only while the proxy is installed (absent is a recorded state)"},
+    {"id": "dxvk_conf", "anchor": "game", "path": "dxvk.conf", "style": "conf",
+     "note": "DXVK options; present only when a profile or the proxy installs it (absent is a recorded state)"}
+  ]
+}

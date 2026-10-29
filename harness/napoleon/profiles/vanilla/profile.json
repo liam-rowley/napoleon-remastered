@@ -1,0 +1,5 @@
+{
+  "description": "no mod config files: napoleon_remastered.ini and dxvk.conf absent, the game's own files untouched (a control for A/B runs)",
+  "requires": [],
+  "warn_missing": []
+}

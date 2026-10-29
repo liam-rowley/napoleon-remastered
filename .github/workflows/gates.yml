@@ -51,6 +51,27 @@ jobs:
           path: build/proxy/napoleon/d3d9.dll
           if-no-files-found: error
 
+  # harness-windows: the J2 watcher, lock, profiles, hang watchdog, updater and installer on GitHub's Windows runner under
+  # Windows PowerShell 5.1 (shell: powershell), the same PowerShell the PC runs. Fake games are compiled on the runner.
+  harness-windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: PowerShell version
+        shell: powershell
+        run: $PSVersionTable.PSVersion.ToString()
+      - name: harness host tests (unit and integration)
+        # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept
+        timeout-minutes: 18
+        shell: powershell
+        run: ./harness/tests/Run-HostTests.ps1 -Suite all
+
   policy:
     # Every pull request must be a reviewed job, a brief, a planning change or an infrastructure change (D21, tools/pr_policy.py).
     if: github.event_name == 'pull_request'

@@ -1,0 +1,7 @@
+[2026-10-29T00:25:28Z] [update] begin (pid 8420): kit C:\napoleon_remastered_pc\kits\harness_20261029T002600Z_j2badwatcher2, noop window 60 s, healthy window 90 s, stable window 30 s
+[2026-10-29T00:25:28Z] [update] live watcher 1.0.0 pid 27596; kit harness_20261029T002600Z_j2badwatcher2 carries watcher 1.0.0
+[2026-10-29T00:25:28Z] [update] backup: C:\napoleon_remastered_pc\watcher\backup\20261029T002528Z (14 files)
+[2026-10-29T00:25:28Z] [update] 1 file(s) replaced
+[2026-10-29T00:26:59Z] [update] REVERTING to the backed-up files: watcher 1.0.0 not healthy within 90 s
+[2026-10-29T00:26:59Z] [update] files restored byte-exact from the backup (sha256 verified)
+[2026-10-29T00:27:00Z] [update] REVERTED: watcher 1.0.0 pid 18388 is healthy on the old files
