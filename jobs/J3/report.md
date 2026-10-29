@@ -57,6 +57,17 @@ from process start, warm reset into the same battle under 20 s (the reset loop's
    your PC (it did not exist). It is now in the adapter's `config_files`; profiles restore it from the next watcher update on.
 4. One watcher kill took 200 s (fact `napoleon.harness.kill_slow_once`); worth watching in J13/J4.
 
+## Liam's answers (2026-10-29) and the next chat's start
+
+1. Yes, in a new chat: "pick up the next job" finds this branch's row still `queued` with a remote `job/J3` branch, so the next chat
+   continues J3 here (fresh call budget) instead of taking J5. 2. D26 and D27 accepted (D28). 3. The battle prefs file is fine.
+
+Start of the next sitting, in order: kit and install the head build (it has the 8 s battle settle and the reset JSON fix), then
+ask Liam before launching; 10 resets in a row (`resets.sh`-style loop through `job.sh ctl`, 5 per device call); the 5-launch arms
+(`dev.timeline=1` with and without `dev.skip_intro`, each into the front end and `battle:land_small`); naval and siege presets;
+campaign targets (the campaign root's update callback is unproven); driver cache cold/warm; profile restore of the settings files
+after battles; uninstall byte-identical; then the scenarios rows, the final report and `status=review`.
+
 ## What moves to the core in J12
 
 `proxy/core/{hooks,files,dev,luabridge}.cpp`, `dev.h`, `devcore.h`, `filerules.h`, `pack.h`, `tests/test_dev.cpp`, `tools/fetch_lua.py`,
