@@ -1,0 +1,19 @@
+{
+ "note": "J6 carry-over verdict per Empire tool family (as-is | adapter (what) | rewrite (why)); evidence is the area's diff file. Rendered at the top of discovery/diff/README.md by `wsc discovery render`.",
+ "families": [
+  {"family": "pack index reader (pack_list.py; Empire assets/extract/pack_entries.tsv)", "verdict": "as-is", "area": "packs",
+   "note": "same PFH0 header and index; only the pack names and the pack holding each content kind differ (map by kind, not by name)"},
+  {"family": "layout codec (ui_scale_mod/tools/uic.py)", "verdict": "adapter (Version039: state_ref, animation list, longer transitions)", "area": "layouts",
+   "note": "V028-V033 round-trip unchanged; V039 is 136 of 174 Napoleon layouts, 45 round-trip after the J6 additions"},
+  {"family": "uied.templates splitter (ui_scale_mod/tools/tpl.py)", "verdict": "adapter (record versions v35 and v39)", "area": "layouts",
+   "note": "container and v9-v33 records unchanged"},
+  {"family": "bitmap fonts (ui_scale_mod/tools/cuf.py)", "verdict": "as-is", "area": "fonts",
+   "note": "all 74 files round-trip; 73 byte-identical to Empire's, editor_13 new; same name-to-file rule"},
+  {"family": "Lua API inventory (ui_scale_mod/tools/api_inventory.py, luachunk.py; rml_mod/docs/engine_api.json)", "verdict": "as-is", "area": "lua_api",
+   "note": "parses all 497 Napoleon UI scripts; the API itself differs (see lua_api rows)"},
+  {"family": "effect sources (data fx\\*.fx; gfx_mod shader catalogue)", "verdict": "adapter (per-file: 61 of 136 changed)", "area": "shaders",
+   "note": "same HLSL effect layout; the runtime catalogue by hash must be rebuilt for Napoleon (J8)"},
+  {"family": "exe sites (rml_mod exe_guard_sites.h, data/exe_patches.json, perf_mod annotations)", "verdict": "rewrite (different build: sites move and most patch windows do not match)", "area": "exe",
+   "note": "signature hits are candidates only (J9); 6 of 23 guard sites and 2 of 26 patch sites hit uniquely"}
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "note": "Paths and quirks for the J6 Empire-to-Napoleon diff (discovery/core/*.py --games this file). Read-only inputs; extracts go under the git-ignored /extract/.",
+ "napoleon": {
+  "root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War",
+  "exe": "Napoleon.exe",
+  "data": "data",
+  "pack_order": ["boot", "data", "local_en", "local_en_patch"]
+ },
+ "empire": {
+  "root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War",
+  "exe": "Empire.exe",
+  "data": "data",
+  "mod_packs": ["art_remaster_buildings_1.pack", "art_remaster_buildings_2.pack", "art_remaster_units_diffuse_1.pack",
+                "art_remaster_units_diffuse_2.pack", "art_remaster_units_gloss.pack", "art_remaster_units_normal.pack",
+                "gfx_grass_range.pack", "ui_scale_2x.pack", "ui_scale_2x_art.pack", "ui_scale_2x_fonts.pack",
+                "ui_scale_2x_portraits.pack", "zz_rml.pack"],
+  "repo": "C:\\Users\\liamr\\repos\\empire-remastered",
+  "pack_order": ["boot", "main", "ui", "local_en", "patch", "patch2", "patch3", "patch4", "patch5", "patch_en"]
+ },
+ "extract": "extract",
+ "extract_note": "extract/<game>/<pack stem>/<entry path>, written by proxy/tools/pack_list.py --extract (see discovery/README.md); a later pack in pack_order wins"
+}
