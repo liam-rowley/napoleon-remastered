@@ -8,49 +8,49 @@ Keys only: `keys.tsv.gz` (file, key, text length, text sha1, flag, patch state).
 | text\localisation.loc | local_en_patch.pack | 1 | 33030 | 31856 / 186 / 988 | 540 | 0: 33030 |
 | text\ui.loc | local_en_patch.pack | 1 | 2820 | 2254 / 531 / 35 | 2 | 0: 2794, 1: 26 |
 
-Prefix cross-check: 31306 of 35850 keys start `<db table>_` for one of the 310 db tables (no db schema committed, so fields are not checked); 4544 keys name no db table (mostly ui.loc component strings).
+Prefix cross-check: 31306 of 35850 keys start `<db table>_` for one of the 310 db tables, 17609 of them followed by a field of that table in the schema; 4544 keys name no db table (mostly ui.loc component strings).
 
-| Table | Keys |
-|---|---|
-| names | 13945 |
-| advice_levels | 2698 |
-| ship_names | 2246 |
-| message_event_strings | 1023 |
-| random_localisation_strings | 1016 |
-| character_trait_levels | 955 |
-| unit_regiment_names | 947 |
-| diplomacy_strings | 869 |
-| names_forts | 559 |
-| ancillaries | 555 |
-| historical_characters | 505 |
-| units | 443 |
-| effects | 439 |
-| regions | 420 |
-| quotes | 413 |
-| building_description_texts | 394 |
-| campaign_map_tooltips | 391 |
-| factions | 308 |
-| battle_script_strings | 296 |
-| names_royalty | 273 |
-| building_culture_variants | 264 |
-| campaign_map_towns_and_ports | 233 |
-| technologies | 204 |
-| battles | 176 |
-| quotes_people | 170 |
-| achievements | 153 |
-| ministerial_positions | 151 |
-| campaign_map_slots | 145 |
-| unit_info_card_abilities_strings | 120 |
-| subtitles | 113 |
-| agent_culture_details | 106 |
-| unit_class | 90 |
-| slots_gdp_values | 59 |
-| movie_event_strings | 53 |
-| diplomacy_factor_strings | 50 |
-| famous_battle_pools | 49 |
-| building_chains | 47 |
-| building_faction_variants | 44 |
-| public_order_factors | 44 |
-| region_unit_resources | 37 |
+| Table | Keys | Field matched |
+|---|---|---|
+| names | 13945 | 13945 |
+| advice_levels | 2698 | 0 |
+| ship_names | 2246 | 0 |
+| message_event_strings | 1023 | 0 |
+| random_localisation_strings | 1016 | 0 |
+| character_trait_levels | 955 | 0 |
+| unit_regiment_names | 947 | 0 |
+| diplomacy_strings | 869 | 0 |
+| names_forts | 559 | 559 |
+| ancillaries | 555 | 0 |
+| historical_characters | 505 | 0 |
+| units | 443 | 442 |
+| effects | 439 | 0 |
+| regions | 420 | 159 |
+| quotes | 413 | 413 |
+| building_description_texts | 394 | 0 |
+| campaign_map_tooltips | 391 | 391 |
+| factions | 308 | 308 |
+| battle_script_strings | 296 | 296 |
+| names_royalty | 273 | 273 |
+| building_culture_variants | 264 | 0 |
+| campaign_map_towns_and_ports | 233 | 233 |
+| technologies | 204 | 0 |
+| battles | 176 | 0 |
+| quotes_people | 170 | 170 |
+| achievements | 153 | 0 |
+| ministerial_positions | 151 | 0 |
+| campaign_map_slots | 145 | 0 |
+| unit_info_card_abilities_strings | 120 | 120 |
+| subtitles | 113 | 113 |
+| agent_culture_details | 106 | 0 |
+| unit_class | 90 | 45 |
+| slots_gdp_values | 59 | 0 |
+| movie_event_strings | 53 | 0 |
+| diplomacy_factor_strings | 50 | 0 |
+| famous_battle_pools | 49 | 49 |
+| building_chains | 47 | 0 |
+| building_faction_variants | 44 | 0 |
+| public_order_factors | 44 | 0 |
+| region_unit_resources | 37 | 37 |
 
 Keys with no db table, by first token (top 60): `(empty)` 7, `Experience` 10, `Level` 15, `StatusIcon` 12, `TX` 56, `Turns` 8, `UC` 10, `advice` 36, `army` 16, `arrow` 9, `bar` 18, `battle` 20, `button` 557, `campaigns` 16, `cancel` 10, `checkbox` 13, `command` 20, `deployment` 11, `dropdown` 11, `dy` 121, `experience` 37, `faction` 8, `gov` 11, `handle` 8, `head` 22, `heading` 135, `icon` 24, `label` 170, `lower` 7, `map` 28, `message` 371, `minus` 8, `mission` 178, `mp` 9, `nav` 22, `navy` 9, `negative` 8, `offer` 7, `ok` 7, `panel` 9, `pay` 7, `pip` 7, `positive` 9, `post` 10, `public` 13, `replenish` 10, `route` 19, `shortcut` 115, `start` 710, `status` 33, `string` 16, `tab` 72, `time` 9, `title` 59, `total` 10, `turns` 10, `tx` 211, `txt` 38, `unit` 403, `upper` 7.

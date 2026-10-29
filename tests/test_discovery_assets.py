@@ -172,6 +172,15 @@ class Db(unittest.TestCase):
         self.assertEqual(d['status'], 'decoded_with_v3')
         self.assertEqual(db.table_name('db\\units_tables\\units'), 'units')
 
+    def test_keys_and_refs_inherit_from_newer_versions(self):
+        old = [{'name': 'key', 'type': 'StringU16', 'key': False}, {'name': 'cat', 'type': 'StringU16', 'key': False}]
+        new = {'version': 9, 'fields': [{'name': 'key', 'type': 'StringU8', 'key': True},
+                                        {'name': 'cat', 'type': 'StringU8', 'key': False, 'ref': {'table': 'c', 'column': 'key'}}]}
+        f = db.with_inherited(old, [{'version': 1, 'fields': old}, new])
+        self.assertEqual(f[0], {'name': 'key', 'type': 'StringU16', 'key': True, 'inherited_from': 9})
+        self.assertEqual(f[1]['ref'], {'table': 'c', 'column': 'key'})
+        self.assertEqual(f[1]['type'], 'StringU16')
+
     def test_ron_schema_conversion(self):
         ron = ('(version: 5, definitions: {"units_tables": [(version: 1, fields: [(name: "key", field_type: StringU16, is_key: true, '
                'is_reference: None), (name: "faction", field_type: StringU16, is_key: false, is_reference: Some(("factions", "key")))])]})')

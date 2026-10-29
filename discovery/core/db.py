@@ -127,6 +127,26 @@ def table_name(path):
     return folder[:-7] if folder.endswith('_tables') else folder
 
 
+def with_inherited(fields, versions):
+    """The decoded version's fields; a field the schema leaves without key or ref takes them from the newest other version
+    with a field of the same name, marked inherited_from (RPFM marks keys and refs mostly on newer versions)."""
+    out = []
+    for f in fields:
+        d = {k: f[k] for k in ('name', 'type', 'key', 'ref') if k in f}
+        if not d['key'] or 'ref' not in d:
+            for v in sorted(versions, key=lambda v: -v['version']):
+                g = next((g for g in v['fields'] if g['name'] == f['name']), None)
+                if g and ((g['key'] and not d['key']) or (g.get('ref') and 'ref' not in d)):
+                    if g['key'] and not d['key']:
+                        d['key'] = True
+                    if g.get('ref') and 'ref' not in d:
+                        d['ref'] = g['ref']
+                    d['inherited_from'] = v['version']
+                    break
+        out.append(d)
+    return out
+
+
 def load_schema(path=SCHEMA):
     try:
         d = json.load(open(path, encoding='utf-8'))
@@ -157,7 +177,7 @@ def main(argv=None):
             e.update(decoded=None, reason='no schema committed (discovery/napoleon/db_schema.json)')
         elif d['status'].startswith('decoded'):
             e.update(decoded=True, schema_version=d['schema_version'],
-                     fields=[{k: f[k] for k in ('name', 'type', 'key', 'ref') if k in f} for f in d['fields']])
+                     fields=with_inherited(d['fields'], schema.get(t + '_tables', [])))
             if d['status'] != 'decoded':
                 e['reason'] = f"file version {d['version']}, decoded with schema v{d['schema_version']}"
             with open(os.path.join(ROWS, key(c.path).replace('\\', '__') + '.json'), 'w', encoding='utf-8', newline='\n') as f:
@@ -211,7 +231,10 @@ def readme(doc):
     if ok and src:
         inb = inbound(ts)
         out += ['## Reference graph of the tables UI work reads most', '',
-                'Most referenced tables first (count of fields elsewhere that point at them), then what each one points at.', '',
+                'Most referenced tables first (count of fields elsewhere that point at them), then what each one points at. RPFM marks',
+                'keys and refs mostly on newer table versions than Napoleon ships, so a key or ref the decoded version lacks is taken from',
+                f"the newest version with that field name (`inherited_from` in `tables.json`: "
+                f"{sum(1 for t in ts for f in t.get('fields', []) if 'inherited_from' in f)} fields).", '',
                 '| Table | Referenced by (fields) | Key | Refers to |', '|---|---|---|---|']
         by = {t['name']: t for t in ts}
         pick = {t for t, _ in inb.most_common(12)} | {t for t in UI_TABLES if t in by}
