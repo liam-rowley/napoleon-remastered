@@ -21,7 +21,7 @@ const ConsoleAdapter* s_ad = nullptr;
 // our CampaignCLIs: one per campaign context seen (the engine never holds them; their ctor's name string is never freed)
 alignas(16) uint8_t s_cliBuf[8][0x80];
 int s_cliNext = 0;
-uintptr_t s_cli = 0, s_cliCamp = 0;
+uintptr_t s_cli = 0, s_cliCamp = 0, s_selVtblSeen = 0;
 // the last forward, for the verb's result
 long s_seq = 0; FwdResult s_last = FwdResult::None; std::string s_lastName, s_lastWhy; int s_hits = 0, s_forwards = 0, s_refusals = 0;
 
@@ -40,7 +40,12 @@ bool Chain(uintptr_t& camp, std::string& why) {
     if (!ReadPtr(s_ownerGlobal, owner) || !owner) { why = "owner global empty (no campaign loaded)"; return false; }
     if (!ReadPtr(owner + s_ad->ownerCampaignOff, camp) || !camp) { why = "owner has no campaign context"; return false; }
     if (!ReadPtr(camp + s_ad->campaignSelectionOff, sel) || sel != owner + s_ad->ownerSelectionOff) { why = "campaign->selection is not the owner's (stale owner)"; return false; }
-    if (!ReadPtr(sel, vt) || vt != s_selVtbl) { why = "selection vtable changed (object torn down)"; return false; }
+    // the selection's vtable: the wiring site stores the BASE class's (s_selVtbl, also what the destructor restores); the live object
+    // carries a derived one (run 20261029_j15pc c_console_try1), so require only a vtable inside the exe image, and not the base's
+    MEMORY_BASIC_INFORMATION mbi{};
+    if (!ReadPtr(sel, vt) || !VirtualQuery((const void*)vt, &mbi, sizeof mbi) || mbi.AllocationBase != (void*)GetModuleHandleW(nullptr)) { why = "selection vtable not in the exe (object torn down)"; return false; }
+    if (vt == s_selVtbl) { why = "selection has its base vtable (being destroyed)"; return false; }
+    s_selVtblSeen = vt;
     return true;
 }
 
@@ -70,10 +75,11 @@ bool Cli(uintptr_t camp, std::string& why) {
     return true;
 }
 
-std::string NameOf(void* name) {   // ca_string: c_str() reads the pointer at +8 (the executor's fopen call)
+std::string NameOf(void* name) {   // ca_string: UTF-16, c_str() is the pointer at +8 (the executor's file stage opens it with CreateFileW)
     uintptr_t p = 0;
-    if (!ReadPtr((uintptr_t)name + 8, p) || !Readable(p, 1)) return "?";
-    std::string s; for (int i = 0; i < 120 && Readable(p + i, 1) && ((const char*)p)[i]; ++i) s += ((const char*)p)[i];
+    if (!ReadPtr((uintptr_t)name + 8, p) || !Readable(p, 2)) return "?";
+    std::string s;
+    for (int i = 0; i < 120 && Readable(p + 2 * i, 2); ++i) { const wchar_t c = ((const wchar_t*)p)[i]; if (!c) break; s += c < 0x80 ? (char)c : '?'; }
     return s;
 }
 
@@ -190,10 +196,10 @@ std::string ConsoleStatusJson() {
     char b[900];
     snprintf(b, sizeof b, "\"gate\": {\"key\": %s, \"sites_ok\": %s, \"sites_why\": \"%s\", \"on\": %s, \"scene\": \"%s\"}, \"slot\": {\"address\": \"%p\", "
              "\"value\": \"%p\", \"state\": \"%s\"}, \"campaign\": {\"chain_ok\": %s, \"context\": \"%p\", \"why\": \"%s\"}, \"cli\": \"%p\", "
-             "\"forwards\": %d, \"hits\": %d, \"refusals\": %d",
+             "\"forwards\": %d, \"hits\": %d, \"refusals\": %d, \"selection_vtable\": \"%p\", \"selection_base_vtable\": \"%p\"",
              s_key ? "true" : "false", s_sitesOk ? "true" : "false", s_sitesWhy.c_str(), s_on ? "true" : "false", scene.c_str(), (void*)s_slot,
              (void*)cur, !slotRead ? "unread" : SlotClaimName(DecideSlotClaim(cur, (uintptr_t)&s_fwd)), chain ? "true" : "false", (void*)camp,
-             chainWhy.c_str(), (void*)s_cli, s_forwards, s_hits, s_refusals);
+             chainWhy.c_str(), (void*)s_cli, s_forwards, s_hits, s_refusals, (void*)s_selVtblSeen, (void*)s_selVtbl);
     return b;
 }
 
