@@ -21,7 +21,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J19` | done | Hang watchdog test race on hang.txt | 1 | sonnet | no |  | jobs/J19/brief.md | jobs/J19/report.md | jobs/J19/review.md |
 | `J2` | done | Watcher and PC sync | 1 | sonnet | yes | J1 | jobs/J2/brief.md | jobs/J2/report.md | jobs/J2/review.md |
 | `J20` | done | Local Claude Code on the PC replaces the cloud route | 1 | sonnet | yes |  | jobs/J20/brief.md | jobs/J20/report.md | jobs/J20/review.md |
-| `J21` | needs_brief | Hotkeys registry and clash gate | 1 | sonnet | no |  |  |  |  |
+| `J21` | queued | Hotkeys registry and clash gate | 1 | sonnet | no |  | jobs/J21/brief.md |  |  |
 | `J22` | needs_brief | Windows host tests find Git Bash | 1 | sonnet | no |  |  |  |  |
 | `J23` | needs_brief | Performance baseline: system d3d9 against DXVK | 3 | sonnet | yes | J4, J13 |  |  |  |
 | `J24` | needs_brief | Shadow map resolution and fit | 3 | opus | yes | J8, J9, J23 |  |  |  |
