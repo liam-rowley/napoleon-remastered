@@ -350,7 +350,7 @@ try {
         Remove-Item -LiteralPath $hdll, $hstat -Force -ErrorAction SilentlyContinue
         Assert-Eq (Hashes) $baseline 'suite baseline back'
     }
-    Test-Case 'headless launch: a virtual display at another size is set (previous mode saved), restored after the game exits; a size the driver does not offer is refused with nothing started' {
+    Test-Case 'headless launch: a virtual display at another size is set (previous mode saved), kept while the lock is held, restored when it is released; a size the driver does not offer is refused with nothing started' {
         Set-Lock 'ci10'; Set-Vd '3840x2160' '3840x2160,1920x1080'; Set-Proxy $true; Remove-Item -LiteralPath $hstat -Force -ErrorAction SilentlyContinue
         [IO.File]::WriteAllBytes($prefs, (Real-Prefs)); $h0 = Hashes
         $id = Submit 'launch owner=ci10 size=1920x1080 headless_wait_s=60' (New-JobId 'hs')
@@ -364,10 +364,21 @@ try {
         Assert-Match (ReadText $modIni) 'size=1920x1080' 'proxy key carries the size'
         Assert-Match ([Text.Encoding]::Unicode.GetString([IO.File]::ReadAllBytes($prefs))) 'x_res 1920;' 'prefs carry the size'
         Run-Job 'kill owner=ci10' 'hsk' 40 | Out-Null
-        Wait-Until { (Vd-State) -eq '3840x2160' } 30 'previous mode restored after the game exited' | Out-Null
+        # the mode stays while the lock is held (every mode change moves Liam's cursor): a second launch at the size changes nothing
+        Start-Sleep -Seconds 3
+        Assert-Eq (Vd-State) '1920x1080' 'still 1080p after the game exited, lock held'
+        $id2 = Submit 'launch owner=ci10 size=1920x1080 headless_wait_s=60' (New-JobId 'hs2')
+        $p2 = Wait-FakePid
+        Write-HStatus $p2 'on_virtual'
+        $r2 = Get-Result $id2 60
+        Assert-Eq $r2.d.status 'ok' "second launch ($($r2.out))"
+        Assert-True ($r2.out -notmatch 'setting 1920x1080') 'no second mode change'
+        Run-Job 'kill owner=ci10' 'hsk2' 40 | Out-Null
+        Clear-Lock
+        Wait-Until { (Vd-State) -eq '3840x2160' } 30 'previous mode restored after the lock was released' | Out-Null
         Wait-Until { -not (Test-Path -LiteralPath (Join-Path $root 'vdisplay_restore.json')) } 10 'restore file moved away' | Out-Null
         Wait-LogMatch 'vdisplay: previous mode restored' 10 'restore logged'
-        Clear-Lock; Wait-Until { (Hashes) -eq $h0 } 30 'files restored' | Out-Null
+        Wait-Until { (Hashes) -eq $h0 } 30 'files restored' | Out-Null
         # not offered: refused before anything starts, nothing overlaid
         Set-Lock 'ci10'; Remove-Item -LiteralPath $hstat -Force -ErrorAction SilentlyContinue
         $n = Run-Job 'launch owner=ci10 size=2560x1440' 'hsn' 60

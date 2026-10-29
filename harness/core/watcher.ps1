@@ -675,15 +675,21 @@ function Vdisplay-Housekeeping {
     if (-not (Test-Path -LiteralPath (RootPath 'vdisplay_restore.json'))) { return }
     if ((Get-Date) -lt $VdRetryAt) { return }
     if (@(Get-GameProcs).Count -or ($Cur -and $Cur.holds_game)) { return }
-    if (Vdisplay-Restore 'the game has exited') { $script:VdRetryAt = (Get-Date).AddSeconds(60) }
+    # once per sitting, not per launch: every mode change makes Windows move the real cursor (J13 PC run), so the mode stays while a
+    # valid lock is held and is restored when the lock is released or expires
+    $l = Get-Lock; if ($l -and -not $l.stale) { return }
+    if (Vdisplay-Restore 'the game has exited and the lock is released') { $script:VdRetryAt = (Get-Date).AddSeconds(60) }
 }
 # Display step of a headless launch: -Check at the wanted size, -Set when the virtual display exists at another size. Returns @{ err; rect }.
 function Headless-Display([string]$size, $out) {
     $name = Vd-Name
     $r = Run-VDisplay @('-Check', '-Size', $size, '-Name', $name)
     if ($r.rc -eq 4) {
-        $out.Add("headless: the virtual display is at another size; setting $size (the previous mode is restored after the game exits)")
-        $setRes = Run-VDisplay @('-Set', $size, '-SaveTo', (RootPath 'vdisplay_restore.json'), '-Name', $name)
+        $out.Add("headless: the virtual display is at another size; setting $size (the mode before this lock is restored when the lock is released)")
+        # the first change under a lock saves the mode to restore; a later one keeps that file and saves its own step aside
+        $save = RootPath 'vdisplay_restore.json'
+        if (Test-Path -LiteralPath $save) { $save = Join-Path (ToDelete 'vdisplay_steps') "$(UtcStamp (Get-Date))_$size.json" }
+        $setRes = Run-VDisplay @('-Set', $size, '-SaveTo', $save, '-Name', $name)
         foreach ($l in @(($setRes.out -split "`r?`n") | Where-Object { $_.Trim() })) { $out.Add("  display tool: $l") }
         if ($setRes.rc -ne 0) { return @{ err = "headless: the virtual display cannot be put at ${size}: $(Tool-Summary $setRes). Use a size the driver offers, or visible=1 with Liam present"; rect = $null } }
         $r = Run-VDisplay @('-Check', '-Size', $size, '-Name', $name)
@@ -762,8 +768,14 @@ function Headless-Prepare([string]$size, [int]$W, [int]$H, [string]$owner, $out)
     $has = $false
     if (Test-Path -LiteralPath $mf) { try { $has = Bytes-Contain (Read-Shared $mf) $hl.marker } catch { } }
     if (-not $has) { return "headless: $mf does not contain '$($hl.marker)', so this proxy build cannot run headless (the window would land on a real monitor). Deploy the current proxy, or use visible=1 only with Liam present" }
-    $pend = Vdisplay-Restore 'before a new launch'
-    if ($pend) { return "headless: an earlier display mode could not be restored yet ($pend)" }
+    $vr = RootPath 'vdisplay_restore.json'
+    $l = Get-Lock
+    $started = [DateTime]::MinValue
+    if ($l -and $l.started) { [void][DateTime]::TryParse($l.started, $Inv, [Globalization.DateTimeStyles]::AdjustToUniversal -bor [Globalization.DateTimeStyles]::AssumeUniversal, [ref]$started) }
+    if ((Test-Path -LiteralPath $vr) -and (Get-Item -LiteralPath $vr).LastWriteTimeUtc -lt $started) {   # left by an earlier lock
+        $pend = Vdisplay-Restore 'before a launch under a new lock'
+        if ($pend) { return "headless: an earlier display mode could not be restored yet ($pend)" }
+    }
     $d = Headless-Display $size $out
     if ($d.err) { return $d.err }
     $e = Headless-Overlay $W $H $owner $d.rect $out

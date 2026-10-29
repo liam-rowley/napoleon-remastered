@@ -62,6 +62,16 @@ function Get-OtherChanges($before, $after, [string]$exceptDevice) {
 function Format-Display($d) {
     return ("{0,-14} {1}x{2}@{3}Hz at {4},{5}{6}  adapter='{7}' monitor='{8}'" -f $d.Device, $d.W, $d.H, $d.Hz, $d.X, $d.Y, $(if ($d.Primary) { ' PRIMARY' } else { '' }), $d.Adapter, $d.Monitor)
 }
+# Windows recentres the real cursor on a dynamic mode change: when the cursor now sits exactly at the centre of a display (that
+# signature, so a move Liam made meanwhile is left alone) and was elsewhere before the change, it goes back where it was.
+function Get-CursorDecision($before, $now, $displays) {
+    if ($before[0] -eq $now[0] -and $before[1] -eq $now[1]) { return $false }
+    foreach ($d in @($displays)) {
+        $cx = [int][Math]::Floor($d.X + $d.W / 2); $cy = [int][Math]::Floor($d.Y + $d.H / 2)
+        if ([Math]::Abs($now[0] - $cx) -le 1 -and [Math]::Abs($now[1] - $cy) -le 1) { return $true }
+    }
+    return $false
+}
 if ($LibOnly) { return }
 
 Add-Type -TypeDefinition @'
@@ -98,6 +108,14 @@ public static class VProbe {
     public static extern bool EnumDisplaySettingsEx(string deviceName, int modeNum, ref DEVMODE devMode, int dwFlags);
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
     public static extern int ChangeDisplaySettingsEx(string lpszDeviceName, ref DEVMODE lpDevMode, IntPtr hwnd, int dwflags, IntPtr lParam);
+    // A dynamic mode change makes Windows move the REAL cursor to the centre of the primary (J13 PC run, 2026-10-29): read it before
+    // and put it back after, physical pixels (per-monitor aware V2).
+    [StructLayout(LayoutKind.Sequential)] public struct POINT { public int X, Y; }
+    [DllImport("user32.dll")] static extern bool GetCursorPos(out POINT p);
+    [DllImport("user32.dll")] static extern bool SetCursorPos(int x, int y);
+    [DllImport("user32.dll")] static extern IntPtr SetThreadDpiAwarenessContext(IntPtr c);
+    public static int[] CursorNow() { var o = SetThreadDpiAwarenessContext(new IntPtr(-4)); POINT p; GetCursorPos(out p); if (o != IntPtr.Zero) SetThreadDpiAwarenessContext(o); return new int[] { p.X, p.Y }; }
+    public static bool CursorTo(int x, int y) { var o = SetThreadDpiAwarenessContext(new IntPtr(-4)); bool r = SetCursorPos(x, y); if (o != IntPtr.Zero) SetThreadDpiAwarenessContext(o); return r; }
     public const int EDS_RAWMODE = 0x2, ATTACHED = 0x1, PRIMARY = 0x4, ENUM_CURRENT_SETTINGS = -1;
     public const int DM_PELSWIDTH = 0x80000, DM_PELSHEIGHT = 0x100000, DM_BITSPERPEL = 0x40000, DM_DISPLAYFREQUENCY = 0x400000, DM_DISPLAYFIXEDOUTPUT = 0x20000000;
     public const int CDS_TEST = 0x2, DM_POSITION = 0x20;
@@ -159,6 +177,13 @@ function Report-After($before, $t, [string]$what) {
     if ($oc.Count) { foreach ($c in $oc) { Write-Output "WARNING: ANOTHER DISPLAY CHANGED: $c" } } else { Write-Output "other displays unchanged ($(@($after).Count - 1) checked)" }
     return $after
 }
+function Put-CursorBack($before, $displays) {
+    $now = [VProbe]::CursorNow()
+    if (Get-CursorDecision $before $now $displays) {
+        [void][VProbe]::CursorTo($before[0], $before[1])
+        Write-Output ("cursor: Windows moved it to {0},{1} (a display centre) with the mode change; put back at {2},{3}" -f $now[0], $now[1], $before[0], $before[1])
+    }
+}
 # Applies size and/or origin to the selected display: CDS_TEST first, then dynamic apply, then verify by re-reading the displays.
 function Apply-ToVirtual($all, $sel, [int]$w, [int]$h, [int]$hzWanted, [int]$x, [int]$y, [string]$what) {
     $t = $sel.display
@@ -174,10 +199,12 @@ function Apply-ToVirtual($all, $sel, [int]$w, [int]$h, [int]$hzWanted, [int]$x, 
         Write-MissingModeHelp @("${w}x${h}") $hzWanted
         exit 6
     }
+    $cur0 = [VProbe]::CursorNow()
     $rc = Cds-Apply $sel $dmOk
     Write-Output ("ChangeDisplaySettingsEx({0}, {1}x{2}@{3} at {4},{5}, dynamic) -> {6} ({7})" -f $t.Device, $w, $h, $usedHz, $x, $y, $rc, (Dcs $rc))
     Start-Sleep -Milliseconds 1500
     $after = Report-After $all $t $what
+    Put-CursorBack $cur0 $after
     $now = @($after | Where-Object { $_.Device -eq $t.Device })
     if ($rc -ne 0 -or -not $now.Count -or $now[0].W -ne $w -or $now[0].H -ne $h -or $now[0].X -ne $x -or $now[0].Y -ne $y) {
         Write-Output "APPLY FAILED: $($t.Device) is not ${w}x${h} at $x,$y after the change"

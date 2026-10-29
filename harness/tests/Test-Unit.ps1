@@ -474,6 +474,13 @@ function FD([string]$dev, [string]$adapter, [string]$mon, [bool]$primary, [int]$
 $VDD = 'Virtual Display Driver'
 $topoA = @((FD '\\.\DISPLAY1' 'NVIDIA GeForce RTX 4090' 'Generic PnP Monitor' $true 3840 2160 0 0 240), (FD '\\.\DISPLAY2' 'NVIDIA GeForce RTX 4090' 'Dell S2721DGF (HDMI2)' $false 2560 1440 -2560 327 144), (FD '\\.\DISPLAY10' $VDD 'Generic PnP Monitor' $false 3840 2160 3839 2160))
 $topoB = @((FD '\\.\DISPLAY1' 'NVIDIA GeForce RTX 4090' 'Dell S2721DGF (HDMI2)' $true 2560 1440 0 0 144), (FD '\\.\DISPLAY12' $VDD 'Generic PnP Monitor' $false 3840 2160 2560 1440))
+Test-Case 'display tool: the cursor goes back only when Windows recentred it on a display (a move Liam made is left alone)' {
+    $disp = @([pscustomobject]@{ X = 0; Y = 0; W = 3840; H = 2160 }, [pscustomobject]@{ X = 3839; Y = 2160; W = 1920; H = 1080 })
+    Assert-True (Get-CursorDecision @(1226, 1201) @(1920, 1080) $disp) 'moved to the primary centre: put back'
+    Assert-True (Get-CursorDecision @(10, 10) @(4799, 2700) $disp) 'moved to the virtual display centre: put back'
+    Assert-True (-not (Get-CursorDecision @(1920, 1080) @(1920, 1080) $disp)) 'not moved: nothing to do'
+    Assert-True (-not (Get-CursorDecision @(1226, 1201) @(700, 900) $disp)) 'moved elsewhere (Liam): left alone'
+}
 Test-Case 'display selection: both of Liam''s topologies select the virtual display (by name, wherever its origin or GDI number is)' {
     $a = Select-VirtualDisplay $topoA $VDD
     Assert-Eq $a.display.Device '\\.\DISPLAY10' 'topology A: 4K primary + Dell + VDD at 3839,2160'

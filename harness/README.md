@@ -62,8 +62,9 @@ every other byte kept; `!key` refused); `style: none` allows full copies only (k
 Every `launch` puts the window on the virtual display and fails closed; the proxy side is `proxy/README.md`. The request is one line (the owner holds `game.lock`):
 `launch owner=<you>` (4K) | `launch owner=<you> size=1920x1080` | `launch owner=<you> visible=1` (only with Liam present; touches nothing). Also `headless_wait_s=<n>` (default 180).
 Flow, in this order; any failure refuses or fails the job and nothing stays on screen: (1) `d3d9.dll` must contain `headless_status.json` (an older proxy would put the window on a
-real monitor); (2) `vdisplay_probe.ps1 -Check -Size`; at another size `-Set` (only a mode the driver offers), the previous mode is saved to `vdisplay_restore.json` and put back by `Pump`
-once the game has exited, also after a crash or kill; (3) the adapter's `headless` block (prefs `x_res`, `y_res`, `gfx_fullscreen false`, and muted: `sound_master_enabled false`, `sound_master_volume 0`, Liam 2026-10-29, returned by the byte-identical restore; mod ini `headless.enabled`, `headless.size`) is
+real monitor); (2) `vdisplay_probe.ps1 -Check -Size`; at another size `-Set` (only a mode the driver offers), the mode before the lock is saved to `vdisplay_restore.json` and put back by `Pump`
+once the game has exited AND the lock is released or expired (also after a crash or kill): every mode change makes Windows move Liam's cursor to the centre
+of the primary, so it changes at most twice per sitting, and the tool puts a recentred cursor back; (3) the adapter's `headless` block (prefs `x_res`, `y_res`, `gfx_fullscreen false`, and muted: `sound_master_enabled false`, `sound_master_volume 0`, Liam 2026-10-29, returned by the byte-identical restore; mod ini `headless.enabled`, `headless.size`) is
 overlaid on the files as they are, under a snapshot recorded like a profile (`_active.json`, `headless` in its history), so lock release or expiry restores byte for byte; a warning
 when the base prefs carry `x_pos`/`y_pos` inside the virtual display's rect; (4) `win_probe.ps1` starts (every launch); (5) the game starts and the job waits for
 `napoleon_remastered\headless_status.json` naming the game's pid: `on_virtual` = ok, `refused` = failed with the detail and exit code 2160, silence = the game is killed. `wait_log` still works after.
