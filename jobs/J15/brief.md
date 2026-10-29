@@ -66,8 +66,8 @@ Recorded by J1, J3 and J6. Check each again before relying on it:
   3. Only if neither works: detour the ctor. This must be an `engine_sites` `kHook` row (function-entry anchor, as `proxy/README.md`
      describes) installed by a small in-house detour in `proxy/core`. No MinHook or other third-party code (D26). Write a decision
      row "agent (J15), for Liam's review" that amends D26 for engine-code hooks.
-- **Every address is an `engine_sites` row** with anchor bytes and `exe=sha1:<pin>`, generated into `tables.h`, verified by the plan
-  before use. This covers the executor, the CLI ctor, `Execute` and its vtable slot, and the string helpers.
+- **Every address is an `engine_sites` row** with anchor bytes and `exe=sha1:<pin>`, generated into `tables.h`, checked by the
+  patch-engine plan before use. This covers the executor, the CLI ctor, `Execute` and its vtable slot, and the string helpers.
 - **The handler slot is probably in `.bss`** (no file bytes). If so, anchor it through the executor instruction that reads it: take
   the address from that instruction's operand at run time. Do not use a bare RVA. If `engine_sites` cannot express this, use the
   `value_offset` gap (`proxy/README.md` open question 1): say so and propose the core change; do not edit `core/`.
