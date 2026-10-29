@@ -11,7 +11,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J1` | done | Proxy DLL skeleton | 1 | opus | yes |  | jobs/J1/brief.md | jobs/J1/report.md | jobs/J1/review.md |
 | `J10` | needs_brief | Vanilla UI atlas | 2 | sonnet | yes | J7, J9 |  |  |  |
 | `J11` | needs_brief | Discovery gate | 2 | sonnet | no | J6, J7, J8, J9, J10 |  |  |  |
-| `J12` | needs_brief | Promote phase 1 core candidates to warscape-core | 1 | sonnet | no | J1, J2, J3, J4 |  |  |  |
+| `J12` | needs_brief | Promote phase 1 core candidates to warscape-core | 1 | sonnet | no | J1, J2, J3, J4, J13 |  |  |  |
 | `J13` | needs_brief | Headless runs on the virtual display | 1 | opus | yes | J3 |  |  |  |
 | `J2` | done | Watcher and PC sync | 1 | sonnet | yes | J1 | jobs/J2/brief.md | jobs/J2/report.md | jobs/J2/review.md |
 | `J3` | queued | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md |  |  |
