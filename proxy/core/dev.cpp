@@ -212,6 +212,16 @@ Outcome Reset(const Target& t, double timeoutS) {
     struct ClearFlag { ~ClearFlag() { Lock l; s_resetting = false; } } clearOnReturn;
     Outcome o; char b[600];
     const double t0 = MonoS();
+    // A battle left 1.2 s after it appeared crashed the game in mss32.dll (first-chance AV, dump 20261029T091233Z-p14812, run
+    // 20261029_j3pc): let a battle settle for kBattleSettleS before quitting it.
+    const double kBattleSettleS = 8.0;
+    for (;;) {
+        double since; std::string sc;
+        { Lock l; UpdateSceneLocked(MonoS()); sc = s_scene.scene; since = MonoS() - s_scene.sceneSince; }
+        const bool battle = sc == "battle" || sc == "battle_deploy" || sc == "naval";
+        if (!battle || since >= kBattleSettleS || MonoS() - t0 > timeoutS) break;
+        Sleep(100);
+    }
     const Mem before = MemNow();
     const std::string from = SceneNow();
     if (from != "frontend") {
