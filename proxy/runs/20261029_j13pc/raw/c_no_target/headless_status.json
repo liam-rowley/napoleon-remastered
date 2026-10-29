@@ -1,0 +1,1 @@
+{"pid": 18212, "launch_id": "20261029T181218Z-p18212", "state": "refused", "detail": "no target display at Direct3DCreate9: no display named 'No Such Display J13' (3 displays)", "target": null, "window": [0, 0], "client": [0, 0], "backbuffer": [0, 0], "exit_code": 2160, "written_utc": "2026-10-29T18:12:19.164Z"}

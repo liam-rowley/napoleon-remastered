@@ -5,7 +5,7 @@
 # Safety: selection is a pure function (Select-VirtualDisplay) that returns a display only when exactly one ATTACHED, NON-PRIMARY display matches the name by adapter or monitor string; no fallback by size, index or DISPLAYn. The only apply calls are in Cds-Test / Cds-Apply, which take that selection (not a string) and refuse a primary or null. Dynamic changes only (flags 0): nothing persists in the registry, no SetDisplayConfig. Every display is printed before and after, and a change to any other display is a loud warning.
 # Ported from empire-remastered rml_mod/tools/remote/vdisplay_mode.ps1 (-Modes / -Res / -Origin / restore paths), narrowed: no -Persist, no refresh-rate switching for perf runs, no selector but the name.
 param([string[]]$Test = @('1920x1080', '2560x1440'), [int]$Hz = 0, [string]$Name = 'Virtual Display Driver',
-      [switch]$Check, [string]$Size = '', [string]$Set = '', [string]$Origin = '', [string]$SaveTo = '', [string]$Restore = '', [switch]$LibOnly)
+      [switch]$Check, [string]$Size = '', [string]$Set = '', [string[]]$Origin = @(), [string]$SaveTo = '', [string]$Restore = '', [switch]$LibOnly)
 $ErrorActionPreference = 'Stop'
 
 # ---- pure logic (no Windows calls; Test-Unit.ps1 dot-sources this file with -LibOnly and feeds it fake display lists) -----------------
@@ -222,9 +222,11 @@ if ($Set) {
     Write-Output "VIRTUAL SET: $($t.Device) now $($sz.w)x$($sz.h) (was $($t.W)x$($t.H)@$($t.Hz)); restore with -Restore $SaveTo"
     exit 0
 }
+$Origin = (@($Origin) -join ',')   # "& tool -Origin 3840,0" arrives as an array (J13 PC run d)
 if ($Origin) {
-    if ($Origin -notmatch '^\s*(-?\d+)\s*,\s*(-?\d+)\s*$') { Write-Output "bad arguments: -Origin needs X,Y (got '$Origin')"; exit 2 }
-    $ox = [int]$Matches[1]; $oy = [int]$Matches[2]
+    $om = [regex]::Match($Origin, '^\s*(-?\d+)\s*,\s*(-?\d+)\s*$')   # not -notmatch: it leaves $Matches empty
+    if (-not $om.Success) { Write-Output "bad arguments: -Origin needs X,Y (got '$Origin')"; exit 2 }
+    $ox = [int]$om.Groups[1].Value; $oy = [int]$om.Groups[2].Value
     if (-not $sel.display) { Fail-NoSel $sel }
     $t = $sel.display
     $plan = Get-OriginPlan $all $sel $ox $oy

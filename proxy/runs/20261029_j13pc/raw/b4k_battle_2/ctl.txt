@@ -1,1 +1,0 @@
-== ctl: autostart battle:land_small 300

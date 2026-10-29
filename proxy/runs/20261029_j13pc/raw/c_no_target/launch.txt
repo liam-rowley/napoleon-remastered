@@ -1,0 +1,12 @@
+headless: VIRTUAL OK: \\.\DISPLAY11 3840x2160@60Hz rect=3839,2160,7679,4320 adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+headless overlay prefs  83b9b32b2b73 -> 5ec8acd4caeb
+headless overlay mod_ini  f8ec40371413 -> a5292bc4bcda
+window probe: runs\20261029T181217Z_winprobe (pid 2892); winprobe.json and winprobe.txt when the game exits
+started C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 18212) in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War [launch job j13-20261029T181216Z-2817903 owner=j13 headless 3840x2160]
+running: Napoleon.exe pid 18212
+headless status: starting DllMain
+headless status: refused no target display at Direct3DCreate9: no display named 'No Such Display J13' (3 displays)
+
+[watcher] failed: HEADLESS FAILED: the proxy refused the launch: no target display at Direct3DCreate9: no display named 'No Such Display J13' (3 displays) (exit code 2160; nothing was shown on a real monitor)
+[job j13-20261029T181216Z-2817903: failed exit=1 - HEADLESS FAILED: the proxy refused the launch: no target display at Direct3DCreate9: no display named 'No Such Display J13' (3 displays) (exit code 2160; nothing was shown on a real monitor)]
+launch rc=1

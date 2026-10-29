@@ -1,0 +1,7 @@
+== ctl skipped (game not running): state
+== ctl skipped (game not running): JOB:#job owner=j13 type=ps1\n& "C:\\napoleon_remastered_pc\\watcher\\src\\vdisplay_probe.ps1" -Origin 3840,0 -SaveTo "C:\\napoleon_remastered_pc\\_scratch\\j13\\d_topology_move.json"
+== ctl skipped (game not running): SLEEP:5
+== ctl skipped (game not running): state
+== ctl skipped (game not running): JOB:#job owner=j13 type=ps1\n& "C:\\napoleon_remastered_pc\\watcher\\src\\vdisplay_probe.ps1" -Restore "C:\\napoleon_remastered_pc\\_scratch\\j13\\d_topology_move.json"
+== ctl skipped (game not running): SLEEP:5
+== ctl skipped (game not running): state
