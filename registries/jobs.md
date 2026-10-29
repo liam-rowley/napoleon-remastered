@@ -16,7 +16,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J14` | needs_brief | Save editing: ESF tools and Napoleon save format | 1 | sonnet | yes | J3 |  |  |  |
 | `J15` | needs_brief | Campaign dev console | 1 | opus | yes | J1, J3 |  |  |  |
 | `J16` | needs_brief | In-game resolution change crash (stack overflow at device recreation) | 1 | opus | yes | J3 |  |  |  |
-| `J17` | queued | Core pin bump to v0.2.0 | 1 | sonnet | no | J5 | jobs/J17/brief.md |  |  |
+| `J17` | review | Core pin bump to v0.2.0 | 1 | sonnet | no | J5 | jobs/J17/brief.md | jobs/J17/report.md |  |
 | `J18` | needs_brief | PC-side rule guards | 1 | sonnet | yes | J2 |  |  |  |
 | `J19` | queued | Hang watchdog test race on hang.txt | 1 | sonnet | no |  | jobs/J19/brief.md |  |  |
 | `J2` | done | Watcher and PC sync | 1 | sonnet | yes | J1 | jobs/J2/brief.md | jobs/J2/report.md | jobs/J2/review.md |
