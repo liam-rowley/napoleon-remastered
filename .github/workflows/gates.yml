@@ -30,6 +30,7 @@ concurrency:
 jobs:
   # changes: which slow jobs this run needs. Diffs against the merge base with main (a pull request, or a push to any other branch)
   # or the previous main tip (a push to main). When the base is unknown (first push to main, a force push past it) everything runs.
+  # Which files feed which job: tools/changed_inputs.py.
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -49,18 +50,8 @@ jobs:
           if [ "$EVENT" = pull_request ]; then base=$(git merge-base "origin/$BASE_REF" HEAD || true)
           elif [ "$GITHUB_REF" = refs/heads/main ]; then base=$BEFORE
           else base=$(git merge-base origin/main HEAD || true); fi
-          if [ -n "$base" ] && git cat-file -e "$base^{commit}" 2>/dev/null; then
-            files=$(git diff --name-only "$base" HEAD)
-          else
-            files=ALL; echo "base unknown ('$base'): running everything"
-          fi
-          echo "$files"
-          has() { [ "$files" = ALL ] || grep -qE "$1" <<<"$files"; }
-          # inputs: the workflow itself; proxy = proxy/ and the two registries gen_tables.py reads; harness-windows = harness/
-          # and proxy/tools/pc_deploy.py (the integration tests run `pc_deploy.py kit --what harness`)
-          wf='^\.github/workflows/'
-          if has "$wf|^proxy/|^registries/(engine_sites|config_keys)\.jsonl$"; then echo proxy=true; else echo proxy=false; fi >> "$GITHUB_OUTPUT"
-          if has "$wf|^harness/|^proxy/tools/pc_deploy\.py$"; then echo harness=true; else echo harness=false; fi >> "$GITHUB_OUTPUT"
+          # the input sets live in one place, tools/changed_inputs.py, which the local `tests` gate also uses (J41)
+          python3 tools/changed_inputs.py --base "$base" >> "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
   gates:
     if: github.event_name != 'workflow_dispatch'
@@ -74,6 +65,11 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      # the depth-1 submodule fetch brings the core tip's tag but not the pinned one once the core has a newer tag, and core_pin then
+      # fails with "untagged commit" (v0.3.0, PR #55 run 40962535611): fetch the pinned tag; a missing tag is left to core_pin to report
+      - run: |
+          pin=$(python -c "import tomllib; print(tomllib.load(open('wsc.toml', 'rb'))['core']['version'])")
+          git -C core fetch --depth=1 --no-tags origin "refs/tags/$pin:refs/tags/$pin" || echo "could not fetch core tag $pin"
       - run: python core/wsc.py gates
   # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the PC's
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.
