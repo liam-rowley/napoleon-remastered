@@ -5,6 +5,8 @@
 #define NOMINMAX
 #include <windows.h>
 #include <string>
+#include <vector>
+#include <cstdint>
 #include "adapter.h"
 
 namespace wsp {
@@ -35,6 +37,7 @@ std::wstring LogPath();
 
 // crash.cpp
 void CrashInstall(int mode);
+void CrashFlushPending();   // logs an exception the handlers deferred (stack overflow, too little stack): call from a thread with stack
 void CrashCheckFilter(const char* when);   // logs whether the top-level filter is still ours (first export call, detach)   // 0 off, 1 unhandled exceptions (default), 2 also the first fatal first-chance exception
 
 // guard_driver.cpp
@@ -48,5 +51,25 @@ bool BackendEnsure();          // loads the configured backend once (never from 
 const char* BackendName();
 
 std::string Narrow(const std::wstring& w);
+
+// log.cpp: evidence capture for the control channel (every line written while a capture is open, capped)
+void LogCaptureBegin();
+std::vector<std::string> LogCaptureEnd();
+
+// hooks.cpp: hook machinery (IAT slots of a module, vtable slots) and small Win32 helpers
+int  IatHook(HMODULE module, const char* dll, const char* func, void* detour, void** original);   // number of slots patched
+bool VtableHook(void** vtbl, int index, void* detour, void** original, const char* name);
+int64_t UnixMs();
+int64_t FileTimeToUnixMs(const FILETIME& ft);
+double MonoS();                                             // monotonic seconds (QPC)
+std::wstring WidenUtf8(const std::string& s);
+std::wstring WidenAcp(const char* s);
+bool ReadFileBytes(const std::wstring& path, std::string& out, uint64_t offset = 0, uint32_t size = 0xffffffffu);
+bool WriteFileAtomic(const std::wstring& path, const std::string& data);   // temp name + MoveFileEx
+
+// dev.cpp: the dev side (timeline, file rules, state file, control channel, autostart, reset); nothing runs unless a dev key is on
+void DevInit();                          // DllMain, after the plan
+void DevOnDirect3DCreate(void* d3d);     // the Direct3DCreate9 export, after the backend returned an object
+void DevOnDetach();
 
 } // namespace wsp

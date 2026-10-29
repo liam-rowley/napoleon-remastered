@@ -1,0 +1,360 @@
+{
+ "arms": {
+  "intro_skip": [
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T094924Z-p28560"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T094955Z-p23376"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T095030Z-p1404"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T095100Z-p25128"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T095131Z-p14420"
+   }
+  ],
+  "movies": [
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T101937Z-p31728"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T102218Z-p32200"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T102456Z-p13692"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T102735Z-p32648"
+   },
+   {
+    "file": "timeline.json",
+    "launch_id": "20261029T103013Z-p19964"
+   }
+  ]
+ },
+ "phases": {
+  "process_start": {
+   "intro_skip": {
+    "median_s": 0.0,
+    "min_s": 0.0,
+    "max_s": 0.0,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 0.0,
+    "min_s": 0.0,
+    "max_s": 0.0,
+    "n": 5
+   }
+  },
+  "dllmain": {
+   "intro_skip": {
+    "median_s": 0.059,
+    "min_s": 0.058,
+    "max_s": 0.072,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 0.059,
+    "min_s": 0.057,
+    "max_s": 0.064,
+    "n": 5
+   }
+  },
+  "d3d_create": {
+   "intro_skip": {
+    "median_s": 1.105,
+    "min_s": 1.092,
+    "max_s": 1.137,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 1.091,
+    "min_s": 1.085,
+    "max_s": 1.122,
+    "n": 5
+   }
+  },
+  "device_created": {
+   "intro_skip": {
+    "median_s": 1.8,
+    "min_s": 1.773,
+    "max_s": 1.839,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 1.783,
+    "min_s": 1.756,
+    "max_s": 1.909,
+    "n": 5
+   }
+  },
+  "first_present": {
+   "intro_skip": {
+    "median_s": 1.855,
+    "min_s": 1.818,
+    "max_s": 1.89,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 1.826,
+    "min_s": 1.792,
+    "max_s": 2.382,
+    "n": 5
+   }
+  },
+  "lua_bridge_loaded": {
+   "intro_skip": {
+    "median_s": 6.729,
+    "min_s": 6.586,
+    "max_s": 7.13,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 7.234,
+    "min_s": 6.684,
+    "max_s": 7.573,
+    "n": 5
+   }
+  },
+  "movie_refused:movies\\sega_logo_sting_hd.bik": {
+   "intro_skip": {
+    "median_s": 6.978,
+    "min_s": 6.838,
+    "max_s": 7.383,
+    "n": 5
+   }
+  },
+  "movie_refused:movies\\corei7_intro.bik": {
+   "intro_skip": {
+    "median_s": 6.981,
+    "min_s": 6.84,
+    "max_s": 7.386,
+    "n": 5
+   }
+  },
+  "movie_refused:movies\\ntw_intro.bik": {
+   "intro_skip": {
+    "median_s": 6.984,
+    "min_s": 6.843,
+    "max_s": 7.387,
+    "n": 5
+   }
+  },
+  "movie_open:movies\\sega_logo_sting_hd.bik": {
+   "movies": {
+    "median_s": 7.49,
+    "min_s": 6.952,
+    "max_s": 7.826,
+    "n": 5
+   }
+  },
+  "movie_close:movies\\sega_logo_sting_hd.bik": {
+   "movies": {
+    "median_s": 10.785,
+    "min_s": 10.256,
+    "max_s": 11.12,
+    "n": 5
+   }
+  },
+  "movie_open:movies\\corei7_intro.bik": {
+   "movies": {
+    "median_s": 10.826,
+    "min_s": 10.296,
+    "max_s": 11.161,
+    "n": 5
+   }
+  },
+  "movie_close:movies\\corei7_intro.bik": {
+   "movies": {
+    "median_s": 15.602,
+    "min_s": 15.066,
+    "max_s": 15.933,
+    "n": 5
+   }
+  },
+  "movie_open:movies\\ntw_intro.bik": {
+   "movies": {
+    "median_s": 15.642,
+    "min_s": 15.106,
+    "max_s": 15.974,
+    "n": 5
+   }
+  },
+  "movie_open:movies\\frontend2.bik": {
+   "intro_skip": {
+    "median_s": 6.986,
+    "min_s": 6.844,
+    "max_s": 7.39,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 131.354,
+    "min_s": 130.698,
+    "max_s": 131.7,
+    "n": 5
+   }
+  },
+  "scene_ready:frontend": {
+   "intro_skip": {
+    "median_s": 6.988,
+    "min_s": 6.846,
+    "max_s": 7.392,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 131.356,
+    "min_s": 130.7,
+    "max_s": 131.701,
+    "n": 5
+   }
+  },
+  "frontend_first_pump": {
+   "intro_skip": {
+    "median_s": 6.992,
+    "min_s": 6.85,
+    "max_s": 7.396,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 131.36,
+    "min_s": 130.704,
+    "max_s": 131.705,
+    "n": 5
+   }
+  },
+  "first_present_after_ready:frontend": {
+   "intro_skip": {
+    "median_s": 6.993,
+    "min_s": 6.852,
+    "max_s": 7.397,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 131.362,
+    "min_s": 130.706,
+    "max_s": 131.707,
+    "n": 5
+   }
+  },
+  "autostart_issued": {
+   "intro_skip": {
+    "median_s": 7.525,
+    "min_s": 7.392,
+    "max_s": 8.015,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 135.42,
+    "min_s": 135.092,
+    "max_s": 140.191,
+    "n": 5
+   }
+  },
+  "movie_close:movies\\frontend2.bik": {
+   "intro_skip": {
+    "median_s": 7.901,
+    "min_s": 7.769,
+    "max_s": 8.379,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 135.81,
+    "min_s": 135.478,
+    "max_s": 140.584,
+    "n": 5
+   }
+  },
+  "loading_started:frontend": {
+   "intro_skip": {
+    "median_s": 7.904,
+    "min_s": 7.772,
+    "max_s": 8.386,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 135.811,
+    "min_s": 135.481,
+    "max_s": 140.589,
+    "n": 5
+   }
+  },
+  "scene_ready:battle": {
+   "intro_skip": {
+    "median_s": 26.192,
+    "min_s": 25.973,
+    "max_s": 26.647,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 154.009,
+    "min_s": 153.635,
+    "max_s": 158.713,
+    "n": 5
+   }
+  },
+  "first_present_after_ready:battle": {
+   "intro_skip": {
+    "median_s": 26.224,
+    "min_s": 26.007,
+    "max_s": 26.68,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 154.041,
+    "min_s": 153.666,
+    "max_s": 158.746,
+    "n": 5
+   }
+  },
+  "scene_ready:battle_deploy": {
+   "intro_skip": {
+    "median_s": 26.355,
+    "min_s": 26.134,
+    "max_s": 26.807,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 154.169,
+    "min_s": 153.795,
+    "max_s": 158.872,
+    "n": 5
+   }
+  },
+  "first_present_after_ready:battle_deploy": {
+   "intro_skip": {
+    "median_s": 26.359,
+    "min_s": 26.138,
+    "max_s": 26.81,
+    "n": 5
+   },
+   "movies": {
+    "median_s": 154.173,
+    "min_s": 153.799,
+    "max_s": 158.876,
+    "n": 5
+   }
+  },
+  "movie_close:movies\\ntw_intro.bik": {
+   "movies": {
+    "median_s": 131.314,
+    "min_s": 130.697,
+    "max_s": 131.659,
+    "n": 5
+   }
+  }
+ }
+}

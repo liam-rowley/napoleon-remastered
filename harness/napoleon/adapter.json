@@ -16,7 +16,7 @@
     "steam_uri": "steam://rungameid/34030",
     "steam_wait_s": 90
   },
-  "heartbeat_files": ["napoleon_remastered\\logs\\proxy.log"],
+  "heartbeat_files": ["napoleon_remastered\\logs\\proxy.log", "napoleon_remastered\\state.json"],
   "archive": {
     "dirs_log": ["napoleon_remastered\\logs", "napoleon_remastered\\dxvk"],
     "dirs_dump": ["napoleon_remastered\\dumps"],
@@ -28,6 +28,8 @@
      "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); no overlay style for that yet, so profiles ship a full copy"},
     {"id": "keys", "anchor": "appdata", "path": "custom_keys.keys.xml", "style": "none",
      "note": "key bindings (XML); full copy only"},
+    {"id": "battle_prefs", "anchor": "appdata", "path": "battle_preferences\\.sp_default.battle_preferences", "style": "none",
+     "note": "the custom-battle screens' remembered settings: rewritten by every custom battle the front end sets up (sp_battle2 OnExit SaveBattleSetup; the J3 autostart creates it on a PC that never ran one, run 20261029_j3pc); absent is a recorded state"},
     {"id": "mod_ini", "anchor": "game", "path": "napoleon_remastered.ini", "style": "ini",
      "note": "the proxy's config; present only while the proxy is installed (absent is a recorded state)"},
     {"id": "dxvk_conf", "anchor": "game", "path": "dxvk.conf", "style": "conf",

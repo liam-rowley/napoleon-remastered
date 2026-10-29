@@ -16,7 +16,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J14` | needs_brief | Save editing: ESF tools and Napoleon save format | 1 | sonnet | yes | J3 |  |  |  |
 | `J15` | needs_brief | Campaign dev console | 1 | opus | yes | J1, J3 |  |  |  |
 | `J2` | done | Watcher and PC sync | 1 | sonnet | yes | J1 | jobs/J2/brief.md | jobs/J2/report.md | jobs/J2/review.md |
-| `J3` | queued | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md |  |  |
+| `J3` | done | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md | jobs/J3/report.md | jobs/J3/review.md |
 | `J4` | needs_brief | Scenario library, control API, acceptance gate | 1 | sonnet | yes | J3, J13, J14 |  |  |  |
 | `J5` | queued | Determinism audit: rules into gates | 1 | opus | no | J3 | jobs/J5/brief.md |  |  |
 | `J6` | needs_brief | Empire to Napoleon diff | 2 | opus | yes | J2 |  |  |  |

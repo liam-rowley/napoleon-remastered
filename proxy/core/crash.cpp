@@ -5,7 +5,10 @@
 // logs the first few fatal first-chance exceptions with module+offset, as evidence.
 // The in-process dump is empty when the heap is corrupt (empire-remastered LEARNINGS lesson 23): WER LocalDumps (proxy/tools/wer_localdumps.ps1)
 // is the out-of-process backstop; read WER first.
+// Stack rule (crashpolicy.h): on a stack overflow, or with less than 32 KB of stack left, the handlers only record the exception in
+// static memory; CrashFlushPending logs it later from a thread with stack (every Direct3DCreate9, the top-level filter, detach).
 #include "runtime.h"
+#include "crashpolicy.h"
 #include <dbghelp.h>
 
 namespace wsp {
@@ -13,6 +16,31 @@ namespace {
 int s_mode = 0;
 LPTOP_LEVEL_EXCEPTION_FILTER s_prev = nullptr;
 volatile LONG s_dumped = 0, s_logged = 0;
+// Deferred record of the first exception the handlers could not log on its own thread (stack overflow or too little stack left).
+volatile LONG s_deferred = 0, s_deferredLogged = 0;
+DWORD s_defCode = 0, s_defTid = 0; void* s_defAddr = nullptr; uintptr_t s_defLeft = 0; LONG s_defCount = 0;
+typedef VOID(WINAPI* GetLimitsFn)(PULONG_PTR, PULONG_PTR);
+GetLimitsFn s_getLimits = nullptr;   // GetCurrentThreadStackLimits (Windows 8+), resolved at install: never GetProcAddress in a handler
+
+// Lowest address of this thread's stack reservation (0 when unknown, which the policy treats as "defer").
+uintptr_t StackLow() {
+    ULONG_PTR lo = 0, hi = 0;
+    if (s_getLimits) { s_getLimits(&lo, &hi); return (uintptr_t)lo; }
+#if defined(_M_IX86) || defined(__i386__)
+    uintptr_t v; __asm__ volatile("movl %%fs:0xE0C, %0" : "=r"(v));   // TEB.DeallocationStack, x86 layout (Windows 7 has no API)
+    return v;
+#else
+    return 0;
+#endif
+}
+
+// No locals beyond a few words, no calls but Interlocked*: this runs on a thread that may have no stack left.
+void Defer(EXCEPTION_POINTERS* ep, uintptr_t sp, uintptr_t low) {
+    InterlockedIncrement(&s_defCount);
+    if (InterlockedExchange(&s_deferred, 1)) return;
+    s_defCode = ep->ExceptionRecord->ExceptionCode; s_defAddr = ep->ExceptionRecord->ExceptionAddress;
+    s_defTid = GetCurrentThreadId(); s_defLeft = (low && sp > low) ? sp - low : 0;
+}
 
 bool Fatal(DWORD c) {
     return c == EXCEPTION_ACCESS_VIOLATION || c == EXCEPTION_ILLEGAL_INSTRUCTION || c == EXCEPTION_STACK_OVERFLOW || c == EXCEPTION_INT_DIVIDE_BY_ZERO ||
@@ -44,22 +72,30 @@ void Dump(EXCEPTION_POINTERS* ep, const char* why) {
 }
 
 LONG WINAPI TopLevel(EXCEPTION_POINTERS* ep) {
+    volatile char probe = 0; const uintptr_t sp = (uintptr_t)&probe, low = StackLow();
+    const CrashAction a = CrashHandlerAction(ep->ExceptionRecord->ExceptionCode, sp, low, true);
+    if (a == CrashAction::Defer) { Defer(ep, sp, low); return s_prev ? s_prev(ep) : EXCEPTION_CONTINUE_SEARCH; }
+    CrashFlushPending();
     char w[300]; Where(ep->ExceptionRecord->ExceptionAddress, w, sizeof w);
     LOGE("crash: UNHANDLED exception 0x%08lx at %p = %s (thread %lu)", ep->ExceptionRecord->ExceptionCode, ep->ExceptionRecord->ExceptionAddress, w, GetCurrentThreadId());
-    Dump(ep, "unhandled");
+    if (a == CrashAction::LogAndDump) Dump(ep, "unhandled");
+    else LOGE("crash: in-process minidump skipped: %lu KB of stack left (WER LocalDumps is the backstop)", (unsigned long)((sp - low) / 1024));
     return s_prev ? s_prev(ep) : EXCEPTION_CONTINUE_SEARCH;
 }
 
 LONG WINAPI Vectored(EXCEPTION_POINTERS* ep) {
     const DWORD code = ep->ExceptionRecord->ExceptionCode;
     if (!Fatal(code)) return EXCEPTION_CONTINUE_SEARCH;
+    volatile char probe = 0; const uintptr_t sp = (uintptr_t)&probe, low = StackLow();
+    const CrashAction a = CrashHandlerAction(code, sp, low, s_mode >= 2 && !s_dumped);
+    if (a == CrashAction::Defer) { Defer(ep, sp, low); return EXCEPTION_CONTINUE_SEARCH; }
     if (InterlockedIncrement(&s_logged) <= 5) {
         char w[300]; Where(ep->ExceptionRecord->ExceptionAddress, w, sizeof w);
         LOGW("crash: first-chance exception 0x%08lx at %s (thread %lu)%s - may be handled by the game", code, w, GetCurrentThreadId(),
              code == EXCEPTION_ACCESS_VIOLATION ? (ep->ExceptionRecord->ExceptionInformation[0] ? ", writing" : ", reading") : "");
         if (code == EXCEPTION_ACCESS_VIOLATION) LOGW("crash:   faulting address %p", (void*)ep->ExceptionRecord->ExceptionInformation[1]);
     }
-    if (s_mode >= 2) Dump(ep, "first-chance");
+    if (a == CrashAction::LogAndDump) Dump(ep, "first-chance");
     return EXCEPTION_CONTINUE_SEARCH;
 }
 // WER LocalDumps (out of process, works on a corrupt heap) is set per exe name under HKLM, 64-bit view; logged so a run report
@@ -82,8 +118,18 @@ void LogWer() {
 
 // Mode 1 relies on our top-level filter. If the game (or an overlay) replaces it after DllMain, mode 1 silently never dumps (the
 // empire-remastered trap that mode 2 exists for), so this reads the current filter and says who owns it. Set-and-restore: never changes behaviour.
+void CrashFlushPending() {
+    if (!s_deferred || InterlockedExchange(&s_deferredLogged, 1)) return;
+    char w[300]; Where(s_defAddr, w, sizeof w);
+    LOGE("crash: %s 0x%08lx at %s (thread %lu) was NOT logged when it happened: %lu KB of stack left on that thread%s; %ld deferred in all"
+         " (crashpolicy.h). WER LocalDumps has the stack if the process died.", s_defCode == kStatusStackOverflow ? "STACK OVERFLOW" : "exception",
+         (unsigned long)s_defCode, w, (unsigned long)s_defTid, (unsigned long)(s_defLeft / 1024),
+         s_defCode == kStatusStackOverflow ? " (first-chance; the game may still recover)" : "", (long)s_defCount);
+}
+
 void CrashCheckFilter(const char* when) {
     if (s_mode <= 0) return;
+    CrashFlushPending();
     LPTOP_LEVEL_EXCEPTION_FILTER cur = SetUnhandledExceptionFilter(TopLevel);
     if (cur == TopLevel) { LOGI("crash: top-level filter at %s: still ours", when); return; }
     SetUnhandledExceptionFilter(cur);   // put theirs back
@@ -95,6 +141,7 @@ void CrashCheckFilter(const char* when) {
 void CrashInstall(int mode) {
     LogWer();
     s_mode = mode;
+    s_getLimits = (GetLimitsFn)(void*)GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "GetCurrentThreadStackLimits");
     if (mode <= 0) { LOGI("crash: in-process minidumps off (proxy.minidump=0); WER LocalDumps still applies if enabled"); return; }
     s_prev = SetUnhandledExceptionFilter(TopLevel);
     AddVectoredExceptionHandler(1, Vectored);

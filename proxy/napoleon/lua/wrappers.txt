@@ -1,0 +1,11 @@
+# Dev wrappers (dev.lua_bridge): pack entry | context. proxy/tools/build_dev_pack.py makes one wrapper per line into the virtual pack
+# data\zz_napoleon_remastered_dev.pack; each runs the vanilla script unchanged (wsp.vanilla) and pumps the bridge from its update
+# callback. One pumping script per context: the front end's main menu advert, the campaign root, the battle root.
+# Only the main menu pumps in the front end (the other screens have no update callback, and the engine does not call one injected
+# into the front-end root, run 20261029_j3pc). After a custom battle the front end's InitState opens sp_battle1, so the third
+# column `main_after_reset` wraps the root's InitState: while a warm reset runs (wsp.dev_config("frontend.to_main") == "1") it then
+# goes on to the main menu, whose advert pumps again.
+ui\frontend ui\main.advert.luac | frontend
+ui\frontend ui\layout_scripts\root.luac | frontend | main_after_reset
+ui\campaign ui\layout.root.luac | campaign
+ui\battle ui\root.luac | battle

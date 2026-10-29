@@ -1,0 +1,29 @@
+{
+  "launch_id": "20261029T101937Z-p31728",
+  "process_start_utc": "2026-10-29T10:19:37.855Z",
+  "phases": [
+    {"phase": "process_start", "utc": "2026-10-29T10:19:37.855Z", "t_ms": 0},
+    {"phase": "dllmain", "utc": "2026-10-29T10:19:37.919Z", "t_ms": 64},
+    {"phase": "d3d_create", "utc": "2026-10-29T10:19:38.977Z", "t_ms": 1122},
+    {"phase": "device_created", "utc": "2026-10-29T10:19:39.764Z", "t_ms": 1909, "detail": "hr 0x00000000 flags 0x42"},
+    {"phase": "first_present", "utc": "2026-10-29T10:19:40.237Z", "t_ms": 2382},
+    {"phase": "lua_bridge_loaded", "utc": "2026-10-29T10:19:45.428Z", "t_ms": 7573},
+    {"phase": "movie_open", "utc": "2026-10-29T10:19:45.681Z", "t_ms": 7826, "detail": "movies\\sega_logo_sting_hd.bik"},
+    {"phase": "movie_close", "utc": "2026-10-29T10:19:48.975Z", "t_ms": 11120, "detail": "movies\\sega_logo_sting_hd.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T10:19:49.016Z", "t_ms": 11161, "detail": "movies\\corei7_intro.bik"},
+    {"phase": "movie_close", "utc": "2026-10-29T10:19:53.788Z", "t_ms": 15933, "detail": "movies\\corei7_intro.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T10:19:53.829Z", "t_ms": 15974, "detail": "movies\\ntw_intro.bik"},
+    {"phase": "movie_close", "utc": "2026-10-29T10:21:49.514Z", "t_ms": 131659, "detail": "movies\\ntw_intro.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T10:21:49.555Z", "t_ms": 131700, "detail": "movies\\frontend2.bik"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:21:49.556Z", "t_ms": 131701, "detail": "frontend"},
+    {"phase": "frontend_first_pump", "utc": "2026-10-29T10:21:49.560Z", "t_ms": 131705},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:21:49.562Z", "t_ms": 131707, "detail": "frontend"},
+    {"phase": "autostart_issued", "utc": "2026-10-29T10:21:54.121Z", "t_ms": 136266, "detail": "battle:land_small"},
+    {"phase": "movie_close", "utc": "2026-10-29T10:21:54.495Z", "t_ms": 136640, "detail": "movies\\frontend2.bik"},
+    {"phase": "loading_started", "utc": "2026-10-29T10:21:54.499Z", "t_ms": 136644, "detail": "frontend"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:22:12.839Z", "t_ms": 154984, "detail": "battle"},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:22:12.872Z", "t_ms": 155017, "detail": "battle"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:22:12.998Z", "t_ms": 155143, "detail": "battle_deploy"},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:22:13.001Z", "t_ms": 155146, "detail": "battle_deploy"}
+  ]
+}

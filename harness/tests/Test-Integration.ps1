@@ -118,7 +118,8 @@ function Stop-Fakes { foreach ($n in 'FakeNapoleon', 'FakeEmpire', 'Fake64') { G
 function Fake-Procs([string]$n = 'FakeNapoleon') { return @(Get-Process -Name $n -ErrorAction SilentlyContinue) }
 $prefs = Join-Path $app 'scripts\preferences.script.txt'; $keys = Join-Path $app 'custom_keys.keys.xml'
 $modIni = Join-Path $game 'napoleon_remastered.ini'; $dxc = Join-Path $game 'dxvk.conf'
-function Hashes { return ((@($prefs, $keys, $modIni, $dxc) | ForEach-Object { if (Test-Path -LiteralPath $_) { Sha256File $_ } else { 'absent' } }) -join ',') }
+$bprefs = Join-Path $app 'battle_preferences\.sp_default.battle_preferences'   # HIDDEN on the PC (J3 run 20261029_4kcrash: Get-Item without -Force threw)
+function Hashes { return ((@($prefs, $keys, $bprefs, $modIni, $dxc) | ForEach-Object { if (Test-Path -LiteralPath $_) { Sha256File $_ } else { 'absent' } }) -join ',') }
 function Pid-Of-Watcher { return [int](Get-St).pid }
 
 try {
@@ -127,6 +128,8 @@ try {
     & tzutil.exe /s 'Tokyo Standard Time'
     [IO.File]::WriteAllBytes($prefs, [byte[]](0, 255, 13, 10, 10, 13, 0xC3, 0xA9, 200, 1, 2, 3))
     [IO.File]::WriteAllText($keys, '<keys/>', $Utf8NoBom)
+    New-Item -ItemType Directory -Path (Split-Path $bprefs) -Force | Out-Null
+    [IO.File]::WriteAllBytes($bprefs, [byte[]](1, 2, 3, 4)); (Get-Item -LiteralPath $bprefs -Force).Attributes = 'Hidden'
     $baseline = Hashes
     $st0 = Start-TestWatcher
 

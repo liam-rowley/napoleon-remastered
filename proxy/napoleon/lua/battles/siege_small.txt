@@ -1,0 +1,4 @@
+# siege_small - a custom siege on a small fort (J3 autostart tests).
+type=siege
+map=rti_fort_1
+prefs=.sp_default

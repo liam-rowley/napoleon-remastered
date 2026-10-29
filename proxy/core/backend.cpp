@@ -71,7 +71,8 @@ HMODULE LoadDxvk() {
     SetEnvDefault(L"DXVK_CONFIG_FILE", dir + L"dxvk.conf");
     SetEnvDefault(L"DXVK_LOG_PATH", dir);
     SetEnvDefault(L"DXVK_SHADER_CACHE_PATH", dir + L"cache");
-    SetEnvDefault(L"DXVK_STATE_CACHE_PATH", dir + L"cache");
+    // No DXVK_STATE_CACHE_PATH: DXVK 2.7 removed the state cache (unused since VK_EXT_graphics_pipeline_library in 2.0), so the
+    // pinned 3.1.1 never reads it (J3). DXVK_SHADER_CACHE_PATH stays: it is where DXVK puts the driver's pipeline cache.
     HMODULE h = LoadLibraryW(path.c_str());
     if (!h) { LOGE("backend: LoadLibrary(%ls) failed: %lu", path.c_str(), GetLastError()); return nullptr; }
     s_name = "dxvk";
@@ -113,7 +114,10 @@ namespace {
 volatile LONG s_filterChecked = 0;
 // The game installs its own handlers during start-up; by its first Direct3DCreate9 that is done, so this is where a replaced
 // top-level filter shows (J1 review finding 5).
-void FirstCreateChecks() { if (!InterlockedExchange(&s_filterChecked, 1)) CrashCheckFilter("first Direct3DCreate9"); }
+void FirstCreateChecks() {
+    if (!InterlockedExchange(&s_filterChecked, 1)) CrashCheckFilter("first Direct3DCreate9");
+    else if (Rt().enabled) CrashFlushPending();   // the game recreates its d3d9 object on a resolution change: a deferred record shows here
+}
 }
 
 extern "C" {
@@ -123,6 +127,7 @@ void* WINAPI Direct3DCreate9(UINT sdk) {
     if (!BackendEnsure() || !p_Create9) return nullptr;
     void* d3d = p_Create9(sdk);
     LOGI("Direct3DCreate9(sdk=%u) -> %p [%s]", sdk, d3d, BackendName());
+    DevOnDirect3DCreate(d3d);   // dev side only (frame hooks ask the plan inside)
     return d3d;
 }
 

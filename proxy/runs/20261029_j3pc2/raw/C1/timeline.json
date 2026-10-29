@@ -1,0 +1,25 @@
+{
+  "launch_id": "20261029T101213Z-p16304",
+  "process_start_utc": "2026-10-29T10:12:13.526Z",
+  "phases": [
+    {"phase": "process_start", "utc": "2026-10-29T10:12:13.526Z", "t_ms": 0},
+    {"phase": "dllmain", "utc": "2026-10-29T10:12:13.585Z", "t_ms": 59},
+    {"phase": "d3d_create", "utc": "2026-10-29T10:12:14.632Z", "t_ms": 1106},
+    {"phase": "device_created", "utc": "2026-10-29T10:12:15.343Z", "t_ms": 1817, "detail": "hr 0x00000000 flags 0x42"},
+    {"phase": "first_present", "utc": "2026-10-29T10:12:15.385Z", "t_ms": 1859},
+    {"phase": "lua_bridge_loaded", "utc": "2026-10-29T10:12:20.263Z", "t_ms": 6737},
+    {"phase": "movie_refused", "utc": "2026-10-29T10:12:20.513Z", "t_ms": 6987, "detail": "movies\\sega_logo_sting_hd.bik"},
+    {"phase": "movie_refused", "utc": "2026-10-29T10:12:20.516Z", "t_ms": 6990, "detail": "movies\\corei7_intro.bik"},
+    {"phase": "movie_refused", "utc": "2026-10-29T10:12:20.518Z", "t_ms": 6992, "detail": "movies\\ntw_intro.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T10:12:20.520Z", "t_ms": 6994, "detail": "movies\\frontend2.bik"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:12:20.522Z", "t_ms": 6996, "detail": "frontend"},
+    {"phase": "frontend_first_pump", "utc": "2026-10-29T10:12:20.526Z", "t_ms": 7000},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:12:20.527Z", "t_ms": 7001, "detail": "frontend"},
+    {"phase": "autostart_issued", "utc": "2026-10-29T10:12:21.247Z", "t_ms": 7721, "detail": "campaign:grand:france"},
+    {"phase": "autostart_issued", "utc": "2026-10-29T10:12:26.975Z", "t_ms": 13449, "detail": "campaign:grand:britain"},
+    {"phase": "loading_started", "utc": "2026-10-29T10:12:27.019Z", "t_ms": 13493, "detail": "frontend"},
+    {"phase": "movie_close", "utc": "2026-10-29T10:12:27.026Z", "t_ms": 13500, "detail": "movies\\frontend2.bik"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:12:44.311Z", "t_ms": 30785, "detail": "campaign"},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:12:44.335Z", "t_ms": 30809, "detail": "campaign"}
+  ]
+}

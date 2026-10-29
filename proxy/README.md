@@ -114,6 +114,47 @@ The PC is a deploy target; the device VM has `python3` and the game folder mount
 Never delete on the PC: removals are moves to `_to_delete\` after a verified copy. The state folder is outside the game folder; moving
 out of the game folder from the device VM needs deletion allowed there for the session (asked once, at the uninstall).
 
+## Hooks (J3, D26)
+
+`core/hooks.cpp`: `IatHook` swaps one import-table slot of the game exe (validated as snapped first; a slot not yet snapped at
+DllMain is retried at the first `Direct3DCreate9`), `VtableHook` one slot of a D3D object (`IDirect3D9::CreateDevice` [16],
+`IDirect3DDevice9::Present` [17]). Every hook is logged (`hook: iat|vtable ... slot old -> new`). Only the dev side installs hooks,
+only with a dev key on and the guard's plan allowing them (`DevInit`; `tests/test_dev.cpp` lints it).
+
+## Dev control channel (J3)
+
+All `[dev]` keys default off with release value off (`registries/config_keys.jsonl`); with none set the proxy is the skeleton.
+- `dev.timeline`: `napoleon_remastered\logs\timeline.json` (phases, UTC ms, t from process creation); `proxy/tools/timeline_table.py`.
+- `dev.log_files`: the file survey `logs\files.log` (every distinct open, check and listing); `proxy/tools/survey_table.py`.
+- `dev.skip_intro`, `dev.file_rules`: movie and file rules (`core/filerules.h`: redirect, fail, add, movie-fail, movie-redirect).
+- `dev.state_json`: `napoleon_remastered\state.json` ~2/s (scene, frame, Lua context, battle probe, memory, Lua reports); in the
+  adapter's `heartbeat_files`, so a watcher launch can wait on `"scene": "frontend"` (`wait_log` regex). The device VM may show a
+  stale copy of a file replaced by rename: read the state with ctl `state` instead.
+- `dev.lua_bridge`: the wrappers listed in `napoleon/lua/wrappers.txt` (`tools/build_dev_pack.py`) are served by a virtual pack and
+  load `napoleon_remastered\lua\wsp.lua`, which loads the bridge (`core/luabridge.cpp`, Lua 5.1.1 core from `tools/fetch_lua.py`).
+  Scenes: `core/devcore.h` SceneTracker. Only the main menu pumps in the front end (fact `napoleon.lua.update_callbacks`).
+- `dev.ctl` + `dev.ctl_dir`: requests `<dir>\<id>.cmd` (one line), results `<id>.done` (JSON written last: `status` ok | failed |
+  timeout | refused, `reason`, `start_utc`, `end_utc`, verb fields, `state_at_end`, `log` = every proxy log line written meanwhile).
+  Ids: 1-64 of `A-Za-z0-9._-`, never reused (`_ids.txt`). FIFO, one at a time. From the device VM: `job.sh ctl <owner> '<line>' [wait_s]`; with no answer it
+  withdraws the request (`<id>.cmd.expired`), because the proxy runs every `.cmd` it finds, including on a later launch.
+
+| verb | result fields |
+|---|---|
+| `ping` | `pong` |
+| `state` | `state` (= state.json) |
+| `log <text>` | a `ctl: log:` line |
+| `lua <file> [t]` | `chunk`: the chunk's returns (`a \| b \| c`) or its error; runs in the pumping script's environment, args `(id, ctx, wsp)` |
+| `waitfor <scene>[\|<scene>] [t]` | `scene`, `waited_s`; timeout names the scene |
+| `autostart <target> [t]` | `scene`, `lua`, `load_s`, `total_s`; battles: `map`, `map_folder_loaded`, `map_folder_selected`, `preset_map` (WRONG MAP fails) |
+| `reset <target> [t]` | `steps`, `from`, `to_frontend_s`, `total_s`, `mem_before/frontend/after`, `autostart {...}` |
+| `exit` | written, then the process exits |
+
+Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: type, map key, prefs), `campaign:continue`,
+`campaign:<save>`, `campaign:new:<campaign>:<faction>`. `<campaign>` must be a key a main-menu button carries (`grand` = the grand
+campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknown key is an engine AV, so autostart refuses it.
+Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
+Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
+
 ## Open questions
 
 1. `engine_sites` has no field for where the stock bytes start relative to the anchor; the fixed layout above works, a core field

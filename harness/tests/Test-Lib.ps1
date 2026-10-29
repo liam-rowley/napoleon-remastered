@@ -42,6 +42,7 @@ function New-TestAdapter([string]$dir, [string]$gameImage = 'Napoleon.exe', [str
         config_files = @(
             [ordered]@{ id = 'prefs'; anchor = 'appdata'; path = 'scripts\preferences.script.txt'; style = 'none' },
             [ordered]@{ id = 'keys'; anchor = 'appdata'; path = 'custom_keys.keys.xml'; style = 'none' },
+            [ordered]@{ id = 'battle_prefs'; anchor = 'appdata'; path = 'battle_preferences\.sp_default.battle_preferences'; style = 'none' },
             [ordered]@{ id = 'mod_ini'; anchor = 'game'; path = 'napoleon_remastered.ini'; style = 'ini' },
             [ordered]@{ id = 'dxvk_conf'; anchor = 'game'; path = 'dxvk.conf'; style = 'conf' }
         )

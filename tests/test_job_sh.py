@@ -101,6 +101,31 @@ class JobSh(unittest.TestCase):
         self.assertEqual(len(list((self.root / 'jobs').glob('*.request'))), 1)
         self.assertEqual(len(list((self.root / 'jobs').glob('*.tmp'))), 0)      # submitted atomically: no half-written .tmp left behind
 
+    def test_ctl_ok_and_exit_codes(self):
+        ctl = self.mounts / 'napoleon_remastered_pc' / 'ctl'
+        answers = iter(['ok', 'failed', 'timeout', 'refused'])
+
+        def proxy():   # plays the proxy: take the .cmd by rename, answer with .done
+            n = 0
+            while n < 4:
+                for p in sorted(ctl.glob('*.cmd')) if ctl.is_dir() else []:
+                    taken = p.with_name(p.name + '.taken'); os.replace(p, taken)
+                    (ctl / (p.stem + '.done')).write_text(json.dumps({'id': p.stem, 'status': next(answers)}))
+                    n += 1
+                time.sleep(0.05)
+        t = threading.Thread(target=proxy, daemon=True); t.start()
+        codes = [run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '20'], self.env).returncode for _ in range(4)]
+        self.assertEqual(codes, [0, 1, 3, 2])
+
+    def test_ctl_no_answer_withdraws_the_request(self):
+        # a request nobody answered must not stay as .cmd: the proxy would run it on its next launch (a stale exit or reset)
+        r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'exit', '1'], self.env)
+        self.assertEqual(r.returncode, 124)
+        self.assertIn('withdrawn', r.stderr)
+        ctl = self.mounts / 'napoleon_remastered_pc' / 'ctl'
+        self.assertEqual(list(ctl.glob('*.cmd')), [])
+        self.assertEqual(len(list(ctl.glob('*.cmd.expired'))), 1)
+
     def test_owner_is_added_to_control_jobs_only_when_missing(self):
         self.watcher({'status': 'ok', 'exit': 0})
         run(['--adapter', str(self.adapter), 'me', '-', '20'], self.env, stdin='launch\n')

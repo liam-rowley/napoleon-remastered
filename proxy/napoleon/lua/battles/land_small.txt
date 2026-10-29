@@ -1,0 +1,6 @@
+# land_small - a small custom land battle on an open map (J3 autostart and reset tests; J4 builds the library).
+# Keys: type = classic | naval | siege (sp_battle1's battle types), map = the map's Key (probes/list_maps.lua), prefs = the
+# battle-preferences class the custom-battle screens load (.sp_default, as sp_battle1 passes).
+type=classic
+map=NAP_MP_Grassy_Flatlands
+prefs=.sp_default
