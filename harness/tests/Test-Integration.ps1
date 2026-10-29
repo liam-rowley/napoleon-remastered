@@ -7,7 +7,7 @@
 param([string]$Repo = '', [string]$Only = '', [ValidateRange(1, 1000)][int]$Repeat = 1)
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'Test-Lib.ps1')
-$script:Only = $Only; $script:Repeat = $Repeat
+$script:TcOnly = $Only; $script:TcRepeat = $Repeat   # Tc names: a $script:Only in Test-Lib would BE the -Only param (case-insensitive, same scope) and reset it (J19 run 40898907246)
 if (-not $Repo) { $Repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')) }
 $core = Join-Path $Repo 'harness\core'
 $Inv = [Globalization.CultureInfo]::InvariantCulture

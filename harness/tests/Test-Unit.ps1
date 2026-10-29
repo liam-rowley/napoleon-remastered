@@ -340,6 +340,25 @@ Test-Case 'test runner: -Only selects by regex, -Repeat runs n times and stops a
         Assert-True (@($ps['Repeat'].Attributes | Where-Object { $_.TypeName.Name -eq 'ValidateRange' }).Count -eq 1) "$s -Repeat is range-checked"
     }
 }
+Test-Case 'test runner: Test-Lib never assigns a script variable named like a suite parameter (it would reset -Only; J19 run 40898907246)' {
+    # params live in the suite's script scope and names are case-insensitive: Test-Lib's `$script:Only = ''` silently reset -Only
+    $e = $null; $t = $null
+    $lib = [Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot 'Test-Lib.ps1'), [ref]$t, [ref]$e)
+    $assigned = @($lib.FindAll({ param($n) $n -is [Management.Automation.Language.AssignmentStatementAst] -and $n.Left -is [Management.Automation.Language.VariableExpressionAst] }, $true) |
+        ForEach-Object { $_.Left.VariablePath.UserPath -replace '^script:', '' })
+    foreach ($s in 'Run-HostTests.ps1', 'Test-Integration.ps1', 'Test-Unit.ps1') {
+        $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot $s), [ref]$t, [ref]$e)
+        foreach ($p in $ast.ParamBlock.Parameters) {
+            $pn = $p.Name.VariablePath.UserPath
+            Assert-True (-not ($assigned | Where-Object { $_ -ieq $pn })) "Test-Lib.ps1 assigns `$script:$pn, which is the -$pn parameter of $s"
+        }
+    }
+    # and end to end: a suite script with -Only/-Repeat that dot-sources Test-Lib still sees the values
+    $probe = Join-Path $tmp 'probe_suite.ps1'
+    [IO.File]::WriteAllText($probe, "param([string]`$Only = '', [int]`$Repeat = 1)`r`n. '$(Join-Path $PSScriptRoot 'Test-Lib.ps1')'`r`n`$script:TcOnly = `$Only; `$script:TcRepeat = `$Repeat`r`nWrite-Output `"[`$(`$script:TcOnly)] [`$(`$script:TcRepeat)]`"`r`n", $Utf8NoBom)
+    $o = & (Get-Process -Id $PID).Path -NoProfile -ExecutionPolicy Bypass -File $probe -Only 'hang watchdog' -Repeat 3
+    Assert-Eq "$o".Trim() '[hang watchdog] [3]' 'the values reach Test-Case through a dot-sourced Test-Lib'
+}
 Test-Case 'static: Handle-Hang writes hang.txt before Kill-Game and again after it (a watcher stopped mid-kill still leaves evidence; J19)' {
     $e = $null; $t = $null
     $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $core 'watcher.ps1'), [ref]$t, [ref]$e)

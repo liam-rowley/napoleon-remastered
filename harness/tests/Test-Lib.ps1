@@ -5,8 +5,8 @@
 $script:Pass = 0
 $script:Fail = 0
 $script:Failures = @()
-$script:Only = ''     # -Only <regex>: run only the cases whose name matches (set by the suite script after dot-sourcing)
-$script:Repeat = 1    # -Repeat <n>: run each selected case n times, stop that case at its first failure
+$script:TcOnly = ''     # -Only <regex>: run only the cases whose name matches (set by the suite script after dot-sourcing)
+$script:TcRepeat = 1    # -Repeat <n>: run each selected case n times, stop that case at its first failure
 $script:Selected = 0
 # The selection and repeat logic, pure so Test-Unit.ps1 can test it: runs $body up to $repeat times when $name matches $only,
 # stops at the first throw. Returns ran (case selected), passed (runs that passed), error (the first failure's message or $null).
@@ -22,10 +22,10 @@ function Invoke-Selected([string]$name, [scriptblock]$body, [string]$only, [int]
     return $tcRes
 }
 function Test-Case([string]$name, [scriptblock]$body) {
-    $tcN = [Math]::Max(1, $script:Repeat)
+    $tcN = [Math]::Max(1, $script:TcRepeat)
     # START per run: a hang shows which test it was in (J2 CI round 8 was cancelled with no log)
     $tcStart = { param($k) Write-Host "START $((Get-Date).ToUniversalTime().ToString('HH:mm:ss'))Z $name$(if ($tcN -gt 1) { " (run $k/$tcN)" })" }
-    $tcRes = Invoke-Selected $name $body $script:Only $tcN $tcStart
+    $tcRes = Invoke-Selected $name $body $script:TcOnly $tcN $tcStart
     if (-not $tcRes.ran) { return }
     $script:Selected++
     $script:Pass += $tcRes.passed
@@ -76,9 +76,9 @@ function New-TestAdapter([string]$dir, [string]$gameImage = 'Napoleon.exe', [str
 }
 function Finish-Tests([string]$suite) {
     Write-Host ''
-    Write-Host "$suite : $($script:Pass) passed, $($script:Fail) failed$(if ($script:Only) { " ($($script:Selected) cases matched -Only '$($script:Only)')" })"
+    Write-Host "$suite : $($script:Pass) passed, $($script:Fail) failed$(if ($script:TcOnly) { " ($($script:Selected) cases matched -Only '$($script:TcOnly)')" })"
     if ($script:Fail) { Write-Host ('FAILED: ' + ($script:Failures -join '; ')) }
     # a filter that matches nothing is a typo, not a pass
-    if ($script:Only -and -not $script:Selected) { Write-Host "FAILED: no $suite case matches -Only '$($script:Only)'"; return 1 }
+    if ($script:TcOnly -and -not $script:Selected) { Write-Host "FAILED: no $suite case matches -Only '$($script:TcOnly)'"; return 1 }
     return $script:Fail
 }
