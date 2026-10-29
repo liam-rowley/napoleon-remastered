@@ -118,6 +118,16 @@ class ExeSignatures(unittest.TestCase):
         self.assertEqual(exe.search(hay * 2, pat, mask), [7, 7 + len(hay)])
         self.assertIsNone(exe.search(hay, pat, [False, True, True, False, False, False, False, False, False, True]))
 
+    def test_two_signatures_on_one_address_are_shared_not_unique(self):
+        pe = {'sections': [{'raw_off': 0, 'raw_size': 64, 'rva': 0x1000}]}
+        hay = b'\x90' * 7 + bytes([0x55, 0x8B, 0xEC, 0x83, 0xE8, 1, 2, 3, 4, 0x5D]) + b'\xCC' * 8 + bytes([0x56, 0x57, 0x58, 0x59, 0x5A])
+        sig = lambda name, va, pat: {'source': 'function', 'name': name, 'empire_va': va, 'pat': pat, 'mask': [True] * len(pat)}
+        got = {h['name']: h['class'] for h in exe.run_search(
+            [sig('a', '0x10', hay[7:12]), sig('b', '0x20', hay[7:11]), sig('c', '0x30', hay[25:30]), sig('c guard', '0x30', hay[25:29])],
+            hay, pe, hay, pe)}
+        # a and b are different Empire code on one address; c and its guard-site twin are one Empire function
+        self.assertEqual(got, {'a': 'shared', 'b': 'shared', 'c': 'unique', 'c guard': 'unique'})
+
 
 if __name__ == '__main__':
     unittest.main()

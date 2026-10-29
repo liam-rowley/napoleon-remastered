@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Exe pass of the Empire-to-other-game diff: PE diff, and every Empire engine signature searched in the other exe.
 
-purpose: diff two Warscape exes' PE facts (sections, imports, size, LAA/ASLR/NX, strings) and search the other exe for every Empire guard-site, patch-site and named-function signature with relocated and relative dwords masked; hits are candidates (unique, multiple, none), never engine sites
+purpose: diff two Warscape exes' PE facts (sections, imports, size, LAA/ASLR/NX, strings) and search the other exe for every Empire guard-site, patch-site and named-function signature with relocated and relative dwords masked; hits are candidates (unique, shared, multiple, none), never engine sites
 usage: python3 discovery/core/exe.py [--games discovery/napoleon/games.json] [--out discovery/diff/exe.json]
 when: J6 exe area; J9 starts its engine_sites from the unique hits (each verified there with anchor bytes and a run id); re-run after a game update
 not-a-verb: reads both game exes in place (read only), outside the wsc registry operations
@@ -144,6 +144,13 @@ def run_search(sigs, nb, npe, eb, epe):
         out.append({'source': s['source'], 'name': s['name'], 'empire_va': s['empire_va'], 'len': len(s['pat']),
                     'masked': s['mask'].count(False), 'empire_unique': self_hits is not None and len(self_hits) == 1,
                     'class': cls, 'napoleon_rva': [f'0x{off_to_rva(npe, h):x}' for h in (hits or [])[:MAX_HITS]]})
+    claims = collections.defaultdict(set)   # Napoleon address -> the Empire addresses whose unique hit it is
+    for h in out:
+        if h['class'] == 'unique':
+            claims[h['napoleon_rva'][0]].add(int(h['empire_va'], 16) if h['empire_va'] else h['name'])
+    for h in out:
+        if h['class'] == 'unique' and len(claims[h['napoleon_rva'][0]]) > 1:
+            h['class'] = 'shared'   # different Empire code claims the same Napoleon address: not a candidate on its own
     return sorted(out, key=lambda x: (x['source'], x['name'], x['empire_va']))
 
 
@@ -163,7 +170,7 @@ def compare(ef, nf, hits):
         by[h['source']][h['class']] += 1
     for src, c in sorted(by.items()):
         tot = sum(c.values())
-        rows.append(row(f'signatures {src}', f'{tot} signatures', ', '.join(f'{c[k]} {k}' for k in ('unique', 'multiple', 'none', 'unsearchable') if c[k]),
+        rows.append(row(f'signatures {src}', f'{tot} signatures', ', '.join(f'{c[k]} {k}' for k in ('unique', 'shared', 'multiple', 'none', 'unsearchable') if c[k]),
                         'adapter' if c['unique'] else 'new', 'unique hits are candidates for J9 (open facts), not engine sites', 'detail.signatures'))
     return rows
 
@@ -182,8 +189,10 @@ def main(argv=None):
     stock = pj['exe']['stock_sha1']
     hits = run_search(signatures(g['empire']['repo'], eb, epe), nb, npe, eb, epe)
     rows = compare(ef, nf, hits)
-    rows.append(row('empire exe is the stock build the signatures came from', stock, ef['sha1'], 'same' if stock == ef['sha1'] else 'adapter',
-                    '' if stock == ef['sha1'] else 'Empire.exe on disk differs from exe_patches.json stock_sha1: window signatures may be off', 'exe_patches.json exe.stock_sha1'))
+    rows.append(row('Empire.exe on disk (signature source) vs exe_patches.json stock_sha1', f"on disk {ef['sha1']}, stock {stock}", '-',
+                    'same' if stock == ef['sha1'] else 'adapter',
+                    '' if stock == ef['sha1'] else 'Empire-side check only: the on-disk build differs from stock, so window signatures may be off',
+                    'exe_patches.json exe.stock_sha1'))
     for f in (ef, nf):
         del f['_imports']
     write(a.out, 'exe', rows, {'empire_pe': ef, 'napoleon_pe': nf, 'signatures': hits,

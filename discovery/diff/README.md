@@ -140,7 +140,7 @@ Every row whose verdict is not `same`; the `same` rows are counted per area. Ful
 | shaders | fx files gone in Napoleon | 9 | - | gone |  | detail.files |
 | shaders | fx files new in Napoleon | - | 4 | new |  | detail.files |
 | shaders | fx sources | 141 files, 452 techniques | 136 files, 506 techniques | adapter | same fx\ layout and HLSL effect format; compare per file | detail.files |
-| exe | empire exe is the stock build the signatures came from | 74a791249736de56bcee13640b4b968d129d3688 | 2b8650bf8abfd4879a119b479473b8974ee5246e | adapter | Empire.exe on disk differs from exe_patches.json stock_sha1: window signatures may be off | exe_patches.json exe.stock_sha1 |
+| exe | Empire.exe on disk (signature source) vs exe_patches.json stock_sha1 | on disk 2b8650bf8abfd4879a119b479473b8974ee5246e, stock 74a791249736de56bcee13640b4b968d1… | - | adapter | Empire-side check only: the on-disk build differs from stock, so window signatures may be… | exe_patches.json exe.stock_sha1 |
 | exe | import d3dx9_40.dll | 16 | - | gone |  | detail.*_pe.imports |
 | exe | import d3dx9d_40.dll | - | 15 | new |  | detail.*_pe.imports |
 | exe | import kernel32.dll | 159 | 159 | adapter | +3 -3 names | detail.*_pe.imports |
@@ -153,6 +153,6 @@ Every row whose verdict is not `same`; the `same` rows are counted per area. Ful
 | exe | pe strings_6plus | 37545 | 41970 | adapter |  | detail.*_pe |
 | exe | pe time_date_stamp | 0x6421f11c | 0x645e917f | adapter |  | detail.*_pe |
 | exe | signatures cfg_site | 26 signatures | 6 multiple, 20 none | new | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
-| exe | signatures function | 2854 signatures | 1192 unique, 468 multiple, 1190 none, 4 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
+| exe | signatures function | 2854 signatures | 1159 unique, 33 shared, 468 multiple, 1190 none, 4 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
 | exe | signatures guard_site | 23 signatures | 6 unique, 2 multiple, 15 none | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
 | exe | signatures patch_site | 26 signatures | 2 unique, 4 multiple, 19 none, 1 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |

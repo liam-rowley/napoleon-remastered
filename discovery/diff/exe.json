@@ -3149,7 +3149,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b01050",
     "len": 32,
@@ -3211,7 +3211,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b01540",
     "len": 32,
@@ -3313,7 +3313,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b02160",
     "len": 32,
@@ -3345,7 +3345,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b02600",
     "len": 32,
@@ -3587,7 +3587,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b05490",
     "len": 32,
@@ -3609,7 +3609,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b05570",
     "len": 32,
@@ -3631,7 +3631,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b05650",
     "len": 32,
@@ -3837,7 +3837,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b064c0",
     "len": 32,
@@ -3879,7 +3879,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b06840",
     "len": 32,
@@ -3891,7 +3891,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b06880",
     "len": 32,
@@ -3903,7 +3903,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b068c0",
     "len": 32,
@@ -4419,7 +4419,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b114e0",
     "len": 32,
@@ -4588,7 +4588,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b12c40",
     "len": 32,
@@ -4748,7 +4748,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b13250",
     "len": 32,
@@ -4830,7 +4830,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b13440",
     "len": 32,
@@ -5186,7 +5186,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b15cc0",
     "len": 32,
@@ -5683,7 +5683,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b1c530",
     "len": 32,
@@ -5715,7 +5715,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b1c6d0",
     "len": 32,
@@ -6050,7 +6050,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00b20c70",
     "len": 32,
@@ -6350,7 +6350,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00f377f0",
     "len": 32,
@@ -7089,7 +7089,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00462550",
     "len": 32,
@@ -7113,7 +7113,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00462b40",
     "len": 32,
@@ -9271,7 +9271,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00f32030",
     "len": 32,
@@ -9811,7 +9811,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00f31ff0",
     "len": 32,
@@ -20588,7 +20588,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00650290",
     "len": 32,
@@ -20612,7 +20612,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00650ee0",
     "len": 32,
@@ -21251,7 +21251,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x0064ea20",
     "len": 32,
@@ -21319,7 +21319,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00653120",
     "len": 32,
@@ -21341,7 +21341,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00653020",
     "len": 32,
@@ -25406,7 +25406,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00869050",
     "len": 32,
@@ -25684,7 +25684,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x0086a900",
     "len": 32,
@@ -26196,7 +26196,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x0086d2b0",
     "len": 32,
@@ -26318,7 +26318,7 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x0086db70",
     "len": 32,
@@ -34339,11 +34339,11 @@
  },
  "rows": [
   {
-   "adapter": "Empire.exe on disk differs from exe_patches.json stock_sha1: window signatures may be off",
-   "empire": "74a791249736de56bcee13640b4b968d129d3688",
+   "adapter": "Empire-side check only: the on-disk build differs from stock, so window signatures may be off",
+   "empire": "on disk 2b8650bf8abfd4879a119b479473b8974ee5246e, stock 74a791249736de56bcee13640b4b968d129d3688",
    "evidence": "exe_patches.json exe.stock_sha1",
-   "item": "empire exe is the stock build the signatures came from",
-   "napoleon": "2b8650bf8abfd4879a119b479473b8974ee5246e",
+   "item": "Empire.exe on disk (signature source) vs exe_patches.json stock_sha1",
+   "napoleon": "-",
    "verdict": "adapter"
   },
   {
@@ -34615,7 +34615,7 @@
    "empire": "2854 signatures",
    "evidence": "detail.signatures",
    "item": "signatures function",
-   "napoleon": "1192 unique, 468 multiple, 1190 none, 4 unsearchable",
+   "napoleon": "1159 unique, 33 shared, 468 multiple, 1190 none, 4 unsearchable",
    "verdict": "adapter"
   },
   {
