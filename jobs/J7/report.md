@@ -78,7 +78,7 @@ the file names, and alpha shows as the checker behind the art.
 - `panel_frame_01`: thin frame strips, corners and fills.
 
 ## Facts added
-- verified: `napoleon.assets.index`, `napoleon.assets.pack_order`, `napoleon.assets.ui_first`, `napoleon.assets.image_headers`,
+- verified 2026-10-29: `napoleon.assets.index`, `napoleon.assets.pack_order`, `napoleon.assets.ui_first`, `napoleon.assets.image_headers`,
   `napoleon.loc.format`, `napoleon.loc.patch`, `napoleon.loc.db_prefixes`, `napoleon.db.index`
 - open: `napoleon.db.decode` (waiting for the schema) and `napoleon.files.loose_override` (the J6 question; owner J9 unless a
   probe job is briefed)
