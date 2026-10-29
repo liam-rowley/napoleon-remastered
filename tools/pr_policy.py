@@ -8,7 +8,8 @@ Not-a-verb: it reads pull-request metadata that only CI has; it becomes a core g
 
 Branch kinds (the branch name decides):
   job/J<n>    any files, but only row J<n> of the jobs registry; jobs/J<n>/brief.md must already be on the base; the branch must
-              carry jobs/J<n>/report.md and jobs/J<n>/review.md whose verdict line says exactly "merge"; row J<n> must be `done`.
+              carry jobs/J<n>/report.md and jobs/J<n>/review.md whose verdict line says exactly "merge"; row J<n> must be `done`;
+              no session (`Claude-Session:` commit trailer) that wrote the report may write the review (never review your own job).
   brief/J<n>  only jobs/J<n>/brief.md and the jobs registry (row J<n>, which must be `queued` with its brief).
   plan/*      planning: docs, briefs, the jobs registry, README.md, CLAUDE.md. No code.
   meta/*      repo infrastructure: CI, tools/, tests/, schemas/, wsc.toml, git attributes and ignores, the core pin, registries,
@@ -62,8 +63,9 @@ def allowed(path, globs):
     return any(fnmatchcase(path, g) for g in globs)
 
 
-def check(branch, changed, base_rows, head_rows, base_file, head_file):
-    """Errors for this pull request. `base_file`/`head_file` are callables path -> text or None."""
+def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=None):
+    """Errors for this pull request. `base_file`/`head_file` are callables path -> text or None. `sessions`: callable path ->
+    set of `Claude-Session:` trailers of the branch's commits that touched it (job branches; None skips the authorship check)."""
     errs = []
     m = re.fullmatch(r'(job|brief)/(J[1-9][0-9]*)', branch)
     other_rows_changed = lambda jid: sorted(k for k in set(base_rows) | set(head_rows)
@@ -84,6 +86,11 @@ def check(branch, changed, base_rows, head_rows, base_file, head_file):
             errs.append(f'row {jid} must be `done` on the branch (the reviewer sets it with a merge verdict)')
         if other_rows_changed(jid):
             errs.append(f'a job branch may change only its own row; it also changes {", ".join(other_rows_changed(jid))}')
+        if sessions:
+            both = sorted(sessions(f'jobs/{jid}/report.md') & sessions(f'jobs/{jid}/review.md'))
+            if both:
+                errs.append(f'the review was written by a session that also wrote the report ({", ".join(both)}): '
+                            f'a job is never reviewed by the chat that built it (CLAUDE.md, Jobs)')
     elif m and m.group(1) == 'brief':
         jid = m.group(2)
         ok = {f'jobs/{jid}/brief.md', JOBS, 'registries/jobs.md'}
@@ -117,8 +124,11 @@ def main(argv=None):
     a = ap.parse_args(argv)
     mb = git('merge-base', a.base, 'HEAD').strip()
     changed = [p for p in git('diff', '--name-only', f'{mb}...HEAD').splitlines() if p]
+    def sessions(path):
+        out = git('log', '--format=%(trailers:key=Claude-Session,valueonly,separator=%x0a)', f'{mb}..HEAD', '--', path)
+        return {l.strip() for l in out.splitlines() if l.strip()}
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
-                 lambda p: show(a.base, p), lambda p: show('HEAD', p))
+                 lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions)
     for e in errs:
         print(f'policy: {e}', file=sys.stderr)
     print(f'policy: {a.branch}: {"REFUSED" if errs else "ok"} ({len(changed)} files changed)')

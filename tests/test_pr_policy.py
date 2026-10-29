@@ -72,5 +72,16 @@ class Policy(unittest.TestCase):
         self.assertTrue(errs and 'game code goes through a job' in errs[0])
 
 
+    def test_review_by_the_builder_is_refused(self):
+        done = {'id': 'J1', 'status': 'done', 'brief': 'jobs/J1/brief.md', 'report': 'jobs/J1/report.md', 'review': 'jobs/J1/review.md'}
+        head = files(**{'jobs/J1/report.md': 'r', 'jobs/J1/review.md': '**Verdict: merge.**'})
+        base = files(**{'jobs/J1/brief.md': 'b'})
+        same = lambda p: {'S1'} if p.endswith('report.md') else {'S1', 'S2'}
+        e = pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, same)
+        self.assertTrue(any('session that also wrote the report' in x for x in e), e)
+        other = lambda p: {'S1'} if p.endswith('report.md') else {'S2'}
+        self.assertEqual(pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, other), [])
+
+
 if __name__ == '__main__':
     unittest.main()
