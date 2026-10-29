@@ -131,6 +131,27 @@ class Ledger(unittest.TestCase):
         self.assertEqual(jv.waiting_rules(led, 'J5'), [])
 
 
+class View(unittest.TestCase):
+    def test_lanes_follow_status_branches_and_dependencies(self):
+        by = {r['id']: r for r in [row('J1', status='done'), row('J2', status='queued', depends_on=['J1']),
+                                   row('J3', status='queued', depends_on=['J4']), row('J4'), row('J5', status='queued')]}
+        lane = lambda j, b=(): jv.lane(by[j], by, set(b))[0]
+        self.assertEqual(lane('J1'), 'done')
+        self.assertEqual(lane('J2'), 'ready')
+        self.assertEqual(lane('J2', ['job/J2']), 'progress')
+        self.assertEqual(lane('J3'), 'waiting')
+        self.assertEqual(lane('J4'), 'brief')
+        self.assertEqual(lane('J4', ['brief/J4']), 'progress')
+
+    def test_page_escapes_and_embeds_docs(self):
+        page = jv.render_view([row('J1', status='queued', brief='jobs/J1/brief.md', title='a <b> & c')],
+                              files(jobs__J1__brief_md=BRIEF + '</script>'), set(), 'now')
+        self.assertIn('a &lt;b&gt; &amp; c', page)
+        self.assertIn('Next to pick up: <a href="#J1">', page)
+        self.assertIn('&lt;/script&gt;', page)               # a doc cannot break out of the page
+        self.assertNotIn('id="lane-review"', page)            # empty lanes are left out
+
+
 class ThisRepo(unittest.TestCase):
     def test_the_queue_passes_jobs_check(self):
         p = subprocess.run([sys.executable, str(ROOT / 'core' / 'wsc.py'), '--root', str(ROOT), 'jobs', 'check'],
