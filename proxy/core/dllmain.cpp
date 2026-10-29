@@ -3,9 +3,11 @@
 //   2. crash capture
 //   3. the exe-identity guard, ONCE, before any hook, patch or engine read -> Rt().plan (guard.h PlanEngine)
 //   4. the runtime patch engine, only when Rt().plan.patches
+//   5. the dev side (dev.cpp), only when a dev key is on and the plan allows hooks
 // The backend d3d9 loads later, at the first export call (backend.cpp). Loader lock: Win32 file and memory calls only.
 #include "runtime.h"
 #include <vector>
+#include <algorithm>
 
 #ifndef WSP_BUILD_ID
 #define WSP_BUILD_ID "dev"
@@ -27,6 +29,21 @@ bool ReadWhole(const std::wstring& path, std::string& out) {
     CloseHandle(f);
     out.resize(got);
     return ok;
+}
+
+// Second processes (a launcher, a tool) log to proxy.p<pid>.log; pids never repeat soon, so these files would pile up (J1 "Later").
+// Keep the newest kKeep; older ones move to logs\_old\ (nothing is deleted: the uninstall moves the whole mod folder anyway).
+void PruneSecondLogs(const std::wstring& dir) {
+    const size_t kKeep = 5;
+    std::vector<std::pair<unsigned long long, std::wstring>> v;
+    WIN32_FIND_DATAW fd; HANDLE h = FindFirstFileW((dir + L"proxy.p*.log").c_str(), &fd);
+    if (h == INVALID_HANDLE_VALUE) return;
+    do v.push_back({ ((unsigned long long)fd.ftLastWriteTime.dwHighDateTime << 32) | fd.ftLastWriteTime.dwLowDateTime, fd.cFileName }); while (FindNextFileW(h, &fd));
+    FindClose(h);
+    if (v.size() < kKeep) return;
+    std::sort(v.begin(), v.end());
+    CreateDirectoryW((dir + L"_old").c_str(), nullptr);
+    for (size_t i = 0; i + kKeep - 1 < v.size(); ++i) MoveFileExW((dir + v[i].second).c_str(), (dir + L"_old\\" + v[i].second).c_str(), MOVEFILE_REPLACE_EXISTING);
 }
 
 LogLevel LevelOf(const std::string& s) {
@@ -58,6 +75,7 @@ void Init(HMODULE self) {
     const LogLevel lvl = LevelOf(rt.cfg.Str("proxy.log_level"));
     if (second) {
         wchar_t base[48]; swprintf(base, 48, L"proxy.p%lu", GetCurrentProcessId());
+        PruneSecondLogs(rt.modDir + L"logs\\");
         LogOpen(rt.modDir + L"logs\\", base, lvl);
     } else LogOpen(rt.modDir + L"logs\\", L"proxy", lvl);
 
@@ -80,6 +98,7 @@ void Init(HMODULE self) {
     rt.plan = PlanEngine(rt.enabled, rt.engineOk);
     LOGI("plan: patches=%d engine_hooks=%d d3d_hooks=%d engine_reads=%d", rt.plan.patches, rt.plan.engineHooks, rt.plan.d3dHooks, rt.plan.engineReads);
     PatchesRun();
+    DevInit();                                    // dev keys only (all default off): nothing at all when none is set
     LOGI("init done; the %s backend loads at the first d3d9 call", rt.cfg.Str("proxy.backend").c_str());
 }
 
@@ -92,6 +111,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE inst, DWORD reason, LPVOID reserved) {
         wsp::Init(inst);
     } else if (reason == DLL_PROCESS_DETACH) {
         if (wsp::Rt().enabled) wsp::CrashCheckFilter("process detach");
+        wsp::DevOnDetach();
         LOGI("process detach (%s)", reserved ? "process exit" : "FreeLibrary");
     }
     return TRUE;

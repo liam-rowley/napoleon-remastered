@@ -1,0 +1,6 @@
+# Dev wrappers (dev.lua_bridge): pack entry | context. proxy/tools/build_dev_pack.py makes one wrapper per line into the virtual pack
+# data\zz_napoleon_remastered_dev.pack; each runs the vanilla script unchanged (wsp.vanilla) and pumps the bridge from its update
+# callback. One pumping script per context: the front end's main menu advert, the campaign root, the battle root.
+ui\frontend ui\main.advert.luac | frontend
+ui\campaign ui\layout.root.luac | campaign
+ui\battle ui\root.luac | battle

@@ -55,6 +55,16 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None):
         d, lic = Path(dxvk_dir) / 'd3d9_dxvk.dll', Path(dxvk_dir) / 'LICENSE.dxvk.txt'
     files = [(dll, 'd3d9.dll', 'proxy'), (ROOT / 'proxy' / adapter / ini, ini, 'config'),
              (d, f'{mod}/dxvk/d3d9_dxvk.dll', 'backend'), (lic, f'{mod}/LICENSE.dxvk.txt', 'licence')]
+    # dev side (J3): the Lua bridge files and the wrapper pack; inert unless dev keys are set (all default off)
+    ldir = ROOT / 'proxy' / adapter / 'lua'
+    if ldir.is_dir():
+        sys.path.insert(0, str(Path(__file__).parent))
+        import build_dev_pack
+        pack, _ = build_dev_pack.build(adapter)
+        files.append((pack, f'{mod}/packs/{pack.name}', 'dev'))
+        for p in sorted(ldir.rglob('*')):
+            if p.is_file() and p.suffix in ('.lua', '.txt') and p.name != 'wrappers.txt':
+                files.append((p, f'{mod}/lua/' + p.relative_to(ldir).as_posix(), 'dev'))
     if build_id is None:
         try:
             build_id = subprocess.run(['git', '-C', str(ROOT), 'rev-parse', '--short=12', 'HEAD'], capture_output=True, text=True).stdout.strip() or 'nogit'

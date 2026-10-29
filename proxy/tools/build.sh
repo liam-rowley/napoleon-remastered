@@ -10,23 +10,35 @@ WHAT="${1:-all}"; ADAPTER="napoleon"
 OUT="$ROOT/build/proxy"; mkdir -p "$OUT/$ADAPTER" "$OUT/tests"
 # Build id = the last commit that changed the DLL's inputs, not HEAD: a later report or run commit must not change the binary, or
 # the DLL tested on the PC is never the head DLL (J1 review finding 2). -dirty when an input has local changes.
-DLL_INPUTS=(proxy/core proxy/napoleon proxy/tools/build.sh)
+DLL_INPUTS=(proxy/core proxy/napoleon proxy/tools/build.sh proxy/tools/fetch_lua.py)
+# The build id comes from the commit history: a shallow clone sees HEAD as the last commit touching the inputs and builds a DLL
+# whose id is not the tested one (J1 deviation: CI run 40775169543). Refuse instead of building a wrong id.
+if [[ "$(git -C "$ROOT" rev-parse --is-shallow-repository 2>/dev/null)" == true ]]; then
+  echo "build.sh: $ROOT is a shallow clone: the build id would be wrong. Fetch the history first (git fetch --unshallow, or a bounded"
+  echo "          git fetch --depth=1000 origin <branch>; CI: actions/checkout fetch-depth: 0)"; exit 4
+fi
 BUILD_ID="$(git -C "$ROOT" log -1 --format=%h --abbrev=12 -- "${DLL_INPUTS[@]}" 2>/dev/null || true)"; BUILD_ID="${BUILD_ID:-nogit}"
 BUILD_ID="$BUILD_ID$(git -C "$ROOT" diff --quiet HEAD -- "${DLL_INPUTS[@]}" 2>/dev/null || echo -dirty)"
 
 # One compile line for every build (dll and repro): $1 = source root, $2 = output DLL. Uses $CXX, $ADAPTER, $BUILD_ID.
+LUA_SRC="$ROOT/build/lua/src"   # proxy/tools/fetch_lua.py: Lua 5.1.1, pinned, patched for the engine
 build_dll() {
-  local R="$1" O="$2"
+  local R="$1" O="$2" L="$2.lua"; mkdir -p "$L"
+  local CC="${CXX/g++/gcc}"
+  for c in lapi lcode ldebug ldo ldump lfunc lgc llex lmem lobject lopcodes lparser lstate lstring ltable ltm lundump lvm lzio lauxlib; do
+    "$CC" -std=gnu99 -O2 -w -ffile-prefix-map="$ROOT/build/"= -c -o "$L/$c.o" "$LUA_SRC/$c.c"
+  done
   # -win32 thread model (no winpthread DLL), static libgcc/libstdc++ (the DLL depends on system DLLs only), no PE timestamp and
   # relative file names (the same sources give the same bytes: the PC test binary is the CI binary). --disable-auto-image-base: mingw
   # ld otherwise hashes the OUTPUT PATH into the DLL's ImageBase, so the container, CI and a worktree gave three different DLLs for
   # one commit (review of J1, 2026-10-28). `build.sh repro` proves it stays fixed.
   "$CXX" -std=c++17 -O2 -s -shared -Wall -Wextra -Werror -DWSP_BUILD_ID="\"$BUILD_ID\"" -D_WIN32_WINNT=0x0601 -DUNICODE -D_UNICODE \
     -ffile-prefix-map="$R/"= -static-libgcc -static-libstdc++ -Wl,--no-insert-timestamp -Wl,--disable-auto-image-base -Wl,--enable-stdcall-fixup \
-    -o "$O" "$R"/proxy/core/*.cpp "$R/proxy/$ADAPTER/adapter.cpp" "$R/proxy/core/d3d9.def" -ldbghelp -ladvapi32
+    -I"$LUA_SRC" -o "$O" "$R"/proxy/core/*.cpp "$R/proxy/$ADAPTER/adapter.cpp" "$L"/*.o "$R/proxy/core/d3d9.def" -ldbghelp -ladvapi32
 }
 
 python3 "$ROOT/proxy/tools/gen_tables.py" --adapter "proxy/$ADAPTER" --check
+if [[ "$WHAT" == dll || "$WHAT" == all || "$WHAT" == repro ]]; then python3 "$ROOT/proxy/tools/fetch_lua.py" --out "$ROOT/build/lua" >/dev/null; fi
 
 if [[ "$WHAT" == dll || "$WHAT" == all ]]; then
   CXX="$(command -v i686-w64-mingw32-g++-win32 || command -v i686-w64-mingw32-g++ || true)"
@@ -37,9 +49,9 @@ if [[ "$WHAT" == dll || "$WHAT" == all ]]; then
     DEPS="$(i686-w64-mingw32-objdump -p "$OUT/$ADAPTER/d3d9.dll" | awk '/DLL Name/{print tolower($3)}' | sort -u | tr '\n' ' ')"
     echo "build.sh: imports $DEPS"
     for d in $DEPS; do case "$d" in kernel32.dll|advapi32.dll|dbghelp.dll|msvcrt.dll|api-ms-win-*) ;; *) echo "build.sh: unexpected import $d"; exit 3;; esac; done
-    EXP="$(i686-w64-mingw32-objdump -p "$OUT/$ADAPTER/d3d9.dll" | awk '/\[Ordinal\/Name Pointer\] Table/{f=1;next} f&&NF==0{exit} f{print $NF}' | sort | tr '\n' ' ')"
+    EXP="$(i686-w64-mingw32-objdump -p "$OUT/$ADAPTER/d3d9.dll" | awk '/\[Ordinal\/Name Pointer\] Table/{f=1;next} f&&NF==0{f=0} f{print $NF}' | sort | tr '\n' ' ')"
     echo "build.sh: exports $EXP"
-    for e in $(awk '/^EXPORTS/{f=1;next} f&&NF{print $1}' "$ROOT/proxy/core/d3d9.def"); do
+    for e in $(awk '/^EXPORTS/{f=1;next} f&&NF&&$1!~/^;/{print $1}' "$ROOT/proxy/core/d3d9.def"); do
       [[ " $EXP " == *" $e "* ]] || { echo "build.sh: export $e missing (decorated?)"; exit 3; }
     done
   fi

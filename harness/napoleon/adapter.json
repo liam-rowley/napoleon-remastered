@@ -16,7 +16,7 @@
     "steam_uri": "steam://rungameid/34030",
     "steam_wait_s": 90
   },
-  "heartbeat_files": ["napoleon_remastered\\logs\\proxy.log"],
+  "heartbeat_files": ["napoleon_remastered\\logs\\proxy.log", "napoleon_remastered\\state.json"],
   "archive": {
     "dirs_log": ["napoleon_remastered\\logs", "napoleon_remastered\\dxvk"],
     "dirs_dump": ["napoleon_remastered\\dumps"],

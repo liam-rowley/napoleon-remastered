@@ -9,6 +9,15 @@
 
 namespace wsp {
 
+// The dev side's game specifics (J3): null-terminated lists. Movie names are pack entry paths, lower case, '\\' separators.
+struct DevAdapter {
+    const char* const* introMovies;      // start-up movies refused at BinkOpen by dev.skip_intro
+    const char* const* frontendMovies;   // the front end's background movies (scene "frontend" before any Lua pump)
+    const char* const* luaRules;         // file rules installed with dev.lua_bridge (how the wrapper scripts reach the engine)
+    const char* luaDir;                  // the bridge's Lua files, relative to the game folder ("<mod>\\lua\\")
+    const char* packGlob;                // where the engine's packs are ("data\\*.pack"): movie names and vanilla script entries
+};
+
 struct GameAdapter {
     const char*    gameName;        // shown in the log and the notice
     const wchar_t* configFile;      // file name next to the exe
@@ -17,6 +26,7 @@ struct GameAdapter {
     Identity       identity;        // generated from proxy/<game>/identity.json
     const SiteDef* sites; size_t nSites;     // generated from the engine_sites registry
     const KeySpec* keys;  size_t nKeys;      // generated from the config_keys registry
+    const DevAdapter* dev;                   // proxy/<game>/adapter.cpp
 };
 
 const GameAdapter& Adapter();   // defined by the game's adapter.cpp

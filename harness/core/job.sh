@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # purpose: agent helper for the device VM: submit a watcher job, block inside ONE call until its result (or a timeout), print the output, return the job's exit code (refused 2, no answer 124); also take, refresh and release the game lock
-# usage: job.sh [--adapter FILE] <owner> <file|-> [timeout_s]  |  job.sh [--adapter FILE] lock <owner> <session> <purpose> [hang_s]  |  touch  |  unlock <owner> [--force]  |  status  |  root
+# usage: job.sh [--adapter FILE] <owner> <file|-> [timeout_s]  |  job.sh [--adapter FILE] lock <owner> <session> <purpose> [hang_s]  |  touch  |  unlock <owner> [--force]  |  status  |  root  |  ctl <owner> '<verb args>' [wait_s]
 # when: every time an agent runs something on the PC (launch, kill, profile, scripts): the watcher root comes from the adapter (device_mount + watcher_subdir), never a default path; waiting belongs here, not in repeated agent calls
 # not-a-verb: runs in the device VM's bash (python3 and the PC's folders mounted), outside the repo checkout
 # Body: a one-line control job (launch|kill|profile <name>|restore|update kit=<id>|restart|status|noop) or a cmd/ps1 script ('#ps1' first line or '#job type=ps1').
@@ -31,6 +31,19 @@ lock_age() { echo $(( $(date +%s) - $(stat -c %Y "$ROOT/game.lock") )); }
 cmd="${1:-}"
 case "$cmd" in
   root) printf '%s\n' "$ROOT"; exit 0;;
+  ctl)
+    # The proxy's dev control channel (dev.ctl=1): <state>/ctl/<id>.cmd -> <id>.done (proxy/README.md "Dev control channel").
+    # Blocks inside this one call until the result; exit 0 ok, 1 failed, 3 timeout (the proxy's own), 2 refused, 124 no answer.
+    owner="${2:?ctl <owner> '<verb args>' [wait_s]}"; line="${3:?ctl <owner> '<verb args>' [wait_s]}"; w="${4:-170}"
+    C="$(dirname "$ROOT")/ctl"; mkdir -p "$C"
+    id="$(printf '%s' "$owner" | tr -c 'A-Za-z0-9._-' '_')-$(date -u +%Y%m%dT%H%M%SZ)-$RANDOM$RANDOM"
+    printf '%s\n' "$line" > "$C/$id.tmp" && mv "$C/$id.tmp" "$C/$id.cmd" || { echo "job.sh ctl: cannot write into $C" >&2; exit 1; }
+    end=$(( $(date +%s) + w ))
+    while [ ! -f "$C/$id.done" ] && [ "$(date +%s)" -lt "$end" ]; do sleep 0.5; done
+    [ -f "$C/$id.done" ] || { echo "ctl $id: no result after ${w}s: is the game running with dev.ctl=1 and dev.ctl_dir=$C? The request stays in $C." >&2; exit 124; }
+    sleep 0.1; cat "$C/$id.done"
+    s="$(jget "$C/$id.done" status)"
+    case "$s" in ok) exit 0;; failed) exit 1;; timeout) exit 3;; refused) exit 2;; *) exit 124;; esac;;
   status)
     [ -f "$ROOT/watcher.alive" ] || { echo "no watcher.alive in $ROOT: the watcher has never run here" >&2; exit 1; }
     age=$(( $(date +%s) - $(stat -c %Y "$ROOT/watcher.alive") ))

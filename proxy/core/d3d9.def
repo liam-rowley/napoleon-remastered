@@ -11,3 +11,6 @@ EXPORTS
     D3DPERF_QueryRepeatFrame
     D3DPERF_SetOptions
     D3DPERF_GetStatus
+    ; the dev Lua bridge (luabridge.cpp): the engine's Lua loads these with package.loadlib (dev.lua_bridge only)
+    wsp_sentinel
+    luaopen_wsp

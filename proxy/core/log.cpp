@@ -12,6 +12,25 @@ LogLevel s_min = LogLevel::Info;
 CRITICAL_SECTION s_cs;
 bool s_csInit = false;
 std::wstring s_path;
+std::vector<std::string>* s_cap = nullptr;   // open evidence capture (control channel), under s_cs
+int s_capDepth = 0;
+const size_t kCapMax = 120;
+}
+
+void LogCaptureBegin() {
+    if (!s_csInit) return;
+    EnterCriticalSection(&s_cs);
+    if (!s_cap) s_cap = new std::vector<std::string>();
+    ++s_capDepth;
+    LeaveCriticalSection(&s_cs);
+}
+std::vector<std::string> LogCaptureEnd() {
+    std::vector<std::string> out;
+    if (!s_csInit) return out;
+    EnterCriticalSection(&s_cs);
+    if (s_cap) { out = *s_cap; if (--s_capDepth <= 0) { delete s_cap; s_cap = nullptr; s_capDepth = 0; } else s_cap->clear(); }
+    LeaveCriticalSection(&s_cs);
+    return out;
 }
 
 std::wstring LogPath() { return s_path; }
@@ -40,6 +59,7 @@ void LogWrite(LogLevel lvl, const char* fmt, ...) {
     if (!s_csInit) return;
     EnterCriticalSection(&s_cs);
     if (s_file != INVALID_HANDLE_VALUE && n > 0) { DWORD wr = 0; WriteFile(s_file, line, (DWORD)(n < (int)sizeof line ? n : (int)sizeof line - 1), &wr, nullptr); }
+    if (s_cap && s_cap->size() < kCapMax && n > 2) s_cap->push_back(std::string(line, (size_t)(n < (int)sizeof line ? n - 2 : (int)sizeof line - 3)));
     LeaveCriticalSection(&s_cs);
     OutputDebugStringA(line);
 }

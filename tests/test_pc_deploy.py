@@ -35,8 +35,12 @@ class Deploy(unittest.TestCase):
     def test_kit_manifest(self):
         man, bad = pd.verify_kit(self.kit)
         self.assertEqual(bad, [])
-        self.assertEqual({e['path'] for e in man['files']},
-                         {'d3d9.dll', 'napoleon_remastered.ini', 'napoleon_remastered/dxvk/d3d9_dxvk.dll', 'napoleon_remastered/LICENSE.dxvk.txt'})
+        paths = {e['path'] for e in man['files']}
+        self.assertTrue({'d3d9.dll', 'napoleon_remastered.ini', 'napoleon_remastered/dxvk/d3d9_dxvk.dll', 'napoleon_remastered/LICENSE.dxvk.txt'} <= paths)
+        # the dev side (J3): the wrapper pack and the bridge's Lua, all inside the owned mod folder
+        self.assertIn('napoleon_remastered/packs/zz_napoleon_remastered_dev.pack', paths)
+        self.assertIn('napoleon_remastered/lua/wsp.lua', paths)
+        self.assertTrue(all(p in ('d3d9.dll', 'napoleon_remastered.ini') or p.startswith('napoleon_remastered/') for p in paths))
         for e in man['files']:
             self.assertTrue(e['staged'].startswith(e['sha256'][:12] + '__'))   # unique per content
         self.assertTrue((self.kit / 'pc_deploy.py').exists())

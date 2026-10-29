@@ -16,15 +16,25 @@ static const SiteDef kSites[kSiteCount + 1] = {   // id, kind, rva, anchorLen, a
     { nullptr, 0, 0, 0, { 0 }, 0, { 0 }, { 0 }, nullptr }   // sentinel (keeps the array non-empty)
 };
 
-static const size_t kKeyCount = 8;
+static const size_t kKeyCount = 18;
 static const KeySpec kKeys[kKeyCount + 1] = {
+    { "dev.autostart", kStr, "" },
+    { "dev.autostart_delay_ms", kInt, "1500" },
+    { "dev.ctl", kBool, "0" },
+    { "dev.ctl_dir", kStr, "C:\\napoleon_remastered_pc\\ctl" },
+    { "dev.file_rules", kStr, "" },
+    { "dev.log_files", kBool, "0" },
+    { "dev.lua_bridge", kBool, "0" },
+    { "dev.skip_intro", kBool, "0" },
+    { "dev.state_json", kBool, "0" },
+    { "dev.timeline", kBool, "0" },
     { "proxy.backend", kStr, "dxvk" },
     { "proxy.dxvk_path", kStr, "napoleon_remastered\\dxvk\\d3d9_dxvk.dll" },
     { "proxy.enabled", kBool, "1" },
     { "proxy.exe_guard", kInt, "1" },
     { "proxy.exe_guard_force_mismatch", kInt, "0" },
     { "proxy.log_level", kStr, "info" },
-    { "proxy.minidump", kInt, "1" },
+    { "proxy.minidump", kInt, "2" },
     { "proxy.runtime_patches", kBool, "1" },
     { nullptr, 0, nullptr }
 };
