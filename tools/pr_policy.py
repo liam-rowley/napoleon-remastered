@@ -9,7 +9,8 @@ Not-a-verb: it reads pull-request metadata that only CI has; it becomes a core g
 Branch kinds (the branch name decides):
   job/J<n>    any files, but only row J<n> of the jobs registry; jobs/J<n>/brief.md must already be on the base; the branch must
               carry jobs/J<n>/report.md and jobs/J<n>/review.md whose verdict line says exactly "merge"; row J<n> must be `done`;
-              no session (`Claude-Session:` commit trailer) that wrote the report may write the review (never review your own job).
+              no session (`Claude-Session:` commit trailer) that wrote the report may write the review (never review your own job),
+              and every commit touching the report or the review must carry that trailer (fails closed; J20).
   brief/J<n>  only jobs/J<n>/brief.md and the jobs registry (row J<n>, which must be `queued` with its brief).
   plan/*      planning: docs, briefs, the jobs registry, README.md, CLAUDE.md. No code.
   meta/*      repo infrastructure: CI, tools/, tests/, schemas/, wsc.toml, git attributes and ignores, the core pin, registries,
@@ -91,7 +92,8 @@ def allowed(path, globs):
 
 def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=None):
     """Errors for this pull request. `base_file`/`head_file` are callables path -> text or None. `sessions`: callable path ->
-    set of `Claude-Session:` trailers of the branch's commits that touched it (job branches; None skips the authorship check)."""
+    list with one set of `Claude-Session:` trailer values per branch commit that touched it (job branches; an empty set is a commit
+    without a trailer, which is refused; None skips the authorship check, for the pure-logic tests)."""
     errs = decisions_problems(base_file(DECISIONS), head_file(DECISIONS)) if DECISIONS in changed else []
     m = re.fullmatch(r'(job|brief)/(J[1-9][0-9]*)', branch)
     other_rows_changed = lambda jid: sorted(k for k in set(base_rows) | set(head_rows)
@@ -113,7 +115,14 @@ def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=
         if other_rows_changed(jid):
             errs.append(f'a job branch may change only its own row; it also changes {", ".join(other_rows_changed(jid))}')
         if sessions:
-            both = sorted(sessions(f'jobs/{jid}/report.md') & sessions(f'jobs/{jid}/review.md'))
+            # fail closed (J20): a commit with no trailer could be anyone's, so it can prove nothing about who reviewed
+            by = {n: sessions(f'jobs/{jid}/{n}') for n in ('report.md', 'review.md')}
+            for n, commits in by.items():
+                bare = sum(1 for s in commits if not s)
+                if bare:
+                    errs.append(f'jobs/{jid}/{n} has {bare} commit(s) with no `Claude-Session:` trailer: authorship cannot be checked '
+                                f'(the .claude/settings.json hook adds it; by hand: git commit --trailer "Claude-Session: <session id>")')
+            both = sorted(set().union(*by['report.md']) & set().union(*by['review.md']))
             if both:
                 errs.append(f'the review was written by a session that also wrote the report ({", ".join(both)}): '
                             f'a job is never reviewed by the chat that built it (CLAUDE.md, Jobs)')
@@ -151,8 +160,9 @@ def main(argv=None):
     mb = git('merge-base', a.base, 'HEAD').strip()
     changed = [p for p in git('diff', '--name-only', f'{mb}...HEAD').splitlines() if p]
     def sessions(path):
-        out = git('log', '--format=%(trailers:key=Claude-Session,valueonly,separator=%x0a)', f'{mb}..HEAD', '--', path)
-        return {l.strip() for l in out.splitlines() if l.strip()}
+        out = git('log', '--format=%H%x1f%(trailers:key=Claude-Session,valueonly,separator=%x1f)%x1e', f'{mb}..HEAD', '--', path)
+        recs = [r.strip('\n').split('\x1f') for r in out.split('\x1e') if r.strip()]
+        return [{v.strip() for v in r[1:] if v.strip()} for r in recs]
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
                  lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions)
     for e in errs:

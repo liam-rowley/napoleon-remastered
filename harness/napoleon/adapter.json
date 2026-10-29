@@ -3,7 +3,6 @@
   "title": "Napoleon: Total War",
   "state_dir": "C:\\napoleon_remastered_pc",
   "watcher_subdir": "watcher",
-  "device_mount": "napoleon_remastered_pc",
   "task_name": "napoleon_remastered watcher",
   "game_dir": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War",
   "appdata_dir": "%APPDATA%\\The Creative Assembly\\Napoleon",

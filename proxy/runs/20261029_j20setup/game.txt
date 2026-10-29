@@ -1,0 +1,13 @@
+game.lock taken: owner=j20 session=9c22f827 purpose=J20 proof: launch to frontend, kill (retry, log regex) started=2026-10-29T15:26:46Z  (refresh at least every 10 min with: job.sh touch; the watcher expires it after 20 min)
+started C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 21372) in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War [launch job j20-20261029T152646Z-2214931641 owner=j20]
+running: Napoleon.exe pid 21372
+reached after 63 s: 2026-10-29T15:27:51.101Z [INFO ] [t9284] scene: intro -> frontend after 16744.3 s (uptime 63.2 s, frame 10698, lua frontend)
+[job j20-20261029T152646Z-2214931641: ok exit=0]
+launch exit 0
+taskkill /F /T /PID 21372 (Napoleon): SUCCESS: The process with PID 21372 (child process of PID 16240) has been terminated.
+killed: Napoleon 21372
+[job j20-20261029T152753Z-1241922141: ok exit=0]
+kill exit 0
+game.lock released (the watcher restores an active profile by itself once the game is closed)
+
+[exited with code 0]

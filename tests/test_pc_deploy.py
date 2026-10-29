@@ -7,6 +7,7 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('pc_deploy', ROOT / 'proxy/tools/pc_deploy.py')
@@ -150,7 +151,7 @@ class Deploy(unittest.TestCase):
 
 class HarnessKit(unittest.TestCase):
     """The watcher kit (J2): unique ids, sha-checked manifest, CRLF/ASCII guard for PC scripts, and the install-time game check that
-    asks the watcher (not the device VM) which processes run."""
+    asks the watcher (else tasklist) which processes run."""
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -224,11 +225,43 @@ class HarnessKit(unittest.TestCase):
         st = self._status([], age=120)
         self.assertIn('heartbeat is', pd.running_check(game, 'm', 'Napoleon.exe', state=st))
         # the status file says nothing was running but nobody is watching: refuse rather than guess
-        self.assertEqual(pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'), '')   # never installed: the old log heuristic
-        log = game / 'm' / 'logs' / 'proxy.log'
-        log.parent.mkdir(parents=True)
-        log.write_text('launch x\nstarted\n')
-        self.assertIn('may be running', pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'))
+        with mock.patch.object(pd, 'windows_images', lambda: None):   # off Windows: the log heuristic
+            self.assertEqual(pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'), '')
+            log = game / 'm' / 'logs' / 'proxy.log'
+            log.parent.mkdir(parents=True)
+            log.write_text('launch x\nstarted\n')
+            self.assertIn('may be running', pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'))
+
+    def test_no_watcher_on_windows_asks_tasklist(self):
+        game = self.t / 'game'
+        game.mkdir()
+        with mock.patch.object(pd, 'windows_images', lambda: {'explorer.exe', 'empire.exe'}):
+            self.assertEqual(pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher', other_exes=['Empire.exe']),
+                             'tasklist: Empire.exe is running')
+        with mock.patch.object(pd, 'windows_images', lambda: {'explorer.exe'}):
+            self.assertEqual(pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'), '')
+        def boom():
+            raise OSError('no tasklist')
+        with mock.patch.object(pd, 'windows_images', boom):
+            self.assertIn('tasklist failed', pd.running_check(game, 'm', 'Napoleon.exe', state=self.t / 'nowatcher'))
+        if os.name == 'nt':   # the real one parses: this test process is in it
+            self.assertTrue(any(i.startswith('python') for i in pd.windows_images()))
+
+    def test_send_copies_sha_checked_and_refuses_a_reused_id(self):
+        kit = pd.build_harness_kit(self.t / 'kits', build_id='test')
+        state = self.t / 'state'
+        dest = pd.send_kit(kit, state)
+        self.assertEqual(dest, state / 'kits' / kit.name)
+        self.assertEqual(pd.verify_harness_kit(dest)[1], [])
+        self.assertEqual(sorted(p.name for p in dest.iterdir()), sorted(p.name for p in kit.iterdir()))
+        self.assertEqual([p.name for p in (state / 'kits').iterdir()], [kit.name])   # no .partial left behind
+        with self.assertRaisesRegex(SystemExit, 'never reused'):
+            pd.send_kit(kit, state)
+        staged = next(p for p in kit.iterdir() if '__src__' in p.name)
+        staged.write_bytes(b'stale')
+        with self.assertRaisesRegex(SystemExit, 'does not verify'):
+            pd.send_kit(kit, self.t / 'state2')
+        self.assertFalse((self.t / 'state2' / 'kits').exists())
 
 
 if __name__ == '__main__':

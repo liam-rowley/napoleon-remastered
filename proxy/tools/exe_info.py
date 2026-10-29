@@ -3,8 +3,8 @@
 
 purpose: print an exe's identity (sha1, PE TimeDateStamp, SizeOfImage, CheckSum, LAA/ASLR/NX flags, sections, DRM stub signs) and its d3d9.dll imports, and check that the proxy's d3d9.def exports cover them
 usage: python3 proxy/tools/exe_info.py <Napoleon.exe> [--def proxy/core/d3d9.def] [--identity proxy/napoleon/identity.json]
-when: to re-check the target exe before pinning it or after a Steam update (runs on the PC's device VM against the game folder, or anywhere on a copy); exit 1 when the identity file or the def file disagrees
-not-a-verb: it must run on the PC's device VM, which has the game folder but no repo checkout with the core submodule; copy this one file there
+when: to re-check the target exe before pinning it or after a Steam update (runs in Git Bash on the PC against the game folder, or anywhere on a copy); exit 1 when the identity file or the def file disagrees
+not-a-verb: a standalone stdlib reader of one exe that also runs on a copy of the exe away from the repo (whether it becomes a verb: J20 report)
 """
 import argparse
 import hashlib

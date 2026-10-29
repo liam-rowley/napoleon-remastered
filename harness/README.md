@@ -1,18 +1,19 @@
 # Harness: PC watcher, game lock, profiles, hang watchdog (job J2)
 
-Cloud agents never touch the PC directly. They drop job files into a folder the PC's watcher reads. The watcher is
+Agents (Claude Code on the PC, D30) never start, kill or profile the game themselves. They drop job files into a folder the watcher reads. The watcher is
 `harness/core/watcher.ps1` (game-agnostic); everything Napoleon-specific is in `harness/napoleon/adapter.json` and
 `harness/napoleon/profiles/`. Everything is Windows PowerShell 5.1 and ASCII-only; all data files are UTF-8 without BOM (`tests/test_repo_rules.py`);
 all times are UTC (`...Z`).
 
 ## Install (Liam, once)
-1. In the cloud: `python3 proxy/tools/pc_deploy.py kit --what harness` stages a kit; sync it to the PC (`pc_deploy`).
-2. On the PC double-click `Install watcher.cmd` in the kit folder (`Uninstall watcher.cmd` removes it). It copies the files
+1. In Git Bash in the repo: `python3 proxy/tools/pc_deploy.py kit --what harness` builds a kit in `build/kits/`, then
+   `python3 proxy/tools/pc_deploy.py send --kit build/kits/<id> --state 'C:\napoleon_remastered_pc'` copies it sha-checked to `<state>\kits\<id>`.
+2. Double-click `Install watcher.cmd` in that kit folder (`Uninstall watcher.cmd` removes it). It copies the files
    sha-checked into `C:\napoleon_remastered_pc\watcher\src`, registers the logon task `napoleon_remastered watcher` (never
    Empire's `rml_mod watcher`), starts it and writes `install_result.json`. It refuses when a game is running.
-3. Later updates need no click: job `update kit=<id>` (see below).
+3. Later updates need no click: `send` a new kit, then job `update kit=<id>` (see below).
 
-## Watcher root (`C:\napoleon_remastered_pc\watcher`, seen as `$HOME/mnt/napoleon_remastered_pc/watcher`)
+## Watcher root (`C:\napoleon_remastered_pc\watcher`, `/c/napoleon_remastered_pc/watcher` in Git Bash)
 `src\` code and `adapter.json` | `jobs\` `<id>.request` `.out` `.done` `_ids.txt` | `profiles\<name>\`, `profiles\_saved\<ts>_<owner>\`,
 `profiles\_active.json` | `runs\<utc>_hang\` | `_to_delete\` (nothing is ever deleted) | `update\`, `backup\` | `game.lock`, `watcher.status`,
 `watcher.alive`, `watcher.pid`, `watcher.log`, `watcher.ini`, `watcher.zombie.json`, `watcher.stop`, `watchdog.off`, `install.log`, `install_result.json`.
@@ -31,9 +32,9 @@ Write `jobs\<id>.request` (write a temp name, then rename). Ids are never reused
 `game.lock` is one line: `owner= session= purpose= started=<UTC> [hang_s=<n>]`. Its mtime is the refresh time; 20 minutes without a refresh and it
 expires (moved to `_to_delete`). Release = move it away. A fresh lock from the Empire watcher, or the other title running, blocks a launch. The
 watchdog is armed only while a valid lock exists and the watcher launched the game.
-`harness/core/job.sh` does all of it from the device VM: `job.sh lock <owner> <session> <purpose> [hang_s]`, `job.sh <owner> <file|-> [timeout_s]`
+`harness/core/job.sh` does all of it from Git Bash: `job.sh lock <owner> <session> <purpose> [hang_s]`, `job.sh <owner> <file|-> [timeout_s]`
 (blocks inside one call until the result; exit code = the job's, refused 2, no answer 124), `touch`, `unlock <owner>`, `status`, `root`.
-The mount comes from the adapter (`device_mount` under `$DEVICE_MOUNTS`, default `$HOME/mnt`).
+The root comes from the adapter: `state_dir` as a Git Bash path plus `watcher_subdir` (no environment variable; `$WATCHER_ROOT` overrides it for tests).
 
 ## Hang watchdog and zombies
 Hung: an unarmed game never counts; not in `hang_startup_s`; not while minimised/hidden or while a game-touching job runs; else `IsHungAppWindow` sustained

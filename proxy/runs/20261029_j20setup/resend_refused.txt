@@ -1,0 +1,2 @@
+pc_deploy send: C:\napoleon_remastered_pc\kits\kit_20261029T152159Z_edbf71c650b7 already exists: a kit id is never reused (build a new kit)
+exit 1

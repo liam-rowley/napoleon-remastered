@@ -9,7 +9,7 @@ When: discovery for the dev control channel (J3: start-up movies, front-end scri
 
 Format (PFH0, 24-byte header, little endian): magic, pack type (4 = movie pack), 0, size of the pack-name list, entry count,
 index size; then the pack-name list, then the index (u32 size + NUL-terminated path per entry), then the data in index order.
-not-a-verb: reads the game's binary packs on the PC or in the cloud; a standalone discovery reader until J7's asset index
+not-a-verb: reads the game's binary packs in the game folder on the PC; a standalone discovery reader until J7's asset index
 """
 import argparse
 import json

@@ -1,0 +1,3 @@
+2d0e60a44db106981a59b9e9527c2005c0a48f784fe91c19495542af2fbf452c *build/proxy/napoleon/d3d9.dll
+2d0e60a44db106981a59b9e9527c2005c0a48f784fe91c19495542af2fbf452c *build/ci_artifact/d3d9.dll
+cmp: identical (docker build 3218c33bf59b; CI run 40899932444 artifact proxy-d3d9-napoleon)

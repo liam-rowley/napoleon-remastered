@@ -1,9 +1,14 @@
-"""Host tests for tools/pr_policy.py (pure logic: no git)."""
+"""Host tests for tools/pr_policy.py: the pure logic, then main() on a fixture git repository (the Claude-Session trailer check)."""
 import importlib.util
+import json
+import subprocess
+import sys
+import tempfile
 import unittest
 from pathlib import Path
 
-_spec = importlib.util.spec_from_file_location('pr_policy', Path(__file__).resolve().parent.parent / 'tools' / 'pr_policy.py')
+POLICY = Path(__file__).resolve().parent.parent / 'tools' / 'pr_policy.py'
+_spec = importlib.util.spec_from_file_location('pr_policy', POLICY)
 pp = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(pp)
 
@@ -76,11 +81,65 @@ class Policy(unittest.TestCase):
         done = {'id': 'J1', 'status': 'done', 'brief': 'jobs/J1/brief.md', 'report': 'jobs/J1/report.md', 'review': 'jobs/J1/review.md'}
         head = files(**{'jobs/J1/report.md': 'r', 'jobs/J1/review.md': '**Verdict: merge.**'})
         base = files(**{'jobs/J1/brief.md': 'b'})
-        same = lambda p: {'S1'} if p.endswith('report.md') else {'S1', 'S2'}
+        same = lambda p: [{'S1'}] if p.endswith('report.md') else [{'S2'}, {'S1'}]
         e = pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, same)
         self.assertTrue(any('session that also wrote the report' in x for x in e), e)
-        other = lambda p: {'S1'} if p.endswith('report.md') else {'S2'}
+        other = lambda p: [{'S1'}] if p.endswith('report.md') else [{'S2'}]
         self.assertEqual(pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, other), [])
+
+    def test_a_commit_without_a_trailer_fails_closed(self):
+        done = {'id': 'J1', 'status': 'done', 'brief': 'jobs/J1/brief.md', 'report': 'jobs/J1/report.md', 'review': 'jobs/J1/review.md'}
+        head = files(**{'jobs/J1/report.md': 'r', 'jobs/J1/review.md': '**Verdict: merge.**'})
+        base = files(**{'jobs/J1/brief.md': 'b'})
+        for s in (lambda p: [set()], lambda p: [{'S1'}] if p.endswith('report.md') else [{'S2'}, set()]):
+            e = pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, s)
+            self.assertTrue(any('no `Claude-Session:` trailer' in x for x in e), e)
+
+
+class PolicyOnGit(unittest.TestCase):
+    """main() on a real fixture repository: job branches whose report and review carry no trailer, or distinct ones."""
+
+    def git(self, *a):
+        subprocess.run(['git', '-c', 'core.hooksPath=/dev/null', *a], cwd=self.d, check=True, capture_output=True, text=True)
+
+    def commit(self, path, text, trailer=None):
+        p = Path(self.d) / path
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(text, encoding='utf-8', newline='\n')
+        self.git('add', '-A')
+        self.git('commit', '-q', '-m', f'write {path}', *(['--trailer', f'Claude-Session: {trailer}'] if trailer else []))
+
+    def branch(self, report_session, review_session):
+        self.git('checkout', '-q', '-B', 'job/J1', 'main')
+        self.commit('jobs/J1/report.md', 'report', report_session)
+        done = dict(ROW, status='done', report='jobs/J1/report.md', review='jobs/J1/review.md')
+        self.commit('registries/jobs.jsonl', json.dumps(done) + '\n' + json.dumps(OTHER) + '\n', review_session)
+        self.commit('jobs/J1/review.md', '**Verdict: merge.**', review_session)
+        return subprocess.run([sys.executable, str(POLICY), '--branch', 'job/J1', '--base', 'main'], cwd=self.d,
+                              capture_output=True, text=True)
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.d = self.tmp.name
+        self.git('init', '-q', '-b', 'main')
+        self.git('config', 'user.email', 't@example.invalid')
+        self.git('config', 'user.name', 'test')
+        self.commit('jobs/J1/brief.md', 'brief')
+        self.commit('registries/jobs.jsonl', json.dumps(ROW) + '\n' + json.dumps(OTHER) + '\n')
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_no_trailers_refused_distinct_trailers_pass(self):
+        r = self.branch(None, None)
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        self.assertIn('report.md has 1 commit(s) with no `Claude-Session:` trailer', r.stderr)
+        self.assertIn('review.md has 1 commit(s)', r.stderr)
+        r = self.branch('builder-session', 'reviewer-session')
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        r = self.branch('same-session', 'same-session')
+        self.assertEqual(r.returncode, 1)
+        self.assertIn('also wrote the report (same-session)', r.stderr)
 
 
     def test_decisions_are_append_only(self):
