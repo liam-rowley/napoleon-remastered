@@ -1,0 +1,113 @@
+{
+ "about": "Napoleon saves used by J14. The files live on the PC in C:\\napoleon_remastered_pc\\saves and never in the repo. roundtrip ok = esf_edit.py roundtrip sha-equal with no unknown tag (run 20261029_j14pc). Edited saves are regenerated from a base save by a recipe and never kept.",
+ "saves": [
+  {
+   "name": "j14_agent-to-settlement_a.save",
+   "sha256": "66b50bfd395638ece2b3fd2bd4ab70f1f9795469fd4c6d6981021601763810cd",
+   "size": 30280963,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "Liam (in game, 2026-10-29)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "j14_agent-to-settlement_b.save",
+   "sha256": "8e6b574eb4e432c28aa578e06839946d2da73569c9fc6628f7b6cce7a63f709a",
+   "size": 30051944,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "Liam (in game, 2026-10-29)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "j14_building-queued-unit-recruited_a.save",
+   "sha256": "04506904c057c9fd32f0e91755b9745a2bf54defa502bf2b1cf77acbe75c1e9a",
+   "size": 30052222,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "Liam (in game, 2026-10-29)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "j14_building-queued-unit-recruited_b.save",
+   "sha256": "d7b63099951b031154ce096db3a6af1523bd9e9f4747ea373b3f0e7d6df70b1e",
+   "size": 30052222,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "Liam (in game, 2026-10-29)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "j14_taxes-changed_a.save",
+   "sha256": "1252b955c723612fdef5e7f97570e9013ad73e100d41b2d38d5957d830156b97",
+   "size": 30051944,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "Liam (in game, 2026-10-29)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "j14_taxes-changed_b.save",
+   "sha256": "8881974e6bf96ad03107c07b38f3e90637ad54a1f2d16406afbe7135f2c6f1e0",
+   "size": 30051944,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "Liam (in game, 2026-10-29)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "zz_j14_b_qs_20261029T164118Z.save",
+   "sha256": "3a7c79bdc9855381bac4990732e5d18d81f17178295e4e4c1ac3119a19b2638f",
+   "size": 30193916,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "engine QuickSave after loading ladder B (tax_rates 4/4)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "zz_j14_c_autosave_164214.save",
+   "sha256": "b59849095ef12d55aee6d88f6a8f1e2e83b88ce489113efa4171de7373feab8a",
+   "size": 30189052,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "engine autosave at EndTurn after loading ladder C",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  },
+  {
+   "name": "zz_j14_c_qs_20261029T165033Z.save",
+   "sha256": "f9e57ce334f14bc8b721ffedf8ea85f980047237206c9e4e77102b6897ff56a0",
+   "size": 30189052,
+   "campaign": "mp_eur_napoleon",
+   "faction": "britain",
+   "turn": "1805 Winter",
+   "maker": "engine QuickSave after loading ladder C (agent_into_settlement rake -> eur_wales)",
+   "date": "2026-10-29",
+   "run": "20261029_j14pc",
+   "roundtrip": "ok"
+  }
+ ]
+}
