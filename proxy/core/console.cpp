@@ -104,9 +104,9 @@ bool __thiscall FwdRun(void*, void* name, void* stream) {
             return false;   // "not handled": the executor goes on as without a handler
         }
     }
-    // Most acting handlers return at once unless the campaign context's gate byte is set, and retail never sets it (run
-    // 20261029_j15pc c_console: transport_to_region hit but did nothing). Liam 2026-10-29: set it, so it is 1 for the length of this
-    // one command and restored right after: nothing else in the engine ever sees it change.
+    // Most acting handlers return at once unless the campaign context's gate byte is set. Liam 2026-10-29: set it if it is 0, so it
+    // is 1 for the length of this one command and restored right after (nothing else in the engine sees it change). In every live
+    // campaign so far it was already set (gate_sets 0, fact napoleon.console.handler_gate), so this is a guard, not the usual path.
     volatile uint8_t* gate = s_gateOff > 0 && Readable(camp + s_gateOff, 1) ? (volatile uint8_t*)(camp + s_gateOff) : nullptr;
     const uint8_t gateOld = gate ? *gate : 0;
     if (gate && !gateOld) *gate = 1;

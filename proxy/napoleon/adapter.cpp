@@ -25,7 +25,7 @@ const ConsoleAdapter kConsole = {
     "campaign.cli_ctor_tail", 13,            // mov [esi], <CampaignCLI vtable>
     0x28, 0x2c,                              // this + 0x28 = *ctx; operator new(0x2c) in the CLI registration
     "campaign.cli_execute", 7,
-    "campaign.handler_gate_test", 2,         // cmp byte [edi + 0x54], 0  (113 of 168 acting handlers; retail leaves it 0)
+    "campaign.handler_gate_test", 2,         // cmp byte [edi + 0x54], 0  (113 of 168 acting handlers; set in a live campaign)
     gen::kConsoleNoOps, gen::kConsoleSystem };
 const DevAdapter kDev = { kIntroMovies, kFrontendMovies, kLuaRules, "napoleon_remastered\\lua\\", "data\\battleterrain\\presets\\", "data\\*.pack" };
 }
