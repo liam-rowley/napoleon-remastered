@@ -38,6 +38,6 @@ None.
 
 ### Later
 - `registries/jobs.jsonl:4` (J12): the description still says "cut v0.2.0 (fix the V0.1.0 tag case first)". `v0.2.0` is taken
-  and the case fix is done, so J12 must cut `v0.3.0` or later. A `plan/` change before J12 is briefed (the report raises it too).
+  and the case fix is done, so J12 must cut `v0.3.0` or later. A `plan/` change before J12 is briefed (the report raises it too). Filed: PR #25 (`plan/j12-tag-wording`).
 - Empire repeat, minor: "commit `core` and `wsc.toml` together" is prose in `core/docs/CONSUMING.md`. `core_pin` checks only the
-  tip, so a split pair of commits passes gates. Low value for a two-line upgrade; noted, not filed.
+  tip, so a split pair of commits passes gates. Low value for a two-line upgrade. Filed as warscape-core backlog B9 (warscape-core PR #3).
