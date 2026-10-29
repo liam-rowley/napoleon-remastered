@@ -306,5 +306,12 @@ Test-Case 'guards: scripts that start/kill the game or write its config need an 
     Assert-True ($null -ne (Script-TouchesConfig 'echo a>> napoleon_remastered.ini')) 'redirect into a config'
     Assert-True ($null -eq (Script-TouchesConfig 'type dxvk.conf')) 'reading a config is fine'
 }
+Test-Case 'zombie: cleared when the pid is free or reused by another image (the flag outlives the reboot it asks for)' {
+    $z = [pscustomobject]@{ pid = 4242; image = 'Napoleon.exe' }
+    Assert-True (Zombie-Gone $z $null) 'pid free'
+    Assert-True (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'svchost' })) 'pid reused by another image'
+    Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'Napoleon' }))) 'same image still there'
+    Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'NAPOLEON' }))) 'image compared case-insensitively'
+}
 Remove-Item -LiteralPath $tmp -Recurse -Force -ErrorAction SilentlyContinue
 exit (Finish-Tests 'unit')

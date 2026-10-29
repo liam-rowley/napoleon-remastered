@@ -613,11 +613,17 @@ function Window-State($p) {
     } catch { }
     return 'none'
 }
+# The zombie is gone when its pid is free OR now belongs to another image: pids are reused, and the flag is persisted across the
+# reboot it asks for, so a bare pid check could refuse launches for ever (J2 review, 2026-10-29).
+function Zombie-Gone($z, $proc) {
+    if (-not $proc) { return $true }
+    return ("$($proc.ProcessName).exe" -ne [string]$z.image)
+}
 function Watchdog {
     $g = @(Get-GameProcs)
     if ($Zombie) {
         $still = Get-Process -Id $Zombie.pid -ErrorAction SilentlyContinue
-        if (-not $still) { Log "zombie pid $($Zombie.pid) is gone - launches allowed again"; $script:Zombie = $null; Remove-Quiet $ZombiePath }
+        if (Zombie-Gone $Zombie $still) { Log "zombie pid $($Zombie.pid) ($($Zombie.image)) is gone$(if ($still) { " (pid now $($still.ProcessName).exe)" }) - launches allowed again"; $script:Zombie = $null; Remove-Quiet $ZombiePath }
         else { $script:Game.state = 'zombie' }
     }
     if (-not $g.Count) {
