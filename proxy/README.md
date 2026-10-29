@@ -135,7 +135,8 @@ All `[dev]` keys default off with release value off (`registries/config_keys.jso
   Scenes: `core/devcore.h` SceneTracker. Only the main menu pumps in the front end (fact `napoleon.lua.update_callbacks`).
 - `dev.ctl` + `dev.ctl_dir`: requests `<dir>\<id>.cmd` (one line), results `<id>.done` (JSON written last: `status` ok | failed |
   timeout | refused, `reason`, `start_utc`, `end_utc`, verb fields, `state_at_end`, `log` = every proxy log line written meanwhile).
-  Ids: 1-64 of `A-Za-z0-9._-`, never reused (`_ids.txt`). FIFO, one at a time. From the device VM: `job.sh ctl <owner> '<line>' [wait_s]`.
+  Ids: 1-64 of `A-Za-z0-9._-`, never reused (`_ids.txt`). FIFO, one at a time. From the device VM: `job.sh ctl <owner> '<line>' [wait_s]`; with no answer it
+  withdraws the request (`<id>.cmd.expired`), because the proxy runs every `.cmd` it finds, including on a later launch.
 
 | verb | result fields |
 |---|---|

@@ -40,7 +40,16 @@ case "$cmd" in
     printf '%s\n' "$line" > "$C/$id.tmp" && mv "$C/$id.tmp" "$C/$id.cmd" || { echo "job.sh ctl: cannot write into $C" >&2; exit 1; }
     end=$(( $(date +%s) + w ))
     while [ ! -f "$C/$id.done" ] && [ "$(date +%s)" -lt "$end" ]; do sleep 0.5; done
-    [ -f "$C/$id.done" ] || { echo "ctl $id: no result after ${w}s: is the game running with dev.ctl=1 and dev.ctl_dir=$C? The request stays in $C." >&2; exit 124; }
+    if [ ! -f "$C/$id.done" ]; then
+      # Withdraw an unanswered request: the proxy runs every *.cmd it finds, so one left behind would fire into the NEXT launch (a stale
+      # exit or reset; J3 review). The rename races the proxy's own rename to .cmd.taken and only one wins: if ours fails, it is running.
+      if mv "$C/$id.cmd" "$C/$id.cmd.expired" 2>/dev/null; then
+        echo "ctl $id: no result after ${w}s: is the game running with dev.ctl=1 and dev.ctl_dir=$C? Request withdrawn ($id.cmd.expired)." >&2
+      else
+        echo "ctl $id: no result after ${w}s, but the proxy took the request: its result will still land in $C/$id.done" >&2
+      fi
+      exit 124
+    fi
     sleep 0.1; cat "$C/$id.done"
     s="$(jget "$C/$id.done" status)"
     case "$s" in ok) exit 0;; failed) exit 1;; timeout) exit 3;; refused) exit 2;; *) exit 124;; esac;;
