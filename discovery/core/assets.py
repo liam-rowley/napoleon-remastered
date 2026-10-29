@@ -236,7 +236,7 @@ def format_of(r):
 def registry_rows(index, refs, rules, old=()):
     sel = ui_first(index, refs)
     ids = ids_for([r['path'] for r in sel])
-    keep = {o['id']: o for o in old}
+    keep = {key(o['path']): o for o in old if 'path' in o}  # by path: an id gains a '#' suffix when a new path collides
     out = []
     for r in sel:
         role = role_of(r['path'], rules, r.get('w'), r.get('h'))
@@ -245,8 +245,8 @@ def registry_rows(index, refs, rules, old=()):
                'pack': r['pack'], 'path': r['path'], 'format': format_of(r), 'size': int(r['size']),
                'hash': 'sha256:' + r['sha256'], 'role': role}
         for k in KEEP:
-            if k in keep.get(row['id'], {}):
-                row[k] = keep[row['id']][k]
+            if k in keep.get(key(r['path']), {}):
+                row[k] = keep[key(r['path'])][k]
         out.append(row)
     return sorted(out, key=lambda x: x['id'])
 

@@ -74,6 +74,16 @@ class Ids(unittest.TestCase):
         self.assertIn('#', i)
         self.assertTrue(re.match(r'^[a-z0-9]', assets.ids_for(['-odd.tga'])['-odd.tga']))
 
+    def test_hand_set_fields_survive_an_id_change(self):
+        row = lambda p: {'pack': 'data.pack', 'path': p, 'size': '1', 'sha256': '0' * 64, 'format': 'tga', 'effective': '1'}
+        old = assets.registry_rows([row('ui\\a b.tga')], {}, [])
+        old[0]['used_by'] = ['x']
+        new = assets.registry_rows([row('ui\\a b.tga'), row('ui\\a_b.tga')], {}, [], old)
+        moved = next(r for r in new if r['path'] == 'ui\\a b.tga')
+        self.assertNotEqual(moved['id'], old[0]['id'])
+        self.assertEqual(moved['used_by'], ['x'])
+        self.assertNotIn('used_by', next(r for r in new if r['path'] == 'ui\\a_b.tga'))
+
     def test_committed_registry_ids_are_unique(self):
         reg = assets.read_registry(os.path.join(ROOT, 'registries', 'assets.jsonl'))
         self.assertEqual(len({r['id'] for r in reg}), len(reg))
