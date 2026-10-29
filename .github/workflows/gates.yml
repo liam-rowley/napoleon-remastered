@@ -1,4 +1,6 @@
 # purpose: CI on every push and pull request: the full warscape-core `wsc gates` set, and the proxy DLL build, host tests and wine smoke test (job proxy).
+# `proxy` and `harness-windows` run only when the branch changes their inputs (job `changes`); a skipped job counts as passed for
+# required checks and auto-merge (D32), so a brief or plan branch does not wait for the slow Windows runner.
 # usage: runs on GitHub Actions; locally: python3 core/wsc.py gates
 # when: automatic; require the "gates" check in branch protection for main.
 # not-a-verb: GitHub runs workflows by file; this one only calls `wsc gates`.
@@ -26,6 +28,40 @@ concurrency:
   group: gates-${{ github.ref }}${{ github.event_name == 'workflow_dispatch' && format('-dispatch-{0}', github.run_id) || '' }}
   cancel-in-progress: true
 jobs:
+  # changes: which slow jobs this run needs. Diffs against the merge base with main (a pull request, or a push to any other branch)
+  # or the previous main tip (a push to main). When the base is unknown (first push to main, a force push past it) everything runs.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      proxy: ${{ steps.diff.outputs.proxy }}
+      harness: ${{ steps.diff.outputs.harness }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT" = pull_request ]; then base=$(git merge-base "origin/$BASE_REF" HEAD || true)
+          elif [ "$GITHUB_REF" = refs/heads/main ]; then base=$BEFORE
+          else base=$(git merge-base origin/main HEAD || true); fi
+          if [ -n "$base" ] && git cat-file -e "$base^{commit}" 2>/dev/null; then
+            files=$(git diff --name-only "$base" HEAD)
+          else
+            files=ALL; echo "base unknown ('$base'): running everything"
+          fi
+          echo "$files"
+          has() { [ "$files" = ALL ] || grep -qE "$1" <<<"$files"; }
+          # inputs: the workflow itself; proxy = proxy/ and the two registries gen_tables.py reads; harness-windows = harness/
+          # and proxy/tools/pc_deploy.py (the integration tests run `pc_deploy.py kit --what harness`)
+          wf='^\.github/workflows/'
+          if has "$wf|^proxy/|^registries/(engine_sites|config_keys)\.jsonl$"; then echo proxy=true; else echo proxy=false; fi >> "$GITHUB_OUTPUT"
+          if has "$wf|^harness/|^proxy/tools/pc_deploy\.py$"; then echo harness=true; else echo harness=false; fi >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
   gates:
     if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
@@ -42,7 +78,8 @@ jobs:
   # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the PC's
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.
   proxy:
-    if: github.event_name != 'workflow_dispatch'
+    needs: changes
+    if: github.event_name != 'workflow_dispatch' && needs.changes.outputs.proxy == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -71,6 +108,9 @@ jobs:
   # harness-windows: the J2 watcher, lock, profiles, hang watchdog, updater and installer on GitHub's Windows runner under
   # Windows PowerShell 5.1 (shell: powershell), the same PowerShell the PC runs. Fake games are compiled on the runner.
   harness-windows:
+    needs: changes
+    # a workflow_dispatch run exists only to run this job (J19 -Only/-Repeat), whatever the branch changed
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.harness == 'true'
     runs-on: windows-latest
     timeout-minutes: 25
     env:
