@@ -38,7 +38,7 @@
   (on `brief/<id>`, then queue its merge on green CI: D33), or what every open job is waiting for. Say which job you took.
 - **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it. A `merge` verdict
   ends with the reviewer queueing the merge on green CI (D32); any other verdict is never merged.
-- The `wsc jobs view --serve` buttons start the same sessions (`claude --bg`, named `J<n>-<action>`, at most 2 working: D15).
+- The `wsc jobs view --serve` buttons start the same sessions (`claude --bg`, named `J<n>-<action>`, one session per name; no count cap: D34).
 - Never mark your own job `done`, and never review a job you built (CI's `policy` check refuses a review written by a session that
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
@@ -63,7 +63,7 @@
 - Windows-safe names only: the `windows_paths` gate is the rule.
 - Never edit generated copies: the claude.ai Project docs, review pages and anything a generator writes. Change the source and regenerate.
 
-## Usage (D15)
+## Usage (D15, D34)
 Sonnet medium by default; Opus only with a reason in the brief (reverse engineering, shaders, DLL, crashes, independent checks);
-at most 2 agents at once (Claude Code subagents count); every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
+no fixed cap on agents at once: Liam decides (D34); every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
 to an agent making repeated calls.
