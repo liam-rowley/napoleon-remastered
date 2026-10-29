@@ -9,6 +9,12 @@ JOB="bash $REPO/harness/core/job.sh"; STAGE="python3 -I $HERE/stage_save.py"
 owner="${1:?owner}"; src="${2:?save file}"; name="${3:?zz_name}"; shift 3
 END=0; QS=0; LOG=/dev/null
 while [ $# -gt 0 ]; do case "$1" in --end-turn) END=1;; --quicksave) QS=1;; --log) LOG="$2"; shift;; *) echo "unknown $1" >&2; exit 64;; esac; shift; done
+# One run per owner: a run left polling after its launch was killed by hand sent ctl into the next launch's game (run 20261029_j14pc C1/C2).
+GUARD="${TMPDIR:-/tmp}/napoleon_load_save.$owner.pid"
+if [ -f "$GUARD" ] && kill -0 "$(cat "$GUARD")" 2>/dev/null; then
+  echo "load_save: another load_save.sh for '$owner' is still running (pid $(cat "$GUARD")): stop it before the next launch" >&2; exit 2
+fi
+echo $$ > "$GUARD"; trap '[ "$(cat "$GUARD" 2>/dev/null)" = $$ ] && rm -f "$GUARD"' EXIT
 P=napoleon_remastered/lua/probes
 SAVES="${APPDATA:?}/The Creative Assembly/Napoleon/save_games"
 step() {   # step <label> <ctl line> <wait_s>: run one ctl request, log {step, rc, result} and echo a short line; returns the ctl exit code
