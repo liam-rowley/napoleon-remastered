@@ -24,7 +24,9 @@ size_t s_surveyLines = 0;
 const size_t kSurveyMax = 20000;
 std::wstring s_gameLower;
 
+void MapProbe(const wchar_t* path);
 void Survey(const char* api, const wchar_t* path, const char* what, DWORD a, DWORD b, bool ok, DWORD err) {
+    if (api[0] != 'f') MapProbe(path);   // opens and attribute checks, not directory listings
     if (!Dk().logFiles || !path || s_survey == INVALID_HANDLE_VALUE) return;
     std::wstring key = NormPath(path); key += L'|'; key += WidenAcp(api);
     EnterCriticalSection(&s_cs);
@@ -37,6 +39,26 @@ void Survey(const char* api, const wchar_t* path, const char* what, DWORD a, DWO
         DWORD wr; if (n > 0) WriteFile(s_survey, line, (DWORD)(n < (int)sizeof line ? n : (int)sizeof line - 1), &wr, nullptr);
     }
     LeaveCriticalSection(&s_cs);
+}
+
+// The battle map the engine actually loads, from its own file access: while loading a battle it probes loose copies of the map's
+// preset folder (<adapter mapProbe><folder>\..., run 20261029_j3pc: data\battleterrain\presets\nap_mp_grassy_flatlands\...).
+// Reported as "battle.map_folder" (the control channel's map check compares it with the preset's map folder).
+std::wstring s_lastMap;
+void MapProbe(const wchar_t* path) {
+    const DevAdapter* ad = Adapter().dev;
+    if (!ad || !ad->mapProbe || !path) return;
+    static const std::wstring prefix = NormPath(WidenAcp(ad->mapProbe));
+    const std::wstring rel = RelToGame(path, s_gameLower);
+    if (rel.size() <= prefix.size() || rel.compare(0, prefix.size(), prefix) != 0) return;
+    const size_t end = rel.find(L'\\', prefix.size());
+    const std::wstring folder = rel.substr(prefix.size(), end == std::wstring::npos ? std::wstring::npos : end - prefix.size());
+    if (folder.empty()) return;
+    EnterCriticalSection(&s_cs);
+    const bool changed = folder != s_lastMap;
+    if (changed) s_lastMap = folder;
+    LeaveCriticalSection(&s_cs);
+    if (changed) DevReport("battle.map_folder", Narrow(folder));
 }
 
 // A read-only open or an attribute check of `path`: the redirect target ("" = none) or fail.

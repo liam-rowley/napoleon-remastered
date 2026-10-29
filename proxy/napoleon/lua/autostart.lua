@@ -8,7 +8,7 @@
 -- (napoleon_remastered\lua\battles\<preset>.txt). Returns "started ..." when the engine was told to load; errors with the failed step.
 -- The proxy then waits for the scene and checks the battle map against the engine's own battle details.
 --   battle:<preset>          the custom-battle screens' calls: sp_battle1 SelectBattleType (TransitionTo sp_battle2, main_panel
---                            Initialise(type, prefs, false)), the map list's NotifyItemSelected(<map's component address>), main_panel
+--                            Initialise(type, prefs, false)), the map list's NotifyItemSelected(<a list child's address>), main_panel
 --                            SetupBattle (-> sp_battle3 with Preferences()), sp_battle3 StartBattle
 --   campaign:continue        FrontEnd.ContinueCampaign() (main menu Continue Campaign)
 --   campaign:<save>          FrontEnd.LoadCampaign(<save>)
@@ -31,22 +31,37 @@ local function battle()
 	local s2 = UIComponent(r:Find("sp_battle2"))
 	local mp = UIComponent(s2:Find("main_panel"))
 	at("Initialise " .. btype .. " " .. prefs); mp:LuaCall("Initialise", btype, prefs, false)
+	-- the map list: available_maps is a local of main_panel, so walk the list box's children (one per map, made by InitialiseMaps)
+	-- and select each through the page's own NotifyItemSelected until selected_map (a global of the page) is the wanted one
 	at("map list")
-	local maps = mp:GlobalExists("available_maps")
-	if type(maps) ~= "table" then error("sp_battle2 main_panel has no available_maps") end
-	local hit, n = nil, 0
-	for _, m in pairs(maps) do
-		n = n + 1
-		if want ~= "" and (lc(m.Key) == want or lc(m.Name) == want or lc(m.File) == want) then hit = m end
+	if want == "" then error("the preset names no map") end
+	local lbc = mp:Find("list_box")
+	if lbc == nil then error("sp_battle2 main_panel has no list_box") end
+	local lb = UIComponent(lbc)
+	local n = lb:ChildCount()
+	local selkey, seen = nil, {}
+	for i = 0, n - 1 do
+		local c = UIComponent(lb:Find(i))
+		at("NotifyItemSelected child " .. i)
+		mp:LuaCall("NotifyItemSelected", c:Address())
+		local sel = mp:GlobalExists("selected_map")
+		selkey = type(sel) == "table" and sel.Key or nil
+		seen[#seen + 1] = tostring(selkey)
+		if lc(selkey) == want or (type(sel) == "table" and (lc(sel.Name) == want or lc(sel.File) == want)) then break end
+		selkey = nil
 	end
-	if want == "" then error("the preset names no map (" .. n .. " maps offered)") end
-	if not hit then error("map '" .. want .. "' is not among the " .. n .. " " .. btype .. " maps (probes/list_maps.lua lists them)") end
-	at("NotifyItemSelected " .. tostring(hit.Key))
-	mp:LuaCall("NotifyItemSelected", hit.Component:Address())
-	local sel = mp:GlobalExists("selected_map")
-	local selkey = type(sel) == "table" and sel.Key or nil
+	if not selkey then error("map '" .. want .. "' is not among the " .. n .. " " .. btype .. " maps: " .. table.concat(seen, " ")) end
 	wsp.report("autostart.map", tostring(selkey))
-	if lc(selkey) ~= lc(hit.Key) then error("map select did not take (selected_map " .. tostring(selkey) .. ")") end
+	local sel = mp:GlobalExists("selected_map")
+	local folder = ""   -- the last part of the map's File ("BattleTerrain/Presets/NAP_MP_Grassy_Flatlands/"), plain scan, no patterns
+	local f = tostring(type(sel) == "table" and sel.File or "")
+	local cur = ""
+	for i = 1, string.len(f) do
+		local ch = string.char(string.byte(f, i))
+		if ch == "/" or ch == "\\" then if cur ~= "" then folder = cur end cur = "" else cur = cur .. ch end
+	end
+	if cur ~= "" then folder = cur end
+	wsp.report("autostart.map_folder", string.lower(folder))
 	at("SetupBattle"); mp:LuaCall("SetupBattle")
 	local s3c = r:Find("sp_battle3", false)
 	if s3c == nil then error("sp_battle3 did not open") end
@@ -58,7 +73,7 @@ local function battle()
 	if type(start) ~= "function" then error("sp_battle3 has no StartBattle") end
 	if state == "inactive" then error("the start button is inactive (no armies? state " .. tostring(state) .. ")") end
 	start()
-	return "started battle " .. tostring(hit.Key) .. " (" .. btype .. ", prefs " .. prefs .. ", button " .. tostring(state) .. ")"
+	return "started battle " .. tostring(selkey) .. " (" .. btype .. ", prefs " .. prefs .. ", button " .. tostring(state) .. ")"
 end
 
 local function campaign()
@@ -93,11 +108,16 @@ local function campaign()
 	return "started new campaign " .. camp .. " as " .. tostring(cur)
 end
 
+-- Everything happens synchronously inside this one chunk: only the main menu's advert script pumps (the custom-battle and campaign
+-- screens have no update callback), so a half-done flow could not be continued by a later command (run 20261029_j3pc).
 local ok, res = pcall(function()
 	if kind == "frontend" then return "frontend: nothing to do" end
 	if kind == "battle" then return battle() end
 	if kind == "campaign" then return campaign() end
 	error("unknown target kind '" .. tostring(kind) .. "'")
 end)
-if not ok then error("autostart " .. tostring(kind) .. " failed at " .. step .. ": " .. tostring(res), 0) end
+if not ok then
+	pcall(function() root():LuaCall("TransitionTo", "main") end)   -- back to the main menu, so the next autostart can run
+	error("autostart " .. tostring(kind) .. " failed at " .. step .. ": " .. tostring(res), 0)
+end
 return res

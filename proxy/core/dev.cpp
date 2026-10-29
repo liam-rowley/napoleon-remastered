@@ -172,7 +172,7 @@ Outcome Autostart(const Target& t, double timeoutS) {
         Lock l;
         s_target = t;
         if (t.kind == "battle") { std::string err; if (!LoadPreset(t.preset, err)) { o.status = "failed"; o.reason = err; return o; } }
-        s_reports.erase("battle.map"); s_reports.erase("autostart.map");
+        s_reports.erase("battle.map_folder"); s_reports.erase("autostart.map"); s_reports.erase("autostart.map_folder");
     }
     TlMark("autostart_issued", t.kind + ":" + (t.kind == "battle" ? t.preset : t.mode == "new" ? t.campaign + ":" + t.faction : t.mode == "save" ? t.save : t.mode));
     std::string text; bool to = false;
@@ -188,18 +188,20 @@ Outcome Autostart(const Target& t, double timeoutS) {
     }
     snprintf(b, sizeof b, "\"scene\": \"%s\", \"lua\": %s, \"load_s\": %.1f, \"total_s\": %.1f", sc.c_str(), JStr(text).c_str(), waited, MonoS() - t0);
     o.result = b;
-    if (t.kind == "battle") {   // the map check: the engine's own battle details against the preset
+    if (t.kind == "battle") {   // the map check: the folder the engine loaded (its own file probes) against the preset's map
+        auto rep = [](const char* k) { Lock l; auto it = s_reports.find(k); return it == s_reports.end() ? std::string() : it->second; };
+        const std::string loaded = rep("battle.map_folder"), wantFolder = rep("autostart.map_folder"), selected = rep("autostart.map");
         const std::string want_map = PresetValue("map");
-        std::string got_map; const double tw = MonoS();
-        while (MonoS() - tw < 10) { { Lock l; auto it = s_reports.find("battle.map"); if (it != s_reports.end()) got_map = it->second; } if (!got_map.empty()) break; Sleep(100); }
-        o.result += ", \"map\": " + JStr(got_map) + ", \"preset_map\": " + JStr(want_map);
-        if (got_map.empty()) { o.status = "failed"; o.reason = "the battle did not report its map (wsp.report battle.map): the map is not checked"; }
-        else if (!want_map.empty()) {
-            std::string a = got_map, c = want_map;
-            for (auto& ch : a) ch = (char)tolower((unsigned char)ch);
-            for (auto& ch : c) ch = (char)tolower((unsigned char)ch);
-            if (a.find(c) == std::string::npos) { o.status = "failed"; o.reason = "WRONG MAP: the engine loaded '" + got_map + "', the preset wants '" + want_map + "'"; }
-        }
+        o.result += ", \"map\": " + JStr(selected) + ", \"map_folder_loaded\": " + JStr(loaded) + ", \"map_folder_selected\": " + JStr(wantFolder) + ", \"preset_map\": " + JStr(want_map);
+        std::string a = loaded, c = wantFolder;
+        for (auto& ch : a) ch = (char)tolower((unsigned char)ch);
+        for (auto& ch : c) ch = (char)tolower((unsigned char)ch);
+        std::string sk = selected, pk = want_map;
+        for (auto& ch : sk) ch = (char)tolower((unsigned char)ch);
+        for (auto& ch : pk) ch = (char)tolower((unsigned char)ch);
+        if (loaded.empty()) { o.status = "failed"; o.reason = "the engine opened no map preset folder while loading: the map is not checked"; }
+        else if (sk != pk) { o.status = "failed"; o.reason = "WRONG MAP: the front end selected '" + selected + "', the preset wants '" + want_map + "'"; }
+        else if (a != c) { o.status = "failed"; o.reason = "WRONG MAP: the engine loaded '" + loaded + "', the selected map's folder is '" + wantFolder + "'"; }
     }
     return o;
 }

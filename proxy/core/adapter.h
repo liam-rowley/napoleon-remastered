@@ -15,6 +15,7 @@ struct DevAdapter {
     const char* const* frontendMovies;   // the front end's background movies (scene "frontend" before any Lua pump)
     const char* const* luaRules;         // file rules installed with dev.lua_bridge (how the wrapper scripts reach the engine)
     const char* luaDir;                  // the bridge's Lua files, relative to the game folder ("<mod>\\lua\\")
+    const char* mapProbe;                // folder whose sub-folder names the battle map while it loads ("data\\battleterrain\\presets\\")
     const char* packGlob;                // where the engine's packs are ("data\\*.pack"): movie names and vanilla script entries
 };
 

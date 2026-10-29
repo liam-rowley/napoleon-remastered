@@ -1,0 +1,4 @@
+# naval_small - a small custom naval battle (J3 autostart and reset tests).
+type=naval
+map=caribbean
+prefs=.sp_default

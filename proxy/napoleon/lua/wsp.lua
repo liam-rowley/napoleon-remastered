@@ -7,7 +7,7 @@
 -- It loads the proxy's Lua bridge (proxy/core/luabridge.cpp), runs the VANILLA script of that entry unchanged in the wrapper's
 -- environment, then wraps the script's update callback so every update also pumps the bridge: control commands (`lua <file>`) run
 -- here, in the pumping script's environment, and their outcome goes back with wsp.result. In battle every 8th pump probes the
--- battle UI (naval, deployment panel, map) for the scene tracker.
+-- battle UI (naval, deployment panel) for the scene tracker; the battle map comes from the engine's file probes (files.cpp).
 -- Rules (empire-remastered PANEL_GUIDE): no string.find / string.sub / pattern functions (the engine replaces them); every engine
 -- call in pcall; never error out of a pump.
 local M = rawget(_G, "__wsp_lua")
@@ -49,7 +49,6 @@ local function run(cmd, env, ctx)
 end
 
 local function b2n(v) if v == nil then return -1 elseif v and v ~= 0 then return 1 else return 0 end end
-local map_keys = { "Map", "MapName", "map", "map_name", "BattleMap", "MapKey", "Name", "Key", "File" }
 local logged_details = false
 
 local function probe(env)
@@ -58,7 +57,9 @@ local function probe(env)
 	local naval, panel = -1, -1
 	local okd, d = pcall(B.BattleDetails)
 	if okd and type(d) == "table" then
-		naval = b2n(d.NavalBattle or d.IsNaval or d.Naval)
+		local nv = d.NavalBattle
+		if nv == nil then nv = d.IsNaval end
+		naval = b2n(nv)
 		if not logged_details then   -- discovery: every plain field once, so the map field is found, not assumed
 			logged_details = true
 			local parts = {}
@@ -74,16 +75,6 @@ local function probe(env)
 			end
 			wsp.log("battle details: " .. table.concat(parts, ", "))
 		end
-		local m = nil
-		for i = 1, #map_keys do
-			local v = d[map_keys[i]]
-			if type(v) == "string" and v ~= "" then m = v break end
-			if type(v) == "table" then
-				for j = 1, #map_keys do local w = v[map_keys[j]] if type(w) == "string" and w ~= "" then m = w break end end
-				if m then break end
-			end
-		end
-		if m then wsp.report("battle.map", m) end
 	end
 	local okp, vis = pcall(function()
 		local root = env.UIComponent(env.Component.Root())
@@ -111,9 +102,11 @@ function M.pump(ctx, env)
 	end
 end
 
--- The update callback the engine calls on this script; OnUpdate first (battle root has both: pumping once per frame is enough).
+-- The update callbacks the engine calls on this script: both are wrapped (the battle root has OnUpdate and OnUpdatePulse and the
+-- engine calls only OnUpdatePulse there, run 20261029_j3pc; empire-remastered saw the same), each pumps.
 local callbacks = { "OnUpdate", "OnUpdatePulse" }
 function M.hook(env, ctx)
+	local n = 0
 	for i = 1, #callbacks do
 		local name = callbacks[i]
 		local orig = rawget(env, name)
@@ -123,12 +116,12 @@ function M.hook(env, ctx)
 				pcall(M.pump, ctx, env)
 				return a, b, c
 			end
+			n = n + 1
 			if wsp then wsp.log("wrapper: " .. ctx .. " pumps from " .. name) end
-			return true
 		end
 	end
-	if wsp then wsp.log("wrapper: " .. ctx .. ": no OnUpdate/OnUpdatePulse to pump from") end
-	return false
+	if n == 0 and wsp then wsp.log("wrapper: " .. ctx .. ": no OnUpdate/OnUpdatePulse to pump from") end
+	return n > 0
 end
 
 function M.wrap(entry, ctx, env)
