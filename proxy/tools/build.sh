@@ -96,8 +96,10 @@ if [[ "$WHAT" == smoke ]]; then
   # 3) forced mismatch wins over the override
   printf '[proxy]\r\nbackend=system\r\nexe_guard=0\r\nexe_guard_force_mismatch=1\r\n' > "$G/napoleon_remastered.ini"
   run; check "FORCED MISMATCH"; check "process detach"
-  # 4) crash capture end to end: an access violation in the host -> our filter (still ours at the first create) -> a .dmp named in the log
-  printf '[proxy]\r\nbackend=system\r\n' > "$G/napoleon_remastered.ini"
+  # 4) crash capture end to end: an access violation in the host -> our filter (still ours at the first create) -> a .dmp named in the log.
+  #    minidump=1 explicitly: the default became 2 (J3), where the first-chance dump is the launch's one dump and the unhandled filter
+  #    has nothing left to write (this step failed in CI from 858aa97 until it said so)
+  printf '[proxy]\r\nbackend=system\r\nminidump=1\r\n' > "$G/napoleon_remastered.ini"
   run crash || true
   check "top-level filter at first Direct3DCreate9: still ours"; check "UNHANDLED exception 0xc0000005"; check "minidump (unhandled) written"
   dmp="$(grep -o 'minidump (unhandled) written: .*' "$G/napoleon_remastered/logs/proxy.log" | sed 's/.*\\//' | tr -d '\r')"

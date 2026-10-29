@@ -67,6 +67,9 @@ snapshot (1564 files).
 - The sitting driver `j3run.sh` stayed a PC scratch helper (`C:\napoleon_remastered_pc\_scratch\j3s2\tools`): it only wraps `job.sh`
   and `pc_deploy.py`; J4's control API replaces it.
 - Two sittings instead of one (the first ran out of its call budget).
+- CI's `proxy` job failed from the first J3 commit (`858aa97`): the wine smoke test's crash step still expected J1's default
+  `proxy.minidump=1`. The step now sets it explicitly. `build.sh` is a DLL input, so the head build id is one commit newer than the
+  PC's `066fbd0b7c62`; the DLL code is the same.
 
 ## What moves to the core in J12
 
