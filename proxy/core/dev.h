@@ -35,7 +35,7 @@ int  FilesMoviesOpened();
 void FilesOnDirect3DCreate();                         // binkw32 is loaded by then
 
 // luabridge.cpp
-struct LuaCmd { std::string id, verb, arg; };
+struct LuaCmd { std::string id, verb, arg, ctx; };   // ctx: only a pump of this context takes it ("" = any)
 void BridgeQueue(const LuaCmd& c);
 bool BridgeTakeResult(const std::string& id, bool& ok, std::string& text);
 void BridgeDrop(const std::string& id);               // a timed-out command: forget its result if it ever arrives

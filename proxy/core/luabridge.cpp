@@ -74,7 +74,14 @@ int l_poll(lua_State* L) {
     }
     DevPump(ctx);
     std::deque<LuaCmd> take;
-    { Lock l; if (s_queue.empty()) { lua_pushnil(L); return 1; } take.swap(s_queue); }   // no allocation on idle pumps
+    {
+        Lock l;
+        if (s_queue.empty()) { lua_pushnil(L); return 1; }   // no allocation on idle pumps
+        for (auto it = s_queue.begin(); it != s_queue.end();) {
+            if (it->ctx.empty() || it->ctx == ctx) { take.push_back(*it); it = s_queue.erase(it); } else ++it;
+        }
+        if (take.empty()) { lua_pushnil(L); return 1; }
+    }
     lua_createtable(L, (int)take.size(), 0);
     int i = 1;
     for (const LuaCmd& c : take) {

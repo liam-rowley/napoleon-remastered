@@ -107,10 +107,10 @@ volatile LONG s_internalId = 0;
 std::string NewInternalId(const char* what) { char b[64]; snprintf(b, sizeof b, "_%s%ld", what, (long)InterlockedIncrement(&s_internalId)); return b; }
 
 // Queue `lua <file>` for the next pump and wait for its result. false + why on timeout / no pump.
-bool RunLua(const std::string& id, const std::string& file, double timeoutS, std::string& text, bool& timedOut) {
+bool RunLua(const std::string& id, const std::string& file, double timeoutS, std::string& text, bool& timedOut, const std::string& ctx = std::string()) {
     timedOut = false;
     const double t0 = MonoS();
-    BridgeQueue({ id, "lua", file });
+    BridgeQueue({ id, "lua", file, ctx });
     for (;;) {
         bool ok = false;
         if (BridgeTakeResult(id, ok, text)) return ok;
@@ -224,7 +224,11 @@ Outcome Reset(const Target& t, double timeoutS) {
         for (int calls = 0; calls < 120; ++calls) {
             if (BridgeLastCtx() != src || MonoS() - BridgeLastPumpS() > 2.0) break;   // it stopped: the engine is leaving
             std::string text; bool to = false;
-            if (!RunLua(NewInternalId("reset"), LuaDir() + "reset.lua", 30, text, to)) { { Lock l; s_scene.loadTarget.clear(); } o.status = to ? "timeout" : "failed"; o.reason = "reset.lua after step " + std::to_string(steps) + ": " + text; return o; }
+            // only the context we leave may take the step (a front-end pump must never run it: run 20261029_j3pc)
+            if (!RunLua(NewInternalId("reset"), LuaDir() + "reset.lua", 5, text, to, src)) {
+                if (to && (BridgeLastCtx() != src || MonoS() - BridgeLastPumpS() > 2.0)) break;   // it stopped pumping meanwhile: leaving
+                { Lock l; s_scene.loadTarget.clear(); } o.status = to ? "timeout" : "failed"; o.reason = "reset.lua after step " + std::to_string(steps) + ": " + text; return o;
+            }
             if (text != "wait") { ++steps; LOGI("reset: step %d: %s", steps, text.c_str()); last += (last.empty() ? "" : "; ") + text; }
             const double tw = MonoS();
             while (MonoS() - tw < 0.5 && BridgeLastCtx() == src && MonoS() - BridgeLastPumpS() < 2.0) Sleep(50);
