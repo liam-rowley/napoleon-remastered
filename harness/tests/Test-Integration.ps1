@@ -2,7 +2,8 @@
 # usage: powershell -NoProfile -ExecutionPolicy Bypass -File Test-Integration.ps1 [-Repo <repo root>] [-Only <case-name regex>] [-Repeat <n>]   (CI: GitHub's Windows runner, Windows PowerShell 5.1; needs python for the real-kit test)
 # when: on every push (CI job harness-windows); never on the PC, it starts and kills processes named Fake*.exe and sets the time zone of the machine while it runs
 # not-a-verb: a PowerShell test script, not a repo operation
-# -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row. Cases that build on an
+# -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row (auto-restore is repeat-safe
+# since J42: it reads the log after its own mark). Cases that build on an
 # earlier case's state (the update rollbacks need 'update: a good kit') only pass when that case is selected too.
 param([string]$Repo = '', [string]$Only = '', [ValidateRange(1, 1000)][int]$Repeat = 1)
 # the whole suite is not repeat-safe (see above): a repeat of every case fails cases that are fine, so it is refused before anything starts
@@ -488,19 +489,21 @@ try {
         Clear-Lock
     }
     Test-Case 'auto-restore: lock expiry, release, owner change, and deferral while the game runs; each says so in the log' {
+        # repeat-safe (J42): log waits read only lines after this mark, and the moved-lock count is relative
+        $mark = Log-Mark; $expired = @(Get-ChildItem (Join-Path $root '_to_delete') -Filter 'game.lock.expired_ci5_*' -ErrorAction SilentlyContinue).Count
         # a) expiry, with a profile active: restored UNDER ITS OWNER and logged
         Set-Lock 'ci5'; Run-Job 'profile proxy-dxvk owner=ci5' 'a1' | Out-Null
         Assert-True ((Hashes) -ne $baseline) 'profile applied'
         (Get-Item -LiteralPath (Join-Path $root 'game.lock')).LastWriteTime = (Get-Date).AddMinutes(-25)
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after expiry' | Out-Null
         # the files are restored BEFORE the AUTO-RESTORE line is written: wait for the line, never read the log once (J2 review, run 40832860145)
-        Wait-LogMatch 'LOCK EXPIRED: game.lock owner=ci5' 10 'expiry logged'
-        Wait-LogMatch 'AUTO-RESTORE under owner=ci5' 10 'restore under the owner is logged'
-        Assert-True (@(Get-ChildItem (Join-Path $root '_to_delete') -Filter 'game.lock.expired_ci5_*').Count -eq 1) 'lock moved, not deleted'
+        Wait-LogMatch 'LOCK EXPIRED: game.lock owner=ci5' 10 'expiry logged' -Since $mark
+        Wait-LogMatch 'AUTO-RESTORE under owner=ci5' 10 'restore under the owner is logged' -Since $mark
+        Assert-True (@(Get-ChildItem (Join-Path $root '_to_delete') -Filter 'game.lock.expired_ci5_*').Count -eq $expired + 1) 'lock moved, not deleted'
         # b) release
         Set-Lock 'ci6'; Run-Job 'profile proxy-dxvk owner=ci6' 'b1' | Out-Null; Clear-Lock
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after release' | Out-Null
-        Wait-LogMatch 'AUTO-RESTORE under owner=ci6 .*released or expired' 10 'release logged'
+        Wait-LogMatch 'AUTO-RESTORE under owner=ci6 .*released or expired' 10 'release logged' -Since $mark
         # c) changes owner
         Set-Lock 'ci7'; Run-Job 'profile proxy-dxvk owner=ci7' 'c1' | Out-Null
         # a lock mid-rewrite (0 bytes) is not a release: no restore on it
@@ -508,13 +511,13 @@ try {
         Assert-True ((Hashes) -ne $baseline) 'a 0-byte lock (mid-rewrite) does not trigger a restore'
         Set-Lock 'intruder'
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after the owner changed' | Out-Null
-        Wait-LogMatch "AUTO-RESTORE under owner=ci7 .*now belongs to 'intruder'" 10 'owner change logged'
+        Wait-LogMatch "AUTO-RESTORE under owner=ci7 .*now belongs to 'intruder'" 10 'owner change logged' -Since $mark
         Clear-Lock
         # d) deferred while the game runs
         Set-Lock 'ci8'; Run-Job 'profile proxy-dxvk owner=ci8' 'd1' | Out-Null
         $idleGame = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'idle' -PassThru
         Clear-Lock
-        Wait-Until { (Get-Log) -match "auto-restore of 'proxy-dxvk' \(owner=ci8\) pending" } 15 'pending is logged' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match "auto-restore of 'proxy-dxvk' \(owner=ci8\) pending" } 15 'pending is logged' | Out-Null
         Assert-True ((Hashes) -ne $baseline) 'not restored while the game is open'
         Stop-Process -Id $idleGame.Id -Force
         Wait-Until { (Hashes) -eq $baseline } 20 'restored once the game exited' | Out-Null
