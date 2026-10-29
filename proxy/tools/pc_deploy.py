@@ -2,9 +2,9 @@
 """Kit, install, uninstall and check the proxy on the PC with sha-checked copies and a byte-exact uninstall.
 
 purpose: build a proxy kit (built DLL, default config, pinned DXVK) or a harness kit (the watcher, its adapter and profiles; manifest with sha256 and unique staged names), install the proxy into the game folder with sha-checked copies, uninstall it back to the pre-install snapshot, edit the installed config, snapshot and diff a game folder
-usage: pc_deploy.py kit [--what proxy|harness] [--out DIR] | snapshot --game G --out F | install --kit DIR --game G --state S [--assume-closed] | uninstall --game G --state S [--assume-closed] | set --game G key=value... | status --game G --state S | diff A B
-when: every time built proxy or harness files go to the PC or come off it (never copy them by hand); `kit` in the cloud, the rest on the PC's device VM (python3, the game folder mounted) or on Windows; install/uninstall ask the running watcher (<state>/watcher/watcher.status) whether a game of either title is running
-not-a-verb: it runs on the PC's device VM, which has no repo checkout or core submodule (copy this one file there with the kit); stdlib only
+usage: pc_deploy.py kit [--what proxy|harness] [--out DIR] | send --kit DIR --state S | snapshot --game G --out F | install --kit DIR --game G --state S [--assume-closed] | uninstall --game G --state S [--assume-closed] | set --game G key=value... | status --game G --state S | diff A B
+when: every time built proxy or harness files go to the game folder or the watcher (never copy them by hand); runs in Git Bash on the PC from the repo checkout: `kit` builds into build/kits, `send` puts a kit sha-checked under <state>/kits/<id> (for install and the watcher's `update kit=<id>`); install/uninstall ask the running watcher (<state>/watcher/watcher.status), else tasklist, whether a game of either title is running
+not-a-verb: a deploy script with its own subcommands that the PC's installer also runs from a kit folder (a copy travels in every kit), so it stays stdlib only and outside the wsc CLI (whether it becomes a verb: J20 report)
 """
 import argparse
 import datetime
@@ -38,7 +38,7 @@ def sha256_file(p, chunk=1 << 20):
     return h.hexdigest()
 
 
-# ---- kit (cloud) ------------------------------------------------------------------------------------------------------------
+# ---- kit ------------------------------------------------------------------------------------------------------------
 def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None):
     """Kit folder: manifest.json + payload files stored FLAT under unique names (<sha12>__<name>): a resend of a stale cached copy
     (empire-remastered LEARNINGS lesson 18) can never pass for the new file, because install checks every staged file's sha256."""
@@ -106,7 +106,7 @@ def verify_kit(kdir):
     return man, bad
 
 
-# ---- harness kit (cloud): the watcher and what it needs on the PC ------------------------------------------------------------
+# ---- harness kit: the watcher and what it needs on the PC ------------------------------------------------------------
 HARNESS_SRC = ['watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1']
 HARNESS_KIT_FILES = ['install.ps1', 'Install watcher.cmd', 'Uninstall watcher.cmd', 'job.sh']   # real names at the top of the kit folder
 WIN_TEXT = ('.ps1', '.cmd', '.bat')
@@ -186,6 +186,32 @@ def verify_harness_kit(kdir):
     return man, bad
 
 
+# ---- send: a built kit to <state>/kits/<id> ------------------------------------------------------------------------------------
+def send_kit(kit, state):
+    """Copy a built kit (proxy or harness) into <state>/kits/<kit id>, every file sha-checked, the folder renamed into place only once
+    it verifies. A kit id that is already there is refused: a resend is a new kit (the stale-copy guard install and update rely on)."""
+    kit, state = Path(kit), Path(state)
+    man = json.loads((kit / 'manifest.json').read_text(encoding='utf-8'))
+    kid = man['kit_id']
+    if kit.name != kid:
+        raise SystemExit(f'pc_deploy send: {kit} is not named after its kit id {kid}')
+    _, bad = (verify_harness_kit if man.get('kind') == 'harness' else verify_kit)(kit)
+    if bad:
+        raise SystemExit('pc_deploy send: the source kit does not verify, nothing sent:\n  ' + '\n  '.join(bad))
+    dest = state / 'kits' / kid
+    if dest.exists():
+        raise SystemExit(f'pc_deploy send: {dest} already exists: a kit id is never reused (build a new kit)')
+    tmp = state / 'kits' / f'{kid}.{utc_stamp()}.partial'
+    shutil.copytree(kit, tmp, copy_function=shutil.copyfile)
+    for p in kit.rglob('*'):
+        if p.is_file() and sha256_file(p) != sha256_file(tmp / p.relative_to(kit)):
+            raise SystemExit(f'pc_deploy send: {tmp / p.relative_to(kit)} does not verify after the copy; {tmp} left for inspection')
+    os.replace(tmp, dest)
+    n = sum(1 for p in dest.rglob('*') if p.is_file())
+    print(f'pc_deploy send: {kid} -> {dest} ({n} files, sha256 checked)')
+    return dest
+
+
 # ---- snapshots ----------------------------------------------------------------------------------------------------------------
 def snapshot(game, big=BIG):
     game = Path(game)
@@ -243,26 +269,33 @@ def watcher_view(state, now=None):
     return 'watcher.status could not be read', None
 
 
+def windows_images():
+    """Lower-case image names of every running process (tasklist CSV), or None off Windows. Raises OSError/SubprocessError."""
+    if os.name != 'nt':
+        return None
+    r = subprocess.run(['tasklist', '/FO', 'CSV', '/NH'], capture_output=True, text=True, timeout=30, check=True)
+    return {line.split('","')[0].strip('"').lower() for line in r.stdout.splitlines() if line.startswith('"')}
+
+
 def running_check(game, mod_dir, exe_name, now=None, state=None, other_exes=()):
     """'' when no game looks open, else why not. With a watcher installed (<state>/watcher) its process list is authoritative for BOTH
-    titles (the device VM cannot see Windows processes). Without one: on Windows tasklist; on the device VM the proxy's own log - a launch
-    whose log has no final 'process detach' line and was written in the last 10 minutes is taken as running (a vanilla game is invisible
-    to that, which is why the first install should happen with the watcher running)."""
+    titles. Without one: tasklist on Windows; elsewhere (host tests) the proxy's own log - a launch whose log has no final 'process
+    detach' line and was written in the last 10 minutes is taken as running."""
     why, st = watcher_view(state, now)
     if why:
         return why
+    titles = [exe_name, *other_exes]
     if st is not None:
-        titles = {x.lower() for x in [exe_name, *other_exes]}
-        hits = [p for p in st.get('processes', []) if str(p.get('image', '')).lower() in titles]
+        lower = {x.lower() for x in titles}
+        hits = [p for p in st.get('processes', []) if str(p.get('image', '')).lower() in lower]
         return ('watcher process list: ' + ', '.join(f"{p['image']} (pid {p['pid']})" for p in hits) + ' is running') if hits else ''
-    if os.name == 'nt':
-        try:
-            r = subprocess.run(['tasklist', '/NH'], capture_output=True, text=True, timeout=30)
-            out = r.stdout.lower()
-            hit = [x for x in [exe_name, *other_exes] if x.lower() in out]
-            return f"{', '.join(hit)} is running" if hit else ''
-        except (OSError, subprocess.SubprocessError):
-            return 'tasklist failed: cannot tell whether the game is running'
+    try:
+        images = windows_images()
+    except (OSError, subprocess.SubprocessError):
+        return 'tasklist failed: cannot tell whether the game is running'
+    if images is not None:
+        hit = [x for x in titles if x.lower() in images]
+        return f"tasklist: {', '.join(hit)} is running" if hit else ''
     log = Path(game) / mod_dir / 'logs' / 'proxy.log'
     if not log.exists():
         return ''
@@ -490,6 +523,7 @@ def main():
     ap = argparse.ArgumentParser(description='proxy kit, install, uninstall')
     sub = ap.add_subparsers(dest='cmd', required=True)
     k = sub.add_parser('kit'); k.add_argument('--out', default=str(ROOT / 'build' / 'kits')); k.add_argument('--adapter', default='napoleon'); k.add_argument('--dll'); k.add_argument('--what', choices=['proxy', 'harness'], default='proxy')
+    sd = sub.add_parser('send'); sd.add_argument('--kit', required=True); sd.add_argument('--state', required=True)
     s = sub.add_parser('snapshot'); s.add_argument('--game', required=True); s.add_argument('--out', required=True)
     i = sub.add_parser('install'); i.add_argument('--kit', required=True); i.add_argument('--game', required=True); i.add_argument('--state', required=True); i.add_argument('--assume-closed', action='store_true')
     u = sub.add_parser('uninstall'); u.add_argument('--game', required=True); u.add_argument('--state', required=True); u.add_argument('--assume-closed', action='store_true')
@@ -502,6 +536,8 @@ def main():
             build_harness_kit(a.out, a.adapter)
         else:
             build_kit(a.out, a.adapter, a.dll)
+    elif a.cmd == 'send':
+        send_kit(a.kit, a.state)
     elif a.cmd == 'snapshot':
         snap = snapshot(a.game)
         Path(a.out).write_text(json.dumps(snap), encoding='utf-8')
