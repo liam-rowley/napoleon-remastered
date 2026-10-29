@@ -179,9 +179,10 @@ function Img-Base([string]$img) { return [IO.Path]::GetFileNameWithoutExtension(
 function Up-Ms { try { return [int]((Get-Date) - (Get-Process -Id $PID).StartTime).TotalMilliseconds } catch { return -1 } }
 
 if ($IsWin) {
-    # the first log line, with the time powershell.exe took to reach it: on a cold CI runner the first statement ran 17 to 35 s
-    # after the process started (host start-up, script scan and parse: J42 runs on 66d0fd9), the compile under 2 s; a reader of the
-    # log can then tell a watcher that is still starting from one that never started
+    # the first log line, with the time powershell.exe took to reach it: on fresh CI runners a new watcher process reached its main
+    # loop 17 to 35 s after it started (J42 runs on 66d0fd9 and 97358f5), while a warm load of this script takes under 3 s and the
+    # compile under 2 s, so the time goes before the first statement (host start-up, script scan and parse); this line and the next
+    # record the split, and a reader of the log can tell a watcher that is still starting from one that never started
     $t0 = Get-Date
     Log "watcher $Version starting (pid $PID, first statement $(Up-Ms) ms after its process started): compiling native helpers (Add-Type)"
     Add-Type -Namespace WP -Name U -MemberDefinition @'

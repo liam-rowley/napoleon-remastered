@@ -132,9 +132,9 @@ function Start-TestWatcher {
     $mark = Log-Mark
     $p = Start-Process -FilePath $env:ComSpec -ArgumentList $a -WindowStyle Hidden -PassThru
     $SuiteState.launcher = $p
-    # a cold powershell.exe runs the watcher's first statement 17 to 35 s after the process starts (host start-up, script scan and
-    # parse: J42 runs on 66d0fd9; 39.9 s in run 40970029940), so the start has its own budget; the 40 s heartbeat budget starts once
-    # the watcher is in its loop
+    # a new watcher process on a fresh runner reaches its main loop 17 to 35 s after it starts (J42 runs on 66d0fd9 and 97358f5;
+    # 39.9 s in run 40970029940), nearly all of it powershell.exe start-up before the first statement (a warm load of the script takes
+    # under 3 s), so the start has its own budget; the 40 s heartbeat budget starts once the watcher is in its loop
     try {
         Wait-LogMatch 'watcher [0-9.a-z-]+ started \(pid' 150 'the watcher to reach its main loop (a cold powershell start is slow before its first statement)' -Since $mark
         $up = [regex]::Match((Get-LogSince $mark), 'up (\d+) ms after its process started').Groups[1].Value
