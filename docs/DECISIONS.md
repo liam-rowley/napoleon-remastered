@@ -1,7 +1,7 @@
 # Decisions
 
-One line per decision: date, who, the decision, and whether it is reversible. **Append only**; a reversal is a new dated line that names
-the one it replaces. Detail lives in the doc that owns the topic, never here.
+One line per decision: date, who, the decision, and whether it is reversible. **Append only** (CI's `policy` check refuses edits and
+misnumbered rows); a reversal is a new dated line that names the one it replaces. Detail lives in the doc that owns the topic, never here.
 
 | # | Date | Who | Decision | Reversible |
 |---|---|---|---|---|
