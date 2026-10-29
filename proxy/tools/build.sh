@@ -68,7 +68,8 @@ if [[ "$WHAT" == dll || "$WHAT" == all ]]; then
   if command -v i686-w64-mingw32-objdump >/dev/null; then
     DEPS="$(i686-w64-mingw32-objdump -p "$OUT/$ADAPTER/d3d9.dll" | awk '/DLL Name/{print tolower($3)}' | sort -u | tr '\n' ' ')"
     echo "build.sh: imports $DEPS"
-    for d in $DEPS; do case "$d" in kernel32.dll|advapi32.dll|dbghelp.dll|msvcrt.dll|api-ms-win-*) ;; *) echo "build.sh: unexpected import $d"; exit 3;; esac; done
+    # user32: the headless window guard (J13); the game exe imports it anyway, so it is already loaded
+    for d in $DEPS; do case "$d" in kernel32.dll|advapi32.dll|dbghelp.dll|msvcrt.dll|user32.dll|api-ms-win-*) ;; *) echo "build.sh: unexpected import $d"; exit 3;; esac; done
     EXP="$(i686-w64-mingw32-objdump -p "$OUT/$ADAPTER/d3d9.dll" | awk '/\[Ordinal\/Name Pointer\] Table/{f=1;next} f&&NF==0{f=0} f{print $NF}' | sort | tr '\n' ' ')"
     echo "build.sh: exports $EXP"
     for e in $(awk '/^EXPORTS/{f=1;next} f&&NF&&$1!~/^;/{print $1}' "$ROOT/proxy/core/d3d9.def"); do

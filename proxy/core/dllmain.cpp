@@ -4,6 +4,7 @@
 //   3. the exe-identity guard, ONCE, before any hook, patch or engine read -> Rt().plan (guard.h PlanEngine)
 //   4. the runtime patch engine, only when Rt().plan.patches
 //   5. the dev side (dev.cpp), only when a dev key is on and the plan allows hooks
+//   6. headless runs (headless.cpp), only when headless.enabled; refused (exit) when the plan forbids hooks or the proxy is off
 // The backend d3d9 loads later, at the first export call (backend.cpp). Loader lock: Win32 file and memory calls only.
 #include "runtime.h"
 #include <vector>
@@ -90,6 +91,7 @@ void Init(HMODULE self) {
 
     rt.enabled = rt.cfg.Bool("proxy.enabled") && !second;
     if (second) LOGW("another instance holds the main log: this process is a pure pass-through on the system d3d9");
+    HeadlessPreflight(second);                    // headless asked with the proxy off: refused, never a visible window
     if (!rt.cfg.Bool("proxy.enabled")) LOGI("proxy.enabled=0: pure pass-through (no guard, no patches, backend only)");
     if (!rt.enabled) { rt.plan = PlanEngine(false, false); return; }
 
@@ -99,6 +101,7 @@ void Init(HMODULE self) {
     LOGI("plan: patches=%d engine_hooks=%d d3d_hooks=%d engine_reads=%d", rt.plan.patches, rt.plan.engineHooks, rt.plan.d3dHooks, rt.plan.engineReads);
     PatchesRun();
     DevInit();                                    // dev keys only (all default off): nothing at all when none is set
+    HeadlessInit();                               // headless.enabled only (default off)
     LOGI("init done; the %s backend loads at the first d3d9 call", rt.cfg.Str("proxy.backend").c_str());
 }
 
@@ -112,6 +115,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE inst, DWORD reason, LPVOID reserved) {
     } else if (reason == DLL_PROCESS_DETACH) {
         if (wsp::Rt().enabled) wsp::CrashCheckFilter("process detach");
         wsp::DevOnDetach();
+        wsp::HeadlessOnDetach();
         LOGI("process detach (%s)", reserved ? "process exit" : "FreeLibrary");
     }
     return TRUE;
