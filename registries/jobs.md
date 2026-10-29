@@ -18,7 +18,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J16` | needs_brief | In-game resolution change crash (stack overflow at device recreation) | 1 | opus | yes | J3, J20 |  |  |  |
 | `J17` | done | Core pin bump to v0.2.0 | 1 | sonnet | no | J5 | jobs/J17/brief.md | jobs/J17/report.md | jobs/J17/review.md |
 | `J18` | needs_brief | PC-side rule guards | 1 | sonnet | yes | J2, J20 |  |  |  |
-| `J19` | review | Hang watchdog test race on hang.txt | 1 | sonnet | no |  | jobs/J19/brief.md | jobs/J19/report.md |  |
+| `J19` | done | Hang watchdog test race on hang.txt | 1 | sonnet | no |  | jobs/J19/brief.md | jobs/J19/report.md | jobs/J19/review.md |
 | `J2` | done | Watcher and PC sync | 1 | sonnet | yes | J1 | jobs/J2/brief.md | jobs/J2/report.md | jobs/J2/review.md |
 | `J20` | queued | Local Claude Code on the PC replaces the cloud route | 1 | sonnet | yes |  | jobs/J20/brief.md |  |  |
 | `J3` | done | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md | jobs/J3/report.md | jobs/J3/review.md |
