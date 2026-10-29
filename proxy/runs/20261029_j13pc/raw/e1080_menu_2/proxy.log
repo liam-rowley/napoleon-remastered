@@ -1,0 +1,125 @@
+2026-10-29T18:21:36.928Z [INFO ] [t28556] launch 20261029T182136Z-p416: Napoleon: Total War proxy d3d9.dll build 5ddc7e107ab2 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 416, base 00a20000)
+2026-10-29T18:21:36.928Z [INFO ] [t28556] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-10-29T18:21:36.928Z [INFO ] [t28556] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-10-29T18:21:36.928Z [INFO ] [t28556] config:   dev.autostart                      =             
+2026-10-29T18:21:36.929Z [INFO ] [t28556] config:   dev.autostart_delay_ms             = 1500        
+2026-10-29T18:21:36.929Z [INFO ] [t28556] config:   dev.ctl                            = 1           
+2026-10-29T18:21:36.929Z [INFO ] [t28556] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-10-29T18:21:36.929Z [INFO ] [t28556] config:   dev.file_rules                     =             
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   dev.log_files                      = 0           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   dev.lua_bridge                     = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   dev.skip_intro                     = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   dev.state_json                     = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   dev.timeline                       = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   headless.display_name              = Virtual Display Driver
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   headless.enabled                   = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   headless.refuse_grace_ms           = 5000        
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   headless.settle_ms                 = 500         
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   headless.size                      = 1920x1080   
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.backend                      = dxvk        
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.enabled                      = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.exe_guard                    = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.log_level                    = info        
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.minidump                     = 2           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] config:   proxy.runtime_patches              = 1           
+2026-10-29T18:21:36.930Z [INFO ] [t28556] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-10-29T18:21:36.930Z [INFO ] [t28556] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-10-29T18:21:36.967Z [INFO ] [t28556] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 47 ms)
+2026-10-29T18:21:36.967Z [INFO ] [t28556] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-10-29T18:21:36.967Z [INFO ] [t28556] patch_engine: image base 00a20000 (file ImageBase 0x00400000, delta 0x00620000)
+2026-10-29T18:21:36.967Z [INFO ] [t28556] patch_engine: nothing to do - 0 sites: 0 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 0 hooks verified
+2026-10-29T18:21:36.967Z [INFO ] [t28556] patch_engine: 0 of 0 planned sites written
+2026-10-29T18:21:36.968Z [INFO ] [t28556] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-10-29T18:21:36.968Z [INFO ] [t28556] timeline: dllmain +60 ms
+2026-10-29T18:21:36.969Z [INFO ] [t28556] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-10-29T18:21:36.969Z [INFO ] [t28556] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-10-29T18:21:36.969Z [INFO ] [t28556] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-10-29T18:21:36.969Z [INFO ] [t28556] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-10-29T18:21:36.969Z [INFO ] [t28556] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!CreateFileW slot 01927170: 7634ea50 -> 6952a8e0
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!CreateFileA slot 01927188: 7634ea40 -> 6952a700
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!GetFileAttributesW slot 0192722c: 7634ec70 -> 6952a600
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!GetFileAttributesExW slot 0192728c: 7634ec60 -> 6952a4e0
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!GetFileAttributesExA slot 0192724c: 7634ec50 -> 6952a370
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!FindFirstFileExW slot 019270cc: 7634eb30 -> 6952a2b0
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!FindFirstFileW slot 0192721c: 7634eb50 -> 6952a210
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!FindNextFileW slot 01927220: 7634eba0 -> 695272b0
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat KERNEL32.dll!FindClose slot 01927218: 7634ead0 -> 69525ea0
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat binkw32.dll!_BinkOpen@8 slot 01927480: 1800d690 -> 6952c490
+2026-10-29T18:21:36.969Z [INFO ] [t28556] hook: iat binkw32.dll!_BinkClose@4 slot 01927490: 1800f850 -> 695268e0
+2026-10-29T18:21:36.970Z [INFO ] [t28556] headless: on: target 'Virtual Display Driver' at exactly 1920x1080, settle 500 ms, refuse grace 5000 ms
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!CreateWindowExW slot 019273b4: 7526e930 -> 69537bf0
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!ShowWindow slot 019273b0: 7527b6a0 -> 69532f80
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!SetWindowPos slot 01927310: 7527b5e0 -> 69532900
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!MoveWindow slot 019273ac: 7527ae90 -> 695323f0
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!SetWindowLongW slot 01927374: 75267570 -> 695332a0
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!ChangeDisplaySettingsW slot 01927378: 75305c30 -> 69530a50
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!MessageBoxW slot 01927328: 752ea5b0 -> 69532800
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!DialogBoxIndirectParamW slot 0192730c: 752c11f0 -> 695309e0
+2026-10-29T18:21:36.971Z [INFO ] [t28556] hook: iat user32.dll!SetFocus slot 0192739c: 7527b3e0 -> 69531180
+2026-10-29T18:21:36.971Z [INFO ] [t28556] init done; the dxvk backend loads at the first d3d9 call
+2026-10-29T18:21:36.973Z [INFO ] [t25888] ctl: watching C:\napoleon_remastered_pc\ctl\ (192 ids already used)
+2026-10-29T18:21:37.821Z [INFO ] [t28556] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-10-29T18:21:37.901Z [WARN ] [t28556] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-10-29T18:21:37.901Z [INFO ] [t28556] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-10-29T18:21:37.901Z [INFO ] [t28556] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T18:21:37.901Z [INFO ] [t28556] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-10-29T18:21:37.902Z [INFO ] [t28556] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T18:21:37.902Z [INFO ] [t28556] backend: dxvk ready (Direct3DCreate9=5dc71530)
+2026-10-29T18:21:38.019Z [INFO ] [t28556] Direct3DCreate9(sdk=32) -> 0e1d57d8 [dxvk]
+2026-10-29T18:21:38.020Z [INFO ] [t28556] headless: 3 displays (physical pixels):
+2026-10-29T18:21:38.020Z [INFO ] [t28556] headless:   \\.\DISPLAY1 0,0 3840x2160 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor' dpi=144
+2026-10-29T18:21:38.020Z [INFO ] [t28556] headless:   \\.\DISPLAY2 -2560,327 2560x1440 adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-10-29T18:21:38.020Z [INFO ] [t28556] headless:   \\.\DISPLAY11 3839,2160 1920x1080 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-10-29T18:21:38.021Z [INFO ] [t28556] headless: target 3839,2160 1920x1080 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 1920x1080); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 1920x1080@60
+2026-10-29T18:21:38.022Z [INFO ] [t28556] hook: vtable IDirect3D9::GetAdapterModeCount (headless) slot 5e30e018 [6]: 5dc71ee0 -> 695315f0
+2026-10-29T18:21:38.022Z [INFO ] [t28556] hook: vtable IDirect3D9::EnumAdapterModes (headless) slot 5e30e01c [7]: 5dc71f40 -> 69532c80
+2026-10-29T18:21:38.022Z [INFO ] [t28556] hook: vtable IDirect3D9::GetAdapterDisplayMode (headless) slot 5e30e020 [8]: 5dc71a20 -> 69531460
+2026-10-29T18:21:38.022Z [INFO ] [t28556] hook: vtable IDirect3D9::GetAdapterMonitor (headless) slot 5e30e03c [15]: 5dc71da0 -> 69531260
+2026-10-29T18:21:38.022Z [INFO ] [t28556] hook: vtable IDirect3D9::CreateDevice (headless) slot 5e30e040 [16]: 5dc72980 -> 69533fe0
+2026-10-29T18:21:38.022Z [INFO ] [t28556] timeline: d3d_create +1114 ms
+2026-10-29T18:21:38.023Z [INFO ] [t28556] hook: vtable IDirect3D9::CreateDevice slot 5e30e040 [16]: 69533fe0 -> 69516e40
+2026-10-29T18:21:38.023Z [INFO ] [t28556] headless: GetAdapterDisplayMode(adapter 0) -> 1920x1080@60 (the target)
+2026-10-29T18:21:38.023Z [INFO ] [t28556] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-10-29T18:21:38.023Z [INFO ] [t28556] headless: GetAdapterDisplayMode(adapter 1) -> 1920x1080@60 (the target)
+2026-10-29T18:21:38.023Z [INFO ] [t28556] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-10-29T18:21:38.023Z [INFO ] [t28556] headless: GetAdapterDisplayMode(adapter 2) -> 1920x1080@60 (the target)
+2026-10-29T18:21:38.023Z [INFO ] [t28556] headless: GetAdapterMonitor(adapter 2) -> the target \\.\DISPLAY11
+2026-10-29T18:21:38.109Z [INFO ] [t28556] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 116)
+2026-10-29T18:21:38.109Z [INFO ] [t28556] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-10-29T18:21:38.110Z [INFO ] [t28556] headless: window 006f0ee8 'Total War: NAPOLEON' class 'Napoleon' asked 1942x1136 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-10-29T18:21:38.110Z [INFO ] [t28556] headless: window 006f0ee8 placed at 3839,2160 1920x1080 (inside the target)
+2026-10-29T18:21:38.112Z [INFO ] [t28556] headless: SetFocus(006f0ee8) dropped (another process has the foreground; 1 so far)
+2026-10-29T18:21:38.112Z [INFO ] [t28556] headless: CreateDevice: back buffer 1920x1080, windowed, window 006f0ee8
+2026-10-29T18:21:38.158Z [INFO ] [t28556] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-10-29T18:21:38.158Z [INFO ] [t28556] hook: vtable IDirect3DDevice9::Reset (headless) slot 5e30d7f0 [16]: 5dc9b9e0 -> 69534120
+2026-10-29T18:21:38.158Z [INFO ] [t28556] hook: vtable IDirect3DDevice9::Present (headless) slot 5e30d7f4 [17]: 5dca9dd0 -> 695396b0
+2026-10-29T18:21:38.159Z [INFO ] [t28556] timeline: device_created +1251 ms hr 0x00000000 flags 0x42
+2026-10-29T18:21:38.160Z [INFO ] [t28556] hook: vtable IDirect3DDevice9::Present slot 5e30d7f4 [17]: 695396b0 -> 69517090
+2026-10-29T18:21:38.187Z [INFO ] [t28556] timeline: first_present +1279 ms
+2026-10-29T18:21:38.188Z [INFO ] [t28556] headless: ON THE VIRTUAL DISPLAY: window 3839,2160 1920x1080 on \\.\DISPLAY11, first frame presented there at 1.2 s (client 1920x1080, back buffer 1920x1080)
+2026-10-29T18:21:41.889Z [INFO ] [t28556] wsp_sentinel: engine dummynode = 01a0d128 (sizearray 0, lsizenode 0)
+2026-10-29T18:21:41.889Z [INFO ] [t28556] luaopen_wsp: engine lua_State 050c2128, global state 0513e624 (thread 28556)
+2026-10-29T18:21:41.889Z [INFO ] [t28556] timeline: lua_bridge_loaded +4981 ms
+2026-10-29T18:21:41.890Z [INFO ] [t28556] lua: wsp.lua loaded (wsp 1)
+2026-10-29T18:21:41.910Z [INFO ] [t28556] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-10-29T18:21:41.911Z [INFO ] [t28556] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-10-29T18:21:41.966Z [INFO ] [t28556] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T18:21:42.083Z [INFO ] [t28556] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 0000072c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-10-29T18:21:42.083Z [INFO ] [t28556] timeline: movie_refused +5175 ms movies\sega_logo_sting_hd.bik
+2026-10-29T18:21:42.086Z [INFO ] [t28556] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 0000072c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-10-29T18:21:42.086Z [INFO ] [t28556] timeline: movie_refused +5178 ms movies\corei7_intro.bik
+2026-10-29T18:21:42.089Z [INFO ] [t28556] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 0000072c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-10-29T18:21:42.089Z [INFO ] [t28556] timeline: movie_refused +5181 ms movies\ntw_intro.bik
+2026-10-29T18:21:42.091Z [INFO ] [t28556] timeline: movie_open +5183 ms movies\frontend2.bik
+2026-10-29T18:21:42.093Z [INFO ] [t28556] movies: BinkOpen movies\frontend2.bik [handle 0000072c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b3cf620
+2026-10-29T18:21:42.093Z [INFO ] [t28556] scene: intro -> frontend after 27175.0 s (uptime 5.1 s, frame 4, lua frontend)
+2026-10-29T18:21:42.097Z [INFO ] [t28556] lua: first pump from context 'frontend' (thread 28556)
+2026-10-29T18:21:42.097Z [INFO ] [t28556] timeline: frontend_first_pump +5189 ms
+2026-10-29T18:21:42.098Z [INFO ] [t28556] timeline: first_present_after_ready +5190 ms frontend
+2026-10-29T18:21:47.332Z [INFO ] [t25888] ctl: j13-20261029T182147Z-2065812427: ping
+2026-10-29T18:21:47.332Z [INFO ] [t25888] ctl: j13-20261029T182147Z-2065812427: ok
+2026-10-29T18:21:48.642Z [INFO ] [t25888] ctl: j13-20261029T182148Z-3102820168: state
+2026-10-29T18:21:48.642Z [INFO ] [t25888] ctl: j13-20261029T182148Z-3102820168: ok

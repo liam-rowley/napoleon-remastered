@@ -1,0 +1,26 @@
+== ctl: state
+{"id": "j13-20261029T181934Z-79523037", "request": "state", "status": "ok", "reason": "", "start_utc": "2026-10-29T18:19:34.290Z", "end_utc": "2026-10-29T18:19:34.290Z", "launch_id": "20261029T181927Z-p11324", "state": {"launch_id": "20261029T181927Z-p11324", "pid": 11324, "frame": 4710, "scene": "frontend", "scene_s": 1.7, "uptime_s": 6.9, "written_utc": "2026-10-29T18:19:34.290Z", "last_present_utc": "2026-10-29T18:19:34.290Z", "lua": {"loaded": true, "context": "frontend", "pump_age_s": -0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1262, "commit_mb": 676}, "reports": {}}, "state_at_end": {"launch_id": "20261029T181927Z-p11324", "pid": 11324, "frame": 4710, "scene": "frontend", "scene_s": 1.7, "uptime_s": 6.9, "written_utc": "2026-10-29T18:19:34.290Z", "last_present_utc": "2026-10-29T18:19:34.290Z", "lua": {"loaded": true, "context": "frontend", "pump_age_s": -0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1262, "commit_mb": 676}, "reports": {}}, "log": []}
+rc=0
+== job: #job owner=j13 type=ps1\n& "C:\\napoleon_remastered_pc\\watcher\\src\\vdisplay_probe.ps1" -Origin 3840,0 -SaveTo "C:\\napoleon_remastered_pc\\_scratch\\j13\\d_topology_move.json"
+displays (3 attached):
+  \\.\DISPLAY1   3840x2160@240Hz at 0,0 PRIMARY  adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor'
+  \\.\DISPLAY2   2560x1440@144Hz at -2560,327  adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)'
+  \\.\DISPLAY11  3840x2160@60Hz at 3839,2160  adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+previous mode saved to C:\napoleon_remastered_pc\_scratch\j13\d_topology_move.json: 3840x2160@60 at 3839,2160
+VIRTUAL MOVED: \\.\DISPLAY11 now at 3840,0 (was 3839,2160); restore with -Restore C:\napoleon_remastered_pc\_scratch\j13\d_topology_move.json
+[job j13-20261029T181935Z-199519392: ok exit=0]
+rc=0
+== ctl: state
+{"id": "j13-20261029T181955Z-305402255", "request": "state", "status": "ok", "reason": "", "start_utc": "2026-10-29T18:19:55.504Z", "end_utc": "2026-10-29T18:19:55.504Z", "launch_id": "20261029T181927Z-p11324", "state": {"launch_id": "20261029T181927Z-p11324", "pid": 11324, "frame": 77367, "scene": "frontend", "scene_s": 22.9, "uptime_s": 28.1, "written_utc": "2026-10-29T18:19:55.504Z", "last_present_utc": "2026-10-29T18:19:55.504Z", "lua": {"loaded": true, "context": "frontend", "pump_age_s": 0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1262, "commit_mb": 675}, "reports": {}}, "state_at_end": {"launch_id": "20261029T181927Z-p11324", "pid": 11324, "frame": 77367, "scene": "frontend", "scene_s": 22.9, "uptime_s": 28.1, "written_utc": "2026-10-29T18:19:55.504Z", "last_present_utc": "2026-10-29T18:19:55.504Z", "lua": {"loaded": true, "context": "frontend", "pump_age_s": 0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1262, "commit_mb": 675}, "reports": {}}, "log": []}
+rc=0
+== job: #job owner=j13 type=ps1\n& "C:\\napoleon_remastered_pc\\watcher\\src\\vdisplay_probe.ps1" -Restore "C:\\napoleon_remastered_pc\\_scratch\\j13\\d_topology_move.json"
+displays (3 attached):
+  \\.\DISPLAY1   3840x2160@240Hz at 0,0 PRIMARY  adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor'
+  \\.\DISPLAY2   2560x1440@144Hz at -2560,327  adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)'
+  \\.\DISPLAY11  3840x2160@60Hz at 3840,0  adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+VIRTUAL RESTORED: \\.\DISPLAY11 back at 3840x2160@60 at 3839,2160
+[job j13-20261029T181956Z-3236924716: ok exit=0]
+rc=0
+== ctl: state
+{"id": "j13-20261029T182015Z-873923276", "request": "state", "status": "ok", "reason": "", "start_utc": "2026-10-29T18:20:15.223Z", "end_utc": "2026-10-29T18:20:15.223Z", "launch_id": "20261029T181927Z-p11324", "state": {"launch_id": "20261029T181927Z-p11324", "pid": 11324, "frame": 144373, "scene": "frontend", "scene_s": 42.6, "uptime_s": 47.8, "written_utc": "2026-10-29T18:20:15.223Z", "last_present_utc": "2026-10-29T18:20:15.223Z", "lua": {"loaded": true, "context": "frontend", "pump_age_s": 0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1248, "commit_mb": 659}, "reports": {}}, "state_at_end": {"launch_id": "20261029T181927Z-p11324", "pid": 11324, "frame": 144373, "scene": "frontend", "scene_s": 42.6, "uptime_s": 47.8, "written_utc": "2026-10-29T18:20:15.223Z", "last_present_utc": "2026-10-29T18:20:15.223Z", "lua": {"loaded": true, "context": "frontend", "pump_age_s": 0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1248, "commit_mb": 659}, "reports": {}}, "log": []}
+rc=0

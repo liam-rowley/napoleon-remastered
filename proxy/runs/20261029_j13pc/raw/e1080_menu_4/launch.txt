@@ -1,0 +1,20 @@
+headless: the virtual display is at another size; setting 1920x1080 (the previous mode is restored after the game exits)
+  display tool: displays (3 attached):
+  display tool:   \\.\DISPLAY1   3840x2160@240Hz at 0,0 PRIMARY  adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor'
+  display tool:   \\.\DISPLAY2   2560x1440@144Hz at -2560,327  adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)'
+  display tool:   \\.\DISPLAY11  3840x2160@60Hz at 3839,2160  adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+  display tool: previous mode saved to C:\napoleon_remastered_pc\watcher\vdisplay_restore.json: 3840x2160@60 at 3839,2160
+  display tool: VIRTUAL SET: \\.\DISPLAY11 now 1920x1080 (was 3840x2160@60); restore with -Restore C:\napoleon_remastered_pc\watcher\vdisplay_restore.json
+headless: VIRTUAL OK: \\.\DISPLAY11 1920x1080@60Hz rect=3839,2160,5759,3240 adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+headless overlay prefs  83b9b32b2b73 -> b7c37858ec88
+headless overlay mod_ini  369f31823972 -> e377578aa2a8
+window probe: runs\20261029T182304Z_winprobe (pid 7428); winprobe.json and winprobe.txt when the game exits
+started C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 10244) in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War [launch job j13-20261029T182255Z-130185138 owner=j13 headless 1920x1080]
+running: Napoleon.exe pid 10244
+headless status: starting DllMain
+headless status: target_ok target resolved at Direct3DCreate9
+headless status: on_virtual window 3839,2160 1920x1080 on \\.\DISPLAY11, first frame presented there at 1.2 s
+headless: on_virtual (target \\.\DISPLAY11 rect 3839,2160,5759,3240, window 1920x1080, client 1920x1080, back buffer 1920x1080)
+reached after 6 s: 2026-10-29T18:23:10.218Z [INFO ] [t6012] scene: intro -> frontend after 27263.1 s (uptime 5.4 s, frame 4, lua frontend)
+[job j13-20261029T182255Z-130185138: ok exit=0]
+launch rc=0
