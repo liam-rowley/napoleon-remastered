@@ -3,8 +3,10 @@
 - harness/README.md: the harness is Windows PowerShell 5.1 and ASCII-only (PS 5.1 reads a BOM-less file as the ANSI code page, so
   one non-ASCII character in a .ps1 corrupts strings or breaks parsing); data files are UTF-8 without a BOM.
 - proxy/README.md "DXVK": binaries are never committed (the build and kits are generated; .gitignore refuses *.dll).
+- J5 rules for fixes: a gate is never silenced by `[gates] skip` or a new exemption glob without a dated decision naming it.
 """
 import subprocess
+import tomllib
 import unittest
 from pathlib import Path
 
@@ -31,6 +33,11 @@ def text_problems(name, data, ascii_only):
 
 
 class Fixtures(unittest.TestCase):
+    def test_silenced(self):
+        self.assertEqual(silenced({'tools': {'exempt': ['tests/**']}}, ''), [])
+        self.assertEqual(len(silenced({'gates': {'skip': ['tests']}, 'docs': {'exempt': ['x.md']}}, '')), 2)
+        self.assertEqual(silenced({'gates': {'skip': ['tests']}}, '| D40 | 2026-11-01 | Liam | skip `tests` because ... | yes |'), [])
+
     def test_text_problems(self):
         self.assertEqual(text_problems('a.ps1', b'Write-Host "ok"\r\n', True), [])
         self.assertEqual(len(text_problems('a.ps1', b'\xef\xbb\xbfWrite-Host "ok"', True)), 1)
@@ -38,7 +45,26 @@ class Fixtures(unittest.TestCase):
         self.assertEqual(text_problems('a.json', '{"n": "café"}'.encode(), False), [])
 
 
+# Exemptions that predate J5, each with its reason; anything else in wsc.toml needs a docs/DECISIONS.md row that quotes it.
+GRANDFATHERED = {('tools', 'exempt', 'tests/**'): 'host tests are not tools (core C8)',
+                 ('tools', 'exempt', '**/runs/**'): 'dated run evidence, not tools'}
+
+
+def silenced(cfg, decisions):
+    """Entries of [gates] skip and the exempt globs of [tools] and [docs] that no decision row quotes and no grandfather covers."""
+    out = []
+    for sect, key in (('gates', 'skip'), ('tools', 'exempt'), ('docs', 'exempt')):
+        for v in cfg.get(sect, {}).get(key, []):
+            if (sect, key, v) not in GRANDFATHERED and f'`{v}`' not in decisions:
+                out.append(f'wsc.toml [{sect}] {key} = {v!r} has no dated decision quoting it')
+    return out
+
+
 class ThisRepo(unittest.TestCase):
+    def test_no_gate_silenced_without_a_decision(self):
+        cfg = tomllib.loads((ROOT / 'wsc.toml').read_text(encoding='utf-8'))
+        self.assertEqual(silenced(cfg, (ROOT / 'docs' / 'DECISIONS.md').read_text(encoding='utf-8')), [])
+
     def test_harness_sources_are_ascii_and_data_has_no_bom(self):
         errs = []
         for p in tracked('harness/*.ps1', 'harness/*.psm1', 'harness/*.cmd', 'harness/*.bat'):
