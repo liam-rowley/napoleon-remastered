@@ -439,7 +439,7 @@ function Take-Snapshot([string]$owner, $out) {
         if (Test-Path -LiteralPath $abs) {
             $dst = Join-Path (Join-Path $snapDir 'files') $t.id
             Copy-Item -LiteralPath $abs -Destination $dst -Force
-            $e.existed = $true; $e.sha256 = Sha $abs; $e.bytes = (Get-Item -LiteralPath $abs).Length
+            $e.existed = $true; $e.sha256 = Sha $abs; $e.bytes = (Get-Item -LiteralPath $abs -Force).Length   # -Force: hidden files (.sp_default.battle_preferences) are invisible to Get-Item without it
             if ((Sha $dst) -ne $e.sha256) { throw "snapshot copy of $($t.id) does not match the original (file changed while copying?)" }
         }
         $files += [pscustomobject]$e
