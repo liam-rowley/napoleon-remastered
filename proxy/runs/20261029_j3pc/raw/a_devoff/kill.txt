@@ -1,0 +1,3 @@
+taskkill /F /T /PID 17404 (Napoleon): SUCCESS: The process with PID 17404 (child process of PID 30576) has been terminated.
+killed: Napoleon 17404
+[job j3-20261029T082026Z-1855331823: ok exit=0]

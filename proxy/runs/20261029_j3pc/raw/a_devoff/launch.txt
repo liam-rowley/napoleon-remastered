@@ -1,0 +1,4 @@
+started C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 17404) in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War [launch job j3-20261029T081958Z-266432780 owner=j3]
+running: Napoleon.exe pid 17404
+reached after 1 s: 2026-10-29T08:20:00.597Z [WARN ] [t8500] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+[job j3-20261029T081958Z-266432780: ok exit=0]

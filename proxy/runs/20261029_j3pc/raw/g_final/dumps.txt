@@ -1,0 +1,4 @@
+total 15004
+drwx------ 1 rcw-012gyst4xzadbe96vfabmjeg rcw-012gyst4xzadbe96vfabmjeg     4096 Oct 29 09:14 .
+drwx------ 1 rcw-012gyst4xzadbe96vfabmjeg rcw-012gyst4xzadbe96vfabmjeg     4096 Oct 29 09:16 ..
+-rwx------ 1 rcw-012gyst4xzadbe96vfabmjeg rcw-012gyst4xzadbe96vfabmjeg 15361889 Oct 29 09:14 20261029T091233Z-p14812_c0000005.dmp

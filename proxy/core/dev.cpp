@@ -243,7 +243,7 @@ Outcome Reset(const Target& t, double timeoutS) {
             const double tw = MonoS();
             while (MonoS() - tw < 0.5 && BridgeLastCtx() == src && MonoS() - BridgeLastPumpS() < 2.0) Sleep(50);
         }
-        o.result = "\"steps\": " + JStr(last) + ", ";
+        o.result = "\"steps\": " + JStr(last);   // the timeout returns below must still give valid JSON
         std::string sc; double waited = 0;
         if (!WaitScene({ "frontend" }, timeoutS, sc, waited)) { { Lock l; s_scene.loadTarget.clear(); } o.status = "timeout"; o.reason = "scene " + sc + " after the reset request"; return o; }
         // the front end must pump again before the next autostart
@@ -262,7 +262,7 @@ Outcome Reset(const Target& t, double timeoutS) {
     const Mem after = MemNow();
     snprintf(b, sizeof b, "\"from\": \"%s\", \"to_frontend_s\": %.1f, \"total_s\": %.1f, \"mem_before\": %s, \"mem_frontend\": %s, \"mem_after\": %s",
              from.c_str(), toFrontend, MonoS() - t0, MemJson(before).c_str(), MemJson(mid).c_str(), MemJson(after).c_str());
-    o.result += b;
+    o.result += (o.result.empty() ? "" : ", ") + std::string(b);
     if (!a.result.empty()) o.result += ", \"autostart\": {" + a.result + "}";
     LOGI("reset: %s -> %s: %s (address space %.0f -> %.0f MB, commit %.0f -> %.0f MB)", from.c_str(), t.kind.c_str(), o.status.c_str(), before.vaMb, after.vaMb, before.commitMb, after.commitMb);
     return o;

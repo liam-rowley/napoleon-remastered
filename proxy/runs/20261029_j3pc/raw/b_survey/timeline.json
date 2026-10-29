@@ -1,0 +1,23 @@
+{
+  "launch_id": "20261029T082045Z-p12276",
+  "process_start_utc": "2026-10-29T08:20:45.284Z",
+  "phases": [
+    {"phase": "process_start", "utc": "2026-10-29T08:20:45.284Z", "t_ms": 0},
+    {"phase": "dllmain", "utc": "2026-10-29T08:20:45.355Z", "t_ms": 71},
+    {"phase": "d3d_create", "utc": "2026-10-29T08:20:46.383Z", "t_ms": 1099},
+    {"phase": "device_created", "utc": "2026-10-29T08:20:47.050Z", "t_ms": 1766, "detail": "hr 0x00000000 flags 0x42"},
+    {"phase": "first_present", "utc": "2026-10-29T08:20:47.094Z", "t_ms": 1810},
+    {"phase": "lua_bridge_loaded", "utc": "2026-10-29T08:20:51.623Z", "t_ms": 6339},
+    {"phase": "movie_open", "utc": "2026-10-29T08:20:51.768Z", "t_ms": 6484, "detail": "movies\\sega_logo_sting_hd.bik"},
+    {"phase": "movie_close", "utc": "2026-10-29T08:20:55.027Z", "t_ms": 9743, "detail": "movies\\sega_logo_sting_hd.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T08:20:55.066Z", "t_ms": 9782, "detail": "movies\\corei7_intro.bik"},
+    {"phase": "movie_close", "utc": "2026-10-29T08:20:59.840Z", "t_ms": 14556, "detail": "movies\\corei7_intro.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T08:20:59.881Z", "t_ms": 14597, "detail": "movies\\ntw_intro.bik"},
+    {"phase": "movie_close", "utc": "2026-10-29T08:22:55.588Z", "t_ms": 130304, "detail": "movies\\ntw_intro.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T08:22:55.628Z", "t_ms": 130344, "detail": "movies\\frontend2.bik"},
+    {"phase": "scene_ready", "utc": "2026-10-29T08:22:55.629Z", "t_ms": 130345, "detail": "frontend"},
+    {"phase": "frontend_first_pump", "utc": "2026-10-29T08:22:55.633Z", "t_ms": 130349},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T08:22:55.635Z", "t_ms": 130351, "detail": "frontend"},
+    {"phase": "autostart_issued", "utc": "2026-10-29T08:25:56.075Z", "t_ms": 310791, "detail": "battle:land_small"}
+  ]
+}

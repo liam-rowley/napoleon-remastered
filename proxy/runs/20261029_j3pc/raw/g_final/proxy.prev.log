@@ -1,0 +1,231 @@
+2026-10-29T09:09:45.051Z [INFO ] [t18564] launch 20261029T090945Z-p25632: Napoleon: Total War proxy d3d9.dll build 98895eea72f0 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 25632, base 000c0000)
+2026-10-29T09:09:45.051Z [INFO ] [t18564] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.autostart                      =             
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.autostart_delay_ms             = 1500        
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.ctl                            = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.file_rules                     =             
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.log_files                      = 0           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.lua_bridge                     = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.skip_intro                     = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.state_json                     = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   dev.timeline                       = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.backend                      = dxvk        
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.enabled                      = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.exe_guard                    = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.log_level                    = info        
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.minidump                     = 2           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] config:   proxy.runtime_patches              = 1           
+2026-10-29T09:09:45.051Z [INFO ] [t18564] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-10-29T09:09:45.051Z [INFO ] [t18564] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-10-29T09:09:45.079Z [INFO ] [t18564] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 32 ms)
+2026-10-29T09:09:45.079Z [INFO ] [t18564] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-10-29T09:09:45.079Z [INFO ] [t18564] patch_engine: image base 000c0000 (file ImageBase 0x00400000, delta 0xffcc0000)
+2026-10-29T09:09:45.079Z [INFO ] [t18564] patch_engine: nothing to do - 0 sites: 0 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 0 hooks verified
+2026-10-29T09:09:45.079Z [INFO ] [t18564] patch_engine: 0 of 0 planned sites written
+2026-10-29T09:09:45.079Z [INFO ] [t18564] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-10-29T09:09:45.079Z [INFO ] [t18564] timeline: dllmain +63 ms
+2026-10-29T09:09:45.079Z [INFO ] [t18564] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-10-29T09:09:45.079Z [INFO ] [t18564] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-10-29T09:09:45.079Z [INFO ] [t18564] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-10-29T09:09:45.079Z [INFO ] [t18564] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-10-29T09:09:45.079Z [INFO ] [t18564] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!CreateFileW slot 00fc7170: 751fea50 -> 69e99b60
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!CreateFileA slot 00fc7188: 751fea40 -> 69e99980
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!GetFileAttributesW slot 00fc722c: 751fec70 -> 69e99880
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!GetFileAttributesExW slot 00fc728c: 751fec60 -> 69e99760
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!GetFileAttributesExA slot 00fc724c: 751fec50 -> 69e995f0
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!FindFirstFileExW slot 00fc70cc: 751feb30 -> 69e99530
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!FindFirstFileW slot 00fc721c: 751feb50 -> 69e99490
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!FindNextFileW slot 00fc7220: 751feba0 -> 69e96a00
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat KERNEL32.dll!FindClose slot 00fc7218: 751fead0 -> 69e955f0
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat binkw32.dll!_BinkOpen@8 slot 00fc7480: 1800d690 -> 69e9b710
+2026-10-29T09:09:45.079Z [INFO ] [t18564] hook: iat binkw32.dll!_BinkClose@4 slot 00fc7490: 1800f850 -> 69e96030
+2026-10-29T09:09:45.079Z [INFO ] [t18564] init done; the dxvk backend loads at the first d3d9 call
+2026-10-29T09:09:45.095Z [INFO ] [t22840] ctl: watching C:\napoleon_remastered_pc\ctl\ (23 ids already used)
+2026-10-29T09:09:45.933Z [INFO ] [t18564] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-10-29T09:09:46.001Z [WARN ] [t18564] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-10-29T09:09:46.001Z [INFO ] [t18564] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-10-29T09:09:46.001Z [INFO ] [t18564] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T09:09:46.001Z [INFO ] [t18564] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-10-29T09:09:46.001Z [INFO ] [t18564] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T09:09:46.001Z [INFO ] [t18564] backend: dxvk ready (Direct3DCreate9=5e4f1530)
+2026-10-29T09:09:46.130Z [INFO ] [t18564] Direct3DCreate9(sdk=32) -> 0b992128 [dxvk]
+2026-10-29T09:09:46.130Z [INFO ] [t18564] timeline: d3d_create +1114 ms
+2026-10-29T09:09:46.130Z [INFO ] [t18564] hook: vtable IDirect3D9::CreateDevice slot 5eb8e040 [16]: 5e4f2980 -> 69e869b0
+2026-10-29T09:09:46.804Z [INFO ] [t18564] timeline: device_created +1788 ms hr 0x00000000 flags 0x42
+2026-10-29T09:09:46.805Z [INFO ] [t18564] hook: vtable IDirect3DDevice9::Present slot 5eb8d7f4 [17]: 5e529dd0 -> 69e86c00
+2026-10-29T09:09:46.841Z [INFO ] [t18564] timeline: first_present +1825 ms
+2026-10-29T09:09:51.488Z [INFO ] [t18564] wsp_sentinel: engine dummynode = 010ad128 (sizearray 0, lsizenode 0)
+2026-10-29T09:09:51.488Z [INFO ] [t18564] luaopen_wsp: engine lua_State 04ca2128, global state 04d1e624 (thread 18564)
+2026-10-29T09:09:51.488Z [INFO ] [t18564] timeline: lua_bridge_loaded +6472 ms
+2026-10-29T09:09:51.489Z [INFO ] [t18564] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:09:51.511Z [INFO ] [t18564] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-10-29T09:09:51.513Z [INFO ] [t18564] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-10-29T09:09:51.566Z [INFO ] [t18564] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:09:51.678Z [INFO ] [t18564] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-10-29T09:09:51.678Z [INFO ] [t18564] timeline: movie_refused +6662 ms movies\sega_logo_sting_hd.bik
+2026-10-29T09:09:51.680Z [INFO ] [t18564] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-10-29T09:09:51.680Z [INFO ] [t18564] timeline: movie_refused +6664 ms movies\corei7_intro.bik
+2026-10-29T09:09:51.684Z [INFO ] [t18564] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-10-29T09:09:51.684Z [INFO ] [t18564] timeline: movie_refused +6668 ms movies\ntw_intro.bik
+2026-10-29T09:09:51.686Z [INFO ] [t18564] timeline: movie_open +6670 ms movies\frontend2.bik
+2026-10-29T09:09:51.687Z [INFO ] [t18564] movies: BinkOpen movies\frontend2.bik [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b084540
+2026-10-29T09:09:51.687Z [INFO ] [t18564] scene: intro -> frontend after 312108.9 s (uptime 6.6 s, frame 4, lua frontend)
+2026-10-29T09:09:51.691Z [INFO ] [t18564] lua: first pump from context 'frontend' (thread 18564)
+2026-10-29T09:09:51.691Z [INFO ] [t18564] timeline: frontend_first_pump +6675 ms
+2026-10-29T09:09:51.692Z [INFO ] [t18564] timeline: first_present_after_ready +6676 ms frontend
+2026-10-29T09:09:59.432Z [INFO ] [t22840] ctl: j3-20261029T090958Z-905527290: autostart battle:land_small 90
+2026-10-29T09:09:59.432Z [INFO ] [t22840] timeline: autostart_issued +14416 ms battle:land_small
+2026-10-29T09:09:59.513Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-10-29T09:09:59.515Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_sunken_crater
+2026-10-29T09:09:59.517Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_siberian_plateau
+2026-10-29T09:09:59.520Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_mountain
+2026-10-29T09:09:59.522Z [INFO ] [t18564] lua report: battle.map_folder = welly_map_a
+2026-10-29T09:09:59.525Z [INFO ] [t18564] lua report: battle.map_folder = welly_map_c
+2026-10-29T09:09:59.527Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_prussian_hills
+2026-10-29T09:09:59.530Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_italian_grassland
+2026-10-29T09:09:59.532Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_homestead
+2026-10-29T09:09:59.534Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:09:59.536Z [INFO ] [t18564] lua report: autostart.map = NAP_MP_Grassy_Flatlands
+2026-10-29T09:09:59.536Z [INFO ] [t18564] lua report: autostart.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:09:59.635Z [INFO ] [t18564] movies: BinkClose movies\frontend2.bik
+2026-10-29T09:09:59.635Z [INFO ] [t18564] timeline: movie_close +14619 ms movies\frontend2.bik
+2026-10-29T09:09:59.642Z [INFO ] [t22840] autostart: lua ok: started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal)
+2026-10-29T09:09:59.642Z [INFO ] [t22840] scene: frontend -> loading after 8.0 s (uptime 14.5 s, frame 205, lua frontend)
+2026-10-29T09:09:59.852Z [INFO ] [t18564] Direct3DCreate9(sdk=32) -> 32932cb0 [dxvk]
+2026-10-29T09:10:02.786Z [INFO ] [t18564] luaopen_wsp: engine lua_State 04c62ef0, global state 04ca664c (thread 18564) (again)
+2026-10-29T09:10:02.786Z [INFO ] [t18564] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:10:02.791Z [INFO ] [t18564] lua: wrapper: battle pumps from OnUpdate
+2026-10-29T09:10:02.791Z [INFO ] [t18564] lua: wrapper: battle pumps from OnUpdatePulse
+2026-10-29T09:10:17.799Z [INFO ] [t18564] lua: first pump from context 'battle' (thread 18564)
+2026-10-29T09:10:17.799Z [INFO ] [t18564] scene: loading -> battle after 18.2 s (uptime 32.7 s, frame 607, lua battle)
+2026-10-29T09:10:17.800Z [INFO ] [t18564] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-10-29T09:10:17.800Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=0
+2026-10-29T09:10:17.831Z [INFO ] [t18564] timeline: first_present_after_ready +32815 ms battle
+2026-10-29T09:10:17.963Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=1
+2026-10-29T09:10:17.963Z [INFO ] [t18564] scene: battle -> battle_deploy after 0.2 s (uptime 32.9 s, frame 612, lua battle)
+2026-10-29T09:10:17.967Z [INFO ] [t18564] timeline: first_present_after_ready +32951 ms battle_deploy
+2026-10-29T09:10:18.817Z [INFO ] [t22840] ctl: j3-20261029T090958Z-905527290: ok
+2026-10-29T09:10:19.225Z [INFO ] [t22840] ctl: j3-20261029T091018Z-326197068: reset battle:land_small 60
+2026-10-29T09:10:19.225Z [INFO ] [t18564] scene: battle_deploy -> loading after 1.2 s (uptime 34.1 s, frame 645, lua battle)
+2026-10-29T09:10:19.256Z [INFO ] [t22840] reset: step 1: battle: ExitBattle
+2026-10-29T09:10:19.308Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=-1
+2026-10-29T09:10:19.864Z [INFO ] [t22840] reset: step 2: battle: summary dismissed (DismissBattleResult)
+2026-10-29T09:10:20.401Z [INFO ] [t22840] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)
+2026-10-29T09:10:20.670Z [INFO ] [t18564] luaopen_wsp: engine lua_State 04c62ef0, global state 04ca710c (thread 18564) (again)
+2026-10-29T09:10:20.670Z [INFO ] [t18564] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:10:20.671Z [INFO ] [t18564] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-10-29T09:10:20.720Z [INFO ] [t18564] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:10:20.797Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-10-29T09:10:20.799Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:10:20.883Z [INFO ] [t18564] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:10:20.883Z [INFO ] [t18564] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok
+2026-10-29T09:10:20.945Z [INFO ] [t18564] timeline: movie_open +35929 ms movies\frontend2.bik
+2026-10-29T09:10:20.946Z [INFO ] [t18564] movies: BinkOpen movies\frontend2.bik [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 6b1c6500
+2026-10-29T09:10:20.946Z [INFO ] [t18564] scene: loading -> frontend after 1.7 s (uptime 35.8 s, frame 679, lua frontend)
+2026-10-29T09:10:20.953Z [INFO ] [t18564] timeline: first_present_after_ready +35937 ms frontend
+2026-10-29T09:10:20.957Z [INFO ] [t22840] ctl: j3-20261029T091018Z-326197068: failed: reset.lua after step 3: napoleon_remastered/lua/reset.lua:43: reset from context 'frontend': needs the campaign or battle root
+2026-10-29T09:10:21.360Z [INFO ] [t22840] ctl: j3-20261029T091020Z-1454119440: reset battle:land_small 60
+2026-10-29T09:10:21.360Z [INFO ] [t22840] timeline: autostart_issued +36344 ms battle:land_small
+2026-10-29T09:10:21.373Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-10-29T09:10:21.376Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_sunken_crater
+2026-10-29T09:10:21.377Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_siberian_plateau
+2026-10-29T09:10:21.379Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_mountain
+2026-10-29T09:10:21.380Z [INFO ] [t18564] lua report: battle.map_folder = welly_map_a
+2026-10-29T09:10:21.382Z [INFO ] [t18564] lua report: battle.map_folder = welly_map_c
+2026-10-29T09:10:21.384Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_prussian_hills
+2026-10-29T09:10:21.385Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_italian_grassland
+2026-10-29T09:10:21.387Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_homestead
+2026-10-29T09:10:21.389Z [INFO ] [t18564] lua report: autostart.map = NAP_MP_Grassy_Flatlands
+2026-10-29T09:10:21.389Z [INFO ] [t18564] lua report: autostart.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:10:21.406Z [INFO ] [t18564] movies: BinkClose movies\frontend2.bik
+2026-10-29T09:10:21.406Z [INFO ] [t18564] timeline: movie_close +36390 ms movies\frontend2.bik
+2026-10-29T09:10:21.414Z [INFO ] [t22840] autostart: lua ok: started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal)
+2026-10-29T09:10:21.414Z [INFO ] [t22840] scene: frontend -> loading after 0.5 s (uptime 36.3 s, frame 692, lua frontend)
+2026-10-29T09:10:22.063Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:10:24.775Z [INFO ] [t18564] luaopen_wsp: engine lua_State 3cedc610, global state 04ca64f4 (thread 18564) (again)
+2026-10-29T09:10:24.775Z [INFO ] [t18564] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:10:24.778Z [INFO ] [t18564] lua: wrapper: battle pumps from OnUpdate
+2026-10-29T09:10:24.778Z [INFO ] [t18564] lua: wrapper: battle pumps from OnUpdatePulse
+2026-10-29T09:10:39.424Z [INFO ] [t18564] scene: loading -> battle after 18.0 s (uptime 54.3 s, frame 1094, lua battle)
+2026-10-29T09:10:39.425Z [INFO ] [t18564] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-10-29T09:10:39.425Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=0
+2026-10-29T09:10:39.451Z [INFO ] [t18564] timeline: first_present_after_ready +54435 ms battle
+2026-10-29T09:10:39.578Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=1
+2026-10-29T09:10:39.578Z [INFO ] [t18564] scene: battle -> battle_deploy after 0.2 s (uptime 54.5 s, frame 1098, lua battle)
+2026-10-29T09:10:39.581Z [INFO ] [t18564] timeline: first_present_after_ready +54565 ms battle_deploy
+2026-10-29T09:10:40.470Z [INFO ] [t22840] reset: frontend -> battle: ok (address space 1696 -> 1848 MB, commit 974 -> 1256 MB)
+2026-10-29T09:10:40.470Z [INFO ] [t22840] ctl: j3-20261029T091020Z-1454119440: ok
+2026-10-29T09:10:41.174Z [INFO ] [t22840] ctl: j3-20261029T091040Z-242478460: reset battle:land_small 60
+2026-10-29T09:10:41.203Z [INFO ] [t18564] scene: battle_deploy -> loading after 1.6 s (uptime 56.1 s, frame 1141, lua battle)
+2026-10-29T09:10:41.228Z [INFO ] [t22840] reset: step 1: battle: ExitBattle
+2026-10-29T09:10:41.404Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=-1
+2026-10-29T09:10:41.834Z [INFO ] [t22840] reset: step 2: battle: summary dismissed (DismissBattleResult)
+2026-10-29T09:10:42.360Z [INFO ] [t22840] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)
+2026-10-29T09:10:42.679Z [INFO ] [t18564] luaopen_wsp: engine lua_State 3cedc6f0, global state 3ceb70dc (thread 18564) (again)
+2026-10-29T09:10:42.679Z [INFO ] [t18564] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:10:42.681Z [INFO ] [t18564] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-10-29T09:10:42.729Z [INFO ] [t18564] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:10:42.804Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-10-29T09:10:42.806Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:10:42.891Z [INFO ] [t18564] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:10:42.891Z [INFO ] [t18564] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok
+2026-10-29T09:10:42.952Z [INFO ] [t18564] timeline: movie_open +57936 ms movies\frontend2.bik
+2026-10-29T09:10:42.953Z [INFO ] [t18564] movies: BinkOpen movies\frontend2.bik [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 6afb0040
+2026-10-29T09:10:42.953Z [INFO ] [t18564] scene: loading -> frontend after 1.8 s (uptime 57.9 s, frame 1176, lua frontend)
+2026-10-29T09:10:42.961Z [INFO ] [t18564] timeline: first_present_after_ready +57945 ms frontend
+2026-10-29T09:10:42.968Z [INFO ] [t22840] ctl: j3-20261029T091040Z-242478460: failed: reset.lua after step 3: napoleon_remastered/lua/reset.lua:43: reset from context 'frontend': needs the campaign or battle root
+2026-10-29T09:10:43.370Z [INFO ] [t22840] ctl: j3-20261029T091042Z-55155650: reset battle:land_small 60
+2026-10-29T09:10:43.370Z [INFO ] [t22840] timeline: autostart_issued +58354 ms battle:land_small
+2026-10-29T09:10:43.380Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-10-29T09:10:43.382Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_sunken_crater
+2026-10-29T09:10:43.383Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_siberian_plateau
+2026-10-29T09:10:43.385Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_mountain
+2026-10-29T09:10:43.387Z [INFO ] [t18564] lua report: battle.map_folder = welly_map_a
+2026-10-29T09:10:43.389Z [INFO ] [t18564] lua report: battle.map_folder = welly_map_c
+2026-10-29T09:10:43.391Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_prussian_hills
+2026-10-29T09:10:43.392Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_italian_grassland
+2026-10-29T09:10:43.393Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_homestead
+2026-10-29T09:10:43.396Z [INFO ] [t18564] lua report: autostart.map = NAP_MP_Grassy_Flatlands
+2026-10-29T09:10:43.396Z [INFO ] [t18564] lua report: autostart.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:10:43.414Z [INFO ] [t22840] autostart: lua ok: started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal)
+2026-10-29T09:10:43.414Z [INFO ] [t22840] scene: frontend -> loading after 0.5 s (uptime 58.3 s, frame 1188, lua frontend)
+2026-10-29T09:10:43.414Z [INFO ] [t18564] movies: BinkClose movies\frontend2.bik
+2026-10-29T09:10:43.414Z [INFO ] [t18564] timeline: movie_close +58398 ms movies\frontend2.bik
+2026-10-29T09:10:44.177Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:10:46.970Z [INFO ] [t18564] luaopen_wsp: engine lua_State 3cea6320, global state 3ceb70dc (thread 18564) (again)
+2026-10-29T09:10:46.970Z [INFO ] [t18564] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:10:46.974Z [INFO ] [t18564] lua: wrapper: battle pumps from OnUpdate
+2026-10-29T09:10:46.974Z [INFO ] [t18564] lua: wrapper: battle pumps from OnUpdatePulse
+2026-10-29T09:11:01.623Z [INFO ] [t18564] scene: loading -> battle after 18.2 s (uptime 76.5 s, frame 1591, lua battle)
+2026-10-29T09:11:01.624Z [INFO ] [t18564] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-10-29T09:11:01.624Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=0
+2026-10-29T09:11:01.649Z [INFO ] [t18564] timeline: first_present_after_ready +76633 ms battle
+2026-10-29T09:11:01.776Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=1
+2026-10-29T09:11:01.776Z [INFO ] [t18564] scene: battle -> battle_deploy after 0.2 s (uptime 76.7 s, frame 1595, lua battle)
+2026-10-29T09:11:01.780Z [INFO ] [t18564] timeline: first_present_after_ready +76764 ms battle_deploy
+2026-10-29T09:11:02.671Z [INFO ] [t22840] reset: frontend -> battle: ok (address space 1698 -> 1845 MB, commit 993 -> 1256 MB)
+2026-10-29T09:11:02.671Z [INFO ] [t22840] ctl: j3-20261029T091042Z-55155650: ok
+2026-10-29T09:11:03.176Z [INFO ] [t22840] ctl: j3-20261029T091102Z-1338929726: reset battle:land_small 60
+2026-10-29T09:11:03.200Z [INFO ] [t18564] scene: battle_deploy -> loading after 1.4 s (uptime 78.1 s, frame 1633, lua battle)
+2026-10-29T09:11:03.229Z [INFO ] [t22840] reset: step 1: battle: ExitBattle
+2026-10-29T09:11:03.379Z [INFO ] [t18564] scene: battle probe naval=0 deploy_panel=-1
+2026-10-29T09:11:03.829Z [INFO ] [t22840] reset: step 2: battle: summary dismissed (DismissBattleResult)
+2026-10-29T09:11:04.364Z [INFO ] [t22840] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)
+2026-10-29T09:11:04.679Z [INFO ] [t18564] luaopen_wsp: engine lua_State 3cea5830, global state 3ceb74e4 (thread 18564) (again)
+2026-10-29T09:11:04.679Z [INFO ] [t18564] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:11:04.680Z [INFO ] [t18564] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-10-29T09:11:04.727Z [INFO ] [t18564] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:11:04.806Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-10-29T09:11:04.807Z [INFO ] [t18564] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-10-29T09:11:04.890Z [INFO ] [t18564] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:11:04.890Z [INFO ] [t18564] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok
+2026-10-29T09:11:04.949Z [INFO ] [t18564] timeline: movie_open +79933 ms movies\frontend2.bik
+2026-10-29T09:11:04.950Z [INFO ] [t18564] movies: BinkOpen movies\frontend2.bik [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 6afb0040
+2026-10-29T09:11:04.950Z [INFO ] [t18564] scene: loading -> frontend after 1.8 s (uptime 79.9 s, frame 1668, lua frontend)
+2026-10-29T09:11:04.957Z [INFO ] [t18564] timeline: first_present_after_ready +79941 ms frontend
+2026-10-29T09:11:04.964Z [INFO ] [t22840] ctl: j3-20261029T091102Z-1338929726: failed: reset.lua after step 3: napoleon_remastered/lua/reset.lua:43: reset from context 'frontend': needs the campaign or battle root
