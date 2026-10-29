@@ -43,7 +43,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J39` | done | Job viewer launches Claude Code sessions | 1 | sonnet | no |  | jobs/J39/brief.md | jobs/J39/report.md | jobs/J39/review.md |
 | `J4` | needs_brief | Scenario library, control API, acceptance gate | 1 | sonnet | yes | J3, J13, J14, J20 |  |  |  |
 | `J40` | needs_brief | Campaign console: close the open checks | 1 | opus | yes | J15 |  |  |  |
-| `J41` | needs_brief | Local gates run the proxy host tests | 1 | sonnet | yes | J20 |  |  |  |
+| `J41` | queued | Local gates run the proxy host tests | 1 | sonnet | yes | J20 | jobs/J41/brief.md |  |  |
 | `J5` | done | Determinism audit: rules into gates | 1 | opus | no | J3 | jobs/J5/brief.md | jobs/J5/report.md | jobs/J5/review.md |
 | `J6` | done | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md | jobs/J6/review.md |
 | `J7` | done | Asset index, contact sheets, loc and db | 2 | sonnet | yes | J6 | jobs/J7/brief.md | jobs/J7/report.md | jobs/J7/review.md |
