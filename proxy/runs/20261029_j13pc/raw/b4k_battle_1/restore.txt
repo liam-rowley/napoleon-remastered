@@ -1,0 +1,2 @@
+no profile is active - nothing to restore
+[job j13-20261029T180750Z-881032574: ok exit=0]

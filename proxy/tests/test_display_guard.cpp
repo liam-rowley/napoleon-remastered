@@ -91,6 +91,12 @@ void TestCreateShowStyle() {
     CHECK(GateShow(3 /* SW_SHOWMAXIMIZED */, false, true) == Show::PlaceThenShowNA);
     CHECK(GateShow(5 /* SW_SHOW */, true, false) == Show::Refuse);
 
+    CHECK(GateDevice(true, 3840, 2160, 3840, 2160) == Device::Game);
+    CHECK(GateDevice(true, 1, 1, 3840, 2160) == Device::Helper);             // the battle loader's 1x1 helper device
+    CHECK(GateDevice(false, 1, 1, 3840, 2160) == Device::Refuse);            // fullscreen: never, whatever the size
+    CHECK(GateDevice(false, 3840, 2160, 3840, 2160) == Device::Refuse);
+    CHECK(GateDevice(true, 2560, 1440, 3840, 2160) == Device::Refuse);
+    CHECK(GateDevice(true, 0, 0, 3840, 2160) == Device::Refuse);             // unresolved size: refuse
     CHECK(MessageBoxAnswer(0) == kIdOk); CHECK(MessageBoxAnswer(1) == kIdCancel); CHECK(MessageBoxAnswer(4 | 0x30) == kIdNo); CHECK(MessageBoxAnswer(2) == kIdAbort);
 }
 

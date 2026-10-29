@@ -1,0 +1,3 @@
+taskkill /F /T /PID 24260 (Napoleon): SUCCESS: The process with PID 24260 (child process of PID 11424) has been terminated.
+killed: Napoleon 24260
+[job j13-20261029T174058Z-127910974: ok exit=0]

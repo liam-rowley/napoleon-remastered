@@ -206,6 +206,16 @@ inline PosVerdict GatePos(const Pos& in, bool own, bool targetKnown, bool inside
     return v;
 }
 
+// ---- devices (CreateDevice / Reset) --------------------------------------------------------------------------------------------
+// The game device must be windowed at exactly the wanted size. A windowed device with a tiny back buffer is the engine's offscreen
+// helper (PC run 20261029_j13pc: a 1x1 device on a non-game window when a battle loads): it shows nothing, so it passes.
+enum class Device { Game, Helper, Refuse };
+inline Device GateDevice(bool windowed, long bw, long bh, long w, long h) {
+    if (!windowed) return Device::Refuse;
+    if (bw > 0 && bh > 0 && bw <= kHelperMax && bh <= kHelperMax) return Device::Helper;
+    return bw == w && bh == h ? Device::Game : Device::Refuse;
+}
+
 // ---- the topology guard ---------------------------------------------------------------------------------------------------------
 enum class Event { Tick, DisplayChange, DpiChanged, SettingChange, PosChanged, DeviceChange };
 inline const char* EventName(Event e) {

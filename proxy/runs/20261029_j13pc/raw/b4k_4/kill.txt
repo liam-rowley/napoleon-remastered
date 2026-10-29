@@ -1,0 +1,3 @@
+taskkill /F /T /PID 15100 (Napoleon): SUCCESS: The process with PID 15100 (child process of PID 8844) has been terminated.
+killed: Napoleon 15100
+[job j13-20261029T174701Z-152365298: ok exit=0]

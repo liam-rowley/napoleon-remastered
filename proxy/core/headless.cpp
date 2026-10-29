@@ -567,8 +567,10 @@ void CheckParams(const char* what, PresentParams* pp, HWND focus) {
     long bw = (long)pp->bbW, bh = (long)pp->bbH;
     if (pp->windowed && (!bw || !bh) && w) { RECT rc{}; GetClientRect(w, &rc); bw = rc.right; bh = rc.bottom; }
     LOGI("headless: %s: back buffer %ldx%ld, %s, window %p", what, bw, bh, pp->windowed ? "windowed" : "FULLSCREEN", (void*)w);
+    const Device kind = GateDevice(pp->windowed != FALSE, bw, bh, s_w, s_h);
+    if (kind == Device::Helper) { LOGI("headless: %s: a helper device (back buffer %ldx%ld): allowed, it shows nothing", what, bw, bh); return; }
     if (!pp->windowed) Refuse(std::string(what) + " asked for an exclusive fullscreen device (gfx_fullscreen true?): headless runs windowed borderless on the target only");
-    if (bw != s_w || bh != s_h) {
+    if (kind == Device::Refuse) {
         char b[160]; snprintf(b, sizeof b, "%s back buffer %ldx%ld is not headless.size %ldx%ld (the prefs x_res/y_res and the virtual display's mode must match)", what, bw, bh, s_w, s_h);
         Refuse(b);
     }

@@ -1,0 +1,6 @@
+restored prefs  sha256 83b9b32b2b73 OK (byte-identical)
+restored keys  sha256 adc99cc410b6 OK (unchanged)
+restored battle_prefs  sha256 36642c2b5ec7 OK (unchanged)
+restored mod_ini  sha256 b9bfecaebd23 OK (byte-identical)
+restored dxvk_conf  absent again (the profile's file moved to _to_delete)
+[job j13-20261029T174646Z-160693580: ok exit=0]
