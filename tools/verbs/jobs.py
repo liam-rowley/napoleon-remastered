@@ -154,7 +154,7 @@ def not_ready(action, jid, by, branches, on_branch=None):
         if not row:
             return f'job/{jid} has no {jid} row'
         if row.get('status') != 'review':
-            return f'{jid} is {row.get("status")} on job/{jid}, not review (no report yet)'
+            return f'{jid} is {row.get("status")} on job/{jid}, not review' + (' (no report yet)' if row.get('status') == 'queued' else '')
         return f'{jid} is already reviewed (job/{jid} has jobs/{jid}/review.md)' if reviewed else None
     st, prefix = ACTIONS[action]
     if r.get('status') != st:
