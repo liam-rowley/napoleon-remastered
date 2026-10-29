@@ -23,8 +23,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: python core/wsc.py gates
-  # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the cloud
-  # container: proxy/README.md "Build") and run its host tests; the DLL is kept as a workflow artifact.
+  # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the PC's
+  # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.
   proxy:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

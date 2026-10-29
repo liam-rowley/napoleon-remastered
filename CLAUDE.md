@@ -17,7 +17,9 @@
   edit, commit or push there from Napoleon work.** Bring it into a session with `--add-dir ../empire-remastered` when a job needs it.
 - **The game is launched, killed and profiled only through the watcher** (`harness/README.md`, `harness/core/job.sh`), never by
   starting `Napoleon.exe` yourself: the watcher holds the game lock, the hang watchdog and the profile restore.
-- One-time setup and its check: J20 (until it lands, `python3` may be `py -3` on this PC).
+- One-time setup and its check: run `python3 core/wsc.py setup` (`--fix` for the safe fixes); every line says how to fix a failure.
+- Every commit carries a `Claude-Session: <session id>` trailer: the `.claude/settings.json` hook refuses a `git commit` without it
+  and names the flag, and `tools/pr_policy.py` refuses a job whose report or review has a commit without one.
 
 ## The core (`core/`, warscape-core pinned at a tag)
 - Clone with `git clone --recurse-submodules` (or `git submodule update --init` after a plain clone); set the hook once per clone:
