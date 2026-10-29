@@ -2,7 +2,7 @@
 
 Cloud agents never touch the PC directly. They drop job files into a folder the PC's watcher reads. The watcher is
 `harness/core/watcher.ps1` (game-agnostic); everything Napoleon-specific is in `harness/napoleon/adapter.json` and
-`harness/napoleon/profiles/`. Everything is Windows PowerShell 5.1 and ASCII-only; all data files are UTF-8 without BOM;
+`harness/napoleon/profiles/`. Everything is Windows PowerShell 5.1 and ASCII-only; all data files are UTF-8 without BOM (`tests/test_repo_rules.py`);
 all times are UTC (`...Z`).
 
 ## Install (Liam, once)
