@@ -1,0 +1,156 @@
+[2026-10-28T23:07:45Z] watcher 1.0.0 started (pid 28880, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-28T23:07:45Z] lock: free
+[2026-10-28T23:08:08Z] job j2agent-20261028T230807Z-480526327 [noop] started
+[2026-10-28T23:08:08Z] job j2agent-20261028T230807Z-480526327 [noop] ok exit=0
+[2026-10-28T23:08:09Z] job j2agent-20261028T230809Z-3274810486 [status] started
+[2026-10-28T23:08:09Z] job j2agent-20261028T230809Z-3274810486 [status] ok exit=0
+[2026-10-28T23:08:10Z] job j2agent-20261028T230810Z-1631331592 [launch owner=j2agent] started
+[2026-10-28T23:08:10Z] job j2agent-20261028T230810Z-1631331592 [launch owner=j2agent] refused exit=-2 - no game.lock is held. Take <root>\game.lock first (one line: owner=<you> session=<id> purpose=<text> started=<UTC>), then send owner=<you> with the request
+[2026-10-29T00:13:31Z] job j2agent-20261029T001330Z-140635161 [update] started
+[2026-10-29T00:13:31Z] job j2agent-20261029T001330Z-140635161 [update] ok exit=0
+[2026-10-29T00:13:31Z] [update] begin (pid 576): kit C:\napoleon_remastered_pc\kits\harness_20261029T001255Z_917e22ec7ece, noop window 60 s, healthy window 90 s, stable window 30 s
+[2026-10-29T00:13:32Z] [update] live watcher 1.0.0 pid 28880; kit harness_20261029T001255Z_917e22ec7ece carries watcher 1.0.0
+[2026-10-29T00:13:32Z] [update] backup: C:\napoleon_remastered_pc\watcher\backup\20261029T001331Z (14 files)
+[2026-10-29T00:13:32Z] [update] 1 file(s) replaced
+[2026-10-29T00:13:32Z] restart.request
+[2026-10-29T00:13:32Z] watcher restarting (exit 3)
+[2026-10-29T00:13:36Z] watcher 1.0.0 started (pid 3784, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-29T00:13:36Z] lock: free
+[2026-10-29T00:13:36Z] [update] watcher 1.0.0 pid 3784 is up; sending a noop job (must answer within 60 s)
+[2026-10-29T00:13:37Z] job update-20261029T001331Z-noop [noop] started
+[2026-10-29T00:13:37Z] job update-20261029T001331Z-noop [noop] ok exit=0
+[2026-10-29T00:13:37Z] [update] noop answered by watcher 1.0.0: ok; watching the heartbeat for 30 s
+[2026-10-29T00:14:08Z] [update] CONFIRMED: watcher 1.0.0 stays; rollback copy in C:\napoleon_remastered_pc\watcher\backup\20261029T001331Z
+[2026-10-29T00:14:11Z] job j2agent-20261029T001411Z-1601624952 [noop] started
+[2026-10-29T00:14:11Z] job j2agent-20261029T001411Z-1601624952 [noop] ok exit=0
+[2026-10-29T00:14:25Z] lock: held by owner=j2agent purpose=J2 PC test
+[2026-10-29T00:14:25Z] job someoneelse-20261029T001424Z-1401815609 [launch owner=someoneelse] started
+[2026-10-29T00:14:25Z] job someoneelse-20261029T001424Z-1401815609 [launch owner=someoneelse] refused exit=-2 - owner=someoneelse does not hold the game: game.lock owner is 'j2agent' (purpose: J2 PC test, 1 s since refresh)
+[2026-10-29T00:14:26Z] job j2agent-ownerless-1793232865 [cmd] started
+[2026-10-29T00:14:26Z] job j2agent-ownerless-1793232865 [cmd] refused exit=-2 - this script starts/kills the game ('start "" "C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe"'), so it needs '#job owner=<lock owner>': the request carries no owner=, and game.lock is held by 'j2agent' (purpose: J2 PC test). Add owner=<lock owner> to the request. Prefer the launch / kill / profile job types.
+[2026-10-29T00:14:27Z] job j2agent-20261029T001426Z-754211747 [status] started
+[2026-10-29T00:14:27Z] job j2agent-20261029T001426Z-754211747 [status] ok exit=0
+[2026-10-29T00:14:36Z] job j2agent-20261029T001435Z-847429292 [launch owner=j2agent] started
+[2026-10-29T00:14:36Z] launch: launch job j2agent-20261029T001435Z-847429292 owner=j2agent -> pid 16728
+[2026-10-29T00:14:36Z] job j2agent-20261029T001435Z-847429292 [launch owner=j2agent] ok exit=0
+[2026-10-29T00:14:57Z] job j2agent-20261029T001456Z-49588715 [status] started
+[2026-10-29T00:14:57Z] job j2agent-20261029T001456Z-49588715 [status] ok exit=0
+[2026-10-29T00:15:07Z] job j2agent-20261029T001506Z-257279667 [launch owner=j2agent] started
+[2026-10-29T00:15:07Z] job j2agent-20261029T001506Z-257279667 [launch owner=j2agent] refused exit=-2 - already running: Napoleon.exe (pid 16728) - refusing to start a second instance (close it with a kill job first)
+[2026-10-29T00:15:08Z] job j2agent-20261029T001508Z-631314717 [kill owner=j2agent] started
+[2026-10-29T00:15:09Z] job j2agent-20261029T001508Z-631314717 [kill owner=j2agent] ok exit=0
+[2026-10-29T00:15:10Z] job j2agent-20261029T001509Z-1691928289 [launch owner=j2agent] started
+[2026-10-29T00:15:10Z] launch: launch job j2agent-20261029T001509Z-1691928289 owner=j2agent -> pid 28236
+[2026-10-29T00:15:10Z] job j2agent-20261029T001509Z-1691928289 [launch owner=j2agent] ok exit=0
+[2026-10-29T00:15:26Z] job j2agent-20261029T001525Z-18087262 [kill owner=j2agent] started
+[2026-10-29T00:15:27Z] job j2agent-20261029T001525Z-18087262 [kill owner=j2agent] ok exit=0
+[2026-10-29T00:15:29Z] job j2agent-20261029T001527Z-1205619963 [status] started
+[2026-10-29T00:15:29Z] job j2agent-20261029T001527Z-1205619963 [status] ok exit=0
+[2026-10-29T00:15:42Z] lock: held by owner=j2agent purpose=J2 hang test
+[2026-10-29T00:15:42Z] job j2agent-20261029T001542Z-2370327747 [launch owner=j2agent] started
+[2026-10-29T00:15:42Z] launch: launch job j2agent-20261029T001542Z-2370327747 owner=j2agent -> pid 24052
+[2026-10-29T00:15:42Z] job j2agent-20261029T001542Z-2370327747 [launch owner=j2agent] ok exit=0
+[2026-10-29T00:18:13Z] job j2agent-20261029T001813Z-2798127968 [status] started
+[2026-10-29T00:18:13Z] job j2agent-20261029T001813Z-2798127968 [status] ok exit=0
+[2026-10-29T00:18:50Z] job j2agent-20261029T001850Z-231239251 [ps1 owner=j2agent] started
+[2026-10-29T00:18:51Z] job j2agent-20261029T001850Z-231239251 [ps1 owner=j2agent] ok exit=0
+[2026-10-29T00:19:22Z] HANG: Napoleon.exe pid 24052: no CPU-time progress for 31 s and no heartbeat-file write for 220 s (limit 30), window=not_responding - archiving to runs\20261029T001922Z_hang, then taskkill /F /T
+[2026-10-29T00:19:24Z] HANG handled: killed, evidence in runs\20261029T001922Z_hang
+[2026-10-29T00:20:16Z] lock: held by owner=j2agent purpose=J2 profile test
+[2026-10-29T00:20:16Z] job j2agent-20261029T002015Z-95139222 [profile owner=j2agent] started
+[2026-10-29T00:20:16Z] profile: 'proxy-dxvk' applied for owner=j2agent (snapshot 20261029T002016Z_j2agent)
+[2026-10-29T00:20:16Z] job j2agent-20261029T002015Z-95139222 [profile owner=j2agent] ok exit=0
+[2026-10-29T00:20:18Z] job j2agent-20261029T002017Z-313295483 [launch owner=j2agent] started
+[2026-10-29T00:20:18Z] launch: launch job j2agent-20261029T002017Z-313295483 owner=j2agent -> pid 11480
+[2026-10-29T00:20:18Z] job j2agent-20261029T002017Z-313295483 [launch owner=j2agent] ok exit=0
+[2026-10-29T00:21:05Z] job j2agent-20261029T002104Z-1827923761 [kill owner=j2agent] started
+[2026-10-29T00:21:05Z] job j2agent-20261029T002104Z-1827923761 [kill owner=j2agent] ok exit=0
+[2026-10-29T00:21:06Z] job j2agent-20261029T002106Z-37378128 [profile owner=j2agent] started
+[2026-10-29T00:21:06Z] profile: restored the pre-'proxy-dxvk' configs of owner=j2agent (profile restore job j2agent-20261029T002106Z-37378128 owner=j2agent), 0 mismatches
+[2026-10-29T00:21:06Z] job j2agent-20261029T002106Z-37378128 [profile owner=j2agent] ok exit=0
+[2026-10-29T00:21:18Z] job j2agent-20261029T002116Z-874528156 [profile owner=j2agent] started
+[2026-10-29T00:21:18Z] profile: 'proxy-dxvk' applied for owner=j2agent (snapshot 20261029T002118Z_j2agent)
+[2026-10-29T00:21:18Z] job j2agent-20261029T002116Z-874528156 [profile owner=j2agent] ok exit=0
+[2026-10-29T00:21:19Z] LOCK EXPIRED: game.lock owner=j2agent purpose=J2 profile test was not refreshed for 25 min (limit 20); moved to _to_delete\game.lock.expired_j2agent_20261029T002119Z. Profile 'proxy-dxvk' is active for owner=j2agent: it is restored under that owner as soon as the game is closed.
+[2026-10-29T00:21:19Z] profile: restored the pre-'proxy-dxvk' configs of owner=j2agent (auto: game.lock of owner=j2agent was released or expired), 0 mismatches
+[2026-10-29T00:21:19Z] profile: AUTO-RESTORE under owner=j2agent of 'proxy-dxvk' (game.lock of owner=j2agent was released or expired): restored prefs  sha256 c2202172bdcb OK (unchanged) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored mod_ini  sha256 94b59cb3bab4 OK (unchanged) | restored dxvk_conf  absent again (the profile's file moved to _to_delete)
+[2026-10-29T00:21:20Z] lock: free
+[2026-10-29T00:21:47Z] job j2agent-20261029T002146Z-168039192 [ps1 owner=j2agent] started
+[2026-10-29T00:21:48Z] job j2agent-20261029T002146Z-168039192 [ps1 owner=j2agent] ok exit=0
+[2026-10-29T00:21:50Z] job j2agent-20261029T002149Z-460715485 [restart] started
+[2026-10-29T00:21:50Z] job j2agent-20261029T002149Z-460715485 [restart] ok exit=0
+[2026-10-29T00:21:50Z] watcher restarting (exit 3)
+[2026-10-29T00:21:54Z] watcher 1.0.0 started (pid 16800, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-29T00:21:54Z] watcher: zombie flag carried over: pid 26440 since 2026-10-29T00:21:49Z
+[2026-10-29T00:21:54Z] lock: free
+[2026-10-29T00:21:59Z] lock: held by owner=j2agent purpose=J2 zombie test
+[2026-10-29T00:21:59Z] job j2agent-20261029T002158Z-1566623985 [launch owner=j2agent] started
+[2026-10-29T00:21:59Z] job j2agent-20261029T002158Z-1566623985 [launch owner=j2agent] failed exit=1 - PC NEEDS REBOOT: zombie Napoleon.exe pid 26440 survived taskkill /F at 2026-10-29T00:21:49Z (watcher.status zombie=true); do not launch, tell Liam
+[2026-10-29T00:22:01Z] job j2agent-20261029T002200Z-2917219942 [status] started
+[2026-10-29T00:22:01Z] job j2agent-20261029T002200Z-2917219942 [status] ok exit=0
+[2026-10-29T00:22:02Z] job j2agent-20261029T002201Z-2962522123 [restart] started
+[2026-10-29T00:22:02Z] job j2agent-20261029T002201Z-2962522123 [restart] ok exit=0
+[2026-10-29T00:22:02Z] watcher restarting (exit 3)
+[2026-10-29T00:22:05Z] watcher 1.0.0 started (pid 6140, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-29T00:22:05Z] lock: held by owner=j2agent purpose=J2 zombie test
+[2026-10-29T00:22:11Z] job j2agent-20261029T002210Z-1591722588 [status] started
+[2026-10-29T00:22:11Z] job j2agent-20261029T002210Z-1591722588 [status] ok exit=0
+[2026-10-29T00:22:23Z] job j2agent-20261029T002222Z-2389130896 [ps1 owner=j2agent] started
+[2026-10-29T00:22:24Z] job j2agent-20261029T002222Z-2389130896 [ps1 owner=j2agent] ok exit=0
+[2026-10-29T00:23:38Z] job j2agent-20261029T002337Z-166692284 [update] started
+[2026-10-29T00:23:38Z] job j2agent-20261029T002337Z-166692284 [update] ok exit=0
+[2026-10-29T00:23:38Z] [update] begin (pid 9356): kit C:\napoleon_remastered_pc\kits\harness_20261029T002304Z_f57f8e955799, noop window 60 s, healthy window 90 s, stable window 30 s
+[2026-10-29T00:23:39Z] [update] live watcher 1.0.0 pid 6140; kit harness_20261029T002304Z_f57f8e955799 carries watcher 1.0.0
+[2026-10-29T00:23:39Z] [update] backup: C:\napoleon_remastered_pc\watcher\backup\20261029T002338Z (14 files)
+[2026-10-29T00:23:39Z] [update] 1 file(s) replaced
+[2026-10-29T00:23:39Z] restart.request
+[2026-10-29T00:23:39Z] watcher restarting (exit 3)
+[2026-10-29T00:23:43Z] watcher 1.0.0 started (pid 13880, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-29T00:23:43Z] lock: held by owner=j2agent purpose=J2 zombie test
+[2026-10-29T00:23:43Z] [update] watcher 1.0.0 pid 13880 is up; sending a noop job (must answer within 60 s)
+[2026-10-29T00:23:44Z] job update-20261029T002338Z-noop [noop] started
+[2026-10-29T00:23:44Z] job update-20261029T002338Z-noop [noop] ok exit=0
+[2026-10-29T00:23:44Z] [update] noop answered by watcher 1.0.0: ok; watching the heartbeat for 30 s
+[2026-10-29T00:24:14Z] [update] CONFIRMED: watcher 1.0.0 stays; rollback copy in C:\napoleon_remastered_pc\watcher\backup\20261029T002338Z
+[2026-10-29T00:24:15Z] job j2agent-20261029T002415Z-2169717563 [ps1 owner=j2agent] started
+[2026-10-29T00:24:16Z] job j2agent-20261029T002415Z-2169717563 [ps1 owner=j2agent] failed exit=6
+[2026-10-29T00:24:18Z] job j2agent-20261029T002417Z-475428279 [ps1 owner=j2agent] started
+[2026-10-29T00:24:19Z] job j2agent-20261029T002417Z-475428279 [ps1 owner=j2agent] ok exit=0
+[2026-10-29T00:24:20Z] job j2agent-20261029T002419Z-651529014 [ps1 owner=j2agent] started
+[2026-10-29T00:24:21Z] job j2agent-20261029T002419Z-651529014 [ps1 owner=j2agent] failed exit=2
+[2026-10-29T00:24:39Z] job j2agent-20261029T002438Z-2990529046 [update] started
+[2026-10-29T00:24:39Z] job j2agent-20261029T002438Z-2990529046 [update] ok exit=0
+[2026-10-29T00:24:39Z] [update] begin (pid 19284): kit C:\napoleon_remastered_pc\kits\harness_20261029T002500Z_j2badwatcher, noop window 60 s, healthy window 90 s, stable window 30 s
+[2026-10-29T00:24:39Z] [update] live watcher 1.0.0 pid 13880; kit harness_20261029T002304Z_f57f8e955799 carries watcher 1.0.0
+[2026-10-29T00:24:39Z] [update] backup: C:\napoleon_remastered_pc\watcher\backup\20261029T002439Z (14 files)
+[2026-10-29T00:24:39Z] [update] 0 file(s) replaced
+[2026-10-29T00:24:40Z] restart.request
+[2026-10-29T00:24:40Z] watcher restarting (exit 3)
+[2026-10-29T00:24:43Z] watcher 1.0.0 started (pid 27596, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-29T00:24:43Z] lock: held by owner=j2agent purpose=J2 zombie test
+[2026-10-29T00:24:44Z] [update] watcher 1.0.0 pid 27596 is up; sending a noop job (must answer within 60 s)
+[2026-10-29T00:24:45Z] job update-20261029T002439Z-noop [noop] started
+[2026-10-29T00:24:45Z] job update-20261029T002439Z-noop [noop] ok exit=0
+[2026-10-29T00:24:45Z] [update] noop answered by watcher 1.0.0: ok; watching the heartbeat for 30 s
+[2026-10-29T00:25:15Z] [update] CONFIRMED: watcher 1.0.0 stays; rollback copy in C:\napoleon_remastered_pc\watcher\backup\20261029T002439Z
+[2026-10-29T00:25:27Z] job j2agent-20261029T002527Z-270738707 [update] started
+[2026-10-29T00:25:28Z] job j2agent-20261029T002527Z-270738707 [update] ok exit=0
+[2026-10-29T00:25:28Z] [update] begin (pid 8420): kit C:\napoleon_remastered_pc\kits\harness_20261029T002600Z_j2badwatcher2, noop window 60 s, healthy window 90 s, stable window 30 s
+[2026-10-29T00:25:28Z] [update] live watcher 1.0.0 pid 27596; kit harness_20261029T002600Z_j2badwatcher2 carries watcher 1.0.0
+[2026-10-29T00:25:28Z] [update] backup: C:\napoleon_remastered_pc\watcher\backup\20261029T002528Z (14 files)
+[2026-10-29T00:25:28Z] [update] 1 file(s) replaced
+[2026-10-29T00:25:29Z] restart.request
+[2026-10-29T00:25:29Z] watcher restarting (exit 3)
+[2026-10-29T00:26:59Z] [update] REVERTING to the backed-up files: watcher 1.0.0 not healthy within 90 s
+[2026-10-29T00:26:59Z] [update] files restored byte-exact from the backup (sha256 verified)
+[2026-10-29T00:26:59Z] watcher 1.0.0 started (pid 18388, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-29T00:26:59Z] lock: held by owner=j2agent purpose=J2 zombie test
+[2026-10-29T00:27:00Z] restart.request
+[2026-10-29T00:27:00Z] watcher restarting (exit 3)
+[2026-10-29T00:27:00Z] [update] REVERTED: watcher 1.0.0 pid 18388 is healthy on the old files
+[2026-10-29T00:27:03Z] watcher 1.0.0 started (pid 6952, root C:\napoleon_remastered_pc\watcher, game napoleon, powershell 5.1.26100.9711)
+[2026-10-29T00:27:03Z] lock: held by owner=j2agent purpose=J2 zombie test
+[2026-10-29T00:41:59Z] LOCK EXPIRED: game.lock owner=j2agent purpose=J2 zombie test was not refreshed for 20 min (limit 20); moved to _to_delete\game.lock.expired_j2agent_20261029T004159Z.
+[2026-10-29T00:42:00Z] lock: free
+[2026-10-29T06:46:11Z] job j2agent-20261029T064610Z-2268132446 [status] started
+[2026-10-29T06:46:11Z] job j2agent-20261029T064610Z-2268132446 [status] ok exit=0
