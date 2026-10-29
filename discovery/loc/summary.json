@@ -1,0 +1,398 @@
+{
+ "db_tables_known": 310,
+ "files": {
+  "text\\localisation.loc": {
+   "bytes": 6075382,
+   "duplicate_keys": 0,
+   "entries": 33030,
+   "flags": {
+    "0": 33030
+   },
+   "patch": {
+    "changed": 186,
+    "new": 988,
+    "same": 31856
+   },
+   "removed_by_patch": 540,
+   "replaced_from": [
+    "local_en.pack"
+   ],
+   "source": "local_en_patch.pack",
+   "version": 1
+  },
+  "text\\ui.loc": {
+   "bytes": 857648,
+   "duplicate_keys": 0,
+   "entries": 2820,
+   "flags": {
+    "0": 2794,
+    "1": 26
+   },
+   "patch": {
+    "changed": 531,
+    "new": 35,
+    "same": 2254
+   },
+   "removed_by_patch": 2,
+   "replaced_from": [
+    "local_en.pack"
+   ],
+   "source": "local_en_patch.pack",
+   "version": 1
+  }
+ },
+ "keys": 35850,
+ "keys_with_db_field": 17609,
+ "keys_with_db_table": 31306,
+ "keys_without_db_table": 4544,
+ "per_table": {
+  "abilities": {
+   "field_matched": 0,
+   "keys": 14
+  },
+  "achievements": {
+   "field_matched": 0,
+   "keys": 153
+  },
+  "advice_levels": {
+   "field_matched": 0,
+   "keys": 2698
+  },
+  "agent_attributes": {
+   "field_matched": 0,
+   "keys": 28
+  },
+  "agent_culture_details": {
+   "field_matched": 0,
+   "keys": 106
+  },
+  "agents": {
+   "field_matched": 0,
+   "keys": 3
+  },
+  "ancillaries": {
+   "field_matched": 0,
+   "keys": 555
+  },
+  "battle_script_strings": {
+   "field_matched": 296,
+   "keys": 296
+  },
+  "battle_types": {
+   "field_matched": 0,
+   "keys": 8
+  },
+  "battle_weather_types": {
+   "field_matched": 0,
+   "keys": 10
+  },
+  "battlefield_building_categories": {
+   "field_matched": 18,
+   "keys": 18
+  },
+  "battlefield_deployable_siege_items": {
+   "field_matched": 3,
+   "keys": 3
+  },
+  "battles": {
+   "field_matched": 0,
+   "keys": 176
+  },
+  "building_chains": {
+   "field_matched": 0,
+   "keys": 47
+  },
+  "building_culture_variants": {
+   "field_matched": 0,
+   "keys": 264
+  },
+  "building_description_texts": {
+   "field_matched": 0,
+   "keys": 394
+  },
+  "building_faction_variants": {
+   "field_matched": 0,
+   "keys": 44
+  },
+  "campaign_ground_types": {
+   "field_matched": 0,
+   "keys": 19
+  },
+  "campaign_map_playable_areas": {
+   "field_matched": 0,
+   "keys": 5
+  },
+  "campaign_map_slots": {
+   "field_matched": 0,
+   "keys": 145
+  },
+  "campaign_map_tooltips": {
+   "field_matched": 391,
+   "keys": 391
+  },
+  "campaign_map_towns_and_ports": {
+   "field_matched": 233,
+   "keys": 233
+  },
+  "character_trait_levels": {
+   "field_matched": 0,
+   "keys": 955
+  },
+  "commodity_unit_names": {
+   "field_matched": 0,
+   "keys": 20
+  },
+  "diplomacy_factor_strings": {
+   "field_matched": 0,
+   "keys": 50
+  },
+  "diplomacy_strings": {
+   "field_matched": 0,
+   "keys": 869
+  },
+  "effects": {
+   "field_matched": 0,
+   "keys": 439
+  },
+  "empires": {
+   "field_matched": 0,
+   "keys": 6
+  },
+  "events": {
+   "field_matched": 0,
+   "keys": 16
+  },
+  "factions": {
+   "field_matched": 308,
+   "keys": 308
+  },
+  "famous_battle_pools": {
+   "field_matched": 49,
+   "keys": 49
+  },
+  "government_types": {
+   "field_matched": 0,
+   "keys": 4
+  },
+  "governorships": {
+   "field_matched": 0,
+   "keys": 5
+  },
+  "historical_characters": {
+   "field_matched": 0,
+   "keys": 505
+  },
+  "message_event_strings": {
+   "field_matched": 0,
+   "keys": 1023
+  },
+  "ministerial_position_default_names": {
+   "field_matched": 0,
+   "keys": 3
+  },
+  "ministerial_positions": {
+   "field_matched": 0,
+   "keys": 151
+  },
+  "mission_activities": {
+   "field_matched": 15,
+   "keys": 15
+  },
+  "mission_effects": {
+   "field_matched": 4,
+   "keys": 4
+  },
+  "mission_sources": {
+   "field_matched": 3,
+   "keys": 3
+  },
+  "missions": {
+   "field_matched": 0,
+   "keys": 1
+  },
+  "movie_event_strings": {
+   "field_matched": 0,
+   "keys": 53
+  },
+  "names": {
+   "field_matched": 13945,
+   "keys": 13945
+  },
+  "names_forts": {
+   "field_matched": 559,
+   "keys": 559
+  },
+  "names_royalty": {
+   "field_matched": 273,
+   "keys": 273
+  },
+  "pdlc": {
+   "field_matched": 4,
+   "keys": 4
+  },
+  "population_classes": {
+   "field_matched": 0,
+   "keys": 3
+  },
+  "public_order_factors": {
+   "field_matched": 0,
+   "keys": 44
+  },
+  "quotes": {
+   "field_matched": 413,
+   "keys": 413
+  },
+  "quotes_people": {
+   "field_matched": 170,
+   "keys": 170
+  },
+  "random_localisation_strings": {
+   "field_matched": 0,
+   "keys": 1016
+  },
+  "region_economics_factors": {
+   "field_matched": 0,
+   "keys": 13
+  },
+  "region_unit_resources": {
+   "field_matched": 37,
+   "keys": 37
+  },
+  "regions": {
+   "field_matched": 159,
+   "keys": 420
+  },
+  "religions": {
+   "field_matched": 0,
+   "keys": 11
+  },
+  "resources": {
+   "field_matched": 0,
+   "keys": 20
+  },
+  "seasons": {
+   "field_matched": 4,
+   "keys": 4
+  },
+  "ship_names": {
+   "field_matched": 0,
+   "keys": 2246
+  },
+  "slots_gdp_values": {
+   "field_matched": 0,
+   "keys": 59
+  },
+  "stances": {
+   "field_matched": 5,
+   "keys": 5
+  },
+  "subtitles": {
+   "field_matched": 113,
+   "keys": 113
+  },
+  "technologies": {
+   "field_matched": 0,
+   "keys": 204
+  },
+  "town_wealth_growth_factors": {
+   "field_matched": 0,
+   "keys": 13
+  },
+  "trade_details": {
+   "field_matched": 0,
+   "keys": 3
+  },
+  "trade_node_groups": {
+   "field_matched": 0,
+   "keys": 8
+  },
+  "trade_nodes": {
+   "field_matched": 0,
+   "keys": 24
+  },
+  "unit_class": {
+   "field_matched": 45,
+   "keys": 90
+  },
+  "unit_info_card_abilities_strings": {
+   "field_matched": 120,
+   "keys": 120
+  },
+  "unit_regiment_names": {
+   "field_matched": 0,
+   "keys": 947
+  },
+  "units": {
+   "field_matched": 442,
+   "keys": 443
+  },
+  "wind_levels": {
+   "field_matched": 0,
+   "keys": 10
+  }
+ },
+ "schema": 1,
+ "schema_fields_known": true,
+ "without_table_by_first_token": {
+  "": 7,
+  "Experience": 10,
+  "Level": 15,
+  "StatusIcon": 12,
+  "TX": 56,
+  "Turns": 8,
+  "UC": 10,
+  "advice": 36,
+  "army": 16,
+  "arrow": 9,
+  "bar": 18,
+  "battle": 20,
+  "button": 557,
+  "campaigns": 16,
+  "cancel": 10,
+  "checkbox": 13,
+  "command": 20,
+  "deployment": 11,
+  "dropdown": 11,
+  "dy": 121,
+  "experience": 37,
+  "faction": 8,
+  "gov": 11,
+  "handle": 8,
+  "head": 22,
+  "heading": 135,
+  "icon": 24,
+  "label": 170,
+  "lower": 7,
+  "map": 28,
+  "message": 371,
+  "minus": 8,
+  "mission": 178,
+  "mp": 9,
+  "nav": 22,
+  "navy": 9,
+  "negative": 8,
+  "offer": 7,
+  "ok": 7,
+  "panel": 9,
+  "pay": 7,
+  "pip": 7,
+  "positive": 9,
+  "post": 10,
+  "public": 13,
+  "replenish": 10,
+  "route": 19,
+  "shortcut": 115,
+  "start": 710,
+  "status": 33,
+  "string": 16,
+  "tab": 72,
+  "time": 9,
+  "title": 59,
+  "total": 10,
+  "turns": 10,
+  "tx": 211,
+  "txt": 38,
+  "unit": 403,
+  "upper": 7
+ }
+}
