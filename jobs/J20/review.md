@@ -1,5 +1,26 @@
 # Review of J20 (Local Claude Code on the PC replaces the cloud route)
 
+## Round 2 (2026-10-29, branch `job/J20` at ab70af0)
+
+Same reviewer session as round 1 (`d9c62ba5-e02b-4c06-a796-68a94f4c0ab9`). Checked the one fix commit ab70af0 against round 1's
+should-fix items. About 6 tool calls.
+
+**Verdict: merge.**
+
+- Local `wsc gates` at ab70af0: 12 ok, 0 failed (90 host tests: round 1's 89 plus the new hook test).
+- Should-fix 1, fixed. `.claude/settings.json` no longer calls git. It runs `${CLAUDE_PROJECT_DIR:-.}/tools/claude_hook.py` only when the
+  file exists and exits 0 on any failure, and `claude_hook.py` catches every exception. `test_the_settings_command_never_blocks` runs
+  the committed command string from a non-repo folder with no project dir, an empty one and a missing one (all exit 0, no output), and
+  with the real one (deny). The report records Liam's permission for the settings edit.
+- Should-fix 2, fixed. `deploy_steps.txt` is honestly marked as transcribed and backed by records I checked:
+  `install_history.json` has the `kit_20261029T152159Z_edbf71c650b7` install at 15:22:15Z and an identical uninstall at 15:28:29Z;
+  `resend_refused.txt` holds the captured refusal; and the sent kit's `d3d9.dll` on the PC hashes to `2d0e60a44db1...`, the same DLL that
+  matched the CI artifact.
+- New later item: a kit's "build" (`edbf71c650b7`, HEAD when the kit was made) and the DLL's embedded build id (`3218c33bf59b`, the last
+  commit touching the DLL inputs) are different ids, and both are printed as "build". This was already so before J20. It caused one
+  double-take in this review and could be named apart (`kit build` vs `dll build`) in a later pc_deploy touch.
+- Round 1's later items 3 to 5 stand. Item 3 matters at merge time: merge `job/J19` first, or re-commit its report with a trailer.
+
 ## Round 1 (2026-10-29, branch `job/J20` at 2b465eb)
 
 Reviewer: a fresh Opus 5.5 Claude Code session on the PC (session `d9c62ba5-e02b-4c06-a796-68a94f4c0ab9`) that built none of the
