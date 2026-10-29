@@ -12,7 +12,8 @@
 --                            SetupBattle (-> sp_battle3 with Preferences()), sp_battle3 StartBattle
 --   campaign:continue        FrontEnd.ContinueCampaign() (main menu Continue Campaign)
 --   campaign:<save>          FrontEnd.LoadCampaign(<save>)
---   campaign:new:<c>:<f>     TransitionTo("grand_campaign", nil, <c>) (= main menu), faction <f>, the page's StartCampaign()
+--   campaign:new:<c>:<f>     TransitionTo("grand_campaign", nil, <c>) (= main menu), faction <f>, the page's StartCampaign();
+--                            <c> must be a main-menu button's campaign_key (grand = the grand campaign: mp_eur_napoleon)
 -- Rules: no string.find / string.sub / patterns (the engine replaces them); plain loops only.
 local id, ctx, wsp = ...
 local kind, mode = wsp.dev_config("target.kind"), wsp.dev_config("target.mode")
@@ -87,16 +88,61 @@ local function campaign()
 	end
 	local camp, fac = wsp.dev_config("target.campaign"), wsp.dev_config("target.faction")
 	local r = root()
+	-- The key must be one a main-menu campaign button carries (main.main reads grand_campaign's campaign_key the same way):
+	-- grand_campaign.OnEnter calls FrontEnd.OpenMapDataFile(key), and an unknown key is an access violation in the engine
+	-- (J3 run 20261029_j3pc2: "napoleon" killed the front end). "grand" = whatever the grand campaign button carries.
+	at("campaign key " .. camp)
+	local known = {}
+	for _, b in ipairs({ "grand_campaign", "episodic_campaign", "spain_campaign" }) do
+		local a = r:Find(b)
+		local k = a and UIComponent(a):GetProperty("campaign_key")
+		if k ~= nil and k ~= "" then known[#known + 1] = tostring(k); if lc(camp) == "grand" and b == "grand_campaign" then camp = tostring(k) end end
+	end
+	local okKey = false
+	for i = 1, #known do if lc(known[i]) == lc(camp) then okKey = true; camp = known[i] end end
+	if not okKey then error("campaign '" .. camp .. "' is not a main-menu campaign key (known: " .. table.concat(known, " ") .. "; probes/campaign_keys.lua)") end
+	wsp.report("autostart.campaign", camp)
 	at("TransitionTo grand_campaign " .. camp); r:LuaCall("TransitionTo", "grand_campaign", nil, camp)
 	local page = UIComponent(r:Find("grand_campaign"))
 	local mp = UIComponent(page:Find("main_panel"))
 	at("faction " .. fac)
 	local cur = mp:LuaCall("FactionAndVCType")
 	if lc(cur) ~= lc(fac) then
-		local fl = mp:GlobalExists("faction_list")
-		if fl == nil then error("main_panel has no faction_list (faction is " .. tostring(cur) .. ")") end
-		local flc = type(fl) == "table" and fl or UIComponent(fl)
-		pcall(function() flc:LuaCall("SetSelected", fac) end)
+		-- main_panel.Initialise has two faction widgets: faction_selection (flags, one child per faction named by its Key; its
+		-- FactionSelected(key) sets the flag states and calls the panel's NotifyFactionSelected) or, for button campaigns,
+		-- faction_ButtonGroup (buttons with a global `faction`; SelectButton + WellingtonFactionButtonSelected, its g_notify_func)
+		local fsA = mp:Find("faction_selection")
+		local g = mp:Find("faction_ButtonGroup")
+		if fsA ~= nil then
+			local fs = UIComponent(fsA)
+			local seen, key = {}, nil
+			-- faction_selection.Initialise: CreateFromComponent(template, <Key>, placeholder_faction_<i>): the flags are grandchildren
+			for i = 0, fs:ChildCount() - 1 do
+				local ph = fs:Find(i)
+				local pc = ph and UIComponent(ph)
+				for j = 0, (pc and pc:ChildCount() or 0) - 1 do
+					local c = pc:Find(j); local id = c and UIComponent(c):Id()
+					if id ~= nil then seen[#seen + 1] = tostring(id); if lc(id) == lc(fac) then key = id end end
+				end
+			end
+			if key == nil then error("faction '" .. fac .. "' is not offered (faction_selection children: " .. table.concat(seen, " ") .. ")") end
+			fs:LuaCall("FactionSelected", key)
+		elseif g ~= nil then
+			local grp = UIComponent(g)
+			local notify = mp:GlobalExists("WellingtonFactionButtonSelected")
+			if type(notify) ~= "function" then error("main_panel has no WellingtonFactionButtonSelected") end
+			local seen, hit = {}, nil
+			for i = 0, grp:ChildCount() - 1 do
+				local c = grp:Find(i)
+				local f = c and UIComponent(c):GlobalExists("faction")
+				if f ~= nil then seen[#seen + 1] = tostring(f); if lc(f) == lc(fac) then hit = c end end
+			end
+			if hit == nil then error("faction '" .. fac .. "' is not offered (factions: " .. table.concat(seen, " ") .. ")") end
+			grp:LuaCall("SelectButton", hit)
+			notify(hit)
+		else
+			error("main_panel has neither faction_selection nor faction_ButtonGroup (faction is " .. tostring(cur) .. ")")
+		end
 		cur = mp:LuaCall("FactionAndVCType")
 		if lc(cur) ~= lc(fac) then error("faction select did not take (page says " .. tostring(cur) .. ")") end
 	end
