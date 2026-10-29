@@ -1,10 +1,10 @@
 # purpose: PROBE ONLY: list the displays and the virtual display driver's modes, and test whether it accepts given resolutions with CDS_TEST; changes nothing and prints the vdd_settings.xml edit when a mode is missing
-# usage: powershell -NoProfile -ExecutionPolicy Bypass -File vdisplay_probe.ps1 [-Test 1920x1080,2560x1440] [-Hz 60] [-Name "Virtual Display Driver"]   (as a watcher ps1 job; exit 0 = all tested modes accepted, 3 = no unique virtual display, 6 = a mode is not offered)
+# usage: powershell -NoProfile -ExecutionPolicy Bypass -File vdisplay_probe.ps1 [-Test 1920x1080,2560x1440] [-Hz 60] [-Name "Virtual Display Driver"]   (as a watcher ps1 job; exit 0 = all tested modes accepted, 3 = no unique virtual display, 6 = a mode is not offered, 2 = bad or empty -Test: a probe that tested nothing never passes)
 # when: before headless work needs a resolution other than the driver's current one (Empire's driver offered only 3840x2160 and refused 1080p and 1440p with DISP_CHANGE_BADMODE)
 # not-a-verb: runs on the PC under Windows PowerShell 5.1, outside the repo checkout
 # Safety: the only ChangeDisplaySettingsEx call passes CDS_TEST (validate, never apply). It acts on the display found BY NAME, never the primary, never a by-size guess, never SetDisplayConfig (no topology change).
 # Ported from empire-remastered rml_mod/tools/remote/vdisplay_mode.ps1 (-Modes / -Res -TestOnly paths); the apply paths are deliberately left out. Putting the game window on the virtual display is proxy work (J3).
-param([string]$Test = '1920x1080,2560x1440', [int]$Hz = 60, [string]$Name = 'Virtual Display Driver')
+param([string[]]$Test = @('1920x1080', '2560x1440'), [int]$Hz = 60, [string]$Name = 'Virtual Display Driver')
 $ErrorActionPreference = 'Stop'
 Add-Type -TypeDefinition @'
 using System;
@@ -77,10 +77,12 @@ foreach ($flag in 0, [VProbe]::EDS_RAWMODE) {
     }
     Write-Output ("mode list ({0}, {1} modes): {2}" -f $(if ($flag) { 'EDS_RAWMODE' } else { 'normal' }), $seen.Count, (($seen.Keys | Sort-Object) -join ' '))
 }
-$missing = @()
-foreach ($res in ($Test -split ',')) {
+$missing = @(); $tested = 0
+# -Test arrives as an array from a ps1 job (& script -Test a,b) and as one string from -File: split both on commas and spaces
+foreach ($res in (($Test -join ',') -split '[,\s]+')) {
     $res = $res.Trim(); if (-not $res) { continue }
-    if ($res -notmatch '^(\d+)x(\d+)$') { Write-Output "skipped '$res': want WxH"; continue }
+    if ($res -notmatch '^(\d+)x(\d+)$') { Write-Output "bad -Test entry '$res': want WxH"; exit 2 }
+    $tested++
     $w = [int]$Matches[1]; $h = [int]$Matches[2]
     foreach ($fx in 0, 1, 2) {   # 0 = driver mode as is, 1 = GPU stretch, 2 = GPU centre
         $dm = New-DevMode
@@ -110,5 +112,6 @@ if ($missing.Count) {
     Write-Output '  5. Run this probe again.'
     exit 6
 }
-Write-Output 'all tested modes are offered by the driver'
+if ($tested -eq 0) { Write-Output 'no mode was tested (-Test empty): not a pass'; exit 2 }
+Write-Output "all $tested tested modes are offered by the driver"
 exit 0
