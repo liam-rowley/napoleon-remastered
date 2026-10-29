@@ -176,12 +176,14 @@ function ToDelete([string]$sub) {
     return $d
 }
 function Img-Base([string]$img) { return [IO.Path]::GetFileNameWithoutExtension($img) }
+function Up-Ms { try { return [int]((Get-Date) - (Get-Process -Id $PID).StartTime).TotalMilliseconds } catch { return -1 } }
 
 if ($IsWin) {
-    # the first log line, before the compile: Add-Type runs csc.exe, which took 39.9 s on a cold CI runner (J42 run 40970029940);
-    # a reader of the log can then tell a watcher that is compiling from one that never started
+    # the first log line, with the time powershell.exe took to reach it: on a cold CI runner the first statement ran 17 to 35 s
+    # after the process started (host start-up, script scan and parse: J42 runs on 66d0fd9), the compile under 2 s; a reader of the
+    # log can then tell a watcher that is still starting from one that never started
     $t0 = Get-Date
-    Log "watcher $Version starting (pid $PID): compiling native helpers (Add-Type; slow on a cold machine)"
+    Log "watcher $Version starting (pid $PID, first statement $(Up-Ms) ms after its process started): compiling native helpers (Add-Type)"
     Add-Type -Namespace WP -Name U -MemberDefinition @'
 [DllImport("user32.dll")] public static extern bool IsIconic(IntPtr h);
 [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr h);
@@ -1336,8 +1338,7 @@ Get-ChildItem -LiteralPath $JobsDir -File -ErrorAction SilentlyContinue | Where-
     }
     Remove-Quiet $_.FullName
 }
-$upMs = try { [int]((Get-Date) - (Get-Process -Id $PID).StartTime).TotalMilliseconds } catch { -1 }
-Log "watcher $Version started (pid $PID, root $Root, game $($A.game), powershell $($PSVersionTable.PSVersion), up $upMs ms after its process started)"
+Log "watcher $Version started (pid $PID, root $Root, game $($A.game), powershell $($PSVersionTable.PSVersion), up $(Up-Ms) ms after its process started)"
 # the first heartbeat goes out before the first housekeeping pass: that pass (watchdog, auto-restore, display restore) can take
 # seconds on a cold machine, and a waiter that reads a missing heartbeat as "not started" then times out (J42: CI's 40 s
 # 'a fresh watcher heartbeat' and update rollback 1's revert, runs 40909011779, 40956451648)

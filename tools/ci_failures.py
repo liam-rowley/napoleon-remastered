@@ -26,10 +26,11 @@ GUARDS = {
     "smoke": "local route: `build.sh --docker smoke`, run by `tests/test_proxy_host.py` after `all` (J42)",
     "harness-host": "local route: `tests/test_harness_host.py` runs `Run-HostTests.ps1` under Windows PowerShell 5.1 (J42)",
     "policy": "local route named in `wsc jobs next` and `docs/REVIEW.md`: `python3 tools/pr_policy.py` (J42)",
-    "heartbeat": "the 40 s start wait covered a cold powershell start: the watcher's first Add-Type compiles through csc.exe (39.9 s "
-                 "on a fresh runner, run 40970029940). The watcher logs before and after the compile; the test waits for the main loop "
-                 "with its own budget, then 40 s for the heartbeat; a failed start prints the watcher log; unit guards `static: the "
-                 "watcher logs that it is starting...` and `...first heartbeat before its first housekeeping pass` (J42)",
+    "heartbeat": "the 40 s start wait covered a cold powershell.exe start: the watcher's first statement ran 17 to 35 s after the "
+                 "process started on a fresh runner (39.9 s in run 40970029940; host start-up, script scan and parse, before any "
+                 "statement; the Add-Type compile is under 2 s). The watcher logs its start-up time and the compile time; the test waits "
+                 "for the main loop with its own budget, then 40 s for the heartbeat; a failed start prints the watcher log; unit guards "
+                 "`static: the watcher logs that it is starting...` and `...first heartbeat before its first housekeeping pass` (J42)",
     "rollback": "same race as the heartbeat (the revert waits for the old watcher's first heartbeat): fixed with it (J42)",
     "hashes": "race fix: `Hash-OrAbsent` reads each file once, unit guard `static: integration helpers never hash a file after a "
               "separate Test-Path` (J42)",
@@ -52,7 +53,7 @@ CLASSES = {
     **{f"{r}:auto-restore": (FLAKY, "auto-restore-log", "test read the log once before the watcher wrote the line") for r in (40832855493, 40832860145)},
     **{f"{r}:proxy": (CI_ONLY, "smoke", "wine smoke: minidump=2 default left nothing for the unhandled filter (build.sh step 4)") for r in _J3},
     **{f"{r}:proxy": (CI_ONLY, "smoke", "wine smoke still expected 0 engine sites after J15 added the first") for r in _J15_SMOKE},
-    **{f"{r}:heartbeat": (FLAKY, "heartbeat", "watcher start: no heartbeat in 40 s, before any case ran (cold csc.exe start for Add-Type)")
+    **{f"{r}:heartbeat": (FLAKY, "heartbeat", "watcher start: no heartbeat in 40 s, before any case ran (cold powershell.exe start)")
        for r in ("40864853540/1", "40864853540/2", 40907834477, 40909011779, 40909021399, 40951863309, 40953862308)},
     **{f"{r}:hang": (FLAKY, "hang", "asserted hang.txt before the watcher wrote it") for r in (40878131007, 40889835620)},
     "40898971722:auto-restore": (FLAKY, "hashes", "Hashes: Test-Path saw dxvk.conf, the watcher deleted it before the hash"),
