@@ -27,7 +27,7 @@ def _load(name, rel):
 
 ci = _load('changed_inputs', 'tools/changed_inputs.py')
 sv = _load('setup_verb', 'tools/verbs/setup.py')
-BUILD_TIMEOUT_S = 540   # under the tests gate's 600 s; `--docker all` measured about 70 s with apt (jobs/J41/report.md)
+BUILD_TIMEOUT_S = 540   # under the tests gate's 600 s; `--docker all` measured about 93 s with apt (jobs/J41/report.md)
 
 
 def suites(root=ROOT):
