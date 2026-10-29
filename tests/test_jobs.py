@@ -218,10 +218,10 @@ class Buttons(unittest.TestCase):
         self.assertEqual(self.buttons(jv.render_view(LROWS, files(), LBRANCHES, 'now')), [('J2', 'build'), ('J3', 'brief')])
 
     def test_copy_mode_and_served_mode(self):
-        page = jv.render_view(LROWS, files(), LBRANCHES, 'now', LON_BRANCH, root='C:\\repo')
+        page = jv.render_view(LROWS, files(), LBRANCHES, 'now', LON_BRANCH, root='/repo')   # POSIX on every host: CI runs on Linux
         self.assertIn('const SERVE = null;', page)
         cmd = html.unescape(re.search(r'data-act="build" data-cmd="([^"]*)"', page).group(1))
-        self.assertEqual(cmd, 'cd "C:/repo"; claude --bg --name J2-build --model opus --effort medium "' + argv('J2', 'build', 'opus')[-1] + '"')
+        self.assertEqual(cmd, 'cd "/repo"; claude --bg --name J2-build --model opus --effort medium "' + argv('J2', 'build', 'opus')[-1] + '"')
         page = jv.render_view(LROWS, files(), LBRANCHES, 'now', LON_BRANCH, token='tok123')
         self.assertIn('const SERVE = {"token": "tok123"};', page)
 
