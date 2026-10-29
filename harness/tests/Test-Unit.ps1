@@ -386,7 +386,7 @@ Test-Case 'static: integration helpers never hash a file after a separate Test-P
 }
 Test-Case 'static: the watcher logs that it is starting, with its start-up time, before it compiles its native helpers (a cold start is visible; J42)' {
     $text = [IO.File]::ReadAllText((Join-Path $core 'watcher.ps1'))
-    $starting = $text.IndexOf('starting (pid $PID): compiling native helpers'); $compile = $text.IndexOf('Add-Type -Namespace WP -Name U')
+    $starting = $text.IndexOf('starting (pid $PID, first statement'); $compile = $text.IndexOf('Add-Type -Namespace WP -Name U')
     Assert-True ($starting -gt 0 -and $compile -gt $starting) 'the starting log line precedes the first Add-Type'
     Assert-True ($text.IndexOf('$LogPath = ') -lt $starting) 'the log path is set before that line'
     Assert-Match $text.Substring($starting, 120) 'first statement \$\(Up-Ms\) ms after its process started' 'the line carries the start-up time'
