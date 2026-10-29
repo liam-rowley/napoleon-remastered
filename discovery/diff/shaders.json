@@ -1,0 +1,5474 @@
+{
+ "area": "shaders",
+ "detail": {
+  "compiled_shaders": "none shipped as files in either game; the runtime catalogue by hash is J8 (empire-remastered gfx_mod/shaders/catalog.json)",
+  "empire_files": {
+   "fx\\autogenerator_vertex.fx_fragment": {
+    "bytes": 1314,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 54,
+    "sha256": "03a3527522d130bff7816c7c24cc6d1ee4106f5ffd7bd5cfb0ff9f2f334b068e",
+    "techniques": []
+   },
+   "fx\\battlefieldterrain.fx": {
+    "bytes": 2487,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 120,
+    "sha256": "f10c6f57a2a408f4d3e6a5fc3f67316ec68e481ad3b489871fed2583b00ae1c1",
+    "techniques": [
+     "battlefield_terrain_sm2"
+    ]
+   },
+   "fx\\blending.fx_fragment": {
+    "bytes": 4623,
+    "includes": [],
+    "lines": 177,
+    "sha256": "00dcb165194116e5d3598bd7292bc7eaac81f06e890db7a82739382d847d59cc",
+    "techniques": []
+   },
+   "fx\\camera.fx_fragment": {
+    "bytes": 1471,
+    "includes": [],
+    "lines": 47,
+    "sha256": "535848c2bf303acb23669e19879775c4706b9316efb13804c5cebf01eabb046d",
+    "techniques": []
+   },
+   "fx\\campaignbuilding.fx": {
+    "bytes": 5432,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "campaignbuilding_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 217,
+    "sha256": "e2fbb72f2e45679823ab551814715e2fc3c123e36192d2f2625c6c10349178f4",
+    "techniques": [
+     "campaign_building_instanced_sm2",
+     "campaign_building_instanced_vs30_sm3",
+     "campaign_building_sm2",
+     "depth_campaign_building_instanced_sm2",
+     "depth_campaign_building_instanced_vs30_sm3",
+     "depth_campaign_building_sm2",
+     "shadow_campaign_building_instanced_sm2",
+     "shadow_campaign_building_instanced_vs30_sm3",
+     "shadow_campaign_building_sm2"
+    ]
+   },
+   "fx\\campaignbuilding_vertex.fx_fragment": {
+    "bytes": 2671,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 82,
+    "sha256": "07a5132feb6ff292ce1b5387236b6b04598b3e25a4abb2dc2a32055801d6c580",
+    "techniques": []
+   },
+   "fx\\campaignflag.fx": {
+    "bytes": 9399,
+    "includes": [
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 398,
+    "sha256": "044817f98e6b869590880037ca5091da3c64d911dd97032bb9f6cb1ba761eb97",
+    "techniques": [
+     "campaign_flag_depth_sm2",
+     "campaign_flag_shadow_sm2",
+     "campaign_flag_sm2",
+     "campaign_flag_sm3",
+     "naval_flag_depth_sm2",
+     "naval_flag_shadow_sm2",
+     "naval_flag_sm2",
+     "naval_flag_sm3"
+    ]
+   },
+   "fx\\campaignoverlay.fx": {
+    "bytes": 1468,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 87,
+    "sha256": "97fc2c0d6bb617faaf524fd5a45d32a684c1ed755130dd85ae14a9652e15f45c",
+    "techniques": [
+     "overlay_sm2"
+    ]
+   },
+   "fx\\campaignriver.fx": {
+    "bytes": 3213,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 154,
+    "sha256": "47807f4a4977819960ca382d76e1377032db0a5e8794a2432e3fd067d6b7a31b",
+    "techniques": [
+     "sm_campaign_river_sm2",
+     "sm_campaign_river_sm3"
+    ]
+   },
+   "fx\\campaignterrain.fx": {
+    "bytes": 9326,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 437,
+    "sha256": "1dca2e72dc080530337b5c7127a8194e4f8daefce18f1a4d1913095896c5ef46",
+    "techniques": [
+     "sea_exclude_sm2",
+     "sm3_campaign_coast_sm2",
+     "sm3_campaign_coast_sm3",
+     "trade_route_sm2"
+    ]
+   },
+   "fx\\campaigntree.fx": {
+    "bytes": 5821,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "campaigntree_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 226,
+    "sha256": "f887243f58d40c8d9cdf8a89ff21a5769ae6b77aa0362dfae610c194c30d6878",
+    "techniques": [
+     "campaign_tree_instanced_sm2",
+     "campaign_tree_instanced_vs30_sm3",
+     "campaign_tree_sm2",
+     "depth_campaign_tree_instanced_sm2",
+     "depth_campaign_tree_instanced_vs30_sm3",
+     "depth_campaign_tree_sm2",
+     "shadow_campaign_tree_instanced_sm2",
+     "shadow_campaign_tree_instanced_vs30_sm3",
+     "shadow_campaign_tree_sm2"
+    ]
+   },
+   "fx\\campaigntree_vertex.fx_fragment": {
+    "bytes": 4264,
+    "includes": [],
+    "lines": 125,
+    "sha256": "639ba4965cef0656e9bc14ecc8a77a4ce96aa8e7e0567132167f5e75ba411344",
+    "techniques": []
+   },
+   "fx\\cloth.fx": {
+    "bytes": 7175,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 281,
+    "sha256": "cfd09f92ebf64a51fad328c89a87d0ecd270260c2dd5cf52cceb376b75b0a3b9",
+    "techniques": [
+     "non_instanced_navalsail_default_t0_sm2",
+     "non_instanced_navalsail_default_t0_sm3",
+     "non_instanced_navalsail_depth_t0_sm2",
+     "non_instanced_navalsail_reflection_t0_sm2",
+     "non_instanced_navalsail_shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\cloud.fx": {
+    "bytes": 4045,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 177,
+    "sha256": "bd16ca4910a85188254e597672cbd2b40c1dcdee6daa79afeb8155a5d7b50f9e",
+    "techniques": [
+     "cloud_sm2",
+     "depth_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\cloud_plane.fx": {
+    "bytes": 9391,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fx_cloud.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 355,
+    "sha256": "c1f0eb1797c248c7c9b205d6f2dcda0ff607be28822b2d1f81144599228667f4",
+    "techniques": [
+     "instanced_20_t0_sm2",
+     "instanced_30_t0_sm3",
+     "non_instanced_t0_sm2"
+    ]
+   },
+   "fx\\colour_conversion.fx_fragment": {
+    "bytes": 1860,
+    "includes": [],
+    "lines": 72,
+    "sha256": "a27d6c69fe9219ed173cb6219be54de979b538967284d4ee82a4b012de4feef4",
+    "techniques": []
+   },
+   "fx\\custom_sprite.fx": {
+    "bytes": 9850,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 405,
+    "sha256": "98d6bf1bef2bc24d8f7fd2766100d47ac6a935d71ab0866805c31df2018bcf36",
+    "techniques": [
+     "custom_sprite_default_t0_sm2",
+     "custom_sprite_land_radar_t0_sm2",
+     "custom_sprite_land_radar_t0_sm3",
+     "custom_sprite_naval_radar_t0_sm2",
+     "custom_sprite_naval_radar_t0_sm3",
+     "custom_sprite_radar_t0_sm2",
+     "custom_sprite_radar_t0_sm3"
+    ]
+   },
+   "fx\\debuggeometry.fx": {
+    "bytes": 1476,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 72,
+    "sha256": "598396dd5e7a742724b2d463bcf7d766122bee3df9028beae7bf5ac7aa34d7ea",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\debuglines.fx": {
+    "bytes": 2145,
+    "includes": [
+     "camera.fx_fragment",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 123,
+    "sha256": "bb97f68b5fa0cfc5137738ede5b8fd1eedd92b9274974d00268c1263e32ec141",
+    "techniques": [
+     "screen_space_without_z_buffer_t0_sm2",
+     "with_z_buffer_t0_sm2",
+     "without_z_buffer_t0_sm2"
+    ]
+   },
+   "fx\\decal.fx": {
+    "bytes": 2447,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "util.fx_fragment"
+    ],
+    "lines": 116,
+    "sha256": "60fc3454858fc38ea406795b60b7bd4e570874cb13fd20ab92b552486969cafd",
+    "techniques": [
+     "decal_to_frame_t0_sm2",
+     "decal_to_overlay_t0_sm2"
+    ]
+   },
+   "fx\\depth.fx": {
+    "bytes": 830,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 49,
+    "sha256": "036bf7f4a0f60b53aac03b2516f784d82224831b388f639e4a266fd8b4dc170a",
+    "techniques": [
+     "clear_screen_sm2"
+    ]
+   },
+   "fx\\depth_textured_vertex.fx_fragment": {
+    "bytes": 1556,
+    "includes": [],
+    "lines": 54,
+    "sha256": "8646e64b2a8085f680d8571bcb25fbaadba7cd2c422f4f84f9e04270ba2debdd",
+    "techniques": []
+   },
+   "fx\\depth_vertex.fx_fragment": {
+    "bytes": 1113,
+    "includes": [],
+    "lines": 38,
+    "sha256": "6716f0f4c3e7f125a86227c9ef754eccc9515db5e3393d09e2a1b2f099900c6f",
+    "techniques": []
+   },
+   "fx\\directional_blur.fx": {
+    "bytes": 1677,
+    "includes": [
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 96,
+    "sha256": "f0ce2c2919ff7ad15f178e7134fece08cf8212e0cc74c6adb93bcd3e16249b46",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\example.fx": {
+    "bytes": 1027,
+    "includes": [],
+    "lines": 59,
+    "sha256": "f541cad2377cf713c8a7efae78a6b5dd7d7ae3b7cb1c09c4a2bb087a59ec54a1",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\explosion_particle.fx": {
+    "bytes": 2666,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "particle_volumetric.fx_fragment",
+     "screeneffects.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 125,
+    "sha256": "017de229298ff376e3a53ce3e93dbea7c7974cdb32a4b5f7ee21d5df3cf5e808",
+    "techniques": [
+     "render_additive_sm2",
+     "render_additive_sm3",
+     "render_alpha_20_sm2",
+     "render_alpha_20_sm3",
+     "render_alpha_sm2",
+     "render_alpha_sm3"
+    ]
+   },
+   "fx\\extendedsprite.fx": {
+    "bytes": 7686,
+    "includes": [],
+    "lines": 295,
+    "sha256": "408e87959b29eb4dd649c83a6232dc7d34490dd59674c9f58b8c25f8503f4362",
+    "techniques": [
+     "TECHNIQUE_NAME"
+    ]
+   },
+   "fx\\filterfoam.fx": {
+    "bytes": 1434,
+    "includes": [
+     "fxconfig.h"
+    ],
+    "lines": 73,
+    "sha256": "86e61d775174b3641eb3b862c3ff43d6e9f079a90cf0981e13c1ad5e16c64284",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\fog.fx_fragment": {
+    "bytes": 5964,
+    "includes": [
+     "lighting.fx_fragment"
+    ],
+    "lines": 186,
+    "sha256": "d56f910b6e19d75ae7016558fa4566ee65713124f17a24792789b236b5273480",
+    "techniques": []
+   },
+   "fx\\formationlayouticons.fx": {
+    "bytes": 1318,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shadowocclusion.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "zocclusion.fx_fragment"
+    ],
+    "lines": 67,
+    "sha256": "b752aae77e480ab270fa80146fc80864818429f8603865b782c47da73800c8d4",
+    "techniques": [
+     "formation_layout_icon_t0"
+    ]
+   },
+   "fx\\frameview_mrt.fx_fragment": {
+    "bytes": 3308,
+    "includes": [],
+    "lines": 112,
+    "sha256": "82fe285efb99d097228838bcfc536f78b3ddcbf3eeb34ac839ed030bda3b78f4",
+    "techniques": []
+   },
+   "fx\\fur.fx": {
+    "bytes": 3000,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 120,
+    "sha256": "290fc50f8cf18ccae8ed4d77782643bd7792a29e3765c30b9cfe759783f8122e",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\fx_cloud.h": {
+    "bytes": 385,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 13,
+    "sha256": "78c81673a90403a744bbd5aa914a6ecffd64c728269695dd74a0fd8e379dacc6",
+    "techniques": []
+   },
+   "fx\\fx_flag.h": {
+    "bytes": 417,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 16,
+    "sha256": "d3d477e558013b964db4011a139f049f490fb703f295de949976ef35701bf253",
+    "techniques": []
+   },
+   "fx\\fx_instancing.h": {
+    "bytes": 23449,
+    "includes": [],
+    "lines": 312,
+    "sha256": "fc94f10fdccf513dca6817bc2e95d32ddf2c76bf3b3c4f828096693ffb7e9d21",
+    "techniques": []
+   },
+   "fx\\fx_sea_interaction.h": {
+    "bytes": 153,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 8,
+    "sha256": "1abdbd57d2de7fc4cabe70350d5b0eafff4f83ec6919d3fadaf713eb685e74f8",
+    "techniques": []
+   },
+   "fx\\fx_strengthbar.h": {
+    "bytes": 307,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 13,
+    "sha256": "fcf5147f465189740d92af7c917bbaf7a01f8db8fa98d6aade7b2b82b4697f30",
+    "techniques": []
+   },
+   "fx\\fx_veg_billboard.h": {
+    "bytes": 195,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 8,
+    "sha256": "5eb807e0054b0a4ddde96e3ae42357fe6d4048432da9a436c4af0ce995bb578e",
+    "techniques": []
+   },
+   "fx\\fx_veg_branch.h": {
+    "bytes": 526,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 18,
+    "sha256": "1b7b00c2f5334343dc7039a2a9e6d1e8083a9d51240f379ba580b75eb83ecc21",
+    "techniques": []
+   },
+   "fx\\fx_veg_frond.h": {
+    "bytes": 525,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 18,
+    "sha256": "42a9c13fac3d9cec79b5d3cf17f02aedc3f2cb4a6b8f4d539acb41495110ad0c",
+    "techniques": []
+   },
+   "fx\\fx_veg_leafcard.h": {
+    "bytes": 467,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 14,
+    "sha256": "9ba7304b4b9fbd4410b4e8abc508f25203f43a1adddd226d59166634fe2fdc3e",
+    "techniques": []
+   },
+   "fx\\fx_weighted.h": {
+    "bytes": 335,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 14,
+    "sha256": "0c867d8af541aabbf03f2c6167a22f625a0c02ca8e28c139576b0d24d6f95644",
+    "techniques": []
+   },
+   "fx\\fxconfig.h": {
+    "bytes": 1498,
+    "includes": [
+     "../../personal_config.h"
+    ],
+    "lines": 58,
+    "sha256": "bf8b584193946cd7d006bdaa9b8829b02f29423040b2faadcbdb3b1710d60012",
+    "techniques": []
+   },
+   "fx\\gaussianblur.fx": {
+    "bytes": 3501,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 183,
+    "sha256": "093521fd5ee9b4578659fb1c636d77b01bcab0b09ad43c54eb70958ee3869f01",
+    "techniques": [
+     "smart_z_blur_sm3",
+     "t0_sm3",
+     "t1"
+    ]
+   },
+   "fx\\grass.fx": {
+    "bytes": 9242,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 377,
+    "sha256": "05bf434da7ec0dd9ab682f2d443eaa8fe7b563d91400df2b61f4885bb92554c2",
+    "techniques": [
+     "grass_depth_sm2",
+     "grass_sm2",
+     "grass_sm3"
+    ]
+   },
+   "fx\\grid.fx": {
+    "bytes": 48886,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "parallax.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 1830,
+    "sha256": "6bc0c9166b29f18872313b0f0d1eb1a23bbb242cba62a571fef9b4570df437a4",
+    "techniques": [
+     "depth_t0_sm2",
+     "grid_far_sm2",
+     "grid_far_sm3",
+     "grid_far_wireframe_sm2",
+     "grid_far_wireframe_sm3",
+     "grid_heights_sm2",
+     "grid_near_sm2",
+     "grid_near_sm3",
+     "grid_near_wireframe_sm2",
+     "grid_near_wireframe_sm3",
+     "grid_reflection_sm2",
+     "grid_reflection_sm3",
+     "grid_refraction_sm2",
+     "grid_refraction_sm3",
+     "grid_shadow_map_sm2",
+     "simple_blend_alpha_sm2",
+     "simple_blend_alpha_sm3",
+     "simple_blend_blue_sm2",
+     "simple_blend_blue_sm3",
+     "simple_blend_green_sm2",
+     "simple_blend_green_sm3",
+     "simple_blend_red_sm2",
+     "simple_blend_red_sm3",
+     "simple_blend_sm2",
+     "simple_blend_sm3",
+     "simple_colour_alpha_sm2",
+     "simple_colour_alpha_sm3",
+     "simple_colour_blue_sm2",
+     "simple_colour_blue_sm3",
+     "simple_colour_green_sm2",
+     "simple_colour_green_sm3",
+     "simple_colour_red_sm2",
+     "simple_colour_red_sm3",
+     "simple_colour_sm2",
+     "simple_colour_sm3",
+     "water_plane_sm2",
+     "water_plane_sm3",
+     "wireframe_far_sm2",
+     "wireframe_far_sm3",
+     "wireframe_near_sm2",
+     "wireframe_near_sm3"
+    ]
+   },
+   "fx\\grid_spline.fx": {
+    "bytes": 5823,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "parallax.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 253,
+    "sha256": "d2fabefc121d34fc6f4f30f0c6ee9d69704d3b569298ed3a7c5110d614973b7b",
+    "techniques": [
+     "battlefield_border_sm2",
+     "deployment_border_sm2",
+     "depth_sm2",
+     "fire_arc_sm2",
+     "grid_spline_sm3"
+    ]
+   },
+   "fx\\grid_surface.fx": {
+    "bytes": 4884,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "parallax.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 214,
+    "sha256": "1dce5582f6e681a4460a1a0472b13602fde7ca202cc98ad5962192eecaff9697",
+    "techniques": [
+     "fuougasse_danger_zone_sm2",
+     "grid_surface_tile_sm2"
+    ]
+   },
+   "fx\\hdr_to_screen.fx": {
+    "bytes": 12572,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 481,
+    "sha256": "e4d7bd30f5f1136c431da50361088c412bd8a56ca26144c95eb1589653bf01dd",
+    "techniques": [
+     "no_DOF_sm2",
+     "passthrough_sm2",
+     "passthrough_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\high_pass.fx": {
+    "bytes": 2208,
+    "includes": [
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 118,
+    "sha256": "bd2f4d02e2ca6f1aecfc1fb97f10e288b65a093841257f8fb878985fe59d2d3b",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\icons.fx": {
+    "bytes": 2586,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 137,
+    "sha256": "5aec5ba52afce7f715638d2903d372a6e576c26489a8ed3e8b14eaa6d39abdd1",
+    "techniques": [
+     "formation_layout_icon_t0_sm2",
+     "selector_active_sm2",
+     "selector_inactive_sm2",
+     "shadow_map_sm2"
+    ]
+   },
+   "fx\\imposter.fx": {
+    "bytes": 7320,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 295,
+    "sha256": "e79b4c767db922e8a947d970ae894ea8703b7aed98af2aebc1651ffa87cb088a",
+    "techniques": [
+     "imposter20_sm2",
+     "imposter_sm3",
+     "shadow_imposter_sm2",
+     "shadow_imposter_sm3"
+    ]
+   },
+   "fx\\instanced_animated_matrix_retreval.fx_fragment": {
+    "bytes": 390,
+    "includes": [],
+    "lines": 16,
+    "sha256": "01ac8920ae01b635b6d1fad75e4ff197dc44427b1fcb25b3ff2c4ae472713839",
+    "techniques": []
+   },
+   "fx\\instanced_matrix_retreval.fx_fragment": {
+    "bytes": 569,
+    "includes": [],
+    "lines": 20,
+    "sha256": "816f1e872e5d049380cf70a4cc8c9f3d6c6849f0bcea112289759decb7379d0c",
+    "techniques": []
+   },
+   "fx\\instanced_matrix_retreval_30.fx_fragment": {
+    "bytes": 1327,
+    "includes": [],
+    "lines": 39,
+    "sha256": "61df7986cd19130d963e55c515d4f8629f377df0e73b21c24b6fd1891d7e6e6b",
+    "techniques": []
+   },
+   "fx\\instanced_vertex_shader.fx_fragment": {
+    "bytes": 897,
+    "includes": [],
+    "lines": 19,
+    "sha256": "2dc6a0021c2208bb092893a28f98082b1f78a6c9846b9a42d37065c1f316b909",
+    "techniques": []
+   },
+   "fx\\instanced_vertex_textured_shader.fx_fragment": {
+    "bytes": 1056,
+    "includes": [],
+    "lines": 28,
+    "sha256": "a6f1cda05a7681dbb9b575f66eef988a08e07988e5fee1ed9871c75b21bc6b15",
+    "techniques": []
+   },
+   "fx\\lighting.fx_fragment": {
+    "bytes": 9776,
+    "includes": [
+     "camera.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 320,
+    "sha256": "b112045b6bf7d1cbeee7ef2d21f9099836dd841c34e29c585ad3b95282ee683e",
+    "techniques": []
+   },
+   "fx\\lighting_brdf.fx_fragment": {
+    "bytes": 3421,
+    "includes": [],
+    "lines": 143,
+    "sha256": "9051707e0b63e44ac1bd31e3bd91e4078f5637e1694b5befea90a146dc7da30e",
+    "techniques": []
+   },
+   "fx\\lightmap.fx": {
+    "bytes": 153,
+    "includes": [
+     "fxconfig.h",
+     "lightmap.fx_fragment"
+    ],
+    "lines": 12,
+    "sha256": "71ef30eb5fc3d397f6b40929688f29e82190e4a2957dea37c94f80d96000023b",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\lightmap.fx_fragment": {
+    "bytes": 3632,
+    "includes": [],
+    "lines": 157,
+    "sha256": "ffca198ae7df74d1781485ab7e2f27641402690be940fba1113ace2a0afa060c",
+    "techniques": []
+   },
+   "fx\\litfresnelmaterial.fx_fragment": {
+    "bytes": 1845,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 77,
+    "sha256": "bb24d7fe2f62562af5741695abbfde49e127ebdce39fbb5ec532bcb015e83b5c",
+    "techniques": []
+   },
+   "fx\\litmaterial.fx_fragment": {
+    "bytes": 3567,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 119,
+    "sha256": "cf90a8adb882b1ce4153bd0ab95e7013afca6279d9a03e610581082d045ee5ec",
+    "techniques": []
+   },
+   "fx\\loadingscreen.fx": {
+    "bytes": 1836,
+    "includes": [],
+    "lines": 119,
+    "sha256": "8be9b09fb3bc4cc1fdd339dc31757068b0484674bab585a4914134adcc72edf1",
+    "techniques": [
+     "loading_screen",
+     "loading_screen_srgb"
+    ]
+   },
+   "fx\\luminance.fx": {
+    "bytes": 2406,
+    "includes": [
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 128,
+    "sha256": "5d1e71a3f043e8f20f0b3af3630216ef656b15972735393d6dc204f741f4e425",
+    "techniques": [
+     "t0_sm3"
+    ]
+   },
+   "fx\\matrix_retreval.fx_fragment": {
+    "bytes": 1360,
+    "includes": [],
+    "lines": 55,
+    "sha256": "85ab79d42476b99e41f9f4dd500ffdb07cf7be348eb248d5a78a9865ba68e0e1",
+    "techniques": []
+   },
+   "fx\\max_shaders\\empire_rigid.fx": {
+    "bytes": 21262,
+    "includes": [],
+    "lines": 840,
+    "sha256": "b22ab0d826d59aeeadfd1ea5deabcc7a0fb3e8d213a2969023bd08fea8036314",
+    "techniques": [
+     "Full_AmbiCube_PS2",
+     "Full_AmbiCube_PS3_3Lights"
+    ]
+   },
+   "fx\\max_shaders\\empire_ship.fx": {
+    "bytes": 21912,
+    "includes": [],
+    "lines": 872,
+    "sha256": "531c3d8b808c09346307f94308c7dd06b74cd31daf33ebc27a69e1009d547a13",
+    "techniques": [
+     "Full_AmbiCube_PS2",
+     "Full_AmbiCube_PS3_3Lights"
+    ]
+   },
+   "fx\\max_shaders\\empire_weighted.fx": {
+    "bytes": 22513,
+    "includes": [],
+    "lines": 899,
+    "sha256": "50cd28fb5beba36b69d78097c10c251e27c229dafcdf39ddd388a77b269bcc08",
+    "techniques": [
+     "Full_AmbiCube_PS2",
+     "Full_AmbiCube_PS3_3Lights"
+    ]
+   },
+   "fx\\naval.fx": {
+    "bytes": 6859,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 249,
+    "sha256": "2170969e8ad73087bb95ca2e7bda38e0d427b6b71c59d8a7d41ff3dd58020880",
+    "techniques": [
+     "instanced_30_naval_default_t0",
+     "instanced_30_naval_reflection_t0",
+     "instanced_30_naval_refraction_t0",
+     "non_instanced_naval_default_t0",
+     "non_instanced_naval_reflection_t0",
+     "non_instanced_naval_refraction_t0"
+    ]
+   },
+   "fx\\navalsail.fx": {
+    "bytes": 10351,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 389,
+    "sha256": "675070104eaa7b3da24e6476cfb9eb042d412d8909168fd40da74e18c0cd250b",
+    "techniques": [
+     "non_instanced_navalsail_default_t0_sm2",
+     "non_instanced_navalsail_default_t0_sm3",
+     "non_instanced_navalsail_depth_t0_sm2",
+     "non_instanced_navalsail_reflection_t0_sm2",
+     "non_instanced_navalsail_refraction_t0_sm2",
+     "non_instanced_navalsail_shadow_map_t0_sm2",
+     "non_instanced_navalsail_shadow_map_t0_sm3"
+    ]
+   },
+   "fx\\navalship.fx": {
+    "bytes": 17678,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 663,
+    "sha256": "4fda602846404290c94795d4e82532f43cf3acca7ca5764798c418150a07b6d2",
+    "techniques": [
+     "instanced_30_navalship_default_t0_sm3",
+     "instanced_30_navalship_depth_t0_sm3",
+     "instanced_30_navalship_reflection_t0_sm3",
+     "instanced_30_navalship_refraction_t0_sm3",
+     "instanced_30_navalship_shadow_map_t0_sm3",
+     "non_instanced_navalship_default_t0_sm2",
+     "non_instanced_navalship_default_t0_sm3",
+     "non_instanced_navalship_depth_t0_sm2",
+     "non_instanced_navalship_depth_t0_sm3",
+     "non_instanced_navalship_reflection_t0_sm2",
+     "non_instanced_navalship_refraction_t0_sm2",
+     "non_instanced_navalship_shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\new_cloud_plane.fx": {
+    "bytes": 10058,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fx_cloud.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 376,
+    "sha256": "f983b357da31978f02866d8b7139b018157b3a6f81098bae1bd588cec4d1185a",
+    "techniques": [
+     "instanced_20_t0",
+     "instanced_30_t0",
+     "non_instanced_t0"
+    ]
+   },
+   "fx\\ocean.fx": {
+    "bytes": 19172,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 716,
+    "sha256": "43eb634ba189da78376aaa02e047cf193066b372051fe675e47bffde346373b7",
+    "techniques": [
+     "depth_buffer_render_sm2",
+     "sm_render_foam_sm2",
+     "sm_render_foam_sm3",
+     "sm_render_sea_stenciling_foam_sm2",
+     "sm_render_sea_stenciling_foam_sm3",
+     "sm_render_sea_stenciling_sm2",
+     "sm_render_sea_stenciling_sm3",
+     "sm_render_sm2",
+     "sm_render_sm3"
+    ]
+   },
+   "fx\\outline.fx": {
+    "bytes": 1753,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 99,
+    "sha256": "b0bc03a11c18ce26ce496aebed14ac9f6e537c85089139d31477b95dd64db945",
+    "techniques": [
+     "outline_depth_sm2",
+     "outline_shadow_map_sm2",
+     "outline_sm2"
+    ]
+   },
+   "fx\\parallax.fx_fragment": {
+    "bytes": 4857,
+    "includes": [],
+    "lines": 153,
+    "sha256": "b3332dc59ba5580b27cd537bc74390c50c2671e97703514ec51486c046889000",
+    "techniques": []
+   },
+   "fx\\parallaxmaterial.fx_fragment": {
+    "bytes": 1100,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 58,
+    "sha256": "45826081e8087d85f8c89fd7dfd7d6226480bc462e6aaab3029506d713ce83cc",
+    "techniques": []
+   },
+   "fx\\paramtest_litmaterial.fx_fragment": {
+    "bytes": 1836,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 79,
+    "sha256": "296ce3874a26f272feef9374e35a8f7d543bef04a6ac0e57022eee26173d637b",
+    "techniques": []
+   },
+   "fx\\particle.fx": {
+    "bytes": 4095,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "particle_volumetric.fx_fragment",
+     "screeneffects.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 180,
+    "sha256": "2acb9110e643a0eaa700c6561dc424a01a759e4dc9146d9420c290523abcc9ee",
+    "techniques": [
+     "render_additive_sm2",
+     "render_additive_sm3",
+     "render_alpha_20_sm2",
+     "render_alpha_20_sm3",
+     "render_alpha_sm2",
+     "render_alpha_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\particle2.fx": {
+    "bytes": 15592,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 491,
+    "sha256": "379b0630578c35a29d02f7ea52c4c2e9e46212458dc3af4cd4969c274eebe7d3",
+    "techniques": [
+     "render_additive_sm2",
+     "render_alpha_sm2",
+     "t0_sm2"
+    ]
+   },
+   "fx\\particle_distortion.fx": {
+    "bytes": 4828,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "particle_volumetric.fx_fragment",
+     "screeneffects.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 184,
+    "sha256": "82b049414a48a12e4e5ce3b182ecd1df294ee49b66e4645527f57843f433085c",
+    "techniques": [
+     "render_additive_sm2",
+     "render_additive_sm3",
+     "render_alpha_20_sm2",
+     "render_alpha_20_sm3",
+     "render_alpha_sm2",
+     "render_alpha_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\particle_volumetric.fx_fragment": {
+    "bytes": 20156,
+    "includes": [],
+    "lines": 562,
+    "sha256": "d4442710187206b10b7526312f61250ca5ee75ee24e82b66a9fb179408a1ee07",
+    "techniques": []
+   },
+   "fx\\passthrough.fx": {
+    "bytes": 3183,
+    "includes": [
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 191,
+    "sha256": "c529d6d4fd54e38b5871fbb036d0faacb0129cf21bffb65da8ac14d45255efa7",
+    "techniques": [
+     "blur_horizontal_sm2",
+     "blur_vertical_sm2",
+     "downsample_sm2"
+    ]
+   },
+   "fx\\projectiletrail.fx": {
+    "bytes": 3334,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 140,
+    "sha256": "19362126319875aba9eba9dae364c37334a96a75bf894303e9d99009b5e96425",
+    "techniques": [
+     "projectile_add_sm2",
+     "projectile_alpha_sm2",
+     "projectile_subtract_sm2"
+    ]
+   },
+   "fx\\refraction.fx_fragment": {
+    "bytes": 349,
+    "includes": [
+     "camera.fx_fragment"
+    ],
+    "lines": 17,
+    "sha256": "c648bebc5f22384461917ac5372a09896db499c3b3b66a1a140abf2625dd7b4f",
+    "techniques": []
+   },
+   "fx\\rigid.fx": {
+    "bytes": 13516,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "depth_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "parallax.fx_fragment",
+     "rigid_depth_shadow.fx_fragment",
+     "rigid_imposter.fx_fragment",
+     "rigid_parallax.fx_fragment",
+     "rigid_simple.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "simple_textured_vertex.fx_fragment",
+     "simple_vertex.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "textured_vertex.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 526,
+    "sha256": "1901f809fb7589c61c634e1bf4c70709961837f14dc9db9bd2fb34ccfa6b8649",
+    "techniques": [
+     "refraction_full_instanced_t0_sm2",
+     "refraction_full_instanced_t0_sm3",
+     "refraction_full_instanced_vs30_t0_sm3",
+     "refraction_full_t0_sm2",
+     "refraction_full_t0_sm3",
+     "textured_full_instanced_t0_sm2",
+     "textured_full_instanced_t0_sm3",
+     "textured_full_instanced_vs30_t0_sm3",
+     "textured_full_t0_sm2",
+     "textured_full_t0_sm3"
+    ]
+   },
+   "fx\\rigid_depth_shadow.fx_fragment": {
+    "bytes": 2054,
+    "includes": [],
+    "lines": 107,
+    "sha256": "1a4d0f23c56652392eaa91cd03939004c63d8f911a72e2eb75eada369531e8d8",
+    "techniques": [
+     "depth_instanced_t0_sm2",
+     "depth_instanced_vs30_t0_sm3",
+     "depth_t0_sm2",
+     "depth_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_instanced_t0_sm3",
+     "shadow_map_instanced_vs30_t0_sm3",
+     "shadow_map_t0_sm2",
+     "shadow_map_t0_sm3"
+    ]
+   },
+   "fx\\rigid_imposter.fx_fragment": {
+    "bytes": 981,
+    "includes": [],
+    "lines": 49,
+    "sha256": "4374bf34a4516a7f315ed135ab3df6ce1a17662660da0eed1252d5b5f4d6e276",
+    "techniques": [
+     "imposter_dip_batch_t0",
+     "imposter_instanced_t0_sm2",
+     "imposter_instanced_vs30_t0_sm3",
+     "imposter_t0_sm2"
+    ]
+   },
+   "fx\\rigid_parallax.fx_fragment": {
+    "bytes": 2070,
+    "includes": [],
+    "lines": 74,
+    "sha256": "b0895bac30f3ce9c91d3fa729a3db43ae914ee2797fd4a9fc82ae2a9f567feda",
+    "techniques": [
+     "textured_parallax_instanced_t0_sm3",
+     "textured_parallax_instanced_vs30_t0_sm3",
+     "textured_parallax_t0_sm3"
+    ]
+   },
+   "fx\\rigid_simple.fx_fragment": {
+    "bytes": 3318,
+    "includes": [],
+    "lines": 140,
+    "sha256": "03c61eb375405fd119e9ecad33ba458cbf8ccf6142cc2eaf7f7ca581ae44f2e0",
+    "techniques": [
+     "simple_2_textures_t0_sm2",
+     "simple_normal_instanced_t0_sm2",
+     "simple_normal_instanced_vs30_t0_sm3",
+     "simple_normal_t0_sm2",
+     "simple_textured_instanced_t0_sm2",
+     "simple_textured_instanced_vs30_t0_sm3",
+     "simple_textured_sm2",
+     "simple_textured_t0_sm2"
+    ]
+   },
+   "fx\\rigid_weighted.fx_fragment": {
+    "bytes": 3545,
+    "includes": [],
+    "lines": 116,
+    "sha256": "012ac26f6e7f60ab62db435e6c9a1e50bdf696a5e1aa3f04813d3da9145183b0",
+    "techniques": [
+     "static_weighted_textured_full_instanced_t0_sm2",
+     "static_weighted_textured_full_instanced_t0_sm3",
+     "static_weighted_textured_full_instanced_vs30_t0_sm3",
+     "static_weighted_textured_full_t0_sm2",
+     "static_weighted_textured_full_t0_sm3"
+    ]
+   },
+   "fx\\rope.fx": {
+    "bytes": 7643,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "parallax.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 291,
+    "sha256": "28022bf1d52691b04dfcc82b12dc4bf7270433d275c8a0ab72f1584590732888",
+    "techniques": [
+     "non_instanced_rope_default_t0_sm2",
+     "non_instanced_rope_default_t0_sm3",
+     "non_instanced_rope_depth_t0_sm2",
+     "non_instanced_rope_shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\screeneffects.fx_fragment": {
+    "bytes": 3405,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 171,
+    "sha256": "d2917b3291aad969ece1b6e24334475a945389ae7ede9890aa8c6f7f9ed98551",
+    "techniques": []
+   },
+   "fx\\sea_particles.fx": {
+    "bytes": 10211,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 320,
+    "sha256": "a682546cb9426f0eb7166a01b87ca194427edbe77a4a118e4152df93af621302",
+    "techniques": [
+     "render_additive_sm2",
+     "render_alpha_sm2"
+    ]
+   },
+   "fx\\seainteraction.fx": {
+    "bytes": 4659,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fx_sea_interaction.h",
+     "fxconfig.h",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 201,
+    "sha256": "2a5cd29cc4d025bca927137b3c35d9b273057ddf6f54b9f5234106802afc3e72",
+    "techniques": [
+     "render_20_sm2",
+     "render_30_sm3",
+     "render_sm2"
+    ]
+   },
+   "fx\\shadow_textured_vertex.fx_fragment": {
+    "bytes": 1468,
+    "includes": [],
+    "lines": 46,
+    "sha256": "7c9adf69bec96f349e21ed199590d186874aaf728092150c853dc034865b0687",
+    "techniques": []
+   },
+   "fx\\shadow_vertex.fx_fragment": {
+    "bytes": 1057,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 32,
+    "sha256": "b92a9be54b6aca1bf5a8f45b5627f8745e9526fb469cfdadd7c1eaf9f7296ac9",
+    "techniques": []
+   },
+   "fx\\shadowmap.fx_fragment": {
+    "bytes": 19630,
+    "includes": [
+     "lighting.fx_fragment"
+    ],
+    "lines": 641,
+    "sha256": "7cbf18c3418f95a565d60bce51eb2d657e84b88fc4b1d45fbeca219f9c3a4727",
+    "techniques": []
+   },
+   "fx\\shared_defines.fx_fragment": {
+    "bytes": 15,
+    "includes": [],
+    "lines": 1,
+    "sha256": "ffe68e50896b1f63eabb54c85aca04013a38ae0c38595e58a8922338e7eb4f5b",
+    "techniques": []
+   },
+   "fx\\shared_params.fx": {
+    "bytes": 385,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 21,
+    "sha256": "34184e49ab007f9d7ddfc4fa6679c7da6e0137d6bd9a921ac2a76bf26146c547",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\shipbowwave.fx": {
+    "bytes": 3025,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 127,
+    "sha256": "5660b30404f6895be0d4657860855f7add8304533fe19f042ed30e6222fb1e7a",
+    "techniques": [
+     "render_bow_wave_sm2"
+    ]
+   },
+   "fx\\shipwake.fx": {
+    "bytes": 3794,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 144,
+    "sha256": "6fd049f961b7f507e439ce8bef6208a9fd9e3f0f2aedf5135649391f98f710a4",
+    "techniques": [
+     "render_wake_sm2"
+    ]
+   },
+   "fx\\shroud.fx": {
+    "bytes": 180,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "shroud.fx_fragment"
+    ],
+    "lines": 14,
+    "sha256": "8ace30e33fb7ed211f52916eedbee6540cd69a20a31c1b941701aad132cf08ed",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\shroud.fx_fragment": {
+    "bytes": 2771,
+    "includes": [],
+    "lines": 134,
+    "sha256": "e63586edf2f1a2b2cf40d484a75e9e0eb072059186fbbde75641b5c51d90409d",
+    "techniques": []
+   },
+   "fx\\simple.fx": {
+    "bytes": 2096,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment",
+     "simplematerial.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 106,
+    "sha256": "8768d956923cdce45d54c61836af3250a49a1caa5794d6b4d7af109c340f5d6d",
+    "techniques": [
+     "simple_normal_sm2",
+     "simple_normal_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\simple_texture.fx": {
+    "bytes": 2450,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment",
+     "simpletexturematerial.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 132,
+    "sha256": "80bab1205c2de913288b35b0cf310bc8e28c3dab2a1b29a55ed8594bbc8dca8a",
+    "techniques": [
+     "coloured_inv_sm2",
+     "grey_scale_sm2",
+     "hue_scale_sm3",
+     "t0_sm2"
+    ]
+   },
+   "fx\\simple_textured_vertex.fx_fragment": {
+    "bytes": 2060,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 59,
+    "sha256": "8576ee1f463525f187a1fd994adf76338a8990e8a11b1a00353e47161865daaa",
+    "techniques": []
+   },
+   "fx\\simple_vertex.fx_fragment": {
+    "bytes": 1516,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 38,
+    "sha256": "5139b939ad9491cd8e305e9b986ebe31449e10263214313032db1808960cc238",
+    "techniques": []
+   },
+   "fx\\simplematerial.fx_fragment": {
+    "bytes": 338,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 16,
+    "sha256": "9bd859edafd3313ea3054f3d6897cdf96e23a5cef88d06e12ff02702d46bb9db",
+    "techniques": []
+   },
+   "fx\\simpletexturematerial.fx_fragment": {
+    "bytes": 1853,
+    "includes": [
+     "colour_conversion.fx_fragment"
+    ],
+    "lines": 85,
+    "sha256": "86a63475d0d6a44a422e9495a66d32b7f83ee159402af058bfb1560a007448a6",
+    "techniques": []
+   },
+   "fx\\sky.fx": {
+    "bytes": 6852,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 281,
+    "sha256": "d90d2f49934f5f7a36daffb12dbfb59424a300ac790479e265d0f10b615ce30d",
+    "techniques": [
+     "t0_depth_sm2",
+     "t0_hardware_reflection_sm2",
+     "t0_hardware_reflection_sm3",
+     "t0_hardware_sm2",
+     "t0_hardware_sm3",
+     "t0_reflection_sm2",
+     "t0_sm2"
+    ]
+   },
+   "fx\\skybox.fx": {
+    "bytes": 1855,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 84,
+    "sha256": "335cddea5836c410a63715dfcb68ff97f424fb5a8394b1d2224f7a10a75116c3",
+    "techniques": [
+     "t0"
+    ]
+   },
+   "fx\\skydome.fx": {
+    "bytes": 1590,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 73,
+    "sha256": "d3eee27e5348a46d3cbb786ec89c338968b3c8a497d07b158d9db0bcd511a429",
+    "techniques": [
+     "t0"
+    ]
+   },
+   "fx\\spline.fx": {
+    "bytes": 2286,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "parallax.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 109,
+    "sha256": "7c3cf2647c910bc7eaf6a1c351b993b310bbccf5b9c28f4d518fc2a4cca6ce3b",
+    "techniques": [
+     "simple_spline_sm2"
+    ]
+   },
+   "fx\\sprite.fx": {
+    "bytes": 33093,
+    "includes": [
+     "colour_conversion.fx_fragment",
+     "extendedsprite.fx",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 1440,
+    "sha256": "bf42a28de354bcb6998271b17e78ba8a4d2e4b790e5801bd2be94ceddce1bc70",
+    "techniques": [
+     "alpha_over_time2_t0_occlusion_sm2",
+     "alpha_over_time2_t0_sm2",
+     "alpha_over_time_t0_occlusion_sm2",
+     "alpha_over_time_t0_sm2",
+     "angular_exclusion_t0_occlusion_sm2",
+     "angular_exclusion_t0_sm2",
+     "brighten_mask_t0_occlusion_sm2",
+     "glow_pulse_t0_occlusion_sm2",
+     "glow_pulse_t0_sm2",
+     "grey_over_time_t0_occlusion_sm2",
+     "grey_over_time_t0_sm2",
+     "greyscale_masked_occlusion_sm2",
+     "greyscale_masked_sm2",
+     "highlight_circumference_t0_occlusion_sm2",
+     "highlight_circumference_t0_sm2",
+     "normal_masked_occlusion_sm2",
+     "normal_masked_sm2",
+     "red_pulse_t0_occlusion_sm2",
+     "red_pulse_t0_sm2"
+    ]
+   },
+   "fx\\ssao.fx": {
+    "bytes": 7185,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 285,
+    "sha256": "fe68161791df4965265abaa6c7723a6b823a2ccc63a8a48c25a2f86deb0c9435",
+    "techniques": [
+     "blur_sm2",
+     "blur_sm3",
+     "ssao_sm2",
+     "ssao_sm3"
+    ]
+   },
+   "fx\\ssaox.fx": {
+    "bytes": 22526,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 764,
+    "sha256": "be100dbce1b78c53a44e0a3b987b4c02e6d1902699ac57d19c22b115f5986410",
+    "techniques": [
+     "blur_x_sm2",
+     "blur_x_sm3",
+     "blur_y_sm2",
+     "blur_y_sm3",
+     "downsample_sm2",
+     "downsample_sm3",
+     "resolve_sm2",
+     "resolve_sm3"
+    ]
+   },
+   "fx\\standard_rigid_matrices.fx_fragment": {
+    "bytes": 144,
+    "includes": [],
+    "lines": 2,
+    "sha256": "1e38ba813a3f00569c9d65c76c13bb488c0d36e2af773159a6ec6fcda84debc0",
+    "techniques": []
+   },
+   "fx\\strengthbar.fx": {
+    "bytes": 5095,
+    "includes": [
+     "blending.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_strengthbar.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 216,
+    "sha256": "55d5c35e8eca09f7afde12baa3937fff703c43c8f409ed7d0079f48eda1d9923",
+    "techniques": [
+     "strength_bar_depth_sm2",
+     "strength_bar_shadow_sm2",
+     "strength_bar_sm2"
+    ]
+   },
+   "fx\\sun.fx": {
+    "bytes": 1978,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 107,
+    "sha256": "205ee026f399fed2454c2f7219b4b0afea52243a7c8c5cd2f2dd5ea788b318f2",
+    "techniques": [
+     "sun_sm2"
+    ]
+   },
+   "fx\\supertexturetile.fx": {
+    "bytes": 26073,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 1012,
+    "sha256": "e1db1eee2d1854dffdd00b269cdb6c321b1a0c6dfa917f65b965553bac070fb0",
+    "techniques": [
+     "supertexture_border_sm2",
+     "supertexture_land_depth_sm2",
+     "supertexture_land_sm2",
+     "supertexture_land_sm3",
+     "supertexture_overlay_sm2",
+     "supertexture_road_sm2",
+     "supertexture_sea_depth_sm2",
+     "supertexture_sea_sm2",
+     "supertexture_sea_sm3",
+     "supertexture_shroud_sm2"
+    ]
+   },
+   "fx\\template.fx": {
+    "bytes": 7825,
+    "includes": [
+     "camera.fx_fragment",
+     "depth_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "matrix_retreval.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 320,
+    "sha256": "20499054e30524f9cd1ef28ee8104344bb61f57fdd779d70c1b37c8fa32bce9e",
+    "techniques": [
+     "depth_instanced_t0_sm2",
+     "depth_instanced_vs30_t0_sm3",
+     "depth_t0_sm2",
+     "instanced_t0_sm3",
+     "instanced_vs30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_instanced_t0_sm3",
+     "shadow_map_instanced_vs30_t0_sm3",
+     "shadow_map_t0_sm2",
+     "shadow_map_t0_sm3",
+     "t0_sm3"
+    ]
+   },
+   "fx\\terrain_ao.fx": {
+    "bytes": 3364,
+    "includes": [
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 162,
+    "sha256": "03fc3a4f7e22cc49c86bad2f21930d8c8108d3907162677a50016cce03c4aae9",
+    "techniques": [
+     "blend_ao_sm3",
+     "blur_ao_sm3",
+     "gen_ao_sm3"
+    ]
+   },
+   "fx\\terrain_shared.fx": {
+    "bytes": 177,
+    "includes": [
+     "fxconfig.h",
+     "terrain_shared.fx_fragment"
+    ],
+    "lines": 12,
+    "sha256": "a219b61d43fad7fb797cf2e9d788edbaca983ad43a4d2d81417f767adfb0ae31",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\terrain_shared.fx_fragment": {
+    "bytes": 6275,
+    "includes": [],
+    "lines": 254,
+    "sha256": "76dc6140e887b041010086c4e7b3769ce4b8a7f2bfd4c79ae5b92103039d1107",
+    "techniques": []
+   },
+   "fx\\textured_rigid.fx": {
+    "bytes": 23398,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "depth_textured_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "parallax.fx_fragment",
+     "rigid_imposter.fx_fragment",
+     "rigid_parallax.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_textured_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "textured_rigid_depth_shadow.fx_fragment",
+     "textured_rigid_vertex.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 832,
+    "sha256": "1ad8a764d52609455296495ff7a80dcbd31e017d74ad0ce6f40d73effb2150b6",
+    "techniques": [
+     "campaign_trader_textured_full_dip_batch_t0",
+     "campaign_trader_textured_full_instanced_t0_sm2",
+     "campaign_trader_textured_full_instanced_t0_sm3",
+     "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+     "campaign_trader_textured_full_t0_sm2",
+     "campaign_trader_textured_full_t0_sm3",
+     "reflection_full_dip_batch_t0",
+     "refraction_full_dip_batch_t0",
+     "refraction_full_instanced_t0_sm2",
+     "refraction_full_instanced_t0_sm3",
+     "refraction_full_instanced_vs30_t0_sm3",
+     "refraction_full_t0_sm2",
+     "refraction_full_t0_sm3",
+     "textured_full_dip_batch_t0",
+     "textured_full_instanced_t0_sm2",
+     "textured_full_instanced_t0_sm3",
+     "textured_full_instanced_vs30_t0_sm3",
+     "textured_full_t0_sm2",
+     "textured_full_t0_sm3",
+     "textured_reflection_full_instanced_t0_sm2",
+     "textured_reflection_full_instanced_t0_sm3",
+     "textured_reflection_full_instanced_vs30_t0_sm3",
+     "textured_reflection_full_t0_sm2",
+     "textured_reflection_full_t0_sm3"
+    ]
+   },
+   "fx\\textured_rigid_depth_shadow.fx_fragment": {
+    "bytes": 2635,
+    "includes": [],
+    "lines": 128,
+    "sha256": "82fa0b18a8938ab8ba32462845ece5555c2b83956cc000dc2b60258a5f68529c",
+    "techniques": [
+     "depth_dip_batch_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_instanced_vs30_t0_sm3",
+     "depth_t0_sm2",
+     "depth_t0_sm3",
+     "shadow_map_dip_batch_t0",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_instanced_t0_sm3",
+     "shadow_map_instanced_vs30_t0_sm3",
+     "shadow_map_t0_sm2",
+     "shadow_map_t0_sm3"
+    ]
+   },
+   "fx\\textured_rigid_vertex.fx_fragment": {
+    "bytes": 3607,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 107,
+    "sha256": "db138ac2b1a6ef04ddf6f39a081abff8b2c2a09227850864de31a766f05a015d",
+    "techniques": []
+   },
+   "fx\\textured_vertex.fx_fragment": {
+    "bytes": 2616,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 78,
+    "sha256": "074e6d1e510ad5a693be251a494d6b32a2a53d231cb6791e06a2bb7330e1d04d",
+    "techniques": []
+   },
+   "fx\\util.fx_fragment": {
+    "bytes": 7574,
+    "includes": [],
+    "lines": 206,
+    "sha256": "86896f21e94f811c21b41fb28a0a30d0263b31831441981a54b1dd621cb4bdec",
+    "techniques": []
+   },
+   "fx\\variantmesh.fx": {
+    "bytes": 15969,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 532,
+    "sha256": "ce6f1db336d2ae1f631afdac3ed9246c29c70f9f454e49280e35a2016428a9e6",
+    "techniques": [
+     "imposter_dip_batch_sm2",
+     "variant_dip_batch_depth_sm3",
+     "variant_dip_batch_refraction_sm3",
+     "variant_dip_batch_shadow_map_sm2",
+     "variant_dip_batch_sm2",
+     "variant_dip_batch_sm3"
+    ]
+   },
+   "fx\\vegetation.fx_fragment": {
+    "bytes": 11254,
+    "includes": [
+     "screeneffects.fx_fragment",
+     "terrain_shared.fx_fragment"
+    ],
+    "lines": 382,
+    "sha256": "da8572c2d3f39c8c68a9d5b328c3e8aa80a72fd746b8d16cfe8dc9c0e90fdf40",
+    "techniques": []
+   },
+   "fx\\vegetation_billboard.fx": {
+    "bytes": 20626,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 707,
+    "sha256": "7eba98aeab1ff675011ee25661ec0f406d49444fdc8a42e8013e46c45b9e2c3e",
+    "techniques": [
+     "b360_depth_sm2",
+     "b360_shadowmap_sm2",
+     "b360_sm2",
+     "b360_sm3",
+     "b360static_sm2",
+     "b360static_sm3"
+    ]
+   },
+   "fx\\vegetation_branch.fx": {
+    "bytes": 16597,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_branch.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 616,
+    "sha256": "6920e9ca9f24cd08ca9ef19ae3179e83a85deec3c25572f0d300fed28954c36b",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_30_t0_winter_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "instanced_t0_winter_sm2",
+     "instanced_t0_winter_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "non_instanced_t0_winter_sm2",
+     "non_instanced_t0_winter_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\vegetation_frond.fx": {
+    "bytes": 14803,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_frond.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 533,
+    "sha256": "74c79bd275d2097c178d9bea95a8b7779fcd4d6356884c3bccdaffd06be9e522",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\vegetation_leaf_card.fx": {
+    "bytes": 20363,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_leafcard.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 692,
+    "sha256": "bc833ba3736ac3c637779701f0228e18aa0f3035f78bba1c165c81bf9c6c7ee1",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\vegetation_leaf_mesh.fx": {
+    "bytes": 16568,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_leafcard.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 573,
+    "sha256": "7844aea4f2c4d6a21e28818f9340cf839733712ab9e5a962af21bc9afdd9573f",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\volumefog.fx": {
+    "bytes": 6536,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "parallax.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "volumefog_vertex.fx_fragment"
+    ],
+    "lines": 265,
+    "sha256": "c627ff4bfec0502967175c0d9d8dcb1b520b0ca1c5966feb4b4ac3f24302e3da",
+    "techniques": [
+     "depth_t0_sm2",
+     "volumefog_sm2"
+    ]
+   },
+   "fx\\volumefog_vertex.fx_fragment": {
+    "bytes": 1942,
+    "includes": [],
+    "lines": 62,
+    "sha256": "ff1c17c26f23fa909c04b413aada810b6eca035dc9b2179028f5cfd26fc8514e",
+    "techniques": []
+   },
+   "fx\\weather.fx": {
+    "bytes": 11828,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 377,
+    "sha256": "3fa9a7b583de333242800ce2b1c4e37465c0303418395dbb039f97844442fc83",
+    "techniques": [
+     "dust_30_sm3",
+     "dust_sm2",
+     "rain_single",
+     "snow_single"
+    ]
+   },
+   "fx\\weighted.fx": {
+    "bytes": 15381,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 537,
+    "sha256": "4f4368ddd6bcda8962e9fe7dbb2c9caa4b784f5803a220b405bcd332d673a46a",
+    "techniques": [
+     "imposter_dip_batch_sm2",
+     "weighted_dip_batch_depth_sm3",
+     "weighted_dip_batch_refraction_sm3",
+     "weighted_dip_batch_shadow_map_sm2",
+     "weighted_dip_batch_sm2",
+     "weighted_dip_batch_sm3"
+    ]
+   }
+  },
+  "files": {
+   "fx\\autogenerator_vertex.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\battlefieldterrain.fx": {
+    "status": "identical"
+   },
+   "fx\\blending.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\camera.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\campaignbuilding.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 2,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\campaignbuilding_vertex.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\campaignflag.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 8,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\campaignoverlay.fx": {
+    "lines_changed": 21,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\campaignriver.fx": {
+    "lines_changed": 1,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\campaignterrain.fx": {
+    "status": "identical"
+   },
+   "fx\\campaigntree.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 10,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\campaigntree_vertex.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\cardcaps.txt": {
+    "status": "new"
+   },
+   "fx\\cloth.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 6,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\cloud.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "status": "identical"
+   },
+   "fx\\cloud_plane.fx": {
+    "status": "identical"
+   },
+   "fx\\colour_conversion.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\custom_sprite.fx": {
+    "flag_j8": [
+     "sprite"
+    ],
+    "lines_changed": 89,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\debuggeometry.fx": {
+    "status": "identical"
+   },
+   "fx\\debuglines.fx": {
+    "lines_changed": 13,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\decal.fx": {
+    "status": "identical"
+   },
+   "fx\\depth.fx": {
+    "status": "identical"
+   },
+   "fx\\depth_textured_vertex.fx_fragment": {
+    "lines_changed": 13,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\depth_vertex.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\directional_blur.fx": {
+    "status": "identical"
+   },
+   "fx\\example.fx": {
+    "status": "identical"
+   },
+   "fx\\explosion_particle.fx": {
+    "status": "identical"
+   },
+   "fx\\extendedsprite.fx": {
+    "flag_j8": [
+     "sprite"
+    ],
+    "lines_changed": 72,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\filterfoam.fx": {
+    "status": "identical"
+   },
+   "fx\\fog.fx_fragment": {
+    "lines_changed": 43,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\formationlayouticons.fx": {
+    "status": "identical"
+   },
+   "fx\\frameview_mrt.fx_fragment": {
+    "lines_changed": 20,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\fur.fx": {
+    "status": "identical"
+   },
+   "fx\\fx_cloud.h": {
+    "status": "identical"
+   },
+   "fx\\fx_flag.h": {
+    "status": "identical"
+   },
+   "fx\\fx_instancing.h": {
+    "status": "identical"
+   },
+   "fx\\fx_sea_interaction.h": {
+    "status": "identical"
+   },
+   "fx\\fx_strengthbar.h": {
+    "status": "identical"
+   },
+   "fx\\fx_veg_billboard.h": {
+    "status": "identical"
+   },
+   "fx\\fx_veg_branch.h": {
+    "status": "identical"
+   },
+   "fx\\fx_veg_frond.h": {
+    "status": "identical"
+   },
+   "fx\\fx_veg_leafcard.h": {
+    "status": "identical"
+   },
+   "fx\\fx_weighted.h": {
+    "status": "identical"
+   },
+   "fx\\fxconfig.h": {
+    "lines_changed": 6,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\gaussianblur.fx": {
+    "status": "identical"
+   },
+   "fx\\grass.fx": {
+    "lines_changed": 12,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\grid.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 179,
+    "status": "changed",
+    "techniques_added": [
+     "grid_near_env_map_sm2",
+     "grid_near_env_map_sm3"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\grid_spline.fx": {
+    "lines_changed": 10,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\grid_surface.fx": {
+    "lines_changed": 4,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\hdr_to_screen.fx": {
+    "lines_changed": 142,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": [
+     "no_DOF_sm2"
+    ]
+   },
+   "fx\\high_pass.fx": {
+    "lines_changed": 22,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\icons.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "status": "identical"
+   },
+   "fx\\imposter.fx": {
+    "flag_j8": [
+     "impost",
+     "shadow"
+    ],
+    "lines_changed": 12,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\instanced_animated_matrix_retreval.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\instanced_matrix_retreval.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\instanced_matrix_retreval_30.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\instanced_vertex_shader.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\instanced_vertex_textured_shader.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\lenseflare.fx": {
+    "status": "new"
+   },
+   "fx\\lighting.fx_fragment": {
+    "lines_changed": 49,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\lighting_brdf.fx_fragment": {
+    "lines_changed": 80,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\lightmap.fx": {
+    "status": "identical"
+   },
+   "fx\\lightmap.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\litfresnelmaterial.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\litmaterial.fx_fragment": {
+    "lines_changed": 1,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\loadingscreen.fx": {
+    "lines_changed": 31,
+    "status": "changed",
+    "techniques_added": [
+     "loading_screen_no_blending",
+     "loading_screen_srgb_no_blending"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\luminance.fx": {
+    "status": "identical"
+   },
+   "fx\\matrix_retreval.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\max_shaders\\empire_rigid.fx": {
+    "status": "gone"
+   },
+   "fx\\max_shaders\\empire_ship.fx": {
+    "status": "gone"
+   },
+   "fx\\max_shaders\\empire_weighted.fx": {
+    "status": "gone"
+   },
+   "fx\\naval.fx": {
+    "status": "identical"
+   },
+   "fx\\navalsail.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 18,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\navalship.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 14,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\new_cloud_plane.fx": {
+    "status": "gone"
+   },
+   "fx\\ocean.fx": {
+    "lines_changed": 175,
+    "status": "changed",
+    "techniques_added": [
+     "sm_render_envmap_sm2"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\outline.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 56,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\parallax.fx_fragment": {
+    "status": "gone"
+   },
+   "fx\\parallaxmaterial.fx_fragment": {
+    "status": "gone"
+   },
+   "fx\\paramtest_litmaterial.fx_fragment": {
+    "status": "gone"
+   },
+   "fx\\particle.fx": {
+    "lines_changed": 76,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\particle2.fx": {
+    "status": "identical"
+   },
+   "fx\\particle_distortion.fx": {
+    "lines_changed": 1,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\particle_volumetric.fx_fragment": {
+    "lines_changed": 456,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\passthrough.fx": {
+    "lines_changed": 165,
+    "status": "changed",
+    "techniques_added": [
+     "additive_overlay_sm2",
+     "blend_overlay_sm2",
+     "hdr_decode_passthrough_sm2",
+     "hdr_lense_flare_sm3"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\projectiletrail.fx": {
+    "status": "identical"
+   },
+   "fx\\refraction.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\ribbon.fx": {
+    "status": "new"
+   },
+   "fx\\rigid.fx": {
+    "lines_changed": 9,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\rigid_depth_shadow.fx_fragment": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "status": "identical"
+   },
+   "fx\\rigid_imposter.fx_fragment": {
+    "flag_j8": [
+     "impost"
+    ],
+    "lines_changed": 52,
+    "status": "changed",
+    "techniques_added": [
+     "imposter_snow_dip_batch_t0",
+     "imposter_snow_instanced_t0_sm2",
+     "imposter_snow_instanced_vs30_t0_sm3",
+     "imposter_snow_t0_sm2"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\rigid_parallax.fx_fragment": {
+    "status": "gone"
+   },
+   "fx\\rigid_simple.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\rigid_weighted.fx_fragment": {
+    "lines_changed": 6,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\rope.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 96,
+    "status": "changed",
+    "techniques_added": [
+     "non_instanced_rope_depth_t0_sm3"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\screeneffects.fx_fragment": {
+    "lines_changed": 9,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\sea_particles.fx": {
+    "status": "identical"
+   },
+   "fx\\seainteraction.fx": {
+    "status": "identical"
+   },
+   "fx\\shadow_textured_vertex.fx_fragment": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "status": "identical"
+   },
+   "fx\\shadow_vertex.fx_fragment": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "status": "identical"
+   },
+   "fx\\shadowmap.fx_fragment": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 12,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\shared_defines.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\shared_params.fx": {
+    "status": "identical"
+   },
+   "fx\\shipbowwave.fx": {
+    "status": "identical"
+   },
+   "fx\\shipwake.fx": {
+    "lines_changed": 2,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\shroud.fx": {
+    "status": "identical"
+   },
+   "fx\\shroud.fx_fragment": {
+    "lines_changed": 100,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\simple.fx": {
+    "status": "identical"
+   },
+   "fx\\simple_texture.fx": {
+    "status": "identical"
+   },
+   "fx\\simple_textured_vertex.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\simple_vertex.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\simplematerial.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\simpletexturematerial.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\sky.fx": {
+    "lines_changed": 20,
+    "status": "changed",
+    "techniques_added": [
+     "t0_envmap_sm2"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\skybox.fx": {
+    "status": "identical"
+   },
+   "fx\\skydome.fx": {
+    "status": "identical"
+   },
+   "fx\\spline.fx": {
+    "lines_changed": 1,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\sprite.fx": {
+    "flag_j8": [
+     "sprite"
+    ],
+    "lines_changed": 1577,
+    "status": "changed",
+    "techniques_added": [
+     "buildingcard_burning_t0_sm2",
+     "buildingcard_burning_t0_sm3",
+     "cooldown_t0_sm2",
+     "cooldown_t0_sm3",
+     "normal_3D_depth",
+     "normal_3D_depth_stencil",
+     "repair_bar_pulse_t0_sm2",
+     "repair_icon_pulse_t0_sm2",
+     "routing_flag_t0_sm2",
+     "unitcard_burning_t0_sm2",
+     "unitcard_burning_t0_sm3",
+     "unitcard_routing_t0_sm2",
+     "unitcard_sinking_t0_sm2",
+     "unitcard_sinking_t0_sm3",
+     "untextured_3D_depth"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\ssao.fx": {
+    "status": "gone"
+   },
+   "fx\\ssaox.fx": {
+    "lines_changed": 14,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\standard_rigid_matrices.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\strengthbar.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "status": "identical"
+   },
+   "fx\\sun.fx": {
+    "lines_changed": 23,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\supertexturetile.fx": {
+    "lines_changed": 65,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\template.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 1,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\terrain_ao.fx": {
+    "status": "identical"
+   },
+   "fx\\terrain_shared.fx": {
+    "lines_changed": 3,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\terrain_shared.fx_fragment": {
+    "lines_changed": 41,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\terraindecal.fx": {
+    "status": "new"
+   },
+   "fx\\textured_rigid.fx": {
+    "lines_changed": 541,
+    "status": "changed",
+    "techniques_added": [
+     "textured_snow_full_dip_batch_t0",
+     "textured_snow_full_instanced_t0_sm2",
+     "textured_snow_full_instanced_t0_sm3",
+     "textured_snow_full_instanced_vs30_t0_sm3",
+     "textured_snow_full_t0_sm2",
+     "textured_snow_full_t0_sm3"
+    ],
+    "techniques_removed": []
+   },
+   "fx\\textured_rigid_depth_shadow.fx_fragment": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "status": "identical"
+   },
+   "fx\\textured_rigid_vertex.fx_fragment": {
+    "lines_changed": 82,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\textured_vertex.fx_fragment": {
+    "lines_changed": 2,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\util.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\variantmesh.fx": {
+    "flag_j8": [
+     "impost",
+     "shadow"
+    ],
+    "lines_changed": 811,
+    "status": "changed",
+    "techniques_added": [
+     "variant_depth_rigid_stream_instancing_sm3",
+     "variant_depth_weighted_stream_instancing_sm3",
+     "variant_imposter_rigid_sm2",
+     "variant_imposter_rigid_stream_instancing_sm3",
+     "variant_imposter_weighted_sm2",
+     "variant_imposter_weighted_sm3",
+     "variant_imposter_weighted_stream_instancing_sm3",
+     "variant_refraction_rigid_sm2",
+     "variant_refraction_rigid_stream_instancing_sm3",
+     "variant_refraction_weighted_sm2",
+     "variant_refraction_weighted_stream_instancing_sm3",
+     "variant_rigid_sm2",
+     "variant_rigid_stream_instancing_sm3",
+     "variant_shadow_map_rigid_sm2",
+     "variant_shadow_map_rigid_stream_instancing_sm2",
+     "variant_shadow_map_rigid_stream_instancing_sm3",
+     "variant_shadow_map_weighted_sm2",
+     "variant_shadow_map_weighted_stream_instancing_sm2",
+     "variant_shadow_map_weighted_stream_instancing_sm3",
+     "variant_weighted_sm2",
+     "variant_weighted_stream_instancing_sm3"
+    ],
+    "techniques_removed": [
+     "imposter_dip_batch_sm2",
+     "variant_dip_batch_depth_sm3",
+     "variant_dip_batch_refraction_sm3",
+     "variant_dip_batch_shadow_map_sm2",
+     "variant_dip_batch_sm2",
+     "variant_dip_batch_sm3"
+    ]
+   },
+   "fx\\vegetation.fx_fragment": {
+    "lines_changed": 1,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\vegetation_billboard.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 108,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\vegetation_branch.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 11,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\vegetation_frond.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 5,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\vegetation_leaf_card.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 37,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\vegetation_leaf_mesh.fx": {
+    "flag_j8": [
+     "shadow"
+    ],
+    "lines_changed": 27,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\volumefog.fx": {
+    "lines_changed": 1,
+    "status": "changed",
+    "techniques_added": [],
+    "techniques_removed": []
+   },
+   "fx\\volumefog_vertex.fx_fragment": {
+    "status": "identical"
+   },
+   "fx\\weather.fx": {
+    "status": "identical"
+   },
+   "fx\\weighted.fx": {
+    "flag_j8": [
+     "impost",
+     "shadow"
+    ],
+    "lines_changed": 234,
+    "status": "changed",
+    "techniques_added": [
+     "imposter_sm2",
+     "imposter_sm3",
+     "weighted_campaign_sm2",
+     "weighted_campaign_sm3",
+     "weighted_depth_sm2",
+     "weighted_depth_sm3",
+     "weighted_refraction_sm2",
+     "weighted_refraction_sm3",
+     "weighted_shadow_map_sm2",
+     "weighted_shadow_map_sm3",
+     "weighted_sm2",
+     "weighted_sm3"
+    ],
+    "techniques_removed": [
+     "imposter_dip_batch_sm2",
+     "weighted_dip_batch_depth_sm3",
+     "weighted_dip_batch_refraction_sm3",
+     "weighted_dip_batch_shadow_map_sm2",
+     "weighted_dip_batch_sm2",
+     "weighted_dip_batch_sm3"
+    ]
+   }
+  },
+  "napoleon_files": {
+   "fx\\autogenerator_vertex.fx_fragment": {
+    "bytes": 1314,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 54,
+    "sha256": "03a3527522d130bff7816c7c24cc6d1ee4106f5ffd7bd5cfb0ff9f2f334b068e",
+    "techniques": []
+   },
+   "fx\\battlefieldterrain.fx": {
+    "bytes": 2487,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 120,
+    "sha256": "f10c6f57a2a408f4d3e6a5fc3f67316ec68e481ad3b489871fed2583b00ae1c1",
+    "techniques": [
+     "battlefield_terrain_sm2"
+    ]
+   },
+   "fx\\blending.fx_fragment": {
+    "bytes": 4623,
+    "includes": [],
+    "lines": 177,
+    "sha256": "00dcb165194116e5d3598bd7292bc7eaac81f06e890db7a82739382d847d59cc",
+    "techniques": []
+   },
+   "fx\\camera.fx_fragment": {
+    "bytes": 1471,
+    "includes": [],
+    "lines": 47,
+    "sha256": "535848c2bf303acb23669e19879775c4706b9316efb13804c5cebf01eabb046d",
+    "techniques": []
+   },
+   "fx\\campaignbuilding.fx": {
+    "bytes": 5493,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "campaignbuilding_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 218,
+    "sha256": "5906870eaa0d99a6228659792a4d8cf22bb2ae9f3e79f7e90eaff363c5638b8d",
+    "techniques": [
+     "campaign_building_instanced_sm2",
+     "campaign_building_instanced_vs30_sm3",
+     "campaign_building_sm2",
+     "depth_campaign_building_instanced_sm2",
+     "depth_campaign_building_instanced_vs30_sm3",
+     "depth_campaign_building_sm2",
+     "shadow_campaign_building_instanced_sm2",
+     "shadow_campaign_building_instanced_vs30_sm3",
+     "shadow_campaign_building_sm2"
+    ]
+   },
+   "fx\\campaignbuilding_vertex.fx_fragment": {
+    "bytes": 2671,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 82,
+    "sha256": "07a5132feb6ff292ce1b5387236b6b04598b3e25a4abb2dc2a32055801d6c580",
+    "techniques": []
+   },
+   "fx\\campaignflag.fx": {
+    "bytes": 9569,
+    "includes": [
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 404,
+    "sha256": "98be291283cc7cdf826029dc603f1e362dfcbfbdec6e0f0f452a7a1655c7d4b6",
+    "techniques": [
+     "campaign_flag_depth_sm2",
+     "campaign_flag_shadow_sm2",
+     "campaign_flag_sm2",
+     "campaign_flag_sm3",
+     "naval_flag_depth_sm2",
+     "naval_flag_shadow_sm2",
+     "naval_flag_sm2",
+     "naval_flag_sm3"
+    ]
+   },
+   "fx\\campaignoverlay.fx": {
+    "bytes": 1929,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 99,
+    "sha256": "f37efff00e33ae3ec4ff4e67ddd9303761f8995ba792329fb3666db27234d185",
+    "techniques": [
+     "overlay_sm2"
+    ]
+   },
+   "fx\\campaignriver.fx": {
+    "bytes": 3227,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 154,
+    "sha256": "bf76a94945bdedf65b41f9f847ab2dc4be67f2ad1a0e8ae7bf2c2b784d33a5eb",
+    "techniques": [
+     "sm_campaign_river_sm2",
+     "sm_campaign_river_sm3"
+    ]
+   },
+   "fx\\campaignterrain.fx": {
+    "bytes": 9326,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 437,
+    "sha256": "1dca2e72dc080530337b5c7127a8194e4f8daefce18f1a4d1913095896c5ef46",
+    "techniques": [
+     "sea_exclude_sm2",
+     "sm3_campaign_coast_sm2",
+     "sm3_campaign_coast_sm3",
+     "trade_route_sm2"
+    ]
+   },
+   "fx\\campaigntree.fx": {
+    "bytes": 6057,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "campaigntree_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 231,
+    "sha256": "7060a337d119bd7aee21f9b451ad8a6cf0be79a11ed6fcf997811fada0b12746",
+    "techniques": [
+     "campaign_tree_instanced_sm2",
+     "campaign_tree_instanced_vs30_sm3",
+     "campaign_tree_sm2",
+     "depth_campaign_tree_instanced_sm2",
+     "depth_campaign_tree_instanced_vs30_sm3",
+     "depth_campaign_tree_sm2",
+     "shadow_campaign_tree_instanced_sm2",
+     "shadow_campaign_tree_instanced_vs30_sm3",
+     "shadow_campaign_tree_sm2"
+    ]
+   },
+   "fx\\campaigntree_vertex.fx_fragment": {
+    "bytes": 4264,
+    "includes": [],
+    "lines": 125,
+    "sha256": "639ba4965cef0656e9bc14ecc8a77a4ce96aa8e7e0567132167f5e75ba411344",
+    "techniques": []
+   },
+   "fx\\cardcaps.txt": {
+    "bytes": 3991,
+    "includes": [],
+    "lines": 228,
+    "sha256": "da1bc4a752c1441b95465b390e6891663e18bfc75e1635f711bf52fdf40f44bf",
+    "techniques": []
+   },
+   "fx\\cloth.fx": {
+    "bytes": 7231,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 282,
+    "sha256": "ca8d26f0a336b58b284b31240285c32776e63e417043173edfc001458f160987",
+    "techniques": [
+     "non_instanced_navalsail_default_t0_sm2",
+     "non_instanced_navalsail_default_t0_sm3",
+     "non_instanced_navalsail_depth_t0_sm2",
+     "non_instanced_navalsail_reflection_t0_sm2",
+     "non_instanced_navalsail_shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\cloud.fx": {
+    "bytes": 4045,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 177,
+    "sha256": "bd16ca4910a85188254e597672cbd2b40c1dcdee6daa79afeb8155a5d7b50f9e",
+    "techniques": [
+     "cloud_sm2",
+     "depth_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\cloud_plane.fx": {
+    "bytes": 9391,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fx_cloud.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 355,
+    "sha256": "c1f0eb1797c248c7c9b205d6f2dcda0ff607be28822b2d1f81144599228667f4",
+    "techniques": [
+     "instanced_20_t0_sm2",
+     "instanced_30_t0_sm3",
+     "non_instanced_t0_sm2"
+    ]
+   },
+   "fx\\colour_conversion.fx_fragment": {
+    "bytes": 1860,
+    "includes": [],
+    "lines": 72,
+    "sha256": "a27d6c69fe9219ed173cb6219be54de979b538967284d4ee82a4b012de4feef4",
+    "techniques": []
+   },
+   "fx\\custom_sprite.fx": {
+    "bytes": 10049,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 423,
+    "sha256": "ede09c8d792b9fc77f0deae9685cbaadd9065bfee27b878cb4d9bd4baa88b856",
+    "techniques": [
+     "custom_sprite_default_t0_sm2",
+     "custom_sprite_land_radar_t0_sm2",
+     "custom_sprite_land_radar_t0_sm3",
+     "custom_sprite_naval_radar_t0_sm2",
+     "custom_sprite_naval_radar_t0_sm3",
+     "custom_sprite_radar_t0_sm2",
+     "custom_sprite_radar_t0_sm3"
+    ]
+   },
+   "fx\\debuggeometry.fx": {
+    "bytes": 1476,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 72,
+    "sha256": "598396dd5e7a742724b2d463bcf7d766122bee3df9028beae7bf5ac7aa34d7ea",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\debuglines.fx": {
+    "bytes": 2312,
+    "includes": [
+     "camera.fx_fragment",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 132,
+    "sha256": "5b1e3be7d284969d0e829caa8e51dbba78eda3949eacca6ab5646ab32a6e5bde",
+    "techniques": [
+     "screen_space_without_z_buffer_t0_sm2",
+     "with_z_buffer_t0_sm2",
+     "without_z_buffer_t0_sm2"
+    ]
+   },
+   "fx\\decal.fx": {
+    "bytes": 2447,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "util.fx_fragment"
+    ],
+    "lines": 116,
+    "sha256": "60fc3454858fc38ea406795b60b7bd4e570874cb13fd20ab92b552486969cafd",
+    "techniques": [
+     "decal_to_frame_t0_sm2",
+     "decal_to_overlay_t0_sm2"
+    ]
+   },
+   "fx\\depth.fx": {
+    "bytes": 830,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 49,
+    "sha256": "036bf7f4a0f60b53aac03b2516f784d82224831b388f639e4a266fd8b4dc170a",
+    "techniques": [
+     "clear_screen_sm2"
+    ]
+   },
+   "fx\\depth_textured_vertex.fx_fragment": {
+    "bytes": 1605,
+    "includes": [],
+    "lines": 59,
+    "sha256": "4fe0240b039ccfd7b0443a6690c7b2b91ee064e34462ad5c2cd498ad4b89613d",
+    "techniques": []
+   },
+   "fx\\depth_vertex.fx_fragment": {
+    "bytes": 1113,
+    "includes": [],
+    "lines": 38,
+    "sha256": "6716f0f4c3e7f125a86227c9ef754eccc9515db5e3393d09e2a1b2f099900c6f",
+    "techniques": []
+   },
+   "fx\\directional_blur.fx": {
+    "bytes": 1677,
+    "includes": [
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 96,
+    "sha256": "f0ce2c2919ff7ad15f178e7134fece08cf8212e0cc74c6adb93bcd3e16249b46",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\example.fx": {
+    "bytes": 1027,
+    "includes": [],
+    "lines": 59,
+    "sha256": "f541cad2377cf713c8a7efae78a6b5dd7d7ae3b7cb1c09c4a2bb087a59ec54a1",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\explosion_particle.fx": {
+    "bytes": 2666,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "particle_volumetric.fx_fragment",
+     "screeneffects.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 125,
+    "sha256": "017de229298ff376e3a53ce3e93dbea7c7974cdb32a4b5f7ee21d5df3cf5e808",
+    "techniques": [
+     "render_additive_sm2",
+     "render_additive_sm3",
+     "render_alpha_20_sm2",
+     "render_alpha_20_sm3",
+     "render_alpha_sm2",
+     "render_alpha_sm3"
+    ]
+   },
+   "fx\\extendedsprite.fx": {
+    "bytes": 8381,
+    "includes": [],
+    "lines": 341,
+    "sha256": "5a78b7913d47ccadd724be360907dafcb8c3a8b5d42ada3c5fe7a93748078b87",
+    "techniques": [
+     "TECHNIQUE_NAME"
+    ]
+   },
+   "fx\\filterfoam.fx": {
+    "bytes": 1434,
+    "includes": [
+     "fxconfig.h"
+    ],
+    "lines": 73,
+    "sha256": "86e61d775174b3641eb3b862c3ff43d6e9f079a90cf0981e13c1ad5e16c64284",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\fog.fx_fragment": {
+    "bytes": 6357,
+    "includes": [
+     "lighting.fx_fragment"
+    ],
+    "lines": 198,
+    "sha256": "3f5d2c540252db37cc65fbf43d2417497b6ce846e12824ee21d10a4c68eaa1a8",
+    "techniques": []
+   },
+   "fx\\formationlayouticons.fx": {
+    "bytes": 1318,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shadowocclusion.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "zocclusion.fx_fragment"
+    ],
+    "lines": 67,
+    "sha256": "b752aae77e480ab270fa80146fc80864818429f8603865b782c47da73800c8d4",
+    "techniques": [
+     "formation_layout_icon_t0"
+    ]
+   },
+   "fx\\frameview_mrt.fx_fragment": {
+    "bytes": 4186,
+    "includes": [],
+    "lines": 131,
+    "sha256": "dae61863b4079eb7374078ac56eea6b9c33575298f9983a427e50b95f9c17ffb",
+    "techniques": []
+   },
+   "fx\\fur.fx": {
+    "bytes": 3000,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 120,
+    "sha256": "290fc50f8cf18ccae8ed4d77782643bd7792a29e3765c30b9cfe759783f8122e",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\fx_cloud.h": {
+    "bytes": 385,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 13,
+    "sha256": "78c81673a90403a744bbd5aa914a6ecffd64c728269695dd74a0fd8e379dacc6",
+    "techniques": []
+   },
+   "fx\\fx_flag.h": {
+    "bytes": 417,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 16,
+    "sha256": "d3d477e558013b964db4011a139f049f490fb703f295de949976ef35701bf253",
+    "techniques": []
+   },
+   "fx\\fx_instancing.h": {
+    "bytes": 23449,
+    "includes": [],
+    "lines": 312,
+    "sha256": "fc94f10fdccf513dca6817bc2e95d32ddf2c76bf3b3c4f828096693ffb7e9d21",
+    "techniques": []
+   },
+   "fx\\fx_sea_interaction.h": {
+    "bytes": 153,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 8,
+    "sha256": "1abdbd57d2de7fc4cabe70350d5b0eafff4f83ec6919d3fadaf713eb685e74f8",
+    "techniques": []
+   },
+   "fx\\fx_strengthbar.h": {
+    "bytes": 307,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 13,
+    "sha256": "fcf5147f465189740d92af7c917bbaf7a01f8db8fa98d6aade7b2b82b4697f30",
+    "techniques": []
+   },
+   "fx\\fx_veg_billboard.h": {
+    "bytes": 195,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 8,
+    "sha256": "5eb807e0054b0a4ddde96e3ae42357fe6d4048432da9a436c4af0ce995bb578e",
+    "techniques": []
+   },
+   "fx\\fx_veg_branch.h": {
+    "bytes": 526,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 18,
+    "sha256": "1b7b00c2f5334343dc7039a2a9e6d1e8083a9d51240f379ba580b75eb83ecc21",
+    "techniques": []
+   },
+   "fx\\fx_veg_frond.h": {
+    "bytes": 525,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 18,
+    "sha256": "42a9c13fac3d9cec79b5d3cf17f02aedc3f2cb4a6b8f4d539acb41495110ad0c",
+    "techniques": []
+   },
+   "fx\\fx_veg_leafcard.h": {
+    "bytes": 467,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 14,
+    "sha256": "9ba7304b4b9fbd4410b4e8abc508f25203f43a1adddd226d59166634fe2fdc3e",
+    "techniques": []
+   },
+   "fx\\fx_weighted.h": {
+    "bytes": 335,
+    "includes": [
+     "fx_instancing.h"
+    ],
+    "lines": 14,
+    "sha256": "0c867d8af541aabbf03f2c6167a22f625a0c02ca8e28c139576b0d24d6f95644",
+    "techniques": []
+   },
+   "fx\\fxconfig.h": {
+    "bytes": 1464,
+    "includes": [
+     "../../personal_config.h"
+    ],
+    "lines": 52,
+    "sha256": "ab7dd464edbde04b62568dcfbea94a19c7aed786551f11c0878330f622e32d56",
+    "techniques": []
+   },
+   "fx\\gaussianblur.fx": {
+    "bytes": 3501,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 183,
+    "sha256": "093521fd5ee9b4578659fb1c636d77b01bcab0b09ad43c54eb70958ee3869f01",
+    "techniques": [
+     "smart_z_blur_sm3",
+     "t0_sm3",
+     "t1"
+    ]
+   },
+   "fx\\grass.fx": {
+    "bytes": 9038,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 372,
+    "sha256": "8db0e695accb21e257ecc3e4f1c131f95d5109348eff5635bb4dacffd817d5b1",
+    "techniques": [
+     "grass_depth_sm2",
+     "grass_sm2",
+     "grass_sm3"
+    ]
+   },
+   "fx\\grid.fx": {
+    "bytes": 50593,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 1887,
+    "sha256": "4ba31f2a8f8b3979dcd6bfcae7344b69fa3b015898ccc461696f07c729187e66",
+    "techniques": [
+     "depth_t0_sm2",
+     "grid_far_sm2",
+     "grid_far_sm3",
+     "grid_far_wireframe_sm2",
+     "grid_far_wireframe_sm3",
+     "grid_heights_sm2",
+     "grid_near_env_map_sm2",
+     "grid_near_env_map_sm3",
+     "grid_near_sm2",
+     "grid_near_sm3",
+     "grid_near_wireframe_sm2",
+     "grid_near_wireframe_sm3",
+     "grid_reflection_sm2",
+     "grid_reflection_sm3",
+     "grid_refraction_sm2",
+     "grid_refraction_sm3",
+     "grid_shadow_map_sm2",
+     "simple_blend_alpha_sm2",
+     "simple_blend_alpha_sm3",
+     "simple_blend_blue_sm2",
+     "simple_blend_blue_sm3",
+     "simple_blend_green_sm2",
+     "simple_blend_green_sm3",
+     "simple_blend_red_sm2",
+     "simple_blend_red_sm3",
+     "simple_blend_sm2",
+     "simple_blend_sm3",
+     "simple_colour_alpha_sm2",
+     "simple_colour_alpha_sm3",
+     "simple_colour_blue_sm2",
+     "simple_colour_blue_sm3",
+     "simple_colour_green_sm2",
+     "simple_colour_green_sm3",
+     "simple_colour_red_sm2",
+     "simple_colour_red_sm3",
+     "simple_colour_sm2",
+     "simple_colour_sm3",
+     "water_plane_sm2",
+     "water_plane_sm3",
+     "wireframe_far_sm2",
+     "wireframe_far_sm3",
+     "wireframe_near_sm2",
+     "wireframe_near_sm3"
+    ]
+   },
+   "fx\\grid_spline.fx": {
+    "bytes": 6019,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 260,
+    "sha256": "9fdf396784206c1f95857c9944738fcf377ade1518ead5f3250b7a1a4e4888ee",
+    "techniques": [
+     "battlefield_border_sm2",
+     "deployment_border_sm2",
+     "depth_sm2",
+     "fire_arc_sm2",
+     "grid_spline_sm3"
+    ]
+   },
+   "fx\\grid_surface.fx": {
+    "bytes": 4867,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 213,
+    "sha256": "603f5a111216b86316641b61bcf174a0b87dfb083db7bd920a54fbe26293df13",
+    "techniques": [
+     "fuougasse_danger_zone_sm2",
+     "grid_surface_tile_sm2"
+    ]
+   },
+   "fx\\hdr_to_screen.fx": {
+    "bytes": 12786,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 473,
+    "sha256": "59d98650cc7853369cf2f9deb2e08731d21f7a1b83a1a7282f0bc9884e9ce8d3",
+    "techniques": [
+     "passthrough_sm2",
+     "passthrough_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\high_pass.fx": {
+    "bytes": 1956,
+    "includes": [
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 111,
+    "sha256": "12e53af2482736365574d4d7f24de1a447c39f7549ef7da30353fd0c347446cf",
+    "techniques": [
+     "t0_sm2"
+    ]
+   },
+   "fx\\icons.fx": {
+    "bytes": 2586,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 137,
+    "sha256": "5aec5ba52afce7f715638d2903d372a6e576c26489a8ed3e8b14eaa6d39abdd1",
+    "techniques": [
+     "formation_layout_icon_t0_sm2",
+     "selector_active_sm2",
+     "selector_inactive_sm2",
+     "shadow_map_sm2"
+    ]
+   },
+   "fx\\imposter.fx": {
+    "bytes": 7403,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 296,
+    "sha256": "8c745b5ec69ea18a0b777b7a7d75c9926f2027dcb859efc8e080b3306014b507",
+    "techniques": [
+     "imposter20_sm2",
+     "imposter_sm3",
+     "shadow_imposter_sm2",
+     "shadow_imposter_sm3"
+    ]
+   },
+   "fx\\instanced_animated_matrix_retreval.fx_fragment": {
+    "bytes": 390,
+    "includes": [],
+    "lines": 16,
+    "sha256": "01ac8920ae01b635b6d1fad75e4ff197dc44427b1fcb25b3ff2c4ae472713839",
+    "techniques": []
+   },
+   "fx\\instanced_matrix_retreval.fx_fragment": {
+    "bytes": 569,
+    "includes": [],
+    "lines": 20,
+    "sha256": "816f1e872e5d049380cf70a4cc8c9f3d6c6849f0bcea112289759decb7379d0c",
+    "techniques": []
+   },
+   "fx\\instanced_matrix_retreval_30.fx_fragment": {
+    "bytes": 1327,
+    "includes": [],
+    "lines": 39,
+    "sha256": "61df7986cd19130d963e55c515d4f8629f377df0e73b21c24b6fd1891d7e6e6b",
+    "techniques": []
+   },
+   "fx\\instanced_vertex_shader.fx_fragment": {
+    "bytes": 897,
+    "includes": [],
+    "lines": 19,
+    "sha256": "2dc6a0021c2208bb092893a28f98082b1f78a6c9846b9a42d37065c1f316b909",
+    "techniques": []
+   },
+   "fx\\instanced_vertex_textured_shader.fx_fragment": {
+    "bytes": 1056,
+    "includes": [],
+    "lines": 28,
+    "sha256": "a6f1cda05a7681dbb9b575f66eef988a08e07988e5fee1ed9871c75b21bc6b15",
+    "techniques": []
+   },
+   "fx\\lenseflare.fx": {
+    "bytes": 7986,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 317,
+    "sha256": "10f225955b4f5187c61363262d622a7eaf4cd9b4cb05219b6e0f20d00168afe2",
+    "techniques": [
+     "lense_flare_no_vignette_sm2",
+     "lense_flare_no_vignette_sm3",
+     "lense_flare_sm2",
+     "lense_flare_sm3"
+    ]
+   },
+   "fx\\lighting.fx_fragment": {
+    "bytes": 10721,
+    "includes": [
+     "camera.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 363,
+    "sha256": "765f0488960365a43c1bb60f65ff37b21b2a034bd150f7dcfce797337065d637",
+    "techniques": []
+   },
+   "fx\\lighting_brdf.fx_fragment": {
+    "bytes": 5053,
+    "includes": [],
+    "lines": 195,
+    "sha256": "c1daf5775aede11a8214b83e1062efff399d3db03f76ed9f87a19f92a20a1f76",
+    "techniques": []
+   },
+   "fx\\lightmap.fx": {
+    "bytes": 153,
+    "includes": [
+     "fxconfig.h",
+     "lightmap.fx_fragment"
+    ],
+    "lines": 12,
+    "sha256": "71ef30eb5fc3d397f6b40929688f29e82190e4a2957dea37c94f80d96000023b",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\lightmap.fx_fragment": {
+    "bytes": 3632,
+    "includes": [],
+    "lines": 157,
+    "sha256": "ffca198ae7df74d1781485ab7e2f27641402690be940fba1113ace2a0afa060c",
+    "techniques": []
+   },
+   "fx\\litfresnelmaterial.fx_fragment": {
+    "bytes": 1845,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 77,
+    "sha256": "bb24d7fe2f62562af5741695abbfde49e127ebdce39fbb5ec532bcb015e83b5c",
+    "techniques": []
+   },
+   "fx\\litmaterial.fx_fragment": {
+    "bytes": 3571,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 119,
+    "sha256": "4907b2939616e02edd2d1b585e72cadecbd228c0f4249a4a19fc9c78419a7c83",
+    "techniques": []
+   },
+   "fx\\loadingscreen.fx": {
+    "bytes": 2369,
+    "includes": [],
+    "lines": 150,
+    "sha256": "e1b5f442058907bfa833a3f16814928f2f9d884b38f44f9655b4d960ae9b856e",
+    "techniques": [
+     "loading_screen",
+     "loading_screen_no_blending",
+     "loading_screen_srgb",
+     "loading_screen_srgb_no_blending"
+    ]
+   },
+   "fx\\luminance.fx": {
+    "bytes": 2406,
+    "includes": [
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 128,
+    "sha256": "5d1e71a3f043e8f20f0b3af3630216ef656b15972735393d6dc204f741f4e425",
+    "techniques": [
+     "t0_sm3"
+    ]
+   },
+   "fx\\matrix_retreval.fx_fragment": {
+    "bytes": 1360,
+    "includes": [],
+    "lines": 55,
+    "sha256": "85ab79d42476b99e41f9f4dd500ffdb07cf7be348eb248d5a78a9865ba68e0e1",
+    "techniques": []
+   },
+   "fx\\naval.fx": {
+    "bytes": 6859,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 249,
+    "sha256": "2170969e8ad73087bb95ca2e7bda38e0d427b6b71c59d8a7d41ff3dd58020880",
+    "techniques": [
+     "instanced_30_naval_default_t0",
+     "instanced_30_naval_reflection_t0",
+     "instanced_30_naval_refraction_t0",
+     "non_instanced_naval_default_t0",
+     "non_instanced_naval_reflection_t0",
+     "non_instanced_naval_refraction_t0"
+    ]
+   },
+   "fx\\navalsail.fx": {
+    "bytes": 10589,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 394,
+    "sha256": "5baedd8ffcf62165a551a72191698cc5f60536cece1274aa8223e0b94b2e7e44",
+    "techniques": [
+     "non_instanced_navalsail_default_t0_sm2",
+     "non_instanced_navalsail_default_t0_sm3",
+     "non_instanced_navalsail_depth_t0_sm2",
+     "non_instanced_navalsail_reflection_t0_sm2",
+     "non_instanced_navalsail_refraction_t0_sm2",
+     "non_instanced_navalsail_shadow_map_t0_sm2",
+     "non_instanced_navalsail_shadow_map_t0_sm3"
+    ]
+   },
+   "fx\\navalship.fx": {
+    "bytes": 17778,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 665,
+    "sha256": "d185322051b45f38b9afc8d5ea7d54a9d77d715ce5e76b9a366706ca2ad2d140",
+    "techniques": [
+     "instanced_30_navalship_default_t0_sm3",
+     "instanced_30_navalship_depth_t0_sm3",
+     "instanced_30_navalship_reflection_t0_sm3",
+     "instanced_30_navalship_refraction_t0_sm3",
+     "instanced_30_navalship_shadow_map_t0_sm3",
+     "non_instanced_navalship_default_t0_sm2",
+     "non_instanced_navalship_default_t0_sm3",
+     "non_instanced_navalship_depth_t0_sm2",
+     "non_instanced_navalship_depth_t0_sm3",
+     "non_instanced_navalship_reflection_t0_sm2",
+     "non_instanced_navalship_refraction_t0_sm2",
+     "non_instanced_navalship_shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\ocean.fx": {
+    "bytes": 22723,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 839,
+    "sha256": "4dbfad4da9c06ef8f2876bf8b8edbc7898015db50723f53796212b1c9fa7d4f7",
+    "techniques": [
+     "depth_buffer_render_sm2",
+     "sm_render_envmap_sm2",
+     "sm_render_foam_sm2",
+     "sm_render_foam_sm3",
+     "sm_render_sea_stenciling_foam_sm2",
+     "sm_render_sea_stenciling_foam_sm3",
+     "sm_render_sea_stenciling_sm2",
+     "sm_render_sea_stenciling_sm3",
+     "sm_render_sm2",
+     "sm_render_sm3"
+    ]
+   },
+   "fx\\outline.fx": {
+    "bytes": 1558,
+    "includes": [
+     "camera.fx_fragment",
+     "fxconfig.h",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 79,
+    "sha256": "d36971b951f63387821bc62fcf900440831a44d8f99cd1070e950e0c9fc4c93d",
+    "techniques": [
+     "outline_depth_sm2",
+     "outline_shadow_map_sm2",
+     "outline_sm2"
+    ]
+   },
+   "fx\\particle.fx": {
+    "bytes": 4246,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "particle_volumetric.fx_fragment",
+     "screeneffects.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 197,
+    "sha256": "3d3797a28501fca5b03fd498cfb203b66140660c176bb692e69f98280597bc8a",
+    "techniques": [
+     "render_additive_sm2",
+     "render_additive_sm3",
+     "render_alpha_20_sm2",
+     "render_alpha_20_sm3",
+     "render_alpha_sm2",
+     "render_alpha_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\particle2.fx": {
+    "bytes": 15592,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 491,
+    "sha256": "379b0630578c35a29d02f7ea52c4c2e9e46212458dc3af4cd4969c274eebe7d3",
+    "techniques": [
+     "render_additive_sm2",
+     "render_alpha_sm2",
+     "t0_sm2"
+    ]
+   },
+   "fx\\particle_distortion.fx": {
+    "bytes": 4815,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "particle_volumetric.fx_fragment",
+     "screeneffects.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 184,
+    "sha256": "f0385cf41f8ed5640d392fbcd344a99ba7e86103e7a7b984b9111ccb862f63d1",
+    "techniques": [
+     "render_additive_sm2",
+     "render_additive_sm3",
+     "render_alpha_20_sm2",
+     "render_alpha_20_sm3",
+     "render_alpha_sm2",
+     "render_alpha_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\particle_volumetric.fx_fragment": {
+    "bytes": 30907,
+    "includes": [],
+    "lines": 856,
+    "sha256": "bda634395004a6e80c19c37482871047ad874fb5c245bbaa1c427e0f08640af6",
+    "techniques": []
+   },
+   "fx\\passthrough.fx": {
+    "bytes": 6077,
+    "includes": [
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 319,
+    "sha256": "c8541dd7c77490f34540ff7c98635587f31c5f1b0660eaadf57d3339c54bcece",
+    "techniques": [
+     "additive_overlay_sm2",
+     "blend_overlay_sm2",
+     "blur_horizontal_sm2",
+     "blur_vertical_sm2",
+     "downsample_sm2",
+     "hdr_decode_passthrough_sm2",
+     "hdr_lense_flare_sm3"
+    ]
+   },
+   "fx\\projectiletrail.fx": {
+    "bytes": 3334,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 140,
+    "sha256": "19362126319875aba9eba9dae364c37334a96a75bf894303e9d99009b5e96425",
+    "techniques": [
+     "projectile_add_sm2",
+     "projectile_alpha_sm2",
+     "projectile_subtract_sm2"
+    ]
+   },
+   "fx\\refraction.fx_fragment": {
+    "bytes": 349,
+    "includes": [
+     "camera.fx_fragment"
+    ],
+    "lines": 17,
+    "sha256": "c648bebc5f22384461917ac5372a09896db499c3b3b66a1a140abf2625dd7b4f",
+    "techniques": []
+   },
+   "fx\\ribbon.fx": {
+    "bytes": 4304,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "particle_volumetric.fx_fragment",
+     "screeneffects.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 196,
+    "sha256": "415656600eada10169e070a2c492e5f43e7cceef7a9d89eac0e71dcfa5fa38f3",
+    "techniques": [
+     "render_additive_sm2",
+     "render_additive_sm3",
+     "render_alpha_20_sm2",
+     "render_alpha_20_sm3",
+     "render_alpha_sm2",
+     "render_alpha_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\rigid.fx": {
+    "bytes": 13492,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "depth_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "rigid_depth_shadow.fx_fragment",
+     "rigid_imposter.fx_fragment",
+     "rigid_simple.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "simple_textured_vertex.fx_fragment",
+     "simple_vertex.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "textured_vertex.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 526,
+    "sha256": "42eae0eb54658edb1c22e9d449bf0862f77d216a2f36f28d7fc9ffb977424e61",
+    "techniques": [
+     "refraction_full_instanced_t0_sm2",
+     "refraction_full_instanced_t0_sm3",
+     "refraction_full_instanced_vs30_t0_sm3",
+     "refraction_full_t0_sm2",
+     "refraction_full_t0_sm3",
+     "textured_full_instanced_t0_sm2",
+     "textured_full_instanced_t0_sm3",
+     "textured_full_instanced_vs30_t0_sm3",
+     "textured_full_t0_sm2",
+     "textured_full_t0_sm3"
+    ]
+   },
+   "fx\\rigid_depth_shadow.fx_fragment": {
+    "bytes": 2054,
+    "includes": [],
+    "lines": 107,
+    "sha256": "1a4d0f23c56652392eaa91cd03939004c63d8f911a72e2eb75eada369531e8d8",
+    "techniques": [
+     "depth_instanced_t0_sm2",
+     "depth_instanced_vs30_t0_sm3",
+     "depth_t0_sm2",
+     "depth_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_instanced_t0_sm3",
+     "shadow_map_instanced_vs30_t0_sm3",
+     "shadow_map_t0_sm2",
+     "shadow_map_t0_sm3"
+    ]
+   },
+   "fx\\rigid_imposter.fx_fragment": {
+    "bytes": 2101,
+    "includes": [],
+    "lines": 99,
+    "sha256": "97c7b260b6bba97de4ce88785efae1c0eb8493ab750b385ecaa68097808501fb",
+    "techniques": [
+     "imposter_dip_batch_t0",
+     "imposter_instanced_t0_sm2",
+     "imposter_instanced_vs30_t0_sm3",
+     "imposter_snow_dip_batch_t0",
+     "imposter_snow_instanced_t0_sm2",
+     "imposter_snow_instanced_vs30_t0_sm3",
+     "imposter_snow_t0_sm2",
+     "imposter_t0_sm2"
+    ]
+   },
+   "fx\\rigid_simple.fx_fragment": {
+    "bytes": 3318,
+    "includes": [],
+    "lines": 140,
+    "sha256": "03c61eb375405fd119e9ecad33ba458cbf8ccf6142cc2eaf7f7ca581ae44f2e0",
+    "techniques": [
+     "simple_2_textures_t0_sm2",
+     "simple_normal_instanced_t0_sm2",
+     "simple_normal_instanced_vs30_t0_sm3",
+     "simple_normal_t0_sm2",
+     "simple_textured_instanced_t0_sm2",
+     "simple_textured_instanced_vs30_t0_sm3",
+     "simple_textured_sm2",
+     "simple_textured_t0_sm2"
+    ]
+   },
+   "fx\\rigid_weighted.fx_fragment": {
+    "bytes": 3591,
+    "includes": [],
+    "lines": 117,
+    "sha256": "31a8aed45e21924978f3898fe36efffc396a519c5011895d40631139fef966de",
+    "techniques": [
+     "static_weighted_textured_full_instanced_t0_sm2",
+     "static_weighted_textured_full_instanced_t0_sm3",
+     "static_weighted_textured_full_instanced_vs30_t0_sm3",
+     "static_weighted_textured_full_t0_sm2",
+     "static_weighted_textured_full_t0_sm3"
+    ]
+   },
+   "fx\\rope.fx": {
+    "bytes": 9762,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 361,
+    "sha256": "b7900a7edee206e3f8635e244aaf71487d1835439d145682e2b17e8a8780daf3",
+    "techniques": [
+     "non_instanced_rope_default_t0_sm2",
+     "non_instanced_rope_default_t0_sm3",
+     "non_instanced_rope_depth_t0_sm2",
+     "non_instanced_rope_depth_t0_sm3",
+     "non_instanced_rope_shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\screeneffects.fx_fragment": {
+    "bytes": 3601,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 180,
+    "sha256": "85f8de564b6d87ed527b2def920e12bfccd0b40a07f8996f64b779243949fb61",
+    "techniques": []
+   },
+   "fx\\sea_particles.fx": {
+    "bytes": 10211,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 320,
+    "sha256": "a682546cb9426f0eb7166a01b87ca194427edbe77a4a118e4152df93af621302",
+    "techniques": [
+     "render_additive_sm2",
+     "render_alpha_sm2"
+    ]
+   },
+   "fx\\seainteraction.fx": {
+    "bytes": 4659,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fx_sea_interaction.h",
+     "fxconfig.h",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 201,
+    "sha256": "2a5cd29cc4d025bca927137b3c35d9b273057ddf6f54b9f5234106802afc3e72",
+    "techniques": [
+     "render_20_sm2",
+     "render_30_sm3",
+     "render_sm2"
+    ]
+   },
+   "fx\\shadow_textured_vertex.fx_fragment": {
+    "bytes": 1468,
+    "includes": [],
+    "lines": 46,
+    "sha256": "7c9adf69bec96f349e21ed199590d186874aaf728092150c853dc034865b0687",
+    "techniques": []
+   },
+   "fx\\shadow_vertex.fx_fragment": {
+    "bytes": 1057,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 32,
+    "sha256": "b92a9be54b6aca1bf5a8f45b5627f8745e9526fb469cfdadd7c1eaf9f7296ac9",
+    "techniques": []
+   },
+   "fx\\shadowmap.fx_fragment": {
+    "bytes": 19845,
+    "includes": [
+     "lighting.fx_fragment"
+    ],
+    "lines": 652,
+    "sha256": "d660c2db51d5012c955bdbae13ad79e119cffc24125a572821e41529c668e83b",
+    "techniques": []
+   },
+   "fx\\shared_defines.fx_fragment": {
+    "bytes": 15,
+    "includes": [],
+    "lines": 1,
+    "sha256": "ffe68e50896b1f63eabb54c85aca04013a38ae0c38595e58a8922338e7eb4f5b",
+    "techniques": []
+   },
+   "fx\\shared_params.fx": {
+    "bytes": 385,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 21,
+    "sha256": "34184e49ab007f9d7ddfc4fa6679c7da6e0137d6bd9a921ac2a76bf26146c547",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\shipbowwave.fx": {
+    "bytes": 3025,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 127,
+    "sha256": "5660b30404f6895be0d4657860855f7add8304533fe19f042ed30e6222fb1e7a",
+    "techniques": [
+     "render_bow_wave_sm2"
+    ]
+   },
+   "fx\\shipwake.fx": {
+    "bytes": 3828,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 144,
+    "sha256": "b61cb6cd5ca0ca270825e114ba4af1f80996c10fac77527c0bf5daa9cb007271",
+    "techniques": [
+     "render_wake_sm2"
+    ]
+   },
+   "fx\\shroud.fx": {
+    "bytes": 180,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "shroud.fx_fragment"
+    ],
+    "lines": 14,
+    "sha256": "8ace30e33fb7ed211f52916eedbee6540cd69a20a31c1b941701aad132cf08ed",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\shroud.fx_fragment": {
+    "bytes": 5164,
+    "includes": [
+     "fog.fx_fragment"
+    ],
+    "lines": 214,
+    "sha256": "a0f7b2b369bdefaf8c3133733b9238357b02c1bc44319ac8694b5f27e538ae68",
+    "techniques": []
+   },
+   "fx\\simple.fx": {
+    "bytes": 2096,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment",
+     "simplematerial.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 106,
+    "sha256": "8768d956923cdce45d54c61836af3250a49a1caa5794d6b4d7af109c340f5d6d",
+    "techniques": [
+     "simple_normal_sm2",
+     "simple_normal_sm3",
+     "t0_sm2",
+     "t0_sm3"
+    ]
+   },
+   "fx\\simple_texture.fx": {
+    "bytes": 2450,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "screeneffects.fx_fragment",
+     "simpletexturematerial.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 132,
+    "sha256": "80bab1205c2de913288b35b0cf310bc8e28c3dab2a1b29a55ed8594bbc8dca8a",
+    "techniques": [
+     "coloured_inv_sm2",
+     "grey_scale_sm2",
+     "hue_scale_sm3",
+     "t0_sm2"
+    ]
+   },
+   "fx\\simple_textured_vertex.fx_fragment": {
+    "bytes": 2060,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 59,
+    "sha256": "8576ee1f463525f187a1fd994adf76338a8990e8a11b1a00353e47161865daaa",
+    "techniques": []
+   },
+   "fx\\simple_vertex.fx_fragment": {
+    "bytes": 1516,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 38,
+    "sha256": "5139b939ad9491cd8e305e9b986ebe31449e10263214313032db1808960cc238",
+    "techniques": []
+   },
+   "fx\\simplematerial.fx_fragment": {
+    "bytes": 338,
+    "includes": [
+     "camera.fx_fragment",
+     "lighting.fx_fragment",
+     "shadowmap.fx_fragment"
+    ],
+    "lines": 16,
+    "sha256": "9bd859edafd3313ea3054f3d6897cdf96e23a5cef88d06e12ff02702d46bb9db",
+    "techniques": []
+   },
+   "fx\\simpletexturematerial.fx_fragment": {
+    "bytes": 1853,
+    "includes": [
+     "colour_conversion.fx_fragment"
+    ],
+    "lines": 85,
+    "sha256": "86a63475d0d6a44a422e9495a66d32b7f83ee159402af058bfb1560a007448a6",
+    "techniques": []
+   },
+   "fx\\sky.fx": {
+    "bytes": 7237,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 301,
+    "sha256": "108ab2156325318c51eaedce31d7400f2f6049e9576517899a479238cef824fb",
+    "techniques": [
+     "t0_depth_sm2",
+     "t0_envmap_sm2",
+     "t0_hardware_reflection_sm2",
+     "t0_hardware_reflection_sm3",
+     "t0_hardware_sm2",
+     "t0_hardware_sm3",
+     "t0_reflection_sm2",
+     "t0_sm2"
+    ]
+   },
+   "fx\\skybox.fx": {
+    "bytes": 1855,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 84,
+    "sha256": "335cddea5836c410a63715dfcb68ff97f424fb5a8394b1d2224f7a10a75116c3",
+    "techniques": [
+     "t0"
+    ]
+   },
+   "fx\\skydome.fx": {
+    "bytes": 1590,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 73,
+    "sha256": "d3eee27e5348a46d3cbb786ec89c338968b3c8a497d07b158d9db0bcd511a429",
+    "techniques": [
+     "t0"
+    ]
+   },
+   "fx\\spline.fx": {
+    "bytes": 2253,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 108,
+    "sha256": "d1548d49c9285af510684a2d53c7b39b6e3dc63423613e8a9cd56ddb8d55631e",
+    "techniques": [
+     "simple_spline_sm2"
+    ]
+   },
+   "fx\\sprite.fx": {
+    "bytes": 67736,
+    "includes": [
+     "colour_conversion.fx_fragment",
+     "extendedsprite.fx",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment"
+    ],
+    "lines": 2681,
+    "sha256": "f77385f49664a9f731e379c5eb8f1f6a694b90b6a1655ff441afe256fb09e6ab",
+    "techniques": [
+     "alpha_over_time2_t0_occlusion_sm2",
+     "alpha_over_time2_t0_sm2",
+     "alpha_over_time_t0_occlusion_sm2",
+     "alpha_over_time_t0_sm2",
+     "angular_exclusion_t0_occlusion_sm2",
+     "angular_exclusion_t0_sm2",
+     "brighten_mask_t0_occlusion_sm2",
+     "buildingcard_burning_t0_sm2",
+     "buildingcard_burning_t0_sm3",
+     "cooldown_t0_sm2",
+     "cooldown_t0_sm3",
+     "glow_pulse_t0_occlusion_sm2",
+     "glow_pulse_t0_sm2",
+     "grey_over_time_t0_occlusion_sm2",
+     "grey_over_time_t0_sm2",
+     "greyscale_masked_occlusion_sm2",
+     "greyscale_masked_sm2",
+     "highlight_circumference_t0_occlusion_sm2",
+     "highlight_circumference_t0_sm2",
+     "normal_3D_depth",
+     "normal_3D_depth_stencil",
+     "normal_masked_occlusion_sm2",
+     "normal_masked_sm2",
+     "red_pulse_t0_occlusion_sm2",
+     "red_pulse_t0_sm2",
+     "repair_bar_pulse_t0_sm2",
+     "repair_icon_pulse_t0_sm2",
+     "routing_flag_t0_sm2",
+     "unitcard_burning_t0_sm2",
+     "unitcard_burning_t0_sm3",
+     "unitcard_routing_t0_sm2",
+     "unitcard_sinking_t0_sm2",
+     "unitcard_sinking_t0_sm3",
+     "untextured_3D_depth"
+    ]
+   },
+   "fx\\ssaox.fx": {
+    "bytes": 22667,
+    "includes": [
+     "frameview_mrt.fx_fragment",
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 772,
+    "sha256": "733d0daeaa83323547d021200118e41690db8fe4c2605e9a795b64b48b640106",
+    "techniques": [
+     "blur_x_sm2",
+     "blur_x_sm3",
+     "blur_y_sm2",
+     "blur_y_sm3",
+     "downsample_sm2",
+     "downsample_sm3",
+     "resolve_sm2",
+     "resolve_sm3"
+    ]
+   },
+   "fx\\standard_rigid_matrices.fx_fragment": {
+    "bytes": 144,
+    "includes": [],
+    "lines": 2,
+    "sha256": "1e38ba813a3f00569c9d65c76c13bb488c0d36e2af773159a6ec6fcda84debc0",
+    "techniques": []
+   },
+   "fx\\strengthbar.fx": {
+    "bytes": 5095,
+    "includes": [
+     "blending.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_strengthbar.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 216,
+    "sha256": "55d5c35e8eca09f7afde12baa3937fff703c43c8f409ed7d0079f48eda1d9923",
+    "techniques": [
+     "strength_bar_depth_sm2",
+     "strength_bar_shadow_sm2",
+     "strength_bar_sm2"
+    ]
+   },
+   "fx\\sun.fx": {
+    "bytes": 1864,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 97,
+    "sha256": "9962a1f26c75062ef36278550277d9b7f3ca7e4bde51c94791b55e619524ac32",
+    "techniques": [
+     "sun_sm2"
+    ]
+   },
+   "fx\\supertexturetile.fx": {
+    "bytes": 25877,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 995,
+    "sha256": "dcc32606f8c08d27293add42e38ebd5adf2f7b84c8d58d4ef83f3cd0928b7ab9",
+    "techniques": [
+     "supertexture_border_sm2",
+     "supertexture_land_depth_sm2",
+     "supertexture_land_sm2",
+     "supertexture_land_sm3",
+     "supertexture_overlay_sm2",
+     "supertexture_road_sm2",
+     "supertexture_sea_depth_sm2",
+     "supertexture_sea_sm2",
+     "supertexture_sea_sm3",
+     "supertexture_shroud_sm2"
+    ]
+   },
+   "fx\\template.fx": {
+    "bytes": 7861,
+    "includes": [
+     "camera.fx_fragment",
+     "depth_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "litmaterial.fx_fragment",
+     "matrix_retreval.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 321,
+    "sha256": "8dccbddc50eba7f565854c75caa229688fac5e324f7aad351aad98323e727640",
+    "techniques": [
+     "depth_instanced_t0_sm2",
+     "depth_instanced_vs30_t0_sm3",
+     "depth_t0_sm2",
+     "instanced_t0_sm3",
+     "instanced_vs30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_instanced_t0_sm3",
+     "shadow_map_instanced_vs30_t0_sm3",
+     "shadow_map_t0_sm2",
+     "shadow_map_t0_sm3",
+     "t0_sm3"
+    ]
+   },
+   "fx\\terrain_ao.fx": {
+    "bytes": 3364,
+    "includes": [
+     "screeneffects.fx_fragment"
+    ],
+    "lines": 162,
+    "sha256": "03fc3a4f7e22cc49c86bad2f21930d8c8108d3907162677a50016cce03c4aae9",
+    "techniques": [
+     "blend_ao_sm3",
+     "blur_ao_sm3",
+     "gen_ao_sm3"
+    ]
+   },
+   "fx\\terrain_shared.fx": {
+    "bytes": 214,
+    "includes": [
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "terrain_shared.fx_fragment"
+    ],
+    "lines": 15,
+    "sha256": "75969ff80760e47749f1dfc51c805aeceec3fdb880a96b86a1d827f336340994",
+    "techniques": [
+     "dummy_sm2"
+    ]
+   },
+   "fx\\terrain_shared.fx_fragment": {
+    "bytes": 6891,
+    "includes": [],
+    "lines": 279,
+    "sha256": "ba3c140ed9ede5e496a4598b09b670a1a703670744287cdb748666c770dfd979",
+    "techniques": []
+   },
+   "fx\\terraindecal.fx": {
+    "bytes": 3941,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "terrain_shared.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 176,
+    "sha256": "e0c91b9bc8fa3148f9ebd3fcbe524734b37e5c41348c12bb402d0578f013d9d6",
+    "techniques": [
+     "decal_sm2",
+     "decal_sm3"
+    ]
+   },
+   "fx\\textured_rigid.fx": {
+    "bytes": 31708,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "depth_textured_vertex.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "rigid_imposter.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadow_textured_vertex.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "textured_rigid_depth_shadow.fx_fragment",
+     "textured_rigid_vertex.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 1117,
+    "sha256": "b7013ab9abe7aa46bdf303de0b9381c1b7216c6237aa28c13d54282552825b0c",
+    "techniques": [
+     "campaign_trader_textured_full_dip_batch_t0",
+     "campaign_trader_textured_full_instanced_t0_sm2",
+     "campaign_trader_textured_full_instanced_t0_sm3",
+     "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+     "campaign_trader_textured_full_t0_sm2",
+     "campaign_trader_textured_full_t0_sm3",
+     "reflection_full_dip_batch_t0",
+     "refraction_full_dip_batch_t0",
+     "refraction_full_instanced_t0_sm2",
+     "refraction_full_instanced_t0_sm3",
+     "refraction_full_instanced_vs30_t0_sm3",
+     "refraction_full_t0_sm2",
+     "refraction_full_t0_sm3",
+     "textured_full_dip_batch_t0",
+     "textured_full_instanced_t0_sm2",
+     "textured_full_instanced_t0_sm3",
+     "textured_full_instanced_vs30_t0_sm3",
+     "textured_full_t0_sm2",
+     "textured_full_t0_sm3",
+     "textured_reflection_full_instanced_t0_sm2",
+     "textured_reflection_full_instanced_t0_sm3",
+     "textured_reflection_full_instanced_vs30_t0_sm3",
+     "textured_reflection_full_t0_sm2",
+     "textured_reflection_full_t0_sm3",
+     "textured_snow_full_dip_batch_t0",
+     "textured_snow_full_instanced_t0_sm2",
+     "textured_snow_full_instanced_t0_sm3",
+     "textured_snow_full_instanced_vs30_t0_sm3",
+     "textured_snow_full_t0_sm2",
+     "textured_snow_full_t0_sm3"
+    ]
+   },
+   "fx\\textured_rigid_depth_shadow.fx_fragment": {
+    "bytes": 2635,
+    "includes": [],
+    "lines": 128,
+    "sha256": "82fa0b18a8938ab8ba32462845ece5555c2b83956cc000dc2b60258a5f68529c",
+    "techniques": [
+     "depth_dip_batch_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_instanced_vs30_t0_sm3",
+     "depth_t0_sm2",
+     "depth_t0_sm3",
+     "shadow_map_dip_batch_t0",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_instanced_t0_sm3",
+     "shadow_map_instanced_vs30_t0_sm3",
+     "shadow_map_t0_sm2",
+     "shadow_map_t0_sm3"
+    ]
+   },
+   "fx\\textured_rigid_vertex.fx_fragment": {
+    "bytes": 5133,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 171,
+    "sha256": "70c26271ea1f9ed9693d605baaa735dba55db52418f36b15b7d3371e836609a8",
+    "techniques": []
+   },
+   "fx\\textured_vertex.fx_fragment": {
+    "bytes": 2648,
+    "includes": [
+     "matrix_retreval.fx_fragment"
+    ],
+    "lines": 78,
+    "sha256": "19255ea0e47bb50f2f3ad8437fb8a23daa77e0fa058fd97643726ca28d05e533",
+    "techniques": []
+   },
+   "fx\\util.fx_fragment": {
+    "bytes": 7574,
+    "includes": [],
+    "lines": 206,
+    "sha256": "86896f21e94f811c21b41fb28a0a30d0263b31831441981a54b1dd621cb4bdec",
+    "techniques": []
+   },
+   "fx\\variantmesh.fx": {
+    "bytes": 30090,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 1026,
+    "sha256": "d420867cd089d6fb792ccdcd6c5f38c4dd7ab2dc3a4de4cefd727d79d2569d59",
+    "techniques": [
+     "variant_depth_rigid_stream_instancing_sm3",
+     "variant_depth_weighted_stream_instancing_sm3",
+     "variant_imposter_rigid_sm2",
+     "variant_imposter_rigid_stream_instancing_sm3",
+     "variant_imposter_weighted_sm2",
+     "variant_imposter_weighted_sm3",
+     "variant_imposter_weighted_stream_instancing_sm3",
+     "variant_refraction_rigid_sm2",
+     "variant_refraction_rigid_stream_instancing_sm3",
+     "variant_refraction_weighted_sm2",
+     "variant_refraction_weighted_stream_instancing_sm3",
+     "variant_rigid_sm2",
+     "variant_rigid_stream_instancing_sm3",
+     "variant_shadow_map_rigid_sm2",
+     "variant_shadow_map_rigid_stream_instancing_sm2",
+     "variant_shadow_map_rigid_stream_instancing_sm3",
+     "variant_shadow_map_weighted_sm2",
+     "variant_shadow_map_weighted_stream_instancing_sm2",
+     "variant_shadow_map_weighted_stream_instancing_sm3",
+     "variant_weighted_sm2",
+     "variant_weighted_stream_instancing_sm3"
+    ]
+   },
+   "fx\\vegetation.fx_fragment": {
+    "bytes": 11260,
+    "includes": [
+     "screeneffects.fx_fragment",
+     "terrain_shared.fx_fragment"
+    ],
+    "lines": 382,
+    "sha256": "89e69e2598a7fe9fb8b3ecd30c51e2a15eab875b3d8992ab26585eef80930c56",
+    "techniques": []
+   },
+   "fx\\vegetation_billboard.fx": {
+    "bytes": 20869,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 710,
+    "sha256": "373c0cc2ce735c7160a93bc8b8d803e1536bd53481269484a85901b651713dd5",
+    "techniques": [
+     "b360_depth_sm2",
+     "b360_shadowmap_sm2",
+     "b360_sm2",
+     "b360_sm3",
+     "b360static_sm2",
+     "b360static_sm3"
+    ]
+   },
+   "fx\\vegetation_branch.fx": {
+    "bytes": 16851,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_branch.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 619,
+    "sha256": "278a7059f79fdebf4cfe84e0201d02488e963ab1ad523139129bb2bf7a94bcc3",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_30_t0_winter_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "instanced_t0_winter_sm2",
+     "instanced_t0_winter_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "non_instanced_t0_winter_sm2",
+     "non_instanced_t0_winter_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\vegetation_frond.fx": {
+    "bytes": 14906,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_frond.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 538,
+    "sha256": "716b84c5a1eae33200888a14fe1f830a05c81423b77df67a5f587c72a9c56b3e",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\vegetation_leaf_card.fx": {
+    "bytes": 19690,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_leafcard.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 667,
+    "sha256": "81611adc38becd765d483c0197bf2086833bec26a85811d9e25f37e0ac9fdeec",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\vegetation_leaf_mesh.fx": {
+    "bytes": 17100,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fx_veg_leafcard.h",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "vegetation.fx_fragment"
+    ],
+    "lines": 590,
+    "sha256": "d75e20f68f4d306d7305704be53d1fa5236e3e0fe73940ca681d7a44687813ec",
+    "techniques": [
+     "depth_instanced_30_t0_sm3",
+     "depth_instanced_t0_sm2",
+     "depth_t0_sm2",
+     "instanced_30_t0_sm3",
+     "instanced_t0_sm2",
+     "instanced_t0_sm3",
+     "non_instanced_t0_sm2",
+     "non_instanced_t0_sm3",
+     "shadow_map_instanced_30_t0_sm3",
+     "shadow_map_instanced_t0_sm2",
+     "shadow_map_t0_sm2"
+    ]
+   },
+   "fx\\volumefog.fx": {
+    "bytes": 6503,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "standard_rigid_matrices.fx_fragment",
+     "util.fx_fragment",
+     "volumefog_vertex.fx_fragment"
+    ],
+    "lines": 264,
+    "sha256": "ee08e321c324e3f9088efbc4c938cc73a8fc3e42c826b36042873f9053951d5f",
+    "techniques": [
+     "depth_t0_sm2",
+     "volumefog_sm2"
+    ]
+   },
+   "fx\\volumefog_vertex.fx_fragment": {
+    "bytes": 1942,
+    "includes": [],
+    "lines": 62,
+    "sha256": "ff1c17c26f23fa909c04b413aada810b6eca035dc9b2179028f5cfd26fc8514e",
+    "techniques": []
+   },
+   "fx\\weather.fx": {
+    "bytes": 11828,
+    "includes": [
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "screeneffects.fx_fragment",
+     "standard_rigid_matrices.fx_fragment"
+    ],
+    "lines": 377,
+    "sha256": "3fa9a7b583de333242800ce2b1c4e37465c0303418395dbb039f97844442fc83",
+    "techniques": [
+     "dust_30_sm3",
+     "dust_sm2",
+     "rain_single",
+     "snow_single"
+    ]
+   },
+   "fx\\weighted.fx": {
+    "bytes": 19972,
+    "includes": [
+     "blending.fx_fragment",
+     "camera.fx_fragment",
+     "fog.fx_fragment",
+     "frameview_mrt.fx_fragment",
+     "fxconfig.h",
+     "lighting.fx_fragment",
+     "lighting_brdf.fx_fragment",
+     "screeneffects.fx_fragment",
+     "shadowmap.fx_fragment",
+     "shroud.fx_fragment",
+     "util.fx_fragment"
+    ],
+    "lines": 703,
+    "sha256": "15bee724db085426c004e90f5be7e82eb68a1fad41bdbaa438db6565252769b2",
+    "techniques": [
+     "imposter_sm2",
+     "imposter_sm3",
+     "weighted_campaign_sm2",
+     "weighted_campaign_sm3",
+     "weighted_depth_sm2",
+     "weighted_depth_sm3",
+     "weighted_refraction_sm2",
+     "weighted_refraction_sm3",
+     "weighted_shadow_map_sm2",
+     "weighted_shadow_map_sm3",
+     "weighted_sm2",
+     "weighted_sm3"
+    ]
+   }
+  }
+ },
+ "rows": [
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\campaignbuilding.fx",
+   "napoleon": "changed, 2 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\campaignflag.fx",
+   "napoleon": "changed, 8 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\campaigntree.fx",
+   "napoleon": "changed, 10 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\cloth.fx",
+   "napoleon": "changed, 6 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: sprite",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\custom_sprite.fx",
+   "napoleon": "changed, 89 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: sprite",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\extendedsprite.fx",
+   "napoleon": "changed, 72 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\grid.fx",
+   "napoleon": "changed, 179 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: impost, shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\imposter.fx",
+   "napoleon": "changed, 12 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\navalsail.fx",
+   "napoleon": "changed, 18 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\navalship.fx",
+   "napoleon": "changed, 14 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\outline.fx",
+   "napoleon": "changed, 56 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: impost",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\rigid_imposter.fx_fragment",
+   "napoleon": "changed, 52 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\rope.fx",
+   "napoleon": "changed, 96 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\shadowmap.fx_fragment",
+   "napoleon": "changed, 12 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: sprite",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\sprite.fx",
+   "napoleon": "changed, 1577 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\template.fx",
+   "napoleon": "changed, 1 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: impost, shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\variantmesh.fx",
+   "napoleon": "changed, 811 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\vegetation_billboard.fx",
+   "napoleon": "changed, 108 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\vegetation_branch.fx",
+   "napoleon": "changed, 11 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\vegetation_frond.fx",
+   "napoleon": "changed, 5 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\vegetation_leaf_card.fx",
+   "napoleon": "changed, 37 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\vegetation_leaf_mesh.fx",
+   "napoleon": "changed, 27 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "flag: impost, shadow",
+   "empire": "yes",
+   "evidence": "detail.files",
+   "item": "J8 fx\\weighted.fx",
+   "napoleon": "changed, 234 lines",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "5698 lines differ in total",
+   "empire": "-",
+   "evidence": "detail.files",
+   "item": "fx files changed",
+   "napoleon": "61",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "9",
+   "evidence": "detail.files",
+   "item": "fx files gone in Napoleon",
+   "napoleon": "-",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "",
+   "empire": "-",
+   "evidence": "detail.files",
+   "item": "fx files identical",
+   "napoleon": "71",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "-",
+   "evidence": "detail.files",
+   "item": "fx files new in Napoleon",
+   "napoleon": "4",
+   "verdict": "new"
+  },
+  {
+   "adapter": "same fx\\ layout and HLSL effect format; compare per file",
+   "empire": "141 files, 452 techniques",
+   "evidence": "detail.files",
+   "item": "fx sources",
+   "napoleon": "136 files, 506 techniques",
+   "verdict": "adapter"
+  }
+ ],
+ "schema": 1
+}
