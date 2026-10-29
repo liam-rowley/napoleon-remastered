@@ -39,7 +39,8 @@ check reads it: only `merge` lets the branch merge), and findings ranked **block
 After the review commit is pushed, run `python3 tools/pr_policy.py --branch job/<id> --base origin/main` (it must say ok), then
 `gh pr view job/<id>` (if there is no pull request: `gh pr create --base main --head job/<id> --title "<id>: <title>"`, body = the
 review's verdict and findings), then `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
-`proxy`, `harness-windows`, `policy`) is green on that commit: do not wait or poll. If the merge changes a rule that other open job
+`proxy`, `harness-windows`, `policy`) is green on that commit (`proxy` and `harness-windows` are skipped, which counts as passed,
+when the branch does not touch their inputs: `.github/workflows/gates.yml` job `changes`): do not wait or poll. If the merge changes a rule that other open job
 branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply. A check that fails leaves the
 pull request open: Liam sees it, and the next review round decides. Any other verdict is never merged, and `brief/`, `plan/` and
 `meta/` branches still wait for Liam.
