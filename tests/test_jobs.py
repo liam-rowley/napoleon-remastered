@@ -24,6 +24,7 @@ Model: Opus, reason: DLL work (D15). Budget about 100 tool calls; at the cap, st
 ## Finish
 Write `jobs/J1/report.md`. Then `wsc reg set jobs J1 status=review report=jobs/J1/report.md`.
 '''
+REPORT = '# J1 report: thing\n\n## What exists\nx\n\n## Deviations from the brief, and why\nnone\n\n## Open questions\nnone\n'
 REVIEW = '# Review of J1\n\n2026-10-29, fresh chat.\n\n**Verdict: merge.**\n'
 
 
@@ -46,7 +47,7 @@ class Check(unittest.TestCase):
     def test_good_queue_passes(self):
         rows = [row(status='done', brief='jobs/J1/brief.md', report='jobs/J1/report.md', review='jobs/J1/review.md'),
                 row('J2', status='queued', brief='jobs/J2/brief.md', depends_on=['J1'], model='sonnet'), row('J3')]
-        read = lambda p: {'jobs/J1/brief.md': BRIEF, 'jobs/J1/report.md': 'r', 'jobs/J1/review.md': REVIEW,
+        read = lambda p: {'jobs/J1/brief.md': BRIEF, 'jobs/J1/report.md': REPORT, 'jobs/J1/review.md': REVIEW,
                           'jobs/J2/brief.md': BRIEF.replace('J1', 'J2').replace('Opus, reason: DLL work', 'Sonnet medium')}.get(p)
         self.assertEqual(self.errs(rows, read, ['J1', 'J2']), [])
 
@@ -65,7 +66,7 @@ class Check(unittest.TestCase):
 
     def test_done_needs_merge_verdict_and_date(self):
         rows = [row(status='done', brief='jobs/J1/brief.md', report='jobs/J1/report.md', review='jobs/J1/review.md')]
-        read = lambda p: {'jobs/J1/brief.md': BRIEF, 'jobs/J1/report.md': 'r',
+        read = lambda p: {'jobs/J1/brief.md': BRIEF, 'jobs/J1/report.md': REPORT,
                           'jobs/J1/review.md': '# Review\n\n**Verdict: merge after fixes.**\n'}.get(p)
         e = self.errs(rows, read)
         self.assertTrue(any('verdict is "merge after fixes"' in x for x in e), e)
@@ -74,9 +75,14 @@ class Check(unittest.TestCase):
     def test_dependencies_done_before_review_and_no_cycles(self):
         rows = [row(status='review', brief='jobs/J1/brief.md', report='jobs/J1/report.md', depends_on=['J2']),
                 row('J2', depends_on=['J1'])]
-        e = self.errs(rows, lambda p: {'jobs/J1/brief.md': BRIEF, 'jobs/J1/report.md': 'r'}.get(p))
+        e = self.errs(rows, lambda p: {'jobs/J1/brief.md': BRIEF, 'jobs/J1/report.md': REPORT}.get(p))
         self.assertTrue(any('dependencies J2 are not done' in x for x in e), e)
         self.assertTrue(any('dependency cycle' in x for x in e), e)
+
+    def test_report_shape(self):
+        self.assertEqual(jv.report_problems('J1', REPORT), [])
+        bad = jv.report_problems('J1', '# Report\n\n## What exists\n')
+        self.assertEqual(len(bad), 3, bad)
 
     def test_folder_without_row(self):
         self.assertEqual(self.errs([], folders=['J9']), ['jobs/J9/ has no row in the jobs registry'])

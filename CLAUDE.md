@@ -34,7 +34,7 @@
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only by a merge Liam (or the orchestrator, once
   there is one) approves, after an independent review (`docs/REVIEW.md`). End every job with a report: what was built, evidence
-  (run ids), deviations from the brief and why, open questions.
+  (run ids), deviations from the brief and why, open questions (`wsc jobs check` checks the headings).
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.
 - **Exe stays vanilla on disk** (D2). Runtime patches and detours go in the proxy DLL, every engine address in the engine-sites

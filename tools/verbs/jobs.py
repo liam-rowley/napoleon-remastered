@@ -55,6 +55,17 @@ def brief_problems(jid, row, text):
     return errs
 
 
+def report_problems(jid, text):
+    """Every report says what was built, its deviations and its open questions (CLAUDE.md, While you work)."""
+    errs = []
+    if not re.search(rf'^# {jid} report\b', text, re.M):
+        errs.append(f'first heading is not "# {jid} report: <title>"')
+    for h in ('Deviations', 'Open questions'):
+        if not re.search(rf'^## {h}\b', text, re.M):
+            errs.append(f'no "## {h} ..." section')
+    return errs
+
+
 def problems(rows, read, folders=()):
     """Errors for the queue. `rows`: the jobs rows; `read(path)`: file text or None; `folders`: job ids that have a jobs/<id>/ folder."""
     errs, by = [], {r['id']: r for r in rows}
@@ -76,6 +87,9 @@ def problems(rows, read, folders=()):
         brief = read(f'jobs/{jid}/brief.md')
         if brief is not None:
             errs += [f'{jid}: brief: {e}' for e in brief_problems(jid, r, brief)]
+        report = read(f'jobs/{jid}/report.md')
+        if report is not None:
+            errs += [f'{jid}: report: {e}' for e in report_problems(jid, report)]
         review = read(f'jobs/{jid}/review.md')
         if review is not None:
             if not DATED.search('\n'.join(review.split('\n')[:5])):
