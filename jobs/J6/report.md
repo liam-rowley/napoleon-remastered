@@ -55,8 +55,10 @@ Facts added (all dated 2026-10-29): verified `napoleon.diff.packs.format`, `.pac
   the two open `layouts` facts. The v35 template record was not decoded at all.
 - The Lua API pass compares against Empire's `engine_api.json` (436 scripts) rather than re-running the inventory on Empire's 445
   extracted scripts: part of that diff may be the script set, not the engine (noted in the fact).
-- Full `wsc gates` on this PC fails 3 tests in `test_job_sh` and `test_pc_deploy`. Those tests drive `job.sh` and the harness, which
-  need a real `python3`, and on this PC `python3` is the Microsoft Store stub. The fast gates pass, the new tests pass, and CI is the authority.
+- Full `wsc gates` on this PC fails 10 tests in `test_job_sh` and `test_pc_deploy` (none touch J6 code; CI on Linux is the authority).
+  Cause, checked 2026-10-29 with a real `python3` (3.15.2) on PATH: `bash` resolves to `WindowsApps\bash.exe` (the WSL launcher, not
+  Git Bash), so `job.sh` exits 127; and `pc_deploy.running_check` takes the Windows process check instead of the no-watcher fallback
+  the test expects. A Windows-host run of these tests needs Git Bash first on PATH (or the tests to pick it), which is a harness job.
 
 ## What moves to the core later
 `diffout.py`, `extracted.py`, the pack header reader, `uic.py`/`tpl.py`/`cuf.py`, `api_inventory.py`/`luachunk.py` and the exe
@@ -85,6 +87,5 @@ masking and search are game-agnostic. `discovery/napoleon/*.json` and the Empire
   The static diff includes build-system names (`buildcommands`, `project`, ...) from a non-game script; filter them.
 
 **For Liam:**
-- `python3` on this PC is the Microsoft Store alias. `job.sh` and three host tests need a real
-  `python3` here. Turning off the alias (Settings > Apps > Advanced app settings > App execution aliases) and putting Python 3.14
-  on PATH as `python3` would fix it.
+- `python3` now works on this PC (3.15.2, 2026-10-29). On a Windows host, `test_job_sh` and one `test_pc_deploy` test still fail
+  because `bash` is the WSL launcher, not Git Bash. Worth a `needs_brief` harness row: the tests should find Git Bash, or skip with a reason.
