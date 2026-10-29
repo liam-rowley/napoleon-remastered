@@ -34,7 +34,8 @@
   `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (`tools/verbs/jobs.py`).
 - **"Pick up the next job":** `git pull`, then `python3 core/wsc.py jobs next`. It names the job and its steps, or the brief to write
   (on `brief/<id>`, then stop for Liam's merge), or what every open job is waiting for. Say which job you took.
-- **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it.
+- **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it. A `merge` verdict
+  ends with the reviewer queueing the merge on green CI (D32); any other verdict is never merged.
 - Never mark your own job `done`, and never review a job you built (CI's `policy` check refuses a review written by a session that
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
@@ -42,8 +43,9 @@
   for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself.
 
 ## While you work
-- Work on a branch; commit and push after every meaningful step. `main` changes only by a merge Liam (or the orchestrator, once
-  there is one) approves, after an independent review (`docs/REVIEW.md`). End every job with a report: what was built, evidence
+- Work on a branch; commit and push after every meaningful step. `main` changes only through a pull request: a job branch
+  is merged by its independent reviewer on green CI (D32, `docs/REVIEW.md`); every other branch by Liam (or the orchestrator, once
+  there is one). End every job with a report: what was built, evidence
   (run ids), deviations from the brief and why, open questions (`wsc jobs check` checks the headings).
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.
