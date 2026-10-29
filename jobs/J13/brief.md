@@ -76,7 +76,7 @@ Read 2026-10-29 on `officepc` (`harness/core/vdisplay_probe.ps1 -Test 1920x1080,
    minimise calls that would make a game window visible outside the target are refused or rewritten, and a post-check after each and at
    every Present hides any window found visible elsewhere. The 1x1 helper window, if any, is left alone and logged.
 4. **Topology guard:** on any sign of a display change (`WM_DISPLAYCHANGE`, layout signature change, window off target) the window is
-   cloaked first (`DWMWA_CLOAK`), the target re-resolved by name, the window moved and verified, then uncloaked after a settle; target
+   cloaked first (`DWMWA_CLOAK`), the target re-resolved by name, the window moved and its rect checked, then uncloaked after a settle; target
    gone means refusal. Pure logic in `display_guard.h` with host tests covering both of Liam's topologies, a virtual display that moves,
    one that disappears, and the corner-touching origin seen today (3839,2160).
 5. **Status file** `napoleon_remastered\headless_status.json` (`pid`, `state` starting | target_ok | on_virtual | refused, `detail`,
