@@ -13,7 +13,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J11` | needs_brief | Discovery gate | 2 | sonnet | no | J6, J7, J8, J9, J10 |  |  |  |
 | `J12` | needs_brief | Promote phase 1 core candidates to warscape-core | 1 | sonnet | no | J1, J2, J3, J4 |  |  |  |
 | `J2` | done | Watcher and PC sync | 1 | sonnet | yes | J1 | jobs/J2/brief.md | jobs/J2/report.md | jobs/J2/review.md |
-| `J3` | needs_brief | Dev control and load time | 1 | opus | yes | J1, J2 |  |  |  |
+| `J3` | queued | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md |  |  |
 | `J4` | needs_brief | Scenario library, control API, acceptance gate | 1 | sonnet | yes | J3 |  |  |  |
 | `J5` | queued | Determinism audit: rules into gates | 1 | opus | no |  | jobs/J5/brief.md |  |  |
 | `J6` | needs_brief | Empire to Napoleon diff | 2 | opus | yes | J2 |  |  |  |
