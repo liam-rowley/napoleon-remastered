@@ -41,6 +41,10 @@ None.
 3. `registries/engine_facts.jsonl` `napoleon.db.decode` (and the report's Counts): "22 of them empty" is wrong. `tables.json` has
    **26** empty tables, and 25 of them have no schema definition: they count as decoded only because the 5-byte header is all the
    file holds, so they carry no fields, keys or refs. The fact is corrected (`a6d00c0`). The report is left as written.
+4. `discovery/core/tsvgz.py:51`: added after the verdict, when the merge PR's CI `gates` failed. `problems()` re-deflated the rows
+   and compared bytes, but the PC's CPython 3.15 uses zlib-ng and CI's 3.12 uses zlib, so the committed `.tsv.gz` files failed on
+   CI only. The check now holds the gzip header (flags 0, mtime 0) and the inflated text, and a test covers a file written by
+   another deflate (`cf607ed`, session 914dd587).
 
 ### Later (this repo)
 - `discovery/core/db.py` `readme()`: the README's "Decoded byte-exact 306" should split out the 26 empty tables, and the 25 among
