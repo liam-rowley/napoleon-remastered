@@ -15,6 +15,7 @@ import datetime
 import hashlib
 import os
 import shutil
+import stat
 import sys
 from pathlib import Path
 
@@ -100,6 +101,8 @@ def keep(name, save_dir, state, as_name=None):
     src = Path(save_dir) / (name if name.endswith(EXT) else name + EXT)
     if not src.is_file():
         raise SystemExit('stage_save: no save %s' % src)
+    if as_name is not None and (os.path.basename(as_name) != as_name or any(c in as_name for c in '<>:"/\\|?*')):
+        raise SystemExit('stage_save: refusing --as %r: a plain file name only' % as_name)
     dest_dir = Path(state) / 'saves'
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / (as_name or src.name)
@@ -109,6 +112,7 @@ def keep(name, save_dir, state, as_name=None):
         print('already kept %s (same sha)' % dest)
         return dest
     h = checked_copy(src, dest)
+    os.chmod(dest, stat.S_IREAD)   # kept saves are read only on disk: a recipe that writes OUT over its IN fails here
     print('kept %s sha256 %s size %d' % (dest, h, dest.stat().st_size))
     return dest
 

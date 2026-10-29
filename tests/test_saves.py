@@ -361,6 +361,11 @@ class Staging(unittest.TestCase):
         dest = self.quiet(stage_save.keep, 'liam_campaign', self.saves, self.state)
         self.assertEqual(dest, self.state / 'saves' / 'liam_campaign.save')
         self.assertEqual(dest.read_bytes(), b'mine')
+        with self.assertRaises(PermissionError):
+            dest.write_bytes(b'edited in place')
+        for bad in ('../x.save', 'a/b.save', 'c:x.save'):
+            with self.assertRaises(SystemExit):
+                stage_save.keep('liam_campaign', self.saves, self.state, bad)
         self.quiet(stage_save.keep, 'liam_campaign.save', self.saves, self.state)   # same sha again: fine
         (self.saves / 'liam_campaign.save').write_bytes(b'changed')
         with self.assertRaises(SystemExit):
