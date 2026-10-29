@@ -73,6 +73,7 @@ function ReadText([string]$p) {
 }
 function Get-St { for ($i = 0; $i -lt 10; $i++) { try { $t = ReadText (Join-Path $root 'watcher.status'); if ($t) { return ($t | ConvertFrom-Json) } } catch { }; Start-Sleep -Milliseconds 120 }; return $null }
 function Get-Log { try { return (ReadText (Join-Path $root 'watcher.log')) } catch { return '' } }
+function Wait-LogMatch([string]$rx, [int]$secs, [string]$what) { Wait-Until { (Get-Log) -match $rx } $secs $what | Out-Null }
 function Alive-Age { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $root 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Alive-AgeOf([string]$r) { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $r 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Wait-Watcher([int]$secs = 40) { Wait-Until { (Alive-Age) -lt 4 -and (Get-St) } $secs 'a fresh watcher heartbeat' | Out-Null; return (Get-St) }
@@ -288,14 +289,14 @@ try {
         Assert-True ((Hashes) -ne $baseline) 'profile applied'
         (Get-Item -LiteralPath (Join-Path $root 'game.lock')).LastWriteTime = (Get-Date).AddMinutes(-25)
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after expiry' | Out-Null
-        $log = Get-Log
-        Assert-Match $log 'LOCK EXPIRED: game.lock owner=ci5' 'expiry logged'
-        Assert-Match $log 'AUTO-RESTORE under owner=ci5' 'restore under the owner is logged'
+        # the files are restored BEFORE the AUTO-RESTORE line is written: wait for the line, never read the log once (J2 review, run 40832860145)
+        Wait-LogMatch 'LOCK EXPIRED: game.lock owner=ci5' 10 'expiry logged'
+        Wait-LogMatch 'AUTO-RESTORE under owner=ci5' 10 'restore under the owner is logged'
         Assert-True (@(Get-ChildItem (Join-Path $root '_to_delete') -Filter 'game.lock.expired_ci5_*').Count -eq 1) 'lock moved, not deleted'
         # b) release
         Set-Lock 'ci6'; Run-Job 'profile proxy-dxvk owner=ci6' 'b1' | Out-Null; Clear-Lock
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after release' | Out-Null
-        Assert-Match (Get-Log) 'AUTO-RESTORE under owner=ci6 .*released or expired' 'release logged'
+        Wait-LogMatch 'AUTO-RESTORE under owner=ci6 .*released or expired' 10 'release logged'
         # c) changes owner
         Set-Lock 'ci7'; Run-Job 'profile proxy-dxvk owner=ci7' 'c1' | Out-Null
         # a lock mid-rewrite (0 bytes) is not a release: no restore on it
@@ -303,7 +304,7 @@ try {
         Assert-True ((Hashes) -ne $baseline) 'a 0-byte lock (mid-rewrite) does not trigger a restore'
         Set-Lock 'intruder'
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after the owner changed' | Out-Null
-        Assert-Match (Get-Log) "AUTO-RESTORE under owner=ci7 .*now belongs to 'intruder'" 'owner change logged'
+        Wait-LogMatch "AUTO-RESTORE under owner=ci7 .*now belongs to 'intruder'" 10 'owner change logged'
         Clear-Lock
         # d) deferred while the game runs
         Set-Lock 'ci8'; Run-Job 'profile proxy-dxvk owner=ci8' 'd1' | Out-Null

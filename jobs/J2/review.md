@@ -57,6 +57,11 @@ None.
   `Test-Unit.ps1`; it is not run yet (no PowerShell here), so CI must confirm it. The CI zombie test uses a real
   `FakeNapoleon.exe` with the same image, so it is unaffected.
 
+- **S3. A race in the auto-restore integration test** (`harness/tests/Test-Integration.ps1`, auto-restore case). The watcher
+  restores the files and then writes the `AUTO-RESTORE` log line. The test waited for the files, then read the log once, so it
+  could read the log just before the line was written. It failed on "release logged" in PR run 40832860145, one run after
+  the same code passed in 40832158401. **Fixed here:** each log check now waits for its line (`Wait-LogMatch`, 10 s).
+
 ### Later
 - **L1** `update.ps1:147`: `-not $st.needs_reboot` is part of the health check, so no update can land while a zombie flag is set,
   even one that fixes a wrong flag. Consider letting a flag that is present both before and after the update pass.
