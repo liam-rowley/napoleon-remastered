@@ -38,7 +38,7 @@ and build skills (about 120 KB of instructions). The causes, and the change for 
 4. **Review viewer** (core). RmlUi, FreeType and Lua 5.1 compiled to WebAssembly, hosted in a review page. It loads a screen's RML,
    RCSS, art and fonts, the screen's own Lua view code, and engine stubs generated from the screen's fixtures. **Playing the design runs
    the shipped view logic against captured data; only the engine is stubbed.** The same build in headless Chromium (Playwright,
-   already in the cloud container) renders PNGs for the gates. One renderer serves both review and checks.
+   checked by the local setup, J20) renders PNGs for the gates. One renderer serves both review and checks.
 5. **Scale model** (D5, D19). Every length in `dp`; reference 1 dp = 1 px at 1080p.
    Runtime dp ratio = (backbuffer height / 1080) × slider, so 100% gives the same physical layout at 1080p, 1440p and 4K. Slider
    85-125 % in 5 % steps, default 100 %. Minimum text 14 dp (about 12 px at 1080p × 85 %). Text is rasterised by FreeType at the
@@ -76,7 +76,7 @@ page; agents pick up the comments, change the source and republish. Status chang
 
 | Spike | Question | Kill criterion (proposal) |
 |---|---|---|
-| S1 viewer build | Do RmlUi (the version the game will use), FreeType and Lua 5.1 build to WebAssembly? Likely in GitHub Actions, since the cloud container may not reach the Emscripten downloads. Lua numbers set to match the game's (Empire's Lua was float32). | no working build in about 2 sessions: fall back to a native offline renderer for PNGs and keep HTML only for concepts |
+| S1 viewer build | Do RmlUi (the version the game will use), FreeType and Lua 5.1 build to WebAssembly? Likely in GitHub Actions (or Docker, as the proxy build does, D31), keeping Emscripten off the PC itself. Lua numbers set to match the game's (Empire's Lua was float32). | no working build in about 2 sessions: fall back to a native offline renderer for PNGs and keep HTML only for concepts |
 | S2 hosting | Does a review artifact serve the wasm, fonts and art (types and size limits) and run interactively? | a hello-world screen does not run: host the viewer on GitHub Pages instead |
 | S3 parity | How far apart are the viewer (WebGL) and the game (D3D9 render interface)? Layout is RmlUi's own, so only rasterising should differ. | a test document differs beyond antialiasing and filtering: find out why before any screen work |
 | S4 host | Keep vanilla screens alive but undrawn, or call getters directly? Decide per screen kind (panel, popup, HUD, front end). | either route needs per-screen plumbing: stop and redesign the host |
