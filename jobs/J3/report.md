@@ -2,21 +2,21 @@
 
 Branch `job/J3`, 2026-10-29, two PC sittings: `proxy/runs/20261029_j3pc` (build and first measurements) and
 `proxy/runs/20261029_j3pc2` (baselines, every autostart target, 10 resets, cache, restore, uninstall), plus the 4K crash Liam hit
-between them (`proxy/runs/20261029_4kcrash`). Built by Opus 5.5 as briefed. The PC ends on kit `kit_20261029T103551Z_066fbd0b7c62`
-(build `066fbd0b7c62`) with every dev key off.
+between them (`proxy/runs/20261029_4kcrash`) and the review re-check (`proxy/runs/20261029_j3review`). Built by Opus 5.5 as briefed.
+The PC ends on kit `kit_20261029T113002Z_753dd22bcc85` (build `753dd22bcc85`, the review fix) with every dev key off.
 
 ## What exists
 
 | deliverable | state | where |
 |---|---|---|
 | 1 phase timeline | done: process start (OS), DllMain, Direct3DCreate9, device, first Present, every movie open/close/refusal, Lua bridge, front-end first pump, autostart issued, loading started, scene ready, first Present after ready, exit | `core/dev.cpp`, `core/devcore.h`, `tools/timeline_table.py` |
-| 2 baseline | done: 5 launches per arm (movies / intro skip), each to the front end and into `battle:land_small`; table below | run `20261029_j3pc2` |
+| 2 baseline | 5 launches per arm (movies / intro skip) to the front end and into `battle:land_small`; naval, siege and campaign only with intro skip (see Deviations); table below | run `20261029_j3pc2` |
 | 3 file rules + survey | done (6,597 paths) | `core/filerules.h`, `core/files.cpp`, `tools/survey_table.py` |
 | 4 intro skip | done: main menu at 6.99 s instead of 131.36 s | adapter `kIntroMovies` |
 | 5 Lua bridge | done (Lua 5.1, `package.loadlib`; first approach worked) | `core/luabridge.cpp`, `napoleon/lua/wsp.lua` |
 | 6 scenes + state.json | done; in the adapter's `heartbeat_files` | `core/devcore.h` SceneTracker |
 | 7 control channel | done: every verb, unknown verbs, bad ids, timeouts; 135 host checks | `core/dev.cpp`, `harness/core/job.sh ctl`; verbs and result format: `proxy/README.md` "Dev control channel" |
-| 8 autostart | done for land, naval, siege (3+ launches each, map checked every time) and `campaign:new` (4 launches, key checked); `campaign:continue` and `campaign:<save>` written but untestable: no saves on the PC | `napoleon/lua/autostart.lua`, `battles/*.txt`, `probes/campaign_keys.lua` |
+| 8 autostart | done for land, naval, siege (3+ launches each; the map check counts only the load's own probe since build `753dd22`, confirmed once per preset in run `20261029_j3review`) and `campaign:new` (4 launches, key checked); `campaign:continue` and `campaign:<save>` written but untestable: no saves on the PC | `napoleon/lua/autostart.lua`, `battles/*.txt`, `probes/campaign_keys.lua` |
 | 9 warm reset | battle: 10 in a row, no crash, +1.5 MB per cycle; campaign: **open** (below) | `napoleon/lua/reset.lua` |
 | 10 carried over | done: `proxy.minidump` 2; `build.sh` refuses a shallow clone; `proxy.p<pid>.log` rotation; dead `DXVK_STATE_CACHE_PATH` removed | `core/dllmain.cpp`, `core/backend.cpp`, `tools/build.sh` |
 | 11 registries | config_keys (10 dev keys), tools (14 rows), engine_facts (19 rows), scenarios (`land_small`, `naval_small`, `siege_small`) | `registries/` |
@@ -33,6 +33,10 @@ between them (`proxy/runs/20261029_4kcrash`). Built by Opus 5.5 as briefed. The 
 | new campaign load (n=4) | | 16.7-17.3 |
 | warm reset back into the battle (n=10) | | 27.1-33.4 |
 
+**Absolute times depend on the PC's state:** after Liam's PC restarted (11:06Z) the same battle loaded in 3.4 s on this build and on
+the one before it (run `20261029_j3review`, `raw/R_old_land`), against 18.2 s in the morning. The arms above were measured in the same
+state, so the comparison holds; the absolute numbers are that morning's.
+
 **Targets:** front end under 10 s: **met** (7.0 s). Land battle deployed under 30 s from process start: **met** (26.4 s). Warm reset
 into the same battle under 20 s: **not met** (27-33 s, of which 8 s is the settle that stops the mss32.dll crash); a relaunch reaches
 the same point in 26.4 s, so the warm reset only saves the process (and the lock), not time. DXVK cache cold vs warm makes no
@@ -44,7 +48,16 @@ comparison; g) DXVK cache cold/warm (the NVIDIA driver cache was not cleared: it
 byte-identical after about 25 battles and campaigns (watcher auto-restore, 0 mismatches); uninstall identical to the pre-install
 snapshot (1564 files).
 
-## Also fixed in this job (found on the PC)
+## Also fixed in this job (found on the PC or in review)
+
+- **The map check did not show what the engine loaded** (review finding 1): the front end's map-list walk probes every preset folder
+  and ends on the selected one, and the proxy reports a folder only when it changes, so the load's probe of the same folder was
+  hidden. `FilesMapReset` now clears that after `autostart.lua` returns; the result carries `map_folder_loaded_after_request_ms`, and
+  a load that probes nothing fails ("the engine opened no map preset folder"). Lint in `tests/test_dev.cpp`. PC: one launch per
+  preset, the load's probe 125-171 ms after the request, right map each time (run `20261029_j3review`). The "map checked" claims of
+  run `20261029_j3pc2` rested on the front end's selection probe; they are confirmed only by this re-check.
+- **`job.sh ctl` left an unanswered request to run on a later launch** (review finding 3, fixed by the reviewer in `8c0fa90`); the
+  PC's copy is re-synced (`e1644cb6...`).
 
 - **The proxy crashed the game at a 4K resolution change** (Liam, 2026-10-29): the main thread's stack overflowed and the vectored
   crash handler formatted a log line on the exhausted stack, faulting inside `d3d9.dll`. Now the handlers only record an exception
@@ -61,6 +74,9 @@ snapshot (1564 files).
   is now sent, but the campaign stayed both times (fact `napoleon.campaign.quit_to_menu`). Stopped there for the budget; relaunch is
   the fallback, which the brief allows.
 - **No campaign scenario row:** the scenarios schema requires a `save` for campaigns, and there are none yet (J14).
+- **Baseline narrower than deliverable 2** (review finding 2): the movies arm ran 5 launches to the front end and a land battle only.
+  Naval and siege (n=3) and the new campaign (n=4) ran with the intro skip on, so they have no movies-arm baseline. Battle load does
+  not depend on the movies (18.2 s in both arms), so the missing arms would only add the same 124 s of movies.
 - **Timeline is a key** (`dev.timeline`), so the baseline arm ran with the timeline, Lua bridge and ctl on (they only observe; the
   movies arm is otherwise vanilla behaviour).
 - **IAT hooks (D26) and the virtual dev pack (D27)**, accepted by Liam (D28).
@@ -68,8 +84,8 @@ snapshot (1564 files).
   and `pc_deploy.py`; J4's control API replaces it.
 - Two sittings instead of one (the first ran out of its call budget).
 - CI's `proxy` job failed from the first J3 commit (`858aa97`): the wine smoke test's crash step still expected J1's default
-  `proxy.minidump=1`. The step now sets it explicitly. `build.sh` is a DLL input, so the head build id is one commit newer than the
-  PC's `066fbd0b7c62`; the DLL code is the same.
+  `proxy.minidump=1`. The step now sets it explicitly.
+- `hooks.cpp`'s garbled header (review Later 7) is fixed with the map-check change, the next DLL change as the review asked.
 
 ## What moves to the core in J12
 
