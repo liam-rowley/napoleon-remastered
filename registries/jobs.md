@@ -14,7 +14,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J12` | needs_brief | Promote phase 1 core candidates to warscape-core | 1 | sonnet | no | J1, J2, J3, J4, J13 |  |  |  |
 | `J13` | needs_brief | Headless runs on the virtual display | 1 | opus | yes | J3, J20 |  |  |  |
 | `J14` | needs_brief | Save editing: ESF tools and Napoleon save format | 1 | sonnet | yes | J3, J20 |  |  |  |
-| `J15` | needs_brief | Campaign dev console | 1 | opus | yes | J1, J3, J20 |  |  |  |
+| `J15` | queued | Campaign dev console | 1 | opus | yes | J1, J3, J20 | jobs/J15/brief.md |  |  |
 | `J16` | needs_brief | In-game resolution change crash (stack overflow at device recreation) | 1 | opus | yes | J3, J20 |  |  |  |
 | `J17` | done | Core pin bump to v0.2.0 | 1 | sonnet | no | J5 | jobs/J17/brief.md | jobs/J17/report.md | jobs/J17/review.md |
 | `J18` | needs_brief | PC-side rule guards | 1 | sonnet | yes | J2, J20 |  |  |  |
