@@ -88,6 +88,8 @@ int main(int argc, char** argv) {
         SceneTracker u; u.OnFrontendMovie(true, 0); u.OnFrontendMovie(false, 5); CHECK(u.Compute(5) == "loading");   // no Lua, movie gone
         SceneTracker c; c.OnPump("frontend", 0); c.OnLoadRequested("campaign"); c.OnPump("frontend", 1); CHECK(c.Compute(1) == "loading");
         c.OnPump("campaign", 9); CHECK(c.Compute(9) == "campaign");
+        SceneTracker b; b.OnPump("frontend", 0); b.OnPump("battle", 5); b.OnLoadRequested("frontend"); CHECK(b.Compute(6) == "loading");
+        b.OnFrontendMovie(true, 7); CHECK(b.Compute(30) == "frontend"); CHECK(b.loadTarget.empty());   // back from battle on a non-pumping screen
         CHECK(IsSceneName("battle_deploy")); CHECK(!IsSceneName("menu"));
     }
     {   // control grammar

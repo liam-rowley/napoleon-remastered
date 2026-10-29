@@ -186,6 +186,7 @@ Outcome Autostart(const Target& t, double timeoutS) {
         { Lock l; s_scene.loadTarget.clear(); }
         o.status = "timeout"; o.reason = "scene " + sc + " after the load request (" + text + ")"; return o;
     }
+    if (t.kind == "battle") { Sleep(1000); sc = SceneNow(); }   // the battle probe needs a pump or two to see the deployment panel
     snprintf(b, sizeof b, "\"scene\": \"%s\", \"lua\": %s, \"load_s\": %.1f, \"total_s\": %.1f", sc.c_str(), JStr(text).c_str(), waited, MonoS() - t0);
     o.result = b;
     if (t.kind == "battle") {   // the map check: the folder the engine loaded (its own file probes) against the preset's map
@@ -213,9 +214,21 @@ Outcome Reset(const Target& t, double timeoutS) {
     const std::string from = SceneNow();
     if (from != "frontend") {
         if (from != "campaign" && from != "battle" && from != "battle_deploy" && from != "naval") { o.status = "failed"; o.reason = "reset from scene " + from + " (needs campaign, battle or the front end)"; return o; }
-        std::string text; bool to = false;
-        if (!RunLua(NewInternalId("reset"), LuaDir() + "reset.lua", 30, text, to)) { o.status = to ? "timeout" : "failed"; o.reason = "reset.lua: " + text; return o; }
-        LOGI("reset: lua ok: %s", text.c_str());
+        // reset.lua does one step per call (battle: ExitBattle, then the summary, then the post-battle screen); repeat while the
+        // context we leave still pumps, at most 8 steps about 4 s apart
+        const std::string src = BridgeLastCtx();
+        { Lock l; s_scene.OnLoadRequested("frontend"); }
+        int steps = 0; std::string last;
+        for (; steps < 8; ++steps) {
+            if (BridgeLastCtx() != src || MonoS() - BridgeLastPumpS() > 2.0) break;   // it stopped: the engine is leaving
+            std::string text; bool to = false;
+            if (!RunLua(NewInternalId("reset"), LuaDir() + "reset.lua", 30, text, to)) { { Lock l; s_scene.loadTarget.clear(); } o.status = to ? "timeout" : "failed"; o.reason = "reset.lua step " + std::to_string(steps + 1) + ": " + text; return o; }
+            LOGI("reset: step %d: %s", steps + 1, text.c_str());
+            last += (last.empty() ? "" : "; ") + text;
+            const double tw = MonoS();
+            while (MonoS() - tw < 4.0 && BridgeLastCtx() == src && MonoS() - BridgeLastPumpS() < 2.0) Sleep(100);
+        }
+        o.result = "\"steps\": " + JStr(last) + ", ";
         { Lock l; s_scene.OnLoadRequested("frontend"); }
         std::string sc; double waited = 0;
         if (!WaitScene({ "frontend" }, timeoutS, sc, waited)) { { Lock l; s_scene.loadTarget.clear(); } o.status = "timeout"; o.reason = "scene " + sc + " after the reset request"; return o; }
@@ -234,7 +247,7 @@ Outcome Reset(const Target& t, double timeoutS) {
     const Mem after = MemNow();
     snprintf(b, sizeof b, "\"from\": \"%s\", \"to_frontend_s\": %.1f, \"total_s\": %.1f, \"mem_before\": %s, \"mem_frontend\": %s, \"mem_after\": %s",
              from.c_str(), toFrontend, MonoS() - t0, MemJson(before).c_str(), MemJson(mid).c_str(), MemJson(after).c_str());
-    o.result = b;
+    o.result += b;
     if (!a.result.empty()) o.result += ", \"autostart\": {" + a.result + "}";
     LOGI("reset: %s -> %s: %s (address space %.0f -> %.0f MB, commit %.0f -> %.0f MB)", from.c_str(), t.kind.c_str(), o.status.c_str(), before.vaMb, after.vaMb, before.commitMb, after.commitMb);
     return o;

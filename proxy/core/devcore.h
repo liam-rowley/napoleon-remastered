@@ -114,7 +114,15 @@ struct SceneTracker {
         if (c == "frontend") frontendSeen = true;
         if (!loadTarget.empty() && (loadTarget == c)) loadTarget.clear();
     }
-    void OnFrontendMovie(bool open, double) { frontendMovieOpen = open; if (open) { frontendMovieSeen = true; frontendSeen = true; } }
+    // The front end's background movie opening means the front end is up, whatever pumped last (after a battle the front end may
+    // come back on a screen that does not pump: run 20261029_j3pc).
+    void OnFrontendMovie(bool open, double) {
+        frontendMovieOpen = open;
+        if (!open) return;
+        frontendMovieSeen = true; frontendSeen = true;
+        if (ctx != "frontend") { ctx = "frontend"; lastPump = -1; }
+        if (loadTarget == "frontend") loadTarget.clear();
+    }
     void OnLoadRequested(const std::string& targetCtx) { loadTarget = targetCtx; }
     void OnBattleState(int nav, int deploy, double now) { naval = nav; deployPanel = deploy; battleT = now; }
 
