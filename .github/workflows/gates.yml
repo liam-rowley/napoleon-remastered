@@ -65,6 +65,11 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      # the depth-1 submodule fetch brings the core tip's tag but not the pinned one once the core has a newer tag, and core_pin then
+      # fails with "untagged commit" (v0.3.0, PR #55 run 40962535611): fetch the pinned tag; a missing tag is left to core_pin to report
+      - run: |
+          pin=$(python -c "import tomllib; print(tomllib.load(open('wsc.toml', 'rb'))['core']['version'])")
+          git -C core fetch --depth=1 --no-tags origin "refs/tags/$pin:refs/tags/$pin" || echo "could not fetch core tag $pin"
       - run: python core/wsc.py gates
   # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the PC's
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.

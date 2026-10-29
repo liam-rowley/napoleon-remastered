@@ -34,6 +34,14 @@ failing git call all mean "changed"); untracked files use `--exclude-standard`, 
 build does not make the next run look changed. `git_bash()` never returns the WSL launcher on Windows. A hung build fails at 540 s,
 under the gate's 600 s.
 
+## Reviewer fix (outside J41's scope, Liam's call 2026-10-29)
+PR #55's first CI runs (40962483519, 40962535611) failed `core_pin` on every branch, not because of J41: warscape-core cut `v0.3.0`
+at 21:56, and checkout's depth-1 submodule fetch then brings the core tip's tag but not the pinned `v0.2.0`, so the gate sees
+"tags exist, none on HEAD". Reproduced on the PC with a depth-1 clone of `job/J41` plus `git submodule update --init --depth=1`:
+`FAIL core_pin`; after fetching the pinned tag: `ok core_pin core 0.2.0 as pinned (tag v0.2.0)`. Fix: a `gates` job step in
+`.github/workflows/gates.yml` that fetches the tag named in `wsc.toml` `[core] version` into the core submodule. Longer term the
+core's `pin_problems` should not read a shallow submodule's foreign tags as "untagged" (later item 5).
+
 ## Findings
 No blockers, no should-fix items.
 
@@ -52,6 +60,9 @@ No blockers, no should-fix items.
    the hook resolving the repo from `git rev-parse --show-toplevel` instead of `CLAUDE_PROJECT_DIR`.
 4. `setup.git_bash()` also probes `%LOCALAPPDATA%/Git`, which is not a Git for Windows install folder (the per-user one is
    `%LOCALAPPDATA%/Programs/Git`, also probed). Harmless; drop it when J22 touches the helper.
+5. **Core:** `pin_problems` (`core/warscape/gates.py:159`) fails a shallow submodule that holds a newer tag but not the pinned one
+   (see the reviewer fix above). For warscape-core `docs/BACKLOG.md`: compare against the pinned tag's commit, or treat tags not on
+   HEAD as absent.
 
 ## Rules this merge changes for other branches
 From this merge on, the full local `wsc gates` on any branch that touches a proxy input needs Docker Desktop (or native mingw) running,
