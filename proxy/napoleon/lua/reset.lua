@@ -9,7 +9,8 @@
 -- Battle (run 20261029_j3pc, the vanilla quit path): ExitBattle() (quit_battle_button -> ExitBattleFromEscapeMenu) shows the
 -- in-battle summary (in_battle_results_popup: its Dismiss -> DismissBattleResult()), which opens the post-battle screen
 -- (mp_postbattle: its button_exit -> Root.LuaCall("ClosePopup", <popup>)), which returns to the front end.
--- Campaign: QuitToMainScreen() (menu_quit_to_main_screen_button -> QuitToMainScreenFromEscapeMenu).
+-- Campaign: the escape menu's quit button (campaign_escape_menu_scripts/menu_quit_to_main_screen_button) does
+-- Component.Call("Root.LuaCall", "QuitToMainScreenFromEscapeMenu"); the campaign root has no QuitToMainScreen (run 20261029_j3pc2).
 local id, ctx, wsp = ...
 local env = getfenv(1)
 local root = UIComponent(Component.Root())
@@ -37,7 +38,9 @@ end
 if ctx == "campaign" then
 	if rawget(env, "__wsp_reset_exit") then return "wait" end
 	rawset(env, "__wsp_reset_exit", true)
-	fn("QuitToMainScreen")()
-	return "campaign: QuitToMainScreen"
+	local f = rawget(env, "QuitToMainScreenFromEscapeMenu") or env["QuitToMainScreenFromEscapeMenu"]
+	if type(f) == "function" then f() return "campaign: QuitToMainScreenFromEscapeMenu()" end
+	root:LuaCall("QuitToMainScreenFromEscapeMenu")
+	return "campaign: Root.LuaCall QuitToMainScreenFromEscapeMenu"
 end
 error("reset from context '" .. tostring(ctx) .. "': needs the campaign or battle root")
