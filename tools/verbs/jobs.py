@@ -178,7 +178,7 @@ def load_rows(text):
 # ------------------------------------------------------------------ verb
 def add_arguments(p):
     p.add_argument('action', choices=['check', 'next', 'review'])
-    p.add_argument('--offline', action='store_true', help='use local remote-tracking refs instead of asking origin')
+    p.add_argument('--offline', action='store_true', help='use local remote-tracking refs instead of asking origin (a single-branch or shallow clone sees only the branches it fetched)')
 
 
 def run(args, ctx):

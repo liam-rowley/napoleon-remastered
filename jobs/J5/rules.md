@@ -36,7 +36,7 @@ Abbreviations for tests: `tj` napoleon `tests/test_jobs.py`, `tp` `tests/test_pr
 | 2 | `git pull`, read README, DECISIONS and the plan doc first | N:CLAUDE.md:6 | J | J | reading cannot be observed |
 | 3 | Look things up in the registries before rediscovering; recheck Empire facts on Napoleon | N:CLAUDE.md:7-10 | J | J | `engine_facts` schema enforces state/evidence fields, not whether an agent looked |
 | 4 | Clone with submodules (core present) | N:CLAUDE.md:13 | CN | CN | the pre-push hook refuses with no core, but no failing-fixture test; core-side, left for budget |
-| 5 | Set `core.hooksPath` once per clone | N:CLAUDE.md:13-14 | J | CL | core `hooks` gate (cl `test_hooks_gate_warns_until_wired`, PR #2); active here after the pin bump (J16) |
+| 5 | Set `core.hooksPath` once per clone | N:CLAUDE.md:13-14 | J | CL | core `hooks` gate (cl `test_hooks_gate_warns_until_wired`, PR #2); active here after the pin bump (J17) |
 | 6 | Agent sessions attach warscape-core | N:CLAUDE.md:14 | J | J | session setup, not repo state |
 | 7 | Everything goes through `wsc` verbs | N:CLAUDE.md:15 | J | J | a habit; its effects are rows 8, 35 |
 | 8 | Never edit a generated `registries/*.md` view | N:CLAUDE.md:16 | E | E | `registries` gate, view stale (cr `test_hand_edits_are_caught`) |
@@ -59,11 +59,11 @@ Abbreviations for tests: `tj` napoleon `tests/test_jobs.py`, `tp` `tests/test_pr
 | 25 | Commit and push after every meaningful step | N:CLAUDE.md:41 | J | J | "meaningful" is judgment |
 | 26 | Every job ends with a report: built, evidence, deviations, open questions | N:CLAUDE.md:42-43 | CN | E | `jobs check` report headings (tj `test_report_shape`); that the evidence is real stays review work |
 | 27 | A learning becomes code first | N:CLAUDE.md:44-45 | J | J | the meta-rule this job applies (**near-dup** of C:CLAUDE.md:14, which adds "a schema rule"; each repo's entry file keeps its own) |
-| 28 | Exe stays vanilla on disk | N:CLAUDE.md:46 | CL | CL | an exe-sha check after every install needs the PC; J4 acceptance gate |
+| 28 | Exe stays vanilla on disk | N:CLAUDE.md:46 | CL | CL | an exe-sha check after every install needs the PC; J18 (and the J4 acceptance gate) |
 | 29 | Every engine address in engine_sites with anchor bytes, behind the guard | N:CLAUDE.md:46-47 | E | E | `proxy/tools/gen_tables.py` + `tests/test_proxy_tables.py` |
 | 30 | The PC game folder is a deploy target; sha-checked sync | N:CLAUDE.md:48 | E | E | `pc_deploy.py` refuses stale copies (`tests/test_pc_deploy.py`) |
-| 31 | PC experiments live under `_scratch\<you>\` | N:CLAUDE.md:48-49 | CL | CL | a `job.sh` guard on write paths; J17 |
-| 32 | Never run git in the game folder | N:CLAUDE.md:49 | CL | CL | a `job.sh` guard; J17 |
+| 31 | PC experiments live under `_scratch\<you>\` | N:CLAUDE.md:48-49 | CL | CL | a `job.sh` guard on write paths; J18 |
+| 32 | Never run git in the game folder | N:CLAUDE.md:49 | CL | CL | a `job.sh` guard; J18 |
 | 33 | Reuse before you write; search the tools registry | N:CLAUDE.md:50 | J | J | intent; near-duplicate detection would be guesswork |
 | 34 | Every tool has a header and a registry row | N:CLAUDE.md:51 | E | E | `tools` gate (ct `test_missing_row_then_add_then_drift`, `test_header_problems`) |
 | 35 | "Verified" carries a date and run id | N:CLAUDE.md:52 | E | E | `verified_dates` gate (cc `test_plain_claim_flagged`); prose now links it |
@@ -88,7 +88,7 @@ Abbreviations for tests: `tj` napoleon `tests/test_jobs.py`, `tp` `tests/test_pr
 | 49 | D11 one game at a time | N:DECISIONS.md D11 | J | J | the watcher lock serialises the PC; choosing which game to work on is Liam's |
 | 50 | D14 scope is D1 only | N:DECISIONS.md D14 | J | J | scope needs a reader |
 | 51 | D16 the status page is generated, nobody hand-keeps state | N:DECISIONS.md D16 | E | E | `registries` gate renders `jobs.md` (cr `test_render_fixes_order_and_view`) |
-| 52 | D20 core is a submodule pinned at a tag, repeated in `wsc.toml` | N:DECISIONS.md D20 | E | E | `core_pin` (cl `test_core_pin`); the tag itself from core v0.2 (row 107, J16) |
+| 52 | D20 core is a submodule pinned at a tag, repeated in `wsc.toml` | N:DECISIONS.md D20 | E | E | `core_pin` (cl `test_core_pin`); the tag itself from core v0.2 (row 107, J17) |
 | 53 | The reviewer is a fresh chat that did not build the branch (dup of 20) | N:REVIEW.md:63-64 | CN | E | row 20 |
 | 54 | Review setup: clone, check out, attach, read in order | N:REVIEW.md:71-73 | J | J | session steps |
 | 55 | Review budget about 60 tool calls | N:REVIEW.md:73 | J | J | no record of a review's calls |
