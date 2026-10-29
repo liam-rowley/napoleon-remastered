@@ -1,0 +1,110 @@
+2026-10-29T09:52:37.840Z [INFO ] [t1104] launch 20261029T095237Z-p8156: Napoleon: Total War proxy d3d9.dll build 99c4503daf5e loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 8156, base 000c0000)
+2026-10-29T09:52:37.840Z [INFO ] [t1104] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.autostart                      =             
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.autostart_delay_ms             = 1500        
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.ctl                            = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.file_rules                     =             
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.log_files                      = 0           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.lua_bridge                     = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.skip_intro                     = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.state_json                     = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   dev.timeline                       = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.backend                      = dxvk        
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.enabled                      = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.exe_guard                    = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.log_level                    = info        
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.minidump                     = 2           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] config:   proxy.runtime_patches              = 1           
+2026-10-29T09:52:37.840Z [INFO ] [t1104] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-10-29T09:52:37.840Z [INFO ] [t1104] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-10-29T09:52:37.877Z [INFO ] [t1104] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 31 ms)
+2026-10-29T09:52:37.877Z [INFO ] [t1104] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-10-29T09:52:37.877Z [INFO ] [t1104] patch_engine: image base 000c0000 (file ImageBase 0x00400000, delta 0xffcc0000)
+2026-10-29T09:52:37.877Z [INFO ] [t1104] patch_engine: nothing to do - 0 sites: 0 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 0 hooks verified
+2026-10-29T09:52:37.877Z [INFO ] [t1104] patch_engine: 0 of 0 planned sites written
+2026-10-29T09:52:37.877Z [INFO ] [t1104] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-10-29T09:52:37.877Z [INFO ] [t1104] timeline: dllmain +58 ms
+2026-10-29T09:52:37.878Z [INFO ] [t1104] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-10-29T09:52:37.878Z [INFO ] [t1104] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-10-29T09:52:37.878Z [INFO ] [t1104] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-10-29T09:52:37.878Z [INFO ] [t1104] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-10-29T09:52:37.878Z [INFO ] [t1104] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-10-29T09:52:37.878Z [INFO ] [t1104] hook: iat KERNEL32.dll!CreateFileW slot 00fc7170: 751fea50 -> 69e9a1f0
+2026-10-29T09:52:37.878Z [INFO ] [t1104] hook: iat KERNEL32.dll!CreateFileA slot 00fc7188: 751fea40 -> 69e9a010
+2026-10-29T09:52:37.878Z [INFO ] [t1104] hook: iat KERNEL32.dll!GetFileAttributesW slot 00fc722c: 751fec70 -> 69e99f10
+2026-10-29T09:52:37.878Z [INFO ] [t1104] hook: iat KERNEL32.dll!GetFileAttributesExW slot 00fc728c: 751fec60 -> 69e99df0
+2026-10-29T09:52:37.879Z [INFO ] [t1104] hook: iat KERNEL32.dll!GetFileAttributesExA slot 00fc724c: 751fec50 -> 69e99c80
+2026-10-29T09:52:37.879Z [INFO ] [t1104] hook: iat KERNEL32.dll!FindFirstFileExW slot 00fc70cc: 751feb30 -> 69e99bc0
+2026-10-29T09:52:37.879Z [INFO ] [t1104] hook: iat KERNEL32.dll!FindFirstFileW slot 00fc721c: 751feb50 -> 69e99b20
+2026-10-29T09:52:37.879Z [INFO ] [t1104] hook: iat KERNEL32.dll!FindNextFileW slot 00fc7220: 751feba0 -> 69e97090
+2026-10-29T09:52:37.879Z [INFO ] [t1104] hook: iat KERNEL32.dll!FindClose slot 00fc7218: 751fead0 -> 69e95c80
+2026-10-29T09:52:37.879Z [INFO ] [t1104] hook: iat binkw32.dll!_BinkOpen@8 slot 00fc7480: 1800d690 -> 69e9bda0
+2026-10-29T09:52:37.879Z [INFO ] [t1104] hook: iat binkw32.dll!_BinkClose@4 slot 00fc7490: 1800f850 -> 69e966c0
+2026-10-29T09:52:37.879Z [INFO ] [t1104] init done; the dxvk backend loads at the first d3d9 call
+2026-10-29T09:52:37.881Z [INFO ] [t14740] ctl: watching C:\napoleon_remastered_pc\ctl\ (60 ids already used)
+2026-10-29T09:52:38.696Z [INFO ] [t1104] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-10-29T09:52:38.765Z [INFO ] [t14740] ctl: j3-20261029T095238Z-36174023: waitfor frontend 60
+2026-10-29T09:52:38.787Z [WARN ] [t1104] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-10-29T09:52:38.787Z [INFO ] [t1104] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-10-29T09:52:38.788Z [INFO ] [t1104] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T09:52:38.788Z [INFO ] [t1104] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-10-29T09:52:38.788Z [INFO ] [t1104] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T09:52:38.788Z [INFO ] [t1104] backend: dxvk ready (Direct3DCreate9=5e4f1530)
+2026-10-29T09:52:38.917Z [INFO ] [t1104] Direct3DCreate9(sdk=32) -> 10148228 [dxvk]
+2026-10-29T09:52:38.918Z [INFO ] [t1104] timeline: d3d_create +1099 ms
+2026-10-29T09:52:38.918Z [INFO ] [t1104] hook: vtable IDirect3D9::CreateDevice slot 5eb8e040 [16]: 5e4f2980 -> 69e86df0
+2026-10-29T09:52:39.647Z [INFO ] [t1104] timeline: device_created +1828 ms hr 0x00000000 flags 0x42
+2026-10-29T09:52:39.648Z [INFO ] [t1104] hook: vtable IDirect3DDevice9::Present slot 5eb8d7f4 [17]: 5e529dd0 -> 69e87040
+2026-10-29T09:52:39.697Z [INFO ] [t1104] timeline: first_present +1878 ms
+2026-10-29T09:52:44.481Z [INFO ] [t1104] wsp_sentinel: engine dummynode = 010ad128 (sizearray 0, lsizenode 0)
+2026-10-29T09:52:44.481Z [INFO ] [t1104] luaopen_wsp: engine lua_State 04cb2128, global state 04d2e624 (thread 1104)
+2026-10-29T09:52:44.481Z [INFO ] [t1104] timeline: lua_bridge_loaded +6662 ms
+2026-10-29T09:52:44.482Z [INFO ] [t1104] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:52:44.504Z [INFO ] [t1104] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-10-29T09:52:44.507Z [INFO ] [t1104] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-10-29T09:52:44.618Z [INFO ] [t1104] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T09:52:44.737Z [INFO ] [t1104] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 0000076c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-10-29T09:52:44.737Z [INFO ] [t1104] timeline: movie_refused +6918 ms movies\sega_logo_sting_hd.bik
+2026-10-29T09:52:44.740Z [INFO ] [t1104] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 0000076c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-10-29T09:52:44.740Z [INFO ] [t1104] timeline: movie_refused +6921 ms movies\corei7_intro.bik
+2026-10-29T09:52:44.743Z [INFO ] [t1104] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 0000076c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-10-29T09:52:44.743Z [INFO ] [t1104] timeline: movie_refused +6924 ms movies\ntw_intro.bik
+2026-10-29T09:52:44.744Z [INFO ] [t1104] timeline: movie_open +6925 ms movies\frontend2.bik
+2026-10-29T09:52:44.746Z [INFO ] [t1104] movies: BinkOpen movies\frontend2.bik [handle 0000076c = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b106c40
+2026-10-29T09:52:44.746Z [INFO ] [t1104] scene: intro -> frontend after 314681.9 s (uptime 6.9 s, frame 4, lua frontend)
+2026-10-29T09:52:44.750Z [INFO ] [t1104] lua: first pump from context 'frontend' (thread 1104)
+2026-10-29T09:52:44.750Z [INFO ] [t1104] timeline: frontend_first_pump +6931 ms
+2026-10-29T09:52:44.752Z [INFO ] [t1104] timeline: first_present_after_ready +6933 ms frontend
+2026-10-29T09:52:44.788Z [INFO ] [t14740] ctl: j3-20261029T095238Z-36174023: ok
+2026-10-29T09:52:45.395Z [INFO ] [t14740] ctl: j3-20261029T095244Z-2698217905: autostart battle:siege_small 120
+2026-10-29T09:52:45.395Z [INFO ] [t14740] timeline: autostart_issued +7576 ms battle:siege_small
+2026-10-29T09:52:45.549Z [INFO ] [t1104] lua report: battle.map_folder = rti_fort_3
+2026-10-29T09:52:45.551Z [INFO ] [t1104] lua report: battle.map_folder = ottoman_great_fortress
+2026-10-29T09:52:45.553Z [INFO ] [t1104] lua report: battle.map_folder = ottoman_artillery_fort
+2026-10-29T09:52:45.555Z [INFO ] [t1104] lua report: battle.map_folder = rti_fort_9
+2026-10-29T09:52:45.558Z [INFO ] [t1104] lua report: battle.map_folder = rti_fort_2
+2026-10-29T09:52:45.560Z [INFO ] [t1104] lua report: battle.map_folder = rti_fort_1
+2026-10-29T09:52:45.562Z [INFO ] [t1104] lua report: autostart.map = rti_fort_1
+2026-10-29T09:52:45.562Z [INFO ] [t1104] lua report: autostart.map_folder = rti_fort_1
+2026-10-29T09:52:45.747Z [INFO ] [t1104] movies: BinkClose movies\frontend2.bik
+2026-10-29T09:52:45.747Z [INFO ] [t1104] timeline: movie_close +7928 ms movies\frontend2.bik
+2026-10-29T09:52:45.753Z [INFO ] [t14740] autostart: lua ok: started battle rti_fort_1 (siege, prefs .sp_default, button normal)
+2026-10-29T09:52:45.753Z [INFO ] [t14740] scene: frontend -> loading after 1.0 s (uptime 7.9 s, frame 16, lua frontend)
+2026-10-29T09:52:45.955Z [INFO ] [t1104] Direct3DCreate9(sdk=32) -> 32964fa8 [dxvk]
+2026-10-29T09:52:49.969Z [INFO ] [t1104] luaopen_wsp: engine lua_State 3cc024c0, global state 3cb82294 (thread 1104) (again)
+2026-10-29T09:52:49.969Z [INFO ] [t1104] lua: wsp.lua loaded (wsp 1)
+2026-10-29T09:52:49.977Z [INFO ] [t1104] lua: wrapper: battle pumps from OnUpdate
+2026-10-29T09:52:49.977Z [INFO ] [t1104] lua: wrapper: battle pumps from OnUpdatePulse
+2026-10-29T09:53:06.404Z [INFO ] [t1104] lua: first pump from context 'battle' (thread 1104)
+2026-10-29T09:53:06.404Z [INFO ] [t1104] scene: loading -> battle after 20.6 s (uptime 28.5 s, frame 453, lua battle)
+2026-10-29T09:53:06.405Z [INFO ] [t1104] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-10-29T09:53:06.405Z [INFO ] [t1104] scene: battle probe naval=0 deploy_panel=0
+2026-10-29T09:53:06.437Z [INFO ] [t1104] timeline: first_present_after_ready +28618 ms battle
+2026-10-29T09:53:06.565Z [INFO ] [t1104] scene: battle probe naval=0 deploy_panel=1
+2026-10-29T09:53:06.565Z [INFO ] [t1104] scene: battle -> battle_deploy after 0.2 s (uptime 28.7 s, frame 457, lua battle)
+2026-10-29T09:53:06.569Z [INFO ] [t1104] timeline: first_present_after_ready +28750 ms battle_deploy
+2026-10-29T09:53:07.441Z [INFO ] [t14740] ctl: j3-20261029T095244Z-2698217905: ok

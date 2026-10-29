@@ -1,0 +1,25 @@
+{
+  "launch_id": "20261029T095340Z-p15480",
+  "process_start_utc": "2026-10-29T09:53:40.062Z",
+  "phases": [
+    {"phase": "process_start", "utc": "2026-10-29T09:53:40.062Z", "t_ms": 0},
+    {"phase": "dllmain", "utc": "2026-10-29T09:53:40.131Z", "t_ms": 69},
+    {"phase": "d3d_create", "utc": "2026-10-29T09:53:41.177Z", "t_ms": 1115},
+    {"phase": "device_created", "utc": "2026-10-29T09:53:41.864Z", "t_ms": 1802, "detail": "hr 0x00000000 flags 0x42"},
+    {"phase": "first_present", "utc": "2026-10-29T09:53:41.898Z", "t_ms": 1836},
+    {"phase": "lua_bridge_loaded", "utc": "2026-10-29T09:53:46.704Z", "t_ms": 6642},
+    {"phase": "movie_refused", "utc": "2026-10-29T09:53:46.953Z", "t_ms": 6891, "detail": "movies\\sega_logo_sting_hd.bik"},
+    {"phase": "movie_refused", "utc": "2026-10-29T09:53:46.956Z", "t_ms": 6894, "detail": "movies\\corei7_intro.bik"},
+    {"phase": "movie_refused", "utc": "2026-10-29T09:53:46.958Z", "t_ms": 6896, "detail": "movies\\ntw_intro.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T09:53:46.960Z", "t_ms": 6898, "detail": "movies\\frontend2.bik"},
+    {"phase": "scene_ready", "utc": "2026-10-29T09:53:46.962Z", "t_ms": 6900, "detail": "frontend"},
+    {"phase": "frontend_first_pump", "utc": "2026-10-29T09:53:46.966Z", "t_ms": 6904},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T09:53:46.968Z", "t_ms": 6906, "detail": "frontend"},
+    {"phase": "autostart_issued", "utc": "2026-10-29T09:53:47.287Z", "t_ms": 7225, "detail": "battle:naval_small"},
+    {"phase": "movie_close", "utc": "2026-10-29T09:53:47.650Z", "t_ms": 7588, "detail": "movies\\frontend2.bik"},
+    {"phase": "loading_started", "utc": "2026-10-29T09:53:47.655Z", "t_ms": 7593, "detail": "frontend"},
+    {"phase": "scene_ready", "utc": "2026-10-29T09:54:06.678Z", "t_ms": 26616, "detail": "battle"},
+    {"phase": "scene_ready", "utc": "2026-10-29T09:54:06.679Z", "t_ms": 26617, "detail": "naval"},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T09:54:06.744Z", "t_ms": 26682, "detail": "naval"}
+  ]
+}

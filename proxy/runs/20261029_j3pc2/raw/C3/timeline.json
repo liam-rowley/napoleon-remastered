@@ -1,0 +1,27 @@
+{
+  "launch_id": "20261029T101338Z-p16428",
+  "process_start_utc": "2026-10-29T10:13:38.841Z",
+  "phases": [
+    {"phase": "process_start", "utc": "2026-10-29T10:13:38.841Z", "t_ms": 0},
+    {"phase": "dllmain", "utc": "2026-10-29T10:13:38.900Z", "t_ms": 59},
+    {"phase": "d3d_create", "utc": "2026-10-29T10:13:39.944Z", "t_ms": 1103},
+    {"phase": "device_created", "utc": "2026-10-29T10:13:40.652Z", "t_ms": 1811, "detail": "hr 0x00000000 flags 0x42"},
+    {"phase": "first_present", "utc": "2026-10-29T10:13:40.697Z", "t_ms": 1856},
+    {"phase": "lua_bridge_loaded", "utc": "2026-10-29T10:13:45.610Z", "t_ms": 6769},
+    {"phase": "movie_refused", "utc": "2026-10-29T10:13:45.862Z", "t_ms": 7021, "detail": "movies\\sega_logo_sting_hd.bik"},
+    {"phase": "movie_refused", "utc": "2026-10-29T10:13:45.865Z", "t_ms": 7024, "detail": "movies\\corei7_intro.bik"},
+    {"phase": "movie_refused", "utc": "2026-10-29T10:13:45.868Z", "t_ms": 7027, "detail": "movies\\ntw_intro.bik"},
+    {"phase": "movie_open", "utc": "2026-10-29T10:13:45.871Z", "t_ms": 7030, "detail": "movies\\frontend2.bik"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:13:45.872Z", "t_ms": 7031, "detail": "frontend"},
+    {"phase": "frontend_first_pump", "utc": "2026-10-29T10:13:45.876Z", "t_ms": 7035},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:13:45.877Z", "t_ms": 7036, "detail": "frontend"},
+    {"phase": "autostart_issued", "utc": "2026-10-29T10:13:46.384Z", "t_ms": 7543, "detail": "campaign:grand:austria"},
+    {"phase": "movie_close", "utc": "2026-10-29T10:13:46.568Z", "t_ms": 7727, "detail": "movies\\frontend2.bik"},
+    {"phase": "loading_started", "utc": "2026-10-29T10:13:46.575Z", "t_ms": 7734, "detail": "frontend"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:14:03.320Z", "t_ms": 24479, "detail": "campaign"},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:14:03.347Z", "t_ms": 24506, "detail": "campaign"},
+    {"phase": "loading_started", "utc": "2026-10-29T10:14:03.761Z", "t_ms": 24920, "detail": "campaign"},
+    {"phase": "scene_ready", "utc": "2026-10-29T10:14:03.773Z", "t_ms": 24932, "detail": "campaign"},
+    {"phase": "first_present_after_ready", "utc": "2026-10-29T10:14:03.802Z", "t_ms": 24961, "detail": "campaign"}
+  ]
+}

@@ -149,7 +149,10 @@ All `[dev]` keys default off with release value off (`registries/config_keys.jso
 | `exit` | written, then the process exits |
 
 Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: type, map key, prefs), `campaign:continue`,
-`campaign:<save>`, `campaign:new:<campaign>:<faction>` (campaign targets not run on the PC yet).
+`campaign:<save>`, `campaign:new:<campaign>:<faction>`. `<campaign>` must be a key a main-menu button carries (`grand` = the grand
+campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknown key is an engine AV, so autostart refuses it.
+Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
+Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
 
 ## Open questions
 
