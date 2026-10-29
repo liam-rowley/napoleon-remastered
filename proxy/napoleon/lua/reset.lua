@@ -1,6 +1,7 @@
 -- napoleon_remastered\lua\reset.lua - dev only (J3): one step of leaving the campaign or the battle for the front end, inside the
 -- same process (warm reset). The proxy (dev.cpp Reset) runs it as a `lua` command in the pumping script (the campaign root
--- layout.root or the battle root) again and again, about every 4 s, while that context still pumps (at most 8 steps).
+-- layout.root or the battle root) again and again, every 0.5 s, while that context still pumps; a step that has nothing to do yet
+-- returns "wait" (the quit is never sent twice: the battle root's environment remembers it).
 -- purpose: one step of the warm reset (battle or campaign back to the front end) through the roots' own functions
 -- usage: run by the proxy (ctl `reset <target>`); not by hand
 -- when: every warm reset
@@ -28,10 +29,14 @@ if ctx == "battle" then
 	local pb = shown("mp_postbattle")
 	if pb then fn("ClosePopup")(pb:Address()) return "battle: post-battle screen closed (ClosePopup mp_postbattle)" end
 	if shown("in_battle_results_popup") then fn("DismissBattleResult")() return "battle: summary dismissed (DismissBattleResult)" end
+	if rawget(env, "__wsp_reset_exit") then return "wait" end
+	rawset(env, "__wsp_reset_exit", true)
 	fn("ExitBattle")()
 	return "battle: ExitBattle"
 end
 if ctx == "campaign" then
+	if rawget(env, "__wsp_reset_exit") then return "wait" end
+	rawset(env, "__wsp_reset_exit", true)
 	fn("QuitToMainScreen")()
 	return "campaign: QuitToMainScreen"
 end

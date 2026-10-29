@@ -216,19 +216,18 @@ Outcome Reset(const Target& t, double timeoutS) {
     const std::string from = SceneNow();
     if (from != "frontend") {
         if (from != "campaign" && from != "battle" && from != "battle_deploy" && from != "naval") { o.status = "failed"; o.reason = "reset from scene " + from + " (needs campaign, battle or the front end)"; return o; }
-        // reset.lua does one step per call (battle: ExitBattle, then the summary, then the post-battle screen); repeat while the
-        // context we leave still pumps, at most 8 steps about 4 s apart
+        // reset.lua does one step per call (battle: ExitBattle, then the summary, then the post-battle screen; "wait" while the next
+        // popup is not up yet); repeat every 0.5 s while the context we leave still pumps, at most 120 calls (60 s)
         const std::string src = BridgeLastCtx();
         { Lock l; s_scene.OnLoadRequested("frontend"); s_resetting = true; }
         int steps = 0; std::string last;
-        for (; steps < 8; ++steps) {
+        for (int calls = 0; calls < 120; ++calls) {
             if (BridgeLastCtx() != src || MonoS() - BridgeLastPumpS() > 2.0) break;   // it stopped: the engine is leaving
             std::string text; bool to = false;
-            if (!RunLua(NewInternalId("reset"), LuaDir() + "reset.lua", 30, text, to)) { { Lock l; s_scene.loadTarget.clear(); } o.status = to ? "timeout" : "failed"; o.reason = "reset.lua step " + std::to_string(steps + 1) + ": " + text; return o; }
-            LOGI("reset: step %d: %s", steps + 1, text.c_str());
-            last += (last.empty() ? "" : "; ") + text;
+            if (!RunLua(NewInternalId("reset"), LuaDir() + "reset.lua", 30, text, to)) { { Lock l; s_scene.loadTarget.clear(); } o.status = to ? "timeout" : "failed"; o.reason = "reset.lua after step " + std::to_string(steps) + ": " + text; return o; }
+            if (text != "wait") { ++steps; LOGI("reset: step %d: %s", steps, text.c_str()); last += (last.empty() ? "" : "; ") + text; }
             const double tw = MonoS();
-            while (MonoS() - tw < 4.0 && BridgeLastCtx() == src && MonoS() - BridgeLastPumpS() < 2.0) Sleep(100);
+            while (MonoS() - tw < 0.5 && BridgeLastCtx() == src && MonoS() - BridgeLastPumpS() < 2.0) Sleep(50);
         }
         o.result = "\"steps\": " + JStr(last) + ", ";
         std::string sc; double waited = 0;
