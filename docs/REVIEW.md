@@ -9,8 +9,8 @@ CI's `policy` check refuses a review written by a session that also wrote the re
 `jobs/<id>/brief.md` on that branch: it is what you check the work against, so nothing needs pasting.
 
 ## Setup
-Attach (push) and clone napoleon-remastered with `--recurse-submodules`, check out the job branch, attach warscape-core (read).
-Follow `CLAUDE.md`. Read, in this order: `jobs/<id>/brief.md`, `jobs/<id>/report.md`, `docs/DECISIONS.md`, then
+A **new** Claude Code session (never the one that built the branch), in the napoleon-remastered folder: `git fetch`, check out the
+job branch, `git submodule update --init`. Follow `CLAUDE.md`. Read, in this order: `jobs/<id>/brief.md`, `jobs/<id>/report.md`, `docs/DECISIONS.md`, then
 `git diff --stat main...HEAD`. You did not build this branch: do not trust its report. Budget about 60 tool calls.
 
 ## Steps

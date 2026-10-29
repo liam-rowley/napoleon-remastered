@@ -6,7 +6,7 @@ For each area, say what carries over from Empire's tooling as-is or through a sm
 
 Model: Opus, reason: binary format reverse engineering (layout and template versions, fonts, PE and byte-signature matching) and an
 independent re-check of Empire's engine claims on a different exe (D15). Budget about 150 tool calls; at the cap, stop, commit, report
-what is left. At most 2 subagents, only for independent cloud work (for example, one ports the Lua API inventory while you do layouts).
+what is left. At most 2 subagents, only for independent work (for example, one ports the Lua API inventory while you do layouts).
 
 ## Start
 - Follow `CLAUDE.md` (Jobs: branch `job/J6`). Read `docs/DECISIONS.md`, `docs/plans/PLAN.md` sections 3 and 5 (phase 2), and the
@@ -15,7 +15,7 @@ what is left. At most 2 subagents, only for independent cloud work (for example,
 - Check the tools registry first (`python3 core/wsc.py find pack`, `... lua`, `... exe`). This repo already has `proxy/tools/pack_list.py`
   (PFH0 index and extract), `luac_list.py` (Lua 5.1 bytecode with the 4-byte float, `--calls`) and `exe_info.py` (PE identity). Extend
   these. Do not write near-duplicates.
-- Attach `liam-rowley/empire-remastered` as read-only evidence (never modified). The Empire baselines are already in that repo, so
+- Use the `empire-remastered` clone beside this repo as read-only evidence (never modified; `CLAUDE.md`, Where agents run). The Empire baselines are already in that repo, so
   most of the Empire side needs no PC:
   - packs: `assets/extract/pack_entries.tsv.gz` (header index of every Empire `data\*.pack`)
   - layouts: `ui_scale_mod/FORMAT.md` and `tools/uic.py` (layout codec, Version025-033, byte-exact round trip), `tools/tpl.py`
@@ -40,9 +40,9 @@ what is left. At most 2 subagents, only for independent cloud work (for example,
   bytes). Never write there and never launch Empire (D11).
 
 ## Decisions already made for this job
-- **Read-only on the PC.** No game launch, no game lock, no watcher jobs. Tools run on the device VM as single files copied under
-  `C:\napoleon_remastered_pc\_scratch\j6\` (the pattern `exe_info.py` uses). Pass the multi-GB packs as paths; never stage them to the
-  cloud. Stage only small extracts (layouts, templates, fonts, `.luac`, `.fx`) into the cloud, under the git-ignored `/extract/`.
+- **Read-only on the PC.** No game launch, no game lock, no watcher jobs. Tools run from the repo against the game folders by path
+  (D30: no device VM, no staging). Read the multi-GB packs in place; never copy them. Write small extracts (layouts, templates,
+  fonts, `.luac`, `.fx`) only under the git-ignored `/extract/`.
 - **No game files in the repo** (public repo, `.gitignore` `/extract/`). Commit only derived data: paths, sizes, hashes, versions,
   field tables, counts and API names.
 - **Where things go:** the tools go in `discovery/core/` (game-agnostic readers that take the game as an input; core candidates, D10)
@@ -85,7 +85,7 @@ what is left. At most 2 subagents, only for independent cloud work (for example,
   Record what is known and what differs as an `open` fact, then move to the next area.
 - Any area needs a game launch, a live probe or a debugger to answer: do not launch. Record the question as an `open` fact naming the
   job that owns it (J8 or J9).
-- Device-VM file access to the Napoleon or Empire folder fails twice: stop the PC part, finish everything the repo baselines allow,
+- Reading the Napoleon or Empire folder fails twice: stop the PC part, finish everything the repo baselines allow,
   and report what is missing.
 - Any write into either game folder would be needed: stop and ask Liam.
 

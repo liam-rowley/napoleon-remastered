@@ -9,10 +9,20 @@
    `docs/learnings/` and `docs/plans/PIPELINE_V2.md`. Napoleon is the same engine lineage, but every Empire fact about the exe,
    shaders or Lua API is checked again on Napoleon before it is relied on.
 
+## Where agents run (D30)
+- Claude Code on Liam's PC, started in this repo's folder, shell = Git Bash. No cloud sessions and no device bridge: tools read the
+  game folder, the AppData folder and `C:\napoleon_remastered_pc` directly.
+- Clones live side by side under `%USERPROFILE%\repos\` (`/c/Users/liamr/repos/` in Git Bash): `napoleon-remastered` (this repo),
+  `empire-remastered` and, only when making a core change, `warscape-core`. **`empire-remastered` is read-only evidence: never
+  edit, commit or push there from Napoleon work.** Bring it into a session with `--add-dir ../empire-remastered` when a job needs it.
+- **The game is launched, killed and profiled only through the watcher** (`harness/README.md`, `harness/core/job.sh`), never by
+  starting `Napoleon.exe` yourself: the watcher holds the game lock, the hang watchdog and the profile restore.
+- One-time setup and its check: J20 (until it lands, `python3` may be `py -3` on this PC).
+
 ## The core (`core/`, warscape-core pinned at a tag)
 - Clone with `git clone --recurse-submodules` (or `git submodule update --init` after a plain clone); set the hook once per clone:
   `git config core.hooksPath core/.githooks` (the core's `hooks` gate warns until you do).
-  Agent sessions attach `liam-rowley/warscape-core` too (read is enough here).
+  The submodule is enough to read the core; a core change is made in a separate `warscape-core` clone beside this one.
 - Everything goes through `python3 core/wsc.py <verb>`: `find <words>` searches every registry, `reg add|set|render` changes them,
   `gates` runs the checks CI runs (`--fast` is what the pre-push hook runs). Never edit a generated `registries/*.md` view.
 - **Never change files inside `core/`.** A change the game needs goes to warscape-core as a PR and arrives with a new tag
@@ -50,5 +60,5 @@
 
 ## Usage (D15)
 Sonnet medium by default; Opus only with a reason in the brief (reverse engineering, shaders, DLL, crashes, independent checks);
-at most 2 agents at once; every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
+at most 2 agents at once (Claude Code subagents count); every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
 to an agent making repeated calls.
