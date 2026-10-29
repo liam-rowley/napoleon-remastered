@@ -28,6 +28,7 @@ double s_t0 = 0;                       // MonoS at DllMain
 double s_firstFrontendT = -1;
 volatile LONG s_frameCount = 0;
 int64_t s_lastPresentMs = -1;
+std::string s_luaArgs;                 // the running ctl lua request's arguments (J4)
 bool s_afterReady = false;             // the next Present closes a "scene ready"
 std::map<std::string, std::string> s_reports;   // wsp.report()
 Target s_target;                       // the autostart / reset target in progress (wsp.dev_config target.*)
@@ -49,6 +50,17 @@ Mem MemNow() {
     PROCESS_MEMORY_COUNTERS_EX pmc{}; pmc.cb = sizeof pmc;
     if (K32GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof pmc)) m.commitMb = (double)pmc.PrivateUsage / 1048576.0;
     return m;
+}
+
+// ---- perf capture (J4, dev.perf): the Present path records the time between presents while `perf <s>` runs ------------------------
+double s_perfLastQpc = 0; bool s_perfOn = false; std::vector<double> s_perfDeltas;
+double QpcMs() { LARGE_INTEGER f, c; QueryPerformanceFrequency(&f); QueryPerformanceCounter(&c); return 1000.0 * (double)c.QuadPart / (double)f.QuadPart; }
+void PerfFrame() {   // engine thread, once per Present: no allocation while the reserved capacity lasts
+    const double now = QpcMs();
+    Lock l;
+    if (!s_perfOn) { s_perfLastQpc = 0; return; }
+    if (s_perfLastQpc > 0 && s_perfDeltas.size() < s_perfDeltas.capacity()) s_perfDeltas.push_back(now - s_perfLastQpc);
+    s_perfLastQpc = now;
 }
 
 // ---- scene ----------------------------------------------------------------------------------------------------------------
@@ -327,6 +339,7 @@ Outcome Execute(const std::string& id, const CtlRequest& r) {
     if (r.verb == "log") { LOGI("ctl: log: %s", r.arg.c_str()); return o; }
     if (r.verb == "lua") {
         std::string text; bool to = false;
+        { Lock l; s_luaArgs = r.luaArgs; }
         const bool ok = RunLua(id, r.arg, timeout, text, to);
         o.result = "\"chunk\": " + JStr(text);
         if (!ok) { o.status = to ? "timeout" : "failed"; o.reason = text; }
@@ -338,6 +351,25 @@ Outcome Execute(const std::string& id, const CtlRequest& r) {
         snprintf(b, sizeof b, "\"scene\": \"%s\", \"waited_s\": %.1f", sc.c_str(), waited);
         o.result = b;
         if (!ok) { o.status = "timeout"; o.reason = "scene is " + sc + " after " + std::to_string((int)timeout) + " s"; }
+        return o;
+    }
+    if (r.verb == "perf") {
+        if (!Dk().perf) { o.status = "refused"; o.reason = "dev.perf is off"; return o; }
+        const int secs = atoi(r.arg.c_str());
+        { Lock l; s_perfDeltas.clear(); s_perfDeltas.reserve((size_t)secs * 1000 + 1000); s_perfLastQpc = 0; s_perfOn = true; }
+        Sleep((DWORD)secs * 1000);
+        std::vector<double> d; { Lock l; s_perfOn = false; d = s_perfDeltas; }
+        const FrameStats fs = ComputeFrameStats(d);
+        const Mem m = MemNow();
+        MEMORYSTATUSEX ms{}; ms.dwLength = sizeof ms; double totalVaMb = 0, freeVaMb = 0;
+        if (GlobalMemoryStatusEx(&ms)) { totalVaMb = (double)ms.ullTotalVirtual / 1048576.0; freeVaMb = (double)ms.ullAvailVirtual / 1048576.0; }
+        PROCESS_MEMORY_COUNTERS_EX pmc{}; pmc.cb = sizeof pmc; double wsMb = 0, peakWsMb = 0;
+        if (K32GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof pmc)) { wsMb = (double)pmc.WorkingSetSize / 1048576.0; peakWsMb = (double)pmc.PeakWorkingSetSize / 1048576.0; }
+        snprintf(b, sizeof b, "\"seconds\": %d, \"frames\": %zu, \"frame_ms\": {\"p50\": %.3f, \"p99\": %.3f, \"max\": %.3f, \"mean\": %.3f}, "
+                 "\"mem\": {\"va_used_mb\": %.0f, \"va_total_mb\": %.0f, \"va_free_mb\": %.0f, \"commit_mb\": %.0f, \"working_set_mb\": %.0f, \"peak_working_set_mb\": %.0f}",
+                 secs, fs.frames, fs.p50, fs.p99, fs.max, fs.mean, m.vaMb, totalVaMb, freeVaMb, m.commitMb, wsMb, peakWsMb);
+        o.result = b;
+        if (fs.frames == 0) { o.status = "failed"; o.reason = "no frames presented during the capture"; }
         return o;
     }
     if (r.verb == "autostart") return Autostart(r.target, timeout);
@@ -487,6 +519,7 @@ void DevReport(const std::string& key, const std::string& value) {
 std::string DevConfigValue(const std::string& key) {
     Lock l;
     if (key == "lua_dir") return LuaDir();
+    if (key == "lua_args") return s_luaArgs;
     if (key == "ctx") return s_scene.ctx;
     if (key == "scene") return s_scene.scene;
     if (key == "frontend.to_main") return s_resetting ? "1" : "";
@@ -502,6 +535,7 @@ std::string DevConfigValue(const std::string& key) {
 void DevPresent() {
     InterlockedIncrement(&s_frameCount);
     const int64_t ms = UnixMs();
+    if (Dk().perf) PerfFrame();
     bool first = false, ready = false;
     { Lock l; first = s_lastPresentMs < 0; s_lastPresentMs = ms; ready = s_afterReady; s_afterReady = false; }
     if (first) TlMark("first_present");
@@ -518,6 +552,7 @@ void DevInit() {
     k.luaBridge = rt.cfg.Bool("dev.lua_bridge");
     k.ctl = rt.cfg.Bool("dev.ctl");
     k.console = rt.cfg.Bool("dev.console");
+    k.perf = rt.cfg.Bool("dev.perf");
     k.fileRules = WidenUtf8(rt.cfg.Str("dev.file_rules"));
     k.ctlDir = WidenUtf8(rt.cfg.Str("dev.ctl_dir"));
     k.autostart = rt.cfg.Str("dev.autostart");

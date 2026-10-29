@@ -9,11 +9,11 @@
 namespace wsp {
 
 struct DevKeys {
-    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false, console = false;
+    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false, console = false, perf = false;
     std::wstring fileRules, ctlDir;
     std::string autostart;
     int autostartDelayMs = 1500;
-    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || console || !fileRules.empty() || !autostart.empty(); }
+    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || console || perf || !fileRules.empty() || !autostart.empty(); }
 };
 DevKeys& Dk();
 bool DevActive();

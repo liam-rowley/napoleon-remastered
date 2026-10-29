@@ -6,6 +6,7 @@
 //   - the scene tracker (intro | frontend | loading | campaign | battle_deploy | battle | naval), fed by the Lua pumps, the battle
 //     probe, load requests and the movie events; ported from empire-remastered rml_mod/src/devspeed.cpp ComputeScene
 //   - the control channel grammar: request ids, verbs, autostart/reset targets, the result JSON
+#include <algorithm>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -213,16 +214,30 @@ inline Target ParseTarget(const std::string& t) {
     return r;
 }
 
+// Frame-time statistics of a perf capture (J4): deltas in milliseconds between consecutive presents. Nearest-rank percentiles.
+struct FrameStats { size_t frames = 0; double p50 = 0, p99 = 0, max = 0, mean = 0; };
+inline FrameStats ComputeFrameStats(std::vector<double> d) {
+    FrameStats s; s.frames = d.size();
+    if (d.empty()) return s;
+    std::sort(d.begin(), d.end());
+    auto rank = [&](double p) { size_t i = (size_t)(p * (double)d.size() + 0.999999); if (i < 1) i = 1; if (i > d.size()) i = d.size(); return d[i - 1]; };
+    s.p50 = rank(0.50); s.p99 = rank(0.99); s.max = d.back();
+    double sum = 0; for (double x : d) sum += x;
+    s.mean = sum / (double)d.size();
+    return s;
+}
+
 struct CtlRequest {
     std::string verb, arg;     // arg = the rest of the line (log text, file, scenes, target)
     double timeoutS = 0;       // 0 = the verb's default
     std::string error;         // set = refuse with this reason
     Target target;             // autostart / reset
     std::vector<std::string> scenes;   // waitfor
+    std::string luaArgs;       // lua: the text after " -- ", read by the chunk as wsp.dev_config("lua_args") (J4)
 };
-inline const char* CtlVerbs() { return "ping, state, log <text>, lua <file> [timeout_s], waitfor <scene>[|<scene>] [timeout_s], autostart <target> [timeout_s], reset <target> [timeout_s], console <line>|status|on|off, exit"; }
+inline const char* CtlVerbs() { return "ping, state, log <text>, lua <file> [timeout_s] [-- args], perf <seconds>, waitfor <scene>[|<scene>] [timeout_s], autostart <target> [timeout_s], reset <target> [timeout_s], console <line>|status|on|off, exit"; }
 inline double CtlDefaultTimeout(const std::string& verb) {
-    return verb == "lua" || verb == "console" ? 30 : verb == "waitfor" ? 180 : (verb == "autostart" || verb == "reset") ? 240 : 10;
+    return verb == "lua" || verb == "console" ? 30 : verb == "perf" ? 70 : verb == "waitfor" ? 180 : (verb == "autostart" || verb == "reset") ? 240 : 10;
 }
 
 inline bool ParseTrailingTimeout(std::string& rest, double& t) {   // "x y 30" -> rest "x y", t 30; false when no number at the end
@@ -249,7 +264,17 @@ inline CtlRequest ParseCtl(const std::string& lineIn) {
     if (v.empty()) { r.error = "empty request (verbs: " + std::string(CtlVerbs()) + ")"; return r; }
     if (v == "ping" || v == "state" || v == "exit") { if (!r.arg.empty()) r.error = v + " takes no argument"; return r; }
     if (v == "log") { if (r.arg.empty()) r.error = "log needs a text"; return r; }
+    if (v == "perf") {   // perf <seconds>: 1..60, the frame-time and memory capture (J4, dev.perf)
+        double s = 0; bool digits = !r.arg.empty();
+        for (char c : r.arg) if (!((c >= '0' && c <= '9') || c == '.')) digits = false;
+        if (digits) s = atof(r.arg.c_str());
+        if (!digits || s < 1 || s > 60) { r.error = "perf needs a duration of 1 to 60 seconds"; return r; }
+        r.timeoutS = s + 10; r.arg = std::to_string((int)s);
+        return r;
+    }
     if (v == "lua") {
+        const size_t dd = r.arg.find(" -- ");
+        if (dd != std::string::npos) { r.luaArgs = TrimS2(r.arg.substr(dd + 4)); r.arg = TrimS2(r.arg.substr(0, dd)); }
         ParseTrailingTimeout(r.arg, r.timeoutS);
         if (r.arg.empty()) r.error = "lua needs a file (relative to the game folder or absolute)";
         else if (r.arg.find('"') != std::string::npos || r.arg.find('\n') != std::string::npos) r.error = "bad file name";

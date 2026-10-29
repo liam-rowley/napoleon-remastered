@@ -103,6 +103,17 @@ int main(int argc, char** argv) {
         r = ParseCtl("lua napoleon_remastered/lua/probes/list_maps.lua 45"); CHECK(r.error.empty() && r.arg == "napoleon_remastered/lua/probes/list_maps.lua" && r.timeoutS == 45);
         r = ParseCtl("lua C:\\x y\\p.lua"); CHECK(r.error.empty() && r.arg == "C:\\x y\\p.lua" && r.timeoutS == 0);
         r = ParseCtl("lua"); CHECK(!r.error.empty());
+        r = ParseCtl("lua p.lua 20 -- pose=a;x=1"); CHECK(r.error.empty() && r.arg == "p.lua" && r.timeoutS == 20 && r.luaArgs == "pose=a;x=1");
+        r = ParseCtl("lua p.lua"); CHECK(r.error.empty() && r.luaArgs.empty());
+        r = ParseCtl("perf 10"); CHECK(r.error.empty() && r.arg == "10" && r.timeoutS == 20);
+        r = ParseCtl("perf 0"); CHECK(!r.error.empty());
+        r = ParseCtl("perf 61"); CHECK(!r.error.empty());
+        r = ParseCtl("perf"); CHECK(!r.error.empty());
+        r = ParseCtl("perf x 10"); CHECK(!r.error.empty());
+        { FrameStats e = ComputeFrameStats({}); CHECK(e.frames == 0 && e.p50 == 0); }
+        { std::vector<double> d; for (int i = 1; i <= 100; ++i) d.push_back((double)i); FrameStats s = ComputeFrameStats(d);
+          CHECK(s.frames == 100 && s.p50 == 50 && s.p99 == 99 && s.max == 100 && s.mean == 50.5); }
+        { FrameStats s = ComputeFrameStats({16.0, 17.0, 90.0}); CHECK(s.p50 == 17.0 && s.p99 == 90.0 && s.max == 90.0); }
         r = ParseCtl("waitfor battle_deploy|naval 120"); CHECK(r.error.empty() && r.scenes.size() == 2 && r.timeoutS == 120);
         r = ParseCtl("waitfor frontend"); CHECK(r.error.empty() && r.scenes.size() == 1 && r.timeoutS == 0);
         r = ParseCtl("waitfor menu 10"); CHECK(r.error.find("unknown scene 'menu'") != std::string::npos);
@@ -182,7 +193,7 @@ int main(int argc, char** argv) {
             CHECK(std::string(gen::kKeys[i].def) == "0");
         }
         const std::string ini = tk::ReadFile("proxy/napoleon/napoleon_remastered.ini");
-        for (const char* k : { "timeline=0", "log_files=0", "skip_intro=0", "state_json=0", "lua_bridge=0", "ctl=0", "console=0", "autostart=\r\n" }) {
+        for (const char* k : { "timeline=0", "log_files=0", "skip_intro=0", "state_json=0", "lua_bridge=0", "ctl=0", "console=0", "perf=0", "autostart=\r\n" }) {
             const bool has = ini.find(std::string("\n") + k) != std::string::npos || ini.find(std::string("\n") + std::string(k).substr(0, strlen(k) - 2) + "\n") != std::string::npos;
             if (!has) { printf("    shipped ini lacks %s\n", k); CHECK(has); }
         }
