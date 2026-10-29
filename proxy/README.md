@@ -19,9 +19,9 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 
 ## Build
 
-**Release route: mingw-w64 i686 (`g++-mingw-w64-i686`, GCC 13 win32 thread model) on Linux**, in the cloud container and in CI
-(`ubuntu-24.04`, the same apt toolchain). Why this one and not MSVC on the Windows runner:
-- one toolchain everywhere an agent works: the container builds exactly what CI builds, so the DLL tested on the PC is reproducible
+**Release route: mingw-w64 i686 (`g++-mingw-w64-i686`, GCC 13 win32 thread model) on Linux**, in CI (`ubuntu-24.04`) and on the
+PC inside Docker Desktop (`ubuntu:24.04` pinned by digest in `build.sh`, the same apt packages; D31). Why this one and not MSVC on the Windows runner:
+- one toolchain everywhere an agent works: the local container builds exactly what CI builds, so the DLL tested on the PC is reproducible
   from the commit (no PE timestamp, relative file names; build id = commit, `-dirty` if `proxy/` has local changes);
 - DXVK's own release route is mingw (empire-remastered `dxvk_fork/docs/build.md`), so a later DXVK-side change needs no second toolchain;
 - the DLL depends on system DLLs only (static libgcc/libstdc++, no winpthread): `build.sh` fails on any other import, and on a
@@ -29,9 +29,12 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 MSVC stays the fallback (kill criterion: 3 failed loads on the PC -> stop and propose it).
 
 ```sh
-apt-get install -y g++-mingw-w64-i686     # once per container
-proxy/tools/build.sh all                  # gen --check, build/proxy/napoleon/d3d9.dll, host tests
+proxy/tools/build.sh --docker all     # on the PC (Git Bash, Docker Desktop running): gen --check, build/proxy/napoleon/d3d9.dll, host tests
+proxy/tools/build.sh --docker repro   # the same bytes from another checkout path
+proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 installed (CI)
 ```
+`--docker` computes the build id on the host (a worktree's `.git` points at a host path the container cannot see) and passes it in;
+`smoke` needs wine and runs in CI only. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`.
 CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` on every push and keeps the DLL as an artifact; the `gates` job
 runs `tests/test_proxy_tables.py` (generated tables current) and `tests/test_pc_deploy.py`.
 
@@ -100,19 +103,19 @@ break the byte-exact uninstall.
 
 ## PC install and uninstall (`tools/pc_deploy.py`)
 
-The PC is a deploy target; the device VM has `python3` and the game folder mounted.
-1. Cloud: `proxy/tools/build.sh all && python3 proxy/tools/pc_deploy.py kit` -> `build/kits/kit_<utc>_<build>/`: `manifest.json`,
+The game folder is a deploy target; everything runs in Git Bash in the repo.
+1. `proxy/tools/build.sh --docker all && python3 proxy/tools/pc_deploy.py kit` -> `build/kits/kit_<utc>_<build>/`: `manifest.json`,
    payload files under unique names `<sha12>__<name>`, and `pc_deploy.py` itself.
-2. Send the kit folder to the PC's state folder (`device_commit_files`, a new kit id every time: the stale-resend bug,
-   empire-remastered LEARNINGS lesson 18).
-3. PC: `python3 pc_deploy.py install --kit <kit> --game <game> --state <state>`: checks every staged sha256 first (a stale copy is
+2. `python3 proxy/tools/pc_deploy.py send --kit build/kits/<id> --state <state>` copies it sha-checked to `<state>\kits\<id>`; a kit id
+   already there is refused (a new kit id every time: the stale-resend bug, empire-remastered LEARNINGS lesson 18).
+3. `python3 proxy/tools/pc_deploy.py install --kit <state>/kits/<id> --game <game> --state <state>`: checks every staged sha256 first (a stale copy is
    refused, nothing installed), refuses while the game looks open, snapshots the game folder (first install), backs up any foreign file
    at an owned path, copies with a temp name + rename, re-hashes every destination, writes `<state>\install.json`.
 4. `pc_deploy.py uninstall --game <game> --state <state>`: moves everything owned (`d3d9.dll`, the ini, the whole
    `napoleon_remastered\` with its runtime logs, dumps and DXVK files) to `<state>\_to_delete\`, restores backups, snapshots and diffs
    against the pre-install snapshot; exit 0 only when identical (sha256 for every file up to 100 MB, size + mtime above).
-Never delete on the PC: removals are moves to `_to_delete\` after a verified copy. The state folder is outside the game folder; moving
-out of the game folder from the device VM needs deletion allowed there for the session (asked once, at the uninstall).
+Never delete on the PC: removals are moves to `_to_delete\` after a verified copy. Both refuse while either title runs: the watcher's
+process list when it is alive, else `tasklist`.
 
 ## Hooks (J3, D26)
 
@@ -128,14 +131,14 @@ All `[dev]` keys default off with release value off (`registries/config_keys.jso
 - `dev.log_files`: the file survey `logs\files.log` (every distinct open, check and listing); `proxy/tools/survey_table.py`.
 - `dev.skip_intro`, `dev.file_rules`: movie and file rules (`core/filerules.h`: redirect, fail, add, movie-fail, movie-redirect).
 - `dev.state_json`: `napoleon_remastered\state.json` ~2/s (scene, frame, Lua context, battle probe, memory, Lua reports); in the
-  adapter's `heartbeat_files`, so a watcher launch can wait on `"scene": "frontend"` (`wait_log` regex). The device VM may show a
-  stale copy of a file replaced by rename: read the state with ctl `state` instead.
+  adapter's `heartbeat_files`, so a watcher launch can wait on `"scene": "frontend"` (`wait_log` regex). For a consistent
+  snapshot read the state with ctl `state` (the file is replaced by rename about twice a second).
 - `dev.lua_bridge`: the wrappers listed in `napoleon/lua/wrappers.txt` (`tools/build_dev_pack.py`) are served by a virtual pack and
   load `napoleon_remastered\lua\wsp.lua`, which loads the bridge (`core/luabridge.cpp`, Lua 5.1.1 core from `tools/fetch_lua.py`).
   Scenes: `core/devcore.h` SceneTracker. Only the main menu pumps in the front end (fact `napoleon.lua.update_callbacks`).
 - `dev.ctl` + `dev.ctl_dir`: requests `<dir>\<id>.cmd` (one line), results `<id>.done` (JSON written last: `status` ok | failed |
   timeout | refused, `reason`, `start_utc`, `end_utc`, verb fields, `state_at_end`, `log` = every proxy log line written meanwhile).
-  Ids: 1-64 of `A-Za-z0-9._-`, never reused (`_ids.txt`). FIFO, one at a time. From the device VM: `job.sh ctl <owner> '<line>' [wait_s]`; with no answer it
+  Ids: 1-64 of `A-Za-z0-9._-`, never reused (`_ids.txt`). FIFO, one at a time. From Git Bash: `job.sh ctl <owner> '<line>' [wait_s]`; with no answer it
   withdraws the request (`<id>.cmd.expired`), because the proxy runs every `.cmd` it finds, including on a later launch.
 
 | verb | result fields |

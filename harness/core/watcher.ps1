@@ -1,4 +1,4 @@
-# purpose: the PC watcher: runs job requests dropped into <root>\jobs\ by cloud agents (control jobs launch/kill/profile/status/noop/restart/update, cmd and ps1 scripts) one at a time, enforces the game lock, watches the game for hangs, restores config profiles byte for byte
+# purpose: the PC watcher: runs job requests dropped into <root>\jobs\ by agents through harness/core/job.sh (control jobs launch/kill/profile/status/noop/restart/update, cmd and ps1 scripts) one at a time, enforces the game lock, watches the game for hangs, restores config profiles byte for byte
 # usage: powershell -NoProfile -ExecutionPolicy Bypass -File watcher.ps1 [-Root <dir>] [-Adapter <adapter.json>]   (started by watch.cmd; protocol, layout and settings: harness/README.md)
 # when: runs permanently on the PC after "Install watcher.cmd"; agents never start it, they submit jobs with harness/core/job.sh
 # not-a-verb: a Windows PowerShell 5.1 service loop that runs on the PC, not a repo operation
@@ -935,7 +935,7 @@ function Start-NextJob {
             $kit = $hdr['kit']
             if (-not $kit -or -not (Is-ValidId $kit)) { Refuse-Job $c "usage: update kit=<kit id> (a harness kit folder under <state>\kits\)"; $script:Cur = $null; return $true }
             $kitDir = Join-Path (Join-Path (Split-Path $Root) 'kits') $kit
-            if (-not (Test-Path -LiteralPath (Join-Path $kitDir 'manifest.json'))) { Refuse-Job $c "no kit at $kitDir (send it with device_commit_files under a NEW kit id first)"; $script:Cur = $null; return $true }
+            if (-not (Test-Path -LiteralPath (Join-Path $kitDir 'manifest.json'))) { Refuse-Job $c "no kit at $kitDir (send it first: python3 proxy/tools/pc_deploy.py send --kit build/kits/<id> --state <state>; a kit id is never reused)"; $script:Cur = $null; return $true }
             $upd = RootPath (Join-Path 'update' "run_$(UtcStamp (Get-Date))")
             New-Item -ItemType Directory -Path $upd -Force | Out-Null
             Copy-Item -LiteralPath (Join-Path $SrcDir 'update.ps1') -Destination (Join-Path $upd 'update.ps1')     # run a COPY: the update replaces src\update.ps1 itself

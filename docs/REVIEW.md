@@ -1,6 +1,6 @@
 # Reviewing a job branch
 
-Every job branch gets an independent review before Liam merges it. The reviewer is a fresh chat that did not build the branch
+Every job branch gets an independent review before it merges; with a `merge` verdict the reviewer merges it on green CI (D32). The reviewer is a fresh chat that did not build the branch
 (Opus is allowed: D15 names independent checks). It starts cold from this file, the job prompt and the job's report.
 
 ## Starting a review
@@ -34,6 +34,15 @@ check reads it: only `merge` lets the branch merge), and findings ranked **block
 - **Later** items for the core go to warscape-core `docs/BACKLOG.md` through a warscape-core PR; for this repo, into the review.
 - Write the review as `jobs/<id>/review.md` on the branch, dated at the top (`wsc jobs check` checks the date and the verdict line). With a `merge` verdict, set the row to
   `status=done review=jobs/<id>/review.md` (`CLAUDE.md` Jobs); otherwise leave it at `review` and say what must change.
+
+## Merging (D32, `merge` verdict only)
+After the review commit is pushed, run `python3 tools/pr_policy.py --branch job/<id> --base origin/main` (it must say ok), then
+`gh pr view job/<id>` (if there is no pull request: `gh pr create --base main --head job/<id> --title "<id>: <title>"`, body = the
+review's verdict and findings), then `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
+`proxy`, `harness-windows`, `policy`) is green on that commit: do not wait or poll. If the merge changes a rule that other open job
+branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply. A check that fails leaves the
+pull request open: Liam sees it, and the next review round decides. Any other verdict is never merged, and `brief/`, `plan/` and
+`meta/` branches still wait for Liam.
 
 ## Keeping this file useful
 When a review finds something a gate could have caught, the fix is a new gate (in warscape-core if it is game-agnostic), not a

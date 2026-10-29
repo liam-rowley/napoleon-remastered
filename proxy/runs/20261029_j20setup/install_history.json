@@ -1,0 +1,158 @@
+{
+  "pre_snapshot": "snapshots/pre_install_20261029T103610Z.json",
+  "backups": [],
+  "history": [
+    {
+      "utc": "20261029T103610Z",
+      "action": "install started",
+      "kit_id": "kit_20261029T103551Z_066fbd0b7c62"
+    },
+    {
+      "utc": "20261029T103610Z",
+      "action": "install",
+      "kit_id": "kit_20261029T103551Z_066fbd0b7c62"
+    },
+    {
+      "utc": "20261029T113034Z",
+      "action": "install started",
+      "kit_id": "kit_20261029T113002Z_753dd22bcc85"
+    },
+    {
+      "utc": "20261029T113110Z",
+      "action": "install started",
+      "kit_id": "kit_20261029T113002Z_753dd22bcc85"
+    },
+    {
+      "utc": "20261029T113110Z",
+      "action": "install",
+      "kit_id": "kit_20261029T113002Z_753dd22bcc85"
+    },
+    {
+      "utc": "20261029T113225Z",
+      "action": "install started",
+      "kit_id": "kit_20261029T103551Z_066fbd0b7c62"
+    },
+    {
+      "utc": "20261029T113225Z",
+      "action": "install",
+      "kit_id": "kit_20261029T103551Z_066fbd0b7c62"
+    },
+    {
+      "utc": "20261029T113254Z",
+      "action": "install started",
+      "kit_id": "kit_20261029T113002Z_753dd22bcc85"
+    },
+    {
+      "utc": "20261029T113254Z",
+      "action": "install",
+      "kit_id": "kit_20261029T113002Z_753dd22bcc85"
+    },
+    {
+      "utc": "20261029T152215Z",
+      "action": "install started",
+      "kit_id": "kit_20261029T152159Z_edbf71c650b7"
+    },
+    {
+      "utc": "20261029T152215Z",
+      "action": "install",
+      "kit_id": "kit_20261029T152159Z_edbf71c650b7"
+    },
+    {
+      "utc": "20261029T152829Z",
+      "action": "uninstall",
+      "identical": true,
+      "diffs": []
+    }
+  ],
+  "kit_id": "kit_20261029T152159Z_edbf71c650b7",
+  "build_id": "edbf71c650b7",
+  "installed_utc": "20261029T152215Z",
+  "files": [
+    {
+      "path": "d3d9.dll",
+      "sha256": "2d0e60a44db106981a59b9e9527c2005c0a48f784fe91c19495542af2fbf452c",
+      "size": 712704
+    },
+    {
+      "path": "napoleon_remastered.ini",
+      "sha256": "eb380875a24f7aac7cfd35563498c6f1a58eacc0f5285d4e7488cf0df4d88023",
+      "size": 3836
+    },
+    {
+      "path": "napoleon_remastered/dxvk/d3d9_dxvk.dll",
+      "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+      "size": 7856142
+    },
+    {
+      "path": "napoleon_remastered/LICENSE.dxvk.txt",
+      "sha256": "a5cb1a6ded7d2d7e92d550ba28edd21be2d1d4044662b399887351023e30ce64",
+      "size": 1074
+    },
+    {
+      "path": "napoleon_remastered/packs/zz_napoleon_remastered_dev.pack",
+      "sha256": "d15febf06229844bda10dc1a8391be1d0de02a703ab6474da7bc7d13beb96a12",
+      "size": 2114
+    },
+    {
+      "path": "napoleon_remastered/lua/autostart.lua",
+      "sha256": "c7d84addffc01645aca8350fb29425fa7763df85c8c07b776207d4221c254bf0",
+      "size": 10021
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/land_small.txt",
+      "sha256": "9e6793be668f3728511fbef874729bd85b8e084ab77cd83ecf09f86b3ae55afc",
+      "size": 390
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/naval_small.txt",
+      "sha256": "083927fa6396a2765a342c371d54691dc5938c519ae620c9a706e520003a8ef8",
+      "size": 119
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/siege_small.txt",
+      "sha256": "7950cb3b82a9a4a9448629f5b889362acc86b685702bc41e7f66ee7d39b84346",
+      "size": 113
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_keys.lua",
+      "sha256": "ffde399d29fc10e696175421c34df324e6018c6ebc59bd3d51a56ec103d2102f",
+      "size": 1451
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/env_dump.lua",
+      "sha256": "9676b54e666df8cdb2eb8f5299aea25855212d3af894e686dc8e8e573c4edd76",
+      "size": 1137
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/list_maps.lua",
+      "sha256": "f66dfa9507da4a527248063c627d8c363d6f3985639518e0650cd9e1908d1c23",
+      "size": 1147
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/ui_tree.lua",
+      "sha256": "095f5915aa536790856db38726d496251b666a1796d1335f82c4b38acdaf605e",
+      "size": 1381
+    },
+    {
+      "path": "napoleon_remastered/lua/reset.lua",
+      "sha256": "606af215e8b4cd660317eb552195229d193522374635bc39bd231baa60890524",
+      "size": 2754
+    },
+    {
+      "path": "napoleon_remastered/lua/wsp.lua",
+      "sha256": "a7f0e851d6ac6c6a3327103b73c1d4e09786988a6343cfdff24fcda3cb8190ab",
+      "size": 6544
+    }
+  ],
+  "owned": [
+    "d3d9.dll",
+    "napoleon_remastered.ini",
+    "napoleon_remastered/"
+  ],
+  "mod_dir": "napoleon_remastered",
+  "exe_name": "Napoleon.exe",
+  "config_file": "napoleon_remastered.ini",
+  "other_exes": [
+    "Empire.exe"
+  ]
+}

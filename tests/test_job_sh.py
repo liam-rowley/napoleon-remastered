@@ -13,6 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 JOB = ROOT / 'harness' / 'core' / 'job.sh'
 
 
+def bash_path(p):
+    """How Git Bash names a Windows path (C:\\x\\y -> /c/x/y); a POSIX path is unchanged."""
+    s = str(p).replace('\\', '/')
+    return f'/{s[0].lower()}{s[2:]}' if len(s) > 1 and s[1] == ':' else s
+
+
 def run(args, env, stdin=None, timeout=60):
     e = dict(os.environ)
     e.pop('WATCHER_ROOT', None)
@@ -48,12 +54,12 @@ class JobSh(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         t = Path(self.tmp.name)
-        self.mounts = t / 'mnt'
-        self.root = self.mounts / 'napoleon_remastered_pc' / 'watcher'
+        self.state = t / 'napoleon_remastered_pc'
+        self.root = self.state / 'watcher'
         (self.root / 'jobs').mkdir(parents=True)
         self.adapter = t / 'adapter.json'
-        self.adapter.write_text(json.dumps({'device_mount': 'napoleon_remastered_pc', 'watcher_subdir': 'watcher'}))
-        self.env = {'DEVICE_MOUNTS': str(self.mounts)}
+        self.adapter.write_text(json.dumps({'state_dir': str(self.state), 'watcher_subdir': 'watcher'}))
+        self.env = {}
         self.w = None
 
     def tearDown(self):
@@ -67,12 +73,20 @@ class JobSh(unittest.TestCase):
 
     def test_root_comes_from_the_adapter_not_a_default(self):
         r = run(['--adapter', str(self.adapter), 'root'], self.env)
-        self.assertEqual(r.stdout.strip(), str(self.root))
-        r = run(['--adapter', str(self.adapter), 'root'], {'DEVICE_MOUNTS': str(self.mounts / 'elsewhere')})
+        self.assertEqual(r.stdout.strip(), bash_path(self.root))
+        self.adapter.write_text(json.dumps({'state_dir': str(self.state / 'elsewhere'), 'watcher_subdir': 'watcher'}))
+        r = run(['--adapter', str(self.adapter), 'root'], self.env)
         self.assertEqual(r.returncode, 64)
         self.assertIn('does not exist', r.stderr)
-        r = run(['root'], self.env)   # no --adapter: the repo layout finds harness/napoleon/adapter.json (device_mount napoleon_remastered_pc)
-        self.assertEqual(r.stdout.strip(), str(self.root))
+
+    def test_default_adapter_root_is_the_state_dir_as_a_bash_path(self):
+        # no --adapter: the repo layout finds harness/napoleon/adapter.json (state_dir C:\napoleon_remastered_pc); no env var needed
+        r = run(['root'], self.env)
+        if r.returncode == 0:   # the PC
+            self.assertEqual(r.stdout.strip(), '/c/napoleon_remastered_pc/watcher')
+        else:                   # CI: the folder does not exist, and the error names the converted path
+            self.assertEqual(r.returncode, 64)
+            self.assertIn('/c/napoleon_remastered_pc/watcher does not exist', r.stderr)
 
     def test_ok_prints_output_and_returns_zero(self):
         self.watcher({'status': 'ok', 'exit': 0, 'out': 'hello from the PC\n'})
@@ -102,7 +116,7 @@ class JobSh(unittest.TestCase):
         self.assertEqual(len(list((self.root / 'jobs').glob('*.tmp'))), 0)      # submitted atomically: no half-written .tmp left behind
 
     def test_ctl_ok_and_exit_codes(self):
-        ctl = self.mounts / 'napoleon_remastered_pc' / 'ctl'
+        ctl = self.state / 'ctl'
         answers = iter(['ok', 'failed', 'timeout', 'refused'])
 
         def proxy():   # plays the proxy: take the .cmd by rename, answer with .done
@@ -122,7 +136,7 @@ class JobSh(unittest.TestCase):
         r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'exit', '1'], self.env)
         self.assertEqual(r.returncode, 124)
         self.assertIn('withdrawn', r.stderr)
-        ctl = self.mounts / 'napoleon_remastered_pc' / 'ctl'
+        ctl = self.state / 'ctl'
         self.assertEqual(list(ctl.glob('*.cmd')), [])
         self.assertEqual(len(list(ctl.glob('*.cmd.expired'))), 1)
 

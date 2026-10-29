@@ -17,7 +17,9 @@
   edit, commit or push there from Napoleon work.** Bring it into a session with `--add-dir ../empire-remastered` when a job needs it.
 - **The game is launched, killed and profiled only through the watcher** (`harness/README.md`, `harness/core/job.sh`), never by
   starting `Napoleon.exe` yourself: the watcher holds the game lock, the hang watchdog and the profile restore.
-- One-time setup and its check: J20 (until it lands, `python3` may be `py -3` on this PC).
+- One-time setup and its check: run `python3 core/wsc.py setup` (`--fix` for the safe fixes); every line says how to fix a failure.
+- Every commit carries a `Claude-Session: <session id>` trailer: the `.claude/settings.json` hook refuses a `git commit` without it
+  and names the flag, and `tools/pr_policy.py` refuses a job whose report or review has a commit without one.
 
 ## The core (`core/`, warscape-core pinned at a tag)
 - Clone with `git clone --recurse-submodules` (or `git submodule update --init` after a plain clone); set the hook once per clone:
@@ -34,7 +36,8 @@
   `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (`tools/verbs/jobs.py`).
 - **"Pick up the next job":** `git pull`, then `python3 core/wsc.py jobs next`. It names the job and its steps, or the brief to write
   (on `brief/<id>`, then stop for Liam's merge), or what every open job is waiting for. Say which job you took.
-- **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it.
+- **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it. A `merge` verdict
+  ends with the reviewer queueing the merge on green CI (D32); any other verdict is never merged.
 - Never mark your own job `done`, and never review a job you built (CI's `policy` check refuses a review written by a session that
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
@@ -42,8 +45,9 @@
   for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself.
 
 ## While you work
-- Work on a branch; commit and push after every meaningful step. `main` changes only by a merge Liam (or the orchestrator, once
-  there is one) approves, after an independent review (`docs/REVIEW.md`). End every job with a report: what was built, evidence
+- Work on a branch; commit and push after every meaningful step. `main` changes only through a pull request: a job branch
+  is merged by its independent reviewer on green CI (D32, `docs/REVIEW.md`); every other branch by Liam (or the orchestrator, once
+  there is one). End every job with a report: what was built, evidence
   (run ids), deviations from the brief and why, open questions (`wsc jobs check` checks the headings).
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.

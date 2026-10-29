@@ -1,0 +1,26 @@
+J20 deploy steps before the watcher launch (2026-10-29, ~15:21-15:22Z).
+
+These commands' output was NOT redirected to a file at the time (J20 review finding 2). The lines below are transcribed from the
+session's tool output; the files named after each step are the on-disk records that back them.
+
+1. python3 proxy/tools/pc_deploy.py kit
+   build_dev_pack: ...\build\proxy\napoleon\zz_napoleon_remastered_dev.pack (4 wrappers, sha256 d15febf06229844b)
+   pc_deploy kit: ...\build\kits\kit_20261029T152159Z_edbf71c650b7 (15 files)
+
+2. python3 proxy/tools/pc_deploy.py send --kit build/kits/kit_20261029T152159Z_edbf71c650b7 --state 'C:\napoleon_remastered_pc'
+   pc_deploy send: kit_20261029T152159Z_edbf71c650b7 -> C:\napoleon_remastered_pc\kits\kit_20261029T152159Z_edbf71c650b7 (17 files, sha256 checked)
+   the same command again, at once:
+   pc_deploy send: C:\napoleon_remastered_pc\kits\kit_20261029T152159Z_edbf71c650b7 already exists: a kit id is never reused (build a new kit)
+   (exit 1)
+   backed by: sent_kit_listing.txt (17 files, no .partial left); resend_refused.txt (the refusal re-run and captured after the review)
+
+3. python3 proxy/tools/pc_deploy.py install --kit 'C:\napoleon_remastered_pc\kits\kit_20261029T152159Z_edbf71c650b7' --game '...\Napoleon Total War' --state 'C:\napoleon_remastered_pc'
+   (last lines) pc_deploy install: napoleon_remastered/lua/wsp.lua sha256 a7f0e851d6ac ok
+                pc_deploy install: kit kit_20261029T152159Z_edbf71c650b7 installed (build edbf71c650b7)
+   backed by: install_history.json (copy of C:\napoleon_remastered_pc\history\install_20261029T152829Z.json, written by the uninstall):
+   kit_id kit_20261029T152159Z_edbf71c650b7, installed_utc 20261029T152215Z, history 'install started' + 'install' at 20261029T152215Z,
+   'uninstall' identical=True at 20261029T152829Z
+
+4. python3 proxy/tools/pc_deploy.py set --game '...\Napoleon Total War' dev.state_json=1
+   pc_deploy set: napoleon_remastered.ini: dev.state_json=1
+   backed by: proxy.log (config: dev.state_json = 1; dev: ... state_json=1)

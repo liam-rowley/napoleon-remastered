@@ -56,7 +56,7 @@ function New-TestAdapter([string]$dir, [string]$gameImage = 'Napoleon.exe', [str
     $game = Join-Path $dir 'game'; $app = Join-Path $dir 'appdata'
     foreach ($d in @($game, (Join-Path $app 'scripts'), (Join-Path $game 'logs'))) { New-Item -ItemType Directory -Path $d -Force | Out-Null }
     $adapter = [ordered]@{
-        game = 'testgame'; title = 'Test Game'; state_dir = $dir; watcher_subdir = 'watcher'; device_mount = 'x'; task_name = 'napoleon_remastered watcher citest'
+        game = 'testgame'; title = 'Test Game'; state_dir = $dir; watcher_subdir = 'watcher'; task_name = 'napoleon_remastered watcher citest'
         game_dir = $game; appdata_dir = $app; game_image = $gameImage; other_images = @($otherImage)
         launch = [ordered]@{ route = 'exe'; exe = $gameImage; args = $launchArgs; steam_uri = ''; steam_wait_s = 5 }
         heartbeat_files = @('logs\proxy.log')

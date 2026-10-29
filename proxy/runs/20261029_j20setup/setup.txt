@@ -1,0 +1,12 @@
+ok   git_bash: bash on PATH: C:\Program Files\Git\usr\bin\bash.EXE (git); MSYSTEM=MINGW64
+ok   python3: python3 = C:\Users\liamr\AppData\Local\Microsoft\WindowsApps\python3.EXE (Python 3.15.2)
+ok   core_pin: core at v0.2.0, wsc.toml pins v0.2.0
+ok   hooks_path: core.hooksPath = core/.githooks
+ok   lf_scripts: 40 scripts, 0 with CR (); lf attribute, core.autocrlf=true
+ok   gh_auth: ✓ Logged in to github.com account liam-rowley (keyring)
+ok   docker: docker server 29.6.2 linux
+ok   empire_clone: C:\Users\liamr\repos\empire-remastered: clean
+ok   playwright: C:\Users\liamr\AppData\Local\ms-playwright\chromium-1248\chrome-win64\chrome.exe True
+ok   watcher: job.sh status exit 0: }
+setup: 10 ok, 0 failed
+exit 0

@@ -1,0 +1,4 @@
+fresh session: claude -p (haiku), cwd = J20 worktree, --allowedTools 'Bash(git commit:*)'
+1. git commit --allow-empty -m 'J20 hook proof'  -> denied by the PreToolUse hook (tools/claude_hook.py); the reason names --trailer "Claude-Session: <id>"
+2. the same + --trailer "Claude-Session: 849442f7-a0c0-4324-b2e7-990cd2c74c6e" -> allowed
+a032b09 J20 hook proof | Claude-Session=849442f7-a0c0-4324-b2e7-990cd2c74c6e
