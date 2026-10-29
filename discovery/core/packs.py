@@ -23,6 +23,8 @@ from diffout import row, write  # noqa: E402
 from pack_list import read_header, read_index  # noqa: E402
 
 PACK_TYPES = {0: 'boot', 1: 'release', 2: 'patch', 3: 'mod', 4: 'movie'}
+# one top folder per voice language (both games); an explicit list, because ui, db and fx are two letters too
+VOICE_LANGS = {'ar', 'cz', 'du', 'fr', 'ge', 'hi', 'it', 'pe', 'pl', 'po', 'ru', 'sp', 'sw', 'tu', 'uk', 'us', 'us_trib'}
 
 
 def kind(path):
@@ -30,8 +32,8 @@ def kind(path):
     parts = path.lower().split('\\')
     if len(parts) == 1:
         return '(root)'
-    if len(parts[0]) == 2 or parts[0] == 'us_trib':
-        return 'voices (language folders)'   # ar, cz, du, fr, ... one folder per voice language
+    if parts[0] in VOICE_LANGS:
+        return 'voices (language folders)'
     if parts[0] == 'ui' and len(parts) > 2:
         return 'ui\\' + parts[1]
     return parts[0]

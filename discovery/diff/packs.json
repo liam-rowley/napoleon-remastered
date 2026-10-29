@@ -66,7 +66,8 @@
     "index_sha256": "6466671b6332dec240d93b1f08fff336c2e6ef464631770b47a987b20096043c",
     "kinds": {
      "commontextures": 1,
-     "voices (language folders)": 9
+     "fx": 1,
+     "ui\\frontend ui": 8
     },
     "magic": "PFH0",
     "pack_names": [],
@@ -114,7 +115,9 @@
      "campaign": 69,
      "commontextures": 20,
      "customsprites": 36,
+     "db": 261,
      "effects": 73,
+     "fx": 138,
      "heightmaps": 1,
      "indicators": 20,
      "multiplayer": 2,
@@ -122,8 +125,7 @@
      "scenarios": 14,
      "sea": 11,
      "text": 2,
-     "tutorialbattles": 4,
-     "voices (language folders)": 399
+     "tutorialbattles": 4
     },
     "magic": "PFH0",
     "pack_names": [],
@@ -139,11 +141,11 @@
     "kinds": {
      "artillery": 1,
      "buildings": 392,
+     "db": 20,
      "enginemodels": 232,
      "rigidmodels": 11197,
      "ships": 22,
-     "unitmodels": 1732,
-     "voices (language folders)": 20
+     "unitmodels": 1732
     },
     "magic": "PFH0",
     "pack_names": [],
@@ -176,7 +178,9 @@
      "animations": 1312,
      "battleterrain": 200,
      "campaign": 219,
+     "db": 97,
      "effects": 1,
+     "fx": 60,
      "indicators": 8,
      "movies": 12,
      "music": 10,
@@ -189,8 +193,15 @@
      "testdata": 7,
      "text": 2,
      "tutorialbattles": 4,
-     "unitmodels": 189,
-     "voices (language folders)": 1028
+     "ui": 19,
+     "ui\\battle ui": 115,
+     "ui\\campaign ui": 160,
+     "ui\\common ui": 31,
+     "ui\\flags": 1,
+     "ui\\frontend ui": 301,
+     "ui\\templates": 128,
+     "ui\\units": 116,
+     "unitmodels": 189
     },
     "magic": "PFH0",
     "pack_names": [],
@@ -208,12 +219,25 @@
      "advisor": 6,
      "animations": 90,
      "battleterrain": 18,
+     "db": 109,
      "rigidmodels": 207,
      "sounds": 88,
      "sounds_packed": 2,
      "text": 1,
+     "ui": 5,
+     "ui\\battle ui": 211,
+     "ui\\buildings": 202,
+     "ui\\campaign ui": 394,
+     "ui\\common ui": 87,
+     "ui\\eventicons": 7,
+     "ui\\eventpics": 25,
+     "ui\\frontend ui": 63,
+     "ui\\loading_screen_pictures": 3,
+     "ui\\portraits": 10,
+     "ui\\templates": 8,
+     "ui\\units": 60,
      "unitmodels": 326,
-     "voices (language folders)": 1671
+     "voices (language folders)": 487
     },
     "magic": "PFH0",
     "pack_names": [
@@ -231,8 +255,12 @@
     "kinds": {
      "(root)": 1,
      "battleterrain": 107,
-     "unitmodels": 105,
-     "voices (language folders)": 81
+     "db": 16,
+     "ui": 2,
+     "ui\\campaign ui": 2,
+     "ui\\frontend ui": 1,
+     "ui\\units": 60,
+     "unitmodels": 105
     },
     "magic": "PFH0",
     "pack_names": [
@@ -250,10 +278,13 @@
     "kinds": {
      "(root)": 1,
      "battleterrain": 1,
+     "db": 16,
      "movies": 17,
      "sounds_packed": 1,
-     "unitmodels": 84,
-     "voices (language folders)": 68
+     "ui": 2,
+     "ui\\campaign ui": 2,
+     "ui\\units": 48,
+     "unitmodels": 84
     },
     "magic": "PFH0",
     "pack_names": [
@@ -271,8 +302,10 @@
     "kinds": {
      "(root)": 2,
      "battleterrain": 1,
+     "db": 15,
      "sounds_packed": 1,
-     "voices (language folders)": 19
+     "ui": 2,
+     "ui\\campaign ui": 2
     },
     "magic": "PFH0",
     "pack_names": [
@@ -499,7 +532,21 @@
     "flags": 0,
     "index_sha256": "c5aff93191726590e9fc8a91d79de9ab8dfe707aa0156967371f505aeb07666e",
     "kinds": {
-     "voices (language folders)": 17430
+     "ui": 18,
+     "ui\\achievements": 31,
+     "ui\\battle ui": 893,
+     "ui\\buildings": 1056,
+     "ui\\campaign ui": 1248,
+     "ui\\common ui": 241,
+     "ui\\eventicons": 22,
+     "ui\\eventpics": 171,
+     "ui\\flags": 1621,
+     "ui\\frontend ui": 541,
+     "ui\\loading_screen_pictures": 18,
+     "ui\\portraits": 10418,
+     "ui\\templates": 129,
+     "ui\\units": 1014,
+     "ui\\warscapetwin": 9
     },
     "magic": "PFH0",
     "pack_names": [],
@@ -580,7 +627,8 @@
     "index_sha256": "9e3eb79e9525510874e2027acf89fe48b7a1b7e263e7cd87e18e865538f1151b",
     "kinds": {
      "commontextures": 1,
-     "voices (language folders)": 18
+     "fx": 1,
+     "ui\\frontend ui": 17
     },
     "magic": "PFH0",
     "pack_names": [],
@@ -615,9 +663,11 @@
      "campaign": 91,
      "commontextures": 21,
      "customsprites": 21,
+     "db": 310,
      "editorbrushes": 3,
      "effects": 94,
      "enginemodels": 263,
+     "fx": 135,
      "heightmaps": 1,
      "indicators": 28,
      "logs": 80,
@@ -630,8 +680,23 @@
      "testdata": 701,
      "text": 2,
      "tutorialbattles": 4,
+     "ui": 23,
+     "ui\\achievements": 73,
+     "ui\\battle ui": 1158,
+     "ui\\buildings": 1328,
+     "ui\\campaign ui": 1280,
+     "ui\\common ui": 413,
+     "ui\\eventicons": 41,
+     "ui\\eventpics": 230,
+     "ui\\flags": 2312,
+     "ui\\frontend ui": 902,
+     "ui\\loading_screen_pictures": 22,
+     "ui\\portraits": 1375,
+     "ui\\templates": 456,
+     "ui\\units": 2206,
+     "ui\\warscapetwin": 35,
      "unitmodels": 488,
-     "voices (language folders)": 12789,
+     "voices (language folders)": 490,
      "wellington_historical_battles": 2
     },
     "magic": "PFH0",
@@ -860,6 +925,14 @@
    "verdict": "adapter"
   },
   {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "534 in main.pack, models.pack, patch.pack, patch2.pack, patch3.pack, patch4.pack, patch5.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind db",
+   "napoleon": "310 in data.pack",
+   "verdict": "adapter"
+  },
+  {
    "adapter": "",
    "empire": "0 in -",
    "evidence": "detail.packs.*.kinds",
@@ -898,6 +971,14 @@
    "item": "kind front_end_music",
    "napoleon": "2 in sound.pack",
    "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "199 in boot.pack, main.pack, patch.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind fx",
+   "napoleon": "136 in boot.pack, data.pack",
+   "verdict": "adapter"
   },
   {
    "adapter": "look it up in the other pack(s)",
@@ -1093,6 +1174,126 @@
   },
   {
    "adapter": "look it up in the other pack(s)",
+   "empire": "48 in patch.pack, patch2.pack, patch3.pack, patch4.pack, patch5.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui",
+   "napoleon": "23 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "31 in ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\achievements",
+   "napoleon": "73 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1219 in patch.pack, patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\battle ui",
+   "napoleon": "1158 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1258 in patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\buildings",
+   "napoleon": "1328 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1808 in patch.pack, patch2.pack, patch3.pack, patch4.pack, patch5.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\campaign ui",
+   "napoleon": "1280 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "359 in patch.pack, patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\common ui",
+   "napoleon": "413 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "29 in patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\eventicons",
+   "napoleon": "41 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "196 in patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\eventpics",
+   "napoleon": "230 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1622 in patch.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\flags",
+   "napoleon": "2312 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "914 in boot.pack, patch.pack, patch2.pack, patch3.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\frontend ui",
+   "napoleon": "919 in boot.pack, data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "21 in patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\loading_screen_pictures",
+   "napoleon": "22 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "10428 in patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\portraits",
+   "napoleon": "1375 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "265 in patch.pack, patch2.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\templates",
+   "napoleon": "456 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1298 in patch.pack, patch2.pack, patch3.pack, patch4.pack, ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\units",
+   "napoleon": "2206 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "9 in ui.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ui\\warscapetwin",
+   "napoleon": "35 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
    "empire": "2436 in models.pack, patch.pack, patch2.pack, patch3.pack, patch4.pack",
    "evidence": "detail.packs.*.kinds",
    "item": "kind unitmodels",
@@ -1109,10 +1310,10 @@
   },
   {
    "adapter": "look it up in the other pack(s)",
-   "empire": "44780 in boot.pack, main.pack, models.pack, patch.pack, patch2.pack, patch3.pack, patch4.pack, patch5.pack, ui.pack, voices.pack",
+   "empire": "24542 in patch2.pack, voices.pack",
    "evidence": "detail.packs.*.kinds",
    "item": "kind voices (language folders)",
-   "napoleon": "45284 in boot.pack, data.pack, sound.pack",
+   "napoleon": "32967 in data.pack, sound.pack",
    "verdict": "adapter"
   },
   {

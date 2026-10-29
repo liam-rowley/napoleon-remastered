@@ -1,0 +1,3813 @@
+{
+ "area": "lua_api",
+ "detail": {
+  "empire_scripts": {
+   "count": 436,
+   "source": "rml_mod/docs/engine_api.json"
+  },
+  "loose_entry_points": {
+   "all_scripted.lua": {
+    "empire": {
+     "functions": [],
+     "globals": [
+      "events"
+     ],
+     "require": [
+      "data.export_ancillaries",
+      "data.export_historic_characters",
+      "data.export_missions",
+      "data.export_triggers"
+     ]
+    },
+    "napoleon": {
+     "functions": [],
+     "globals": [
+      "events"
+     ],
+     "require": [
+      "data.export_ancillaries",
+      "data.export_historic_characters",
+      "data.export_missions",
+      "data.export_triggers"
+     ]
+    }
+   },
+   "battle_scripted.lua": {
+    "empire": {
+     "functions": [],
+     "globals": [],
+     "require": [
+      "data.all_scripted",
+      "data.export_advice"
+     ]
+    },
+    "napoleon": {
+     "functions": [],
+     "globals": [],
+     "require": [
+      "data.all_scripted",
+      "data.export_advice"
+     ]
+    }
+   }
+  },
+  "names": {
+   "BattleUI.*": {
+    "BattleUI.AddUnitsToGroup": "same",
+    "BattleUI.Anchor": "same",
+    "BattleUI.BackProjectPosition": "new",
+    "BattleUI.BattleDetails": "same",
+    "BattleUI.BattleEditorPause": "same",
+    "BattleUI.BattleEditorUnpause": "same",
+    "BattleUI.BattleEditorVisibleState": "same",
+    "BattleUI.Board": "same",
+    "BattleUI.BroadsideMouseEvent": "same",
+    "BattleUI.Broadside_Left_Issue_Order": "same",
+    "BattleUI.Broadside_Right_Issue_Order": "same",
+    "BattleUI.Broadside_Update": "same",
+    "BattleUI.CameraZoomTo": "same",
+    "BattleUI.CameraZoomToSelection": "same",
+    "BattleUI.Column_Infantry_Vanguard": "same",
+    "BattleUI.CombatRatioDetails": "new",
+    "BattleUI.CreateUnitGroup": "same",
+    "BattleUI.Crescent_Attack": "same",
+    "BattleUI.Crescent_Envelop": "same",
+    "BattleUI.CurrentSelectionBreakGroup": "same",
+    "BattleUI.CurrentSelectionGroup": "same",
+    "BattleUI.CurrentSelectionHalt": "same",
+    "BattleUI.CurrentSelectionRuns": "same",
+    "BattleUI.CurrentSelectionWalks": "same",
+    "BattleUI.Current_Radar_Screen_Positioning": "gone",
+    "BattleUI.Current_Selection_Enable_Fire_At_Will": "same",
+    "BattleUI.Current_Selection_Enable_Guard": "same",
+    "BattleUI.Current_Selection_Enable_Melee": "same",
+    "BattleUI.Current_Selection_Halt": "same",
+    "BattleUI.Current_Selection_Increase_File": "same",
+    "BattleUI.Current_Selection_Increase_File_Proxy": "same",
+    "BattleUI.Current_Selection_Increase_Rank": "same",
+    "BattleUI.Current_Selection_Increase_Rank_Proxy": "same",
+    "BattleUI.Current_Selection_Move_Backwards": "same",
+    "BattleUI.Current_Selection_Move_Backwards_Proxy": "same",
+    "BattleUI.Current_Selection_Move_Forwards": "same",
+    "BattleUI.Current_Selection_Move_Forwards_Proxy": "same",
+    "BattleUI.Current_Selection_Proxy_Rotate_Left": "same",
+    "BattleUI.Current_Selection_Proxy_Rotate_Right": "same",
+    "BattleUI.Current_Selection_Rotate_Left": "same",
+    "BattleUI.Current_Selection_Rotate_Right": "same",
+    "BattleUI.Current_Selection_Runs": "same",
+    "BattleUI.Current_Selection_Special_ability": "same",
+    "BattleUI.Current_Selection_Start_Firing_At_Will": "same",
+    "BattleUI.Current_Selection_Stop_Firing_At_Will": "same",
+    "BattleUI.Current_Selection_Walks": "same",
+    "BattleUI.CycleBattleSpeed": "same",
+    "BattleUI.Decrease_Sail": "same",
+    "BattleUI.DestroyBattleChat": "same",
+    "BattleUI.DestroyUnitGroup": "same",
+    "BattleUI.DisableChevaux": "same",
+    "BattleUI.DisableEarthworks": "same",
+    "BattleUI.DisableFougasse": "same",
+    "BattleUI.DisableFougasseImproved": "same",
+    "BattleUI.DisableGabionade": "same",
+    "BattleUI.DismissCurrentAdvice": "gone",
+    "BattleUI.Double_Line_Screened": "same",
+    "BattleUI.Double_Line_Standard": "same",
+    "BattleUI.Drag_Radar": "gone",
+    "BattleUI.ElapsedBattleTime": "same",
+    "BattleUI.EnableChevaux": "same",
+    "BattleUI.EnableEarthworks": "same",
+    "BattleUI.EnableFougasse": "same",
+    "BattleUI.EnableFougasseImproved": "same",
+    "BattleUI.EnableGabionade": "same",
+    "BattleUI.EnableVoiceChat": "same",
+    "BattleUI.EntityDisplayInterface": "new",
+    "BattleUI.ExitBattle": "same",
+    "BattleUI.ExplicitlyCancelMouseHeld": "same",
+    "BattleUI.Ffwd": "same",
+    "BattleUI.FileExtenstionAndPathForWriteClass": "same",
+    "BattleUI.FindImagePath": "gone",
+    "BattleUI.Fire_At_Will": "same",
+    "BattleUI.Fwd": "same",
+    "BattleUI.GetHealthStatus": "same",
+    "BattleUI.Go_Straight": "same",
+    "BattleUI.HasEnteredDeployment": "same",
+    "BattleUI.Increase_Sail": "same",
+    "BattleUI.InformAdviceReachedRender": "gone",
+    "BattleUI.InformOfBattleSummaryDismiss": "same",
+    "BattleUI.InformOfDeploymentCountdownBegun": "same",
+    "BattleUI.InformOfDeploymentFinished": "same",
+    "BattleUI.Init_Radar": "gone",
+    "BattleUI.IsCampaignBattle": "new",
+    "BattleUI.IsConflict": "same",
+    "BattleUI.IsDeploymentOrConflict": "same",
+    "BattleUI.IsMinimisedHUD": "same",
+    "BattleUI.IsMultiplayer": "same",
+    "BattleUI.IsReplay": "same",
+    "BattleUI.IsSpectator": "same",
+    "BattleUI.IsTutorial": "same",
+    "BattleUI.IsUnitSelectable": "same",
+    "BattleUI.Land_Unit_Withdraw": "same",
+    "BattleUI.Line_Abreast": "same",
+    "BattleUI.Line_Astern": "same",
+    "BattleUI.LocalisationString": "same",
+    "BattleUI.MPRematchVotes": "same",
+    "BattleUI.MPRestartPossible": "same",
+    "BattleUI.MPRestartSwappedPossible": "same",
+    "BattleUI.MPResultsReady": "gone",
+    "BattleUI.MPSkillRating": "gone",
+    "BattleUI.MPSwapVotes": "same",
+    "BattleUI.MPVoteRestart": "same",
+    "BattleUI.MPVotingComplete": "same",
+    "BattleUI.MouseMovedOffCard": "same",
+    "BattleUI.MouseMovedOntoCard": "same",
+    "BattleUI.Move_Camera": "same",
+    "BattleUI.Move_Selection_To_Rader_Location": "same",
+    "BattleUI.MultiplayerBaseInterface": "same",
+    "BattleUI.Naval_Unit_Withdraw": "same",
+    "BattleUI.NotifyCameraControlsChanged": "same",
+    "BattleUI.NotifyUIOptionsChanged": "same",
+    "BattleUI.NumHumansRequestingNextPhase": "same",
+    "BattleUI.Pause": "same",
+    "BattleUI.Percentage_Of_Time_Passed": "gone",
+    "BattleUI.Play": "same",
+    "BattleUI.PostBattleDismissContinueBattle": "same",
+    "BattleUI.PostBattleDismissEndBattle": "same",
+    "BattleUI.PostBattleInfo": "same",
+    "BattleUI.Register_Faction_Colours": "gone",
+    "BattleUI.Register_Land_Radar_Handles": "gone",
+    "BattleUI.Register_Naval_Radar_Handles": "gone",
+    "BattleUI.ReleaseMouseCursorInterrupt": "new",
+    "BattleUI.RemoveUnitsFromGroup": "same",
+    "BattleUI.Repair": "new",
+    "BattleUI.Repel": "same",
+    "BattleUI.RequestMouseInterruptType": "new",
+    "BattleUI.ResizeMinimap": "new",
+    "BattleUI.RetrieveGameCore": "same",
+    "BattleUI.SaveReplay": "same",
+    "BattleUI.ScreenSize": "new",
+    "BattleUI.SelectAllArtillery": "same",
+    "BattleUI.SelectAllCavalry": "same",
+    "BattleUI.SelectAllInfantry": "same",
+    "BattleUI.SelectAllMelee": "same",
+    "BattleUI.SelectUnitBasedOnUnitType": "same",
+    "BattleUI.SelectUnitCard": "same",
+    "BattleUI.SelectionChanged": "same",
+    "BattleUI.SendOffChatMessage": "gone",
+    "BattleUI.SetSelectionProxy": "same",
+    "BattleUI.Shot_Chain": "same",
+    "BattleUI.Shot_Grape": "same",
+    "BattleUI.Shot_Standard": "same",
+    "BattleUI.Shot_Waterline": "same",
+    "BattleUI.Single_Line_Cavalry_Left_Flank": "same",
+    "BattleUI.Single_Line_Cavalry_Right_Flank": "same",
+    "BattleUI.Single_Line_Standard": "same",
+    "BattleUI.Slow": "same",
+    "BattleUI.SquadInfoByPointer": "same",
+    "BattleUI.Stop_Rotating_Rendering": "same",
+    "BattleUI.TickPeriod": "same",
+    "BattleUI.Time": "same",
+    "BattleUI.ToggleMinimisedCards": "same",
+    "BattleUI.ToggleMinimisedOrders": "same",
+    "BattleUI.ToggleMinimisedRadar": "same",
+    "BattleUI.ToggleMusic": "same",
+    "BattleUI.ToggleSFX": "same",
+    "BattleUI.ToggleShipFiringArcs": "same",
+    "BattleUI.Triple_Line_Grand_Battery": "same",
+    "BattleUI.Triple_Line_Integrated_Artillery": "same",
+    "BattleUI.Triple_Line_Standard": "same",
+    "BattleUI.UILocalisationString": "same",
+    "BattleUI.UnitCardAddToGroup": "same",
+    "BattleUI.UnitCardBeginsDrag": "same",
+    "BattleUI.UnitCardGroupID": "same",
+    "BattleUI.UnitCardUngroup": "same",
+    "BattleUI.UnitListForBattleIds": "new",
+    "BattleUI.UnselectUnitCard": "same",
+    "BattleUI.UpdateBattleLocks": "new",
+    "BattleUI.Update_Land_Radar": "gone",
+    "BattleUI.Update_Naval_Radar": "gone",
+    "BattleUI.Update_Radar_Zoom_Level": "gone",
+    "BattleUI.WindDirection": "same",
+    "BattleUI.ZoomToAdviceLocation": "same",
+    "BattleUI.ZoomToGeneral": "same",
+    "BattleUI.ZoomToUnit": "same",
+    "BattleUI.show_allied_units_proxies": "same"
+   },
+   "CampaignUI.*": {
+    "CampaignUI.AgentCardSelectionChanged": "same",
+    "CampaignUI.AgentEmbarkOrDisembark": "same",
+    "CampaignUI.AgentGentlemanDuel": "same",
+    "CampaignUI.AgentRakeAssassinate": "same",
+    "CampaignUI.AgentRakeSubterfuge": "same",
+    "CampaignUI.AgentRogueSabotageArmy": "new",
+    "CampaignUI.AttachMovieToComponent": "same",
+    "CampaignUI.AttachRadarView": "same",
+    "CampaignUI.AutoManage": "same",
+    "CampaignUI.AvailableCommandersForRecruitment": "new",
+    "CampaignUI.BattleSetupShip": "same",
+    "CampaignUI.BattleSetupShipFromRecord": "same",
+    "CampaignUI.BattleSetupUnit": "same",
+    "CampaignUI.BattleSetupUnitFromRecord": "same",
+    "CampaignUI.BeginConstruction": "same",
+    "CampaignUI.BeginUpgrade": "same",
+    "CampaignUI.BuildFort": "same",
+    "CampaignUI.BuildingBrowserDetails": "same",
+    "CampaignUI.BuildingDetails": "same",
+    "CampaignUI.BuildingEffects": "same",
+    "CampaignUI.BuildingRecordDetails": "same",
+    "CampaignUI.CameraPosition": "same",
+    "CampaignUI.CameraTarget": "same",
+    "CampaignUI.CampaignKey": "new",
+    "CampaignUI.CanAgentEmbarkOrDisembark": "same",
+    "CampaignUI.CanArmyEmbarkOrDisembark": "same",
+    "CampaignUI.CanDemolishBuilding": "same",
+    "CampaignUI.CanDemoteUnit": "same",
+    "CampaignUI.CanDisbandUnit": "same",
+    "CampaignUI.CanDisembark": "same",
+    "CampaignUI.CanEmbark": "same",
+    "CampaignUI.CanEndTurn": "same",
+    "CampaignUI.CanHostDropin": "new",
+    "CampaignUI.CanPromoteUnit": "same",
+    "CampaignUI.CanRecruitCommander": "new",
+    "CampaignUI.CanSackMinister": "same",
+    "CampaignUI.CanSave": "same",
+    "CampaignUI.CanUnitsMerge": "same",
+    "CampaignUI.CancelConstruction": "same",
+    "CampaignUI.CancelFortRepair": "same",
+    "CampaignUI.CancelOrderForSelectedCharacter": "same",
+    "CampaignUI.CancelRecruitment": "same",
+    "CampaignUI.CancelSiegeEquipment": "same",
+    "CampaignUI.CancelUpgradeFort": "same",
+    "CampaignUI.ChangeIngameOptions": "same",
+    "CampaignUI.CharacterInEnemyResidence": "same",
+    "CampaignUI.CharacterInValidEnemyUniversity": "same",
+    "CampaignUI.CharacterResidence": "same",
+    "CampaignUI.CharactersRelationshipToPlayersFaction": "same",
+    "CampaignUI.ClosestSlotToCamera": "same",
+    "CampaignUI.ConstructBuildingTree": "same",
+    "CampaignUI.ContinueGameSelected": "new",
+    "CampaignUI.CurrentGameOptions": "same",
+    "CampaignUI.CurrentSeasonString": "same",
+    "CampaignUI.CurrentYear": "same",
+    "CampaignUI.DebugViewLuaComponentPtr": "same",
+    "CampaignUI.DeclineSidingWithAlly": "same",
+    "CampaignUI.DefaultSaveName": "new",
+    "CampaignUI.DefaultSaveNameMP": "new",
+    "CampaignUI.DemolishBuilding": "same",
+    "CampaignUI.DemolishFort": "same",
+    "CampaignUI.DemoteAdmiral": "same",
+    "CampaignUI.DisbandUnit": "same",
+    "CampaignUI.DismissCurrentAdvice": "same",
+    "CampaignUI.DisplayingTurns": "gone",
+    "CampaignUI.EmbarkOrDisembark": "same",
+    "CampaignUI.EnableVoiceChat": "same",
+    "CampaignUI.EndTurn": "same",
+    "CampaignUI.EnqueueSiegeEquipment": "same",
+    "CampaignUI.EnterRevolutionaryRegion": "same",
+    "CampaignUI.EntityTypeSelected": "same",
+    "CampaignUI.ExecuteCaptives": "same",
+    "CampaignUI.ExitPreBattleContinuingSiege": "same",
+    "CampaignUI.FactionDetails": "same",
+    "CampaignUI.FileExtenstionAndPathForWriteClass": "same",
+    "CampaignUI.Finalise": "same",
+    "CampaignUI.FinaliseDuel": "same",
+    "CampaignUI.FinaliseExchange": "same",
+    "CampaignUI.FinaliseMoveTransition": "same",
+    "CampaignUI.FinalisePendingAction": "same",
+    "CampaignUI.FinalisePendingDuel": "same",
+    "CampaignUI.FormatString": "same",
+    "CampaignUI.FortDetails": "same",
+    "CampaignUI.FortEffects": "same",
+    "CampaignUI.GetDropinFriendPref": "new",
+    "CampaignUI.GovernorshipList": "same",
+    "CampaignUI.HideBattleDetails": "same",
+    "CampaignUI.HoldElections": "same",
+    "CampaignUI.HomeTheatre": "same",
+    "CampaignUI.ImprisonCaptives": "same",
+    "CampaignUI.InformAdviceReachedRender": "gone",
+    "CampaignUI.InformLootingSelection": "new",
+    "CampaignUI.InitialiseCharacterDetails": "same",
+    "CampaignUI.InitialiseGovernmentDetails": "same",
+    "CampaignUI.InitialiseRecruitableUnitDetails": "same",
+    "CampaignUI.InitialiseRegionInfoDetails": "same",
+    "CampaignUI.InitialiseTechDetails": "same",
+    "CampaignUI.InitialiseUnitDetails": "same",
+    "CampaignUI.InstigateAssassination": "same",
+    "CampaignUI.InstigateDuel": "same",
+    "CampaignUI.InstigateSabotage": "same",
+    "CampaignUI.InviteAlliesIntoWar": "same",
+    "CampaignUI.IsCharacterInPortResidence": "same",
+    "CampaignUI.IsCharacterPlayerControlled": "same",
+    "CampaignUI.IsMergingUnit": "same",
+    "CampaignUI.IsMultiplayer": "same",
+    "CampaignUI.IsMultiplayerOttomansFrenchDiplomacy": "new",
+    "CampaignUI.IsPlayersTurn": "same",
+    "CampaignUI.IsTimedMultiplayer": "same",
+    "CampaignUI.IsTimedMultiplayerGame": "same",
+    "CampaignUI.IsUnitMergePossible": "same",
+    "CampaignUI.KickMinister": "same",
+    "CampaignUI.LoadCampaign": "same",
+    "CampaignUI.LocalisationString": "same",
+    "CampaignUI.MPOnlinePresence": "new",
+    "CampaignUI.MergeUnits": "same",
+    "CampaignUI.MergeUnitsWithFirst": "same",
+    "CampaignUI.MinisterPortraitPath": "same",
+    "CampaignUI.MissionsDetails": "same",
+    "CampaignUI.MonarchyInfo": "same",
+    "CampaignUI.MoveIntoTarget": "same",
+    "CampaignUI.MovieDismissed": "same",
+    "CampaignUI.MultiplayerBaseInterface": "gone",
+    "CampaignUI.MultiplayerBattleSelectionComplete": "same",
+    "CampaignUI.MultiplayerDropInInterface": "new",
+    "CampaignUI.MultiplayerOtherPlayersName": "same",
+    "CampaignUI.MultiplayerPlayerOutOfTurn": "same",
+    "CampaignUI.MultiplayerPlayersName": "same",
+    "CampaignUI.MultiplayerPostBattleDismissed": "same",
+    "CampaignUI.MultiplayerSaveConfirm": "same",
+    "CampaignUI.MultiplayerTimeIsUp": "same",
+    "CampaignUI.MultiplayerTurnTimer": "same",
+    "CampaignUI.MultiplayerTurnTimespan": "gone",
+    "CampaignUI.MultiplayerUnlimitedTurnBeginConfirm": "same",
+    "CampaignUI.NavalUnitLimit": "same",
+    "CampaignUI.NextAutoEntitySelection": "same",
+    "CampaignUI.NextAutoSettlementSelection": "same",
+    "CampaignUI.NextExportTradeProblem": "new",
+    "CampaignUI.NextSupplyTradeProblem": "new",
+    "CampaignUI.OptimizeShip": "same",
+    "CampaignUI.PauseCampaign": "same",
+    "CampaignUI.PlayDropInBattle": "new",
+    "CampaignUI.PlayerChoosesRevolutionSide": "same",
+    "CampaignUI.PlayerFactionId": "same",
+    "CampaignUI.PlayerFactionIsTribal": "gone",
+    "CampaignUI.PlayerHasFunds": "same",
+    "CampaignUI.PlayerIgnoresBankruptcy": "same",
+    "CampaignUI.PlayerInControl": "same",
+    "CampaignUI.PlayerOwnedUnit": "same",
+    "CampaignUI.PlayerPlayingAsRevolutionaries": "same",
+    "CampaignUI.PlayerSurrenderDecision": "new",
+    "CampaignUI.PlayerUnitTypeCount": "same",
+    "CampaignUI.PlayersCulture": "same",
+    "CampaignUI.PlayersFactionKey": "same",
+    "CampaignUI.PostNavalBattleRefresh": "same",
+    "CampaignUI.PostNavalBattleSetupValid": "same",
+    "CampaignUI.PreBattleAttack": "same",
+    "CampaignUI.PreBattleAutoResolve": "same",
+    "CampaignUI.PreBattleDemandSurrender": "same",
+    "CampaignUI.PreBattlePlayerSurrenderDecision": "same",
+    "CampaignUI.PreBattleRetreat": "same",
+    "CampaignUI.PrestigeDetails": "same",
+    "CampaignUI.PreviousAutoEntitySelection": "same",
+    "CampaignUI.PreviousAutoSettlementSelection": "same",
+    "CampaignUI.PromoteUnits": "same",
+    "CampaignUI.QuickLoad": "same",
+    "CampaignUI.QuickSave": "same",
+    "CampaignUI.QuitToMainScreen": "same",
+    "CampaignUI.QuitToWindowsFromEscapeMenu": "same",
+    "CampaignUI.RecruitUnit": "same",
+    "CampaignUI.RegimentName": "same",
+    "CampaignUI.RegionFromSelection": "same",
+    "CampaignUI.RegionKeyFromSlot": "same",
+    "CampaignUI.RegionsGovernorship": "same",
+    "CampaignUI.RegionsOwnedByFactionOrByProtectorates": "same",
+    "CampaignUI.RegionsPublicOrders": "same",
+    "CampaignUI.RemainingTimeToDrop": "same",
+    "CampaignUI.RepairBuilding": "same",
+    "CampaignUI.RepairFort": "same",
+    "CampaignUI.RequestAssassinationTargets": "same",
+    "CampaignUI.RequestDuelTargets": "same",
+    "CampaignUI.RequestSabotageTargets": "same",
+    "CampaignUI.RetrieveContainedEntitiesFromCharacter": "same",
+    "CampaignUI.RetrieveContainedEntitiesFromGarrison": "same",
+    "CampaignUI.RetrieveDiplomacyDetails": "same",
+    "CampaignUI.RetrieveDiplomaticOpinions": "same",
+    "CampaignUI.RetrieveDiplomaticStanceString": "same",
+    "CampaignUI.RetrieveExistingTreaties": "same",
+    "CampaignUI.RetrieveFactionAgentsList": "same",
+    "CampaignUI.RetrieveFactionListForDiplomacy": "same",
+    "CampaignUI.RetrieveFactionMilitaryForceLists": "same",
+    "CampaignUI.RetrieveFactionRegionList": "same",
+    "CampaignUI.RetrieveGameCore": "gone",
+    "CampaignUI.RetrieveGovernorshipDetails": "same",
+    "CampaignUI.RetrieveRemainingMilitaryAccessTurns": "same",
+    "CampaignUI.RetrieveVisibleEnitityDetails": "same",
+    "CampaignUI.RevertShipToPrize": "gone",
+    "CampaignUI.RevertShipsToPrize": "new",
+    "CampaignUI.ReviewPanelInfo": "same",
+    "CampaignUI.ReviewPanelTabSelectionSet_1_Indexed": "same",
+    "CampaignUI.SabotageArmy": "same",
+    "CampaignUI.ScreenSize": "same",
+    "CampaignUI.ScupperToggleShip": "same",
+    "CampaignUI.SelectAndZoomToCharacter": "same",
+    "CampaignUI.SelectAndZoomToNextRegion": "new",
+    "CampaignUI.SelectAndZoomToPreviousRegion": "new",
+    "CampaignUI.SelectAndZoomToRegion": "same",
+    "CampaignUI.SelectAndZoomToSlot": "same",
+    "CampaignUI.SetAutomanageConstruction": "same",
+    "CampaignUI.SetAutomanageTaxes": "same",
+    "CampaignUI.SetCameraTarget": "same",
+    "CampaignUI.SetDropinFriendPref": "new",
+    "CampaignUI.SetGovernorshipTaxRate": "same",
+    "CampaignUI.SetMyUnitName": "same",
+    "CampaignUI.SetRegionTaxed": "same",
+    "CampaignUI.SetReinforcementsOrder": "same",
+    "CampaignUI.SetSuccessor": "same",
+    "CampaignUI.SettlementsRegion": "same",
+    "CampaignUI.ShouldShowLabelBottomRow": "same",
+    "CampaignUI.ShowBuildingInfoOnDblClick": "same",
+    "CampaignUI.ShowExchangeScreenForDockedNavy": "same",
+    "CampaignUI.SideWithAlly": "same",
+    "CampaignUI.SlotKeyFromAddress": "same",
+    "CampaignUI.SplitFromForce": "same",
+    "CampaignUI.SpyingDataLevelCharacter": "new",
+    "CampaignUI.SpyingDataLevelUnit": "new",
+    "CampaignUI.StateGiftValues": "same",
+    "CampaignUI.StopMovieInComponent": "same",
+    "CampaignUI.SwapMinisters": "same",
+    "CampaignUI.TakePrizeShip": "gone",
+    "CampaignUI.TakePrizeShips": "new",
+    "CampaignUI.TechEffects": "same",
+    "CampaignUI.TechnologyPlayerDetails": "same",
+    "CampaignUI.TechnologyResearchingDetails": "same",
+    "CampaignUI.TechnologyStealingDetails": "same",
+    "CampaignUI.TheatreList": "same",
+    "CampaignUI.TheatreMapDimensions": "same",
+    "CampaignUI.Time": "same",
+    "CampaignUI.TimeSinceTick": "same",
+    "CampaignUI.ToggleFlagDisplay": "same",
+    "CampaignUI.ToggleLabels": "same",
+    "CampaignUI.ToggleMoveSpeed": "same",
+    "CampaignUI.ToggleReplenishUnit": "same",
+    "CampaignUI.ToggleSFX": "new",
+    "CampaignUI.TradeInfo": "same",
+    "CampaignUI.TriggerBuildingCardSelectedEvent": "same",
+    "CampaignUI.TriggerBuildingInfoPanelOpenEvent": "same",
+    "CampaignUI.TriggerCharacterInfoPanelOpenedEvent": "same",
+    "CampaignUI.TriggerTechnologyInfoPanelOpenEvent": "same",
+    "CampaignUI.TriggerUnitSelectedEvent": "same",
+    "CampaignUI.UILocalisationString": "same",
+    "CampaignUI.UnitSelectionChanged": "same",
+    "CampaignUI.UnitTransporting": "new",
+    "CampaignUI.UpdateRadarView": "same",
+    "CampaignUI.UpgradeFort": "same",
+    "CampaignUI.ValidAssassinationTargets": "same",
+    "CampaignUI.ValidDuelTargetsInResidence": "same",
+    "CampaignUI.ValidSabotageArmyTarget": "new",
+    "CampaignUI.ValidSabotageTarget": "same",
+    "CampaignUI.WindowsTime": "same",
+    "CampaignUI.ZoomToAdviceLocation": "same",
+    "CampaignUI.ZoomToCapital": "same",
+    "CampaignUI.ZoomToCharacter": "same",
+    "CampaignUI.ZoomToRegion": "same",
+    "CampaignUI.ZoomToUnit": "new"
+   },
+   "Component.*": {
+    "Component.Adopt": "same",
+    "Component.Call": "same",
+    "Component.CallByAddress": "same",
+    "Component.CreateComponentFromTemplate": "same",
+    "Component.CreateFromComponent": "same",
+    "Component.CreateFromLayout": "same",
+    "Component.CursorPosition": "same",
+    "Component.Destroy": "same",
+    "Component.GetProperty": "same",
+    "Component.KeyboardModifiersHeld": "same",
+    "Component.LockPriority": "same",
+    "Component.MouseOver": "same",
+    "Component.RegisterTooltipObject": "same",
+    "Component.Root": "same",
+    "Component.SequentialFind": "same",
+    "Component.SetProperty": "same",
+    "Component.SetState": "same",
+    "Component.ShaderVarsGet": "same"
+   },
+   "DirectoryUtils.*": {
+    "DirectoryUtils.DeleteFiles": "same",
+    "DirectoryUtils.EnumerateDirectory": "same"
+   },
+   "FrontEnd.*": {
+    "FrontEnd.AreFriendsStatsDownloading": "same",
+    "FrontEnd.ArmyFundsForSize": "same",
+    "FrontEnd.BattleMapDetailsFromPreviousSetup": "new",
+    "FrontEnd.BattleTypeString": "same",
+    "FrontEnd.BattleTypesFilterString": "same",
+    "FrontEnd.BattleWeatherAndTimeOfDayOptionsString": "new",
+    "FrontEnd.BattleWeatherTypeOptionsString": "gone",
+    "FrontEnd.BuildCpuName": "same",
+    "FrontEnd.BuildCredits": "same",
+    "FrontEnd.BuildInfoSetup": "same",
+    "FrontEnd.CampaignDetails": "same",
+    "FrontEnd.CampaignSavesExist": "same",
+    "FrontEnd.CancelHostedGame": "same",
+    "FrontEnd.ClearPreviousSetup": "new",
+    "FrontEnd.CloseMapDataFile": "same",
+    "FrontEnd.ContinueCampaign": "same",
+    "FrontEnd.DefaultPrefsForBattle": "same",
+    "FrontEnd.DropInInterface": "new",
+    "FrontEnd.EnableCreditScreenMusic": "same",
+    "FrontEnd.EnableVoiceChat": "same",
+    "FrontEnd.EnumerateBattleMaps": "same",
+    "FrontEnd.EnumerateBattleReplays": "same",
+    "FrontEnd.EnumerateCampaigns": "gone",
+    "FrontEnd.EnumerateNapoleonsBattleMaps": "new",
+    "FrontEnd.EnumerateNapoleonsCampaigns": "new",
+    "FrontEnd.FactionDetails": "same",
+    "FrontEnd.FactionListForBattles": "same",
+    "FrontEnd.FileExtenstionAndPathForWriteClass": "same",
+    "FrontEnd.FormatMinutesString": "same",
+    "FrontEnd.FrontEnd": "same",
+    "FrontEnd.FullUnitInformation": "new",
+    "FrontEnd.GameVersion": "same",
+    "FrontEnd.GenerateRegionOwnershipMaps": "same",
+    "FrontEnd.GenerateShipName": "same",
+    "FrontEnd.GetExtendedMPSaveGameInfo": "same",
+    "FrontEnd.GetExtendedSaveGameInfo": "same",
+    "FrontEnd.GetWaterlooBattleDetails": "new",
+    "FrontEnd.IsModifier": "same",
+    "FrontEnd.LoadArmySetup": "same",
+    "FrontEnd.LoadBattleReplay": "same",
+    "FrontEnd.LoadBattleSetup": "same",
+    "FrontEnd.LoadCampaign": "same",
+    "FrontEnd.LocalPlayerName": "same",
+    "FrontEnd.LocalisationString": "same",
+    "FrontEnd.LocalisedGameTypeString": "gone",
+    "FrontEnd.MPBaseInterface": "same",
+    "FrontEnd.MPCampaignEnabled": "same",
+    "FrontEnd.MPCampaignSavesExist": "same",
+    "FrontEnd.MPCanCancelQuickBattle": "gone",
+    "FrontEnd.MPCurrentGameDetails": "same",
+    "FrontEnd.MPExperienceTables": "same",
+    "FrontEnd.MPGameInfoList": "same",
+    "FrontEnd.MPHasGameInvite": "same",
+    "FrontEnd.MPHasLobby": "same",
+    "FrontEnd.MPHostCampaign": "same",
+    "FrontEnd.MPHostCustomBattle": "same",
+    "FrontEnd.MPHostLandBattle": "same",
+    "FrontEnd.MPHostNavalBattle": "same",
+    "FrontEnd.MPInterface": "same",
+    "FrontEnd.MPInviteToGame": "gone",
+    "FrontEnd.MPIsJoiningByInvite": "gone",
+    "FrontEnd.MPIsOnline": "same",
+    "FrontEnd.MPJoinGame": "same",
+    "FrontEnd.MPJoinInvitedGame": "same",
+    "FrontEnd.MPLocalPlayerHosting": "new",
+    "FrontEnd.MPLocalPlayerId": "same",
+    "FrontEnd.MPLocalPlayerStats": "same",
+    "FrontEnd.MPLogOn": "same",
+    "FrontEnd.MPLogOut": "same",
+    "FrontEnd.MPOnlinePresence": "same",
+    "FrontEnd.MPQuickBattleCancel": "gone",
+    "FrontEnd.MPQuickBattleDetails": "gone",
+    "FrontEnd.MPQuickBattleSearchRange": "gone",
+    "FrontEnd.MPQuickBattleStart": "same",
+    "FrontEnd.MPReadyForLogOn": "same",
+    "FrontEnd.MaxUnitsFromUnitScaleFactor": "same",
+    "FrontEnd.ModifierHeld": "same",
+    "FrontEnd.MoviePlaying": "same",
+    "FrontEnd.MultiplayerBaseInterface": "same",
+    "FrontEnd.NativesCampaignEnabled": "gone",
+    "FrontEnd.OpenMapDataFile": "same",
+    "FrontEnd.PlayMovieInComponent": "new",
+    "FrontEnd.PreviousBattleSetup": "new",
+    "FrontEnd.PreviousGameType": "new",
+    "FrontEnd.Quit": "same",
+    "FrontEnd.RecruitableUnits": "same",
+    "FrontEnd.ResumeFrontEndMovie": "new",
+    "FrontEnd.ResumeMultiplayerCampaign": "same",
+    "FrontEnd.RetrieveArmyPresets": "same",
+    "FrontEnd.RetrieveFriendsStats": "same",
+    "FrontEnd.RetrieveGameCore": "same",
+    "FrontEnd.RetrieveRandomPortraitPath": "same",
+    "FrontEnd.SaveArmySetup": "same",
+    "FrontEnd.SaveBattleSetup": "same",
+    "FrontEnd.ScreenSize": "same",
+    "FrontEnd.SetCurrentGameType": "new",
+    "FrontEnd.ShowDemoMovie": "same",
+    "FrontEnd.SpanishCampaignEnabled": "new",
+    "FrontEnd.StartBattle": "same",
+    "FrontEnd.StartCampaign": "same",
+    "FrontEnd.StartDefaultCampaign": "same",
+    "FrontEnd.StartDefaultFortBattle": "same",
+    "FrontEnd.StartDefaultLandBattle": "same",
+    "FrontEnd.StartDefaultSeaBattle": "same",
+    "FrontEnd.StartFriendStatsDownload": "same",
+    "FrontEnd.SteamFriendsList": "gone",
+    "FrontEnd.SteamNewContentAvailable": "same",
+    "FrontEnd.SteamOpenStore": "same",
+    "FrontEnd.StopAllMovies": "same",
+    "FrontEnd.StopDemoMovie": "same",
+    "FrontEnd.StopFriendStatsDownload": "new",
+    "FrontEnd.TheatreList": "same",
+    "FrontEnd.TimeOfDayOptionsString": "gone",
+    "FrontEnd.TriggerMessageBoxOpenedEvent": "same",
+    "FrontEnd.TriggerSliderUpdateEvent": "same",
+    "FrontEnd.UILocalisationString": "same",
+    "FrontEnd.UnitScaleFactor": "same",
+    "FrontEnd.ValidateArmySetup": "same",
+    "FrontEnd.WindLevelOptionsString": "same"
+   },
+   "Localisation.*": {
+    "Localisation.Get": "same"
+   },
+   "UniChar.*": {
+    "UniChar.is_09": "same"
+   },
+   "bit.*": {
+    "bit.band": "same",
+    "bit.bxor": "same",
+    "bit.lshift": "same"
+   },
+   "call argument counts (shared names)": {
+    "calls:AddPlayerToTeam": "drift",
+    "calls:BuildTooltip": "drift",
+    "calls:CampaignUI.InitialiseUnitDetails": "drift",
+    "calls:CampaignUI.PromoteUnits": "drift",
+    "calls:CampaignUI.TheatreList": "drift",
+    "calls:ChatManager": "drift",
+    "calls:CloseEndTurnFlagsDisplay": "drift",
+    "calls:Component.CreateFromLayout": "drift",
+    "calls:Filtered": "drift",
+    "calls:FrontEnd.CampaignDetails": "drift",
+    "calls:FrontEnd.GenerateRegionOwnershipMaps": "drift",
+    "calls:FrontEnd.MPHostCampaign": "drift",
+    "calls:FrontEnd.MPQuickBattleStart": "drift",
+    "calls:FrontEnd.RecruitableUnits": "drift",
+    "calls:FrontEnd.StartBattle": "drift",
+    "calls:GenerateUnitCards": "drift",
+    "calls:InitialiseFromDetails": "drift",
+    "calls:MultiplayerSetButtonTimer": "drift",
+    "calls:OnPlayerJoined": "drift",
+    "calls:Selected": "drift",
+    "calls:SelectionUpdate": "drift",
+    "calls:SendOffString": "drift",
+    "calls:SetInProgress": "drift",
+    "calls:SetTechnologyAsBeingResearched": "drift",
+    "calls:SetTechnologyInProgress": "drift",
+    "calls:ShowEffectEntries": "drift",
+    "calls:ShowMessageBox": "drift",
+    "calls:ShowRecruitmentEffectEntries": "drift",
+    "calls:ShowTabSheet": "drift",
+    "calls:ShowTradeWindow": "drift",
+    "calls:ShowUnitInfo": "drift",
+    "calls:SortByColumn": "drift",
+    "calls:TransitionTo": "drift",
+    "calls:out.tom": "drift",
+    "methods:AddAiBot": "drift",
+    "methods:JoinTeam": "drift",
+    "methods:LuaCall": "drift",
+    "methods:SetImageRotation": "drift"
+   },
+   "component methods": {
+    "AcceptOffer": "same",
+    "AcceptRemoteDropIn": "new",
+    "Add": "same",
+    "AddAiBot": "same",
+    "AddCard": "same",
+    "AddToGroup": "same",
+    "Address": "same",
+    "Adopt": "same",
+    "AssignPortrait": "same",
+    "AttachCustomControl": "same",
+    "AvailableGfxOptions": "same",
+    "AvailableGfxQualities": "same",
+    "BannerPosition": "new",
+    "BattleDifficulty": "new",
+    "BlockPlayerForVoiceChat": "new",
+    "BlockPlayerID": "new",
+    "Bounds": "same",
+    "BuildKeyMappingTable": "same",
+    "BuildOfferAndDemandStrings": "same",
+    "BuildPossibleActions": "same",
+    "CanBeSelected": "same",
+    "CanCancel": "new",
+    "CanHarrass": "new",
+    "CanPropose": "same",
+    "CanThreaten": "same",
+    "Cancel": "same",
+    "Cards": "same",
+    "ChangeChatPanel": "same",
+    "ChangeCurrentChatRoom": "new",
+    "ChangeVoiceChatEnabled": "new",
+    "ChildCount": "same",
+    "ClosestScreenModeToCurrent": "same",
+    "CreateNewChatRoom": "new",
+    "CurrentOptions": "same",
+    "CurrentState": "same",
+    "CurrentStateUI": "same",
+    "DeclareReady": "same",
+    "DeclineOffer": "same",
+    "DeclineRemoteDropIn": "new",
+    "DeselectAll": "same",
+    "DeselectCard": "same",
+    "DestroyChildren": "same",
+    "Dimensions": "same",
+    "DistanceToBL": "same",
+    "Divorce": "same",
+    "DockingPoint": "same",
+    "DragSelected": "same",
+    "EnableTestVoiceChat": "same",
+    "End": "same",
+    "EnumerateScreenModes": "same",
+    "EnumerateSoundProviders": "same",
+    "FactionListsForStanceDeclarations": "new",
+    "Find": "same",
+    "FindContainingGroupID": "same",
+    "FindPositionIntoCurrentText": "new",
+    "Finished": "same",
+    "FirstProxy": "new",
+    "ForceEvent": "same",
+    "Free": "same",
+    "FullShipDetailsForId": "new",
+    "FullUnitDetailsForId": "new",
+    "GetArmyIndex": "new",
+    "GetCandidateTimeOut": "new",
+    "GetCurrentRoomId": "new",
+    "GetKeyboardDefinitions": "same",
+    "GetPlayerDifficultySettings": "new",
+    "GetPlayersInCurrentRoom": "new",
+    "GetProperty": "same",
+    "GetReadyStatus": "same",
+    "GetStateText": "same",
+    "GetStateTextDetails": "same",
+    "GetTooltipText": "same",
+    "GetUnitsForSlot": "new",
+    "GlobalExists": "same",
+    "Height": "same",
+    "HideChildren": "same",
+    "Highlight": "same",
+    "Id": "same",
+    "ImageMetrics": "same",
+    "IsCharPrintable": "same",
+    "IsCtrlHeld": "same",
+    "IsInteractive": "same",
+    "IsModifier": "same",
+    "IsMouseOverChildren": "same",
+    "IsNegotiation": "gone",
+    "IsOnlineMode": "same",
+    "IsShiftHeld": "new",
+    "IsVisible": "new",
+    "JoinTeam": "same",
+    "KickPlayer": "same",
+    "LabelDetails": "same",
+    "Layout": "same",
+    "LeaveLobby": "same",
+    "ListDetails": "same",
+    "ListOfCurrentRooms": "new",
+    "LocalPlayerHosting": "same",
+    "LocalPlayerSlot": "same",
+    "LocalPlayerSpectating": "same",
+    "LocalisationString": "same",
+    "LocalisedKeyString": "same",
+    "LuaCall": "same",
+    "ManageGroupSelection": "same",
+    "ManageSelection": "same",
+    "MaxOppositionPaymentAllowed": "new",
+    "MaxPlayerPaymentAllowed": "same",
+    "ModeString": "same",
+    "ModifierHeld": "same",
+    "ModifierUsed": "same",
+    "MoveTo": "same",
+    "Offset": "same",
+    "OpenUpSteamFriendsList": "new",
+    "Parent": "same",
+    "PartialShipDetailsForIdUpdate": "new",
+    "PartialUnitDetailsForIdUpdate": "new",
+    "PlayerDetails": "same",
+    "PlayerIdFromSlot": "same",
+    "PlayerVOIPActive": "same",
+    "PlayerVOIPTalking": "same",
+    "Position": "same",
+    "PositionCards": "same",
+    "PrepareCounterOffer": "same",
+    "Priority": "same",
+    "PropagateOpacity": "new",
+    "PropagatePriority": "same",
+    "PropagateVisibility": "same",
+    "Propose": "same",
+    "ProposeDeal": "same",
+    "ProposerId": "same",
+    "Query": "same",
+    "Release": "same",
+    "Remove": "same",
+    "RemoveAction": "same",
+    "RemoveAll": "same",
+    "RemoveCard": "same",
+    "RemoveFromGroup": "same",
+    "ReorderChildren": "same",
+    "Resize": "same",
+    "RetrieveDetails": "same",
+    "SelectAudioQualityPreset": "same",
+    "SelectCardList": "same",
+    "SelectGraphicQualityPreset": "same",
+    "Selected": "same",
+    "SendChatMessage": "gone",
+    "SendOffChatMessage": "same",
+    "SequentialFind": "new",
+    "Set": "same",
+    "SetArmyAndTeam": "new",
+    "SetArmyIndex": "gone",
+    "SetAsActive": "same",
+    "SetAudioOptions": "same",
+    "SetAudioVolume": "same",
+    "SetCampaignGameOptions": "same",
+    "SetComponentTexture": "same",
+    "SetControlOptions": "same",
+    "SetDetails": "same",
+    "SetDisabled": "same",
+    "SetDockingPoint": "same",
+    "SetDropInAvailable": "new",
+    "SetEventCallback": "same",
+    "SetFaction": "same",
+    "SetFromSetup": "new",
+    "SetGameOptions": "same",
+    "SetGammaOptions": "same",
+    "SetGlobal": "same",
+    "SetGraphicsOptions": "same",
+    "SetImageColour": "same",
+    "SetImageMetrics": "same",
+    "SetImageRotation": "same",
+    "SetInactive": "same",
+    "SetInteractive": "same",
+    "SetMode": "same",
+    "SetMoveable": "same",
+    "SetPaletteEntry": "same",
+    "SetPayRansom": "same",
+    "SetProperty": "same",
+    "SetScreenMode": "same",
+    "SetState": "same",
+    "SetStateText": "same",
+    "SetStateTextDetails": "same",
+    "SetStateTextXOffset": "new",
+    "SetTooltipText": "same",
+    "SetUIOptions": "same",
+    "SetUnits": "same",
+    "SetVisible": "same",
+    "SetVoiceChatGain": "same",
+    "SetVoiceChatOptions": "same",
+    "SetZDepth": "new",
+    "Settlement": "same",
+    "ShaderTechniqueGet": "new",
+    "ShaderTechniqueSet": "same",
+    "ShaderVarsGet": "new",
+    "ShaderVarsSet": "same",
+    "ShowChildren": "same",
+    "StealInputFocus": "same",
+    "StealShortcutKey": "same",
+    "SwapPlayers": "new",
+    "SyncProgress": "new",
+    "TeamLeaderStatus": "same",
+    "TextShaderTechniqueSet": "new",
+    "TextShaderVarsSet": "new",
+    "ToggleGrouping": "same",
+    "TradeableRegions": "same",
+    "TradeableTechnologies": "same",
+    "TriggerAnimation": "new",
+    "UnManage": "same",
+    "Valid": "new",
+    "Visible": "same",
+    "Width": "same",
+    "WidthOfTextLine": "same",
+    "close": "same",
+    "read": "same",
+    "seek": "same",
+    "write": "same"
+   },
+   "engine globals": {
+    "BattleShip": "new",
+    "BattleUnit": "new",
+    "BlockedPlayers": "new",
+    "CampaignCharacter": "same",
+    "CampaignSettlement": "same",
+    "ChatManager": "same",
+    "ChatRoomInterface": "new",
+    "CliExecute": "same",
+    "Cursor": "same",
+    "DebugMessage": "same",
+    "LimitToSelectedItem": "same",
+    "MPAvatar": "same",
+    "MultiplayerPlayerInterface": "new",
+    "ScalePosition": "same",
+    "SendChat": "gone",
+    "ToggleMapZoom": "new",
+    "UIBattleSetup": "same",
+    "UICardManager": "same",
+    "UIComponent": "same",
+    "UIDiplomacyNegotiation": "same",
+    "UIFEDropInInterface": "new",
+    "UIHistoricBattleSetup": "same",
+    "UIImage": "same",
+    "UIMPChatInterface": "gone",
+    "UIMPDropInInterface": "new",
+    "UIMPInterface": "same",
+    "UIPaletisedImage": "same",
+    "UIPrefsInterface": "same",
+    "UISelectionManager": "same",
+    "buildcommands": "new",
+    "buildmessage": "new",
+    "buildoutputs": "new",
+    "dependson": "new",
+    "display": "new",
+    "fileextension": "new",
+    "files": "new",
+    "g_selected_func": "same",
+    "kind": "new",
+    "location": "new",
+    "project": "new",
+    "rule": "new",
+    "rules": "new",
+    "set_button_state": "same"
+   },
+   "engine globals read, not called": {
+    "Address": "same",
+    "CARD_MODE_UNIT": "same",
+    "Key": "same",
+    "MP_ACTION_TIMER_DIALOG": "new",
+    "MP_PREBATTLE_SELECTION_MSG": "same",
+    "PROJECT_PATH": "new",
+    "UnaryReplenishing": "new",
+    "UnitScale": "same",
+    "_": "gone",
+    "all_have_gabionade": "same",
+    "all_selected_gabionade": "same",
+    "army_box": "same",
+    "army_setup": "same",
+    "building_key": "same",
+    "card_positions": "same",
+    "component": "gone",
+    "current": "gone",
+    "defined": "same",
+    "experience": "same",
+    "first_visible_tab": "gone",
+    "g_allied_general_name": "same",
+    "g_allies_units_window": "same",
+    "g_building_requirements": "same",
+    "g_enemies_units_window": "same",
+    "g_recruitment": "same",
+    "g_siege_equipment": "same",
+    "id": "same",
+    "initial_entry_time": "same",
+    "invite": "same",
+    "is_load": "same",
+    "is_multiplayer": "new",
+    "is_showing": "gone",
+    "is_winner": "same",
+    "location": "gone",
+    "mask_exists": "same",
+    "mp_opponents_selection": "new",
+    "presets": "gone",
+    "rate": "same",
+    "region": "same",
+    "region_key": "same",
+    "scurrent_sort_greater": "gone",
+    "selected": "same",
+    "set": "same",
+    "show": "same",
+    "show_not_hide": "new",
+    "slide_details": "same",
+    "slot": "same",
+    "slot_key": "same",
+    "stalled": "new",
+    "tooltip": "same",
+    "total_fleets": "new",
+    "xpos": "same",
+    "ypos": "same"
+   },
+   "event names": {
+    "OnAccept": "same",
+    "OnAdopt": "same",
+    "OnAdoptChild": "same",
+    "OnAnimationFrameEnd": "new",
+    "OnAssignNew": "same",
+    "OnAssignOld": "same",
+    "OnBattleDifficultyChanged": "same",
+    "OnBlockIgnoreClick": "gone",
+    "OnButtonClose": "same",
+    "OnButtonDepress": "same",
+    "OnButtonElections": "same",
+    "OnButtonFamily": "same",
+    "OnButtonKick": "same",
+    "OnCampaignDifficultyChanged": "same",
+    "OnCampaignParamsChanged": "same",
+    "OnCancel": "same",
+    "OnCancelOverwrite": "same",
+    "OnChatReceived": "gone",
+    "OnChatRecieved": "same",
+    "OnClickDown": "same",
+    "OnClickUp": "same",
+    "OnContinue": "same",
+    "OnDLClick": "same",
+    "OnDblClick": "same",
+    "OnDestroyed": "same",
+    "OnDialogOpponentsSurrenderDecisionClose": "gone",
+    "OnDialogOpponentsSurrenderRefusedClose": "new",
+    "OnDialogSurrenderDecision": "new",
+    "OnDisconnected": "same",
+    "OnDismissed": "same",
+    "OnDivorce": "same",
+    "OnDivorceChild": "same",
+    "OnDraw": "new",
+    "OnEndTurn": "same",
+    "OnEnter": "same",
+    "OnEntityLClickUp": "same",
+    "OnEntityRClickUp": "same",
+    "OnExit": "same",
+    "OnFindFriendClick": "gone",
+    "OnFocusGain": "same",
+    "OnFocusLose": "same",
+    "OnFriendInviteClick": "gone",
+    "OnInitialMove": "same",
+    "OnItemClick": "new",
+    "OnKey": "same",
+    "OnKeyEvent": "same",
+    "OnLClickDown": "same",
+    "OnLClickUp": "same",
+    "OnLDblClick": "same",
+    "OnLeaveDepress": "same",
+    "OnLeftClickDown": "same",
+    "OnLeftClickUp": "same",
+    "OnLeftClickup": "same",
+    "OnLeftDblClick": "same",
+    "OnListDestroyed": "new",
+    "OnLoseFocus": "same",
+    "OnMouseLClickUp": "same",
+    "OnMouseLDblClick": "same",
+    "OnMouseMove": "same",
+    "OnMouseOff": "same",
+    "OnMouseOffTaxIncome": "same",
+    "OnMouseOn": "same",
+    "OnMouseOnTaxIncome": "same",
+    "OnMouseRClickUp": "same",
+    "OnMouseWheelPull": "same",
+    "OnMouseWheelPush": "same",
+    "OnNo": "gone",
+    "OnOk": "same",
+    "OnPlayerArmyChanged": "same",
+    "OnPlayerFactionChanged": "same",
+    "OnPlayerJoined": "same",
+    "OnPlayerLeft": "same",
+    "OnPlayerNameChanged": "same",
+    "OnPlayerReadyChanged": "same",
+    "OnPlayerStartTurn": "same",
+    "OnPlayerTeamChanged": "same",
+    "OnPlayersSwapped": "new",
+    "OnPopupClosed": "new",
+    "OnPreDraw": "new",
+    "OnPrefsLoaded": "new",
+    "OnRClick": "same",
+    "OnRClickUp": "same",
+    "OnRightClickUp": "same",
+    "OnSaveReplay": "same",
+    "OnSelect": "same",
+    "OnSelectRoom": "new",
+    "OnSendChat": "same",
+    "OnSendMailClick": "gone",
+    "OnShortcut": "same",
+    "OnShowSteamProfileClick": "gone",
+    "OnStartCountDown": "same",
+    "OnStartNewChannelClick": "gone",
+    "OnStartTurn": "same",
+    "OnTeamLeaderChanged": "same",
+    "OnTexturePopulate": "same",
+    "OnTexturePopulated": "same",
+    "OnTransitionComplete": "same",
+    "OnUpdate": "same",
+    "OnUpdatePulse": "same",
+    "OnYes": "gone",
+    "OnZoom": "same",
+    "OnZoomTo": "same"
+   },
+   "loose entry points": {
+    "all_scripted.lua:globals:events": "same",
+    "all_scripted.lua:require:data.export_ancillaries": "same",
+    "all_scripted.lua:require:data.export_historic_characters": "same",
+    "all_scripted.lua:require:data.export_missions": "same",
+    "all_scripted.lua:require:data.export_triggers": "same",
+    "battle_scripted.lua:require:data.all_scripted": "same",
+    "battle_scripted.lua:require:data.export_advice": "same"
+   },
+   "out.*": {
+    "out.dylan": "same",
+    "out.kostas": "same",
+    "out.shane": "same",
+    "out.tom": "same"
+   },
+   "panel_manager.*": {
+    "panel_manager.ClosePanel": "same"
+   },
+   "system.*": {
+    "system.ClearRequiredFiles": "same"
+   },
+   "vfs.*": {
+    "vfs.exists": "same"
+   }
+  },
+  "napoleon_lua_libraries": [
+   "episodicscripting.lua",
+   "events.lua",
+   "export_advice.lua",
+   "export_ancillaries.lua",
+   "export_historic_characters.lua",
+   "export_historic_events.lua",
+   "export_missions.lua",
+   "export_triggers.lua",
+   "scripting_library.lua",
+   "scripting_library_wellington.lua"
+  ],
+  "napoleon_scripts": {
+   "count": 497,
+   "failed": [],
+   "per_file": {
+    "ui/agents.luac": {
+     "calls": 31,
+     "events": 0,
+     "methods": 16
+    },
+    "ui/army.luac": {
+     "calls": 56,
+     "events": 0,
+     "methods": 15
+    },
+    "ui/battle ui/3d_component_manager.luac": {
+     "calls": 9,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/battle ui/battle_deployables_panel_scripts/battle_deployables_panel.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/battle_deployables_panel_scripts/button_chevaux.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/battle_deployables_panel_scripts/button_earthworks.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/battle_deployables_panel_scripts/button_fougasse_basic.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/battle_deployables_panel_scripts/button_fougasse_improved.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/battle_deployables_panel_scripts/button_gabionade.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/battle_escape_menu_scripts/battle_escape_menu.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/battle_escape_menu_scripts/quit_battle_button.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/battle_escape_menu_scripts/return_to_battle_button.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/battle_hud_visibility_manager.luac": {
+     "calls": 10,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/battle ui/battleeditor.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/battle ui/building_tooltip_scripts/building_tooltip.luac": {
+     "calls": 10,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/button_group.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/battle ui/button_halt.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/battle ui/button_movespeed.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/battle ui/combat_ratio.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 9
+    },
+    "ui/battle ui/countdown_win_timer_scripts/animated_flag.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/battle ui/countdown_win_timer_scripts/countdown_win_timer.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/deployment_end_scripts/button_battle_start.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/battle ui/deployment_end_scripts/deployment_end.luac": {
+     "calls": 11,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/deployment_end_scripts/deployment_end_mp.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/battle ui/deployment_end_scripts/deployment_end_sp.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/esc_menu_battle.esc_menu_battle.luac": {
+     "calls": 16,
+     "events": 2,
+     "methods": 9
+    },
+    "ui/battle ui/ffwd.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/fwd.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/group_formations_panel.luac": {
+     "calls": 16,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/group_formations_panel_minimised.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/hud_rotate.luac": {
+     "calls": 15,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/in_battle_results_popup_scripts/in_battle_results_popup.luac": {
+     "calls": 13,
+     "events": 4,
+     "methods": 6
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_column_infantry_vanguard.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_defend.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_double_line_screened.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_double_line_standard.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_fire_at_will.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_group.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 3
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_group_formations_panel.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_halt.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_increase_file.luac": {
+     "calls": 9,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_increase_rank.luac": {
+     "calls": 9,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_melee.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_move_backwards.luac": {
+     "calls": 10,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_move_forwards.luac": {
+     "calls": 10,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_move_speed.luac": {
+     "calls": 6,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_orders.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 4
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_single_line_cavalry_left_flank.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_single_line_cavalry_right_flank.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_single_line_standard.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_special_ability_button.luac": {
+     "calls": 10,
+     "events": 1,
+     "methods": 10
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_triple_line_grand_battery.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_triple_line_integrated_artillery.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_triple_line_standard.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_turn_left.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_turn_right.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/land_battle_orders_scripts/land_hud_withdraw.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/layout_scripts/battle_hud.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/layout_scripts/battle_hud_balance_of_power.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/layout_scripts/battle_hud_killometer.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/layout_scripts/battle_hud_radar.luac": {
+     "calls": 9,
+     "events": 2,
+     "methods": 9
+    },
+    "ui/battle ui/layout_scripts/battle_hud_timer.luac": {
+     "calls": 9,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/layout_scripts/battle_hud_zoom_in.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/layout_scripts/battle_hud_zoom_out.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/layout_scripts/button_decrease_minimap.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/layout_scripts/button_enlarge.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 5
+    },
+    "ui/battle ui/layout_scripts/review_dy.luac": {
+     "calls": 18,
+     "events": 1,
+     "methods": 27
+    },
+    "ui/battle ui/lb_unit_id.luac": {
+     "calls": 8,
+     "events": 2,
+     "methods": 17
+    },
+    "ui/battle ui/mp_postbattle_scripts/button_rematch.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/mp_postbattle_scripts/button_swap.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/mp_postbattle_scripts/chat_panel_parent.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/battle ui/mp_postbattle_scripts/mp_postbattle.luac": {
+     "calls": 21,
+     "events": 2,
+     "methods": 15
+    },
+    "ui/battle ui/mp_speed_voting.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/nav_wind_pointer.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_battle_orders.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 4
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_anchor.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_board.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_broadside_left.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_broadside_right.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_decrease_sail.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_fire_at_will.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_go_straight.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_group.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 3
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_group_formations_panel.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_group_formations_panel_crescent_attack.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_group_formations_panel_crescent_envelop.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_group_formations_panel_line_abreast.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_group_formations_panel_line_astern.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_increase_sail.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_orders.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_repair.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_repel.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_rotate_left.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_rotate_right.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_shot_chain.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_shot_grape.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_shot_standard.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_shot_waterline.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/naval_battle_orders_scripts/naval_hud_withdraw.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/battle ui/nb_unit_id.luac": {
+     "calls": 4,
+     "events": 3,
+     "methods": 18
+    },
+    "ui/battle ui/options_game.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/pause.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/pausebutton.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/battle ui/play.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/root.luac": {
+     "calls": 75,
+     "events": 4,
+     "methods": 18
+    },
+    "ui/battle ui/slow_mo.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/battle ui/sp_victory_options_scripts/sp_victory_options.luac": {
+     "calls": 6,
+     "events": 2,
+     "methods": 5
+    },
+    "ui/battle ui/special_tooltip_scripts/special_tooltip.luac": {
+     "calls": 15,
+     "events": 0,
+     "methods": 15
+    },
+    "ui/battle ui/unit_bling.luac": {
+     "calls": 6,
+     "events": 1,
+     "methods": 10
+    },
+    "ui/battle ui/victory_tickets_panel_scripts/alliance_ticket_display.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/battle ui/victory_tickets_panel_scripts/victory_tickets_panel.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/agent_action.luac": {
+     "calls": 7,
+     "events": 1,
+     "methods": 9
+    },
+    "ui/campaign ui/agent_options.luac": {
+     "calls": 13,
+     "events": 0,
+     "methods": 14
+    },
+    "ui/campaign ui/building_browser_scripts/building_browser.luac": {
+     "calls": 35,
+     "events": 1,
+     "methods": 19
+    },
+    "ui/campaign ui/building_information_scripts/building_information.luac": {
+     "calls": 18,
+     "events": 0,
+     "methods": 14
+    },
+    "ui/campaign ui/campaign_escape_menu_scripts/menu_back_to_campaign_button.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 0
+    },
+    "ui/campaign ui/campaign_escape_menu_scripts/menu_load_game_button.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 0
+    },
+    "ui/campaign ui/campaign_escape_menu_scripts/menu_quit_to_main_screen_button.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 0
+    },
+    "ui/campaign ui/campaign_escape_menu_scripts/menu_quit_to_windows_button.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 0
+    },
+    "ui/campaign ui/campaign_escape_menu_scripts/menu_save_game_button.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 0
+    },
+    "ui/campaign ui/campaign_result_scripts/campaign_result.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/challenge_to_duel_scripts/challenge_to_duel.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/campaign ui/character_information_scripts/button_jumpto.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/campaign ui/character_information_scripts/character_information.luac": {
+     "calls": 10,
+     "events": 0,
+     "methods": 13
+    },
+    "ui/campaign ui/character_trait_entry.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/campaign ui/diplomacy_panel_scripts/diplomacy_panel.luac": {
+     "calls": 80,
+     "events": 4,
+     "methods": 52
+    },
+    "ui/campaign ui/diplomacy_panel_scripts/diplomacy_tech_offer.luac": {
+     "calls": 2,
+     "events": 4,
+     "methods": 1
+    },
+    "ui/campaign ui/diplomacy_panel_scripts/offers.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/campaign ui/diplomatic_relations_scripts/scroll.luac": {
+     "calls": 25,
+     "events": 2,
+     "methods": 22
+    },
+    "ui/campaign ui/duel challenge received_scripts/duel challenge received.luac": {
+     "calls": 10,
+     "events": 1,
+     "methods": 5
+    },
+    "ui/campaign ui/duel challenge received_scripts/template.duellist_panel.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/campaign ui/duel challenge received_scripts/template.start_duel_button.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/campaign ui/enlist_commander_scripts/enlist_commander.luac": {
+     "calls": 12,
+     "events": 0,
+     "methods": 15
+    },
+    "ui/campaign ui/enlist_commander_scripts/enlist_commander_entry.luac": {
+     "calls": 6,
+     "events": 1,
+     "methods": 9
+    },
+    "ui/campaign ui/entity_lists_scripts/entity_lists.luac": {
+     "calls": 15,
+     "events": 0,
+     "methods": 11
+    },
+    "ui/campaign ui/esc_menu_campaign.esc_menu_campaign.luac": {
+     "calls": 21,
+     "events": 2,
+     "methods": 9
+    },
+    "ui/campaign ui/event_message_scripts/event_message.luac": {
+     "calls": 34,
+     "events": 7,
+     "methods": 22
+    },
+    "ui/campaign ui/event_movie_panel_scripts/event_movie_panel.luac": {
+     "calls": 9,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/campaign ui/government_screens_scripts/government_screen_button_close.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/campaign ui/government_screens_scripts/government_screens.luac": {
+     "calls": 69,
+     "events": 4,
+     "methods": 28
+    },
+    "ui/campaign ui/layout.agent_embark.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.army_disband.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.army_embark.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.army_fort.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.army_promote.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.army_replenish.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.build_browser.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/campaign ui/layout.build_demolish.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.build_repair.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.build_upgrade_altchain.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.button_diplomacy.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 3
+    },
+    "ui/campaign ui/layout.button_end_turn.luac": {
+     "calls": 11,
+     "events": 2,
+     "methods": 6
+    },
+    "ui/campaign ui/layout.button_government.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.gentleman_duel.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/campaign ui/layout.gentleman_steal_tech.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/campaign ui/layout.navy_demote.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.navy_embark.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.navy_promote.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.navy_repair.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.navy_scupper.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/campaign ui/layout.rogue_assassinate.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/campaign ui/layout.rogue_sabotage.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/campaign ui/layout.rogue_sabotage_army.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/campaign ui/layout.root.luac": {
+     "calls": 105,
+     "events": 7,
+     "methods": 25
+    },
+    "ui/campaign ui/layout.selector arrow l.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/campaign ui/layout.selector arrow r.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/campaign ui/layout_revolution_scripts/layout_revolution.luac": {
+     "calls": 8,
+     "events": 2,
+     "methods": 6
+    },
+    "ui/campaign ui/layout_scripts/button_selector.luac": {
+     "calls": 3,
+     "events": 3,
+     "methods": 3
+    },
+    "ui/campaign ui/layout_scripts/campaign_hud.luac": {
+     "calls": 9,
+     "events": 1,
+     "methods": 12
+    },
+    "ui/campaign ui/layout_scripts/campaign_radar.luac": {
+     "calls": 7,
+     "events": 1,
+     "methods": 10
+    },
+    "ui/campaign ui/layout_scripts/cardgroup.luac": {
+     "calls": 4,
+     "events": 2,
+     "methods": 11
+    },
+    "ui/campaign ui/layout_scripts/hudframe.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/campaign ui/layout_scripts/map_overlay.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 4
+    },
+    "ui/campaign ui/layout_scripts/theatre_button.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/campaign ui/load-save_game.load-save_game.luac": {
+     "calls": 17,
+     "events": 5,
+     "methods": 14
+    },
+    "ui/campaign ui/missions_scripts/missions.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/campaign ui/move_options_scripts/move_options.luac": {
+     "calls": 3,
+     "events": 3,
+     "methods": 5
+    },
+    "ui/campaign ui/objectives_screens_scripts/bar_graph_window.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 11
+    },
+    "ui/campaign ui/objectives_screens_scripts/objectives_screens.luac": {
+     "calls": 28,
+     "events": 1,
+     "methods": 14
+    },
+    "ui/campaign ui/options_game.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_automanage.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_battle_details.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_close_land.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_close_naval.luac": {
+     "calls": 2,
+     "events": 2,
+     "methods": 5
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_execute.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_execute_captives.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_hide_battle_details.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_imprison_captives.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_naval_optimize_crew.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_naval_revert_to_prize.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_naval_scupper.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_naval_take_ship.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_pay_ransom.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_ransom_captives.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/button_release.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_battle_results_scripts/card_display.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 12
+    },
+    "ui/campaign ui/popup_battle_results_scripts/card_window.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/campaign ui/popup_battle_results_scripts/popup_battle_results.luac": {
+     "calls": 32,
+     "events": 4,
+     "methods": 18
+    },
+    "ui/campaign ui/popup_battle_results_scripts/prisoners_land_battle.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/campaign ui/popup_battle_results_scripts/prisoners_naval_battle.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 15
+    },
+    "ui/campaign ui/popup_battle_results_scripts/units_panel.luac": {
+     "calls": 12,
+     "events": 0,
+     "methods": 14
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_attack.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_autoresolve.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_cancel.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_continue_siege.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_demand_surrender.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_dismiss.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_invite_friend.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_mp_dropin.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_night_attack.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_retreat.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_siege_attack.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_siege_hold.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_siege_night_attack.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/button_siege_resolve.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/dropin_matchmaking.luac": {
+     "calls": 12,
+     "events": 4,
+     "methods": 17
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/popup_pre_battle.luac": {
+     "calls": 69,
+     "events": 5,
+     "methods": 23
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/reinforcements_window.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 12
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/savegame_button.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/tabs_window.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 14
+    },
+    "ui/campaign ui/popup_pre_battle_scripts/units_window.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/campaign ui/prestige_scripts/bar_graph_window.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 10
+    },
+    "ui/campaign ui/prestige_scripts/line_graph_window.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/campaign ui/prestige_scripts/major_nations_bar.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/campaign ui/prestige_scripts/prestige.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/campaign ui/region_details_scripts/region_details.luac": {
+     "calls": 15,
+     "events": 4,
+     "methods": 21
+    },
+    "ui/campaign ui/region_details_scripts/template.pip_group.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/campaign ui/region_details_scripts/template.region_arrow_select.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/campaign ui/royal_family_scripts/royal_family.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 14
+    },
+    "ui/campaign ui/settlement_captured_scripts/settlement_captured.luac": {
+     "calls": 11,
+     "events": 1,
+     "methods": 10
+    },
+    "ui/campaign ui/technology_scripts/entities_clip.luac": {
+     "calls": 8,
+     "events": 1,
+     "methods": 7
+    },
+    "ui/campaign ui/technology_scripts/entities_pane.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/campaign ui/technology_scripts/technology.luac": {
+     "calls": 7,
+     "events": 2,
+     "methods": 0
+    },
+    "ui/campaign ui/theatre_map_selector.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/campaign ui/travel_destinations.luac": {
+     "calls": 2,
+     "events": 2,
+     "methods": 7
+    },
+    "ui/campaign ui/unit_exchange_scripts/exchange_group.luac": {
+     "calls": 3,
+     "events": 3,
+     "methods": 21
+    },
+    "ui/campaign ui/unit_exchange_scripts/exchange_panel.luac": {
+     "calls": 9,
+     "events": 0,
+     "methods": 13
+    },
+    "ui/campaign ui/unit_exchange_scripts/unit_exchange.luac": {
+     "calls": 12,
+     "events": 1,
+     "methods": 10
+    },
+    "ui/common ui/advice_interface_scripts/advice_display.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/common ui/advice_interface_scripts/advice_interface.luac": {
+     "calls": 11,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/common ui/advice_interface_scripts/advice_panel_buttons.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/common ui/advice_interface_scripts/button_advice_setting.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/dialogue_box.luac": {
+     "calls": 10,
+     "events": 5,
+     "methods": 10
+    },
+    "ui/common ui/draggable_panel.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/fading_panel.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/menu_bar_scripts/advice_audio_setting_button.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/common ui/menu_bar_scripts/advice_text_setting_button.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/common ui/menu_bar_scripts/button_advice_setting.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/common ui/menu_bar_scripts/button_toggle_advisor_display.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/common ui/menu_bar_scripts/button_toggle_chat_display.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/common ui/menu_bar_scripts/button_toggle_player_list_display.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/common ui/menu_bar_scripts/button_voice_setting.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/common ui/menu_bar_scripts/generic_visibility_display_button.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/common ui/menu_bar_scripts/menu_bar.luac": {
+     "calls": 11,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/common ui/mp_dialogue_box.luac": {
+     "calls": 5,
+     "events": 5,
+     "methods": 5
+    },
+    "ui/common ui/mp_message_box.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 3
+    },
+    "ui/common ui/multiplayer_chat_scripts/button_chat_mode.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/multiplayer_chat_scripts/multiplayer_chat_buttons.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/multiplayer_player_list_scripts/button_ignore_chat.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/multiplayer_player_list_scripts/button_ignore_voice.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/multiplayer_player_list_scripts/button_steam_friends_list.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/common ui/multiplayer_player_list_scripts/multiplayer_player_list.luac": {
+     "calls": 10,
+     "events": 0,
+     "methods": 10
+    },
+    "ui/common ui/multiplayer_player_list_scripts/multiplayer_player_list_entry.luac": {
+     "calls": 6,
+     "events": 1,
+     "methods": 9
+    },
+    "ui/common ui/options_graphics.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/common ui/panel_dropin_requester.luac": {
+     "calls": 10,
+     "events": 3,
+     "methods": 15
+    },
+    "ui/common ui/unit_information_scripts/unit_information.luac": {
+     "calls": 26,
+     "events": 0,
+     "methods": 15
+    },
+    "ui/common ui/waiting_for_players.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 4
+    },
+    "ui/construction.luac": {
+     "calls": 41,
+     "events": 0,
+     "methods": 24
+    },
+    "ui/coreutils.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/file_requesters.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/frontend ui/common/army_box.luac": {
+     "calls": 20,
+     "events": 2,
+     "methods": 32
+    },
+    "ui/frontend ui/common/army_setup_card.luac": {
+     "calls": 7,
+     "events": 4,
+     "methods": 7
+    },
+    "ui/frontend ui/common/army_setup_panel.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/frontend ui/common/faction_dropdown_menu.luac": {
+     "calls": 8,
+     "events": 3,
+     "methods": 20
+    },
+    "ui/frontend ui/common/faction_list.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 14
+    },
+    "ui/frontend ui/common/faction_list_historical.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 10
+    },
+    "ui/frontend ui/common/mp_common.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/frontend ui/common/recruitment_card.luac": {
+     "calls": 2,
+     "events": 5,
+     "methods": 11
+    },
+    "ui/frontend ui/common/unit_list.luac": {
+     "calls": 7,
+     "events": 1,
+     "methods": 15
+    },
+    "ui/frontend ui/common/unit_setup_card.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 4
+    },
+    "ui/frontend ui/credits.luac": {
+     "calls": 6,
+     "events": 3,
+     "methods": 11
+    },
+    "ui/frontend ui/demo_movies.luac": {
+     "calls": 9,
+     "events": 3,
+     "methods": 5
+    },
+    "ui/frontend ui/file_requester.file_requester.luac": {
+     "calls": 13,
+     "events": 2,
+     "methods": 15
+    },
+    "ui/frontend ui/grand_campaign_scripts/advanced_options.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/frontend ui/grand_campaign_scripts/faction_selection.luac": {
+     "calls": 6,
+     "events": 1,
+     "methods": 7
+    },
+    "ui/frontend ui/grand_campaign_scripts/grand_campaign.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 2
+    },
+    "ui/frontend ui/grand_campaign_scripts/main_panel.luac": {
+     "calls": 22,
+     "events": 1,
+     "methods": 16
+    },
+    "ui/frontend ui/lan_scripts/main_panel.luac": {
+     "calls": 15,
+     "events": 2,
+     "methods": 6
+    },
+    "ui/frontend ui/layout_scripts/root.luac": {
+     "calls": 35,
+     "events": 4,
+     "methods": 17
+    },
+    "ui/frontend ui/load_replay.luac": {
+     "calls": 9,
+     "events": 3,
+     "methods": 12
+    },
+    "ui/frontend ui/lobby_chat_scripts/lobby_chat.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 10
+    },
+    "ui/frontend ui/lobby_chat_scripts/lobby_chat_button.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/frontend ui/lobby_chat_scripts/lobby_room_list.luac": {
+     "calls": 4,
+     "events": 2,
+     "methods": 11
+    },
+    "ui/frontend ui/lobby_chat_scripts/lobby_room_list_button.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/frontend ui/lobby_chat_scripts/lobby_room_list_entry.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 6
+    },
+    "ui/frontend ui/lobby_chat_scripts/popup_create_room.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/frontend ui/lobby_chat_scripts/popup_create_room_buttons.luac": {
+     "calls": 1,
+     "events": 2,
+     "methods": 2
+    },
+    "ui/frontend ui/main.advert.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 9
+    },
+    "ui/frontend ui/main.main.luac": {
+     "calls": 12,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/frontend ui/message_box.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/frontend ui/mp_battle1.main_panel.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/frontend ui/mp_battle1.mp_battle1.luac": {
+     "calls": 6,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/frontend ui/mp_battle2.main_panel.luac": {
+     "calls": 11,
+     "events": 1,
+     "methods": 9
+    },
+    "ui/frontend ui/mp_battle2.mp_battle2.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/frontend ui/mp_battle3.friends_list.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 11
+    },
+    "ui/frontend ui/mp_battle3.friends_list_entry.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/frontend ui/mp_battle3.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 2
+    },
+    "ui/frontend ui/mp_battle3.main_panel.luac": {
+     "calls": 43,
+     "events": 17,
+     "methods": 37
+    },
+    "ui/frontend ui/mp_battle3_scenario.luac": {
+     "calls": 6,
+     "events": 6,
+     "methods": 7
+    },
+    "ui/frontend ui/mp_grand_campaign_scripts/advanced_options.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/frontend ui/mp_grand_campaign_scripts/main_panel.luac": {
+     "calls": 34,
+     "events": 16,
+     "methods": 30
+    },
+    "ui/frontend ui/mp_grand_campaign_scripts/mp_campaign_player.luac": {
+     "calls": 6,
+     "events": 1,
+     "methods": 17
+    },
+    "ui/frontend ui/mp_grand_campaign_scripts/mp_grand_campaign.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 3
+    },
+    "ui/frontend ui/mp_load_game.mp_load_game.luac": {
+     "calls": 11,
+     "events": 3,
+     "methods": 9
+    },
+    "ui/frontend ui/multiplayer_lan_scripts/player_profiles.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/frontend ui/multiplayer_online_scripts/campaign_game_entry.luac": {
+     "calls": 8,
+     "events": 3,
+     "methods": 12
+    },
+    "ui/frontend ui/multiplayer_online_scripts/campaigns.luac": {
+     "calls": 21,
+     "events": 2,
+     "methods": 14
+    },
+    "ui/frontend ui/multiplayer_online_scripts/custom_battles.luac": {
+     "calls": 22,
+     "events": 3,
+     "methods": 11
+    },
+    "ui/frontend ui/multiplayer_online_scripts/main_panel.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/frontend ui/multiplayer_online_scripts/multiplayer_online.luac": {
+     "calls": 11,
+     "events": 4,
+     "methods": 7
+    },
+    "ui/frontend ui/multiplayer_online_scripts/quick_battles.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/frontend ui/napoleon_battles_scripts/battle_icon.luac": {
+     "calls": 1,
+     "events": 3,
+     "methods": 4
+    },
+    "ui/frontend ui/napoleon_battles_scripts/battle_info.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/frontend ui/napoleon_battles_scripts/movie_panel.luac": {
+     "calls": 16,
+     "events": 0,
+     "methods": 12
+    },
+    "ui/frontend ui/napoleon_battles_scripts/napoleon_battles.luac": {
+     "calls": 8,
+     "events": 2,
+     "methods": 7
+    },
+    "ui/frontend ui/options_scripts/audio.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 18
+    },
+    "ui/frontend ui/options_scripts/controls.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 14
+    },
+    "ui/frontend ui/options_scripts/gamma.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/frontend ui/options_scripts/graphics.luac": {
+     "calls": 9,
+     "events": 0,
+     "methods": 21
+    },
+    "ui/frontend ui/options_scripts/options.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 10
+    },
+    "ui/frontend ui/options_scripts/resolution_popup.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 5
+    },
+    "ui/frontend ui/options_scripts/shortcut_key_entry.luac": {
+     "calls": 4,
+     "events": 4,
+     "methods": 7
+    },
+    "ui/frontend ui/options_scripts/ui.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/frontend ui/options_scripts/voicechat.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 10
+    },
+    "ui/frontend ui/options_scripts/voicechat_key_input.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 8
+    },
+    "ui/frontend ui/options_scripts/voicechat_slider.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/frontend ui/password_entry.password_entry.luac": {
+     "calls": 9,
+     "events": 1,
+     "methods": 6
+    },
+    "ui/frontend ui/player_stats.luac": {
+     "calls": 11,
+     "events": 4,
+     "methods": 13
+    },
+    "ui/frontend ui/quickbattle_popup.luac": {
+     "calls": 7,
+     "events": 5,
+     "methods": 14
+    },
+    "ui/frontend ui/single_player.single_player.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/frontend ui/sp_battle1.main_panel.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/frontend ui/sp_battle1.sp_battle1.luac": {
+     "calls": 7,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/frontend ui/sp_battle2.main_panel.luac": {
+     "calls": 28,
+     "events": 2,
+     "methods": 13
+    },
+    "ui/frontend ui/sp_battle2.sp_battle2.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 2
+    },
+    "ui/frontend ui/sp_battle3.sp_battle3.luac": {
+     "calls": 31,
+     "events": 2,
+     "methods": 13
+    },
+    "ui/frontend ui/sp_battle3_scenario.luac": {
+     "calls": 12,
+     "events": 3,
+     "methods": 5
+    },
+    "ui/frontend ui/sp_battle3_scripts/army_setup.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/frontend ui/sp_battle3_scripts/main_panel.luac": {
+     "calls": 17,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/frontend ui/sp_battle3_scripts/team_list.luac": {
+     "calls": 10,
+     "events": 1,
+     "methods": 20
+    },
+    "ui/frontend ui/sp_episodic_campaign.sp_episodic_campaign.luac": {
+     "calls": 13,
+     "events": 1,
+     "methods": 12
+    },
+    "ui/frontend ui/sp_load_game.sp_load_game.luac": {
+     "calls": 14,
+     "events": 3,
+     "methods": 14
+    },
+    "ui/horizontal_mousewheel_script.luac": {
+     "calls": 1,
+     "events": 2,
+     "methods": 2
+    },
+    "ui/huds.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/keyconflictmanager.luac": {
+     "calls": 1,
+     "events": 2,
+     "methods": 4
+    },
+    "ui/labels.luac": {
+     "calls": 12,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/optionsmanager.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/panelmanager.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 15
+    },
+    "ui/recruitment.luac": {
+     "calls": 20,
+     "events": 0,
+     "methods": 19
+    },
+    "ui/siegeequipment.luac": {
+     "calls": 14,
+     "events": 1,
+     "methods": 17
+    },
+    "ui/technology_common.luac": {
+     "calls": 11,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/technology_researching.luac": {
+     "calls": 18,
+     "events": 0,
+     "methods": 11
+    },
+    "ui/technology_stealing.luac": {
+     "calls": 18,
+     "events": 0,
+     "methods": 11
+    },
+    "ui/templates/cards.luac": {
+     "calls": 4,
+     "events": 2,
+     "methods": 3
+    },
+    "ui/templates/character_trait_entry.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/templates/message_handler.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/templates/minimise_button.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/templates/multiplayer_chat.luac": {
+     "calls": 20,
+     "events": 2,
+     "methods": 20
+    },
+    "ui/templates/specialised_chat_input.luac": {
+     "calls": 3,
+     "events": 3,
+     "methods": 5
+    },
+    "ui/templates/template.advice_mouse_events.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.ai_turns.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 8
+    },
+    "ui/templates/template.armedcitizenrycard.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/templates/template.attrition_entry.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 8
+    },
+    "ui/templates/template.b2.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.b3.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.battle_escape_menu.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.battle_prep_row_entry.luac": {
+     "calls": 10,
+     "events": 2,
+     "methods": 11
+    },
+    "ui/templates/template.battle_results_team_entry.luac": {
+     "calls": 6,
+     "events": 2,
+     "methods": 9
+    },
+    "ui/templates/template.battle_setup_row_example.luac": {
+     "calls": 2,
+     "events": 2,
+     "methods": 10
+    },
+    "ui/templates/template.battleeditor.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.battleunitcard.luac": {
+     "calls": 19,
+     "events": 6,
+     "methods": 22
+    },
+    "ui/templates/template.bottom.luac": {
+     "calls": 7,
+     "events": 3,
+     "methods": 1
+    },
+    "ui/templates/template.building_browser_entry.luac": {
+     "calls": 6,
+     "events": 2,
+     "methods": 9
+    },
+    "ui/templates/template.building_browser_entry_icon.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.building_browser_node.luac": {
+     "calls": 4,
+     "events": 2,
+     "methods": 2
+    },
+    "ui/templates/template.building_browser_sortable_list.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 13
+    },
+    "ui/templates/template.building_constructed_entry.luac": {
+     "calls": 4,
+     "events": 3,
+     "methods": 8
+    },
+    "ui/templates/template.building_info_build_entry.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.building_info_build_entry_building.luac": {
+     "calls": 6,
+     "events": 3,
+     "methods": 5
+    },
+    "ui/templates/template.building_info_recruitment_effects.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/templates/template.building_info_recruitment_effects_unit.luac": {
+     "calls": 6,
+     "events": 3,
+     "methods": 7
+    },
+    "ui/templates/template.building_info_tech_entry.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/templates/template.building_info_tech_entry_tech.luac": {
+     "calls": 4,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/templates/template.buildingframe.luac": {
+     "calls": 24,
+     "events": 5,
+     "methods": 15
+    },
+    "ui/templates/template.button_close.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.button_duel.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.button_toggle.luac": {
+     "calls": 3,
+     "events": 3,
+     "methods": 0
+    },
+    "ui/templates/template.buttongroup.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/templates/template.campaign_escape_menu.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.campaign_map_tooltip.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 14
+    },
+    "ui/templates/template.campaign_save_game.luac": {
+     "calls": 1,
+     "events": 2,
+     "methods": 8
+    },
+    "ui/templates/template.campaignagentcard.luac": {
+     "calls": 2,
+     "events": 2,
+     "methods": 1
+    },
+    "ui/templates/template.campaigncharactercard.luac": {
+     "calls": 9,
+     "events": 4,
+     "methods": 12
+    },
+    "ui/templates/template.campaignunitcard.luac": {
+     "calls": 23,
+     "events": 4,
+     "methods": 24
+    },
+    "ui/templates/template.character_duel_info_pane.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 9
+    },
+    "ui/templates/template.charactercard.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.checkbox.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/templates/template.city_info_bar.luac": {
+     "calls": 7,
+     "events": 1,
+     "methods": 17
+    },
+    "ui/templates/template.construction_item_tooltip.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 14
+    },
+    "ui/templates/template.cursor.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.diplomacy_item_text.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.diplomacy_region_tooltip.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 3
+    },
+    "ui/templates/template.dropdown_menu.luac": {
+     "calls": 6,
+     "events": 3,
+     "methods": 19
+    },
+    "ui/templates/template.duel challenge received.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.duellist_panel.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.election_results_entry.luac": {
+     "calls": 2,
+     "events": 2,
+     "methods": 6
+    },
+    "ui/templates/template.familytreecard.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 3
+    },
+    "ui/templates/template.fe_button_standard.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/templates/template.gentleman.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/templates/template.gentleman_character.luac": {
+     "calls": 4,
+     "events": 2,
+     "methods": 3
+    },
+    "ui/templates/template.gentleman_tech_icon.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 5
+    },
+    "ui/templates/template.heading.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 7
+    },
+    "ui/templates/template.inputwindow.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.keyboard_conflict.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/templates/template.list.luac": {
+     "calls": 8,
+     "events": 3,
+     "methods": 21
+    },
+    "ui/templates/template.list_header.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/templates/template.listview.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 10
+    },
+    "ui/templates/template.map_image.luac": {
+     "calls": 18,
+     "events": 7,
+     "methods": 22
+    },
+    "ui/templates/template.message_dialog.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.messagedropdown.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 7
+    },
+    "ui/templates/template.messageicon.luac": {
+     "calls": 2,
+     "events": 2,
+     "methods": 4
+    },
+    "ui/templates/template.minister_details.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/templates/template.minister_effect_cartouche.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.minister_tooltip.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 8
+    },
+    "ui/templates/template.mission_active_entry.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 10
+    },
+    "ui/templates/template.mission_history_entry.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.mp_game_info.luac": {
+     "calls": 4,
+     "events": 2,
+     "methods": 10
+    },
+    "ui/templates/template.mp_postbattle_entry.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/templates/template.numerical_input.luac": {
+     "calls": 10,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.pausebutton.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.prebattle_portrait_tab.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 1
+    },
+    "ui/templates/template.public_order_icon.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/templates/template.quit_battle_button.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.recruitment_effects_tooltip.luac": {
+     "calls": 9,
+     "events": 2,
+     "methods": 13
+    },
+    "ui/templates/template.recruitmentcard.luac": {
+     "calls": 16,
+     "events": 3,
+     "methods": 11
+    },
+    "ui/templates/template.region_info_pip.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 1
+    },
+    "ui/templates/template.return_to_battle_button.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.reviewpaneltab.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 14
+    },
+    "ui/templates/template.reviewpaneltabtitle.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.row_entry_keyboard_shortcut.luac": {
+     "calls": 3,
+     "events": 4,
+     "methods": 14
+    },
+    "ui/templates/template.row_template_agent.luac": {
+     "calls": 8,
+     "events": 2,
+     "methods": 12
+    },
+    "ui/templates/template.row_template_army.luac": {
+     "calls": 9,
+     "events": 2,
+     "methods": 12
+    },
+    "ui/templates/template.row_template_naval.luac": {
+     "calls": 9,
+     "events": 2,
+     "methods": 12
+    },
+    "ui/templates/template.row_template_post_battle.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/templates/template.row_template_region.luac": {
+     "calls": 5,
+     "events": 2,
+     "methods": 9
+    },
+    "ui/templates/template.sabotage_entry.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/templates/template.siege_equipment_counter.luac": {
+     "calls": 1,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.siegeequipmentcard.luac": {
+     "calls": 12,
+     "events": 3,
+     "methods": 10
+    },
+    "ui/templates/template.slider.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/templates/template.slider_handle.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/templates/template.slider_left.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.slider_right.luac": {
+     "calls": 3,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.sortable_list.luac": {
+     "calls": 10,
+     "events": 0,
+     "methods": 13
+    },
+    "ui/templates/template.start_duel_button.luac": {
+     "calls": 2,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.tab.luac": {
+     "calls": 3,
+     "events": 1,
+     "methods": 11
+    },
+    "ui/templates/template.tab2.luac": {
+     "calls": 1,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.tabgroup.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 22
+    },
+    "ui/templates/template.tech_advances_entry.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 4
+    },
+    "ui/templates/template.tech_entry.luac": {
+     "calls": 6,
+     "events": 0,
+     "methods": 11
+    },
+    "ui/templates/template.tech_entry_building.luac": {
+     "calls": 8,
+     "events": 2,
+     "methods": 2
+    },
+    "ui/templates/template.tech_icon.luac": {
+     "calls": 13,
+     "events": 4,
+     "methods": 7
+    },
+    "ui/templates/template.tech_stealing_entry.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/templates/template.tech_stealing_icon.luac": {
+     "calls": 11,
+     "events": 4,
+     "methods": 6
+    },
+    "ui/templates/template.tech_tooltip.luac": {
+     "calls": 0,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/templates/template.tech_tooltip2.luac": {
+     "calls": 7,
+     "events": 2,
+     "methods": 14
+    },
+    "ui/templates/template.techtreeitem_tooltip.luac": {
+     "calls": 15,
+     "events": 2,
+     "methods": 17
+    },
+    "ui/templates/template.text.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 3
+    },
+    "ui/templates/template.text_input.luac": {
+     "calls": 6,
+     "events": 4,
+     "methods": 15
+    },
+    "ui/templates/template.textview.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 10
+    },
+    "ui/templates/template.tooltip.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 5
+    },
+    "ui/templates/template.top.luac": {
+     "calls": 7,
+     "events": 3,
+     "methods": 1
+    },
+    "ui/templates/template.traderouteentry.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 8
+    },
+    "ui/templates/template.traits_ancs_entry.luac": {
+     "calls": 3,
+     "events": 2,
+     "methods": 11
+    },
+    "ui/templates/template.unit_ability_entry.luac": {
+     "calls": 4,
+     "events": 0,
+     "methods": 2
+    },
+    "ui/templates/template.unit_trained_entry.luac": {
+     "calls": 4,
+     "events": 3,
+     "methods": 11
+    },
+    "ui/templates/template.unitcard.luac": {
+     "calls": 8,
+     "events": 1,
+     "methods": 0
+    },
+    "ui/templates/template.unitcard_tooltip.luac": {
+     "calls": 8,
+     "events": 1,
+     "methods": 12
+    },
+    "ui/templates/template.unitgroupframe.luac": {
+     "calls": 5,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/templates/template.unitgrouptab.luac": {
+     "calls": 2,
+     "events": 2,
+     "methods": 6
+    },
+    "ui/templates/template.university.luac": {
+     "calls": 8,
+     "events": 0,
+     "methods": 16
+    },
+    "ui/templates/template.university_building.luac": {
+     "calls": 4,
+     "events": 2,
+     "methods": 3
+    },
+    "ui/templates/template.university_tech_icon.luac": {
+     "calls": 5,
+     "events": 1,
+     "methods": 5
+    },
+    "ui/templates/template.vslider.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 7
+    },
+    "ui/templates/template.vslider_handle.luac": {
+     "calls": 2,
+     "events": 0,
+     "methods": 6
+    },
+    "ui/theatre_map.luac": {
+     "calls": 7,
+     "events": 0,
+     "methods": 9
+    },
+    "ui/ui_premake5.luac": {
+     "calls": 12,
+     "events": 0,
+     "methods": 0
+    },
+    "ui/utilities.luac": {
+     "calls": 10,
+     "events": 0,
+     "methods": 26
+    },
+    "ui/vertical_mousewheel_script.luac": {
+     "calls": 1,
+     "events": 2,
+     "methods": 4
+    }
+   }
+  },
+  "note": "static bytecode walk: names seen in calls, not proof of behaviour; J9 owns the per-screen API surface",
+  "script_defined_globals": {
+   "empire": 1929,
+   "napoleon": 2183
+  }
+ },
+ "rows": [
+  {
+   "adapter": "11 new, 16 gone, 150 shared",
+   "empire": "166 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "BattleUI.*",
+   "napoleon": "161 names",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "28 new, 8 gone, 229 shared",
+   "empire": "237 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "CampaignUI.*",
+   "napoleon": "257 names",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "18 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "Component.*",
+   "napoleon": "18 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "2 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "DirectoryUtils.*",
+   "napoleon": "2 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "16 new, 12 gone, 91 shared",
+   "empire": "103 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "FrontEnd.*",
+   "napoleon": "107 names",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "1 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "Localisation.*",
+   "napoleon": "1 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "UniChar.*",
+   "napoleon": "1 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "3 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "bit.*",
+   "napoleon": "3 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "static: arg counts seen in bytecode, not signatures",
+   "empire": "1370 shared names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "call argument counts (shared names)",
+   "napoleon": "38 with other arg counts",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "Empire side not in the extract; J9 compares",
+   "empire": "not extracted",
+   "evidence": "extract/napoleon/data/*.lua",
+   "item": "campaign Lua libraries (data pack root)",
+   "napoleon": "10 files",
+   "verdict": "new"
+  },
+  {
+   "adapter": "44 new, 3 gone, 166 shared",
+   "empire": "169 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "component methods",
+   "napoleon": "210 names",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "20 new, 2 gone, 21 shared",
+   "empire": "23 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "engine globals",
+   "napoleon": "41 names",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "8 new, 8 gone, 37 shared",
+   "empire": "45 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "engine globals read, not called",
+   "napoleon": "45 names",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "11 new, 10 gone, 81 shared",
+   "empire": "91 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "event names",
+   "napoleon": "92 names",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "ported unchanged: same Lua 5.1 header (4-byte int and float)",
+   "empire": "runs on Empire scripts",
+   "evidence": "discovery/core/api_inventory.py",
+   "item": "inventory tool (api_inventory.py + luachunk.py)",
+   "napoleon": "497/497 scripts parsed",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "7 names",
+   "evidence": "data\\all_scripted.lua and battle_scripted.lua of both installs, read in place",
+   "item": "loose entry points",
+   "napoleon": "7 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "4 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "out.*",
+   "napoleon": "4 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "panel_manager.*",
+   "napoleon": "1 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "system.*",
+   "napoleon": "1 names",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 names",
+   "evidence": "discovery/diff/lua_api.json (names); rml_mod/docs/engine_api.json",
+   "item": "vfs.*",
+   "napoleon": "1 names",
+   "verdict": "same"
+  }
+ ],
+ "schema": 1
+}
