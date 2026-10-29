@@ -1,0 +1,9 @@
+visible launch: no config touched, no display checked; the window goes wherever the game puts it (only for sittings with Liam present)
+window probe: runs\20261029T173710Z_winprobe (pid 29916); winprobe.json and winprobe.txt when the game exits
+started C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 25480) in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War [launch job j13-20261029T173709Z-219111136 owner=j13 visible]
+running: Napoleon.exe pid 25480
+wait_log: 'scene": "frontend' not seen within 180 s
+
+[watcher] failed: launch: the log line 'scene": "frontend' did not appear
+[job j13-20261029T173709Z-219111136: failed exit=1 - launch: the log line 'scene": "frontend' did not appear]
+launch rc=1

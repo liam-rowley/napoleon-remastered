@@ -72,4 +72,11 @@ void DevInit();                          // DllMain, after the plan
 void DevOnDirect3DCreate(void* d3d);     // the Direct3DCreate9 export, after the backend returned an object
 void DevOnDetach();
 
+// headless.cpp: headless runs on the virtual display (J13); nothing runs unless headless.enabled
+void HeadlessPreflight(bool second);     // DllMain, before the disabled-proxy return: headless asked with the proxy off = refusal
+void HeadlessInit();                     // DllMain, after the dev side
+void HeadlessOnDirect3DCreate(void* d3d);// the Direct3DCreate9 export, before the dev side's hooks
+void HeadlessPresent();                  // every Present (its own vtable hook)
+void HeadlessOnDetach();
+
 } // namespace wsp

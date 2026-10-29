@@ -1,0 +1,5 @@
+snapshot: profiles\_saved\20261029T181215Z_j13 (4 of 5 config files exist; absent is recorded too)
+overlay mod_ini  b9bfecaebd23 -> f8ec40371413
+overlay dxvk_conf  (absent) -> 1d5515c6c740
+profile 'j13-notarget': proxy on stock DXVK with the dev control channel (timeline, state.json, Lua bridge, ctl, intros skipped): the profile agents launch under; headless keys come from the launch itself
+[job j13-20261029T181214Z-124711975: ok exit=0]

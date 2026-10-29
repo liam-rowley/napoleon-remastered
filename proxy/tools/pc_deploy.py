@@ -107,7 +107,7 @@ def verify_kit(kdir):
 
 
 # ---- harness kit: the watcher and what it needs on the PC ------------------------------------------------------------
-HARNESS_SRC = ['watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1']
+HARNESS_SRC = ['watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1', 'win_probe.ps1']
 HARNESS_KIT_FILES = ['install.ps1', 'Install watcher.cmd', 'Uninstall watcher.cmd', 'job.sh']   # real names at the top of the kit folder
 WIN_TEXT = ('.ps1', '.cmd', '.bat')
 

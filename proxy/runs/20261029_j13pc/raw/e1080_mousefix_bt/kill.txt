@@ -1,0 +1,3 @@
+taskkill /F /T /PID 10940 (Napoleon): SUCCESS: The process with PID 10940 (child process of PID 31300) has been terminated.
+killed: Napoleon 10940
+[job j13-20261029T183940Z-2782228809: ok exit=0]

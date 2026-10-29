@@ -1,0 +1,3 @@
+taskkill /F /T /PID 11324 (Napoleon): SUCCESS: The process with PID 11324 (child process of PID 30704) has been terminated.
+killed: Napoleon 11324
+[job j13-20261029T182015Z-2705227919: ok exit=0]

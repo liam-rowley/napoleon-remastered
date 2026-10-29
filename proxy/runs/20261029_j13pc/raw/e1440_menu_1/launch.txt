@@ -1,0 +1,20 @@
+headless: the virtual display is at another size; setting 2560x1440 (the mode before this lock is restored when the lock is released)
+  display tool: displays (3 attached):
+  display tool:   \\.\DISPLAY1   3840x2160@240Hz at 0,0 PRIMARY  adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor'
+  display tool:   \\.\DISPLAY2   2560x1440@144Hz at -2560,327  adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)'
+  display tool:   \\.\DISPLAY11  1920x1080@60Hz at 3839,2160  adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+  display tool: previous mode saved to C:\napoleon_remastered_pc\watcher\_to_delete\vdisplay_steps\20261029T184936Z_2560x1440.json: 1920x1080@60 at 3839,2160
+  display tool: VIRTUAL SET: \\.\DISPLAY11 now 2560x1440 (was 1920x1080@60); restore with -Restore C:\napoleon_remastered_pc\watcher\_to_delete\vdisplay_steps\20261029T184936Z_2560x1440.json
+headless: VIRTUAL OK: \\.\DISPLAY11 2560x1440@60Hz rect=3839,2160,6399,3600 adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+headless overlay prefs  83b9b32b2b73 -> ec049e13617d
+headless overlay mod_ini  369f31823972 -> 34e3f1bc293f
+window probe: runs\20261029T184944Z_winprobe (pid 22460); winprobe.json and winprobe.txt when the game exits
+started C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 24956) in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War [launch job j13-20261029T184935Z-807328265 owner=j13 headless 2560x1440]
+running: Napoleon.exe pid 24956
+headless status: starting DllMain
+headless status: target_ok target resolved at Direct3DCreate9
+headless status: on_virtual window 3839,2160 2560x1440 on \\.\DISPLAY11, first frame presented there at 1.2 s
+headless: on_virtual (target \\.\DISPLAY11 rect 3839,2160,6399,3600, window 2560x1440, client 2560x1440, back buffer 2560x1440)
+reached after 5 s: 2026-10-29T18:49:50.039Z [INFO ] [t27044] scene: intro -> frontend after 28862.9 s (uptime 5.0 s, frame 4, lua frontend)
+[job j13-20261029T184935Z-807328265: ok exit=0]
+launch rc=0

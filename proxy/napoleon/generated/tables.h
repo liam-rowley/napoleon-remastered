@@ -16,7 +16,7 @@ static const SiteDef kSites[kSiteCount + 1] = {   // id, kind, rva, anchorLen, a
     { nullptr, 0, 0, 0, { 0 }, 0, { 0 }, { 0 }, nullptr }   // sentinel (keeps the array non-empty)
 };
 
-static const size_t kKeyCount = 18;
+static const size_t kKeyCount = 23;
 static const KeySpec kKeys[kKeyCount + 1] = {
     { "dev.autostart", kStr, "" },
     { "dev.autostart_delay_ms", kInt, "1500" },
@@ -28,6 +28,11 @@ static const KeySpec kKeys[kKeyCount + 1] = {
     { "dev.skip_intro", kBool, "0" },
     { "dev.state_json", kBool, "0" },
     { "dev.timeline", kBool, "0" },
+    { "headless.display_name", kStr, "Virtual Display Driver" },
+    { "headless.enabled", kBool, "0" },
+    { "headless.refuse_grace_ms", kInt, "5000" },
+    { "headless.settle_ms", kInt, "500" },
+    { "headless.size", kStr, "3840x2160" },
     { "proxy.backend", kStr, "dxvk" },
     { "proxy.dxvk_path", kStr, "napoleon_remastered\\dxvk\\d3d9_dxvk.dll" },
     { "proxy.enabled", kBool, "1" },

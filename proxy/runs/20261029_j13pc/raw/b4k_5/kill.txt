@@ -1,0 +1,3 @@
+taskkill /F /T /PID 18020 (Napoleon): SUCCESS: The process with PID 18020 (child process of PID 8844) has been terminated.
+killed: Napoleon 18020
+[job j13-20261029T174719Z-60061415: ok exit=0]

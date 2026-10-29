@@ -12,7 +12,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J10` | needs_brief | Vanilla UI atlas | 2 | sonnet | yes | J7, J9 |  |  |  |
 | `J11` | needs_brief | Discovery gate | 2 | sonnet | no | J6, J7, J8, J9, J10 |  |  |  |
 | `J12` | needs_brief | Promote phase 1 core candidates to warscape-core | 1 | sonnet | no | J1, J2, J3, J4, J13 |  |  |  |
-| `J13` | queued | Headless runs on the virtual display | 1 | opus | yes | J3, J20 | jobs/J13/brief.md |  |  |
+| `J13` | done | Headless runs on the virtual display | 1 | opus | yes | J3, J20 | jobs/J13/brief.md | jobs/J13/report.md | jobs/J13/review.md |
 | `J14` | done | Save editing: ESF tools and Napoleon save format | 1 | sonnet | yes | J3, J20 | jobs/J14/brief.md | jobs/J14/report.md | jobs/J14/review.md |
 | `J15` | queued | Campaign dev console | 1 | opus | yes | J1, J3, J20 | jobs/J15/brief.md |  |  |
 | `J16` | queued | In-game resolution change crash (stack overflow at device recreation) | 1 | opus | yes | J3, J20 | jobs/J16/brief.md |  |  |

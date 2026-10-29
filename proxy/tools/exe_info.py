@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Read a 32-bit Windows exe and print the identity facts the proxy pins, as JSON.
 
-purpose: print an exe's identity (sha1, PE TimeDateStamp, SizeOfImage, CheckSum, LAA/ASLR/NX flags, sections, DRM stub signs) and its d3d9.dll imports, and check that the proxy's d3d9.def exports cover them
-usage: python3 proxy/tools/exe_info.py <Napoleon.exe> [--def proxy/core/d3d9.def] [--identity proxy/napoleon/identity.json]
+purpose: print an exe's identity (sha1, PE TimeDateStamp, SizeOfImage, CheckSum, LAA/ASLR/NX flags, sections, DRM stub signs) its d3d9.dll imports (and any other DLL's with --imports: which hooks an IAT slot can reach), and check that the proxy's d3d9.def exports cover them
+usage: python3 proxy/tools/exe_info.py <Napoleon.exe> [--def proxy/core/d3d9.def] [--identity proxy/napoleon/identity.json] [--imports user32.dll ...]
 when: to re-check the target exe before pinning it or after a Steam update (runs in Git Bash on the PC against the game folder, or anywhere on a copy); exit 1 when the identity file or the def file disagrees
 not-a-verb: a standalone stdlib reader of one exe that also runs on a copy of the exe away from the repo (whether it becomes a verb: J20 report)
 """
@@ -94,6 +94,7 @@ def main():
     ap.add_argument('exe')
     ap.add_argument('--def', dest='deffile')
     ap.add_argument('--identity')
+    ap.add_argument('--imports', nargs='+', default=[], metavar='DLL', help='also list the functions imported from these DLLs')
     a = ap.parse_args()
     b = Path(a.exe).read_bytes()
     pe = parse_pe(b)
@@ -112,6 +113,8 @@ def main():
         'd3d9_imports': imp.get('d3d9.dll', []),
         'import_dlls': sorted(imp),
     }
+    for dll in a.imports:
+        info[f'imports_{dll.lower()}'] = sorted(imp.get(dll.lower(), []))
     bad = []
     if a.deffile:
         exp = set(def_exports(a.deffile))

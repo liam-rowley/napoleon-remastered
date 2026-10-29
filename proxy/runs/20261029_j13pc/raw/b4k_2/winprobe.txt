@@ -1,0 +1,16 @@
+monitor \\.\DISPLAY1 0,0,3840,2160 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor' [REAL]
+monitor \\.\DISPLAY2 -2560,327,0,1767 adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' [REAL]
+monitor \\.\DISPLAY11 3839,2160,7679,4320 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' [virtual]
+READY 2026-10-29T17:46:14.916Z
+game pid 29140 seen 2026-10-29T17:46:14.993Z
++1213 ms 90E72 'Napoleon' visible rect 3839,2160,7679,4320 on \\.\DISPLAY11(v)
++1213 ms 9073A 'IME' [helper] hidden rect 0,0,0,0 on no monitor
++1303 ms 70E7A 'NVOpenGLPbuffer' hidden rect 266,266,3146,1857 on \\.\DISPLAY1(REAL)
++1303 ms 70E8E 'IME' [helper] hidden rect 0,0,0,0 on no monitor
+samples=927 duration_ms=9953 exited=True exit_code=1
+LONGEST_VISIBLE_ON_REAL_MS=0
+VISIBLE_ON_REAL_MS_TOTAL=0 SAMPLES=0/927
+VISIBLE_OFF_TARGET_COUNT=0
+CLOAKED_MS=0
+MONITOR_CHANGES=0
+DONE 2026-10-29T17:46:24.947Z

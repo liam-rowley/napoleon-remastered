@@ -127,6 +127,7 @@ void* WINAPI Direct3DCreate9(UINT sdk) {
     if (!BackendEnsure() || !p_Create9) return nullptr;
     void* d3d = p_Create9(sdk);
     LOGI("Direct3DCreate9(sdk=%u) -> %p [%s]", sdk, d3d, BackendName());
+    HeadlessOnDirect3DCreate(d3d);   // headless only: target, mode-list and device hooks (before the dev side wraps CreateDevice)
     DevOnDirect3DCreate(d3d);   // dev side only (frame hooks ask the plan inside)
     return d3d;
 }
@@ -137,6 +138,7 @@ HRESULT WINAPI Direct3DCreate9Ex(UINT sdk, void** out) {
     if (!p_Create9Ex) return E_NOTIMPL;
     const HRESULT hr = p_Create9Ex(sdk, out);
     LOGI("Direct3DCreate9Ex(sdk=%u) -> hr=0x%08lx [%s]", sdk, (unsigned long)hr, BackendName());
+    if (SUCCEEDED(hr) && out) HeadlessOnDirect3DCreate(*out);   // IDirect3D9Ex keeps IDirect3D9's slots
     return hr;
 }
 

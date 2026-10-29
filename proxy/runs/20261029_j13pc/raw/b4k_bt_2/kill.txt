@@ -1,0 +1,3 @@
+taskkill /F /T /PID 28388 (Napoleon): SUCCESS: The process with PID 28388 (child process of PID 8844) has been terminated.
+killed: Napoleon 28388
+[job j13-20261029T181119Z-157222300: ok exit=0]

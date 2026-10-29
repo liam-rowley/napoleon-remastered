@@ -1,0 +1,12 @@
+== ctl: autostart battle:land_small 300
+ctl j13-20261029T174747Z-1716317506: no result after 300s, but the proxy took the request: its result will still land in /c/napoleon_remastered_pc/ctl/j13-20261029T174747Z-1716317506.done
+rc=124
+== ctl: state
+ctl j13-20261029T175247Z-132921668: no result after 300s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j13-20261029T175247Z-132921668.cmd.expired).
+rc=124
+== ctl: reset battle:land_small 300
+ctl j13-20261029T175747Z-1624130059: no result after 300s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j13-20261029T175747Z-1624130059.cmd.expired).
+rc=124
+== ctl: state
+ctl j13-20261029T180247Z-6914041: no result after 300s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j13-20261029T180247Z-6914041.cmd.expired).
+rc=124
