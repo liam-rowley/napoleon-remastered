@@ -1,0 +1,29 @@
+{"step": "frontend", "rc": 0, "request": "waitfor frontend 240", "status": "ok", "scene": "frontend", "waited_s": 9.0}
+{"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j14_a 420", "status": "ok", "scene": "campaign", "load_s": 5.0, "total_s": 5.0, "lua": "started campaign zz_j14_a"}
+{"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true"}
+{"step":"kill","rc":0}
+{"step": "frontend", "rc": 0, "request": "waitfor frontend 240", "status": "ok", "scene": "frontend", "waited_s": 3.6}
+{"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j14_a 420", "status": "ok", "scene": "campaign", "load_s": 3.6, "total_s": 3.6, "lua": "started campaign zz_j14_a"}
+{"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true"}
+{"step":"kill","rc":0}
+{"step": "frontend", "rc": 0, "request": "waitfor frontend 240", "status": "ok", "scene": "frontend", "waited_s": 3.9}
+{"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j14_b 420", "status": "ok", "scene": "campaign", "load_s": 3.4, "total_s": 3.4, "lua": "started campaign zz_j14_b"}
+{"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true"}
+{"step": "quicksave", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_quicksave.lua", "status": "ok", "chunk": "quicksave asked at 1805 Winter"}
+{"step":"quicksave_file","file":"quick_save.save","kept":"kept C:\\napoleon_remastered_pc\\saves\\zz_j14_b_qs_20261029T164118Z.save sha256 3a7c79bdc9855381bac4990732e5d18d81f17178295e4e4c1ac3119a19b2638f size 30193916"}
+{"step":"kill","rc":0}
+{"step": "frontend", "rc": 0, "request": "waitfor frontend 240", "status": "ok", "scene": "frontend", "waited_s": 3.7}
+{"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j14_b 420", "status": "ok", "scene": "campaign", "load_s": 3.5, "total_s": 3.5, "lua": "started campaign zz_j14_b"}
+{"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true"}
+{"step":"kill","rc":0}
+{"step": "frontend", "rc": 0, "request": "waitfor frontend 240", "status": "ok", "scene": "frontend", "waited_s": 3.3}
+{"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j14_c 420", "status": "ok", "scene": "campaign", "load_s": 3.4, "total_s": 3.5, "lua": "started campaign zz_j14_c"}
+{"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true"}
+{"step": "end_turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_end_turn.lua", "status": "ok", "chunk": "end turn asked through button_end_turn at 1805 Winter"}
+{"step":"c1_note","status":"stopped by hand","reason":"EndTurn: AI diplomacy modal and turn-start event (dismissed by Liam), then focus loss and more modals stalled the Lua pump from 16:44:54; launch killed 16:49:44 through the watcher; autosave 16:42:14 kept as zz_j14_c_autosave_164214.save"}
+{"step": "frontend", "rc": 0, "request": "waitfor frontend 240", "status": "ok", "scene": "frontend", "waited_s": 10.4}
+{"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j14_c 420", "status": "ok", "scene": "campaign", "load_s": 2.7, "total_s": 2.7, "lua": "started campaign zz_j14_c"}
+{"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true"}
+{"step": "quicksave", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_quicksave.lua", "status": "ok", "chunk": "quicksave asked at 1805 Winter"}
+{"step":"quicksave_file","file":"quick_save.save","kept":"kept C:\\napoleon_remastered_pc\\saves\\zz_j14_c_qs_20261029T165033Z.save sha256 f9e57ce334f14bc8b721ffedf8ea85f980047237206c9e4e77102b6897ff56a0 size 30189052"}
+{"step":"kill","rc":0}

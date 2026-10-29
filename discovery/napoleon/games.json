@@ -4,7 +4,9 @@
   "root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War",
   "exe": "Napoleon.exe",
   "data": "data",
-  "pack_order": ["boot", "data", "local_en", "local_en_patch"]
+  "pack_order": ["boot", "battleterrain", "buildings", "data", "local_en", "rigidmodels", "sound", "variantmodels",
+                 "variantmodels2", "local_en_patch", "media"],
+  "pack_order_note": "header type (0 boot, 1 release, 2 patch, 4 movie), then name; no pack lists a dependency (J7, 2026-10-29). Loose data\\ files come after the packs in discovery/core/packfs.py (napoleon.files.loose_override is open)"
  },
  "empire": {
   "root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War",

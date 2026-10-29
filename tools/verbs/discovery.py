@@ -1,23 +1,32 @@
-"""The Empire-to-Napoleon discovery diff as a verb: check the six area files and render their README.
+"""The discovery passes as a verb: run them (J7, on the PC), check every committed result and render their READMEs.
 
-purpose: check discovery/diff/<area>.json against the diff schema and render discovery/diff/README.md (carry-over summary, then one table of every row that is not `same`)
-usage: python3 core/wsc.py discovery check | discovery render
-when: after any discovery pass (discovery/core/*.py) rewrites an area file; `check` also fails when the committed README is stale (tests/test_discovery.py runs it in the tests gate)
+purpose: check discovery/diff/<area>.json (J6) and the J7 files (asset index, registry in step, refs, sheets, db tables, loc keys), render discovery/{diff,assets,db,loc}/README.md, and run the J7 passes
+usage: python3 core/wsc.py discovery check | render | assets | sheets | db | loc | all   (assets, sheets, db, loc and all read the install on the PC; all = assets, db, loc, sheets, then render)
+when: after any discovery pass (discovery/core/*.py) rewrites a result; `check` also fails when a committed README is stale (tests/test_discovery.py runs it in the tests gate)
 verb: discovery
 """
 import json
+import subprocess
 import sys
 from pathlib import Path
 
 NAME = 'discovery'
-HELP = 'the J6 Empire-to-Napoleon diff: check the area files, render discovery/diff/README.md'
+HELP = 'discovery passes: check and render the J6 diff and the J7 asset, db and loc results; run the J7 passes on the PC'
 
 AREAS = ('packs', 'layouts', 'fonts', 'lua_api', 'shaders', 'exe')
 CELL = 90
+PASSES = {'assets': ['assets.py'], 'db': ['db.py'], 'loc': ['loc.py'], 'sheets': ['sheets.py']}
+ORDER = ('assets', 'db', 'loc', 'sheets')
+
+
+def _core(root):
+    p = str(Path(root) / 'discovery' / 'core')
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
 
 def _load(root):
-    sys.path.insert(0, str(Path(root) / 'discovery' / 'core'))
+    _core(root)
     from diffout import problems  # noqa: E402
     docs, bad = {}, []
     for a in AREAS:
@@ -58,20 +67,85 @@ def render(root):
     return '\n'.join(out) + '\n'
 
 
+def _json(p):
+    return json.loads(Path(p).read_text(encoding='utf-8'))
+
+
+def readmes(root):
+    """{README path: text} for every generated discovery README whose source file is committed."""
+    _core(root)
+    import assets
+    import db
+    import loc
+    d = Path(root) / 'discovery'
+    out = {d / 'diff' / 'README.md': render(root)}
+    for sub, mod, src in (('assets', assets, 'summary.json'), ('db', db, 'tables.json'), ('loc', loc, 'summary.json')):
+        if (d / sub / src).exists():
+            out[d / sub / 'README.md'] = mod.readme(_json(d / sub / src))
+    return out
+
+
+def j7_problems(root):
+    """The J7 results: deterministic tables, the registry exactly what the committed index, refs and rules give, sheets and db shape."""
+    _core(root)
+    import assets
+    import tsvgz
+    d = Path(root) / 'discovery'
+    if not (d / 'assets' / 'index.tsv.gz').exists():
+        return []
+    bad = tsvgz.problems(str(d / 'assets' / 'index.tsv.gz'), assets.COLUMNS)
+    if (d / 'loc' / 'keys.tsv.gz').exists():
+        import loc
+        bad += tsvgz.problems(str(d / 'loc' / 'keys.tsv.gz'), loc.COLUMNS)
+    if bad:
+        return bad
+    index = assets.load_index(str(d / 'assets' / 'index.tsv.gz'))
+    refs = _json(d / 'assets' / 'refs.json')['refs']
+    reg = assets.read_registry(str(Path(root) / 'registries' / 'assets.jsonl'))
+    want = assets.registry_rows(index, refs, assets.load_roles(str(d / 'napoleon' / 'asset_roles.json')), reg)
+    if reg != want:
+        ids = {r['id'] for r in reg} ^ {r['id'] for r in want}
+        bad.append(f'registries/assets.jsonl: not in step with index.tsv.gz, refs.json and asset_roles.json ({len(reg)} rows, want '
+                   f'{len(want)}; {len(ids)} ids differ); run `wsc discovery assets --stage registry` (or discovery/core/assets.py)')
+    ids = {r['id'] for r in reg}
+    if (d / 'assets' / 'sheets.json').exists():
+        sh = _json(d / 'assets' / 'sheets.json')
+        tiles = [t for s in sh['sheets'].values() for t in s['tiles']]
+        if len(tiles) != len(set(tiles)) or not set(tiles) <= ids or any(len(s['tiles']) > 192 for s in sh['sheets'].values()):
+            bad.append('discovery/assets/sheets.json: tiles repeat, exceed 192 a sheet or name ids not in the assets registry')
+    if (d / 'db' / 'tables.json').exists():
+        for t in _json(d / 'db' / 'tables.json')['tables']:
+            if {'name', 'file', 'pack', 'version', 'rows', 'sha256', 'decoded'} - set(t) or (t['decoded'] is False and not t.get('reason')):
+                bad.append(f"discovery/db/tables.json: {t.get('file')}: missing fields or a not-decoded table without a reason")
+                break
+    return bad
+
+
 def add_arguments(p):
-    p.add_argument('action', choices=('check', 'render'))
+    p.add_argument('action', choices=('check', 'render', 'all') + ORDER)
+    p.add_argument('rest', nargs='*', help='passed to the pass script (for example --stage registry)')
 
 
 def run(args, ctx):
     root = Path(ctx.root)
-    readme = root / 'discovery' / 'diff' / 'README.md'
+    if args.action in PASSES or args.action == 'all':
+        for a in (ORDER if args.action == 'all' else (args.action,)):
+            cmd = [sys.executable, str(root / 'discovery' / 'core' / PASSES[a][0])] + list(args.rest)
+            if subprocess.run(cmd, cwd=root).returncode:
+                return 1
+        if args.action in ('sheets',):
+            return 0
+        args.action = 'render'
     if args.action == 'render':
-        text = render(root)
-        readme.write_text(text, encoding='utf-8', newline='\n')
-        print(f'{readme}: {len(text.encode())} bytes')
+        for p, text in readmes(root).items():
+            p.write_text(text, encoding='utf-8', newline='\n')
+            print(f'{p}: {len(text.encode())} bytes')
         return 0
     _, bad = _load(root)
-    if not bad and (not readme.exists() or readme.read_text(encoding='utf-8') != render(root)):
-        bad.append(f'{readme}: stale; run `wsc discovery render`')
-    print('\n'.join(bad) or 'discovery: 6 area files valid, README current')
+    if not bad:
+        for p, text in readmes(root).items():
+            if not p.exists() or p.read_text(encoding='utf-8') != text:
+                bad.append(f'{p}: stale; run `wsc discovery render`')
+        bad += j7_problems(root)
+    print('\n'.join(bad) or 'discovery: 6 area files valid, J7 results in step, READMEs current')
     return 1 if bad else 0
