@@ -1,0 +1,5 @@
+# Napoleon esf_diff noise list: records that change on almost any action and carry no meaning for an edit (J14, pair agent-to-settlement).
+# Use: python3 -I saves/core/esf_diff.py A.save B.save --skip @saves/napoleon/noise.txt
+CAI_INTERFACE          # the AI's world model: about 20,000 lines per agent move (CAI_INTERFACE_MANAGERS, CAI_BDI_POOL, CAI_WORLD)
+CAMPAIGN_PATHFINDER    # PATHFINDING_GRID obstacles: a character's footprint leaves and joins OBSTACLE_BOUNDARY lists
+QUAD_TREE_BIT_ARRAY    # fog-of-war bit trees under LINE_OF_SIGHT
