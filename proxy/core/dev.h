@@ -4,15 +4,16 @@
 #include "runtime.h"
 #include "devcore.h"
 #include "filerules.h"
+#include "console.h"
 
 namespace wsp {
 
 struct DevKeys {
-    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false;
+    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false, console = false;
     std::wstring fileRules, ctlDir;
     std::string autostart;
     int autostartDelayMs = 1500;
-    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || !fileRules.empty() || !autostart.empty(); }
+    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || console || !fileRules.empty() || !autostart.empty(); }
 };
 DevKeys& Dk();
 bool DevActive();
@@ -26,6 +27,17 @@ void DevFrontendMovie(bool open);
 void DevReport(const std::string& key, const std::string& value);   // wsp.report(): facts the Lua side sees (map, campaign, ...)
 std::string DevConfigValue(const std::string& key);   // wsp.dev_config(): target.*, preset.*, lua_dir
 void DevPresent();                                    // the render thread, every Present
+std::string DevSceneNow();                            // the scene tracker's scene (takes the dev lock: never call it under another lock)
+
+// console.cpp (J15): the campaign console behind dev.console; decisions in console.h
+void ConsoleInit(bool key, const ConsoleAdapter* ad); // DevInit
+void ConsoleInstall();                                // first Direct3DCreate9 (before any campaign): verify sites, claim the empty slot
+bool ConsoleSet(bool on, std::string& why);           // ctl console on|off: claim or release the slot (never a foreign one)
+ConsolePre ConsolePrecheck(const std::string& name);  // the verb's facts (scene filled in by the caller)
+const ConsoleAdapter* ConsoleAd();
+long ConsoleSeq();                                    // forwarder calls so far (a verb compares before/after)
+bool ConsoleLastSince(long seq, FwdResult& res, std::string& name, std::string& why, int& hits);
+std::string ConsoleStatusJson();                      // result members of ctl console status
 
 // files.cpp
 void FilesInit(std::vector<FileRule> rules);          // installs the exe's IAT hooks the rules and keys need

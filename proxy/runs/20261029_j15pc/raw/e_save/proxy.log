@@ -1,0 +1,289 @@
+2026-10-29T20:32:10.128Z [INFO ] [t30308] launch 20261029T203210Z-p11796: Napoleon: Total War proxy d3d9.dll build fd479b755538 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 11796, base 00a20000)
+2026-10-29T20:32:10.128Z [INFO ] [t30308] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-10-29T20:32:10.128Z [INFO ] [t30308] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-10-29T20:32:10.128Z [INFO ] [t30308] config:   dev.autostart                      =             
+2026-10-29T20:32:10.128Z [INFO ] [t30308] config:   dev.autostart_delay_ms             = 1500        
+2026-10-29T20:32:10.128Z [INFO ] [t30308] config:   dev.console                        = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.ctl                            = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.file_rules                     =             
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.log_files                      = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.lua_bridge                     = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.skip_intro                     = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.state_json                     = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   dev.timeline                       = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   headless.display_name              = Virtual Display Driver
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   headless.enabled                   = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   headless.refuse_grace_ms           = 5000        
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   headless.settle_ms                 = 500         
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   headless.size                      = 3840x2160   
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.backend                      = dxvk        
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.enabled                      = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.exe_guard                    = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.log_level                    = info        
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.minidump                     = 2           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] config:   proxy.runtime_patches              = 1           
+2026-10-29T20:32:10.129Z [INFO ] [t30308] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-10-29T20:32:10.129Z [INFO ] [t30308] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-10-29T20:32:10.166Z [INFO ] [t30308] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 47 ms)
+2026-10-29T20:32:10.166Z [INFO ] [t30308] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine: image base 00a20000 (file ImageBase 0x00400000, delta 0x00620000)
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine:   campaign.cli_ctor                hook  RVA 0x005011f0 -> 00f211f0: stock cur [83 ec 0c 56 8b f1 8d 4c 24 04 68 e8 1b 36 01 e8]
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine:   campaign.cli_ctor_tail           hook  RVA 0x00501240 -> 00f21240: stock cur [8b 44 24 14 8b 00 89 46 28 8b c6 c7 06 c4 1b 36 01 5e 83 c4 0c c2 04 00]
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine:   campaign.cli_execute             hook  RVA 0x00525200 -> 00f45200: stock cur [51 53 55 56 57 89 4c 24 10 e8 42 07 00 00 ff 74]
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine:   campaign.owner_selection_wiring  hook  RVA 0x0058c6b0 -> 00fac6b0: stock cur [8d 8b f4 00 00 00 c7 01 40 a5 36 01 8d bb fc 09 00 00 8b 45 00 89 41 04 89 7c 24 38 89 48 28]
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine:   campaign.owner_global_read       hook  RVA 0x005dfecf -> 00fffecf: stock cur [8b 0d 38 49 5c 01 83 c4 04 8b d8 8b 89 fc 09 00 00]
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine:   console.handler_slot_test        hook  RVA 0x00c5612c -> 0167612c: stock cur [83 3d b0 70 76 01 00 0f 84 fe fe ff ff]
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine:   console.handler_slot_call        hook  RVA 0x00c56143 -> 01676143: stock cur [8b 0d b0 70 76 01 8d 54 24 2c 83 c4 04 8b 01 52 8d 54 24 1c 52 8b 00 ff d0 84 c0]
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine: nothing to do - 7 sites: 7 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 7 hooks verified
+2026-10-29T20:32:10.218Z [INFO ] [t30308] patch_engine: 0 of 0 planned sites written
+2026-10-29T20:32:10.218Z [INFO ] [t30308] dev: timeline=1 log_files=1 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-10-29T20:32:10.218Z [INFO ] [t30308] timeline: dllmain +107 ms
+2026-10-29T20:32:10.219Z [INFO ] [t30308] console: dev.console=1
+2026-10-29T20:32:10.219Z [INFO ] [t30308] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-10-29T20:32:10.219Z [INFO ] [t30308] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-10-29T20:32:10.219Z [INFO ] [t30308] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-10-29T20:32:10.219Z [INFO ] [t30308] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-10-29T20:32:10.219Z [INFO ] [t30308] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-10-29T20:32:10.220Z [INFO ] [t30308] files: survey of every distinct path into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\logs\files.log
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!CreateFileW slot 01927170: 7634ea50 -> 6951e3c0
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!CreateFileA slot 01927188: 7634ea40 -> 6951e1e0
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!GetFileAttributesW slot 0192722c: 7634ec70 -> 6951e0e0
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!GetFileAttributesExW slot 0192728c: 7634ec60 -> 6951dfc0
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!GetFileAttributesExA slot 0192724c: 7634ec50 -> 6951de50
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!FindFirstFileExW slot 019270cc: 7634eb30 -> 6951dd90
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!FindFirstFileW slot 0192721c: 7634eb50 -> 6951dcf0
+2026-10-29T20:32:10.220Z [INFO ] [t30308] hook: iat KERNEL32.dll!FindNextFileW slot 01927220: 7634eba0 -> 6951ad90
+2026-10-29T20:32:10.221Z [INFO ] [t30308] hook: iat KERNEL32.dll!FindClose slot 01927218: 7634ead0 -> 69519980
+2026-10-29T20:32:10.221Z [INFO ] [t30308] hook: iat binkw32.dll!_BinkOpen@8 slot 01927480: 1800d690 -> 6951ff70
+2026-10-29T20:32:10.221Z [INFO ] [t30308] hook: iat binkw32.dll!_BinkClose@4 slot 01927490: 1800f850 -> 6951a3c0
+2026-10-29T20:32:10.222Z [INFO ] [t30308] headless: on: target 'Virtual Display Driver' at exactly 3840x2160, settle 500 ms, refuse grace 5000 ms
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!CreateWindowExW slot 019273b4: 7526e930 -> 6952b9f0
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!ShowWindow slot 019273b0: 7527b6a0 -> 69526c00
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!SetWindowPos slot 01927310: 7527b5e0 -> 69526580
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!MoveWindow slot 019273ac: 7527ae90 -> 69526070
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!SetWindowLongW slot 01927374: 75267570 -> 69526f20
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!ChangeDisplaySettingsW slot 01927378: 75305c30 -> 695245a0
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!MessageBoxW slot 01927328: 752ea5b0 -> 69526480
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!DialogBoxIndirectParamW slot 0192730c: 752c11f0 -> 69524530
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat user32.dll!SetFocus slot 0192739c: 7527b3e0 -> 69524e00
+2026-10-29T20:32:10.222Z [INFO ] [t30308] hook: iat dinput8.dll!DirectInput8Create slot 01927024: 698d6fa0 -> 69524630
+2026-10-29T20:32:10.222Z [INFO ] [t30308] init done; the dxvk backend loads at the first d3d9 call
+2026-10-29T20:32:10.224Z [INFO ] [t3232] ctl: watching C:\napoleon_remastered_pc\ctl\ (310 ids already used)
+2026-10-29T20:32:11.068Z [INFO ] [t30308] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-10-29T20:32:11.136Z [WARN ] [t30308] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-10-29T20:32:11.136Z [INFO ] [t30308] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-10-29T20:32:11.136Z [INFO ] [t30308] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T20:32:11.136Z [INFO ] [t30308] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-10-29T20:32:11.138Z [INFO ] [t30308] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-10-29T20:32:11.138Z [INFO ] [t30308] backend: dxvk ready (Direct3DCreate9=5db81530)
+2026-10-29T20:32:11.253Z [INFO ] [t30308] Direct3DCreate9(sdk=32) -> 0bde8d18 [dxvk]
+2026-10-29T20:32:11.254Z [INFO ] [t30308] headless: 2 displays (physical pixels):
+2026-10-29T20:32:11.254Z [INFO ] [t30308] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-10-29T20:32:11.254Z [INFO ] [t30308] headless:   \\.\DISPLAY11 2560,1440 3840x2160 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-10-29T20:32:11.254Z [INFO ] [t30308] headless: target 2560,1440 3840x2160 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 3840x2160); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 3840x2160@60
+2026-10-29T20:32:11.255Z [INFO ] [t30308] hook: vtable IDirect3D9::GetAdapterModeCount (headless) slot 5e21e018 [6]: 5db81ee0 -> 69525270
+2026-10-29T20:32:11.255Z [INFO ] [t30308] hook: vtable IDirect3D9::EnumAdapterModes (headless) slot 5e21e01c [7]: 5db81f40 -> 69526900
+2026-10-29T20:32:11.255Z [INFO ] [t30308] hook: vtable IDirect3D9::GetAdapterDisplayMode (headless) slot 5e21e020 [8]: 5db81a20 -> 695250e0
+2026-10-29T20:32:11.255Z [INFO ] [t30308] hook: vtable IDirect3D9::GetAdapterMonitor (headless) slot 5e21e03c [15]: 5db81da0 -> 69524ee0
+2026-10-29T20:32:11.255Z [INFO ] [t30308] hook: vtable IDirect3D9::CreateDevice (headless) slot 5e21e040 [16]: 5db82980 -> 69527c60
+2026-10-29T20:32:11.255Z [INFO ] [t30308] timeline: d3d_create +1144 ms
+2026-10-29T20:32:11.256Z [INFO ] [t30308] console: install: slot 01d870b0 (console.handler_slot_test), owner global 01be4938, selection vtable 0198a540, CLI ctor 00f211f0, CLI vtable 01981bc4, Execute 00f45200 (slot 7); sites console.handler_slot_test console.handler_slot_call campaign.owner_global_read campaign.owner_selection_wiring campaign.cli_ctor campaign.cli_ctor_tail campaign.cli_execute
+2026-10-29T20:32:11.256Z [INFO ] [t30308] console: on (slot 01d870b0: empty -> 6959c010)
+2026-10-29T20:32:11.256Z [INFO ] [t30308] hook: vtable IDirect3D9::CreateDevice slot 5e21e040 [16]: 69527c60 -> 6950bd60
+2026-10-29T20:32:11.257Z [INFO ] [t30308] headless: GetAdapterDisplayMode(adapter 0) -> 3840x2160@60 (the target)
+2026-10-29T20:32:11.257Z [INFO ] [t30308] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-10-29T20:32:11.257Z [INFO ] [t30308] headless: GetAdapterDisplayMode(adapter 1) -> 3840x2160@60 (the target)
+2026-10-29T20:32:11.257Z [INFO ] [t30308] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-10-29T20:32:11.333Z [INFO ] [t30308] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 121)
+2026-10-29T20:32:11.333Z [INFO ] [t30308] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-10-29T20:32:11.335Z [INFO ] [t30308] headless: window 012803aa 'Total War: NAPOLEON' class 'Napoleon' asked 3858x2207 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-10-29T20:32:11.335Z [INFO ] [t30308] headless: window 012803aa placed at 2560,1440 3840x2160 (inside the target)
+2026-10-29T20:32:11.336Z [INFO ] [t30308] headless: SetFocus(012803aa) dropped (another process has the foreground; 1 so far)
+2026-10-29T20:32:11.336Z [INFO ] [t30308] headless: CreateDevice: back buffer 3840x2160, windowed, window 012803aa
+2026-10-29T20:32:11.379Z [INFO ] [t30308] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-10-29T20:32:11.379Z [INFO ] [t30308] hook: vtable IDirect3DDevice9::Reset (headless) slot 5e21d7f0 [16]: 5dbab9e0 -> 69527da0
+2026-10-29T20:32:11.379Z [INFO ] [t30308] hook: vtable IDirect3DDevice9::Present (headless) slot 5e21d7f4 [17]: 5dbb9dd0 -> 6952d4b0
+2026-10-29T20:32:11.379Z [INFO ] [t30308] timeline: device_created +1268 ms hr 0x00000000 flags 0x42
+2026-10-29T20:32:11.381Z [INFO ] [t30308] hook: vtable IDirect3DDevice9::Present slot 5e21d7f4 [17]: 6952d4b0 -> 6950c180
+2026-10-29T20:32:11.406Z [INFO ] [t30308] timeline: first_present +1295 ms
+2026-10-29T20:32:11.408Z [INFO ] [t30308] headless: ON THE VIRTUAL DISPLAY: window 2560,1440 3840x2160 on \\.\DISPLAY11, first frame presented there at 1.2 s (client 3840x2160, back buffer 3840x2160)
+2026-10-29T20:32:13.643Z [INFO ] [t3232] ctl: J15-20261029T203213Z-213389472: waitfor frontend 240
+2026-10-29T20:32:14.297Z [INFO ] [t30308] hook: vtable IDirectInput8::CreateDevice (headless) slot 698f6270 [3]: 698d4b20 -> 695246d0
+2026-10-29T20:32:14.298Z [INFO ] [t30308] hook: vtable IDirectInputDevice8::SetCooperativeLevel (headless) slot 698f60a0 [13]: 698dcdd0 -> 69524400
+2026-10-29T20:32:14.298Z [INFO ] [t30308] headless: DirectInput SetCooperativeLevel(2adb0528, window 012803aa, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-10-29T20:32:15.212Z [INFO ] [t30308] wsp_sentinel: engine dummynode = 01a0d128 (sizearray 0, lsizenode 0)
+2026-10-29T20:32:15.212Z [INFO ] [t30308] luaopen_wsp: engine lua_State 05132128, global state 051ae624 (thread 30308)
+2026-10-29T20:32:15.212Z [INFO ] [t30308] timeline: lua_bridge_loaded +5101 ms
+2026-10-29T20:32:15.213Z [INFO ] [t30308] lua: wsp.lua loaded (wsp 1)
+2026-10-29T20:32:15.233Z [INFO ] [t30308] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-10-29T20:32:15.235Z [INFO ] [t30308] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-10-29T20:32:15.292Z [INFO ] [t30308] lua: wrapper: frontend pumps from OnUpdate
+2026-10-29T20:32:15.407Z [INFO ] [t30308] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 000004f0 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-10-29T20:32:15.407Z [INFO ] [t30308] timeline: movie_refused +5296 ms movies\sega_logo_sting_hd.bik
+2026-10-29T20:32:15.411Z [INFO ] [t30308] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 000004f0 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-10-29T20:32:15.411Z [INFO ] [t30308] timeline: movie_refused +5300 ms movies\corei7_intro.bik
+2026-10-29T20:32:15.414Z [INFO ] [t30308] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 000004f0 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-10-29T20:32:15.414Z [INFO ] [t30308] timeline: movie_refused +5303 ms movies\ntw_intro.bik
+2026-10-29T20:32:15.417Z [INFO ] [t30308] timeline: movie_open +5306 ms movies\frontend2.bik
+2026-10-29T20:32:15.417Z [INFO ] [t30308] movies: BinkOpen movies\frontend2.bik [handle 000004f0 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b6460c0
+2026-10-29T20:32:15.417Z [INFO ] [t30308] scene: intro -> frontend after 35008.2 s (uptime 5.2 s, frame 4, lua frontend)
+2026-10-29T20:32:15.422Z [INFO ] [t30308] lua: first pump from context 'frontend' (thread 30308)
+2026-10-29T20:32:15.422Z [INFO ] [t30308] timeline: frontend_first_pump +5311 ms
+2026-10-29T20:32:15.423Z [INFO ] [t30308] timeline: first_present_after_ready +5312 ms frontend
+2026-10-29T20:32:15.460Z [INFO ] [t3232] ctl: J15-20261029T203213Z-213389472: ok
+2026-10-29T20:32:20.290Z [INFO ] [t3232] ctl: J15-20261029T203220Z-266454969: autostart campaign:zz_j15_spy 420
+2026-10-29T20:32:20.290Z [INFO ] [t3232] timeline: autostart_issued +10179 ms campaign:zz_j15_spy
+2026-10-29T20:32:20.292Z [INFO ] [t30308] movies: BinkClose movies\frontend2.bik
+2026-10-29T20:32:20.292Z [INFO ] [t30308] timeline: movie_close +10181 ms movies\frontend2.bik
+2026-10-29T20:32:20.302Z [INFO ] [t3232] autostart: lua ok: started campaign zz_j15_spy
+2026-10-29T20:32:20.302Z [INFO ] [t3232] scene: frontend -> loading after 4.9 s (uptime 10.1 s, frame 18127, lua frontend)
+2026-10-29T20:32:21.949Z [INFO ] [t30308] luaopen_wsp: engine lua_State 051b3060, global state 051364cc (thread 30308) (again)
+2026-10-29T20:32:21.949Z [INFO ] [t30308] lua: wsp.lua loaded (wsp 1)
+2026-10-29T20:32:21.955Z [INFO ] [t30308] lua: wrapper: campaign pumps from OnUpdatePulse
+2026-10-29T20:32:22.622Z [INFO ] [t30308] lua: first pump from context 'campaign' (thread 30308)
+2026-10-29T20:32:22.622Z [INFO ] [t30308] scene: loading -> campaign after 2.3 s (uptime 12.4 s, frame 18508, lua campaign)
+2026-10-29T20:32:22.626Z [INFO ] [t3232] ctl: J15-20261029T203220Z-266454969: ok
+2026-10-29T20:32:22.643Z [INFO ] [t30308] timeline: first_present_after_ready +12532 ms campaign
+2026-10-29T20:32:24.034Z [INFO ] [t3232] ctl: J15-20261029T203223Z-2529730844: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:32:24.046Z [INFO ] [t3232] ctl: J15-20261029T203223Z-2529730844: ok
+2026-10-29T20:32:25.454Z [INFO ] [t3232] ctl: J15-20261029T203225Z-285617293: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:32:25.466Z [INFO ] [t3232] ctl: J15-20261029T203225Z-285617293: ok
+2026-10-29T20:32:30.195Z [INFO ] [t3232] ctl: J15-20261029T203230Z-141132962: lua napoleon_remastered/lua/probes/campaign_end_turn.lua
+2026-10-29T20:32:30.206Z [INFO ] [t3232] ctl: J15-20261029T203230Z-141132962: ok
+2026-10-29T20:32:41.879Z [INFO ] [t3232] ctl: J15-20261029T203241Z-2640632128: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:32:41.889Z [INFO ] [t3232] ctl: J15-20261029T203241Z-2640632128: ok
+2026-10-29T20:32:53.357Z [INFO ] [t3232] ctl: J15-20261029T203253Z-2334726992: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:32:53.368Z [INFO ] [t3232] ctl: J15-20261029T203253Z-2334726992: ok
+2026-10-29T20:33:04.733Z [INFO ] [t3232] ctl: J15-20261029T203304Z-2866223907: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:33:04.744Z [INFO ] [t3232] ctl: J15-20261029T203304Z-2866223907: ok
+2026-10-29T20:33:16.104Z [INFO ] [t3232] ctl: J15-20261029T203316Z-2829818943: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:33:16.115Z [INFO ] [t3232] ctl: J15-20261029T203316Z-2829818943: ok
+2026-10-29T20:33:27.477Z [INFO ] [t3232] ctl: J15-20261029T203327Z-226313848: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:33:27.488Z [INFO ] [t3232] ctl: J15-20261029T203327Z-226313848: ok
+2026-10-29T20:33:38.858Z [INFO ] [t3232] ctl: J15-20261029T203338Z-277614838: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:33:38.870Z [INFO ] [t3232] ctl: J15-20261029T203338Z-277614838: ok
+2026-10-29T20:33:50.340Z [INFO ] [t3232] ctl: J15-20261029T203350Z-28058856: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:33:50.351Z [INFO ] [t3232] ctl: J15-20261029T203350Z-28058856: ok
+2026-10-29T20:34:01.713Z [INFO ] [t3232] ctl: J15-20261029T203401Z-3127010960: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:34:01.724Z [INFO ] [t3232] ctl: J15-20261029T203401Z-3127010960: ok
+2026-10-29T20:34:13.189Z [INFO ] [t3232] ctl: J15-20261029T203413Z-201058088: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:34:13.201Z [INFO ] [t3232] ctl: J15-20261029T203413Z-201058088: ok
+2026-10-29T20:34:24.567Z [INFO ] [t3232] ctl: J15-20261029T203424Z-320036384: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:34:24.578Z [INFO ] [t3232] ctl: J15-20261029T203424Z-320036384: ok
+2026-10-29T20:34:36.045Z [INFO ] [t3232] ctl: J15-20261029T203435Z-637412926: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:34:36.057Z [INFO ] [t3232] ctl: J15-20261029T203435Z-637412926: ok
+2026-10-29T20:34:47.424Z [INFO ] [t3232] ctl: J15-20261029T203447Z-26813899: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:34:47.435Z [INFO ] [t3232] ctl: J15-20261029T203447Z-26813899: ok
+2026-10-29T20:34:58.805Z [INFO ] [t3232] ctl: J15-20261029T203458Z-829217616: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:34:58.815Z [INFO ] [t3232] ctl: J15-20261029T203458Z-829217616: ok
+2026-10-29T20:35:10.279Z [INFO ] [t3232] ctl: J15-20261029T203510Z-1003510277: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:35:10.289Z [INFO ] [t3232] ctl: J15-20261029T203510Z-1003510277: ok
+2026-10-29T20:35:21.661Z [INFO ] [t3232] ctl: J15-20261029T203521Z-1587428481: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:35:21.672Z [INFO ] [t3232] ctl: J15-20261029T203521Z-1587428481: ok
+2026-10-29T20:35:33.141Z [INFO ] [t3232] ctl: J15-20261029T203533Z-156753366: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:35:33.151Z [INFO ] [t3232] ctl: J15-20261029T203533Z-156753366: ok
+2026-10-29T20:35:44.517Z [INFO ] [t3232] ctl: J15-20261029T203544Z-2189121721: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:35:44.528Z [INFO ] [t3232] ctl: J15-20261029T203544Z-2189121721: ok
+2026-10-29T20:35:55.989Z [INFO ] [t3232] ctl: J15-20261029T203555Z-18658860: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:35:56.000Z [INFO ] [t3232] ctl: J15-20261029T203555Z-18658860: ok
+2026-10-29T20:36:07.367Z [INFO ] [t3232] ctl: J15-20261029T203607Z-32234311: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:36:07.378Z [INFO ] [t3232] ctl: J15-20261029T203607Z-32234311: ok
+2026-10-29T20:36:18.741Z [INFO ] [t3232] ctl: J15-20261029T203618Z-121630853: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:36:18.752Z [INFO ] [t3232] ctl: J15-20261029T203618Z-121630853: ok
+2026-10-29T20:36:30.217Z [INFO ] [t3232] ctl: J15-20261029T203630Z-1249827723: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:36:30.227Z [INFO ] [t3232] ctl: J15-20261029T203630Z-1249827723: ok
+2026-10-29T20:36:41.790Z [INFO ] [t3232] ctl: J15-20261029T203641Z-859618673: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:36:41.801Z [INFO ] [t3232] ctl: J15-20261029T203641Z-859618673: ok
+2026-10-29T20:36:53.167Z [INFO ] [t3232] ctl: J15-20261029T203653Z-2725621889: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:36:53.178Z [INFO ] [t3232] ctl: J15-20261029T203653Z-2725621889: ok
+2026-10-29T20:37:04.548Z [INFO ] [t3232] ctl: J15-20261029T203704Z-20644340: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:37:04.559Z [INFO ] [t3232] ctl: J15-20261029T203704Z-20644340: ok
+2026-10-29T20:37:16.025Z [INFO ] [t3232] ctl: J15-20261029T203715Z-214092926: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:37:16.035Z [INFO ] [t3232] ctl: J15-20261029T203715Z-214092926: ok
+2026-10-29T20:37:27.398Z [INFO ] [t3232] ctl: J15-20261029T203727Z-1867017893: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:37:27.410Z [INFO ] [t3232] ctl: J15-20261029T203727Z-1867017893: ok
+2026-10-29T20:37:38.873Z [INFO ] [t3232] ctl: J15-20261029T203738Z-2085825552: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:37:38.884Z [INFO ] [t3232] ctl: J15-20261029T203738Z-2085825552: ok
+2026-10-29T20:37:50.253Z [INFO ] [t3232] ctl: J15-20261029T203750Z-87182186: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:37:50.264Z [INFO ] [t3232] ctl: J15-20261029T203750Z-87182186: ok
+2026-10-29T20:38:01.130Z [INFO ] [t3232] ctl: J15-20261029T203801Z-1869029327: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:38:01.141Z [INFO ] [t3232] ctl: J15-20261029T203801Z-1869029327: ok
+2026-10-29T20:38:12.507Z [INFO ] [t3232] ctl: J15-20261029T203812Z-2131813944: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:38:12.518Z [INFO ] [t3232] ctl: J15-20261029T203812Z-2131813944: ok
+2026-10-29T20:38:23.481Z [INFO ] [t3232] ctl: J15-20261029T203823Z-465725818: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:38:23.492Z [INFO ] [t3232] ctl: J15-20261029T203823Z-465725818: ok
+2026-10-29T20:38:34.858Z [INFO ] [t3232] ctl: J15-20261029T203834Z-134203643: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:38:34.869Z [INFO ] [t3232] ctl: J15-20261029T203834Z-134203643: ok
+2026-10-29T20:38:46.231Z [INFO ] [t3232] ctl: J15-20261029T203846Z-2756625515: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:38:46.242Z [INFO ] [t3232] ctl: J15-20261029T203846Z-2756625515: ok
+2026-10-29T20:38:57.705Z [INFO ] [t3232] ctl: J15-20261029T203857Z-1596025534: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:38:57.716Z [INFO ] [t3232] ctl: J15-20261029T203857Z-1596025534: ok
+2026-10-29T20:39:09.082Z [INFO ] [t3232] ctl: J15-20261029T203909Z-1986131745: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:39:09.093Z [INFO ] [t3232] ctl: J15-20261029T203909Z-1986131745: ok
+2026-10-29T20:39:20.455Z [INFO ] [t3232] ctl: J15-20261029T203920Z-1507619099: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:39:20.466Z [INFO ] [t3232] ctl: J15-20261029T203920Z-1507619099: ok
+2026-10-29T20:39:31.928Z [INFO ] [t3232] ctl: J15-20261029T203931Z-731813861: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:39:31.940Z [INFO ] [t3232] ctl: J15-20261029T203931Z-731813861: ok
+2026-10-29T20:39:43.303Z [INFO ] [t3232] ctl: J15-20261029T203943Z-303397931: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:39:43.314Z [INFO ] [t3232] ctl: J15-20261029T203943Z-303397931: ok
+2026-10-29T20:39:54.679Z [INFO ] [t3232] ctl: J15-20261029T203954Z-2365229148: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:39:54.690Z [INFO ] [t3232] ctl: J15-20261029T203954Z-2365229148: ok
+2026-10-29T20:40:06.158Z [INFO ] [t3232] ctl: J15-20261029T204006Z-358431700: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:40:06.169Z [INFO ] [t3232] ctl: J15-20261029T204006Z-358431700: ok
+2026-10-29T20:40:17.630Z [INFO ] [t3232] ctl: J15-20261029T204017Z-820510076: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:40:17.642Z [INFO ] [t3232] ctl: J15-20261029T204017Z-820510076: ok
+2026-10-29T20:40:29.009Z [INFO ] [t3232] ctl: J15-20261029T204028Z-1542130424: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:40:29.020Z [INFO ] [t3232] ctl: J15-20261029T204028Z-1542130424: ok
+2026-10-29T20:40:40.383Z [INFO ] [t3232] ctl: J15-20261029T204040Z-2165925747: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:40:40.395Z [INFO ] [t3232] ctl: J15-20261029T204040Z-2165925747: ok
+2026-10-29T20:40:51.755Z [INFO ] [t3232] ctl: J15-20261029T204051Z-23873135: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:40:51.767Z [INFO ] [t3232] ctl: J15-20261029T204051Z-23873135: ok
+2026-10-29T20:41:03.228Z [INFO ] [t3232] ctl: J15-20261029T204103Z-2506326380: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:41:03.238Z [INFO ] [t3232] ctl: J15-20261029T204103Z-2506326380: ok
+2026-10-29T20:41:14.602Z [INFO ] [t3232] ctl: J15-20261029T204114Z-6744217: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:41:14.613Z [INFO ] [t3232] ctl: J15-20261029T204114Z-6744217: ok
+2026-10-29T20:41:26.080Z [INFO ] [t3232] ctl: J15-20261029T204126Z-370718409: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:41:26.092Z [INFO ] [t3232] ctl: J15-20261029T204126Z-370718409: ok
+2026-10-29T20:41:37.554Z [INFO ] [t3232] ctl: J15-20261029T204137Z-313107307: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:41:37.565Z [INFO ] [t3232] ctl: J15-20261029T204137Z-313107307: ok
+2026-10-29T20:41:48.925Z [INFO ] [t3232] ctl: J15-20261029T204148Z-2288230305: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:41:48.936Z [INFO ] [t3232] ctl: J15-20261029T204148Z-2288230305: ok
+2026-10-29T20:42:00.305Z [INFO ] [t3232] ctl: J15-20261029T204200Z-3175627411: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:42:00.316Z [INFO ] [t3232] ctl: J15-20261029T204200Z-3175627411: ok
+2026-10-29T20:42:11.786Z [INFO ] [t3232] ctl: J15-20261029T204211Z-145249063: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:42:11.797Z [INFO ] [t3232] ctl: J15-20261029T204211Z-145249063: ok
+2026-10-29T20:42:23.162Z [INFO ] [t3232] ctl: J15-20261029T204223Z-198835543: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:42:23.172Z [INFO ] [t3232] ctl: J15-20261029T204223Z-198835543: ok
+2026-10-29T20:42:34.637Z [INFO ] [t3232] ctl: J15-20261029T204234Z-2655723534: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:42:34.649Z [INFO ] [t3232] ctl: J15-20261029T204234Z-2655723534: ok
+2026-10-29T20:42:46.117Z [INFO ] [t3232] ctl: J15-20261029T204246Z-41031520: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:42:46.128Z [INFO ] [t3232] ctl: J15-20261029T204246Z-41031520: ok
+2026-10-29T20:42:57.500Z [INFO ] [t3232] ctl: J15-20261029T204257Z-3218419016: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:42:57.510Z [INFO ] [t3232] ctl: J15-20261029T204257Z-3218419016: ok
+2026-10-29T20:43:08.882Z [INFO ] [t3232] ctl: J15-20261029T204308Z-289353359: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:43:08.893Z [INFO ] [t3232] ctl: J15-20261029T204308Z-289353359: ok
+2026-10-29T20:43:20.259Z [INFO ] [t3232] ctl: J15-20261029T204320Z-4242488: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:43:20.270Z [INFO ] [t3232] ctl: J15-20261029T204320Z-4242488: ok
+2026-10-29T20:43:31.645Z [INFO ] [t3232] ctl: J15-20261029T204331Z-207505501: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:43:31.655Z [INFO ] [t3232] ctl: J15-20261029T204331Z-207505501: ok
+2026-10-29T20:43:43.126Z [INFO ] [t3232] ctl: J15-20261029T204343Z-1163512288: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:43:43.137Z [INFO ] [t3232] ctl: J15-20261029T204343Z-1163512288: ok
+2026-10-29T20:43:54.707Z [INFO ] [t3232] ctl: J15-20261029T204354Z-395023709: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:43:54.719Z [INFO ] [t3232] ctl: J15-20261029T204354Z-395023709: ok
+2026-10-29T20:44:06.304Z [INFO ] [t3232] ctl: J15-20261029T204406Z-1623513279: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:44:06.315Z [INFO ] [t3232] ctl: J15-20261029T204406Z-1623513279: ok
+2026-10-29T20:44:17.793Z [INFO ] [t3232] ctl: J15-20261029T204417Z-1560225833: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:44:17.804Z [INFO ] [t3232] ctl: J15-20261029T204417Z-1560225833: ok
+2026-10-29T20:44:28.774Z [INFO ] [t3232] ctl: J15-20261029T204428Z-768528031: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:44:28.784Z [INFO ] [t3232] ctl: J15-20261029T204428Z-768528031: ok
+2026-10-29T20:44:40.153Z [INFO ] [t3232] ctl: J15-20261029T204440Z-1567729086: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:44:40.164Z [INFO ] [t3232] ctl: J15-20261029T204440Z-1567729086: ok
+2026-10-29T20:44:51.627Z [INFO ] [t3232] ctl: J15-20261029T204451Z-999216777: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:44:51.638Z [INFO ] [t3232] ctl: J15-20261029T204451Z-999216777: ok
+2026-10-29T20:45:03.014Z [INFO ] [t3232] ctl: J15-20261029T204502Z-3037813921: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:45:03.025Z [INFO ] [t3232] ctl: J15-20261029T204502Z-3037813921: ok
+2026-10-29T20:45:14.495Z [INFO ] [t3232] ctl: J15-20261029T204514Z-549229900: lua napoleon_remastered/lua/probes/campaign_turn.lua
+2026-10-29T20:45:14.506Z [INFO ] [t3232] ctl: J15-20261029T204514Z-549229900: ok

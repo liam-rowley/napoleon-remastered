@@ -110,9 +110,10 @@ if [[ "$WHAT" == smoke ]]; then
   # 1) default config: the stand-in exe is not the pinned build -> MISMATCH, pass-through, notice, system fallback (no DXVK), clean detach
   run; check "exe_guard: MISMATCH"; check "PASS-THROUGH"; check "patch_engine: not run"; check "backend: dxvk unavailable"; check "process detach"
   [[ -f "$G/napoleon_remastered/EXE_MISMATCH.txt" ]] || { echo "build.sh smoke: no notice"; exit 1; }
-  # 2) developer override + system backend + an unknown key: engine path on, patch engine runs (0 sites), notice removed, unknown key warned
+  # 2) developer override + system backend + an unknown key: engine path on, patch engine runs and refuses every site (none of the
+  #    adapter's engine_sites exist in the stand-in exe; any count, J15 added the first), notice removed, unknown key warned
   printf '[proxy]\r\nbackend=system\r\nexe_guard=0\r\nbogus=1\r\n' > "$G/napoleon_remastered.ini"
-  run; check "OVERRIDE"; check "patch_engine: nothing to do - 0 sites"; check "unknown key proxy.bogus"; check "removed the stale"; check "process detach"
+  run; check "OVERRIDE"; check "patch_engine: REFUSED - [0-9]* sites: 0 ok, [0-9]* bad, 0 to write"; check "unknown key proxy.bogus"; check "removed the stale"; check "process detach"
   [[ -f "$G/napoleon_remastered/logs/proxy.prev.log" ]] || { echo "build.sh smoke: previous log not kept"; exit 1; }
   # 3) forced mismatch wins over the override
   printf '[proxy]\r\nbackend=system\r\nexe_guard=0\r\nexe_guard_force_mismatch=1\r\n' > "$G/napoleon_remastered.ini"

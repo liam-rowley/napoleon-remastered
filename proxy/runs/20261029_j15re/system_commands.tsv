@@ -1,0 +1,69 @@
+name	status	category	why	usage	help	handler_rva	handler_va
+add_working_directory	acts	VFS	calls 3 engine functions	add_working_directory <directory name>	Redirect the non-pack (and mod pack) file search	0xc5c780	0x105c780
+allow_trade_reprocessing	acts	Preprocessing	calls 1 engine functions	Allow Trade Reprocessing	Allow reprocessing of land trade routes on campaign load - this should only be enabled when explicitly required	0x61300	0x461300
+battle_camera_use_game_time	parse_only	battle	only reads its arguments or the selection	battle_camera_use_game_time	battle cameras use game time instead of real time	0x1b4960	0x5b4960
+battle_fov	parse_only	battle camera manager	only reads its arguments or the selection	battle_fov <fov in degrees>	adjust current battle camera fov	0x1b49f0	0x5b49f0
+benchmark	acts	system	calls 5 engine functions	benchmark false|true	log the frame rate	0x615f0	0x4615f0
+campaign_stat	acts	empire_battle	calls 2 engine functions	render_stat		0x521040	0x921040
+clear_paths	acts	VFS	calls 2 engine functions	clear_paths	Clears the workign data directories	0xc62030	0x1062030
+clear_template_cache	acts	all	calls 1 engine functions	clear_template_cache	Clears all component templates from the cache so the next time they are accessed they are re-loaded from the template library or disk	0xc384a0	0x10384a0
+constant_random_seed	acts	Random seed	calls 2 engine functions	Fix random seed	Fix random seed for battle and campaign setup	0x631c0	0x4631c0
+debug_replay	parse_only	debug_replay	only reads its arguments or the selection			0x1b9c00	0x5b9c00
+disable_battle_cursor_intersection	parse_only	battle	only reads its arguments or the selection	disable_battle_cursor_intersection	disables cursor intersections with 3d battle objects	0x1be560	0x5be560
+disable_steam_error_reporting	no_op	disable_steam_error_reporting	handler is a bare ret	disable_steam_error_reporting <true|false>	Set to true to disable ssteam error reporting	0x44b60	0x444b60
+docudemon	acts	system	calls 15 engine functions	docudemon	Create a documentation file of all CLI commands, tweaks, custom Lua commands and Lua-response-enabled messages	0xc65990	0x1065990
+enable_gulftown_toggle	parse_only	battle	only reads its arguments or the selection	enable_gulftown_toggle	enables toggling of gulftown equivalent only features (F11)	0x1cbbc0	0x5cbbc0
+exclude_pack_file	acts	VFS	calls 4 engine functions	exclude_pack_file <pack file name>	Exclude pack file from the virtual file system	0xc6bf60	0x106bf60
+flush_non_visible_sprites	acts	all	calls 1 engine functions	Flush non visible sprites	Flush non visible sprites	0xd6cb50	0x116cb50
+force_exit_after_battle	acts	empire_battle	calls 1 engine functions	exit_after_battle <true/false>	Exit from battle after it is finished without showing results screen. Useful for automated replay runs.	0x155960	0x555960
+frame_rate_log	acts	battle	calls 4 engine functions	frame_rate_log <log filename>	record frame times to a file	0x7a490	0x47a490
+frame_rate_test_fps	parse_only	battle	only reads its arguments or the selection	frame_rate_test_fps fps	play at predictable frame rate	0x7a530	0x47a530
+game_startup_mode	acts	game_startup_mode	calls 3 engine functions	game_startup_mode <battle|campaign|campaign_edit|frontend|naval> opt:<xml name> opt:<xsd name> opt:<building list>	Which mode the application starts in	0x7a610	0x47a610
+gulftown_toggle_default_false	parse_only	battle	only reads its arguments or the selection	gulftown_toggle_default_false	sets gulftown toggle default to false	0x1d70f0	0x5d70f0
+hardware	acts	system	calls 2 engine functions	hardware	Outputs hardware analysis to the console	0xc777a0	0x10777a0
+hdr_screenshot	parse_only	engine	only reads its arguments or the selection	hdr_screenshot	take screenshot	0x7ba00	0x47ba00
+help	acts	system	calls 4 engine functions	help	list the commands	0xc780d0	0x10780d0
+here_kitty_kitty	acts	?	calls 4 engine functions	?	?	0x9acb20	0xdacb20
+import_all_mods	parse_only	VFS	only reads its arguments or the selection	import_all_mods	Import all mod packs	0xc782f0	0x10782f0
+load_terrain_settings	acts	Terrain	calls 1 engine functions	loads terrain textures settings	loads terrain textures  settings from xml file	0xe550f0	0x12550f0
+mark_meta_tiles	acts	campaign terrain display	calls 1 engine functions	mark_meta_tiles <climate> <type> <name>	adds debug pegs where meta tiles of a certain type are located	0x556160	0x956160
+mod	acts	VFS	calls 4 engine functions	mod <file name>	Add a mod to the startup list	0xc85910	0x1085910
+mp_battle_xml	acts	mp_battle_xml	calls 2 engine functions	mp_battle_xml <xml name>	which xml to use for multiplayer battle	0xac360	0x4ac360
+mp_campaign_all_resume_any_players	acts	mp_campaign_all_resume_any_players	calls 1 engine functions	enables hosting and joining by anyone, not just original players		0xac3b0	0x4ac3b0
+mp_desync_kick_enabled	acts	mp_desync_kick_enabled	calls 1 engine functions	Multiplayer Desync Disconnects	when disabled, a desync will not cause a disconnection	0xac430	0x4ac430
+mp_exe_checksum_pass	acts	mp_exe_checksum_pass	calls 1 engine functions	Exe checksum always succeeds	when enabled, executable checksum will not prevent from joining	0xac4b0	0x4ac4b0
+mp_ignore_online_service_disco	acts	mp_ignore_online_service_disco	calls 1 engine functions	Ignore Online Service Disconnection	when ignored, an unexpected disconnection from the online service will not cause a player to leave the game	0xac530	0x4ac530
+mp_max_queued_mp_ticks_unhandled	acts	mp_max_queued_mp_ticks_unhandled	calls 2 engine functions	mp_max_queued_mp_ticks_unhandled <number>	max size of unhandled ticks queued	0xac5b0	0x4ac5b0
+mp_network_sync_logging	acts	mp_network_sync_logging	calls 1 engine functions	uses extreme sync logging in multiplayer		0xac610	0x4ac610
+mp_stall_disconnect_disabled	acts	mp_stall_disconnect_disabled	calls 1 engine functions	Multiplayer Stall Disconnects	when disabled, stalls will never cause a disconnect	0xac690	0x4ac690
+only_effect	acts	mesh manager	calls 4 engine functions	only_effect <effect_name>	show only this effect	0xd85c00	0x1185c00
+output_sync_logs	acts	output_sync_logs	calls 1 engine functions	Output all sync logs	when enabled all sync logs will be outputted	0x1eb9f0	0x5eb9f0
+preferences	acts	system	calls 8 engine functions	"preference ""file_name"""	load this preference file	0xc8ee10	0x108ee10
+quit	parse_only	system	only reads its arguments or the selection	quit	quit the application	0xc922a0	0x10922a0
+record_battle_camera	acts	battle	calls 1 engine functions	record_battle_camera <true|false>	enable recording of camera track	0x1f0dc0	0x5f0dc0
+reload_ambient_effect	parse_only		only reads its arguments or the selection			0xe59050	0x1259050
+reload_texture	acts	texture_manager	calls 2 engine functions	reload_texture filename	reloads single texture from disk	0xd935f0	0x11935f0
+render_stat	acts	warscape	calls 2 engine functions	render_stat		0xd96f00	0x1196f00
+render_stat_dump	parse_only	warscape	only reads its arguments or the selection	render_stat		0xd97420	0x1197420
+replay_speed	parse_only	battle	only reads its arguments or the selection	replay_speed <multiplier>	speed-up replay by a multiplier	0x1f1490	0x5f1490
+reset_advisories	parse_only	advice	only reads its arguments or the selection	reset_advisories	Destroy the record of the displayed advisories.	0xa2a4b0	0xe2a4b0
+reset_skip_effect	acts	mesh manager	calls 2 engine functions	reset_skip_effect	reset effect skip list	0xd986b0	0x11986b0
+restart_replay	parse_only	restart_replay	only reads its arguments or the selection	restart_replay	restart_replay	0x260a60	0x660a60
+save_terrain_settings	acts	Terrain	calls 1 engine functions	 terrain textures settings	saves terrain textures  settings from xml file	0xe552f0	0x12552f0
+screenshot	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87800	0x487800
+screenshot2	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87520	0x487520
+screenshot3	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87560	0x487560
+screenshot4	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x875a0	0x4875a0
+screenshot_360	acts	engine	calls 5 engine functions	screenshot	take screenshot	0x875e0	0x4875e0
+screenshot_mul	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87840	0x487840
+set_design_directory	acts	VFS	calls 2 engine functions	set_design_directory <directory name>	Set the source directory of design data	0xc99130	0x1099130
+set_pack_file_dependency	acts	VFS	calls 6 engine functions	set_pack_file_dependency <pack file name> <pack file name>	lhs pack is required by rhs pack (lhs < rhs): lhs will be loaded first and used by rhs pack	0xc9a910	0x109a910
+set_pack_file_precedence	acts	VFS	calls 6 engine functions	set_pack_file_precedence <pack file name> <pack file name>	lhs pack precedes rhs pack (lhs < rhs): lhs will be searched before rhs for files	0xc9aa10	0x109aa10
+show_paths	no_op	VFS	handler is a bare ret	show_paths	Prints search paths in vfs tab	0x44b60	0x444b60
+skip_effect	acts	mesh manager	calls 7 engine functions	skip_effect <effect_name>	skip an effect	0xdaa4d0	0x11aa4d0
+string_report	acts	strings	calls 2 engine functions	report	report string memory usage	0x89010	0x489010
+take_custom_screenshot	acts	engine	calls 3 engine functions	take_custom_screenshot <filename> <sizeX> <sizeY>	take screenshot	0x89330	0x489330
+test_cmd	acts	system	calls 8 engine functions	test_cmd p1 p2 p3 [blib=blib value] [blab=blab value] [blob=blob value]	test the command parser	0xca0dc0	0x10a0dc0
+test_square_meta_data	acts	test_square_meta_data	calls 4 engine functions	test_square_meta_data	test_square_meta_data	0x2672c0	0x6672c0
+toggle_effect_view	acts	toggle_effect_view	calls 3 engine functions	toggle_effect_view	toggle_effect_view	0xe576e0	0x12576e0
+weather_change	acts	weather	calls 1 engine functions	weather_change <type>	change weather	0x3dd6b0	0x7dd6b0

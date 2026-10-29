@@ -220,9 +220,9 @@ struct CtlRequest {
     Target target;             // autostart / reset
     std::vector<std::string> scenes;   // waitfor
 };
-inline const char* CtlVerbs() { return "ping, state, log <text>, lua <file> [timeout_s], waitfor <scene>[|<scene>] [timeout_s], autostart <target> [timeout_s], reset <target> [timeout_s], exit"; }
+inline const char* CtlVerbs() { return "ping, state, log <text>, lua <file> [timeout_s], waitfor <scene>[|<scene>] [timeout_s], autostart <target> [timeout_s], reset <target> [timeout_s], console <line>|status|on|off, exit"; }
 inline double CtlDefaultTimeout(const std::string& verb) {
-    return verb == "lua" ? 30 : verb == "waitfor" ? 180 : (verb == "autostart" || verb == "reset") ? 240 : 10;
+    return verb == "lua" || verb == "console" ? 30 : verb == "waitfor" ? 180 : (verb == "autostart" || verb == "reset") ? 240 : 10;
 }
 
 inline bool ParseTrailingTimeout(std::string& rest, double& t) {   // "x y 30" -> rest "x y", t 30; false when no number at the end
@@ -268,6 +268,10 @@ inline CtlRequest ParseCtl(const std::string& lineIn) {
         ParseTrailingTimeout(r.arg, r.timeoutS);
         r.target = ParseTarget(r.arg);
         if (!r.target.error.empty()) r.error = v + ": " + r.target.error;
+        return r;
+    }
+    if (v == "console") {   // the line itself is checked by ParseConsoleLine (console.h); no trailing timeout: numbers are arguments
+        if (r.arg.empty()) r.error = "console needs a command line or status|on|off";
         return r;
     }
     r.error = "unknown verb '" + v + "' (verbs: " + std::string(CtlVerbs()) + ")";

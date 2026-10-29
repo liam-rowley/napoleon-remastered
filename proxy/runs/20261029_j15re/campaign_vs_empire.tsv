@@ -1,0 +1,38 @@
+name	change	empire	napoleon
+add_ancillary	new		acts
+add_ancillary_to	new		acts
+add_marker	new		acts
+add_trait	new		acts
+add_trait_to	new		acts
+cai_diplomacy_region_value	new		acts
+cai_export_diplomacy_region_values	new		acts
+cai_force_uber_general_behaviour	new		acts
+cai_generate_patrol_points_for	status	no_op	acts
+cai_hlp_test	new		acts
+cai_output_map_data	new		acts
+cai_pf_debug	new		acts
+cai_process_map_data	new		acts
+cdir_output_database_verification	new		acts
+cdir_output_player_rival_scores	new		acts
+cdir_output_relation_graph	new		acts
+damage_2_units	status	acts	parse_only
+damage_slot	status	acts	parse_only
+force_agent_spawn	status	no_op	acts
+move_marker	new		acts
+recruit_general_or_admiral	new		acts
+refresh_buildings	status	no_op	acts
+register_instant_movie	new		acts
+remove_marker	new		acts
+repair_buildings	new		acts
+reset_shroud	new		acts
+selected_cqi	status	acts	parse_only
+selected_info	new		acts
+set_marker_active	new		acts
+set_region_rebellion_state	status	no_op	acts
+show_faction_death_msg	status	no_op	acts
+show_general_and_admiral_recruitment	new		acts
+split_general	status	acts	parse_only
+toggle_immortal	new		acts
+toggle_marker_active	new		acts
+trigger_test_event	new		acts
+win_revolution	status	no_op	acts

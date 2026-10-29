@@ -1,0 +1,5 @@
+{
+  "_doc": "inputs of proxy/napoleon/generated/console_table.h (gen_tables.py): the command TSVs from discovery/core/console_cmds.py (J15)",
+  "campaign": "proxy/runs/20261029_j15re/campaign_commands.tsv",
+  "system": "proxy/runs/20261029_j15re/system_commands.tsv"
+}

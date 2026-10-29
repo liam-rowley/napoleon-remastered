@@ -66,6 +66,9 @@ void UpdateSceneLocked(double now) {
     WriteTimeline();
 }
 std::string SceneNow() { Lock l; UpdateSceneLocked(MonoS()); return s_scene.scene; }
+} // namespace
+std::string DevSceneNow() { return s_active ? SceneNow() : std::string(); }
+namespace {
 
 // ---- state.json -------------------------------------------------------------------------------------------------------------
 std::string StateJson() {   // s_cs held
@@ -275,6 +278,47 @@ Outcome Reset(const Target& t, double timeoutS) {
 // ---- control channel ----------------------------------------------------------------------------------------------------------
 std::set<std::string> s_ids;
 
+// console <line>|status|on|off (J15): a line runs through the engine's own Lua CliExecute (executor: system dictionary, tweaks,
+// script file, then our slot), so it takes exactly the path game Lua takes; the forwarder's record says whether the slot saw it.
+Outcome Console(const std::string& id, const CtlRequest& r, double timeout) {
+    Outcome o; char b[300];
+    const ConsoleAdapter* ad = ConsoleAd();
+    if (r.arg == "status") { o.result = ConsoleStatusJson(); if (!Dk().console) { o.status = "refused"; o.reason = "dev.console=0"; } return o; }
+    if (r.arg == "on" || r.arg == "off") {
+        std::string why;
+        if (!ConsoleSet(r.arg == "on", why)) { o.status = "refused"; o.reason = why; }
+        o.result = ConsoleStatusJson(); return o;
+    }
+    const ConsoleLine l = ParseConsoleLine(r.arg);
+    ConsolePre p = ConsolePrecheck(l.error.empty() ? l.name : std::string());
+    p.scene = SceneNow();
+    const std::string ref = ConsoleRefusal(p, l, ad ? ad->noOps : nullptr);
+    const std::string common = "\"command\": " + JStr(l.name) + ", \"args\": " + JStr(l.args);
+    if (!ref.empty()) {
+        LOGW("console: verb refused '%s': %s", r.arg.c_str(), ref.c_str());
+        o.status = "refused"; o.reason = ref; o.result = "\"path\": \"refused\", " + common + ", \"forwarded\": false, \"hits\": 0"; return o;
+    }
+    // the chunk: one generated file per request under <mod>\lua\_console\ (the bridge loads files by path)
+    const std::string rel = LuaDir() + "_console/" + id + ".lua";
+    CreateDirectoryW((Rt().gameDir + WidenUtf8(LuaDir()) + L"_console").c_str(), nullptr);
+    if (!WriteFileAtomic(Rt().gameDir + WidenUtf8(rel), "return CliExecute(" + LuaQuote(l.line) + ")\n")) { o.status = "failed"; o.reason = "could not write " + rel; return o; }
+    const long seq = ConsoleSeq();
+    LOGI("console: run '%s' (request %s)", l.line.c_str(), id.c_str());
+    std::string text; bool to = false;
+    const bool ok = RunLua(id, rel, timeout, text, to);
+    FwdResult fr = FwdResult::None; std::string fname, fwhy; int hits = 0;
+    const bool seen = ConsoleLastSince(seq, fr, fname, fwhy, hits);
+    const char* path = ConsolePath(ad && ConsoleInList(ad->systemNames, l.name), fr);
+    snprintf(b, sizeof b, "\"path\": \"%s\", %s, \"forwarded\": %s, \"hits\": %d, \"chunk\": ", path, common.c_str(),
+             seen && fr != FwdResult::Refused ? "true" : "false", hits);
+    o.result = b + JStr(text);
+    LOGI("console: '%s' -> path %s%s%s", l.line.c_str(), path, fwhy.empty() ? "" : ": ", fwhy.c_str());
+    if (!ok) { o.status = to ? "timeout" : "failed"; o.reason = text; }
+    else if (fr == FwdResult::Refused) { o.status = "refused"; o.reason = "forwarder: " + fwhy; }
+    else if (fr == FwdResult::Unknown) { o.status = "failed"; o.reason = "'" + l.name + "' is unknown to the campaign dictionary"; }
+    return o;
+}
+
 Outcome Execute(const std::string& id, const CtlRequest& r) {
     Outcome o; char b[300];
     const double timeout = r.timeoutS > 0 ? r.timeoutS : CtlDefaultTimeout(r.verb);
@@ -298,6 +342,7 @@ Outcome Execute(const std::string& id, const CtlRequest& r) {
     }
     if (r.verb == "autostart") return Autostart(r.target, timeout);
     if (r.verb == "reset") return Reset(r.target, timeout);
+    if (r.verb == "console") return Console(id, r, timeout);
     if (r.verb == "exit") return o;   // the caller exits after writing the result
     o.status = "failed"; o.reason = "unknown verb"; return o;
 }
@@ -472,6 +517,7 @@ void DevInit() {
     k.stateJson = rt.cfg.Bool("dev.state_json");
     k.luaBridge = rt.cfg.Bool("dev.lua_bridge");
     k.ctl = rt.cfg.Bool("dev.ctl");
+    k.console = rt.cfg.Bool("dev.console");
     k.fileRules = WidenUtf8(rt.cfg.Str("dev.file_rules"));
     k.ctlDir = WidenUtf8(rt.cfg.Str("dev.ctl_dir"));
     k.autostart = rt.cfg.Str("dev.autostart");
@@ -490,6 +536,7 @@ void DevInit() {
     LOGI("dev: timeline=%d log_files=%d skip_intro=%d state_json=%d lua_bridge=%d ctl=%d file_rules='%ls' ctl_dir='%ls' autostart='%s' delay=%d ms",
          k.timeline, k.logFiles, k.skipIntro, k.stateJson, k.luaBridge, k.ctl, k.fileRules.c_str(), k.ctlDir.c_str(), k.autostart.c_str(), k.autostartDelayMs);
     if (k.timeline) { s_tl.Add("process_start", "", s_tl.processStartMs); TlMark("dllmain"); }
+    ConsoleInit(k.console, Adapter().console);
 
     std::vector<FileRule> rules;
     if (k.skipIntro) for (const char* const* m = ad->introMovies; m && *m; ++m) rules.push_back(MakeRule(RuleSpace::Movie, RuleAct::Fail, *m, "", "dev.skip_intro"));
@@ -520,6 +567,7 @@ void DevOnDirect3DCreate(void* d3d) {
     if (!s_active) return;
     FilesOnDirect3DCreate();
     TlMarkOnce("d3d_create");
+    ConsoleInstall();   // once, before any campaign (no-op with dev.console=0)
     if (s_frames && d3d && !o_CreateDevice) VtableHook(*(void***)d3d, 16, (void*)hk_CreateDevice, (void**)&o_CreateDevice, "IDirect3D9::CreateDevice");
 }
 

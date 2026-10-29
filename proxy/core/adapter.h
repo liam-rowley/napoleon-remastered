@@ -6,6 +6,7 @@
 #include "guard.h"
 #include "patch_engine.h"
 #include "config.h"
+#include "console.h"
 
 namespace wsp {
 
@@ -28,6 +29,7 @@ struct GameAdapter {
     const SiteDef* sites; size_t nSites;     // generated from the engine_sites registry
     const KeySpec* keys;  size_t nKeys;      // generated from the config_keys registry
     const DevAdapter* dev;                   // proxy/<game>/adapter.cpp
+    const ConsoleAdapter* console;           // proxy/<game>/adapter.cpp (J15); nullptr = no campaign console
 };
 
 const GameAdapter& Adapter();   // defined by the game's adapter.cpp
