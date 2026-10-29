@@ -26,8 +26,17 @@ if (\$s.state -ne 'on_virtual') { Write-Output "SHOT FAILED: headless state is \
 \$bmp = New-Object System.Drawing.Bitmap \$w, \$h
 \$g = [System.Drawing.Graphics]::FromImage(\$bmp)
 \$g.CopyFromScreen([int]\$r[0], [int]\$r[1], 0, 0, (New-Object System.Drawing.Size \$w, \$h))
-\$bmp.Save('$win', [System.Drawing.Imaging.ImageFormat]::Jpeg)
-Write-Output "shot: $win \$w x \$h from \$(\$r[0]),\$(\$r[1])"
+# evidence is committed: at most 1280 px wide, JPEG quality 70 (~150 KB, not ~1.2 MB at 2560x1440: J15 review)
+\$ow = [Math]::Min(1280, \$w); \$oh = [int](\$h * \$ow / \$w)
+\$out = New-Object System.Drawing.Bitmap \$ow, \$oh
+\$go = [System.Drawing.Graphics]::FromImage(\$out)
+\$go.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+\$go.DrawImage(\$bmp, 0, 0, \$ow, \$oh)
+\$enc = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { \$_.MimeType -eq 'image/jpeg' }
+\$ep = New-Object System.Drawing.Imaging.EncoderParameters 1
+\$ep.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter ([System.Drawing.Imaging.Encoder]::Quality), ([long]70)
+\$out.Save('$win', \$enc, \$ep)
+Write-Output "shot: $win \$ow x \$oh (from \$w x \$h at \$(\$r[0]),\$(\$r[1]))"
 PS
 bash "$HERE/job.sh" "$owner" "$tmp" 90; rc=$?
 rm -f "$tmp"; exit $rc
