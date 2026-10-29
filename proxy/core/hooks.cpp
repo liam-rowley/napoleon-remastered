@@ -1,7 +1,7 @@
 // hooks.cpp - the proxy's hook machinery: import-address-table (IAT) patching of the game exe and vtable slots of D3D objects.
 // Why IAT patching and not MinHook (J3 decision, proxy/README.md "Hooks"): every hook the dev side needs is a call the exe makes
-// through its OWN import table (the game exe links the CRT statically (the first game: fact <game>.exe.static_crt_imports), so fopen/CreateFile, FindFirstFile and BinkOpen all go through
-// it; fact <game>.exe.static_crt_imports), so swapping one pointer is enough. Nothing is disassembled or relocated, no third-party
+// through its OWN import table: the game exe links the CRT statically, so fopen/CreateFile, FindFirstFile and BinkOpen all go
+// through it (fact <game>.exe.static_crt_imports; core files name no game), and swapping one pointer is enough. Nothing is disassembled or relocated, no third-party
 // code ships, other modules (DXVK, the driver, Steam) keep the real functions, and a slot is restored by writing the old pointer back.
 // empire-remastered used MinHook on KernelBase and its zero-touch build crashed 0.34 s after start without a found cause (LEARNINGS
 // "Zero-touch (b) kit and the crash"); a process-wide inline hook is exactly what this avoids. Engine-code detours, if a feature ever

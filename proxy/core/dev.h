@@ -33,6 +33,7 @@ bool FilesVanillaEntry(const std::string& lowerPath, std::string& bytes, std::st
 int  FilesMoviesSkipped();
 int  FilesMoviesOpened();
 void FilesOnDirect3DCreate();                         // binkw32 is loaded by then
+void FilesMapReset();                                 // forget the last map folder: only probes after this count (the load's)
 
 // luabridge.cpp
 struct LuaCmd { std::string id, verb, arg, ctx; };   // ctx: only a pump of this context takes it ("" = any)

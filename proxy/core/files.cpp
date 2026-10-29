@@ -43,8 +43,12 @@ void Survey(const char* api, const wchar_t* path, const char* what, DWORD a, DWO
 
 // The battle map the engine actually loads, from its own file access: while loading a battle it probes loose copies of the map's
 // preset folder (<adapter mapProbe><folder>\..., run 20261029_j3pc: data\battleterrain\presets\nap_mp_grassy_flatlands\...).
-// Reported as "battle.map_folder" (the control channel's map check compares it with the preset's map folder).
+// Reported as "battle.map_folder" (the control channel's map check compares it with the preset's map folder), with
+// "battle.map_folder_ms" = ms after the load request (FilesMapReset). Only a report change is sent, so the front end's map-list walk,
+// which probes every map's folder and ends on the selected one, would hide the load's own probe of that folder: FilesMapReset
+// clears the dedup when the load is requested (J3 review finding 1, run 20261029_j3pc2 f_resets10).
 std::wstring s_lastMap;
+ULONGLONG s_mapEpoch = 0;   // GetTickCount64 at the last FilesMapReset; 0 = none yet
 void MapProbe(const wchar_t* path) {
     const DevAdapter* ad = Adapter().dev;
     if (!ad || !ad->mapProbe || !path) return;
@@ -57,8 +61,11 @@ void MapProbe(const wchar_t* path) {
     EnterCriticalSection(&s_cs);
     const bool changed = folder != s_lastMap;
     if (changed) s_lastMap = folder;
+    const ULONGLONG epoch = s_mapEpoch;
     LeaveCriticalSection(&s_cs);
-    if (changed) DevReport("battle.map_folder", Narrow(folder));
+    if (!changed) return;
+    DevReport("battle.map_folder", Narrow(folder));
+    DevReport("battle.map_folder_ms", epoch ? std::to_string(GetTickCount64() - epoch) : std::string());
 }
 
 // A read-only open or an attribute check of `path`: the redirect target ("" = none) or fail.
@@ -403,6 +410,12 @@ void FilesInit(std::vector<FileRule> rules) {
     }
     InstallHooks();
     if (!o_BinkClose) LOGW("movies: no BinkClose slot: movie close times are not in the timeline");
+}
+
+void FilesMapReset() {
+    EnterCriticalSection(&s_cs);
+    s_lastMap.clear(); s_mapEpoch = GetTickCount64();
+    LeaveCriticalSection(&s_cs);
 }
 
 void FilesOnDirect3DCreate() {   // the exe is running its own code: every IAT slot is snapped; slots deferred at DllMain go in now

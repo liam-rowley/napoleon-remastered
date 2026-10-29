@@ -162,6 +162,17 @@ int main(int argc, char** argv) {
         std::set<std::string> read;
         for (std::sregex_iterator it(raw.begin(), raw.end(), re), e; it != e; ++it) read.insert((*it)[2]);
         CHECK(read.size() >= 10);
+        // the map check counts only the LOAD's probes (J3 review finding 1): Autostart forgets the front end's map-list walk after
+        // autostart.lua returns and before it waits for the battle, and the result carries how long after the request the probe came
+        {
+            const size_t a = raw.find("Outcome Autostart("), lua = raw.find("autostart.lua", a), reset = raw.find("FilesMapReset();", a),
+                         wait = raw.find("WaitScene(want", a);
+            CHECK(a != std::string::npos && lua != std::string::npos && reset != std::string::npos && wait != std::string::npos);
+            CHECK(lua < reset && reset < wait);
+            CHECK(raw.find("map_folder_loaded_after_request_ms") != std::string::npos);
+            const std::string fl = tk::ReadFile("proxy/core/files.cpp");
+            CHECK(fl.find("void FilesMapReset()") != std::string::npos && fl.find("s_lastMap.clear()") != std::string::npos);
+        }
         for (const std::string& k : read) if (!known.count(k)) { printf("    dev.cpp reads %s, not in config_keys\n", k.c_str()); CHECK(false); }
         for (const std::string& k : known) if (k.rfind("dev.", 0) == 0 && !read.count(k)) { printf("    %s is registered but dev.cpp never reads it\n", k.c_str()); CHECK(false); }
         // every dev key defaults off and ships off (release value = default for the non-switch keys)

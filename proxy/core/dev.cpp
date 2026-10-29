@@ -173,14 +173,17 @@ Outcome Autostart(const Target& t, double timeoutS) {
         Lock l;
         s_target = t;
         if (t.kind == "battle") { std::string err; if (!LoadPreset(t.preset, err)) { o.status = "failed"; o.reason = err; return o; } }
-        s_reports.erase("battle.map_folder"); s_reports.erase("autostart.map"); s_reports.erase("autostart.map_folder");
+        s_reports.erase("battle.map_folder"); s_reports.erase("battle.map_folder_ms"); s_reports.erase("autostart.map"); s_reports.erase("autostart.map_folder");
     }
     TlMark("autostart_issued", t.kind + ":" + (t.kind == "battle" ? t.preset : t.mode == "new" ? t.campaign + ":" + t.faction : t.mode == "save" ? t.save : t.mode));
     std::string text; bool to = false;
     const bool ok = RunLua(NewInternalId("autostart"), LuaDir() + "autostart.lua", 30, text, to);
     LOGI("autostart: lua %s: %s", ok ? "ok" : "FAILED", text.c_str());
     if (!ok) { o.status = to ? "timeout" : "failed"; o.reason = "autostart.lua: " + text; return o; }
-    { Lock l; s_scene.OnLoadRequested(t.kind); }
+    // The map check must see the LOAD's probe of the map folder, not the front end's map-list walk (which ends on the selected
+    // map's folder and would hide the load's probe of the same folder): forget everything probed so far.
+    FilesMapReset();
+    { Lock l; s_reports.erase("battle.map_folder"); s_reports.erase("battle.map_folder_ms"); s_scene.OnLoadRequested(t.kind); }
     const std::vector<std::string> want = t.kind == "campaign" ? std::vector<std::string>{ "campaign" } : std::vector<std::string>{ "battle_deploy", "battle", "naval" };
     const double left = timeoutS - (MonoS() - t0);
     if (!WaitScene(want, left > 5 ? left : 5, sc, waited)) {
@@ -193,8 +196,9 @@ Outcome Autostart(const Target& t, double timeoutS) {
     if (t.kind == "battle") {   // the map check: the folder the engine loaded (its own file probes) against the preset's map
         auto rep = [](const char* k) { Lock l; auto it = s_reports.find(k); return it == s_reports.end() ? std::string() : it->second; };
         const std::string loaded = rep("battle.map_folder"), wantFolder = rep("autostart.map_folder"), selected = rep("autostart.map");
-        const std::string want_map = PresetValue("map");
-        o.result += ", \"map\": " + JStr(selected) + ", \"map_folder_loaded\": " + JStr(loaded) + ", \"map_folder_selected\": " + JStr(wantFolder) + ", \"preset_map\": " + JStr(want_map);
+        const std::string loadedMs = rep("battle.map_folder_ms"), want_map = PresetValue("map");
+        o.result += ", \"map\": " + JStr(selected) + ", \"map_folder_loaded\": " + JStr(loaded) + ", \"map_folder_loaded_after_request_ms\": " +
+                    (!loadedMs.empty() && loadedMs.find_first_not_of("0123456789") == std::string::npos ? loadedMs : std::string("null")) + ", \"map_folder_selected\": " + JStr(wantFolder) + ", \"preset_map\": " + JStr(want_map);
         std::string a = loaded, c = wantFolder;
         for (auto& ch : a) ch = (char)tolower((unsigned char)ch);
         for (auto& ch : c) ch = (char)tolower((unsigned char)ch);
