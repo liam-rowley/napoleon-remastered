@@ -37,6 +37,7 @@ std::wstring LogPath();
 
 // crash.cpp
 void CrashInstall(int mode);
+void CrashFlushPending();   // logs an exception the handlers deferred (stack overflow, too little stack): call from a thread with stack
 void CrashCheckFilter(const char* when);   // logs whether the top-level filter is still ours (first export call, detach)   // 0 off, 1 unhandled exceptions (default), 2 also the first fatal first-chance exception
 
 // guard_driver.cpp

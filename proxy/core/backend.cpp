@@ -114,7 +114,10 @@ namespace {
 volatile LONG s_filterChecked = 0;
 // The game installs its own handlers during start-up; by its first Direct3DCreate9 that is done, so this is where a replaced
 // top-level filter shows (J1 review finding 5).
-void FirstCreateChecks() { if (!InterlockedExchange(&s_filterChecked, 1)) CrashCheckFilter("first Direct3DCreate9"); }
+void FirstCreateChecks() {
+    if (!InterlockedExchange(&s_filterChecked, 1)) CrashCheckFilter("first Direct3DCreate9");
+    else if (Rt().enabled) CrashFlushPending();   // the game recreates its d3d9 object on a resolution change: a deferred record shows here
+}
 }
 
 extern "C" {
