@@ -24,7 +24,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J3` | done | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md | jobs/J3/report.md | jobs/J3/review.md |
 | `J4` | needs_brief | Scenario library, control API, acceptance gate | 1 | sonnet | yes | J3, J13, J14, J20 |  |  |  |
 | `J5` | done | Determinism audit: rules into gates | 1 | opus | no | J3 | jobs/J5/brief.md | jobs/J5/report.md | jobs/J5/review.md |
-| `J6` | review | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md |  |
+| `J6` | done | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md | jobs/J6/review.md |
 | `J7` | needs_brief | Asset index, contact sheets, loc and db | 2 | sonnet | yes | J6 |  |  |  |
 | `J8` | needs_brief | Shader catalogue and frame anatomy | 2 | opus | yes | J4, J12 |  |  |  |
 | `J9` | needs_brief | Engine API surface and engine sites | 2 | opus | yes | J4, J6, J12 |  |  |  |
