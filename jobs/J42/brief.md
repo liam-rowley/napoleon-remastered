@@ -4,7 +4,7 @@ Phase 1. CI goes red after a branch looks green locally, and because a failed ch
 until someone notices. On 2026-10-29 alone: PR #50 (J15) went red three times in a row, once for a real bug only CI could see (the
 wine smoke test still expected 0 engine sites) and twice for `harness-windows` timeouts on a commit whose twin run passed (the watcher
 heartbeat; the update-rollback cases at 150 s and 30 s); `job/J7`, `job/J39`, `job/J21` and `job/J19` had red runs too; and every PR
-lost its `core_pin` check for an hour when warscape-core cut v0.3.0 (fixed in the J41 review, run 40962535611). Make every red check
+failed `core_pin` after warscape-core cut v0.3.0 (fixed in the J41 review, run 40962535611). Make every red check
 mean "this branch broke something", and make a red check on an open pull request impossible to miss.
 
 Model: Sonnet (D15 default: workflow, PowerShell test and Python tooling work, no reverse engineering). Budget about 120 tool calls;
