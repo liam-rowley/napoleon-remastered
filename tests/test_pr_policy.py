@@ -83,5 +83,17 @@ class Policy(unittest.TestCase):
         self.assertEqual(pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, other), [])
 
 
+    def test_decisions_are_append_only(self):
+        base = '| # | Date |\n|---|---|\n| D1 | 2026-10-28 | Liam | A. | yes |\n| D2 | 2026-10-28 | Liam | B. | no |\n'
+        good = base + '| D3 | 2026-10-29 | agent (J5) | C. | yes |\n'
+        self.assertEqual(pp.decisions_problems(base, good), [])
+        self.assertIn('append only', pp.decisions_problems(base, base.replace('B.', 'B changed.'))[0])
+        self.assertIn('should be D3', pp.decisions_problems(base, base + '| D4 | 2026-10-29 | x | C. | yes |\n')[0])
+        self.assertIn('is not', pp.decisions_problems(base, base + '| D3 | today | x | C. | maybe |\n')[0])
+        e = pp.check('plan/x', ['docs/DECISIONS.md'], {'J1': ROW}, {'J1': ROW}, files(**{'docs/DECISIONS.md': base}),
+                     files(**{'docs/DECISIONS.md': base.replace('B.', 'Bee.')}))
+        self.assertTrue(any('append only' in x for x in e), e)
+
+
 if __name__ == '__main__':
     unittest.main()

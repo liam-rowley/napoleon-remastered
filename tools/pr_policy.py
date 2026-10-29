@@ -15,6 +15,8 @@ Branch kinds (the branch name decides):
   meta/*      repo infrastructure: CI, tools/, tests/, schemas/, wsc.toml, git attributes and ignores, the core pin, registries,
               plus everything plan/* may touch. No game code (proxy/ and later feature folders).
 Anything else is refused.
+Every branch kind: `docs/DECISIONS.md` is append only (existing rows unchanged and in order; new rows numbered D<last+1>, D<last+2>,
+with a YYYY-MM-DD date and Reversible yes or no). A reversal is a new row that names the one it replaces.
 """
 import argparse
 import json
@@ -59,6 +61,30 @@ def verdict(review_text):
     return None
 
 
+DECISIONS = 'docs/DECISIONS.md'
+DROW = re.compile(r'^\|\s*D(\d+)\s*\|')
+
+
+def decisions_problems(base_text, head_text):
+    """Errors when the head DECISIONS.md is not the base's rows plus well-formed new rows at the end."""
+    rows = lambda t: [l.rstrip() for l in (t or '').splitlines() if DROW.match(l)]
+    old, new, errs = rows(base_text), rows(head_text), []
+    if new[:len(old)] != old:
+        changed = [o.split('|')[1].strip() for i, o in enumerate(old) if i >= len(new) or new[i] != o]
+        errs.append(f'{DECISIONS} is append only: rows {", ".join(changed[:5])} were changed, moved or removed '
+                    f'(a reversal is a new dated row that names the one it replaces)')
+    last = int(DROW.match(old[-1]).group(1)) if old else 0
+    for l in new[len(old):]:
+        cells = [c.strip() for c in l.strip('|').split('|')]
+        n = int(DROW.match(l).group(1))
+        if n != last + 1:
+            errs.append(f'{DECISIONS}: new row D{n} should be D{last + 1}')
+        last = n
+        if len(cells) != 5 or not re.fullmatch(r'\d{4}-\d\d-\d\d', cells[1]) or cells[4] not in ('yes', 'no') or not cells[2]:
+            errs.append(f'{DECISIONS}: row D{n} is not | D<n> | YYYY-MM-DD | who | decision | yes/no |')
+    return errs
+
+
 def allowed(path, globs):
     return any(fnmatchcase(path, g) for g in globs)
 
@@ -66,7 +92,7 @@ def allowed(path, globs):
 def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=None):
     """Errors for this pull request. `base_file`/`head_file` are callables path -> text or None. `sessions`: callable path ->
     set of `Claude-Session:` trailers of the branch's commits that touched it (job branches; None skips the authorship check)."""
-    errs = []
+    errs = decisions_problems(base_file(DECISIONS), head_file(DECISIONS)) if DECISIONS in changed else []
     m = re.fullmatch(r'(job|brief)/(J[1-9][0-9]*)', branch)
     other_rows_changed = lambda jid: sorted(k for k in set(base_rows) | set(head_rows)
                                              if k != jid and base_rows.get(k) != head_rows.get(k))
