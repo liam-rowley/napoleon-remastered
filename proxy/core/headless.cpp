@@ -72,9 +72,10 @@ using PFN_SetWindowLongW = LONG(WINAPI*)(HWND, int, LONG);
 using PFN_ChangeDisplaySettingsW = LONG(WINAPI*)(DEVMODEW*, DWORD);
 using PFN_MessageBoxW = int(WINAPI*)(HWND, LPCWSTR, LPCWSTR, UINT);
 using PFN_DialogBoxIndirectParamW = INT_PTR(WINAPI*)(HINSTANCE, LPCDLGTEMPLATEW, HWND, DLGPROC, LPARAM);
+using PFN_SetFocus = HWND(WINAPI*)(HWND);
 PFN_CreateWindowExW o_CreateWindowExW; PFN_ShowWindow o_ShowWindow; PFN_SetWindowPos o_SetWindowPos; PFN_MoveWindow o_MoveWindow;
 PFN_SetWindowLongW o_SetWindowLongW; PFN_ChangeDisplaySettingsW o_ChangeDisplaySettingsW; PFN_MessageBoxW o_MessageBoxW;
-PFN_DialogBoxIndirectParamW o_DialogBoxIndirectParamW;
+PFN_DialogBoxIndirectParamW o_DialogBoxIndirectParamW; PFN_SetFocus o_SetFocus;
 
 struct IatSpec { const char* name; void* detour; void** original; bool essential; int state; };   // state: 1 hooked, -1 deferred, 0 missing
 std::vector<IatSpec>& Iats();
@@ -490,6 +491,18 @@ INT_PTR WINAPI hk_DialogBoxIndirectParamW(HINSTANCE inst, LPCDLGTEMPLATEW t, HWN
     return -1;
 }
 
+// SetFocus activates its window even with WS_EX_NOACTIVATE (PC run 20261029_j13pc: WM_ACTIVATE at 1.1 s): while another process
+// holds the foreground the engine's SetFocus on a guarded window is dropped, so the game never takes the foreground.
+HWND WINAPI hk_SetFocus(HWND h) {
+    if (!s_on || !h || !Guarded(GetAncestor(h, GA_ROOT))) return o_SetFocus(h);
+    DWORD fg = 0; GetWindowThreadProcessId(GetForegroundWindow(), &fg);
+    if (fg == GetCurrentProcessId()) return o_SetFocus(h);
+    static volatile LONG n = 0;
+    const LONG k = InterlockedIncrement(&n);
+    if (k <= 3 || k % 1000 == 0) LOGI("headless: SetFocus(%p) dropped (another process has the foreground; %ld so far)", (void*)h, (long)k);
+    return GetFocus();
+}
+
 std::vector<IatSpec>& Iats() {
     static std::vector<IatSpec> v = {
         { "CreateWindowExW", (void*)hk_CreateWindowExW, (void**)&o_CreateWindowExW, true, 0 },
@@ -500,6 +513,7 @@ std::vector<IatSpec>& Iats() {
         { "ChangeDisplaySettingsW", (void*)hk_ChangeDisplaySettingsW, (void**)&o_ChangeDisplaySettingsW, true, 0 },
         { "MessageBoxW", (void*)hk_MessageBoxW, (void**)&o_MessageBoxW, false, 0 },
         { "DialogBoxIndirectParamW", (void*)hk_DialogBoxIndirectParamW, (void**)&o_DialogBoxIndirectParamW, false, 0 },
+        { "SetFocus", (void*)hk_SetFocus, (void**)&o_SetFocus, true, 0 },
     };
     return v;
 }

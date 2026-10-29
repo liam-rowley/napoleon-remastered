@@ -28,7 +28,7 @@
     "marker_file": "d3d9.dll",
     "marker": "headless_status.json",
     "exit_code": 2160,
-    "prefs": {"x_res": "{W}", "y_res": "{H}", "gfx_fullscreen": "false"},
+    "prefs": {"x_res": "{W}", "y_res": "{H}", "gfx_fullscreen": "false", "sound_master_enabled": "false", "sound_master_volume": "0"},
     "mod_ini": {"headless.enabled": "1", "headless.size": "{W}x{H}"}
   },
   "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
