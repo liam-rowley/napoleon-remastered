@@ -105,7 +105,7 @@ end
 -- The update callbacks the engine calls on this script: both are wrapped (the battle root has OnUpdate and OnUpdatePulse and the
 -- engine calls only OnUpdatePulse there, run 20261029_j3pc; empire-remastered saw the same), each pumps.
 local callbacks = { "OnUpdate", "OnUpdatePulse" }
-function M.hook(env, ctx, inject)
+function M.hook(env, ctx, opt)
 	local n = 0
 	for i = 1, #callbacks do
 		local name = callbacks[i]
@@ -120,20 +120,26 @@ function M.hook(env, ctx, inject)
 			if wsp then wsp.log("wrapper: " .. ctx .. " pumps from " .. name) end
 		end
 	end
-	if n == 0 and inject then   -- give the script an update callback of its own (the engine looks it up by name)
-		local first = true
-		env.OnUpdate = function(...)
-			if first then first = false if wsp then wsp.log("wrapper: " .. ctx .. ": injected OnUpdate is called") end end
-			pcall(M.pump, ctx, env)
+	if opt == "main_after_reset" then   -- the front-end root: after its InitState, go to the main menu while a warm reset runs
+		local init = rawget(env, "InitState")
+		if type(init) == "function" then
+			env.InitState = function(...)
+				local a, b, c = init(...)
+				if wsp and wsp.dev_config("frontend.to_main") == "1" then
+					local okt, e = pcall(env.TransitionTo, "main")
+					wsp.log("wrapper: frontend root InitState: warm reset, TransitionTo main " .. (okt and "ok" or ("failed: " .. tostr(e))))
+				end
+				return a, b, c
+			end
+			if wsp then wsp.log("wrapper: frontend root InitState wrapped (main menu after a warm reset)") end
 		end
-		n = 1
-		if wsp then wsp.log("wrapper: " .. ctx .. " pumps from an injected OnUpdate") end
+		return true
 	end
 	if n == 0 and wsp then wsp.log("wrapper: " .. ctx .. ": no OnUpdate/OnUpdatePulse to pump from") end
 	return n > 0
 end
 
-function M.wrap(entry, ctx, env, inject)
+function M.wrap(entry, ctx, env, opt)
 	if not wsp then error("wsp wrapper " .. entry .. ": the bridge did not load: " .. tostr(M.error)) end
 	local bytes, verr = wsp.vanilla(entry)
 	if not bytes then error("wsp wrapper " .. entry .. ": " .. tostr(verr)) end
@@ -141,7 +147,7 @@ function M.wrap(entry, ctx, env, inject)
 	if not chunk then error("wsp wrapper " .. entry .. ": " .. tostr(lerr)) end
 	setfenv(chunk, env)
 	local r1, r2, r3 = chunk()
-	M.hook(env, ctx, inject)
+	M.hook(env, ctx, opt)
 	return r1, r2, r3
 end
 

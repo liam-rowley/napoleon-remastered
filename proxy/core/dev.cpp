@@ -34,6 +34,7 @@ Target s_target;                       // the autostart / reset target in progre
 std::vector<std::pair<std::string, std::string>> s_preset;   // its battle preset (preset.*)
 std::string s_autostartStatus = "off"; // the config autostart: off | waiting | running | ok ... | failed ...
 bool s_autostartFired = false;
+bool s_resetting = false;              // a warm reset runs: the front end's root goes on to the main menu (wsp frontend.to_main)
 HANDLE s_ctlWake = nullptr;
 
 struct Lock { Lock() { EnterCriticalSection(&s_cs); } ~Lock() { LeaveCriticalSection(&s_cs); } };
@@ -208,6 +209,7 @@ Outcome Autostart(const Target& t, double timeoutS) {
 }
 
 Outcome Reset(const Target& t, double timeoutS) {
+    struct ClearFlag { ~ClearFlag() { Lock l; s_resetting = false; } } clearOnReturn;
     Outcome o; char b[600];
     const double t0 = MonoS();
     const Mem before = MemNow();
@@ -217,7 +219,7 @@ Outcome Reset(const Target& t, double timeoutS) {
         // reset.lua does one step per call (battle: ExitBattle, then the summary, then the post-battle screen); repeat while the
         // context we leave still pumps, at most 8 steps about 4 s apart
         const std::string src = BridgeLastCtx();
-        { Lock l; s_scene.OnLoadRequested("frontend"); }
+        { Lock l; s_scene.OnLoadRequested("frontend"); s_resetting = true; }
         int steps = 0; std::string last;
         for (; steps < 8; ++steps) {
             if (BridgeLastCtx() != src || MonoS() - BridgeLastPumpS() > 2.0) break;   // it stopped: the engine is leaving
@@ -229,12 +231,12 @@ Outcome Reset(const Target& t, double timeoutS) {
             while (MonoS() - tw < 4.0 && BridgeLastCtx() == src && MonoS() - BridgeLastPumpS() < 2.0) Sleep(100);
         }
         o.result = "\"steps\": " + JStr(last) + ", ";
-        { Lock l; s_scene.OnLoadRequested("frontend"); }
         std::string sc; double waited = 0;
         if (!WaitScene({ "frontend" }, timeoutS, sc, waited)) { { Lock l; s_scene.loadTarget.clear(); } o.status = "timeout"; o.reason = "scene " + sc + " after the reset request"; return o; }
         // the front end must pump again before the next autostart
         const double tw = MonoS();
         while ((BridgeLastCtx() != "frontend" || MonoS() - BridgeLastPumpS() > 1.0) && MonoS() - tw < 30) Sleep(50);
+        { Lock l; s_resetting = false; }
     }
     const double toFrontend = MonoS() - t0;
     const Mem mid = MemNow();
@@ -425,6 +427,7 @@ std::string DevConfigValue(const std::string& key) {
     if (key == "lua_dir") return LuaDir();
     if (key == "ctx") return s_scene.ctx;
     if (key == "scene") return s_scene.scene;
+    if (key == "frontend.to_main") return s_resetting ? "1" : "";
     if (key == "target.kind") return s_target.kind;
     if (key == "target.mode") return s_target.mode;
     if (key == "target.campaign") return s_target.campaign;

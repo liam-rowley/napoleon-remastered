@@ -36,8 +36,8 @@ def wrappers(adapter):
             raise SystemExit(f'build_dev_pack: wrappers.txt line {n}: expected "<entry> | <context>"')
         parts = [x.strip() for x in s.split('|')]
         entry, ctx, opt = parts[0], parts[1], parts[2] if len(parts) > 2 else ''
-        if opt not in ('', 'inject'):
-            raise SystemExit(f'build_dev_pack: wrappers.txt line {n}: option {opt!r} is not inject')
+        if opt not in ('', 'main_after_reset'):
+            raise SystemExit(f'build_dev_pack: wrappers.txt line {n}: option {opt!r} is not main_after_reset')
         if ctx not in ('frontend', 'campaign', 'battle'):
             raise SystemExit(f'build_dev_pack: wrappers.txt line {n}: context {ctx!r} is not frontend, campaign or battle')
         out.append((entry.lower().replace('/', '\\'), ctx, opt))
@@ -50,7 +50,7 @@ def build(adapter, out=None):
     out = Path(out or ROOT / 'build' / 'proxy' / adapter / f'zz_{mod}_dev.pack')
     entries = []
     for entry, ctx, opt in wrappers(adapter):
-        text = TEMPLATE.format(adapter=adapter, entry=entry, ctx=ctx, luadir=f'{mod}/lua/', entry_lua=entry.replace('\\', '\\\\'), inject=', true' if opt == 'inject' else '')
+        text = TEMPLATE.format(adapter=adapter, entry=entry, ctx=ctx, luadir=f'{mod}/lua/', entry_lua=entry.replace('\\', '\\\\'), inject=f', "{opt}"' if opt else '')
         entries.append((entry, text.encode('ascii')))
     index = b''.join(struct.pack('<I', len(d)) + p.encode('latin-1') + b'\0' for p, d in entries)
     blob = b'PFH0' + struct.pack('<IIIII', 4, 0, 0, len(entries), len(index)) + index + b''.join(d for _, d in entries)
