@@ -320,6 +320,21 @@ class Serve(unittest.TestCase):
         self.assertEqual(self.launched, [])
 
 
+class StartSession(unittest.TestCase):
+    def test_runs_claude_in_the_repo_root(self):
+        seen = {}
+        def fake_run(argv, **kw):
+            seen.update(kw, argv=argv)
+            kw['stdout'].write('started 1a2b3c4d' + chr(10))
+            return subprocess.CompletedProcess(argv, 0)
+        which, run = jv.shutil.which, jv.subprocess.run
+        jv.shutil.which, jv.subprocess.run = (lambda n: '/bin/claude'), fake_run
+        try:
+            sid = jv.start_session(argv('J2', 'build', 'opus'), Path('/repo'))
+        finally:
+            jv.shutil.which, jv.subprocess.run = which, run
+        self.assertEqual((sid, seen['cwd'], seen['argv'][1:]), ('1a2b3c4d', Path('/repo'), argv('J2', 'build', 'opus')[1:]))
+
 class ThisRepo(unittest.TestCase):
     def test_the_queue_passes_jobs_check(self):
         p = subprocess.run([sys.executable, str(ROOT / 'core' / 'wsc.py'), '--root', str(ROOT), 'jobs', 'check'],

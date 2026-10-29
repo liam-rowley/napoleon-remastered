@@ -425,9 +425,10 @@ document.querySelectorAll('button.launch').forEach(b => b.addEventListener('clic
 
 
 # ------------------------------------------------------------------ serve
-def _claude(*args, timeout=120):
+def _claude(*args, timeout=120, cwd=None):
     """Run claude (no shell, no stdin) with its output in files, not pipes: a background session the command leaves behind may
-    inherit the handles, and a pipe would then block until that session ends. (returncode, stdout, stderr)."""
+    inherit the handles, and a pipe would then block until that session ends. `cwd`: where it runs (a session starts in its cwd).
+    (returncode, stdout, stderr)."""
     claude = shutil.which('claude')
     if not claude:
         raise ValueError('claude is not on PATH')
@@ -435,7 +436,7 @@ def _claude(*args, timeout=120):
     with tempfile.TemporaryFile('w+', encoding='utf-8') as out, tempfile.TemporaryFile('w+', encoding='utf-8') as err:
         try:
             rc = subprocess.run([claude, *args], stdin=subprocess.DEVNULL, stdout=out, stderr=err, timeout=timeout,
-                                creationflags=flags).returncode
+                                cwd=cwd, creationflags=flags).returncode
         except (OSError, subprocess.TimeoutExpired) as x:
             raise ValueError(f'claude {args[0]} did not finish: {x}')
         out.seek(0), err.seek(0)
@@ -456,9 +457,10 @@ def list_agents():
     return agents
 
 
-def start_session(argv):
-    """Start `claude --bg ...` from argv (argv[0] is ignored: _claude resolves claude again) and return the id it prints."""
-    rc, out, err = _claude(*argv[1:])
+def start_session(argv, root):
+    """Start `claude --bg ...` from argv in the repo root (wsc may run from a subfolder) and return the id it prints. argv[0] is
+    ignored: _claude resolves claude again."""
+    rc, out, err = _claude(*argv[1:], cwd=root)
     if rc != 0:
         raise ValueError(f'exited {rc}: {(err or out).strip()[:300]}')
     m = re.search(r'\b[0-9a-f]{8}(?:-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?\b', out)
@@ -637,7 +639,7 @@ def run(args, ctx):
             now = load_rows((ctx.root / jobs_path).read_text(encoding='utf-8'))
             branches = remote_branches(ctx.root, args.offline)
             return now, read, branches, branch_rows(ctx.root, branches, args.offline, jobs_path)
-        srv = JobServer(snapshot, list_agents, start_session, port=args.port, dry_run=args.dry_run, root=ctx.root)
+        srv = JobServer(snapshot, list_agents, lambda argv: start_session(argv, ctx.root), port=args.port, dry_run=args.dry_run, root=ctx.root)
         print(f'jobs view: serving {srv.url}{" (dry run: nothing is started)" if args.dry_run else ""}; Ctrl+C stops it', flush=True)
         if not args.no_open:
             webbrowser.open(srv.url)
