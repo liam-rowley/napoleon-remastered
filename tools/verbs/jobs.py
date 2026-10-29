@@ -356,7 +356,10 @@ def run(args, ctx):
             print(f'{r["id"]}: {r["title"]} needs a brief (nothing queued is ready).\n'
                   f'Write jobs/{r["id"]}/brief.md on branch brief/{r["id"]} from the row, docs/plans/PLAN.md and the reports of '
                   f'{", ".join(r["depends_on"]) or "earlier jobs"}, in the shape `wsc jobs check` enforces (jobs/J1/brief.md is the model); '
-                  f'then wsc reg set jobs {r["id"]} status=queued brief=jobs/{r["id"]}/brief.md, push, and stop for Liam\'s merge.'
+                  f'then wsc reg set jobs {r["id"]} status=queued brief=jobs/{r["id"]}/brief.md, push, then queue the merge on green CI (D33): '
+                  f'python3 tools/pr_policy.py --branch brief/{r["id"]} --base origin/main (must say ok), '
+                  f'gh pr create --base main --head brief/{r["id"]} --title "brief: {r["id"]} {r["title"]}", '
+                  f'gh pr merge brief/{r["id"]} --auto --squash; do not wait or poll.'
                   + ''.join(f'\nThe brief must cover {o}' for o in owed))
         else:
             print('Nothing is ready. Waiting:\n  ' + '\n  '.join(waiting or ['(the queue is empty)']))
