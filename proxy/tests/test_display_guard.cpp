@@ -97,6 +97,8 @@ void TestCreateShowStyle() {
     CHECK(GateDevice(false, 3840, 2160, 3840, 2160) == Device::Refuse);
     CHECK(GateDevice(true, 2560, 1440, 3840, 2160) == Device::Refuse);
     CHECK(GateDevice(true, 0, 0, 3840, 2160) == Device::Refuse);             // unresolved size: refuse
+    for (uint32_t f : { kDisclExclusive | kDisclForeground, kDisclExclusive | kDisclForeground | kDisclNoWinKey, kDisclNonExclusive | kDisclBackground, 0u })
+        CHECK(GateCoopLevel(f) == (kDisclNonExclusive | kDisclForeground));   // never exclusive, never background
     CHECK(MessageBoxAnswer(0) == kIdOk); CHECK(MessageBoxAnswer(1) == kIdCancel); CHECK(MessageBoxAnswer(4 | 0x30) == kIdNo); CHECK(MessageBoxAnswer(2) == kIdAbort);
 }
 

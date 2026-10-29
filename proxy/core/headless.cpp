@@ -77,7 +77,7 @@ PFN_CreateWindowExW o_CreateWindowExW; PFN_ShowWindow o_ShowWindow; PFN_SetWindo
 PFN_SetWindowLongW o_SetWindowLongW; PFN_ChangeDisplaySettingsW o_ChangeDisplaySettingsW; PFN_MessageBoxW o_MessageBoxW;
 PFN_DialogBoxIndirectParamW o_DialogBoxIndirectParamW; PFN_SetFocus o_SetFocus;
 
-struct IatSpec { const char* name; void* detour; void** original; bool essential; int state; };   // state: 1 hooked, -1 deferred, 0 missing
+struct IatSpec { const char* name; void* detour; void** original; bool essential; int state; const char* dll = "user32.dll"; };   // state: 1 hooked, -1 deferred, 0 missing
 std::vector<IatSpec>& Iats();
 
 // ---- small helpers ----------------------------------------------------------------------------------------------------------------
@@ -366,8 +366,8 @@ void Ensure(const char* where) {
     {
         Lock l;
         for (IatSpec& s : Iats()) if (s.state == -1) {
-            s.state = IatHook(GetModuleHandleW(nullptr), "user32.dll", s.name, s.detour, s.original) > 0 ? 1 : -1;
-            if (s.state != 1 && s.essential) { Refuse(std::string("the exe's user32!") + s.name + " slot is still not snapped at " + where); }
+            s.state = IatHook(GetModuleHandleW(nullptr), s.dll, s.name, s.detour, s.original) > 0 ? 1 : -1;
+            if (s.state != 1 && s.essential) { Refuse(std::string("the exe's ") + s.dll + "!" + s.name + " slot is still not snapped at " + where); }
         }
         std::string why;
         if (!ResolveLocked(why)) { Refuse("no target display at " + std::string(where) + ": " + why); }
@@ -503,6 +503,29 @@ HWND WINAPI hk_SetFocus(HWND h) {
     return GetFocus();
 }
 
+// ---- DirectInput: never exclusive, never in the background (GateCoopLevel) ---------------------------------------------------------
+using PFN_DI8Create = HRESULT(WINAPI*)(HINSTANCE, DWORD, REFIID, LPVOID*, void*);
+using PFN_DICreateDevice = HRESULT(WINAPI*)(void*, REFGUID, void**, void*);
+using PFN_DISetCoop = HRESULT(WINAPI*)(void*, HWND, DWORD);
+PFN_DI8Create o_DI8Create; PFN_DICreateDevice o_DICreateDevice; PFN_DISetCoop o_DISetCoop;
+HRESULT WINAPI hk_DISetCoop(void* dev, HWND h, DWORD flags) {
+    const DWORD f = GateCoopLevel(flags);
+    const HRESULT hr = o_DISetCoop(dev, h, f);
+    LOGI("headless: DirectInput SetCooperativeLevel(%p, window %p, flags 0x%lx) -> 0x%lx (non-exclusive, foreground only): hr 0x%08lx",
+         dev, (void*)h, flags, f, (unsigned long)hr);
+    return hr;
+}
+HRESULT WINAPI hk_DICreateDevice(void* di, REFGUID g, void** out, void* outer) {
+    const HRESULT hr = o_DICreateDevice(di, g, out, outer);
+    if (SUCCEEDED(hr) && out && *out && !o_DISetCoop) VtableHook(*(void***)*out, 13, (void*)hk_DISetCoop, (void**)&o_DISetCoop, "IDirectInputDevice8::SetCooperativeLevel (headless)");
+    return hr;
+}
+HRESULT WINAPI hk_DI8Create(HINSTANCE inst, DWORD ver, REFIID iid, LPVOID* out, void* outer) {
+    const HRESULT hr = o_DI8Create(inst, ver, iid, out, outer);
+    if (s_on && SUCCEEDED(hr) && out && *out && !o_DICreateDevice) VtableHook(*(void***)*out, 3, (void*)hk_DICreateDevice, (void**)&o_DICreateDevice, "IDirectInput8::CreateDevice (headless)");
+    return hr;
+}
+
 std::vector<IatSpec>& Iats() {
     static std::vector<IatSpec> v = {
         { "CreateWindowExW", (void*)hk_CreateWindowExW, (void**)&o_CreateWindowExW, true, 0 },
@@ -514,6 +537,7 @@ std::vector<IatSpec>& Iats() {
         { "MessageBoxW", (void*)hk_MessageBoxW, (void**)&o_MessageBoxW, false, 0 },
         { "DialogBoxIndirectParamW", (void*)hk_DialogBoxIndirectParamW, (void**)&o_DialogBoxIndirectParamW, false, 0 },
         { "SetFocus", (void*)hk_SetFocus, (void**)&o_SetFocus, true, 0 },
+        { "DirectInput8Create", (void*)hk_DI8Create, (void**)&o_DI8Create, true, 0, "dinput8.dll" },
     };
     return v;
 }
@@ -651,10 +675,10 @@ void HeadlessInit() {
     LOGI("headless: on: target '%s' at exactly %ldx%ld, settle %u ms, refuse grace %u ms", s_name.c_str(), s_w, s_h, s_settleMs, s_graceMs);
     HMODULE exe = GetModuleHandleW(nullptr);
     for (IatSpec& s : Iats()) {
-        const int n = IatHook(exe, "user32.dll", s.name, s.detour, s.original);
+        const int n = IatHook(exe, s.dll, s.name, s.detour, s.original);
         s.state = n > 0 ? 1 : n < 0 ? -1 : 0;
-        if (s.state == 0 && s.essential) Refuse(std::string("the exe does not import user32!") + s.name + " (an inline hook would be needed)");
-        if (s.state == -1 && !*s.original) *s.original = (void*)GetProcAddress(GetModuleHandleW(L"user32.dll"), s.name);   // until the retry
+        if (s.state == 0 && s.essential) Refuse(std::string("the exe does not import ") + s.dll + "!" + s.name + " (an inline hook would be needed)");
+        if (s.state == -1 && !*s.original) *s.original = (void*)GetProcAddress(GetModuleHandleA(s.dll), s.name);   // until the retry (null if not loaded yet)
     }
 }
 

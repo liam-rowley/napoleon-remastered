@@ -276,6 +276,14 @@ inline bool PlacementVerified(const Rect& target, const Rect& window, bool liveO
 // the enumeration for a moment)
 inline bool RefuseNow(unsigned msWithoutTarget, unsigned graceMs) { return msWithoutTarget >= graceMs; }
 
+// ---- DirectInput cooperative level --------------------------------------------------------------------------------------------
+// An exclusive DirectInput mouse hides and recentres the REAL cursor (PC run 20261029_j13pc: Liam's cursor kept jumping to the
+// centre of his monitor during a headless battle). Under headless every device is non-exclusive (never captures the cursor) and
+// foreground-only (it cannot acquire while another process has the foreground, so the game never reads Liam's mouse or keyboard);
+// DISCL_NOWINKEY is dropped. dinput.h values.
+enum : uint32_t { kDisclExclusive = 1u, kDisclNonExclusive = 2u, kDisclForeground = 4u, kDisclBackground = 8u, kDisclNoWinKey = 0x10u };
+inline uint32_t GateCoopLevel(uint32_t) { return kDisclNonExclusive | kDisclForeground; }
+
 // ---- dialogs ----------------------------------------------------------------------------------------------------------------------
 // MessageBox under headless is never shown (it would open on the primary): logged, and answered with its safe button.
 enum : int { kIdOk = 1, kIdCancel = 2, kIdAbort = 3, kIdNo = 7 };

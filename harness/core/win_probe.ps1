@@ -39,6 +39,9 @@ public static class NWinProbe {
     [DllImport("user32.dll")] static extern IntPtr SetThreadDpiAwarenessContext(IntPtr ctx);
     [DllImport("dwmapi.dll")] static extern int DwmGetWindowAttribute(IntPtr h, int a, out int v, int cb);
     [DllImport("winmm.dll")] static extern int timeBeginPeriod(int ms);
+    [StructLayout(LayoutKind.Sequential)] struct POINT { public int X, Y; }
+    [DllImport("user32.dll")] static extern bool GetCursorPos(out POINT p);
+    [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
 
     class Mon { public RECT rc; public string dev, adapter, monitor; public bool primary, isVirtual; }
     class Win { public string cls; public long firstMs = -1, visibleMs, cloakedMs, onRealMs, offTargetMs; public bool helper, everIconic; public RECT rect; public string on = ""; }
@@ -119,6 +122,9 @@ public static class NWinProbe {
         var sw = Stopwatch.StartNew();
         long samples = 0, realSamples = 0, offSamples = 0, realMsTotal = 0, cloakedMs = 0, longestReal = 0, realRunStart = -1, realRunLast = 0, prev = 0;
         string firstVisible = "null"; bool exited = false;
+        // the game must not touch Liam's input: the real cursor newly at the exact centre of a monitor (an exclusive DirectInput
+        // mouse recentres it, J13 PC run), and any time the game holds the foreground
+        long recentres = 0, fgMs = 0; POINT lastCur; GetCursorPos(out lastCur);
         var handles = new List<IntPtr>();
         long limit = (long)maxS * 1000L;
         while (sw.ElapsedMilliseconds < limit) {
@@ -159,6 +165,17 @@ public static class NWinProbe {
             }
             if (real) { realSamples++; realMsTotal += dt; if (realRunStart < 0) realRunStart = now - dt; realRunLast = now; if (realRunLast - realRunStart > longestReal) longestReal = realRunLast - realRunStart; } else realRunStart = -1;
             if (off) offSamples++;
+            POINT cp; if (GetCursorPos(out cp)) {
+                if (cp.X != lastCur.X || cp.Y != lastCur.Y) {
+                    foreach (var m in mons) {
+                        int cx = (m.rc.L + m.rc.R) / 2, cy = (m.rc.T + m.rc.B) / 2;
+                        if (Math.Abs(cp.X - cx) <= 1 && Math.Abs(cp.Y - cy) <= 1) { recentres++; tw.WriteLine("+" + now + " ms CURSOR at the centre of " + m.dev + (m.isVirtual ? " (virtual)" : " (REAL)") + ": " + cp.X + "," + cp.Y); break; }
+                    }
+                }
+                lastCur = cp;
+            }
+            int fgPid; GetWindowThreadProcessId(GetForegroundWindow(), out fgPid);
+            if (fgPid == gamePid) { if (fgMs == 0) tw.WriteLine("+" + now + " ms the GAME has the foreground"); fgMs += Math.Max(dt, 1); }
             if (cloaked) cloakedMs += dt;
             if (p.HasExited) { exited = true; break; }
             Thread.Sleep(10);
@@ -178,6 +195,7 @@ public static class NWinProbe {
         js.Append(",\"longest_visible_on_real_ms\":").Append(realSamples > 0 ? Math.Max(1, longestReal) : 0);
         js.Append(",\"visible_on_real_ms_total\":").Append(realMsTotal).Append(",\"visible_on_real_samples\":").Append(realSamples);
         js.Append(",\"visible_off_target_count\":").Append(offSamples).Append(",\"cloaked_ms\":").Append(cloakedMs);
+        js.Append(",\"cursor_recentres\":").Append(recentres).Append(",\"game_foreground_ms\":").Append(fgMs);
         js.Append(",\"monitor_changes\":[").Append(string.Join(",", changes.ToArray())).Append("]");
         js.Append(",\"first_visible\":").Append(firstVisible);
         js.Append(",\"windows\":[").Append(string.Join(",", wl.ToArray())).Append("]");

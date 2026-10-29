@@ -170,11 +170,14 @@ simulation of the display changes Empire hit); the driver is `core/headless.cpp`
   an assumed origin. Resolved at the first `Direct3DCreate9` or the first game window; the monitor list is logged every launch.
 - **Mode list**: `IDirect3D9` slots 6/7/8/15 answer `GetAdapterModeCount` / `EnumAdapterModes` / `GetAdapterDisplayMode` /
   `GetAdapterMonitor` from the target for every adapter (DXVK answers every adapter with the primary's modes).
-- **Device**: `CreateDevice` [16] and `Reset` [16 on the device] refuse a fullscreen device or a back buffer that is not `headless.size`.
+- **Device**: `CreateDevice` [16] and `Reset` [16 on the device] refuse a fullscreen device or a back buffer that is not `headless.size`;
+  a windowed device of at most 8x8 is the engine's helper (a 1x1 one while a battle loads, fact `napoleon.d3d.battle_helper_device`) and passes.
 - **Windows** (IAT hooks on the exe's user32 imports, fact `napoleon.exe.window_imports`): a top-level window is created hidden,
   borderless (`WS_POPUP`), `WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW`, then placed on the target and shown with `SW_SHOWNA`; its geometry
   belongs to the guard (the engine's `SetWindowPos`/`MoveWindow` sizes and moves are dropped, its coordinates may be DPI-virtualised);
   a minimise becomes `SW_HIDE`; a show off the target is refused. Windows of at most 8x8 (a helper) are left alone and logged.
+  `SetFocus` on a game window is dropped while another process has the foreground (it activates even a no-activate window, fact
+  `napoleon.window.setfocus_activates`); the game keeps rendering unfocused (`napoleon.window.background_render`).
   `ChangeDisplaySettingsW` is never applied; `MessageBoxW` is logged and answered with its safe button; `DialogBoxIndirectParamW` -1.
 - **Topology guard**: a thread polls the virtual-screen metrics (~4 ms), the target's live rect and the layout signature; with the main
   window's `WM_DISPLAYCHANGE`/`WM_DPICHANGED`/`WM_SETTINGCHANGE`/`WM_DEVICECHANGE` any change cloaks the window first (`DWMWA_CLOAK`),
