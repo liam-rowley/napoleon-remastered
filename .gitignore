@@ -1,4 +1,7 @@
 # Generated or disposable
+# Claude Code: .claude/settings.json is committed (hooks, deny rules); worktrees and per-user settings are not
+.claude/worktrees/
+.claude/settings.local.json
 _to_delete*/
 _scratch/
 __pycache__/
