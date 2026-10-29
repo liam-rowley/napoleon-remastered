@@ -1,0 +1,1152 @@
+{
+ "area": "packs",
+ "detail": {
+  "empire_mod_packs_skipped": [
+   "art_remaster_buildings_1.pack",
+   "art_remaster_buildings_2.pack",
+   "art_remaster_units_diffuse_1.pack",
+   "art_remaster_units_diffuse_2.pack",
+   "art_remaster_units_gloss.pack",
+   "art_remaster_units_normal.pack",
+   "gfx_grass_range.pack",
+   "ui_scale_2x.pack",
+   "ui_scale_2x_art.pack",
+   "ui_scale_2x_fonts.pack",
+   "ui_scale_2x_portraits.pack",
+   "zz_rml.pack"
+  ],
+  "empire_packs": {
+   "anim.pack": {
+    "bytes": 353602570,
+    "data_bytes": 353180437,
+    "entries": 6335,
+    "flags": 0,
+    "index_sha256": "ea88f805e0a5d941e067efac05e96b6c02b3b785f294bcbcfcc8abe877226e0c",
+    "kinds": {
+     "animations": 6335
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "battlepresets.pack": {
+    "bytes": 1536763945,
+    "data_bytes": 1536758504,
+    "entries": 103,
+    "flags": 0,
+    "index_sha256": "d21c3a86a6f6a409b018c864cf1b4a9d510f6ec89ba2aa4d498b17f21d2616d6",
+    "kinds": {
+     "battleterrain": 103
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "battleterrain.pack": {
+    "bytes": 1075737084,
+    "data_bytes": 1075643339,
+    "entries": 1347,
+    "flags": 0,
+    "index_sha256": "3948aa22c33fbb28c6589154fbb941eaa179564cfa515bd81d60c9406c631077",
+    "kinds": {
+     "battleterrain": 1347
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "boot.pack": {
+    "bytes": 817816,
+    "data_bytes": 817308,
+    "entries": 10,
+    "flags": 0,
+    "index_sha256": "6466671b6332dec240d93b1f08fff336c2e6ef464631770b47a987b20096043c",
+    "kinds": {
+     "commontextures": 1,
+     "voices (language folders)": 9
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 0,
+    "pack_type_name": "boot"
+   },
+   "groupformations.pack": {
+    "bytes": 63074,
+    "data_bytes": 63026,
+    "entries": 1,
+    "flags": 0,
+    "index_sha256": "fde3ade0475449e41900c08188a84978f58b98de796b293a1a0f73862b410e1d",
+    "kinds": {
+     "(root)": 1
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "local_en.pack": {
+    "bytes": 313849894,
+    "data_bytes": 313767605,
+    "entries": 1362,
+    "flags": 0,
+    "index_sha256": "67ce4d80c802d8dfb1d8e05d007d10f43fc7fbbfc06a37c10afc73487616d5bc",
+    "kinds": {
+     "advisor": 1302,
+     "font": 58,
+     "text": 2
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "main.pack": {
+    "bytes": 209975067,
+    "data_bytes": 209943922,
+    "entries": 663,
+    "flags": 0,
+    "index_sha256": "0cb3318c74823f445b22ab317aacf5baf7d9b5f62046b4a7b7967b7c5bdf3b06",
+    "kinds": {
+     "(root)": 8,
+     "campaign": 69,
+     "commontextures": 20,
+     "customsprites": 36,
+     "effects": 73,
+     "heightmaps": 1,
+     "indicators": 20,
+     "multiplayer": 2,
+     "rti": 4,
+     "scenarios": 14,
+     "sea": 11,
+     "text": 2,
+     "tutorialbattles": 4,
+     "voices (language folders)": 399
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "models.pack": {
+    "bytes": 5342233053,
+    "data_bytes": 5341149844,
+    "entries": 13596,
+    "flags": 0,
+    "index_sha256": "7bec600c6d48b1c68ffa71bf2caf1f79d00d5a80cb5a5d6494ebeb3b0b79735b",
+    "kinds": {
+     "artillery": 1,
+     "buildings": 392,
+     "enginemodels": 232,
+     "rigidmodels": 11197,
+     "ships": 22,
+     "unitmodels": 1732,
+     "voices (language folders)": 20
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "movies.pack": {
+    "bytes": 1922138097,
+    "data_bytes": 1922122512,
+    "entries": 317,
+    "flags": 0,
+    "index_sha256": "3298a4a4061e66decd182524607ced7e1fb93831e5a2564c7cac4c70598112ae",
+    "kinds": {
+     "movies": 317
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 4,
+    "pack_type_name": "movie"
+   },
+   "patch.pack": {
+    "bytes": 500992258,
+    "data_bytes": 500405551,
+    "entries": 6747,
+    "flags": 0,
+    "index_sha256": "db58b9bbff47e67e19bc2f349e1cbcf1ad4ba95be9eefcf592de758a31bcaf21",
+    "kinds": {
+     "(root)": 6,
+     "advisor": 1,
+     "animations": 1312,
+     "battleterrain": 200,
+     "campaign": 219,
+     "effects": 1,
+     "indicators": 8,
+     "movies": 12,
+     "music": 10,
+     "rigidmodels": 3658,
+     "rti": 4,
+     "scenarios": 17,
+     "sea": 4,
+     "sfx": 63,
+     "sounds_packed": 2,
+     "testdata": 7,
+     "text": 2,
+     "tutorialbattles": 4,
+     "unitmodels": 189,
+     "voices (language folders)": 1028
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 2,
+    "pack_type_name": "patch"
+   },
+   "patch2.pack": {
+    "bytes": 599027882,
+    "data_bytes": 598881514,
+    "entries": 2414,
+    "flags": 1,
+    "index_sha256": "b4c9241bd9ab14a82875c28f336d425ce3e52311d0a8adfa7fed74defbc9cdc4",
+    "kinds": {
+     "(root)": 5,
+     "advisor": 6,
+     "animations": 90,
+     "battleterrain": 18,
+     "rigidmodels": 207,
+     "sounds": 88,
+     "sounds_packed": 2,
+     "text": 1,
+     "unitmodels": 326,
+     "voices (language folders)": 1671
+    },
+    "magic": "PFH0",
+    "pack_names": [
+     "patch.pack"
+    ],
+    "pack_type": 2,
+    "pack_type_name": "patch"
+   },
+   "patch3.pack": {
+    "bytes": 133199295,
+    "data_bytes": 133178723,
+    "entries": 294,
+    "flags": 1,
+    "index_sha256": "22491bdbcd9dfc9234cdcf5d13b0c4c8f086e6cf91474b53d2158ecfe89d563d",
+    "kinds": {
+     "(root)": 1,
+     "battleterrain": 107,
+     "unitmodels": 105,
+     "voices (language folders)": 81
+    },
+    "magic": "PFH0",
+    "pack_names": [
+     "patch2.pack"
+    ],
+    "pack_type": 2,
+    "pack_type_name": "patch"
+   },
+   "patch4.pack": {
+    "bytes": 72987534,
+    "data_bytes": 72978359,
+    "entries": 172,
+    "flags": 1,
+    "index_sha256": "202346f8ffcfc7de08bca35bc436cfa7893c17c164dcb6f3e2e9c47335415192",
+    "kinds": {
+     "(root)": 1,
+     "battleterrain": 1,
+     "movies": 17,
+     "sounds_packed": 1,
+     "unitmodels": 84,
+     "voices (language folders)": 68
+    },
+    "magic": "PFH0",
+    "pack_names": [
+     "patch3.pack"
+    ],
+    "pack_type": 2,
+    "pack_type_name": "patch"
+   },
+   "patch5.pack": {
+    "bytes": 2187301,
+    "data_bytes": 2186096,
+    "entries": 23,
+    "flags": 1,
+    "index_sha256": "0a6d3cd792e26fab1f56419baf95bc3cb2ee6d2f1cf0c0349f038fa18e8636b9",
+    "kinds": {
+     "(root)": 2,
+     "battleterrain": 1,
+     "sounds_packed": 1,
+     "voices (language folders)": 19
+    },
+    "magic": "PFH0",
+    "pack_names": [
+     "patch4.pack"
+    ],
+    "pack_type": 2,
+    "pack_type_name": "patch"
+   },
+   "patch_en.pack": {
+    "bytes": 34511066,
+    "data_bytes": 34509257,
+    "entries": 75,
+    "flags": 0,
+    "index_sha256": "55ea40c63ffc3a2b0f7b9144937da4dd1f73ad1d51e9266444c04e88c019bd2a",
+    "kinds": {
+     "font": 73,
+     "text": 2
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 2,
+    "pack_type_name": "patch"
+   },
+   "patch_media.pack": {
+    "bytes": 52327799,
+    "data_bytes": 52327696,
+    "entries": 3,
+    "flags": 0,
+    "index_sha256": "71c7f0e11c0a8fbdd2bc026cc7bfb1a2c9cc78dcc1939cf9fbe31dbec8c8b6a5",
+    "kinds": {
+     "movies": 3
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 4,
+    "pack_type_name": "movie"
+   },
+   "seasurfaces.pack": {
+    "bytes": 187320848,
+    "data_bytes": 187320604,
+    "entries": 10,
+    "flags": 0,
+    "index_sha256": "79aba8725771ec5c12863ca0805c9b83a6238e98c9618acb34b5e6a5bc2b7a7a",
+    "kinds": {
+     "(root)": 10
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sound_non_wavefile_data.pack": {
+    "bytes": 1507014,
+    "data_bytes": 1506921,
+    "entries": 2,
+    "flags": 0,
+    "index_sha256": "2d6c952d6f895806caa61660d7f2680f6b6db12a5eb08764a11212c8ec90012b",
+    "kinds": {
+     "sounds_packed": 2
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sounds.pack": {
+    "bytes": 1655150,
+    "data_bytes": 1651776,
+    "entries": 73,
+    "flags": 0,
+    "index_sha256": "7e9e5d9b79ba875df3accf14dfefec2c319750c361cd148293a150676f0f9b3d",
+    "kinds": {
+     "sounds": 73
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sounds_animation_triggers.pack": {
+    "bytes": 331341,
+    "data_bytes": 123000,
+    "entries": 2602,
+    "flags": 0,
+    "index_sha256": "8bda01addd920f5db19a6c7a102b85eb891be356c4e1ecbbce108840d82d9d2d",
+    "kinds": {
+     "animations": 2602
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sounds_campaign.pack": {
+    "bytes": 458152674,
+    "data_bytes": 458128692,
+    "entries": 273,
+    "flags": 0,
+    "index_sha256": "a00dd006a8aa155bda2a25653c7b01b7e6d345f6fd9abc3dd1bfcda34af6b320",
+    "kinds": {
+     "campaign": 273
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sounds_music.pack": {
+    "bytes": 447138822,
+    "data_bytes": 447125285,
+    "entries": 228,
+    "flags": 0,
+    "index_sha256": "7a3877d53164e08bbb5bc65528531795f1c729c5c38b3c495f1830dd14b54b5f",
+    "kinds": {
+     "music": 228
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sounds_other.pack": {
+    "bytes": 1131610,
+    "data_bytes": 1130286,
+    "entries": 25,
+    "flags": 0,
+    "index_sha256": "cff5fde8fe3286a02ca32dd7999ea5d4d49c2e7ccdbea97e98c69c8e23e51fe6",
+    "kinds": {
+     "other": 25
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sounds_placeholder.pack": {
+    "bytes": 3793,
+    "data_bytes": 3724,
+    "entries": 1,
+    "flags": 0,
+    "index_sha256": "fed1603f0111350534ca7c9663d6be5e6db1aeba4a0ac20b3fd57bbde9ff87d7",
+    "kinds": {
+     "placeholder": 1
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sounds_sfx.pack": {
+    "bytes": 838798404,
+    "data_bytes": 838508038,
+    "entries": 3592,
+    "flags": 0,
+    "index_sha256": "4a67322e1afd8589b025f1ccf56f5536f35b5234bd4c7beda8c191828195ef16",
+    "kinds": {
+     "sfx": 3592
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "subtitles.pack": {
+    "bytes": 188313,
+    "data_bytes": 182835,
+    "entries": 141,
+    "flags": 0,
+    "index_sha256": "4520e2745044986945bed67fbeb21d48db76b3224ce17cb4a7dedf03347960f6",
+    "kinds": {
+     "movies": 141
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "supertexture.pack": {
+    "bytes": 178383760,
+    "data_bytes": 178383704,
+    "entries": 2,
+    "flags": 0,
+    "index_sha256": "00bf1e533cf61b3bc5f2acae3ba03af027fdeeb69e551cda468139437e99009b",
+    "kinds": {
+     "(root)": 2
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "terrain_templates.pack": {
+    "bytes": 15631238,
+    "data_bytes": 15591615,
+    "entries": 509,
+    "flags": 0,
+    "index_sha256": "b0c0c21dd9db3d7c3f844664debe9c07fdb0d1c80600b21038125a672fdecb6a",
+    "kinds": {
+     "battleterrain": 509
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "testdata.pack": {
+    "bytes": 689953168,
+    "data_bytes": 689915336,
+    "entries": 787,
+    "flags": 0,
+    "index_sha256": "d2936a8a74ee63c322b05e0ce019c7eca7d44de05315b3d2a0f1595b7dada00e",
+    "kinds": {
+     "testdata": 787
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "ui.pack": {
+    "bytes": 887218272,
+    "data_bytes": 886321635,
+    "entries": 17430,
+    "flags": 0,
+    "index_sha256": "c5aff93191726590e9fc8a91d79de9ab8dfe707aa0156967371f505aeb07666e",
+    "kinds": {
+     "voices (language folders)": 17430
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "ui_movies.pack": {
+    "bytes": 55606384,
+    "data_bytes": 55606336,
+    "entries": 1,
+    "flags": 0,
+    "index_sha256": "797041a0ab852c6c8c34da5c9db5d3ad1f2aa9bb47586d8577b342532e232ab8",
+    "kinds": {
+     "movies": 1
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 4,
+    "pack_type_name": "movie"
+   },
+   "voices.pack": {
+    "bytes": 953551901,
+    "data_bytes": 952399431,
+    "entries": 24055,
+    "flags": 0,
+    "index_sha256": "892c3e282f826023528e1dfdaf97a5d0e35999f0061f0e57588d095f73607cab",
+    "kinds": {
+     "voices (language folders)": 24055
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   }
+  },
+  "napoleon_loose": {
+   "(data root)": {
+    "bytes": 514,
+    "files": 3,
+    "shadow_pack_entries": 0
+   },
+   "UI": {
+    "bytes": 12687127,
+    "files": 329,
+    "shadow_pack_entries": 0
+   },
+   "campaign_maps": {
+    "bytes": 717627548,
+    "files": 1072,
+    "shadow_pack_entries": 0
+   },
+   "campaigns": {
+    "bytes": 99397987,
+    "files": 16,
+    "shadow_pack_entries": 0
+   }
+  },
+  "napoleon_packs": {
+   "battleterrain.pack": {
+    "bytes": 2258058055,
+    "data_bytes": 2257818459,
+    "entries": 3627,
+    "flags": 0,
+    "index_sha256": "e9b0b91aeb7594926e768316557599c4e4c91147a9032169b97404817701535d",
+    "kinds": {
+     "battleterrain": 3627
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "boot.pack": {
+    "bytes": 10415512,
+    "data_bytes": 10414481,
+    "entries": 19,
+    "flags": 0,
+    "index_sha256": "9e3eb79e9525510874e2027acf89fe48b7a1b7e263e7cd87e18e865538f1151b",
+    "kinds": {
+     "commontextures": 1,
+     "voices (language folders)": 18
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 0,
+    "pack_type_name": "boot"
+   },
+   "buildings.pack": {
+    "bytes": 3148052850,
+    "data_bytes": 3147008752,
+    "entries": 11058,
+    "flags": 0,
+    "index_sha256": "ce3668211882675f606be8d4e2f07b1d60a95e64926dca58084caf99ee3a516b",
+    "kinds": {
+     "rigidmodels": 11058
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "data.pack": {
+    "bytes": 2854682470,
+    "data_bytes": 2853618786,
+    "entries": 19235,
+    "flags": 0,
+    "index_sha256": "9dbca7826a0286d33a996013ff89e8f0480718a3654813a4ccdd2b9d7272cd35",
+    "kinds": {
+     "(root)": 21,
+     "animations": 3834,
+     "battleterrain": 546,
+     "cameras": 1,
+     "campaign": 91,
+     "commontextures": 21,
+     "customsprites": 21,
+     "editorbrushes": 3,
+     "effects": 94,
+     "enginemodels": 263,
+     "heightmaps": 1,
+     "indicators": 28,
+     "logs": 80,
+     "movies": 120,
+     "mp_historical_battles": 16,
+     "multiplayer": 2,
+     "napoleon_historical_battles": 24,
+     "profiling_scripts": 66,
+     "sea": 17,
+     "testdata": 701,
+     "text": 2,
+     "tutorialbattles": 4,
+     "unitmodels": 488,
+     "voices (language folders)": 12789,
+     "wellington_historical_battles": 2
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "local_en.pack": {
+    "bytes": 569678450,
+    "data_bytes": 569570718,
+    "entries": 1852,
+    "flags": 0,
+    "index_sha256": "714f7fc4dc9417619c49e68f2338980f012eaf014d63568f49246ac4df2d3da5",
+    "kinds": {
+     "advisor": 1776,
+     "font": 74,
+     "text": 2
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "local_en_patch.pack": {
+    "bytes": 40454888,
+    "data_bytes": 40448677,
+    "entries": 112,
+    "flags": 0,
+    "index_sha256": "3364eadae4b47de8d42868e08dae8627e5ee9957f3d3b17c9134cb9a6aa14e70",
+    "kinds": {
+     "advisor": 110,
+     "text": 2
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 2,
+    "pack_type_name": "patch"
+   },
+   "media.pack": {
+    "bytes": 2526472173,
+    "data_bytes": 2526469916,
+    "entries": 74,
+    "flags": 0,
+    "index_sha256": "704f4eccfb52ffb14c712aa48d97af483eaa48779d0d677706726329251c1f93",
+    "kinds": {
+     "movies": 74
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 4,
+    "pack_type_name": "movie"
+   },
+   "rigidmodels.pack": {
+    "bytes": 1414674843,
+    "data_bytes": 1414316410,
+    "entries": 4756,
+    "flags": 0,
+    "index_sha256": "ccd191f30a38758d73cad105d11444bd519004f6daa56afac1a7d2091d53f3d0",
+    "kinds": {
+     "rigidmodels": 4756
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "sound.pack": {
+    "bytes": 4262056527,
+    "data_bytes": 4259750524,
+    "entries": 40635,
+    "flags": 0,
+    "index_sha256": "417c639593463766b9533aa9a0f7171f78c70192fc8b4342892512c77a98d95c",
+    "kinds": {
+     "animations": 2617,
+     "battle_musicians": 11,
+     "campaign": 290,
+     "front_end_music": 2,
+     "music": 228,
+     "ntw": 339,
+     "other": 25,
+     "pdlc": 8,
+     "placeholder": 4,
+     "sfx": 4553,
+     "sounds": 79,
+     "sounds_packed": 2,
+     "voices (language folders)": 32477
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "variantmodels.pack": {
+    "bytes": 3102281831,
+    "data_bytes": 3101841963,
+    "entries": 5551,
+    "flags": 0,
+    "index_sha256": "92ed8919a619128adf7236d2dcb54585e21e53690faed665806d3dbf6145ce40",
+    "kinds": {
+     "variantmodels": 5551
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   },
+   "variantmodels2.pack": {
+    "bytes": 2192236962,
+    "data_bytes": 2192232644,
+    "entries": 76,
+    "flags": 0,
+    "index_sha256": "5a7312a119080c09ba0c4e6cfe1c1d19f5627ea4bed484294bbdbb52ab8fce39",
+    "kinds": {
+     "variantmodels": 76
+    },
+    "magic": "PFH0",
+    "pack_names": [],
+    "pack_type": 1,
+    "pack_type_name": "release"
+   }
+  }
+ },
+ "rows": [
+  {
+   "adapter": "",
+   "empire": "PFH0",
+   "evidence": "pack_list.read_header",
+   "item": "format",
+   "napoleon": "PFH0",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "[0, 1]",
+   "evidence": "header u32 at 8",
+   "item": "header flags (u32 at 8)",
+   "napoleon": "[0]",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "36 in groupformations.pack, main.pack, patch.pack, patch2.pack, patch3.pack, patch4.pack, patch5.pack, seasurfaces.pack, supertexture.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind (root)",
+   "napoleon": "21 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1309 in local_en.pack, patch.pack, patch2.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind advisor",
+   "napoleon": "1886 in local_en.pack, local_en_patch.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "10339 in anim.pack, patch.pack, patch2.pack, sounds_animation_triggers.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind animations",
+   "napoleon": "6451 in data.pack, sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "1 in models.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind artillery",
+   "napoleon": "0 in -",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind battle_musicians",
+   "napoleon": "11 in sound.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "2286 in battlepresets.pack, battleterrain.pack, patch.pack, patch2.pack, patch3.pack, patch4.pack, patch5.pack, terrain_templates.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind battleterrain",
+   "napoleon": "4173 in battleterrain.pack, data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "392 in models.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind buildings",
+   "napoleon": "0 in -",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind cameras",
+   "napoleon": "1 in data.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "561 in main.pack, patch.pack, sounds_campaign.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind campaign",
+   "napoleon": "381 in data.pack, sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "21 in boot.pack, main.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind commontextures",
+   "napoleon": "22 in boot.pack, data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "36 in main.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind customsprites",
+   "napoleon": "21 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind editorbrushes",
+   "napoleon": "3 in data.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "74 in main.pack, patch.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind effects",
+   "napoleon": "94 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "232 in models.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind enginemodels",
+   "napoleon": "263 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "131 in local_en.pack, patch_en.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind font",
+   "napoleon": "74 in local_en.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind front_end_music",
+   "napoleon": "2 in sound.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1 in main.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind heightmaps",
+   "napoleon": "1 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "28 in main.pack, patch.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind indicators",
+   "napoleon": "28 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind logs",
+   "napoleon": "80 in data.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "491 in movies.pack, patch.pack, patch4.pack, patch_media.pack, subtitles.pack, ui_movies.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind movies",
+   "napoleon": "194 in data.pack, media.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind mp_historical_battles",
+   "napoleon": "16 in data.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "2 in main.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind multiplayer",
+   "napoleon": "2 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "238 in patch.pack, sounds_music.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind music",
+   "napoleon": "228 in sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind napoleon_historical_battles",
+   "napoleon": "24 in data.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ntw",
+   "napoleon": "339 in sound.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "25 in sounds_other.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind other",
+   "napoleon": "25 in sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind pdlc",
+   "napoleon": "8 in sound.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "1 in sounds_placeholder.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind placeholder",
+   "napoleon": "4 in sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind profiling_scripts",
+   "napoleon": "66 in data.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "15062 in models.pack, patch.pack, patch2.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind rigidmodels",
+   "napoleon": "15814 in buildings.pack, rigidmodels.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "8 in main.pack, patch.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind rti",
+   "napoleon": "0 in -",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "",
+   "empire": "31 in main.pack, patch.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind scenarios",
+   "napoleon": "0 in -",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "15 in main.pack, patch.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind sea",
+   "napoleon": "17 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "3655 in patch.pack, sounds_sfx.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind sfx",
+   "napoleon": "4553 in sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "22 in models.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind ships",
+   "napoleon": "0 in -",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "161 in patch2.pack, sounds.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind sounds",
+   "napoleon": "79 in sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "8 in patch.pack, patch2.pack, patch4.pack, patch5.pack, sound_non_wavefile_data.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind sounds_packed",
+   "napoleon": "2 in sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "794 in patch.pack, testdata.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind testdata",
+   "napoleon": "701 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "9 in local_en.pack, main.pack, patch.pack, patch2.pack, patch_en.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind text",
+   "napoleon": "6 in data.pack, local_en.pack, local_en_patch.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "8 in main.pack, patch.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind tutorialbattles",
+   "napoleon": "4 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "2436 in models.pack, patch.pack, patch2.pack, patch3.pack, patch4.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind unitmodels",
+   "napoleon": "488 in data.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind variantmodels",
+   "napoleon": "5627 in variantmodels.pack, variantmodels2.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "look it up in the other pack(s)",
+   "empire": "44780 in boot.pack, main.pack, models.pack, patch.pack, patch2.pack, patch3.pack, patch4.pack, patch5.pack, ui.pack, voices.pack",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind voices (language folders)",
+   "napoleon": "45284 in boot.pack, data.pack, sound.pack",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0 in -",
+   "evidence": "detail.packs.*.kinds",
+   "item": "kind wellington_historical_battles",
+   "napoleon": "2 in data.pack",
+   "verdict": "new"
+  },
+  {
+   "adapter": "loose-only files are read from disk; the shadowing ones are candidates for napoleon.files.loose_probe_dirs",
+   "empire": "(not compared: Empire data\\ holds mod files)",
+   "evidence": "detail.napoleon_loose",
+   "item": "loose data files",
+   "napoleon": "1420 files in 4 folders, 0 with the same path as a pack entry",
+   "verdict": "new"
+  },
+  {
+   "adapter": "names and roles differ: map by content kind, not by pack name",
+   "empire": "32 packs",
+   "evidence": "detail.packs",
+   "item": "pack set",
+   "napoleon": "11 packs, 3 names shared (battleterrain.pack, boot.pack, local_en.pack)",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "",
+   "empire": "0=boot 1=release 2=patch 4=movie",
+   "evidence": "header u32 at 4",
+   "item": "pack types",
+   "napoleon": "0=boot 1=release 2=patch 4=movie",
+   "verdict": "same"
+  }
+ ],
+ "schema": 1
+}

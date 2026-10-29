@@ -1,0 +1,3622 @@
+{
+ "area": "layouts",
+ "detail": {
+  "empire_layouts": {
+   "ui\\battle ui\\advice_interface": {
+    "bytes": 31543,
+    "roundtrip": "ok",
+    "sha256": "fdb37bc490fc9f3c4cf2a5b7b24022c5ec66c6bc2b7292a98dfaf6650f082ccd",
+    "version": 32
+   },
+   "ui\\battle ui\\battle_deployables_panel": {
+    "bytes": 18982,
+    "roundtrip": "ok",
+    "sha256": "fe2bd038a2f2ad627c9e022181f4bf5e74013eced649182e662b73e01809f2e7",
+    "version": 33
+   },
+   "ui\\battle ui\\battle_hud_flags": {
+    "bytes": 970,
+    "roundtrip": "ok",
+    "sha256": "615ee315c346be08cb616ebbc5bc6742e233a4753787c001368b156a935aee5f",
+    "version": 32
+   },
+   "ui\\battle ui\\building_tooltip": {
+    "bytes": 8121,
+    "roundtrip": "ok",
+    "sha256": "9a4f62cc54f5a02ef09dab90044408d41bfa0e89cca8833d394598bcca0c4ef9",
+    "version": 33
+   },
+   "ui\\battle ui\\countdown_win_timer": {
+    "bytes": 4227,
+    "roundtrip": "ok",
+    "sha256": "f681fdfad399bd13c596c89d98c22b53133fd7988a547f5463dc6fd085fea383",
+    "version": 33
+   },
+   "ui\\battle ui\\deployment_end": {
+    "bytes": 10100,
+    "roundtrip": "ok",
+    "sha256": "026fb680210ab4aaf037962f2b3b0484b21283506a36cb1fc4d6dd8dc34b9910",
+    "version": 33
+   },
+   "ui\\battle ui\\esc_menu_battle": {
+    "bytes": 28976,
+    "roundtrip": "ok",
+    "sha256": "848e1c349f25c9d61418577eb4f65c0b4fb6404f4fd73504849d1fe56b1b4aa4",
+    "version": 32
+   },
+   "ui\\battle ui\\in_battle_results_popup": {
+    "bytes": 12259,
+    "roundtrip": "ok",
+    "sha256": "329c2173ea6641dabb19cb71976f44242f9c18c4fd237e5ff7dbf1363db26816",
+    "version": 33
+   },
+   "ui\\battle ui\\land_battle_orders": {
+    "bytes": 66437,
+    "roundtrip": "ok",
+    "sha256": "306582385634f933099d953e719140b56de0415618d57773482fa3c05084a03e",
+    "version": 33
+   },
+   "ui\\battle ui\\layout": {
+    "bytes": 22239,
+    "roundtrip": "ok",
+    "sha256": "9d5a07bba8ed565f9ca4228381e6b165a23a8033a306c88b4ba6825858052f92",
+    "version": 33
+   },
+   "ui\\battle ui\\minimised_hud": {
+    "bytes": 21391,
+    "roundtrip": "ok",
+    "sha256": "c9c28c9a2c8a388358e6a066373576f95acfe4decd83f42a04543fde71a3efec",
+    "version": 33
+   },
+   "ui\\battle ui\\minimised_lb_orders": {
+    "bytes": 65951,
+    "roundtrip": "ok",
+    "sha256": "66e97ae3525471d693057021cae5d5595c619b6a313a642e267be05df66fe6e7",
+    "version": 33
+   },
+   "ui\\battle ui\\minimised_nb_orders": {
+    "bytes": 63409,
+    "roundtrip": "ok",
+    "sha256": "191d94058e2ee5e5ff5adaabd78c5aa93c81266bc4d3f950dc117c5c222d1da6",
+    "version": 33
+   },
+   "ui\\battle ui\\mp_postbattle": {
+    "bytes": 52452,
+    "roundtrip": "ok",
+    "sha256": "f3f97bd09bb51f2483ae47fcd34d6c008b22b6f53be073661b13ecc6fd7de053",
+    "version": 33
+   },
+   "ui\\battle ui\\naval_battle_orders": {
+    "bytes": 69700,
+    "roundtrip": "ok",
+    "sha256": "4536a45e7424a8a08108b0f5072b783aee9c4a186a6b0c1975dfce71798cacc7",
+    "version": 33
+   },
+   "ui\\battle ui\\options_game": {
+    "bytes": 15591,
+    "roundtrip": "ok",
+    "sha256": "216929bb2146ae32f7a6a2bacb771156a2ebc4302107bd7bfd85575845fc708b",
+    "version": 33
+   },
+   "ui\\battle ui\\sp_victory_options": {
+    "bytes": 12425,
+    "roundtrip": "ok",
+    "sha256": "2173fb874c50edf206fe9cbf4941b59d1328bf85c2a9f8b5443a54abc56c57b6",
+    "version": 33
+   },
+   "ui\\battle ui\\special_tooltip": {
+    "bytes": 11621,
+    "roundtrip": "ok",
+    "sha256": "80a575dec17bdc3cf0b2fd2138671f5dc6a849c01d52c2a8a7ddf5a21168b175",
+    "version": 33
+   },
+   "ui\\battle ui\\victory_tickets_panel": {
+    "bytes": 7989,
+    "roundtrip": "ok",
+    "sha256": "7340165962fd84d4dca39d2638727fb33dca55a21cc8b954b0df0d2842fafbf6",
+    "version": 33
+   },
+   "ui\\campaign ui\\agent_action": {
+    "bytes": 17982,
+    "roundtrip": "ok",
+    "sha256": "9dcfa3ab899a6948e96fff6c80266d684cc66eb4b7bee1bf5b3028b57c6239b6",
+    "version": 33
+   },
+   "ui\\campaign ui\\agent_options": {
+    "bytes": 51186,
+    "roundtrip": "ok",
+    "sha256": "75eacc28b8f22e103f7d617aea0878f2e9b3c31e301e7dba41c0010f4fb1c036",
+    "version": 33
+   },
+   "ui\\campaign ui\\building_browser": {
+    "bytes": 27715,
+    "roundtrip": "ok",
+    "sha256": "e9ecbef5eec4e746ccb26f565d7a0bb06fc746ce58c643d71dc76f720677a3de",
+    "version": 33
+   },
+   "ui\\campaign ui\\building_information": {
+    "bytes": 24021,
+    "roundtrip": "ok",
+    "sha256": "ceec50f2e0e171f67783e6f0af59ddd7f4db5417416e13c87a151f5852a01b2c",
+    "version": 33
+   },
+   "ui\\campaign ui\\button_timer": {
+    "bytes": 2194,
+    "roundtrip": "ok",
+    "sha256": "26cdeafdf702b2e7379499534a08962a130327d5d96893f89f302527d903c1bc",
+    "version": 33
+   },
+   "ui\\campaign ui\\campaign_result": {
+    "bytes": 12042,
+    "roundtrip": "ok",
+    "sha256": "de6e3388bd46696557933ddb726d9562003195d9d99ba5d2b15656c4bf0f18d0",
+    "version": 33
+   },
+   "ui\\campaign ui\\challenge_to_duel": {
+    "bytes": 21443,
+    "roundtrip": "ok",
+    "sha256": "933f7839d170341ebc37eb8efeba41bdc36c7e4704009006d1c18f03d7128d35",
+    "version": 27
+   },
+   "ui\\campaign ui\\character_information": {
+    "bytes": 29675,
+    "roundtrip": "ok",
+    "sha256": "259b4c68c03ee2f88a4dc5f5075d6df835c4b0862dc466b5b19c59634c7f2de2",
+    "version": 33
+   },
+   "ui\\campaign ui\\city_info_bar": {
+    "bytes": 11635,
+    "roundtrip": "ok",
+    "sha256": "d7c8a441aa612496fe8244c5d2b5c530b156199e492a222defc3c3096d64397d",
+    "version": 33
+   },
+   "ui\\campaign ui\\dialogue_box": {
+    "bytes": 8602,
+    "roundtrip": "ok",
+    "sha256": "d4e7f46041ec4f805b98e33227ccaccd66de4d30cab6f0ea618b2d47dee79f8c",
+    "version": 32
+   },
+   "ui\\campaign ui\\diplomacy_panel": {
+    "bytes": 317901,
+    "roundtrip": "ok",
+    "sha256": "fd3b3ae483db4b3715302847632e0543a1412631fc2ff5b0adbba9fe2cc45d84",
+    "version": 33
+   },
+   "ui\\campaign ui\\diplomatic_relations": {
+    "bytes": 66755,
+    "roundtrip": "ok",
+    "sha256": "8f98b8a8f6ddb71ddfd95133a4b57f35edf1f8c5411bf8717c919322cad8059d",
+    "version": 33
+   },
+   "ui\\campaign ui\\duel challenge received": {
+    "bytes": 42169,
+    "roundtrip": "ok",
+    "sha256": "dd7ef3d4a8bcc7a5bb438760cdcdbc3dea610ebd6341cb87b496c5fac8cb3b69",
+    "version": 33
+   },
+   "ui\\campaign ui\\entity_lists": {
+    "bytes": 77611,
+    "roundtrip": "ok",
+    "sha256": "577b6e97d9953337a2c451478cafe460918799c735558798a9c2f8c1c936db7f",
+    "version": 33
+   },
+   "ui\\campaign ui\\esc_menu_campaign": {
+    "bytes": 35502,
+    "roundtrip": "ok",
+    "sha256": "fd8aa7ac00ef1fc6bf804873b70293cb28630fe0e02c5f5ed43823a9cd204b44",
+    "version": 33
+   },
+   "ui\\campaign ui\\event_message": {
+    "bytes": 13420,
+    "roundtrip": "ok",
+    "sha256": "26fb47d7cf0f4fbc2627a7f520d886c6a4625de6d79b17947875e64078a53a52",
+    "version": 33
+   },
+   "ui\\campaign ui\\event_movie_panel": {
+    "bytes": 6896,
+    "roundtrip": "ok",
+    "sha256": "91a12786b09f6d649bfcb7a28f464d3b59a5ea33c5cacaa6bba4df3fa6e5a643",
+    "version": 32
+   },
+   "ui\\campaign ui\\faction_hud_flags": {
+    "bytes": 975,
+    "roundtrip": "ok",
+    "sha256": "9a5eb13d4f2cbda12e0f06e8b920e18a39273fbb69072a9e8b672e6af8ef5a03",
+    "version": 32
+   },
+   "ui\\campaign ui\\government_screens": {
+    "bytes": 236044,
+    "roundtrip": "ok",
+    "sha256": "c19ff9882b6f9961350fc947e8e2bf5ee1b8d4326aaf33672e9d08fea8610198",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout": {
+    "bytes": 126251,
+    "roundtrip": "ok",
+    "sha256": "e1c9471055368634588ef14632bb081fe4370fc416054e06251d0a431a322608",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_agent_recruited": {
+    "bytes": 8784,
+    "roundtrip": "ok",
+    "sha256": "7ae715645ca70aee89cc9731dc94f37f3a3a97bd856d5333a84fa9155f462f11",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_ally_attacked": {
+    "bytes": 28400,
+    "roundtrip": "ok",
+    "sha256": "df7ed333a72a834048f819c7708c6daec7c8228b2da28db7a2563f375d909678",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_assassination": {
+    "bytes": 9488,
+    "roundtrip": "ok",
+    "sha256": "ee66d49c98e69e1610d5da9a9cf3929c2727e7a4d697022597b6ba5b13578724",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_blockade": {
+    "bytes": 10006,
+    "roundtrip": "ok",
+    "sha256": "c476e96f9c2173b01d2c253fae2c165f2b7e58e608bbe1e80f7d05c4ea33430a",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_build_list": {
+    "bytes": 6284,
+    "roundtrip": "ok",
+    "sha256": "2f637b7820f2d086aa59ff276c77b38d8ed8b709dbe2ff787d208660d0b19546",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_building_constructed": {
+    "bytes": 8776,
+    "roundtrip": "ok",
+    "sha256": "dfe65fbbde4ebc7e97ad1f2fe0a3fd4a4ef6ec51006e4856dee11a5e99608bfc",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_capital_lost": {
+    "bytes": 8330,
+    "roundtrip": "ok",
+    "sha256": "6e0c273f85edc66976749fbc8697bdb3149757be786bb85b18c010d5364f2e76",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_disaster": {
+    "bytes": 18625,
+    "roundtrip": "ok",
+    "sha256": "edf075e4999e32dd81988a601a47c610b73ac4ab7dc5cc8e3d5a65e72c3dd5ba",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_election_results": {
+    "bytes": 7864,
+    "roundtrip": "ok",
+    "sha256": "a28bcc3b4a22d10c4682c0af093f2285512cd9aee14bcca720e98b0622e1ca7e",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_marriage": {
+    "bytes": 14786,
+    "roundtrip": "ok",
+    "sha256": "939d0893c4b73e2c5520c4df80e005f9a2ca77d8d7c8e7a14ade739f32dd0c1e",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_revolution": {
+    "bytes": 16962,
+    "roundtrip": "ok",
+    "sha256": "ffff19756388f7b124fd94c5c4d0d28fd08b28e2268a4f161dce36458ee1b18e",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_riots": {
+    "bytes": 8715,
+    "roundtrip": "ok",
+    "sha256": "8a3816f0be48b34bfc397b6a7eb1560ca0d2001b5aae7fc746683ea9c2bea156",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_sabotage": {
+    "bytes": 9852,
+    "roundtrip": "ok",
+    "sha256": "1a17194d93dcb9243123fcd2918152a18c3de5b084f0e66041e83e93529acd09",
+    "version": 32
+   },
+   "ui\\campaign ui\\layout_standard": {
+    "bytes": 7831,
+    "roundtrip": "ok",
+    "sha256": "565c1626c21ea1a72a382c6d3d9a25225518c72f12d791dd6703001f2b917c55",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_tech_advances_list": {
+    "bytes": 7315,
+    "roundtrip": "ok",
+    "sha256": "6b02bcc284e9dd02d9c1c38fcd3fe1f98f2d6f970f5bee437d4c81221babb7ed",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_technology_advances": {
+    "bytes": 8437,
+    "roundtrip": "ok",
+    "sha256": "8a66c3cdadaf199ea8bf9dbe3e40404f0b727cc1bef797438de157ce9be5f167",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_traits_anc_list": {
+    "bytes": 13225,
+    "roundtrip": "ok",
+    "sha256": "a6f7309c2347bbb755067f79ed323c4c65406c6a073f9d1308d4f3974efc5079",
+    "version": 32
+   },
+   "ui\\campaign ui\\layout_unit_recruited": {
+    "bytes": 9619,
+    "roundtrip": "ok",
+    "sha256": "fc23bb30720769870c207688e84f8df53d674d0ad99928359cc7034c37e326b2",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_unit_routs": {
+    "bytes": 7899,
+    "roundtrip": "ok",
+    "sha256": "9d0e5326513d4e322ce507abcfb830de9839c267234deeafa94e494986b0a58f",
+    "version": 30
+   },
+   "ui\\campaign ui\\load-save_game": {
+    "bytes": 35613,
+    "roundtrip": "ok",
+    "sha256": "55bf5619d0f7980369266999af432516ae16f1eb9c943e4fc432c57b79136320",
+    "version": 33
+   },
+   "ui\\campaign ui\\missions": {
+    "bytes": 36197,
+    "roundtrip": "ok",
+    "sha256": "0cb1f5f56374cd52ac682e806ef8e739d7e1e741054da72218fc70b929ddf3b7",
+    "version": 32
+   },
+   "ui\\campaign ui\\move_options": {
+    "bytes": 20988,
+    "roundtrip": "ok",
+    "sha256": "aa4230bf5acd0b6a8cd4de77eb5509a86c4b9d7fe3b846aa576734c0e7a94e56",
+    "version": 33
+   },
+   "ui\\campaign ui\\mp_grand_campaign": {
+    "bytes": 85330,
+    "roundtrip": "ok",
+    "sha256": "9393ca66067d0e2ce4b222d79f824740fc8941768936821a17105a443db7b4c6",
+    "version": 31
+   },
+   "ui\\campaign ui\\objectives_screens": {
+    "bytes": 59816,
+    "roundtrip": "ok",
+    "sha256": "7cce5234dba1c93397f2eccf444bcdcb164e439ed551f1dbdb44dc87846eb61d",
+    "version": 33
+   },
+   "ui\\campaign ui\\options_game": {
+    "bytes": 41662,
+    "roundtrip": "ok",
+    "sha256": "ce8e004c0ef747a15635d866f52ae8f38d43e19d97f9ebd3e68558dc1fd845cb",
+    "version": 33
+   },
+   "ui\\campaign ui\\popup_battle_results": {
+    "bytes": 84521,
+    "roundtrip": "ok",
+    "sha256": "36f005039d64c87bf384cc2874c2869315ef8a1ec1907ac84378e81b2e81f210",
+    "version": 33
+   },
+   "ui\\campaign ui\\popup_pre_battle": {
+    "bytes": 67573,
+    "roundtrip": "ok",
+    "sha256": "c675eef03115834f0c9b11ef47bf15417d5d57f1777b7a5f5576221410b758f2",
+    "version": 33
+   },
+   "ui\\campaign ui\\prestige": {
+    "bytes": 47357,
+    "roundtrip": "ok",
+    "sha256": "46db645456bf071464b54f6229131c9379f33eb3fd04e6a6bdd069e506c0410d",
+    "version": 32
+   },
+   "ui\\campaign ui\\region_details": {
+    "bytes": 77294,
+    "roundtrip": "ok",
+    "sha256": "8c9e40ab65c8f8eabd04be81bd3dfa06cbcac48da51d4bd4ca11aa3d35ada0c8",
+    "version": 33
+   },
+   "ui\\campaign ui\\royal_family": {
+    "bytes": 15703,
+    "roundtrip": "ok",
+    "sha256": "173bcd51010da3c79d4242254d6a45316ac9cc5d1f8f52b3df0e94373f9ed903",
+    "version": 32
+   },
+   "ui\\campaign ui\\sabotage": {
+    "bytes": 25322,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "863e02dc4e1490912c85d47d35b136e3c8ad5ee8a6ec5d9fadc8094daf19e8a3",
+    "version": 29
+   },
+   "ui\\campaign ui\\technology": {
+    "bytes": 52980,
+    "roundtrip": "ok",
+    "sha256": "bddc2efbdec3978c13cdbda51d9cad1246552d27ea8d2ca2a87c8e45982e8d19",
+    "version": 33
+   },
+   "ui\\campaign ui\\techtreeitem_tooltip": {
+    "bytes": 17058,
+    "roundtrip": "ok",
+    "sha256": "1a2b6de00203fbb055a747b9db815cb5d3e595cd7208867cd9955d24dc3024d1",
+    "version": 33
+   },
+   "ui\\campaign ui\\travel_destinations": {
+    "bytes": 34343,
+    "roundtrip": "ok",
+    "sha256": "1cab8fc5e9a48d306e7c54a7a5e487a06eea98dc86ea09a17fad3121ee5f67cc",
+    "version": 33
+   },
+   "ui\\campaign ui\\unit_exchange": {
+    "bytes": 29960,
+    "roundtrip": "ok",
+    "sha256": "bc3babf2e6205bbdbbbdd40ee516d71808fb4e90af36ff184e28306edc8197a8",
+    "version": 33
+   },
+   "ui\\common ui\\advice_interface": {
+    "bytes": 31372,
+    "roundtrip": "ok",
+    "sha256": "aac8a1e1aaa18d29f7eb119150a28d6b5378bcd03dd314cd8f477f95af96bb11",
+    "version": 33
+   },
+   "ui\\common ui\\dialog_ok": {
+    "bytes": 6809,
+    "roundtrip": "ok",
+    "sha256": "b713e3d97bbe12bf04c848eeb5c703cd9644cfc5585e67eaca9c40dce1488bd0",
+    "version": 29
+   },
+   "ui\\common ui\\dialog_yes_no": {
+    "bytes": 8236,
+    "roundtrip": "ok",
+    "sha256": "5a3b4d2336f3d3ba6a8dd35b12ed7e57dd58a31c54307e1cacca5fae16e3114d",
+    "version": 29
+   },
+   "ui\\common ui\\dialogue_box": {
+    "bytes": 10087,
+    "roundtrip": "ok",
+    "sha256": "d80076e778ef103b07817d3b0d6d8805b9fcec8937ca2f42063518f9596a72e0",
+    "version": 33
+   },
+   "ui\\common ui\\mp_dialogue_box": {
+    "bytes": 11586,
+    "roundtrip": "ok",
+    "sha256": "2bcbd81111c0b46c520e4607a1b6ef9f8e7f3eb8694b507bad2228fdad3f7ba1",
+    "version": 33
+   },
+   "ui\\common ui\\mp_message_box": {
+    "bytes": 2095,
+    "roundtrip": "ok",
+    "sha256": "14bf5f8b6d74e63c97bc6d5270c44f99c6fa1da9391e4beb67f32bb62b21b228",
+    "version": 33
+   },
+   "ui\\common ui\\options_audio": {
+    "bytes": 101930,
+    "roundtrip": "ok",
+    "sha256": "f4dfc06e0e36e3f3a6ae1fc0a7a1ef09a79d3b7bc87438355b78fde06ecf474e",
+    "version": 33
+   },
+   "ui\\common ui\\options_controls": {
+    "bytes": 67875,
+    "roundtrip": "ok",
+    "sha256": "ce39d28cbce82dca929fe58789f21aeb8270979606711a4db8f34dece885ef61",
+    "version": 33
+   },
+   "ui\\common ui\\options_gamma": {
+    "bytes": 16999,
+    "roundtrip": "ok",
+    "sha256": "a619bfc530b90e7a563f8577410e5c358c39d861ebfd9c7e00cea11feff01bac",
+    "version": 33
+   },
+   "ui\\common ui\\options_graphics": {
+    "bytes": 109882,
+    "roundtrip": "ok",
+    "sha256": "a001c8854263df78ba6f8cb6400167553a2327181a154704ffa8e44b95829f5f",
+    "version": 33
+   },
+   "ui\\common ui\\options_ui": {
+    "bytes": 61086,
+    "roundtrip": "ok",
+    "sha256": "8fb418f27b4af37032ee25994567369f8a2005f03873d4f5662b18bb222e8cc8",
+    "version": 33
+   },
+   "ui\\common ui\\paused_panel": {
+    "bytes": 3975,
+    "roundtrip": "ok",
+    "sha256": "f3f98be00d7c7ad92cb860c5f7b2222c82dd0dbab48011a60a685b5aff325d4a",
+    "version": 33
+   },
+   "ui\\common ui\\unit_information": {
+    "bytes": 135340,
+    "roundtrip": "ok",
+    "sha256": "1fb0c3c818cd2be2b46409ed466bda5e57d94946c70a6e172a2a3ec01a26dc23",
+    "version": 33
+   },
+   "ui\\common ui\\waiting_for_players": {
+    "bytes": 3633,
+    "roundtrip": "ok",
+    "sha256": "f89f9d76c7354aafa732a8587cc7e102c609c4e7ed1c1855e8d3ac15a6349e3e",
+    "version": 33
+   },
+   "ui\\frontend ui\\battle_preparation": {
+    "bytes": 296363,
+    "roundtrip": "ok",
+    "sha256": "ceadcbaa138e68c56fd36eda9663fb4a1415e309a61f222d5c783f37933a0bb6",
+    "version": 28
+   },
+   "ui\\frontend ui\\credits": {
+    "bytes": 5480,
+    "roundtrip": "ok",
+    "sha256": "20b6ec98deccf82bcebbfc6c31bc6fb4401b9e0bae30705e4561d3fa279335a9",
+    "version": 33
+   },
+   "ui\\frontend ui\\demo_movies": {
+    "bytes": 765,
+    "roundtrip": "ok",
+    "sha256": "0242cb128ca457e49f9fb7bdc63d50e7b8489abd198b11221acf23dc26d65b98",
+    "version": 33
+   },
+   "ui\\frontend ui\\demo_sp_tutorials": {
+    "bytes": 14817,
+    "roundtrip": "ok",
+    "sha256": "562e33105463d12b1499941d0f26d291b642c3fcdfae9e9902e854bd664d196b",
+    "version": 33
+   },
+   "ui\\frontend ui\\faction_selection_big": {
+    "bytes": 20608,
+    "roundtrip": "ok",
+    "sha256": "d5fd357ea7d0dba544ffb2ea81253bebca0492aa6d730e99312718adbbb589a6",
+    "version": 32
+   },
+   "ui\\frontend ui\\faction_selection_historical": {
+    "bytes": 13921,
+    "roundtrip": "ok",
+    "sha256": "eae3bb59df4de2f8ceb198c76c1bf12444d2e36c4240958797e7a33b1497e6ab",
+    "version": 33
+   },
+   "ui\\frontend ui\\faction_selection_small": {
+    "bytes": 17917,
+    "roundtrip": "ok",
+    "sha256": "b023bbb69c47a81c67d755579c12401683073014f5457df0d7992c722f987d8b",
+    "version": 33
+   },
+   "ui\\frontend ui\\file_requester": {
+    "bytes": 17688,
+    "roundtrip": "ok",
+    "sha256": "10a289cda5937c153e87d23cf34263348696c4bfdbd435a40c4d2a1f7ca62d10",
+    "version": 33
+   },
+   "ui\\frontend ui\\grand_campaign": {
+    "bytes": 86696,
+    "roundtrip": "ok",
+    "sha256": "97c8f679958822c468b190ab37766f10d52a88412f10ce50c59fd52178662f7f",
+    "version": 33
+   },
+   "ui\\frontend ui\\host_campaign_popup": {
+    "bytes": 8029,
+    "roundtrip": "ok",
+    "sha256": "c134d516dd2abc2d2a68411dce730c4b02c224df7a30382d3fdf280016a9c383",
+    "version": 33
+   },
+   "ui\\frontend ui\\lan": {
+    "bytes": 33538,
+    "roundtrip": "ok",
+    "sha256": "e63e428496217b94d119dd34cc833527e844a85a34a62c7e654b18c000f7df1a",
+    "version": 25
+   },
+   "ui\\frontend ui\\layout": {
+    "bytes": 1948,
+    "roundtrip": "ok",
+    "sha256": "62e3b296a3cf305014ec05d85fab9d30ba3dd6c93f294e0a950a88f334220e89",
+    "version": 33
+   },
+   "ui\\frontend ui\\load_replay": {
+    "bytes": 26297,
+    "roundtrip": "ok",
+    "sha256": "9c024bc0908ab62fec58f30dd8ceed6c32b71452c7c3d9baf27c7ed74f694af0",
+    "version": 33
+   },
+   "ui\\frontend ui\\lobby_chat": {
+    "bytes": 14336,
+    "roundtrip": "ok",
+    "sha256": "76cfa88be2d80aa5922417282194b2599ed654afe6723fb9f1aaf737eaae0454",
+    "version": 33
+   },
+   "ui\\frontend ui\\main": {
+    "bytes": 83130,
+    "roundtrip": "ok",
+    "sha256": "e1dce015c3de3abe67cd8b6c98700f7ae063dfd9f06320b8b3d8ac9cd6c730e2",
+    "version": 33
+   },
+   "ui\\frontend ui\\message_box": {
+    "bytes": 9251,
+    "roundtrip": "ok",
+    "sha256": "cf10bfe2184addd92d3110dfba5eb2d2cb1ce8c519d5f8cb42fd2f002981e87e",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_battle1": {
+    "bytes": 22506,
+    "roundtrip": "ok",
+    "sha256": "1b3f48f434d8008472ad04b0e7ceeae7cc4edd273a701a1e3c60cee9a317ca03",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_battle2": {
+    "bytes": 98292,
+    "roundtrip": "ok",
+    "sha256": "85fc29cf89b4a5657b8d8b3d27ff82b186331681925568e768a849e15ec94ce9",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_battle2_scenario": {
+    "bytes": 65476,
+    "roundtrip": "ok",
+    "sha256": "98a3d037d2ed72a77b49dc9ea889a14e140fa8732237781768885571bec9fd63",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_battle3": {
+    "bytes": 122893,
+    "roundtrip": "ok",
+    "sha256": "f1102a95afa122bb6ed4067e165ec62df31a1d229eb35f06cf9b25c25fc80f78",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_battle3_scenario": {
+    "bytes": 91413,
+    "roundtrip": "ok",
+    "sha256": "ca01ce975aa7ec68af701be2b85c0956a4bdee288552ba25b2b00d0c696ed621",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_grand_campaign": {
+    "bytes": 138627,
+    "roundtrip": "ok",
+    "sha256": "73dfed09f1d8c57558192e1918af1edb3cb2fb7b0f2f0fc42919b0df2913dd87",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_load_game": {
+    "bytes": 30679,
+    "roundtrip": "ok",
+    "sha256": "fff69ebac2df20b8865054ca7c0faa86b9c4dd3521c06851f5af7cf334f76328",
+    "version": 33
+   },
+   "ui\\frontend ui\\multiplayer_lan": {
+    "bytes": 111234,
+    "roundtrip": "ok",
+    "sha256": "0c11ed6b65a67df6deaa68324d68b3caebef318ef18f299a0d60adf3436fe4f0",
+    "version": 33
+   },
+   "ui\\frontend ui\\multiplayer_online": {
+    "bytes": 124923,
+    "roundtrip": "ok",
+    "sha256": "16bebf5e80a8c295d04212a4dc4e235e0ffc15d519a5ee9c9ec999a684957ca8",
+    "version": 33
+   },
+   "ui\\frontend ui\\na_main": {
+    "bytes": 85825,
+    "roundtrip": "ok",
+    "sha256": "fbfc81368f79eaf762ca740ca0fa016eb648613aaf2df15e802b14f53c35f8d6",
+    "version": 33
+   },
+   "ui\\frontend ui\\options": {
+    "bytes": 382294,
+    "roundtrip": "ok",
+    "sha256": "9374307391d2c4abdf336ee5ac070e2ca30087f2a3971871e6a33bbe104998c5",
+    "version": 33
+   },
+   "ui\\frontend ui\\password_entry": {
+    "bytes": 6709,
+    "roundtrip": "ok",
+    "sha256": "215d9ecef2a1ddb6b424c1374b3b52123ac8dd3291cc96b746c48f29cc2ca7a1",
+    "version": 33
+   },
+   "ui\\frontend ui\\player_stats": {
+    "bytes": 30600,
+    "roundtrip": "ok",
+    "sha256": "22d25bd7ed3d70c5cedd87b70967c456aac01d4cc594c2bc6d3f2c0cd6abfc6e",
+    "version": 33
+   },
+   "ui\\frontend ui\\quickbattle_popup": {
+    "bytes": 7408,
+    "roundtrip": "ok",
+    "sha256": "32dca3563972783623baf96571f3ae36c815f98f7f45f590a28b9341275287c0",
+    "version": 33
+   },
+   "ui\\frontend ui\\single_player": {
+    "bytes": 18352,
+    "roundtrip": "ok",
+    "sha256": "caca4c54f80eb1e2516765f3f0e3197ae58baa557e4c8aa9addec588f8f248f4",
+    "version": 28
+   },
+   "ui\\frontend ui\\sp_battle1": {
+    "bytes": 31284,
+    "roundtrip": "ok",
+    "sha256": "c0e3a557d2b31f9e35a2d5e33cd9a1248b1ba6d227d5423837923ea611a9ccc2",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_battle2": {
+    "bytes": 76290,
+    "roundtrip": "ok",
+    "sha256": "2deb0e79c9e55137b73cf522a5d9cbd1694978d657d1b1ca2b22158a42aeaa6b",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_battle2_scenario": {
+    "bytes": 44408,
+    "roundtrip": "ok",
+    "sha256": "fecbaea2643cbc819b08dbe8b932a0b862c20b87bb6a9b2c1b8e53f01614a792",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_battle3": {
+    "bytes": 96774,
+    "roundtrip": "ok",
+    "sha256": "447128afa6c8d730d98137acd5657691a6a5f9ed10fbe0b73eef54a14020b55f",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_battle3_scenario": {
+    "bytes": 34039,
+    "roundtrip": "ok",
+    "sha256": "33c163f038a189824e6b27564d06466b6c7b64efc824fd925611b3b4b5aea5cc",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_episodic_campaign": {
+    "bytes": 29895,
+    "roundtrip": "ok",
+    "sha256": "9342fd08c245e0bae4b9062514c55ed997480c8e010af648d709a74389192337",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_load_game": {
+    "bytes": 30756,
+    "roundtrip": "ok",
+    "sha256": "70b0dab6afc360216e74e0bdf6df8e75b260536898d16af220fb1e2343ea2cf8",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_na_campaign": {
+    "bytes": 92268,
+    "roundtrip": "ok",
+    "sha256": "427d40a69fc61a85698c0fbeaacbbaeebc544f0a10fc6f24b17b051b75fbfe25",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_tutorials": {
+    "bytes": 16756,
+    "roundtrip": "ok",
+    "sha256": "d0d466ff698d12916cc58672e236189236678a722a2cf18f6ce107cb34cc0bf0",
+    "version": 33
+   }
+  },
+  "empire_templates": {
+   "bytes": 38443960,
+   "file": "data\\ui\\templates\\uied.templates (loose)",
+   "records": {
+    "ArmedCitizenryCard": {
+     "bytes": 199917,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "BattleEditor": {
+     "bytes": 51075,
+     "roundtrip": "fail: error",
+     "textures": 0,
+     "version": 4
+    },
+    "BattleUnitCard": {
+     "bytes": 782023,
+     "roundtrip": "ok",
+     "textures": 5,
+     "version": 33
+    },
+    "BuildingFrame": {
+     "bytes": 2796342,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "ButtonGroup": {
+     "bytes": 396843,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "CampaignCharacterCard": {
+     "bytes": 658924,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "CampaignShipCard": {
+     "bytes": 814017,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 30
+    },
+    "CampaignUnitCard": {
+     "bytes": 990598,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "Cursor": {
+     "bytes": 31112,
+     "roundtrip": "fail: UnicodeDecodeError",
+     "textures": 7,
+     "version": 18
+    },
+    "Diplomacy_region_tooltip": {
+     "bytes": 125665,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "Duellist": {
+     "bytes": 418862,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 16
+    },
+    "FactionFlag": {
+     "bytes": 2097677,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 10
+    },
+    "FamilyTreeCard": {
+     "bytes": 446708,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 30
+    },
+    "InputWindow": {
+     "bytes": 670,
+     "roundtrip": "fail: error",
+     "textures": 0,
+     "version": 4
+    },
+    "MessageIcon": {
+     "bytes": 389499,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "Minister_tooltip": {
+     "bytes": 353527,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "RecruitmentCard": {
+     "bytes": 1124417,
+     "roundtrip": "ok",
+     "textures": 10,
+     "version": 33
+    },
+    "RecruitmentCard_siege": {
+     "bytes": 501660,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 27
+    },
+    "ReviewPanelTab": {
+     "bytes": 124651,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 32
+    },
+    "SiegeEquipmentCard": {
+     "bytes": 523190,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 27
+    },
+    "TabGroup": {
+     "bytes": 122125,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 28
+    },
+    "TechTreeItem_Tooltip": {
+     "bytes": 373151,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "Tech_tooltip": {
+     "bytes": 14190,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "Tech_tooltip2": {
+     "bytes": 249467,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "TextView": {
+     "bytes": 13619,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "Tooltip": {
+     "bytes": 12046,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "TradeRouteEntry": {
+     "bytes": 57470,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "UnitGroupFrame": {
+     "bytes": 10687,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 30
+    },
+    "UnitGroupTab": {
+     "bytes": 136749,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 27
+    },
+    "advice_mouse_events": {
+     "bytes": 328,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "ai_turns": {
+     "bytes": 5145939,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "assassination_entry": {
+     "bytes": 683548,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 32
+    },
+    "battle_chat_advisory_entry": {
+     "bytes": 254,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "battle_chat_postbattle_entry": {
+     "bytes": 256,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "battle_prep_row_entry": {
+     "bytes": 105327,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "battle_results_team_entry": {
+     "bytes": 512917,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "box_selection": {
+     "bytes": 1180,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 32
+    },
+    "building_browser_entry": {
+     "bytes": 722051,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "building_browser_node": {
+     "bytes": 99289,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "building_constructed_entry": {
+     "bytes": 128748,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "building_info_build_entry": {
+     "bytes": 611804,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 30
+    },
+    "building_info_generic_entry": {
+     "bytes": 993,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "building_info_recruitment_effects": {
+     "bytes": 2647147,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "building_info_tech_entry": {
+     "bytes": 19514,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 30
+    },
+    "button_advice": {
+     "bytes": 75344,
+     "roundtrip": "ok",
+     "textures": 4,
+     "version": 17
+    },
+    "button_close": {
+     "bytes": 56594,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 17
+    },
+    "button_standard": {
+     "bytes": 178283,
+     "roundtrip": "ok",
+     "textures": 4,
+     "version": 20
+    },
+    "button_toggle": {
+     "bytes": 79568,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 28
+    },
+    "campaign_map_icon": {
+     "bytes": 11367,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 32
+    },
+    "campaign_map_tooltip": {
+     "bytes": 254748,
+     "roundtrip": "ok",
+     "textures": 11,
+     "version": 33
+    },
+    "character_duel_info_pane": {
+     "bytes": 739385,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "character_info_list_entry": {
+     "bytes": 333726,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "character_trait_entry": {
+     "bytes": 17361,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "checkbox": {
+     "bytes": 41236,
+     "roundtrip": "ok",
+     "textures": 5,
+     "version": 22
+    },
+    "construction_item_tooltip": {
+     "bytes": 340008,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "dialogue_box": {
+     "bytes": 1735185,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "diplomacy_allies_list_item": {
+     "bytes": 8361,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "diplomacy_button": {
+     "bytes": 380580,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 33
+    },
+    "diplomacy_item_regions": {
+     "bytes": 109720,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "diplomacy_item_text": {
+     "bytes": 67999,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "diplomatic_relations_row": {
+     "bytes": 102372,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "dropdown_menu": {
+     "bytes": 105823,
+     "roundtrip": "ok",
+     "textures": 12,
+     "version": 32
+    },
+    "dropdown_menu_ingame": {
+     "bytes": 367055,
+     "roundtrip": "ok",
+     "textures": 12,
+     "version": 32
+    },
+    "election_results_entry": {
+     "bytes": 629997,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "faction_flag_small": {
+     "bytes": 7703,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 21
+    },
+    "flag_display": {
+     "bytes": 2097494,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 9
+    },
+    "float_panel": {
+     "bytes": 6459,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 31
+    },
+    "games_list_entry": {
+     "bytes": 284044,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "general_purpose_pixel": {
+     "bytes": 336,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 25
+    },
+    "gentleman": {
+     "bytes": 455991,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "grey_hatched_pane": {
+     "bytes": 49300,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 20
+    },
+    "keys": {
+     "bytes": 290,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 28
+    },
+    "listview": {
+     "bytes": 15001,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 22
+    },
+    "loading_circle": {
+     "bytes": 396046,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 28
+    },
+    "minister_details": {
+     "bytes": 168709,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "minister_effect_cartouche": {
+     "bytes": 185476,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "minor_faction_button": {
+     "bytes": 17851,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 32
+    },
+    "mission_active_entry": {
+     "bytes": 268269,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "mission_history_entry": {
+     "bytes": 2199,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 31
+    },
+    "mp_postbattle_entry": {
+     "bytes": 206491,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "new_anc_entry": {
+     "bytes": 15637,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "new_trait_entry": {
+     "bytes": 7843,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "numerical_input": {
+     "bytes": 87403,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 33
+    },
+    "pip_group": {
+     "bytes": 2399,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 31
+    },
+    "post_battle_entry": {
+     "bytes": 109322,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "prebattle_portrait_tab": {
+     "bytes": 212906,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "ranking_bar": {
+     "bytes": 1227271,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "recruitment_effects_tooltip": {
+     "bytes": 43120,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "recruitments_list_box": {
+     "bytes": 1125,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 32
+    },
+    "region_info_pip": {
+     "bytes": 11345,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 29
+    },
+    "region_list_item": {
+     "bytes": 42733,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "religion_icon": {
+     "bytes": 11280,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 29
+    },
+    "req_item": {
+     "bytes": 318,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "results_details_row": {
+     "bytes": 316075,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 12
+    },
+    "row_entry_keyboard_shortcut": {
+     "bytes": 1682,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 28
+    },
+    "row_template_agent": {
+     "bytes": 3379,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "row_template_army": {
+     "bytes": 3667,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "row_template_naval": {
+     "bytes": 3698,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "row_template_region": {
+     "bytes": 140465,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "sabotage_entry": {
+     "bytes": 242554,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "selected_highlight": {
+     "bytes": 98812,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 26
+    },
+    "siege_equipment_counter": {
+     "bytes": 14974,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 27
+    },
+    "skill_pip": {
+     "bytes": 6729,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 16
+    },
+    "slider": {
+     "bytes": 5072,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 22
+    },
+    "sortable_list": {
+     "bytes": 129023,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "string": {
+     "bytes": 323,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "tab": {
+     "bytes": 61259,
+     "roundtrip": "ok",
+     "textures": 7,
+     "version": 27
+    },
+    "tax_breakdown_tooltip": {
+     "bytes": 14803,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "tech_advances_entry": {
+     "bytes": 3617,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "tech_entry": {
+     "bytes": 104621,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "tech_icon": {
+     "bytes": 95531,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 33
+    },
+    "tech_stealing_entry": {
+     "bytes": 100891,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "tech_stealing_icon": {
+     "bytes": 65980,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 29
+    },
+    "theatre_txt_button": {
+     "bytes": 944,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 16
+    },
+    "trade_route_row": {
+     "bytes": 4773,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "traits_ancs_entry": {
+     "bytes": 303744,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "turns": {
+     "bytes": 1905,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 33
+    },
+    "unit_ability_entry": {
+     "bytes": 2478,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "unit_list_icon": {
+     "bytes": 94710,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 28
+    },
+    "unit_trained_entry": {
+     "bytes": 189161,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 32
+    },
+    "unitcard_tooltip": {
+     "bytes": 38042,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "university": {
+     "bytes": 284097,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "vslider": {
+     "bytes": 12734,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 20
+    }
+   },
+   "sha256": "47c932368d94a3314598c338e2ba77f3e25bd9483c988c0d08d5ed8434081cfa"
+  },
+  "fonts_referenced": {
+   "empire": {
+    "Frontend 12, Normal": 2,
+    "Frontend 14, Normal": 34,
+    "Frontend 16, Normal": 113,
+    "Frontend 18, Normal": 520,
+    "Frontend 22, Normal": 212,
+    "Frontend 24, Normal": 81,
+    "Frontend 38, Normal": 56,
+    "Ingame 10, Normal": 1,
+    "Ingame 12, Bold": 55,
+    "Ingame 12, Normal": 12420,
+    "Ingame 14, Bold": 23,
+    "Ingame 14, Normal": 97,
+    "Ingame 16, Normal": 90,
+    "Ingame 18, Bold": 2,
+    "Ingame 18, Normal": 65,
+    "Ingame 24, Bold": 151,
+    "Ingame 24, Normal": 1488
+   },
+   "napoleon": {
+    "Frontend 14, Normal": 9,
+    "Frontend 16, Normal": 113,
+    "Frontend 18, Normal": 604,
+    "Frontend 22, Normal": 221,
+    "Frontend 24, Normal": 62,
+    "Frontend 38, Normal": 30,
+    "Ingame 10, Bold": 6,
+    "Ingame 10, Normal": 3,
+    "Ingame 12, Bold": 252,
+    "Ingame 12, Normal": 14556,
+    "Ingame 14, Bold": 25,
+    "Ingame 14, Normal": 112,
+    "Ingame 16, Bold": 1,
+    "Ingame 16, Normal": 131,
+    "Ingame 18, Bold": 2,
+    "Ingame 18, Normal": 74,
+    "Ingame 24, Bold": 58,
+    "Ingame 24, Normal": 2
+   }
+  },
+  "napoleon_layouts": {
+   "ui\\battle ui\\battle_deployables_panel": {
+    "bytes": 18908,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "568297ec5eb276b4bf102b6fb10af95fcdf3447e3bc8e0d9800e845251c4b577",
+    "version": 39
+   },
+   "ui\\battle ui\\battle_hud_flags": {
+    "bytes": 970,
+    "roundtrip": "ok",
+    "sha256": "615ee315c346be08cb616ebbc5bc6742e233a4753787c001368b156a935aee5f",
+    "version": 32
+   },
+   "ui\\battle ui\\building_tooltip": {
+    "bytes": 8121,
+    "roundtrip": "ok",
+    "sha256": "9a4f62cc54f5a02ef09dab90044408d41bfa0e89cca8833d394598bcca0c4ef9",
+    "version": 33
+   },
+   "ui\\battle ui\\combat_ratio": {
+    "bytes": 2466,
+    "roundtrip": "ok",
+    "sha256": "f96707291321f2a97ee0a34a0bdea3b988ac1212aa17b744f6ee3e5a1d2c75ef",
+    "version": 39
+   },
+   "ui\\battle ui\\countdown_win_timer": {
+    "bytes": 4227,
+    "roundtrip": "ok",
+    "sha256": "f681fdfad399bd13c596c89d98c22b53133fd7988a547f5463dc6fd085fea383",
+    "version": 33
+   },
+   "ui\\battle ui\\deployment_end": {
+    "bytes": 10291,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "b421d89f5b9a950a002ed12f2ce68433c699e5c117d1793f169ebaaec455fe7d",
+    "version": 39
+   },
+   "ui\\battle ui\\esc_menu_battle": {
+    "bytes": 29535,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "faa8bfd92b734fd5d1fb693125da2961f3db809530d51618796ba17822e01acd",
+    "version": 39
+   },
+   "ui\\battle ui\\in_battle_results_popup": {
+    "bytes": 12259,
+    "roundtrip": "ok",
+    "sha256": "cf46231196703c42375d01f59eb4536104688fe9254567de97503dc2e381ef3e",
+    "version": 33
+   },
+   "ui\\battle ui\\inspire_bling": {
+    "bytes": 1695,
+    "roundtrip": "ok",
+    "sha256": "53ab10778742b1275192c9ba8e29118de1993dfeeb5d20ef63befb73b065a4f1",
+    "version": 39
+   },
+   "ui\\battle ui\\land_battle_orders": {
+    "bytes": 86266,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "8f7e892aa10b772ee2ad3e6d04e270cf6224d2c57c5125bf1063537d9f9431e2",
+    "version": 39
+   },
+   "ui\\battle ui\\layout": {
+    "bytes": 29067,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "e1315a2b412ae54c88929dd01e22fc201ed1688752fb0dcd81171a9610d6b3a6",
+    "version": 39
+   },
+   "ui\\battle ui\\lb_unit_id": {
+    "bytes": 20322,
+    "roundtrip": "fail: error",
+    "sha256": "62a0b1509b74009392b1ac63eea790b07a6d84793b3164d9b1406e585e9f7d7c",
+    "version": 39
+   },
+   "ui\\battle ui\\minimised_hud": {
+    "bytes": 25643,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "ed1499316f872b115ce7524a9e56c2bc0539e5f45d7065d468a220ce73bcbd68",
+    "version": 39
+   },
+   "ui\\battle ui\\minimised_lb_orders": {
+    "bytes": 77381,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "31cbf1f5fb0f16ffbe8e565f0a4cf2c919a0fbfacdd5707299989e0f6fc4c470",
+    "version": 39
+   },
+   "ui\\battle ui\\minimised_nb_orders": {
+    "bytes": 72097,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "6f2f144cb93abe7b7ab2f3bbbe68e96e9522abbe447bb0fbbd1cab4ad17e32da",
+    "version": 39
+   },
+   "ui\\battle ui\\mp_postbattle": {
+    "bytes": 53601,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "e600861b8294b17a601f4b9225c015fbc2cdbeaab6d124c0f153062782b5d02e",
+    "version": 39
+   },
+   "ui\\battle ui\\naval_battle_orders": {
+    "bytes": 71275,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "5340b7245f6b630c5135d681dadcb0f1461743ce4a0629cca486a2f1aac60a51",
+    "version": 39
+   },
+   "ui\\battle ui\\nb_unit_id": {
+    "bytes": 8717,
+    "roundtrip": "ok",
+    "sha256": "ae9a773d8c4928b32c646556ec2b89da71a97a6cdef518313d9b50dc4cd065d8",
+    "version": 39
+   },
+   "ui\\battle ui\\options_game": {
+    "bytes": 15591,
+    "roundtrip": "ok",
+    "sha256": "56c08444f6cfbaecbed43300aeef44ca4848e0e423111ddb7fc3c16bfaf5a38c",
+    "version": 33
+   },
+   "ui\\battle ui\\pip_frame": {
+    "bytes": 1758,
+    "roundtrip": "ok",
+    "sha256": "0c290fabf667072a237f8658e0a406944a81c245c21d6a76e696f01be2aa5605",
+    "version": 39
+   },
+   "ui\\battle ui\\sp_victory_options": {
+    "bytes": 13552,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "26ca4cf40afdd1c5921fd21d86ca39d78e7487fd9bfdad52ce4275bd158bfeb0",
+    "version": 39
+   },
+   "ui\\battle ui\\special_tooltip": {
+    "bytes": 11852,
+    "roundtrip": "ok",
+    "sha256": "18c1b50a3a3348f951e00e533e1afb2a23ef4334478bdf8595c209ad6feb8e40",
+    "version": 39
+   },
+   "ui\\battle ui\\victory_tickets_panel": {
+    "bytes": 7989,
+    "roundtrip": "ok",
+    "sha256": "7340165962fd84d4dca39d2638727fb33dca55a21cc8b954b0df0d2842fafbf6",
+    "version": 33
+   },
+   "ui\\battle ui\\xp_bling": {
+    "bytes": 3094,
+    "roundtrip": "ok",
+    "sha256": "c2eb801af98946c24a09c7a8f60628c0e2b117e435a94adf042eb70406430c59",
+    "version": 39
+   },
+   "ui\\campaign ui\\agent_action": {
+    "bytes": 17514,
+    "roundtrip": "fail: error",
+    "sha256": "aaefd9c99e27f8e647ce181ec1e06c1e82714f88833f8dd9cb924fce5cb15f5f",
+    "version": 39
+   },
+   "ui\\campaign ui\\agent_options": {
+    "bytes": 51481,
+    "roundtrip": "fail: error",
+    "sha256": "a37569fa2fac2b82df4692487483045d5e5d3b86ee8f353e9bc29628f5f69df6",
+    "version": 39
+   },
+   "ui\\campaign ui\\building_browser": {
+    "bytes": 27715,
+    "roundtrip": "ok",
+    "sha256": "e9ecbef5eec4e746ccb26f565d7a0bb06fc746ce58c643d71dc76f720677a3de",
+    "version": 33
+   },
+   "ui\\campaign ui\\building_information": {
+    "bytes": 24021,
+    "roundtrip": "ok",
+    "sha256": "ceec50f2e0e171f67783e6f0af59ddd7f4db5417416e13c87a151f5852a01b2c",
+    "version": 33
+   },
+   "ui\\campaign ui\\button_timer": {
+    "bytes": 2214,
+    "roundtrip": "ok",
+    "sha256": "f93346c7b033f9c5548d6c32e14d6db4feff5c650495f17e09f1296cc96811a1",
+    "version": 39
+   },
+   "ui\\campaign ui\\campaign_result": {
+    "bytes": 13163,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "e545fac46173619a1c81129baa71422a908760205b867d5cf7bb98450fac5624",
+    "version": 39
+   },
+   "ui\\campaign ui\\character_information": {
+    "bytes": 30063,
+    "roundtrip": "fail: error",
+    "sha256": "6f3e70d351c87eacb31b1e5054d85b244d26eb8a3796c5c80fdf4b168de26d83",
+    "version": 39
+   },
+   "ui\\campaign ui\\city_info_bar": {
+    "bytes": 18166,
+    "roundtrip": "ok",
+    "sha256": "3e90f201d47a9bcba665a9585b71a09429ffc51566b3ddbe593a17c61ff29052",
+    "version": 39
+   },
+   "ui\\campaign ui\\diplomacy_panel": {
+    "bytes": 304745,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "3c81709a20d58da03ad3057bd6066e4edfe2bdf237652854fb4eb4ce6146adcc",
+    "version": 39
+   },
+   "ui\\campaign ui\\diplomatic_relations": {
+    "bytes": 62817,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "7036b9a7b811c826751bf4eda8a925a54d6e5a8c9a504020e77f65a0300fb5e8",
+    "version": 39
+   },
+   "ui\\campaign ui\\duel challenge received": {
+    "bytes": 40972,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "d80d256a5b2b64f81c961f82f038d3e7bde373fed5fb1a97f77b3ee7c33ac73a",
+    "version": 39
+   },
+   "ui\\campaign ui\\enlist_commander": {
+    "bytes": 39775,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "58299c2269f6385f77b4d0f4b56ffa48336925ea629413675d18ecedb7814a19",
+    "version": 39
+   },
+   "ui\\campaign ui\\enlist_commander_scripts\\enlist_commander_entry": {
+    "bytes": 9179,
+    "roundtrip": "ok",
+    "sha256": "7db6ae3c2e4d32611907382324aa125b5ae317b3ab3a283d8a485b49899488e3",
+    "version": 33
+   },
+   "ui\\campaign ui\\entity_lists": {
+    "bytes": 92618,
+    "roundtrip": "fail: error",
+    "sha256": "a565f089cb31117284c6cf7ca8236d8e8da6f1aa5010b5a858eaa3b6649afa5c",
+    "version": 39
+   },
+   "ui\\campaign ui\\esc_menu_campaign": {
+    "bytes": 36245,
+    "roundtrip": "fail: error",
+    "sha256": "cb9421e1bcfd525a3ceb43276bb798448e5577fe780b4d994ac29a677ee4079a",
+    "version": 39
+   },
+   "ui\\campaign ui\\event_message": {
+    "bytes": 13420,
+    "roundtrip": "ok",
+    "sha256": "26fb47d7cf0f4fbc2627a7f520d886c6a4625de6d79b17947875e64078a53a52",
+    "version": 33
+   },
+   "ui\\campaign ui\\event_movie_panel": {
+    "bytes": 6896,
+    "roundtrip": "ok",
+    "sha256": "91a12786b09f6d649bfcb7a28f464d3b59a5ea33c5cacaa6bba4df3fa6e5a643",
+    "version": 32
+   },
+   "ui\\campaign ui\\faction_hud_flags": {
+    "bytes": 975,
+    "roundtrip": "ok",
+    "sha256": "9a5eb13d4f2cbda12e0f06e8b920e18a39273fbb69072a9e8b672e6af8ef5a03",
+    "version": 32
+   },
+   "ui\\campaign ui\\friends_list": {
+    "bytes": 22132,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "822f487300a1cf786e37eb2095e1323b17df06c8343b845fa1a4fb8191b1b400",
+    "version": 39
+   },
+   "ui\\campaign ui\\government_screens": {
+    "bytes": 244562,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "dd0546a0aec9f47cbaed85e5665347ca9970b3a96973fb1b2b1cc23eceac98fe",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout": {
+    "bytes": 132180,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "73ef5ccd79b26a0985700ce146aa67a39e88df96872f8be13744be87fd94b212",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_agent_recruited": {
+    "bytes": 8324,
+    "roundtrip": "ok",
+    "sha256": "840f4c4e2e501c697ed42f2796d21608afc4d4582ce0dbef1204dbf0df81cda2",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_ally_attacked": {
+    "bytes": 28514,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "96ba493d39ac755913ef9fc1998a3337ff50584720c0bda94aa0fca2d81b7e17",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_assassination": {
+    "bytes": 9488,
+    "roundtrip": "ok",
+    "sha256": "ee66d49c98e69e1610d5da9a9cf3929c2727e7a4d697022597b6ba5b13578724",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_attrition_list": {
+    "bytes": 9823,
+    "roundtrip": "fail: error",
+    "sha256": "60b63d52564d12676af124a7fb1e5f6e11cf73ec7344c13a0379555abd3472ae",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_blockade": {
+    "bytes": 9604,
+    "roundtrip": "ok",
+    "sha256": "ff277364b0616df8cba4c3e913fcf15a622fcd061af14190a47d7f8e07932498",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_build_list": {
+    "bytes": 5860,
+    "roundtrip": "ok",
+    "sha256": "61b8ce33b8c77501d25b8902a9e5b14e695487842443f957b5c815aed2954d13",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_building_constructed": {
+    "bytes": 8765,
+    "roundtrip": "ok",
+    "sha256": "1f2d2a777fceef22589320fd7da389b782315cbbf3c366fd07a41fc37477463b",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_capital_lost": {
+    "bytes": 7884,
+    "roundtrip": "ok",
+    "sha256": "a2a7ada053c7832742465fd331e7b8aaf4240ef4d8584bd700aae13f1efce2c2",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_election_results": {
+    "bytes": 8071,
+    "roundtrip": "ok",
+    "sha256": "7eadd27a9d2b1848b142497717bfd03d87aa09239159f4a07f105578e2546301",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_marriage": {
+    "bytes": 10242,
+    "roundtrip": "ok",
+    "sha256": "3664682c91bdb998fb43df1696f1d38231a8cc2e0089b98bc2cd9d61e62dcbef",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_revolution": {
+    "bytes": 17070,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "d2e198d9063640e30b188821b76fe73d22b299ed22a093b2583c0abf79d03145",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_riots": {
+    "bytes": 8285,
+    "roundtrip": "ok",
+    "sha256": "68d7828fa39d531c9cef723096037e1771f08e985aacbafb45395f917c7d1ed6",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_sabotage": {
+    "bytes": 9462,
+    "roundtrip": "ok",
+    "sha256": "041da7ea0decf4385a223e76e69231f4b4f9ac73037500bb2a314ad13a31c6a4",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_standard": {
+    "bytes": 7831,
+    "roundtrip": "ok",
+    "sha256": "565c1626c21ea1a72a382c6d3d9a25225518c72f12d791dd6703001f2b917c55",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_tech_advances_list": {
+    "bytes": 7315,
+    "roundtrip": "ok",
+    "sha256": "6b02bcc284e9dd02d9c1c38fcd3fe1f98f2d6f970f5bee437d4c81221babb7ed",
+    "version": 33
+   },
+   "ui\\campaign ui\\layout_technology_advances": {
+    "bytes": 7999,
+    "roundtrip": "ok",
+    "sha256": "4df592c4d1828dd6f42503578ca4161ed580be406af7b4bf8c0a1d2b8f1e3b73",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_traits_anc_list": {
+    "bytes": 12680,
+    "roundtrip": "fail: error",
+    "sha256": "8533dd42382f4c6f6e90bcd32c6f780cdfc81b0bd253fe33cd3f815d75c48ac4",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_unit_recruited": {
+    "bytes": 9191,
+    "roundtrip": "ok",
+    "sha256": "9ef2096ee239540361cd8c3977c62f3ed6e56d03f38e749d7fba1f4eac13199e",
+    "version": 39
+   },
+   "ui\\campaign ui\\layout_unit_routs": {
+    "bytes": 7899,
+    "roundtrip": "ok",
+    "sha256": "9d0e5326513d4e322ce507abcfb830de9839c267234deeafa94e494986b0a58f",
+    "version": 30
+   },
+   "ui\\campaign ui\\load-save_game": {
+    "bytes": 35467,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "56b74fae263663bf4324f2c1f7a325d48908fff624f8b1605ed81d3d57f68e81",
+    "version": 39
+   },
+   "ui\\campaign ui\\move_options": {
+    "bytes": 22752,
+    "roundtrip": "fail: error",
+    "sha256": "72ff7893aab389c44a29f218eb3e1116bde1ac7ca9f477fdf564335dada2ea48",
+    "version": 39
+   },
+   "ui\\campaign ui\\objectives_screens": {
+    "bytes": 59032,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "11c5014481155a806b33665e9c28f61519abe3e49d1f166382034785f164a9a9",
+    "version": 39
+   },
+   "ui\\campaign ui\\options_game": {
+    "bytes": 45160,
+    "roundtrip": "fail: error",
+    "sha256": "0d0c3d16716a18ab195d3a57c845e1049470f27289875b83f026902fb317a8cf",
+    "version": 39
+   },
+   "ui\\campaign ui\\popup_battle_results": {
+    "bytes": 85624,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "4ecdfcea1f06efc4df89605b5c138c5d438ad8e28699fc6c9678e89a9ece26f4",
+    "version": 39
+   },
+   "ui\\campaign ui\\popup_pre_battle": {
+    "bytes": 93054,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "0fa0b23212c96610522286fc37563985e2027df9ffb917b412e3f6ce7f36d64e",
+    "version": 39
+   },
+   "ui\\campaign ui\\region_details": {
+    "bytes": 75572,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "4d9d99f8bbae896f1306338f694ebe2c3f062bb9003547708180c2701217a348",
+    "version": 39
+   },
+   "ui\\campaign ui\\royal_family": {
+    "bytes": 15703,
+    "roundtrip": "ok",
+    "sha256": "173bcd51010da3c79d4242254d6a45316ac9cc5d1f8f52b3df0e94373f9ed903",
+    "version": 32
+   },
+   "ui\\campaign ui\\settlement_captured": {
+    "bytes": 52887,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "ad2a238b72c0d3adff7bdc163c3cc6f2b97b76094e7bb7f50275f626d2b14846",
+    "version": 39
+   },
+   "ui\\campaign ui\\technology": {
+    "bytes": 46731,
+    "roundtrip": "fail: error",
+    "sha256": "e9036335538437b75aad29af49ac3b959cd4b578a165c86756525858454810f7",
+    "version": 39
+   },
+   "ui\\campaign ui\\travel_destinations": {
+    "bytes": 34343,
+    "roundtrip": "ok",
+    "sha256": "1cab8fc5e9a48d306e7c54a7a5e487a06eea98dc86ea09a17fad3121ee5f67cc",
+    "version": 33
+   },
+   "ui\\campaign ui\\unit_exchange": {
+    "bytes": 30776,
+    "roundtrip": "fail: error",
+    "sha256": "6f26e480a280d0d5141df2b84a2f813d295b07467b00df592d6f33bcf8500719",
+    "version": 39
+   },
+   "ui\\common ui\\advice_interface": {
+    "bytes": 18768,
+    "roundtrip": "fail: error",
+    "sha256": "385c1e7b74f1ba5939796c39cb55fc4a0b251e86c18b3a0f8b3ad173a9b0d909",
+    "version": 39
+   },
+   "ui\\common ui\\dialog_ok": {
+    "bytes": 6809,
+    "roundtrip": "ok",
+    "sha256": "b713e3d97bbe12bf04c848eeb5c703cd9644cfc5585e67eaca9c40dce1488bd0",
+    "version": 29
+   },
+   "ui\\common ui\\dialog_yes_no": {
+    "bytes": 8236,
+    "roundtrip": "ok",
+    "sha256": "5a3b4d2336f3d3ba6a8dd35b12ed7e57dd58a31c54307e1cacca5fae16e3114d",
+    "version": 29
+   },
+   "ui\\common ui\\dialogue_box": {
+    "bytes": 11567,
+    "roundtrip": "ok",
+    "sha256": "804d6cce11d1eb28ee6aa48fa19270f7bb511c9f4d68e466d238988db612f0d7",
+    "version": 33
+   },
+   "ui\\common ui\\menu_bar": {
+    "bytes": 40065,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "334968b5e568ad7ddc07871d3adc12b303e40bf5353a6f9ae8fcaf530f6b4f50",
+    "version": 39
+   },
+   "ui\\common ui\\mp_dialogue_box": {
+    "bytes": 11586,
+    "roundtrip": "ok",
+    "sha256": "2bcbd81111c0b46c520e4607a1b6ef9f8e7f3eb8694b507bad2228fdad3f7ba1",
+    "version": 33
+   },
+   "ui\\common ui\\mp_message_box": {
+    "bytes": 2095,
+    "roundtrip": "ok",
+    "sha256": "14bf5f8b6d74e63c97bc6d5270c44f99c6fa1da9391e4beb67f32bb62b21b228",
+    "version": 33
+   },
+   "ui\\common ui\\multiplayer_chat": {
+    "bytes": 16715,
+    "roundtrip": "fail: error",
+    "sha256": "0447eb3373929b747b57998c8b352e589e088b02b2d32cee42783329aeeebe33",
+    "version": 39
+   },
+   "ui\\common ui\\multiplayer_player_list": {
+    "bytes": 17954,
+    "roundtrip": "fail: error",
+    "sha256": "0f6fbed5b3ca6a8fac0569718e907ae537681163d25feeeffc015e5e64c79dc1",
+    "version": 39
+   },
+   "ui\\common ui\\options_audio": {
+    "bytes": 110025,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "34065975668f6d1a744363a3b124aa16670da51108e95af38c392439c3ffa06b",
+    "version": 39
+   },
+   "ui\\common ui\\options_controls": {
+    "bytes": 72810,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "684696465e93bee43a914cc4fedea294637afaae71606513d69f4f05408ee76e",
+    "version": 39
+   },
+   "ui\\common ui\\options_gamma": {
+    "bytes": 16999,
+    "roundtrip": "ok",
+    "sha256": "a619bfc530b90e7a563f8577410e5c358c39d861ebfd9c7e00cea11feff01bac",
+    "version": 33
+   },
+   "ui\\common ui\\options_graphics": {
+    "bytes": 119330,
+    "roundtrip": "fail: error",
+    "sha256": "e8e76d5a8702878536a967dc9a49dab215039ac33c4817335b2f0fcb6a702b56",
+    "version": 39
+   },
+   "ui\\common ui\\options_ui": {
+    "bytes": 58820,
+    "roundtrip": "fail: error",
+    "sha256": "9a71ab49425a4841ff0cec6fddd242f065d5b5e4c13788b7eb06c045573fc30c",
+    "version": 39
+   },
+   "ui\\common ui\\panel_dropin_requester": {
+    "bytes": 10845,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "fb798b2dfc6c54e5e178e1fcfaef25b647a6a2b5219f0c793df015f4f1718751",
+    "version": 39
+   },
+   "ui\\common ui\\paused_panel": {
+    "bytes": 3946,
+    "roundtrip": "ok",
+    "sha256": "3ba54d4c219864f895c47c69fc243fe8f49af3c32dffa7041ac71c03d05a828d",
+    "version": 39
+   },
+   "ui\\common ui\\unit_information": {
+    "bytes": 137309,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "8a979b5f818fd2e3a5d37acf77c137d9b00ffbfec8b3c511aa22306432cd7cab",
+    "version": 39
+   },
+   "ui\\common ui\\waiting_for_players": {
+    "bytes": 3662,
+    "roundtrip": "ok",
+    "sha256": "d82e62509589d7c0b86671852179ba4d05cd86c4c88cc46d381963088b476fc3",
+    "version": 39
+   },
+   "ui\\frontend ui\\credits": {
+    "bytes": 5480,
+    "roundtrip": "ok",
+    "sha256": "20b6ec98deccf82bcebbfc6c31bc6fb4401b9e0bae30705e4561d3fa279335a9",
+    "version": 33
+   },
+   "ui\\frontend ui\\demo_movies": {
+    "bytes": 765,
+    "roundtrip": "ok",
+    "sha256": "0242cb128ca457e49f9fb7bdc63d50e7b8489abd198b11221acf23dc26d65b98",
+    "version": 33
+   },
+   "ui\\frontend ui\\demo_sp_tutorials": {
+    "bytes": 14817,
+    "roundtrip": "ok",
+    "sha256": "562e33105463d12b1499941d0f26d291b642c3fcdfae9e9902e854bd664d196b",
+    "version": 33
+   },
+   "ui\\frontend ui\\faction_selection_big": {
+    "bytes": 20608,
+    "roundtrip": "ok",
+    "sha256": "d5fd357ea7d0dba544ffb2ea81253bebca0492aa6d730e99312718adbbb589a6",
+    "version": 32
+   },
+   "ui\\frontend ui\\faction_selection_historical": {
+    "bytes": 13921,
+    "roundtrip": "ok",
+    "sha256": "eae3bb59df4de2f8ceb198c76c1bf12444d2e36c4240958797e7a33b1497e6ab",
+    "version": 33
+   },
+   "ui\\frontend ui\\faction_selection_small": {
+    "bytes": 17917,
+    "roundtrip": "ok",
+    "sha256": "b023bbb69c47a81c67d755579c12401683073014f5457df0d7992c722f987d8b",
+    "version": 33
+   },
+   "ui\\frontend ui\\file_requester": {
+    "bytes": 19333,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "ed925e4d8e3d0b717905e3b533c1e3f6c8be8ec3e14458181fd4f67e8664c826",
+    "version": 39
+   },
+   "ui\\frontend ui\\grand_campaign": {
+    "bytes": 88175,
+    "roundtrip": "fail: error",
+    "sha256": "0d19e0f411a580314270262b6f0bcd001543c381581329e7e255af53ad6be6d9",
+    "version": 39
+   },
+   "ui\\frontend ui\\host_campaign_popup": {
+    "bytes": 14767,
+    "roundtrip": "ok",
+    "sha256": "864b29170bcbf898e394bd257d9940b7ac88a22aa5d8e27edd3fe66db427402a",
+    "version": 33
+   },
+   "ui\\frontend ui\\layout": {
+    "bytes": 2011,
+    "roundtrip": "ok",
+    "sha256": "f2265b5681cc98fca7fc10b71c8b9fb0bd672369f69dc230fac495286510bd97",
+    "version": 33
+   },
+   "ui\\frontend ui\\load_replay": {
+    "bytes": 26297,
+    "roundtrip": "ok",
+    "sha256": "9c024bc0908ab62fec58f30dd8ceed6c32b71452c7c3d9baf27c7ed74f694af0",
+    "version": 33
+   },
+   "ui\\frontend ui\\lobby_chat": {
+    "bytes": 39722,
+    "roundtrip": "fail: error",
+    "sha256": "102ca088a198705a8aa52580767658da8ac1304f46b65d62077da549ea619837",
+    "version": 39
+   },
+   "ui\\frontend ui\\main": {
+    "bytes": 87407,
+    "roundtrip": "fail: error",
+    "sha256": "75b114dce4d5bb845279518e1cc9c8ec0977b16a9b1b44e53c425a22636ad15c",
+    "version": 39
+   },
+   "ui\\frontend ui\\message_box": {
+    "bytes": 9420,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "fb47ab8917c4871b67255af7597e5244d2f4824ba72c2b0e00179f4def93ccfc",
+    "version": 39
+   },
+   "ui\\frontend ui\\mp_battle1": {
+    "bytes": 22506,
+    "roundtrip": "ok",
+    "sha256": "1b3f48f434d8008472ad04b0e7ceeae7cc4edd273a701a1e3c60cee9a317ca03",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_battle2": {
+    "bytes": 107734,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "59af9ef86ed118678fcc2e158051388dc569d0258ca67ea9ab909c4cdd1864e2",
+    "version": 39
+   },
+   "ui\\frontend ui\\mp_battle2_scenario": {
+    "bytes": 65476,
+    "roundtrip": "ok",
+    "sha256": "98a3d037d2ed72a77b49dc9ea889a14e140fa8732237781768885571bec9fd63",
+    "version": 33
+   },
+   "ui\\frontend ui\\mp_battle3": {
+    "bytes": 132929,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "5b9359c10f9bbc5d8eb8e032bfeff3bb4e00fbba737bc2274d653e4134e2e847",
+    "version": 39
+   },
+   "ui\\frontend ui\\mp_battle3_scenario": {
+    "bytes": 94217,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "787bafdb76a1460d5f2323cb8a2e5fa97403c6821658f2f563e42f9832ef5edb",
+    "version": 39
+   },
+   "ui\\frontend ui\\mp_grand_campaign": {
+    "bytes": 135037,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "bcf739bb274e786a130d03a59bbad9662c0879bfb8b06101f1ebf2d351e7a17e",
+    "version": 39
+   },
+   "ui\\frontend ui\\mp_load_game": {
+    "bytes": 30837,
+    "roundtrip": "fail: error",
+    "sha256": "63e224b9d0adb8aff4c0993221947b6e2b7e3aa6f376a81443a7560a736a89c6",
+    "version": 39
+   },
+   "ui\\frontend ui\\multiplayer_lan": {
+    "bytes": 128737,
+    "roundtrip": "fail: error",
+    "sha256": "31d80840061f1a9ba9ac506b5e52045c3dd5bae019c13adb63c317e4ac65d4a7",
+    "version": 39
+   },
+   "ui\\frontend ui\\multiplayer_online": {
+    "bytes": 160874,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "528dde0f024e645dedde9c14e2e54b40afd137cd53807571368eb3cb16fb2b1b",
+    "version": 39
+   },
+   "ui\\frontend ui\\napoleon_battles": {
+    "bytes": 82164,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "fb8bb8edb66e11131a14eb1c6ee3d9da7821a4fe2d2b3ef1beaa0a265fd2ece9",
+    "version": 39
+   },
+   "ui\\frontend ui\\options": {
+    "bytes": 429771,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "7677c8279f21dc4ea216a95e3111c76ca9ecdd801f024c8adde94c9de9b7e1e1",
+    "version": 39
+   },
+   "ui\\frontend ui\\password_entry": {
+    "bytes": 6709,
+    "roundtrip": "ok",
+    "sha256": "215d9ecef2a1ddb6b424c1374b3b52123ac8dd3291cc96b746c48f29cc2ca7a1",
+    "version": 33
+   },
+   "ui\\frontend ui\\player_stats": {
+    "bytes": 33217,
+    "roundtrip": "fail: error",
+    "sha256": "ec4422d8736f6b1b4a1c93a90c365fa3bef0c72ec12261155e37fb9f242ec4d9",
+    "version": 39
+   },
+   "ui\\frontend ui\\quickbattle_popup": {
+    "bytes": 11225,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "377058c69f138275bdc56cc9bc54a6279845b1a805033841ce8be97415c50560",
+    "version": 39
+   },
+   "ui\\frontend ui\\session_chat": {
+    "bytes": 14810,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "9948c6c9f167786088c8d101b1801ad4d6ab3f3487da03a5d39bd5534dce8d7e",
+    "version": 39
+   },
+   "ui\\frontend ui\\single_player": {
+    "bytes": 18352,
+    "roundtrip": "ok",
+    "sha256": "caca4c54f80eb1e2516765f3f0e3197ae58baa557e4c8aa9addec588f8f248f4",
+    "version": 28
+   },
+   "ui\\frontend ui\\sp_battle1": {
+    "bytes": 28347,
+    "roundtrip": "fail: error",
+    "sha256": "560522b32f1c39448f77cc93c08422cb3b8da24c2a3326c2bfbf1d7b078d9711",
+    "version": 39
+   },
+   "ui\\frontend ui\\sp_battle2": {
+    "bytes": 77372,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "917784404cd3eebfe85a4b417037c28d9780e71648ab5e3ac96389a5b954e827",
+    "version": 39
+   },
+   "ui\\frontend ui\\sp_battle2_scenario": {
+    "bytes": 44408,
+    "roundtrip": "ok",
+    "sha256": "fecbaea2643cbc819b08dbe8b932a0b862c20b87bb6a9b2c1b8e53f01614a792",
+    "version": 33
+   },
+   "ui\\frontend ui\\sp_battle3": {
+    "bytes": 106910,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "6d6f341a7cd79986082d6166fd7f771eb00c6a663d685ac7477da9068fe80f60",
+    "version": 39
+   },
+   "ui\\frontend ui\\sp_battle3_scenario": {
+    "bytes": 34703,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "c6eb84c1bbbef71dfbca3ab10702bf079c003a41f739cfb422e5eeba40babda7",
+    "version": 39
+   },
+   "ui\\frontend ui\\sp_episodic_campaign": {
+    "bytes": 42624,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "3e2c896087bb2745ee877928d377dc32e088de35b7717e8fce025c6c872b4704",
+    "version": 39
+   },
+   "ui\\frontend ui\\sp_load_game": {
+    "bytes": 30757,
+    "roundtrip": "fail: error",
+    "sha256": "c86e2e87e4b29d8b648f90ee862f34fde5c6c1d34b5dc293f184fb1ffe4d1816",
+    "version": 39
+   },
+   "ui\\frontend ui\\sp_tutorials": {
+    "bytes": 24570,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "88672b4d576b064396e56f9df8f8c04b1cb852a8c587fb1068c15bd8f74288c7",
+    "version": 39
+   },
+   "ui\\frontend ui\\spain_grand_campaign": {
+    "bytes": 91443,
+    "roundtrip": "fail: error",
+    "sha256": "ca59d5707e26c3a835469e410c226c63a2d5b6a10b11b399d813fbc21193a7e6",
+    "version": 39
+   },
+   "ui\\frontend ui\\spain_main": {
+    "bytes": 90189,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "de3e07bca80ab5133002f52c5983a20f0d911c76eeef5b15ec41ddd60bbd67a1",
+    "version": 39
+   },
+   "ui\\templates\\assassination_entry": {
+    "bytes": 9842,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "dd8f6937d1bf06fd9a3dd4d60a01e374f59c927f328d8811e98711bf03f4a204",
+    "version": 39
+   },
+   "ui\\templates\\battle_results_team_entry": {
+    "bytes": 9680,
+    "roundtrip": "ok",
+    "sha256": "efe2b4af34a5b28740538c87148ae8fbd90b36738c32e76f8ac241b05ad136be",
+    "version": 39
+   },
+   "ui\\templates\\battleunitcard": {
+    "bytes": 22810,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "cf99739dbdb10ef4b90b7b01a040eda69d4008a40fa4c7e6183bd8282388dcbb",
+    "version": 39
+   },
+   "ui\\templates\\building_info_build_entry": {
+    "bytes": 5067,
+    "roundtrip": "ok",
+    "sha256": "9170e37e6434b0d5e980aae2402be09be969eceb2641088f1484ee5e68848f38",
+    "version": 39
+   },
+   "ui\\templates\\building_info_generic_entry": {
+    "bytes": 1315,
+    "roundtrip": "ok",
+    "sha256": "8464c2a410d970992131d55a5d4e930bd4706c7bd74b8ae10620112c2ad8de4c",
+    "version": 39
+   },
+   "ui\\templates\\building_info_recruitment_effects": {
+    "bytes": 30140,
+    "roundtrip": "ok",
+    "sha256": "0516b42a75e66184ac19ef208550e74169fa69b38d3d5c83d6beaaf0521403a4",
+    "version": 39
+   },
+   "ui\\templates\\building_info_tech_entry": {
+    "bytes": 3341,
+    "roundtrip": "ok",
+    "sha256": "8aa2a69a5494f3b1bdc0ac9a1e1f3aeaac183079de2981f5fabfdd439a3b220d",
+    "version": 39
+   },
+   "ui\\templates\\buildingframe": {
+    "bytes": 15982,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "b5300649377a87ef1d3a4fdcf0581065519f3c2fd0773dafd27f029909e0d0a5",
+    "version": 39
+   },
+   "ui\\templates\\campaign_map_tooltip": {
+    "bytes": 2640,
+    "roundtrip": "ok",
+    "sha256": "d5e634a4223363db167a4b37e912041351cb70b67e9cb21c789e5d7e64850c1e",
+    "version": 39
+   },
+   "ui\\templates\\campaigncharactercard": {
+    "bytes": 7705,
+    "roundtrip": "fail: error",
+    "sha256": "df1a86cf3a07275ee2d381be745defc5f19f126003c3b2abb0a5abf5b65cdf0c",
+    "version": 39
+   },
+   "ui\\templates\\campaignunitcard": {
+    "bytes": 20773,
+    "roundtrip": "fail: error",
+    "sha256": "12a0ec33a4d54ed79c0eb7c5a0f80855d08053d7fda56ec35a95ad1de08c041c",
+    "version": 39
+   },
+   "ui\\templates\\character_duel_info_pane": {
+    "bytes": 11745,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "0b2e5dd541ccc538143f12828fcd58259f5e2bdef04363968f9d6c69bdc83bea",
+    "version": 39
+   },
+   "ui\\templates\\character_trait_entry": {
+    "bytes": 1256,
+    "roundtrip": "ok",
+    "sha256": "785ac772f849412d3dcdf0f88d4f64be353ee0e6954c39b63f7bb9aca7bb154b",
+    "version": 39
+   },
+   "ui\\templates\\construction_item_tooltip": {
+    "bytes": 12966,
+    "roundtrip": "ok",
+    "sha256": "7afb70fb9d9e838edc07b32b9e5d09a24a026327159a8fddaf7e7e13989337b9",
+    "version": 39
+   },
+   "ui\\templates\\diplomacy_button": {
+    "bytes": 18243,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "48dcb082d1f8976951d94a970cab9615148dccf555ae530f61b6642cd3967e82",
+    "version": 39
+   },
+   "ui\\templates\\diplomacy_item_regions": {
+    "bytes": 4703,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "c6b9de667817a2384026c1ce5c6911fa4bc913f17fb43047dc6d98b526198bda",
+    "version": 39
+   },
+   "ui\\templates\\diplomacy_item_text": {
+    "bytes": 2961,
+    "roundtrip": "fail: error",
+    "sha256": "af4a8a2d06b037e16caebf65b4c5d7b8fa54d878cf1b4dc22712c952137389ee",
+    "version": 39
+   },
+   "ui\\templates\\diplomacy_region_tooltip": {
+    "bytes": 8843,
+    "roundtrip": "ok",
+    "sha256": "0d22231f5edd2b0cea09de4e526e20b84588d4c4818e60fa5217937d7f8f9f2a",
+    "version": 39
+   },
+   "ui\\templates\\gentleman": {
+    "bytes": 7539,
+    "roundtrip": "ok",
+    "sha256": "803b671076107b264db8faf9cf7231999da86c69c52641b39fddc8538011bfc9",
+    "version": 39
+   },
+   "ui\\templates\\messageicon": {
+    "bytes": 4091,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "ab151f20f4b05c473c857a08b41ab09305c0beeeec0ff2a94a432fe7a4ec9c07",
+    "version": 39
+   },
+   "ui\\templates\\minister_tooltip": {
+    "bytes": 14841,
+    "roundtrip": "ok",
+    "sha256": "149907d3398900f8c808b26f81ab4064a8abe428dddd22f9b2ed902d0553f191",
+    "version": 39
+   },
+   "ui\\templates\\mission_active_entry": {
+    "bytes": 6409,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "fe2c74cefc71b024719a1b5aa1f292445530b995be25c083f0ee245aedf17209",
+    "version": 39
+   },
+   "ui\\templates\\mp_postbattle_entry": {
+    "bytes": 12848,
+    "roundtrip": "ok",
+    "sha256": "c4e24049e306cb479462ae67e97c5e3e12170fc4c96197a525749b776745c1b3",
+    "version": 39
+   },
+   "ui\\templates\\prebattle_portrait_tab": {
+    "bytes": 2021,
+    "roundtrip": "ok",
+    "sha256": "beecd67f192f7fffe8a4e75b894c9839cea6cec0f0a9a34d018a9bbca957e137",
+    "version": 39
+   },
+   "ui\\templates\\recruitment_effects_tooltip": {
+    "bytes": 5380,
+    "roundtrip": "ok",
+    "sha256": "efe26b1803f6c6ef8959e5d9ffa9866538eddd1278bebaf340331cca2c2b6fdf",
+    "version": 39
+   },
+   "ui\\templates\\recruitmentcard": {
+    "bytes": 10878,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "be60f80e776130ebb4691923f997d635aa4f304c49e26793a67ae8158c420f75",
+    "version": 39
+   },
+   "ui\\templates\\region_list_item": {
+    "bytes": 4073,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "64d31bbcc5b05a0319f0f12a78ee4abd84a80fe311ccc08643c07b02b57e9317",
+    "version": 39
+   },
+   "ui\\templates\\row_template_region": {
+    "bytes": 7494,
+    "roundtrip": "fail: error",
+    "sha256": "25e9df929c3823b8f6097a07454ffda472b99a39fef05763a2e87a7343063353",
+    "version": 39
+   },
+   "ui\\templates\\sabotage_entry": {
+    "bytes": 9886,
+    "roundtrip": "fail: AssertionError",
+    "sha256": "eafef710dce18ef4d8f32509b2a548bb346e1009424b60042f079ff422f3cd60",
+    "version": 39
+   },
+   "ui\\templates\\tax_breakdown_tooltip": {
+    "bytes": 6763,
+    "roundtrip": "ok",
+    "sha256": "790289b97ce5c1d64736112fbacbfe862369f5b19dc3435002eaa9b303c608fe",
+    "version": 39
+   },
+   "ui\\templates\\tech_icon": {
+    "bytes": 3868,
+    "roundtrip": "ok",
+    "sha256": "3f01e29c87630d3047f875798f1f1310c6446974a27b901b0e36eb7b625d0707",
+    "version": 39
+   },
+   "ui\\templates\\tech_tooltip": {
+    "bytes": 5463,
+    "roundtrip": "ok",
+    "sha256": "95e2d0eec40a377d83b53114e83ddea36700f3f5407ff587ba96ab98f244989a",
+    "version": 39
+   },
+   "ui\\templates\\tech_tooltip2": {
+    "bytes": 10470,
+    "roundtrip": "ok",
+    "sha256": "20e9a23a77f1b40b4856b95280c32510c8fb78fd7389793828060df5d34e2d61",
+    "version": 39
+   },
+   "ui\\templates\\techtreeitem_tooltip": {
+    "bytes": 17567,
+    "roundtrip": "ok",
+    "sha256": "508fceb985d41d2c8cdf2ae8ec97edc9a90dc02b222e101eb2d9598d75e6b642",
+    "version": 39
+   },
+   "ui\\templates\\tooltip": {
+    "bytes": 3303,
+    "roundtrip": "ok",
+    "sha256": "1289adc67a3ee6a2476ecc4dc3894bb0364f38e964d64166caa5bbc98698b1f6",
+    "version": 39
+   },
+   "ui\\templates\\traderouteentry": {
+    "bytes": 6363,
+    "roundtrip": "ok",
+    "sha256": "e281a745051d78bc29317d5b6b52208280233f509d103213ad354c7bf1960ada",
+    "version": 39
+   },
+   "ui\\templates\\unitcard_tooltip": {
+    "bytes": 13709,
+    "roundtrip": "ok",
+    "sha256": "4b2bc8470f2fade6620e26e368919a093394dab0a9ec20f15595394a6585cc5f",
+    "version": 39
+   },
+   "ui\\templates\\unitgroupframe": {
+    "bytes": 9028,
+    "roundtrip": "ok",
+    "sha256": "471d7267c737985509b6017571f24f64f483c7992a7d6598dd3a7bcc82ef9777",
+    "version": 39
+   },
+   "ui\\templates\\unitgrouptab": {
+    "bytes": 4406,
+    "roundtrip": "ok",
+    "sha256": "13de25e1d63a4779338cec1002089a78e7625dbe08e715b179e641d162f9ca41",
+    "version": 39
+   },
+   "ui\\templates\\university": {
+    "bytes": 8438,
+    "roundtrip": "fail: UnicodeDecodeError",
+    "sha256": "97b61385d981fd4ad2fd24744abe18229e6cb2cc5c9ab6edbe71bbd87bdc90c6",
+    "version": 39
+   }
+  },
+  "napoleon_loose_ui_layouts": "none: data\\UI holds only .tga, .cur, .ani and uied.templates (packs.json detail.napoleon_loose)",
+  "napoleon_templates": {
+   "bytes": 10408135,
+   "file": "data\\ui\\templates\\uied.templates (loose)",
+   "records": {
+    "ArmedCitizenryCard": {
+     "bytes": 52257,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "BattleEditor": {
+     "bytes": 51075,
+     "roundtrip": "fail: error",
+     "textures": 0,
+     "version": 4
+    },
+    "BattleUnitCard": {
+     "bytes": 231785,
+     "roundtrip": "fail: error",
+     "textures": 5,
+     "version": 39
+    },
+    "BuildingFrame": {
+     "bytes": 714438,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "ButtonGroup": {
+     "bytes": 101931,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "CampaignCharacterCard": {
+     "bytes": 172432,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "CampaignShipCard": {
+     "bytes": 218037,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 30
+    },
+    "CampaignUnitCard": {
+     "bytes": 273079,
+     "roundtrip": "fail: error",
+     "textures": 3,
+     "version": 39
+    },
+    "Cursor": {
+     "bytes": 31112,
+     "roundtrip": "fail: UnicodeDecodeError",
+     "textures": 7,
+     "version": 18
+    },
+    "Diplomacy_region_tooltip": {
+     "bytes": 40369,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "Duellist": {
+     "bytes": 108206,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 16
+    },
+    "FactionFlag": {
+     "bytes": 524813,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 10
+    },
+    "FamilyTreeCard": {
+     "bytes": 116648,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 30
+    },
+    "InputWindow": {
+     "bytes": 670,
+     "roundtrip": "fail: error",
+     "textures": 0,
+     "version": 4
+    },
+    "MessageIcon": {
+     "bytes": 100603,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "Minister_tooltip": {
+     "bytes": 103447,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "RecruitmentCard": {
+     "bytes": 292805,
+     "roundtrip": "ok",
+     "textures": 10,
+     "version": 33
+    },
+    "RecruitmentCard_siege": {
+     "bytes": 127884,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 27
+    },
+    "ReviewPanelTab": {
+     "bytes": 30707,
+     "roundtrip": "fail: error",
+     "textures": 2,
+     "version": 35
+    },
+    "SiegeEquipmentCard": {
+     "bytes": 134438,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 27
+    },
+    "TabGroup": {
+     "bytes": 33973,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 28
+    },
+    "TechTreeItem_Tooltip": {
+     "bytes": 108275,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "Tech_tooltip": {
+     "bytes": 8046,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "Tech_tooltip2": {
+     "bytes": 71087,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "TextView": {
+     "bytes": 5625,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "Tooltip": {
+     "bytes": 5902,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "TradeRouteEntry": {
+     "bytes": 16910,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "UnitGroupFrame": {
+     "bytes": 9883,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 30
+    },
+    "UnitGroupTab": {
+     "bytes": 38253,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 27
+    },
+    "advice_mouse_events": {
+     "bytes": 328,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "ai_turns": {
+     "bytes": 1292115,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "assassination_entry": {
+     "bytes": 179320,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 32
+    },
+    "attrition_entry": {
+     "bytes": 76881,
+     "roundtrip": "fail: error",
+     "textures": 0,
+     "version": 35
+    },
+    "attrition_general_entry": {
+     "bytes": 76899,
+     "roundtrip": "fail: error",
+     "textures": 0,
+     "version": 35
+    },
+    "battle_chat_advisory_entry": {
+     "bytes": 254,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "battle_chat_postbattle_entry": {
+     "bytes": 256,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "battle_prep_row_entry": {
+     "bytes": 30543,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "battle_results_team_entry": {
+     "bytes": 136631,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "box_selection": {
+     "bytes": 1156,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 32
+    },
+    "building_browser_entry": {
+     "bytes": 189131,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "building_browser_node": {
+     "bytes": 25561,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "building_constructed_entry": {
+     "bytes": 38220,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "building_info_build_entry": {
+     "bytes": 157148,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 30
+    },
+    "building_info_generic_entry": {
+     "bytes": 993,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "building_info_recruitment_effects": {
+     "bytes": 693163,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "building_info_tech_entry": {
+     "bytes": 7226,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 30
+    },
+    "button_advice": {
+     "bytes": 19856,
+     "roundtrip": "ok",
+     "textures": 4,
+     "version": 17
+    },
+    "button_close": {
+     "bytes": 14978,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 17
+    },
+    "button_standard": {
+     "bytes": 45995,
+     "roundtrip": "ok",
+     "textures": 4,
+     "version": 20
+    },
+    "button_toggle": {
+     "bytes": 21968,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 28
+    },
+    "campaign_map_icon": {
+     "bytes": 3255,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 32
+    },
+    "campaign_map_tooltip": {
+     "bytes": 66432,
+     "roundtrip": "ok",
+     "textures": 11,
+     "version": 33
+    },
+    "character_duel_info_pane": {
+     "bytes": 194093,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "character_info_list_entry": {
+     "bytes": 85100,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 26
+    },
+    "character_trait_entry": {
+     "bytes": 5073,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "checkbox": {
+     "bytes": 12196,
+     "roundtrip": "ok",
+     "textures": 5,
+     "version": 22
+    },
+    "construction_item_tooltip": {
+     "bytes": 96636,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "dialogue_box": {
+     "bytes": 442641,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "diplomacy_allies_list_item": {
+     "bytes": 2764,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 22
+    },
+    "diplomacy_button": {
+     "bytes": 107611,
+     "roundtrip": "fail: error",
+     "textures": 6,
+     "version": 35
+    },
+    "diplomacy_item_regions": {
+     "bytes": 31168,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "diplomacy_item_text": {
+     "bytes": 18847,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "diplomatic_relations_row": {
+     "bytes": 30660,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "dropdown_menu": {
+     "bytes": 33115,
+     "roundtrip": "ok",
+     "textures": 12,
+     "version": 32
+    },
+    "dropdown_menu_ingame": {
+     "bytes": 98051,
+     "roundtrip": "ok",
+     "textures": 12,
+     "version": 32
+    },
+    "election_results_entry": {
+     "bytes": 176961,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "faction_flag_small": {
+     "bytes": 2231,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 21
+    },
+    "flag_display": {
+     "bytes": 524630,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 9
+    },
+    "float_panel": {
+     "bytes": 2943,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 31
+    },
+    "games_list_entry": {
+     "bytes": 78340,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 33
+    },
+    "general_purpose_pixel": {
+     "bytes": 336,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 25
+    },
+    "gentleman": {
+     "bytes": 120639,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "grey_hatched_pane": {
+     "bytes": 14308,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 20
+    },
+    "keys": {
+     "bytes": 292,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 28
+    },
+    "listview": {
+     "bytes": 6901,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 22
+    },
+    "loading_circle": {
+     "bytes": 101134,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 28
+    },
+    "minister_details": {
+     "bytes": 43023,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 20
+    },
+    "minister_effect_cartouche": {
+     "bytes": 47523,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 20
+    },
+    "minor_faction_button": {
+     "bytes": 5995,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 32
+    },
+    "mission_active_entry": {
+     "bytes": 71805,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "mission_history_entry": {
+     "bytes": 2175,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 31
+    },
+    "mp_postbattle_entry": {
+     "bytes": 63335,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "new_anc_entry": {
+     "bytes": 5029,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "new_trait_entry": {
+     "bytes": 3043,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "numerical_input": {
+     "bytes": 24745,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 22
+    },
+    "pip_group": {
+     "bytes": 2351,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 31
+    },
+    "post_battle_entry": {
+     "bytes": 35870,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "prebattle_portrait_tab": {
+     "bytes": 54794,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "ranking_bar": {
+     "bytes": 308551,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "recruitment_effects_tooltip": {
+     "bytes": 15472,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "recruitments_list_box": {
+     "bytes": 1125,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 32
+    },
+    "region_info_pip": {
+     "bytes": 3233,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 29
+    },
+    "region_list_item": {
+     "bytes": 13693,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "religion_icon": {
+     "bytes": 3168,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 29
+    },
+    "replenish_background": {
+     "bytes": 3231,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 39
+    },
+    "req_item": {
+     "bytes": 318,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "results_details_row": {
+     "bytes": 84523,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 12
+    },
+    "row_entry_keyboard_shortcut": {
+     "bytes": 1662,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 28
+    },
+    "row_template_agent": {
+     "bytes": 3067,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "row_template_army": {
+     "bytes": 3355,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "row_template_naval": {
+     "bytes": 3386,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "row_template_region": {
+     "bytes": 41321,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 33
+    },
+    "sabotage_entry": {
+     "bytes": 68782,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 33
+    },
+    "selected_highlight": {
+     "bytes": 25084,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 26
+    },
+    "siege_equipment_counter": {
+     "bytes": 4174,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 27
+    },
+    "skill_pip": {
+     "bytes": 1929,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 16
+    },
+    "slider": {
+     "bytes": 5072,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 22
+    },
+    "sortable_list": {
+     "bytes": 39298,
+     "roundtrip": "ok",
+     "textures": 2,
+     "version": 25
+    },
+    "string": {
+     "bytes": 323,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 27
+    },
+    "tab": {
+     "bytes": 17183,
+     "roundtrip": "ok",
+     "textures": 7,
+     "version": 27
+    },
+    "tax_breakdown_tooltip": {
+     "bytes": 8659,
+     "roundtrip": "ok",
+     "textures": 8,
+     "version": 33
+    },
+    "tech_advances_entry": {
+     "bytes": 3605,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "tech_entry": {
+     "bytes": 28541,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "tech_icon": {
+     "bytes": 27167,
+     "roundtrip": "ok",
+     "textures": 6,
+     "version": 33
+    },
+    "tech_stealing_entry": {
+     "bytes": 27163,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 29
+    },
+    "tech_stealing_icon": {
+     "bytes": 18844,
+     "roundtrip": "ok",
+     "textures": 3,
+     "version": 29
+    },
+    "theatre_txt_button": {
+     "bytes": 944,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 16
+    },
+    "trade_route_row": {
+     "bytes": 2397,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "traits_ancs_entry": {
+     "bytes": 79236,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "turns": {
+     "bytes": 1655,
+     "roundtrip": "ok",
+     "textures": 9,
+     "version": 22
+    },
+    "unit_ability_entry": {
+     "bytes": 1278,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "unit_list_icon": {
+     "bytes": 24990,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 28
+    },
+    "unit_trained_entry": {
+     "bytes": 49769,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 32
+    },
+    "unitcard_tooltip": {
+     "bytes": 20021,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "university": {
+     "bytes": 78045,
+     "roundtrip": "ok",
+     "textures": 0,
+     "version": 33
+    },
+    "vslider": {
+     "bytes": 4742,
+     "roundtrip": "ok",
+     "textures": 1,
+     "version": 20
+    }
+   },
+   "sha256": "9e96b9def5e431cceb0b6c717ef224ae934fb20476d7015eca9d1fb2961c1f85"
+  }
+ },
+ "rows": [
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version025",
+   "napoleon": "-",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version027",
+   "napoleon": "-",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "Empire codec unchanged",
+   "empire": "2 (2 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version028",
+   "napoleon": "1 (1 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "Empire codec unchanged",
+   "empire": "3 (2 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version029",
+   "napoleon": "2 (2 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "Empire codec unchanged",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version030",
+   "napoleon": "1 (1 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version031",
+   "napoleon": "-",
+   "verdict": "gone"
+  },
+  {
+   "adapter": "Empire codec unchanged",
+   "empire": "12 (12 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version032",
+   "napoleon": "5 (5 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "Empire codec unchanged",
+   "empire": "107 (107 round-trip)",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version033",
+   "napoleon": "29 (29 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "V033 plus a u32 default-state id after c_flag (uic.py state_ref) and a per-component animation list before the child count (name, empty str, u32 n, 48-byte keyframes: f32 x, f32 y, size, rgba, u32 time ms at +36, u32 interpolation at +40); state transitions are longer than V033 (about 18 bytes each, not decoded: napoleon.diff.layouts.v039_transitions)",
+   "empire": "-",
+   "evidence": "detail.*_layouts",
+   "item": "layout Version039",
+   "napoleon": "136 (45 round-trip)",
+   "verdict": "adapter"
+  },
+  {
+   "adapter": "tpl.split unchanged",
+   "empire": "123 records, loose file",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates container",
+   "napoleon": "126 records, loose file",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v10",
+   "napoleon": "1 (1 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v12",
+   "napoleon": "1 (1 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "3 (3 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v16",
+   "napoleon": "3 (3 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "2 (2 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v17",
+   "napoleon": "2 (2 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "fails in Empire too (Empire codec limit, not a Napoleon change)",
+   "empire": "1 (0 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v18",
+   "napoleon": "1 (0 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "3 (3 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v20",
+   "napoleon": "5 (5 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v21",
+   "napoleon": "1 (1 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "3 (3 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v22",
+   "napoleon": "6 (6 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v25",
+   "napoleon": "2 (2 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v26",
+   "napoleon": "2 (2 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "9 (9 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v27",
+   "napoleon": "9 (9 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "6 (6 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v28",
+   "napoleon": "6 (6 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "7 (7 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v29",
+   "napoleon": "7 (7 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "5 (5 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v30",
+   "napoleon": "5 (5 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "3 (3 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v31",
+   "napoleon": "3 (3 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "9 (9 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v32",
+   "napoleon": "8 (8 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "64 (64 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v33",
+   "napoleon": "54 (54 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "not decoded (kill criterion): napoleon.diff.layouts.template_v35",
+   "empire": "-",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v35",
+   "napoleon": "4 (0 round-trip)",
+   "verdict": "new"
+  },
+  {
+   "adapter": "same component codec as layout V039",
+   "empire": "-",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v39",
+   "napoleon": "3 (1 round-trip)",
+   "verdict": "new"
+  },
+  {
+   "adapter": "fails in Empire too (Empire codec limit, not a Napoleon change)",
+   "empire": "2 (0 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v4",
+   "napoleon": "2 (0 round-trip)",
+   "verdict": "same"
+  },
+  {
+   "adapter": "",
+   "empire": "1 (1 round-trip)",
+   "evidence": "detail.*_templates",
+   "item": "uied.templates record v9",
+   "napoleon": "1 (1 round-trip)",
+   "verdict": "same"
+  }
+ ],
+ "schema": 1
+}
