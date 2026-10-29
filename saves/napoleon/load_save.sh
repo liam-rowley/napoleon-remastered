@@ -12,7 +12,8 @@ while [ $# -gt 0 ]; do case "$1" in --end-turn) END=1;; --quicksave) QS=1;; --lo
 P=napoleon_remastered/lua/probes
 SAVES="${APPDATA:?}/The Creative Assembly/Napoleon/save_games"
 step() {   # step <label> <ctl line> <wait_s>: run one ctl request, log {step, rc, result} and echo a short line; returns the ctl exit code
-  local out rc; out="$($JOB ctl "$owner" "$2" "$3" 2>&1)"; rc=$?
+  local out rc; $JOB touch >/dev/null 2>&1   # keep the game lock fresh (it expires after 20 min without a refresh)
+  out="$($JOB ctl "$owner" "$2" "$3" 2>&1)"; rc=$?
   printf '%s' "$out" | python3 -c '
 import json,sys
 raw=sys.stdin.read(); label,rc,line=sys.argv[1],int(sys.argv[2]),sys.argv[3]
@@ -23,7 +24,7 @@ row={"step":label,"rc":rc,"request":line,**keep}
 open(sys.argv[4],"a",encoding="utf-8").write(json.dumps(row)+"\n"); print(json.dumps(row)[:400])' "$1" "$rc" "$2" "$LOG"
   return $rc
 }
-chunk() { $JOB ctl "$owner" "lua $P/$1" 60 2>/dev/null | python3 -c 'import json,sys; print(json.load(sys.stdin).get("chunk",""))' 2>/dev/null; }
+chunk() { $JOB touch >/dev/null 2>&1; $JOB ctl "$owner" "lua $P/$1" 20 2>/dev/null | python3 -c 'import json,sys; print(json.load(sys.stdin).get("chunk",""))' 2>/dev/null; }
 fail() { echo "{\"step\":\"$1\",\"rc\":1,\"status\":\"stopped\"}" | tee -a "$LOG"; echo kill | $JOB "$owner" - 150 >/dev/null 2>&1; exit 1; }
 
 $STAGE stage "$src" "$name" || exit 1
@@ -34,10 +35,14 @@ step turn "lua $P/campaign_turn.lua" 60 || fail turn
 if [ "$END" = 1 ]; then
   before="$(chunk campaign_turn.lua)"
   step end_turn "lua $P/campaign_end_turn.lua" 60 || fail end_turn
-  t0=$(date +%s); now="$before"; IFS='|' read -r by bs _ <<< "$before"; moved=0
+  t0=$(date +%s); now="$before"; IFS='|' read -r by bs _ <<< "$before"; moved=0; silent=0
   while [ $(( $(date +%s) - t0 )) -lt 900 ]; do   # the AI turn: poll the turn probe every 10 s, up to 15 min
     sleep 10; now="$(chunk campaign_turn.lua)"; IFS='|' read -r ny ns np _ <<< "$now"
     [ "$np" = true ] && [ "$ny|$ns" != "$by|$bs" ] && { moved=1; break; }   # year|season|players_turn|...
+    # No answer = the campaign script is not pumping: a modal popup (AI diplomacy offer, turn-start event) or a minimised,
+    # unfocused window stops frames and Lua (run 20261029_j14pc). Nothing in Lua can dismiss it, so stop instead of waiting.
+    if [ -z "$now" ]; then silent=$((silent + 1)); else silent=0; fi
+    [ "$silent" -ge 4 ] && { echo '{"step":"next_turn","status":"pump_stalled","reason":"no Lua pump for 4 polls: a modal popup or focus loss (SAVE_FORMAT.md Open)"}' | tee -a "$LOG"; fail next_turn; }
   done
   printf '{"step":"next_turn","from":"%s","to":"%s","waited_s":%d}\n' "$before" "$now" $(( $(date +%s) - t0 )) | tee -a "$LOG"
   [ "$moved" = 1 ] || fail next_turn
@@ -52,6 +57,7 @@ if [ "$QS" = 1 ]; then
   done
   [ -n "$qs" ] || fail quicksave_file
   kept="$($STAGE keep "$qs" --as "${name}_qs_$(date -u +%Y%m%dT%H%M%SZ).save")"
-  printf '{"step":"quicksave_file","file":"%s","kept":"%s"}\n' "$qs" "$(printf '%s' "$kept" | head -1)" | tee -a "$LOG"
+  python3 -c 'import json,sys; print(json.dumps({"step": "quicksave_file", "file": sys.argv[1], "kept": sys.argv[2]}))' \
+    "$qs" "$(printf '%s' "$kept" | head -1)" | tee -a "$LOG"   # json.dumps: the kept path has Windows backslashes
 fi
 echo kill | $JOB "$owner" - 150 >/dev/null 2>&1; echo "{\"step\":\"kill\",\"rc\":$?}" | tee -a "$LOG"
