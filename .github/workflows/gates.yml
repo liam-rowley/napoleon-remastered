@@ -8,10 +8,16 @@
 # workflow_dispatch chases a flaky harness case (J19): only harness-windows runs, with -Only/-Repeat; e.g.
 #   gh workflow run gates.yml --ref <branch> -f only='hang watchdog' -f repeat=10
 # It has its own concurrency group, so it neither cancels nor is cancelled by the push run on the same ref.
+# One run per commit (J42): this workflow runs on push only, never on pull_request. A push to a branch with an open pull request used
+# to start two whole runs (push and pull_request have different github.refs, so the concurrency group did not dedupe them). Checks
+# attach to the commit, so the pull request still shows `gates`, `proxy` and `harness-windows` from this push run on its head commit and
+# `gh pr merge --auto` still sees them (D32, D33); a branch with no pull request yet still gets CI on its first push; `policy` needs the
+# pull request (its base and head) and lives in policy.yml, which runs nothing else. Route proved on PR #<J42> (jobs/J42/report.md).
+# A newer push cancels an older run on the same branch (that commit is no longer the head auto-merge waits for), never on main.
+# notify: a failed run on a branch with an open pull request comments once on it (tools/ci_notify.py), so a red check is told.
 name: gates
 on:
   push:
-  pull_request:
   workflow_dispatch:
     inputs:
       only:
@@ -26,9 +32,9 @@ permissions:
   contents: read
 concurrency:
   group: gates-${{ github.ref }}${{ github.event_name == 'workflow_dispatch' && format('-dispatch-{0}', github.run_id) || '' }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
-  # changes: which slow jobs this run needs. Diffs against the merge base with main (a pull request, or a push to any other branch)
+  # changes: which slow jobs this run needs. Diffs against the merge base with main (a push to any branch but main)
   # or the previous main tip (a push to main). When the base is unknown (first push to main, a force push past it) everything runs.
   # Which files feed which job: tools/changed_inputs.py.
   changes:
@@ -43,12 +49,9 @@ jobs:
           fetch-depth: 0
       - id: diff
         env:
-          EVENT: ${{ github.event_name }}
-          BASE_REF: ${{ github.base_ref }}
           BEFORE: ${{ github.event.before }}
         run: |
-          if [ "$EVENT" = pull_request ]; then base=$(git merge-base "origin/$BASE_REF" HEAD || true)
-          elif [ "$GITHUB_REF" = refs/heads/main ]; then base=$BEFORE
+          if [ "$GITHUB_REF" = refs/heads/main ]; then base=$BEFORE
           else base=$(git merge-base origin/main HEAD || true); fi
           # the input sets live in one place, tools/changed_inputs.py, which the local `tests` gate also uses (J41)
           python3 tools/changed_inputs.py --base "$base" >> "$GITHUB_OUTPUT"
@@ -123,22 +126,25 @@ jobs:
         # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept
         timeout-minutes: 18
         shell: powershell
-        # inputs arrive through env, never pasted into the script; on push and pull_request they are empty: the full suite, once
+        # inputs arrive through env, never pasted into the script; on push they are empty: the full suite, once
         env:
           HT_ONLY: ${{ inputs.only }}
           HT_REPEAT: ${{ inputs.repeat || '1' }}
         run: ./harness/tests/Run-HostTests.ps1 -Suite $(if ($env:HT_ONLY) { 'integration' } else { 'all' }) -Only $env:HT_ONLY -Repeat ([int]$env:HT_REPEAT)
 
-  policy:
-    # Every pull request must be a reviewed job, a brief, a planning change or an infrastructure change (D21, tools/pr_policy.py).
-    if: github.event_name == 'pull_request'
+  # notify: the last job; a failure in any job above, on a branch with an open pull request, comments once there (D32: a failed check
+  # leaves the pull request open; this makes it impossible to miss). The only job with write access, and only to pull requests.
+  notify:
+    needs: [changes, gates, proxy, harness-windows]
+    if: failure() && github.event_name == 'push' && github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
     steps:
       - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-      - run: python tools/pr_policy.py --branch "${{ github.head_ref }}" --base "origin/${{ github.base_ref }}"
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/ci_notify.py --run-id ${{ github.run_id }} --attempt ${{ github.run_attempt }} --branch "${{ github.ref_name }}" --repo "${{ github.repository }}"

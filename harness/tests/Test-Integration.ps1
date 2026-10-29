@@ -116,12 +116,21 @@ function Wait-LogMatch([string]$rx, [int]$secs, [string]$what, [int]$Since = 0) 
 function Alive-Age { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $root 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Alive-AgeOf([string]$r) { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $r 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Wait-Watcher([int]$secs = 40) { Wait-Until { (Alive-Age) -lt 4 -and (Get-St) } $secs 'a fresh watcher heartbeat' | Out-Null; return (Get-St) }
+# what a failed wait needs to be explained from the CI log alone: the watcher's own log, its heartbeat age and the processes (J42)
+function Show-WatcherState([int]$lines = 40) {
+    Write-Host "  watcher.alive age: $([int](Alive-Age)) s; watcher.pid: $(try { [IO.File]::ReadAllText((Join-Path $root 'watcher.pid')) } catch { 'none' })"
+    if ($SuiteState.launcher) { Write-Host "  launcher exited: $($SuiteState.launcher.HasExited)$(if ($SuiteState.launcher.HasExited) { " (exit $($SuiteState.launcher.ExitCode))" })" }
+    Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($tmp) } | ForEach-Object { Write-Host "  process $($_.ProcessId) $($_.Name) started $($_.CreationDate.ToUniversalTime().ToString('HH:mm:ss'))Z" }
+    Write-Host "  watcher.log, last $lines lines:"
+    @((Get-Log) -split "`r?`n" | Where-Object { $_ }) | Select-Object -Last $lines | ForEach-Object { Write-Host "    $_" }
+}
+$script:TcOnFail = { Show-WatcherState }
 function Start-TestWatcher {
     $cmd = Join-Path $root 'src\watch.cmd'
     $a = "/d /s /c `"`"$cmd`" -Root `"$root`" -Adapter `"$adapterPath`"`""
     $p = Start-Process -FilePath $env:ComSpec -ArgumentList $a -WindowStyle Hidden -PassThru
     $SuiteState.launcher = $p
-    return (Wait-Watcher 40)
+    try { return (Wait-Watcher 40) } catch { Write-Host "FAILED: watcher start: $($_.Exception.Message)"; Show-WatcherState; throw }
 }
 function Stop-TestWatcher {
     [IO.File]::WriteAllText((Join-Path $root 'watcher.stop'), 'stop', $Utf8NoBom)
@@ -158,7 +167,13 @@ function Fake-Procs([string]$n = 'FakeNapoleon') { return @(Get-Process -Name $n
 $prefs = Join-Path $app 'scripts\preferences.script.txt'; $keys = Join-Path $app 'custom_keys.keys.xml'
 $modIni = Join-Path $game 'napoleon_remastered.ini'; $dxc = Join-Path $game 'dxvk.conf'
 $bprefs = Join-Path $app 'battle_preferences\.sp_default.battle_preferences'   # HIDDEN on the PC (J3 run 20261029_4kcrash: Get-Item without -Force threw)
-function Hashes { return ((@($prefs, $keys, $bprefs, $modIni, $dxc) | ForEach-Object { if (Test-Path -LiteralPath $_) { Sha256File $_ } else { 'absent' } }) -join ',') }
+# one read per file, never Test-Path then hash: the watcher deletes a file between the two while it restores (J42, run 40898971722:
+# "Cannot find path ...dxvk.conf"); a file mid-write reads 'busy', which matches no baseline, so a wait simply polls again
+function Hash-OrAbsent([string]$p) {
+    try { return (Sha256File $p) }
+    catch { if ($_.Exception -is [Management.Automation.ItemNotFoundException] -or -not [IO.File]::Exists($p)) { return 'absent' }; return 'busy' }
+}
+function Hashes { return ((@($prefs, $keys, $bprefs, $modIni, $dxc) | ForEach-Object { Hash-OrAbsent $_ }) -join ',') }
 function Pid-Of-Watcher { return [int](Get-St).pid }
 
 try {

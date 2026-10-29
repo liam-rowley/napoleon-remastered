@@ -333,6 +333,46 @@ class StartSession(unittest.TestCase):
             jv.shutil.which, jv.subprocess.run = which, run
         self.assertEqual((sid, seen['cwd'], seen['argv'][1:]), ('1a2b3c4d', Path('/repo'), argv('J2', 'build', 'opus')[1:]))
 
+class RedPullRequests(unittest.TestCase):
+    """J42: next, review and view print open pull requests with a failed check first, from one gh call; --offline skips it."""
+    PRS = [{'number': 7, 'headRefName': 'job/J9', 'statusCheckRollup': [
+               {'__typename': 'CheckRun', 'name': 'gates', 'conclusion': 'SUCCESS', 'detailsUrl': 'u1'},
+               {'__typename': 'CheckRun', 'name': 'harness-windows', 'conclusion': 'FAILURE', 'detailsUrl': 'https://x/runs/1'},
+               {'__typename': 'CheckRun', 'name': 'proxy', 'conclusion': None, 'status': 'IN_PROGRESS'}]},
+           {'number': 3, 'headRefName': 'brief/J4', 'statusCheckRollup': [
+               {'__typename': 'StatusContext', 'context': 'policy', 'state': 'ERROR', 'targetUrl': 'https://x/runs/2'}]},
+           {'number': 9, 'headRefName': 'plan/x', 'statusCheckRollup': None}]
+
+    def test_only_failed_checks_are_listed_oldest_pull_request_first(self):
+        self.assertEqual(jv.failed_prs(self.PRS), ['PR #3 brief/J4: policy failed, run https://x/runs/2',
+                                                   'PR #7 job/J9: harness-windows failed, run https://x/runs/1'])
+
+    def test_offline_makes_no_call(self):
+        def boom(*a, **k):
+            raise AssertionError('gh was called')
+        self.assertEqual(jv.red_prs(ROOT, True, run=boom), [])
+
+    def test_one_gh_call_and_its_failures_become_a_line_not_an_exception(self):
+        calls = []
+
+        def fake(argv, **k):
+            calls.append(argv)
+            return subprocess.CompletedProcess(argv, 0, json.dumps(self.PRS), '')
+        self.assertEqual(len(jv.red_prs(ROOT, False, run=fake)), 2)
+        self.assertEqual(len(calls), 1)
+        self.assertIn('statusCheckRollup', calls[0][-1])
+        down = jv.red_prs(ROOT, False, run=lambda argv, **k: subprocess.CompletedProcess(argv, 1, '', 'not logged in'))
+        self.assertEqual(len(down), 1)
+        self.assertIn('not logged in', down[0])
+
+        def missing(argv, **k):
+            raise FileNotFoundError('gh')
+        self.assertIn('could not list', jv.red_prs(ROOT, False, run=missing)[0])
+
+    def test_next_names_the_local_policy_route(self):
+        self.assertIn('python3 tools/pr_policy.py --branch job/J1 --base origin/main', jv.build_steps(row(status='queued')))
+
+
 class ThisRepo(unittest.TestCase):
     def test_the_queue_passes_jobs_check(self):
         p = subprocess.run([sys.executable, str(ROOT / 'core' / 'wsc.py'), '--root', str(ROOT), 'jobs', 'check'],

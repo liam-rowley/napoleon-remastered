@@ -1,0 +1,40 @@
+# purpose: CI's `policy` check on every pull request: the branch kind decides what it may change (D21, tools/pr_policy.py); a failure comments on the pull request (J42).
+# usage: runs on GitHub Actions; locally: python3 tools/pr_policy.py --branch <branch> --base origin/main
+# when: automatic on pull requests; require the "policy" check in branch protection for main.
+# not-a-verb: GitHub runs workflows by file; this one only calls tools/pr_policy.py.
+# Its own workflow so that gates.yml can run once per commit on push (J42): this one is cheap and needs the pull request's base and head.
+name: policy
+on:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: policy-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  policy:
+    # Every pull request must be a reviewed job, a brief, a planning change or an infrastructure change (D21, tools/pr_policy.py).
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python tools/pr_policy.py --branch "${{ github.head_ref }}" --base "origin/${{ github.base_ref }}"
+  notify:
+    needs: [policy]
+    if: failure()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v5
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/ci_notify.py --run-id ${{ github.run_id }} --attempt ${{ github.run_attempt }} --branch "${{ github.head_ref }}" --repo "${{ github.repository }}"

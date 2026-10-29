@@ -368,6 +368,22 @@ Test-Case 'test runner: Test-Lib never assigns a script variable named like a su
     $o = & (Get-Process -Id $PID).Path -NoProfile -ExecutionPolicy Bypass -File $probe -Only 'hang watchdog' -Repeat 3
     Assert-Eq "$o".Trim() '[hang watchdog] [3]' 'the values reach Test-Case through a dot-sourced Test-Lib'
 }
+Test-Case 'static: the watcher writes its first heartbeat before its first housekeeping pass (a slow pass is not a dead watcher; J42)' {
+    $text = [IO.File]::ReadAllText((Join-Path $core 'watcher.ps1'))
+    $started = $text.IndexOf('started (pid $PID'); $loop = $text.IndexOf("while (`$true) {", [Math]::Max(0, $started))
+    Assert-True ($started -gt 0 -and $loop -gt $started) 'the started log line comes before the main loop'
+    Assert-Match $text.Substring($started, $loop - $started) '(?m)^Write-Alive\s*$' 'Write-Alive runs between the started line and the main loop'
+}
+Test-Case 'static: integration helpers never hash a file after a separate Test-Path (the watcher can delete it in between; J42)' {
+    $e = $null; $t = $null
+    $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot 'Test-Integration.ps1'), [ref]$t, [ref]$e)
+    $fns = $ast.FindAll({ param($n) $n -is [Management.Automation.Language.FunctionDefinitionAst] }, $true)
+    Assert-True (@($fns | Where-Object { $_.Name -eq 'Hashes' }).Count -eq 1) 'Hashes exists'
+    foreach ($fn in $fns) {
+        $b = $fn.Body.Extent.Text
+        Assert-NotMatch $b 'Test-Path[^\r\n]*\{\s*(Sha256File|Get-FileHash)' "$($fn.Name) hashes after a Test-Path"
+    }
+}
 Test-Case 'static: Handle-Hang writes hang.txt before Kill-Game and again after it (a watcher stopped mid-kill still leaves evidence; J19)' {
     $e = $null; $t = $null
     $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $core 'watcher.ps1'), [ref]$t, [ref]$e)

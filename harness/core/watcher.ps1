@@ -1331,12 +1331,20 @@ Get-ChildItem -LiteralPath $JobsDir -File -ErrorAction SilentlyContinue | Where-
     }
     Remove-Quiet $_.FullName
 }
-Log "watcher $Version started (pid $PID, root $Root, game $($A.game), powershell $($PSVersionTable.PSVersion))"
+$upMs = try { [int]((Get-Date) - (Get-Process -Id $PID).StartTime).TotalMilliseconds } catch { -1 }
+Log "watcher $Version started (pid $PID, root $Root, game $($A.game), powershell $($PSVersionTable.PSVersion), up $upMs ms after its process started)"
+# the first heartbeat goes out before the first housekeeping pass: that pass (watchdog, auto-restore, display restore) can take
+# seconds on a cold machine, and a waiter that reads a missing heartbeat as "not started" then times out (J42: CI's 40 s
+# 'a fresh watcher heartbeat' and update rollback 1's revert, runs 40909011779, 40956451648)
+Write-Alive
+$FirstPass = $true
 if ($Zombie) { Log "watcher: zombie flag carried over: pid $($Zombie.pid) since $($Zombie.since)" }
 $exitCode = 0
 while ($true) {
     try {
+        $passAt = Get-Date
         Pump
+        if ($FirstPass) { Log "watcher: first housekeeping pass took $([int]((Get-Date) - $passAt).TotalMilliseconds) ms"; $FirstPass = $false }
         Poll-Cur
         if (-not $Cur) { [void](Start-NextJob) }
         if (-not $Cur) {
