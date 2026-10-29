@@ -8,7 +8,7 @@
 param([string]$Root = '', [string]$Adapter = '', [switch]$NoRun)
 
 $ErrorActionPreference = 'Stop'
-$Version = '1.0.0'
+$Version = '1.0.1'
 $SrcDir = $PSScriptRoot
 if (-not $Root) { $Root = Join-Path $SrcDir '..' }
 $Root = [IO.Path]::GetFullPath($Root).TrimEnd('\', '/')
@@ -721,8 +721,12 @@ function Handle-Hang($p, $start, [string]$why, [string]$win) {
     foreach ($t in $A.config_files) { $tp = Target-Path $t; if (Test-Path -LiteralPath $tp) { try { [IO.File]::WriteAllBytes((Join-Path $dir ("cfg__$($t.id)__" + [IO.Path]::GetFileName($tp))), (Read-Shared $tp)) } catch { } } }
     foreach ($f in @('game.lock', 'watcher.status')) { $src = RootPath $f; if (Test-Path -LiteralPath $src) { try { [IO.File]::WriteAllBytes((Join-Path $dir $f), (Read-Shared $src)) } catch { } } }
     $notes.Add('tasklist before kill:'); $notes.Add((& tasklist.exe /v /fi "imagename eq $($A.game_image)" 2>&1 | Out-String))
+    # hang.txt goes down before the kill (a watcher stopped mid-kill still leaves evidence), then is rewritten with the result
+    $hangTxt = Join-Path $dir 'hang.txt'
+    Write-Atomic $hangTxt ((@($notes) + 'kill: pending') -join "`r`n")
     $ok = Kill-Game "watchdog hang, runs\${ts}_hang" $notes
-    [IO.File]::WriteAllText((Join-Path $dir 'hang.txt'), ($notes -join "`r`n"), $Utf8)
+    $notes.Add("kill: $(if ($ok) { 'killed' } else { 'ZOMBIE - PC needs a reboot' })")
+    Write-Atomic $hangTxt ($notes -join "`r`n")
     $script:LastHang = [pscustomobject]@{ at_utc = (UtcStr (Get-Date)); pid = $p.Id; dir = "runs\${ts}_hang"; why = $why; killed = $ok }
     $script:LaunchAt = $null
     Log "HANG handled: $(if ($ok) { 'killed' } else { 'ZOMBIE - PC needs a reboot' }), evidence in runs\${ts}_hang"

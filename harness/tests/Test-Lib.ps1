@@ -5,10 +5,33 @@
 $script:Pass = 0
 $script:Fail = 0
 $script:Failures = @()
+$script:Only = ''     # -Only <regex>: run only the cases whose name matches (set by the suite script after dot-sourcing)
+$script:Repeat = 1    # -Repeat <n>: run each selected case n times, stop that case at its first failure
+$script:Selected = 0
+# The selection and repeat logic, pure so Test-Unit.ps1 can test it: runs $body up to $repeat times when $name matches $only,
+# stops at the first throw. Returns ran (case selected), passed (runs that passed), error (the first failure's message or $null).
+# Case bodies run in this function's dynamic scope and see its locals: they carry a tc prefix so no body reads one by accident.
+function Invoke-Selected([string]$name, [scriptblock]$body, [string]$only, [int]$repeat, [scriptblock]$onStart = $null) {
+    $tcRes = @{ ran = $false; passed = 0; error = $null }
+    if ($only -and $name -notmatch $only) { return $tcRes }
+    $tcRes.ran = $true
+    for ($tcRun = 1; $tcRun -le [Math]::Max(1, $repeat); $tcRun++) {
+        if ($onStart) { & $onStart $tcRun }
+        try { & $body | Out-Null; $tcRes.passed++ } catch { $tcRes.error = $_.Exception.Message; break }
+    }
+    return $tcRes
+}
 function Test-Case([string]$name, [scriptblock]$body) {
-    Write-Host "START $((Get-Date).ToUniversalTime().ToString('HH:mm:ss'))Z $name"   # a hang shows which test it was in (J2 CI round 8 was cancelled with no log)
-    try { & $body | Out-Null; Write-Host "PASS  $name"; $script:Pass++ }
-    catch { Write-Host "FAIL  $name : $($_.Exception.Message)"; $script:Fail++; $script:Failures += $name }
+    $tcN = [Math]::Max(1, $script:Repeat)
+    # START per run: a hang shows which test it was in (J2 CI round 8 was cancelled with no log)
+    $tcStart = { param($k) Write-Host "START $((Get-Date).ToUniversalTime().ToString('HH:mm:ss'))Z $name$(if ($tcN -gt 1) { " (run $k/$tcN)" })" }
+    $tcRes = Invoke-Selected $name $body $script:Only $tcN $tcStart
+    if (-not $tcRes.ran) { return }
+    $script:Selected++
+    $script:Pass += $tcRes.passed
+    $tcTally = if ($tcN -gt 1) { " ($($tcRes.passed)/$tcN runs passed)" } else { '' }
+    if ($tcRes.error) { Write-Host "FAIL  $name$tcTally : $($tcRes.error)"; $script:Fail++; $script:Failures += $name }
+    else { Write-Host "PASS  $name$tcTally" }
 }
 function Assert-True($cond, [string]$msg) { if (-not $cond) { throw "assertion failed: $msg" } }
 function Assert-Eq($actual, $expected, [string]$msg) { if ("$actual" -ne "$expected") { throw "$msg : expected [$expected] but got [$actual]" } }
@@ -53,7 +76,9 @@ function New-TestAdapter([string]$dir, [string]$gameImage = 'Napoleon.exe', [str
 }
 function Finish-Tests([string]$suite) {
     Write-Host ''
-    Write-Host "$suite : $($script:Pass) passed, $($script:Fail) failed"
+    Write-Host "$suite : $($script:Pass) passed, $($script:Fail) failed$(if ($script:Only) { " ($($script:Selected) cases matched -Only '$($script:Only)')" })"
     if ($script:Fail) { Write-Host ('FAILED: ' + ($script:Failures -join '; ')) }
+    # a filter that matches nothing is a typo, not a pass
+    if ($script:Only -and -not $script:Selected) { Write-Host "FAILED: no $suite case matches -Only '$($script:Only)'"; return 1 }
     return $script:Fail
 }

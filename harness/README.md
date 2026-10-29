@@ -38,7 +38,8 @@ The mount comes from the adapter (`device_mount` under `$DEVICE_MOUNTS`, default
 ## Hang watchdog and zombies
 Hung: an unarmed game never counts; not in `hang_startup_s`; not while minimised/hidden or while a game-touching job runs; else `IsHungAppWindow` sustained
 `hung_window_s`, or no CPU progress AND no heartbeat-file write for `hang_s`. Then: out-of-process minidump (`dump.ps1`, SysWOW64 for the 32-bit game),
-logs/config/lock archived to `runs\<utc>_hang\` with `hang.txt`, then kill. A process that survives is a zombie: persisted in `watcher.zombie.json`,
+logs/config/lock archived to `runs\<utc>_hang\` with `hang.txt` (ends `kill: pending`), then kill, then `hang.txt` rewritten ending `kill: killed`
+or `kill: ZOMBIE ...`, then the log line `HANG handled: ...` (the completion signal). A process that survives is a zombie: persisted in `watcher.zombie.json`,
 every launch refused with "PC NEEDS REBOOT" until the pid is gone. No DLL change is involved.
 
 ## Config profiles
@@ -61,6 +62,10 @@ Exit 3 and "NO UNIQUE VIRTUAL DISPLAY" when there is none (the CI runner).
 
 ## Tests
 `harness/tests/Run-HostTests.ps1 -Suite unit|integration|all`; CI job `harness-windows` runs all under Windows PowerShell 5.1 with compiled fake games.
+A flaky integration case: `-Only <case regex> -Repeat <n>` (fails on the first failed run, prints the pass count), or on the runner
+`gh workflow run gates.yml --ref <branch> -f only='hang watchdog' -f repeat=10` (only `harness-windows` runs). Integration cases
+assert on watcher output only after the watcher's own completion line (`Wait-LogMatch ... -Since (Log-Mark)`), never just after a
+process exits or a file appears.
 
 ## Open questions
 See `jobs/J2/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format` (UTF-16LE, `key value;` lines); no overlay style for it yet.

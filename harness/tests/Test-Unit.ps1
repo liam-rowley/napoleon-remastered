@@ -313,5 +313,45 @@ Test-Case 'zombie: cleared when the pid is free or reused by another image (the 
     Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'Napoleon' }))) 'same image still there'
     Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'NAPOLEON' }))) 'image compared case-insensitively'
 }
+Test-Case 'test runner: -Only selects by regex, -Repeat runs n times and stops at the first failure (J19)' {
+    $box = @{ n = 0 }
+    $count = { $box.n++ }
+    $sel = Invoke-Selected 'hang watchdog: a suspended game' $count 'other case' 5
+    Assert-True (-not $sel.ran) 'a case the filter does not match is not run'; Assert-Eq $box.n 0 'body not called'
+    $sel = Invoke-Selected 'hang watchdog: a suspended game' $count '^hang watchdog' 5
+    Assert-True $sel.ran 'a matching case runs'; Assert-Eq $sel.passed 5 'all 5 runs pass'; Assert-Eq $box.n 5 'body called 5 times'; Assert-True ($null -eq $sel.error) 'no error'
+    $box.n = 0
+    $sel = Invoke-Selected 'any' $count '' 1
+    Assert-True $sel.ran 'no filter: every case runs'; Assert-Eq $box.n 1 'default: once'
+    $box.n = 0
+    $flaky = { $box.n++; if ($box.n -eq 3) { throw 'third run fails' } }
+    $sel = Invoke-Selected 'flaky' $flaky '' 10
+    Assert-Eq $sel.passed 2 'two runs passed'; Assert-Eq $box.n 3 'stopped at the first failure'; Assert-Match $sel.error 'third run fails' 'the failure message is kept'
+    $box.n = 0
+    $sel = Invoke-Selected 'zero' $count '' 0
+    Assert-Eq $box.n 1 'a repeat below 1 still runs once'
+    foreach ($s in 'Run-HostTests.ps1', 'Test-Integration.ps1') {
+        $e = $null; $t = $null
+        $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot $s), [ref]$t, [ref]$e)
+        $ps = @{}; foreach ($p in $ast.ParamBlock.Parameters) { $ps[$p.Name.VariablePath.UserPath] = $p }
+        Assert-True ($ps.ContainsKey('Only') -and $ps.ContainsKey('Repeat')) "$s declares -Only and -Repeat"
+        Assert-Eq $ps['Only'].DefaultValue.Value '' "$s -Only defaults to no filter"
+        Assert-Eq $ps['Repeat'].DefaultValue.Value 1 "$s -Repeat defaults to 1"
+        Assert-True (@($ps['Repeat'].Attributes | Where-Object { $_.TypeName.Name -eq 'ValidateRange' }).Count -eq 1) "$s -Repeat is range-checked"
+    }
+}
+Test-Case 'static: Handle-Hang writes hang.txt before Kill-Game and again after it (a watcher stopped mid-kill still leaves evidence; J19)' {
+    $e = $null; $t = $null
+    $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $core 'watcher.ps1'), [ref]$t, [ref]$e)
+    $fn = $ast.Find({ param($n) $n -is [Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -eq 'Handle-Hang' }, $true)
+    Assert-True ($null -ne $fn) 'Handle-Hang exists'
+    $body = $fn.Body.Extent.Text
+    $kill = $body.IndexOf('Kill-Game')
+    $writes = @([regex]::Matches($body, 'Write-Atomic \$hangTxt') | ForEach-Object { $_.Index })
+    Assert-True ($kill -gt 0) 'Handle-Hang calls Kill-Game'
+    Assert-True ($writes.Count -eq 2 -and $writes[0] -lt $kill -and $writes[1] -gt $kill) 'hang.txt written atomically once before and once after Kill-Game'
+    Assert-Match $body "kill: pending" 'the first write says the kill is pending'
+    Assert-True ($body.IndexOf('HANG handled') -gt $writes[1]) 'HANG handled (the completion signal tests wait for) is logged after the final write'
+}
 Remove-Item -LiteralPath $tmp -Recurse -Force -ErrorAction SilentlyContinue
 exit (Finish-Tests 'unit')
