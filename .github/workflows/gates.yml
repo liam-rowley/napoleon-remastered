@@ -2,7 +2,7 @@
 # usage: runs on GitHub Actions; locally: python3 core/wsc.py gates
 # when: automatic; require the "gates" check in branch protection for main.
 # not-a-verb: GitHub runs workflows by file; this one only calls `wsc gates`.
-# The core is a private submodule: WARSCAPE_CORE_TOKEN (fine-grained, Contents read on warscape-core and this repo) lets checkout fetch it.
+# The core submodule is public (D29); checkout still passes WARSCAPE_CORE_TOKEN (D20), so keep the secret unless this step changes.
 name: gates
 on: [push, pull_request]
 permissions:

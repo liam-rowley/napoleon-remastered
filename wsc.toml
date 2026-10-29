@@ -23,4 +23,4 @@ exempt = ["tests/**", "**/runs/**"]
 max_kb = 30
 
 [cli]
-verb_dirs = []        # game-specific verbs go here, e.g. ["adapter/verbs"] (same contract as core/warscape/verbs/)
+verb_dirs = ["tools/verbs"]   # game-specific verbs (same contract as core/warscape/verbs/): `jobs`

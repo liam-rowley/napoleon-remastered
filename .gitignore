@@ -17,3 +17,9 @@ __pycache__/
 # Build output
 /build/
 /out/
+
+# Binaries and crash dumps are built or downloaded, never committed (proxy/README.md "DXVK"; tests/test_repo_rules.py)
+*.dll
+*.exe
+*.pdb
+*.dmp

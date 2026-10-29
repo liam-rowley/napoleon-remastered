@@ -4,7 +4,8 @@ Every job branch gets an independent review before Liam merges it. The reviewer 
 (Opus is allowed: D15 names independent checks). It starts cold from this file, the job prompt and the job's report.
 
 ## Starting a review
-Liam says "review the next job" (or "review J<n>"). `CLAUDE.md` Jobs says how to find the branch. The job's own brief is
+Liam says "review the next job" (or "review J<n>"). `python3 core/wsc.py jobs review` names the branch. You must not have built it:
+CI's `policy` check refuses a review written by a session that also wrote the report. The job's own brief is
 `jobs/<id>/brief.md` on that branch: it is what you check the work against, so nothing needs pasting.
 
 ## Setup
@@ -31,7 +32,7 @@ check reads it: only `merge` lets the branch merge), and findings ranked **block
 - Fix small should-fix items yourself on the branch: one commit each, with a test where the code allows, listed in the review.
 - Leave blockers and larger items as findings for the job chat.
 - **Later** items for the core go to warscape-core `docs/BACKLOG.md` through a warscape-core PR; for this repo, into the review.
-- Write the review as `jobs/<id>/review.md` on the branch, dated at the top. With a `merge` verdict, set the row to
+- Write the review as `jobs/<id>/review.md` on the branch, dated at the top (`wsc jobs check` checks the date and the verdict line). With a `merge` verdict, set the row to
   `status=done review=jobs/<id>/review.md` (`CLAUDE.md` Jobs); otherwise leave it at `review` and say what must change.
 
 ## Keeping this file useful
