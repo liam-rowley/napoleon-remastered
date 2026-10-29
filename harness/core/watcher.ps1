@@ -178,11 +178,16 @@ function ToDelete([string]$sub) {
 function Img-Base([string]$img) { return [IO.Path]::GetFileNameWithoutExtension($img) }
 
 if ($IsWin) {
+    # the first log line, before the compile: Add-Type runs csc.exe, which took 39.9 s on a cold CI runner (J42 run 40970029940);
+    # a reader of the log can then tell a watcher that is compiling from one that never started
+    $t0 = Get-Date
+    Log "watcher $Version starting (pid $PID): compiling native helpers (Add-Type; slow on a cold machine)"
     Add-Type -Namespace WP -Name U -MemberDefinition @'
 [DllImport("user32.dll")] public static extern bool IsIconic(IntPtr h);
 [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr h);
 [DllImport("user32.dll")] public static extern bool IsHungAppWindow(IntPtr h);
 '@
+    Log "watcher: native helpers compiled in $([int]((Get-Date) - $t0).TotalMilliseconds) ms"
 }
 
 # ------------------------------------------------------------------------------------------------ state -------------

@@ -90,6 +90,8 @@ A flaky integration case: `-Only <case regex> -Repeat <n>` (fails on the first f
 assert on watcher output only after the watcher's own completion line (`Wait-LogMatch ... -Since (Log-Mark)`), never just after a
 process exits or a file appears, and read a file the watcher may delete once (`Hash-OrAbsent`), never `Test-Path` then read (J42).
 A failed case or watcher start prints the watcher log tail and heartbeat age (`Show-WatcherState`), so the CI log alone explains it.
+A watcher start is slow on a cold machine: the first `Add-Type` compiles through csc.exe (39.9 s on a fresh CI runner, J42 run
+40970029940); the watcher logs before and after it, and the tests give the start its own budget before the 40 s heartbeat wait.
 Locally, `python3 core/wsc.py gates` runs the unit suite under Windows PowerShell 5.1 when a harness input changed
 (`tests/test_harness_host.py`, about 20 s; `WSP_HARNESS_TESTS=skip` skips it with a warning). The integration suite is CI-only and
 the gate says so: it sets the machine's time zone and kills `Fake*.exe`. The CI failure classes and their guards: `docs/CI_FAILURES.md`.

@@ -129,9 +129,17 @@ $script:TcOnFail = { Show-WatcherState }
 function Start-TestWatcher {
     $cmd = Join-Path $root 'src\watch.cmd'
     $a = "/d /s /c `"`"$cmd`" -Root `"$root`" -Adapter `"$adapterPath`"`""
+    $mark = Log-Mark
     $p = Start-Process -FilePath $env:ComSpec -ArgumentList $a -WindowStyle Hidden -PassThru
     $SuiteState.launcher = $p
-    try { return (Wait-Watcher 40) } catch { Write-Host "FAILED: watcher start: $($_.Exception.Message)"; Show-WatcherState; throw }
+    # a cold powershell.exe reaches the watcher's main loop late (Add-Type compiles through csc.exe: 39.9 s on a fresh runner, J42 run
+    # 40970029940), so the start has its own budget; the 40 s heartbeat budget starts once the watcher is in its loop
+    try {
+        Wait-LogMatch 'watcher [0-9.a-z-]+ started \(pid' 150 'the watcher to reach its main loop (a cold start compiles native helpers first)' -Since $mark
+        $up = [regex]::Match((Get-LogSince $mark), 'up (\d+) ms after its process started').Groups[1].Value
+        Write-Host "  watcher up after $up ms"
+        return (Wait-Watcher 40)
+    } catch { Write-Host "FAILED: watcher start: $($_.Exception.Message)"; Show-WatcherState; throw }
 }
 function Stop-TestWatcher {
     [IO.File]::WriteAllText((Join-Path $root 'watcher.stop'), 'stop', $Utf8NoBom)
