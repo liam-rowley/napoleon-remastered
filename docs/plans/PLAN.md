@@ -60,7 +60,7 @@ agent may need to load. Most harness learnings are workarounds every agent must 
 
 ## 4. Shared core (D10)
 
-A separate private repo, `liam-rowley/warscape-core` (D18), that Napoleon pins by version.
+A separate repo, `liam-rowley/warscape-core` (D18; public, D29), that Napoleon pins by version.
 Empire is not touched until a quiet time, when it moves onto the core.
 
 | Core (shared) | Per-game adapter (here) |

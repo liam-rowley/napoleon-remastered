@@ -20,6 +20,6 @@ folder are generated from it or deployed from it, never edited.
 | `core/` | warscape-core as a submodule, pinned at a tag. Never edited here. |
 
 ## Related repos
-- `liam-rowley/warscape-core` (private): the shared core (harness, registries, CLI, review viewer, game-agnostic tools); split in `docs/plans/PLAN.md` section 4.
+- `liam-rowley/warscape-core` (public, D29): the shared core (harness, registries, CLI, review viewer, game-agnostic tools); split in `docs/plans/PLAN.md` section 4.
 - `liam-rowley/empire-remastered`: the first game. Its learnings and `docs/plans/PIPELINE_V2.md` are this plan's evidence base.
   Empire is not modified by Napoleon work; it moves onto the shared core later, at a quiet time.

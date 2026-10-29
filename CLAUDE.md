@@ -11,7 +11,8 @@
 
 ## The core (`core/`, warscape-core pinned at a tag)
 - Clone with `git clone --recurse-submodules` (or `git submodule update --init` after a plain clone); set the hook once per clone:
-  `git config core.hooksPath core/.githooks` (from core v0.2 the `hooks` gate warns until you do). Agent sessions attach `liam-rowley/warscape-core` too (read is enough here).
+  `git config core.hooksPath core/.githooks` (the core's `hooks` gate warns until you do, from the next core tag).
+  Agent sessions attach `liam-rowley/warscape-core` too (read is enough here).
 - Everything goes through `python3 core/wsc.py <verb>`: `find <words>` searches every registry, `reg add|set|render` changes them,
   `gates` runs the checks CI runs (`--fast` is what the pre-push hook runs). Never edit a generated `registries/*.md` view.
 - **Never change files inside `core/`.** A change the game needs goes to warscape-core as a PR and arrives with a new tag
@@ -49,5 +50,5 @@
 
 ## Usage (D15)
 Sonnet medium by default; Opus only with a reason in the brief (reverse engineering, shaders, DLL, crashes, independent checks);
-at most 2 agents at once; every job brief states a call budget and a kill criterion; waiting and polling belong to the harness, not
+at most 2 agents at once; every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
 to an agent making repeated calls.
