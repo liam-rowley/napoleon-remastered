@@ -2,7 +2,7 @@
 """Kit, install, uninstall and check the proxy on the PC with sha-checked copies and a byte-exact uninstall.
 
 purpose: build a proxy kit (built DLL, default config, pinned DXVK) or a harness kit (the watcher, its adapter and profiles; manifest with sha256 and unique staged names), install the proxy into the game folder with sha-checked copies, uninstall it back to the pre-install snapshot, edit the installed config, snapshot and diff a game folder
-usage: pc_deploy.py kit [--what proxy|harness] [--out DIR] | send --kit DIR --state S | snapshot --game G --out F | install --kit DIR --game G --state S [--assume-closed] | uninstall --game G --state S [--assume-closed] | set --game G key=value... | status --game G --state S | diff A B
+usage: pc_deploy.py sync-lua --game G --state S [--dry-run] | kit [--what proxy|harness] [--out DIR] | send --kit DIR --state S | snapshot --game G --out F | install --kit DIR --game G --state S [--assume-closed] | uninstall --game G --state S [--assume-closed] | set --game G key=value... | status --game G --state S | diff A B
 when: every time built proxy or harness files go to the game folder or the watcher (never copy them by hand); runs in Git Bash on the PC from the repo checkout: `kit` builds into build/kits, `send` puts a kit sha-checked under <state>/kits/<id> (for install and the watcher's `update kit=<id>`); install/uninstall ask the running watcher (<state>/watcher/watcher.status), else tasklist, whether a game of either title is running
 not-a-verb: a deploy script with its own subcommands that the PC's installer also runs from a kit folder (a copy travels in every kit), so it stays stdlib only and outside the wsc CLI (whether it becomes a verb: J20 report)
 """
@@ -519,6 +519,57 @@ def status(game, state):
     return 1 if bad else 0
 
 
+def lua_files(adapter='napoleon'):
+    """The repo's dev Lua files as (source, path under the game folder, mod_dir): the same set `kit` ships."""
+    ident = json.loads((ROOT / 'proxy' / adapter / 'identity.json').read_text(encoding='utf-8'))
+    ldir = ROOT / 'proxy' / adapter / 'lua'
+    return [(p, f"{ident['mod_dir']}/lua/" + p.relative_to(ldir).as_posix())
+            for p in sorted(ldir.rglob('*')) if p.is_file() and p.suffix in ('.lua', '.txt') and p.name != 'wrappers.txt']
+
+
+def sync_lua(game, state, adapter='napoleon', assume_closed=False, dry_run=False):
+    """Bring the installed Lua files (the dev scripts and battle presets) up to the repo's, no new kit: each changed file is staged under a
+    unique name (<sha12>__<name>) beside its destination, sha-checked, then moved into place; the old copy goes to <state>/_to_delete and
+    install.json is updated, so uninstall stays byte-exact. Files the install does not own are never touched. Returns the changed paths."""
+    game, state = Path(game), Path(state)
+    rec_path = state / STATE_FILE
+    if not rec_path.exists():
+        raise SystemExit('pc_deploy sync-lua: nothing is installed (no install.json): install a kit first')
+    rec = json.loads(rec_path.read_text(encoding='utf-8'))
+    if not dry_run:
+        require_closed(game, rec, assume_closed, state)
+    stamp = utc_stamp()
+    known = {f['path']: f for f in rec['files']}
+    changed = []
+    for src, dest in lua_files(adapter):
+        b = src.read_bytes()
+        h = hashlib.sha256(b).hexdigest()
+        target = game / dest
+        if target.exists() and sha256_file(target) == h and dest in known:
+            continue
+        changed.append(dest)
+        if dry_run:
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        staged = target.with_name(f'{h[:12]}__{target.name}.{stamp}.tmp')
+        staged.write_bytes(b)
+        if sha256_file(staged) != h:
+            raise SystemExit(f'pc_deploy sync-lua: {staged} does not verify after the copy')
+        if target.exists():
+            move_out(target, state / '_to_delete' / stamp / dest)
+        os.replace(staged, target)
+        if sha256_file(target) != h:
+            raise SystemExit(f'pc_deploy sync-lua: {target} does not verify after the copy')
+        known[dest] = {'path': dest, 'sha256': h, 'size': len(b)}
+        print(f'pc_deploy sync-lua: {dest} sha256 {h[:12]} ok')
+    if changed and not dry_run:
+        rec['files'] = list(known.values())
+        rec['history'].append({'utc': stamp, 'action': 'sync-lua', 'files': changed})
+        rec_path.write_text(json.dumps(rec, indent=2) + '\n', encoding='utf-8')
+    print(f"pc_deploy sync-lua: {len(changed)} file(s) {'would change' if dry_run else 'changed'}")
+    return changed
+
+
 def main():
     ap = argparse.ArgumentParser(description='proxy kit, install, uninstall')
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -529,6 +580,7 @@ def main():
     u = sub.add_parser('uninstall'); u.add_argument('--game', required=True); u.add_argument('--state', required=True); u.add_argument('--assume-closed', action='store_true')
     c = sub.add_parser('set'); c.add_argument('--game', required=True); c.add_argument('--config-file', default='napoleon_remastered.ini'); c.add_argument('pairs', nargs='+')
     st = sub.add_parser('status'); st.add_argument('--game', required=True); st.add_argument('--state', required=True)
+    sl = sub.add_parser('sync-lua'); sl.add_argument('--game', required=True); sl.add_argument('--state', required=True); sl.add_argument('--assume-closed', action='store_true'); sl.add_argument('--dry-run', action='store_true')
     d = sub.add_parser('diff'); d.add_argument('a'); d.add_argument('b')
     a = ap.parse_args()
     if a.cmd == 'kit':
@@ -550,6 +602,8 @@ def main():
         set_keys(a.game, a.pairs, a.config_file)
     elif a.cmd == 'status':
         return status(a.game, a.state)
+    elif a.cmd == 'sync-lua':
+        sync_lua(a.game, a.state, assume_closed=a.assume_closed, dry_run=a.dry_run)
     elif a.cmd == 'diff':
         out = diff_snapshots(json.loads(Path(a.a).read_text()), json.loads(Path(a.b).read_text()))
         print('\n'.join(out) if out else 'identical')

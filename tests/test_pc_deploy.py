@@ -1,6 +1,7 @@
 """Host tests for proxy/tools/pc_deploy.py (manifest, stale-resend guard, install, byte-exact uninstall, config edits, closed check)
 on a fake game folder. Runs in `wsc gates` (tests gate)."""
 import importlib.util
+import hashlib
 import json
 import os
 import tempfile
@@ -77,6 +78,28 @@ class Deploy(unittest.TestCase):
         self.assertTrue(pd.uninstall(self.game, self.state))
         self.assertEqual((self.game / 'd3d9.dll').read_bytes(), b'someone else\'s d3d9 wrapper')
         self.assertEqual(pd.diff_snapshots(before, pd.snapshot(self.game)), [])
+
+    def test_sync_lua_changes_only_what_differs_and_uninstalls_byte_exact(self):
+        """J4: sync-lua copies a changed dev Lua file with a unique staged name and a sha check, records it, and the uninstall still restores everything."""
+        before = pd.snapshot(self.game)
+        pd.install(self.kit, self.game, self.state)
+        self.assertEqual(pd.sync_lua(self.game, self.state, assume_closed=True), [])   # nothing differs right after an install
+        victim = self.game / 'napoleon_remastered' / 'lua' / 'autostart.lua'
+        victim.write_bytes(b'-- edited on the PC')
+        self.assertEqual(pd.sync_lua(self.game, self.state, assume_closed=True, dry_run=True), ['napoleon_remastered/lua/autostart.lua'])
+        self.assertEqual(victim.read_bytes(), b'-- edited on the PC')   # a dry run changes nothing
+        self.assertEqual(pd.sync_lua(self.game, self.state, assume_closed=True), ['napoleon_remastered/lua/autostart.lua'])
+        self.assertEqual(hashlib.sha256(victim.read_bytes()).hexdigest(), pd.sha256_file(pd.ROOT / 'proxy' / 'napoleon' / 'lua' / 'autostart.lua'))
+        self.assertEqual(list(victim.parent.glob('*.tmp')), [])   # no staged leftovers
+        rec = json.loads((self.state / 'install.json').read_text())
+        self.assertEqual(rec['history'][-1]['action'], 'sync-lua')
+        self.assertEqual(pd.status(self.game, self.state), 0)
+        self.assertTrue(pd.uninstall(self.game, self.state))
+        self.assertEqual(pd.diff_snapshots(before, pd.snapshot(self.game)), [])
+
+    def test_sync_lua_needs_an_install(self):
+        with self.assertRaises(SystemExit):
+            pd.sync_lua(self.game, self.state, assume_closed=True)
 
     def test_reinstall_then_uninstall(self):
         before = pd.snapshot(self.game)
