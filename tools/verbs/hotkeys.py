@@ -137,7 +137,7 @@ def split(binding):
 
 def os_combo(binding):
     mods, key = split(binding)
-    if {'Win', 'Windows', 'Super', 'Meta'} & set(mods) or key in ('Win', 'Windows'):
+    if {'Win', 'Windows', 'Super', 'Meta'} & set(mods) or WIN_RAW.match(key):   # LWin / RWin / Apps as the key, too
         return True
     return '+'.join(mods + [key]) in OS_COMBOS
 
@@ -180,7 +180,7 @@ def find_problems(rows, known_os_combo=(), known_clash=()):
                 continue
             if split(a['binding'])[1] != split(b['binding'])[1]:
                 continue
-            if a['binding'] == b['binding']:
+            if split(a['binding']) == split(b['binding']):   # Esc = Escape, alt+k = Alt+K
                 msg = f'clash: {a["id"]} and {b["id"]} both bind {a["binding"]} ({a["context"]} / {b["context"]})'
             elif (wild_of(a) and reaches(a, b['binding'])) or (wild_of(b) and reaches(b, a['binding'])):
                 w = a if wild_of(a) and reaches(a, b['binding']) else b

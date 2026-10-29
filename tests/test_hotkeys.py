@@ -74,8 +74,13 @@ class ClashRules(unittest.TestCase):
         self.assertTrue(problems([wild('v.w', 'W', 'ALLOW_SHIFT'), row('m.shift', 'Shift+W')]))
         self.assertEqual(problems([wild('v.w', 'W', 'ALLOW_SHIFT'), row('m.ctrl', 'Ctrl+W')]), [])
 
+    def test_same_binding_spelled_two_ways_clashes(self):   # J21 review: compared as text, Esc and Escape slipped past
+        p = problems([row('mod.a', 'Esc', 'campaign'), row('mod.b', 'Escape', 'campaign')])
+        self.assertTrue(p and 'mod.a' in p[0] and 'mod.b' in p[0], p)
+
     def test_os_combos_always_fail(self):
-        for b in ('Alt+F4', 'Alt+Tab', 'Alt+Esc', 'Alt+Escape', 'Win+E', 'win+d', 'Ctrl+Alt+Delete', 'Ctrl+Shift+Escape', 'Windows+R'):
+        for b in ('Alt+F4', 'Alt+Tab', 'Alt+Esc', 'Alt+Escape', 'Win+E', 'win+d', 'Ctrl+Alt+Delete', 'Ctrl+Shift+Escape', 'Windows+R',
+                  'LWin', 'RWin', 'Apps'):
             p = problems([row('m.os', b, 'campaign')])
             self.assertTrue(p and 'm.os' in p[0] and 'OS combo' in p[0], b)
 
