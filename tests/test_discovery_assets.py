@@ -1,4 +1,5 @@
 """Host tests for the J7 discovery passes' pure logic (discovery/core/): pack adapter, ids, roles, image headers, loc, db, gzip, schema."""
+import gzip
 import json
 import os
 import struct
@@ -214,6 +215,19 @@ class DeterministicGzip(unittest.TestCase):
             raw = 'k\tv\nb\t2\na\t1\n'.encode()
             co = zlib.compressobj(9, zlib.DEFLATED, 31)
             open(p, 'wb').write(co.compress(raw) + co.flush())
+            self.assertTrue(tsvgz.problems(p))
+
+    def test_other_deflate_bytes_pass(self):
+        """A file another zlib build wrote (here: level 1) passes; a name or mtime in the header does not."""
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, 't.tsv.gz')
+            rows = [('%04d' % i, 'x' * 40) for i in range(200)]
+            other = gzip.compress(tsvgz.text(['k', 'v'], rows), compresslevel=1, mtime=0)
+            self.assertNotEqual(other, tsvgz.dumps(['k', 'v'], rows))
+            open(p, 'wb').write(other)
+            self.assertEqual(tsvgz.problems(p, ['k', 'v']), [])
+            body = tsvgz.text(['k', 'v'], rows)
+            open(p, 'wb').write(gzip.compress(body, compresslevel=9, mtime=12345))
             self.assertTrue(tsvgz.problems(p))
 
     def test_paths_with_backslash_t_survive(self):

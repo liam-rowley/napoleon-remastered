@@ -14,11 +14,14 @@ def cell(v):
     return '' if v is None else str(v).replace('\t', ' ').replace('\r', ' ').replace('\n', ' ')
 
 
+def text(header, rows):
+    return ('\t'.join(header) + '\n' + ''.join('\t'.join(cell(v) for v in r) + '\n' for r in sorted(rows))).encode('utf-8')
+
+
 def dumps(header, rows):
-    text = '\t'.join(header) + '\n' + ''.join('\t'.join(cell(v) for v in r) + '\n' for r in sorted(rows))
     buf = io.BytesIO()
     with gzip.GzipFile(filename='', mode='wb', fileobj=buf, mtime=0, compresslevel=9) as g:
-        g.write(text.encode('utf-8'))
+        g.write(text(header, rows))
     return buf.getvalue()
 
 
@@ -37,9 +40,14 @@ def read(path):
 
 
 def problems(path, header=None):
-    """Header as expected, rows sorted and unique, and the bytes exactly what dumps() writes for them."""
+    """Header as expected, rows sorted and unique, a gzip header with mtime 0 and no name, and the inflated bytes exactly text().
+
+    The deflate stream itself is not compared: zlib and zlib-ng (CPython 3.14+ on Windows) compress the same text to different
+    bytes, so a byte compare passes on the machine that wrote the file and fails on the other.
+    """
     try:
         raw = open(path, 'rb').read()
+        inflated = gzip.decompress(raw)
         h, rows = read(path)
     except (OSError, ValueError, EOFError) as e:
         return [f'{path}: {e}']
@@ -48,6 +56,8 @@ def problems(path, header=None):
         out.append(f'{path}: header {h}, want {list(header)}')
     if rows != sorted(set(rows)):
         out.append(f'{path}: rows are not sorted or repeat')
-    elif dumps(h, rows) != raw:
-        out.append(f'{path}: not the deterministic gzip of its rows (gzip mtime 0, level 9, no name)')
+    elif raw[3] != 0 or raw[4:8] != b'\0\0\0\0':
+        out.append(f'{path}: gzip header has a name, extra field or mtime (want flags 0, mtime 0)')
+    elif inflated != text(h, rows):
+        out.append(f'{path}: inflated text is not the canonical TSV of its rows (sorted, one trailing newline)')
     return out
