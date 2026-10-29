@@ -97,8 +97,9 @@ def check_core_pin(root, fix):
 
 
 def hooks_path_ok(value):
-    """core/.githooks, relative or as an absolute path to a clone's core/.githooks (both run the pinned core's hooks)."""
-    return bool(value) and value.replace('\\', '/').rstrip('/').endswith('core/.githooks')
+    """Exactly core/.githooks, as the core's `hooks` gate wants: relative, so every worktree runs its own pinned core's hooks (an
+    absolute path to the main clone's core/ would run another checkout's pin)."""
+    return value == 'core/.githooks'
 
 
 def check_hooks_path(root, fix):
