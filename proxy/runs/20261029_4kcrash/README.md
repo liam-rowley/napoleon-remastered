@@ -19,6 +19,13 @@ formatter and killed the process. **Fix:** build `99c4503daf5e` (`core/crashpoli
 with under 32 KB of stack left the handlers only record the exception; it is logged later from a thread with stack ("was NOT logged
 when it happened") at the next `Direct3DCreate9`, the top-level filter or detach.
 
+**After the fix** (build `99c4503daf5e`, 2026-10-29): Liam's retry at 09:34Z still died, now in `ntdll.dll+0x827cd` (AV writing
+`0x01870f50`, ESP 224 bytes past the same main-thread limit: the exception dispatcher itself has no stack left), so the proxy is out of
+the picture. A watcher launch straight into 3840x2160 (scratch profile `j3-res4k` = the current prefs with `x_res`/`y_res` changed,
+restored byte-identical afterwards, prefs sha256 `c2202172...`) ran 40 s at 3840x2160 with no crash (09:40Z, launch
+`20261029T094029Z-p16232`): the overflow needs the in-game switch (device destroyed and recreated), not 4K itself. Follow-up: job J16
+(`plan/j16-res-switch-crash`).
+
 **Open:** what overflows the 1 MB main stack at the 4K device recreation (the game, DXVK or the NVIDIA driver; `nvgpucomp32.dll`
 and `amdvlk32.dll` frames are on the stack). With the fix in, a retry at 4K either survives (the overflow was handled by its owner)
 or leaves a WER dump with the real overflow chain intact. Dumps copied to `C:\napoleon_remastered_pc\_scratch\j3\wer_4k\` (1 GB each,
