@@ -5,4 +5,6 @@
   same DLL inputs): byte-identical. `build.sh --docker repro`: identical from another path.
 - `hook_proof.txt`: a fresh headless Claude Code session in the J20 worktree ran `git commit --allow-empty`; the PreToolUse hook denied it
   and named the flag; the retry made commit a032b09 with `Claude-Session: 849442f7-a0c0-4324-b2e7-990cd2c74c6e`.
-- `game.txt`: kit, send, install, watcher lock/launch/kill/unlock, uninstall; `proxy.log` from the launch.
+- `game.txt`: the watcher lock, launch to the frontend, kill and unlock (captured output). `proxy.log` from that launch; `uninstall.txt`.
+- `deploy_steps.txt`: kit, send, install and set. Their output was not captured to a file at the time: transcribed, and backed by
+  `install_history.json` (the PC's install record), `sent_kit_listing.txt` and `resend_refused.txt` (re-run after the review).

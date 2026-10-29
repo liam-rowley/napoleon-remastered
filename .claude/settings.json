@@ -15,7 +15,7 @@
           {
             "type": "command",
             "shell": "bash",
-            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/claude_hook.py\""
+            "command": "f=\"${CLAUDE_PROJECT_DIR:-.}/tools/claude_hook.py\"; [ -f \"$f\" ] || exit 0; python3 \"$f\" || exit 0"
           }
         ]
       }

@@ -41,7 +41,8 @@ Built on `job/J20` from Claude Code on officepc (Git Bash), session `9c22f827-33
   commit `a032b09` with `Claude-Session: 849442f7-a0c0-4324-b2e7-990cd2c74c6e` (`hook_proof.txt`; the empty commit stays as evidence).
 - Policy on git: `tests/test_pr_policy.py::PolicyOnGit` builds a fixture repo: report and review without trailers -> refused (exit 1, both
   files named); distinct trailers -> ok; the same trailer on both -> refused.
-- Game (`game.txt`, `proxy.log`, `uninstall.txt`): `pc_deploy.py kit` -> `kit_20261029T152159Z_edbf71c650b7`; `send` to
+- Game (`game.txt` for the watcher steps, `deploy_steps.txt` for the deploy steps (transcribed, backed by `install_history.json`,
+  `sent_kit_listing.txt`, `resend_refused.txt`), `proxy.log`, `uninstall.txt`): `pc_deploy.py kit` -> `kit_20261029T152159Z_edbf71c650b7`; `send` to
   `C:\napoleon_remastered_pc\kits\` (17 files sha-checked; a second send of the same id refused); `install` from the sent copy; `set
   dev.state_json=1`. Watcher only: `job.sh lock j20`, `launch wait_log=scene:.intro.->.frontend` -> job
   `j20-20261029T152646Z-2214931641` ok, frontend after 63 s (pid 21372); `kill` -> job `j20-20261029T152753Z-1241922141` ok; `unlock`.
@@ -69,8 +70,17 @@ Built on `job/J20` from Claude Code on officepc (Git Bash), session `9c22f827-33
    file each and fit `wsc` verbs now that the repo is on the PC (natural home: J7's asset index). Not done here.
 3. `python3` is the Store alias (3.15.2), not the Python 3.12 install the brief named. It works; whether to pin one interpreter (and
    CI's 3.12) is Liam's call.
-4. Hooks load from the folder a session started in: a session started in the main checkout gets the main checkout's
-   `.claude/settings.json`. Until this is on main, sessions in older checkouts do not have the hook.
+4. Hooks load from the folder a session started in, and the hook command runs `$CLAUDE_PROJECT_DIR/tools/claude_hook.py` (the
+   session's start folder, not the current one). Until this is on main, sessions started in the main checkout find no script and the
+   hook does nothing; CI's policy check still refuses a job without trailers.
+
+## Review fixes (J20 review, f6bb8de)
+1. The hook command no longer calls `git rev-parse`: outside a repo it resolved to `/tools/claude_hook.py`, and python's exit 2
+   would block every shell call. It now runs `${CLAUDE_PROJECT_DIR:-.}/tools/claude_hook.py` only when it exists and exits 0 on any
+   failure; `claude_hook.py` itself never exits non-zero. Test: `test_the_settings_command_never_blocks` runs the committed command
+   string from a non-repo folder with no, an empty and a missing project dir (exit 0, no output), and with the real one (deny).
+   The `.claude/settings.json` edit was made with Liam's explicit permission (auto mode refuses hook-setting edits otherwise).
+2. The deploy-step output is now in `deploy_steps.txt`, marked as transcribed, with the on-disk records that back it.
 5. `dev.state_json=1` alone wrote no `state.json` in this run (the scene tracker logged `scene: intro -> frontend` in `proxy.log`).
    Whether it also needs `dev.lua_bridge` is for J3's owner; `harness/README.md`'s `"scene": "frontend"` wait depends on it.
 6. **Fast test launches by default** (Liam, 2026-10-29, during this run): the kit installs release defaults (`dev.skip_intro=0`), so a

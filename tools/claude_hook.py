@@ -29,11 +29,13 @@ def decide(event):
 
 
 def main():
+    # Never exit non-zero: exit 2 from a PreToolUse hook blocks the tool call, so a hook bug would block every shell call (J20 review).
+    # A commit this hook fails to catch is still refused by tools/pr_policy.py in CI.
     try:
         event = json.load(sys.stdin)
-    except ValueError:
+        why = decide(event) if isinstance(event, dict) else None
+    except Exception:
         return 0   # not ours to judge: let the normal permission flow decide
-    why = decide(event)
     if why:
         print(json.dumps({'hookSpecificOutput': {'hookEventName': 'PreToolUse', 'permissionDecision': 'deny',
                                                  'permissionDecisionReason': why}}))
