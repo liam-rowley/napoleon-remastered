@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 # purpose: build the proxy d3d9.dll (mingw-w64 i686, the release route) and/or build and run the host tests (g++)
-# usage: proxy/tools/build.sh [dll|tests|all|smoke|repro] [--adapter napoleon]   (smoke: run the built DLL under wine with a stand-in exe; repro: rebuild from a copy at another path, fail unless byte-identical)   (outputs in build/proxy/; needs g++-mingw-w64-i686 for dll)
-# when: after any change under proxy/ (CI runs `all` on every push); the DLL in build/proxy/<adapter>/d3d9.dll is what proxy/tools/pc_deploy.py kits
+# usage: proxy/tools/build.sh [--docker] [dll|tests|all|smoke|repro] [--adapter napoleon]   (--docker: the same target inside ubuntu:24.04 pinned by digest with CI's packages, the PC route (D31); smoke: run the built DLL under wine with a stand-in exe; repro: rebuild from a copy at another path, fail unless byte-identical)   (outputs in build/proxy/; needs g++-mingw-w64-i686 for dll, or Docker Desktop with --docker)
+# when: after any change under proxy/ (CI runs `all` on every push); on the PC always with --docker; the DLL in build/proxy/<adapter>/d3d9.dll is what proxy/tools/pc_deploy.py kits
 # not-a-verb: a compiler driver for C++ sources, not a registry operation; CI and agents call it directly
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+DOCKER=0; [[ "${1:-}" == "--docker" ]] && { DOCKER=1; shift; }
+# D31: the container CI's proxy job runs in (ubuntu-24.04), pinned by digest, with the packages CI installs or its runner image has
+IMAGE="ubuntu@sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852"   # ubuntu:24.04, pinned 2026-10-29
+APT="g++-mingw-w64-i686 g++ python3 ca-certificates"
 WHAT="${1:-all}"; ADAPTER="napoleon"
 [[ "${2:-}" == "--adapter" ]] && ADAPTER="${3:?adapter name}"
 OUT="$ROOT/build/proxy"; mkdir -p "$OUT/$ADAPTER" "$OUT/tests"
@@ -13,12 +17,28 @@ OUT="$ROOT/build/proxy"; mkdir -p "$OUT/$ADAPTER" "$OUT/tests"
 DLL_INPUTS=(proxy/core proxy/napoleon proxy/tools/build.sh proxy/tools/fetch_lua.py)
 # The build id comes from the commit history: a shallow clone sees HEAD as the last commit touching the inputs and builds a DLL
 # whose id is not the tested one (J1 deviation: CI run 40775169543). Refuse instead of building a wrong id.
-if [[ "$(git -C "$ROOT" rev-parse --is-shallow-repository 2>/dev/null)" == true ]]; then
-  echo "build.sh: $ROOT is a shallow clone: the build id would be wrong. Fetch the history first (git fetch --unshallow, or a bounded"
-  echo "          git fetch --depth=1000 origin <branch>; CI: actions/checkout fetch-depth: 0)"; exit 4
+if [[ -n "${WSP_BUILD_ID:-}" ]]; then
+  BUILD_ID="$WSP_BUILD_ID"   # inside --docker: the host computed it (a worktree's .git points at a host path the container cannot see)
+else
+  if [[ "$(git -C "$ROOT" rev-parse --is-shallow-repository 2>/dev/null)" == true ]]; then
+    echo "build.sh: $ROOT is a shallow clone: the build id would be wrong. Fetch the history first (git fetch --unshallow, or a bounded"
+    echo "          git fetch --depth=1000 origin <branch>; CI: actions/checkout fetch-depth: 0)"; exit 4
+  fi
+  BUILD_ID="$(git -C "$ROOT" log -1 --format=%h --abbrev=12 -- "${DLL_INPUTS[@]}" 2>/dev/null || true)"; BUILD_ID="${BUILD_ID:-nogit}"
+  BUILD_ID="$BUILD_ID$(git -C "$ROOT" diff --quiet HEAD -- "${DLL_INPUTS[@]}" 2>/dev/null || echo -dirty)"
 fi
-BUILD_ID="$(git -C "$ROOT" log -1 --format=%h --abbrev=12 -- "${DLL_INPUTS[@]}" 2>/dev/null || true)"; BUILD_ID="${BUILD_ID:-nogit}"
-BUILD_ID="$BUILD_ID$(git -C "$ROOT" diff --quiet HEAD -- "${DLL_INPUTS[@]}" 2>/dev/null || echo -dirty)"
+
+if [[ $DOCKER == 1 ]]; then
+  [[ "$WHAT" != smoke ]] || { echo "build.sh --docker: smoke needs wine; it runs in CI (or build.sh smoke on Linux)"; exit 2; }
+  docker info >/dev/null 2>&1 || { echo "build.sh --docker: Docker is not answering: start Docker Desktop (Linux containers); fallback: the CI artifact (proxy/README.md \"Build\")"; exit 2; }
+  SRC="$ROOT"; command -v cygpath >/dev/null && SRC="$(cygpath -w "$ROOT")"   # Git Bash: docker wants C:\...
+  echo "build.sh --docker: $WHAT in $IMAGE, build $BUILD_ID"
+  # MSYS_NO_PATHCONV: Git Bash would rewrite /src and the -v argument into Windows paths
+  MSYS_NO_PATHCONV=1 docker run --rm -v "$SRC:/src" -w /src -e WSP_BUILD_ID="$BUILD_ID" "$IMAGE" bash -c \
+    "set -e; apt-get update -q >/dev/null; DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends $APT >/dev/null
+     i686-w64-mingw32-g++-win32 --version | head -1; proxy/tools/build.sh $WHAT --adapter $ADAPTER"
+  exit $?
+fi
 
 # One compile line for every build (dll and repro): $1 = source root, $2 = output DLL. Uses $CXX, $ADAPTER, $BUILD_ID.
 LUA_SRC="$ROOT/build/lua/src"   # proxy/tools/fetch_lua.py: Lua 5.1.1, pinned, patched for the engine
