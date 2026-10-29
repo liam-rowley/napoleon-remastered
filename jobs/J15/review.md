@@ -35,7 +35,7 @@ the set-and-restore of the gate byte (only if 0) and the lock order (scene befor
 
 **should-fix (fixed on the branch by this review, one commit each):**
 1. `proxy/core/console.cpp:107`, `proxy/napoleon/adapter.cpp:28`: comments said retail never sets the gate byte and leaves it 0. The PC fact
-   `napoleon.console.handler_gate` says it was already set in every live campaign (`gate_sets 0`). Fixed in `6316cb9`.
+   `napoleon.console.handler_gate` says it was already set in every live campaign (`gate_sets 0`). Fixed in `6316cb9`. That comment named the fact id, which broke `test_console`'s no-game-in-core lint (CI `proxy`); `c01ff2d` rewords it.
 2. `harness/core/shot.sh`: it saved full-resolution JPEGs at about 1.2 MB each. The branch added 19 of them (18.9 MB), twice the size of every
    earlier run folder together, for evidence that reads fine at 1280 px. Fixed in `0819b78`: at most 1280 px wide, quality 70, about 165 KB
    (the PowerShell code was tested on the PC against `b0_before.jpg`). `8c93f57` shrinks this run's 19 shots the same way (18.9 MB to 2.6 MB).
