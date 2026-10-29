@@ -1,0 +1,8 @@
+auto_save.save
+j14_agent-to-settlement_a.save
+j14_agent-to-settlement_b.save
+j14_building-queued-unit-recruited_a.save
+j14_building-queued-unit-recruited_b.save
+j14_taxes-changed_a.save
+j14_taxes-changed_b.save
+quick_save.save

@@ -23,6 +23,7 @@ struct ConsoleAdapter {
     const char* ctorTailSite; int cliVtblOperand;     // the ctor's final vtable store
     int cliCtxOff; unsigned cliSize;                  // this + cliCtxOff = campaign; object size
     const char* executeSite; int executeSlot;         // CampaignCLI::Execute and its vtable index
+    const char* gateSite; int gateOperand;            // a handler's `cmp byte [campaign + off], 0`: the byte most acting handlers need set
     const char* const* noOps;                         // campaign commands that do nothing in retail (refused)
     const char* const* systemNames;                   // the system dictionary (path label "system")
 };

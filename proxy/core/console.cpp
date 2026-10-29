@@ -22,6 +22,7 @@ const ConsoleAdapter* s_ad = nullptr;
 alignas(16) uint8_t s_cliBuf[8][0x80];
 int s_cliNext = 0;
 uintptr_t s_cli = 0, s_cliCamp = 0, s_selVtblSeen = 0;
+int s_gateOff = -1, s_gateSets = 0;
 // the last forward, for the verb's result
 long s_seq = 0; FwdResult s_last = FwdResult::None; std::string s_lastName, s_lastWhy; int s_hits = 0, s_forwards = 0, s_refusals = 0;
 
@@ -103,11 +104,20 @@ bool __thiscall FwdRun(void*, void* name, void* stream) {
             return false;   // "not handled": the executor goes on as without a handler
         }
     }
+    // Most acting handlers return at once unless the campaign context's gate byte is set, and retail never sets it (run
+    // 20261029_j15pc c_console: transport_to_region hit but did nothing). Liam 2026-10-29: set it, so it is 1 for the length of this
+    // one command and restored right after: nothing else in the engine ever sees it change.
+    volatile uint8_t* gate = s_gateOff > 0 && Readable(camp + s_gateOff, 1) ? (volatile uint8_t*)(camp + s_gateOff) : nullptr;
+    const uint8_t gateOld = gate ? *gate : 0;
+    if (gate && !gateOld) *gate = 1;
     const bool hit = ((ExecFn)s_execute)((void*)cli, name, stream);   // engine thread, outside the lock (handlers run engine code)
+    if (gate && !gateOld) *gate = gateOld;
     Lock l;
+    if (gate && !gateOld) ++s_gateSets;
     ++s_seq; s_lastName = n; ++s_forwards; if (hit) ++s_hits;
     s_last = hit ? FwdResult::Hit : FwdResult::Unknown; s_lastWhy.clear();
-    LOGI("console: forwarded '%s' -> %s (campaign context %p)", n.c_str(), hit ? "campaign hit" : "unknown to the campaign dictionary", (void*)camp);
+    LOGI("console: forwarded '%s' -> %s (campaign context %p, gate byte +0x%x %s)", n.c_str(), hit ? "campaign hit" : "unknown to the campaign dictionary",
+         (void*)camp, (unsigned)s_gateOff, !gate ? "not set: unreadable" : gateOld ? "already set" : "set for the call, restored to 0");
     return hit;
 }
 void __thiscall FwdHelp(void*) { LOGI("console: help asked (the campaign dictionary's help is not printed in retail)"); }
@@ -140,7 +150,7 @@ void ConsoleInstall() {
     if (!s_key || s_installed || !s_ad) return;
     const Runtime& rt = Rt();
     if (!rt.plan.engineHooks || !rt.plan.engineReads) { s_sitesWhy = "the exe guard's plan allows no engine hooks"; LOGW("console: not installed: %s", s_sitesWhy.c_str()); return; }
-    const char* sites[] = { s_ad->slotSite, s_ad->slotCallSite, s_ad->ownerSite, s_ad->wiringSite, s_ad->ctorSite, s_ad->ctorTailSite, s_ad->executeSite };
+    const char* sites[] = { s_ad->slotSite, s_ad->slotCallSite, s_ad->ownerSite, s_ad->wiringSite, s_ad->ctorSite, s_ad->ctorTailSite, s_ad->executeSite, s_ad->gateSite };
     for (const char* s : sites)
         if (!SiteAddress(s)) { s_sitesWhy = std::string("site ") + s + " not accepted by the patch engine" + (rt.sitesWhy.empty() ? "" : ": " + rt.sitesWhy); LOGE("console: not installed: %s", s_sitesWhy.c_str()); return; }
     s_slot = Operand(s_ad->slotSite, s_ad->slotOperand);
@@ -148,11 +158,12 @@ void ConsoleInstall() {
     s_selVtbl = Operand(s_ad->wiringSite, s_ad->selectionVtblOperand);
     s_cliVtbl = Operand(s_ad->ctorTailSite, s_ad->cliVtblOperand);
     s_ctor = SiteAddress(s_ad->ctorSite); s_execute = SiteAddress(s_ad->executeSite);
+    s_gateOff = *(const uint8_t*)(SiteAddress(s_ad->gateSite) + s_ad->gateOperand);
     if (Operand(s_ad->slotCallSite, 2) != s_slot) { s_sitesWhy = "the slot test and the slot call name different slots"; LOGE("console: not installed: %s", s_sitesWhy.c_str()); return; }
     s_sitesOk = s_installed = true;
-    LOGI("console: install: slot %p (%s), owner global %p, selection vtable %p, CLI ctor %p, CLI vtable %p, Execute %p (slot %d); sites %s %s %s %s %s %s %s",
-         (void*)s_slot, s_ad->slotSite, (void*)s_ownerGlobal, (void*)s_selVtbl, (void*)s_ctor, (void*)s_cliVtbl, (void*)s_execute, s_ad->executeSlot,
-         sites[0], sites[1], sites[2], sites[3], sites[4], sites[5], sites[6]);
+    LOGI("console: install: slot %p (%s), owner global %p, selection vtable %p, CLI ctor %p, CLI vtable %p, Execute %p (slot %d), gate byte +0x%x; sites %s %s %s %s %s %s %s %s",
+         (void*)s_slot, s_ad->slotSite, (void*)s_ownerGlobal, (void*)s_selVtbl, (void*)s_ctor, (void*)s_cliVtbl, (void*)s_execute, s_ad->executeSlot, (unsigned)s_gateOff,
+         sites[0], sites[1], sites[2], sites[3], sites[4], sites[5], sites[6], sites[7]);
     std::string why;
     if (!SetSlot(true, why)) LOGE("console: slot not claimed: %s", why.c_str());
 }
@@ -196,10 +207,10 @@ std::string ConsoleStatusJson() {
     char b[900];
     snprintf(b, sizeof b, "\"gate\": {\"key\": %s, \"sites_ok\": %s, \"sites_why\": \"%s\", \"on\": %s, \"scene\": \"%s\"}, \"slot\": {\"address\": \"%p\", "
              "\"value\": \"%p\", \"state\": \"%s\"}, \"campaign\": {\"chain_ok\": %s, \"context\": \"%p\", \"why\": \"%s\"}, \"cli\": \"%p\", "
-             "\"forwards\": %d, \"hits\": %d, \"refusals\": %d, \"selection_vtable\": \"%p\", \"selection_base_vtable\": \"%p\"",
+             "\"forwards\": %d, \"hits\": %d, \"refusals\": %d, \"selection_vtable\": \"%p\", \"selection_base_vtable\": \"%p\", \"gate_offset\": %d, \"gate_sets\": %d",
              s_key ? "true" : "false", s_sitesOk ? "true" : "false", s_sitesWhy.c_str(), s_on ? "true" : "false", scene.c_str(), (void*)s_slot,
              (void*)cur, !slotRead ? "unread" : SlotClaimName(DecideSlotClaim(cur, (uintptr_t)&s_fwd)), chain ? "true" : "false", (void*)camp,
-             chainWhy.c_str(), (void*)s_cli, s_forwards, s_hits, s_refusals, (void*)s_selVtblSeen, (void*)s_selVtbl);
+             chainWhy.c_str(), (void*)s_cli, s_forwards, s_hits, s_refusals, (void*)s_selVtblSeen, (void*)s_selVtbl, s_gateOff, s_gateSets);
     return b;
 }
 

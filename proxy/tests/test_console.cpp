@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
     }
     {   // the adapter: every site exists, every offset is the number inside its row's stock bytes
         const ConsoleAdapter& c = *Adapter().console;
-        for (const char* id : { c.slotSite, c.slotCallSite, c.ownerSite, c.wiringSite, c.ctorSite, c.ctorTailSite, c.executeSite }) {
+        for (const char* id : { c.slotSite, c.slotCallSite, c.ownerSite, c.wiringSite, c.ctorSite, c.ctorTailSite, c.executeSite, c.gateSite }) {
             const SiteDef* s = Site(id);
             if (!s) printf("    site %s missing\n", id);
             CHECK(s && s->kind == kHook && s->configKey && !strcmp(s->configKey, "dev.console"));
@@ -97,6 +97,13 @@ int main(int argc, char** argv) {
         CHECK(Site(c.ctorTailSite)->stock[11] == 0xc7 && Site(c.ctorTailSite)->stock[12] == 0x06);    // mov [esi], imm32
         CHECK(Site(c.ctorTailSite)->stock[21] == 0xc2 && Site(c.ctorTailSite)->stock[22] == 0x04);    // ret 4: thiscall(void** ctx)
         CHECK(c.cliCtxOff + 4 <= (int)c.cliSize);
+        CHECK(Site(c.gateSite)->stock[0] == 0x80 && Site(c.gateSite)->stock[c.gateOperand] == 0x54 && Site(c.gateSite)->stock[3] == 0x00);   // cmp byte [r + 0x54], 0
+        // the gate byte is set only around one Execute call and restored right after it
+        {
+            const std::string cc = tk::ReadFile("proxy/core/console.cpp");
+            const size_t set = cc.find("if (gate && !gateOld) *gate = 1;"), call = cc.find("((ExecFn)s_execute)(", set), back = cc.find("if (gate && !gateOld) *gate = gateOld;", call);
+            CHECK(set != std::string::npos && call != std::string::npos && back != std::string::npos && back - call < 200);
+        }
         // the no-op table: refuses what retail compiled out, never a command that acts
         CHECK(ConsoleInList(c.noOps, "all_end_turn") && ConsoleInList(c.noOps, "give_trait") && ConsoleInList(c.noOps, "selected_cqi"));
         CHECK(!ConsoleInList(c.noOps, "teleport_to") && !ConsoleInList(c.noOps, "transport_to_region") && !ConsoleInList(c.noOps, "create_army"));
