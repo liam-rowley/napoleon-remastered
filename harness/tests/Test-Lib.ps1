@@ -6,6 +6,7 @@ $script:Pass = 0
 $script:Fail = 0
 $script:Failures = @()
 function Test-Case([string]$name, [scriptblock]$body) {
+    Write-Host "START $((Get-Date).ToUniversalTime().ToString('HH:mm:ss'))Z $name"   # a hang shows which test it was in (J2 CI round 8 was cancelled with no log)
     try { & $body | Out-Null; Write-Host "PASS  $name"; $script:Pass++ }
     catch { Write-Host "FAIL  $name : $($_.Exception.Message)"; $script:Fail++; $script:Failures += $name }
 }

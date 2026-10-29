@@ -67,6 +67,8 @@ jobs:
         shell: powershell
         run: $PSVersionTable.PSVersion.ToString()
       - name: harness host tests (unit and integration)
+        # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept
+        timeout-minutes: 18
         shell: powershell
         run: ./harness/tests/Run-HostTests.ps1 -Suite all
 
