@@ -372,5 +372,13 @@ Test-Case 'static: Handle-Hang writes hang.txt before Kill-Game and again after 
     Assert-Match $body "kill: pending" 'the first write says the kill is pending'
     Assert-True ($body.IndexOf('HANG handled') -gt $writes[1]) 'HANG handled (the completion signal tests wait for) is logged after the final write'
 }
+Test-Case 'static: Test-Integration refuses -Repeat without -Only before it starts anything (J19 review)' {
+    # checked statically: running the suite to see the refusal would start a watcher and kill Fake* processes if the guard broke
+    $e = $null; $t = $null
+    $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot 'Test-Integration.ps1'), [ref]$t, [ref]$e)
+    $first = $ast.EndBlock.Statements[0].Extent.Text
+    Assert-Match $first '^if \(\$Repeat -gt 1 -and -not \$Only\)' 'the first statement is the -Repeat/-Only guard'
+    Assert-Match $first 'exit 2' 'it exits before the watcher starts'
+}
 Remove-Item -LiteralPath $tmp -Recurse -Force -ErrorAction SilentlyContinue
 exit (Finish-Tests 'unit')

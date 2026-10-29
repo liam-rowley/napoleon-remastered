@@ -5,6 +5,8 @@
 # -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row. Cases that build on an
 # earlier case's state (the update rollbacks need 'update: a good kit') only pass when that case is selected too.
 param([string]$Repo = '', [string]$Only = '', [ValidateRange(1, 1000)][int]$Repeat = 1)
+# the whole suite is not repeat-safe (see above): a repeat of every case fails cases that are fine, so it is refused before anything starts
+if ($Repeat -gt 1 -and -not $Only) { Write-Host 'FAILED: -Repeat needs -Only (the whole integration suite is not repeat-safe)'; exit 2 }
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'Test-Lib.ps1')
 $script:TcOnly = $Only; $script:TcRepeat = $Repeat   # Tc names: a $script:Only in Test-Lib would BE the -Only param (case-insensitive, same scope) and reset it (J19 run 40898907246)
