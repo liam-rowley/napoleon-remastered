@@ -8,8 +8,8 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 
 | Path | What | Moves to warscape-core at the end of phase 1 |
 |---|---|---|
-| `core/pe.h`, `sha1.h`, `guard.h`, `patch_engine.h`, `config.h` | pure logic, no Windows headers, host-tested | yes |
-| `core/dllmain.cpp`, `log.cpp`, `crash.cpp`, `guard_driver.cpp`, `patch_driver.cpp`, `backend.cpp`, `runtime.h`, `adapter.h`, `d3d9.def` | in-process drivers, game-agnostic | yes |
+| `core/pe.h`, `sha1.h`, `guard.h`, `patch_engine.h`, `config.h`, `display_guard.h` | pure logic, no Windows headers, host-tested | yes |
+| `core/dllmain.cpp`, `log.cpp`, `crash.cpp`, `guard_driver.cpp`, `patch_driver.cpp`, `backend.cpp`, `headless.cpp`, `runtime.h`, `adapter.h`, `d3d9.def` | in-process drivers, game-agnostic | yes |
 | `napoleon/identity.json` | the exe pin, config file and mod folder names | no (adapter) |
 | `napoleon/adapter.cpp`, `napoleon/generated/tables.h`, `napoleon/napoleon_remastered.ini` | adapter; the last two are GENERATED | no (generator moves) |
 | `tests/` | host tests (`g++`, synthetic PE images) | yes |
@@ -122,7 +122,8 @@ process list when it is alive, else `tasklist`.
 `core/hooks.cpp`: `IatHook` swaps one import-table slot of the game exe (validated as snapped first; a slot not yet snapped at
 DllMain is retried at the first `Direct3DCreate9`), `VtableHook` one slot of a D3D object (`IDirect3D9::CreateDevice` [16],
 `IDirect3DDevice9::Present` [17]). Every hook is logged (`hook: iat|vtable ... slot old -> new`). Only the dev side installs hooks,
-only with a dev key on and the guard's plan allowing them (`DevInit`; `tests/test_dev.cpp` lints it).
+only with a dev key on and the guard's plan allowing them (`DevInit`; `tests/test_dev.cpp` lints it). Headless (below) hooks the
+exe's user32 window imports and more `IDirect3D9` slots the same way, each slot once (a recreated `IDirect3D9` shares the vtable).
 
 ## Dev control channel (J3)
 
@@ -157,6 +158,36 @@ Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: typ
 campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknown key is an engine AV, so autostart refuses it.
 Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
 Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
+
+## Headless (J13)
+
+`headless.enabled=1` (default and release value off; the watcher sets it for every launch that is not `visible=1`, `harness/README.md`)
+puts every game window on the virtual display and never on a real monitor. Fail closed: there is no path that shows a window on a
+real monitor. Decisions are pure functions in `core/display_guard.h` (`tests/test_display_guard.cpp`, including a millisecond
+simulation of the display changes Empire hit); the driver is `core/headless.cpp`. Both are core candidates (J12).
+- **Target**: the one attached, non-primary display whose adapter or monitor string contains `headless.display_name` and whose rect is
+  exactly `headless.size` (physical pixels, per-monitor DPI aware V2 around every query and move). Never an index, a `DISPLAYn` name or
+  an assumed origin. Resolved at the first `Direct3DCreate9` or the first game window; the monitor list is logged every launch.
+- **Mode list**: `IDirect3D9` slots 6/7/8/15 answer `GetAdapterModeCount` / `EnumAdapterModes` / `GetAdapterDisplayMode` /
+  `GetAdapterMonitor` from the target for every adapter (DXVK answers every adapter with the primary's modes).
+- **Device**: `CreateDevice` [16] and `Reset` [16 on the device] refuse a fullscreen device or a back buffer that is not `headless.size`.
+- **Windows** (IAT hooks on the exe's user32 imports, fact `napoleon.exe.window_imports`): a top-level window is created hidden,
+  borderless (`WS_POPUP`), `WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW`, then placed on the target and shown with `SW_SHOWNA`; its geometry
+  belongs to the guard (the engine's `SetWindowPos`/`MoveWindow` sizes and moves are dropped, its coordinates may be DPI-virtualised);
+  a minimise becomes `SW_HIDE`; a show off the target is refused. Windows of at most 8x8 (a helper) are left alone and logged.
+  `ChangeDisplaySettingsW` is never applied; `MessageBoxW` is logged and answered with its safe button; `DialogBoxIndirectParamW` -1.
+- **Topology guard**: a thread polls the virtual-screen metrics (~4 ms), the target's live rect and the layout signature; with the main
+  window's `WM_DISPLAYCHANGE`/`WM_DPICHANGED`/`WM_SETTINGCHANGE`/`WM_DEVICECHANGE` any change cloaks the window first (`DWMWA_CLOAK`),
+  the render thread re-resolves by name and size at the next Present, moves and verifies, and the window is uncloaked after
+  `headless.settle_ms` of quiet. No target for `headless.refuse_grace_ms`: refusal. Every Present post-checks the windows.
+  Left out of Empire's guard: the blocked-poll watchdog and the WndProc chain ping (no other module subclasses the window here).
+- **Refusal**: ERROR `headless: REFUSED: <why>`, every window of the process cloaked and hidden, status `refused`, **exit code 2160**.
+  Causes: no unique target at the size; a fullscreen or wrong-size device; the guard in pass-through (no hooks) or `proxy.enabled=0`;
+  an essential user32 import missing or never snapped; the target gone after a change.
+- **Status** `napoleon_remastered\headless_status.json` (rewritten by rename, in the adapter's heartbeat files): `pid`, `launch_id`,
+  `state` starting | target_ok | on_virtual | refused, `detail`, `target` {device, adapter, monitor, rect}, `window`, `client`,
+  `backbuffer`, `exit_code`, `written_utc`. `on_virtual` = the device exists and a frame was presented with the main window visible
+  inside the target.
 
 ## Open questions
 

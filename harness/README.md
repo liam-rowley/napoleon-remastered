@@ -15,14 +15,14 @@ all times are UTC (`...Z`).
 
 ## Watcher root (`C:\napoleon_remastered_pc\watcher`, `/c/napoleon_remastered_pc/watcher` in Git Bash)
 `src\` code and `adapter.json` | `jobs\` `<id>.request` `.out` `.done` `_ids.txt` | `profiles\<name>\`, `profiles\_saved\<ts>_<owner>\`,
-`profiles\_active.json` | `runs\<utc>_hang\` | `_to_delete\` (nothing is ever deleted) | `update\`, `backup\` | `game.lock`, `watcher.status`,
+`profiles\_active.json` | `runs\<utc>_hang\`, `runs\<utc>_winprobe\` | `vdisplay_restore.json` (only while a launch has changed the virtual display's mode) | `_to_delete\` (nothing is ever deleted) | `update\`, `backup\` | `game.lock`, `watcher.status`,
 `watcher.alive`, `watcher.pid`, `watcher.log`, `watcher.ini`, `watcher.zombie.json`, `watcher.stop`, `watchdog.off`, `install.log`, `install_result.json`.
 Kits live beside it: `<state>\kits\<id>`.
 
 ## Job requests
 Write `jobs\<id>.request` (write a temp name, then rename). Ids are never reused (a reused id is refused). FIFO.
 - One line: `launch` | `kill` | `profile <name>` | `profile restore` | `status` | `noop` | `restart [full]` | `update kit=<id> [noop_s= healthy_s= stable_s=]`.
-  `launch` takes `route=exe|steam wait_log=<text> wait_s=<n>`.
+  `launch` takes `route=exe|steam wait_log=<text> wait_s=<n>` and the headless arguments below. **A launch is headless unless `visible=1`.**
 - A script: `cmd` by default, or `ps1` with `#ps1` as the first line. Optional header `#job owner=<you> timeout=<s> type=cmd|ps1`.
 - Result `<id>.done` (JSON, written last): `status` ok|failed|refused|timeout|lost, `exit` (refused = -2, timeout = -1), `reason`, `start_utc`, `end_utc`; output in `<id>.out`.
 - `launch`, `kill`, `profile` need `owner=` equal to the owner in `game.lock`. A script that starts or kills the game or writes a config file needs `#job owner=` too.
@@ -47,7 +47,8 @@ every launch refused with "PC NEEDS REBOOT" until the pid is gone. No DLL change
 Targets are the adapter's `config_files` (prefs, keys, mod ini, dxvk.conf). `profile <name>` snapshots all targets first (absent is a state), applies
 the profile's full copy / `.set` overlay / `.absent` marker, and writes `_active.json` before changing anything. Overlays are computed on the snapshot,
 so profiles never stack. `profile restore` (or lock release, expiry, owner change; deferred while the game runs) restores byte for byte, checked by sha256.
-Overlay `style: none` allows full copies only (prefs/keys formats are unread, see open questions).
+Overlay styles: `ini`, `conf`, `prefs` (the game's UTF-16LE `key value; # comment #` file: a key's value is replaced in place, a missing key appended as `key value;`,
+every other byte kept; `!key` refused); `style: none` allows full copies only (keys, battle_prefs).
 
 ## Update and rollback
 `update kit=<id>` runs `update.ps1` detached: back up, replace sha-checked, restart, require a new pid, the expected version and a fresh heartbeat, then a
@@ -55,11 +56,31 @@ Overlay `style: none` allows full copies only (prefs/keys formats are unread, se
 
 ## Settings (`watcher.ini`, key=value; not in the `config_keys` registry, whose rows feed the generated tables)
 `hang_s`=120, `hang_startup_s`=180, `hung_window_s`=60, `cpu_epsilon_s`, `dump_wait_s`=90, `dump_type`, `watchdog`=1, `zombie_wait_s`=15, `job_timeout_s`=1800,
-`prune_hours`=24, `lock_stale_min`=20, `job_script_guard`=refuse|warn, `launch_confirm_s`=20, `loop_ms`=1000; tests only: `test_hooks`, `test_fake_zombie`.
+`prune_hours`=24, `lock_stale_min`=20, `job_script_guard`=refuse|warn, `launch_confirm_s`=20, `loop_ms`=1000, `winprobe`=1; tests only: `test_hooks`, `test_fake_zombie`, `test_vdisplay_script` (stands in for the display tool; the CI runner has no virtual display).
 
-## Display probe
-`vdisplay_probe.ps1` only validates (`CDS_TEST`): it lists displays and modes and, if the wanted mode is missing, prints the exact `vdd_settings.xml` edit.
-Exit 3 and "NO UNIQUE VIRTUAL DISPLAY" when there is none (the CI runner).
+## Headless launch (J13)
+Every `launch` puts the window on the virtual display and fails closed; the proxy side is `proxy/README.md`. The request is one line (the owner holds `game.lock`):
+`launch owner=<you>` (4K) | `launch owner=<you> size=1920x1080` | `launch owner=<you> visible=1` (only with Liam present; touches nothing). Also `headless_wait_s=<n>` (default 180).
+Flow, in this order; any failure refuses or fails the job and nothing stays on screen: (1) `d3d9.dll` must contain `headless_status.json` (an older proxy would put the window on a
+real monitor); (2) `vdisplay_probe.ps1 -Check -Size`; at another size `-Set` (only a mode the driver offers), the previous mode is saved to `vdisplay_restore.json` and put back by `Pump`
+once the game has exited, also after a crash or kill; (3) the adapter's `headless` block (prefs `x_res`, `y_res`, `gfx_fullscreen false`; mod ini `headless.enabled`, `headless.size`) is
+overlaid on the files as they are, under a snapshot recorded like a profile (`_active.json`, `headless` in its history), so lock release or expiry restores byte for byte; a warning
+when the base prefs carry `x_pos`/`y_pos` inside the virtual display's rect; (4) `win_probe.ps1` starts (every launch); (5) the game starts and the job waits for
+`napoleon_remastered\headless_status.json` naming the game's pid: `on_virtual` = ok, `refused` = failed with the detail and exit code 2160, silence = the game is killed. `wait_log` still works after.
+Job results: refused (-2) before the start, failed (1) for `HEADLESS FAILED: ...`.
+
+## Display tool (`vdisplay_probe.ps1`)
+Acts only on the one attached, non-primary display whose adapter or monitor string matches `-Name` ("Virtual Display Driver"); never by size, index or `DISPLAYn`; refuses a primary,
+no match, two matches. `-Test <sizes>` (default: a CDS_TEST probe that prints the `vdd_settings.xml` edit for Liam when a mode is missing) | `-Check -Size WxH` | `-Set WxH [-Hz n] -SaveTo <json>` |
+`-Origin X,Y -SaveTo <json>` (refuses a rect overlapping another display) | `-Restore <json>`. Changes are dynamic (no registry), CDS_TEST first, every display is printed before and after,
+a changed neighbour is a warning. Exit 0 ok, 2 bad arguments, 3 `VIRTUAL MISSING`, 4 `VIRTUAL WRONG SIZE`, 5 apply failed, 6 mode not offered, 7 refused. `-Origin` is the only display change an
+agent may make by hand, in a topology test. Selection is the pure function `Select-VirtualDisplay` (tested in `Test-Unit.ps1` with fake lists of Liam's topologies).
+
+## Window probe (`win_probe.ps1`)
+Started detached by every launch before the game, into `<root>\runs\<utc>_winprobe\` (named in the job output): `ready.txt`, `winprobe.txt` (live log + summary) and, when the game exits,
+`winprobe.json`: `samples`, `duration_ms`, `longest_visible_on_real_ms`, `visible_on_real_ms_total`, `visible_on_real_samples`, `visible_off_target_count` (samples with a shown window not wholly inside
+the virtual display), `cloaked_ms`, `monitor_changes` (each with the monitor list), `first_visible` (time, rect, monitor), `windows` (per window: class, visible / cloaked / on-real ms, helper_1x1), `topology_start`,
+`topology_end`, `exit_code`. About 10 ms samples, the monitor list re-read every sample, physical pixels (per-monitor DPI V2), no admin. Windows of at most 1x1 pixel are listed, not counted.
 
 ## Tests
 `harness/tests/Run-HostTests.ps1 -Suite unit|integration|all`; CI job `harness-windows` runs all under Windows PowerShell 5.1 with compiled fake games.
@@ -69,4 +90,4 @@ assert on watcher output only after the watcher's own completion line (`Wait-Log
 process exits or a file appears.
 
 ## Open questions
-See `jobs/J2/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format` (UTF-16LE, `key value;` lines); no overlay style for it yet.
+See `jobs/J2/report.md` and `jobs/J13/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format`.
