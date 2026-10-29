@@ -1,8 +1,11 @@
 # J3 review: dev control channel and load time
 
-2026-10-29. Independent reviewer: Opus 5.5, fresh chat (did not build `job/J3`). Reviewed at `6aac513`, fix commit on top listed below.
+2026-10-29. Independent reviewer: Opus 5.5, fresh chat (did not build `job/J3`). Reviewed at `6aac513`; re-reviewed at `6e0d612`
+(see "Re-review" at the end).
 
-**Verdict: merge after fixes.**
+**Verdict: merge.**
+
+First pass (at `6aac513`): merge after fixes. That verdict and its findings are kept below as written.
 
 The job delivers what the brief asks for, and its numbers hold up. The one thing to fix before merging is the map check (finding 1).
 It is the check the brief singles out (Empire ran "Flanders" on Anatolia), and as built it does not show which map the engine
@@ -102,9 +105,29 @@ None.
 - The DXVK state-cache default is removed as briefed.
 - Scope: J16 was split off correctly as a plan PR.
 
-## To merge
+## To merge (first pass)
 
 1. The job chat fixes finding 1 and records one PC launch per preset showing `map_folder_loaded` coming from a probe made during
    loading.
 2. It adds the finding-2 line to the report.
 3. A re-review of the change then sets `status=done review=jobs/J3/review.md`. This review leaves the row at `review`.
+
+## Re-review (2026-10-29, at `6e0d612`)
+
+The job chat's fixes are `753dd22` and `c17db96`; `6e0d612` merges main in.
+
+- **Finding 1: fixed.** `FilesMapReset()` runs after `autostart.lua` returns. It clears the dedup and the report, so only probes made
+  while loading count. The result gains `map_folder_loaded_after_request_ms`, and a load that probes nothing still fails closed. A
+  lint in `test_dev.cpp` covers it.
+  - Evidence (run `20261029_j3review`, build `753dd22bcc85`): in each preset's `proxy.log` the folder is reported again after
+    `frontend -> loading`, at 141 ms for land, 125 ms for naval and 171 ms for siege, and it matches the preset each time. I read the
+    three logs.
+  - The report now says that the morning's "map checked" claims rested on the front end's probe.
+- **Finding 2: fixed.** The narrower baseline is now a named deviation in the report.
+- **Later 7: fixed.** The `hooks.cpp` header is tidied, with the DLL change as asked.
+- **New note in the report:** absolute load times changed with the PC's state. A battle loaded in 3.4 s after the restart, against
+  18.2 s that morning, on both builds. The arms in the baseline were measured in the same state, so the comparison holds.
+- **Re-ran:**
+  - `build.sh all`: build `753dd22bcc85`, the same id as the PC kit; 596 host checks pass, test_dev now 139.
+  - `wsc gates`: below.
+- **Still open, as before:** Later items 4-6 and 8.
