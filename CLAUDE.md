@@ -38,6 +38,7 @@
   (on `brief/<id>`, then queue its merge on green CI: D33), or what every open job is waiting for. Say which job you took.
 - **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it. A `merge` verdict
   ends with the reviewer queueing the merge on green CI (D32); any other verdict is never merged.
+- The `wsc jobs view --serve` buttons start the same sessions (`claude --bg`, named `J<n>-<action>`, at most 2 working: D15).
 - Never mark your own job `done`, and never review a job you built (CI's `policy` check refuses a review written by a session that
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
