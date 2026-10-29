@@ -15,16 +15,26 @@
     "steam_uri": "steam://rungameid/34030",
     "steam_wait_s": 90
   },
-  "heartbeat_files": ["napoleon_remastered\\logs\\proxy.log", "napoleon_remastered\\state.json"],
+  "heartbeat_files": ["napoleon_remastered\\logs\\proxy.log", "napoleon_remastered\\state.json", "napoleon_remastered\\headless_status.json"],
   "archive": {
     "dirs_log": ["napoleon_remastered\\logs", "napoleon_remastered\\dxvk"],
     "dirs_dump": ["napoleon_remastered\\dumps"],
     "files": ["napoleon_remastered.ini", "dxvk.conf"]
   },
+  "headless": {
+    "display_name": "Virtual Display Driver",
+    "default_size": "3840x2160",
+    "status_file": "napoleon_remastered\\headless_status.json",
+    "marker_file": "d3d9.dll",
+    "marker": "headless_status.json",
+    "exit_code": 2160,
+    "prefs": {"x_res": "{W}", "y_res": "{H}", "gfx_fullscreen": "false", "sound_master_enabled": "false", "sound_master_volume": "0"},
+    "mod_ini": {"headless.enabled": "1", "headless.size": "{W}x{H}"}
+  },
   "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
   "config_files": [
-    {"id": "prefs", "anchor": "appdata", "path": "scripts\\preferences.script.txt", "style": "none",
-     "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); no overlay style for that yet, so profiles ship a full copy"},
+    {"id": "prefs", "anchor": "appdata", "path": "scripts\\preferences.script.txt", "style": "prefs",
+     "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); overlay style prefs replaces a key's value in place and keeps every other byte"},
     {"id": "keys", "anchor": "appdata", "path": "custom_keys.keys.xml", "style": "none",
      "note": "key bindings (XML); full copy only"},
     {"id": "battle_prefs", "anchor": "appdata", "path": "battle_preferences\\.sp_default.battle_preferences", "style": "none",

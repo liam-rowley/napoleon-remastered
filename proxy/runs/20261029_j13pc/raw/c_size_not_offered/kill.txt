@@ -1,0 +1,2 @@
+nothing to kill: no game process
+[job j13-20261029T181203Z-573820377: ok exit=0]

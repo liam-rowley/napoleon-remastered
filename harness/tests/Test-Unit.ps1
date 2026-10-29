@@ -51,13 +51,22 @@ Test-Case 'static: nothing in harness/core can write UTF-16 or a BOM, or format 
         }
     }
 }
-Test-Case 'static: the display probe can only validate (CDS_TEST), never apply or change topology' {
+Test-Case 'static: the display tool changes a display only through Cds-Test (CDS_TEST) and Cds-Apply (dynamic, selection-checked), never persists or touches topology' {
     $t = [IO.File]::ReadAllLines((Join-Path $core 'vdisplay_probe.ps1'))
     $calls = @($t | Where-Object { $_ -match '\[VProbe\]::ChangeDisplaySettingsEx\(' })
-    Assert-True ($calls.Count -ge 1) 'there is a CDS_TEST call'
-    foreach ($c in $calls) { Assert-Match $c 'CDS_TEST' 'every ChangeDisplaySettingsEx call passes CDS_TEST' }
+    Assert-Eq $calls.Count 2 'exactly two ChangeDisplaySettingsEx call sites'
+    $test = @($calls | Where-Object { $_ -match 'function Cds-Test' }); $apply = @($calls | Where-Object { $_ -match 'function Cds-Apply' })
+    Assert-Eq $test.Count 1 'one is Cds-Test'; Assert-Match $test[0] 'CDS_TEST' 'Cds-Test passes CDS_TEST'
+    Assert-Eq $apply.Count 1 'the other is Cds-Apply'; Assert-Match $apply[0] 'Assert-Selected' 'Cds-Apply re-checks the selection'
+    Assert-Match $apply[0] 'ChangeDisplaySettingsEx\(\$sel\.display\.Device, \[ref\]\$dm, \[IntPtr\]::Zero, 0, ' 'Cds-Apply is dynamic (flags 0)'
+    Assert-Match $apply[0] '\$sel\.display\.Device' 'and acts on the selected display'
     $joined = ($t | Where-Object { -not $_.TrimStart().StartsWith('#') }) -join "`n"
-    Assert-NotMatch $joined 'CDS_UPDATEREGISTRY|SetDisplayConfig|CDS_NORESET|CDS_FULLSCREEN' 'no apply flag, no topology API'
+    Assert-NotMatch $joined 'CDS_UPDATEREGISTRY|SetDisplayConfig|CDS_NORESET|CDS_FULLSCREEN|CDS_SET_PRIMARY' 'no persist flag, no primary change, no topology API'
+    Assert-Eq ([regex]::Matches($joined, 'Cds-Apply ').Count) 1 'Cds-Apply is called from one place (Apply-ToVirtual)'
+    $pe = $null; $pt = $null
+    $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $core 'vdisplay_probe.ps1'), [ref]$pt, [ref]$pe)
+    $fn = $ast.Find({ param($n) $n -is [Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -eq 'Apply-ToVirtual' }, $true)
+    Assert-Match $fn.Body.Extent.Text 'Cds-Apply \$sel' 'Apply-ToVirtual hands Cds-Apply the selection, not a device string'
 }
 Test-Case 'static: update.ps1 judges liveness from the heartbeat file mtime and retries status reads' {
     $t = [IO.File]::ReadAllText((Join-Path $core 'update.ps1'))
@@ -270,9 +279,9 @@ Test-Case 'profile: another owner is refused while one is active; unknown profil
     Assert-Match (Profile-Apply '..\x' 'agent1' $o) 'bad profile name' 'bad name'
     Assert-True ($null -eq (Profile-Restore 'test' $o)) 'restore'
 }
-Test-Case 'profile: a full-file overlay on a style-none target is refused before anything is written' {
+Test-Case 'profile: an overlay on a style-none target (keys) is refused before anything is written' {
     $d = Join-Path $ProfilesDir 'badprefs'; New-Item -ItemType Directory -Path $d -Force | Out-Null
-    [IO.File]::WriteAllText((Join-Path $d 'prefs.set'), "x=1`n")
+    [IO.File]::WriteAllText((Join-Path $d 'keys.set'), "x=1`n")
     $h = Hashes; $o = New-Object Collections.Generic.List[string]
     Assert-Match (Profile-Apply 'badprefs' 'agent1' $o) "only a full copy" 'refused'
     Assert-Eq (Hashes) $h 'nothing touched'
@@ -379,6 +388,170 @@ Test-Case 'static: Test-Integration refuses -Repeat without -Only before it star
     $first = $ast.EndBlock.Statements[0].Extent.Text
     Assert-Match $first '^if \(\$Repeat -gt 1 -and -not \$Only\)' 'the first statement is the -Repeat/-Only guard'
     Assert-Match $first 'exit 2' 'it exits before the watcher starts'
+}
+
+# ---- overlay style prefs: the game's UTF-16LE preferences file ---------------------------------------------------------------------
+$u16 = New-Object Text.UnicodeEncoding($false, $false)
+function Prefs-Bytes([string]$t) { return ([byte[]]@(0xFF, 0xFE) + $u16.GetBytes($t)) }
+function Prefs-Text([byte[]]$b) { return $u16.GetString($b, 2, $b.Length - 2) }
+$prefsTxt = "write_preferences_at_exit true; # write_preferences_at_exit <bool>, Write preferences at exit #`r`nx_res 3840; # x_res <int32>, Fixed window width #`r`ny_res 2160; # y_res <int32>, Fixed window height #`r`nx_pos 0; # x_pos <int32>, Window position #`r`ny_pos 0; # y_pos <int32>, Window position #`r`ngfx_fullscreen true; # gfx_fullscreen <bool>, Run the application in fullscreen or not #`r`nnumber_of_threads 0; # number_of_threads <int>, Set the number of threads #`r`n"
+Test-Case 'overlay (prefs): only the targeted values change, comments and every other byte stay, BOM and CRLF kept' {
+    $base = Prefs-Bytes $prefsTxt
+    $out = Apply-Overlay $base "x_res 1920`ny_res 1080`ngfx_fullscreen false`n" 'prefs' 'headless'
+    Assert-True ($out[0] -eq 0xFF -and $out[1] -eq 0xFE) 'BOM kept'
+    $want = $prefsTxt.Replace('x_res 3840;', 'x_res 1920;').Replace('y_res 2160;', 'y_res 1080;').Replace('gfx_fullscreen true;', 'gfx_fullscreen false;')
+    Assert-Eq (Prefs-Text $out) $want 'only the three values changed'
+    $b2 = Prefs-Bytes $want
+    Assert-Eq $out.Length $b2.Length 'length'
+    Assert-Eq (Sha-Bytes $out) (Sha-Bytes $b2) 'byte-identical to the expected file'
+    # the same values again: byte-identical to the base
+    Assert-Eq (Sha-Bytes (Apply-Overlay $base "x_res 3840`ny_res=2160`n" 'prefs' 'p')) (Sha-Bytes $base) 'same values = identical bytes (also key=value syntax)'
+    # a key name that is only a prefix of another key does not match it
+    Assert-Eq (Prefs-Text (Apply-Overlay $base "x_re 5`n" 'prefs' 'p')).Contains('x_re 5;') $true 'a prefix of a key is a new key, not x_res'
+}
+Test-Case 'overlay (prefs): a missing key is appended as "key value;", an empty base becomes UTF-16LE, !key and a non-UTF-16 file are refused' {
+    $base = Prefs-Bytes $prefsTxt
+    Assert-Eq (Prefs-Text (Apply-Overlay $base "fix_res true`n" 'prefs' 'p')) ($prefsTxt + "fix_res true;`r`n") 'appended after the last line'
+    $noNl = Prefs-Bytes "a 1; # c #"
+    Assert-Eq (Prefs-Text (Apply-Overlay $noNl "b 2`n" 'prefs' 'p')) "a 1; # c #`r`nb 2;`r`n" 'a base without a final newline gets one first'
+    $e0 = Apply-Overlay ([byte[]]@()) "x_res 1920`n" 'prefs' 'p'
+    Assert-True ($e0[0] -eq 0xFF -and $e0[1] -eq 0xFE) 'new file starts with the UTF-16LE BOM'
+    Assert-Eq (Prefs-Text $e0) "x_res 1920;`r`n" 'new file content'
+    $threw = ''; try { Apply-Overlay $base "!x_res`n" 'prefs' 'p' } catch { $threw = $_.Exception.Message }
+    Assert-Match $threw "'!key' is not supported" 'comment-out is refused with a clear error'
+    $threw = ''; try { Apply-Overlay (Enc "x_res 1;`r`n") "x_res 2`n" 'prefs' 'p' } catch { $threw = $_.Exception.Message }
+    Assert-Match $threw 'UTF-16LE' 'an 8-bit file is refused, not silently re-encoded'
+    Assert-Eq (Get-PrefsValue $base 'x_pos') '0' 'Get-PrefsValue reads a value'
+    Assert-Eq (Get-PrefsValue $base 'x_res') '3840' 'Get-PrefsValue x_res'
+    Assert-True ($null -eq (Get-PrefsValue $base 'nope')) 'and $null for a missing key'
+}
+
+# ---- headless overlay: snapshot, overlay on top, restore byte for byte -----------------------------------------------------------------
+Test-Case 'headless overlay: no active profile = snapshot + _active.json, the prefs and mod ini change only in the headless keys, restore is byte-identical; a warning when x_pos/y_pos sit inside the virtual display' {
+    $real = Prefs-Bytes ($prefsTxt.Replace('x_pos 0;', 'x_pos 4000;').Replace('y_pos 0;', 'y_pos 2300;'))
+    [IO.File]::WriteAllBytes($prefs, $real)
+    $iniBefore = Test-Path -LiteralPath $ini
+    $o = New-Object Collections.Generic.List[string]
+    $h0 = Hashes
+    $err = Headless-Overlay 1920 1080 'agent1' @(3839, 2160, 7679, 4320) $o
+    Assert-True ($null -eq $err) "overlay ($err)"
+    $act = Get-Active
+    Assert-Eq $act.name 'headless' 'recorded like a profile'; Assert-Eq $act.owner 'agent1' 'owner'; Assert-Eq (@($act.history)[-1]) 'headless' 'history'
+    $now = [IO.File]::ReadAllBytes($prefs)
+    Assert-Eq (Prefs-Text $now) ((Prefs-Text $real).Replace('x_res 3840;', 'x_res 1920;').Replace('y_res 2160;', 'y_res 1080;').Replace('gfx_fullscreen true;', 'gfx_fullscreen false;')) 'prefs: only x_res, y_res, gfx_fullscreen changed (x_pos/y_pos untouched)'
+    Assert-Match ([Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($ini))) '(?s)\[headless\].*enabled=1.*size=1920x1080' 'mod ini has the headless keys'
+    Assert-Match ($o -join "`n") 'WARNING: the base preferences carry x_pos=4000 y_pos=2300' 'x_pos/y_pos inside the virtual display rect is warned about'
+    # a second launch: the files already carry the keys; nothing changes, still one snapshot
+    $o2 = New-Object Collections.Generic.List[string]
+    Assert-True ($null -eq (Headless-Overlay 1920 1080 'agent1' $null $o2)) 'second overlay'
+    Assert-Match ($o2 -join "`n") 'prefs already carries' 'idempotent'
+    Assert-Match (Headless-Overlay 1920 1080 'agent2' $null $o2) 'still active' 'another owner is refused while one is active'
+    $r = Profile-Restore 'test' $o2
+    Assert-True ($null -eq $r) "restore ($r)"
+    Assert-Eq (Sha256File $prefs) (Sha-Bytes $real) 'prefs byte-identical after the restore'
+    Assert-Eq (Hashes) $h0 'every file back to the baseline'
+    Assert-True ($null -eq (Get-Active)) 'nothing active'
+    [IO.File]::WriteAllBytes($prefs, $odd)
+}
+Test-Case 'headless overlay on top of an active profile keeps the profile in force and the snapshot base' {
+    $o = New-Object Collections.Generic.List[string]
+    Assert-True ($null -eq (Profile-Apply 'proxy-dxvk' 'agent1' $o)) 'profile'
+    $snap = (Get-Active).snapshot
+    [IO.File]::WriteAllBytes($prefs, (Prefs-Bytes $prefsTxt))
+    $h = Hashes
+    Assert-True ($null -eq (Headless-Overlay 3840 2160 'agent1' $null $o)) 'overlay'
+    $act = Get-Active
+    Assert-Eq $act.name 'proxy-dxvk' 'the profile stays the active one'; Assert-Eq $act.snapshot $snap 'same snapshot'; Assert-Eq (@($act.history)[-1]) 'headless' 'history records headless'
+    Assert-Match ([Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($ini))) '(?m)^backend=dxvk' 'the profile content is still there'
+    Assert-Match ([Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($ini))) 'enabled=1' 'with the headless keys on top'
+    Assert-True ($null -eq (Profile-Restore 'test' $o)) 'restore'
+    [IO.File]::WriteAllBytes($prefs, $odd)
+}
+
+# ---- the display tool's pure logic: nothing but the virtual display is ever selected -----------------------------------------------------------
+. (Join-Path $core 'vdisplay_probe.ps1') -LibOnly
+function FD([string]$dev, [string]$adapter, [string]$mon, [bool]$primary, [int]$w, [int]$h, [int]$x, [int]$y, [int]$hz = 60) { return [pscustomobject]@{ Device = $dev; Adapter = $adapter; Monitor = $mon; Primary = $primary; W = $w; H = $h; Hz = $hz; X = $x; Y = $y } }
+$VDD = 'Virtual Display Driver'
+$topoA = @((FD '\\.\DISPLAY1' 'NVIDIA GeForce RTX 4090' 'Generic PnP Monitor' $true 3840 2160 0 0 240), (FD '\\.\DISPLAY2' 'NVIDIA GeForce RTX 4090' 'Dell S2721DGF (HDMI2)' $false 2560 1440 -2560 327 144), (FD '\\.\DISPLAY10' $VDD 'Generic PnP Monitor' $false 3840 2160 3839 2160))
+$topoB = @((FD '\\.\DISPLAY1' 'NVIDIA GeForce RTX 4090' 'Dell S2721DGF (HDMI2)' $true 2560 1440 0 0 144), (FD '\\.\DISPLAY12' $VDD 'Generic PnP Monitor' $false 3840 2160 2560 1440))
+Test-Case 'display tool: the cursor goes back only when Windows recentred it on a display (a move Liam made is left alone)' {
+    $disp = @([pscustomobject]@{ X = 0; Y = 0; W = 3840; H = 2160 }, [pscustomobject]@{ X = 3839; Y = 2160; W = 1920; H = 1080 })
+    Assert-True (Get-CursorDecision @(1226, 1201) @(1920, 1080) $disp) 'moved to the primary centre: put back'
+    Assert-True (Get-CursorDecision @(10, 10) @(4799, 2700) $disp) 'moved to the virtual display centre: put back'
+    Assert-True (-not (Get-CursorDecision @(1920, 1080) @(1920, 1080) $disp)) 'not moved: nothing to do'
+    Assert-True (-not (Get-CursorDecision @(1226, 1201) @(700, 900) $disp)) 'moved elsewhere (Liam): left alone'
+}
+Test-Case 'display selection: both of Liam''s topologies select the virtual display (by name, wherever its origin or GDI number is)' {
+    $a = Select-VirtualDisplay $topoA $VDD
+    Assert-Eq $a.display.Device '\\.\DISPLAY10' 'topology A: 4K primary + Dell + VDD at 3839,2160'
+    $b = Select-VirtualDisplay $topoB $VDD
+    Assert-Eq $b.display.Device '\\.\DISPLAY12' 'topology B: Dell primary at 0,0 + VDD at 2560,1440'
+    $m = @((FD '\\.\DISPLAY1' 'NVIDIA' 'Generic PnP Monitor' $true 3840 2160 0 0), (FD '\\.\DISPLAY7' 'Some Indirect Adapter' $VDD $false 1920 1080 3840 0))
+    Assert-Eq (Select-VirtualDisplay $m $VDD).display.Device '\\.\DISPLAY7' 'a match on the monitor string works too'
+}
+Test-Case 'display selection: no virtual display, two of them, or one marked primary select NOTHING (no fallback by size, index or DISPLAYn)' {
+    $none = @($topoA[0], $topoA[1])
+    $r = Select-VirtualDisplay $none $VDD
+    Assert-True ($null -eq $r.display) 'no VDD: nothing selected'; Assert-Match $r.reason 'no attached display matches' 'reason'
+    # a real 4K display, same size as the wanted mode, is never taken for the virtual one
+    Assert-True ($null -eq (Select-VirtualDisplay @($topoA[0]) $VDD).display) 'a 4K primary alone: nothing'
+    $two = @($topoA[0], $topoA[2], (FD '\\.\DISPLAY11' $VDD 'Generic PnP Monitor' $false 3840 2160 7679 0))
+    $r = Select-VirtualDisplay $two $VDD
+    Assert-True ($null -eq $r.display) 'two VDDs: nothing'; Assert-Match $r.reason 'not unique' 'reason says not unique'
+    $prim = @((FD '\\.\DISPLAY1' 'NVIDIA' 'Dell' $false 2560 1440 -2560 0), (FD '\\.\DISPLAY10' $VDD 'Generic PnP Monitor' $true 3840 2160 0 0))
+    $r = Select-VirtualDisplay $prim $VDD
+    Assert-True ($null -eq $r.display) 'VDD marked primary: nothing'; Assert-Match $r.reason 'PRIMARY' 'reason says primary'
+    Assert-True ($null -eq (Select-VirtualDisplay $topoA '').display) 'an empty name selects nothing (it would match everything)'
+    Assert-True ($null -eq (Select-VirtualDisplay @() $VDD).display) 'an empty list'
+    foreach ($t in @($topoA, $topoB, $none, $two, $prim)) {
+        $s = Select-VirtualDisplay $t $VDD
+        if ($s.display) { Assert-True (-not $s.display.Primary) 'a selection is never primary'; Assert-Match ($s.display.Adapter + $s.display.Monitor) 'Virtual Display Driver' 'and always matches the name' }
+    }
+}
+Test-Case 'display tool: -Origin plans refuse any rect that overlaps another display (touching is fine), -Set candidates, change detection' {
+    $sel = Select-VirtualDisplay $topoA $VDD
+    Assert-True (Get-OriginPlan $topoA $sel 3840 0).ok 'right of the 4K primary, touching its edge'
+    Assert-True (Get-OriginPlan $topoA $sel 3839 2160).ok 'the corner-touching origin seen on 2026-10-29'
+    $p = Get-OriginPlan $topoA $sel 0 0
+    Assert-True (-not $p.ok) 'on top of the primary: refused'; Assert-Match $p.reason 'overlaps \\\\.\\DISPLAY1' 'names the display it overlaps'
+    Assert-True (-not (Get-OriginPlan $topoA $sel -2000 400).ok) 'on top of the Dell: refused'
+    $none2 = Select-VirtualDisplay @($topoA[0]) $VDD
+    Assert-True (-not (Get-OriginPlan @($topoA[0]) $none2 5000 0).ok) 'no selection: no plan'
+    Assert-Match (Get-OriginPlan @($topoA[0]) $none2 9000 0).reason 'no attached display' 'the selection reason is passed through'
+    Assert-Eq (Get-HzCandidates 0 240 | ForEach-Object { $_ }) '240 60' 'current rate first, then 60'
+    Assert-Eq (Get-HzCandidates 0 60 | ForEach-Object { $_ }) '60' 'no duplicates'
+    Assert-Eq (Get-HzCandidates 120 60 | ForEach-Object { $_ }) '120' 'an explicit rate is the only candidate'
+    $after = @($topoA[0], (FD '\\.\DISPLAY2' 'NVIDIA GeForce RTX 4090' 'Dell S2721DGF (HDMI2)' $false 2560 1440 -2560 400 144), (FD '\\.\DISPLAY10' $VDD 'Generic PnP Monitor' $false 1920 1080 3839 2160))
+    $c = @(Get-OtherChanges $topoA $after '\\.\DISPLAY10')
+    Assert-Eq $c.Count 1 'only the Dell moved (the virtual display itself is excluded)'; Assert-Match $c[0] 'DISPLAY2 changed' 'names it'
+    Assert-Eq @(Get-OtherChanges $topoA $topoA '\\.\DISPLAY10').Count 0 'no change = nothing reported'
+    Assert-Eq (Parse-Size '3840x2160').w 3840 'Parse-Size'; Assert-True ($null -eq (Parse-Size '3840')) 'bad size'; Assert-True ($null -eq (Parse-Size '1x1')) 'too small'
+}
+Test-Case 'display tool: -Check/-Set/-Origin/-Restore all select by name and refuse without a selection (static)' {
+    $t = [IO.File]::ReadAllText((Join-Path $core 'vdisplay_probe.ps1'))
+    foreach ($mode in 'if ($Check)', 'if ($Set)', 'if ($Origin)', 'if ($Restore)') {
+        $i = $t.IndexOf($mode); Assert-True ($i -gt 0) "mode $mode exists"
+        $seg = $t.Substring($i, [Math]::Min(900, $t.Length - $i))
+        Assert-Match $seg 'if \(-not \$sel\.display\)' "$mode refuses without a selected virtual display"
+    }
+    Assert-NotMatch $t 'DISPLAY\d' 'no hard-coded DISPLAYn'
+}
+
+# ---- the headless gate in the watcher's launch --------------------------------------------------------------------------------------------
+Test-Case 'headless: the adapter block is read, and the launch refuses a d3d9.dll without the status-file marker' {
+    Assert-Eq $A.headless.default_size '3840x2160' 'default size'
+    Assert-Eq $A.headless.exit_code 2160 'exit code'
+    Assert-Eq $A.headless.prefs['x_res'] '{W}' 'prefs template'
+    Assert-Eq $A.headless.mod_ini['headless.size'] '{W}x{H}' 'mod ini template'
+    $dll = Join-Path $A.game_dir 'd3d9.dll'
+    Remove-Item -LiteralPath $dll -Force -ErrorAction SilentlyContinue
+    $o = New-Object Collections.Generic.List[string]
+    Assert-Match (Headless-Prepare '3840x2160' 3840 2160 'agent1' $o) 'does not contain .headless_status\.json' 'no d3d9.dll at all'
+    [IO.File]::WriteAllBytes($dll, $Latin1.GetBytes('MZ old proxy without the marker'))
+    Assert-Match (Headless-Prepare '3840x2160' 3840 2160 'agent1' $o) 'cannot run headless' 'an older proxy'
+    Assert-True ($null -eq (Get-Active)) 'and nothing was overlaid'
+    Assert-True (Bytes-Contain ([byte[]]($Latin1.GetBytes('xx headless_status.json yy'))) 'headless_status.json') 'Bytes-Contain'
+    Remove-Item -LiteralPath $dll -Force
 }
 Remove-Item -LiteralPath $tmp -Recurse -Force -ErrorAction SilentlyContinue
 exit (Finish-Tests 'unit')

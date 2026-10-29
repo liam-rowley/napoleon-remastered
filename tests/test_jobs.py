@@ -289,16 +289,14 @@ class Serve(unittest.TestCase):
         self.assertEqual(self.post({'id': 'J5', 'action': 'build'})[1]['message'], 'refused: J5 (queued): waits for J3')
         self.assertEqual(self.launched, [])
 
-    def test_the_d15_cap_and_a_same_name_session(self):
-        busy = {'name': 'j13 status brief', 'state': 'working'}
-        self.start(agents=lambda: [busy, {'name': 'other', 'state': 'working'}, {'name': 'old', 'state': 'done'}])
-        code, j = self.post({'id': 'J2', 'action': 'build'})
-        self.assertEqual(code, 429)
-        self.assertIn('j13 status brief, other', j['message'])
+    def test_no_count_cap_but_one_session_per_name(self):
+        busy = [{'name': n, 'state': 'working'} for n in ('j13 status brief', 'other', 'third')]
+        self.start(agents=lambda: busy + [{'name': 'old', 'state': 'done'}])
+        self.assertEqual(self.post({'id': 'J2', 'action': 'build'})[0], 200)   # D34: Liam decides how many run at once
         self.srv.agents = lambda: [{'name': 'j2-BUILD', 'state': 'working'}]
         code, j = self.post({'id': 'J2', 'action': 'build'})
         self.assertEqual((code, j['message']), (429, 'refused: J2-build is already running'))
-        self.srv.agents = lambda: [busy, {'name': 'J2-build', 'state': 'done'}]   # finished sessions do not count
+        self.srv.agents = lambda: [{'name': 'J2-build', 'state': 'done'}]   # finished sessions do not count
         self.assertEqual(self.post({'id': 'J2', 'action': 'build'})[0], 200)
 
     def test_failing_agent_list_or_missing_claude_refuses(self):
@@ -307,7 +305,7 @@ class Serve(unittest.TestCase):
         self.start(agents=broken)
         code, j = self.post({'id': 'J2', 'action': 'build'})
         self.assertEqual(code, 503)
-        self.assertIn('cannot count the running sessions', j['message'])
+        self.assertIn('cannot list the running sessions', j['message'])
         self.srv.agents, self.srv.which = (lambda: []), (lambda n: None)
         self.assertEqual(self.post({'id': 'J2', 'action': 'build'})[1]['message'], 'refused: claude is not on PATH')
         self.assertEqual(self.launched, [])

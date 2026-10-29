@@ -54,11 +54,42 @@ New-Fake (Join-Path $game 'FakeEmpire.exe') 'FakeB' 'x86'
 New-Fake (Join-Path $tmp 'Fake64.exe') 'FakeC' 'x64'
 $logPath = Join-Path $game 'logs\proxy.log'
 $adapterPath = New-TestAdapter $tmp 'FakeNapoleon.exe' 'FakeEmpire.exe' ("log `"$logPath`"")
-foreach ($f in 'watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1') { Copy-Item -LiteralPath (Join-Path $core $f) -Destination (Join-Path $root 'src') }
+foreach ($f in 'watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1', 'win_probe.ps1') { Copy-Item -LiteralPath (Join-Path $core $f) -Destination (Join-Path $root 'src') }
 Copy-Item -LiteralPath $adapterPath -Destination (Join-Path $root 'src\adapter.json')
 New-Item -ItemType Directory -Path (Join-Path $root 'profiles') -Force | Out-Null
 Copy-Item -Path (Join-Path $Repo 'harness\napoleon\profiles\*') -Destination (Join-Path $root 'profiles') -Recurse -Force
+# The CI runner has no virtual display (the real tool exits 3 there), so the watcher is pointed at a stateful stand-in (test_vdisplay_script).
+$vdFake = Join-Path $tmp 'fake_vdisplay.ps1'
+[IO.File]::WriteAllText($vdFake, @'
+param([switch]$Check, [string]$Size = '', [string]$Set = '', [string]$SaveTo = '', [string]$Restore = '', [string]$Name = '')
+$dir = Split-Path $MyInvocation.MyCommand.Path
+function Log([string]$m) { [IO.File]::AppendAllText((Join-Path $dir 'vd_calls.txt'), $m + "`r`n") }
+$st = ([IO.File]::ReadAllText((Join-Path $dir 'vd_state.txt'))).Trim()
+$offered = ([IO.File]::ReadAllText((Join-Path $dir 'vd_offered.txt'))).Trim().Split(',')
+function Rect([string]$s) { $p = $s -split 'x'; return ('3839,2160,{0},{1}' -f (3839 + [int]$p[0]), (2160 + [int]$p[1])) }
+Log ("call: Check=$Check Size=$Size Set=$Set SaveTo=$SaveTo Restore=$Restore Name=$Name")
+if ($st -eq 'none') { Write-Output 'VIRTUAL MISSING: no attached display matches (fake). Nothing was changed.'; exit 3 }
+if ($Check) {
+    if ($st -eq $Size) { Write-Output "VIRTUAL OK: \\.\DISPLAY10 $st@60Hz rect=$(Rect $st) adapter='Virtual Display Driver'"; exit 0 }
+    Write-Output "VIRTUAL WRONG SIZE: \\.\DISPLAY10 is $st but $Size is wanted (fake)"; exit 4
+}
+if ($Set) {
+    if ($offered -notcontains $Set) { Write-Output "MODE NOT OFFERED: $Set is refused by the driver (fake); nothing was changed."; exit 6 }
+    if (Test-Path -LiteralPath $SaveTo) { Write-Output 'REFUSED: -SaveTo exists'; exit 7 }
+    $p = $st -split 'x'
+    [IO.File]::WriteAllText($SaveTo, ('{"name":"' + $Name + '","w":' + $p[0] + ',"h":' + $p[1] + ',"hz":60,"x":3839,"y":2160}'))
+    [IO.File]::WriteAllText((Join-Path $dir 'vd_state.txt'), $Set)
+    Write-Output "VIRTUAL SET: now $Set (was $st)"; exit 0
+}
+if ($Restore) {
+    $j = [IO.File]::ReadAllText($Restore) | ConvertFrom-Json
+    [IO.File]::WriteAllText((Join-Path $dir 'vd_state.txt'), "$($j.w)x$($j.h)")
+    Write-Output "VIRTUAL RESTORED: back at $($j.w)x$($j.h)"; exit 0
+}
+exit 2
+'@, [Text.Encoding]::ASCII)
 $ini = @"
+test_vdisplay_script=$vdFake
 hang_s=600
 hang_startup_s=2
 hung_window_s=5
@@ -234,25 +265,172 @@ try {
     }
     Test-Case 'launch and kill: pid confirmed, second launch refused, the other title blocks, a foreign lock blocks, kill is clean' {
         Set-Lock 'ci2'
-        $l = Run-Job 'launch owner=ci2' 'launch' 40
+        $l = Run-Job 'launch visible=1 owner=ci2' 'launch' 40
         Assert-Eq $l.d.status 'ok' "launch ($($l.out))"; Assert-Match $l.out 'running: FakeNapoleon.exe pid \d+' 'pid confirmed'
         Assert-True ((Fake-Procs).Count -eq 1) 'running'
         Wait-Until { (Get-St).game_state.state -eq 'running' } 10 'status says running' | Out-Null
-        $l2 = Run-Job 'launch owner=ci2' 'launch2'
+        $l2 = Run-Job 'launch visible=1 owner=ci2' 'launch2'
         Assert-Eq $l2.d.status 'refused' 'second launch'; Assert-Match $l2.d.reason 'already running' 'reason'
         $k = Run-Job 'kill owner=ci2' 'kill' 40
         Assert-Eq $k.d.status 'ok' 'kill'; Assert-True ((Fake-Procs).Count -eq 0) 'gone'
         $e = Start-Process -FilePath (Join-Path $game 'FakeEmpire.exe') -ArgumentList 'idle' -PassThru
-        $l3 = Run-Job 'launch owner=ci2' 'other'
+        $l3 = Run-Job 'launch visible=1 owner=ci2' 'other'
         Assert-Eq $l3.d.status 'refused' 'the other title is running'; Assert-Match $l3.d.reason 'FakeEmpire.exe' 'names it'
         Stop-Process -Id $e.Id -Force
         $fl = $A_foreign = (Get-Content -LiteralPath $adapterPath -Raw | ConvertFrom-Json).foreign_locks[0]
         New-Item -ItemType Directory -Path (Split-Path $fl) -Force | Out-Null
         [IO.File]::WriteAllText($fl, "owner=empire-agent session=e purpose=probe started=$(UtcNow-Str)`r`n", $Utf8NoBom)
-        $l4 = Run-Job 'launch owner=ci2' 'foreign'
+        $l4 = Run-Job 'launch visible=1 owner=ci2' 'foreign'
         Assert-Eq $l4.d.status 'refused' 'foreign lock'; Assert-Match $l4.d.reason 'another watcher' 'reason'
         Assert-Match ([IO.File]::ReadAllText($fl)) 'empire-agent' 'the foreign lock was only read'
         Remove-Item -LiteralPath $fl -Force
+        Clear-Lock
+    }
+    # ---- headless launch (J13): the watcher side. A fake game writes the proxy's headless_status.json itself. -----------------------------------
+    $hdll = Join-Path $game 'd3d9.dll'
+    $hstat = Join-Path $game 'napoleon_remastered\headless_status.json'
+    $vdDir = $tmp
+    function Set-Vd([string]$state, [string]$offered = '3840x2160') {
+        [IO.File]::WriteAllText((Join-Path $vdDir 'vd_state.txt'), $state, $Utf8NoBom); [IO.File]::WriteAllText((Join-Path $vdDir 'vd_offered.txt'), $offered, $Utf8NoBom)
+        Remove-Item -LiteralPath (Join-Path $vdDir 'vd_calls.txt') -Force -ErrorAction SilentlyContinue
+    }
+    function Vd-State { return ([IO.File]::ReadAllText((Join-Path $vdDir 'vd_state.txt'))).Trim() }
+    function Vd-Calls { $p = Join-Path $vdDir 'vd_calls.txt'; if (Test-Path -LiteralPath $p) { return [IO.File]::ReadAllText($p) } else { return '' } }
+    function Set-Proxy([bool]$withMarker) {
+        [IO.File]::WriteAllBytes($hdll, [Text.Encoding]::ASCII.GetBytes($(if ($withMarker) { 'MZ fake proxy ... napoleon_remastered\headless_status.json ...' } else { 'MZ fake old proxy' })))
+    }
+    function Write-HStatus([int]$p, [string]$state, [string]$detail = '') {
+        New-Item -ItemType Directory -Path (Split-Path $hstat) -Force | Out-Null
+        $o = [ordered]@{ pid = $p; launch_id = 'ci'; state = $state; detail = $detail; target = [ordered]@{ device = '\\.\DISPLAY10'; adapter = 'Virtual Display Driver'; rect = @(3839, 2160, 7679, 4320) }
+            window = @(3840, 2160); client = @(3840, 2160); backbuffer = @(3840, 2160); exit_code = $(if ($state -eq 'refused') { 2160 } else { 0 }); written_utc = (UtcNow-Str) }
+        [IO.File]::WriteAllText("$hstat.tmp", ($o | ConvertTo-Json -Depth 4), $Utf8NoBom); Move-Item -LiteralPath "$hstat.tmp" -Destination $hstat -Force
+    }
+    function Wait-FakePid { return [int](Wait-Until { $x = Fake-Procs; if ($x.Count) { $x[0].Id } } 40 'the fake game to start') }
+    function Real-Prefs {
+        $t = "write_preferences_at_exit true; # write_preferences_at_exit <bool>, Write preferences at exit #`r`nx_res 3840; # x_res <int32>, Fixed window width #`r`ny_res 2160; # y_res <int32>, Fixed window height #`r`nx_pos 0; # x_pos <int32>, Window position #`r`ny_pos 0; # y_pos <int32>, Window position #`r`ngfx_fullscreen true; # gfx_fullscreen <bool>, Run the application in fullscreen or not #`r`n"
+        return ([byte[]]@(0xFF, 0xFE) + (New-Object Text.UnicodeEncoding($false, $false)).GetBytes($t))
+    }
+    $oddPrefs = [byte[]](0, 255, 13, 10, 10, 13, 0xC3, 0xA9, 200, 1, 2, 3)
+    function Latest-Probe { return (Get-ChildItem (Join-Path $root 'runs') -Directory -Filter '*_winprobe' | Sort-Object Name | Select-Object -Last 1) }
+
+    Test-Case 'headless launch: on_virtual = ok; the display is checked, prefs and mod ini overlaid on top (profile-style snapshot), the window probe measures the launch, files come back byte for byte' {
+        Set-Lock 'ci9'; Set-Vd '3840x2160'; Set-Proxy $true; Remove-Item -LiteralPath $hstat -Force -ErrorAction SilentlyContinue
+        [IO.File]::WriteAllBytes($prefs, (Real-Prefs)); $h0 = Hashes
+        $id = Submit 'launch owner=ci9 headless_wait_s=60' (New-JobId 'hl')
+        $p = Wait-FakePid
+        Write-HStatus $p 'starting'; Start-Sleep -Milliseconds 700
+        Write-HStatus $p 'on_virtual' 'window on the virtual display'
+        $r = Get-Result $id 60
+        Assert-Eq $r.d.status 'ok' "launch ($($r.out))"
+        Assert-Match $r.out 'headless: VIRTUAL OK' 'display checked'
+        Assert-Match $r.out 'headless overlay prefs' 'prefs overlaid'; Assert-Match $r.out 'headless overlay mod_ini' 'mod ini overlaid'
+        Assert-Match $r.out 'snapshot: profiles' 'snapshot taken like a profile'
+        Assert-Match $r.out 'window probe: runs\\\d+T\d+Z_winprobe' 'the probe folder is named'
+        Assert-Match $r.out 'headless: on_virtual \(target \\\\\.\\DISPLAY10 rect 3839,2160,7679,4320, window 3840x2160' 'status details'
+        $pt = [Text.Encoding]::Unicode.GetString([IO.File]::ReadAllBytes($prefs), 2, [IO.File]::ReadAllBytes($prefs).Length - 2)
+        Assert-Match $pt 'x_res 3840; # x_res <int32>, Fixed window width #' 'x_res value in place, comment kept'
+        Assert-Match $pt 'gfx_fullscreen false; # gfx_fullscreen <bool>' 'windowed'
+        Assert-Match (ReadText $modIni) '(?s)\[headless\].*enabled=1.*size=3840x2160' 'proxy keys written'
+        Wait-Until { (Get-St).profile_active -and (Get-St).profile_active.name -eq 'headless' } 10 'status shows the headless overlay active' | Out-Null
+        $probe = Latest-Probe
+        Assert-True (Test-Path -LiteralPath (Join-Path $probe.FullName 'ready.txt')) 'the probe was polling before the game started'
+        Run-Job 'kill owner=ci9' 'hlk' 40 | Out-Null
+        Wait-Until { Test-Path -LiteralPath (Join-Path $probe.FullName 'winprobe.json') } 40 'winprobe.json' | Out-Null
+        $wp = (ReadText (Join-Path $probe.FullName 'winprobe.json')) | ConvertFrom-Json
+        Assert-True ([bool]$wp.started) 'the probe saw the game'; Assert-True ($wp.samples -gt 5) 'sampled'
+        foreach ($k in 'longest_visible_on_real_ms', 'visible_on_real_ms_total', 'visible_on_real_samples', 'visible_off_target_count', 'cloaked_ms', 'monitor_changes', 'first_visible', 'windows', 'topology_start', 'topology_end', 'duration_ms') {
+            Assert-True ($wp.PSObject.Properties.Name -contains $k) "winprobe.json has $k"
+        }
+        Assert-True (@($wp.topology_start).Count -ge 1) 'topology recorded at the start'
+        Clear-Lock
+        Wait-Until { (Hashes) -eq $h0 } 30 'lock release restores every file' | Out-Null
+        Wait-LogMatch 'AUTO-RESTORE under owner=ci9' 10 'restore logged'
+        Assert-True (-not (Test-Path -LiteralPath $modIni)) 'mod ini absent again'
+        [IO.File]::WriteAllBytes($prefs, $oddPrefs)
+        Remove-Item -LiteralPath $hdll, $hstat -Force -ErrorAction SilentlyContinue
+        Assert-Eq (Hashes) $baseline 'suite baseline back'
+    }
+    Test-Case 'headless launch: a virtual display at another size is set (previous mode saved), kept while the lock is held, restored when it is released; a size the driver does not offer is refused with nothing started' {
+        Set-Lock 'ci10'; Set-Vd '3840x2160' '3840x2160,1920x1080'; Set-Proxy $true; Remove-Item -LiteralPath $hstat -Force -ErrorAction SilentlyContinue
+        [IO.File]::WriteAllBytes($prefs, (Real-Prefs)); $h0 = Hashes
+        $id = Submit 'launch owner=ci10 size=1920x1080 headless_wait_s=60' (New-JobId 'hs')
+        $p = Wait-FakePid
+        Write-HStatus $p 'on_virtual'
+        $r = Get-Result $id 60
+        Assert-Eq $r.d.status 'ok' "launch ($($r.out))"
+        Assert-Match $r.out 'setting 1920x1080' 'the watcher set the size'
+        Assert-Eq (Vd-State) '1920x1080' 'virtual display now 1080p'
+        Assert-True (Test-Path -LiteralPath (Join-Path $root 'vdisplay_restore.json')) 'previous mode saved'
+        Assert-Match (ReadText $modIni) 'size=1920x1080' 'proxy key carries the size'
+        Assert-Match ([Text.Encoding]::Unicode.GetString([IO.File]::ReadAllBytes($prefs))) 'x_res 1920;' 'prefs carry the size'
+        Run-Job 'kill owner=ci10' 'hsk' 40 | Out-Null
+        # the mode stays while the lock is held (every mode change moves Liam's cursor): a second launch at the size changes nothing
+        Start-Sleep -Seconds 3
+        Assert-Eq (Vd-State) '1920x1080' 'still 1080p after the game exited, lock held'
+        $id2 = Submit 'launch owner=ci10 size=1920x1080 headless_wait_s=60' (New-JobId 'hs2')
+        $p2 = Wait-FakePid
+        Write-HStatus $p2 'on_virtual'
+        $r2 = Get-Result $id2 60
+        Assert-Eq $r2.d.status 'ok' "second launch ($($r2.out))"
+        Assert-True ($r2.out -notmatch 'setting 1920x1080') 'no second mode change'
+        Run-Job 'kill owner=ci10' 'hsk2' 40 | Out-Null
+        Clear-Lock
+        Wait-Until { (Vd-State) -eq '3840x2160' } 30 'previous mode restored after the lock was released' | Out-Null
+        Wait-Until { -not (Test-Path -LiteralPath (Join-Path $root 'vdisplay_restore.json')) } 10 'restore file moved away' | Out-Null
+        Wait-LogMatch 'vdisplay: previous mode restored' 10 'restore logged'
+        Wait-Until { (Hashes) -eq $h0 } 30 'files restored' | Out-Null
+        # not offered: refused before anything starts, nothing overlaid
+        Set-Lock 'ci10'; Remove-Item -LiteralPath $hstat -Force -ErrorAction SilentlyContinue
+        $n = Run-Job 'launch owner=ci10 size=2560x1440' 'hsn' 60
+        Assert-Eq $n.d.status 'refused' "not offered ($($n.out))"; Assert-Match $n.d.reason 'MODE NOT OFFERED' 'says why'
+        Assert-True ((Fake-Procs).Count -eq 0) 'no game started'
+        Wait-Until { $s = Get-St; $s -and -not $s.profile_active } 20 'nothing overlaid' | Out-Null
+        Assert-Eq (Vd-State) '3840x2160' 'display untouched'
+        Clear-Lock
+        [IO.File]::WriteAllBytes($prefs, $oddPrefs); Remove-Item -LiteralPath $hdll -Force -ErrorAction SilentlyContinue
+    }
+    Test-Case 'headless launch: no virtual display, or a proxy without the status-file marker, is refused before the game starts (fail closed)' {
+        Set-Lock 'ci11'; Set-Vd 'none'; Set-Proxy $true
+        $r = Run-Job 'launch owner=ci11' 'hnv' 60
+        Assert-Eq $r.d.status 'refused' "no display ($($r.out))"; Assert-Match $r.d.reason 'no virtual display at 3840x2160.*VIRTUAL MISSING' 'names the tool message'
+        Assert-True ((Fake-Procs).Count -eq 0) 'no game started'
+        Set-Vd '3840x2160'; Set-Proxy $false
+        $m = Run-Job 'launch owner=ci11' 'hnm' 60
+        Assert-Eq $m.d.status 'refused' 'old proxy'; Assert-Match $m.d.reason 'cannot run headless' 'says so'
+        Assert-True ((Fake-Procs).Count -eq 0) 'no game started'
+        Wait-Until { $s = Get-St; $s -and -not $s.profile_active } 20 'nothing overlaid' | Out-Null
+        Assert-Eq (Hashes) $baseline 'no config touched'
+        Assert-Eq (Run-Job 'launch owner=ci11 size=1080p' 'hbs' 20).d.status 'refused' 'a bad size is refused'
+        Clear-Lock; Remove-Item -LiteralPath $hdll -Force -ErrorAction SilentlyContinue
+    }
+    Test-Case 'headless launch: the proxy refusing (status refused, exit 2160) fails the job with the detail; no status in time kills the game' {
+        Set-Lock 'ci12'; Set-Vd '3840x2160'; Set-Proxy $true; Remove-Item -LiteralPath $hstat -Force -ErrorAction SilentlyContinue
+        [IO.File]::WriteAllBytes($prefs, (Real-Prefs)); $h0 = Hashes
+        $id = Submit 'launch owner=ci12 headless_wait_s=60' (New-JobId 'hr')
+        $p = Wait-FakePid
+        Write-HStatus $p 'refused' 'no target: the virtual display is gone'
+        Stop-Process -Id $p -Force
+        $r = Get-Result $id 60
+        Assert-Eq $r.d.status 'failed' "refused ($($r.out))"
+        Assert-Match $r.d.reason 'HEADLESS FAILED: the proxy refused the launch: no target: the virtual display is gone \(exit code 2160' 'detail and exit code in the reason'
+        # a stale status of an old pid is ignored; silence is fail closed
+        Remove-Item -LiteralPath $hstat -Force -ErrorAction SilentlyContinue
+        $t = Run-Job 'launch owner=ci12 headless_wait_s=4' 'hrt' 60
+        Assert-Eq $t.d.status 'failed' 'timeout'; Assert-Match $t.d.reason 'no on_virtual status.*within 4 s.*killed' 'timeout reason'
+        Wait-Until { (Fake-Procs).Count -eq 0 } 20 'the game was killed' | Out-Null
+        Clear-Lock; Wait-Until { (Hashes) -eq $h0 } 30 'files restored after failed launches' | Out-Null
+        [IO.File]::WriteAllBytes($prefs, $oddPrefs); Remove-Item -LiteralPath $hdll, $hstat -Force -ErrorAction SilentlyContinue
+    }
+    Test-Case 'visible=1: no overlay, no display check, no status wait; the launch is still measured by the window probe' {
+        Set-Lock 'ci13'; Set-Vd 'none'; Remove-Item -LiteralPath $hdll, $hstat -Force -ErrorAction SilentlyContinue
+        $h0 = Hashes
+        $r = Run-Job 'launch visible=1 owner=ci13' 'hv' 60
+        Assert-Eq $r.d.status 'ok' "visible launch ($($r.out))"
+        Assert-Match $r.out 'visible launch: no config touched' 'says so'; Assert-Match $r.out 'window probe: runs' 'probe started'
+        Assert-NotMatch $r.out 'headless' 'no headless step ran'
+        Assert-Eq (Hashes) $h0 'no file changed'; Wait-Until { $s = Get-St; $s -and -not $s.profile_active } 20 'no profile or overlay recorded' | Out-Null
+        Assert-Eq (Vd-Calls) '' 'the display tool was not called'
+        Run-Job 'kill owner=ci13' 'hvk' 40 | Out-Null
         Clear-Lock
     }
     Test-Case 'zombie: a process that survives the kill is flagged, persisted across a watcher restart, every launch refused until it is gone' {
@@ -260,11 +438,11 @@ try {
         Wait-Until { (Get-Log) -match 'settings: watcher.ini reloaded' } 10 'ini reloaded' | Out-Null
         Start-Sleep -Milliseconds 600
         Set-Lock 'ci3'
-        $l = Run-Job 'launch owner=ci3' 'zlaunch' 40; Assert-Eq $l.d.status 'ok' 'launch'
+        $l = Run-Job 'launch visible=1 owner=ci3' 'zlaunch' 40; Assert-Eq $l.d.status 'ok' 'launch'
         $k = Run-Job 'kill owner=ci3' 'zkill' 40
         Assert-Eq $k.d.status 'failed' 'kill fails'; Assert-Match $k.d.reason 'ZOMBIE' 'reason'
         Wait-Until { $x = Get-St; $x -and [bool]$x.zombie -and [bool]$x.needs_reboot } 15 'status shows zombie and needs_reboot' | Out-Null
-        $r = Run-Job 'launch owner=ci3' 'zrefuse'
+        $r = Run-Job 'launch visible=1 owner=ci3' 'zrefuse'
         Assert-Eq $r.d.status 'failed' 'launch is refused loudly (failed, exit 1) so no agent mistakes it for a policy refusal'; Assert-Match $r.d.reason 'PC NEEDS REBOOT' 'says the PC needs a reboot'
         Assert-True (Test-Path -LiteralPath (Join-Path $root 'watcher.zombie.json')) 'persisted'
         $old = Pid-Of-Watcher
@@ -284,7 +462,7 @@ try {
         $p = Run-Job 'profile proxy-dxvk owner=ci4' 'prof'
         Assert-Eq $p.d.status 'ok' "apply ($($p.out))"; Assert-Match $p.out 'snapshot: profiles' 'snapshot taken'
         Assert-Match (ReadText $modIni) '(?m)^backend=dxvk' 'overlay applied to the absent ini'
-        $l = Run-Job 'launch owner=ci4' 'plaunch' 40; Assert-Eq $l.d.status 'ok' 'launch'
+        $l = Run-Job 'launch visible=1 owner=ci4' 'plaunch' 40; Assert-Eq $l.d.status 'ok' 'launch'
         $sw = Run-Job 'profile vanilla owner=ci4' 'pswitch'
         Assert-Eq $sw.d.status 'refused' 'switch while running'; Assert-Match $sw.d.reason 'already running' 'reason'
         Run-Job 'kill owner=ci4' 'pkill' 40 | Out-Null
@@ -387,6 +565,10 @@ try {
         Assert-Match $v.out 'displays \(' 'lists the displays'
         Assert-True ($v.out -match 'NO UNIQUE VIRTUAL DISPLAY' -or $v.out -match 'mode list' ) 'either no virtual display (the runner) or a mode list'
         Assert-NotMatch $v.out 'ChangeDisplaySettingsEx\(.*-> 0 .*applied' 'nothing applied'
+        $c = Run-Job "#ps1`r`n& `"$(Join-Path $root 'src\vdisplay_probe.ps1')`" -Check -Size 3840x2160" 'vdc' 60
+        Assert-Match $c.out 'VIRTUAL (OK|MISSING|WRONG SIZE)' '-Check says which'
+        $s = Run-Job "#ps1`r`n& `"$(Join-Path $root 'src\vdisplay_probe.ps1')`" -Set 1920x1080" 'vds' 60
+        Assert-Match $s.out 'bad arguments: this mode needs -SaveTo|VIRTUAL MISSING' "-Set without -SaveTo never reaches the apply ($($s.out))"
     }
     Test-Case 'launcher restarts the watcher after a crash, and the job that was running is closed as lost' {
         $old = Pid-Of-Watcher

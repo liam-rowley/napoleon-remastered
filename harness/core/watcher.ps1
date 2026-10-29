@@ -36,6 +36,8 @@ $Defaults = [ordered]@{
     loop_ms           = 1000
     test_hooks        = 0       # tests only: enables '#job test=...' hooks
     test_fake_zombie  = 0       # tests only: kill skips the real kill, to exercise the zombie path
+    test_vdisplay_script = ''   # tests only (needs test_hooks=1): a script that stands in for vdisplay_probe.ps1 (the CI runner has no virtual display)
+    winprobe          = 1       # 0 = a launch does not start win_probe.ps1 (the whole-launch window probe)
 }
 $S = @{}
 $IniStamp = $null
@@ -77,6 +79,16 @@ function Load-Adapter {
     $x.archive_dirs_dump = @(@($j.archive.dirs_dump) | Where-Object { $_ })
     $x.archive_files = @(@($j.archive.files) | Where-Object { $_ })
     $x.foreign_locks = @(@($j.foreign_locks) | Where-Object { $_ } | ForEach-Object { [Environment]::ExpandEnvironmentVariables([string]$_) })
+    $x.headless = $null
+    if ($j.headless) {
+        $h = $j.headless
+        $pm = [ordered]@{}; if ($h.prefs) { foreach ($pr in $h.prefs.PSObject.Properties) { $pm[$pr.Name] = [string]$pr.Value } }
+        $mm = [ordered]@{}; if ($h.mod_ini) { foreach ($pr in $h.mod_ini.PSObject.Properties) { $mm[$pr.Name] = [string]$pr.Value } }
+        $x.headless = @{
+            display_name = [string]$h.display_name; default_size = [string]$h.default_size; status_file = [string]$h.status_file
+            marker_file = [string]$h.marker_file; marker = [string]$h.marker; exit_code = [int]$h.exit_code; prefs = $pm; mod_ini = $mm
+        }
+    }
     $x.config_files = @(@($j.config_files) | ForEach-Object { @{ id = [string]$_.id; anchor = [string]$_.anchor; path = [string]$_.path; style = [string]$_.style } })
     $script:A = $x
 }
@@ -195,6 +207,7 @@ $RestartAfter = $null        # 3 / 4 / 11 once the slot is idle
 $PendingRestoreLogged = $false
 $LockSeen = $null
 $PumpDepth = 0
+$VdRetryAt = Get-Date        # next time a failed virtual-display restore may be retried
 Load-Settings
 if (Test-Path -LiteralPath $Adapter) { Load-Adapter }
 
@@ -368,12 +381,52 @@ function Detect-Enc([byte[]]$b) {
     if ($b.Length -ge 3 -and $b[0] -eq 0xEF -and $b[1] -eq 0xBB -and $b[2] -eq 0xBF) { return @{ name = 'utf8bom'; bom = 3; enc = $Latin1; preamble = [byte[]]@(0xEF, 0xBB, 0xBF) } }
     return @{ name = 'latin1'; bom = 0; enc = $Latin1; preamble = [byte[]]@() }
 }
+# Overlay style 'prefs': the game's own preferences.script.txt, UTF-16LE with BOM, CRLF lines `key value; # key <type>, description #`.
+# An existing key's VALUE is replaced in place (its comment and every other byte stay identical); a missing key is appended as `key value;`.
+# Set lines are `key value` or `key=value`; '!key' is refused. An empty base becomes a new UTF-16LE file with a BOM.
+function Apply-PrefsOverlay([byte[]]$bytes, [string]$setText) {
+    if ($bytes.Length -eq 0) { $e = Detect-Enc ([byte[]]@(0xFF, 0xFE)); $text = '' }
+    else { $e = Detect-Enc $bytes; $text = $e.enc.GetString($bytes, $e.bom, $bytes.Length - $e.bom) }
+    if ($e.name -ne 'utf16le') { throw "overlay: style prefs needs a UTF-16LE file with a BOM (this one is $($e.name))" }
+    $nl = "`r`n"; if ($text.Length -gt 0 -and -not $text.Contains("`r`n") -and $text.Contains("`n")) { $nl = "`n" }
+    foreach ($raw in ($setText -split "`r?`n")) {
+        $s = $raw.Trim()
+        if (-not $s -or $s.StartsWith('#')) { continue }
+        if ($s.StartsWith('!')) { throw "overlay: '!key' is not supported for style prefs ($s)" }
+        $m = [regex]::Match($s, '^([A-Za-z_][\w.\-]*)\s*[=\s]\s*(.*?)\s*;?$')
+        if (-not $m.Success) { throw "overlay: '$s' is not 'key value' for a prefs file" }
+        $key = $m.Groups[1].Value; $val = $m.Groups[2].Value
+        $rx = New-Object Text.RegularExpressions.Regex ('(?m)^(' + [regex]::Escape($key) + '[ \t]+)([^;\r\n]*)(?=;)')
+        if ($rx.IsMatch($text)) {
+            $ev = [Text.RegularExpressions.MatchEvaluator]{ param($mm) $mm.Groups[1].Value + $val }
+            $text = $rx.Replace($text, $ev, 1)
+        } else {
+            if ($text.Length -gt 0 -and -not $text.EndsWith("`n")) { $text += $nl }
+            $text += "$key $val;" + $nl
+        }
+    }
+    $enc = $e.enc.GetBytes($text)
+    $res = New-Object byte[] ($e.preamble.Length + $enc.Length)
+    [Array]::Copy($e.preamble, 0, $res, 0, $e.preamble.Length)
+    [Array]::Copy($enc, 0, $res, $e.preamble.Length, $enc.Length)
+    return ,$res
+}
+# One value from a prefs file's bytes ($null when the key or the file is absent).
+function Get-PrefsValue([byte[]]$bytes, [string]$key) {
+    if ($null -eq $bytes -or $bytes.Length -lt 2) { return $null }
+    $e = Detect-Enc $bytes
+    $text = $e.enc.GetString($bytes, $e.bom, $bytes.Length - $e.bom)
+    $m = [regex]::Match($text, '(?m)^' + [regex]::Escape($key) + '[ \t]+([^;\r\n]*?)\s*;')
+    if ($m.Success) { return $m.Groups[1].Value }
+    return $null
+}
 # Key overlay on a text file, byte-transparent (BOM and encoding kept; 8-bit text goes through Latin-1 so UTF-8 content survives).
 #   style 'ini' : keys are section.key=value (section compared case-insensitively), comment char ';', written key=value
 #   style 'conf': keys are the whole name (DXVK keys contain dots), comment char '#', written key = value
 #   '!key' comments the key out. An existing key's first line is replaced, later duplicates are commented out, a missing key is added
 #   at the end of its section (ini; the section is created if needed) or at the end of the file (conf).
 function Apply-Overlay([byte[]]$bytes, [string]$setText, [string]$style, [string]$profile) {
+    if ($style -eq 'prefs') { return ,(Apply-PrefsOverlay $bytes $setText) }
     if ($style -ne 'ini' -and $style -ne 'conf') { throw "overlay: this target has style '$style'; only a full copy can be installed" }
     $e = Detect-Enc $bytes
     $text = $e.enc.GetString($bytes, $e.bom, $bytes.Length - $e.bom)
@@ -571,6 +624,236 @@ function Auto-Restore {
     $o = New-Object Collections.Generic.List[string]
     $err = Profile-Restore "auto: $reason" $o
     Log "profile: AUTO-RESTORE under owner=$($active.owner) of '$($active.name)' ($reason): $($o -join ' | ')$(if ($err) { " ERROR: $err" })"
+}
+
+# ------------------------------------------------------------------------------------------------ headless -----------
+# Headless is the default for every launch (visible=1 opts out): the game's window must land on the virtual display, fail closed.
+# The watcher's part: refuse early (no proxy support, no virtual display at the size), set the display mode, overlay the prefs and mod ini
+# on top of whatever is in the files (the snapshot makes the restore byte for byte), measure the launch (win_probe.ps1), wait for the
+# proxy's headless_status.json, kill the game if it does not report on_virtual. Details: harness/README.md.
+function Tool-Summary($r) {
+    $lines = @(($r.out -split "`r?`n") | Where-Object { $_.Trim() })
+    $key = @($lines | Where-Object { $_ -match '^(VIRTUAL|MODE NOT|APPLY FAILED|REFUSED|NO UNIQUE|bad arguments|NOT OFFERED)' })
+    if (-not $key.Count) { $key = @($lines | Select-Object -Last 3) }
+    return ((@($key) -join ' | ') + " (display tool exit $($r.rc))")
+}
+# Runs the display tool as a child PowerShell; returns @{ rc; out }. Tests (test_hooks=1) can substitute the script.
+function Run-VDisplay([string[]]$argList) {
+    $tool = Join-Path $SrcDir 'vdisplay_probe.ps1'
+    if ((IntSet 'test_hooks') -eq 1 -and $script:S['test_vdisplay_script']) { $tool = [string]$script:S['test_vdisplay_script'] }
+    if (-not (Test-Path -LiteralPath $tool)) { return @{ rc = 99; out = "display tool not found: $tool" } }
+    $q = (@($argList) | ForEach-Object { if ("$_" -match '[\s"]') { '"' + $_ + '"' } else { "$_" } }) -join ' '
+    $pi = New-Object Diagnostics.ProcessStartInfo
+    $pi.FileName = 'powershell.exe'
+    $pi.Arguments = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$tool`" $q"
+    $pi.UseShellExecute = $false; $pi.CreateNoWindow = $true; $pi.RedirectStandardOutput = $true; $pi.RedirectStandardError = $true
+    $pr = [Diagnostics.Process]::Start($pi)
+    $so = $pr.StandardOutput.ReadToEndAsync(); $se = $pr.StandardError.ReadToEndAsync()
+    $deadline = (Get-Date).AddSeconds(90)
+    while (-not $pr.HasExited -and (Get-Date) -lt $deadline) { Pump; Start-Sleep -Milliseconds 200 }
+    if (-not $pr.HasExited) { try { $pr.Kill() } catch { }; return @{ rc = 98; out = 'display tool did not finish within 90 s (killed)' } }
+    $pr.WaitForExit()
+    return @{ rc = $pr.ExitCode; out = ($so.Result + $se.Result) }
+}
+function Vd-Name { if ($A.headless -and $A.headless.display_name) { return $A.headless.display_name }; return 'Virtual Display Driver' }
+# Puts the virtual display back to the mode saved before a launch changed it ($null = done or nothing to do).
+function Vdisplay-Restore([string]$why) {
+    $f = RootPath 'vdisplay_restore.json'
+    if (-not (Test-Path -LiteralPath $f)) { return $null }
+    $r = Run-VDisplay @('-Restore', $f, '-Name', (Vd-Name))
+    if ($r.rc -eq 0) {
+        Move-Item -LiteralPath $f -Destination (Join-Path (ToDelete '') "vdisplay_restore_$(UtcStamp (Get-Date)).json") -Force
+        Log "vdisplay: previous mode restored ($why): $(Tool-Summary $r)"
+        return $null
+    }
+    $m = "vdisplay: RESTORE FAILED ($why): $(Tool-Summary $r)"
+    Log $m
+    return $m
+}
+# Housekeeping in Pump: once the game has exited (and no job holds it), restore a mode a launch changed - after a crash or kill too.
+function Vdisplay-Housekeeping {
+    if (-not (Test-Path -LiteralPath (RootPath 'vdisplay_restore.json'))) { return }
+    if ((Get-Date) -lt $VdRetryAt) { return }
+    if (@(Get-GameProcs).Count -or ($Cur -and $Cur.holds_game)) { return }
+    # once per sitting, not per launch: every mode change makes Windows move the real cursor (J13 PC run), so the mode stays while a
+    # valid lock is held and is restored when the lock is released or expires
+    $l = Get-Lock; if ($l -and -not $l.stale) { return }
+    if (Vdisplay-Restore 'the game has exited and the lock is released') { $script:VdRetryAt = (Get-Date).AddSeconds(60) }
+}
+# Display step of a headless launch: -Check at the wanted size, -Set when the virtual display exists at another size. Returns @{ err; rect }.
+function Headless-Display([string]$size, $out) {
+    $name = Vd-Name
+    $r = Run-VDisplay @('-Check', '-Size', $size, '-Name', $name)
+    if ($r.rc -eq 4) {
+        $out.Add("headless: the virtual display is at another size; setting $size (the mode before this lock is restored when the lock is released)")
+        # the first change under a lock saves the mode to restore; a later one keeps that file and saves its own step aside
+        $save = RootPath 'vdisplay_restore.json'
+        if (Test-Path -LiteralPath $save) { $save = Join-Path (ToDelete 'vdisplay_steps') "$(UtcStamp (Get-Date))_$size.json" }
+        $setRes = Run-VDisplay @('-Set', $size, '-SaveTo', $save, '-Name', $name)
+        foreach ($l in @(($setRes.out -split "`r?`n") | Where-Object { $_.Trim() })) { $out.Add("  display tool: $l") }
+        if ($setRes.rc -ne 0) { return @{ err = "headless: the virtual display cannot be put at ${size}: $(Tool-Summary $setRes). Use a size the driver offers, or visible=1 with Liam present"; rect = $null } }
+        $r = Run-VDisplay @('-Check', '-Size', $size, '-Name', $name)
+    }
+    if ($r.rc -ne 0) { return @{ err = "headless: no virtual display at ${size}: $(Tool-Summary $r). Nothing was started; use visible=1 only with Liam present"; rect = $null } }
+    $rect = $null
+    $m = [regex]::Match($r.out, 'rect=(-?\d+),(-?\d+),(-?\d+),(-?\d+)')
+    if ($m.Success) { $rect = @([int]$m.Groups[1].Value, [int]$m.Groups[2].Value, [int]$m.Groups[3].Value, [int]$m.Groups[4].Value) }
+    $ok = @(($r.out -split "`r?`n") | Where-Object { $_ -match '^VIRTUAL OK' } | Select-Object -First 1)
+    $out.Add("headless: $($ok -join '')")
+    return @{ err = $null; rect = $rect }
+}
+function Headless-Expand([string]$v, [int]$W, [int]$H) { return $v.Replace('{W}', "$W").Replace('{H}', "$H") }
+# Overlay step: the adapter's headless prefs and mod ini keys on top of what is in the files now. With no profile active a snapshot is taken
+# and _active.json recorded exactly like a profile, so the lock-release / expiry restore returns the files byte for byte.
+function Headless-Overlay([int]$W, [int]$H, [string]$owner, $rect, $out) {
+    $hl = $A.headless
+    $active = Get-Active
+    if ($active -and $active.owner -ne $owner) { return "profile '$($active.name)' of owner '$($active.owner)' is still active (its restore is pending); try again in a few seconds" }
+    $sets = [ordered]@{
+        prefs   = ((@($hl.prefs.Keys | ForEach-Object { "$_ $(Headless-Expand $hl.prefs[$_] $W $H)" })) -join "`n")
+        mod_ini = ((@($hl.mod_ini.Keys | ForEach-Object { "$_=$(Headless-Expand $hl.mod_ini[$_] $W $H)" })) -join "`n")
+    }
+    $plan = [ordered]@{}
+    foreach ($id in $sets.Keys) {
+        if (-not $sets[$id]) { continue }
+        $t = $A.config_files | Where-Object { $_.id -eq $id } | Select-Object -First 1
+        if (-not $t) { return "the adapter has no config file '$id' to overlay for headless" }
+        $abs = Target-Path $t
+        $base = [byte[]]@(); if (Test-Path -LiteralPath $abs) { $base = [IO.File]::ReadAllBytes($abs) }
+        try { $nb = Apply-Overlay $base $sets[$id] $t.style 'headless' } catch { return "headless overlay of ${id}: $($_.Exception.Message)" }
+        $plan[$id] = @{ t = $t; abs = $abs; bytes = [byte[]]$nb; changed = (-not (Test-Path -LiteralPath $abs)) -or ((Sha-Bytes $base) -ne (Sha-Bytes ([byte[]]$nb))) }
+    }
+    # (d) a window position inside the virtual display's rect in the user's own prefs is a leak to watch for
+    $basePrefs = $null
+    $pt = $A.config_files | Where-Object { $_.id -eq 'prefs' } | Select-Object -First 1
+    if ($pt) {
+        if ($active) { $sp = Join-Path (Join-Path (Join-Path $SavedDir $active.snapshot) 'files') 'prefs'; if (Test-Path -LiteralPath $sp) { $basePrefs = [IO.File]::ReadAllBytes($sp) } }
+        elseif (Test-Path -LiteralPath (Target-Path $pt)) { $basePrefs = [IO.File]::ReadAllBytes((Target-Path $pt)) }
+    }
+    if ($rect -and $basePrefs) {
+        $xp = Get-PrefsValue $basePrefs 'x_pos'; $yp = Get-PrefsValue $basePrefs 'y_pos'
+        $xi = 0; $yi = 0
+        if ([int]::TryParse("$xp", [ref]$xi) -and [int]::TryParse("$yp", [ref]$yi) -and $xi -ge $rect[0] -and $xi -lt $rect[2] -and $yi -ge $rect[1] -and $yi -lt $rect[3]) {
+            $warn = "WARNING: the base preferences carry x_pos=$xi y_pos=$yi, which is INSIDE the virtual display's rect ($($rect -join ',')): a visible launch would open on the virtual display, and the game may have written it back. Check how it got there."
+            $out.Add($warn); Log "headless: $warn"
+        }
+    }
+    if ($active) {
+        if (@($active.history)[-1] -ne 'headless') { $active.history = @($active.history) + 'headless' }
+    } else {
+        $sn = Take-Snapshot $owner $out
+        $active = [pscustomobject]@{ name = 'headless'; owner = $owner; snapshot = $sn; applied_utc = (UtcStr (Get-Date)); history = @('headless') }
+    }
+    Write-Atomic $ActivePath ($active | ConvertTo-Json -Depth 5)      # recorded BEFORE the first change
+    foreach ($id in $plan.Keys) {
+        $p = $plan[$id]
+        if (-not $p.changed) { $out.Add("headless: $id already carries the headless keys"); continue }
+        $before = if (Test-Path -LiteralPath $p.abs) { (Sha $p.abs).Substring(0, 12) } else { '(absent)' }
+        $dirp = Split-Path $p.abs; if (-not (Test-Path -LiteralPath $dirp)) { New-Item -ItemType Directory -Path $dirp -Force | Out-Null }
+        $tmp = "$($p.abs).wtmp"
+        try { [IO.File]::WriteAllBytes($tmp, $p.bytes); Move-Into $tmp $p.abs } finally { Remove-Quiet $tmp }
+        if ((Sha $p.abs) -ne (Sha-Bytes $p.bytes)) { return "write of $id does not verify" }
+        $out.Add("headless overlay $id  $before -> $((Sha $p.abs).Substring(0, 12))")
+    }
+    Log "headless: overlay applied for owner=$owner (snapshot $($active.snapshot)): $W x $H"
+    return $null
+}
+# Everything a headless launch needs before the game starts. Returns an error string ('refused') or $null; @{rect} through $script:HeadlessRect.
+function Headless-Prepare([string]$size, [int]$W, [int]$H, [string]$owner, $out) {
+    $hl = $A.headless
+    $z = Zombie-Reason; if ($z) { return $z }
+    $r = Game-Running-Reason; if ($r) { return "$r - refusing to start a second instance (close it with a kill job first)" }
+    $f = Foreign-LockReason; if ($f) { return $f }
+    $mf = GamePath $hl.marker_file
+    $has = $false
+    if (Test-Path -LiteralPath $mf) { try { $has = Bytes-Contain (Read-Shared $mf) $hl.marker } catch { } }
+    if (-not $has) { return "headless: $mf does not contain '$($hl.marker)', so this proxy build cannot run headless (the window would land on a real monitor). Deploy the current proxy, or use visible=1 only with Liam present" }
+    $vr = RootPath 'vdisplay_restore.json'
+    $l = Get-Lock
+    $started = [DateTime]::MinValue
+    if ($l -and $l.started) { [void][DateTime]::TryParse($l.started, $Inv, [Globalization.DateTimeStyles]::AdjustToUniversal -bor [Globalization.DateTimeStyles]::AssumeUniversal, [ref]$started) }
+    if ((Test-Path -LiteralPath $vr) -and (Get-Item -LiteralPath $vr).LastWriteTimeUtc -lt $started) {   # left by an earlier lock
+        $pend = Vdisplay-Restore 'before a launch under a new lock'
+        if ($pend) { return "headless: an earlier display mode could not be restored yet ($pend)" }
+    }
+    $d = Headless-Display $size $out
+    if ($d.err) { return $d.err }
+    $e = Headless-Overlay $W $H $owner $d.rect $out
+    if ($e) { return $e }
+    return $null
+}
+function Bytes-Contain([byte[]]$b, [string]$ascii) { return ($Latin1.GetString($b).IndexOf($ascii, [StringComparison]::Ordinal) -ge 0) }
+# Starts win_probe.ps1 detached (it samples from before the game starts until it exits); returns its folder or $null.
+function Start-WinProbe($out) {
+    if ((IntSet 'winprobe') -eq 0) { return $null }
+    $script = Join-Path $SrcDir 'win_probe.ps1'
+    if (-not (Test-Path -LiteralPath $script)) { $out.Add('WARNING: win_probe.ps1 is not next to the watcher: this launch is NOT measured'); return $null }
+    $rel = "runs\$(UtcStamp (Get-Date))_winprobe"
+    $dir = RootPath $rel
+    New-Item -ItemType Directory -Path $dir -Force | Out-Null
+    $cl = "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$script`" -OutDir `"$dir`" -Image `"$($A.game_image)`" -VirtualName `"$(Vd-Name)`" -WaitStartS 240"
+    $r = Start-Detached $cl $dir
+    $deadline = (Get-Date).AddSeconds(30)
+    while ((Get-Date) -lt $deadline -and -not (Test-Path -LiteralPath (Join-Path $dir 'ready.txt'))) { Pump; Start-Sleep -Milliseconds 200 }
+    if (Test-Path -LiteralPath (Join-Path $dir 'ready.txt')) { $out.Add("window probe: $rel (pid $($r.ProcessId)); winprobe.json and winprobe.txt when the game exits") }
+    else { $out.Add("WARNING: the window probe in $rel did not report ready within 30 s; the launch goes ahead") }
+    return $dir
+}
+# Waits for the proxy's status file to name this pid on_virtual (ok) or refused; anything else in time is fail closed (the game is killed).
+function Headless-Wait([int]$waitS, $out) {
+    $hl = $A.headless
+    $sp = GamePath $hl.status_file
+    $g = @(Get-GameProcs)
+    if (-not $g.Count) { return "HEADLESS FAILED: $($A.game_image) is not running after the start (exit code $($hl.exit_code) = the proxy refused; read $($hl.status_file))" }
+    $gpid = $g[0].Id
+    $deadline = (Get-Date).AddSeconds($waitS)
+    $last = '(no status yet)'
+    while ((Get-Date) -lt $deadline) {
+        Pump
+        $st = $null; if (Test-Path -LiteralPath $sp) { $st = Read-JsonRetry $sp 3 }
+        if ($st -and [int]$st.pid -eq $gpid) {
+            $line = "$($st.state) $($st.detail)".Trim()
+            if ($line -ne $last) { $last = $line; $out.Add("headless status: $line") }
+            if ($st.state -eq 'on_virtual') {
+                $tg = if ($st.target) { "$($st.target.device) rect $(@($st.target.rect) -join ',')" } else { '?' }
+                $out.Add("headless: on_virtual (target $tg, window $(@($st.window) -join 'x'), client $(@($st.client) -join 'x'), back buffer $(@($st.backbuffer) -join 'x'))")
+                return $null
+            }
+            if ($st.state -eq 'refused') {
+                if (Get-Process -Id $gpid -ErrorAction SilentlyContinue) { [void](Kill-Game 'headless refused' $out) }
+                return "HEADLESS FAILED: the proxy refused the launch: $($st.detail) (exit code $($st.exit_code); nothing was shown on a real monitor)"
+            }
+        }
+        if (-not (Get-Process -Id $gpid -ErrorAction SilentlyContinue)) { return "HEADLESS FAILED: the game exited before reporting on_virtual (last status: $last)" }
+        Start-Sleep -Milliseconds 250
+    }
+    [void](Kill-Game 'headless status timeout' $out)
+    return "HEADLESS FAILED: no on_virtual status for pid $gpid within $waitS s (last: $last); the game was killed (fail closed)"
+}
+# The launch job. Headless unless visible=1 (or the adapter has no headless block).
+function Launch-Job($hdr, $c, $o) {
+    $headless = ($A.headless -and $hdr['visible'] -ne '1')
+    $W = 0; $H = 0
+    if ($headless) {
+        $size = $A.headless.default_size; if ($hdr['size']) { $size = $hdr['size'] }
+        $m = [regex]::Match("$size", '^(\d{3,5})x(\d{3,5})$')
+        if (-not $m.Success) { return "bad size '$size': want WxH, for example 3840x2160" }
+        $W = [int]$m.Groups[1].Value; $H = [int]$m.Groups[2].Value
+        $err = Headless-Prepare $size $W $H $c.owner $o
+        if ($err) { return $err }
+    } else { $o.Add('visible launch: no config touched, no display checked; the window goes wherever the game puts it (only for sittings with Liam present)') }
+    $probeDir = Start-WinProbe $o
+    $err = Do-Launch $hdr['route'] "launch job $($c.id) owner=$($c.owner)$(if ($headless) { " headless ${W}x${H}" } else { ' visible' })" $o
+    if ($err) { if ($probeDir) { [IO.File]::WriteAllText((Join-Path $probeDir 'stop'), 'stop', $Utf8) }; return $err }
+    $g = @(Get-GameProcs)
+    if ($g.Count) { $o.Add("running: $($A.game_image) pid $($g[0].Id)") } else { $o.Add("WARNING: $($A.game_image) not seen in the process list after the start (it may have exited at once)") }
+    if ($headless) {
+        $ws = 180; if ($hdr['headless_wait_s']) { $ws = [int]$hdr['headless_wait_s'] }
+        $err = Headless-Wait $ws $o
+        if ($err) { return $err }
+    }
+    if ($hdr['wait_log']) { $ws = 120; if ($hdr['wait_s']) { $ws = [int]$hdr['wait_s'] }; if (-not (Wait-LogLine $hdr['wait_log'] $ws $o)) { return "launch: the log line '$($hdr['wait_log'])' did not appear" } }
+    return $null
 }
 
 # ------------------------------------------------------------------------------------------------ watchdog ----------
@@ -774,6 +1057,7 @@ function Pump {
         Expire-StaleLock
         Watchdog
         Auto-Restore
+        Vdisplay-Housekeeping
         if (((Get-Date) - $LastAlive).TotalSeconds -ge 2) { Write-Alive }
     } catch { Log "housekeeping error: $($_.Exception.Message) at line $($_.InvocationInfo.ScriptLineNumber)" }
     finally { $script:PumpDepth-- }
@@ -955,14 +1239,7 @@ function Start-NextJob {
     $err = $null
     try {
         switch ($c.type) {
-            'launch' {
-                $err = Do-Launch $hdr['route'] "launch job $id owner=$($c.owner)" $o
-                if (-not $err) {
-                    $g = @(Get-GameProcs)
-                    if ($g.Count) { $o.Add("running: $($A.game_image) pid $($g[0].Id)") } else { $o.Add("WARNING: $($A.game_image) not seen in the process list after the start (it may have exited at once)") }
-                    if ($hdr['wait_log']) { $ws = 120; if ($hdr['wait_s']) { $ws = [int]$hdr['wait_s'] }; if (-not (Wait-LogLine $hdr['wait_log'] $ws $o)) { $err = "launch: the log line '$($hdr['wait_log'])' did not appear" } }
-                }
-            }
+            'launch' { $err = Launch-Job $hdr $c $o }
             'kill' { $ok = Kill-Game "kill job $id owner=$($c.owner)" $o; if (-not $ok) { $err = 'ZOMBIE: the process survived taskkill /F /T - PC needs reboot' }; $script:LaunchAt = $null }
             'profile' {
                 $name = $c.args | Select-Object -First 1
@@ -975,7 +1252,7 @@ function Start-NextJob {
     } catch { $err = "watcher error: $($_.Exception.Message) (line $($_.InvocationInfo.ScriptLineNumber))" }
     [IO.File]::WriteAllText($c.out, (($o -join "`r`n") + "`r`n"), $Utf8)
     if ($err) {
-        $st = if ($err -match '^ZOMBIE|^PC NEEDS REBOOT|did not verify|watcher error|did not appear') { 'failed' } else { 'refused' }
+        $st = if ($err -match '^ZOMBIE|^PC NEEDS REBOOT|^HEADLESS FAILED|did not verify|watcher error|did not appear') { 'failed' } else { 'refused' }
         if ($st -eq 'refused') { [IO.File]::AppendAllText($c.out, "REFUSED by watcher: $err`r`n", $Utf8) }
         Finish-Job $c $(if ($st -eq 'refused') { -2 } else { 1 }) $st $err
     } else { Finish-Job $c 0 'ok' $null }

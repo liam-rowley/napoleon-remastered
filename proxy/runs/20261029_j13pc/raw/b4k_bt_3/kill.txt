@@ -1,0 +1,3 @@
+taskkill /F /T /PID 28584 (Napoleon): SUCCESS: The process with PID 28584 (child process of PID 8844) has been terminated.
+killed: Napoleon 28584
+[job j13-20261029T181142Z-2074126732: ok exit=0]

@@ -1,0 +1,3 @@
+taskkill /F /T /PID 3900 (Napoleon): SUCCESS: The process with PID 3900 (child process of PID 8844) has been terminated.
+killed: Napoleon 3900
+[job j13-20261029T174546Z-1631711676: ok exit=0]

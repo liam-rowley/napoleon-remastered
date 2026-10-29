@@ -10,7 +10,7 @@ branches (`git ls-remote origin`), and `review` fetches the job branches it insp
 instead. `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
 Its cards carry a button for each action not_ready() allows (Write brief, Implement, Review). On the written page a button copies the
 `claude --bg` command; `view --serve` serves the page on 127.0.0.1 and the button posts (id, action) to the server, which checks a
-per-run token, Origin, Host, content type, readiness against fresh branches and the D15 cap (`claude agents --json`, fail closed),
+per-run token, Origin, Host, content type, readiness against fresh branches and no running session of the same name (`claude agents --json`, fail closed; no count cap: D34),
 then runs the command itself. The prompt and the argv are written here, never by the page; no permission flag is ever passed.
 """
 import html
@@ -229,7 +229,6 @@ PROMPTS = {'brief': 'Write the brief for job {id}: git pull, then run python3 co
            'build': 'Pick up job {id}: git pull, then run python3 core/wsc.py jobs next --id {id} and follow it.',
            'review': 'Review job {id}: git pull, then run python3 core/wsc.py jobs review --id {id} and follow docs/REVIEW.md.'}
 LABELS = {'brief': 'Write brief', 'build': 'Implement', 'review': 'Review'}
-MAX_WORKING = 2   # D15: at most 2 agents at once
 
 
 def launch_argv(claude, jid, action, row):
@@ -444,7 +443,7 @@ def _claude(*args, timeout=120, cwd=None):
 
 
 def list_agents():
-    """`claude agents --json` as a list of sessions; ValueError when it cannot be read (the cap then fails closed)."""
+    """`claude agents --json` as a list of sessions; ValueError when it cannot be read (the launch then fails closed)."""
     rc, out, err = _claude('agents', '--json', timeout=60)
     if rc != 0:
         raise ValueError(f'claude agents --json exited {rc}: {err.strip()[:200]}')
@@ -527,7 +526,7 @@ class JobServer(ThreadingHTTPServer):
 
     def launch_request(self, headers, body):
         """(HTTP code, message, extra JSON fields), checked in this order: token 403, Origin and Host 403, content type 415, id and
-        action 400, readiness 409, the D15 cap and a same-name session 429, then the launch."""
+        action 400, readiness 409, a same-name session 429, then the launch (no count cap: D34)."""
         try:
             req = json.loads(body.decode('utf-8'))
         except ValueError:
@@ -552,17 +551,14 @@ class JobServer(ThreadingHTTPServer):
         if why:
             return 409, f'refused: {why}', {}
         name = f'{jid}-{action}'
-        with self.lock:   # one launch at a time, so a double click cannot pass the cap twice
+        with self.lock:   # one launch at a time, so a double click cannot start the same session twice
             try:
                 agents = self.agents()
             except Exception as x:
-                return 503, f'refused: cannot count the running sessions ({x})', {}
+                return 503, f'refused: cannot list the running sessions ({x})', {}
             working = [a for a in agents if isinstance(a, dict) and a.get('state') == 'working']
-            names = ', '.join(str(a.get('name') or a.get('id')) for a in working)
             if any(str(a.get('name') or '').lower() == name.lower() for a in working):
                 return 429, f'refused: {name} is already running', {}
-            if len(working) >= MAX_WORKING:
-                return 429, f'refused: {len(working)} sessions are working ({names}); D15 allows {MAX_WORKING} at once', {}
             claude = self.which('claude')
             if not claude:
                 return 503, 'refused: claude is not on PATH', {}

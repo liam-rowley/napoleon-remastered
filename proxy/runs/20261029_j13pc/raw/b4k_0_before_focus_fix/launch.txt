@@ -1,0 +1,13 @@
+headless: VIRTUAL OK: \\.\DISPLAY11 3840x2160@60Hz rect=3839,2160,7679,4320 adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+headless overlay prefs  83b9b32b2b73 -> 2d869324bf85
+headless overlay mod_ini  369f31823972 -> 25f65352b7e7
+window probe: runs\20261029T174046Z_winprobe (pid 29280); winprobe.json and winprobe.txt when the game exits
+started C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 24260) in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War [launch job j13-20261029T174045Z-1028128917 owner=j13 headless 3840x2160]
+running: Napoleon.exe pid 24260
+headless status: starting DllMain
+headless status: target_ok target resolved at Direct3DCreate9
+headless status: on_virtual window 3839,2160 3840x2160 on \\.\DISPLAY11, first frame presented there at 1.2 s
+headless: on_virtual (target \\.\DISPLAY11 rect 3839,2160,7679,4320, window 3840x2160, client 3840x2160, back buffer 3840x2160)
+reached after 6 s: 2026-10-29T17:40:52.446Z [INFO ] [t9840] scene: intro -> frontend after 24725.3 s (uptime 5.4 s, frame 4, lua frontend)
+[job j13-20261029T174045Z-1028128917: ok exit=0]
+launch rc=0

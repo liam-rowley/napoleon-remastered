@@ -1,0 +1,5 @@
+x_res 3840; # x_res <int32>, Fixed window width #
+y_res 2160; # y_res <int32>, Fixed window height #
+x_pos 0; # x_pos <int32>, Window position #
+y_pos 0; # y_pos <int32>, Window position #
+gfx_fullscreen false; # gfx_fullscreen <bool>, Run the application in fullscreen or not #

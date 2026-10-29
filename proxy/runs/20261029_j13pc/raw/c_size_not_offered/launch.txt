@@ -1,0 +1,18 @@
+headless: the virtual display is at another size; setting 1280x720 (the previous mode is restored after the game exits)
+  display tool: displays (3 attached):
+  display tool:   \\.\DISPLAY1   3840x2160@240Hz at 0,0 PRIMARY  adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor'
+  display tool:   \\.\DISPLAY2   2560x1440@144Hz at -2560,327  adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)'
+  display tool:   \\.\DISPLAY11  3840x2160@60Hz at 3839,2160  adapter='Virtual Display Driver' monitor='Generic PnP Monitor'
+  display tool: previous mode saved to C:\napoleon_remastered_pc\watcher\vdisplay_restore.json: 3840x2160@60 at 3839,2160
+  display tool: CDS_TEST(\\.\DISPLAY11, 1280x720@60 at 3839,2160) -> -2 (DISP_CHANGE_BADMODE)
+  display tool: MODE NOT OFFERED: 1280x720 is refused by the driver for \\.\DISPLAY11; nothing was changed.
+  display tool: NOT OFFERED by the driver: 1280x720. The change for Liam (administrator; agents never do this):
+  display tool:   1. Open Notepad as administrator, open C:\VirtualDisplayDriver\vdd_settings.xml.
+  display tool:   2. Inside <resolutions>...</resolutions> add one block per missing size, keeping the existing 3840x2160 blocks:
+  display tool:        <resolution><width>1280</width><height>720</height><refresh_rate>60</refresh_rate></resolution>
+  display tool:   3. The file must still start with <?xml as its very first characters (no blank line before it). Save.
+  display tool:   4. VDD Control -> Reload driver (or Device Manager: disable, enable the Virtual Display Driver). Reboot if nothing changes.
+  display tool:   5. Run this tool again.
+REFUSED by watcher: headless: the virtual display cannot be put at 1280x720: MODE NOT OFFERED: 1280x720 is refused by the driver for \\.\DISPLAY11; nothing was changed. | NOT OFFERED by the driver: 1280x720. The change for Liam (administrator; agents never do this): (display tool exit 6). Use a size the driver offers, or visible=1 with Liam present
+[job j13-20261029T181200Z-3025721860: refused exit=-2 - headless: the virtual display cannot be put at 1280x720: MODE NOT OFFERED: 1280x720 is refused by the driver for \\.\DISPLAY11; nothing was changed. | NOT OFFERED by the driver: 1280x720. The change for Liam (administrator; agents never do this): (display tool exit 6). Use a size the driver offers, or visible=1 with Liam present]
+launch rc=2

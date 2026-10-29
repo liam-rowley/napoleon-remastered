@@ -1,0 +1,3 @@
+taskkill /F /T /PID 29140 (Napoleon): SUCCESS: The process with PID 29140 (child process of PID 8844) has been terminated.
+killed: Napoleon 29140
+[job j13-20261029T174624Z-1381914682: ok exit=0]

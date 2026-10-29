@@ -1,0 +1,3 @@
+prefs before: 83b9b32b2b738ebcafa4910a9b3b6f0c69b9a06e3e6270fb55d6e51bdee2cea7
+prefs as left by the game: b7c37858ec883531fb477fd7b125694ca8a3019a2569ca3d4dc99d9e77af02be
+prefs after restore: 83b9b32b2b738ebcafa4910a9b3b6f0c69b9a06e3e6270fb55d6e51bdee2cea7 BYTE-IDENTICAL
