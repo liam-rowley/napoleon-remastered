@@ -1,13 +1,17 @@
 """The job queue (D16) as a verb: check the queue, pick up the next job, find the next job to review.
 
 purpose: Check the jobs registry against jobs/ (status invariants, file links, brief shape), pick the next job to build or review, and show the queue as a readable page.
-usage: python3 core/wsc.py jobs check | jobs next [--offline] | jobs review [--offline] | jobs view [--offline] [--out PATH] [--no-open]
-when: `next` when Liam says "pick up the next job"; `review` for "review the next job"; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser instead of registries/jobs.md.
+usage: python3 core/wsc.py jobs check | jobs next [--id J<n>] [--offline] | jobs review [--id J<n>] [--offline] | jobs view [--offline] [--out PATH] [--no-open] | jobs view --serve [--port N] [--dry-run] [--no-open]
+when: `next` when Liam says "pick up the next job" (`--id` for a named job: what a session launched from the view runs); `review` for "review the next job"; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser instead of registries/jobs.md, `view --serve` to start a job's brief, build or review session from its button.
 verb: jobs
 
 The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review` and `view` read the remote
 branches (`git ls-remote origin`), and `review` fetches the job branches it inspects; `--offline` uses the local remote-tracking refs
 instead. `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
+Its cards carry a button for each action not_ready() allows (Write brief, Implement, Review). On the written page a button copies the
+`claude --bg` command; `view --serve` serves the page on 127.0.0.1 and the button posts (id, action) to the server, which checks a
+per-run token, Origin, Host, content type, readiness against fresh branches and the D15 cap (`claude agents --json`, fail closed),
+then runs the command itself. The prompt and the argv are written here, never by the page; no permission flag is ever passed.
 """
 import html
 import json
@@ -463,7 +467,8 @@ def start_session(argv):
 
 class _Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *a):
-        sys.stderr.write('jobs serve: ' + fmt % a + '\n')
+        if self.server.log:
+            sys.stderr.write('jobs serve: ' + fmt % a + '\n')
 
     def _send(self, code, body, ctype):
         data = body.encode('utf-8')
@@ -503,6 +508,7 @@ class JobServer(ThreadingHTTPServer):
     launch_request. Seams (the tests pass fakes): snapshot() -> (rows, read, branches, on_branch), read fresh each time; agents() ->
     the `claude agents --json` list; launch(argv) -> session id; which(name) -> path or None."""
     daemon_threads = True
+    log = True   # one stderr line per request
 
     def __init__(self, snapshot, agents, launch, which=shutil.which, port=0, dry_run=False, root=None):
         super().__init__(('127.0.0.1', port), _Handler)
