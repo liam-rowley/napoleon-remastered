@@ -14,7 +14,7 @@ engine_facts = "core:engine_facts"
 jobs = "schemas/jobs.schema.json"          # the job queue (D16); repo-local schema
 
 [core]
-version = "v0.1.0"
+version = "v0.2.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
