@@ -119,6 +119,18 @@ class Next(unittest.TestCase):
         self.assertIsNone(jv.pick_review({'J1': (None, False)}))
 
 
+class Ledger(unittest.TestCase):
+    def test_codeable_later_rows_naming_the_job(self):
+        led = ('| # | Rule | Source | Before | After | Why |\n|---|---|---|---|---|---|\n'
+               '| 7 | Settle before checking | N:PLAN.md:1 | CL | CL | J4 |\n'
+               '| 8 | Poses by id | N:PLAN.md:2 | CL | CL | J4, J13 |\n'
+               '| 9 | Not this one | N:PLAN.md:3 | CL | E | J4 |\n'
+               '| 10 | Nor this | N:PLAN.md:4 | CL | CL | J40 |\n')
+        self.assertEqual(jv.waiting_rules(led, 'J4'), ['row 7: Settle before checking', 'row 8: Poses by id'])
+        self.assertEqual(jv.waiting_rules(led, 'J13'), ['row 8: Poses by id'])
+        self.assertEqual(jv.waiting_rules(led, 'J5'), [])
+
+
 class ThisRepo(unittest.TestCase):
     def test_the_queue_passes_jobs_check(self):
         p = subprocess.run([sys.executable, str(ROOT / 'core' / 'wsc.py'), '--root', str(ROOT), 'jobs', 'check'],

@@ -171,6 +171,17 @@ def remote_branches(root, offline):
     return {l.split('refs/heads/', 1)[1] for l in out.splitlines() if 'refs/heads/' in l}
 
 
+def waiting_rules(ledger_text, jid):
+    """Codeable-later rows of an audit ledger (`jobs/*/rules.md`, J5 shape: | n | rule | source | before | after | why |) whose
+    reason names `jid`: the rules that job's brief has to turn into code. A ledger line is the only place this hand-off lives."""
+    out = []
+    for line in (ledger_text or '').splitlines():
+        c = [x.strip() for x in line.strip().strip('|').split('|')]
+        if len(c) >= 6 and c[0].isdigit() and c[4] == 'CL' and re.search(rf'\b{jid}\b', c[5]):
+            out.append(f'row {c[0]}: {c[1]}')
+    return out
+
+
 def load_rows(text):
     return [json.loads(l) for l in (text or '').splitlines() if l.strip()]
 
@@ -205,10 +216,13 @@ def run(args, ctx):
                   f'Take it: git checkout -b job/{r["id"]} origin/main, follow jobs/{r["id"]}/brief.md, push early so the branch claims it.\n'
                   f'Finish: jobs/{r["id"]}/report.md, then wsc reg set jobs {r["id"]} status=review report=jobs/{r["id"]}/report.md, pushed.')
         elif kind == 'brief':
+            owed = [f'{p.relative_to(ctx.root).as_posix()} {w}' for p in sorted((ctx.root / 'jobs').glob('*/rules.md'))
+                    for w in waiting_rules(p.read_text(encoding='utf-8'), r['id'])]
             print(f'{r["id"]}: {r["title"]} needs a brief (nothing queued is ready).\n'
                   f'Write jobs/{r["id"]}/brief.md on branch brief/{r["id"]} from the row, docs/plans/PLAN.md and the reports of '
                   f'{", ".join(r["depends_on"]) or "earlier jobs"}, in the shape `wsc jobs check` enforces (jobs/J1/brief.md is the model); '
-                  f'then wsc reg set jobs {r["id"]} status=queued brief=jobs/{r["id"]}/brief.md, push, and stop for Liam\'s merge.')
+                  f'then wsc reg set jobs {r["id"]} status=queued brief=jobs/{r["id"]}/brief.md, push, and stop for Liam\'s merge.'
+                  + ''.join(f'\nThe brief must cover {o}' for o in owed))
         else:
             print('Nothing is ready. Waiting:\n  ' + '\n  '.join(waiting or ['(the queue is empty)']))
         return 0
