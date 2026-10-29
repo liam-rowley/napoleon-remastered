@@ -2,3 +2,5 @@
 {"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j15_spy 420", "status": "ok", "scene": "campaign", "load_s": 2.3, "total_s": 2.3, "lua": "started campaign zz_j15_spy"}
 {"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true"}
 {"step": "end_turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_end_turn.lua", "status": "ok", "chunk": "end turn asked through button_end_turn at 1805 Winter"}
+{"step":"next_turn","from":"1805|Winter|true|true|true","to":"1805|Winter|true|true|true","waited_s":903}
+{"step":"next_turn","rc":1,"status":"stopped"}

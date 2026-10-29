@@ -151,6 +151,7 @@ All `[dev]` keys default off with release value off (`registries/config_keys.jso
 | `waitfor <scene>[\|<scene>] [t]` | `scene`, `waited_s`; timeout names the scene |
 | `autostart <target> [t]` | `scene`, `lua`, `load_s`, `total_s`; battles: `map`, `map_folder_loaded`, `map_folder_selected`, `preset_map` (WRONG MAP fails) |
 | `reset <target> [t]` | `steps`, `from`, `to_frontend_s`, `total_s`, `mem_before/frontend/after`, `autostart {...}` |
+| `console <line>\|status\|on\|off` | line: `path` (system, tweak, campaign, unknown, refused), `command`, `args`, `forwarded`, `hits`, `chunk`; status/on/off: `gate`, `slot`, `campaign`, `cli`, `forwards`, `hits`, `refusals`, `gate_offset`, `gate_sets` (J15, below) |
 | `exit` | written, then the process exits |
 
 Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: type, map key, prefs), `campaign:continue`,
@@ -158,6 +159,16 @@ Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: typ
 campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknown key is an engine AV, so autostart refuses it.
 Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
 Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
+
+## Campaign console (J15)
+
+`dev.console=1` (default and release off): at the first `Direct3DCreate9` the proxy checks the 8 console `engine_sites`, takes the slot address
+from the executor's own instruction and claims the slot only if it holds 0 (never a foreign value). The forwarder (`core/console.cpp`, pure rules in
+`console.h`, `tests/test_console.cpp`) refuses unless the key is on, the scene is `campaign` and the pointer chain to the live campaign context
+holds; then it builds a CampaignCLI with the exe's ctor (no detour) and calls `Execute`, with the context's gate byte set for that one call if it
+was 0 (Liam 2026-10-29). Every forwarded or refused line is logged, from the verb and from game Lua's `CliExecute` alike. The verb runs lines
+through Lua `CliExecute` and refuses `;`, `#`, quotes, a name that is a file in the game folder (the executor would run it first) and the no-ops
+of `runs/20261029_j15re/campaign_commands.tsv` (generated `napoleon/generated/console_table.h`). Units and limits: facts `napoleon.console.*`.
 
 ## Headless (J13)
 
