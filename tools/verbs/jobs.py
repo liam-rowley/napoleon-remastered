@@ -1,17 +1,21 @@
 """The job queue (D16) as a verb: check the queue, pick up the next job, find the next job to review.
 
-purpose: Check the jobs registry against jobs/ (status invariants, file links, brief shape), and pick the next job to build or review.
-usage: python3 core/wsc.py jobs check | jobs next [--offline] | jobs review [--offline]
-when: `next` when Liam says "pick up the next job"; `review` for "review the next job"; `check` runs in the tests gate (CI) and before pushing a brief or a job row change.
+purpose: Check the jobs registry against jobs/ (status invariants, file links, brief shape), pick the next job to build or review, and show the queue as a readable page.
+usage: python3 core/wsc.py jobs check | jobs next [--offline] | jobs review [--offline] | jobs view [--offline] [--out PATH] [--no-open]
+when: `next` when Liam says "pick up the next job"; `review` for "review the next job"; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser instead of registries/jobs.md.
 verb: jobs
 
-The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next` and `review` read the remote branches
-(`git ls-remote origin`), and `review` fetches the job branches it inspects; `--offline` uses the local remote-tracking refs instead.
+The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review` and `view` read the remote
+branches (`git ls-remote origin`), and `review` fetches the job branches it inspects; `--offline` uses the local remote-tracking refs
+instead. `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
 """
+import html
 import json
 import re
 import subprocess
 import sys
+import webbrowser
+from datetime import datetime, timezone
 from pathlib import Path
 
 NAME = 'jobs'
@@ -186,10 +190,141 @@ def load_rows(text):
     return [json.loads(l) for l in (text or '').splitlines() if l.strip()]
 
 
+# ------------------------------------------------------------------ view
+# (key, heading, what it means): the page's sections, in reading order.
+LANES = [('progress', 'In progress', 'a job/ or brief/ branch is open on origin'),
+         ('review', 'Waiting for review', 'report written; needs an independent review (wsc jobs review)'),
+         ('ready', 'Ready to pick up', 'queued, every dependency done, nobody on it'),
+         ('waiting', 'Queued, waiting on dependencies', 'brief written; a dependency is not done yet'),
+         ('brief', 'Needs a brief', 'no brief yet; one can be written once the dependencies make sense'),
+         ('blocked', 'Blocked', 'stopped on something outside the queue'),
+         ('done', 'Done', 'reviewed and merged')]
+
+
+def lane(r, by, branches):
+    """(lane key, short note) for one row: the registry status refined by the remote branches and the dependencies."""
+    st, jid = r.get('status'), r['id']
+    late = [d for d in r.get('depends_on', []) if by.get(d, {}).get('status') != 'done']
+    if st == 'done':
+        return 'done', ''
+    if st == 'review':
+        return 'review', ''
+    if st == 'blocked':
+        return 'blocked', r.get('blocked_by', '')
+    if st == 'queued' and f'job/{jid}' in branches:
+        return 'progress', f'being built on job/{jid}'
+    if st == 'needs_brief' and f'brief/{jid}' in branches:
+        return 'progress', f'brief being written on brief/{jid}'
+    if st == 'queued':
+        return ('waiting', 'waits for ' + ', '.join(late)) if late else ('ready', '')
+    return 'brief', ('waits for ' + ', '.join(late)) if late else 'can be briefed now'
+
+
+def render_view(rows, read, branches, generated):
+    """The queue as one HTML page. `read(path)`: file text or None; `branches`: remote branch names; `generated`: timestamp text.
+    Brief, report and review are embedded as escaped Markdown and rendered by marked.js when it loads (plain text otherwise)."""
+    e = html.escape
+    by = {r['id']: r for r in rows}
+    order = sorted(rows, key=lambda r: num(r['id']))
+    placed = {k: [] for k, _, _ in LANES}
+    for r in order:
+        k, note = lane(r, by, branches)
+        placed[k].append((r, note))
+    kind, nxt, _ = pick_next(rows, branches)
+    if kind == 'job':
+        head = f'Next to pick up: <a href="#{e(nxt["id"])}">{e(nxt["id"])} {e(nxt["title"])}</a>'
+    elif kind == 'brief':
+        head = f'Nothing queued is ready. Next brief to write: <a href="#{e(nxt["id"])}">{e(nxt["id"])} {e(nxt["title"])}</a>'
+    else:
+        head = 'Nothing is ready to pick up or brief.'
+
+    def dep(d):
+        st = by.get(d, {}).get('status', 'unknown')
+        return f'<a class="dep s-{e(st)}" href="#{e(d)}" title="{e(d)}: {e(by.get(d, {}).get("title", "no row"))} ({e(st)})">{e(d)}</a>'
+
+    def card(r, note):
+        jid = r['id']
+        docs = ''.join(f'<details class="doc"><summary>{f}</summary><pre class="md">{e(t)}</pre></details>'
+                       for f in ('brief', 'report', 'review') if (t := read(f'jobs/{jid}/{f}.md')) is not None)
+        deps = ' '.join(dep(d) for d in r.get('depends_on', [])) or '<span class="muted">none</span>'
+        tags = [f'phase {r.get("phase", "?")}', r.get('model', '?'), 'needs PC' if r.get('needs_pc') else 'no PC']
+        return (f'<article class="card" id="{e(jid)}" data-text="{e((jid + " " + r.get("title", "") + " " + r.get("description", "")).lower())}">'
+                f'<header><span class="id">{e(jid)}</span><h3>{e(r.get("title", ""))}</h3><span class="status s-{e(r.get("status", ""))}">'
+                f'{e(r.get("status", ""))}</span></header>'
+                + (f'<p class="note">{e(note)}</p>' if note else '')
+                + f'<p class="desc">{e(r.get("description", ""))}</p>'
+                f'<p class="meta">{" · ".join(e(t) for t in tags)} · depends on {deps}</p>{docs}</article>')
+
+    counts = ''.join(f'<a class="count" href="#lane-{k}"><b>{len(placed[k])}</b> {e(h)}</a>' for k, h, _ in LANES)
+    lanes = ''.join(f'<section class="lane" id="lane-{k}"><h2>{e(h)} <span class="muted">({len(placed[k])})</span></h2>'
+                    f'<p class="muted">{e(why)}</p>' + ''.join(card(r, n) for r, n in placed[k]) + '</section>'
+                    for k, h, why in LANES if placed[k])
+    return VIEW_PAGE.format(generated=e(generated), head=head, counts=counts, lanes=lanes, total=len(rows))
+
+
+VIEW_PAGE = '''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Queue</title>
+<style>
+:root {{ --bg:#f7f6f3; --card:#fff; --ink:#1f1f1f; --muted:#6b6b6b; --line:#e2e0da; --accent:#2f5d8a;
+  --done:#2e7d4f; --review:#8a5a00; --queued:#2f5d8a; --needs:#7a7a7a; --blocked:#b03030; }}
+@media (prefers-color-scheme: dark) {{ :root {{ --bg:#161616; --card:#202020; --ink:#e8e6e1; --muted:#9a9890; --line:#333;
+  --accent:#7fb0e0; --done:#5fbf86; --review:#e0a640; --queued:#7fb0e0; --needs:#9a9a9a; --blocked:#e06a6a; }} }}
+* {{ box-sizing:border-box; }}
+body {{ margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }}
+main {{ max-width:960px; margin:0 auto; padding:24px 16px 64px; }}
+h1 {{ margin:0 0 4px; font-size:24px; }} h2 {{ margin:32px 0 2px; font-size:18px; }} h3 {{ margin:0; font-size:16px; flex:1; }}
+a {{ color:var(--accent); }} .muted {{ color:var(--muted); font-weight:normal; }} p {{ margin:4px 0; }}
+.head {{ font-size:16px; margin:12px 0; }}
+.counts {{ display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }}
+.count {{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:4px 10px; text-decoration:none; color:var(--ink); }}
+input {{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; background:var(--card); color:var(--ink); font:inherit; }}
+.card {{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px 14px; margin:10px 0; }}
+.card:target {{ outline:2px solid var(--accent); }}
+.card header {{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }}
+.id {{ font-weight:700; font-family:ui-monospace, Consolas, monospace; }}
+.status, .dep {{ font-size:12px; border-radius:10px; padding:1px 8px; border:1px solid currentColor; text-decoration:none; }}
+.s-done {{ color:var(--done); }} .s-review {{ color:var(--review); }} .s-queued {{ color:var(--queued); }}
+.s-needs_brief {{ color:var(--needs); }} .s-blocked, .s-unknown {{ color:var(--blocked); }}
+.note {{ color:var(--review); font-size:14px; }} .desc {{ margin:6px 0; }} .meta {{ color:var(--muted); font-size:13px; }}
+.doc {{ margin-top:6px; }} .doc summary {{ cursor:pointer; color:var(--accent); }}
+.doc pre.md {{ white-space:pre-wrap; font:13px/1.45 ui-monospace, Consolas, monospace; }}
+.doc .rendered {{ border-left:3px solid var(--line); padding:0 0 0 12px; overflow-wrap:anywhere; }}
+.rendered pre, .rendered code {{ font-family:ui-monospace, Consolas, monospace; font-size:13px; }}
+.rendered pre {{ white-space:pre-wrap; background:var(--bg); padding:8px; border-radius:4px; }}
+.rendered table {{ border-collapse:collapse; display:block; overflow-x:auto; }} .rendered td, .rendered th {{ border:1px solid var(--line); padding:2px 6px; }}
+</style></head>
+<body><main>
+<h1>Job queue</h1>
+<p class="muted">{total} jobs · generated {generated} by <code>wsc jobs view</code> from registries/jobs.jsonl, jobs/ and origin's branches. Rerun it to refresh.</p>
+<p class="head">{head}</p>
+<div class="counts">{counts}</div>
+<input id="q" type="search" placeholder="Filter by id, title or description">
+{lanes}
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+document.getElementById('q').addEventListener('input', ev => {{
+  const q = ev.target.value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c => c.hidden = q && !c.dataset.text.includes(q));
+}});
+document.addEventListener('toggle', ev => {{
+  const pre = ev.target.querySelector && ev.target.querySelector('pre.md');
+  if (!pre || !window.marked) return;
+  const div = document.createElement('div'); div.className = 'rendered';
+  div.innerHTML = marked.parse(pre.textContent); pre.replaceWith(div);
+}}, true);
+</script>
+</body></html>
+'''
+
+
 # ------------------------------------------------------------------ verb
 def add_arguments(p):
-    p.add_argument('action', choices=['check', 'next', 'review'])
+    p.add_argument('action', choices=['check', 'next', 'review', 'view'])
     p.add_argument('--offline', action='store_true', help='use local remote-tracking refs instead of asking origin (a single-branch or shallow clone sees only the branches it fetched)')
+    p.add_argument('--out', default='_scratch/jobs.html', help='view: where to write the page, relative to the repo root (default %(default)s)')
+    p.add_argument('--no-open', action='store_true', help='view: write the page but do not open a browser')
 
 
 def run(args, ctx):
@@ -225,6 +360,16 @@ def run(args, ctx):
                   + ''.join(f'\nThe brief must cover {o}' for o in owed))
         else:
             print('Nothing is ready. Waiting:\n  ' + '\n  '.join(waiting or ['(the queue is empty)']))
+        return 0
+
+    if args.action == 'view':
+        out = ctx.root / args.out
+        out.parent.mkdir(parents=True, exist_ok=True)
+        stamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+        out.write_text(render_view(rows, read, branches, stamp), encoding='utf-8')
+        print(f'jobs view: {len(rows)} jobs -> {out}')
+        if not args.no_open:
+            webbrowser.open(out.resolve().as_uri())
         return 0
 
     on_branch = {}
