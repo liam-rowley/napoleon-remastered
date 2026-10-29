@@ -26,7 +26,7 @@ INDEX = os.path.join(REPO, 'discovery', 'assets', 'sheets.json')
 COLS, ROWS = 12, 16
 THUMB, LABEL = 128, 30
 TW, TH = THUMB + 8, THUMB + LABEL + 4
-IMAGE_FORMATS = ('tga', 'dds', 'png', 'jpg', 'jpeg')
+IMAGE_FORMATS = ('tga', 'dds', 'png', 'jpg', 'jpeg', 'cur', 'ani')  # .ani has no Pillow reader: a red failed tile
 
 
 def image_rows(reg, roles=None):
