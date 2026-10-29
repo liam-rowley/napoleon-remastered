@@ -41,8 +41,8 @@ After the review commit is pushed, run `python3 tools/pr_policy.py --branch job/
 review's verdict and findings), then `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
 `proxy`, `harness-windows`, `policy`) is green on that commit: do not wait or poll. If the merge changes a rule that other open job
 branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply. A check that fails leaves the
-pull request open: Liam sees it, and the next review round decides. Any other verdict is never merged, and `brief/`, `plan/` and
-`meta/` branches still wait for Liam.
+pull request open: Liam sees it, and the next review round decides. Any other verdict is never merged. A `brief/` branch merges the
+same way without a review (D33); `plan/` and `meta/` branches still wait for Liam.
 
 ## Keeping this file useful
 When a review finds something a gate could have caught, the fix is a new gate (in warscape-core if it is game-agnostic), not a
