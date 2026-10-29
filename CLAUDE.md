@@ -11,7 +11,7 @@
 
 ## The core (`core/`, warscape-core pinned at a tag)
 - Clone with `git clone --recurse-submodules` (or `git submodule update --init` after a plain clone); set the hook once per clone:
-  `git config core.hooksPath core/.githooks` (the core's `hooks` gate warns until you do, from the next core tag).
+  `git config core.hooksPath core/.githooks` (the core's `hooks` gate warns until you do).
   Agent sessions attach `liam-rowley/warscape-core` too (read is enough here).
 - Everything goes through `python3 core/wsc.py <verb>`: `find <words>` searches every registry, `reg add|set|render` changes them,
   `gates` runs the checks CI runs (`--fast` is what the pre-push hook runs). Never edit a generated `registries/*.md` view.
