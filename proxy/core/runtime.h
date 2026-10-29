@@ -23,6 +23,9 @@ struct Runtime {
     bool         engineOk = false;    // exe-identity guard verdict (false until it ran)
     uint32_t     fileImageBase = 0;   // OptionalHeader.ImageBase from the exe FILE (guard_driver); the mapped header holds the actual base
     EnginePlan   plan;                // PlanEngine(enabled, engineOk): the only switch engine-side code asks
+    bool         sitesAccepted = false;   // the patch engine ran and refused no site (patch_driver.cpp)
+    std::string  sitesWhy;                // why not, for the features that need a site
+    std::vector<uintptr_t> siteAddr;      // per adapter site: its checked address (rva + anchor, rebased), 0 when not checked ok
 };
 Runtime& Rt();
 
@@ -45,6 +48,7 @@ void GuardRun();               // sets Rt().engineOk and writes or removes the n
 
 // patch_driver.cpp
 void PatchesRun();             // only when Rt().plan.patches
+uintptr_t SiteAddress(const char* id);   // a checked site's address (hooks: the entry or instruction), 0 = not accepted
 
 // backend.cpp
 bool BackendEnsure();          // loads the configured backend once (never from DllMain); false = no d3d9 at all

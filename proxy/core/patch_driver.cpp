@@ -22,8 +22,8 @@ std::string Hex(const uint8_t* p, unsigned n) { std::string s; char b[4]; for (u
 void PatchesRun() {
     Runtime& rt = Rt();
     const GameAdapter& ad = Adapter();
-    if (!rt.plan.patches) { LOGI("patch_engine: not run (pass-through)"); return; }
-    if (!rt.cfg.Bool("proxy.runtime_patches")) { LOGI("patch_engine: off (proxy.runtime_patches=0)"); return; }
+    if (!rt.plan.patches) { LOGI("patch_engine: not run (pass-through)"); rt.sitesWhy = "pass-through (exe guard)"; return; }
+    if (!rt.cfg.Bool("proxy.runtime_patches")) { LOGI("patch_engine: off (proxy.runtime_patches=0)"); rt.sitesWhy = "proxy.runtime_patches=0"; return; }
     uint8_t* base = (uint8_t*)GetModuleHandleW(nullptr);
     PeInfo pe = Readable(base, 0x1000) ? ParsePe(base, 0x1000) : PeInfo{};
     ImageView v; v.data = base; v.size = pe.ok ? pe.sizeOfImage : 0; v.pe = &pe; v.file = false; v.readable = Readable;
@@ -42,7 +42,9 @@ void PatchesRun() {
              SiteStateName(c.state), c.enabled ? "" : " (key off)", Hex(c.cur, d.len).c_str());
     }
     const std::string sum = PlanSummary(pl, ad.nSites);
-    if (pl.verdict == PlanVerdict::Refuse) { LOGE("%s", sum.c_str()); return; }
+    if (pl.verdict == PlanVerdict::Refuse) { LOGE("%s", sum.c_str()); rt.sitesWhy = pl.reason; return; }
+    rt.siteAddr.assign(ad.nSites, 0);
+    for (size_t i = 0; i < ad.nSites; ++i) if (SiteStateOk(pl.sites[i].state)) rt.siteAddr[i] = (uintptr_t)(base + pl.sites[i].valueRva);
     LOGI("%s", sum.c_str());
     struct WinMem : MemOps {
         bool Unprotect(uint8_t* p, size_t n, uint32_t& old) override {
@@ -69,6 +71,14 @@ void PatchesRun() {
                  Hex(ad.sites[i].patch, ad.sites[i].len).c_str());
     if (w.reprotectFailures) LOGW("patch_engine: %d site(s) left writable (protection restore failed)", w.reprotectFailures);
     LOGI("patch_engine: %d of %d planned sites written", w.written, pl.nWrite);
+    rt.sitesAccepted = true;
+}
+
+uintptr_t SiteAddress(const char* id) {
+    const Runtime& rt = Rt(); const GameAdapter& ad = Adapter();
+    if (!rt.sitesAccepted || !id) return 0;
+    for (size_t i = 0; i < ad.nSites && i < rt.siteAddr.size(); ++i) if (strcmp(ad.sites[i].id, id) == 0) return rt.siteAddr[i];
+    return 0;
 }
 
 } // namespace wsp

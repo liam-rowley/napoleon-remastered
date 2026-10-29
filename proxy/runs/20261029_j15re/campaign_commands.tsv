@@ -1,0 +1,200 @@
+name	status	category	why	usage	help	handler_rva	handler_va
+add_ancillary	acts	empire_campaign	calls 7 engine functions	add_ancillary	Add the specified ancillary to the selected character	0x513b40	0x913b40
+add_ancillary_to	acts	empire_campaign	calls 8 engine functions	add_ancillary	Add the specified ancillary to the specified character	0x513c10	0x913c10
+add_marker	acts	empire_campaign	calls 2 engine functions	add_marker		0x514740	0x914740
+add_trait	acts	empire_campaign	calls 7 engine functions	add_trait	Add the specified trait to the selected character	0x514860	0x914860
+add_trait_to	acts	empire_campaign	calls 8 engine functions	add_trait_to	Add the specified trait to the specified character	0x514940	0x914940
+agent_embark_at_port	acts	empire_campaign	calls 5 engine functions	agent_embark_at_port	Embark agent specified by CQI at port	0x514de0	0x914de0
+agents_can_spawn_in_region	acts	empire_campaign	calls 3 engine functions	agents_can_spawn_in_region <region>	What agents can be spawned in the region?	0x515380	0x915380
+all_default_manager_except	acts	empire_campaign	calls 2 engine functions	all_default_manager_except [faction key]	Set all campaign AI managers to type default types *except* for the specified faction	0x663510	0xa63510
+all_default_managers	acts	empire_campaign	calls 1 engine functions	all_default_managers	Set *all* campaign AI managers to their original types	0x663560	0xa63560
+all_do_nothing	acts	empire_campaign	calls 1 engine functions	all_do_nothing	Set *all* campaign AI managers to type 'DO_NOTHING_MANAGER'	0x663580	0xa63580
+all_end_turn	no_op	empire_campaign	handler is a bare ret	all_end_turn	Set *all* campaign AI managers to type 'END_TURN_MANAGER'	0x44b60	0x444b60
+all_end_turn_allow_diplomacy	acts	empire_campaign	calls 1 engine functions	all_end_turn_allow_diplomacy	Set *all* campaign AI managers to type 'END_TURN_ALLOW_DIPLOMACY'	0x6635e0	0xa635e0
+all_end_turn_allow_diplomacy_except	acts	empire_campaign	calls 3 engine functions	all_end_turn_allow_diplomacy_except [faction key]	Set all campaign AI managers to type 'END_TURN_ALLOW_DIPLOMACY' *except* for the specified faction	0x663640	0xa63640
+all_end_turn_except	acts	empire_campaign	calls 3 engine functions	all_end_turn_except [faction key]	Set all campaign AI managers to type 'END_TURN_MANAGER' *except* for the specified faction	0x6636a0	0xa636a0
+all_full_managers	acts	empire_campaign	calls 1 engine functions	all_full_managers	Set *all* campaign AI managers to type 'FULL_MANAGER'	0x663700	0xa63700
+all_oversea_move	acts	empire_campaign	calls 1 engine functions	all_oversea_move	Set *all* campaign AI managers to type 'MOVE_THINGS_OVERSEAS_AND_END_TURN_MANAGER'	0x663760	0xa63760
+all_random_diplomacy	acts	empire_campaign	calls 1 engine functions	all_random_diplomacy	Set *all* campaign AI managers to type 'DO_DIPLOMACY_AND_END_TURN_MANAGER'	0x6637c0	0xa637c0
+all_random_move	acts	empire_campaign	calls 1 engine functions	all_random_move	Set *all* campaign AI managers to type 'RANDOM_MOVEMENT_MANAGER'	0x663820	0xa63820
+all_region_move	acts	empire_campaign	calls 1 engine functions	all_region_move	Set *all* campaign AI managers to type 'MOVE_THINGS_BETWEEN_REGIONS_AND_END_TURN_MANAGER'	0x663880	0xa63880
+attempt_unit_merge	acts	empire_campaign	calls 1 engine functions	attempt_unit_merge	Attempt to merge all units in the force with the first unit	0x516d40	0x916d40
+attempt_unit_merge_auto	acts	empire_campaign	calls 1 engine functions	attempt_unit_merge_auto	Attempt to merge all units in the force with the first unit, using the auto system	0x516d40	0x916d40
+build_fort	acts	empire_campaign	calls 1 engine functions	build_fort	Build a fort at the character's location	0x5201c0	0x9201c0
+build_siege_equipment	acts	empire_campaign	calls 5 engine functions	build_siege_equipment	Build as much siege equipment as possible	0x520220	0x920220
+cai_attack_selected	acts	empire_campaign	calls 10 engine functions	cai_attack_selected <s>	Move the selected item to the specified position (if possible)	0x668670	0xa68670
+cai_automanage	acts	empire_campaign	calls 1 engine functions	cai_automanage	Instead of ending turn enter an auto-manage phase	0x6689e0	0xa689e0
+cai_blockade_port	acts	empire_campaign	calls 1 engine functions	cai_blockade_port <faction>	Blockade the selected port (if possible)	0x668a00	0xa68a00
+cai_cancel_alliance	acts	empire_campaign	calls 1 engine functions	cai_cancel_alliance [faction key] [faction key]	Force the first faction to cancel an alliance with the second faction	0x668a80	0xa68a80
+cai_cancel_military_access	acts	empire_campaign	calls 1 engine functions	cai_cancel_military_access [faction key] [faction key]	Force the first faction to cancel military access for the second faction	0x668b10	0xa68b10
+cai_cancel_trade_agreement	acts	empire_campaign	calls 1 engine functions	cai_cancel_trade_agreement [faction key] [faction key]	Force the first faction to cancel a trade agreement with the second faction	0x668ba0	0xa68ba0
+cai_clear_all_patrol_points	acts	empire_campaign	calls 2 engine functions	cai_clear_all_patrol_points 	Clears all the patrol points	0x668c30	0xa68c30
+cai_debug_pf	acts	empire_campaign	calls 1 engine functions	cai_debug_pf	CAI debug pathfinding	0x668d30	0xa68d30
+cai_diplomacy_region_value	acts	empire_campaign	calls 2 engine functions	cai_diplomacy_region_value	Export the diplomatic value of regions	0x668d80	0xa68d80
+cai_display_region_groups	acts	empire_campaign	calls 11 engine functions	cai_display_region_groups	List the AI region groups and related information	0x668de0	0xa68de0
+cai_export_diplomacy_region_values	acts	empire_campaign	calls 1 engine functions	cai_export_diplomacy_region_values	Export the diplomatic value of regions	0x668fb0	0xa68fb0
+cai_export_faction_to_faction_attitude_analysis	acts	empire_campaign	calls 1 engine functions	cai_export_faction_to_faction_attitude_analysis	Export the faction to faction attitude analysis	0x668fd0	0xa68fd0
+cai_export_relation_timeline_analysis	acts	empire_campaign	calls 2 engine functions	cai_export_relation_timeline_analysis	Export relation timeline analysis for faction vs faction	0x668ff0	0xa68ff0
+cai_export_units_needed_for_unhappiness_mitigation	acts	empire_campaign	calls 1 engine functions	cai_export_units_needed_for_unhappiness_mitigation	Export the units required for unhappiness mitigation	0x669060	0xa69060
+cai_force_all_managers	acts	empire_campaign	calls 1 engine functions	cai_force_all_managers	Force instantiation of the correct faction managers for all factions.  Any faction with a correct manager type already in place will not be affected.	0x669080	0xa69080
+cai_force_buffer_zone_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_buffer_zone_behaviour [faction_key]	Add the buffer zone desire at a high priority to the named faction.	0x6690a0	0xa690a0
+cai_force_culling_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_culling_behaviour [faction_key]	Add the force culling behaviour at a high priority to the named faction.	0x669100	0xa69100
+cai_force_excess_forces_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_excess_forces_behaviour [faction_key]	Add the excess force recruitment behaviour to the specified manager.	0x669160	0xa69160
+cai_force_fort_maintainence_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_fort_maintainence_behaviour [faction_key]	Add the fort maintainence behaviour at a high priority to the named faction.	0x6691c0	0xa691c0
+cai_force_manager_for	acts	empire_campaign	calls 2 engine functions	cai_force_manager_for [faction key]	Force instantiation of the correct faction manager for a given faction.  If the correct manager type is already in place for the faction this will have no affect.	0x669220	0xa69220
+cai_force_promote_selected	acts	empire_campaign	calls 1 engine functions	cai_force_promote_selected	Have the AI promote the first free unit in the force.	0x669280	0xa69280
+cai_force_raiding_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_raiding_behaviour [faction_key]	Add the raid enemy regions behaviour at a high priority to the named faction.	0x6692e0	0xa692e0
+cai_force_recall_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_recall_behaviour [faction_key]	Add the recall assets desire at a high priority to the named faction.	0x669340	0xa69340
+cai_force_recapture_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_recapture_behaviour [faction_key]	Add the region recapture assets desire at a high priority to the named faction.	0x6693a0	0xa693a0
+cai_force_region_group_update	acts	empire_campaign	calls 1 engine functions	cai_force_region_group_update	Force AI region groups to be brought up to date	0x669400	0xa69400
+cai_force_uber_general_behaviour	acts	empire_campaign	calls 1 engine functions	cai_force_uber_general_behaviour [faction_key]	Add the uber general behaviour to the specified manager.	0x669420	0xa69420
+cai_force_war_of_succession	acts	empire_campaign	calls 1 engine functions	cai_force_war_of_succession [contesting faction_key] [target faction key]	For the contesting faction, add a high priority invasion goal for the capital region of the target faction.	0x669480	0xa69480
+cai_generate_all_patrol_points	acts	empire_campaign	calls 1 engine functions	cai_generate_all_patrol_points	Generate the patrol points for all regions in the world	0x669510	0xa69510
+cai_generate_patrol_points_for	acts	empire_campaign	calls 1 engine functions	cai_generate_patrol_points_for [region key]	Generate the patrol points for a specified region	0x669530	0xa69530
+cai_history_export_html	acts	empire_campaign	calls 4 engine functions	cai_history_export_html	Export CAI history to html file	0x669540	0xa69540
+cai_history_export_xml	acts	empire_campaign	calls 4 engine functions	cai_history_export_xml	Export CAI history to xml file	0x6695a0	0xa695a0
+cai_hlp_test	acts	empire_campaign	calls 2 engine functions	cai_hlp_test	CAI HLP test	0x669600	0xa69600
+cai_info	acts	empire_campaign	calls 1 engine functions	cai_info	CAI info	0x669720	0xa69720
+cai_invade_region	acts	empire_campaign	calls 1 engine functions	cai_invade_region [faction key] [region key]	Force the faction to invade the region	0x669770	0xa69770
+cai_invade_region_request	acts	empire_campaign	calls 1 engine functions	cai_invade_region_request [faction key] [region key]	Force the faction to invade the region going through the normal request mechanism	0x669800	0xa69800
+cai_load_patrol_points	acts	empire_campaign	calls 1 engine functions	cai_load_patrol_points	Load In CAI basic patrol point information	0x669890	0xa69890
+cai_move_to	acts	empire_campaign	calls 2 engine functions	cai_move_to [x] [y]	Move the selected item to the specified position (if possible)	0x6698b0	0xa698b0
+cai_navy	acts	empire_campaign	calls 6 engine functions	cai_navy	Create an navy at a position	0x520670	0x920670
+cai_occupy_garrisonable	acts	empire_campaign	calls 3 engine functions	cai_occupy_garrisonable <ARMY> <CHARACTERS>	Attempt to occupy a garrisonable by an owning factions army or character	0x669960	0xa69960
+cai_output_all_unit_strengths	acts	empire_campaign	calls 1 engine functions	cai_output_all_unit_strengths	Query that outputs all unit strengths.	0x669ae0	0xa69ae0
+cai_output_map_data	acts	empire_campaign	calls 9 engine functions	cai_output_map_data	Simple map data output	0x669b00	0xa69b00
+cai_output_recruitment_options	acts	empire_campaign	calls 1 engine functions	cai_output_recruitment_options	Output recruitment options	0x66a2b0	0xa6a2b0
+cai_pause	parse_only	empire_campaign	only reads its arguments or the selection	cai_pause	Toggle Campaign AI pause	0x66a2d0	0xa6a2d0
+cai_pf_debug	acts	empire_campaign	calls 1 engine functions	cai_pf_debug	Pathfinding debug	0x66a310	0xa6a310
+cai_process_map_data	acts	empire_campaign	calls 2 engine functions	cai_process_map_data	CAI map data processing	0x66a330	0xa6a330
+cai_query	acts	empire_campaign	calls 2 engine functions	cai_query	Manager test query	0x66a3a0	0xa6a3a0
+cai_request_alliance	acts	empire_campaign	calls 1 engine functions	cai_request_alliance [faction key] [faction key]	Force the first faction to request an alliance with the second faction	0x66a400	0xa6a400
+cai_request_merge	acts	empire_campaign	calls 1 engine functions	cai_request_merge	Force the army/navy to merge with another nearby army/navy	0x66a490	0xa6a490
+cai_request_military_access	acts	empire_campaign	calls 1 engine functions	cai_request_military_access [faction key] [faction key]	Force the first faction to request military access from the second faction	0x66a4e0	0xa6a4e0
+cai_request_multi_merge	acts	empire_campaign	calls 1 engine functions	cai_request_multi_merge	Force the army/navy to merge with nearby armies/navies	0x66a570	0xa6a570
+cai_request_payment	acts	empire_campaign	calls 1 engine functions	cai_request_payment [faction key] [region key] [amount] [number of turns]	Force the first faction to request payment from a faction	0x66a5c0	0xa6a5c0
+cai_request_peace	acts	empire_campaign	calls 1 engine functions	cai_request_peace [faction key] [region key]	Force the first faction to request peace with another faction	0x66a670	0xa6a670
+cai_request_protectorate	acts	empire_campaign	calls 1 engine functions	cai_request_protectorate [faction key] [region key]	Force the first faction to request a faction becomes a protectorate	0x66a700	0xa6a700
+cai_request_region	acts	empire_campaign	calls 1 engine functions	cai_request_region [faction key] [region key]	Force the first faction to request a region	0x66a790	0xa6a790
+cai_request_trade_agreement	acts	empire_campaign	calls 1 engine functions	cai_request_trade_agreement [faction key] [faction key]	Force the first faction to request a trade agreement with the second faction	0x66a820	0xa6a820
+cai_request_war	acts	empire_campaign	calls 2 engine functions	cai_request_war [faction key] [region key]	Force the first faction to request war with another faction	0x66a8b0	0xa6a8b0
+cai_sabotage	acts	empire_campaign	calls 4 engine functions	cai_sabotage <optional faction key>	Attempt to sabotage a given resources.	0x66a990	0xa6a990
+cai_save_patrol_points	acts	empire_campaign	calls 1 engine functions	cai_save_patrol_points	Save Out CAI basic patrol point information	0x66ab00	0xa6ab00
+cai_split_request	acts	empire_campaign	calls 1 engine functions	cai_split_request	CAI split request	0x66ab20	0xa6ab20
+cai_withdraw_selected	acts	empire_campaign	calls 1 engine functions	cai_withdraw_selected	Withdraw selected unit from the selected region	0x66ab70	0xa6ab70
+call_election	parse_only	empire_campaign	only reads its arguments or the selection	call_election	Call an election for a government that supports elections	0x520df0	0x920df0
+camera_to	acts	empire_campaign	calls 2 engine functions	camera_to x y	Snap the camera to the selected position	0x520e20	0x920e20
+cancel_repair_fort	acts	empire_campaign	calls 4 engine functions	cancel_repair_fort	Cancel repairs to the fort	0x5223b0	0x9223b0
+cancel_siege_equipment	acts	empire_campaign	calls 4 engine functions	cancel_siege_equipment	Cancel all siege equipment	0x522430	0x922430
+cancel_upgrade	acts	empire_campaign	calls 4 engine functions	cancel_upgrade	Cancel the fort's current upgrade	0x522530	0x922530
+cdir_output_database_verification	acts	empire_campaign	calls 1 engine functions	cdir_output_database_verification	Output database verification	0x7a4a80	0xba4a80
+cdir_output_player_rival_scores	acts	empire_campaign	calls 1 engine functions	cdir_output_player_rival_scores	Output player rival scores	0x7a4aa0	0xba4aa0
+cdir_output_relation_graph	acts	empire_campaign	calls 1 engine functions	cdir_output_relation_graph	Output relation graph	0x7a4ac0	0xba4ac0
+change_government	parse_only	empire_campaign	only reads its arguments or the selection	change_government	Change a factions government	0x523010	0x923010
+character_cqi	parse_only	empire_campaign	only reads its arguments or the selection	character_cqi	Determine the CQI of a selected character	0x523060	0x923060
+create_army	acts	empire_campaign	calls 6 engine functions	create_army	Create an army at a position	0x5261f0	0x9261f0
+create_navy	acts	empire_campaign	calls 6 engine functions	create_navy	Create an navy at a position	0x5289f0	0x9289f0
+create_prestige_naval_units	parse_only	empire_campaign	only reads its arguments or the selection	create_prestige_naval_units	Create units that are prestiged for the given faction	0x520df0	0x920df0
+damage_2_units	parse_only	empire_campaign	only reads its arguments or the selection	damage_2_units	damage 2 land units in the current military force to 1/3 of their current strength	0x52c270	0x92c270
+damage_army	acts	empire_campaign	calls 1 engine functions	damage_army	Damage all the units in an army	0x52c320	0x92c320
+damage_force	acts	empire_campaign	calls 3 engine functions	damage_force	Damage all the units in a force	0x52c390	0x92c390
+damage_fort	parse_only	empire_campaign	only reads its arguments or the selection	damage_fort	Set the fort's health to 50%	0x52c3f0	0x92c3f0
+damage_navy	acts	empire_campaign	calls 2 engine functions	damage_navy	Damage all the units in a navy	0x52c400	0x92c400
+damage_slot	parse_only	empire_campaign	only reads its arguments or the selection	damage_slot	Damage a building at a slot	0x52c470	0x92c470
+damage_unit	parse_only	empire_campaign	only reads its arguments or the selection	damaged_unit	Damage the selected characters unit	0x523060	0x923060
+declare_war	acts	empire_campaign	calls 4 engine functions	declare_war [faction key]	Force the player faction to declare war against a specified faction	0x530cd0	0x930cd0
+decline_aoo	acts	empire_campaign	calls 4 engine functions	decline_aoo	Decline the offered Attack of Opportunity	0x530d80	0x930d80
+default_manager	acts	empire_campaign	calls 2 engine functions	default_manager [faction key]	For the specified faction set the campaign AI manager to its default type	0x672fb0	0xa72fb0
+default_manager_for	acts	empire_campaign	calls 2 engine functions	default_manager_for [faction key]	Set campaign AI manager for specified faction to its original type	0x672fb0	0xa72fb0
+demand_surrender	acts	empire_campaign	calls 5 engine functions	demand_surrender	Demand that the besieged army surrenders	0x530ef0	0x930ef0
+describe_ap	acts	empire_campaign	calls 1 engine functions	describe_ap	Describe the action points of the selected character and any units	0x530fd0	0x930fd0
+destroy_army	parse_only	empire_campaign	only reads its arguments or the selection	destroy_army	Destroy an army	0x523060	0x923060
+destroy_building	acts	empire_campaign	calls 4 engine functions	destroy_building	Destroy the building in the selected slot (queues an order as normal	0x531110	0x931110
+destroy_fort	acts	empire_campaign	calls 4 engine functions	destroy_fort	Destroy the currently selected fort	0x531230	0x931230
+destroy_navy	parse_only	empire_campaign	only reads its arguments or the selection	destroy_navy	Destroy a navy	0x523060	0x923060
+disable_shroud	parse_only	empire_campaign	only reads its arguments or the selection	disable_shroud	Disable all shrouds (or one faction, if specified)	0x520df0	0x920df0
+disband_unit	no_op	empire_campaign	handler is a bare ret	disband_unit	Disbands the selected unit	0x44b60	0x444b60
+display_manager_for	acts	empire_campaign	calls 6 engine functions	display_manager_for [faction key]	List CAI faction manager for specified faction	0x676030	0xa76030
+display_managers	acts	empire_campaign	calls 9 engine functions	display_managers	List all CAI faction managers	0x676100	0xa76100
+enable_all_tech	acts	empire_campaign	calls 4 engine functions	enable_all_tech	Immediately set all available research to complete for the specified faction (or the local faction if none is specified)	0x548a40	0x948a40
+enable_shroud	parse_only	empire_campaign	only reads its arguments or the selection	enable_shroud	Enable all shrouds (or one faction, if specified)	0x520df0	0x920df0
+enable_tech	acts	empire_campaign	calls 9 engine functions	enable_tech	Immediately set specified tech and all earlier tech it depends on as complete applies to local faction unless faction specified	0x548ad0	0x948ad0
+end_revolution	acts	empire_campaign	calls 1 engine functions	end_revolution	End a revolution in the specified factions home region	0x548ca0	0x948ca0
+end_turn_allow_diplomacy	acts	empire_campaign	calls 3 engine functions	end_turn_allow_diplomacy [faction key]	For the specified faction set the campaign AI manager to type 'END_TURN_ALLOW_DIPLOMACY'	0x678830	0xa78830
+enrich_faction	no_op	Faction	handler is a bare ret	enrich_faction <amount> <target key>	Give the specified faction (local if none specified) the amount of money stated	0x44b60	0x444b60
+force_agent_spawn	acts	empire_campaign	calls 5 engine functions	force_agent_spawn	Force an agent to spawn in a region	0x54ee90	0x94ee90
+force_cqi	acts	empire_campaign	calls 1 engine functions	force_cqi	Determine the CQI of a commanded force	0x54f590	0x94f590
+force_info	acts	empire_campaign	calls 1 engine functions	force_info	Output information about a selected force	0x54f5d0	0x94f5d0
+force_successful_rebellion	no_op	empire_campaign	handler is a bare ret	force_successful_rebellion	force_successful_rebellion	0x44b60	0x444b60
+force_terrain_analysis	acts	empire_campaign	calls 3 engine functions	force_terrain_analysis [region key]	Force terrain analysis of specified region	0x683de0	0xa83de0
+give_character_trait_points	acts	empire_campaign	calls 1 engine functions	give_character_trait_points	Give's a number of trait points to the selected character. Use give_trait_points name_of_trait 5 (or whatever)	0x551260	0x951260
+give_trait	parse_only	empire_campaign	only reads its arguments or the selection	give_trait	Give's a trait to a character or region. Use give_trait character|region name_of_trait [name_of_entity]	0x5512a0	0x9512a0
+grant_prestige	acts	empire_campaign	calls 1 engine functions	grant_prestige	Grant the specified faction the specified prestige values	0x551310	0x951310
+kill_army_general	acts	empire_campaign	calls 1 engine functions	kill_army_general	Kills off the general of the selected army	0x60c6b0	0xa0c6b0
+kill_character	acts	empire_campaign	calls 2 engine functions	kill_character <command_queue_index>	Kills off the character with the specified CQI	0x554ee0	0x954ee0
+kill_faction	no_op	empire_campaign	handler is a bare ret	kill_faction	Kills off a faction	0x44b60	0x444b60
+list_posts	acts	empire_campaign	calls 3 engine functions	list_posts <faction>	list all posts available to the faction specified	0x60c8b0	0xa0c8b0
+make_reinforcement_list	acts	empire_campaign	calls 18 engine functions	make_reinforcement_list	Create a reinforcement list based on unit precedence	0x555c20	0x955c20
+mobile_raid_region	acts	empire_campaign	calls 1 engine functions	mobile_raid_region	Mobile will be given a raid region goal for the region it is currently in	0x68d1a0	0xa8d1a0
+move_marker	acts	empire_campaign	calls 1 engine functions	move_marker		0x557040	0x957040
+offer_aoo	acts	empire_campaign	calls 2 engine functions	offer_aoo <command_queue_index>	Offers the selected character an Attack of Opportunity against the character with the specified CQI	0x559f20	0x959f20
+pause_campaign_ai	no_op	empire_campaign	handler is a bare ret	pause_campaign_ai	Pauses campaign AI.	0x44b60	0x444b60
+play_movie_index	acts	empire_campaign	calls 1 engine functions	play_movie_index	Play a particular named movie	0x617930	0xa17930
+port_merge	acts	empire_campaign	calls 4 engine functions	port_merge	show merge window at post	0x55ed20	0x95ed20
+print_all_characters_and_cqi	parse_only	empire_campaign	only reads its arguments or the selection	print_all_characters_and_cqi <faction>	Print name and CQI of all characters in a faction	0x5605e0	0x9605e0
+process_queues	acts	empire_campaign	calls 2 engine functions	process_queues	Process recruitment and construction queues for local faction	0x5612e0	0x9612e0
+process_tech	acts	empire_campaign	calls 3 engine functions	process_tech	Process to completion all ongoing tech research for local faction	0x5613f0	0x9613f0
+promote_character_to_post	acts	empire_campaign	calls 6 engine functions	promote_character_to_post <faction> <character> <post key>	Promotes the named character from the factions specified to the post	0x61a5e0	0xa1a5e0
+promote_unit_commander	acts	empire_campaign	calls 5 engine functions	promote_unit_commander	Promote a unit commander in the selected force to general/admiral	0x561430	0x961430
+quick_create_armies	acts	empire_campaign	calls 6 engine functions	quick_create_armies	Creates armies at predefined positions	0x562a20	0x962a20
+quick_create_navies	acts	empire_campaign	calls 6 engine functions	quick_create_navies	Create an navy at a position	0x563480	0x963480
+quick_create_navies_1	acts	empire_campaign	calls 6 engine functions	quick_create_navies_1	Create a navy at a position	0x563060	0x963060
+recruit_general_or_admiral	acts	empire_campaign	calls 2 engine functions	recruit_general_or_admiral	Recruit an available general or admiral at a selected character	0x565280	0x965280
+refresh_buildings	acts	empire_campaign	calls 0 engine functions	refresh_buildings	Refresh the campaign building display	0x5653a0	0x9653a0
+register_instant_movie	acts	empire_campaign	calls 3 engine functions	register_instant_movie		0x566420	0x966420
+remove_ap	parse_only	empire_campaign	only reads its arguments or the selection	remove_ap	Remove all AP from the selected character	0x523060	0x923060
+remove_marker	acts	empire_campaign	calls 1 engine functions	remove_marker		0x567270	0x967270
+remove_pathfinding_barrier	no_op	empire_campaign	handler is a bare ret	remove_pathfinding_barrier	Remove a named pathfinding barrier	0x44b60	0x444b60
+remove_trait	parse_only	empire_campaign	only reads its arguments or the selection	remove_trait	Remove the specified trait from the selected character	0x520df0	0x920df0
+rename_settlement	acts	empire_campaign	calls 5 engine functions	rename_settlement	rename settlement	0x5672c0	0x9672c0
+repair_buildings	acts	empire_campaign	calls 7 engine functions	repair_buildings	Repair all buildings in selected garrison	0x567a20	0x967a20
+repair_fort	acts	empire_campaign	calls 4 engine functions	repair_fort	Repair the fort	0x567ba0	0x967ba0
+repair_navy	acts	empire_campaign	calls 5 engine functions	repair_navy	Repair the navy in the selected port	0x567c20	0x967c20
+replenish_ap	parse_only	empire_campaign	only reads its arguments or the selection	replenish_ap	Replenish action points for selected character	0x523060	0x923060
+replenish_army	acts	empire_campaign	calls 5 engine functions	replenish_army	Replenish all of the units in the army	0x567d70	0x967d70
+replenish_transported_ap	acts	empire_campaign	calls 1 engine functions	replenish_transported_ap	Replenish action points for the transported army of a selected navy	0x567e80	0x967e80
+reset_shroud	acts	empire_campaign	calls 1 engine functions	reset_shroud	reset the shroud for active faction	0x567ee0	0x967ee0
+sabotage_army	acts	empire_campaign	calls 5 engine functions	sabotage_army <cqi>	Sabotage the army led by the general with given CQI, using the selected character	0x568820	0x968820
+sack_commander	no_op	empire_campaign	handler is a bare ret	sack_commander	Sack's a unit's commander ( for firing admirals ).	0x44b60	0x444b60
+selected_cqi	parse_only	empire_campaign	only reads its arguments or the selection	selected_cqi	Determine the CQI of the selected thing	0x568c90	0x968c90
+selected_info	acts	empire_campaign	calls 1 engine functions	selected_info	Output information about a selected item	0x568cd0	0x968cd0
+set_all_cai_faction_managers	acts	empire_campaign	calls 2 engine functions	set_all_cai_faction_managers [manager type]	Set campaign AI manager for *all* factions to the specified type (or nearest viable type)	0x6a9740	0xaa9740
+set_cai_faction_manager	acts	empire_campaign	calls 4 engine functions	set_cai_faction_manager [faction key] [manager type]	Set campaign AI manager for the faction specified to the given type (or nearest viable type)	0x6a9aa0	0xaa9aa0
+set_marker_active	acts	empire_campaign	calls 2 engine functions	set_marker_active		0x56a100	0x96a100
+set_mp_battle_options	acts	empire_campaign	calls 5 engine functions	set_mp_battle_options <autoresolve_all> <play_human_human> <play_human_ai> <autoresolve_tiebreak>	Set MP battle options	0x56a160	0x96a160
+set_region_rebellion_state	acts	empire_campaign	calls 1 engine functions	set_region_rebellion_state	Set the specified population class in the specified region to be ina  rebellion state at the start of the next turn	0x56a270	0x96a270
+set_turn_time_limit	acts	empire_campaign	calls 5 engine functions	set_turn_time_limit <limit>	Set the turn timer time limit	0x56a2e0	0x96a2e0
+show_allies_attacked_dialog	acts	empire_campaign	calls 2 engine functions	show_allies_attacked_dialog <local fac> <aggressor fac> <defender_fac> <invited by aggressor> <invited by defender>	shows the requester to side with allies	0x56a390	0x96a390
+show_battle_abilities	acts	empire_campaign	calls 23 engine functions	show_military_abilities	Print a report on the battle setup for selected army/navy	0x56a4a0	0x96a4a0
+show_faction_death_msg	acts	empire_campaign	calls 0 engine functions	show_faction_death_msg	show_faction_death_msg	0x56b780	0x96b780
+show_faction_emerges_msg	acts	empire_campaign	calls 1 engine functions	show_faction_emerges_msg	show_faction_emerges_msg	0x56b800	0x96b800
+show_general_and_admiral_recruitment	acts	empire_campaign	calls 2 engine functions	show_general_and_admiral_recruitment	Show available general and admiral recruitment at a selected character	0x565280	0x965280
+siege_assault	acts	empire_campaign	calls 5 engine functions	siege_assault	Begin a siege assault	0x56b870	0x96b870
+spawn_revolution	acts	empire_campaign	calls 7 engine functions	spawn_revolution	Spawn a revolution in the specified factions home region	0x56ba50	0x96ba50
+split	acts	empire_campaign	calls 2 engine functions	split	Split a single unit from an army, make a military force for it	0x56bd00	0x96bd00
+split_garrison	acts	empire_campaign	calls 2 engine functions	split_garrison	Split a unit from a garrison, make a military force for it	0x56bdb0	0x96bdb0
+split_garrison_general	acts	empire_campaign	calls 0 engine functions	split_garrison_general	Split the general unit from a garrison, make a military force for it	0x56bec0	0x96bec0
+split_general	parse_only	empire_campaign	only reads its arguments or the selection	split_general	Split the general unit from an army, make a military force for it	0x56bf50	0x96bf50
+teleport_to	acts	empire_campaign	calls 5 engine functions	teleport_to x y	Teleport the selected character to the selected position	0x56caf0	0x96caf0
+test_movement_extents	parse_only	empire_campaign	only reads its arguments or the selection	test_movement_extents	Move selected navy randomly 1000000 times and calculate movement extents for each position	0x523060	0x923060
+toggle_immortal	acts	empire_campaign	calls 1 engine functions	toggle_immortal		0x56d240	0x96d240
+toggle_marker_active	acts	empire_campaign	calls 1 engine functions	toggle_marker_active		0x56d290	0x96d290
+transition_theatre	acts	empire_campaign	calls 0 engine functions	transition_theatre	Make selected naval character transition to edge of nearest transition area	0x56d360	0x96d360
+transport_to_hlci	acts	empire_campaign	calls 1 engine functions	transport_to_hlci [hlci]	Transported the selected character to the specified high level connectivity index	0x6af9c0	0xaaf9c0
+transport_to_region	acts	empire_campaign	calls 3 engine functions	transport_to_region [region key]	Transported the selected character to the specified region	0x6afa30	0xaafa30
+trigger_historical_event	acts	empire_campaign	calls 5 engine functions	trigger_historical_event	Trigger a historical event	0x56d520	0x96d520
+trigger_test_event	acts	empire_campaign	calls 3 engine functions	trigger_test_event		0x56d610	0x96d610
+unpause_campaign_ai	no_op	empire_campaign	handler is a bare ret	unpause_campaign_ai	Unpauses campaign AI.	0x44b60	0x444b60
+unveil_black_shroud	no_op	empire_campaign	handler is a bare ret	unveil_black_shroud	unveil_black_shroud	0x44b60	0x444b60
+upgrade_fort	acts	empire_campaign	calls 4 engine functions	upgrade_fort	Upgrade the currently selected fort one level	0x574540	0x974540
+win_revolution	acts	empire_campaign	calls 0 engine functions	win_revolution	Win revolution for revolutionaries	0x574f20	0x974f20
