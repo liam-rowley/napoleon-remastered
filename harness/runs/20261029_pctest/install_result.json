@@ -1,0 +1,9 @@
+{
+    "action":  "install",
+    "ok":  true,
+    "message":  "installed: watcher root C:\\napoleon_remastered_pc\\watcher, task \u0027napoleon_remastered watcher\u0027",
+    "at_utc":  "2026-10-28T23:07:46Z",
+    "kit_id":  "harness_20261028T230555Z_8421be73be1c",
+    "root":  "C:\\napoleon_remastered_pc\\watcher",
+    "task":  "napoleon_remastered watcher"
+}

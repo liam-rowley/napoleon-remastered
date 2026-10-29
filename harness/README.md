@@ -63,4 +63,4 @@ Exit 3 and "NO UNIQUE VIRTUAL DISPLAY" when there is none (the CI runner).
 `harness/tests/Run-HostTests.ps1 -Suite unit|integration|all`; CI job `harness-windows` runs all under Windows PowerShell 5.1 with compiled fake games.
 
 ## Open questions
-Prefs overlay style (file format unread); `hung_window_s`=60 may false-positive on very long loads; logon task runs hidden/minimised; `engine_facts` rows are left to the orchestrator after the PC run.
+See `jobs/J2/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format` (UTF-16LE, `key value;` lines); no overlay style for it yet.

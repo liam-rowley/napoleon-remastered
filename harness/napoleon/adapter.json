@@ -25,7 +25,7 @@
   "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
   "config_files": [
     {"id": "prefs", "anchor": "appdata", "path": "scripts\\preferences.script.txt", "style": "none",
-     "note": "the game's own preferences; overlay style unknown until the file format is read (J2 open question), so profiles may only ship a full copy"},
+     "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); no overlay style for that yet, so profiles ship a full copy"},
     {"id": "keys", "anchor": "appdata", "path": "custom_keys.keys.xml", "style": "none",
      "note": "key bindings (XML); full copy only"},
     {"id": "mod_ini", "anchor": "game", "path": "napoleon_remastered.ini", "style": "ini",

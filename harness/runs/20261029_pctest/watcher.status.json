@@ -1,0 +1,35 @@
+{
+    "version":  "1.0.0",
+    "pid":  6952,
+    "ps_version":  "5.1.26100.9711",
+    "root":  "C:\\napoleon_remastered_pc\\watcher",
+    "game":  "napoleon",
+    "started_utc":  "2026-10-29T00:27:03Z",
+    "uptime_s":  22761,
+    "heartbeat_utc":  "2026-10-29T06:46:24Z",
+    "queue_length":  0,
+    "queue":  [
+
+              ],
+    "current_job":  null,
+    "game_state":  {
+                       "state":  "not_running",
+                       "image":  "Napoleon.exe",
+                       "pid":  null,
+                       "window":  null,
+                       "cpu_idle_s":  null,
+                       "log_idle_s":  null,
+                       "watchdog_armed":  false,
+                       "hang_s":  120
+                   },
+    "processes":  [
+
+                  ],
+    "lock":  null,
+    "foreign_lock":  null,
+    "zombie":  false,
+    "needs_reboot":  false,
+    "zombie_detail":  null,
+    "profile_active":  null,
+    "last_hang":  null
+}
