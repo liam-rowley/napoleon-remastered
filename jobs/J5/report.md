@@ -103,3 +103,8 @@ finding ranks (row 62), the core-is-game-agnostic grep (row 104).
 1. Accept D29 (core public) and C10-C12 (core PR #2)? Tag `v0.2.0` after merging, and optionally add `v0.1.0` on `d5275c2`.
 2. Should the queue get a `priority` field so `jobs next` follows Liam's order rather than the lowest number (finding 5)?
 3. Keep `WARSCAPE_CORE_TOKEN` in the workflow now the core is public, or drop it in J17?
+
+## CI runs
+
+- napoleon `job/J5` @ `77176d3` (all code and the report): run 40871518126, `gates`, `proxy`, `harness-windows` success (2026-10-29).
+- warscape-core `napoleon-j5` @ `e0fbb0c`: runs 40871301956 and 40871295158 (push and pull request), success (2026-10-29).
