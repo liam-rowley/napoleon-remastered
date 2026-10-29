@@ -38,6 +38,33 @@ def bash_kind(path, nt=os.name == 'nt'):
     return 'git' if '/git/' in p else 'other'
 
 
+def git_bash(nt=os.name == 'nt', which=shutil.which, git_exec_path=None, isfile=os.path.isfile):
+    """The bash to run repo shell scripts with: off Windows the bash on PATH; on Windows Git for Windows' bash.exe, found explicitly
+    (`bash` on PATH may be the WSL launcher: J6, J22). Order: `bash` on PATH when it is Git's, the Git install that `git --exec-path`
+    names, the default install folders. None when there is none. Shared helper (J41); J22's tests use it too."""
+    b = which('bash')
+    if not nt:
+        return b
+    if bash_kind(b, nt=True) == 'git':
+        return b
+    if git_exec_path is None:
+        rc, out = _run(['git', '--exec-path'], timeout=15)
+        git_exec_path = out if rc == 0 else ''
+    roots = []
+    p = (git_exec_path or '').strip().replace('\\', '/')   # e.g. C:/Program Files/Git/mingw64/libexec/git-core
+    i = p.lower().find('/mingw')
+    if i > 0:
+        roots.append(p[:i])
+    roots += [f'{os.environ[v]}/Git' for v in ('ProgramFiles', 'ProgramW6432', 'LOCALAPPDATA') if os.environ.get(v)]
+    roots.append(f'{os.environ.get("LOCALAPPDATA", "")}/Programs/Git')
+    for r in roots:
+        for sub in ('bin/bash.exe', 'usr/bin/bash.exe'):   # bin/bash.exe sets up the MSYS PATH itself
+            c = f'{r}/{sub}'.replace('/', '\\')
+            if isfile(c):
+                return c
+    return None
+
+
 def cr_files(root, paths):
     """The paths (relative) whose working-tree bytes contain a CR: a CRLF shell script fails in bash (`$'\\r': command not found`)."""
     return [p for p in paths if b'\r' in (Path(root) / p).read_bytes()]
