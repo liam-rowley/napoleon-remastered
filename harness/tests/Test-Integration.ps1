@@ -2,8 +2,8 @@
 # usage: powershell -NoProfile -ExecutionPolicy Bypass -File Test-Integration.ps1 [-Repo <repo root>] [-Only <case-name regex>] [-Repeat <n>]   (CI: GitHub's Windows runner, Windows PowerShell 5.1; needs python for the real-kit test)
 # when: on every push (CI job harness-windows); never on the PC, it starts and kills processes named Fake*.exe and sets the time zone of the machine while it runs
 # not-a-verb: a PowerShell test script, not a repo operation
-# -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row (auto-restore is repeat-safe
-# since J42: it reads the log after its own mark). Cases that build on an
+# -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row (auto-restore and
+# the update rollbacks are repeat-safe since J42: they read the log after their own mark). Cases that build on an
 # earlier case's state (the update rollbacks need 'update: a good kit') only pass when that case is selected too.
 param([string]$Repo = '', [string]$Only = '', [ValidateRange(1, 1000)][int]$Repeat = 1)
 # the whole suite is not repeat-safe (see above): a repeat of every case fails cases that are fine, so it is refused before anything starts
@@ -450,8 +450,9 @@ try {
         Clear-Lock
     }
     Test-Case 'zombie: a process that survives the kill is flagged, persisted across a watcher restart, every launch refused until it is gone' {
+        $mark = Log-Mark
         Add-Content -LiteralPath (Join-Path $root 'watcher.ini') -Value "`r`ntest_fake_zombie=1" -Encoding Ascii
-        Wait-Until { (Get-Log) -match 'settings: watcher.ini reloaded' } 10 'ini reloaded' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'settings: watcher.ini reloaded' } 10 'ini reloaded' | Out-Null
         Start-Sleep -Milliseconds 600
         Set-Lock 'ci3'
         $l = Run-Job 'launch visible=1 owner=ci3' 'zlaunch' 40; Assert-Eq $l.d.status 'ok' 'launch'
@@ -623,30 +624,33 @@ try {
         # any current version: a literal '1.0.0' here made every watcher version bump silently break this case (J19)
         $ver = New-TestKit 'kit-good' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes(([regex]"\`$Version = '[^']+'").Replace($cur, "`$Version = '9.9.9-ci'", 1)) }
         Assert-Eq $ver '9.9.9-ci' 'kit version'
+        $mark = Log-Mark
         $r = Run-Job 'update kit=kit-good noop_s=40 healthy_s=60 stable_s=5' 'upd' 30
         Assert-Eq $r.d.status 'ok' "update accepted ($($r.out))"
         Wait-Until { (Alive-Age) -lt 4 -and (Get-St).version -eq '9.9.9-ci' } 120 'the new version' | Out-Null
-        Wait-Until { (Get-Log) -match '\[update\] CONFIRMED' } 90 'CONFIRMED' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match '\[update\] CONFIRMED' } 90 'CONFIRMED' | Out-Null
         Assert-Match (Watcher-Text) "9\.9\.9-ci" 'file replaced'
         Assert-True (@(Get-ChildItem (Join-Path $root 'backup') -Directory).Count -ge 1) 'a backup of the old files exists'
         Assert-Eq (Run-Job 'noop' 'afterupd').d.status 'ok' 'new watcher serves jobs'
     }
     Test-Case 'update rollback 1: a watcher that does not start is put back byte for byte' {
+        $mark = Log-Mark   # repeat-safe (J42 run 40968854173: run 2 matched run 1's REVERTED line and passed in 4 s)
         $before = Sha256File (Join-Path $root 'src\watcher.ps1')
         $bad = (Watcher-Text).Replace("`$Version = '9.9.9-ci'", "`$Version = '9.9.7-bad'") + "`r`n)))`r`n"
         New-TestKit 'kit-bad' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes($bad) } | Out-Null
         Run-Job 'update kit=kit-bad noop_s=20 healthy_s=20 stable_s=3' 'updbad' 30 | Out-Null
-        Wait-Until { (Get-Log) -match 'REVERTED: watcher 9\.9\.9-ci' } 150 'the revert' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'REVERTED: watcher 9\.9\.9-ci' } 150 'the revert' | Out-Null
         Assert-Eq (Sha256File (Join-Path $root 'src\watcher.ps1')) $before 'src\watcher.ps1 is byte-identical to before'
         Wait-Until { (Alive-Age) -lt 4 -and (Get-St).version -eq '9.9.9-ci' } 60 'the old watcher back' | Out-Null
     }
     Test-Case 'update rollback 2: a new watcher that runs but does not answer a noop job is put back (the dead-man switch)' {
+        $mark = Log-Mark
         $before = Sha256File (Join-Path $root 'src\watcher.ps1')
         $deaf = (Watcher-Text).Replace("`$Version = '9.9.9-ci'", "`$Version = '9.9.8-deaf'").Replace('function Start-NextJob {', 'function Start-NextJob { return $false')
         New-TestKit 'kit-deaf' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes($deaf) } | Out-Null
         Run-Job 'update kit=kit-deaf noop_s=10 healthy_s=60 stable_s=3' 'upddeaf' 30 | Out-Null
-        Wait-Until { (Get-Log) -match 'did not answer a noop job within 10 s' } 120 'the dead-man switch' | Out-Null
-        Wait-Until { (Get-Log) -match '(?s)did not answer a noop.*REVERTED: watcher 9\.9\.9-ci' } 90 'the revert' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'did not answer a noop job within 10 s' } 120 'the dead-man switch' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match '(?s)did not answer a noop.*REVERTED: watcher 9\.9\.9-ci' } 90 'the revert' | Out-Null
         Assert-Eq (Sha256File (Join-Path $root 'src\watcher.ps1')) $before 'byte-identical after the revert'
         Wait-Until { (Alive-Age) -lt 4 -and (Get-St).version -eq '9.9.9-ci' } 60 'the old watcher back' | Out-Null
         Assert-Eq (Run-Job 'noop' 'afterdeaf').d.status 'ok' 'serving again'
@@ -657,8 +661,9 @@ try {
         $f = Get-ChildItem $kd -Filter '*__src__watcher.ps1' | Select-Object -First 1
         [IO.File]::WriteAllText($f.FullName, 'old cached copy', $Utf8NoBom)
         $before = Sha256File (Join-Path $root 'src\watcher.ps1')
+        $mark = Log-Mark
         Run-Job 'update kit=kit-stale noop_s=10 healthy_s=20' 'updstale' 30 | Out-Null
-        Wait-Until { (Get-Log) -match 'ABORT: staged file .* does not match the manifest sha256' } 40 'the abort' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'ABORT: staged file .* does not match the manifest sha256' } 40 'the abort' | Out-Null
         Assert-Eq (Sha256File (Join-Path $root 'src\watcher.ps1')) $before 'nothing changed'
         $none = Run-Job 'update kit=no-such-kit' 'updnone' 20
         Assert-Eq $none.d.status 'refused' 'unknown kit'

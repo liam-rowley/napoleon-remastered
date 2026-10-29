@@ -384,6 +384,11 @@ Test-Case 'static: integration helpers never hash a file after a separate Test-P
         Assert-NotMatch $b 'Test-Path[^\r\n]*\{\s*(Sha256File|Get-FileHash)' "$($fn.Name) hashes after a Test-Path"
     }
 }
+Test-Case 'static: integration waits read the watcher log after a mark, never the whole log (a repeated case matched its previous run; J42)' {
+    $text = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'Test-Integration.ps1'))
+    $whole = @([regex]::Matches($text, '\(Get-Log\)\s*-(not)?match') | ForEach-Object { $_.Value })
+    Assert-True ($whole.Count -eq 0) "$($whole.Count) wait(s) match the whole watcher log: use Log-Mark and Get-LogSince (or Wait-LogMatch -Since)"
+}
 Test-Case 'static: Handle-Hang writes hang.txt before Kill-Game and again after it (a watcher stopped mid-kill still leaves evidence; J19)' {
     $e = $null; $t = $null
     $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $core 'watcher.ps1'), [ref]$t, [ref]$e)

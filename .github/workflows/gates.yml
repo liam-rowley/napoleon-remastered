@@ -12,7 +12,7 @@
 # to start two whole runs (push and pull_request have different github.refs, so the concurrency group did not dedupe them). Checks
 # attach to the commit, so the pull request still shows `gates`, `proxy` and `harness-windows` from this push run on its head commit and
 # `gh pr merge --auto` still sees them (D32, D33); a branch with no pull request yet still gets CI on its first push; `policy` needs the
-# pull request (its base and head) and lives in policy.yml, which runs nothing else. Route proved on PR #<J42> (jobs/J42/report.md).
+# pull request (its base and head) and lives in policy.yml, which runs nothing else. Route proved on PR #57 (jobs/J42/report.md).
 # A newer push cancels an older run on the same branch (that commit is no longer the head auto-merge waits for), never on main.
 # notify: a failed run on a branch with an open pull request comments once on it (tools/ci_notify.py), so a red check is told.
 name: gates
