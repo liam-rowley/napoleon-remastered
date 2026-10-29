@@ -2,7 +2,7 @@
 
 Branch `job/J2`, 2026-10-28/29 (UTC). Built by a Sonnet-medium agent (D15) for the cloud side up to CI round 6, then finished by
 the session that picked the job up (Opus 5.5, see deviations) after a container restart stopped the agent: CI rounds 7-9, the probe
-fix, the whole PC test, this report. **Tested watcher: commit f57f8e9** (`watcher.ps1` sha256 `d05f1e6d66eb…`), CI run
+fix, the whole PC test, this report. **Tested watcher: commit f57f8e9** (`watcher.ps1` sha256 `d05f1e6d66eb…`), CI on the final commit b33edba: run 40831448344 green; CI run
 **40791989477** green (unit 25/25, integration 20/20, plus the existing gates and proxy jobs). PC run: `harness/runs/20261029_pctest/`.
 
 ## What exists
