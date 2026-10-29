@@ -1,0 +1,8 @@
+{
+  "_doc": "Helper sets for discovery/core/console_cmds.py on the pinned Napoleon.exe (VAs at ImageBase 0x400000, found in J15: proxy/runs/20261029_j15re/README.md). arg_readers: istream >> string/int/float; string_helpers: ca_string ctor/dtor/copy/compare; pure_getters: lookups and accessors that change nothing; selection_offset: the Campaign context field whose vfuncs return the selection.",
+  "arg_readers": ["0x10d34e0", "0x10d3830", "0x10d38c0"],
+  "string_helpers": ["0x4f0800", "0x4f0910", "0x4f0930", "0x4f0660", "0x4f0f40", "0x4f0f50"],
+  "pure_getters": ["0x955b70", "0x6649c0", "0x9d3a60"],
+  "output_writers": [],
+  "selection_offset": "0x28"
+}
