@@ -1,10 +1,15 @@
 # purpose: integration host tests for the harness on Windows: a real watcher (through watch.cmd) with fake games, driven by job files; refusals, lock, launch/kill, zombie, profiles, auto-restore, hang dump and archive, timeouts, queue rules, update with rollback, installer and uninstaller
-# usage: powershell -NoProfile -ExecutionPolicy Bypass -File Test-Integration.ps1 [-Repo <repo root>]   (CI: GitHub's Windows runner, Windows PowerShell 5.1; needs python for the real-kit test)
+# usage: powershell -NoProfile -ExecutionPolicy Bypass -File Test-Integration.ps1 [-Repo <repo root>] [-Only <case-name regex>] [-Repeat <n>]   (CI: GitHub's Windows runner, Windows PowerShell 5.1; needs python for the real-kit test)
 # when: on every push (CI job harness-windows); never on the PC, it starts and kills processes named Fake*.exe and sets the time zone of the machine while it runs
 # not-a-verb: a PowerShell test script, not a repo operation
-param([string]$Repo = '')
+# -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row. Cases that build on an
+# earlier case's state (the update rollbacks need 'update: a good kit') only pass when that case is selected too.
+param([string]$Repo = '', [string]$Only = '', [ValidateRange(1, 1000)][int]$Repeat = 1)
+# the whole suite is not repeat-safe (see above): a repeat of every case fails cases that are fine, so it is refused before anything starts
+if ($Repeat -gt 1 -and -not $Only) { Write-Host 'FAILED: -Repeat needs -Only (the whole integration suite is not repeat-safe)'; exit 2 }
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'Test-Lib.ps1')
+$script:TcOnly = $Only; $script:TcRepeat = $Repeat   # Tc names: a $script:Only in Test-Lib would BE the -Only param (case-insensitive, same scope) and reset it (J19 run 40898907246)
 if (-not $Repo) { $Repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')) }
 $core = Join-Path $Repo 'harness\core'
 $Inv = [Globalization.CultureInfo]::InvariantCulture
@@ -73,7 +78,10 @@ function ReadText([string]$p) {
 }
 function Get-St { for ($i = 0; $i -lt 10; $i++) { try { $t = ReadText (Join-Path $root 'watcher.status'); if ($t) { return ($t | ConvertFrom-Json) } } catch { }; Start-Sleep -Milliseconds 120 }; return $null }
 function Get-Log { try { return (ReadText (Join-Path $root 'watcher.log')) } catch { return '' } }
-function Wait-LogMatch([string]$rx, [int]$secs, [string]$what) { Wait-Until { (Get-Log) -match $rx } $secs $what | Out-Null }
+# Log-Mark + -Since: match only lines written after the mark, so a repeated case (-Repeat) never matches its previous run's line
+function Log-Mark { return (Get-Log).Length }
+function Get-LogSince([int]$mark) { $t = Get-Log; if ($t.Length -ge $mark) { return $t.Substring($mark) } else { return $t } }   # shorter: rotated at 2 MB
+function Wait-LogMatch([string]$rx, [int]$secs, [string]$what, [int]$Since = 0) { Wait-Until { (Get-LogSince $Since) -match $rx } $secs $what | Out-Null }
 function Alive-Age { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $root 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Alive-AgeOf([string]$r) { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $r 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Wait-Watcher([int]$secs = 40) { Wait-Until { (Alive-Age) -lt 4 -and (Get-St) } $secs 'a fresh watcher heartbeat' | Out-Null; return (Get-St) }
@@ -320,6 +328,8 @@ try {
     }
     Test-Case 'hang watchdog: a suspended game is caught (no CPU, no log write), minidumped out of process, archived, killed; busy and unarmed games are left alone' {
         Remove-Item -LiteralPath $logPath -Force -ErrorAction SilentlyContinue
+        $mark = Log-Mark
+        $runsBefore = @(Get-ChildItem (Join-Path $root 'runs') -Directory -Filter '*_hang' -ErrorAction SilentlyContinue | ForEach-Object { $_.Name })
         # unarmed: no lock, no watcher launch -> a game Liam started himself is never touched
         Clear-Lock
         $u = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'idle' -PassThru
@@ -339,17 +349,22 @@ try {
         $fz = Run-Job "#job type=ps1 owner=ci9`r`n& `"$(Join-Path $root 'src\procfreeze.ps1')`" -ProcessId $($h.Id) -Mode suspend" 'freeze' 30
         Assert-Eq $fz.d.status 'ok' "freeze ($($fz.out))"
         Wait-Until { $h.Refresh(); $h.HasExited } 90 'the hung game to be killed' | Out-Null
-        $runs = @(Get-ChildItem (Join-Path $root 'runs') -Directory -Filter '*_hang')
-        Assert-True ($runs.Count -ge 1) 'a runs\<utc>_hang folder exists'
-        $dir = $runs[-1].FullName
+        # the process can be gone while the watcher is still in Kill-Game's polling loop: its log line is the completion signal (J19, run 40878131007)
+        Wait-LogMatch 'HANG handled: killed' 30 'the watcher to finish handling the hang' -Since $mark
+        $runs = @(Get-ChildItem (Join-Path $root 'runs') -Directory -Filter '*_hang' | Where-Object { $runsBefore -notcontains $_.Name })
+        Assert-True ($runs.Count -eq 1) "one new runs\<utc>_hang folder (got $($runs.Count))"
+        $dir = $runs[0].FullName
         $dmp = @(Get-ChildItem $dir -Filter '*.dmp')
         Assert-True ($dmp.Count -eq 1 -and $dmp[0].Length -gt 4096) 'a real minidump was written'
         Assert-Eq ([Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($dmp[0].FullName)[0..3])) 'MDMP' 'dump signature (32-bit target dumped by the SysWOW64 helper)'
         Assert-True (Test-Path -LiteralPath (Join-Path $dir 'hang.txt')) 'hang.txt'
-        Assert-Match (ReadText (Join-Path $dir 'hang.txt')) 'no CPU-time progress' 'reason in hang.txt'
+        $hangTxt = ReadText (Join-Path $dir 'hang.txt')
+        Assert-Match $hangTxt 'no CPU-time progress' 'reason in hang.txt'
+        Assert-Match $hangTxt '(?m)^kill: killed\s*$' 'hang.txt holds the kill result'
+        Assert-NotMatch $hangTxt 'kill: pending' 'hang.txt was rewritten after the kill'
         Assert-True (@(Get-ChildItem $dir -Filter '*proxy.log').Count -eq 1) 'the proxy log was archived'
         Assert-True (Test-Path -LiteralPath (Join-Path $dir 'game.lock')) 'the lock was archived'
-        Assert-Match (Get-Log) 'HANG: FakeNapoleon.exe' 'logged'
+        Assert-Match (Get-LogSince $mark) 'HANG: FakeNapoleon.exe' 'logged'
         Wait-Until { $x = Get-St; $x -and $x.last_hang -and [bool]$x.last_hang.killed } 15 'status.last_hang.killed' | Out-Null
         Assert-True ((Fake-Procs).Count -eq 0) 'process gone'
         Clear-Lock
@@ -405,7 +420,8 @@ try {
     function Watcher-Text { return [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes((Join-Path $root 'src\watcher.ps1'))) }
     Test-Case 'update: a good kit replaces the watcher, the new one answers noop, the update is confirmed' {
         $cur = Watcher-Text
-        $ver = New-TestKit 'kit-good' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes($cur.Replace("`$Version = '1.0.0'", "`$Version = '9.9.9-ci'")) }
+        # any current version: a literal '1.0.0' here made every watcher version bump silently break this case (J19)
+        $ver = New-TestKit 'kit-good' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes(([regex]"\`$Version = '[^']+'").Replace($cur, "`$Version = '9.9.9-ci'", 1)) }
         Assert-Eq $ver '9.9.9-ci' 'kit version'
         $r = Run-Job 'update kit=kit-good noop_s=40 healthy_s=60 stable_s=5' 'upd' 30
         Assert-Eq $r.d.status 'ok' "update accepted ($($r.out))"

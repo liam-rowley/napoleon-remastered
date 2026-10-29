@@ -5,12 +5,27 @@
 # when: automatic; require the "gates" check in branch protection for main.
 # not-a-verb: GitHub runs workflows by file; this one only calls `wsc gates`.
 # The core submodule is public (D29); checkout still passes WARSCAPE_CORE_TOKEN (D20), so keep the secret unless this step changes.
+# workflow_dispatch chases a flaky harness case (J19): only harness-windows runs, with -Only/-Repeat; e.g.
+#   gh workflow run gates.yml --ref <branch> -f only='hang watchdog' -f repeat=10
+# It has its own concurrency group, so it neither cancels nor is cancelled by the push run on the same ref.
 name: gates
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'harness integration case-name regex (empty: all cases)'
+        type: string
+        default: ''
+      repeat:
+        description: 'run each selected case this many times in a row'
+        type: string
+        default: '1'
 permissions:
   contents: read
 concurrency:
-  group: gates-${{ github.ref }}
+  group: gates-${{ github.ref }}${{ github.event_name == 'workflow_dispatch' && format('-dispatch-{0}', github.run_id) || '' }}
   cancel-in-progress: true
 jobs:
   # changes: which slow jobs this run needs. Diffs against the merge base with main (a pull request, or a push to any other branch)
@@ -48,6 +63,7 @@ jobs:
           if has "$wf|^harness/|^proxy/tools/pc_deploy\.py$"; then echo harness=true; else echo harness=false; fi >> "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
   gates:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -63,7 +79,7 @@ jobs:
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.
   proxy:
     needs: changes
-    if: needs.changes.outputs.proxy == 'true'
+    if: github.event_name != 'workflow_dispatch' && needs.changes.outputs.proxy == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -93,7 +109,8 @@ jobs:
   # Windows PowerShell 5.1 (shell: powershell), the same PowerShell the PC runs. Fake games are compiled on the runner.
   harness-windows:
     needs: changes
-    if: needs.changes.outputs.harness == 'true'
+    # a workflow_dispatch run exists only to run this job (J19 -Only/-Repeat), whatever the branch changed
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.harness == 'true'
     runs-on: windows-latest
     timeout-minutes: 25
     env:
@@ -110,7 +127,11 @@ jobs:
         # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept
         timeout-minutes: 18
         shell: powershell
-        run: ./harness/tests/Run-HostTests.ps1 -Suite all
+        # inputs arrive through env, never pasted into the script; on push and pull_request they are empty: the full suite, once
+        env:
+          HT_ONLY: ${{ inputs.only }}
+          HT_REPEAT: ${{ inputs.repeat || '1' }}
+        run: ./harness/tests/Run-HostTests.ps1 -Suite $(if ($env:HT_ONLY) { 'integration' } else { 'all' }) -Only $env:HT_ONLY -Repeat ([int]$env:HT_REPEAT)
 
   policy:
     # Every pull request must be a reviewed job, a brief, a planning change or an infrastructure change (D21, tools/pr_policy.py).
