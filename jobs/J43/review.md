@@ -31,7 +31,7 @@ Picked `proxy/core/camera.cpp` and its adapter/site rows: it calls an engine vir
 place for a mistake (a crash mid-battle, or a call into the wrong class). Read in full: every hop of the chain is `VirtualQuery`-checked,
 the mode's vtable must lie inside the exe image, and the slot must equal the anchor-checked `battle.camera_set_target_pos` before every
 call; `dev.camera=0` reads nothing (`CameraInstall` returns before any site read; `keyoff` log agrees); the three operands come from
-stock bytes the patch engine verified, and `test_camera.cpp` checks each adapter offset against its row. Sound. Skimmed `ctl.py`
+stock bytes the patch engine checks at install, and `test_camera.cpp` checks each adapter offset against its row. Sound. Skimmed `ctl.py`
 (`rate`, `v_cam`, `pose_check` with yaw wrap), `campose.py` and the three Lua chunks.
 
 ### Findings
