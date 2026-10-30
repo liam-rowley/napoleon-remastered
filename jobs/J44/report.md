@@ -1,9 +1,9 @@
 # J44 report: Scenario library and the 20-pass acceptance gate
 
-RESULT_LINE
+**The phase 1 gate is passed: 20 consecutive acceptance passes** on DLL build `dc95ededfbe8`, watcher 1.0.1, 1920x1080 headless (run `harness/runs/20261030_j44acc3`, 2026-10-30 15:28 to 16:48 UTC, ledger `harness/acceptance/ledger.jsonl`). Every kind is in each pass; land, siege, naval and historical shots match the measured baseline, the campaign shot is not compared (not deterministic).
 
 Runs: `harness/runs/20261030_j44pc` (verbs, sky, historical route, baseline), `harness/runs/20261030_j44acc` (first 20-pass attempt: failed pass 1),
-`harness/runs/20261030_j44acc2` (the gate run). Build: DLL `dc95ededfbe8` (kit `kit_*_dc95ededfbe8`), watcher 1.0.1, 1920x1080 headless.
+`harness/runs/20261030_j44acc2` (second attempt: failed pass 3), `harness/runs/20261030_j44acc3` (the gate run). Build: DLL `dc95ededfbe8` (kit `kit_*_dc95ededfbe8`), watcher 1.0.1, 1920x1080 headless.
 
 ## The verbs on the PC
 All but `order` ran through `ctl.py` on the PC (results in `harness/runs/20261030_j44pc/raw/`; table in that README):
@@ -22,13 +22,13 @@ All but `order` ran through `ctl.py` on the PC (results in `harness/runs/2026103
 ## The scenario table
 | id | kind | load s (baseline) | poses | determinism (two launches, mean abs /255) |
 |---|---|---|---|---|
-| land_small | land | LOAD_land_small | deploy, turned | DIFF_land_small |
-| siege_small | siege | LOAD_siege_small | deploy, turned | DIFF_siege_small |
-| naval_small | naval | LOAD_naval_small | deploy, turned | DIFF_naval_small |
+| land_small | land | 3.9 | deploy, turned | 0.954 |
+| siege_small | siege | 5.3 | deploy, turned | 1.204 |
+| naval_small | naval | 3.5 | deploy, turned | 4.534 |
 | naval_storm | naval | not measured | none yet | not measured (in the library, not in the acceptance order) |
-| hist_dresden | historical (land) | LOAD_hist_dresden | deploy, turned | DIFF_hist_dresden |
-| hist_nile | historical (naval) | LOAD_hist_nile | deploy, turned | DIFF_hist_nile |
-| campaign_start | campaign | LOAD_campaign_start | default view (no setter) | DIFF_campaign_start: **not deterministic** |
+| hist_dresden | historical (land) | 7.6 | deploy, turned | 3.821 |
+| hist_nile | historical (naval) | 4.5 | deploy, turned | 4.905 |
+| campaign_start | campaign | 2.7 | default view (no setter) | 20.406: **not deterministic** |
 | campaign_britain_1805 (+2 J14 recipes) | campaign | J14's | default view | not measured (load_save.sh route, not ctl scene) |
 
 Not built: land large, land 40 (20 against 20), naval large (fact `napoleon.custom_battle.armies`, open: armies come from the remembered prefs,
@@ -48,7 +48,19 @@ indexes, launch command, no orphan preset, pitch clamp, the acceptance order).
   itself, no setter: `napoleon.campaign.determinism`); its shot is taken and kept but not compared; load still counts.
 
 ## The baseline and the 20 passes
-GATE_SECTION
+- **Baseline** `harness/acceptance/baseline.json`: measured by `acceptance.py measure` (two passes) on the final build, 2026-10-30, not a fresh
+  boot (`fresh_boot: false`; load tolerance 150 %, so a cold PC still passes at 2.5 x); size **1920x1080**: the size J43's camera numbers and
+  clamps were measured at, and the virtual display's mode change is cheapest there; 4K and 1440p are J23's. Shots in `harness/acceptance/shots/`.
+- **Attempts**: run `20261030_j44acc` failed pass 1 (land_small lighting 24.0: the sky pack left two skies in 11 groups; fixed, re-measured);
+  run `20261030_j44acc2` passed 2 then failed pass 3 (`watcher.status` missing for an instant between the watcher's rewrites; `Pc.status` now
+  retries, `test_ctl.PcLaunch`); run `20261030_j44acc3`: **20 of 20**. Both failures stay in the ledger.
+- **The 20 passes** (`harness/runs/20261030_j44acc3/pass_01.json` to `pass_20.json`, ledger lines 4 to 23): loads hist_dresden 6.8 to 7.1 s,
+  hist_nile 4.1 to 4.2, campaign_start 2.5 to 3.9, naval_small 3.2 to 3.5, siege_small 5.0 to 5.5, land_small 3.7 to 4.2; worst shot differences
+  4.22, 4.98, (not compared), 4.59, 1.27, 0.97 against thresholds 7.64, 9.81, -, 9.07, 4.0, 4.0; settings byte-identical after every pass (checked
+  after the lock release and the watcher's restore); no launch retry and no VirtualStore copy in any pass. `acceptance.py streak --build
+  dc95ededfbe8 --watcher 1.0.1`: 20.
+- **Step f**: after the run (lock released, profile restored) `pc_deploy uninstall` and a fresh snapshot: identical to
+  `pre_install_20261030T090208Z.json` (1564 files); `save_games` untouched (newest 2026-10-29); the VirtualStore folder empty.
 
 ## Rules as they now stand
 | rule | where | test |
@@ -78,7 +90,7 @@ Merging this branch turns rule 79 on for every later `job/` branch that changes 
   recorded in the pass file (`retried_after`). The proxy-side cause is J16's (it owns the headless code).
 - `perf` on "the 40-unit battle": does not exist; land_small only (baseline `perf`).
 - J14 carry-over: not run, J40 is queued (no answer for the diplomacy modal). Spent nothing.
-- Calls: CALLS.
+- Calls: about 300 of the 300 budget; 1 read-only subagent (the pack reading). The 20-pass run itself took 80 minutes of watcher time.
 
 ## Open questions
 - **J8**: the scenes to catalogue are the acceptance order; lighting is pinned by the fixed-sky pack only with `dev.file_rules` set (the
