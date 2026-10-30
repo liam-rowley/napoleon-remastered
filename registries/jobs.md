@@ -22,7 +22,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J2` | done | Watcher and PC sync | 1 | sonnet | yes | J1 | jobs/J2/brief.md | jobs/J2/report.md | jobs/J2/review.md |
 | `J20` | done | Local Claude Code on the PC replaces the cloud route | 1 | sonnet | yes |  | jobs/J20/brief.md | jobs/J20/report.md | jobs/J20/review.md |
 | `J21` | done | Hotkeys registry and clash gate | 1 | sonnet | no |  | jobs/J21/brief.md | jobs/J21/report.md | jobs/J21/review.md |
-| `J22` | needs_brief | Windows host tests find Git Bash | 1 | sonnet | no |  |  |  |  |
+| `J22` | queued | Windows host tests find Git Bash | 1 | sonnet | no |  | jobs/J22/brief.md |  |  |
 | `J23` | needs_brief | Performance baseline: system d3d9 against DXVK | 3 | sonnet | yes | J4, J13, J44 |  |  |  |
 | `J24` | needs_brief | Shadow map resolution and fit | 3 | opus | yes | J8, J9, J23 |  |  |  |
 | `J25` | needs_brief | Cascaded shadows spike | 3 | opus | yes | J8, J24 |  |  |  |
@@ -32,17 +32,17 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J29` | needs_brief | Alt-drag move and Alt+Ctrl-drag rotate | 4 | sonnet | yes | J21, J28 |  |  |  |
 | `J3` | done | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md | jobs/J3/report.md | jobs/J3/review.md |
 | `J30` | needs_brief | RmlUi host in the proxy | 5 | opus | yes | J12, J13 |  |  |  |
-| `J31` | needs_brief | Review viewer build and hosting spikes (S1, S2) | 5 | sonnet | no |  |  |  |  |
+| `J31` | queued | Review viewer build and hosting spikes (S1, S2) | 5 | sonnet | no |  | jobs/J31/brief.md |  |  |
 | `J32` | needs_brief | Viewer parity and panel-host route spikes (S3, S4) | 5 | opus | yes | J10, J30, J31 |  |  |  |
 | `J33` | needs_brief | Napoleon design language | 5 | sonnet | no | J7, J10 |  |  |  |
 | `J34` | needs_brief | Design tokens and component library in RCSS | 5 | sonnet | no | J31, J33 |  |  |  |
 | `J35` | needs_brief | Panel host and its gate | 5 | opus | yes | J30, J32, J34 |  |  |  |
-| `J36` | needs_brief | UI art upscaling pipeline | 5 | sonnet | yes | J7 |  |  |  |
+| `J36` | queued | UI art upscaling pipeline | 5 | sonnet | yes | J7 | jobs/J36/brief.md |  |  |
 | `J37` | needs_brief | Engine-drawn text and fonts | 5 | sonnet | yes | J10 |  |  |  |
 | `J38` | needs_brief | Release packaging, install and support | 6 | sonnet | yes | J1, J12 |  |  |  |
 | `J39` | done | Job viewer launches Claude Code sessions | 1 | sonnet | no |  | jobs/J39/brief.md | jobs/J39/report.md | jobs/J39/review.md |
 | `J4` | done | Scenario library, control API, acceptance gate | 1 | sonnet | yes | J3, J13, J14, J20 | jobs/J4/brief.md | jobs/J4/report.md | jobs/J4/review.md |
-| `J40` | needs_brief | Campaign console: close the open checks | 1 | opus | yes | J15 |  |  |  |
+| `J40` | queued | Campaign console: close the open checks | 1 | opus | yes | J15 | jobs/J40/brief.md |  |  |
 | `J41` | done | Local gates run the proxy host tests | 1 | sonnet | yes | J20 | jobs/J41/brief.md | jobs/J41/report.md | jobs/J41/review.md |
 | `J42` | done | CI reliability: no red check a branch did not cause | 1 | sonnet | yes | J19, J41 | jobs/J42/brief.md | jobs/J42/report.md | jobs/J42/review.md |
 | `J43` | done | Battle camera and speed route | 1 | opus | yes | J4 | jobs/J43/brief.md | jobs/J43/report.md | jobs/J43/review.md |
