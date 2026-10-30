@@ -58,4 +58,11 @@ In deployment, pause and speed are refused without changing the speed (`land_spe
   per launch: J44's sky pin, not the camera.
 
 ## 5. The 10-minute battle
-`raw/pump_10min.txt`: land_small after deployment ended, ctl state every 30 s for 11 minutes (filled in below).
+`raw/pump_10min.txt`: land_small after deployment ended (10:19), ctl state every 30 s from 10:20:08 to 10:31:34: 23 samples, scene
+`battle` throughout, `pump_age_s` 0.0 in every one; the battle clock read 709.6 s at the end.
+
+## 6. Dev keys off, uninstall
+- `dev.camera=0` on this branch's build (`keyoff_*.json`): `scene land_small` ok; `cam` failed at the set step with `cam_set refused:
+  dev.camera=0`; the log shows `camera: dev.camera=0` and no install line (no site read).
+- Uninstall: game folder identical to the pre-install snapshot (1564 files). The lock release restored the headless overlay (no active
+  profile left); `save_games` unchanged (newest file 2026-10-29); the campaign start (`campaign:new:mp_eur_napoleon:austria`) wrote no save.
