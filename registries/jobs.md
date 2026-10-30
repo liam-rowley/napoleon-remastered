@@ -37,7 +37,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J33` | needs_brief | Napoleon design language | 5 | sonnet | no | J7, J10 |  |  |  |
 | `J34` | needs_brief | Design tokens and component library in RCSS | 5 | sonnet | no | J31, J33 |  |  |  |
 | `J35` | needs_brief | Panel host and its gate | 5 | opus | yes | J30, J32, J34 |  |  |  |
-| `J36` | needs_brief | UI art upscaling pipeline | 5 | sonnet | yes | J7 |  |  |  |
+| `J36` | queued | UI art upscaling pipeline | 5 | sonnet | yes | J7 | jobs/J36/brief.md |  |  |
 | `J37` | needs_brief | Engine-drawn text and fonts | 5 | sonnet | yes | J10 |  |  |  |
 | `J38` | needs_brief | Release packaging, install and support | 6 | sonnet | yes | J1, J12 |  |  |  |
 | `J39` | done | Job viewer launches Claude Code sessions | 1 | sonnet | no |  | jobs/J39/brief.md | jobs/J39/report.md | jobs/J39/review.md |
