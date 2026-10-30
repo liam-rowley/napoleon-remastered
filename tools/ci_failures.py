@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build docs/CI_FAILURES.md: one row per failed gates.yml run attempt, with its class and the guard that answers it (J42).
 
-purpose: list every failed `gates.yml` run attempt in a time window (reruns included: a rerun that passed hides its failed first attempt from `gh run list`), with the failed job and step and the first error line from its log, and render the committed failure table; the class and guard of each row come from CLASSES below, so a new failure is classed here, not in the generated file
+purpose: list every failed `gates.yml` run attempt in a time window (reruns included: a rerun that passed hides its failed first attempt from `gh run list`), with the failed job and step, the first error line from its log and whether the same commit passed that job in another run (the flaky evidence), and render the committed failure table; the class and guard of each row come from CLASSES below, so a new failure is classed here, not in the generated file
 usage: python3 tools/ci_failures.py --since 2026-10-29T00:00:00Z --until <utc> [--cache <json>] [--out docs/CI_FAILURES.md]   (--cache reuses a fetch; needs `gh` signed in)
 when: by hand, when CI failures are reviewed (J42 built the first table); not part of any gate (it reads GitHub)
 not-a-verb: a one-off report generator over the GitHub API; the table it writes is the record
@@ -99,10 +99,17 @@ def first_error(log):
     return next((ln[len("##[error]"):] for ln in lines if ln.startswith("##[error]")), "")[:200]
 
 
+def list_runs(since, until, gh=gh):
+    """Every gates.yml run created in [since, until], whatever has run since: the API's `created` filter, paginated (`gh run list -L n`
+    is the newest n runs only, and 300 reached back less than a day once J42's dispatches had run: J42 review)."""
+    pages = gh("api", "--paginate", "--slurp", f"repos/{{owner}}/{{repo}}/actions/workflows/gates.yml/runs?created={since}..{until}&per_page=100")
+    runs = [r for page in json.loads(pages) for r in page["workflow_runs"]]
+    return [{"databaseId": r["id"], "event": r["event"], "headBranch": r["head_branch"], "headSha": r["head_sha"],
+             "conclusion": r["conclusion"], "createdAt": r["created_at"], "attempt": r["run_attempt"]} for r in runs]
+
+
 def fetch(since, until):
-    runs = json.loads(gh("run", "list", "-w", "gates.yml", "-L", "300", "--json",
-                         "databaseId,event,headBranch,headSha,conclusion,createdAt,attempt"))
-    runs = [r for r in runs if since <= r["createdAt"] <= until]
+    runs = list_runs(since, until)
     passed = {}  # sha -> set of job names that passed in some run of that commit
     rows = []
     for r in sorted(runs, key=lambda r: r["createdAt"]):
@@ -175,13 +182,13 @@ def render(rows, since, until):
     out += ["", "Every failure, whatever its class, now also comments on its pull request and is listed by `wsc jobs next|review|view` "
             "(J42), so a red check on an open pull request is told, not found.", "",
             "## Failures", "",
-            "| run | event | branch | commit | job | step | first error line | class | guard | note |",
-            "|---|---|---|---|---|---|---|---|---|---|"]
+            "| run | event | branch | commit | job | step | first error line | class | same commit passed elsewhere | guard | note |",
+            "|---|---|---|---|---|---|---|---|---|---|---|"]
     for r, c, g, note in classed:
         run = f"{r['run']}" + (f" (attempt {r['attempt']})" if r["attempt"] > 1 else "")
         err = r["error"].replace("|", "\\|").replace("`", "'")
         out.append(f"| {run} | {r['event']} | {r['branch']} | {r['sha']} | {r['job']} | {r['step']} | `{err}` | {c} | "
-                   f"{GUARDS.get(g, g)} | {note} |")
+                   f"{'yes' if r.get('passed_elsewhere') else 'no'} | {GUARDS.get(g, g)} | {note} |")
     return "\n".join(out) + "\n"
 
 
