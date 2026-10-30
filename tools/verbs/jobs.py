@@ -330,6 +330,59 @@ def lane(r, by, branches):
     return 'brief', ('waits for ' + ', '.join(late)) if late else 'can be briefed now'
 
 
+USAGE_SOURCE = 'none yet: no tool on the PC can read Claude usage numbers; handed to a meta row (jobs/J44/report.md, rule 75)'
+
+
+def pc_state(root, read_json=None):
+    """Rule 75: the PC's state for the view, or None off the PC (no adapter state_dir). Lock holder, watcher version and heartbeat age, the
+    installed kit and DLL build, the last acceptance pass (the ledger on this checkout) and the usage source."""
+    import json as _json
+    import time as _time
+    root = Path(root)
+    try:
+        ad = _json.loads((root / 'harness' / 'napoleon' / 'adapter.json').read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return None
+    state = Path(ad.get('state_dir', ''))
+    if not state.is_dir():
+        return None
+    w = state / ad.get('watcher_subdir', 'watcher')
+    def text(p):
+        try:
+            return p.read_text(encoding='utf-8', errors='replace')
+        except OSError:
+            return None
+    lock = (text(w / 'game.lock') or '').strip()
+    st, inst = {}, {}
+    try:
+        st = _json.loads(text(w / 'watcher.status') or '{}')
+    except ValueError:
+        pass
+    try:
+        inst = _json.loads(text(state / 'install.json') or '{}')
+    except ValueError:
+        pass
+    alive = w / 'watcher.alive'
+    age = int(_time.time() - alive.stat().st_mtime) if alive.exists() else None
+    ledger = [l for l in (text(root / 'harness' / 'acceptance' / 'ledger.jsonl') or '').splitlines() if l.strip()]
+    last = _json.loads(ledger[-1]) if ledger else None
+    return {'lock': lock or 'free', 'watcher': st.get('version'), 'heartbeat_age_s': age,
+            'game': (st.get('game_state') or {}).get('state'), 'kit': inst.get('kit_id') or 'not installed', 'build': inst.get('build_id'),
+            'last_acceptance': ({k: last.get(k) for k in ('pass', 'result', 'build_id', 'watcher', 'utc', 'run')} if last else None),
+            'usage': USAGE_SOURCE}
+
+
+def pc_block(pc):
+    if not pc:
+        return ''
+    e = html.escape
+    la = pc['last_acceptance']
+    acc = (f"pass {la['pass']} {la['result']} on build {la['build_id']}, watcher {la['watcher']} ({la['utc']}, {la['run']})" if la else 'none in the ledger')
+    hb = 'no heartbeat' if pc['heartbeat_age_s'] is None else f"heartbeat {pc['heartbeat_age_s']} s ago"
+    return (f'<p class="muted">PC: lock <code>{e(pc["lock"])}</code> · watcher {e(str(pc["watcher"]))} ({e(hb)}, game {e(str(pc["game"]))}) · '
+            f'kit <code>{e(pc["kit"])}</code> · last acceptance: {e(acc)} · usage source: {e(pc["usage"])}</p>')
+
+
 def render_view(rows, read, branches, generated, on_branch=None, token=None, root=None):
     """The queue as one HTML page. `read(path)`: file text or None; `branches`: remote branch names; `generated`: timestamp text;
     `on_branch`: see branch_rows (review buttons need it). Brief, report and review are embedded as escaped Markdown and rendered by
@@ -349,6 +402,8 @@ def render_view(rows, read, branches, generated, on_branch=None, token=None, roo
         head = f'Nothing queued is ready. Next brief to write: <a href="#{e(nxt["id"])}">{e(nxt["id"])} {e(nxt["title"])}</a>'
     else:
         head = 'Nothing is ready to pick up or brief.'
+    if root is not None:
+        head += '</p>' + pc_block(pc_state(root)) + '<p>'   # rule 75: the PC's state when the view is made on the PC
 
     def dep(d):
         st = by.get(d, {}).get('status', 'unknown')

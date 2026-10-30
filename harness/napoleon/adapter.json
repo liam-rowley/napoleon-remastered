@@ -33,8 +33,10 @@
   },
   "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
   "ctl": {
-    "settle": {"frames": 30, "quiet_ms": 2000, "timeout_s": 120, "ready_scenes": ["battle_deploy", "battle", "campaign"],
-               "note": "provisional (J4 did not measure them: no 20-pass run); frame and scene stability, the proxy has no shader-creation hook (fact napoleon.ctl.settle_signal)"},
+    "launch": {"size": "1920x1080", "frontend_wait_s": 180, "keys": {"dev.ctl": "1", "dev.lua_bridge": "1", "dev.state_json": "1", "dev.skip_intro": "1", "dev.camera": "1", "dev.perf": "1", "dev.timeline": "1", "dev.file_rules": "napoleon_remastered\\lua\\fixed_sky_rules.txt"},
+               "note": "every ctl.py scene launch: the keys its verbs need (cam needs dev.camera, perf dev.perf), applied with pc_deploy set before a watcher launch, never by callers (J44)"},
+    "settle": {"frames": 30, "quiet_ms": 2000, "timeout_s": 120, "ready_scenes": ["battle_deploy", "battle", "naval", "campaign"],
+               "run": "harness/runs/20261030_j44pc", "note": "measured (J44): the settle ends ~2.7 s after the load answer and a shot then is within the 2.56/255 noise floor of one 10 s later; one value for every kind (battles and campaign settled alike); frame and scene stability, the proxy has no shader-creation hook (fact napoleon.ctl.settle_signal)"},
     "routes": {
       "camera": {
         "land": {"status": "reachable", "why": "wsp.cam_set (dev.camera) calls the active camera mode's SetTargetAndPosition; read back by BattleUI.BackProjectPosition (trilateration + fit)", "fact": "napoleon.battle.camera_route", "set": "napoleon_remastered/lua/ctl/cam_set.lua", "read": "napoleon_remastered/lua/ctl/cam_read.lua", "settle_ms": 200, "tolerance": {"x": 0.05, "y": 0.05, "z": 0.05, "yaw": 0.05, "pitch": 0.05, "fov": 0.05}, "max_rms_px": 0.05, "clamps": {"pitch": [-45, 45], "height_above_terrain": [2.5, 44.556], "fov": 70.0, "run": "harness/runs/20261030_j43pc"}, "run": "harness/runs/20261030_j43pc"},
@@ -58,6 +60,8 @@
     },
     "perf": {"vram_source": "nvidia-smi from a watcher job (not read by the verb yet)"}
   },
+  "acceptance": {"order": ["hist_dresden", "hist_nile", "campaign_start", "naval_small", "siege_small", "land_small"],
+                 "note": "one scenario per kind; ends on a plain battle so the warm reset runs from a battle (a historical battle and a campaign leave by a relaunch: harness/core/ctl.py scene)"},
   "config_files": [
     {"id": "prefs", "anchor": "appdata", "path": "scripts\\preferences.script.txt", "style": "prefs",
      "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); overlay style prefs replaces a key's value in place and keeps every other byte"},

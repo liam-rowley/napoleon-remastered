@@ -24,20 +24,22 @@ ADAPTER = {'game': 'napoleon', 'ctl': {'settle': {'frames': 3, 'quiet_ms': 1000,
 
 class FakeGame:
     """Answers ctl lines; the frame counter advances 2 per state call."""
-    def __init__(self, scene='battle_deploy', fail=None):
-        self.frame, self.scene, self.fail, self.lines = 0, scene, fail, []
+    def __init__(self, scene='battle_deploy', fail=None, here='frontend'):
+        self.frame, self.scene, self.fail, self.lines, self.here = 0, scene, fail, [], here   # here: the scene until an autostart or reset
 
     def __call__(self, line, wait=0):
         self.lines.append(line)
         if line == 'state':
             self.frame += 2
-            return 0, {'status': 'ok', 'state': {'scene': self.scene, 'frame': self.frame, 'scene_s': 5.0}}
+            return 0, {'status': 'ok', 'state': {'scene': self.here or self.scene, 'frame': self.frame, 'scene_s': 5.0}}
         if self.fail and line.startswith(self.fail):
             return 1, {'status': 'failed', 'reason': 'engine said no'}
         if line.startswith('autostart'):
+            self.here = None
             return 0, {'status': 'ok', 'map': 'NAP_MP_Grassy_Flatlands', 'load_s': 3.0}
         if line.startswith('reset'):
-            return 0, {'status': 'ok'}
+            self.here = None if 'frontend' not in line else 'frontend'
+            return 0, {'status': 'ok', 'autostart': {'map': 'NAP_MP_Grassy_Flatlands', 'load_s': 2.5}}
         if line.startswith('perf'):
             return 0, {'status': 'ok', 'frames': 600, 'frame_ms': {'p50': 16.6, 'p99': 20.0, 'max': 30.0}, 'mem': {'va_used_mb': 1700}}
         return 1, None
@@ -91,11 +93,24 @@ class Scenes(unittest.TestCase):
         self.assertEqual(r['status'], 'ok')
         self.assertIn('autostart battle:land_small 240', g.lines)
         self.assertTrue(r['settle']['settled'])
-        self.assertEqual(r['check']['expected'], {'map': 'NAP_MP_Grassy_Flatlands'})
+        self.assertEqual(r['check']['expected'], {'map': 'NAP_MP_Grassy_Flatlands', 'deployment': 'running'})
 
-    def test_historical_and_campaign_name_their_open_state(self):
-        self.assertIn('historical', make().run('scene', 'hist')['reason'])
-        self.assertEqual(make().run('scene', 'camp')['status'], 'refused')
+    def test_historical_without_a_preset_and_campaign_without_a_target_are_refused(self):
+        self.assertIn('no battle preset', make().run('scene', 'hist')['reason'])
+        self.assertIn('names no autostart target', make().run('scene', 'camp')['reason'])
+
+    def test_a_naval_scene_is_a_battle_for_scene_and_kind(self):
+        g = FakeGame(scene='naval', here='naval')
+        c = make(g)
+        self.assertEqual(c.current_kind(), 'naval')
+        c.cfg = dict(c.cfg, settle=dict(c.cfg['settle'], ready_scenes=['naval']))
+        r = c.run('scene', 'land_small')
+        self.assertEqual(r['path']['via'], 'reset')
+        self.assertTrue(r['settle']['settled'])
+
+    def test_campaign_target_comes_from_the_save_field(self):
+        self.assertEqual(ctl.scenario_target({'id': 'c', 'kind': 'campaign', 'save': 'campaign:new:mp_eur_napoleon:austria (a new campaign)'}, '.'),
+                         'campaign:new:mp_eur_napoleon:austria')
 
     def test_autostart_failure_names_the_step_and_keeps_evidence(self):
         r = make(FakeGame(fail='autostart')).run('scene', 'land_small')
@@ -283,6 +298,17 @@ class CamVerb(unittest.TestCase):
         self.assertTrue(all(f['within'] for f in r['check']['fields'].values()))
         self.assertTrue(any(l.startswith('lua S.lua 20 -- 10.0,30.0,300.0,90.0,-30.0') for l in g.lines))
 
+    def test_cam_read_returns_the_pose_without_setting_it(self):
+        g = CamGame()
+        c = make2(g)
+        c.run('cam', '10', '30', '300', '90', '-30')
+        n = len([l for l in g.lines if l.startswith('lua S.lua')])
+        r = c.run('cam', 'read')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+        self.assertEqual(len([l for l in g.lines if l.startswith('lua S.lua')]), n)   # no set
+        self.assertAlmostEqual(r['got']['yaw'], 90, places=2)
+        self.assertTrue(r['check']['ok'])
+
     def test_a_named_pose_resolves_from_the_scenario_row(self):
         g = CamGame()
         g.ground = -10   # the row's pose (y 2) is 12 m above this ground: inside the clamp
@@ -355,6 +381,72 @@ class SpeedAndPause(unittest.TestCase):
             def __call__(self, line, wait=0):
                 return super().__call__(line.replace('-- pause', '-- read'), wait)
         self.assertEqual(make2(NoPause()).run('pause', 'on')['status'], 'failed')
+
+
+class PcLaunch(unittest.TestCase):
+    """J44: Pc.launch applies the adapter's keys, retries a lost headless start once and says so, and fails on a second loss."""
+    def pc(self, answers):
+        calls = []
+        def sh(argv, stdin=None, timeout=None):
+            calls.append((argv, stdin))
+            if 'set' in argv:
+                return 0, 'set'
+            if stdin and stdin.startswith('launch'):
+                return answers.pop(0)
+            if 'ctl' in argv:
+                return 0, '{"status": "ok", "scene": "frontend"}'
+            return 0, ''
+        a = {'game': 'napoleon', 'game_dir': '.', 'state_dir': '.', 'ctl': {'launch': {'keys': {}, 'size': '1920x1080'}}}
+        p = ctl.Pc('o', 'a.json', a, sh=sh, clock=lambda: 0.0, sleep=lambda s: None)
+        p.missing_keys = lambda: {}
+        return p, calls
+
+    def test_a_lost_headless_start_is_retried_once_and_recorded(self):
+        p, calls = self.pc([(1, 'x\n[watcher] failed: HEADLESS FAILED: no on_virtual status'), (0, 'ok')])
+        r = p.launch()
+        self.assertIn('HEADLESS FAILED', r['retried_after'])
+
+    def test_a_second_loss_fails(self):
+        p, _ = self.pc([(1, 'HEADLESS FAILED: a'), (1, 'HEADLESS FAILED: b')])
+        with self.assertRaises(RuntimeError):
+            p.launch()
+
+    def test_virtualstore_copies_are_moved_aside_before_a_launch(self):
+        import os, tempfile
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            old = os.environ.get('LOCALAPPDATA')
+            os.environ['LOCALAPPDATA'] = str(d / 'local')
+            try:
+                p, _ = self.pc([(0, 'ok')])
+                p.a.update(game_dir=r'C:\Program Files (x86)\Game', state_dir=str(d / 'state'))
+                vs = d / 'local' / 'VirtualStore' / 'Program Files (x86)' / 'Game' / 'napoleon_remastered'
+                vs.mkdir(parents=True)
+                (vs / 'headless_status.json').write_text('{}')
+                r = p.launch()
+                self.assertEqual(r['virtualstore_cleared'], ['headless_status.json'])
+                self.assertFalse((vs / 'headless_status.json').exists())
+                self.assertEqual(len(list((d / 'state' / '_to_delete').rglob('headless_status.json'))), 1)   # moved, never deleted
+            finally:
+                if old is None:
+                    del os.environ['LOCALAPPDATA']
+                else:
+                    os.environ['LOCALAPPDATA'] = old
+
+    def test_status_survives_a_moment_without_the_file(self):
+        answers = ['cat: watcher.status: No such file or directory', '{"version": "1.0.1", "game_state": {"state": "not_running"}}']
+        p = ctl.Pc('o', 'a.json', {'game': 'napoleon', 'game_dir': '.', 'state_dir': '.'}, sh=lambda *a, **k: (0, answers.pop(0)),
+                   sleep=lambda s: None)
+        self.assertEqual(p.status()['version'], '1.0.1')
+        p2 = ctl.Pc('o', 'a.json', {'game': 'napoleon', 'game_dir': '.', 'state_dir': '.'}, sh=lambda *a, **k: (1, 'gone'), sleep=lambda s: None)
+        with self.assertRaises(RuntimeError):
+            p2.status()
+
+    def test_other_launch_failures_are_not_retried(self):
+        p, calls = self.pc([(2, 'refused: lock')])
+        with self.assertRaises(RuntimeError):
+            p.launch()
+        self.assertEqual(len([c for c in calls if c[1] and c[1].startswith('launch')]), 1)
 
 
 if __name__ == '__main__':

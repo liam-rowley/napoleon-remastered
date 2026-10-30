@@ -29,6 +29,10 @@ class Hook(unittest.TestCase):
             self.assertIn('--trailer "Claude-Session: abc-123"', why)
         self.assertIsNotNone(ch.decide(ev('git commit -m x', tool='PowerShell')))
 
+    def test_a_session_line_in_the_message_body_is_not_enough(self):
+        # J44: a Claude-Session line one paragraph above Co-Authored-By is not a trailer; only --trailer guarantees git reads it
+        self.assertIsNotNone(ch.decide(ev('git commit -m "x\n\nClaude-Session: abc-123\n\nCo-Authored-By: C <n@a.com>"')))
+
     def test_everything_else_passes(self):
         for c in ('git commit -m x --trailer "Claude-Session: abc-123"', 'git status', 'git commit-tree HEAD^{tree}',
                   'git log --grep commit', 'echo "do not commit"', 'gh pr create', 'mygit commit'):

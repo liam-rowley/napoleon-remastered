@@ -168,6 +168,14 @@ campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknow
 Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
 Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
 
+## Fixed sky (J44)
+
+`proxy/tools/build_fixed_sky_pack.py` (run by `pc_deploy.py kit` where the packs are readable) cuts `battles_to_battle_sky_types_junctions` and
+`battle_sky_types` to one sky per weather and time of day ("clear" first) into `napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack`;
+`dev.file_rules=napoleon_remastered\lua\fixed_sky_rules.txt` lists it in `data\` virtually (no file written there). Presets pin weather and time
+of day by option index (`weather=`, `time_of_day=`); historical presets use `type=historic`, `all_maps=1`, `terrain=`. Facts
+`napoleon.battle.fixed_sky`, `napoleon.battle.weather_options`, `napoleon.autostart.historical`.
+
 ## Battle camera (J43)
 
 `dev.camera` (default and release value off) adds `wsp.cam_set(x, y, z, yaw, pitch)` to the dev Lua bridge: on the engine thread (the

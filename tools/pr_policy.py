@@ -17,13 +17,13 @@ Branch kinds (the branch name decides):
               plus everything plan/* may touch. No game code (proxy/ and later feature folders).
 Anything else is refused.
 Job branches after J4 (rule 79): a branch that changes proxy/ or harness/ (not their runs/ folders, READMEs or the acceptance files) must carry
-harness/acceptance/ledger.jsonl with 20 consecutive passes on the branch's final DLL build id and watcher version (harness/core/acceptance.py).
-It applies only once the ledger exists on the base branch, so J4's own commits are exempt.
+harness/acceptance/ledger.jsonl with 20 consecutive passes on the branch's final DLL build id and watcher version (harness/core/acceptance.py);
+a pass counts only when its line was run for this branch and names a run and an evidence file committed on the branch (J4 review 7, J44 review). It applies once the base holds the
+ledger and a baseline that the BASE's harness/core/acceptance.py accepts (so a branch cannot switch the rule off for itself, J44).
 Every branch kind: `docs/DECISIONS.md` is append only (existing rows unchanged and in order; new rows numbered D<last+1>, D<last+2>,
 with a YYYY-MM-DD date and Reversible yes or no). A reversal is a new row that names the one it replaces.
 """
 import argparse
-import importlib.util
 import json
 import re
 import subprocess
@@ -98,43 +98,60 @@ def allowed(path, globs):
 ACC_LEDGER = 'harness/acceptance/ledger.jsonl'
 ACC_BASELINE = 'harness/acceptance/baseline.json'
 ACC_NEEDED = 20
-ACC_EXEMPT = ('/runs/', 'README.md', 'harness/acceptance/')
+ACC_CHECKER = 'harness/core/acceptance.py'
 
 
-def acceptance_active(ledger, baseline):
+def acc_exempt(path):
+    """runs/ folders, READMEs and the acceptance files themselves; by path segment and name, never by substring (J4 review 6)."""
+    parts = path.split('/')
+    return 'runs' in parts[:-1] or parts[-1] == 'README.md' or path.startswith('harness/acceptance/')
+
+
+def acceptance_active(ledger, baseline, checker_src):
     """Rule 79 is on only when the base holds the ledger and a valid baseline (J4 review 1): a ledger alone cannot be satisfied, since
-    acceptance refuses to run without a baseline (rule 74), and would refuse every proxy/ and harness/ job, including the one that builds it."""
-    if ledger is None or baseline is None:
+    acceptance refuses to run without a baseline (rule 74), and would refuse every proxy/ and harness/ job, including the one that builds it.
+    The baseline is judged by `checker_src`, the BASE's acceptance.py (J4 review round 2): a branch that weakens baseline_problems in its own
+    copy cannot switch the rule off for itself."""
+    if ledger is None or baseline is None or not checker_src:
         return False
-    spec = importlib.util.spec_from_file_location('acceptance', Path(__file__).resolve().parents[1] / 'harness' / 'core' / 'acceptance.py')
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    ns = {'__name__': 'acceptance_base', '__file__': str(Path(__file__).resolve().parents[1] / ACC_CHECKER)}
     try:
-        return not mod.baseline_problems(json.loads(baseline))
-    except (ValueError, TypeError, AttributeError):
+        exec(compile(checker_src, f'<base>/{ACC_CHECKER}', 'exec'), ns)
+        return not ns['baseline_problems'](json.loads(baseline))
+    except (ValueError, TypeError, AttributeError, KeyError, SyntaxError):
         return False
 
 
 def acceptance_problems(changed, acc):
-    """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher'}.
-    A change to proxy/ or harness/ needs ACC_NEEDED passes in a row at the end of the ledger on this build and watcher; a fail or a pass of
-    another build ends the run."""
+    """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher', 'branch',
+    'exists': path -> bool on the branch}. A change to proxy/ or harness/ needs ACC_NEEDED passes in a row at the end of the ledger on this build
+    and watcher, each run for this branch and naming its run and a committed evidence file; a fail, a pass of another build or branch, or a
+    pass without evidence ends the run."""
     if not acc or not acc.get('active'):
         return []
-    code = [p for p in changed if p.startswith(('proxy/', 'harness/')) and not any(x in p for x in ACC_EXEMPT)]
+    code = [p for p in changed if p.startswith(('proxy/', 'harness/')) and not acc_exempt(p)]
     if not code:
         return []
-    n = 0
+    exists = acc.get('exists') or (lambda p: False)
+    n, unproved, foreign = 0, None, None
     for line in reversed([l for l in (acc.get('ledger') or '').splitlines() if l.strip()]):
         r = json.loads(line)
-        if r.get('result') == 'pass' and r.get('build_id') == acc['build_id'] and r.get('watcher') == acc['watcher']:
-            n += 1
-        else:
+        if not (r.get('result') == 'pass' and r.get('build_id') == acc['build_id'] and r.get('watcher') == acc['watcher']):
             break
+        if r.get('branch') != acc.get('branch'):
+            # J44 review: harness/ is not in the build id, so a branch changing only harness/ would inherit the previous branch's passes
+            foreign = f"pass {r.get('pass')} was run for {r.get('branch') or 'no branch'}"
+            break
+        if not (r.get('run') and r.get('evidence') and exists(r['evidence'])):
+            unproved = r.get('evidence') or f"pass {r.get('pass')} names no evidence file"
+            break
+        n += 1
     if n >= ACC_NEEDED:
         return []
+    why = (f' (the streak ends at a line whose evidence is not committed: {unproved})' if unproved else
+           f' (the streak ends at a line of another branch: {foreign})' if foreign else '')
     return [f'rule 79: this branch changes {code[0]}{" and more" if len(code) > 1 else ""} but {ACC_LEDGER} holds {n} consecutive acceptance passes '
-            f'on build {acc["build_id"]}, watcher {acc["watcher"]} (need {ACC_NEEDED}): run `python3 harness/core/acceptance.py run` on the final build']
+            f'on build {acc["build_id"]}, watcher {acc["watcher"]}{why} (need {ACC_NEEDED}): run `python3 harness/core/acceptance.py run` on the final build']
 
 
 def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=None, acceptance=None):
@@ -215,7 +232,8 @@ def main(argv=None):
     build_id = git('log', '-1', '--format=%h', '--abbrev=12', 'HEAD', '--', *inputs).strip() or 'nogit'
     wsrc = show('HEAD', 'harness/core/watcher.ps1') or ''
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
-    acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE)), 'ledger': show('HEAD', ACC_LEDGER), 'build_id': build_id, 'watcher': wm.group(1) if wm else '?'}
+    acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE), show(a.base, ACC_CHECKER)), 'ledger': show('HEAD', ACC_LEDGER),
+           'build_id': build_id, 'watcher': wm.group(1) if wm else '?', 'branch': a.branch, 'exists': lambda p: show('HEAD', p) is not None}
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
                  lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions, acc)
     for e in errs:

@@ -4,3 +4,5 @@
 type=classic
 map=NAP_MP_Grassy_Flatlands
 prefs=.sp_default
+weather=0
+time_of_day=1

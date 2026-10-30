@@ -35,7 +35,7 @@ def env(ctl, exe='pin', settings_after=None):
     seq = [{'prefs': 'a', 'keys': 'b'}, settings_after or {'prefs': 'a', 'keys': 'b'}]
     log = []
     return {'exe_sha1': lambda: exe, 'settings': lambda: seq.pop(0), 'launch': lambda s: log.append(('launch', s)), 'exit': lambda: log.append('exit'),
-            'relaunch': lambda s: log.append(('relaunch', s)), 'ctl': ctl, 'shot_diff': lambda s: 1.0, 'log': log}
+            'relaunch': lambda s: log.append(('relaunch', s)), 'ctl': ctl, 'shot_diff': lambda s, r: 1.0, 'log': log}
 
 
 class Baseline(unittest.TestCase):
@@ -59,14 +59,14 @@ class Baseline(unittest.TestCase):
     def test_rule74_run_refuses_without_a_baseline(self):
         with tempfile.TemporaryDirectory() as d:
             with self.assertRaises(SystemExit) as e:
-                acc.main(['run', '--baseline', str(Path(d) / 'none.json'), '--ledger', str(Path(d) / 'l.jsonl')])
+                acc.main(['run', '--run', 't', '--baseline', str(Path(d) / 'none.json'), '--ledger', str(Path(d) / 'l.jsonl')])
             self.assertIn('rule 74', str(e.exception))
 
     def test_run_refuses_an_invalid_baseline(self):
         with tempfile.TemporaryDirectory() as d:
             p = Path(d) / 'b.json'; p.write_text('{"schema": 1}')
             with self.assertRaises(SystemExit) as e:
-                acc.main(['run', '--baseline', str(p)])
+                acc.main(['run', '--run', 't', '--baseline', str(p)])
             self.assertIn('invalid', str(e.exception))
 
 

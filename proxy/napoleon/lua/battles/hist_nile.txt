@@ -1,0 +1,6 @@
+# hist_nile - historical naval battle the Nile (J44): the historical screens (type=historic) with all_maps=1, map = the battle key (db battles).
+type=historic
+map=NHMPB_Nile_1v1
+prefs=.sp_default
+all_maps=1
+terrain=hb_nile

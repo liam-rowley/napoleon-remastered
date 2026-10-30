@@ -99,5 +99,11 @@ Locally, `python3 core/wsc.py gates` runs the unit suite under Windows PowerShel
 (`tests/test_harness_host.py`, about 20 s; `WSP_HARNESS_TESTS=skip` skips it with a warning). The integration suite is CI-only and
 the gate says so: it sets the machine's time zone and kills `Fake*.exe`. The CI failure classes and their guards: `docs/CI_FAILURES.md`.
 
+## Control API and acceptance (J4, J43, J44)
+`harness/core/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`
+when needed, moving UAC VirtualStore copies of the mod folder aside first (fact `napoleon.harness.uac_virtualstore`). `harness/core/acceptance.py
+measure --run <id>` writes `harness/acceptance/baseline.json` from two passes; `run --passes 20 --run <id>` takes the lock per pass, compares with
+the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/pr_policy.py`).
+
 ## Open questions
 See `jobs/J2/report.md` and `jobs/J13/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format`.

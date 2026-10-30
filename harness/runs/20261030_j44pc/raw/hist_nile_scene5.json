@@ -1,0 +1,139 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "hist_nile",
+  "kind": "historical",
+  "target": "battle:hist_nile",
+  "load_s": 4.5,
+  "path": {
+    "launch": {
+      "size": "1920x1080",
+      "keys_set": [],
+      "launch_s": 8.7
+    },
+    "via": "autostart"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 2.72,
+    "frames": 479,
+    "scene": "naval",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "NHMPB_Nile_1v1",
+      "deployment": "running"
+    },
+    "got": {
+      "map": "NHMPB_Nile_1v1",
+      "scene": "naval"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j44-20261030T143740Z-18329213",
+      "request": "autostart battle:hist_nile 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-10-30T14:37:40.578Z",
+      "end_utc": "2026-10-30T14:37:46.389Z",
+      "launch_id": "20261030T143732Z-p20496",
+      "scene": "naval",
+      "lua": "started battle NHMPB_Nile_1v1 (historic, prefs .sp_default, button normal) weather=nil/nil time_of_day=nil",
+      "load_s": 4.5,
+      "total_s": 5.8,
+      "map": "NHMPB_Nile_1v1",
+      "map_folder_loaded": "hb_nile",
+      "map_folder_loaded_after_request_ms": 63,
+      "map_folder_selected": "hb_nile",
+      "preset_map": "NHMPB_Nile_1v1",
+      "state_at_end": {
+        "launch_id": "20261030T143732Z-p20496",
+        "pid": 20496,
+        "frame": 7178,
+        "scene": "naval",
+        "scene_s": 1.0,
+        "uptime_s": 13.9,
+        "written_utc": "2026-10-30T14:37:46.389Z",
+        "last_present_utc": "2026-10-30T14:37:46.388Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 1,
+          "deploy_panel": -1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1822,
+          "commit_mb": 1164
+        },
+        "reports": {
+          "autostart.map": "NHMPB_Nile_1v1",
+          "autostart.map_folder": "hb_nile",
+          "autostart.time_of_day": "nil",
+          "autostart.weather": "nil/nil",
+          "battle.map_folder": "hb_nile",
+          "battle.map_folder_ms": "63"
+        }
+      },
+      "log": [
+        "2026-10-30T14:37:40.579Z [INFO ] [t11436] timeline: autostart_issued +8237 ms battle:hist_nile",
+        "2026-10-30T14:37:40.679Z [INFO ] [t5440] lua report: battle.map_folder = hb_waterloo",
+        "2026-10-30T14:37:40.679Z [INFO ] [t5440] lua report: battle.map_folder_ms = ",
+        "2026-10-30T14:37:40.703Z [INFO ] [t5440] lua report: battle.map_folder = hb_austerlitz",
+        "2026-10-30T14:37:40.724Z [INFO ] [t5440] lua report: battle.map_folder = hb_waterloo",
+        "2026-10-30T14:37:40.727Z [INFO ] [t5440] lua report: battle.map_folder = hb_ligny",
+        "2026-10-30T14:37:40.739Z [INFO ] [t5440] lua report: battle.map_folder = hb_dresden",
+        "2026-10-30T14:37:40.750Z [INFO ] [t5440] lua report: battle.map_folder = hb_borodino",
+        "2026-10-30T14:37:40.762Z [INFO ] [t5440] lua report: battle.map_folder = hb_austerlitz",
+        "2026-10-30T14:37:40.773Z [INFO ] [t5440] lua report: battle.map_folder = hb_pyramids",
+        "2026-10-30T14:37:40.786Z [INFO ] [t5440] lua report: battle.map_folder = hb_waterloo",
+        "2026-10-30T14:37:40.788Z [INFO ] [t5440] lua report: battle.map_folder = hb_trafalgar",
+        "2026-10-30T14:37:40.797Z [INFO ] [t5440] lua report: battle.map_folder = hb_lodi",
+        "2026-10-30T14:37:40.809Z [INFO ] [t5440] lua report: battle.map_folder = hb_waterloo",
+        "2026-10-30T14:37:40.811Z [INFO ] [t5440] lua report: battle.map_folder = hb_arcole",
+        "2026-10-30T14:37:40.820Z [INFO ] [t5440] lua report: battle.map_folder = hb_pyramids",
+        "2026-10-30T14:37:40.821Z [INFO ] [t5440] lua report: battle.map_folder = hb_nile",
+        "2026-10-30T14:37:40.828Z [INFO ] [t5440] lua report: autostart.map = NHMPB_Nile_1v1",
+        "2026-10-30T14:37:40.828Z [INFO ] [t5440] lua report: autostart.map_folder = hb_nile",
+        "2026-10-30T14:37:40.828Z [INFO ] [t5440] lua report: autostart.weather = nil/nil",
+        "2026-10-30T14:37:40.828Z [INFO ] [t5440] lua report: autostart.time_of_day = nil",
+        "2026-10-30T14:37:40.884Z [INFO ] [t5440] movies: BinkClose movies\\frontend2.bik",
+        "2026-10-30T14:37:40.884Z [INFO ] [t5440] timeline: movie_close +8542 ms movies\\frontend2.bik",
+        "2026-10-30T14:37:40.892Z [INFO ] [t11436] autostart: lua ok: started battle NHMPB_Nile_1v1 (historic, prefs .sp_default, button normal) weather=nil/nil time_of_day=nil",
+        "2026-10-30T14:37:40.892Z [INFO ] [t11436] scene: frontend -> loading after 2.5 s (uptime 8.4 s, frame 6419, lua frontend)",
+        "2026-10-30T14:37:40.953Z [INFO ] [t5440] lua report: battle.map_folder = hb_nile",
+        "2026-10-30T14:37:40.953Z [INFO ] [t5440] lua report: battle.map_folder_ms = 63",
+        "2026-10-30T14:37:40.954Z [INFO ] [t5440] Direct3DCreate9(sdk=32) -> 335e99b8 [dxvk]",
+        "2026-10-30T14:37:40.954Z [INFO ] [t5440] headless: CreateDevice: back buffer 1x1, windowed, window 0001000c",
+        "2026-10-30T14:37:40.954Z [INFO ] [t5440] headless: CreateDevice: a helper device (back buffer 1x1): allowed, it shows nothing",
+        "2026-10-30T14:37:41.002Z [INFO ] [t5440] headless: CreateDevice(adapter 0, flags 0x22) -> 0x00000000",
+        "2026-10-30T14:37:44.255Z [INFO ] [t5440] luaopen_wsp: engine lua_State 057114f8, global state 3d41e0a4 (thread 5440) (again)",
+        "2026-10-30T14:37:44.255Z [INFO ] [t5440] lua: wsp.lua loaded (wsp 1)",
+        "2026-10-30T14:37:44.264Z [INFO ] [t5440] lua: wrapper: battle pumps from OnUpdate",
+        "2026-10-30T14:37:44.264Z [INFO ] [t5440] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-10-30T14:37:45.384Z [INFO ] [t5440] lua: first pump from context 'battle' (thread 5440)",
+        "2026-10-30T14:37:45.384Z [INFO ] [t5440] scene: loading -> battle after 4.5 s (uptime 12.9 s, frame 6857, lua battle)",
+        "2026-10-30T14:37:45.386Z [INFO ] [t5440] lua: battle details: FlagPath=data\\ui\\flags\\france_republic, TotalTime=2400, Faction=France, IsMultiplayer=false, ElapsedTime=0, NavalBattle=true",
+        "2026-10-30T14:37:45.386Z [INFO ] [t5440] scene: battle probe naval=1 deploy_panel=0",
+        "2026-10-30T14:37:45.386Z [INFO ] [t5440] scene: battle -> naval after 0.0 s (uptime 12.9 s, frame 6857, lua battle)",
+        "2026-10-30T14:37:45.404Z [INFO ] [t5440] timeline: first_present_after_ready +13062 ms naval",
+        "2026-10-30T14:37:45.458Z [INFO ] [t5440] scene: battle probe naval=1 deploy_panel=1",
+        "2026-10-30T14:37:46.022Z [INFO ] [t5440] scene: battle probe naval=1 deploy_panel=-1"
+      ]
+    }
+  },
+  "start_utc": "2026-10-30T14:37:29.995Z",
+  "end_utc": "2026-10-30T14:37:50.258Z"
+}

@@ -380,5 +380,38 @@ class ThisRepo(unittest.TestCase):
         self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
 
 
+class PcState(unittest.TestCase):
+    """Rule 75 (J44): on the PC the view shows the lock holder, the watcher version, the installed kit, the last acceptance pass and a usage source."""
+    def test_reads_the_state_folder_and_the_ledger(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            state, repo = d / 'state', d / 'repo'
+            (state / 'watcher').mkdir(parents=True)
+            (repo / 'harness' / 'napoleon').mkdir(parents=True)
+            (repo / 'harness' / 'acceptance').mkdir(parents=True)
+            (repo / 'harness' / 'napoleon' / 'adapter.json').write_text(json.dumps({'state_dir': str(state), 'watcher_subdir': 'watcher'}))
+            (state / 'watcher' / 'game.lock').write_text('owner=j44 session=s purpose=p started=t\n')
+            (state / 'watcher' / 'watcher.status').write_text(json.dumps({'version': '1.0.1', 'game_state': {'state': 'not_running'}}))
+            (state / 'watcher' / 'watcher.alive').write_text('x')
+            (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_1', 'build_id': 'abc'}))
+            (repo / 'harness' / 'acceptance' / 'ledger.jsonl').write_text(json.dumps({'pass': 3, 'result': 'pass', 'build_id': 'abc', 'watcher': '1.0.1', 'utc': 'u', 'run': 'r'}) + '\n')
+            pc = jv.pc_state(repo)
+            self.assertIn('owner=j44', pc['lock'])
+            self.assertEqual((pc['watcher'], pc['kit'], pc['last_acceptance']['pass'], pc['last_acceptance']['result']), ('1.0.1', 'kit_1', 3, 'pass'))
+            self.assertTrue(pc['usage'])
+            block = jv.pc_block(pc)
+            for want in ('owner=j44', '1.0.1', 'kit_1', 'pass 3 pass', 'usage source'):
+                self.assertIn(want, block)
+
+    def test_off_the_pc_there_is_no_block(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / 'harness' / 'napoleon').mkdir(parents=True)
+            (Path(d) / 'harness' / 'napoleon' / 'adapter.json').write_text(json.dumps({'state_dir': str(Path(d) / 'nope')}))
+            self.assertIsNone(jv.pc_state(d))
+            self.assertEqual(jv.pc_block(None), '')
+
+
 if __name__ == '__main__':
     unittest.main()

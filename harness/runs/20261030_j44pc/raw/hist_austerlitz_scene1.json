@@ -1,0 +1,63 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "step autostart battle:hist_austerlitz: autostart.lua: autostart battle failed at map list: napoleon_remastered/lua/autostart.lua:58: map 'nhb_austerlitz' is not among the 0 historic maps: ",
+  "scenario": "hist_austerlitz",
+  "path": {
+    "launch": {
+      "size": "1920x1080",
+      "keys_set": [],
+      "launch_s": 7.9
+    },
+    "via": "autostart"
+  },
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "ctl": {
+      "id": "j44-20261030T142158Z-242783134",
+      "request": "autostart battle:hist_austerlitz 240",
+      "status": "failed",
+      "reason": "autostart.lua: autostart battle failed at map list: napoleon_remastered/lua/autostart.lua:58: map 'nhb_austerlitz' is not among the 0 historic maps: ",
+      "start_utc": "2026-10-30T14:21:58.551Z",
+      "end_utc": "2026-10-30T14:21:58.659Z",
+      "launch_id": "20261030T142151Z-p15112",
+      "state_at_end": {
+        "launch_id": "20261030T142151Z-p15112",
+        "pid": 15112,
+        "frame": 5885,
+        "scene": "frontend",
+        "scene_s": 1.8,
+        "uptime_s": 7.4,
+        "written_utc": "2026-10-30T14:21:58.659Z",
+        "last_present_utc": "2026-10-30T14:21:58.658Z",
+        "lua": {
+          "loaded": true,
+          "context": "frontend",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": -1,
+          "deploy_panel": -1,
+          "age_s": -1.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1267,
+          "commit_mb": 679
+        },
+        "reports": {}
+      },
+      "log": [
+        "2026-10-30T14:21:58.551Z [INFO ] [t30780] timeline: autostart_issued +7465 ms battle:hist_austerlitz",
+        "2026-10-30T14:21:58.651Z [INFO ] [t7472] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-10-30T14:21:58.659Z [INFO ] [t30780] autostart: lua FAILED: autostart battle failed at map list: napoleon_remastered/lua/autostart.lua:58: map 'nhb_austerlitz' is not among the 0 historic maps: "
+      ]
+    }
+  },
+  "start_utc": "2026-10-30T14:21:48.953Z",
+  "end_utc": "2026-10-30T14:21:59.345Z"
+}

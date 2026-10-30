@@ -1,0 +1,17 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "step reset battle:hist_nile: no result",
+  "scenario": "hist_nile",
+  "path": {
+    "launch": null,
+    "via": "reset"
+  },
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "ctl": null
+  },
+  "start_utc": "2026-10-30T14:24:09.875Z",
+  "end_utc": "2026-10-30T14:28:31.401Z"
+}

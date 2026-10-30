@@ -53,13 +53,16 @@ Mem MemNow() {
 }
 
 // ---- perf capture (J4, dev.perf): the Present path records the time between presents while `perf <s>` runs ------------------------
-double s_perfLastQpc = 0; bool s_perfOn = false; std::vector<double> s_perfDeltas;
-double QpcMs() { LARGE_INTEGER f, c; QueryPerformanceFrequency(&f); QueryPerformanceCounter(&c); return 1000.0 * (double)c.QuadPart / (double)f.QuadPart; }
+// The delta is taken in integer ticks and only then made a double: D3D9 drops the engine thread's x87 FPU to 24-bit precision (no
+// D3DCREATE_FPU_PRESERVE), and an absolute QPC time in ms near 1e8 then rounds to 8 ms steps (J44 run 20261030_j44pc: p50 0.0, max 16.0).
+int64_t s_perfLastQpc = 0; bool s_perfOn = false; std::vector<double> s_perfDeltas;
 void PerfFrame() {   // engine thread, once per Present: no allocation while the reserved capacity lasts
-    const double now = QpcMs();
+    static const int64_t freq = [] { LARGE_INTEGER x; QueryPerformanceFrequency(&x); return (int64_t)x.QuadPart; }();
+    LARGE_INTEGER c; QueryPerformanceCounter(&c);
+    const int64_t now = (int64_t)c.QuadPart;
     Lock l;
     if (!s_perfOn) { s_perfLastQpc = 0; return; }
-    if (s_perfLastQpc > 0 && s_perfDeltas.size() < s_perfDeltas.capacity()) s_perfDeltas.push_back(now - s_perfLastQpc);
+    if (s_perfLastQpc > 0 && s_perfDeltas.size() < s_perfDeltas.capacity()) s_perfDeltas.push_back(PerfDeltaMs(now - s_perfLastQpc, freq));
     s_perfLastQpc = now;
 }
 
@@ -356,7 +359,7 @@ Outcome Execute(const std::string& id, const CtlRequest& r) {
     if (r.verb == "perf") {
         if (!Dk().perf) { o.status = "refused"; o.reason = "dev.perf is off"; return o; }
         const int secs = atoi(r.arg.c_str());
-        { Lock l; s_perfDeltas.clear(); s_perfDeltas.reserve((size_t)secs * 1000 + 1000); s_perfLastQpc = 0; s_perfOn = true; }
+        { Lock l; s_perfDeltas.clear(); s_perfDeltas.reserve((size_t)secs * 4000 + 1000); s_perfLastQpc = 0; s_perfOn = true; }
         Sleep((DWORD)secs * 1000);
         std::vector<double> d; { Lock l; s_perfOn = false; d = s_perfDeltas; }
         const FrameStats fs = ComputeFrameStats(d);

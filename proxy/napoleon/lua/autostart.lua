@@ -9,7 +9,9 @@
 -- The proxy then waits for the scene and checks the battle map against the engine's own battle details.
 --   battle:<preset>          the custom-battle screens' calls: sp_battle1 SelectBattleType (TransitionTo sp_battle2, main_panel
 --                            Initialise(type, prefs, false)), the map list's NotifyItemSelected(<a list child's address>), main_panel
---                            SetupBattle (-> sp_battle3 with Preferences()), sp_battle3 StartBattle
+--                            SetupBattle (-> sp_battle3 with Preferences()), sp_battle3 StartBattle; a preset of type=historic uses
+--                            the historical screens the same way (sp_battle1 HistoricBattle: sp_battle2_scenario, main_panel
+--                            Initialise("historic", ...), SetupBattle -> sp_battle3_scenario, its StartBattle; J44), map = the battle key
 --   campaign:continue        FrontEnd.ContinueCampaign() (main menu Continue Campaign)
 --   campaign:<save>          FrontEnd.LoadCampaign(<save>)
 --   campaign:new:<c>:<f>     TransitionTo("grand_campaign", nil, <c>) (= main menu), faction <f>, the page's StartCampaign();
@@ -28,16 +30,21 @@ local function battle()
 	local prefs = wsp.dev_config("preset.prefs"); if prefs == "" then prefs = ".sp_default" end
 	local want = lc(wsp.dev_config("preset.map"))
 	local r = root()
-	at("TransitionTo sp_battle2"); r:LuaCall("TransitionTo", "sp_battle2")
-	local s2 = UIComponent(r:Find("sp_battle2"))
+	local page2, page3 = "sp_battle2", "sp_battle3"
+	if btype == "historic" then page2, page3 = "sp_battle2_scenario", "sp_battle3_scenario" end
+	at("TransitionTo " .. page2); r:LuaCall("TransitionTo", page2)
+	local s2 = UIComponent(r:Find(page2))
 	local mp = UIComponent(s2:Find("main_panel"))
-	at("Initialise " .. btype .. " " .. prefs); mp:LuaCall("Initialise", btype, prefs, false)
+	-- preset all_maps=1: Initialise's third argument true (FrontEnd.EnumerateBattleMaps(type, true)): for type historic the only list with
+	-- maps on this PC (the historical NHMPB_ battles; with false it is empty, run 20261030_j44pc, fact napoleon.autostart.historical)
+	local allMaps = wsp.dev_config("preset.all_maps") == "1"
+	at("Initialise " .. btype .. " " .. prefs .. " " .. tostring(allMaps)); mp:LuaCall("Initialise", btype, prefs, allMaps)
 	-- the map list: available_maps is a local of main_panel, so walk the list box's children (one per map, made by InitialiseMaps)
 	-- and select each through the page's own NotifyItemSelected until selected_map (a global of the page) is the wanted one
 	at("map list")
 	if want == "" then error("the preset names no map") end
 	local lbc = mp:Find("list_box")
-	if lbc == nil then error("sp_battle2 main_panel has no list_box") end
+	if lbc == nil then error(page2 .. " main_panel has no list_box") end
 	local lb = UIComponent(lbc)
 	local n = lb:ChildCount()
 	local selkey, seen = nil, {}
@@ -56,25 +63,45 @@ local function battle()
 	local sel = mp:GlobalExists("selected_map")
 	local folder = ""   -- the last part of the map's File ("BattleTerrain/Presets/NAP_MP_Grassy_Flatlands/"), plain scan, no patterns
 	local f = tostring(type(sel) == "table" and sel.File or "")
-	local cur = ""
+	local cur, dot = "", false   -- a historical map's File ends in a file name ("...hb_dresden/dresden_battle.xml"): then the folder before it
 	for i = 1, string.len(f) do
 		local ch = string.char(string.byte(f, i))
-		if ch == "/" or ch == "\\" then if cur ~= "" then folder = cur end cur = "" else cur = cur .. ch end
+		if ch == "/" or ch == "\\" then if cur ~= "" then folder = cur end cur = ""; dot = false
+		else cur = cur .. ch; if ch == "." then dot = true end end
 	end
-	if cur ~= "" then folder = cur end
+	if cur ~= "" and not dot then folder = cur end
+	-- a historical setup's folder (dresden_3v3) is not its terrain's (hb_dresden): the preset names the terrain the engine must load
+	if wsp.dev_config("preset.terrain") ~= "" then folder = wsp.dev_config("preset.terrain") end
 	wsp.report("autostart.map_folder", string.lower(folder))
+	-- weather and time of day (J44): NotifyItemSelected refilled dropdown_weather / dropdown_time_of_day for this map
+	-- (SetValidWeatherAndDayTypes), so pin them after it, through the page's own SetPerBattlePrefs (SelectOption per dropdown)
+	local wantW, wantT = wsp.dev_config("preset.weather"), wsp.dev_config("preset.time_of_day")
+	if wantW ~= "" or wantT ~= "" then
+		local t = {}
+		if wantW ~= "" then t.weather = tonumber(wantW) end
+		if wantT ~= "" then t.time_of_day = tonumber(wantT) end
+		at("SetPerBattlePrefs weather=" .. wantW .. " time_of_day=" .. wantT); mp:LuaCall("SetPerBattlePrefs", t)
+	end
+	at("Preferences readback")
+	local pr = mp:LuaCall("Preferences")
+	local said = ""
+	if type(pr) == "table" then
+		said = " weather=" .. tostring(pr.weather) .. "/" .. tostring(pr.weather_string) .. " time_of_day=" .. tostring(pr.time_of_day)
+		wsp.report("autostart.weather", tostring(pr.weather) .. "/" .. tostring(pr.weather_string))
+		wsp.report("autostart.time_of_day", tostring(pr.time_of_day))
+	end
 	at("SetupBattle"); mp:LuaCall("SetupBattle")
-	local s3c = r:Find("sp_battle3", false)
-	if s3c == nil then error("sp_battle3 did not open") end
+	local s3c = r:Find(page3, false)
+	if s3c == nil then error(page3 .. " did not open") end
 	local s3 = UIComponent(s3c)
 	at("StartBattle")
 	local okb = s3:Find("button_start", false) or s3:Find("button_ok", false)
 	local state = okb and UIComponent(okb):CurrentState() or "?"
 	local start = s3:GlobalExists("StartBattle")
-	if type(start) ~= "function" then error("sp_battle3 has no StartBattle") end
+	if type(start) ~= "function" then error(page3 .. " has no StartBattle") end
 	if state == "inactive" then error("the start button is inactive (no armies? state " .. tostring(state) .. ")") end
 	start()
-	return "started battle " .. tostring(selkey) .. " (" .. btype .. ", prefs " .. prefs .. ", button " .. tostring(state) .. ")"
+	return "started battle " .. tostring(selkey) .. " (" .. btype .. ", prefs " .. prefs .. ", button " .. tostring(state) .. ")" .. said
 end
 
 local function campaign()
