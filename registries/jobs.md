@@ -45,7 +45,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J40` | needs_brief | Campaign console: close the open checks | 1 | opus | yes | J15 |  |  |  |
 | `J41` | done | Local gates run the proxy host tests | 1 | sonnet | yes | J20 | jobs/J41/brief.md | jobs/J41/report.md | jobs/J41/review.md |
 | `J42` | done | CI reliability: no red check a branch did not cause | 1 | sonnet | yes | J19, J41 | jobs/J42/brief.md | jobs/J42/report.md | jobs/J42/review.md |
-| `J43` | queued | Battle camera and speed route | 1 | opus | yes | J4 | jobs/J43/brief.md |  |  |
+| `J43` | done | Battle camera and speed route | 1 | opus | yes | J4 | jobs/J43/brief.md | jobs/J43/report.md | jobs/J43/review.md |
 | `J44` | needs_brief | Scenario library and the 20-pass acceptance gate | 1 | sonnet | yes | J4, J43 |  |  |  |
 | `J5` | done | Determinism audit: rules into gates | 1 | opus | no | J3 | jobs/J5/brief.md | jobs/J5/report.md | jobs/J5/review.md |
 | `J6` | done | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md | jobs/J6/review.md |

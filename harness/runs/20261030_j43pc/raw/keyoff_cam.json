@@ -1,0 +1,63 @@
+{
+  "verb": "cam",
+  "status": "failed",
+  "reason": "step set: cam_set refused: dev.camera=0",
+  "pose": {
+    "x": 0.0,
+    "y": 30.0,
+    "z": 200.0,
+    "yaw": 180.0,
+    "pitch": -25.0
+  },
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "set": {
+      "id": "j43-20261030T103216Z-1554514787",
+      "request": "lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- 0.0,30.0,200.0,180.0,-25.0",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-10-30T10:32:16.238Z",
+      "end_utc": "2026-10-30T10:32:16.249Z",
+      "launch_id": "20261030T103158Z-p23272",
+      "chunk": "cam_set refused: dev.camera=0",
+      "state_at_end": {
+        "launch_id": "20261030T103158Z-p23272",
+        "pid": 23272,
+        "frame": 12632,
+        "scene": "battle_deploy",
+        "scene_s": 5.4,
+        "uptime_s": 17.3,
+        "written_utc": "2026-10-30T10:32:16.249Z",
+        "last_present_utc": "2026-10-30T10:32:16.248Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": -0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1816,
+          "commit_mb": 1189
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "156"
+        }
+      },
+      "log": []
+    }
+  },
+  "start_utc": "2026-10-30T10:32:15.203Z",
+  "end_utc": "2026-10-30T10:32:17.002Z"
+}

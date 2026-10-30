@@ -553,6 +553,7 @@ void DevInit() {
     k.ctl = rt.cfg.Bool("dev.ctl");
     k.console = rt.cfg.Bool("dev.console");
     k.perf = rt.cfg.Bool("dev.perf");
+    k.camera = rt.cfg.Bool("dev.camera");
     k.fileRules = WidenUtf8(rt.cfg.Str("dev.file_rules"));
     k.ctlDir = WidenUtf8(rt.cfg.Str("dev.ctl_dir"));
     k.autostart = rt.cfg.Str("dev.autostart");
@@ -572,6 +573,7 @@ void DevInit() {
          k.timeline, k.logFiles, k.skipIntro, k.stateJson, k.luaBridge, k.ctl, k.fileRules.c_str(), k.ctlDir.c_str(), k.autostart.c_str(), k.autostartDelayMs);
     if (k.timeline) { s_tl.Add("process_start", "", s_tl.processStartMs); TlMark("dllmain"); }
     ConsoleInit(k.console, Adapter().console);
+    CameraInit(k.camera, Adapter().camera);
 
     std::vector<FileRule> rules;
     if (k.skipIntro) for (const char* const* m = ad->introMovies; m && *m; ++m) rules.push_back(MakeRule(RuleSpace::Movie, RuleAct::Fail, *m, "", "dev.skip_intro"));
@@ -603,6 +605,7 @@ void DevOnDirect3DCreate(void* d3d) {
     FilesOnDirect3DCreate();
     TlMarkOnce("d3d_create");
     ConsoleInstall();   // once, before any campaign (no-op with dev.console=0)
+    CameraInstall();    // once (no-op with dev.camera=0)
     if (s_frames && d3d && !o_CreateDevice) VtableHook(*(void***)d3d, 16, (void*)hk_CreateDevice, (void**)&o_CreateDevice, "IDirect3D9::CreateDevice");
 }
 

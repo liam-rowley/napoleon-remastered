@@ -13,4 +13,4 @@ local ks = {}
 for k, v in pairs(e) do if type(v) ~= "table" and type(v) ~= "userdata" and type(v) ~= "function" then ks[#ks + 1] = k .. "=" .. tostring(v) end end
 table.sort(ks)
 local ok, err = pcall(CampaignUI.SelectAndZoomToCharacter, e.Address, -1)
-return kind .. "|" .. tostring(ok) .. (ok and "" or (" " .. tostring(err))) .. "|" .. table.concat(ks, " "):sub(1, 600)
+return kind .. "|" .. tostring(ok) .. (ok and "" or (" " .. tostring(err))) .. "|" .. table.concat(ks, " ")   -- no :sub (the engine replaces it: fact napoleon.lua.string_find_stalls_pump)

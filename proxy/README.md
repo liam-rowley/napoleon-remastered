@@ -168,6 +168,17 @@ campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknow
 Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
 Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
 
+## Battle camera (J43)
+
+`dev.camera` (default and release value off) adds `wsp.cam_set(x, y, z, yaw, pitch)` to the dev Lua bridge: on the engine thread (the
+battle pump) it calls the active camera mode's own `SetTargetAndPosition(target, position)` (vtable slot 0xbc, an engine call, no detour);
+the mode comes from a pointer chain (battle owner global, +0xf8, +0x281b8, +0x800, engine_sites `battle.camera_*`) and its vtable slot is
+compared with the checked site before every call. Pure parts in `core/camera.h` (`tests/test_camera.cpp`), driver `core/camera.cpp`.
+The chunks `napoleon/lua/ctl/cam_set.lua`, `cam_read.lua` (readback through `BattleUI.BackProjectPosition`) and `speed.lua` (RequestSpeed)
+are what `harness/core/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.battle.camera_route`, `napoleon.battle.speed_route`.
+Engine Lua never calls `string.find`, `string.sub` or `gmatch`: one call stops the battle pump (fact `napoleon.lua.string_find_stalls_pump`,
+`tests/test_repo_rules.py`).
+
 ## Campaign console (J15)
 
 `dev.console=1` (default and release off): at the first `Direct3DCreate9` the proxy checks the 8 console `engine_sites`, takes the slot address

@@ -3,6 +3,7 @@ rules turned into tests: row 77 (no verb returns ok without a check) and row 78 
 files or the acceptance script). No game: a fake transport plays the proxy."""
 import importlib.util
 import json
+import math
 import re
 import unittest
 from pathlib import Path
@@ -177,6 +178,183 @@ class Rule78(unittest.TestCase):
         self.assertIsNotNone(self.BAD.search('job.sh ctl me "key w"'))
         self.assertIsNotNone(self.BAD.search('"click 10 20"'))
         self.assertIsNone(self.BAD.search('"scene land_small"'))
+
+
+# ---- J43: cam, pause and speed through per-kind routes, against a game that projects a real pinhole camera ----------------------------
+campose = ctl.campose
+CAM = {'status': 'reachable', 'why': 'w', 'fact': 'f.cam', 'set': 'S.lua', 'read': 'R.lua', 'settle_ms': 200, 'max_rms_px': 0.05,
+       'tolerance': {'x': 0.05, 'y': 0.05, 'z': 0.05, 'yaw': 0.05, 'pitch': 0.05, 'fov': 0.05},
+       'clamps': {'pitch': [-45, 45], 'height_above_terrain': [2.5, 44.556]}}
+CLOCK = {'status': 'reachable', 'why': 'w', 'fact': 'f.speed', 'chunk': 'C.lua', 'lead_s': 0.5, 'measure_s': 4}
+ROUTES = {'camera': {'land': CAM, 'naval': {'status': 'unknown', 'why': 'not probed at sea', 'fact': 'f.naval'}},
+          'speed': {'land': dict(CLOCK, rates={'0.5': 'slow', '1': 'play', '2': 'fwd', '4': 'ffwd'}, measured={'slow': 0.43}, tolerance=0.1)},
+          'pause': {'land': dict(CLOCK, tolerance=0.02, min_running_rate=0.25)}}
+ADAPTER2 = {'game': 'napoleon', 'ctl': {'settle': ADAPTER['ctl']['settle'], 'routes': ROUTES}}
+
+
+def cam_read_text(pose, w=1920, h=1080, fov=70.0):
+    """What ctl/cam_read.lua returns for a camera at `pose`: C, S and a 3x3x3 cluster 100 m ahead (as the chunk builds it)."""
+    c = [pose['x'], pose['y'], pose['z']]
+    yaw, pitch = math.radians(pose['yaw']), math.radians(pose['pitch'])
+    f = (h / 2) / math.tan(math.radians(fov / 2))
+    fw = (math.sin(yaw) * math.cos(pitch), math.sin(pitch), math.cos(yaw) * math.cos(pitch))
+    pts = []
+    for ox in (-1, 0, 1):
+        for oy in (-1, 0, 1):
+            for oz in (-1, 0, 1):
+                p = [c[k] + 100 * fw[k] + 20 * o for k, o in enumerate((ox, oy, oz))]
+                sx, sy = campose.project(c, yaw, pitch, f, p, w, h)
+                pts.append(f'{p[0]:.3f},{p[1]:.3f},{p[2]:.3f},{sx:.4f},{sy:.4f},0.99,{math.dist(p, c):.4f}')
+    return f'cam C={c[0]:.4f},{c[1]:.4f},{c[2]:.4f} S={w},{h} P=' + ';'.join(pts)
+
+
+class CamGame(FakeGame):
+    """A battle: cam_set moves the camera (height clamped like the engine), speed.lua runs a battle clock against a windows clock."""
+    def __init__(self, naval=0, conflict=True, ground=15.0, rates=None):
+        super().__init__(scene='battle')
+        self.naval, self.conflict, self.ground = naval, conflict, ground
+        self.pose = {'x': 0, 'y': 59, 'z': 446, 'yaw': 180, 'pitch': -25}
+        self.wt, self.ebt, self.tick, self.paused = 1000.0, 50.0, 'play', False
+        self.rates = rates or {'slow': 0.43, 'play': 1.0, 'fwd': 2.0, 'ffwd': 4.0}
+
+    def advance(self, s):
+        self.wt += s
+        if self.conflict and not self.paused:
+            self.ebt += s * self.rates[self.tick]
+
+    def __call__(self, line, wait=0):
+        if line == 'state':
+            self.lines.append(line)
+            self.frame += 2
+            return 0, {'status': 'ok', 'state': {'scene': self.scene, 'frame': self.frame, 'scene_s': 5.0, 'battle': {'naval': self.naval}}}
+        if not line.startswith('lua '):
+            return super().__call__(line, wait)
+        self.lines.append(line)
+        args = line.split(' -- ', 1)[1] if ' -- ' in line else ''
+        if line.startswith('lua S.lua'):
+            x, y, z, yaw, pitch = (float(v) for v in args.split(','))
+            y = min(max(y, self.ground + 2.5), self.ground + 44.556)
+            self.pose = {'x': x, 'y': y, 'z': z, 'yaw': yaw, 'pitch': max(-45, min(45, pitch))}
+            return 0, {'status': 'ok', 'chunk': 'cam_set ok'}
+        if line.startswith('lua R.lua'):
+            return 0, {'status': 'ok', 'chunk': cam_read_text(self.pose)}
+        if line.startswith('lua C.lua'):
+            said = ''
+            if args == 'pause':
+                self.paused, said = True, 'set=pause '
+            elif args == 'resume':
+                self.paused, said = False, 'set=resume '
+            elif args in self.rates:
+                self.tick, self.paused, said = args, False, f'set={args} '
+            self.advance(0.1)
+            tick = 'pause' if self.paused else self.tick
+            return 0, {'status': 'ok', 'chunk': f'speed {said}ebt={self.ebt} wt={self.wt} tick={tick} conflict={"true" if self.conflict else "false"}'}
+        return 1, None
+
+
+def make2(game):
+    return ctl.Ctl(game, ROWS, ADAPTER2, battles_dir=ROOT / 'proxy' / 'napoleon' / 'lua' / 'battles', clock=lambda: 0.0, sleep=game.advance)
+
+
+class CamPose(unittest.TestCase):
+    def test_the_solver_returns_the_pose_it_was_given(self):
+        for pose in ({'x': 10, 'y': 50, 'z': 300, 'yaw': 90, 'pitch': -30}, {'x': -150, 'y': 45, 'z': 50, 'yaw': -45, 'pitch': 10},
+                     {'x': 0, 'y': 59.02, 'z': 446.14, 'yaw': 180, 'pitch': -25}):
+            got = campose.solve(campose.parse(cam_read_text(pose)))
+            for k in ('x', 'y', 'z', 'pitch'):
+                self.assertAlmostEqual(got[k], pose[k], delta=0.01)
+            self.assertAlmostEqual(min(abs(got['yaw'] - pose['yaw']), 360 - abs(got['yaw'] - pose['yaw'])), 0, delta=0.01)
+            self.assertAlmostEqual(got['fov'], 70.0, delta=0.01)
+            self.assertLess(got['rms_px'], 0.01)
+
+    def test_unreadable_and_empty_results_raise(self):
+        for text in ('', 'cam none: no BattleUI.BackProjectPosition (not a battle?)', 'cam C=1,2 S=1920,1080 P='):
+            with self.assertRaises(campose.PoseError):
+                campose.solve(campose.parse(text))
+
+
+class CamVerb(unittest.TestCase):
+    def test_a_pose_is_set_read_back_and_checked(self):
+        g = CamGame()
+        r = make2(g).run('cam', '10', '30', '300', '90', '-30')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+        self.assertTrue(r['check']['ok'])
+        self.assertEqual(r['kind'], 'land')
+        self.assertTrue(all(f['within'] for f in r['check']['fields'].values()))
+        self.assertTrue(any(l.startswith('lua S.lua 20 -- 10.0,30.0,300.0,90.0,-30.0') for l in g.lines))
+
+    def test_a_named_pose_resolves_from_the_scenario_row(self):
+        g = CamGame()
+        g.ground = -10   # the row's pose (y 2) is 12 m above this ground: inside the clamp
+        r = make2(g).run('cam', 'land_small:wide')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+
+    def test_a_clamped_height_fails_and_names_the_clamp(self):
+        r = make2(CamGame()).run('cam', '10', '200', '300', '90', '-30')
+        self.assertEqual(r['status'], 'failed')
+        self.assertIn('height above terrain', r['reason'])
+        self.assertFalse(r['check']['fields']['y']['within'])
+
+    def test_a_pitch_outside_the_clamp_is_refused_before_any_set(self):
+        g = CamGame()
+        r = make2(g).run('cam', '10', '30', '300', '90', '-60')
+        self.assertEqual(r['status'], 'refused')
+        self.assertFalse(any(l.startswith('lua S.lua') for l in g.lines))
+
+    def test_the_route_is_chosen_per_kind(self):
+        r = make2(CamGame(naval=1)).run('cam', '10', '30', '300', '90', '-30')
+        self.assertEqual(r['status'], 'refused')
+        self.assertIn('camera (naval)', r['reason'])
+        self.assertIn('f.naval', r['reason'])
+
+    def test_a_refused_set_fails_the_verb(self):
+        class NoCam(CamGame):
+            def __call__(self, line, wait=0):
+                if line.startswith('lua S.lua'):
+                    return 0, {'status': 'ok', 'chunk': 'cam_set refused: dev.camera=0'}
+                return super().__call__(line, wait)
+        r = make2(NoCam()).run('cam', '10', '30', '300', '90', '-30')
+        self.assertEqual(r['status'], 'failed')
+        self.assertIn('dev.camera=0', r['reason'])
+
+
+class SpeedAndPause(unittest.TestCase):
+    def test_each_offered_speed_is_set_and_measured(self):
+        for x, tick in (('2', 'fwd'), ('4', 'ffwd'), ('1', 'play'), ('0.5', 'slow')):
+            r = make2(CamGame()).run('speed', x)
+            self.assertEqual(r['status'], 'ok', (x, r['reason'], r['check']))
+            self.assertEqual(r['check']['got']['tick'], tick)
+
+    def test_slow_is_checked_against_its_measured_rate(self):
+        r = make2(CamGame(rates={'slow': 0.5, 'play': 1.0, 'fwd': 2.0, 'ffwd': 4.0})).run('speed', '0.5')
+        self.assertEqual(r['status'], 'failed')   # the engine's slow is 0.43, a clock at 0.5 is not it
+
+    def test_a_speed_the_engine_does_not_offer_is_refused(self):
+        self.assertEqual(make2(CamGame()).run('speed', '3')['status'], 'refused')
+
+    def test_deployment_is_refused_and_nothing_is_set(self):
+        g = CamGame(conflict=False)
+        r = make2(g).run('speed', '2')
+        self.assertEqual(r['status'], 'refused')
+        self.assertIn('deployment', r['reason'])
+        self.assertFalse(any(l.endswith('-- fwd') for l in g.lines))
+        self.assertEqual(g.tick, 'play')
+
+    def test_pause_on_stops_the_clock_and_off_resumes_it(self):
+        g = CamGame()
+        c = make2(g)
+        r = c.run('pause', 'on')
+        self.assertEqual(r['status'], 'ok', r['check'])
+        self.assertEqual(r['check']['got'], 0.0)
+        r = c.run('pause', 'off')
+        self.assertEqual(r['status'], 'ok', r['check'])
+        self.assertGreater(r['check']['got'], 0.9)
+
+    def test_a_clock_that_does_not_stop_fails_pause(self):
+        class NoPause(CamGame):
+            def __call__(self, line, wait=0):
+                return super().__call__(line.replace('-- pause', '-- read'), wait)
+        self.assertEqual(make2(NoPause()).run('pause', 'on')['status'], 'failed')
 
 
 if __name__ == '__main__':

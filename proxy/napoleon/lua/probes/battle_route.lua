@@ -10,7 +10,7 @@ local env = getfenv(1)
 local hits = {}
 for k, v in pairs(env) do
 	local s = tostring(k):lower()
-	if s:find("battle") or s:find("camera") or s:find("empire") or s:find("script") or s:find("vector") or s:find("alliance") then hits[#hits + 1] = tostring(k) .. ":" .. type(v) end
+	if s:match("battle") or s:match("camera") or s:match("empire") or s:match("script") or s:match("vector") or s:match("alliance") then   -- match, never find (fact napoleon.lua.string_find_stalls_pump) hits[#hits + 1] = tostring(k) .. ":" .. type(v) end
 end
 table.sort(hits); add("globals_matching", table.concat(hits, ","))
 add("G_same_as_env", env == _G)

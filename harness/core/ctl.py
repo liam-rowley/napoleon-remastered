@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The control API: one call per verb, blocks until a checked result, always one JSON object (J4).
 
-purpose: (untested on the PC until J44: scene, shot, reset, perf and state are tested against fakes only; cam, order, pause and speed are refused until J43) name a scenario and a camera pose and get a settled, checked answer back (scene, cam, shot, order, pause, speed, reset, perf, state), over the proxy's ctl channel (job.sh ctl) and the watcher's shot job; game-agnostic, everything game-specific comes from the adapter's `ctl` block and the scenarios registry
+purpose: (scene, shot, reset, perf and state are tested against fakes only until J44; cam, pause and speed run on the PC in land and siege battles, J43 harness/runs/20261030_j43pc; order is refused until J28) name a scenario and a camera pose and get a settled, checked answer back (scene, cam, shot, order, pause, speed, reset, perf, state), over the proxy's ctl channel (job.sh ctl) and the watcher's shot job; game-agnostic, everything game-specific comes from the adapter's `ctl` block and the scenarios registry
 usage: ctl.py [--owner O] [--adapter A] [--registry R] <verb> [args]   verbs: scene <id> | cam <scenario:pose | x y z yaw pitch [fov]> | shot <name> | order <unit> move x z [facing] | halt | formation <f> | pause on|off | speed <x> | reset [<id>] | perf <seconds> | state | key|click|wait (probe only)
 when: every time an agent needs a known game state or a frame (never type key taps or sleeps for it); the acceptance runner (acceptance.py) calls the same functions
 not-a-verb: a host-side client over harness/core/job.sh and the proxy's ctl verbs, not a registry operation; a J12 core candidate
@@ -11,7 +11,10 @@ long), `check` (what was compared: expected against got; ok is never returned wi
 `start_utc` / `end_utc`. A failure names the step and keeps its evidence. Exit code 0 only for ok (failed 1, refused 2).
 Settle (defined once, `Settle`): scene ready + N presented frames + the scene unchanged for T ms (the proxy has no shader-creation hook
 yet: frame and scene stability stand in, fact napoleon.ctl.settle_signal). N and T are adapter fields, never sleeps in callers.
-Routes the adapter marks unreachable (fact napoleon.battle.script_api_reachable) make cam, order, pause and speed answer `refused` with that reason.
+Routes come from the adapter's `ctl.routes`, per verb and per kind (land, siege, naval, campaign: `current_kind`); one not `reachable` makes the
+verb answer `refused` with its reason and fact. cam sets the pose with the route's `set` chunk, waits its `settle_ms`, reads the pose back with its
+`read` chunk (harness/core/campose.py) and compares within its `tolerance`; pause and speed go through the battle root's RequestSpeed and check
+the battle clock's rate against the windows clock over `measure_s` (J43).
 """
 import argparse
 import datetime
@@ -24,6 +27,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+sys.path.insert(0, str(HERE))
+import campose  # noqa: E402  (the camera readback's maths, J43)
 PROBE_ONLY = ('key', 'click', 'wait')   # rule 78: never part of a scenario row, a generated file or the acceptance script
 VERBS = ('scene', 'cam', 'shot', 'order', 'pause', 'speed', 'reset', 'perf', 'state')
 POSE_FIELDS = ('x', 'y', 'z', 'yaw', 'pitch', 'fov')
@@ -183,10 +188,59 @@ class Ctl:
         return Settle(s.get('frames', 30), s.get('quiet_ms', 2000), s.get('timeout_s', 120), s.get('ready_scenes', ['battle_deploy', 'battle', 'campaign']),
                       self.state, self.clock, self.sleep).wait()
 
-    def route(self, name):
+    def current_kind(self):
+        """land | siege | naval | campaign | <scene>: the loaded scenario row's kind, else the proxy's scene and naval probe."""
+        if self.scene_id and self.rows.get(self.scene_id, {}).get('kind') in ('land', 'siege', 'naval', 'campaign'):
+            return self.rows[self.scene_id]['kind']
+        s = self.state()
+        if s.get('scene') == 'campaign':
+            return 'campaign'
+        if str(s.get('scene', '')).startswith('battle'):
+            return 'naval' if (s.get('battle') or {}).get('naval') == 1 else 'land'
+        return s.get('scene') or 'unknown'
+
+    def route(self, name, kind=None):
+        """The adapter's route for a verb: flat ({status, why, fact}) or per kind ({land: {...}, naval: {...}}). Refused unless reachable."""
         rt = self.cfg.get('routes', {}).get(name, {})
+        if 'status' not in rt:
+            kind = kind or self.current_kind()
+            rt = dict(rt.get(kind, {'status': 'unknown', 'why': f'no {name} route for {kind}'}), kind=kind)
         if rt.get('status', 'unknown') != 'reachable':
-            raise Refused(f"route {name} is {rt.get('status', 'unknown')}: {rt.get('why', 'not probed')} (fact {rt.get('fact', '?')})")
+            label = f"{name} ({rt['kind']})" if rt.get('kind') else name
+            raise Refused(f"route {label} is {rt.get('status', 'unknown')}: {rt.get('why', 'not probed')} (fact {rt.get('fact', '?')})")
+        return rt
+
+    def lua(self, path, args=None, wait_s=20):
+        """One `ctl lua` chunk: (ok, text, raw result)."""
+        line = f'lua {path} {wait_s}' + (f' -- {args}' if args else '')
+        rc, r = self.t(line, wait_s + 10)
+        if rc != 0 or not r or r.get('status') != 'ok':
+            return False, (r or {}).get('reason') or (r or {}).get('chunk') or f'no result (exit {rc})', r
+        return True, r.get('chunk', ''), r
+
+    def battle_clock(self, rt, arg):
+        ok, text, _ = self.lua(rt['chunk'], arg)
+        if not ok or not text.startswith('speed ') or text.startswith(('speed refused', 'speed none')):
+            raise RuntimeError(f'step {arg}: {text}')
+        f = dict(tok.split('=', 1) for tok in text.split(' ')[1:] if '=' in tok)
+        try:
+            return {'ebt': float(f['ebt']), 'wt': float(f['wt']), 'tick': f.get('tick'), 'conflict': f.get('conflict') == 'true', 'raw': text}
+        except (KeyError, ValueError):
+            raise RuntimeError(f'step {arg}: unreadable clock {text!r}')
+
+    def rate(self, rt, set_arg):
+        """Set (RequestSpeed) and measure the battle clock against the windows clock: (rate, first reading, last reading)."""
+        if not self.battle_clock(rt, 'read')['conflict']:   # read first: a refusal changes nothing
+            raise Refused(f"the battle is in deployment: its clock does not run until deployment ends (lua {rt['chunk']} -- start)")
+        self.battle_clock(rt, set_arg)
+        self.sleep(rt.get('lead_s', 0.5))
+        b = self.battle_clock(rt, 'read')
+        self.sleep(rt.get('measure_s', 4))
+        c = self.battle_clock(rt, 'read')
+        dw = c['wt'] - b['wt']
+        if dw <= 0:
+            raise RuntimeError(f"the windows clock did not advance ({b['wt']} -> {c['wt']})")
+        return (c['ebt'] - b['ebt']) / dw, b, c
 
     def run(self, verb, *args):
         start = utc()
@@ -220,9 +274,40 @@ class Ctl:
         return make_result('scene', 'ok' if ok else 'failed', '' if ok else 'WRONG MAP', start, scenario=sid, target=target, load_s=r.get('load_s'), settle=settle, check=check, evidence={'ctl': r})
 
     def v_cam(self, start, *ref):
-        self.route('camera')
         pose = resolve_pose(self.rows, ' '.join(ref))
-        raise Refused('camera route is reachable but the pose conversion is not implemented: ' + json.dumps(pose))
+        rt = self.route('camera')
+        cl = rt.get('clamps', {})
+        lo, hi = cl.get('pitch', [-89, 89])
+        if not lo <= pose['pitch'] <= hi:
+            raise Refused(f"pitch {pose['pitch']} is outside the camera's clamp [{lo}, {hi}] ({rt.get('kind')})")
+        ok, text, r = self.lua(rt['set'], ','.join(repr(float(pose[k])) for k in ('x', 'y', 'z', 'yaw', 'pitch')))
+        if not ok or text.strip() != 'cam_set ok':
+            return make_result('cam', 'failed', f'step set: {text}', start, pose=pose, evidence={'set': r})
+        wait_s = rt.get('settle_ms', 500) / 1000
+        self.sleep(wait_s)
+        settle = {'waited_for': f"the route's settle_ms after the set", 'waited_s': wait_s, 'settled': True}
+        ok, text, r2 = self.lua(rt['read'])
+        try:
+            if not ok:
+                raise campose.PoseError(text)
+            got = campose.solve(campose.parse(text))
+        except campose.PoseError as e:
+            return make_result('cam', 'failed', f'step read: {e}', start, pose=pose, settle=settle, evidence={'set': r, 'read': r2})
+        within, detail = pose_check(pose, got, rt.get('tolerance', {}))
+        max_rms = rt.get('max_rms_px', 0.05)
+        fit_ok = got['rms_px'] <= max_rms
+        check = {'compared': 'the pose asked against the pose read back (BackProjectPosition fit)', 'fields': detail,
+                 'fit': {'rms_px': got['rms_px'], 'max_rms_px': max_rms, 'points': got['points']}, 'ok': within and fit_ok}
+        reason = ''
+        if not fit_ok:
+            reason = 'readback fit too loose'
+        elif not within:
+            reason = 'readback outside tolerance'
+            if not detail.get('y', {}).get('within', True):
+                reason += f" (the engine clamps height above terrain to {cl.get('height_above_terrain')} m)"
+        return make_result('cam', 'ok' if check['ok'] else 'failed', reason, start, pose=pose, kind=rt.get('kind'),
+                           got={k: round(v, 4) if isinstance(v, float) else v for k, v in got.items()}, settle=settle, check=check,
+                           evidence={'set': r, 'read': r2})
 
     def v_order(self, start, *args):
         self.route('orders')
@@ -231,16 +316,35 @@ class Ctl:
     def v_pause(self, start, mode):
         if mode not in ('on', 'off'):
             raise Refused('pause takes on or off')
-        self.route('speed')
-        raise Refused('pause route is reachable but not implemented')
+        rt = self.route('pause')
+        rate, b, c = self.rate(rt, 'pause' if mode == 'on' else 'resume')
+        if mode == 'on':
+            want, ok = f"<= {rt.get('tolerance', 0.02)}", rate <= rt.get('tolerance', 0.02)
+        else:
+            want, ok = f">= {rt.get('min_running_rate', 0.25)}", rate >= rt.get('min_running_rate', 0.25)
+        check = {'compared': 'battle clock seconds per windows second after the request', 'expected': want, 'got': round(rate, 4), 'tick': c['tick'], 'ok': ok}
+        return make_result('pause', 'ok' if ok else 'failed', '' if ok else 'battle clock rate not as asked', start, mode=mode, kind=rt.get('kind'),
+                           settle={'waited_for': f"lead {rt.get('lead_s', 0.5)} s + measure {rt.get('measure_s', 4)} s", 'settled': True}, check=check,
+                           evidence={'from': b['raw'], 'to': c['raw']})
 
     def v_speed(self, start, x):
         try:
-            float(x)
+            want = float(x)
         except ValueError:
             raise Refused('speed takes a number')
-        self.route('speed')
-        raise Refused('speed route is reachable but not implemented')
+        rt = self.route('speed')
+        names = {float(k): v for k, v in rt.get('rates', {}).items()}
+        if want not in names:
+            raise Refused(f"speed {x} is not one the engine offers: {sorted(names)} (pause on|off for 0)")
+        expect = rt.get('measured', {}).get(names[want], want)   # the engine's own rate for that setting (slow is not 0.5)
+        rate, b, c = self.rate(rt, names[want])
+        tol = rt.get('tolerance', 0.1) * expect
+        ok = abs(rate - expect) <= tol and c['tick'] == names[want]
+        check = {'compared': 'battle clock seconds per windows second, and the tick period', 'expected': {'rate': expect, 'tolerance': round(tol, 4), 'tick': names[want]},
+                 'got': {'rate': round(rate, 4), 'tick': c['tick']}, 'ok': ok}
+        return make_result('speed', 'ok' if ok else 'failed', '' if ok else 'battle clock rate not as asked', start, speed=want, kind=rt.get('kind'),
+                           settle={'waited_for': f"lead {rt.get('lead_s', 0.5)} s + measure {rt.get('measure_s', 4)} s", 'settled': True}, check=check,
+                           evidence={'from': b['raw'], 'to': c['raw']})
 
     def v_shot(self, start, name):
         if not re.match(r'^[A-Za-z0-9_.-]+$', name):
