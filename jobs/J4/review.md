@@ -1,5 +1,35 @@
 # Review of J4 (Scenario library, control API, acceptance gate)
 
+## Round 2 (2026-10-30, branch `job/J4` at e897916)
+
+Reviewer: the round 1 reviewer (session `f21c7ea6-c674-4bc0-8831-11e84e73660b`); the fixes came from session
+`aff157a8-36a7-4e6f-b285-d6c944e23a8d`, not from this one or the builder.
+
+**Verdict: merge.**
+
+`plan/j4-followups` is on `main` (#59, #60): J8, J9, J12, J23 and J28 now wait on J44, so J4 `done` unblocks only J43.
+
+### Machines
+- `wsc gates`: 11 ok, 1 warn (worktree hooks path), 232 host tests passed; `tests.test_pr_policy` OK.
+- `git merge-tree origin/main HEAD`: merges clean.
+- Policy before this commit: refused only for the round 1 verdict and the row status.
+
+### Round 1 items
+1. **Blocker, fixed** (7eb5851). `acceptance_active` (`tools/pr_policy.py:104-115`) turns rule 79 on only when the base holds the ledger
+   **and** a baseline that passes `baseline_problems`. It has tests both ways (`test_pr_policy.Rule79`). To see it hold, I ran this branch's
+   `pr_policy.py` for `job/J42` against a local merge of `origin/main` and this branch: `policy: job/J42: ok`. No open branch is stranded:
+   rule 79 stays inert until J44 commits a measured baseline.
+2. Kill-criterion scope and 3. the pump stall: carried into J43 (preset `.battle_script` route; reproduce on `main`'s DLL with
+   `dev.perf=0`) by #60.
+4. **Fixed** (e897916): the `ctl.py` and `acceptance.py` headers and tools rows say untested on the PC until J44 / refused until J43.
+7. (self-attested ledger) and 9. (row 75) are in J44's description.
+
+### Still open (later, this repo; not carried into a job row)
+- Round 1 items 5 (`sync-lua` docstring), 6 (`ACC_EXEMPT` substring match) and 8 (ctl `lua` path guard).
+- New: `acceptance_active` imports `harness/core/acceptance.py` from the checkout, which is the branch being judged, not the base. Once
+  rule 79 is live, a branch could change `baseline_problems` to always report a problem and so switch the rule off for itself. Load it
+  with `show(a.base, ...)` instead, or validate the baseline with a copy of the check kept in `pr_policy.py`. Belongs in J44, before the baseline lands.
+
 ## Round 1 (2026-10-30, branch `job/J4` at 9c8ad61)
 
 Reviewer: a fresh Opus chat (session `f21c7ea6-c674-4bc0-8831-11e84e73660b`) that built none of the branch (builder:
