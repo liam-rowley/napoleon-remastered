@@ -1,0 +1,10 @@
+{
+  "verb": "speed",
+  "status": "refused",
+  "reason": "speed 3 is not one the engine offers: [0.5, 1.0, 2.0, 4.0] (pause on|off for 0)",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-10-30T10:06:34.707Z",
+  "end_utc": "2026-10-30T10:06:35.917Z"
+}

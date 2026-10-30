@@ -1,0 +1,30 @@
+{
+  "verb": "speed",
+  "status": "ok",
+  "reason": "",
+  "speed": 2.0,
+  "kind": "land",
+  "settle": {
+    "waited_for": "lead 0.5 s + measure 4 s",
+    "settled": true
+  },
+  "check": {
+    "compared": "battle clock seconds per windows second, and the tick period",
+    "expected": {
+      "rate": 2.0,
+      "tolerance": 0.2,
+      "tick": "fwd"
+    },
+    "got": {
+      "rate": 2.0,
+      "tick": "fwd"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "from": "speed ebt=19.300037384033 wt=83828.1328125 tick=fwd conflict=true",
+    "to": "speed ebt=29.800077438354 wt=83833.3828125 tick=fwd conflict=true"
+  },
+  "start_utc": "2026-10-30T10:05:51.695Z",
+  "end_utc": "2026-10-30T10:06:02.195Z"
+}
