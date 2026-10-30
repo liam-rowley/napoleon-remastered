@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The control API: one call per verb, blocks until a checked result, always one JSON object (J4).
 
-purpose: name a scenario and a camera pose and get a settled, checked answer back (scene, cam, shot, order, pause, speed, reset, perf, state), over the proxy's ctl channel (job.sh ctl) and the watcher's shot job; game-agnostic, everything game-specific comes from the adapter's `ctl` block and the scenarios registry
+purpose: (untested on the PC until J44: scene, shot, reset, perf and state are tested against fakes only; cam, order, pause and speed are refused until J43) name a scenario and a camera pose and get a settled, checked answer back (scene, cam, shot, order, pause, speed, reset, perf, state), over the proxy's ctl channel (job.sh ctl) and the watcher's shot job; game-agnostic, everything game-specific comes from the adapter's `ctl` block and the scenarios registry
 usage: ctl.py [--owner O] [--adapter A] [--registry R] <verb> [args]   verbs: scene <id> | cam <scenario:pose | x y z yaw pitch [fov]> | shot <name> | order <unit> move x z [facing] | halt | formation <f> | pause on|off | speed <x> | reset [<id>] | perf <seconds> | state | key|click|wait (probe only)
 when: every time an agent needs a known game state or a frame (never type key taps or sleeps for it); the acceptance runner (acceptance.py) calls the same functions
 not-a-verb: a host-side client over harness/core/job.sh and the proxy's ctl verbs, not a registry operation; a J12 core candidate

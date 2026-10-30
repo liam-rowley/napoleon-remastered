@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The acceptance gate: one pass proves the harness, the DLL and the control API hold; 20 in a row pass the phase 1 gate (J4, rules 28, 74, 79).
 
-purpose: run N acceptance passes in the background against the committed baseline file (rule 74), stop at the first failure with its evidence, and append one line per pass to the committed ledger; also the pure checks the policy gate reuses (consecutive passes for a build)
+purpose: (untested on the PC until J44: run checks the baseline and stops, the PC binding is not wired) run N acceptance passes in the background against the committed baseline file (rule 74), stop at the first failure with its evidence, and append one line per pass to the committed ledger; also the pure checks the policy gate reuses (consecutive passes for a build)
 usage: acceptance.py run --passes N [--owner O] [--baseline F] [--ledger F] | check-baseline [--baseline F] | streak --build ID --watcher V [--ledger F]
 when: after every change to proxy/ or harness/ (rule 79: a job branch that changes them needs 20 consecutive ledger passes on its final DLL and watcher build); `check-baseline` and the helpers run in the tests gate
 not-a-verb: orchestrates PC sessions through harness/core/ctl.py and job.sh (game-agnostic: the scenario list is the baseline's, the settings files and exe pin come from the adapter); a J12 core candidate
