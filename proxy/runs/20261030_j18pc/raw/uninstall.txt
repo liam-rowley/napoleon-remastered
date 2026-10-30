@@ -1,0 +1,5 @@
+pc_deploy uninstall: moved d3d9.dll to _to_delete
+pc_deploy uninstall: moved napoleon_remastered.ini to _to_delete
+pc_deploy uninstall: moved napoleon_remastered/ to _to_delete
+pc_deploy uninstall: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+pc_deploy uninstall: game folder identical to the pre-install snapshot (1564 files)
