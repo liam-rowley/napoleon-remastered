@@ -7,7 +7,8 @@ verb: jobs
 
 The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review` and `view` read the remote
 branches (`git ls-remote origin`), and `review` fetches the job branches it inspects; `--offline` uses the local remote-tracking refs
-instead. `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
+instead. `next`, `review` and `view` first print every open pull request with a failed check (one `gh pr list` call; `--offline`
+skips it), so a red check is told to the next session instead of waiting to be noticed (J42, D32). `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
 Its cards carry a button for each action not_ready() allows (Write brief, Implement, Review). On the written page a button copies the
 `claude --bg` command; `view --serve` serves the page on 127.0.0.1 and the button posts (id, action) to the server, which checks a
 per-run token, Origin, Host, content type, readiness against fresh branches and no running session of the same name (`claude agents --json`, fail closed; no count cap: D34),
@@ -192,6 +193,46 @@ def pick_review(on_branch):
         if not_ready('review', jid, {jid: {}}, set(), on_branch) is None:
             return jid
     return None
+
+
+FAILED_CHECK = {'FAILURE', 'TIMED_OUT', 'STARTUP_FAILURE', 'ACTION_REQUIRED', 'ERROR'}
+
+
+def failed_prs(prs):
+    """`gh pr list --json number,headRefName,statusCheckRollup` -> one line per failed check on an open pull request's head commit.
+    A check run reports `conclusion`, a commit status `state`; a check that is still running or passed is not listed."""
+    out = []
+    for pr in sorted(prs, key=lambda x: x.get('number', 0)):
+        for c in pr.get('statusCheckRollup') or []:
+            if (c.get('conclusion') or c.get('state') or '').upper() in FAILED_CHECK:
+                name = c.get('name') or c.get('context') or '?'
+                url = c.get('detailsUrl') or c.get('targetUrl') or ''
+                out.append(f'PR #{pr["number"]} {pr.get("headRefName", "?")}: {name} failed, run {url}'.rstrip())
+    return out
+
+
+def red_prs(root, offline, run=subprocess.run):
+    """The failed-check lines for every open pull request, or one line saying why they could not be read (never an exception)."""
+    if offline:
+        return []
+    try:
+        p = run(['gh', 'pr', 'list', '--state', 'open', '--limit', '100', '--json', 'number,headRefName,statusCheckRollup'],
+                cwd=str(root), capture_output=True, text=True, timeout=60)
+    except (OSError, subprocess.TimeoutExpired) as x:
+        return [f'(could not list pull requests with failed checks: {x}; --offline skips this)']
+    if p.returncode != 0:
+        return [f'(could not list pull requests with failed checks: {(p.stderr or p.stdout).strip()[:200]}; --offline skips this)']
+    try:
+        return failed_prs(json.loads(p.stdout or '[]'))
+    except ValueError as x:
+        return [f'(could not read gh pr list output: {x})']
+
+
+def print_red_prs(root, offline):
+    lines = red_prs(root, offline)
+    if lines:
+        print('Failed checks on open pull requests (look first; docs/CI_FAILURES.md classes them):\n  ' + '\n  '.join(lines))
+    return lines
 
 
 def _git(root, *args):
@@ -587,7 +628,8 @@ def add_arguments(p):
 def build_steps(r):
     return (f'{r["id"]}: {r["title"]} (model {r["model"]}, needs_pc {"yes" if r["needs_pc"] else "no"})\n'
             f'Take it: git checkout -b job/{r["id"]} origin/main, follow jobs/{r["id"]}/brief.md, push early so the branch claims it.\n'
-            f'Finish: jobs/{r["id"]}/report.md, then wsc reg set jobs {r["id"]} status=review report=jobs/{r["id"]}/report.md, pushed.')
+            f'Finish: jobs/{r["id"]}/report.md, then wsc reg set jobs {r["id"]} status=review report=jobs/{r["id"]}/report.md, pushed; '
+            f'CI\'s policy check runs locally as python3 tools/pr_policy.py --branch job/{r["id"]} --base origin/main.')
 
 
 def brief_steps(r, root, lead='needs a brief (nothing queued is ready)'):
@@ -647,6 +689,7 @@ def run(args, ctx):
             srv.server_close()
         return 0
 
+    print_red_prs(ctx.root, args.offline)
     branches = remote_branches(ctx.root, args.offline)
     if args.action == 'next' and args.id:
         r = by.get(args.id)

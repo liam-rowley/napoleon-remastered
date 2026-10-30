@@ -8,6 +8,7 @@ $script:Failures = @()
 $script:TcOnly = ''     # -Only <regex>: run only the cases whose name matches (set by the suite script after dot-sourcing)
 $script:TcRepeat = 1    # -Repeat <n>: run each selected case n times, stop that case at its first failure
 $script:Selected = 0
+$script:TcOnFail = $null  # optional scriptblock run after a failed case (Test-Integration prints the watcher log tail: J42)
 # The selection and repeat logic, pure so Test-Unit.ps1 can test it: runs $body up to $repeat times when $name matches $only,
 # stops at the first throw. Returns ran (case selected), passed (runs that passed), error (the first failure's message or $null).
 # Case bodies run in this function's dynamic scope and see its locals: they carry a tc prefix so no body reads one by accident.
@@ -30,7 +31,10 @@ function Test-Case([string]$name, [scriptblock]$body) {
     $script:Selected++
     $script:Pass += $tcRes.passed
     $tcTally = if ($tcN -gt 1) { " ($($tcRes.passed)/$tcN runs passed)" } else { '' }
-    if ($tcRes.error) { Write-Host "FAIL  $name$tcTally : $($tcRes.error)"; $script:Fail++; $script:Failures += $name }
+    if ($tcRes.error) {
+        Write-Host "FAIL  $name$tcTally : $($tcRes.error)"; $script:Fail++; $script:Failures += $name
+        if ($script:TcOnFail) { try { & $script:TcOnFail } catch { Write-Host "  (diagnostics failed: $($_.Exception.Message))" } }
+    }
     else { Write-Host "PASS  $name$tcTally" }
 }
 function Assert-True($cond, [string]$msg) { if (-not $cond) { throw "assertion failed: $msg" } }

@@ -2,7 +2,8 @@
 # usage: powershell -NoProfile -ExecutionPolicy Bypass -File Test-Integration.ps1 [-Repo <repo root>] [-Only <case-name regex>] [-Repeat <n>]   (CI: GitHub's Windows runner, Windows PowerShell 5.1; needs python for the real-kit test)
 # when: on every push (CI job harness-windows); never on the PC, it starts and kills processes named Fake*.exe and sets the time zone of the machine while it runs
 # not-a-verb: a PowerShell test script, not a repo operation
-# -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row. Cases that build on an
+# -Only/-Repeat chase a flaky case (J19): the watcher starts once, each selected case runs n times in a row (auto-restore and
+# the update rollbacks are repeat-safe since J42: they read the log after their own mark). Cases that build on an
 # earlier case's state (the update rollbacks need 'update: a good kit') only pass when that case is selected too.
 param([string]$Repo = '', [string]$Only = '', [ValidateRange(1, 1000)][int]$Repeat = 1)
 # the whole suite is not repeat-safe (see above): a repeat of every case fails cases that are fine, so it is refused before anything starts
@@ -116,12 +117,30 @@ function Wait-LogMatch([string]$rx, [int]$secs, [string]$what, [int]$Since = 0) 
 function Alive-Age { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $root 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Alive-AgeOf([string]$r) { try { return ((Get-Date) - (Get-Item -LiteralPath (Join-Path $r 'watcher.alive')).LastWriteTime).TotalSeconds } catch { return 9999 } }
 function Wait-Watcher([int]$secs = 40) { Wait-Until { (Alive-Age) -lt 4 -and (Get-St) } $secs 'a fresh watcher heartbeat' | Out-Null; return (Get-St) }
+# what a failed wait needs to be explained from the CI log alone: the watcher's own log, its heartbeat age and the processes (J42)
+function Show-WatcherState([int]$lines = 40) {
+    Write-Host "  watcher.alive age: $([int](Alive-Age)) s; watcher.pid: $(try { [IO.File]::ReadAllText((Join-Path $root 'watcher.pid')) } catch { 'none' })"
+    if ($SuiteState.launcher) { Write-Host "  launcher exited: $($SuiteState.launcher.HasExited)$(if ($SuiteState.launcher.HasExited) { " (exit $($SuiteState.launcher.ExitCode))" })" }
+    Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($tmp) } | ForEach-Object { Write-Host "  process $($_.ProcessId) $($_.Name) started $($_.CreationDate.ToUniversalTime().ToString('HH:mm:ss'))Z" }
+    Write-Host "  watcher.log, last $lines lines:"
+    @((Get-Log) -split "`r?`n" | Where-Object { $_ }) | Select-Object -Last $lines | ForEach-Object { Write-Host "    $_" }
+}
+$script:TcOnFail = { Show-WatcherState }
 function Start-TestWatcher {
     $cmd = Join-Path $root 'src\watch.cmd'
     $a = "/d /s /c `"`"$cmd`" -Root `"$root`" -Adapter `"$adapterPath`"`""
+    $mark = Log-Mark
     $p = Start-Process -FilePath $env:ComSpec -ArgumentList $a -WindowStyle Hidden -PassThru
     $SuiteState.launcher = $p
-    return (Wait-Watcher 40)
+    # a new watcher process on a fresh runner reaches its main loop 17 to 35 s after it starts (J42 runs on 66d0fd9 and 97358f5;
+    # 39.9 s in run 40970029940), nearly all of it powershell.exe start-up before the first statement (a warm load of the script takes
+    # under 3 s), so the start has its own budget; the 40 s heartbeat budget starts once the watcher is in its loop
+    try {
+        Wait-LogMatch 'watcher [0-9.a-z-]+ started \(pid' 150 'the watcher to reach its main loop (a cold powershell start is slow before its first statement)' -Since $mark
+        $up = [regex]::Match((Get-LogSince $mark), 'up (\d+) ms after its process started').Groups[1].Value
+        Write-Host "  watcher up after $up ms"
+        return (Wait-Watcher 40)
+    } catch { Write-Host "FAILED: watcher start: $($_.Exception.Message)"; Show-WatcherState; throw }
 }
 function Stop-TestWatcher {
     [IO.File]::WriteAllText((Join-Path $root 'watcher.stop'), 'stop', $Utf8NoBom)
@@ -158,7 +177,13 @@ function Fake-Procs([string]$n = 'FakeNapoleon') { return @(Get-Process -Name $n
 $prefs = Join-Path $app 'scripts\preferences.script.txt'; $keys = Join-Path $app 'custom_keys.keys.xml'
 $modIni = Join-Path $game 'napoleon_remastered.ini'; $dxc = Join-Path $game 'dxvk.conf'
 $bprefs = Join-Path $app 'battle_preferences\.sp_default.battle_preferences'   # HIDDEN on the PC (J3 run 20261029_4kcrash: Get-Item without -Force threw)
-function Hashes { return ((@($prefs, $keys, $bprefs, $modIni, $dxc) | ForEach-Object { if (Test-Path -LiteralPath $_) { Sha256File $_ } else { 'absent' } }) -join ',') }
+# one read per file, never Test-Path then hash: the watcher deletes a file between the two while it restores (J42, run 40898971722:
+# "Cannot find path ...dxvk.conf"); a file mid-write reads 'busy', which matches no baseline, so a wait simply polls again
+function Hash-OrAbsent([string]$p) {
+    try { return (Sha256File $p) }
+    catch { if ($_.Exception -is [Management.Automation.ItemNotFoundException] -or -not [IO.File]::Exists($p)) { return 'absent' }; return 'busy' }
+}
+function Hashes { return ((@($prefs, $keys, $bprefs, $modIni, $dxc) | ForEach-Object { Hash-OrAbsent $_ }) -join ',') }
 function Pid-Of-Watcher { return [int](Get-St).pid }
 
 try {
@@ -434,8 +459,9 @@ try {
         Clear-Lock
     }
     Test-Case 'zombie: a process that survives the kill is flagged, persisted across a watcher restart, every launch refused until it is gone' {
+        $mark = Log-Mark
         Add-Content -LiteralPath (Join-Path $root 'watcher.ini') -Value "`r`ntest_fake_zombie=1" -Encoding Ascii
-        Wait-Until { (Get-Log) -match 'settings: watcher.ini reloaded' } 10 'ini reloaded' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'settings: watcher.ini reloaded' } 10 'ini reloaded' | Out-Null
         Start-Sleep -Milliseconds 600
         Set-Lock 'ci3'
         $l = Run-Job 'launch visible=1 owner=ci3' 'zlaunch' 40; Assert-Eq $l.d.status 'ok' 'launch'
@@ -473,19 +499,21 @@ try {
         Clear-Lock
     }
     Test-Case 'auto-restore: lock expiry, release, owner change, and deferral while the game runs; each says so in the log' {
+        # repeat-safe (J42): log waits read only lines after this mark, and the moved-lock count is relative
+        $mark = Log-Mark; $expired = @(Get-ChildItem (Join-Path $root '_to_delete') -Filter 'game.lock.expired_ci5_*' -ErrorAction SilentlyContinue).Count
         # a) expiry, with a profile active: restored UNDER ITS OWNER and logged
         Set-Lock 'ci5'; Run-Job 'profile proxy-dxvk owner=ci5' 'a1' | Out-Null
         Assert-True ((Hashes) -ne $baseline) 'profile applied'
         (Get-Item -LiteralPath (Join-Path $root 'game.lock')).LastWriteTime = (Get-Date).AddMinutes(-25)
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after expiry' | Out-Null
         # the files are restored BEFORE the AUTO-RESTORE line is written: wait for the line, never read the log once (J2 review, run 40832860145)
-        Wait-LogMatch 'LOCK EXPIRED: game.lock owner=ci5' 10 'expiry logged'
-        Wait-LogMatch 'AUTO-RESTORE under owner=ci5' 10 'restore under the owner is logged'
-        Assert-True (@(Get-ChildItem (Join-Path $root '_to_delete') -Filter 'game.lock.expired_ci5_*').Count -eq 1) 'lock moved, not deleted'
+        Wait-LogMatch 'LOCK EXPIRED: game.lock owner=ci5' 10 'expiry logged' -Since $mark
+        Wait-LogMatch 'AUTO-RESTORE under owner=ci5' 10 'restore under the owner is logged' -Since $mark
+        Assert-True (@(Get-ChildItem (Join-Path $root '_to_delete') -Filter 'game.lock.expired_ci5_*').Count -eq $expired + 1) 'lock moved, not deleted'
         # b) release
         Set-Lock 'ci6'; Run-Job 'profile proxy-dxvk owner=ci6' 'b1' | Out-Null; Clear-Lock
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after release' | Out-Null
-        Wait-LogMatch 'AUTO-RESTORE under owner=ci6 .*released or expired' 10 'release logged'
+        Wait-LogMatch 'AUTO-RESTORE under owner=ci6 .*released or expired' 10 'release logged' -Since $mark
         # c) changes owner
         Set-Lock 'ci7'; Run-Job 'profile proxy-dxvk owner=ci7' 'c1' | Out-Null
         # a lock mid-rewrite (0 bytes) is not a release: no restore on it
@@ -493,13 +521,13 @@ try {
         Assert-True ((Hashes) -ne $baseline) 'a 0-byte lock (mid-rewrite) does not trigger a restore'
         Set-Lock 'intruder'
         Wait-Until { (Hashes) -eq $baseline } 20 'restored after the owner changed' | Out-Null
-        Wait-LogMatch "AUTO-RESTORE under owner=ci7 .*now belongs to 'intruder'" 10 'owner change logged'
+        Wait-LogMatch "AUTO-RESTORE under owner=ci7 .*now belongs to 'intruder'" 10 'owner change logged' -Since $mark
         Clear-Lock
         # d) deferred while the game runs
         Set-Lock 'ci8'; Run-Job 'profile proxy-dxvk owner=ci8' 'd1' | Out-Null
         $idleGame = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'idle' -PassThru
         Clear-Lock
-        Wait-Until { (Get-Log) -match "auto-restore of 'proxy-dxvk' \(owner=ci8\) pending" } 15 'pending is logged' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match "auto-restore of 'proxy-dxvk' \(owner=ci8\) pending" } 15 'pending is logged' | Out-Null
         Assert-True ((Hashes) -ne $baseline) 'not restored while the game is open'
         Stop-Process -Id $idleGame.Id -Force
         Wait-Until { (Hashes) -eq $baseline } 20 'restored once the game exited' | Out-Null
@@ -605,30 +633,33 @@ try {
         # any current version: a literal '1.0.0' here made every watcher version bump silently break this case (J19)
         $ver = New-TestKit 'kit-good' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes(([regex]"\`$Version = '[^']+'").Replace($cur, "`$Version = '9.9.9-ci'", 1)) }
         Assert-Eq $ver '9.9.9-ci' 'kit version'
+        $mark = Log-Mark
         $r = Run-Job 'update kit=kit-good noop_s=40 healthy_s=60 stable_s=5' 'upd' 30
         Assert-Eq $r.d.status 'ok' "update accepted ($($r.out))"
         Wait-Until { (Alive-Age) -lt 4 -and (Get-St).version -eq '9.9.9-ci' } 120 'the new version' | Out-Null
-        Wait-Until { (Get-Log) -match '\[update\] CONFIRMED' } 90 'CONFIRMED' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match '\[update\] CONFIRMED' } 90 'CONFIRMED' | Out-Null
         Assert-Match (Watcher-Text) "9\.9\.9-ci" 'file replaced'
         Assert-True (@(Get-ChildItem (Join-Path $root 'backup') -Directory).Count -ge 1) 'a backup of the old files exists'
         Assert-Eq (Run-Job 'noop' 'afterupd').d.status 'ok' 'new watcher serves jobs'
     }
     Test-Case 'update rollback 1: a watcher that does not start is put back byte for byte' {
+        $mark = Log-Mark   # repeat-safe (J42 run 40968854173: run 2 matched run 1's REVERTED line and passed in 4 s)
         $before = Sha256File (Join-Path $root 'src\watcher.ps1')
         $bad = (Watcher-Text).Replace("`$Version = '9.9.9-ci'", "`$Version = '9.9.7-bad'") + "`r`n)))`r`n"
         New-TestKit 'kit-bad' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes($bad) } | Out-Null
         Run-Job 'update kit=kit-bad noop_s=20 healthy_s=20 stable_s=3' 'updbad' 30 | Out-Null
-        Wait-Until { (Get-Log) -match 'REVERTED: watcher 9\.9\.9-ci' } 150 'the revert' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'REVERTED: watcher 9\.9\.9-ci' } 150 'the revert' | Out-Null
         Assert-Eq (Sha256File (Join-Path $root 'src\watcher.ps1')) $before 'src\watcher.ps1 is byte-identical to before'
         Wait-Until { (Alive-Age) -lt 4 -and (Get-St).version -eq '9.9.9-ci' } 60 'the old watcher back' | Out-Null
     }
     Test-Case 'update rollback 2: a new watcher that runs but does not answer a noop job is put back (the dead-man switch)' {
+        $mark = Log-Mark
         $before = Sha256File (Join-Path $root 'src\watcher.ps1')
         $deaf = (Watcher-Text).Replace("`$Version = '9.9.9-ci'", "`$Version = '9.9.8-deaf'").Replace('function Start-NextJob {', 'function Start-NextJob { return $false')
         New-TestKit 'kit-deaf' @{ 'watcher.ps1' = [Text.Encoding]::ASCII.GetBytes($deaf) } | Out-Null
         Run-Job 'update kit=kit-deaf noop_s=10 healthy_s=60 stable_s=3' 'upddeaf' 30 | Out-Null
-        Wait-Until { (Get-Log) -match 'did not answer a noop job within 10 s' } 120 'the dead-man switch' | Out-Null
-        Wait-Until { (Get-Log) -match '(?s)did not answer a noop.*REVERTED: watcher 9\.9\.9-ci' } 90 'the revert' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'did not answer a noop job within 10 s' } 120 'the dead-man switch' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match '(?s)did not answer a noop.*REVERTED: watcher 9\.9\.9-ci' } 90 'the revert' | Out-Null
         Assert-Eq (Sha256File (Join-Path $root 'src\watcher.ps1')) $before 'byte-identical after the revert'
         Wait-Until { (Alive-Age) -lt 4 -and (Get-St).version -eq '9.9.9-ci' } 60 'the old watcher back' | Out-Null
         Assert-Eq (Run-Job 'noop' 'afterdeaf').d.status 'ok' 'serving again'
@@ -639,8 +670,9 @@ try {
         $f = Get-ChildItem $kd -Filter '*__src__watcher.ps1' | Select-Object -First 1
         [IO.File]::WriteAllText($f.FullName, 'old cached copy', $Utf8NoBom)
         $before = Sha256File (Join-Path $root 'src\watcher.ps1')
+        $mark = Log-Mark
         Run-Job 'update kit=kit-stale noop_s=10 healthy_s=20' 'updstale' 30 | Out-Null
-        Wait-Until { (Get-Log) -match 'ABORT: staged file .* does not match the manifest sha256' } 40 'the abort' | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'ABORT: staged file .* does not match the manifest sha256' } 40 'the abort' | Out-Null
         Assert-Eq (Sha256File (Join-Path $root 'src\watcher.ps1')) $before 'nothing changed'
         $none = Run-Job 'update kit=no-such-kit' 'updnone' 20
         Assert-Eq $none.d.status 'refused' 'unknown kit'

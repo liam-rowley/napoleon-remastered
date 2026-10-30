@@ -34,14 +34,16 @@ proxy/tools/build.sh --docker repro   # the same bytes from another checkout pat
 proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 installed (CI)
 ```
 `--docker` computes the build id on the host (a worktree's `.git` points at a host path the container cannot see) and passes it in;
-`smoke` needs wine and runs in CI only. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`.
-CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` when the branch changes its inputs (`tools/changed_inputs.py`) and
+`smoke` runs the built DLL under wine: `build.sh --docker smoke` (after `--docker all`; the same container plus CI's wine packages,
+about 70 s, J42) or `build.sh smoke` on Linux with wine. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`.
+CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` and `smoke` when the branch changes its inputs (`tools/changed_inputs.py`) and
 keeps the DLL as an artifact; the `gates` job runs `tests/test_proxy_tables.py` (generated tables current) and `tests/test_pc_deploy.py`.
 
 **Local gates run the host tests too** (J41): `python3 core/wsc.py gates` (the `tests` gate, not `--fast`) runs
 `tests/test_proxy_host.py`, which skips in about a second when no proxy input changed against the merge base with `origin/main`
 (uncommitted and untracked files count), and otherwise runs `build.sh all` (native mingw) or `build.sh --docker all` (~1 min) through
-Git Bash. With neither toolchain it **fails** naming the suites not run; `WSP_PROXY_TESTS=skip` turns that into a skip with a warning
+Git Bash, then the wine smoke test on the same route (`--docker smoke`, or native `smoke` with wine on PATH; otherwise a warning
+that it is CI-only; J42). With neither toolchain it **fails** naming the suites not run; `WSP_PROXY_TESTS=skip` turns that into a skip with a warning
 for one run (CI still runs them).
 
 ## Start-up and the pass-through contract
