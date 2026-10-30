@@ -1,0 +1,4 @@
+10:20:08 battle 16.1 pump_age -0.0 frame 36244 battle_age 0.0
+10:20:39 battle 47.3 pump_age -0.0 frame 54219 battle_age 0.0
+10:21:10 battle 78.5 pump_age 0.0 frame 72082 battle_age 0.0
+10:21:41 battle 109.3 pump_age -0.0 frame 90061 battle_age -0.0

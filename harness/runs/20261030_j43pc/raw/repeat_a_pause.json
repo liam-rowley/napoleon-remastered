@@ -1,0 +1,10 @@
+{
+  "verb": "pause",
+  "status": "refused",
+  "reason": "the battle is in deployment: its clock does not run until deployment ends (lua napoleon_remastered/lua/ctl/speed.lua -- start)",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-10-30T10:18:40.642Z",
+  "end_utc": "2026-10-30T10:18:43.081Z"
+}
