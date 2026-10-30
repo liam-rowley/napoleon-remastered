@@ -433,6 +433,15 @@ class PcLaunch(unittest.TestCase):
                 else:
                     os.environ['LOCALAPPDATA'] = old
 
+    def test_status_survives_a_moment_without_the_file(self):
+        answers = ['cat: watcher.status: No such file or directory', '{"version": "1.0.1", "game_state": {"state": "not_running"}}']
+        p = ctl.Pc('o', 'a.json', {'game': 'napoleon', 'game_dir': '.', 'state_dir': '.'}, sh=lambda *a, **k: (0, answers.pop(0)),
+                   sleep=lambda s: None)
+        self.assertEqual(p.status()['version'], '1.0.1')
+        p2 = ctl.Pc('o', 'a.json', {'game': 'napoleon', 'game_dir': '.', 'state_dir': '.'}, sh=lambda *a, **k: (1, 'gone'), sleep=lambda s: None)
+        with self.assertRaises(RuntimeError):
+            p2.status()
+
     def test_other_launch_failures_are_not_retried(self):
         p, calls = self.pc([(2, 'refused: lock')])
         with self.assertRaises(RuntimeError):

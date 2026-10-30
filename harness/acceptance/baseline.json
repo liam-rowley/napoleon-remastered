@@ -3,7 +3,7 @@
  "date": "2026-10-30",
  "build_id": "dc95ededfbe8",
  "watcher": "1.0.1",
- "kit": "kit_20261030T144407Z_dc95ededfbe8",
+ "kit": "kit_20261030T150942Z_a407ccab7a1f",
  "fresh_boot": false,
  "size": "1920x1080",
  "exe_sha1": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
@@ -13,23 +13,23 @@
    "scenario": "hist_dresden",
    "kind": "historical",
    "pose": "deploy",
-   "load_time_s": 7.1,
+   "load_time_s": 7.6,
    "load_tolerance_pct": 150,
    "shot": "shots/hist_dresden.jpg",
-   "shot_threshold": 8.41,
+   "shot_threshold": 7.64,
    "deterministic": true,
-   "measured_diff": 4.203
+   "measured_diff": 3.821
   },
   {
    "scenario": "hist_nile",
    "kind": "historical",
    "pose": "deploy",
-   "load_time_s": 4.1,
+   "load_time_s": 4.5,
    "load_tolerance_pct": 150,
    "shot": "shots/hist_nile.jpg",
-   "shot_threshold": 6.38,
+   "shot_threshold": 9.81,
    "deterministic": true,
-   "measured_diff": 3.192
+   "measured_diff": 4.905
   },
   {
    "scenario": "campaign_start",
@@ -38,43 +38,43 @@
    "load_time_s": 2.7,
    "load_tolerance_pct": 150,
    "shot": "shots/campaign_start.jpg",
-   "shot_threshold": 40.17,
+   "shot_threshold": 40.81,
    "deterministic": false,
-   "measured_diff": 20.086,
-   "why_not": "two launches differ by 20.086 (mean abs diff > 8.0): load and readback still count, the shot is not compared"
+   "measured_diff": 20.406,
+   "why_not": "two launches differ by 20.406 (mean abs diff > 8.0): load and readback still count, the shot is not compared"
   },
   {
    "scenario": "naval_small",
    "kind": "naval",
    "pose": "deploy",
-   "load_time_s": 3.2,
+   "load_time_s": 3.5,
    "load_tolerance_pct": 150,
    "shot": "shots/naval_small.jpg",
-   "shot_threshold": 8.94,
+   "shot_threshold": 9.07,
    "deterministic": true,
-   "measured_diff": 4.47
+   "measured_diff": 4.534
   },
   {
    "scenario": "siege_small",
    "kind": "siege",
    "pose": "deploy",
-   "load_time_s": 5.1,
+   "load_time_s": 5.3,
    "load_tolerance_pct": 150,
    "shot": "shots/siege_small.jpg",
    "shot_threshold": 4.0,
    "deterministic": true,
-   "measured_diff": 1.193
+   "measured_diff": 1.204
   },
   {
    "scenario": "land_small",
    "kind": "land",
    "pose": "deploy",
-   "load_time_s": 3.8,
+   "load_time_s": 3.9,
    "load_tolerance_pct": 150,
    "shot": "shots/land_small.jpg",
    "shot_threshold": 4.0,
    "deterministic": true,
-   "measured_diff": 0.974
+   "measured_diff": 0.954
   }
  ],
  "settings_files": [
@@ -86,24 +86,24 @@
  ],
  "perf": {
   "frame_ms": {
-   "p50": 1.841,
-   "p99": 3.308,
-   "max": 14.503,
-   "mean": 1.917
+   "p50": 1.958,
+   "p99": 3.64,
+   "max": 15.899,
+   "mean": 2.057
   },
-  "frames": 5215,
+  "frames": 4861,
   "mem": {
    "va_used_mb": 1899,
    "va_total_mb": 4096,
    "va_free_mb": 2197,
-   "commit_mb": 1213,
-   "working_set_mb": 989,
+   "commit_mb": 1226,
+   "working_set_mb": 915,
    "peak_working_set_mb": 1064
   },
   "vram": {
    "source": "Windows counter \\GPU Process Memory(pid_<pid>_*)\\Dedicated Usage (per process) + nvidia-smi memory.used (device)",
-   "process_dedicated_mb": 595.4,
-   "device_used_mb": 2501.0,
+   "process_dedicated_mb": 811.5,
+   "device_used_mb": 3344.0,
    "device_total_mb": 24564.0
   },
   "build": "dc95ededfbe8",

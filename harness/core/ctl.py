@@ -209,12 +209,17 @@ class Pc:
     def job(self, body, timeout_s):
         return self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, self.owner, '-', str(timeout_s)], body, timeout_s + 30)
 
-    def status(self):
-        rc, out = self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'status'], None, 30)
-        try:
-            return json.loads(out[out.index('{'):out.rindex('}') + 1])
-        except ValueError:
-            raise RuntimeError(f'watcher status unreadable (exit {rc}): {out[-300:]}')
+    def status(self, tries=10):
+        """The watcher's status. It replaces watcher.status every 2 s and the file can be missing for an instant (run 20261030_j44acc2
+        pass 3 failed on one such read): retry for about 5 s before calling it unreadable."""
+        for i in range(tries):
+            rc, out = self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'status'], None, 30)
+            try:
+                return json.loads(out[out.index('{'):out.rindex('}') + 1])
+            except ValueError:
+                if i == tries - 1:
+                    raise RuntimeError(f'watcher status unreadable after {tries} reads (exit {rc}): {out[-300:]}')
+                self.sleep(0.5)
 
     def pid(self):
         g = self.status().get('game_state') or {}
