@@ -160,13 +160,13 @@ class Rule79(unittest.TestCase):
     CHECKER = (ROOT / 'harness' / 'core' / 'acceptance.py').read_text(encoding='utf-8')
 
     @staticmethod
-    def led(n, build='abc', watcher='1.0.1', fail_at=None, evidence=True):
-        return '\n'.join(json.dumps({'pass': i, 'build_id': build, 'watcher': watcher, 'result': 'fail' if i == fail_at else 'pass',
+    def led(n, build='abc', watcher='1.0.1', fail_at=None, evidence=True, branch='job/J9'):
+        return '\n'.join(json.dumps({'pass': i, 'build_id': build, 'watcher': watcher, 'branch': branch, 'result': 'fail' if i == fail_at else 'pass',
                                      **({'run': 'harness/runs/r', 'evidence': f'harness/runs/r/pass_{i:02d}.json'} if evidence else {})})
                          for i in range(1, n + 1)) + '\n'
 
     def acc(self, ledger, active=True, exists=lambda p: True):
-        return {'active': active, 'ledger': ledger, 'build_id': 'abc', 'watcher': '1.0.1', 'exists': exists}
+        return {'active': active, 'ledger': ledger, 'build_id': 'abc', 'watcher': '1.0.1', 'branch': 'job/J9', 'exists': exists}
 
     @staticmethod
     def baseline():
@@ -193,6 +193,14 @@ class Rule79(unittest.TestCase):
         src = (ROOT / 'tools' / 'pr_policy.py').read_text(encoding='utf-8')
         self.assertIn('show(a.base, ACC_CHECKER)', src)
         self.assertNotIn("spec_from_file_location('acceptance'", src)
+
+    def test_failing_fixture_another_branchs_passes_do_not_count(self):
+        # J44 review: harness/ is not in the build id, so a harness-only branch on main's build would inherit the last merged branch's 20
+        errs = pp.acceptance_problems(['harness/core/ctl.py'], self.acc(self.led(20, branch='job/J8')))
+        self.assertEqual(len(errs), 1)
+        self.assertIn('another branch', errs[0])
+        self.assertTrue(pp.acceptance_problems(['harness/core/ctl.py'], self.acc(self.led(20, branch=None))))
+        self.assertIn("'branch': a.branch", (ROOT / 'tools' / 'pr_policy.py').read_text(encoding='utf-8'))
 
     def test_exemptions_match_segments_not_substrings(self):
         self.assertFalse(pp.acc_exempt('proxy/core/README.md.bak'))

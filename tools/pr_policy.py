@@ -18,7 +18,7 @@ Branch kinds (the branch name decides):
 Anything else is refused.
 Job branches after J4 (rule 79): a branch that changes proxy/ or harness/ (not their runs/ folders, READMEs or the acceptance files) must carry
 harness/acceptance/ledger.jsonl with 20 consecutive passes on the branch's final DLL build id and watcher version (harness/core/acceptance.py);
-a pass counts only when its line names a run and an evidence file committed on the branch (J4 review 7). It applies once the base holds the
+a pass counts only when its line was run for this branch and names a run and an evidence file committed on the branch (J4 review 7, J44 review). It applies once the base holds the
 ledger and a baseline that the BASE's harness/core/acceptance.py accepts (so a branch cannot switch the rule off for itself, J44).
 Every branch kind: `docs/DECISIONS.md` is append only (existing rows unchanged and in order; new rows numbered D<last+1>, D<last+2>,
 with a YYYY-MM-DD date and Reversible yes or no). A reversal is a new row that names the one it replaces.
@@ -123,19 +123,24 @@ def acceptance_active(ledger, baseline, checker_src):
 
 
 def acceptance_problems(changed, acc):
-    """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher',
+    """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher', 'branch',
     'exists': path -> bool on the branch}. A change to proxy/ or harness/ needs ACC_NEEDED passes in a row at the end of the ledger on this build
-    and watcher, each naming its run and a committed evidence file; a fail, a pass of another build, or a pass without evidence ends the run."""
+    and watcher, each run for this branch and naming its run and a committed evidence file; a fail, a pass of another build or branch, or a
+    pass without evidence ends the run."""
     if not acc or not acc.get('active'):
         return []
     code = [p for p in changed if p.startswith(('proxy/', 'harness/')) and not acc_exempt(p)]
     if not code:
         return []
     exists = acc.get('exists') or (lambda p: False)
-    n, unproved = 0, None
+    n, unproved, foreign = 0, None, None
     for line in reversed([l for l in (acc.get('ledger') or '').splitlines() if l.strip()]):
         r = json.loads(line)
         if not (r.get('result') == 'pass' and r.get('build_id') == acc['build_id'] and r.get('watcher') == acc['watcher']):
+            break
+        if r.get('branch') != acc.get('branch'):
+            # J44 review: harness/ is not in the build id, so a branch changing only harness/ would inherit the previous branch's passes
+            foreign = f"pass {r.get('pass')} was run for {r.get('branch') or 'no branch'}"
             break
         if not (r.get('run') and r.get('evidence') and exists(r['evidence'])):
             unproved = r.get('evidence') or f"pass {r.get('pass')} names no evidence file"
@@ -143,7 +148,8 @@ def acceptance_problems(changed, acc):
         n += 1
     if n >= ACC_NEEDED:
         return []
-    why = f' (the streak ends at a line whose evidence is not committed: {unproved})' if unproved else ''
+    why = (f' (the streak ends at a line whose evidence is not committed: {unproved})' if unproved else
+           f' (the streak ends at a line of another branch: {foreign})' if foreign else '')
     return [f'rule 79: this branch changes {code[0]}{" and more" if len(code) > 1 else ""} but {ACC_LEDGER} holds {n} consecutive acceptance passes '
             f'on build {acc["build_id"]}, watcher {acc["watcher"]}{why} (need {ACC_NEEDED}): run `python3 harness/core/acceptance.py run` on the final build']
 
@@ -227,7 +233,7 @@ def main(argv=None):
     wsrc = show('HEAD', 'harness/core/watcher.ps1') or ''
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
     acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE), show(a.base, ACC_CHECKER)), 'ledger': show('HEAD', ACC_LEDGER),
-           'build_id': build_id, 'watcher': wm.group(1) if wm else '?', 'exists': lambda p: show('HEAD', p) is not None}
+           'build_id': build_id, 'watcher': wm.group(1) if wm else '?', 'branch': a.branch, 'exists': lambda p: show('HEAD', p) is not None}
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
                  lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions, acc)
     for e in errs:
