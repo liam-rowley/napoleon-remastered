@@ -15,9 +15,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = r'^\.github/workflows/'
 # proxy: proxy/ and the two registries proxy/tools/gen_tables.py reads; harness: harness/ and pc_deploy.py (the integration tests run
-# `pc_deploy.py kit --what harness`). A workflow change runs both.
+# `pc_deploy.py kit --what harness`). A workflow change runs both. proxy/runs/ is committed PC run evidence, not a build input (J42).
 INPUTS = {
-    'proxy': re.compile(rf'{WORKFLOWS}|^proxy/|^registries/(engine_sites|config_keys)\.jsonl$'),
+    'proxy': re.compile(rf'{WORKFLOWS}|^proxy/(?!runs/)|^registries/(engine_sites|config_keys)\.jsonl$'),
     'harness': re.compile(rf'{WORKFLOWS}|^harness/|^proxy/tools/pc_deploy\.py$'),
 }
 

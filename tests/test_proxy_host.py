@@ -5,6 +5,8 @@ Routes, in order: proxy inputs (tools/changed_inputs.py) unchanged against the m
 in CI -> skip (the `proxy` job runs them); native mingw-w64 and g++ on PATH -> `proxy/tools/build.sh all`; Docker answering ->
 `build.sh --docker all` (~1 min); else no toolchain -> FAIL naming the suites not run, unless WSP_PROXY_TESTS=skip. build.sh always
 runs through Git Bash on Windows (tools/verbs/setup.py git_bash), never the WSL `bash` on PATH.
+After `all` passes, the wine smoke test runs on the same route (J42: PR #50's smoke failure was seen only by CI): `--docker smoke`
+(the container plus wine, about 70 s on the PC), native `smoke` when wine is on PATH, else a warning that it is CI-only.
 The route choice and the input set have their own unit tests below, with git and the toolchain probes injected."""
 import importlib.util
 import os
@@ -27,7 +29,8 @@ def _load(name, rel):
 
 ci = _load('changed_inputs', 'tools/changed_inputs.py')
 sv = _load('setup_verb', 'tools/verbs/setup.py')
-BUILD_TIMEOUT_S = 540   # under the tests gate's 600 s; `--docker all` measured about 93 s with apt (jobs/J41/report.md)
+BUILD_TIMEOUT_S = 540   # under the tests gate's 600 s; `--docker all` measured about 93 s with apt (jobs/J41/report.md), 57 s (J42)
+SMOKE_TIMEOUT_S = 300   # `--docker smoke` measured 70 s on the PC with apt and wine (jobs/J42/report.md)
 
 
 def suites(root=ROOT):
@@ -64,6 +67,16 @@ def choose_route(env, base, files, which=shutil.which, docker_ok=docker_answers,
     return ('optout', msg) if env.get('WSP_PROXY_TESTS') == 'skip' else ('fail', msg)
 
 
+def smoke_route(kind, which=shutil.which):
+    """(build.sh arguments, None) to run the wine smoke test after `all` on route `kind`, or (None, warning) when it cannot run here."""
+    if kind == 'docker':
+        return ['--docker', 'smoke'], None
+    if kind == 'native' and which('wine'):
+        return ['smoke'], None
+    return None, ('proxy wine smoke test NOT RUN (CI-only, warned): no wine here and not the Docker route. '
+                  'Run `proxy/tools/build.sh --docker smoke` with Docker Desktop up, or rely on CI\'s `proxy` job.')
+
+
 def failed_suites(output, names):
     """The suites build.sh reported as failed, or whose source a compile error names; [] when the failure names none."""
     out = set(re.findall(r'build\.sh: (test_\w+) FAILED', output))
@@ -84,16 +97,28 @@ class ProxyHostTests(unittest.TestCase):
             self.fail(detail)
         bash = sv.git_bash()
         self.assertIsNotNone(bash, 'no Git Bash found to run proxy/tools/build.sh (`python3 core/wsc.py setup` says why)')
-        try:
-            p = subprocess.run([bash, 'proxy/tools/build.sh', *detail], cwd=ROOT, capture_output=True, text=True,
-                               encoding='utf-8', errors='replace', timeout=BUILD_TIMEOUT_S)
-        except subprocess.TimeoutExpired:
-            self.fail(f'build.sh {" ".join(detail)} took over {BUILD_TIMEOUT_S} s')
-        out = p.stdout + p.stderr
-        if p.returncode != 0:
+
+        def build(args, timeout):
+            try:
+                p = subprocess.run([bash, 'proxy/tools/build.sh', *args], cwd=ROOT, capture_output=True, text=True,
+                                   encoding='utf-8', errors='replace', timeout=timeout)
+            except subprocess.TimeoutExpired:
+                self.fail(f'build.sh {" ".join(args)} took over {timeout} s')
+            return p.returncode, p.stdout + p.stderr
+
+        rc, out = build(detail, BUILD_TIMEOUT_S)
+        if rc != 0:
             bad = failed_suites(out, suites()) or ['(the build failed before a suite ran)']
             tail = '\n'.join(out.strip().splitlines()[-30:])
             self.fail(f'proxy host tests failed ({kind}): {", ".join(bad)}\n--- last lines of build.sh {" ".join(detail)} ---\n{tail}')
+        smoke, warn = smoke_route(kind)
+        if warn:
+            print(f'WARNING: {warn}', file=sys.stderr)
+            return
+        rc, out = build(smoke, SMOKE_TIMEOUT_S)
+        if rc != 0:
+            tail = '\n'.join(out.strip().splitlines()[-30:])
+            self.fail(f'proxy wine smoke test failed ({kind}): build.sh {" ".join(smoke)}\n--- last lines ---\n{tail}')
 
 
 # ---- unit tests: the route choice and the input set, git and toolchain probes injected ----------------------------------------------
@@ -144,6 +169,14 @@ class Route(unittest.TestCase):
         self.assertIn('test_console', suites())
         self.assertNotIn('smoke_host', suites())
 
+    def test_smoke_follows_the_route(self):
+        self.assertEqual(smoke_route('docker', which=no_docker), (['--docker', 'smoke'], None))
+        self.assertEqual(smoke_route('native', which=which_of('wine')), (['smoke'], None))
+        args, warn = smoke_route('native', which=which_of())
+        self.assertIsNone(args)
+        self.assertIn('CI-only, warned', warn)
+        self.assertIn('--docker smoke', warn)
+
     def test_failed_suites(self):
         self.assertEqual(failed_suites('x\nbuild.sh: test_console FAILED\n', self.NAMES), ['test_console'])
         self.assertEqual(failed_suites('/src/proxy/tests/test_guard.cpp:12:3: error: x', self.NAMES), ['test_guard'])
@@ -181,6 +214,12 @@ class InputSet(unittest.TestCase):
     def test_docs_only_is_unchanged(self):
         self.assertFalse(self.proxy(committed=['docs/DECISIONS.md'], worktree=['jobs/J41/report.md'], untracked=['docs/new.md']))
         self.assertFalse(self.proxy(committed=['registries/jobs.jsonl']))
+
+    def test_pc_run_evidence_is_not_a_proxy_input(self):
+        # J42 (J41 review later item 2): proxy/runs/ holds committed PC run evidence; it builds nothing
+        self.assertEqual(ci.classify(['proxy/runs/2026-10-29_j15/console.log']), {'proxy': False, 'harness': False})
+        self.assertTrue(ci.classify(['proxy/runs/x.log', 'proxy/core/console.cpp'])['proxy'])
+        self.assertTrue(ci.classify(['proxy/runsheet.md'])['proxy'])
 
     def test_workflow_change_runs_both(self):
         self.assertEqual(ci.classify(['.github/workflows/gates.yml']), {'proxy': True, 'harness': True})

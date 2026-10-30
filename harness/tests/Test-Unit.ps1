@@ -368,6 +368,34 @@ Test-Case 'test runner: Test-Lib never assigns a script variable named like a su
     $o = & (Get-Process -Id $PID).Path -NoProfile -ExecutionPolicy Bypass -File $probe -Only 'hang watchdog' -Repeat 3
     Assert-Eq "$o".Trim() '[hang watchdog] [3]' 'the values reach Test-Case through a dot-sourced Test-Lib'
 }
+Test-Case 'static: the watcher writes its first heartbeat before its first housekeeping pass (a slow pass is not a dead watcher; J42)' {
+    $text = [IO.File]::ReadAllText((Join-Path $core 'watcher.ps1'))
+    $started = $text.IndexOf('started (pid $PID'); $loop = $text.IndexOf("while (`$true) {", [Math]::Max(0, $started))
+    Assert-True ($started -gt 0 -and $loop -gt $started) 'the started log line comes before the main loop'
+    Assert-Match $text.Substring($started, $loop - $started) '(?m)^Write-Alive\s*$' 'Write-Alive runs between the started line and the main loop'
+}
+Test-Case 'static: integration helpers never hash a file after a separate Test-Path (the watcher can delete it in between; J42)' {
+    $e = $null; $t = $null
+    $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot 'Test-Integration.ps1'), [ref]$t, [ref]$e)
+    $fns = $ast.FindAll({ param($n) $n -is [Management.Automation.Language.FunctionDefinitionAst] }, $true)
+    Assert-True (@($fns | Where-Object { $_.Name -eq 'Hashes' }).Count -eq 1) 'Hashes exists'
+    foreach ($fn in $fns) {
+        $b = $fn.Body.Extent.Text
+        Assert-NotMatch $b 'Test-Path[^\r\n]*\{\s*(Sha256File|Get-FileHash)' "$($fn.Name) hashes after a Test-Path"
+    }
+}
+Test-Case 'static: the watcher logs that it is starting, with its start-up time, before it compiles its native helpers (a cold start is visible; J42)' {
+    $text = [IO.File]::ReadAllText((Join-Path $core 'watcher.ps1'))
+    $starting = $text.IndexOf('starting (pid $PID, first statement'); $compile = $text.IndexOf('Add-Type -Namespace WP -Name U')
+    Assert-True ($starting -gt 0 -and $compile -gt $starting) 'the starting log line precedes the first Add-Type'
+    Assert-True ($text.IndexOf('$LogPath = ') -lt $starting) 'the log path is set before that line'
+    Assert-Match $text.Substring($starting, 120) 'first statement \$\(Up-Ms\) ms after its process started' 'the line carries the start-up time'
+}
+Test-Case 'static: integration waits read the watcher log after a mark, never the whole log (a repeated case matched its previous run; J42)' {
+    $text = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'Test-Integration.ps1'))
+    $whole = @([regex]::Matches($text, '\(Get-Log\)\s*-(not)?match') | ForEach-Object { $_.Value })
+    Assert-True ($whole.Count -eq 0) "$($whole.Count) wait(s) match the whole watcher log: use Log-Mark and Get-LogSince (or Wait-LogMatch -Since)"
+}
 Test-Case 'static: Handle-Hang writes hang.txt before Kill-Game and again after it (a watcher stopped mid-kill still leaves evidence; J19)' {
     $e = $null; $t = $null
     $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $core 'watcher.ps1'), [ref]$t, [ref]$e)

@@ -29,13 +29,18 @@ else
 fi
 
 if [[ $DOCKER == 1 ]]; then
-  [[ "$WHAT" != smoke ]] || { echo "build.sh --docker: smoke needs wine; it runs in CI (or build.sh smoke on Linux)"; exit 2; }
   docker info >/dev/null 2>&1 || { echo "build.sh --docker: Docker is not answering: start Docker Desktop (Linux containers); fallback: the CI artifact (proxy/README.md \"Build\")"; exit 2; }
+  # smoke: the same container plus the wine packages CI's proxy job installs (J42); it runs the DLL `--docker all` left in build/proxy/
+  PRE=":"
+  if [[ "$WHAT" == smoke ]]; then
+    [[ -f "$OUT/$ADAPTER/d3d9.dll" ]] || { echo "build.sh --docker smoke: no $OUT/$ADAPTER/d3d9.dll: run build.sh --docker all first"; exit 2; }
+    PRE="dpkg --add-architecture i386"; APT="$APT wine wine32:i386"
+  fi
   SRC="$ROOT"; command -v cygpath >/dev/null && SRC="$(cygpath -w "$ROOT")"   # Git Bash: docker wants C:\...
   echo "build.sh --docker: $WHAT in $IMAGE, build $BUILD_ID"
   # MSYS_NO_PATHCONV: Git Bash would rewrite /src and the -v argument into Windows paths
   MSYS_NO_PATHCONV=1 docker run --rm -v "$SRC:/src" -w /src -e WSP_BUILD_ID="$BUILD_ID" "$IMAGE" bash -c \
-    "set -e; apt-get update -q >/dev/null; DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends $APT >/dev/null
+    "set -e; $PRE; apt-get update -q >/dev/null; DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends $APT >/dev/null
      i686-w64-mingw32-g++-win32 --version | head -1; proxy/tools/build.sh $WHAT --adapter $ADAPTER"
   exit $?
 fi
