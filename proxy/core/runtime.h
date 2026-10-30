@@ -53,6 +53,7 @@ uintptr_t SiteAddress(const char* id);   // a checked site's address (hooks: the
 // backend.cpp
 bool BackendEnsure();          // loads the configured backend once (never from DllMain); false = no d3d9 at all
 const char* BackendName();
+int DxvkWndProcGuard(HMODULE dxvk);   // J16: guard DXVK's window-proc reads/writes (dxvk_wndproc.cpp); returns the patched import slots
 
 std::string Narrow(const std::wstring& w);
 
