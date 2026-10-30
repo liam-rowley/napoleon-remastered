@@ -7,6 +7,7 @@
 #include "patch_engine.h"
 #include "config.h"
 #include "console.h"
+#include "camera.h"
 
 namespace wsp {
 
@@ -30,6 +31,7 @@ struct GameAdapter {
     const KeySpec* keys;  size_t nKeys;      // generated from the config_keys registry
     const DevAdapter* dev;                   // proxy/<game>/adapter.cpp
     const ConsoleAdapter* console;           // proxy/<game>/adapter.cpp (J15); nullptr = no campaign console
+    const CameraAdapter* camera;             // proxy/<game>/adapter.cpp (J43); nullptr = no battle camera setter
 };
 
 const GameAdapter& Adapter();   // defined by the game's adapter.cpp

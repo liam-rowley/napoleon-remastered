@@ -5,15 +5,16 @@
 #include "devcore.h"
 #include "filerules.h"
 #include "console.h"
+#include "camera.h"
 
 namespace wsp {
 
 struct DevKeys {
-    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false, console = false, perf = false;
+    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false, console = false, perf = false, camera = false;
     std::wstring fileRules, ctlDir;
     std::string autostart;
     int autostartDelayMs = 1500;
-    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || console || perf || !fileRules.empty() || !autostart.empty(); }
+    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || console || perf || camera || !fileRules.empty() || !autostart.empty(); }
 };
 DevKeys& Dk();
 bool DevActive();
@@ -38,6 +39,11 @@ const ConsoleAdapter* ConsoleAd();
 long ConsoleSeq();                                    // forwarder calls so far (a verb compares before/after)
 bool ConsoleLastSince(long seq, FwdResult& res, std::string& name, std::string& why, int& hits);
 std::string ConsoleStatusJson();                      // result members of ctl console status
+
+// camera.cpp (J43): the battle camera setter behind dev.camera; decisions in camera.h
+void CameraInit(bool key, const CameraAdapter* ad);   // DevInit
+void CameraInstall();                                 // first Direct3DCreate9: verify the sites, read the chain's offsets
+bool CameraSet(const CamPose& p, std::string& why);   // the engine thread (wsp.cam_set): the active mode's SetTargetAndPosition
 
 // files.cpp
 void FilesInit(std::vector<FileRule> rules);          // installs the exe's IAT hooks the rules and keys need

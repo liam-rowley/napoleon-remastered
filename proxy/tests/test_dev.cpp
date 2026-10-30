@@ -105,6 +105,8 @@ int main(int argc, char** argv) {
         r = ParseCtl("lua"); CHECK(!r.error.empty());
         r = ParseCtl("lua p.lua 20 -- pose=a;x=1"); CHECK(r.error.empty() && r.arg == "p.lua" && r.timeoutS == 20 && r.luaArgs == "pose=a;x=1");
         r = ParseCtl("lua p.lua"); CHECK(r.error.empty() && r.luaArgs.empty());
+        r = ParseCtl("lua a.lua 30 --"); CHECK(r.error.empty() && r.arg == "a.lua" && r.luaArgs.empty() && r.timeoutS == 30);   // empty args (J43)
+        r = ParseCtl("lua a.lua 30 -- x=1"); CHECK(r.error.empty() && r.arg == "a.lua" && r.luaArgs == "x=1");
         r = ParseCtl("perf 10"); CHECK(r.error.empty() && r.arg == "10" && r.timeoutS == 20);
         r = ParseCtl("perf 0"); CHECK(!r.error.empty());
         r = ParseCtl("perf 61"); CHECK(!r.error.empty());
@@ -193,7 +195,7 @@ int main(int argc, char** argv) {
             CHECK(std::string(gen::kKeys[i].def) == "0");
         }
         const std::string ini = tk::ReadFile("proxy/napoleon/napoleon_remastered.ini");
-        for (const char* k : { "timeline=0", "log_files=0", "skip_intro=0", "state_json=0", "lua_bridge=0", "ctl=0", "console=0", "perf=0", "autostart=\r\n" }) {
+        for (const char* k : { "timeline=0", "log_files=0", "skip_intro=0", "state_json=0", "lua_bridge=0", "ctl=0", "console=0", "perf=0", "camera=0", "autostart=\r\n" }) {
             const bool has = ini.find(std::string("\n") + k) != std::string::npos || ini.find(std::string("\n") + std::string(k).substr(0, strlen(k) - 2) + "\n") != std::string::npos;
             if (!has) { printf("    shipped ini lacks %s\n", k); CHECK(has); }
         }

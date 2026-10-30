@@ -1,0 +1,24 @@
+{
+  "verb": "pause",
+  "status": "ok",
+  "reason": "",
+  "mode": "off",
+  "kind": "land",
+  "settle": {
+    "waited_for": "lead 0.5 s + measure 4 s",
+    "settled": true
+  },
+  "check": {
+    "compared": "battle clock seconds per windows second after the request",
+    "expected": ">= 0.25",
+    "got": 0.9891,
+    "tick": "play",
+    "ok": true
+  },
+  "evidence": {
+    "from": "speed ebt=165.90092468262 wt=83974.1875 tick=play conflict=true",
+    "to": "speed ebt=171.10124206543 wt=83979.4453125 tick=play conflict=true"
+  },
+  "start_utc": "2026-10-30T10:08:18.237Z",
+  "end_utc": "2026-10-30T10:08:28.222Z"
+}

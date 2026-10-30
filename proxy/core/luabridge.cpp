@@ -20,6 +20,7 @@
 //   wsp.report(key, value)                 a fact the Lua side sees (battle.map, autostart.map, ...): state.json "reports", the log
 //   wsp.vanilla(entry) -> bytes | nil, err the newest real pack's copy of a pack entry (a wrapper loads the vanilla script with it)
 //   wsp.version() -> "wsp 1", build id
+//   wsp.cam_set(x, y, z, yaw, pitch) -> true | nil, err   the battle camera (dev.camera, camera.cpp; J43)
 #include "dev.h"
 #include <deque>
 #include <map>
@@ -123,9 +124,19 @@ int l_vanilla(lua_State* L) {
     return 1;
 }
 
+int l_cam_set(lua_State* L) {
+    for (int i = 1; i <= 5; ++i) if (lua_type(L, i) != LUA_TNUMBER) return Fail(L, "expected (x, y, z, yaw, pitch) numbers");
+    CamPose p; p.x = (float)lua_tonumber(L, 1); p.y = (float)lua_tonumber(L, 2); p.z = (float)lua_tonumber(L, 3);
+    p.yaw = (float)lua_tonumber(L, 4); p.pitch = (float)lua_tonumber(L, 5);
+    std::string why;
+    if (!CameraSet(p, why)) return Fail(L, why.c_str());
+    lua_pushboolean(L, 1);
+    return 1;
+}
+
 const luaL_Reg s_funcs[] = {
     { "log", l_log }, { "version", l_version }, { "poll", l_poll }, { "result", l_result }, { "dev_config", l_dev_config },
-    { "dev_state", l_dev_state }, { "report", l_report }, { "vanilla", l_vanilla }, { nullptr, nullptr }
+    { "dev_state", l_dev_state }, { "report", l_report }, { "vanilla", l_vanilla }, { "cam_set", l_cam_set }, { nullptr, nullptr }
 };
 } // namespace
 
