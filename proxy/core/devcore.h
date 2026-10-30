@@ -216,6 +216,14 @@ inline Target ParseTarget(const std::string& t) {
 
 // Frame-time statistics of a perf capture (J4): deltas in milliseconds between consecutive presents. Nearest-rank percentiles.
 struct FrameStats { size_t frames = 0; double p50 = 0, p99 = 0, max = 0, mean = 0; };
+// Milliseconds from a QPC tick delta: only the (small) delta becomes floating point, so the result keeps its precision even when the
+// thread's x87 FPU runs at 24 bits (D3D9's default; J44). Never form an absolute time in ms as a double first.
+inline double PerfDeltaMs(int64_t ticks, int64_t freq) {
+    if (freq <= 0 || ticks < 0) return 0.0;
+    const int64_t whole = ticks / freq, rest = ticks % freq;
+    return 1000.0 * (double)whole + 1000.0 * (double)rest / (double)freq;
+}
+
 inline FrameStats ComputeFrameStats(std::vector<double> d) {
     FrameStats s; s.frames = d.size();
     if (d.empty()) return s;

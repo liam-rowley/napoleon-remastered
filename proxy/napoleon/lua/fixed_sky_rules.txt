@@ -1,0 +1,3 @@
+# Fixed sky (J44, proxy/tools/build_fixed_sky_pack.py): lists the cut battles-to-sky junction pack in data\ virtually (dev.file_rules).
+# The launch keys of ctl.py (harness/napoleon/adapter.json ctl.launch.keys) point dev.file_rules here; nothing is written into data\.
+add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack

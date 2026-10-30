@@ -62,6 +62,13 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None):
         import build_dev_pack
         pack, _ = build_dev_pack.build(adapter)
         files.append((pack, f'{mod}/packs/{pack.name}', 'dev'))
+        # the fixed-sky pack (J44) is built from the game's own tables, so only where the packs are readable (the PC); CI kits go without it
+        try:
+            import build_fixed_sky_pack
+            sky, _ = build_fixed_sky_pack.build(ROOT / 'discovery' / adapter / 'games.json')
+            files.append((sky, f'{mod}/packs/{sky.name}', 'dev'))
+        except (OSError, SystemExit, KeyError, ImportError) as e:
+            print(f'pc_deploy kit: no fixed-sky pack ({e}): dev.file_rules=.../fixed_sky_rules.txt then leaves the vanilla sky in place')
         for p in sorted(ldir.rglob('*')):
             if p.is_file() and p.suffix in ('.lua', '.txt') and p.name != 'wrappers.txt':
                 files.append((p, f'{mod}/lua/' + p.relative_to(ldir).as_posix(), 'dev'))

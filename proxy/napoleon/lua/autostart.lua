@@ -63,6 +63,23 @@ local function battle()
 	end
 	if cur ~= "" then folder = cur end
 	wsp.report("autostart.map_folder", string.lower(folder))
+	-- weather and time of day (J44): NotifyItemSelected refilled dropdown_weather / dropdown_time_of_day for this map
+	-- (SetValidWeatherAndDayTypes), so pin them after it, through the page's own SetPerBattlePrefs (SelectOption per dropdown)
+	local wantW, wantT = wsp.dev_config("preset.weather"), wsp.dev_config("preset.time_of_day")
+	if wantW ~= "" or wantT ~= "" then
+		local t = {}
+		if wantW ~= "" then t.weather = tonumber(wantW) end
+		if wantT ~= "" then t.time_of_day = tonumber(wantT) end
+		at("SetPerBattlePrefs weather=" .. wantW .. " time_of_day=" .. wantT); mp:LuaCall("SetPerBattlePrefs", t)
+	end
+	at("Preferences readback")
+	local pr = mp:LuaCall("Preferences")
+	local said = ""
+	if type(pr) == "table" then
+		said = " weather=" .. tostring(pr.weather) .. "/" .. tostring(pr.weather_string) .. " time_of_day=" .. tostring(pr.time_of_day)
+		wsp.report("autostart.weather", tostring(pr.weather) .. "/" .. tostring(pr.weather_string))
+		wsp.report("autostart.time_of_day", tostring(pr.time_of_day))
+	end
 	at("SetupBattle"); mp:LuaCall("SetupBattle")
 	local s3c = r:Find("sp_battle3", false)
 	if s3c == nil then error("sp_battle3 did not open") end
@@ -74,7 +91,7 @@ local function battle()
 	if type(start) ~= "function" then error("sp_battle3 has no StartBattle") end
 	if state == "inactive" then error("the start button is inactive (no armies? state " .. tostring(state) .. ")") end
 	start()
-	return "started battle " .. tostring(selkey) .. " (" .. btype .. ", prefs " .. prefs .. ", button " .. tostring(state) .. ")"
+	return "started battle " .. tostring(selkey) .. " (" .. btype .. ", prefs " .. prefs .. ", button " .. tostring(state) .. ")" .. said
 end
 
 local function campaign()

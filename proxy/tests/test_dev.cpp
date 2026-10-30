@@ -6,6 +6,7 @@
 #include "core/pack.h"
 #include "core/devcore.h"
 #include "napoleon/generated/tables.h"
+#include <cmath>
 #include <regex>
 #include <set>
 
@@ -113,6 +114,9 @@ int main(int argc, char** argv) {
         r = ParseCtl("perf"); CHECK(!r.error.empty());
         r = ParseCtl("perf x 10"); CHECK(!r.error.empty());
         { FrameStats e = ComputeFrameStats({}); CHECK(e.frames == 0 && e.p50 == 0); }
+        // J44: a 1.5 ms frame at an uptime of 1e12 ticks (10 MHz QPC, ~28 h) keeps its precision; negative and zero freq give 0
+        { const int64_t f = 10000000, t0 = 1000000000000LL; CHECK(std::fabs(PerfDeltaMs((t0 + 15000) - t0, f) - 1.5) < 1e-9);
+          CHECK(std::fabs(PerfDeltaMs(25000000, f) - 2500.0) < 1e-9); CHECK(PerfDeltaMs(-1, f) == 0.0 && PerfDeltaMs(5, 0) == 0.0); }
         { std::vector<double> d; for (int i = 1; i <= 100; ++i) d.push_back((double)i); FrameStats s = ComputeFrameStats(d);
           CHECK(s.frames == 100 && s.p50 == 50 && s.p99 == 99 && s.max == 100 && s.mean == 50.5); }
         { FrameStats s = ComputeFrameStats({16.0, 17.0, 90.0}); CHECK(s.p50 == 17.0 && s.p99 == 90.0 && s.max == 90.0); }
