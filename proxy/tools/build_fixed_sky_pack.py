@@ -89,17 +89,32 @@ def encode_table(head, fields, rows):
     return head + struct.pack('<I', len(rows)) + b''.join(b''.join(encode_field(t, v) for t, v in zip(types, r)) for r in rows)
 
 
-def choose_skies(rows, names, need):
-    """battle_sky_types rows -> (kept rows in vanilla order): one per (season, weather, time of day, climate), "clear" first, plus `need`."""
+def choose_skies(rows, names):
+    """battle_sky_types rows -> (kept rows in vanilla order, {every key: the key kept for its group}): exactly one per (season, weather,
+    time of day, climate), "clear" first. Exactly one: keeping the junction's picks as well left 11 groups with two skies (summer, dry,
+    afternoon: day_clear_1 and day_overcast_1), and land_small's lighting still changed on 1 launch in 6 (run 20261030_j44acc pass 1)."""
     ix = {n: names.index(n) for n in ('key', 'season', 'weather_type', 'time_of_day', 'climate', 'sky_file')}
     groups = {}
     for r in rows:
         groups.setdefault(tuple(r[ix[n]] for n in ('season', 'weather_type', 'time_of_day', 'climate')), []).append(r)
-    keep = set(need)
+    keep, to = set(), {}
     for cands in groups.values():
         pick = next((r for r in cands if 'clear' in (r[ix['sky_file']] or '').lower()), cands[0])
         keep.add(pick[ix['key']])
-    return [r for r in rows if r[ix['key']] in keep]
+        for r in cands:
+            to[r[ix['key']]] = pick[ix['key']]
+    return [r for r in rows if r[ix['key']] in keep], to
+
+
+def remap_junction(kept, to):
+    """Point every kept junction row at its group's one sky; drop the duplicates that makes (vanilla order kept)."""
+    out, seen = [], set()
+    for battle, sky in kept:
+        row = (battle, to.get(sky, sky))
+        if row not in seen:
+            seen.add(row)
+            out.append(row)
+    return out
 
 
 def pack_bytes(entries):
@@ -123,7 +138,8 @@ def build(games_path, out=None):
     start = db.parse_header(sky_raw)[4]
     if encode_table(sky_raw[:start - 4], res['fields'], res['rows']) != sky_raw:
         raise SystemExit('build_fixed_sky_pack: battle_sky_types does not re-encode byte for byte: the encoder is wrong for this table')
-    sky_rows = choose_skies(res['rows'], names, {k for _, k in kept})
+    sky_rows, to = choose_skies(res['rows'], names)
+    kept = remap_junction(kept, to)
     blob = pack_bytes([(JUNCTION, encode_junction(head, kept)), (SKIES, encode_table(sky_raw[:start - 4], res['fields'], sky_rows))])
     out = Path(out or ROOT / 'build' / 'proxy' / 'napoleon' / PACK)
     out.parent.mkdir(parents=True, exist_ok=True)
