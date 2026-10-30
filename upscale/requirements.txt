@@ -1,0 +1,6 @@
+# Python packages of the upscale tools. The host tests need numpy and Pillow only; the GPU path adds torch and spandrel.
+# torch comes from the PyTorch index, not PyPI (the PyPI Windows wheel is CPU-only): upscale/pc/setup_env.cmd installs it.
+numpy==2.5.2
+pillow==12.3.0
+spandrel==0.4.2
+# torch==2.14.1+cu130   (pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu130)
