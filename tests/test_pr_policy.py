@@ -154,5 +154,58 @@ class PolicyOnGit(unittest.TestCase):
         self.assertTrue(any('append only' in x for x in e), e)
 
 
+class Rule79(unittest.TestCase):
+    """J4 rule 79: a job branch that changes proxy/ or harness/ needs 20 consecutive acceptance passes on its final build."""
+    @staticmethod
+    def led(n, build='abc', watcher='1.0.1', fail_at=None):
+        return '\n'.join(json.dumps({'pass': i, 'build_id': build, 'watcher': watcher, 'result': 'fail' if i == fail_at else 'pass'}) for i in range(1, n + 1)) + '\n'
+
+    def acc(self, ledger, active=True):
+        return {'active': active, 'ledger': ledger, 'build_id': 'abc', 'watcher': '1.0.1'}
+
+    def test_failing_fixture_a_code_change_without_20_passes_is_refused(self):
+        errs = pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(19)))
+        self.assertEqual(len(errs), 1)
+        self.assertIn('19 consecutive', errs[0])
+
+    def test_20_passes_on_this_build_pass(self):
+        self.assertEqual(pp.acceptance_problems(['harness/core/job.sh'], self.acc(self.led(20))), [])
+
+    def test_a_fail_resets_the_count(self):
+        self.assertTrue(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(25, fail_at=10))))   # 15 after the fail
+
+    def test_another_build_or_watcher_does_not_count(self):
+        self.assertTrue(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(20, build='old'))))
+        self.assertTrue(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(20, watcher='0.9'))))
+
+    def test_runs_docs_and_non_code_changes_are_exempt(self):
+        for p in ('proxy/runs/x/README.md', 'harness/runs/y/raw/a.log', 'proxy/README.md', 'harness/acceptance/ledger.jsonl', 'docs/a.md', 'registries/x.jsonl'):
+            self.assertEqual(pp.acceptance_problems([p], self.acc('')), [], p)
+
+    def test_inactive_until_the_ledger_is_on_the_base(self):
+        self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc('', active=False)), [])
+        self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], None), [])
+
+    def test_a_ledger_without_a_valid_baseline_does_not_activate_it(self):
+        # J4 review 1: the empty ledger alone switched the rule on, and nothing could satisfy it (no baseline, run not wired)
+        self.assertFalse(pp.acceptance_active('', None))
+        self.assertFalse(pp.acceptance_active('', '{"schema": 1}'))
+        self.assertFalse(pp.acceptance_active('', 'not json'))
+        self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc('', active=pp.acceptance_active('', None))), [])
+
+    def test_a_ledger_and_a_valid_baseline_activate_it(self):
+        kinds = ('land', 'siege', 'naval', 'historical', 'campaign')
+        steps = [{'scenario': f'{k}_x', 'kind': k, 'pose': 'wide', 'load_time_s': 20.0, 'load_tolerance_pct': 50, 'shot': f'{k}.jpg',
+                  'shot_threshold': 4.0, 'deterministic': True} for k in kinds]
+        b = {'schema': 1, 'date': '2026-10-30', 'build_id': 'abc', 'fresh_boot': True, 'size': '1920x1080', 'exe_sha1': 'pin', 'steps': steps,
+             'settings_files': ['prefs']}
+        self.assertTrue(pp.acceptance_active('', json.dumps(b)))
+        self.assertFalse(pp.acceptance_active(None, json.dumps(b)))
+
+    def test_check_wires_it_into_job_branches(self):
+        errs = pp.check('job/J1', ['proxy/core/dev.cpp'], {'J1': ROW}, {'J1': ROW}, files(), files(), None, self.acc(self.led(3)))
+        self.assertTrue(any('rule 79' in e for e in errs))
+
+
 if __name__ == '__main__':
     unittest.main()

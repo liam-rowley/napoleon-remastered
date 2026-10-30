@@ -16,15 +16,20 @@ Branch kinds (the branch name decides):
   meta/*      repo infrastructure: CI, tools/, tests/, schemas/, wsc.toml, git attributes and ignores, the core pin, registries,
               plus everything plan/* may touch. No game code (proxy/ and later feature folders).
 Anything else is refused.
+Job branches after J4 (rule 79): a branch that changes proxy/ or harness/ (not their runs/ folders, READMEs or the acceptance files) must carry
+harness/acceptance/ledger.jsonl with 20 consecutive passes on the branch's final DLL build id and watcher version (harness/core/acceptance.py).
+It applies only once the ledger exists on the base branch, so J4's own commits are exempt.
 Every branch kind: `docs/DECISIONS.md` is append only (existing rows unchanged and in order; new rows numbered D<last+1>, D<last+2>,
 with a YYYY-MM-DD date and Reversible yes or no). A reversal is a new row that names the one it replaces.
 """
 import argparse
+import importlib.util
 import json
 import re
 import subprocess
 import sys
 from fnmatch import fnmatchcase
+from pathlib import Path
 
 PLAN = ['docs/*', 'docs/**', 'jobs/*/brief.md', 'registries/jobs.jsonl', 'registries/jobs.md', 'README.md', 'CLAUDE.md']
 META = PLAN + ['.github/**', 'tools/*', 'tools/**', 'tests/*', 'tests/**', 'schemas/*', 'wsc.toml', '.gitattributes', '.gitignore',
@@ -90,7 +95,49 @@ def allowed(path, globs):
     return any(fnmatchcase(path, g) for g in globs)
 
 
-def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=None):
+ACC_LEDGER = 'harness/acceptance/ledger.jsonl'
+ACC_BASELINE = 'harness/acceptance/baseline.json'
+ACC_NEEDED = 20
+ACC_EXEMPT = ('/runs/', 'README.md', 'harness/acceptance/')
+
+
+def acceptance_active(ledger, baseline):
+    """Rule 79 is on only when the base holds the ledger and a valid baseline (J4 review 1): a ledger alone cannot be satisfied, since
+    acceptance refuses to run without a baseline (rule 74), and would refuse every proxy/ and harness/ job, including the one that builds it."""
+    if ledger is None or baseline is None:
+        return False
+    spec = importlib.util.spec_from_file_location('acceptance', Path(__file__).resolve().parents[1] / 'harness' / 'core' / 'acceptance.py')
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    try:
+        return not mod.baseline_problems(json.loads(baseline))
+    except (ValueError, TypeError, AttributeError):
+        return False
+
+
+def acceptance_problems(changed, acc):
+    """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher'}.
+    A change to proxy/ or harness/ needs ACC_NEEDED passes in a row at the end of the ledger on this build and watcher; a fail or a pass of
+    another build ends the run."""
+    if not acc or not acc.get('active'):
+        return []
+    code = [p for p in changed if p.startswith(('proxy/', 'harness/')) and not any(x in p for x in ACC_EXEMPT)]
+    if not code:
+        return []
+    n = 0
+    for line in reversed([l for l in (acc.get('ledger') or '').splitlines() if l.strip()]):
+        r = json.loads(line)
+        if r.get('result') == 'pass' and r.get('build_id') == acc['build_id'] and r.get('watcher') == acc['watcher']:
+            n += 1
+        else:
+            break
+    if n >= ACC_NEEDED:
+        return []
+    return [f'rule 79: this branch changes {code[0]}{" and more" if len(code) > 1 else ""} but {ACC_LEDGER} holds {n} consecutive acceptance passes '
+            f'on build {acc["build_id"]}, watcher {acc["watcher"]} (need {ACC_NEEDED}): run `python3 harness/core/acceptance.py run` on the final build']
+
+
+def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=None, acceptance=None):
     """Errors for this pull request. `base_file`/`head_file` are callables path -> text or None. `sessions`: callable path ->
     list with one set of `Claude-Session:` trailer values per branch commit that touched it (job branches; an empty set is a commit
     without a trailer, which is refused; None skips the authorship check, for the pure-logic tests)."""
@@ -100,6 +147,7 @@ def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=
                                              if k != jid and base_rows.get(k) != head_rows.get(k))
     if m and m.group(1) == 'job':
         jid = m.group(2)
+        errs += acceptance_problems(changed, acceptance)
         if base_file(f'jobs/{jid}/brief.md') is None:
             errs.append(f'{jid} has no brief on the base branch: briefs are merged before the job starts (brief/{jid})')
         if head_file(f'jobs/{jid}/report.md') is None:
@@ -163,8 +211,13 @@ def main(argv=None):
         out = git('log', '--format=%H%x1f%(trailers:key=Claude-Session,valueonly,separator=%x1f)%x1e', f'{mb}..HEAD', '--', path)
         recs = [r.strip('\n').split('\x1f') for r in out.split('\x1e') if r.strip()]
         return [{v.strip() for v in r[1:] if v.strip()} for r in recs]
+    inputs = ['proxy/core', 'proxy/napoleon', 'proxy/tools/build.sh', 'proxy/tools/fetch_lua.py']   # build.sh's DLL_INPUTS: the id of the final DLL
+    build_id = git('log', '-1', '--format=%h', '--abbrev=12', 'HEAD', '--', *inputs).strip() or 'nogit'
+    wsrc = show('HEAD', 'harness/core/watcher.ps1') or ''
+    wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
+    acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE)), 'ledger': show('HEAD', ACC_LEDGER), 'build_id': build_id, 'watcher': wm.group(1) if wm else '?'}
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
-                 lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions)
+                 lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions, acc)
     for e in errs:
         print(f'policy: {e}', file=sys.stderr)
     print(f'policy: {a.branch}: {"REFUSED" if errs else "ok"} ({len(changed)} files changed)')
