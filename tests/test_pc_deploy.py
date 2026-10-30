@@ -29,7 +29,12 @@ class Deploy(unittest.TestCase):
         (self.src / 'd3d9.dll').write_bytes(b'MZproxy' + os.urandom(100))
         (self.src / 'd3d9_dxvk.dll').write_bytes(b'MZdxvk' + os.urandom(100))
         (self.src / 'LICENSE.dxvk.txt').write_text('zlib')
-        self.kit = pd.build_kit(self.kits, dll=self.src / 'd3d9.dll', dxvk_dir=self.src, build_id='test')
+        # a fixture identity for the fake exe, passed in (J18: never the real sha)
+        self.ident = t / 'identity.json'
+        ident = json.loads((ROOT / 'proxy/napoleon/identity.json').read_text(encoding='utf-8'))
+        ident['sha1'] = hashlib.sha1((self.game / 'Napoleon.exe').read_bytes()).hexdigest()
+        self.ident.write_text(json.dumps(ident), encoding='utf-8')
+        self.kit = pd.build_kit(self.kits, dll=self.src / 'd3d9.dll', dxvk_dir=self.src, build_id='test', identity=self.ident)
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -63,7 +68,7 @@ class Deploy(unittest.TestCase):
         (self.game / 'napoleon_remastered' / 'logs').mkdir(parents=True)
         (self.game / 'napoleon_remastered' / 'logs' / 'proxy.log').write_text('... process detach (process exit)\n')
         (self.game / 'napoleon_remastered' / 'dxvk' / 'Napoleon_d3d9.log').write_text('dxvk')
-        pd.set_keys(self.game, ['proxy.backend=system'], 'napoleon_remastered.ini')
+        self.assertEqual(pd.set_keys(self.game, ['proxy.backend=system'], 'napoleon_remastered.ini', self.state), 0)
         self.assertTrue(pd.uninstall(self.game, self.state))
         self.assertEqual(pd.diff_snapshots(before, pd.snapshot(self.game)), [])
         moved = list((self.state / '_to_delete').rglob('proxy.log'))
@@ -105,7 +110,7 @@ class Deploy(unittest.TestCase):
         before = pd.snapshot(self.game)
         pd.install(self.kit, self.game, self.state)
         (self.src / 'd3d9.dll').write_bytes(b'MZproxy v2')
-        kit2 = pd.build_kit(self.kits, dll=self.src / 'd3d9.dll', dxvk_dir=self.src, build_id='test2')
+        kit2 = pd.build_kit(self.kits, dll=self.src / 'd3d9.dll', dxvk_dir=self.src, build_id='test2', identity=self.ident)
         pd.install(kit2, self.game, self.state)
         self.assertEqual((self.game / 'd3d9.dll').read_bytes(), b'MZproxy v2')
         self.assertTrue(pd.uninstall(self.game, self.state))
@@ -137,6 +142,76 @@ class Deploy(unittest.TestCase):
         (self.game / 'Napoleon_d3d9.log').write_text('dxvk wrote into the game folder')   # what the env redirect prevents
         self.assertFalse(pd.uninstall(self.game, self.state))
         self.assertTrue((self.game / 'Napoleon_d3d9.log').exists())   # not ours: reported, never touched
+
+    # ---- J18: the exe stays vanilla (row 28), no .git in a game folder (row 32), nothing foreign in the game folder (row 31) ----------
+    def test_kit_carries_the_identity_copy(self):
+        self.assertEqual((self.kit / 'exe_identity.json').read_bytes(), self.ident.read_bytes())
+        man, bad = pd.verify_kit(self.kit)
+        self.assertEqual(bad, [])
+        (self.kit / 'exe_identity.json').write_text('{"sha1": "0"}')
+        self.assertTrue(any('exe_identity.json' in b for b in pd.verify_kit(self.kit)[1]))
+
+    def test_a_mismatched_exe_refuses_the_install_and_changes_nothing(self):
+        before = pd.snapshot(self.game)
+        (self.game / 'Napoleon.exe').write_bytes(b'MZ patched by someone')
+        before = pd.snapshot(self.game)
+        with self.assertRaises(SystemExit) as e:
+            pd.install(self.kit, self.game, self.state)
+        msg = str(e.exception)
+        for want in ('MISMATCH', 'not the vanilla build', 'nothing was installed', 'exe_info.py'):
+            self.assertIn(want, msg)
+        self.assertEqual(pd.diff_snapshots(before, pd.snapshot(self.game)), [])
+        self.assertFalse((self.state / 'install.json').exists())
+
+    def test_install_records_the_exe_verdict(self):
+        rec = pd.install(self.kit, self.game, self.state)
+        chk = [h for h in rec['history'] if h['action'] == 'install exe check']
+        self.assertEqual(chk[-1]['exe_verdict'], 'vanilla')
+        self.assertEqual(chk[-1]['exe_sha1'], json.loads(self.ident.read_text())['sha1'])
+
+    def test_set_and_uninstall_never_refuse_but_fail_loudly_on_a_changed_exe(self):
+        pd.install(self.kit, self.game, self.state)
+        (self.game / 'Napoleon.exe').write_bytes(b'MZ changed after the install')
+        self.assertEqual(pd.set_keys(self.game, ['proxy.backend=system'], 'napoleon_remastered.ini', self.state), 1)
+        self.assertEqual(pd.status(self.game, self.state), 1)
+        self.assertFalse(pd.uninstall(self.game, self.state))   # still uninstalled, reported as a failure
+        self.assertFalse((self.game / 'd3d9.dll').exists())
+        hist = json.loads(next((self.state / 'history').glob('install_*.json')).read_text())['history']
+        self.assertEqual([h['exe_verdict'] for h in hist if h['action'].endswith('exe check')], ['vanilla', 'MISMATCH', 'MISMATCH'])
+
+    def test_a_foreign_file_fails_status_and_config_files_do_not(self):
+        pd.install(self.kit, self.game, self.state)
+        (self.game / 'dxvk.conf').write_text('d3d9.maxFrameRate = 60')            # a game-anchored config file: a profile writes it
+        (self.game / 'napoleon_remastered' / 'logs').mkdir(parents=True)
+        (self.game / 'napoleon_remastered' / 'logs' / 'proxy.log').write_text('x')   # inside the owned set
+        self.assertEqual(pd.status(self.game, self.state), 0)
+        (self.game / 'data' / 'big.pack').write_bytes(b'changed by hand')
+        (self.game / 'notes.txt').write_text('an experiment outside _scratch')
+        fails, lines = pd.pc_rules(self.game, self.state, json.loads(self.ident.read_text()))
+        self.assertEqual(fails, 1)
+        text = '\n'.join(lines)
+        self.assertIn('foreign: 2 file(s)', text)
+        self.assertIn('added   notes.txt', text)
+        self.assertIn('changed data/big.pack', text)
+        self.assertEqual(pd.status(self.game, self.state), 1)
+
+    def test_a_git_folder_in_a_parent_fails_status(self):
+        pd.install(self.kit, self.game, self.state)
+        self.assertEqual(pd.status(self.game, self.state), 0)
+        (self.game.parent / '.git').mkdir()
+        self.assertEqual(pd.git_dirs(self.game), [str(self.game.resolve().parent / '.git')])
+        self.assertEqual(pd.status(self.game, self.state), 1)
+        (self.game.parent / '.git').rmdir()
+        (self.game / 'data' / '.git').mkdir()   # below the game folder is the snapshot's business: a foreign file, not this check
+        self.assertEqual(pd.git_dirs(self.game), [])
+
+    def test_status_without_an_install_still_checks_the_exe(self):
+        with mock.patch.object(pd, 'default_identity', return_value=json.loads(self.ident.read_text())):
+            self.assertEqual(pd.status(self.game, self.state), 0)
+            (self.game / 'Napoleon.exe').write_bytes(b'MZ other')
+            self.assertEqual(pd.status(self.game, self.state), 1)
+        with mock.patch.object(pd, 'default_identity', return_value=None):
+            self.assertEqual(pd.status(self.game, self.state), 1)   # cannot check is not a pass
 
     def test_running_check(self):
         log = self.game / 'napoleon_remastered' / 'logs' / 'proxy.log'
@@ -209,6 +284,13 @@ class HarnessKit(unittest.TestCase):
         self.assertTrue(pd.verify_harness_kit(kit)[1])
         (kit / 'install.ps1').write_bytes(b'old installer')
         self.assertTrue(any('install.ps1' in x for x in pd.verify_harness_kit(kit)[1]))
+
+    def test_harness_kit_carries_the_identity_copy(self):
+        kit = pd.build_harness_kit(self.t / 'kits', build_id='test')
+        man, bad = pd.verify_harness_kit(kit)
+        self.assertEqual(bad, [])
+        e = next(e for e in man['files'] if e['path'] == 'src/exe_identity.json')
+        self.assertEqual((kit / e['staged']).read_bytes(), (ROOT / 'proxy/napoleon/identity.json').read_bytes())
 
     def test_new_id_every_time(self):
         a = pd.build_harness_kit(self.t / 'kits', build_id='a')
