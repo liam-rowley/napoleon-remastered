@@ -275,6 +275,7 @@ inline CtlRequest ParseCtl(const std::string& lineIn) {
     if (v == "lua") {
         const size_t dd = r.arg.find(" -- ");
         if (dd != std::string::npos) { r.luaArgs = TrimS2(r.arg.substr(dd + 4)); r.arg = TrimS2(r.arg.substr(0, dd)); }
+        else if (r.arg.size() >= 3 && r.arg.compare(r.arg.size() - 3, 3, " --") == 0) r.arg = TrimS2(r.arg.substr(0, r.arg.size() - 3));   // empty args (J43)
         ParseTrailingTimeout(r.arg, r.timeoutS);
         if (r.arg.empty()) r.error = "lua needs a file (relative to the game folder or absolute)";
         else if (r.arg.find('"') != std::string::npos || r.arg.find('\n') != std::string::npos) r.error = "bad file name";

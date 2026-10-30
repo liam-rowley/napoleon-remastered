@@ -7,6 +7,7 @@
 """
 import subprocess
 import tomllib
+import re
 import unittest
 from pathlib import Path
 
@@ -32,7 +33,30 @@ def text_problems(name, data, ascii_only):
     return errs
 
 
+# The engine replaces string.find and string.sub with its own C functions, and gmatch shares their pattern code: one plain
+# ("camera"):find("me", 1, true) in a battle returned nil, nil and stopped the battle UI pump about a second later (J43, run
+# harness/runs/20261030_j43pc, fact napoleon.lua.string_find_stalls_pump; empire-remastered PANEL_GUIDE gotcha 20). Engine Lua uses
+# match, gsub, format, lower, upper, rep, reverse, byte, char, len only.
+ENGINE_STRING_BANNED = re.compile(r'(?:\bstring\s*\.\s*|:\s*)(find|sub|gmatch)\s*\(')
+
+
+def engine_lua_problems(name, text):
+    out = []
+    for n, line in enumerate(text.splitlines(), 1):
+        code = line.split('--', 1)[0]
+        m = ENGINE_STRING_BANNED.search(code)
+        if m:
+            out.append(f'{name}:{n}: {m.group(1)} in engine Lua stops the battle pump (use match/gsub): {line.strip()[:100]}')
+    return out
+
+
 class Fixtures(unittest.TestCase):
+    def test_engine_lua_string_ban(self):
+        bad = 'local a = s:find("x")\nlocal b = string.sub(s, 1, 2)\nfor w in string.gmatch(s, ".") do end\n'
+        self.assertEqual(len(engine_lua_problems('f.lua', bad)), 3)
+        ok = 'local a = s:match("x") -- not :find(\nlocal b = string.gsub(s, "a", "b")\nlocal c = finder(s)\n'
+        self.assertEqual(engine_lua_problems('f.lua', ok), [])
+
     def test_silenced(self):
         self.assertEqual(silenced({'tools': {'exempt': ['tests/**']}}, ''), [])
         self.assertEqual(len(silenced({'gates': {'skip': ['tests']}, 'docs': {'exempt': ['x.md']}}, '')), 2)
@@ -71,6 +95,12 @@ class ThisRepo(unittest.TestCase):
             errs += text_problems(p, (ROOT / p).read_bytes(), True)
         for p in tracked('harness/*.json', 'harness/*.ini', 'harness/*.xml'):
             errs += text_problems(p, (ROOT / p).read_bytes(), False)
+        self.assertEqual(errs, [])
+
+    def test_engine_lua_uses_no_replaced_string_functions(self):
+        errs = []
+        for p in tracked('proxy/*.lua'):
+            errs += engine_lua_problems(p, (ROOT / p).read_text(encoding='utf-8', errors='replace'))
         self.assertEqual(errs, [])
 
     def test_no_binaries_committed(self):

@@ -27,12 +27,19 @@ const ConsoleAdapter kConsole = {
     "campaign.cli_execute", 7,
     "campaign.handler_gate_test", 2,         // cmp byte [edi + 0x54], 0  (113 of 168 acting handlers; set in a live campaign)
     gen::kConsoleNoOps, gen::kConsoleSystem };
+// The battle camera setter (J43, static RE and probes in harness/runs/20261030_j43pc): every number is inside the named engine_sites
+// row's stock bytes (proxy/tests/test_camera.cpp checks each against the generated table).
+const CameraAdapter kCamera = {
+    "battle.camera_chain_read", 1, 10, 16,   // mov eax, [owner global]; ...; mov eax, [eax + 0xf8]; mov eax, [eax + 0x281b8]
+    "battle.camera_mode_read", 2,            // mov ecx, [esi + 0x800]  (the controller's active mode)
+    "battle.camera_set_target_pos", 47,      // vtable slot 0xbc: SetTargetAndPosition(target*, pos*)
+    100.0f };                                // target 100 m along the forward vector (any distance gives the same view)
 const DevAdapter kDev = { kIntroMovies, kFrontendMovies, kLuaRules, "napoleon_remastered\\lua\\", "data\\battleterrain\\presets\\", "data\\*.pack" };
 }
 
 const GameAdapter& Adapter() {
     static const GameAdapter a = { gen::kGameName, gen::kConfigFile, gen::kModDir, gen::kInstanceMutex, gen::kIdentity,
-                                   gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole };
+                                   gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole, &kCamera };
     return a;
 }
 
