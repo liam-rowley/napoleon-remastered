@@ -383,5 +383,40 @@ class SpeedAndPause(unittest.TestCase):
         self.assertEqual(make2(NoPause()).run('pause', 'on')['status'], 'failed')
 
 
+class PcLaunch(unittest.TestCase):
+    """J44: Pc.launch applies the adapter's keys, retries a lost headless start once and says so, and fails on a second loss."""
+    def pc(self, answers):
+        calls = []
+        def sh(argv, stdin=None, timeout=None):
+            calls.append((argv, stdin))
+            if 'set' in argv:
+                return 0, 'set'
+            if stdin and stdin.startswith('launch'):
+                return answers.pop(0)
+            if 'ctl' in argv:
+                return 0, '{"status": "ok", "scene": "frontend"}'
+            return 0, ''
+        a = {'game': 'napoleon', 'game_dir': '.', 'state_dir': '.', 'ctl': {'launch': {'keys': {}, 'size': '1920x1080'}}}
+        p = ctl.Pc('o', 'a.json', a, sh=sh, clock=lambda: 0.0, sleep=lambda s: None)
+        p.missing_keys = lambda: {}
+        return p, calls
+
+    def test_a_lost_headless_start_is_retried_once_and_recorded(self):
+        p, calls = self.pc([(1, 'x\n[watcher] failed: HEADLESS FAILED: no on_virtual status'), (0, 'ok')])
+        r = p.launch()
+        self.assertIn('HEADLESS FAILED', r['retried_after'])
+
+    def test_a_second_loss_fails(self):
+        p, _ = self.pc([(1, 'HEADLESS FAILED: a'), (1, 'HEADLESS FAILED: b')])
+        with self.assertRaises(RuntimeError):
+            p.launch()
+
+    def test_other_launch_failures_are_not_retried(self):
+        p, calls = self.pc([(2, 'refused: lock')])
+        with self.assertRaises(RuntimeError):
+            p.launch()
+        self.assertEqual(len([c for c in calls if c[1] and c[1].startswith('launch')]), 1)
+
+
 if __name__ == '__main__':
     unittest.main()

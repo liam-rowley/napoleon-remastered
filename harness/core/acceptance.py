@@ -171,6 +171,7 @@ def run_pass(baseline, env):
             record(f'{sid}:scene', False, {'reason': r['reason']})
             return False, steps
         ok, d = load_time_ok(s['load_time_s'], r.get('load_s') or 0, s['load_tolerance_pct'])
+        d['path'] = r.get('path')   # launch, relaunch or reset, and a recorded launch retry (ctl.Pc.launch)
         if not record(f'{sid}:load', ok, d):
             return False, steps
         if s['pose'] is not None:

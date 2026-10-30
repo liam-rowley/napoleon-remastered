@@ -247,12 +247,18 @@ class Pc:
             self.set_keys(miss)
         size = size or self.launch_cfg.get('size', '1920x1080')
         rc, out = self.job(f'launch size={size}', 300)
+        retried = None
+        if rc != 0 and 'HEADLESS FAILED' in out:
+            # one retry, recorded: the headless start was lost twice on 2026-10-30 with the game itself fine (a heap corruption 10 ms after
+            # init, and an on_virtual status logged by the proxy that never reached headless_status.json; run 20261030_j44pc, J16's code)
+            retried = out.strip().splitlines()[-1][-300:]
+            rc, out = self.job(f'launch size={size}', 300)
         if rc != 0:
             raise RuntimeError(f'step launch: exit {rc}: {out[-400:]}')
         ok, r = self.ctl(f"waitfor frontend {self.launch_cfg.get('frontend_wait_s', 180)}", self.launch_cfg.get('frontend_wait_s', 180) + 20)
         if not ok:
             raise RuntimeError(f'step frontend: {(r or {}).get("reason", "no answer")}')
-        return {'size': size, 'keys_set': sorted(miss), 'launch_s': round(self.clock() - t0, 1)}
+        return {'size': size, 'keys_set': sorted(miss), 'launch_s': round(self.clock() - t0, 1), **({'retried_after': retried} if retried else {})}
 
     def ctl(self, line, wait_s):
         rc, out = self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'ctl', self.owner, line, str(wait_s)], None, wait_s + 30)
