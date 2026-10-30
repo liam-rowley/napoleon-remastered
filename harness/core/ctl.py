@@ -156,6 +156,174 @@ class Settle:
             self.sleep(self.poll_s)
 
 
+# ---- the PC binding ---------------------------------------------------------------------------------------------------------
+def win_to_posix(p):
+    """C:\\x\\y -> /c/x/y (job.sh and shot.sh take either; the Git Bash form keeps spaces out of quoting trouble)."""
+    m = re.match(r'^([A-Za-z]):[\\/](.*)$', str(p))
+    return f'/{m.group(1).lower()}/' + m.group(2).replace('\\', '/') if m else str(p)
+
+
+def ini_values(text):
+    """{'section.key': value} from an ini text (the proxy's napoleon_remastered.ini)."""
+    out, sec = {}, ''
+    for line in text.splitlines():
+        s = line.strip()
+        if not s or s[0] in ';#':
+            continue
+        if s.startswith('[') and s.endswith(']'):
+            sec = s[1:-1].strip()
+        elif '=' in s:
+            k, v = s.split('=', 1)
+            out[f'{sec}.{k.strip()}' if sec else k.strip()] = v.strip()
+    return out
+
+
+class Pc:
+    """The game on the PC: the watcher (job.sh: status, launch, kill), the proxy's installed config (pc_deploy set) and the ctl channel.
+    Everything waits inside one call. `sh(argv, stdin, timeout)` -> (exit code, stdout) is injectable for the tests."""
+    def __init__(self, owner, adapter_path, adapter, sh=None, clock=time.monotonic, sleep=time.sleep):
+        self.owner, self.adapter_path, self.a = owner, str(adapter_path), adapter
+        self.launch_cfg = adapter.get('ctl', {}).get('launch', {})
+        self.sh, self.clock, self.sleep = sh or self._sh, clock, sleep
+        ident = ROOT / 'proxy' / adapter.get('game', 'napoleon') / 'identity.json'
+        self.ini_name = json.loads(ident.read_text(encoding='utf-8'))['config_file'] if ident.exists() else 'napoleon_remastered.ini'
+
+    @staticmethod
+    def _sh(argv, stdin=None, timeout=None):
+        p = subprocess.run(argv, input=stdin, capture_output=True, text=True, timeout=timeout)
+        return p.returncode, p.stdout + p.stderr
+
+    def job(self, body, timeout_s):
+        return self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, self.owner, '-', str(timeout_s)], body, timeout_s + 30)
+
+    def status(self):
+        rc, out = self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'status'], None, 30)
+        try:
+            return json.loads(out[out.index('{'):out.rindex('}') + 1])
+        except ValueError:
+            raise RuntimeError(f'watcher status unreadable (exit {rc}): {out[-300:]}')
+
+    def pid(self):
+        g = self.status().get('game_state') or {}
+        return g.get('pid') if g.get('state') not in (None, 'not_running') else None
+
+    def ini_path(self):
+        return Path(self.a['game_dir']) / self.ini_name
+
+    def keys(self):
+        """The dev keys every ctl launch needs (adapter ctl.launch.keys), never chosen by callers (J44)."""
+        return dict(self.launch_cfg.get('keys', {}))
+
+    def missing_keys(self):
+        p = self.ini_path()
+        if not p.exists():
+            raise Refused(f'{p} is missing: install the proxy kit first (pc_deploy.py install)')
+        have = ini_values(p.read_text(encoding='utf-8'))
+        return {k: v for k, v in self.keys().items() if have.get(k) != v}
+
+    def set_keys(self, keys):
+        argv = ['python3', str(ROOT / 'proxy' / 'tools' / 'pc_deploy.py'), 'set', '--game', self.a['game_dir'], '--config-file', self.ini_name]
+        rc, out = self.sh(argv + [f'{k}={v}' for k, v in keys.items()], None, 60)
+        if rc != 0:
+            raise RuntimeError(f'step keys: pc_deploy set failed: {out[-300:]}')
+
+    def launch(self, size=None):
+        """Apply the launch keys, launch headless through the watcher and wait for the front end. Returns {size, keys_set, launch_s}."""
+        t0 = self.clock()
+        miss = self.missing_keys()
+        if miss:
+            self.set_keys(miss)
+        size = size or self.launch_cfg.get('size', '1920x1080')
+        rc, out = self.job(f'launch size={size}', 300)
+        if rc != 0:
+            raise RuntimeError(f'step launch: exit {rc}: {out[-400:]}')
+        ok, r = self.ctl(f"waitfor frontend {self.launch_cfg.get('frontend_wait_s', 180)}", self.launch_cfg.get('frontend_wait_s', 180) + 20)
+        if not ok:
+            raise RuntimeError(f'step frontend: {(r or {}).get("reason", "no answer")}')
+        return {'size': size, 'keys_set': sorted(miss), 'launch_s': round(self.clock() - t0, 1)}
+
+    def ctl(self, line, wait_s):
+        rc, out = self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'ctl', self.owner, line, str(wait_s)], None, wait_s + 30)
+        try:
+            r = json.loads(out[out.index('{'):out.rindex('}') + 1])
+        except ValueError:
+            r = None
+        return rc == 0, r
+
+    def exit(self, wait_s=90):
+        """ctl exit, then wait until the watcher sees no game; a kill job when it does not go. Returns how it ended."""
+        if self.pid() is None:
+            return 'not running'
+        self.ctl('exit', 20)
+        end = self.clock() + wait_s
+        while self.clock() < end:
+            if self.pid() is None:
+                return 'exit'
+            self.sleep(1)
+        rc, out = self.job('kill', 120)
+        if rc != 0:
+            raise RuntimeError(f'step exit: the game did not exit and the kill job failed: {out[-300:]}')
+        return 'killed'
+
+    def build_info(self):
+        """build (pc_deploy's install.json), backend and size (the installed ini) of the running game: what a perf number belongs to."""
+        inst = Path(self.a['state_dir']) / 'install.json'
+        rec = json.loads(inst.read_text(encoding='utf-8')) if inst.exists() else {}
+        ini = ini_values(self.ini_path().read_text(encoding='utf-8')) if self.ini_path().exists() else {}
+        return {'build': rec.get('build_id'), 'kit': rec.get('kit_id'), 'backend': ini.get('proxy.backend'),
+                'size': ini.get('headless.size') if ini.get('headless.enabled') == '1' else 'windowed'}
+
+    def shot(self, name, out_dir):
+        """shot.sh into out_dir/<name>.jpg: (path, bytes)."""
+        out = Path(out_dir) / f'{name}.jpg'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        rc, txt = self.sh(['bash', str(HERE / 'shot.sh'), self.owner, win_to_posix(out)], None, 150)
+        if rc != 0 or not out.exists():
+            raise RuntimeError(f'step shot: {txt[-300:]}')
+        return str(out), out.stat().st_size
+
+    def vram(self, pid):
+        """Read-only, host side: the game's dedicated GPU memory (Windows counter GPU Process Memory, per process) and the device total (nvidia-smi)."""
+        res = {'source': 'Windows counter \\GPU Process Memory(pid_<pid>_*)\\Dedicated Usage (per process) + nvidia-smi memory.used (device)'}
+        ps = (f"$s = (Get-Counter '\\GPU Process Memory(pid_{int(pid)}_*)\\Dedicated Usage' -ErrorAction Stop).CounterSamples; "
+              "[math]::Round((($s | Measure-Object CookedValue -Sum).Sum)/1MB, 1)")
+        rc, out = self.sh(['powershell.exe', '-NoProfile', '-NonInteractive', '-Command', ps], None, 60)
+        try:
+            res['process_dedicated_mb'] = float(out.strip().splitlines()[-1])
+        except (ValueError, IndexError):
+            res['process_error'] = out.strip()[-200:]
+        rc, out = self.sh(['nvidia-smi', '--query-gpu=memory.used,memory.total', '--format=csv,noheader,nounits'], None, 30)
+        try:
+            used, total = [float(x) for x in out.strip().splitlines()[0].split(',')]
+            res['device_used_mb'], res['device_total_mb'] = used, total
+        except (ValueError, IndexError):
+            res['device_error'] = out.strip()[-200:]
+        return res
+
+
+class Session:
+    """What one game process has loaded, kept between CLI calls (<state>/ctl/_ctl_session.json): the scenario id is valid only for the pid
+    that loaded it, so `current_kind` never reads a stale row after a relaunch."""
+    def __init__(self, path):
+        self.path = Path(path) if path else None
+
+    def get(self, pid):
+        if not self.path or not self.path.exists() or pid is None:
+            return {}
+        try:
+            d = json.loads(self.path.read_text(encoding='utf-8'))
+        except ValueError:
+            return {}
+        return d if d.get('pid') == pid else {}
+
+    def put(self, pid, **kw):
+        if self.path:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            tmp = self.path.with_suffix('.tmp')
+            tmp.write_text(json.dumps({'pid': pid, 'utc': utc(), **kw}), encoding='utf-8')
+            tmp.replace(self.path)
+
+
 # ---- the client -------------------------------------------------------------------------------------------------------------
 def job_sh_transport(owner, adapter=None):
     """(line, wait_s) -> (exit code, parsed result or None) over `job.sh ctl`."""
@@ -170,11 +338,17 @@ def job_sh_transport(owner, adapter=None):
 
 
 class Ctl:
-    def __init__(self, transport, scenarios, adapter, battles_dir=None, shotter=None, clock=time.monotonic, sleep=time.sleep):
+    def __init__(self, transport, scenarios, adapter, battles_dir=None, shotter=None, clock=time.monotonic, sleep=time.sleep, pc=None, session=None):
         self.t, self.rows, self.cfg = transport, scenarios, adapter.get('ctl', {})
         self.battles_dir = battles_dir or ROOT / 'proxy' / adapter.get('game', 'napoleon') / 'lua' / 'battles'
         self.shotter, self.clock, self.sleep = shotter, clock, sleep
+        self.pc, self.session = pc, session or Session(None)   # pc: the game binding (launch, keys, exit, vram); None = a game already running
         self.scene_id = None
+        if pc is not None:
+            try:
+                self.scene_id = self.session.get(pc.pid()).get('scene_id')
+            except RuntimeError:
+                pass
 
     # -- plumbing
     def state(self):
@@ -257,21 +431,60 @@ class Ctl:
         s = self.state()
         return make_result('state', 'ok', start=start, state=s, check={'compared': 'state.json readable', 'expected': 'a scene and a frame', 'got': {'scene': s.get('scene'), 'frame': s.get('frame')}})
 
-    def v_scene(self, start, sid):
+    def v_scene(self, start, sid, *opts):
+        """Load a scenario from any state: launch (with the adapter's dev keys) when no game runs or its keys are wrong, autostart from the
+        front end, warm reset from a battle, relaunch from a campaign (no quit flow: fact napoleon.campaign.quit_to_menu); settle; then
+        `--deploy end` ends deployment (the row's launch command names it) so pause, speed and battle-time shots work."""
         row = resolve_scenario(self.rows, sid)
+        deploy = 'end' if ('--deploy' in opts and 'end' in opts) or 'deploy=end' in opts else 'running'
         target = scenario_target(row, self.battles_dir)
-        rc, r = self.t(f'autostart {target} 240', 260)
+        path = {'launch': None}
+        if self.pc is not None:
+            pid = self.pc.pid()
+            if pid is not None and self.pc.missing_keys():
+                path['exit_for_keys'] = self.pc.exit()
+                pid = None
+            if pid is None:
+                path['launch'] = self.pc.launch()
+        here = self.state().get('scene', '')
+        if here == 'campaign':
+            if self.pc is None:
+                raise Refused('a campaign has no quit flow (fact napoleon.campaign.quit_to_menu): scene needs the PC binding to relaunch')
+            path['relaunch'] = {'exit': self.pc.exit(), **self.pc.launch()}
+            here = 'frontend'
+        verb = 'reset' if str(here).startswith('battle') else 'autostart'
+        path['via'] = verb
+        rc, r = self.t(f'{verb} {target} 240', 260)
+        a = (r or {}).get('autostart', r or {}) if verb == 'reset' else (r or {})
         if rc != 0 or not r:
-            return make_result('scene', 'failed', f"step autostart {target}: {(r or {}).get('reason', 'no result')}", start, scenario=sid, evidence={'ctl': r})
+            return make_result('scene', 'failed', f"step {verb} {target}: {(r or {}).get('reason', 'no result')}", start, scenario=sid, path=path, evidence={'ctl': r})
         settle = self.settle()
         if not settle['settled']:
-            return make_result('scene', 'failed', 'step settle: ' + json.dumps(settle), start, scenario=sid, settle=settle, evidence={'ctl': r})
+            return make_result('scene', 'failed', 'step settle: ' + json.dumps(settle), start, scenario=sid, path=path, settle=settle, evidence={'ctl': r})
         self.scene_id = sid
-        got = {'map': r.get('map'), 'scene': settle['scene']}
+        if self.pc is not None:
+            self.session.put(self.pc.pid(), scene_id=sid)
+        got = {'map': a.get('map'), 'scene': settle['scene']}
         want = {'map': row['map'].split(' ')[0] if row['kind'] == 'campaign' else row['map']}
-        ok = row['kind'] == 'campaign' or got['map'] == want['map']
-        check = {'compared': 'preset map against the row', 'expected': want, 'got': got, 'ok': ok}
-        return make_result('scene', 'ok' if ok else 'failed', '' if ok else 'WRONG MAP', start, scenario=sid, target=target, load_s=r.get('load_s'), settle=settle, check=check, evidence={'ctl': r})
+        ok = row['kind'] in ('campaign', 'historical') or str(got['map']).lower() == want['map'].lower()
+        if ok and deploy == 'end':
+            got['deployment'] = self.end_deployment(row)
+            ok = got['deployment'] == 'ended'
+        check = {'compared': 'preset map against the row' + (', deployment ended' if deploy == 'end' else ''), 'expected': {**want, 'deployment': deploy}, 'got': got, 'ok': ok}
+        reason = '' if ok else ('WRONG MAP' if 'deployment' not in got else f"step deploy: {got['deployment']}")
+        return make_result('scene', 'ok' if ok else 'failed', reason, start, scenario=sid, kind=row['kind'], target=target, load_s=a.get('load_s'),
+                           path=path, settle=settle, check=check, evidence={'ctl': r})
+
+    def end_deployment(self, row):
+        """The start button's call (speed.lua start), then the battle clock must run (IsConflict) within the route's deploy_wait_s."""
+        rt = self.route('speed', row['kind'])
+        self.battle_clock(rt, 'start')
+        end = self.clock() + rt.get('deploy_wait_s', 15)
+        while self.clock() < end:
+            if self.battle_clock(rt, 'read')['conflict']:
+                return 'ended'
+            self.sleep(1)
+        return 'still deploying after the start call'
 
     def v_cam(self, start, *ref):
         pose = resolve_pose(self.rows, ' '.join(ref))
@@ -377,8 +590,14 @@ class Ctl:
         cfg = self.cfg.get('perf', {})
         sane = r.get('frames', 0) > 0 and r.get('frame_ms', {}).get('p50', 0) > 0
         check = {'compared': 'frames recorded and a positive median', 'expected': 'frames > 0, p50 > 0', 'got': {'frames': r.get('frames'), 'p50': r.get('frame_ms', {}).get('p50')}, 'ok': sane}
-        return make_result('perf', 'ok' if sane else 'failed', '' if sane else 'no usable frames', start, check=check,
-                           frame_ms=r.get('frame_ms'), frames=r.get('frames'), mem=r.get('mem'), vram={'source': cfg.get('vram_source', 'nvidia-smi from a watcher job (not read by this verb yet)')},
+        vram = {'source': cfg.get('vram_source', 'not read: no PC binding')}
+        if self.pc is not None:
+            vram = self.pc.vram(self.pc.pid())
+            check['vram'] = {'expected': 'the game process has dedicated GPU memory', 'got': vram.get('process_dedicated_mb')}
+            sane = sane and (vram.get('process_dedicated_mb') or 0) > 0
+            check['ok'] = sane
+        return make_result('perf', 'ok' if sane else 'failed', '' if sane else 'no usable frames or no VRAM reading', start, check=check,
+                           frame_ms=r.get('frame_ms'), frames=r.get('frames'), mem=r.get('mem'), vram=vram, **(self.pc.build_info() if self.pc else {}),
                            evidence={'ctl': r})
 
 
@@ -387,6 +606,8 @@ def main(argv=None):
     ap.add_argument('--owner', default='claude-ctl')
     ap.add_argument('--adapter', default=str(ROOT / 'harness' / 'napoleon' / 'adapter.json'))
     ap.add_argument('--registry', default=str(ROOT / 'registries' / 'scenarios.jsonl'))
+    ap.add_argument('--out', help='folder for shots (default <state>/ctl/shots)')
+    ap.add_argument('--no-pc', action='store_true', help='no watcher binding: never launch, no shots, no VRAM (a game someone else launched)')
     ap.add_argument('verb')
     ap.add_argument('args', nargs='*')
     a = ap.parse_args(argv)
@@ -397,7 +618,12 @@ def main(argv=None):
         print(json.dumps(make_result(a.verb, 'refused', f'unknown verb; verbs: {", ".join(VERBS)}')))
         return 2
     adapter = json.loads(Path(a.adapter).read_text(encoding='utf-8'))
-    ctl = Ctl(job_sh_transport(a.owner, a.adapter), load_scenarios(a.registry), adapter)
+    pc = None if a.no_pc else Pc(a.owner, a.adapter, adapter)
+    state_dir = Path(adapter.get('state_dir', '.'))
+    out_dir = Path(a.out) if a.out else state_dir / 'ctl' / 'shots'
+    shotter = (lambda name: pc.shot(name, out_dir)) if pc else None
+    ctl = Ctl(job_sh_transport(a.owner, a.adapter), load_scenarios(a.registry), adapter, shotter=shotter, pc=pc,
+              session=Session(state_dir / 'ctl' / '_ctl_session.json'))
     res = ctl.run(a.verb, *a.args)
     print(json.dumps(res, indent=2))
     return exit_code(res)

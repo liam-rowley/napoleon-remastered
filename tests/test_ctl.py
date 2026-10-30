@@ -24,20 +24,22 @@ ADAPTER = {'game': 'napoleon', 'ctl': {'settle': {'frames': 3, 'quiet_ms': 1000,
 
 class FakeGame:
     """Answers ctl lines; the frame counter advances 2 per state call."""
-    def __init__(self, scene='battle_deploy', fail=None):
-        self.frame, self.scene, self.fail, self.lines = 0, scene, fail, []
+    def __init__(self, scene='battle_deploy', fail=None, here='frontend'):
+        self.frame, self.scene, self.fail, self.lines, self.here = 0, scene, fail, [], here   # here: the scene until an autostart or reset
 
     def __call__(self, line, wait=0):
         self.lines.append(line)
         if line == 'state':
             self.frame += 2
-            return 0, {'status': 'ok', 'state': {'scene': self.scene, 'frame': self.frame, 'scene_s': 5.0}}
+            return 0, {'status': 'ok', 'state': {'scene': self.here or self.scene, 'frame': self.frame, 'scene_s': 5.0}}
         if self.fail and line.startswith(self.fail):
             return 1, {'status': 'failed', 'reason': 'engine said no'}
         if line.startswith('autostart'):
+            self.here = None
             return 0, {'status': 'ok', 'map': 'NAP_MP_Grassy_Flatlands', 'load_s': 3.0}
         if line.startswith('reset'):
-            return 0, {'status': 'ok'}
+            self.here = None if 'frontend' not in line else 'frontend'
+            return 0, {'status': 'ok', 'autostart': {'map': 'NAP_MP_Grassy_Flatlands', 'load_s': 2.5}}
         if line.startswith('perf'):
             return 0, {'status': 'ok', 'frames': 600, 'frame_ms': {'p50': 16.6, 'p99': 20.0, 'max': 30.0}, 'mem': {'va_used_mb': 1700}}
         return 1, None
@@ -91,7 +93,7 @@ class Scenes(unittest.TestCase):
         self.assertEqual(r['status'], 'ok')
         self.assertIn('autostart battle:land_small 240', g.lines)
         self.assertTrue(r['settle']['settled'])
-        self.assertEqual(r['check']['expected'], {'map': 'NAP_MP_Grassy_Flatlands'})
+        self.assertEqual(r['check']['expected'], {'map': 'NAP_MP_Grassy_Flatlands', 'deployment': 'running'})
 
     def test_historical_and_campaign_name_their_open_state(self):
         self.assertIn('historical', make().run('scene', 'hist')['reason'])
