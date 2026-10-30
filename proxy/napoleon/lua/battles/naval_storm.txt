@@ -1,0 +1,6 @@
+# naval_storm - a custom naval battle in a rain storm (J44): caribbean, weather option 3 (Rain storm), time of day option 0 (Afternoon).
+type=naval
+map=caribbean
+prefs=.sp_default
+weather=3
+time_of_day=0

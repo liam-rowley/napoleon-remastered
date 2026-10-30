@@ -181,6 +181,11 @@ def ini_values(text):
     return out
 
 
+def ident_mod(adapter):
+    ident = ROOT / 'proxy' / adapter.get('game', 'napoleon') / 'identity.json'
+    return json.loads(ident.read_text(encoding='utf-8'))['mod_dir'] if ident.exists() else 'napoleon_remastered'
+
+
 class Pc:
     """The game on the PC: the watcher (job.sh: status, launch, kill), the proxy's installed config (pc_deploy set) and the ctl channel.
     Everything waits inside one call. `sh(argv, stdin, timeout)` -> (exit code, stdout) is injectable for the tests."""
@@ -273,7 +278,10 @@ class Pc:
         inst = Path(self.a['state_dir']) / 'install.json'
         rec = json.loads(inst.read_text(encoding='utf-8')) if inst.exists() else {}
         ini = ini_values(self.ini_path().read_text(encoding='utf-8')) if self.ini_path().exists() else {}
-        return {'build': rec.get('build_id'), 'kit': rec.get('kit_id'), 'backend': ini.get('proxy.backend'),
+        # the DLL's own build id (the last commit of its inputs: what rule 79 compares), from its load line; the kit id names HEAD at kit time
+        log = self.ini_path().parent / ident_mod(self.a) / 'logs' / 'proxy.log'
+        m = re.search(r'd3d9\.dll build (\S+) loaded', log.read_text(encoding='utf-8', errors='replace')) if log.exists() else None
+        return {'build': m.group(1) if m else rec.get('build_id'), 'kit': rec.get('kit_id'), 'backend': ini.get('proxy.backend'),
                 'size': ini.get('headless.size') if ini.get('headless.enabled') == '1' else 'windowed'}
 
     def shot(self, name, out_dir):
@@ -493,6 +501,8 @@ class Ctl:
         return 'still deploying after the start call'
 
     def v_cam(self, start, *ref):
+        if list(ref) == ['read']:
+            return self.cam_read(start)
         pose = resolve_pose(self.rows, ' '.join(ref))
         rt = self.route('camera')
         cl = rt.get('clamps', {})
@@ -527,6 +537,21 @@ class Ctl:
         return make_result('cam', 'ok' if check['ok'] else 'failed', reason, start, pose=pose, kind=rt.get('kind'),
                            got={k: round(v, 4) if isinstance(v, float) else v for k, v in got.items()}, settle=settle, check=check,
                            evidence={'set': r, 'read': r2})
+
+    def cam_read(self, start):
+        """`cam read`: the pose as it is (no set), checked only by the fit; how a scenario's poses are found before they are stored (J44)."""
+        rt = self.route('camera')
+        ok, text, r = self.lua(rt['read'])
+        try:
+            if not ok:
+                raise campose.PoseError(text)
+            got = campose.solve(campose.parse(text))
+        except campose.PoseError as e:
+            return make_result('cam', 'failed', f'step read: {e}', start, evidence={'read': r})
+        fit_ok = got['rms_px'] <= rt.get('max_rms_px', 0.05)
+        check = {'compared': 'readback fit', 'expected': f"rms_px <= {rt.get('max_rms_px', 0.05)}", 'got': got['rms_px'], 'ok': fit_ok}
+        return make_result('cam', 'ok' if fit_ok else 'failed', '' if fit_ok else 'readback fit too loose', start, kind=rt.get('kind'),
+                           got={k: round(v, 4) if isinstance(v, float) else v for k, v in got.items()}, check=check, evidence={'read': r})
 
     def v_order(self, start, *args):
         self.route('orders')

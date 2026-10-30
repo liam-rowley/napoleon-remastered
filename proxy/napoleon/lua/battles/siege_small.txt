@@ -2,3 +2,5 @@
 type=siege
 map=rti_fort_1
 prefs=.sp_default
+weather=0
+time_of_day=1

@@ -60,6 +60,8 @@
     },
     "perf": {"vram_source": "nvidia-smi from a watcher job (not read by the verb yet)"}
   },
+  "acceptance": {"order": ["hist_dresden", "hist_nile", "campaign_start", "naval_small", "siege_small", "land_small"],
+                 "note": "one scenario per kind; ends on a plain battle so the warm reset runs from a battle (a historical battle and a campaign leave by a relaunch: harness/core/ctl.py scene)"},
   "config_files": [
     {"id": "prefs", "anchor": "appdata", "path": "scripts\\preferences.script.txt", "style": "prefs",
      "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); overlay style prefs replaces a key's value in place and keeps every other byte"},

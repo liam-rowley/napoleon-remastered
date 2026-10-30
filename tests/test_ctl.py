@@ -298,6 +298,17 @@ class CamVerb(unittest.TestCase):
         self.assertTrue(all(f['within'] for f in r['check']['fields'].values()))
         self.assertTrue(any(l.startswith('lua S.lua 20 -- 10.0,30.0,300.0,90.0,-30.0') for l in g.lines))
 
+    def test_cam_read_returns_the_pose_without_setting_it(self):
+        g = CamGame()
+        c = make2(g)
+        c.run('cam', '10', '30', '300', '90', '-30')
+        n = len([l for l in g.lines if l.startswith('lua S.lua')])
+        r = c.run('cam', 'read')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+        self.assertEqual(len([l for l in g.lines if l.startswith('lua S.lua')]), n)   # no set
+        self.assertAlmostEqual(r['got']['yaw'], 90, places=2)
+        self.assertTrue(r['check']['ok'])
+
     def test_a_named_pose_resolves_from_the_scenario_row(self):
         g = CamGame()
         g.ground = -10   # the row's pose (y 2) is 12 m above this ground: inside the clamp
