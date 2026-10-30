@@ -23,11 +23,13 @@ Every branch kind: `docs/DECISIONS.md` is append only (existing rows unchanged a
 with a YYYY-MM-DD date and Reversible yes or no). A reversal is a new row that names the one it replaces.
 """
 import argparse
+import importlib.util
 import json
 import re
 import subprocess
 import sys
 from fnmatch import fnmatchcase
+from pathlib import Path
 
 PLAN = ['docs/*', 'docs/**', 'jobs/*/brief.md', 'registries/jobs.jsonl', 'registries/jobs.md', 'README.md', 'CLAUDE.md']
 META = PLAN + ['.github/**', 'tools/*', 'tools/**', 'tests/*', 'tests/**', 'schemas/*', 'wsc.toml', '.gitattributes', '.gitignore',
@@ -94,12 +96,27 @@ def allowed(path, globs):
 
 
 ACC_LEDGER = 'harness/acceptance/ledger.jsonl'
+ACC_BASELINE = 'harness/acceptance/baseline.json'
 ACC_NEEDED = 20
 ACC_EXEMPT = ('/runs/', 'README.md', 'harness/acceptance/')
 
 
+def acceptance_active(ledger, baseline):
+    """Rule 79 is on only when the base holds the ledger and a valid baseline (J4 review 1): a ledger alone cannot be satisfied, since
+    acceptance refuses to run without a baseline (rule 74), and would refuse every proxy/ and harness/ job, including the one that builds it."""
+    if ledger is None or baseline is None:
+        return False
+    spec = importlib.util.spec_from_file_location('acceptance', Path(__file__).resolve().parents[1] / 'harness' / 'core' / 'acceptance.py')
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    try:
+        return not mod.baseline_problems(json.loads(baseline))
+    except (ValueError, TypeError, AttributeError):
+        return False
+
+
 def acceptance_problems(changed, acc):
-    """Rule 79. `acc` is None (skip) or {'active': ledger exists on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher'}.
+    """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher'}.
     A change to proxy/ or harness/ needs ACC_NEEDED passes in a row at the end of the ledger on this build and watcher; a fail or a pass of
     another build ends the run."""
     if not acc or not acc.get('active'):
@@ -198,7 +215,7 @@ def main(argv=None):
     build_id = git('log', '-1', '--format=%h', '--abbrev=12', 'HEAD', '--', *inputs).strip() or 'nogit'
     wsrc = show('HEAD', 'harness/core/watcher.ps1') or ''
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
-    acc = {'active': show(a.base, ACC_LEDGER) is not None, 'ledger': show('HEAD', ACC_LEDGER), 'build_id': build_id, 'watcher': wm.group(1) if wm else '?'}
+    acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE)), 'ledger': show('HEAD', ACC_LEDGER), 'build_id': build_id, 'watcher': wm.group(1) if wm else '?'}
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
                  lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions, acc)
     for e in errs:

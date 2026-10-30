@@ -186,6 +186,22 @@ class Rule79(unittest.TestCase):
         self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc('', active=False)), [])
         self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], None), [])
 
+    def test_a_ledger_without_a_valid_baseline_does_not_activate_it(self):
+        # J4 review 1: the empty ledger alone switched the rule on, and nothing could satisfy it (no baseline, run not wired)
+        self.assertFalse(pp.acceptance_active('', None))
+        self.assertFalse(pp.acceptance_active('', '{"schema": 1}'))
+        self.assertFalse(pp.acceptance_active('', 'not json'))
+        self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc('', active=pp.acceptance_active('', None))), [])
+
+    def test_a_ledger_and_a_valid_baseline_activate_it(self):
+        kinds = ('land', 'siege', 'naval', 'historical', 'campaign')
+        steps = [{'scenario': f'{k}_x', 'kind': k, 'pose': 'wide', 'load_time_s': 20.0, 'load_tolerance_pct': 50, 'shot': f'{k}.jpg',
+                  'shot_threshold': 4.0, 'deterministic': True} for k in kinds]
+        b = {'schema': 1, 'date': '2026-10-30', 'build_id': 'abc', 'fresh_boot': True, 'size': '1920x1080', 'exe_sha1': 'pin', 'steps': steps,
+             'settings_files': ['prefs']}
+        self.assertTrue(pp.acceptance_active('', json.dumps(b)))
+        self.assertFalse(pp.acceptance_active(None, json.dumps(b)))
+
     def test_check_wires_it_into_job_branches(self):
         errs = pp.check('job/J1', ['proxy/core/dev.cpp'], {'J1': ROW}, {'J1': ROW}, files(), files(), None, self.acc(self.led(3)))
         self.assertTrue(any('rule 79' in e for e in errs))
