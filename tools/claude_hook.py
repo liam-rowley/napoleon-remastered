@@ -21,7 +21,9 @@ def decide(event):
     sid = str(event.get('session_id') or '').strip()
     if not COMMIT.search(cmd) or not sid:
         return None
-    if re.search(r'Claude-Session:\s*' + re.escape(sid) + r'(?![\w-])', cmd):
+    # only the --trailer flag counts: a `Claude-Session:` line in a -m body is a trailer only in the message's last paragraph, and J44's 19
+    # commits put it one paragraph above `Co-Authored-By:`, so git (and tools/pr_policy.py) read no session at all
+    if re.search(r'--trailer[\s=]+["\']?Claude-Session:\s*' + re.escape(sid) + r'(?![\w-])', cmd):
         return None
     return (f'Every commit in this repo names its Claude Code session (tools/pr_policy.py refuses a job whose report or review was '
             f'committed without one). Run the same command again with this flag after `git commit`: '
