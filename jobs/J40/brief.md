@@ -23,7 +23,7 @@ harness: `job.sh` blocks inside one call; never poll with repeated calls.
   `saves/napoleon/{save_map.py,stage_save.py,load_save.sh}`, `saves/core/{esf_diff,esf_map}.py`, `harness/core/shot.sh`, the J15 Lua probes
   (`campaign_select`, `campaign_camera`).
 - Facts to resolve: `napoleon.console.transport_to_region_no_move`, `napoleon.console.acting_commands` (both `open`) and
-  `napoleon.campaign.modal_stops_pump` (verified; this job handles it).
+  `napoleon.campaign.modal_stops_pump` (recorded 2026-10-29, run 20261029_j14pc; this job handles it).
 - Evidence in `empire-remastered` (read-only: never edit, commit or push there): how Empire's `transport_to_region` and AI-turn modals were
   handled. Port the method, not the addresses.
 
