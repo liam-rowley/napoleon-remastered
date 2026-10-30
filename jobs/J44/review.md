@@ -47,6 +47,11 @@ What I found:
    Test: `test_pr_policy.Rule79.test_failing_fixture_another_branchs_passes_do_not_count`, which uses a ledger of 20 passes from
    `job/J8` and lines with no branch.
 
+1b. `harness/core/ctl.py` `Pc.virtualstore_dir` (CI `gates` red on PR 69). It joined the Windows path tail `Program Files (x86)\Game`
+   as one segment, which only works on Windows, so `test_ctl.PcLaunch.test_virtualstore_copies_are_moved_aside_before_a_launch`
+   failed on Linux CI (KeyError `virtualstore_cleared`). Fixed: the tail is split on both separators. The path on Windows is
+   unchanged, so the 20 passes still stand. Tested on Windows and Linux (WSL).
+
 **should-fix (follow-up job, not this branch)**
 2. `proxy/tools/build.sh:27` and `tools/pr_policy.py:232`. The build id is the *commit hash* of the last change to the DLL inputs,
    so any reword, rebase or cherry-pick after the gate run invalidates the 20 passes even when the code is identical. That is exactly

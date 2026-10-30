@@ -253,7 +253,8 @@ class Pc:
         local = os.environ.get('LOCALAPPDATA')
         if not m or not local:
             return None
-        return Path(local) / 'VirtualStore' / m.group(1) / ident_mod(self.a)
+        # split on both separators: a host (Linux CI) Path treats the backslash as part of one name
+        return Path(local, 'VirtualStore', *[s for s in re.split(r'[\\/]', m.group(1)) if s], ident_mod(self.a))
 
     def clear_virtualstore(self):
         """Move the VirtualStore copies of the mod folder's files to <state>/_to_delete (nothing is deleted), so the game's writes reach
