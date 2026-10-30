@@ -55,6 +55,10 @@ New-Fake (Join-Path $game 'FakeEmpire.exe') 'FakeB' 'x86'
 New-Fake (Join-Path $tmp 'Fake64.exe') 'FakeC' 'x64'
 $logPath = Join-Path $game 'logs\proxy.log'
 $adapterPath = New-TestAdapter $tmp 'FakeNapoleon.exe' 'FakeEmpire.exe' ("log `"$logPath`"")
+# the exe identity the watcher checks before every launch (J18): a fixture with the fake game's sha1, beside the adapter it is started with
+$identityPath = Join-Path $tmp 'exe_identity.json'
+$fakeSha1 = (Get-FileHash -LiteralPath (Join-Path $game 'FakeNapoleon.exe') -Algorithm SHA1).Hash.ToLower()
+[IO.File]::WriteAllText($identityPath, "{`"sha1`": `"$fakeSha1`"}", $Utf8NoBom)
 foreach ($f in 'watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1', 'win_probe.ps1') { Copy-Item -LiteralPath (Join-Path $core $f) -Destination (Join-Path $root 'src') }
 Copy-Item -LiteralPath $adapterPath -Destination (Join-Path $root 'src\adapter.json')
 New-Item -ItemType Directory -Path (Join-Path $root 'profiles') -Force | Out-Null
@@ -286,6 +290,36 @@ try {
         Assert-True (-not (Test-Path -LiteralPath $dxc)) 'and it did not run'
         $ro = Run-Job "@echo off`r`ntasklist /fi `"imagename eq FakeNapoleon.exe`" /fo csv /nh" 'readonly'
         Assert-Eq $ro.d.status 'ok' 'read-only tasklist is never blocked'
+        Clear-Lock
+    }
+    Test-Case 'exe check (J18): a fake game whose sha1 is not the identity is refused (-2), exe_check=warn launches it with a warning, watcher.status has the verdict' {
+        Set-Lock 'ci18'
+        [IO.File]::WriteAllText($identityPath, '{"sha1": "0000000000000000000000000000000000000000"}', $Utf8NoBom)
+        try {
+            $r = Run-Job 'launch visible=1 owner=ci18' 'exebad' 40
+            Assert-Eq $r.d.status 'refused' "mismatch refused ($($r.out))"; Assert-Eq $r.d.exit '-2' 'exit -2'
+            Assert-Match $r.d.reason 'EXE CHECK: MISMATCH' 'reason'
+            Assert-True ((Fake-Procs).Count -eq 0) 'nothing started'
+            Wait-Until { $x = Get-St; $x -and $x.exe -and $x.exe.ok -eq $false } 10 'watcher.status exe.ok false' | Out-Null
+            $mark = Log-Mark
+            [IO.File]::AppendAllText((Join-Path $root 'watcher.ini'), "`r`nexe_check=warn`r`n", $Utf8NoBom)
+            Wait-LogMatch 'watcher.ini reloaded' 20 'the settings reload' $mark
+            $w = Run-Job 'launch visible=1 owner=ci18' 'exewarn' 40
+            Assert-Eq $w.d.status 'ok' "warn launches ($($w.out))"; Assert-Match $w.out 'WARNING \(watcher\): exe check failed' 'with a warning'
+            Assert-Eq (Run-Job 'kill owner=ci18' 'exekill' 40).d.status 'ok' 'kill'
+        } finally {
+            $ini = [IO.File]::ReadAllText((Join-Path $root 'watcher.ini')) -replace "`r`nexe_check=warn`r`n", ''
+            [IO.File]::WriteAllText((Join-Path $root 'watcher.ini'), $ini, $Utf8NoBom)
+            [IO.File]::WriteAllText($identityPath, "{`"sha1`": `"$fakeSha1`"}", $Utf8NoBom)
+            Stop-Fakes; Clear-Lock
+        }
+        $st = Run-Job 'status' 'exestatus' 20
+        Assert-Match $st.out '"ok":\s+true' 'a status job runs the check and shows the verdict'
+    }
+    Test-Case 'a script that runs git is refused even with the lock held (J18)' {
+        Set-Lock 'ci18'
+        $g = Run-Job "#job owner=ci18`r`n@echo off`r`ngit --version" 'git' 20
+        Assert-Eq $g.d.status 'refused' "git refused ($($g.out))"; Assert-Match $g.d.reason 'runs git' 'reason'
         Clear-Lock
     }
     Test-Case 'launch and kill: pid confirmed, second launch refused, the other title blocks, a foreign lock blocks, kill is clean' {

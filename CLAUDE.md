@@ -53,9 +53,13 @@
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.
 - **Exe stays vanilla on disk** (D2). Runtime patches and detours go in the proxy DLL, every engine address in the engine-sites
-  registry with its anchor bytes, behind the exe-identity guard.
-- **The PC game folder is a deploy target.** Change the repo, then sync with a sha-checked copy. Experiments on the PC live under a
-  `_scratch\<you>\` folder; anything worth keeping comes back to the repo. Never run git in the game folder.
+  registry with its anchor bytes, behind the exe-identity guard. Guard: `pc_deploy.py` refuses an install on a non-vanilla exe and checks the
+  sha after every install, uninstall and set; the watcher refuses a launch (`exe_check`); `pc_deploy.py status` and `wsc setup` report it.
+- **The PC game folder is a deploy target.** Change the repo, then sync with a sha-checked copy (`pc_deploy.py`).
+- **PC experiments live under `<state>\_scratch\<you>\`** (`job.sh scratch <you>`); anything worth keeping comes back to the repo. Guard: the
+  hook (`tools/claude_hook.py`) denies shell writes into a game folder or the state folder elsewhere; `pc_deploy.py status` lists foreign files.
+- **Never run git in a game folder.** Guard: the hook denies git there (cwd, `cd`, `-C`, `--git-dir`, `GIT_DIR`), the watcher refuses a script
+  that runs git, and `pc_deploy.py status` and `wsc setup` fail on a `.git` in or above a game folder.
 - **Reuse before you write.** Search the tools registry first; extend an existing tool or CLI verb rather than adding a near-duplicate.
   Every tool has a header and a registry row (`tools` gate; header format: `core/warscape/tools.py`).
 - **"Verified" carries a date and a run id** (`verified_dates` gate for docs; structured fields in registries).

@@ -14,10 +14,12 @@ all times are UTC (`...Z`).
 3. Later updates need no click: `send` a new kit, then job `update kit=<id>` (see below).
 
 ## Watcher root (`C:\napoleon_remastered_pc\watcher`, `/c/napoleon_remastered_pc/watcher` in Git Bash)
-`src\` code and `adapter.json` | `jobs\` `<id>.request` `.out` `.done` `_ids.txt` | `profiles\<name>\`, `profiles\_saved\<ts>_<owner>\`,
+`src\` code, `adapter.json` and `exe_identity.json` (pc_deploy's sha-checked copy of `proxy/napoleon/identity.json`) | `jobs\` `<id>.request` `.out` `.done` `_ids.txt` | `profiles\<name>\`, `profiles\_saved\<ts>_<owner>\`,
 `profiles\_active.json` | `runs\<utc>_hang\`, `runs\<utc>_winprobe\` | `vdisplay_restore.json` (only while a launch has changed the virtual display's mode) | `_to_delete\` (nothing is ever deleted) | `update\`, `backup\` | `game.lock`, `watcher.status`,
 `watcher.alive`, `watcher.pid`, `watcher.log`, `watcher.ini`, `watcher.zombie.json`, `watcher.stop`, `watchdog.off`, `install.log`, `install_result.json`.
-Kits live beside it: `<state>\kits\<id>`.
+Kits live beside it: `<state>\kits\<id>`. PC experiments live in `<state>\_scratch\<owner>\` only: `job.sh scratch <owner>` creates it
+and prints its Git Bash path (owner `^[a-z0-9][a-z0-9_-]{0,31}$`, the job id: `j18`). The Claude Code hook (`tools/claude_hook.py`) denies a shell
+write anywhere else in the state folder or in a game folder, and any git there (J18).
 
 ## Job requests
 Write `jobs\<id>.request` (write a temp name, then rename). Ids are never reused (a reused id is refused). FIFO.
@@ -26,14 +28,18 @@ Write `jobs\<id>.request` (write a temp name, then rename). Ids are never reused
 - A script: `cmd` by default, or `ps1` with `#ps1` as the first line. Optional header `#job owner=<you> timeout=<s> type=cmd|ps1`.
 - Result `<id>.done` (JSON, written last): `status` ok|failed|refused|timeout|lost, `exit` (refused = -2, timeout = -1), `reason`, `start_utc`, `end_utc`; output in `<id>.out`.
 - `launch`, `kill`, `profile` need `owner=` equal to the owner in `game.lock`. A script that starts or kills the game or writes a config file needs `#job owner=` too.
-  Read-only scripts never need a lock.
+  Read-only scripts never need a lock. **A script that runs `git` is refused**, lock or not, whatever `job_script_guard` says (J18: watcher
+  jobs never need git; agents run it in the repo checkout).
+- Every `launch` first hashes the game exe (sha1, cached by size and mtime) against `src\exe_identity.json`: a mismatch, or no identity, is
+  refused (-2) before any display or config change (`exe_check=refuse`); `exe_check=warn` launches with a WARNING line. `watcher.status` has
+  `exe` {sha1, ok, checked_utc, expected, detail} (refreshed by every launch and `status` job), and an `update` job's output names the verdict.
 
 ## Game lock
 `game.lock` is one line: `owner= session= purpose= started=<UTC> [hang_s=<n>]`. Its mtime is the refresh time; 20 minutes without a refresh and it
 expires (moved to `_to_delete`). Release = move it away. A fresh lock from the Empire watcher, or the other title running, blocks a launch. The
 watchdog is armed only while a valid lock exists and the watcher launched the game.
 `harness/core/job.sh` does all of it from Git Bash: `job.sh lock <owner> <session> <purpose> [hang_s]`, `job.sh <owner> <file|-> [timeout_s]`
-(blocks inside one call until the result; exit code = the job's, refused 2, no answer 124), `touch`, `unlock <owner>`, `status`, `root`.
+(blocks inside one call until the result; exit code = the job's, refused 2, no answer 124), `touch`, `unlock <owner>`, `status`, `root`, `scratch <owner>`.
 The root comes from the adapter: `state_dir` as a Git Bash path plus `watcher_subdir` (no environment variable; `$WATCHER_ROOT` overrides it for tests).
 
 ## Hang watchdog and zombies
@@ -56,7 +62,7 @@ every other byte kept; `!key` refused); `style: none` allows full copies only (k
 
 ## Settings (`watcher.ini`, key=value; not in the `config_keys` registry, whose rows feed the generated tables)
 `hang_s`=120, `hang_startup_s`=180, `hung_window_s`=60, `cpu_epsilon_s`, `dump_wait_s`=90, `dump_type`, `watchdog`=1, `zombie_wait_s`=15, `job_timeout_s`=1800,
-`prune_hours`=24, `lock_stale_min`=20, `job_script_guard`=refuse|warn, `launch_confirm_s`=20, `loop_ms`=1000, `winprobe`=1; tests only: `test_hooks`, `test_fake_zombie`, `test_vdisplay_script` (stands in for the display tool; the CI runner has no virtual display).
+`prune_hours`=24, `lock_stale_min`=20, `job_script_guard`=refuse|warn, `exe_check`=refuse|warn, `launch_confirm_s`=20, `loop_ms`=1000, `winprobe`=1; tests only: `test_hooks`, `test_fake_zombie`, `test_vdisplay_script` (stands in for the display tool; the CI runner has no virtual display).
 
 ## Headless launch (J13)
 Every `launch` puts the window on the virtual display and fails closed; the proxy side is `proxy/README.md`. The request is one line (the owner holds `game.lock`):

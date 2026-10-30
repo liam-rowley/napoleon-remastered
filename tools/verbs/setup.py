@@ -1,6 +1,6 @@
 """Check that this clone and the PC are ready for local Claude Code work (D30), with a one-line fix for each failure.
 
-purpose: check Git Bash, python3 >= 3.12, the core submodule at the pinned tag, core.hooksPath, LF shell scripts, gh auth, Docker Desktop, the empire-remastered sibling clone, Python Playwright with Chromium and the PC watcher; `--fix` applies the safe fixes (a python3.exe copy, core.hooksPath)
+purpose: check Git Bash, python3 >= 3.12, the core submodule at the pinned tag, core.hooksPath, LF shell scripts, gh auth, Docker Desktop, the empire-remastered sibling clone, Python Playwright with Chromium, the PC watcher and the PC rules (exe vanilla, no .git in or above a game folder, nothing foreign in the Napoleon folder: J18); `--fix` applies the safe fixes (a python3.exe copy, core.hooksPath)
 usage: python3 core/wsc.py setup [--fix] [--skip <check>...]
 when: once per clone or PC, after a reboot or tool update, and whenever a gate or the watcher route fails for an environment reason
 verb: setup
@@ -15,7 +15,7 @@ from pathlib import Path
 NAME = 'setup'
 HELP = 'check this clone and the PC for local Claude Code work (D30); --fix for the safe fixes'
 MIN_PY = (3, 12)
-CHECKS = ('git_bash', 'python3', 'core_pin', 'hooks_path', 'lf_scripts', 'gh_auth', 'docker', 'empire_clone', 'playwright', 'watcher')
+CHECKS = ('git_bash', 'python3', 'core_pin', 'hooks_path', 'lf_scripts', 'gh_auth', 'docker', 'empire_clone', 'playwright', 'watcher', 'pc_rules')
 
 
 # ---- pure helpers (host tests: tests/test_setup.py) ------------------------------------------------------------------------------
@@ -182,6 +182,39 @@ def check_watcher(root, fix):
     rc, out = _run(['bash', str(root / 'harness' / 'core' / 'job.sh'), 'status'], timeout=30)
     tail = out.splitlines()[-1][:120] if out else ''
     return rc == 0, f'job.sh status exit {rc}: {tail}', 'the watcher runs as a logon task: after a reboot wait for it, or double-click <state>\\watcher\\src\\watch.cmd (harness/README.md)'
+
+
+def load_pc_deploy(root):
+    """proxy/tools/pc_deploy.py as a module: the one owner of the PC-rule damage checks (it also travels in every kit, stdlib only)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('pc_deploy', root / 'proxy' / 'tools' / 'pc_deploy.py')
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def pc_rules_result(pd, game, state, other_games, ident):
+    """(ok, detail) for the pc_rules check; None when the game or state folder is absent (CI, another host): the check is skipped."""
+    if not Path(game).is_dir() or not Path(state).is_dir():
+        return None
+    fails, lines = pd.pc_rules(game, state, ident)
+    for g in other_games:
+        gits = pd.git_dirs(g) if Path(g).is_dir() else []
+        lines.append(f'git ({Path(g).name}): ' + ('FAIL ' + ', '.join(gits) if gits else 'ok, no .git in that game folder or its parents'))
+        fails += bool(gits)
+    return fails == 0, '; '.join(l.splitlines()[0] for l in lines)
+
+
+def check_pc_rules(root, fix):
+    pd = load_pc_deploy(root)
+    import json
+    ad = json.loads((root / 'harness' / 'napoleon' / 'adapter.json').read_text(encoding='utf-8'))
+    games = json.loads((root / 'discovery' / 'napoleon' / 'games.json').read_text(encoding='utf-8'))
+    r = pc_rules_result(pd, ad['game_dir'], ad['state_dir'], [games['empire']['root']], pd.default_identity())
+    if r is None:
+        return True, f'skipped: no game folder ({ad["game_dir"]}) or state folder ({ad["state_dir"]}) on this host', ''
+    return r[0], r[1], ('python3 proxy/tools/pc_deploy.py status --game <game_dir> --state <state_dir> lists each failure; '
+                        'an exe mismatch or a .git there is for Liam to decide (nothing is fixed here, --fix included)')
 
 
 def add_arguments(p):
