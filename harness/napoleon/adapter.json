@@ -32,6 +32,16 @@
     "mod_ini": {"headless.enabled": "1", "headless.size": "{W}x{H}"}
   },
   "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
+  "ctl": {
+    "settle": {"frames": 30, "quiet_ms": 2000, "timeout_s": 120, "ready_scenes": ["battle_deploy", "battle", "campaign"],
+               "note": "provisional (J4 did not measure them: no 20-pass run); frame and scene stability, the proxy has no shader-creation hook (fact napoleon.ctl.settle_signal)"},
+    "routes": {
+      "camera": {"status": "unreachable", "why": "empire_battle is nil in the UI Lua that ctl lua runs in, and that pump stops after a short window", "fact": "napoleon.battle.script_api_reachable"},
+      "speed": {"status": "unreachable", "why": "same route as camera; BattleUI.RequestSpeed exists in the UI environment but is untested", "fact": "napoleon.battle.script_api_reachable"},
+      "orders": {"status": "unreachable", "why": "unit controllers come from empire_battle (unreachable); J28 owns the command route", "fact": "napoleon.battle.script_api_reachable"}
+    },
+    "perf": {"vram_source": "nvidia-smi from a watcher job (not read by the verb yet)"}
+  },
   "config_files": [
     {"id": "prefs", "anchor": "appdata", "path": "scripts\\preferences.script.txt", "style": "prefs",
      "note": "the game's own preferences: UTF-16LE with BOM, `key value; # ... #` lines (fact napoleon.config.preferences_format); overlay style prefs replaces a key's value in place and keeps every other byte"},
