@@ -66,3 +66,7 @@ In deployment, pause and speed are refused without changing the speed (`land_spe
   dev.camera=0`; the log shows `camera: dev.camera=0` and no install line (no site read).
 - Uninstall: game folder identical to the pre-install snapshot (1564 files). The lock release restored the headless overlay (no active
   profile left); `save_games` unchanged (newest file 2026-10-29); the campaign start (`campaign:new:mp_eur_napoleon:austria`) wrote no save.
+- **Corrected by the reviewer (2026-10-30, `jobs/J43/review.md` finding 1):** the "identical" check ran at 10:32:30, before the lock
+  release. At 10:32:32 the watcher's auto-restore wrote the headless profile's saved `mod_ini` (main's `napoleon_remastered.ini`, 5331 bytes,
+  sha256 8d8a4af0..., saved at 09:02:33 after main's kit install) back into the game folder. The folder ended at 1565 files: one stray ini, inert
+  without `d3d9.dll`, but not as found.
