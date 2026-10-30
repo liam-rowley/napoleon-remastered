@@ -1,0 +1,10 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "RuntimeError: step launch: exit 1: r [launch job j44-20261030T142950Z-558326899 owner=j44 headless 1920x1080]\nrunning: Napoleon.exe pid 30708\nheadless status: starting DllMain\n\n[watcher] failed: HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)\n[job j44-20261030T142950Z-558326899: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]\n",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-10-30T14:29:49.799Z",
+  "end_utc": "2026-10-30T14:29:56.318Z"
+}

@@ -1,0 +1,106 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "step autostart battle:hist_dresden: WRONG MAP: the engine loaded 'hb_dresden', the selected map's folder is 'dresden_battle.xml'",
+  "scenario": "hist_dresden",
+  "path": {
+    "launch": {
+      "size": "1920x1080",
+      "keys_set": [],
+      "launch_s": 8.6
+    },
+    "via": "autostart"
+  },
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "ctl": {
+      "id": "j44-20261030T142325Z-984526716",
+      "request": "autostart battle:hist_dresden 240",
+      "status": "failed",
+      "reason": "WRONG MAP: the engine loaded 'hb_dresden', the selected map's folder is 'dresden_battle.xml'",
+      "start_utc": "2026-10-30T14:23:25.617Z",
+      "end_utc": "2026-10-30T14:23:34.228Z",
+      "launch_id": "20261030T142317Z-p16588",
+      "scene": "battle",
+      "lua": "started battle NHMPB_Dresden_3v3 (historic, prefs .sp_default, button normal) weather=nil/nil time_of_day=nil",
+      "load_s": 7.4,
+      "total_s": 8.6,
+      "map": "NHMPB_Dresden_3v3",
+      "map_folder_loaded": "hb_dresden",
+      "map_folder_loaded_after_request_ms": 78,
+      "map_folder_selected": "dresden_battle.xml",
+      "preset_map": "NHMPB_Dresden_3v3",
+      "state_at_end": {
+        "launch_id": "20261030T142317Z-p16588",
+        "pid": 16588,
+        "frame": 7975,
+        "scene": "battle",
+        "scene_s": 1.0,
+        "uptime_s": 16.9,
+        "written_utc": "2026-10-30T14:23:34.228Z",
+        "last_present_utc": "2026-10-30T14:23:34.227Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 0,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 2111,
+          "commit_mb": 1518
+        },
+        "reports": {
+          "autostart.map": "NHMPB_Dresden_3v3",
+          "autostart.map_folder": "dresden_battle.xml",
+          "autostart.time_of_day": "nil",
+          "autostart.weather": "nil/nil",
+          "battle.map_folder": "hb_dresden",
+          "battle.map_folder_ms": "78"
+        }
+      },
+      "log": [
+        "2026-10-30T14:23:25.617Z [INFO ] [t24672] timeline: autostart_issued +8419 ms battle:hist_dresden",
+        "2026-10-30T14:23:25.711Z [INFO ] [t29368] lua report: battle.map_folder = hb_waterloo",
+        "2026-10-30T14:23:25.711Z [INFO ] [t29368] lua report: battle.map_folder_ms = ",
+        "2026-10-30T14:23:25.733Z [INFO ] [t29368] lua report: battle.map_folder = hb_austerlitz",
+        "2026-10-30T14:23:25.753Z [INFO ] [t29368] lua report: battle.map_folder = hb_waterloo",
+        "2026-10-30T14:23:25.755Z [INFO ] [t29368] lua report: battle.map_folder = hb_ligny",
+        "2026-10-30T14:23:25.767Z [INFO ] [t29368] lua report: battle.map_folder = hb_dresden",
+        "2026-10-30T14:23:25.777Z [INFO ] [t29368] lua report: autostart.map = NHMPB_Dresden_3v3",
+        "2026-10-30T14:23:25.777Z [INFO ] [t29368] lua report: autostart.map_folder = dresden_battle.xml",
+        "2026-10-30T14:23:25.777Z [INFO ] [t29368] lua report: autostart.weather = nil/nil",
+        "2026-10-30T14:23:25.777Z [INFO ] [t29368] lua report: autostart.time_of_day = nil",
+        "2026-10-30T14:23:25.833Z [INFO ] [t29368] movies: BinkClose movies\\frontend2.bik",
+        "2026-10-30T14:23:25.833Z [INFO ] [t29368] timeline: movie_close +8635 ms movies\\frontend2.bik",
+        "2026-10-30T14:23:25.839Z [INFO ] [t24672] autostart: lua ok: started battle NHMPB_Dresden_3v3 (historic, prefs .sp_default, button normal) weather=nil/nil time_of_day=nil",
+        "2026-10-30T14:23:25.839Z [INFO ] [t24672] scene: frontend -> loading after 2.6 s (uptime 8.5 s, frame 7268, lua frontend)",
+        "2026-10-30T14:23:25.906Z [INFO ] [t29368] lua report: battle.map_folder = hb_dresden",
+        "2026-10-30T14:23:25.906Z [INFO ] [t29368] lua report: battle.map_folder_ms = 78",
+        "2026-10-30T14:23:25.908Z [INFO ] [t29368] Direct3DCreate9(sdk=32) -> 3294c800 [dxvk]",
+        "2026-10-30T14:23:25.908Z [INFO ] [t29368] headless: CreateDevice: back buffer 1x1, windowed, window 0001000c",
+        "2026-10-30T14:23:25.908Z [INFO ] [t29368] headless: CreateDevice: a helper device (back buffer 1x1): allowed, it shows nothing",
+        "2026-10-30T14:23:25.961Z [INFO ] [t29368] headless: CreateDevice(adapter 0, flags 0x22) -> 0x00000000",
+        "2026-10-30T14:23:30.052Z [INFO ] [t29368] luaopen_wsp: engine lua_State 051a9798, global state 05126a54 (thread 29368) (again)",
+        "2026-10-30T14:23:30.052Z [INFO ] [t29368] lua: wsp.lua loaded (wsp 1)",
+        "2026-10-30T14:23:30.061Z [INFO ] [t29368] lua: wrapper: battle pumps from OnUpdate",
+        "2026-10-30T14:23:30.061Z [INFO ] [t29368] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-10-30T14:23:33.225Z [INFO ] [t29368] lua: first pump from context 'battle' (thread 29368)",
+        "2026-10-30T14:23:33.225Z [INFO ] [t29368] scene: loading -> battle after 7.4 s (uptime 15.9 s, frame 7753, lua battle)",
+        "2026-10-30T14:23:33.227Z [INFO ] [t29368] lua: battle details: FlagPath=data\\ui\\flags\\france_republic, TotalTime=2400, Faction=France, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false",
+        "2026-10-30T14:23:33.228Z [INFO ] [t29368] scene: battle probe naval=0 deploy_panel=0",
+        "2026-10-30T14:23:33.265Z [INFO ] [t29368] timeline: first_present_after_ready +16067 ms battle"
+      ]
+    }
+  },
+  "start_utc": "2026-10-30T14:23:15.137Z",
+  "end_utc": "2026-10-30T14:23:34.942Z"
+}

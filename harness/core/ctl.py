@@ -29,6 +29,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 import campose  # noqa: E402  (the camera readback's maths, J43)
+BATTLE_SCENES = ('battle_deploy', 'battle', 'naval')   # the proxy's scene tracker: a naval battle is its own scene (devcore.h SceneTracker)
 PROBE_ONLY = ('key', 'click', 'wait')   # rule 78: never part of a scenario row, a generated file or the acceptance script
 VERBS = ('scene', 'cam', 'shot', 'order', 'pause', 'speed', 'reset', 'perf', 'state')
 POSE_FIELDS = ('x', 'y', 'z', 'yaw', 'pitch', 'fov')
@@ -77,13 +78,15 @@ def resolve_scenario(rows, sid):
 
 
 def scenario_target(row, battles_dir):
-    """The autostart target a scenario row loads through: a battle preset of the same id (generated from the row), else refused with why."""
-    if row['kind'] in ('land', 'siege', 'naval') and (Path(battles_dir) / f"{row['id']}.txt").exists():
+    """The autostart target a scenario row loads through: a battle preset of the same id (generated from the row; a historical one has
+    type=historic), a campaign row's `save` when it starts with an autostart target (`campaign:new:<c>:<f>`, `campaign:<save>`), else refused."""
+    if row['kind'] in ('land', 'siege', 'naval', 'historical') and (Path(battles_dir) / f"{row['id']}.txt").exists():
         return f"battle:{row['id']}"
-    if row['kind'] == 'historical':
-        raise Refused('no autostart route for historical battles yet (open fact napoleon.autostart.historical)')
     if row['kind'] == 'campaign':
-        raise Refused('campaign scenarios load through saves/napoleon/load_save.sh until the recipe generation is wired into scene (J4 report, open)')
+        first = str(row.get('save', '')).split(' ')[0]
+        if first.startswith('campaign:'):
+            return first
+        raise Refused(f"campaign scenario {row['id']} names no autostart target at the start of its save field (campaign:new:<c>:<f> or campaign:<save>)")
     raise Refused(f"scenario {row['id']} has no battle preset file {row['id']}.txt: generate it from the row")
 
 
@@ -359,7 +362,7 @@ class Ctl:
 
     def settle(self):
         s = self.cfg.get('settle', {})
-        return Settle(s.get('frames', 30), s.get('quiet_ms', 2000), s.get('timeout_s', 120), s.get('ready_scenes', ['battle_deploy', 'battle', 'campaign']),
+        return Settle(s.get('frames', 30), s.get('quiet_ms', 2000), s.get('timeout_s', 120), s.get('ready_scenes', list(BATTLE_SCENES) + ['campaign']),
                       self.state, self.clock, self.sleep).wait()
 
     def current_kind(self):
@@ -369,8 +372,8 @@ class Ctl:
         s = self.state()
         if s.get('scene') == 'campaign':
             return 'campaign'
-        if str(s.get('scene', '')).startswith('battle'):
-            return 'naval' if (s.get('battle') or {}).get('naval') == 1 else 'land'
+        if s.get('scene') in BATTLE_SCENES:
+            return 'naval' if s.get('scene') == 'naval' or (s.get('battle') or {}).get('naval') == 1 else 'land'
         return s.get('scene') or 'unknown'
 
     def route(self, name, kind=None):
@@ -447,12 +450,15 @@ class Ctl:
             if pid is None:
                 path['launch'] = self.pc.launch()
         here = self.state().get('scene', '')
-        if here == 'campaign':
+        # a campaign has no quit flow (fact napoleon.campaign.quit_to_menu), and the warm reset stops at a historical battle's post-battle
+        # screen (mp_postbattle; run 20261030_j44pc): both leave by a relaunch
+        was = self.rows.get(self.scene_id or '', {}).get('kind')
+        if here == 'campaign' or (here in BATTLE_SCENES and was == 'historical'):
             if self.pc is None:
-                raise Refused('a campaign has no quit flow (fact napoleon.campaign.quit_to_menu): scene needs the PC binding to relaunch')
+                raise Refused(f'leaving a {was or here} needs a relaunch: scene needs the PC binding')
             path['relaunch'] = {'exit': self.pc.exit(), **self.pc.launch()}
             here = 'frontend'
-        verb = 'reset' if str(here).startswith('battle') else 'autostart'
+        verb = 'reset' if here in BATTLE_SCENES else 'autostart'
         path['via'] = verb
         rc, r = self.t(f'{verb} {target} 240', 260)
         a = (r or {}).get('autostart', r or {}) if verb == 'reset' else (r or {})

@@ -95,9 +95,22 @@ class Scenes(unittest.TestCase):
         self.assertTrue(r['settle']['settled'])
         self.assertEqual(r['check']['expected'], {'map': 'NAP_MP_Grassy_Flatlands', 'deployment': 'running'})
 
-    def test_historical_and_campaign_name_their_open_state(self):
-        self.assertIn('historical', make().run('scene', 'hist')['reason'])
-        self.assertEqual(make().run('scene', 'camp')['status'], 'refused')
+    def test_historical_without_a_preset_and_campaign_without_a_target_are_refused(self):
+        self.assertIn('no battle preset', make().run('scene', 'hist')['reason'])
+        self.assertIn('names no autostart target', make().run('scene', 'camp')['reason'])
+
+    def test_a_naval_scene_is_a_battle_for_scene_and_kind(self):
+        g = FakeGame(scene='naval', here='naval')
+        c = make(g)
+        self.assertEqual(c.current_kind(), 'naval')
+        c.cfg = dict(c.cfg, settle=dict(c.cfg['settle'], ready_scenes=['naval']))
+        r = c.run('scene', 'land_small')
+        self.assertEqual(r['path']['via'], 'reset')
+        self.assertTrue(r['settle']['settled'])
+
+    def test_campaign_target_comes_from_the_save_field(self):
+        self.assertEqual(ctl.scenario_target({'id': 'c', 'kind': 'campaign', 'save': 'campaign:new:mp_eur_napoleon:austria (a new campaign)'}, '.'),
+                         'campaign:new:mp_eur_napoleon:austria')
 
     def test_autostart_failure_names_the_step_and_keeps_evidence(self):
         r = make(FakeGame(fail='autostart')).run('scene', 'land_small')

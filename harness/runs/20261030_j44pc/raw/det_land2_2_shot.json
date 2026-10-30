@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\job-J44\\harness\\runs\\20261030_j44pc\\raw\\det_land2_2.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign'] + 30 frames + 2000 ms stable",
+    "waited_s": 2.76,
+    "frames": 922,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 121277,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\job-J44\\harness\\runs\\20261030_j44pc\\raw\\det_land2_2.jpg"
+  },
+  "start_utc": "2026-10-30T14:19:26.519Z",
+  "end_utc": "2026-10-30T14:19:32.614Z"
+}

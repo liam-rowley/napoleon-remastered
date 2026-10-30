@@ -1,0 +1,6 @@
+# hist_dresden - historical land battle Dresden (J44): the historical screens (type=historic) with all_maps=1, map = the battle key (db battles).
+type=historic
+map=NHMPB_Dresden_3v3
+prefs=.sp_default
+all_maps=1
+terrain=hb_dresden
