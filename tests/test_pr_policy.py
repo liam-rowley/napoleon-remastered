@@ -7,7 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-POLICY = Path(__file__).resolve().parent.parent / 'tools' / 'pr_policy.py'
+ROOT = Path(__file__).resolve().parent.parent
+POLICY = ROOT / 'tools' / 'pr_policy.py'
 _spec = importlib.util.spec_from_file_location('pr_policy', POLICY)
 pp = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(pp)
@@ -156,12 +157,47 @@ class PolicyOnGit(unittest.TestCase):
 
 class Rule79(unittest.TestCase):
     """J4 rule 79: a job branch that changes proxy/ or harness/ needs 20 consecutive acceptance passes on its final build."""
-    @staticmethod
-    def led(n, build='abc', watcher='1.0.1', fail_at=None):
-        return '\n'.join(json.dumps({'pass': i, 'build_id': build, 'watcher': watcher, 'result': 'fail' if i == fail_at else 'pass'}) for i in range(1, n + 1)) + '\n'
+    CHECKER = (ROOT / 'harness' / 'core' / 'acceptance.py').read_text(encoding='utf-8')
 
-    def acc(self, ledger, active=True):
-        return {'active': active, 'ledger': ledger, 'build_id': 'abc', 'watcher': '1.0.1'}
+    @staticmethod
+    def led(n, build='abc', watcher='1.0.1', fail_at=None, evidence=True):
+        return '\n'.join(json.dumps({'pass': i, 'build_id': build, 'watcher': watcher, 'result': 'fail' if i == fail_at else 'pass',
+                                     **({'run': 'harness/runs/r', 'evidence': f'harness/runs/r/pass_{i:02d}.json'} if evidence else {})})
+                         for i in range(1, n + 1)) + '\n'
+
+    def acc(self, ledger, active=True, exists=lambda p: True):
+        return {'active': active, 'ledger': ledger, 'build_id': 'abc', 'watcher': '1.0.1', 'exists': exists}
+
+    @staticmethod
+    def baseline():
+        kinds = ('land', 'siege', 'naval', 'historical', 'campaign')
+        steps = [{'scenario': f'{k}_x', 'kind': k, 'pose': 'wide', 'load_time_s': 20.0, 'load_tolerance_pct': 50, 'shot': f'{k}.jpg',
+                  'shot_threshold': 4.0, 'deterministic': True} for k in kinds]
+        return {'schema': 1, 'date': '2026-10-30', 'build_id': 'abc', 'fresh_boot': True, 'size': '1920x1080', 'exe_sha1': 'pin', 'steps': steps,
+                'settings_files': ['prefs']}
+
+    def test_failing_fixture_ledger_lines_without_committed_evidence_do_not_count(self):
+        # J4 review 7: a hand-written line is a claim, not evidence; the run folder's pass file must be on the branch
+        errs = pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(20), exists=lambda p: p != 'harness/runs/r/pass_20.json'))
+        self.assertEqual(len(errs), 1)
+        self.assertIn('0 consecutive', errs[0])
+        self.assertIn('not committed', errs[0])
+        self.assertTrue(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(20, evidence=False))))
+
+    def test_a_branch_weakening_its_own_checker_cannot_switch_the_rule_off(self):
+        # J4 review round 2: the base's acceptance.py judges the baseline, not the branch's copy
+        b = json.dumps(self.baseline())
+        weak = self.CHECKER.replace('def baseline_problems(b):', 'def baseline_problems(b):\n    return ["always"]\n\ndef _old(b):')
+        self.assertFalse(pp.acceptance_active('', b, weak))           # a weakened checker would say inactive...
+        self.assertTrue(pp.acceptance_active('', b, self.CHECKER))    # ...but main() passes the base's text, which says active
+        src = (ROOT / 'tools' / 'pr_policy.py').read_text(encoding='utf-8')
+        self.assertIn('show(a.base, ACC_CHECKER)', src)
+        self.assertNotIn("spec_from_file_location('acceptance'", src)
+
+    def test_exemptions_match_segments_not_substrings(self):
+        self.assertFalse(pp.acc_exempt('proxy/core/README.md.bak'))
+        self.assertFalse(pp.acc_exempt('proxy/core/reruns/x.cpp'))
+        self.assertTrue(pp.acc_exempt('harness/runs/x/a.json'))
 
     def test_failing_fixture_a_code_change_without_20_passes_is_refused(self):
         errs = pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(19)))
@@ -188,19 +224,16 @@ class Rule79(unittest.TestCase):
 
     def test_a_ledger_without_a_valid_baseline_does_not_activate_it(self):
         # J4 review 1: the empty ledger alone switched the rule on, and nothing could satisfy it (no baseline, run not wired)
-        self.assertFalse(pp.acceptance_active('', None))
-        self.assertFalse(pp.acceptance_active('', '{"schema": 1}'))
-        self.assertFalse(pp.acceptance_active('', 'not json'))
-        self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc('', active=pp.acceptance_active('', None))), [])
+        self.assertFalse(pp.acceptance_active('', None, self.CHECKER))
+        self.assertFalse(pp.acceptance_active('', '{"schema": 1}', self.CHECKER))
+        self.assertFalse(pp.acceptance_active('', 'not json', self.CHECKER))
+        self.assertFalse(pp.acceptance_active('', json.dumps(self.baseline()), None))
+        self.assertEqual(pp.acceptance_problems(['proxy/core/dev.cpp'], self.acc('', active=pp.acceptance_active('', None, self.CHECKER))), [])
 
     def test_a_ledger_and_a_valid_baseline_activate_it(self):
-        kinds = ('land', 'siege', 'naval', 'historical', 'campaign')
-        steps = [{'scenario': f'{k}_x', 'kind': k, 'pose': 'wide', 'load_time_s': 20.0, 'load_tolerance_pct': 50, 'shot': f'{k}.jpg',
-                  'shot_threshold': 4.0, 'deterministic': True} for k in kinds]
-        b = {'schema': 1, 'date': '2026-10-30', 'build_id': 'abc', 'fresh_boot': True, 'size': '1920x1080', 'exe_sha1': 'pin', 'steps': steps,
-             'settings_files': ['prefs']}
-        self.assertTrue(pp.acceptance_active('', json.dumps(b)))
-        self.assertFalse(pp.acceptance_active(None, json.dumps(b)))
+        b = self.baseline()
+        self.assertTrue(pp.acceptance_active('', json.dumps(b), self.CHECKER))
+        self.assertFalse(pp.acceptance_active(None, json.dumps(b), self.CHECKER))
 
     def test_check_wires_it_into_job_branches(self):
         errs = pp.check('job/J1', ['proxy/core/dev.cpp'], {'J1': ROW}, {'J1': ROW}, files(), files(), None, self.acc(self.led(3)))
