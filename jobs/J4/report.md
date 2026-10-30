@@ -13,7 +13,7 @@ What is built is the host-side layer, the proxy frame-time recorder, the rules a
 - **Proxy**: `dev.perf` (default 0, release 0, `config_keys` row, shipped ini, `test_dev` lint) and ctl `perf <seconds>`: p50, p99, max, mean, frame count,
   address space (used, total, free), commit and working set, from a recorder in the Present path (`proxy/core/dev.cpp`, `ComputeFrameStats` in
   `devcore.h`; host tests pass in docker, 151 checks in `test_dev`). **Not run on the PC.** VRAM is not read; the plan is `nvidia-smi` from a watcher
-  job (`ctl.perf.vram_source`). Also `lua <file> [t] -- <args>` (args via `wsp.dev_config("lua_args")`), verified on the PC.
+  job (`ctl.perf.vram_source`). Also `lua <file> [t] -- <args>` (args via `wsp.dev_config("lua_args")`), confirmed on the PC (run 20261029_j4pc, 2026-10-29).
 - **`pc_deploy.py sync-lua`** (J3 review item 6): changed dev Lua files are copied with unique staged names and a sha check and recorded in
   `install.json`; test in `tests/test_pc_deploy.py` (uninstall stays byte-exact). Used on the PC.
 - **`harness/core/acceptance.py`** (tests `tests/test_acceptance.py`): baseline schema and checker, comparisons (load time tolerance, shot threshold,
