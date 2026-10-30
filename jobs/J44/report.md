@@ -14,7 +14,7 @@ All but `order` ran through `ctl.py` on the PC (results in `harness/runs/2026103
 - `shot` (shot.sh into `--out`), `perf` (VRAM: Windows `GPU Process Memory` counter per pid plus nvidia-smi for the device; build id from the
   DLL's own load line), `state`, `reset`, and `cam read` (the pose as it is, used to find the stored poses).
 - Settle (`ctl.settle`: scene ready + 30 frames + 2000 ms stable, one value for every kind): it ends about 2.7 s after the load answer; a
-  shot then is within the 2.56/255 noise floor of one 10 s later. Fact `napoleon.ctl.settle_signal` (verified), run id in the adapter.
+  shot then is within the 2.56/255 noise floor of one 10 s later. Fact `napoleon.ctl.settle_signal` (verified 2026-10-30, run 20261030_j44pc).
 - A real bug found and fixed: `perf` frame times were quantized to 0/8/16 ms because the engine thread's FPU runs at 24 bits after device
   creation (fact `napoleon.proxy.fpu_precision`); the delta is now taken in integer ticks (`devcore.h PerfDeltaMs`, `test_dev`). After:
   p50 1.84 ms, p99 3.31 ms on land_small.
