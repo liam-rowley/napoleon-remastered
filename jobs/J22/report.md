@@ -94,6 +94,13 @@ d) CI run 41208229617 on `02d6b5c`: `gates`, `proxy` and `harness-windows` all s
   trailer by hand (`--trailer`) and checked it with `git log --format='%(trailers)'`.
 
 ## Open questions
+- **Rule 79 blocks the merge.** `python3 tools/pr_policy.py --branch job/J22 --base origin/main` refuses the branch: it changes
+  `harness/core/acceptance.py` and `ctl.py`, and the acceptance ledger holds 0 consecutive passes on build `41cde4716ac7`
+  (20 needed). Those passes launch the game through the watcher, and the brief says J22 needs neither. Following the kill
+  criterion, I stopped and asked. Liam (2026-10-31) chose to leave it to the reviewer. The options are: run
+  `python3 harness/core/acceptance.py run` for 20 passes on the final build; exempt a change that only swaps which bash runs `job.sh`;
+  or split the `ctl.py`/`acceptance.py` edits into their own job. The brief did not foresee this. A future brief that touches
+  `harness/core/*.py` should say whether rule 79 applies.
 - This clone has `core.hooksPath` set to an absolute path (`wsc setup` FAIL hooks_path, gates WARN hooks). `wsc setup --fix` sets it
   to `core/.githooks`. That is for Liam to run, since it is clone config and not repo content.
 - The `BARE_BASH` guard covers Python only. `.sh` scripts that call `bash` inside themselves are not scanned. The only one was
