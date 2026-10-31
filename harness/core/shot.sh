@@ -38,5 +38,5 @@ if (\$s.state -ne 'on_virtual') { Write-Output "SHOT FAILED: headless state is \
 \$out.Save('$win', \$enc, \$ep)
 Write-Output "shot: $win \$ow x \$oh (from \$w x \$h at \$(\$r[0]),\$(\$r[1]))"
 PS
-bash "$HERE/job.sh" "$owner" "$tmp" 90; rc=$?
+"$BASH" "$HERE/job.sh" "$owner" "$tmp" 90; rc=$?
 rm -f "$tmp"; exit $rc
