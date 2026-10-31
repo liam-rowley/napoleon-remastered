@@ -120,10 +120,10 @@ class Next(unittest.TestCase):
         self.assertTrue(any(w.startswith('J3') and 'J4' in w for w in waiting), waiting)
 
     def test_review_pick(self):
-        self.assertEqual(jv.pick_review({'J3': row('J3', status='review'), 'J2': row('J2', status='fix'),
+        self.assertEqual(jv.pick_review({'J3': row('J3', status='review'), 'J2': jv.Branch(row('J2', status='fix'), 1),
                                          'J1': row('J1', status='done')}), 'J3')
         self.assertIsNone(jv.pick_review({'J1': None}))
-        self.assertEqual(jv.pick_branch('fix', {'J3': row('J3', status='review'), 'J2': row('J2', status='fix')}), 'J2')
+        self.assertEqual(jv.pick_branch('fix', {'J3': row('J3', status='review'), 'J2': jv.Branch(row('J2', status='fix'), 1)}), 'J2')
 
 
 class Ledger(unittest.TestCase):
@@ -189,13 +189,21 @@ class Ready(unittest.TestCase):
         self.assertEqual(self.why('fix', 'J4'), 'J4 is review on job/J4, not fix')
 
     def test_fix_is_ready_from_the_branch_row(self):
-        self.assertIsNone(self.why('fix', 'J4', on_branch={'J4': row('J4', status='fix')}))
+        self.assertIsNone(self.why('fix', 'J4', on_branch={'J4': jv.Branch(row('J4', status='fix'), 1)}))
+        self.assertIn('no round to answer', self.why('fix', 'J4', on_branch={'J4': jv.Branch(row('J4', status='fix'), 0)}))
         self.assertEqual(self.why('review', 'J4', on_branch={'J4': row('J4', status='fix')}), 'J4 is fix on job/J4, not review')
         self.assertEqual(self.why('fix', 'J2', set(), {}), 'J2 has no job/J2 branch on origin')
 
     def test_round_2_review_is_ready_after_a_fix(self):
         # review.md exists on the branch (round 1); the fix session set status=review again: readiness reads only the row
-        self.assertIsNone(self.why('review', 'J4', on_branch={'J4': row('J4', status='review', review='jobs/J4/review.md')}))
+        self.assertIsNone(self.why('review', 'J4', on_branch={'J4': jv.Branch(row('J4', status='review', review='jobs/J4/review.md'), 2)}))
+
+    def test_the_round_cap_is_part_of_readiness(self):
+        # J52 review 2: the buttons and --auto must not offer a 4th review that jobs review would refuse
+        full = {'J4': jv.Branch(row('J4', status='review', review='jobs/J4/review.md'), 3)}
+        self.assertIn('already has 3 rounds', self.why('review', 'J4', on_branch=full))
+        page = jv.render_view(LROWS, files(), LBRANCHES, 'now', full)
+        self.assertNotIn('data-id="J4"', page)
 
     def test_id_on_the_command_line(self):
         def wsc(*a):
@@ -486,7 +494,7 @@ class Steps(unittest.TestCase):
                           'Fix job J4: git pull, then run python3 core/wsc.py jobs fix --id J4 and follow it.'])
 
     def test_fix_lane_and_button(self):
-        on = {'J4': row('J4', status='fix', model='sonnet')}
+        on = {'J4': jv.Branch(row('J4', status='fix', model='sonnet'), 1)}
         self.assertEqual(jv.lane(LBY['J4'], LBY, LBRANCHES, on), ('fix', 'fixing on job/J4'))
         page = jv.render_view(LROWS, files(), LBRANCHES, 'now', on)
         self.assertIn('data-id="J4" data-act="fix"', page)
@@ -512,7 +520,7 @@ class Autopilot(unittest.TestCase):
     def test_starts_a_review_then_after_the_row_turns_fix_a_fix(self):
         srv = self.make({'J4': row('J4', status='review', model='sonnet')})
         self.assertEqual([(j, a, c) for j, a, c, _ in srv.auto_tick()], [('J4', 'review', 200)])
-        self.state['on']['J4'] = row('J4', status='fix', model='sonnet')
+        self.state['on']['J4'] = jv.Branch(row('J4', status='fix', model='sonnet'), 1)
         srv.auto_tick()
         self.assertEqual(self.launched, ['J4-review', 'J4-fix'])
         self.assertTrue(any(l.startswith('J4-fix: started J4-fix') for l in self.lines), self.lines)
@@ -548,7 +556,7 @@ class Autopilot(unittest.TestCase):
         self.assertEqual(self.launched, [])
 
     def test_dry_run_logs_and_starts_nothing(self):
-        srv = self.make({'J4': row('J4', status='fix', model='sonnet')}, dry_run=True)
+        srv = self.make({'J4': jv.Branch(row('J4', status='fix', model='sonnet'), 1)}, dry_run=True)
         srv.auto_tick()
         self.assertEqual(self.launched, [])
         self.assertIn('dry run, would start: claude --bg --name J4-fix', self.lines[-1])

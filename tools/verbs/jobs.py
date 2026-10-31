@@ -37,6 +37,7 @@ import webbrowser
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from typing import NamedTuple, Optional
 
 NAME = 'jobs'
 HELP = 'the job queue: check it, pick the next job to build (next) or to review (review)'
@@ -227,23 +228,40 @@ ACTIONS = {'brief': ('needs_brief', 'brief'), 'build': ('queued', 'job')}   # ac
 BRANCH_ACTIONS = ('review', 'fix')   # ready from the job branch's own row (the status names the action); the only ones --auto starts
 
 
+class Branch(NamedTuple):
+    """What branch_rows reads from one origin/job/<id>: its row, the rounds in its review.md, its head sha."""
+    row: Optional[dict]
+    rounds: int = 0
+    head: Optional[str] = None
+
+
+def branch_state(v):
+    """An on_branch value as a Branch (a bare row, as the tests and older callers pass, has no rounds and no known head)."""
+    return v if isinstance(v, Branch) else Branch(v)
+
+
 def not_ready(action, jid, by, branches, on_branch=None):
     """The one readiness rule (`jobs next|review|fix`, `--id`, the view's buttons, its server and --auto): why job `jid` cannot be
     started for `action`, or None when it can. brief: needs_brief, every depends_on done, no brief/<id> branch; build: the same with
     queued and job/<id>; review: a job/<id> branch whose row says review (round 2 and 3 too: review.md may exist); fix: a job/<id>
-    branch whose row says fix. `by`: rows on main by id; `branches`: remote branch names; `on_branch`: {id: row on job/<id> or None}
-    (see branch_rows)."""
+    branch whose row says fix. Both on the branch's own row and its review.md rounds (J52 review 2): review refuses once MAX_ROUNDS
+    are written, fix refuses with no round to answer. `by`: rows on main by id; `branches`: remote branch names; `on_branch`:
+    {id: Branch or a bare row} (see branch_rows)."""
     r = by.get(jid)
     if r is None:
         return f'{jid} is not a row of the jobs registry'
     if action in BRANCH_ACTIONS:
         if jid not in (on_branch or {}) and f'job/{jid}' not in branches:
             return f'{jid} has no job/{jid} branch on origin'
-        row = (on_branch or {}).get(jid)
+        row, rounds, _ = branch_state((on_branch or {}).get(jid))
         if not row:
             return f'job/{jid} has no {jid} row'
         if row.get('status') != action:
             return f'{jid} is {row.get("status")} on job/{jid}, not {action}' + (' (no report yet)' if row.get('status') == 'queued' else '')
+        if action == 'review' and rounds >= MAX_ROUNDS:
+            return f'{jid}: review.md already has {rounds} rounds; after round {MAX_ROUNDS} the job is blocked for Liam (D36)'
+        if action == 'fix' and not rounds:
+            return f'{jid} is fix on job/{jid} but its review.md has no round to answer'
         return None
     st, prefix = ACTIONS[action]
     if r.get('status') != st:
@@ -275,7 +293,7 @@ def pick_next(rows, branches):
 
 
 def pick_branch(action, on_branch):
-    """`on_branch`: {id: row on that job branch or None}. The lowest-numbered branch ready for `action` (review or fix), or None."""
+    """`on_branch`: see not_ready. The lowest-numbered branch ready for `action` (review or fix), or None."""
     for jid in sorted(on_branch, key=num):   # the rule needs a main row only to exist: the branch's row is the one that counts here
         if not_ready(action, jid, {jid: {}}, set(), on_branch) is None:
             return jid
@@ -342,7 +360,8 @@ def remote_branches(root, offline):
 
 
 def branch_rows(root, branches, offline, jobs_path, only=None):
-    """{id: row on job/<id> or None} for each remote job branch (or just `only`), fetching each one unless offline."""
+    """{id: Branch(row on job/<id> or None, rounds in its review.md, head sha)} for each remote job branch (or just `only`),
+    fetching each one unless offline."""
     on_branch = {}
     for b in sorted(x for x in branches if x.startswith('job/')):
         jid, ref = b.split('/', 1)[1], f'origin/{b}'
@@ -350,13 +369,10 @@ def branch_rows(root, branches, offline, jobs_path, only=None):
             continue
         if not offline and _git(root, 'fetch', '-q', 'origin', f'+refs/heads/{b}:refs/remotes/{ref}') is None:
             raise ValueError(f'could not fetch {b}')
-        on_branch[jid] = next((x for x in load_rows(_git(root, 'show', f'{ref}:{jobs_path}')) if x.get('id') == jid), None)
+        row = next((x for x in load_rows(_git(root, 'show', f'{ref}:{jobs_path}')) if x.get('id') == jid), None)
+        on_branch[jid] = Branch(row, round_count(_git(root, 'show', f'{ref}:jobs/{jid}/review.md')),
+                                (_git(root, 'rev-parse', ref) or '').strip() or None)
     return on_branch
-
-
-def branch_file(root, jid, name):
-    """jobs/<id>/<name> on origin/job/<id> (fetched by branch_rows), or None."""
-    return _git(root, 'show', f'origin/job/{jid}:jobs/{jid}/{name}')
 
 
 # ------------------------------------------------------------------ launch (the view's buttons; D15 and D30)
@@ -413,7 +429,7 @@ def lane(r, by, branches, on_branch=None):
     fix and blocked are set there before main sees them) and the dependencies."""
     st, jid = r.get('status'), r['id']
     late = [d for d in r.get('depends_on', []) if by.get(d, {}).get('status') != 'done']
-    br = (on_branch or {}).get(jid) or {}
+    br = branch_state((on_branch or {}).get(jid)).row or {}
     if st != 'done' and br.get('status') in ('review', 'fix', 'blocked'):
         st, r = br['status'], br
     if st == 'done':
@@ -982,7 +998,8 @@ def run(args, ctx):
 
     action = args.action   # review or fix: both read the job branch's own row
     if args.id:
-        why = not_ready(action, args.id, by, branches, branch_rows(ctx.root, branches, args.offline, jobs_path, only=args.id))
+        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path, only=args.id)
+        why = not_ready(action, args.id, by, branches, on_branch)
         if why:
             return refuse(why)
         jid = args.id
@@ -991,16 +1008,9 @@ def run(args, ctx):
         jid = pick_branch(action, on_branch)
         if not jid:
             print(f'No job branch is waiting for {"review" if action == "review" else "fixes"}: ' + (', '.join(
-                f'{j} ({(r or {}).get("status", "no row")})' for j, r in sorted(on_branch.items(), key=lambda x: num(x[0])))
+                f'{j} ({(branch_state(b).row or {}).get("status", "no row")})' for j, b in sorted(on_branch.items(), key=lambda x: num(x[0])))
                 or 'no job branches'))
             return 0
-    rounds = round_count(branch_file(ctx.root, jid, 'review.md'))
-    if action == 'review':
-        if rounds >= MAX_ROUNDS:
-            return refuse(f'{jid}: review.md already has {rounds} rounds; after round {MAX_ROUNDS} the job is blocked for Liam (D36)')
-        print(review_steps(jid, rounds))
-    else:
-        if not rounds:
-            return refuse(f'{jid} is fix on job/{jid} but its review.md has no round to answer')
-        print(fix_steps(jid, rounds))
+    rounds = on_branch[jid].rounds   # not_ready has already refused a 4th review and a fix with no round
+    print(review_steps(jid, rounds) if action == 'review' else fix_steps(jid, rounds))
     return 0
