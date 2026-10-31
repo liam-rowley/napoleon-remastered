@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Fetch the review viewer's pinned sources (RmlUi, FreeType by commit; Lua 5.1.1 by sha256) and patch Lua to float numbers.
+"""Fetch the review viewer's pinned sources (RmlUi, FreeType by commit; Lua 5.1.1 and stb_image.h by sha256) and patch Lua to float numbers.
 
-purpose: fetch RmlUi, FreeType and Lua at the commits and sha256 in viewer/pins.json into build/viewer/src, check each, patch luaconf.h to float
+purpose: fetch RmlUi, FreeType, Lua and stb_image at the commits and sha256 in viewer/pins.json into build/viewer/src, check each, patch luaconf.h to float
 usage: python3 viewer/core/fetch_sources.py [--pins viewer/pins.json] [--out build/viewer/src]
 when: viewer/core/build.sh runs it before the wasm build (inside the emsdk container: python 3.10, git); never commit the output
 not-a-verb: needs network and writes build output, not a registry operation; build.sh calls it
@@ -83,6 +83,21 @@ def fetch_lua(pin, out):
     print(f'fetch_sources: lua {pin["version"]} fetched and patched to float numbers')
 
 
+def fetch_file(name, pin, out):
+    dest = out / name / Path(pin['url']).name
+    if dest.exists() and hashlib.sha256(dest.read_bytes()).hexdigest() == pin['sha256']:
+        print(f'fetch_sources: {name} {pin["version"]} already')
+        return
+    with urllib.request.urlopen(pin['url'], timeout=120) as r:
+        data = r.read()
+    got = hashlib.sha256(data).hexdigest()
+    if got != pin['sha256']:
+        sys.exit(f'fetch_sources: {name} sha256 {got} is not the pinned {pin["sha256"]}')
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_bytes(data)
+    print(f'fetch_sources: {name} {pin["version"]} fetched')
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--pins', default=str(ROOT / 'viewer' / 'pins.json'))
@@ -94,6 +109,7 @@ def main():
     fetch_git('rmlui', pins['rmlui'], out)
     fetch_git('freetype', pins['freetype'], out)
     fetch_lua(pins['lua'], out)
+    fetch_file('stb', pins['stb_image'], out)
 
 
 if __name__ == '__main__':

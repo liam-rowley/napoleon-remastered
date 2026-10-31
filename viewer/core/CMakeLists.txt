@@ -36,7 +36,7 @@ add_subdirectory("${SRC_ROOT}/rmlui" rmlui EXCLUDE_FROM_ALL)
 target_compile_options(rmlui_lua PRIVATE -include "${CMAKE_SOURCE_DIR}/src/lua51_compat.h")
 
 add_executable(viewer src/viewer.cpp "${SRC_ROOT}/rmlui/Backends/RmlUi_Renderer_GL3.cpp")
-target_include_directories(viewer PRIVATE "${SRC_ROOT}/rmlui/Backends")
+target_include_directories(viewer PRIVATE "${SRC_ROOT}/rmlui/Backends" "${SRC_ROOT}/stb")
 target_link_libraries(viewer PRIVATE RmlUi::RmlUi RmlUi::Lua lua51)
 set_target_properties(viewer PROPERTIES SUFFIX ".js")
 target_link_options(viewer PRIVATE

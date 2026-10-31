@@ -14,6 +14,11 @@
 #include <string>
 #include <vector>
 #include "RmlUi_Renderer_GL3.h"
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_PNG
+#define STBI_ONLY_JPEG
+#define STBI_NO_STDIO
+#include "stb_image.h"
 
 extern "C" {
 #include <lauxlib.h>
@@ -34,8 +39,37 @@ public:
 	}
 };
 
+// The GL3 backend loads only TGA; review art is PNG or JPEG (the artifact serves web image types only), decoded by stb_image.
+class Render : public RenderInterface_GL3 {
+public:
+	Rml::TextureHandle LoadTexture(Rml::Vector2i& dimensions, const Rml::String& source) override {
+		if (source.size() > 4 && source.compare(source.size() - 4, 4, ".tga") == 0)
+			return RenderInterface_GL3::LoadTexture(dimensions, source);
+		Rml::FileInterface* files = Rml::GetFileInterface();
+		Rml::FileHandle f = files->Open(source);
+		if (!f)
+			return 0;
+		std::vector<unsigned char> data(files->Length(f));
+		files->Read(data.data(), data.size(), f);
+		files->Close(f);
+		int w = 0, h = 0, n = 0;
+		unsigned char* px = stbi_load_from_memory(data.data(), (int)data.size(), &w, &h, &n, 4);
+		if (!px) {
+			Rml::Log::Message(Rml::Log::LT_ERROR, "stb_image could not decode %s: %s", source.c_str(), stbi_failure_reason());
+			return 0;
+		}
+		for (int i = 0; i < w * h * 4; i += 4)   // RmlUi 6 textures are premultiplied
+			for (int j = 0; j < 3; j++)
+				px[i + j] = (unsigned char)((px[i + j] * px[i + 3]) / 255);
+		dimensions = Rml::Vector2i(w, h);
+		Rml::TextureHandle t = GenerateTexture({px, (size_t)w * h * 4}, dimensions);
+		stbi_image_free(px);
+		return t;
+	}
+};
+
 System g_system;
-RenderInterface_GL3* g_render = nullptr;
+Render* g_render = nullptr;
 Rml::Context* g_context = nullptr;
 Rml::ElementDocument* g_document = nullptr;
 EMSCRIPTEN_WEBGL_CONTEXT_HANDLE g_gl = 0;
@@ -70,7 +104,7 @@ EMSCRIPTEN_KEEPALIVE int viewer_init(int width, int height, float dp_ratio) {
 		return 0;
 	}
 	std::printf("[viewer] %s\n", message.c_str());
-	g_render = new RenderInterface_GL3();
+	g_render = new Render();
 	if (!*g_render) {
 		std::printf("[viewer] the GL3 render interface did not initialise\n");
 		return 0;

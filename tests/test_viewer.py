@@ -45,6 +45,13 @@ class Pins(unittest.TestCase):
             self.assertRegex(pins[k]['commit'], r'^[0-9a-f]{40}$', k)
         self.assertRegex(pins['emsdk_image']['digest'], r'^sha256:[0-9a-f]{64}$')
 
+    def test_build_script_is_executable_in_git(self):
+        # CI runs viewer/core/build.sh directly; a commit from Windows drops the mode (J31's first CI run: exit 126)
+        import subprocess
+        mode = subprocess.run(['git', 'ls-files', '-s', 'viewer/core/build.sh'], cwd=ROOT, capture_output=True, text=True).stdout.split()
+        if mode:
+            self.assertEqual(mode[0], '100755', 'git update-index --chmod=+x viewer/core/build.sh')
+
     def test_font_has_licence(self):
         for f in json.loads((HELLO / 'screen.json').read_text())['fonts']:
             self.assertTrue((ROOT / 'viewer' / 'napoleon' / 'fonts' / f).exists(), f)
@@ -66,7 +73,7 @@ class Render(unittest.TestCase):
         cls.tmp.cleanup()
 
     def shot(self, size, ratio, actions=None):
-        return self.r.render(self.site, size, ratio, boxes=['title', 'end_turn'], actions=actions)
+        return self.r.render(self.site, size, ratio, boxes=['title', 'end_turn', 'emblem'], actions=actions)
 
     def check_layout(self, size, ratio):
         w, h, rgba, boxes = self.shot(size, ratio)
@@ -80,6 +87,10 @@ class Render(unittest.TestCase):
         self.assertAlmostEqual(bh / ratio, 30 * 1.2, delta=12)   # 30 dp text scales with the ratio
         bright = sum(1 for yy in range(y, y + bh) for xx in range(x, x + bw) if px(xx, yy)[0] > 200 and px(xx, yy)[1] > 180)
         self.assertGreater(bright, bw * bh * 0.03, f'title box {boxes["title"]} has {bright} text pixels')
+        # the PNG art decoded and drawn: the emblem's gold sits inside its box
+        ex, ey, ew, eh = (int(v) for v in boxes['emblem'])
+        r_, g_, b_ = px(ex + ew // 2, ey + eh // 6)
+        self.assertTrue(r_ > 150 and g_ > 110 and b_ < 120, (r_, g_, b_))
         right = int((40 + 520 + 2 * 16 + 2 * 2 + 20) * ratio)   # the panel's right edge in px plus a margin
         self.assertTrue(all(px(xx, yy) == (0, 0, 0) for yy in range(0, h, 7) for xx in range(right, w, 7)))
         return hashlib.sha256(rgba).hexdigest()

@@ -28,5 +28,13 @@
     "tag": "4.0.10",
     "digest": "sha256:90b757eb11fa9a0e3ce4d2d9f76d932a56018e4accc37b5a28b2783751e60eb7",
     "why": "official Emscripten image (emcc 4.0.10, cmake 3.22, node 22); keeps Emscripten off the PC (D30, D31)"
+  },
+  "stb_image": {
+    "version": "2.30",
+    "url": "https://raw.githubusercontent.com/nothings/stb/f0569113c93ad095470c54bf34a17b36646bbbb5/stb_image.h",
+    "commit": "f0569113c93ad095470c54bf34a17b36646bbbb5",
+    "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3",
+    "licence": "MIT or public domain",
+    "why": "PNG and JPEG decoding for art (the review artifact serves web image types only, not .tga); the same commit as Empire's rml_mod"
   }
 }

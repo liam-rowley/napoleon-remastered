@@ -7,7 +7,7 @@
 </head>
 <body data-model="hello">
 	<div id="header">
-		<img id="emblem" src="emblem.tga"/>
+		<img id="emblem" src="emblem.png"/>
 		<div id="title">Viewer spike: {{faction}}</div>
 	</div>
 	<div id="facts">
