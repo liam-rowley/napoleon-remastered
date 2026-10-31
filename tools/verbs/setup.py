@@ -207,7 +207,7 @@ def check_watcher(root, fix):
 def load_pc_deploy(root):
     """core/proxy/tools/pc_deploy.py as a module: the one owner of the PC-rule damage checks (it also travels in every kit, stdlib only)."""
     import importlib.util
-    spec = importlib.util.spec_from_file_location('pc_deploy', root / 'proxy' / 'tools' / 'pc_deploy.py')
+    spec = importlib.util.spec_from_file_location('pc_deploy', root / 'core' / 'proxy' / 'tools' / 'pc_deploy.py')
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
     return m

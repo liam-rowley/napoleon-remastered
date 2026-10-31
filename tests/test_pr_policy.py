@@ -216,7 +216,7 @@ class Rule79(unittest.TestCase):
         self.assertFalse(pp.acceptance_active('', b, weak))           # a weakened checker would say inactive...
         self.assertTrue(pp.acceptance_active('', b, self.CHECKER))    # ...but main() passes the base's text, which says active
         src = (ROOT / 'tools' / 'pr_policy.py').read_text(encoding='utf-8')
-        self.assertIn('show(a.base, ACC_CHECKER)', src)
+        self.assertIn('show_first(a.base, *ACC_CHECKERS)', src)   # the base's checker, in either layout (J12)
         self.assertNotIn("spec_from_file_location('acceptance'", src)
 
     def test_failing_fixture_another_branchs_passes_do_not_count(self):
