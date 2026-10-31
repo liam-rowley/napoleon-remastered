@@ -123,12 +123,24 @@ class Render(unittest.TestCase):
             a = el('armies')
             page.evaluate(f'window.viewer.mouseMove({int(a["x"] + 50)}, {int(a["y"] + 50)}); window.viewer.wheel(1); window.viewer.wheel(1); window.viewer.frame()')
             seen['scroll'] = el('armies')['scroll_top']
+            # touch: a finger drag on the list (pointer events, as a phone sends them) scrolls it further; a tap clicks
+            page.evaluate('''([x, y, bx, by]) => {
+                const c = document.getElementById('canvas'), r = c.getBoundingClientRect(), k = r.width / c.width;
+                const ev = (type, px, py) => c.dispatchEvent(new PointerEvent(type, {pointerId: 7, pointerType: 'touch', isPrimary: true,
+                    clientX: r.left + px * k, clientY: r.top + py * k, bubbles: true}));
+                ev('pointerdown', x, y + 150); for (let i = 1; i <= 10; i++) ev('pointermove', x, y + 150 - i * 12); ev('pointerup', x, y + 30);
+                ev('pointerdown', bx, by); ev('pointerup', bx, by);
+                window.viewer.frame(); }''', [int(a['x'] + 50), int(a['y'] + 50), cx, cy])
+            seen['touch_scroll'] = el('armies')['scroll_top']
+            seen['touch_turn'] = el('turn')['rml']
         self.shot((1280, 720), 1.0, actions=drive)
         self.assertTrue(seen['hover'])
         self.assertTrue(seen['active'])
         self.assertEqual(seen['turn'], '2')
         self.assertIn('returned 2', seen['event'])
         self.assertGreater(seen['scroll'], 0)
+        self.assertGreater(seen['touch_scroll'], seen['scroll'] + 50)
+        self.assertEqual(seen['touch_turn'], '3')
 
 
 if __name__ == '__main__':

@@ -169,6 +169,18 @@ EMSCRIPTEN_KEEPALIVE void viewer_mouse_up(int button, int mods) { g_context->Pro
 EMSCRIPTEN_KEEPALIVE void viewer_mouse_wheel(float dy, int mods) { g_context->ProcessMouseWheel(Rml::Vector2f(0.f, dy), mods); }
 EMSCRIPTEN_KEEPALIVE void viewer_mouse_leave() { g_context->ProcessMouseLeave(); }
 
+// Touch drag: scroll the nearest scrollable element under (x, y) by dy backbuffer pixels (a phone has no wheel). Returns 1 if it moved.
+EMSCRIPTEN_KEEPALIVE int viewer_scroll_at(int x, int y, float dy) {
+	for (Rml::Element* e = g_context->GetElementAtPoint(Rml::Vector2f((float)x, (float)y)); e; e = e->GetParentNode()) {
+		if (e->GetScrollHeight() > e->GetClientHeight() + 0.5f) {
+			const float before = e->GetScrollTop();
+			e->SetScrollTop(before + dy);
+			return e->GetScrollTop() != before ? 1 : 0;
+		}
+	}
+	return 0;
+}
+
 // The current backbuffer as RGBA, top row first: width * height * 4 bytes at the returned address.
 EMSCRIPTEN_KEEPALIVE unsigned char* viewer_read_pixels() {
 	const size_t row = (size_t)g_width * 4;

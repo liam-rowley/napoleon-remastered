@@ -80,10 +80,35 @@
       return [Math.round((e.clientX - r.left) * w / r.width), Math.round((e.clientY - r.top) * h / r.height)];
     };
     const mods = (e) => (e.ctrlKey ? 1 : 0) | (e.shiftKey ? 2 : 0) | (e.altKey ? 4 : 0);
-    canvas.addEventListener('mousemove', (e) => { const [x, y] = toPx(e); m.ccall('viewer_mouse_move', null, ['number', 'number', 'number'], [x, y, mods(e)]); });
-    canvas.addEventListener('mousedown', (e) => m.ccall('viewer_mouse_down', null, ['number', 'number'], [e.button, mods(e)]));
-    canvas.addEventListener('mouseup', (e) => m.ccall('viewer_mouse_up', null, ['number', 'number'], [e.button, mods(e)]));
-    canvas.addEventListener('mouseleave', () => m.ccall('viewer_mouse_leave', null, [], []));
+    // Mouse (and pen): hover, press, release. Touch has no hover and no wheel: a tap is move + press + release at the end, and a
+    // drag scrolls the scrollable element under the finger (viewer_scroll_at); `touch-action: none` keeps the page from scrolling.
+    canvas.style.touchAction = 'none';
+    const move = (x, y, md) => m.ccall('viewer_mouse_move', null, ['number', 'number', 'number'], [x, y, md]);
+    const down = (b, md) => m.ccall('viewer_mouse_down', null, ['number', 'number'], [b, md]);
+    const up = (b, md) => m.ccall('viewer_mouse_up', null, ['number', 'number'], [b, md]);
+    const scrollAt = (x, y, dy) => m.ccall('viewer_scroll_at', 'number', ['number', 'number', 'number'], [x, y, dy]);
+    const touch = { id: null, x: 0, y: 0, lastY: 0, moved: false };
+    canvas.addEventListener('pointermove', (e) => {
+      const [x, y] = toPx(e);
+      if (e.pointerType !== 'touch') return move(x, y, mods(e));
+      if (e.pointerId !== touch.id) return;
+      if (!touch.moved && Math.abs(y - touch.y) + Math.abs(x - touch.x) > 10 * h / canvas.getBoundingClientRect().height) touch.moved = true;
+      if (touch.moved) { scrollAt(touch.x, touch.y, touch.lastY - y); touch.lastY = y; }
+    });
+    canvas.addEventListener('pointerdown', (e) => {
+      const [x, y] = toPx(e);
+      if (e.pointerType !== 'touch') return down(e.button, mods(e));
+      Object.assign(touch, { id: e.pointerId, x, y, lastY: y, moved: false });
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointerup', (e) => {
+      if (e.pointerType !== 'touch') return up(e.button, mods(e));
+      if (e.pointerId !== touch.id) return;
+      if (!touch.moved) { move(touch.x, touch.y, 0); down(0, 0); frame(); up(0, 0); }
+      touch.id = null;
+    });
+    canvas.addEventListener('pointercancel', () => { touch.id = null; });
+    canvas.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') m.ccall('viewer_mouse_leave', null, [], []); });
     canvas.addEventListener('wheel', (e) => { e.preventDefault(); m.ccall('viewer_mouse_wheel', null, ['number', 'number'], [Math.sign(e.deltaY), mods(e)]); }, { passive: false });
     canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 
@@ -107,6 +132,7 @@
       mouseMove: (x, y) => m.ccall('viewer_mouse_move', null, ['number', 'number', 'number'], [x, y, 0]),
       mouseDown: (b) => m.ccall('viewer_mouse_down', null, ['number', 'number'], [b, 0]),
       mouseUp: (b) => m.ccall('viewer_mouse_up', null, ['number', 'number'], [b, 0]),
+      scrollAt,
       wheel: (dy) => m.ccall('viewer_mouse_wheel', null, ['number', 'number'], [dy, 0]),
       element: (id) => JSON.parse(m.ccall('viewer_element_json', 'string', ['string'], [id])),
       lua: (code) => m.ccall('viewer_lua_eval', 'string', ['string'], [code]) };

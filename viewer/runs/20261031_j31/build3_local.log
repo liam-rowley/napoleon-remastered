@@ -1,9 +1,9 @@
 [100%] Built target viewer
-b08c1d721d0c9a54cf82864b619e1a52db0037ebb039f96ec4d3bbd15d4246c4  viewer.js
-7daa0fbc7442949f8a4e0ce5b25f1c3b0d96ed6ae1dcb22c06e8916a4cf61a81  viewer.wasm
-  97597 viewer.js
-2070494 viewer.wasm
-2168091 total
+e27146143a704cffb3e5b4b3fc27e8945a6a211c61219f26b777c61a806bf637  viewer.js
+fee33899850ecb9a7acb5972ddfeccabdd0ba291a238ac3ca80edde87b506d4a  viewer.wasm
+  97679 viewer.js
+2118812 viewer.wasm
+2216491 total
 sizeof(lua_Number) = 4
 ok   return math.floor(2550 * 0.319999992)  ->  816  (float32 816, double 815)
 ok   return 16777217 - 16777216  ->  0  (float32 0, double 1)
