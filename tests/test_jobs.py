@@ -120,9 +120,10 @@ class Next(unittest.TestCase):
         self.assertTrue(any(w.startswith('J3') and 'J4' in w for w in waiting), waiting)
 
     def test_review_pick(self):
-        self.assertEqual(jv.pick_review({'J3': (row('J3', status='review'), False), 'J2': (row('J2', status='review'), True),
-                                         'J1': (row('J1', status='done'), True)}), 'J3')
-        self.assertIsNone(jv.pick_review({'J1': (None, False)}))
+        self.assertEqual(jv.pick_review({'J3': row('J3', status='review'), 'J2': row('J2', status='fix'),
+                                         'J1': row('J1', status='done')}), 'J3')
+        self.assertIsNone(jv.pick_review({'J1': None}))
+        self.assertEqual(jv.pick_branch('fix', {'J3': row('J3', status='review'), 'J2': row('J2', status='fix')}), 'J2')
 
 
 class Ledger(unittest.TestCase):
@@ -162,7 +163,7 @@ class View(unittest.TestCase):
 LROWS = [row('J1', status='done'), row('J2', status='queued', depends_on=['J1']), row('J3', model='sonnet'),
          row('J4', status='queued', model='sonnet'), row('J5', status='queued', depends_on=['J3'])]
 LBRANCHES = {'job/J4'}
-LON_BRANCH = {'J4': (row('J4', status='review', model='sonnet'), False)}
+LON_BRANCH = {'J4': row('J4', status='review', model='sonnet')}
 LBY = {r['id']: r for r in LROWS}
 
 
@@ -183,9 +184,18 @@ class Ready(unittest.TestCase):
         self.assertEqual(self.why('brief', 'J3', {'brief/J3'}), 'J3 (needs_brief): in progress on brief/J3')
         self.assertEqual(self.why('build', 'J4'), 'J4 (queued): in progress on job/J4')
         self.assertEqual(self.why('review', 'J2', set(), {}), 'J2 has no job/J2 branch on origin')
-        self.assertIn('not review', self.why('review', 'J4', on_branch={'J4': (row('J4', status='queued'), False)}))
-        self.assertIn('no J4 row', self.why('review', 'J4', on_branch={'J4': (None, False)}))
-        self.assertIn('already reviewed', self.why('review', 'J4', on_branch={'J4': (row('J4', status='review'), True)}))
+        self.assertIn('not review', self.why('review', 'J4', on_branch={'J4': row('J4', status='queued')}))
+        self.assertIn('no J4 row', self.why('review', 'J4', on_branch={'J4': None}))
+        self.assertEqual(self.why('fix', 'J4'), 'J4 is review on job/J4, not fix')
+
+    def test_fix_is_ready_from_the_branch_row(self):
+        self.assertIsNone(self.why('fix', 'J4', on_branch={'J4': row('J4', status='fix')}))
+        self.assertEqual(self.why('review', 'J4', on_branch={'J4': row('J4', status='fix')}), 'J4 is fix on job/J4, not review')
+        self.assertEqual(self.why('fix', 'J2', set(), {}), 'J2 has no job/J2 branch on origin')
+
+    def test_round_2_review_is_ready_after_a_fix(self):
+        # review.md exists on the branch (round 1); the fix session set status=review again: readiness reads only the row
+        self.assertIsNone(self.why('review', 'J4', on_branch={'J4': row('J4', status='review', review='jobs/J4/review.md')}))
 
     def test_id_on_the_command_line(self):
         def wsc(*a):
@@ -371,6 +381,203 @@ class RedPullRequests(unittest.TestCase):
 
     def test_next_names_the_local_policy_route(self):
         self.assertIn('python3 tools/pr_policy.py --branch job/J1 --base origin/main', jv.build_steps(row(status='queued')))
+
+
+def rnd(n, v, jid='J60'):
+    return f'## Round {n} (2026-11-0{n}, branch job/{jid} at abc123{n})\n\nfindings\n\n**Verdict: {v}.**\n\n- blocker: x\n\n'
+
+
+def review_md(*rounds, jid='J60'):
+    """review.md text with the given (n, verdict) rounds, in the order given (newest first is the rule)."""
+    return f'# {jid} review\n\n' + ''.join(rnd(n, v, jid) for n, v in rounds)
+
+
+class Rounds(unittest.TestCase):
+    """D36 (J52): the round format of review.md and the row agreeing with the newest round."""
+    BRIEF60 = BRIEF.replace('J1', 'J60')
+    REPORT60 = REPORT.replace('J1', 'J60')
+
+    def errs(self, status, review, report=None, **kw):
+        r = row('J60', status=status, brief='jobs/J60/brief.md', report='jobs/J60/report.md', review='jobs/J60/review.md', **kw)
+        texts = {'jobs/J60/brief.md': self.BRIEF60, 'jobs/J60/report.md': report or self.REPORT60, 'jobs/J60/review.md': review}
+        return jv.problems([r], texts.get, ['J60'])
+
+    def test_good_rounds_pass(self):
+        self.assertEqual(self.errs('fix', review_md((1, 'merge after fixes'))), [])
+        fixed = self.REPORT60 + '\n## Fix round 1\nfixed x in abc1234\n'
+        self.assertEqual(self.errs('review', review_md((1, 'do not merge')), fixed), [])
+        self.assertEqual(self.errs('done', review_md((2, 'merge'), (1, 'merge after fixes')), fixed), [])
+
+    def test_round_3_non_merge_requires_blocked(self):
+        three = review_md((3, 'merge after fixes'), (2, 'do not merge'), (1, 'merge after fixes'))
+        e = self.errs('fix', three)
+        self.assertTrue(any('must be blocked with blocked_by="3 review rounds without merge"' in x for x in e), e)
+        self.assertEqual(self.errs('blocked', three, blocked_by='3 review rounds without merge'), [])
+        self.assertTrue(self.errs('blocked', three, blocked_by='something else'))
+
+    def test_a_fourth_round_fails(self):
+        four = review_md((4, 'merge'), (3, 'do not merge'), (2, 'do not merge'), (1, 'do not merge'))
+        self.assertTrue(any('4 rounds: at most 3' in x for x in self.errs('done', four)))
+
+    def test_rounds_out_of_order_or_with_a_gap_fail(self):
+        for rounds in (((1, 'merge after fixes'), (2, 'merge')), ((3, 'merge'), (1, 'merge after fixes')), ((2, 'merge'),)):
+            e = self.errs('done', review_md(*rounds))
+            self.assertTrue(any('count up from 1 with no gap, newest first' in x for x in e), (rounds, e))
+
+    def test_a_round_with_two_verdicts_or_none_fails(self):
+        two = review_md((1, 'merge')).replace('- blocker: x', '**Verdict: do not merge.**')
+        self.assertTrue(any('has 2 verdict lines' in x for x in self.errs('done', two)))
+        none = '# J60 review\n\n## Round 1 (2026-11-01, branch job/J60 at abc1231)\n\nno verdict\n'
+        self.assertTrue(any('has 0 verdict lines' in x for x in self.errs('fix', none)))
+        above = '# J60 review\n\n**Verdict: merge.**\n\n' + rnd(1, 'merge')
+        self.assertTrue(any('above the first round' in x for x in self.errs('done', above)))
+
+    def test_undated_heading_or_no_rounds_fail(self):
+        e = self.errs('fix', review_md((1, 'merge after fixes')).replace('(2026-11-01, branch job/J60 at abc1231)', '(soon)'))
+        self.assertTrue(any('is not "## Round N (YYYY-MM-DD' in x for x in e), e)
+        e = self.errs('done', REVIEW.replace('J1', 'J60'))
+        self.assertTrue(any('has no "## Round N' in x for x in e), e)
+
+    def test_status_that_disagrees_with_the_newest_verdict_fails(self):
+        one = review_md((1, 'merge after fixes'))
+        self.assertTrue(any('should be fix' in x for x in self.errs('review', one)))     # no Fix round 1 yet
+        fixed = self.REPORT60 + '\n## Fix round 1\nx\n'
+        self.assertTrue(any('should be review' in x for x in self.errs('fix', one, fixed)))  # the fix is in: back to review
+        self.assertTrue(any('only "merge" makes a job done' in x for x in self.errs('done', one)))
+        self.assertTrue(any('should be done' in x for x in self.errs('review', review_md((1, 'merge')))))
+
+    def test_the_legacy_set_is_exempt_from_the_round_rules_only(self):
+        self.assertIn('J2', jv.LEGACY_REVIEWS)
+        legacy = REVIEW.replace('J1', 'J2')   # no round heading, as J2's merged review
+        r = row('J2', status='done', brief='jobs/J2/brief.md', report='jobs/J2/report.md', review='jobs/J2/review.md')
+        texts = {'jobs/J2/brief.md': BRIEF.replace('J1', 'J2'), 'jobs/J2/report.md': REPORT.replace('J1', 'J2'), 'jobs/J2/review.md': legacy}
+        self.assertEqual(jv.problems([r], texts.get, ['J2']), [])
+        texts['jobs/J2/review.md'] = '# J2 review\n\n**Verdict: merge.**\n'   # the date rule still applies
+        self.assertTrue(any('no date' in x for x in jv.problems([r], texts.get, ['J2'])))
+
+    def test_the_legacy_set_is_every_review_on_main_at_j52s_base(self):
+        out = subprocess.run(['git', '-C', str(ROOT), 'ls-tree', '-r', '--name-only', '39eab5e', 'jobs'], capture_output=True, text=True)
+        if out.returncode != 0:
+            self.skipTest('J52 base commit not in this clone')
+        on_main = {p.split('/')[1] for p in out.stdout.split() if p.endswith('/review.md')}
+        self.assertEqual(on_main, set(jv.LEGACY_REVIEWS))
+
+
+class Steps(unittest.TestCase):
+    def test_review_steps_name_the_round_and_where_it_goes(self):
+        s = jv.review_steps('J60', 0)
+        self.assertIn('This is round 1', s)
+        self.assertIn('TOP of jobs/J60/review.md', s)
+        self.assertIn('status=fix', s)
+        s = jv.review_steps('J60', 2)
+        self.assertIn('round 3', s)
+        self.assertIn('above the earlier rounds', s)
+        self.assertIn('blocked_by="3 review rounds without merge"', s)
+
+    def test_fix_steps(self):
+        s = jv.fix_steps('J60', 2)
+        for want in ('Round 2', '## Fix round 2', 'status=review', 'Never touch review.md', 'never merge',
+                     'pr_policy.py --branch job/J60'):
+            self.assertIn(want, s)
+
+    def test_fix_launch_uses_the_row_model(self):
+        self.assertEqual(jv.launch_argv('claude', 'J4', 'fix', row('J4', model='opus')),
+                         ['claude', '--bg', '--name', 'J4-fix', '--model', 'opus', '--effort', 'medium',
+                          'Fix job J4: git pull, then run python3 core/wsc.py jobs fix --id J4 and follow it.'])
+
+    def test_fix_lane_and_button(self):
+        on = {'J4': row('J4', status='fix', model='sonnet')}
+        self.assertEqual(jv.lane(LBY['J4'], LBY, LBRANCHES, on), ('fix', 'fixing on job/J4'))
+        page = jv.render_view(LROWS, files(), LBRANCHES, 'now', on)
+        self.assertIn('data-id="J4" data-act="fix"', page)
+        self.assertNotIn('data-act="review"', page)
+
+
+class Autopilot(unittest.TestCase):
+    """`view --serve --auto` (D36): the loop with fake snapshot, agents and launch seams."""
+
+    def make(self, on_branch, agents=lambda: [], snapshot=None, dry_run=False):
+        self.launched, self.state = [], {'on': dict(on_branch)}
+        def launch(a):
+            self.launched.append(a[3])   # the session name
+            return 'abcd1234'
+        srv = jv.JobServer(snapshot or (lambda: (LROWS, files(), set(LBRANCHES) | {f'job/{j}' for j in self.state['on']},
+                                                 self.state['on'])), agents, launch, which=lambda n: n, dry_run=dry_run)
+        srv.log = False
+        self.addCleanup(srv.server_close)
+        self.lines = []
+        srv.auto_log = self.lines.append
+        return srv
+
+    def test_starts_a_review_then_after_the_row_turns_fix_a_fix(self):
+        srv = self.make({'J4': row('J4', status='review', model='sonnet')})
+        self.assertEqual([(j, a, c) for j, a, c, _ in srv.auto_tick()], [('J4', 'review', 200)])
+        self.state['on']['J4'] = row('J4', status='fix', model='sonnet')
+        srv.auto_tick()
+        self.assertEqual(self.launched, ['J4-review', 'J4-fix'])
+        self.assertTrue(any(l.startswith('J4-fix: started J4-fix') for l in self.lines), self.lines)
+
+    def test_skips_a_job_with_any_of_its_sessions_live(self):
+        for state in ('working', 'blocked'):
+            srv = self.make({'J4': row('J4', status='review', model='sonnet')}, agents=lambda: [{'name': 'J4-build', 'state': state}])
+            self.assertEqual([c for _, _, c, _ in srv.auto_tick()], [429])
+            self.assertEqual(self.launched, [])
+            self.assertIn('J4-build is still running', self.lines[-1])
+        srv = self.make({'J4': row('J4', status='review', model='sonnet')},
+                        agents=lambda: [{'name': 'J4-build', 'state': 'done'}, {'name': 'J40-build', 'state': 'working'}])
+        srv.auto_tick()
+        self.assertEqual(self.launched, ['J4-review'])   # a finished J4 session and another job's session do not count
+
+    def test_never_starts_a_brief_or_a_build(self):
+        srv = self.make({})   # J2 is ready to build and J3 to brief (the button fixture), and nothing is on a job branch
+        self.assertEqual(srv.auto_tick(), [])
+        self.assertEqual(self.launched, [])
+        self.assertIn('nothing ready', self.lines[-1])
+
+    def test_a_snapshot_or_agent_list_error_skips_the_tick(self):
+        def broken():
+            raise ValueError('git ls-remote origin failed')
+        srv = self.make({}, snapshot=broken)
+        self.assertEqual(srv.auto_tick(), [])
+        self.assertIn('tick skipped: cannot read the queue', self.lines[-1])
+        def no_agents():
+            raise ValueError('claude agents --json exited 1')
+        srv = self.make({'J4': row('J4', status='review', model='sonnet')}, agents=no_agents)
+        self.assertEqual(srv.auto_tick(), [])
+        self.assertIn('tick skipped: cannot list the running sessions', self.lines[-1])
+        self.assertEqual(self.launched, [])
+
+    def test_dry_run_logs_and_starts_nothing(self):
+        srv = self.make({'J4': row('J4', status='fix', model='sonnet')}, dry_run=True)
+        srv.auto_tick()
+        self.assertEqual(self.launched, [])
+        self.assertIn('dry run, would start: claude --bg --name J4-fix', self.lines[-1])
+
+    def test_run_auto_ticks_until_stopped_and_the_page_shows_it(self):
+        srv = self.make({'J4': row('J4', status='review', model='sonnet')})
+        stop = threading.Event()
+        t = threading.Thread(target=srv.run_auto, args=(3600, stop), daemon=True)
+        t.start()
+        for _ in range(100):
+            if self.launched:
+                break
+            threading.Event().wait(0.05)
+        stop.set()
+        t.join(5)
+        self.assertFalse(t.is_alive())
+        self.assertEqual(self.launched, ['J4-review'])
+        self.assertIn('Autopilot on', srv.page())
+        self.assertIn(srv.auto['last'], srv.page())
+
+    def test_the_log_file_gets_one_stamped_line(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            srv = jv.JobServer(lambda: ([], files(), set(), {}), lambda: [], lambda a: 'x', log_path=Path(d) / 'sub' / 'jobs_auto.log')
+            self.addCleanup(srv.server_close)
+            srv.auto_tick()
+            lines = (Path(d) / 'sub' / 'jobs_auto.log').read_text(encoding='utf-8').splitlines()
+        self.assertEqual(len(lines), 1)
+        self.assertRegex(lines[0], r'^20\d\d-\d\d-\d\d \d\d:\d\d:\d\d UTC jobs auto: tick: nothing ready')
 
 
 class ThisRepo(unittest.TestCase):
