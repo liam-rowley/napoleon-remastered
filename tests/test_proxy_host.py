@@ -217,21 +217,27 @@ class InputSet(unittest.TestCase):
 
     def test_pc_run_evidence_is_not_a_proxy_input(self):
         # J42 (J41 review later item 2): proxy/runs/ holds committed PC run evidence; it builds nothing
-        self.assertEqual(ci.classify(['proxy/runs/2026-10-29_j15/console.log']), {'proxy': False, 'harness': False})
+        self.assertEqual(ci.classify(['proxy/runs/2026-10-29_j15/console.log']), {'proxy': False, 'harness': False, 'viewer': False})
         self.assertTrue(ci.classify(['proxy/runs/x.log', 'proxy/core/console.cpp'])['proxy'])
         self.assertTrue(ci.classify(['proxy/runsheet.md'])['proxy'])
 
-    def test_workflow_change_runs_both(self):
-        self.assertEqual(ci.classify(['.github/workflows/gates.yml']), {'proxy': True, 'harness': True})
+    def test_workflow_change_runs_all(self):
+        self.assertEqual(ci.classify(['.github/workflows/gates.yml']), {'proxy': True, 'harness': True, 'viewer': True})
 
     def test_harness_set(self):
-        self.assertEqual(ci.classify(['proxy/tools/pc_deploy.py']), {'proxy': True, 'harness': True})
-        self.assertEqual(ci.classify(['harness/core/job.sh']), {'proxy': False, 'harness': True})
+        self.assertEqual(ci.classify(['proxy/tools/pc_deploy.py']), {'proxy': True, 'harness': True, 'viewer': False})
+        self.assertEqual(ci.classify(['harness/core/job.sh']), {'proxy': False, 'harness': True, 'viewer': False})
+
+    def test_viewer_set(self):
+        # J31: viewer/ and its test build the viewer; viewer/runs/ is committed evidence
+        self.assertEqual(ci.classify(['viewer/core/src/viewer.cpp']), {'proxy': False, 'harness': False, 'viewer': True})
+        self.assertEqual(ci.classify(['tests/test_viewer.py'])['viewer'], True)
+        self.assertEqual(ci.classify(['viewer/runs/20261031_j31/a.png'])['viewer'], False)
 
     def test_unknown_base_means_changed(self):
         self.assertIsNone(ci.local_changes(ROOT, FakeGit(shallow=True))[1])
         self.assertIsNone(ci.local_changes(ROOT, FakeGit(origin_main=False))[1])
-        self.assertEqual(ci.classify(None), {'proxy': True, 'harness': True})
+        self.assertEqual(ci.classify(None), {'proxy': True, 'harness': True, 'viewer': True})
         self.assertIsNone(ci.changed_files(ROOT, '', FakeGit()))
 
 

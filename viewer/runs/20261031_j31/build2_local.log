@@ -1,0 +1,14 @@
+[100%] Built target viewer
+b08c1d721d0c9a54cf82864b619e1a52db0037ebb039f96ec4d3bbd15d4246c4  viewer.js
+7daa0fbc7442949f8a4e0ce5b25f1c3b0d96ed6ae1dcb22c06e8916a4cf61a81  viewer.wasm
+  97597 viewer.js
+2070494 viewer.wasm
+2168091 total
+sizeof(lua_Number) = 4
+ok   return math.floor(2550 * 0.319999992)  ->  816  (float32 816, double 815)
+ok   return 16777217 - 16777216  ->  0  (float32 0, double 1)
+ok   return string.format("%d", 2550 * 0.319999992)  ->  816  (float32 816, double 815)
+ok   return tostring(1/3)  ->  0.3333333  (float32 0.3333333, double 0.33333333333333)
+ok   return tostring(16777216)  ->  1.677722e+07  (float32 1.677722e+07, double 16777216)
+ok   return tostring(tonumber("0.1") == 0.1)  ->  true  (float32 true, double true)
+lua_numbers: all float32

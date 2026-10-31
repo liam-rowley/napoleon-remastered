@@ -1,0 +1,55 @@
+{
+ "out": "viewer/runs/20261031_j31/hello_4k_slider125.png",
+ "w": 3840,
+ "h": 2160,
+ "dp_ratio": 2.5,
+ "sha256": "21a5ad85297da8333234a912f518fac5efd75f7cccb9ca3431d9667a12da3a65",
+ "boxes": {
+  "title": [
+   345,
+   185,
+   645,
+   90
+  ],
+  "end_turn": [
+   145,
+   1171,
+   510,
+   120
+  ],
+  "armies": [
+   145,
+   575,
+   1300,
+   556
+  ],
+  "turn": [
+   259,
+   335,
+   19,
+   60.000003814697266
+  ]
+ },
+ "log": [
+  "response 200 text/html index.html?headless=1&w=3840&h=2160&ratio=2.5",
+  "response 200 text/javascript viewer_host.js",
+  "response 200 text/javascript viewer.js",
+  "response 200 application/wasm viewer.wasm",
+  "console log: [host] wasm instantiated in 19 ms",
+  "response 200 application/json screen.json",
+  "response 200 application/octet-stream hello.rml",
+  "response 200 application/octet-stream hello.rcss",
+  "response 200 application/octet-stream hello.lua",
+  "response 200 application/octet-stream stubs.lua",
+  "response 200 application/octet-stream emblem.tga",
+  "response 200 font/ttf IMFeENrm28P.ttf",
+  "console log: [host] 5 screen files and 1 font(s) loaded",
+  "console log: [viewer] Started Emscripten WebGL renderer.",
+  "console log: [rml info] Loading Lua plugin using a new Lua state.",
+  "console log: [rml info] Loaded font face 'IM FELL English' [regular] from '/fonts/IMFeENrm28P.ttf'.",
+  "console log: [host] Viewer spike: hello world (J31): 3840x2160, dp ratio 2.5000",
+  "console log: [host] ready",
+  "console warning: [.WebGL-0x79e400425400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+  "console warning: [.WebGL-0x79e400425400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+ ]
+}

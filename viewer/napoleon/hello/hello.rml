@@ -1,0 +1,27 @@
+<rml>
+<head>
+	<title>Viewer spike: hello world</title>
+	<link type="text/rcss" href="hello.rcss"/>
+	<script src="stubs.lua"></script>
+	<script src="hello.lua"></script>
+</head>
+<body data-model="hello">
+	<div id="header">
+		<img id="emblem" src="emblem.tga"/>
+		<div id="title">Viewer spike: {{faction}}</div>
+	</div>
+	<div id="facts">
+		<div class="fact">Turn <span id="turn">{{turn}}</span></div>
+		<div class="fact">Treasury {{treasury}}</div>
+		<div class="fact" id="float32">floor({{treasury}} x 0.319999992) = {{tax}}</div>
+	</div>
+	<div id="armies">
+		<div class="army" data-for="army : armies">
+			<span class="army_name">{{army.name}}</span>
+			<span class="army_size">{{army.men}} men</span>
+		</div>
+	</div>
+	<div id="end_turn" class="button" onclick="Hello.EndTurn()">End turn</div>
+	<div id="last_event">{{last_event}}</div>
+</body>
+</rml>

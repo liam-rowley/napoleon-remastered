@@ -1,0 +1,7 @@
+{
+  "title": "Viewer spike: hello world (J31)",
+  "document": "hello.rml",
+  "files": ["hello.rml", "hello.rcss", "hello.lua", "stubs.lua", "emblem.tga"],
+  "fonts": ["IMFeENrm28P.ttf"],
+  "probe": {"text": "title", "button": "end_turn", "list": "armies", "turn": "turn"}
+}

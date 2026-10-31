@@ -161,6 +161,28 @@ EMSCRIPTEN_KEEPALIVE float* viewer_element_box(const char* id) {
 	return g_box;
 }
 
+// The element's state for checks, as JSON: {"x","y","w","h","scroll_top","hover","active","rml"} (or "null").
+EMSCRIPTEN_KEEPALIVE const char* viewer_element_json(const char* id) {
+	Rml::Element* e = g_document ? g_document->GetElementById(id) : nullptr;
+	if (!e) {
+		g_result = "null";
+		return g_result.c_str();
+	}
+	float* b = viewer_element_box(id);
+	Rml::String rml = e->GetInnerRML(), esc;
+	for (char c : rml) {
+		if (c == '"' || c == '\\')
+			esc += '\\';
+		if ((unsigned char)c >= 0x20)
+			esc += c;
+	}
+	char head[256];
+	std::snprintf(head, sizeof head, "{\"x\":%g,\"y\":%g,\"w\":%g,\"h\":%g,\"scroll_top\":%g,\"hover\":%s,\"active\":%s,\"rml\":\"", b[0], b[1],
+		b[2], b[3], e->GetScrollTop(), e->IsPseudoClassSet("hover") ? "true" : "false", e->IsPseudoClassSet("active") ? "true" : "false");
+	g_result = head + esc + "\"}";
+	return g_result.c_str();
+}
+
 // Run a Lua chunk in a fresh state with the standard libraries and return what it returns as a string (or "error: ...").
 // Needs no canvas, so the build's number test runs it under Node. The number type is compiled in, so this state proves it for
 // the document state too.

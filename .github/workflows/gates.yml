@@ -43,6 +43,7 @@ jobs:
     outputs:
       proxy: ${{ steps.diff.outputs.proxy }}
       harness: ${{ steps.diff.outputs.harness }}
+      viewer: ${{ steps.diff.outputs.viewer }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -99,6 +100,34 @@ jobs:
           path: build/proxy/napoleon/d3d9.dll
           if-no-files-found: error
 
+  # viewer: build the review viewer to wasm inside the emsdk image pinned in viewer/pins.json (the same container as the PC's
+  # `build.sh --docker`, D30/D31), prove float32 Lua under Node, then render hello-world in headless Chromium and run its checks
+  # (tests/test_viewer.py). viewer.js, viewer.wasm, their sha256 and the renders are kept as a workflow artifact (J31).
+  viewer:
+    needs: changes
+    if: github.event_name != 'workflow_dispatch' && needs.changes.outputs.viewer == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      # the container runs as root: hand build/ back to the runner user for the render steps
+      - run: viewer/core/build.sh --docker all && sudo chown -R "$(id -u):$(id -g)" build
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -q playwright==1.64.1 && python -m playwright install --with-deps chromium
+      - run: python -m unittest tests.test_viewer -v
+      - name: renders kept with the build (1080p x 1.0, 4K x 125 % = dp ratio 2.5)
+        run: |
+          python viewer/core/render.py --size 1920x1080 --dp-ratio 1.0 --out build/viewer/out/hello_1080p_r1.png
+          python viewer/core/render.py --size 3840x2160 --dp-ratio 2.5 --out build/viewer/out/hello_4k_slider125.png
+          (cd build/viewer/out && sha256sum *.png >> SHA256SUMS && cat SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: viewer-wasm
+          path: build/viewer/out/
+          if-no-files-found: error
+
   # harness-windows: the J2 watcher, lock, profiles, hang watchdog, updater and installer on GitHub's Windows runner under
   # Windows PowerShell 5.1 (shell: powershell), the same PowerShell the PC runs. Fake games are compiled on the runner.
   harness-windows:
@@ -130,7 +159,7 @@ jobs:
   # notify: the last job; a failure in any job above, on a branch with an open pull request, comments once there (D32: a failed check
   # leaves the pull request open; this makes it impossible to miss). The only job with write access, and only to pull requests.
   notify:
-    needs: [changes, gates, proxy, harness-windows]
+    needs: [changes, gates, proxy, viewer, harness-windows]
     if: failure() && github.event_name == 'push' && github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5

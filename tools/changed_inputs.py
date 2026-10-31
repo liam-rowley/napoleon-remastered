@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Which slow checks a diff needs: the one list of the `proxy` and `harness-windows` input files, for CI and for the local gates (J41).
+"""Which slow checks a diff needs: the one list of the `proxy`, `harness-windows` and `viewer` input files, for CI and for the local gates (J41).
 
-purpose: print `proxy=true|false` and `harness=true|false` for the files changed since a base: CI's `changes` job writes them to $GITHUB_OUTPUT, and tests/test_proxy_host.py uses the proxy set to skip the proxy host tests when nothing they build from changed; an unknown base means everything changed
+purpose: print `proxy=true|false`, `harness=true|false` and `viewer=true|false` for the files changed since a base: CI's `changes` job writes them to $GITHUB_OUTPUT, and tests/test_proxy_host.py uses the proxy set to skip the proxy host tests when nothing they build from changed; an unknown base means everything changed
 usage: python3 tools/changed_inputs.py --base <sha or ''>   (CI: base..HEAD) | python3 tools/changed_inputs.py --local   (merge-base with origin/main, plus staged, unstaged and untracked files); the changed files go to stderr, key=value lines to stdout
-when: automatic (CI `changes` job, the `tests` gate through tests/test_proxy_host.py); by hand to see whether a branch will run the proxy or harness-windows job
+when: automatic (CI `changes` job, the `tests` gate through tests/test_proxy_host.py); by hand to see whether a branch will run the proxy, harness-windows or viewer job
 not-a-verb: CI calls it before the core is checked out (the `changes` job has no submodule); a small file classifier, not a registry operation
 """
 import argparse
@@ -15,15 +15,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = r'^\.github/workflows/'
 # proxy: proxy/ and the two registries proxy/tools/gen_tables.py reads; harness: harness/ and pc_deploy.py (the integration tests run
-# `pc_deploy.py kit --what harness`). A workflow change runs both. proxy/runs/ is committed PC run evidence, not a build input (J42).
+# `pc_deploy.py kit --what harness`); viewer: viewer/ and its test (J31). A workflow change runs all three. proxy/runs/ and viewer/runs/
+# are committed run evidence, not build inputs (J42).
 INPUTS = {
     'proxy': re.compile(rf'{WORKFLOWS}|^proxy/(?!runs/)|^registries/(engine_sites|config_keys)\.jsonl$'),
     'harness': re.compile(rf'{WORKFLOWS}|^harness/|^proxy/tools/pc_deploy\.py$'),
+    'viewer': re.compile(rf'{WORKFLOWS}|^viewer/(?!runs/)|^tests/test_viewer\.py$'),
 }
 
 
 def classify(files):
-    """{'proxy': bool, 'harness': bool}; files None means the base is unknown: everything changed."""
+    """{'proxy': bool, 'harness': bool, 'viewer': bool}; files None means the base is unknown: everything changed."""
     return {k: files is None or any(rx.search(f) for f in files) for k, rx in INPUTS.items()}
 
 
