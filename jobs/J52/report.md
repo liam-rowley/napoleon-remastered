@@ -76,6 +76,12 @@ jobs view: serving http://127.0.0.1:59228/ (dry run: nothing is started); Ctrl+C
 A tick takes about 23 s (it fetches all 22 job branches), and the interval counts from the end of a tick. In that run the second
 line reached stderr but not the log file before the process was stopped. The log file is now written before stderr.
 
+After this branch's row was set to `review` and pushed, one more dry-run tick found it:
+
+```
+2026-10-31 13:13:23 UTC jobs auto: J52-review: dry run, would start: C:\Users\liamr\.local\bin\claude.EXE --bg --name J52-review --model sonnet --effort medium "Review job J52: git pull, then run python3 core/wsc.py jobs review --id J52 and follow docs/REVIEW.md."
+```
+
 ## Deviations from the brief, and why
 - **Live means `working` or `blocked`**, for the buttons and the loop alike. The brief says "working", but the PC shows a
   `blocked` session (waiting on input) that has not ended. Starting a second `J<n>-build`, or a reviewer next to it, would race it.
