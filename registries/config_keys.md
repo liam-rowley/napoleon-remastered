@@ -14,7 +14,7 @@ Every configuration key the mod reads: its default, its release value, who owns 
 | `dev.console` | no | no | proxy | campaign console (J15): fill the executor's empty external-handler slot with a forwarder to the campaign CLI (built with the exe's own ctor on the live campaign context), and the ctl verb console <... |
 | `dev.ctl` | no | no | proxy | control channel: requests <dev.ctl_dir>\<id>.cmd, results <id>.done (ping, state, log, lua, waitfor, autostart, reset, exit; proxy/README.md) |
 | `dev.ctl_dir` | C:\napoleon_remastered_pc\ctl | C:\napoleon_remastered_pc\ctl | proxy | the control channel's folder, outside the game folder (D25) so the uninstall stays byte-exact |
-| `dev.file_rules` |  |  | proxy | file-redirection rule file (relative to the game folder or absolute): redirect / fail / add / movie-fail / movie-redirect lines, core/proxy/src/filerules.h; empty = none |
+| `dev.file_rules` |  |  | proxy | file-redirection rule file (relative to the game folder or absolute): redirect / fail / add / movie-fail / movie-redirect lines, proxy/core/filerules.h; empty = none |
 | `dev.log_files` | no | no | proxy | file-open survey: every distinct path the exe opens, checks or lists (CreateFile, GetFileAttributes, FindFirstFile) into napoleon_remastered\logs\files.log, and every movie open in proxy.log |
 | `dev.lua_bridge` | no | no | proxy | the engine's Lua loads the proxy (wrapper scripts served by a virtual pack, wsp table: poll, result, dev_config, report, vanilla); needed for scenes from Lua, lua commands, autostart and reset |
 | `dev.perf` | no | no | proxy | ctl perf <seconds>: records the time between presents (p50, p99, max, frame count) and reports process memory (address space, commit, working set) |
