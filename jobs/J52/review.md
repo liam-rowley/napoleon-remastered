@@ -1,5 +1,34 @@
 # J52 review
 
+## Round 2 (2026-10-31, branch job/J52 at a2580b1)
+
+**Verdict: merge.**
+
+Reviewer: session ecebdd8b. It also wrote round 1, and Liam asked for this round in the same chat. It wrote neither report.md nor
+the fixes (those are 7c221f81), so the policy rule holds.
+
+### Machines
+- `wsc gates`: 11 ok, 1 warn (hooks path), 0 failed. 360 host tests passed, with the game closed this time.
+- `tests.test_jobs` + `tests.test_pr_policy`: ok.
+- `pr_policy.py`: refused only for the verdict and row this round sets.
+
+### Round 1 findings against `## Fix round 1`
+1. **Relaunch loop (blocker): fixed in aa3af7f.** `JobServer.started` keeps the branch head each (job, action) was started at.
+   `auto_tick` skips an action already started at the current head and logs it, and only a successful start is remembered. Read in
+   depth: review -> fix -> review works, because each push moves the head, and fix and review are separate keys. The round 1 repro is
+   now `Autopilot.test_a_session_that_ends_without_pushing_is_started_once_per_branch_head`, which gets one launch over three ticks.
+   The in-process memory is named in the docstring. A restart can start a stuck job once more, which is bounded.
+2. **Round cap outside readiness (should-fix): fixed in 6e0320e.** `branch_rows` returns `Branch(row, rounds, head)`. `not_ready`
+   refuses a 4th review and a fix with no round, and `jobs review` and `jobs fix` now take the same answer. Checked live:
+   `jobs fix --id J52` refuses ("review on job/J52, not fix"), and `jobs review` names round 1 for J45.
+3. and 4. (later): left with reasons, as round 1 allowed.
+
+### Findings
+**later**
+- `branch_state()` treats a bare row as `head=None`, so in tests two different bare-row snapshots look like the same head. Real
+  snapshots always carry a sha from `branch_rows`, so this only matters if a future caller passes bare rows into the autopilot.
+- Round 1's later items 3 (overlapping fetches, tick cost) and 4 (`test_pc_deploy` with the game open) still stand.
+
 ## Round 1 (2026-10-31, branch job/J52 at 1eefcf9)
 
 **Verdict: merge after fixes.**
