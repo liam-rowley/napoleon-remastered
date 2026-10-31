@@ -9,18 +9,39 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "core/pe.h"
+#include "pe.h"
 
 namespace tk {
 
 inline int g_fail = 0, g_pass = 0;
-inline std::string g_root = ".";
+// Where the tests read sources from (build.sh passes all three): the core sources, the game's proxy adapter, these tests. A path in
+// ReadFile starts with core/, adapter/ or tests/ and is resolved against them, so the tests name no checkout layout and no game.
+inline std::string g_src = ".", g_adapter = ".", g_tests = ".";
 #define CHECK(c) do { if (c) ++tk::g_pass; else { ++tk::g_fail; printf("  FAIL %s:%d: %s\n", __FILE__, __LINE__, #c); } } while (0)
 #define CHECK_EQ(a, b) do { auto _a = (a); auto _b = (b); if (_a == _b) ++tk::g_pass; else { ++tk::g_fail; \
     std::ostringstream _s; _s << _a << " != " << _b; printf("  FAIL %s:%d: %s == %s (%s)\n", __FILE__, __LINE__, #a, #b, _s.str().c_str()); } } while (0)
-inline void Args(int argc, char** argv) { for (int i = 1; i + 1 < argc; ++i) if (!strcmp(argv[i], "--root")) g_root = argv[i + 1]; }
+inline void Args(int argc, char** argv) {
+    for (int i = 1; i + 1 < argc; ++i) {
+        if (!strcmp(argv[i], "--src")) g_src = argv[i + 1];
+        else if (!strcmp(argv[i], "--adapter")) g_adapter = argv[i + 1];
+        else if (!strcmp(argv[i], "--tests")) g_tests = argv[i + 1];
+    }
+}
 inline int Done(const char* name) { printf("%s: %d passed, %d failed\n", name, g_pass, g_fail); return g_fail ? 1 : 0; }
-inline std::string ReadFile(const std::string& rel) { std::ifstream f(g_root + "/" + rel, std::ios::binary); std::stringstream s; s << f.rdbuf(); return s.str(); }
+inline std::string Resolve(const std::string& rel) {
+    for (auto [pre, dir] : { std::pair<const char*, std::string*>{ "core/", &g_src }, { "adapter/", &g_adapter }, { "tests/", &g_tests } })
+        if (rel.rfind(pre, 0) == 0) return *dir + "/" + rel.substr(strlen(pre));
+    return rel;
+}
+inline std::string ReadFile(const std::string& rel) { std::ifstream f(Resolve(rel), std::ios::binary); std::stringstream s; s << f.rdbuf(); return s.str(); }
+// A string field of a flat JSON object (identity.json): enough for the adapter's names, not a JSON parser.
+inline std::string JsonField(const std::string& j, const std::string& key) {
+    const size_t k = j.find("\"" + key + "\""); if (k == std::string::npos) return "";
+    const size_t a = j.find('"', j.find(':', k) + 1); const size_t b = j.find('"', a + 1);
+    return a == std::string::npos || b == std::string::npos ? "" : j.substr(a + 1, b - a - 1);
+}
+// The adapter's shipped config file (identity.json config_file), generated from the config_keys registry.
+inline std::string AdapterIni() { return ReadFile("adapter/" + JsonField(ReadFile("adapter/identity.json"), "config_file")); }
 
 struct SecSpec { const char* name; uint32_t rva, vsize, rawSize, characteristics; };
 
@@ -102,8 +123,8 @@ struct Image {
     }
 };
 
-// Napoleon.exe's real section layout (proxy/runs/20261028_exeinfo), scaled down: .text exec, .rdata, .data (vsize > raw), .reloc.
-inline Image NapoleonLike() {
+// A real game exe's section layout (the first consumer's, measured 2026-10-28), scaled down: .text exec, .rdata, .data (vsize > raw), .reloc.
+inline Image GameLike() {
     Image im = Image::Make({ { ".text", 0x1000, 0x3000, 0x3000, 0x60000020 }, { ".rdata", 0x4000, 0x1000, 0x1000, 0x40000040 },
                              { ".data", 0x5000, 0x4000, 0x1000, 0xC0000040 }, { ".reloc", 0x9000, 0x1000, 0x1000, 0x42000040 } }, 0xA000);
     for (uint32_t i = 0; i < 0x3000; ++i) im.file[im.rawOff[0] + i] = 0xCC;   // int3 padding, like the gaps between functions

@@ -1,6 +1,6 @@
 // Host test: SHA-1 against the FIPS 180-1 vectors and chunked updates (the guard hashes the exe in 1 MiB reads).
 #include "testkit.h"
-#include "core/sha1.h"
+#include "sha1.h"
 
 static std::string H(const std::string& s) { wsp::Sha1 h; h.Update(s.data(), s.size()); return h.HexDigest(); }
 

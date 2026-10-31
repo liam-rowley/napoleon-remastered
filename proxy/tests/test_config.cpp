@@ -1,7 +1,7 @@
 // Host test: config parsing (config.h) and the generated key table against the shipped default config.
 #include "testkit.h"
-#include "core/config.h"
-#include "napoleon/generated/tables.h"
+#include "config.h"
+#include "generated/tables.h"
 
 using namespace wsp;
 static const KeySpec kSpec[] = { { "proxy.enabled", kBool, "1" }, { "proxy.backend", kStr, "dxvk" }, { "proxy.minidump", kInt, "1" } };
@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
         CHECK(!Normalise(kInt, "123456789012", o)); CHECK(Normalise(kBool, "ON", o) && o == "1"); CHECK(Normalise(kBool, "off", o) && o == "0");
     }
     {   // the generated table parses the shipped default config with no warning, every key from the file, at the release values
-        const std::string ini = tk::ReadFile("proxy/napoleon/napoleon_remastered.ini");
+        const std::string ini = tk::AdapterIni();
         CHECK(!ini.empty());
         Config c = ParseConfig(ini, true, gen::kKeys, gen::kKeyCount);
         CHECK(c.warnings.empty());

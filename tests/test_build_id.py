@@ -35,8 +35,9 @@ class Fixture(unittest.TestCase):
         self.write('proxy/core/a.cpp', 'int a;\n')
         self.write('proxy/napoleon/adapter.cpp', 'int b;\n')
         self.write('proxy/tools/fetch_lua.py', '# lua\n')
-        for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py'):
+        for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py', 'proxy/tools/layout.py'):
             self.write(rel, (ROOT / rel).read_bytes())
+        self.write('wsc.toml', '# the repo marker layout.py looks for' + chr(10))
         self.write('docs/x.md', 'x\n')
         self.commit('inputs')
 
@@ -85,7 +86,7 @@ class ContentNotHistory(Fixture):
 
     def test_a_change_to_any_one_input_changes_the_id(self):
         seen = {self.bid()}
-        for _, rel in bi.INPUTS:
+        for _, rel, _, _ in bi.locate(self.d):
             p = self.d / rel
             target = next(p.glob('*')) if p.is_dir() else p
             target.write_bytes(target.read_bytes() + b'\n# changed\n')
@@ -129,6 +130,53 @@ class ContentNotHistory(Fixture):
         plain = Path(self.tmp.name) / 'plain'
         plain.mkdir()
         self.assertEqual(bi.build_id(plain), 'nogit')
+
+
+class MovedToTheCore(Fixture):
+    """J12: after the move the core sources and the build tools live in the `core` submodule (proxy/src, proxy/tools); the same
+    content under the same roles must give the same id, read through the gitlink, and a change there must still be seen."""
+    def make_moved(self):
+        core = Path(self.tmp.name) / 'core_origin'
+        core.mkdir()
+        g = lambda *a, cwd=core: self.git(*a, cwd=cwd)
+        g('init', '-q', '-b', 'main'); g('config', 'user.email', 't@example.invalid'); g('config', 'user.name', 'test')
+        g('config', 'core.autocrlf', 'false')
+        for src, dst in (('proxy/core/a.cpp', 'proxy/src/a.cpp'), ('proxy/tools/build.sh', 'proxy/tools/build.sh'),
+                         ('proxy/tools/build_id.py', 'proxy/tools/build_id.py'), ('proxy/tools/fetch_lua.py', 'proxy/tools/fetch_lua.py'),
+                         ('proxy/tools/layout.py', 'proxy/tools/layout.py'), ('wsc.toml', 'wsc.toml')):
+            (core / dst).parent.mkdir(parents=True, exist_ok=True)
+            (core / dst).write_bytes((self.d / src).read_bytes())
+        g('add', '-A'); g('commit', '-q', '-m', 'core')
+        game = Path(self.tmp.name) / 'game'
+        subprocess.run(['git', '-c', 'core.autocrlf=false', 'clone', '-q', self.d.as_uri(), str(game)], check=True, capture_output=True)
+        gg = lambda *a: g(*a, cwd=game)
+        gg('config', 'user.email', 't@example.invalid'); gg('config', 'user.name', 'test'); gg('config', 'core.autocrlf', 'false')
+        gg('rm', '-q', '-r', 'proxy/core', 'proxy/tools')
+        gg('-c', 'protocol.file.allow=always', 'submodule', 'add', '-q', core.as_uri(), 'core')
+        gg('commit', '-q', '-m', 'move')
+        return game
+
+    def test_failing_fixture_the_moved_layout_keeps_the_id(self):
+        flat = self.bid()
+        game = self.make_moved()
+        self.assertEqual(bi.build_id(game, 'HEAD'), flat)
+        paths = {role: path for role, path, _ in bi.object_ids(game)}
+        self.assertEqual(paths['core'], 'core/proxy/src')
+        self.assertEqual(paths['build_sh'], 'core/proxy/tools/build.sh')
+        self.assertEqual(paths['adapter'], 'proxy/napoleon')
+
+    def test_failing_fixture_a_change_inside_the_submodule_is_seen(self):
+        flat = self.bid()
+        game = self.make_moved()
+        (game / 'core/proxy/src/a.cpp').write_text('int a3;' + chr(10))
+        self.assertEqual(bi.build_id(game, 'HEAD'), flat + '-dirty')           # uncommitted in the submodule
+        g = lambda *a: subprocess.run(['git', *a], cwd=game / 'core', capture_output=True, text=True, check=True)
+        g('config', 'user.email', 't@example.invalid'); g('config', 'user.name', 'test'); g('commit', '-q', '-am', 'core change')
+        self.assertEqual(bi.build_id(game, 'HEAD'), flat + '-dirty')           # committed there, not pinned by the game repo
+        subprocess.run(['git', 'commit', '-q', '-am', 'pin'], cwd=game, check=True, capture_output=True)
+        new = bi.build_id(game, 'HEAD')
+        self.assertNotIn('-dirty', new)
+        self.assertNotEqual(new, flat)
 
 
 class OneImplementation(Fixture):

@@ -1,11 +1,11 @@
 // test_display_guard.cpp - host tests for core/display_guard.h (J13 headless runs): target selection in Liam's topologies, the mode
 // list, the create/show/style/position gates, the topology guard's decisions, and a millisecond simulation that drives the same
-// functions the way headless.cpp does (guard poll every 4 ms, Present every 16 ms) through the display changes seen on Empire and
+// functions the way headless.cpp does (guard poll every 4 ms, Present every 16 ms) through the display changes seen on the earlier remaster and
 // counts the milliseconds a game window is visible, uncloaked and overlapping a REAL monitor. Plus source lints for headless.cpp.
 // Built and run by proxy/tools/build.sh tests.
 #include "testkit.h"
-#include "core/display_guard.h"
-#include "napoleon/generated/tables.h"
+#include "display_guard.h"
+#include "generated/tables.h"
 #include <set>
 
 using namespace wsp;
@@ -20,7 +20,7 @@ std::vector<Monitor> TopoToday() {
              Mon("\\\\.\\DISPLAY2", "NVIDIA GeForce RTX 4090", "Dell S2721DGF (HDMI2)", R(-2560, 327, 2560, 1440), false),
              Mon("\\\\.\\DISPLAY10", kVdd, "Generic PnP Monitor", R(3839, 2160, 3840, 2160), false) };
 }
-// Empire 2026-10-20/28: the 4K monitor not attached, the Dell primary at 0,0, the virtual display at 2560,1440
+// the earlier remaster 2026-10-20/28: the 4K monitor not attached, the Dell primary at 0,0, the virtual display at 2560,1440
 std::vector<Monitor> TopoDellPrimary() {
     return { Mon("\\\\.\\DISPLAY2", "NVIDIA GeForce RTX 4090", "Dell S2721DGF (HDMI2)", R(0, 0, 2560, 1440), true),
              Mon("\\\\.\\DISPLAY10", kVdd, "Generic PnP Monitor", R(2560, 1440, 3840, 2160), false) };
@@ -54,7 +54,7 @@ void TestSelect() {
     two[3].rc = R(7679, 2160, 1920, 1080);
     CHECK_EQ(SelectTarget(two, kVdd, 3840, 2160).index, 2); CHECK_EQ(SelectTarget(two, kVdd, 1920, 1080).index, 3);
     CHECK_EQ(SelectTarget(TopoToday(), "", 3840, 2160).index, -1);   // no name: refused
-    // the GDI number does not matter (Empire saw 20, 21, 23)
+    // the GDI number does not matter (the earlier remaster saw 20, 21, 23)
     auto renum = TopoToday(); renum[2].device = "\\\\.\\DISPLAY23"; CHECK_EQ(SelectTarget(renum, kVdd, 3840, 2160).index, 2);
 }
 
@@ -282,7 +282,7 @@ void TestSimulation() {
         Sim s; s.mons = TopoToday(); s.Run(3000);
         CHECK(!s.refused); CHECK_EQ(s.onRealMs, 0); CHECK_EQ(s.cloakedMs, 0); CHECK_EQ(s.triggers, 0);
     }
-    {   // the Empire incident (2026-10-22): Dell primary, the 4K monitor comes online as primary, Windows moves the virtual display;
+    {   // the earlier remaster's incident (2026-10-22): Dell primary, the 4K monitor comes online as primary, Windows moves the virtual display;
         // the window's old rect (2560,1440) now overlaps the 4K monitor
         Sim s; s.mons = TopoDellPrimary(); s.changes.push_back({ 1001, TopoToday() }); s.Run(4000);
         CHECK(!s.refused); CHECK(s.onRealMs <= 4);                    // at most one poll interval, cloaked from the next poll on
@@ -342,10 +342,10 @@ std::string Strip(const std::string& s) {   // drop comments and string literals
 }
 
 void TestLints() {
-    const std::string raw = tk::ReadFile("proxy/core/headless.cpp"), hl = Strip(raw);
+    const std::string raw = tk::ReadFile("core/headless.cpp"), hl = Strip(raw);
     CHECK(!raw.empty());
     // the driver is game-agnostic (it moves to warscape-core)
-    for (const std::string& f : { std::string("proxy/core/headless.cpp"), std::string("proxy/core/display_guard.h") }) {
+    for (const std::string& f : { std::string("core/headless.cpp"), std::string("core/display_guard.h") }) {
         std::string s = tk::ReadFile(f);
         for (size_t k; (k = s.find("empire-remastered")) != std::string::npos;) s.erase(k, 17);
         CHECK(s.find("apoleon") == std::string::npos); CHECK(s.find("mpire") == std::string::npos);

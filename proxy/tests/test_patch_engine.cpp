@@ -1,9 +1,9 @@
-// Host test: the runtime patch engine (patch_engine.h) on a synthetic Napoleon-like image: rebasing under ASLR, anchor and stock
+// Host test: the runtime patch engine (patch_engine.h) on a synthetic game-like image: rebasing under ASLR, anchor and stock
 // checks, all-or-nothing, already-patched, disabled sites, hooks, bad tables, file view == mapped view, and the generated table.
 #include "testkit.h"
 #include <memory>
-#include "core/patch_engine.h"
-#include "napoleon/generated/tables.h"
+#include "patch_engine.h"
+#include "generated/tables.h"
 
 using namespace wsp;
 
@@ -18,7 +18,7 @@ static SiteDef Hook(const char* id, uint32_t rva, std::vector<uint8_t> a, std::v
 // The fixture: an imm32 patch in .text (mov dword [ecx+0x48], 2048), a float in .data, and a hookable function whose first
 // instruction holds an ABSOLUTE address (push 0x0140a000 -> relocated) to prove the rebase.
 static tk::Image Fixture() {
-    tk::Image im = tk::NapoleonLike();
+    tk::Image im = tk::GameLike();
     im.Put(0x1100, { 0xC7, 0x41, 0x48, 0x00, 0x08, 0x00, 0x00, 0x90 });          // mov [ecx+0x48], 0x800 ; nop
     im.Put(0x5010, { 0x11, 0x22, 0x33, 0x44, 0x00, 0x00, 0x48, 0x42 });          // tag, then 50.0f
     im.Put(0x2000, { 0xCC, 0xCC, 0x68, 0x00, 0xA0, 0x40, 0x00, 0x8B, 0xC1, 0xC3 });   // int3 int3 | push 0x40a000 ; mov eax,ecx ; ret
@@ -135,7 +135,7 @@ int main(int argc, char** argv) {
         CHECK(MakePatchPlan(v, 0, s.data(), s.size(), on).verdict == PlanVerdict::Refuse);
         CHECK(MakePatchPlan(v, 0, s.data(), 0, on).verdict == PlanVerdict::NothingToDo);
     }
-    {   // the generated table (from the registry) is well formed and gives a clean plan on a Napoleon-like image
+    {   // the generated table (from the registry) is well formed and gives a clean plan on a game-like image
         std::vector<uint8_t> m = im.Mapped(0x400000); PeInfo pe; ImageView v = tk::MappedView(m, pe);
         PatchPlan pl = MakePatchPlan(v, 0, gen::kSites, gen::kSiteCount, nullptr);
         CHECK_EQ(pl.nBad, gen::kSiteCount == 0 ? 0 : pl.nBad);

@@ -2,14 +2,14 @@
 // Regression for the 4K resolution-change crash (proxy/runs/20261029_4kcrash): a stack overflow must never be logged or dumped on
 // the overflowed thread.
 #include "testkit.h"
-#include "core/crashpolicy.h"
+#include "crashpolicy.h"
 
 using wsp::CrashAction;
 using wsp::CrashHandlerAction;
 
 int main(int argc, char** argv) {
     tk::Args(argc, argv);
-    const uintptr_t low = 0x01871000;   // the 4K crash's main-thread stack reservation (WER dump Napoleon.exe.17648)
+    const uintptr_t low = 0x01871000;   // the 4K crash's main-thread stack reservation (the first consumer's WER dump, 2026-10-29)
     const uintptr_t AV = 0xC0000005u;
     // stack overflow: always deferred, whatever the stack and the mode
     CHECK(CrashHandlerAction(wsp::kStatusStackOverflow, low + 0x100000, low, true) == CrashAction::Defer);
@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     CHECK(CrashHandlerAction(AV, low + 0x100000, 0, true) == CrashAction::Defer);
 
     // lint: both handlers decide through the policy before any log call, and the deferral path stays call-free
-    const std::string src = tk::ReadFile("proxy/core/crash.cpp");
+    const std::string src = tk::ReadFile("core/crash.cpp");
     CHECK(!src.empty());
     for (const char* h : {"LONG WINAPI TopLevel(", "LONG WINAPI Vectored("}) {
         const size_t at = src.find(h);

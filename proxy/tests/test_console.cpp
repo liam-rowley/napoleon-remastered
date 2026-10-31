@@ -3,8 +3,8 @@
 // rows; and source lints (key off = no engine read or write, the slot written only after the claim rule, no game named in core).
 // Built and run by proxy/tools/build.sh tests.
 #include "testkit.h"
-#include "core/console.h"
-#include "napoleon/adapter.cpp"
+#include "console.h"
+#include "adapter.cpp"
 #include <set>
 
 using namespace wsp;
@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
         CHECK(Site(c.gateSite)->stock[0] == 0x80 && Site(c.gateSite)->stock[c.gateOperand] == 0x54 && Site(c.gateSite)->stock[3] == 0x00);   // cmp byte [r + 0x54], 0
         // the gate byte is set only around one Execute call and restored right after it
         {
-            const std::string cc = tk::ReadFile("proxy/core/console.cpp");
+            const std::string cc = tk::ReadFile("core/console.cpp");
             const size_t set = cc.find("if (gate && !gateOld) *gate = 1;"), call = cc.find("((ExecFn)s_execute)(", set), back = cc.find("if (gate && !gateOld) *gate = gateOld;", call);
             CHECK(set != std::string::npos && call != std::string::npos && back != std::string::npos && back - call < 200);
         }
@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
         CHECK(ConsoleInList(c.systemNames, "here_kitty_kitty") && ConsoleInList(c.systemNames, "quit") && !ConsoleInList(c.systemNames, "teleport_to"));
     }
     {   // source lints
-        const std::string cc = tk::ReadFile("proxy/core/console.cpp"), ch = tk::ReadFile("proxy/core/console.h");
+        const std::string cc = tk::ReadFile("core/console.cpp"), ch = tk::ReadFile("core/console.h");
         CHECK(!cc.empty() && !ch.empty());
         // key off: ConsoleInstall returns before any site address or engine read; the slot is written only in SetSlot after the claim rule
         const size_t inst = cc.find("void ConsoleInstall()"), keyRet = cc.find("if (!s_key || s_installed || !s_ad) return;", inst),
@@ -126,10 +126,10 @@ int main(int argc, char** argv) {
         // every forwarded or refused line is logged
         CHECK(cc.find("LOGI(\"console: forwarded") != std::string::npos && cc.find("LOGW(\"console: refused") != std::string::npos);
         // the dev side starts the console only after its own plan gate
-        const std::string dv = tk::ReadFile("proxy/core/dev.cpp");
+        const std::string dv = tk::ReadFile("core/dev.cpp");
         CHECK(dv.find("if (!rt.plan.engineHooks || !rt.plan.d3dHooks)") < dv.find("ConsoleInit(k.console"));
         for (const char* f : { "console.cpp", "console.h" }) {
-            std::string s = tk::ReadFile(std::string("proxy/core/") + f);
+            std::string s = tk::ReadFile(std::string("core/") + f);
             for (size_t k; (k = s.find("empire-remastered")) != std::string::npos;) s.erase(k, 17);
             const bool named = s.find("apoleon") != std::string::npos || s.find("mpire") != std::string::npos;
             if (named) { printf("    %s names a game\n", f); CHECK(!named); }

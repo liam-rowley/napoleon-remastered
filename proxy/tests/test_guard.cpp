@@ -1,8 +1,8 @@
 // Host test: the exe-identity guard (guard.h) verdicts, the pass-through plan, the notice and log texts, the generated pin against
-// identity.json, and a source lint that keeps every engine-side step behind the guard (Empire's exe_guard_test idea).
+// identity.json, and a source lint that keeps every engine-side step behind the guard (the earlier remaster's exe_guard_test idea).
 #include "testkit.h"
-#include "core/guard.h"
-#include "napoleon/generated/tables.h"
+#include "guard.h"
+#include "generated/tables.h"
 #include <regex>
 #include <set>
 
@@ -29,8 +29,8 @@ static std::string Strip(const std::string& s) {   // drop // and /* */ comments
 
 int main(int argc, char** argv) {
     tk::Args(argc, argv);
-    const tk::Image im = tk::NapoleonLike();
-    const Identity pin = { "Napoleon.exe", kSha, 0x645e917f, 0xA000 };
+    const tk::Image im = tk::GameLike();
+    const Identity pin = { "Game.exe", kSha, 0x645e917f, 0xA000 };
 
     {   GuardResult r = Run(im, kSha, pin);
         CHECK(r.verdict == Verdict::Match); CHECK(r.engineOk); CHECK(r.diffs.empty()); CHECK(r.pinned);
@@ -54,19 +54,19 @@ int main(int argc, char** argv) {
         GuardResult r = Run(b, kSha, pin); CHECK(r.verdict == Verdict::Mismatch); CHECK(r.diffs[0].find("not x86") != std::string::npos); }
     {   PeInfo bad = ParsePe((const uint8_t*)"nope", 4); Observed o; o.mapped = &bad; o.fileSha1 = kSha;
         GuardResult r = Evaluate(o, pin, {}); CHECK(r.verdict == Verdict::Mismatch); CHECK(r.diffs[0].find("PE headers") == 0); }
-    {   const Identity none = { "Napoleon.exe", "", 0, 0 };   // unpinned fails CLOSED in the core
+    {   const Identity none = { "Game.exe", "", 0, 0 };   // unpinned fails CLOSED in the core
         GuardResult r = Run(im, kSha, none); CHECK(r.verdict == Verdict::Unpinned); CHECK(!r.engineOk); CHECK(r.diffs[0].find("pins no") != std::string::npos); }
     {   GuardConfig c; c.exeGuard = 0;   // developer override: on whatever differs
         GuardResult r = Run(im, "ff", pin, c); CHECK(r.verdict == Verdict::Override); CHECK(r.engineOk);
         CHECK(Summary(r).find("differs (ignored)") != std::string::npos); }
     {   GuardConfig c; c.forceMismatch = 1;   // forced: pass-through on a matching exe
         GuardResult r = Run(im, kSha, pin, c); CHECK(r.verdict == Verdict::Forced); CHECK(!r.engineOk); CHECK(r.diffs.empty());
-        const std::string n = NoticeText(r, "Napoleon: Total War", "Napoleon.exe", "napoleon_remastered.ini", "Written now.");
+        const std::string n = NoticeText(r, "Some Game", "Game.exe", "game_mod.ini", "Written now.");
         CHECK(n.find("exe_guard_force_mismatch=1") != std::string::npos); CHECK(n.find("did not touch the game's memory") != std::string::npos);
         c.exeGuard = 0; r = Run(im, kSha, pin, c); CHECK(r.verdict == Verdict::Forced); CHECK(!r.engineOk);   // wins over the override
     }
     {   GuardResult r = Run(im, "ff", pin);
-        const std::string n = NoticeText(r, "Napoleon: Total War", "Napoleon.exe", "napoleon_remastered.ini", "Written now.");
+        const std::string n = NoticeText(r, "Some Game", "Game.exe", "game_mod.ini", "Written now.");
         CHECK(n.find("Steam update") != std::string::npos); CHECK(n.find("  - exe sha1 ff, pinned") != std::string::npos); }
     {   GuardConfig c; c.exeGuard = 2; c.forceMismatch = -1;
         const std::string w = ValidateGuardConfig(c); CHECK(c.exeGuard == 1); CHECK(c.forceMismatch == 0); CHECK(w.find("exe_guard=2") != std::string::npos); }
@@ -75,28 +75,28 @@ int main(int argc, char** argv) {
         p = PlanEngine(false, true); CHECK(!p.patches && !p.engineHooks && !p.d3dHooks && !p.engineReads);
         p = PlanEngine(true, true); CHECK(p.patches && p.engineHooks && p.d3dHooks && p.engineReads); }
     {   // the generated pin is identity.json's
-        const std::string j = tk::ReadFile("proxy/napoleon/identity.json");
+        const std::string j = tk::ReadFile("adapter/identity.json");
         CHECK(j.find(std::string("\"sha1\": \"") + gen::kIdentity.sha1 + "\"") != std::string::npos);
         char b[64]; snprintf(b, sizeof b, "\"time_date_stamp\": \"0x%08x\"", (unsigned)gen::kIdentity.timeDateStamp); CHECK(j.find(b) != std::string::npos);
         snprintf(b, sizeof b, "\"size_of_image\": \"0x%08x\"", (unsigned)gen::kIdentity.sizeOfImage); CHECK(j.find(b) != std::string::npos);
         CHECK(strlen(gen::kIdentity.sha1) == 40); }
     {   // source lint: the order in DllMain, and every engine-side step gated by the plan
-        const std::string dm = Strip(tk::ReadFile("proxy/core/dllmain.cpp"));
+        const std::string dm = Strip(tk::ReadFile("core/dllmain.cpp"));
         const size_t g = dm.find("GuardRun();"), pl = dm.find("rt.plan = PlanEngine(rt.enabled, rt.engineOk);"), pr = dm.find("PatchesRun();");
         CHECK(g != std::string::npos && pl != std::string::npos && pr != std::string::npos); CHECK(g < pl && pl < pr);
         CHECK(dm.find("rt.plan = PlanEngine(false, false); return;") != std::string::npos && dm.find("rt.plan = PlanEngine(false, false); return;") < g);
-        const std::string pd = Strip(tk::ReadFile("proxy/core/patch_driver.cpp"));
+        const std::string pd = Strip(tk::ReadFile("core/patch_driver.cpp"));
         CHECK(pd.find("if (!rt.plan.patches)") != std::string::npos && pd.find("if (!rt.plan.patches)") < pd.find("MakePatchPlan"));
         // only the guard and the patch engine touch the exe image; the backend never does; no file but guard.h computes the plan
         for (const char* f : { "backend.cpp", "crash.cpp", "log.cpp" }) {
-            const std::string s = Strip(tk::ReadFile(std::string("proxy/core/") + f));
+            const std::string s = Strip(tk::ReadFile(std::string("core/") + f));
             CHECK(s.find("GetModuleHandleW(nullptr)") == std::string::npos); CHECK(s.find("VirtualProtect") == std::string::npos);
             CHECK(s.find("PlanEngine(") == std::string::npos);
         }
         // the core names no game (it moves to warscape-core)
         for (const char* f : { "pe.h", "sha1.h", "guard.h", "patch_engine.h", "config.h", "adapter.h", "runtime.h", "dllmain.cpp", "backend.cpp", "crash.cpp",
                                "log.cpp", "guard_driver.cpp", "patch_driver.cpp", "d3d9.def" }) {
-            std::string s = tk::ReadFile(std::string("proxy/core/") + f);
+            std::string s = tk::ReadFile(std::string("core/") + f);
             CHECK(!s.empty());
             for (size_t k; (k = s.find("empire-remastered")) != std::string::npos;) s.erase(k, 17);   // provenance links are fine
             const bool named = s.find("apoleon") != std::string::npos || s.find("mpire") != std::string::npos;
@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
         std::set<std::string> known; for (size_t i = 0; i < gen::kKeyCount; ++i) known.insert(gen::kKeys[i].id);
         const std::regex re("\"(proxy\\.[a-z_]+)\"");
         {   // the rebase delta never comes from the mapped header (the loader rewrites its ImageBase): pe.h LoadDelta with the file's base
-            const std::string pd = Strip(tk::ReadFile("proxy/core/patch_driver.cpp"));
+            const std::string pd = Strip(tk::ReadFile("core/patch_driver.cpp"));
             CHECK(pd.find("LoadDelta(") != std::string::npos);
             CHECK(pd.find("fileImageBase") != std::string::npos);
             CHECK(pd.find("- pe.preferredBase") == std::string::npos);
@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
             CHECK(pd.find("memcpy(") == std::string::npos);            // ... and nowhere else
         }
         for (const char* f : { "dllmain.cpp", "backend.cpp", "crash.cpp", "guard_driver.cpp", "patch_driver.cpp" }) {
-            const std::string s = tk::ReadFile(std::string("proxy/core/") + f);
+            const std::string s = tk::ReadFile(std::string("core/") + f);
             for (std::sregex_iterator it(s.begin(), s.end(), re), e; it != e; ++it)
                 if (!known.count((*it)[1])) { printf("    %s reads %s, which is not in config_keys\n", f, (*it)[1].str().c_str()); CHECK(false); }
         }

@@ -2,8 +2,8 @@
 // its refusals; the adapter's offsets against the bytes of its engine_sites rows; and source lints (key off = no engine read, the
 // setter called only after the chain and vtable slot checks, no game named in core). Built and run by proxy/tools/build.sh tests.
 #include "testkit.h"
-#include "core/camera.h"
-#include "napoleon/adapter.cpp"
+#include "camera.h"
+#include "adapter.cpp"
 
 using namespace wsp;
 
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
         CHECK(c.targetDistance > 0);
     }
     {   // source lints
-        const std::string cc = tk::ReadFile("proxy/core/camera.cpp"), ch = tk::ReadFile("proxy/core/camera.h");
+        const std::string cc = tk::ReadFile("core/camera.cpp"), ch = tk::ReadFile("core/camera.h");
         CHECK(!cc.empty() && !ch.empty());
         // key off: CameraInstall returns before any site address; CameraSet refuses before any engine read
         const size_t inst = cc.find("void CameraInstall()"), keyRet = cc.find("if (!s_key || s_installed) return;", inst),
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
         CHECK(calls == 1);
         // the mode's slot is compared with the checked site before the call
         CHECK(cc.find("slot != s_setFn") != std::string::npos);
-        for (const char* g : { "Napoleon", "Empire", "napoleon" }) CHECK(cc.find(g) == std::string::npos && ch.find(g) == std::string::npos);
+        for (const char* g : { "apoleon", "mpire" }) CHECK(cc.find(g) == std::string::npos && ch.find(g) == std::string::npos);
     }
     return tk::Done("test_camera");
 }

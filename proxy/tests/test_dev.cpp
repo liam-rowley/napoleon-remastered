@@ -2,10 +2,10 @@
 // channel grammar (verbs, ids, targets), the timeline JSON; plus source lints that keep the dev drivers inside the guard's plan,
 // game-agnostic and on registered config keys. Built and run by proxy/tools/build.sh tests.
 #include "testkit.h"
-#include "core/filerules.h"
-#include "core/pack.h"
-#include "core/devcore.h"
-#include "napoleon/generated/tables.h"
+#include "filerules.h"
+#include "pack.h"
+#include "devcore.h"
+#include "generated/tables.h"
 #include <cmath>
 #include <regex>
 #include <set>
@@ -25,10 +25,10 @@ static std::string Strip(const std::string& s) {   // drop // and /* */ comments
 
 int main(int argc, char** argv) {
     tk::Args(argc, argv);
-    const std::wstring game = L"c:\\games\\napoleon total war\\";
+    const std::wstring game = L"c:\\games\\some game\\";
     {   // paths relative to the game folder
-        CHECK(RelToGame(L"C:\\Games\\Napoleon Total War\\data\\UI\\X.lua", game) == L"data\\ui\\x.lua");
-        CHECK(RelToGame(L"\\\\?\\C:\\Games\\Napoleon Total War\\data\\a.pack", game) == L"data\\a.pack");
+        CHECK(RelToGame(L"C:\\Games\\Some Game\\data\\UI\\X.lua", game) == L"data\\ui\\x.lua");
+        CHECK(RelToGame(L"\\\\?\\C:\\Games\\Some Game\\data\\a.pack", game) == L"data\\a.pack");
         CHECK(RelToGame(L".\\data/ui/templates/rml.lua", game) == L"data\\ui\\templates\\rml.lua");
         CHECK(RelToGame(L"D:\\elsewhere\\a.txt", game) == L"");
         CHECK(RelToGame(L"", game) == L"");
@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
         r = ParseCtl("\xEF\xBB\xBFstate"); CHECK(r.error.empty() && r.verb == "state");
         r = ParseCtl("log hello world 30"); CHECK(r.error.empty() && r.arg == "hello world 30");
         r = ParseCtl("log"); CHECK(!r.error.empty());
-        r = ParseCtl("lua napoleon_remastered/lua/probes/list_maps.lua 45"); CHECK(r.error.empty() && r.arg == "napoleon_remastered/lua/probes/list_maps.lua" && r.timeoutS == 45);
+        r = ParseCtl("lua game_mod/lua/probes/list_maps.lua 45"); CHECK(r.error.empty() && r.arg == "game_mod/lua/probes/list_maps.lua" && r.timeoutS == 45);
         r = ParseCtl("lua C:\\x y\\p.lua"); CHECK(r.error.empty() && r.arg == "C:\\x y\\p.lua" && r.timeoutS == 0);
         r = ParseCtl("lua"); CHECK(!r.error.empty());
         r = ParseCtl("lua p.lua 20 -- pose=a;x=1"); CHECK(r.error.empty() && r.arg == "p.lua" && r.timeoutS == 20 && r.luaArgs == "pose=a;x=1");
@@ -152,21 +152,21 @@ int main(int argc, char** argv) {
     }
     {   // source lints
         // the dev side starts after the plan, and only runs when the plan allows hooks (pass-through: nothing)
-        const std::string dm = Strip(tk::ReadFile("proxy/core/dllmain.cpp"));
+        const std::string dm = Strip(tk::ReadFile("core/dllmain.cpp"));
         CHECK(dm.find("PatchesRun();") < dm.find("DevInit();"));
-        const std::string dv = Strip(tk::ReadFile("proxy/core/dev.cpp"));
+        const std::string dv = Strip(tk::ReadFile("core/dev.cpp"));
         const size_t gate = dv.find("if (!rt.plan.engineHooks || !rt.plan.d3dHooks)"), act = dv.find("s_active = true;");
         CHECK(gate != std::string::npos && act != std::string::npos && gate < act);
         CHECK(dv.find("if (!k.Any()) return;") < gate);   // no dev key: return before anything (the skeleton's behaviour)
-        const std::string lb = Strip(tk::ReadFile("proxy/core/luabridge.cpp"));
+        const std::string lb = Strip(tk::ReadFile("core/luabridge.cpp"));
         CHECK(lb.find("Rt().plan.engineReads") != std::string::npos);
         CHECK(lb.find("luaL_error") == std::string::npos && lb.find("luaL_check") == std::string::npos);   // never raise from C
         CHECK(lb.find("lua_call") == std::string::npos && lb.find("lua_pcall") == std::string::npos);    // never call into Lua from C
-        const std::string fl = Strip(tk::ReadFile("proxy/core/files.cpp"));
+        const std::string fl = Strip(tk::ReadFile("core/files.cpp"));
         CHECK(fl.find("VirtualProtect") == std::string::npos);   // slots are written by hooks.cpp only
         // the new core files name no game (they move to warscape-core)
         for (const char* f : { "dev.cpp", "dev.h", "devcore.h", "files.cpp", "filerules.h", "pack.h", "hooks.cpp", "luabridge.cpp" }) {
-            std::string s = tk::ReadFile(std::string("proxy/core/") + f);
+            std::string s = tk::ReadFile(std::string("core/") + f);
             CHECK(!s.empty());
             for (size_t k; (k = s.find("empire-remastered")) != std::string::npos;) s.erase(k, 17);
             const bool named = s.find("apoleon") != std::string::npos || s.find("mpire") != std::string::npos;
@@ -174,7 +174,7 @@ int main(int argc, char** argv) {
         }
         // every dev.* key the drivers read is a registered config key, and every registered dev key is read
         std::set<std::string> known; for (size_t i = 0; i < gen::kKeyCount; ++i) known.insert(gen::kKeys[i].id);
-        const std::string raw = tk::ReadFile("proxy/core/dev.cpp");
+        const std::string raw = tk::ReadFile("core/dev.cpp");
         const std::regex re("cfg\\.(Bool|Str|Int)\\(\"(dev\\.[a-z_]+)\"\\)");
         std::set<std::string> read;
         for (std::sregex_iterator it(raw.begin(), raw.end(), re), e; it != e; ++it) read.insert((*it)[2]);
@@ -187,7 +187,7 @@ int main(int argc, char** argv) {
             CHECK(a != std::string::npos && lua != std::string::npos && reset != std::string::npos && wait != std::string::npos);
             CHECK(lua < reset && reset < wait);
             CHECK(raw.find("map_folder_loaded_after_request_ms") != std::string::npos);
-            const std::string fl = tk::ReadFile("proxy/core/files.cpp");
+            const std::string fl = tk::ReadFile("core/files.cpp");
             CHECK(fl.find("void FilesMapReset()") != std::string::npos && fl.find("s_lastMap.clear()") != std::string::npos);
         }
         for (const std::string& k : read) if (!known.count(k)) { printf("    dev.cpp reads %s, not in config_keys\n", k.c_str()); CHECK(false); }
@@ -198,7 +198,7 @@ int main(int argc, char** argv) {
             if (id.rfind("dev.", 0) != 0 || gen::kKeys[i].type != kBool) continue;
             CHECK(std::string(gen::kKeys[i].def) == "0");
         }
-        const std::string ini = tk::ReadFile("proxy/napoleon/napoleon_remastered.ini");
+        const std::string ini = tk::AdapterIni();
         for (const char* k : { "timeline=0", "log_files=0", "skip_intro=0", "state_json=0", "lua_bridge=0", "ctl=0", "console=0", "perf=0", "camera=0", "autostart=\r\n" }) {
             const bool has = ini.find(std::string("\n") + k) != std::string::npos || ini.find(std::string("\n") + std::string(k).substr(0, strlen(k) - 2) + "\n") != std::string::npos;
             if (!has) { printf("    shipped ini lacks %s\n", k); CHECK(has); }
