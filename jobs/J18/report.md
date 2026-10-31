@@ -74,8 +74,9 @@ exe check and `exe_check`. `jobs/J5/rules.md` is untouched (dated ledger): rows 
 ## Evidence
 - Commits on `job/J18`: `035671a` + `6f45bca` (hook, settings), `5f86202` (job.sh scratch), `6b0b368` (pc_deploy), `d5ee0a5` (watcher, setup,
   docs), `119004d` (run folder), and this report.
-- CI (`gates`): 41145570796 success (`6f45bca`), 41146123674 success (`6b0b368` as pushed to `job/J36`, see Deviations), 41146895956 (`d5ee0a5`)
-  and later runs on this branch: see `gh run list --branch job/J18`.
+- CI (`gates`): 41145570796 success (`6f45bca`); 41146123674 success (`7b8bd96`, the stray commit as pushed to `job/J36`, see Deviations);
+  41146895956 (`d5ee0a5`) was **cancelled** by the next push, not a pass; the run that counts is **41147641941 on `4daf44e`**: `gates`,
+  `proxy` and `harness-windows` all success (review round 1, finding 6).
 - Local: `wsc gates` 12 ok (204 s); `Test-Unit.ps1` 46 passed; `Test-Integration.ps1` 27 passed, 0 failed (full suite, Windows PowerShell 5.1).
 - Live run `proxy/runs/20261030_j18pc` (2026-10-30 23:51-23:56 UTC): watcher update to 1.1.0 CONFIRMED; status job `exe.ok true` sha1
   `9aebcd2172f2878d781b079f7feb45b0e12e0250`; install `exe: ok` before and after; `status` exe ok, git ok, foreign 0 (also after the launch);
