@@ -81,6 +81,14 @@ page; agents pick up the comments, change the source and republish. Status chang
 | S3 parity | How far apart are the viewer (WebGL) and the game (D3D9 render interface)? Layout is RmlUi's own, so only rasterising should differ. | a test document differs beyond antialiasing and filtering: find out why before any screen work |
 | S4 host | Keep vanilla screens alive but undrawn, or call getters directly? Decide per screen kind (panel, popup, HUD, front end). | either route needs per-screen plumbing: stop and redesign the host |
 
+- **S1: result (2026-10-31, J31):** builds. RmlUi 6.3 (Lua bindings on, with a 5-function Lua 5.2 shim), FreeType 2.13.3 and Lua 5.1.1 with
+  float32 numbers compile to wasm in the pinned `emscripten/emsdk:4.0.10` image through Docker Desktop and in CI, byte-identical
+  (viewer.wasm 2.12 MB); the float32 test passes (2550 x 0.319999992 floors to 816). Headless renders through the same wasm are pixel-identical
+  across runs and between the PC and CI. Evidence: `viewer/runs/20261031_j31/`, CI run 41218079368, `engine_facts` `viewer.*`.
+- **S2: result (2026-10-31, J31):** a private Artifact hosts the viewer: wasm served as `application/wasm` and instantiated, WebGL2, TTF and PNG
+  load, input works (touch after a host fix). Art must be a web image type (`.tga` is refused); RML, RCSS and Lua go as `text/plain`. The engine
+  uses about 2.4 MB of the 64 MB per publish. Evidence: as S1, and https://claude.ai/artifact/EoCR1JcPZH7Rnix9JoKZea (Liam's phone check).
+
 ## 5. Open questions for Liam
 
 1. Confirm the proving screens (section 2.6).

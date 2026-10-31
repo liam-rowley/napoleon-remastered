@@ -119,8 +119,8 @@ jobs:
       - run: python -m unittest tests.test_viewer -v
       - name: renders kept with the build (1080p x 1.0, 4K x 125 % = dp ratio 2.5)
         run: |
-          python viewer/core/render.py --size 1920x1080 --dp-ratio 1.0 --out build/viewer/out/hello_1080p_r1.png
-          python viewer/core/render.py --size 3840x2160 --dp-ratio 2.5 --out build/viewer/out/hello_4k_slider125.png
+          python viewer/core/render.py --size 1920x1080 --dp-ratio 1.0 --out build/viewer/out/hello_1080p_r1.png | tee -a build/viewer/out/renders.txt
+          python viewer/core/render.py --size 3840x2160 --dp-ratio 2.5 --out build/viewer/out/hello_4k_slider125.png | tee -a build/viewer/out/renders.txt
           (cd build/viewer/out && sha256sum *.png >> SHA256SUMS && cat SHA256SUMS)
       - uses: actions/upload-artifact@v4
         with:

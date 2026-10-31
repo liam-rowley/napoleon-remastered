@@ -54,7 +54,7 @@ def stage(screen_dir, site, wasm_dir):
 
 
 def png_bytes(w, h, rgba):
-    """RGBA, top row first -> PNG (filter 0, zlib level 9: deterministic for the same pixels)."""
+    """RGBA, top row first -> PNG (filter 0, zlib level 9: deterministic for the same pixels and zlib build; compare rgba_sha256 across hosts)."""
     raw = b''.join(b'\x00' + rgba[y * w * 4:(y + 1) * w * 4] for y in range(h))
 
     def chunk(kind, data):
@@ -134,10 +134,12 @@ def main():
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     Path(a.out).write_bytes(data)
     sha = hashlib.sha256(data).hexdigest()
+    # compare renders by pixels: PNG bytes differ across zlib builds (J31: Linux CI vs Windows, same pixels, different files)
+    px_sha = hashlib.sha256(rgba).hexdigest()
     if a.json:
-        print(json.dumps({'out': a.out, 'w': rw, 'h': rh, 'dp_ratio': a.dp_ratio, 'sha256': sha, 'boxes': boxes, 'log': log}, indent=1))
+        print(json.dumps({'out': a.out, 'w': rw, 'h': rh, 'dp_ratio': a.dp_ratio, 'sha256': sha, 'rgba_sha256': px_sha, 'boxes': boxes, 'log': log}, indent=1))
     else:
-        print(f'render: {a.out} {rw}x{rh} dp {a.dp_ratio} sha256 {sha}')
+        print(f'render: {a.out} {rw}x{rh} dp {a.dp_ratio} rgba_sha256 {px_sha} png_sha256 {sha}')
 
 
 if __name__ == '__main__':

@@ -32,7 +32,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J29` | needs_brief | Alt-drag move and Alt+Ctrl-drag rotate | 4 | sonnet | yes | J21, J28 |  |  |  |
 | `J3` | done | Dev control and load time | 1 | opus | yes | J1, J2 | jobs/J3/brief.md | jobs/J3/report.md | jobs/J3/review.md |
 | `J30` | needs_brief | RmlUi host in the proxy | 5 | opus | yes | J12, J13 |  |  |  |
-| `J31` | queued | Review viewer build and hosting spikes (S1, S2) | 5 | sonnet | no |  | jobs/J31/brief.md |  |  |
+| `J31` | review | Review viewer build and hosting spikes (S1, S2) | 5 | sonnet | no |  | jobs/J31/brief.md | jobs/J31/report.md |  |
 | `J32` | needs_brief | Viewer parity and panel-host route spikes (S3, S4) | 5 | opus | yes | J10, J30, J31 |  |  |  |
 | `J33` | needs_brief | Napoleon design language | 5 | sonnet | no | J7, J10 |  |  |  |
 | `J34` | needs_brief | Design tokens and component library in RCSS | 5 | sonnet | no | J31, J33 |  |  |  |
