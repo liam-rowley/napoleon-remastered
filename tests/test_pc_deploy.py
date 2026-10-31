@@ -97,7 +97,8 @@ class Deploy(unittest.TestCase):
         self.assertEqual(hashlib.sha256(victim.read_bytes()).hexdigest(), pd.sha256_file(pd.ROOT / 'proxy' / 'napoleon' / 'lua' / 'autostart.lua'))
         self.assertEqual(list(victim.parent.glob('*.tmp')), [])   # no staged leftovers
         rec = json.loads((self.state / 'install.json').read_text())
-        self.assertEqual(rec['history'][-1]['action'], 'sync-lua')
+        self.assertEqual([h['action'] for h in rec['history'][-2:]], ['sync-lua', 'sync-lua exe check'])
+        self.assertEqual(rec['history'][-1]['exe_verdict'], 'vanilla')
         self.assertEqual(pd.status(self.game, self.state), 0)
         self.assertTrue(pd.uninstall(self.game, self.state))
         self.assertEqual(pd.diff_snapshots(before, pd.snapshot(self.game)), [])
@@ -178,6 +179,17 @@ class Deploy(unittest.TestCase):
         self.assertFalse((self.game / 'd3d9.dll').exists())
         hist = json.loads(next((self.state / 'history').glob('install_*.json')).read_text())['history']
         self.assertEqual([h['exe_verdict'] for h in hist if h['action'].endswith('exe check')], ['vanilla', 'MISMATCH', 'MISMATCH'])
+
+    def test_sync_lua_checks_the_exe_after_and_fails_loudly(self):
+        """J18 review: row 28 says after every install or sync; sync-lua writes into the game folder too."""
+        pd.install(self.kit, self.game, self.state)
+        (self.game / 'Napoleon.exe').write_bytes(b'MZ changed after the install')
+        with self.assertRaises(SystemExit) as e:
+            pd.sync_lua(self.game, self.state, assume_closed=True)
+        self.assertIn('not vanilla', str(e.exception))
+        rec = json.loads((self.state / 'install.json').read_text())
+        self.assertEqual(rec['history'][-1]['action'], 'sync-lua exe check')
+        self.assertEqual(rec['history'][-1]['exe_verdict'], 'MISMATCH')
 
     def test_a_foreign_file_fails_status_and_config_files_do_not(self):
         pd.install(self.kit, self.game, self.state)

@@ -718,8 +718,12 @@ def sync_lua(game, state, adapter='napoleon', assume_closed=False, dry_run=False
     if changed and not dry_run:
         rec['files'] = list(known.values())
         rec['history'].append({'utc': stamp, 'action': 'sync-lua', 'files': changed})
+    exe_ok = None if dry_run else record_exe(rec, game, rec.get('exe_identity') or default_identity(), 'sync-lua', stamp)   # never refuses
+    if not dry_run:
         rec_path.write_text(json.dumps(rec, indent=2) + '\n', encoding='utf-8')
     print(f"pc_deploy sync-lua: {len(changed)} file(s) {'would change' if dry_run else 'changed'}")
+    if exe_ok is False:
+        raise SystemExit('pc_deploy sync-lua: the exe is not vanilla after the sync (see above)')
     return changed
 
 
