@@ -64,6 +64,20 @@ class SizeRule(unittest.TestCase):
         self.assertNotEqual(a, rules.input_key('aa', rules.cfg_signature({'m': 2})))
 
 
+class RoleOrder(unittest.TestCase):
+    def test_items_follow_the_roles_order_not_the_registry_order(self):
+        sys.path.insert(0, os.path.join(ROOT, 'upscale', 'napoleon'))
+        import cli
+        rows = [('f1', 'flag'), ('t1', 'technology_icon'), ('f2', 'flag'), ('t2', 'technology_icon')]
+        with tempfile.TemporaryDirectory() as d:
+            reg = os.path.join(d, 'assets.jsonl')
+            with open(reg, 'w', encoding='utf-8') as f:
+                for i, role in rows:
+                    f.write(json.dumps({'id': i, 'path': i, 'role': role, 'format': 'tga bgra8 16x16'}) + '\n')
+            got = [it['id'] for it in cli.items_for(['technology_icon', 'flag'], reg)]
+        self.assertEqual(got, ['t1', 't2', 'f1', 'f2'])
+
+
 class PackWriter(unittest.TestCase):
     def setUp(self):
         self.d = tempfile.mkdtemp()
@@ -126,7 +140,7 @@ def _rgba(w, h, alpha):
 @unittest.skipUnless(HAVE, 'numpy and Pillow are not installed here (upscale/requirements.txt)')
 class Images(unittest.TestCase):
     def test_dds_header_round_trip_keeps_the_vanilla_header(self):
-        for fmt in ('DXT1', 'DXT3', 'DXT5', 'A8R8G8B8', 'R8G8B8'):
+        for fmt in ('DXT1', 'DXT2', 'DXT3', 'DXT5', 'A8R8G8B8', 'R8G8B8'):
             img = _rgba(32, 16, 'soft')
             lv = resample.mip_chain(img, 3)
             van = dds.make_header(fmt, 32, 16, 3)
@@ -245,6 +259,17 @@ class Images(unittest.TestCase):
         img = _rgba(16, 16, 'soft')
         d = dds.decode_level(dds.encode_python(img, 'DXT3'), 'DXT3', 16, 16)
         self.assertLess(np.abs(d[..., 3].astype(int) - img[..., 3]).max(), 9)     # 4-bit alpha: steps of 17
+
+    def test_dxt2_is_premultiplied_dxt3(self):
+        img = _rgba(16, 16, 'soft')
+        blob = dds.encode_python(img, 'DXT2')
+        raw = dds.decode_level(blob, 'DXT3', 16, 16).astype(int)             # the stored colour is premultiplied
+        pre = np.round(img[..., :3].astype(float) * img[..., 3:4] / 255.0)
+        self.assertLess(np.abs(raw[..., :3] - pre).mean(), 6)
+        d = dds.decode_level(blob, 'DXT2', 16, 16).astype(int)               # decoded back to straight alpha
+        vis = img[..., 3] >= 128
+        self.assertLess(np.abs(d[..., :3] - img[..., :3])[vis].mean(), 8)
+        self.assertLess(np.abs(d[..., 3] - img[..., 3]).max(), 9)
 
 
 if __name__ == '__main__':

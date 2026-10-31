@@ -29,6 +29,8 @@ def load_json(p):
 
 
 def items_for(roles, registry=REGISTRY):
+    """the registry rows of roles, in --roles order (registry order within a role), so a brief's 'small roles first' holds (J51 review)"""
+    roles = list(roles)
     out = []
     for line in open(registry, encoding='utf-8'):
         r = json.loads(line)
@@ -36,7 +38,7 @@ def items_for(roles, registry=REGISTRY):
             continue
         kind, sub, w, h, mips = rules.parse_format(r['format'])
         out.append({'id': r['id'], 'path': r['path'], 'role': r['role'], 'fmt': kind + (' ' + sub if sub else ''), 'w': w, 'h': h, 'mips': mips})
-    return out
+    return sorted(out, key=lambda it: roles.index(it['role']))
 
 
 def apply_registry(updates, registry=REGISTRY):

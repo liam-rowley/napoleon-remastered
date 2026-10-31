@@ -1,11 +1,12 @@
 """DDS read and write with mip chains for the UI art upscaler (J36).
 
-purpose: read and write legacy-header DDS (DXT1, DXT3, DXT5, A8R8G8B8) keeping the vanilla header; mip chains (linear-light RGB box, plain alpha box); encoders python, quicktex, texconv
+purpose: read and write legacy-header DDS (DXT1, DXT2, DXT3, DXT5, A8R8G8B8) keeping the vanilla header; mip chains (linear-light RGB box, plain alpha box); encoders python, quicktex, texconv
 usage: library (upscale/core); python3 upscale/core/dds.py info <file.dds> ...
 when: reading a vanilla DDS, building an upscaled chain, or checking one (wsc upscale verify)
 not-a-verb: a library used by upscale/core/batch.py, not a registry operation
 
 Ported from empire-remastered art_mod/tools/dds.py (read-only evidence); the normal-map code is dropped and DXT3 (Napoleon: 85 UI files) is added.
+DXT2 (J51: one vanilla flag) is DXT3 blocks with premultiplied colour: decoded to straight alpha, premultiplied again on encode.
 The header is the vanilla file's byte for byte except height, width, pitch/linear size and mip count (dwDepth forced to 0).
 """
 import hashlib, os, shutil, struct, subprocess, sys, tempfile
@@ -18,8 +19,8 @@ DDSD_PIXELFORMAT, DDSD_MIPMAPCOUNT, DDSD_LINEARSIZE, DDSD_DEPTH = 0x1000, 0x2000
 DDPF_ALPHAPIXELS, DDPF_FOURCC, DDPF_RGB = 0x1, 0x4, 0x40
 DDSCAPS_COMPLEX, DDSCAPS_TEXTURE, DDSCAPS_MIPMAP = 0x8, 0x1000, 0x400000
 
-BLOCK = {'DXT1': 8, 'DXT3': 16, 'DXT5': 16}
-FORMATS = ('DXT1', 'DXT3', 'DXT5', 'A8R8G8B8', 'R8G8B8')
+BLOCK = {'DXT1': 8, 'DXT2': 16, 'DXT3': 16, 'DXT5': 16}
+FORMATS = ('DXT1', 'DXT2', 'DXT3', 'DXT5', 'A8R8G8B8', 'R8G8B8')
 
 
 # ================================================================================================ geometry
@@ -239,6 +240,8 @@ def decode_level(data, fmt, w, h):
         al = np.stack([blk[:, :8] & 15, blk[:, :8] >> 4], 2).reshape(-1, 16).astype(np.int32)
         px[:, :, 3] = al * 17
         return _blocks_to_image(px.astype(np.uint8), w, h)
+    if fmt == 'DXT2':
+        return _unpremultiply(decode_level(data, 'DXT3', w, h))
     if fmt == 'DXT5':
         blk = np.frombuffer(data, np.uint8).reshape(-1, 16)
         apal, aind = _alpha_palette(blk[:, :8])
@@ -361,8 +364,25 @@ def _encode_alpha(al):
     return out
 
 
+def _unpremultiply(rgba):
+    """DXT2 colour is premultiplied by alpha: back to straight alpha (A = 0 texels keep RGB 0)"""
+    out = rgba.copy()
+    a = rgba[..., 3:4].astype(np.float32)
+    rgb = np.where(a > 0, rgba[..., :3].astype(np.float32) * 255.0 / np.maximum(a, 1.0), 0.0)
+    out[..., :3] = np.clip(np.round(rgb), 0, 255).astype(np.uint8)
+    return out
+
+
+def _premultiply(rgba):
+    out = np.array(rgba, np.float32)
+    out[..., :3] = np.round(out[..., :3] * out[..., 3:4] / 255.0)
+    return out
+
+
 def encode_python(rgba, fmt, alpha_threshold=128):
     rgba = np.asarray(rgba)
+    if fmt == 'DXT2':
+        return encode_python(_premultiply(rgba), 'DXT3', alpha_threshold)
     if fmt == 'A8R8G8B8':
         return np.ascontiguousarray(rgba[..., [2, 1, 0, 3]]).astype(np.uint8).tobytes()
     if fmt == 'R8G8B8':
@@ -396,7 +416,7 @@ def encode_quicktex(rgba, fmt, level=10):
     if fmt == 'DXT5':
         import quicktex.s3tc.bc3 as bc3
         return bytes(bc3.BC3Encoder(level).encode(raw).tobytes())
-    if fmt == 'DXT3':
+    if fmt in ('DXT2', 'DXT3'):
         raise ValueError('quicktex has no BC2 encoder; use texconv or python')
     if fmt == 'DXT1':
         if (rgba[..., 3] < 128).any():
@@ -418,7 +438,7 @@ def _wine_prefix():
 def encode_texconv(levels, fmt, exe, uniform=False, workdir=None, extra=()):
     """Compress our own mip chain with texconv. levels: list of HxWx4 RGBA uint8 (level 0 first). Returns bytes per level.
     The chain is handed over as an A8R8G8B8 DDS; texconv keeps supplied mips (verified in step 4)."""
-    if fmt in ('A8R8G8B8', 'R8G8B8'):
+    if fmt in ('A8R8G8B8', 'R8G8B8', 'DXT2'):     # DXT2: texconv has no premultiplied BC2 output here; the python encoder does it
         return [encode_python(l, fmt) for l in levels]
     h, w = levels[0].shape[:2]
     tf = {'DXT1': 'BC1_UNORM', 'DXT3': 'BC2_UNORM', 'DXT5': 'BC3_UNORM'}[fmt]
