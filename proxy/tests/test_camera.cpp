@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
         p.yaw = 0; CHECK(!CamTargetFor(p, 0, t, why) && why.find("distance") != std::string::npos);
         CHECK(CamTargetFor(p, 1, t, why));
     }
-    {   // the adapter: every site exists, every offset is the number inside its row's stock bytes
+    if (Adapter().camera) {   // the adapter (when it has a camera setter): every site exists, every offset is the number in its row's stock bytes
         const CameraAdapter& c = *Adapter().camera;
         for (const char* id : { c.chainSite, c.modeSite, c.setSite }) {
             const SiteDef* s = Site(id);

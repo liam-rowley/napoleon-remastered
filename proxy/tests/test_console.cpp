@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
         CHECK_EQ(LuaQuote("teleport_to 1 2"), std::string("\"teleport_to 1 2\""));
         CHECK_EQ(LuaQuote("a\"b\\c\n"), std::string("\"a\\\"b\\\\c\\010\""));
     }
-    {   // the adapter: every site exists, every offset is the number inside its row's stock bytes
+    if (Adapter().console) {   // the adapter (when it has a console): every site exists, every offset is the number in its row's stock bytes
         const ConsoleAdapter& c = *Adapter().console;
         for (const char* id : { c.slotSite, c.slotCallSite, c.ownerSite, c.wiringSite, c.ctorSite, c.ctorTailSite, c.executeSite, c.gateSite }) {
             const SiteDef* s = Site(id);
