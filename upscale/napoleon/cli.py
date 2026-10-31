@@ -141,7 +141,7 @@ def main(argv=None):
         for r in roles:
             p = contact.role_sheet(r, es, work, read, allit, os.path.join(outdir, r + '.png'))
             print('sheet', r, p)
-        print('hard', contact.hard_case_sheet(es, work, read, allit, os.path.join(outdir, 'hard_cases.png')))
+        print('hard', contact.hard_case_sheet(es, work, read, allit, os.path.join(outdir, 'hard_cases_%s.png' % os.path.basename(os.path.normpath(work)))))
         return 0
 
     if a.action == 'compare':
