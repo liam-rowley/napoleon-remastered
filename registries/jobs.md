@@ -47,7 +47,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J42` | done | CI reliability: no red check a branch did not cause | 1 | sonnet | yes | J19, J41 | jobs/J42/brief.md | jobs/J42/report.md | jobs/J42/review.md |
 | `J43` | done | Battle camera and speed route | 1 | opus | yes | J4 | jobs/J43/brief.md | jobs/J43/report.md | jobs/J43/review.md |
 | `J44` | done | Scenario library and the 20-pass acceptance gate | 1 | sonnet | yes | J4, J43 | jobs/J44/brief.md | jobs/J44/report.md | jobs/J44/review.md |
-| `J45` | needs_brief | Acceptance gate survives a rebase | 1 | sonnet | yes | J44 |  |  |  |
+| `J45` | queued | Acceptance gate survives a rebase | 1 | sonnet | yes | J44 | jobs/J45/brief.md |  |  |
 | `J46` | needs_brief | Scenario library: the rows J44 left out | 1 | sonnet | yes | J44 |  |  |  |
 | `J47` | needs_brief | Headless status writes escape UAC virtualization | 1 | opus | yes | J16 |  |  |  |
 | `J48` | needs_brief | Watcher: a virtual display restore whose position is gone | 1 | sonnet | yes | J18 |  |  |  |
