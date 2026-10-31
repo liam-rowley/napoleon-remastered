@@ -268,6 +268,35 @@ class Rule79(unittest.TestCase):
         self.assertTrue(pp.acceptance_active('', json.dumps(b), self.CHECKER))
         self.assertFalse(pp.acceptance_active(None, json.dumps(b), self.CHECKER))
 
+    def _repo_with_passes(self, d):
+        """A fixture repo holding the DLL inputs (the real build_id.py), and 20 passes on its content id for job/J9."""
+        g = lambda *a: subprocess.run(['git', *a], cwd=d, capture_output=True, text=True, check=True)
+        g('init', '-q', '-b', 'job/J9'); g('config', 'user.email', 't@example.invalid'); g('config', 'user.name', 'test')
+        for rel, data in (('proxy/core/a.cpp', b'int a;\n'), ('proxy/napoleon/adapter.cpp', b'int b;\n'), ('proxy/tools/build.sh', b'#!\n'),
+                          ('proxy/tools/fetch_lua.py', b'#\n'), ('proxy/tools/build_id.py', (ROOT / 'proxy/tools/build_id.py').read_bytes())):
+            (Path(d) / rel).parent.mkdir(parents=True, exist_ok=True)
+            (Path(d) / rel).write_bytes(data)
+        g('add', '-A'); g('commit', '-q', '-m', 'J9: proxy change')
+        built = pp.dll_build_id(d)
+        acc = lambda: dict(self.acc(self.led(20, build=built)), build_id=pp.dll_build_id(d))
+        return g, acc
+
+    def test_failing_fixture_a_reword_after_the_20_passes_still_passes(self):
+        # J44 review 2: the id was the commit hash of the last input change, so this reword cost J44 a whole 20-pass run (J45)
+        with tempfile.TemporaryDirectory() as d:
+            g, acc = self._repo_with_passes(d)
+            g('commit', '-q', '--amend', '-m', 'J9: proxy change (reworded, trailer added)')
+            self.assertEqual(pp.acceptance_problems(['proxy/core/a.cpp'], acc()), [])
+
+    def test_failing_fixture_an_input_change_after_the_20_passes_is_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            g, acc = self._repo_with_passes(d)
+            (Path(d) / 'proxy/core/a.cpp').write_text('int a2;\n')
+            g('commit', '-q', '-am', 'J9: one more proxy change')
+            errs = pp.acceptance_problems(['proxy/core/a.cpp'], acc())
+            self.assertEqual(len(errs), 1)
+            self.assertIn('0 consecutive', errs[0])
+
     def test_check_wires_it_into_job_branches(self):
         errs = pp.check('job/J1', ['proxy/core/dev.cpp'], {'J1': ROW}, {'J1': ROW}, files(), files(), None, self.acc(self.led(3)))
         self.assertTrue(any('rule 79' in e for e in errs))

@@ -44,6 +44,9 @@
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
   the docstring of `tools/pr_policy.py`, which CI's `policy` check runs (run it locally before opening a pull request). Work Liam asks
   for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself.
+- **Rule 79 and history edits (J45):** the DLL build id is a hash of the DLL inputs' content (`proxy/tools/build_id.py`), so a reword,
+  rebase or merge of `main` after the 20-pass run keeps the passes when it leaves those inputs unchanged; when `main` brings in a
+  change to them, the branch needs a new run either way. Rebase or merge as you like.
 
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only through a pull request: a job branch

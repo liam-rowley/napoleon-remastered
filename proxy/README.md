@@ -22,7 +22,7 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 **Release route: mingw-w64 i686 (`g++-mingw-w64-i686`, GCC 13 win32 thread model) on Linux**, in CI (`ubuntu-24.04`) and on the
 PC inside Docker Desktop (`ubuntu:24.04` pinned by digest in `build.sh`, the same apt packages; D31). Why this one and not MSVC on the Windows runner:
 - one toolchain everywhere an agent works: the local container builds exactly what CI builds, so the DLL tested on the PC is reproducible
-  from the commit (no PE timestamp, relative file names; build id = commit, `-dirty` if `proxy/` has local changes);
+  from the commit (no PE timestamp, relative file names; build id = a hash of the DLL inputs' content, `proxy/tools/build_id.py`, `-dirty` if an input has local changes: J45);
 - DXVK's own release route is mingw (empire-remastered `dxvk_fork/docs/build.md`), so a later DXVK-side change needs no second toolchain;
 - the DLL depends on system DLLs only (static libgcc/libstdc++, no winpthread): `build.sh` fails on any other import, and on a
   missing or decorated export (`Direct3DCreate9@4`).
@@ -175,6 +175,9 @@ Warm reset works from a battle; from a campaign it is open (fact `napoleon.campa
 `dev.file_rules=napoleon_remastered\lua\fixed_sky_rules.txt` lists it in `data\` virtually (no file written there). Presets pin weather and time
 of day by option index (`weather=`, `time_of_day=`); historical presets use `type=historic`, `all_maps=1`, `terrain=`. Facts
 `napoleon.battle.fixed_sky`, `napoleon.battle.weather_options`, `napoleon.autostart.historical`.
+The kit manifest's `fixed_sky` says whether the pack is in the kit (`present` with its sha256, or not with the reason). A kit without it
+(CI, or a PC whose packs did not read) installs, but `ctl.py` `Pc.launch` refuses before starting the game when the launch's
+`dev.file_rules` adds a source the installed kit lacks, naming the rule, the file and the kit (J45).
 
 ## Battle camera (J43)
 

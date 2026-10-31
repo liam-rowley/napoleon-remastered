@@ -170,6 +170,7 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None, i
              (d, f'{mod}/dxvk/d3d9_dxvk.dll', 'backend'), (lic, f'{mod}/LICENSE.dxvk.txt', 'licence')]
     # dev side (J3): the Lua bridge files and the wrapper pack; inert unless dev keys are set (all default off)
     ldir = ROOT / 'proxy' / adapter / 'lua'
+    fixed_sky = {'present': False, 'reason': f'no dev side (no {ldir.relative_to(ROOT).as_posix()})'}
     if ldir.is_dir():
         sys.path.insert(0, str(Path(__file__).parent))
         import build_dev_pack
@@ -180,7 +181,10 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None, i
             import build_fixed_sky_pack
             sky, _ = build_fixed_sky_pack.build(ROOT / 'discovery' / adapter / 'games.json')
             files.append((sky, f'{mod}/packs/{sky.name}', 'dev'))
+            fixed_sky = {'present': True, 'path': f'{mod}/packs/{sky.name}', 'sha256': hashlib.sha256(sky.read_bytes()).hexdigest()}
         except (OSError, SystemExit, KeyError, ImportError) as e:
+            # a CI kit cannot build it; on the PC, ctl.py Pc.launch refuses a launch whose dev.file_rules adds it (J45, J44 review 3)
+            fixed_sky = {'present': False, 'reason': str(e) or type(e).__name__}
             print(f'pc_deploy kit: no fixed-sky pack ({e}): dev.file_rules=.../fixed_sky_rules.txt then leaves the vanilla sky in place')
         for p in sorted(ldir.rglob('*')):
             if p.is_file() and p.suffix in ('.lua', '.txt') and p.name != 'wrappers.txt':
@@ -202,7 +206,7 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None, i
         entries.append({'path': dest, 'staged': staged, 'sha256': h, 'size': len(b), 'role': role})
     man = {'kit_id': kit_id, 'build_id': build_id, 'created_utc': utc_stamp(), 'game': ident['game'], 'exe_name': ident['exe_name'],
            'other_exes': ident.get('other_exes', ['Empire.exe']), 'mod_dir': mod, 'config_file': ini, 'owned': ['d3d9.dll', ini, mod + '/'], 'files': entries,
-           'game_config_files': game_config_paths(adapter)}
+           'game_config_files': game_config_paths(adapter), 'fixed_sky': fixed_sky}
     ib = ident_path.read_bytes()   # the copy install checks the exe against (J18): byte-identical to the source, sha256 in the manifest
     (kdir / IDENTITY_COPY).write_bytes(ib)
     man['exe_identity'] = {'name': IDENTITY_COPY, 'sha256': hashlib.sha256(ib).hexdigest()}
@@ -532,7 +536,8 @@ def install(kit, game, state, assume_closed=False):
         print(f"pc_deploy install: {e['path']} sha256 {e['sha256'][:12]} ok")
     rec.update({'kit_id': man['kit_id'], 'build_id': man['build_id'], 'installed_utc': stamp, 'owned': man['owned'],
                 'files': [{k: e[k] for k in ('path', 'sha256', 'size')} for e in man['files']], 'mod_dir': man['mod_dir'],
-                'exe_name': man['exe_name'], 'config_file': man['config_file'], 'game_config_files': man.get('game_config_files', [])})
+                'exe_name': man['exe_name'], 'config_file': man['config_file'], 'game_config_files': man.get('game_config_files', []),
+                'fixed_sky': man.get('fixed_sky')})
     rec['history'].append({'utc': stamp, 'action': 'install', 'kit_id': man['kit_id']})
     after = record_exe(rec, game, ident, 'install', stamp)
     rec_path.write_text(json.dumps(rec, indent=2) + '\n', encoding='utf-8')

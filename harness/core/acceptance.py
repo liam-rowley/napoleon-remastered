@@ -21,8 +21,10 @@ deterministic, with why).
 import argparse
 import datetime
 import hashlib
+import importlib.util
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -300,8 +302,32 @@ def pass_file(run, n):
     return ROOT / 'harness' / 'runs' / run / f'pass_{n:02d}.json'
 
 
+def run_problems(a, branch_of=None, has_pil=None):
+    """Checks before pass 1, so a run cannot spend a ledger line on its setup (J45 run 20261031_j45acc: pass 1 failed on a missing
+    Pillow in the interpreter, and its line carried no branch, which rule 79 never counts). Fills a.branch from git when not given."""
+    if not a.branch:
+        if branch_of is None:
+            r = subprocess.run(['git', '-C', str(ROOT), 'rev-parse', '--abbrev-ref', 'HEAD'], capture_output=True, text=True)
+            branch_of = lambda: r.stdout.strip() if r.returncode == 0 else ''
+        a.branch = branch_of()
+    out = []
+    if not a.branch or a.branch == 'HEAD':
+        out.append('no branch: pass --branch job/J<n> (rule 79 counts a pass only for the branch it names)')
+    if has_pil is None:
+        has_pil = importlib.util.find_spec('PIL') is not None
+    if not has_pil:
+        out.append(f'Pillow is not installed for {sys.executable} (the shot comparison needs it): run with the python that has it, '
+                   f'or `{Path(sys.executable).name} -m pip install pillow`')
+    return out
+
+
 def cmd_run(a):
     baseline = load_baseline(a.baseline)   # refuses without a valid baseline (rule 74)
+    bad = run_problems(a)
+    if bad:
+        for b in bad:
+            print(f'acceptance run: refused: {b}', file=sys.stderr)
+        return 2
     state = Path(json.loads(Path(a.adapter).read_text(encoding='utf-8'))['state_dir'])
     led = Path(a.ledger)
     for n in range(1, a.passes + 1):

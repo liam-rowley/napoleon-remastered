@@ -49,6 +49,19 @@ def show(ref, path):
         return None
 
 
+def dll_build_id(root=None):
+    """The final DLL's build id at HEAD, committed content only: proxy/tools/build_id.py, the implementation build.sh uses (J45)."""
+    import importlib.util
+    root = Path(root or Path(__file__).resolve().parents[1])
+    try:
+        spec = importlib.util.spec_from_file_location('build_id', root / 'proxy/tools/build_id.py')
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod.build_id(root, 'HEAD', dirty=False)
+    except (OSError, ValueError) as e:   # an input not committed: no ledger line can match, so rule 79 refuses and names it
+        return f'nogit ({e})'
+
+
 def rows(text):
     out = {}
     for line in (text or '').splitlines():
@@ -228,8 +241,7 @@ def main(argv=None):
         out = git('log', '--format=%H%x1f%(trailers:key=Claude-Session,valueonly,separator=%x1f)%x1e', f'{mb}..HEAD', '--', path)
         recs = [r.strip('\n').split('\x1f') for r in out.split('\x1e') if r.strip()]
         return [{v.strip() for v in r[1:] if v.strip()} for r in recs]
-    inputs = ['proxy/core', 'proxy/napoleon', 'proxy/tools/build.sh', 'proxy/tools/fetch_lua.py']   # build.sh's DLL_INPUTS: the id of the final DLL
-    build_id = git('log', '-1', '--format=%h', '--abbrev=12', 'HEAD', '--', *inputs).strip() or 'nogit'
+    build_id = dll_build_id()
     wsrc = show('HEAD', 'harness/core/watcher.ps1') or ''
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
     acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE), show(a.base, ACC_CHECKER)), 'ledger': show('HEAD', ACC_LEDGER),

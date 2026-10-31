@@ -401,6 +401,58 @@ class PcLaunch(unittest.TestCase):
         p.missing_keys = lambda: {}
         return p, calls
 
+    RULE = r'add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack'
+
+    def sky_pc(self, d, with_pack, rules_installed=True):
+        """J45: a PC whose launch keys point dev.file_rules at the fixed-sky rules, and an installed kit with or without the pack."""
+        game, state = d / 'game', d / 'state'
+        (game / 'napoleon_remastered' / 'lua').mkdir(parents=True)
+        (game / 'napoleon_remastered' / 'packs').mkdir()
+        state.mkdir()
+        files = []
+        if rules_installed:
+            (game / 'napoleon_remastered' / 'lua' / 'fixed_sky_rules.txt').write_text('# fixed sky\n' + self.RULE + '\n')
+            files.append({'path': 'napoleon_remastered/lua/fixed_sky_rules.txt'})
+        if with_pack:
+            (game / 'napoleon_remastered' / 'packs' / 'zz_napoleon_remastered_fixed_sky.pack').write_bytes(b'PFH4')
+            files.append({'path': 'napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack'})
+        sky = {'present': True} if with_pack else {'present': False, 'reason': 'the game packs are not readable here'}
+        (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_20261031T000000Z_abc', 'files': files, 'fixed_sky': sky}))
+        p, calls = self.pc([(0, 'ok')])
+        p.a.update(game_dir=str(game), state_dir=str(state))
+        p.launch_cfg = dict(p.launch_cfg, keys={'dev.file_rules': r'napoleon_remastered\lua\fixed_sky_rules.txt'})
+        return p, calls
+
+    def test_failing_fixture_a_kit_without_the_sky_pack_is_refused_before_launch(self):
+        # J44 review 3: this launched with the vanilla sky and failed later as a land shot_match "lighting regression"
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            p, calls = self.sky_pc(Path(d), with_pack=False)
+            with self.assertRaises(ctl.Refused) as e:
+                p.launch()
+            msg = str(e.exception)
+            for part in (self.RULE, r'napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack', 'kit_20261031T000000Z_abc',
+                         'the game packs are not readable here'):
+                self.assertIn(part, msg)
+            self.assertFalse([c for c in calls if c[1] and c[1].startswith('launch')], 'nothing may launch')
+
+    def test_a_missing_rules_file_is_refused(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            p, calls = self.sky_pc(Path(d), with_pack=True, rules_installed=False)
+            with self.assertRaises(ctl.Refused) as e:
+                p.launch()
+            self.assertIn('fixed_sky_rules.txt', str(e.exception))
+            self.assertFalse([c for c in calls if c[1] and c[1].startswith('launch')])
+
+    def test_a_kit_with_the_sky_pack_launches_as_before(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            p, calls = self.sky_pc(Path(d), with_pack=True)
+            self.assertEqual(p.file_rule_problems(), [])
+            self.assertEqual(p.launch()['size'], '1920x1080')
+            self.assertTrue([c for c in calls if c[1] and c[1].startswith('launch')])
+
     def test_a_lost_headless_start_is_retried_once_and_recorded(self):
         p, calls = self.pc([(1, 'x\n[watcher] failed: HEADLESS FAILED: no on_virtual status'), (0, 'ok')])
         r = p.launch()

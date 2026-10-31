@@ -109,7 +109,8 @@ the gate says so: it sets the machine's time zone and kills `Fake*.exe`. The CI 
 `harness/core/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`
 when needed, moving UAC VirtualStore copies of the mod folder aside first (fact `napoleon.harness.uac_virtualstore`). `harness/core/acceptance.py
 measure --run <id>` writes `harness/acceptance/baseline.json` from two passes; `run --passes 20 --run <id>` takes the lock per pass, compares with
-the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/pr_policy.py`).
+the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/pr_policy.py`). The ledger's `build_id` is the DLL inputs' content hash
+(`proxy/tools/build_id.py`, J45; lines before J45 carry the old commit-hash ids as a record).
 
 ## Open questions
 See `jobs/J2/report.md` and `jobs/J13/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format`.
