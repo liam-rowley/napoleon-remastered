@@ -104,6 +104,10 @@ heartbeat wait. `Start-TestWatcher` prints `watcher up after N ms` on every run.
 Locally, `python3 core/wsc.py gates` runs the unit suite under Windows PowerShell 5.1 when a harness input changed
 (`tests/test_harness_host.py`, about 20 s; `WSP_HARNESS_TESTS=skip` skips it with a warning). The integration suite is CI-only and
 the gate says so: it sets the machine's time zone and kills `Fake*.exe`. The CI failure classes and their guards: `docs/CI_FAILURES.md`.
+Python that runs `job.sh` or `shot.sh` (`ctl.py`, `acceptance.py`, the host tests) takes bash from `tools/verbs/setup.py` `git_bash()`,
+never a bare `bash`, which on Windows can be the WSL launcher (J6, J22; `tests/test_repo_rules.py` fails on a new one). On Windows a
+test that finds no Git Bash skips with the reason. `harness-windows` also runs those Python tests on the runner (`tests.test_job_sh`,
+`test_pc_deploy`, `test_claude_hook`, `test_setup`, `test_proxy_host.GitBash`); their inputs are in `tools/changed_inputs.py`.
 
 ## Control API and acceptance (J4, J43, J44)
 `harness/core/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`

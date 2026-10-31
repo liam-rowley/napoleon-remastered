@@ -40,6 +40,26 @@ VERBS = ('scene', 'cam', 'shot', 'order', 'pause', 'speed', 'reset', 'perf', 'st
 POSE_FIELDS = ('x', 'y', 'z', 'yaw', 'pitch', 'fov')
 
 
+def bash():
+    """The bash that runs job.sh and shot.sh: tools/verbs/setup.py git_bash() (J41, J22), so Windows gets Git Bash and never the WSL
+    launcher on PATH. ctl.py runs from the repo (it is not in the watcher kit), so the finder is loaded by path; when it cannot be
+    loaded or finds nothing, plain 'bash' as before (a missing bash then fails in the call, as it always did)."""
+    global _BASH
+    if _BASH is None:
+        try:
+            import importlib.util
+            spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools' / 'verbs' / 'setup.py')
+            m = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(m)
+            _BASH = m.git_bash() or 'bash'
+        except Exception:   # noqa: BLE001  (any failure to load the finder falls back to the old behaviour)
+            _BASH = 'bash'
+    return _BASH
+
+
+_BASH = None
+
+
 def utc():
     return datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
 
@@ -207,13 +227,13 @@ class Pc:
         return p.returncode, p.stdout + p.stderr
 
     def job(self, body, timeout_s):
-        return self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, self.owner, '-', str(timeout_s)], body, timeout_s + 30)
+        return self.sh([bash(), str(HERE / 'job.sh'), '--adapter', self.adapter_path, self.owner, '-', str(timeout_s)], body, timeout_s + 30)
 
     def status(self, tries=10):
         """The watcher's status. It replaces watcher.status every 2 s and the file can be missing for an instant (run 20261030_j44acc2
         pass 3 failed on one such read): retry for about 5 s before calling it unreadable."""
         for i in range(tries):
-            rc, out = self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'status'], None, 30)
+            rc, out = self.sh([bash(), str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'status'], None, 30)
             try:
                 return json.loads(out[out.index('{'):out.rindex('}') + 1])
             except ValueError:
@@ -329,7 +349,7 @@ class Pc:
                 **({'virtualstore_cleared': vs} if vs else {})}
 
     def ctl(self, line, wait_s):
-        rc, out = self.sh(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'ctl', self.owner, line, str(wait_s)], None, wait_s + 30)
+        rc, out = self.sh([bash(), str(HERE / 'job.sh'), '--adapter', self.adapter_path, 'ctl', self.owner, line, str(wait_s)], None, wait_s + 30)
         try:
             r = json.loads(out[out.index('{'):out.rindex('}') + 1])
         except ValueError:
@@ -366,7 +386,7 @@ class Pc:
         """shot.sh into out_dir/<name>.jpg: (path, bytes)."""
         out = Path(out_dir) / f'{name}.jpg'
         out.parent.mkdir(parents=True, exist_ok=True)
-        rc, txt = self.sh(['bash', str(HERE / 'shot.sh'), self.owner, win_to_posix(out)], None, 150)
+        rc, txt = self.sh([bash(), str(HERE / 'shot.sh'), self.owner, win_to_posix(out)], None, 150)
         if rc != 0 or not out.exists():
             raise RuntimeError(f'step shot: {txt[-300:]}')
         return str(out), out.stat().st_size
@@ -417,7 +437,7 @@ class Session:
 def job_sh_transport(owner, adapter=None):
     """(line, wait_s) -> (exit code, parsed result or None) over `job.sh ctl`."""
     def send(line, wait_s=170):
-        cmd = ['bash', str(HERE / 'job.sh')] + (['--adapter', str(adapter)] if adapter else []) + ['ctl', owner, line, str(wait_s)]
+        cmd = [bash(), str(HERE / 'job.sh')] + (['--adapter', str(adapter)] if adapter else []) + ['ctl', owner, line, str(wait_s)]
         p = subprocess.run(cmd, capture_output=True, text=True)
         try:
             return p.returncode, json.loads(p.stdout)

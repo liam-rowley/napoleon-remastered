@@ -117,6 +117,17 @@ jobs:
       - name: PowerShell version
         shell: powershell
         run: $PSVersionTable.PSVersion.ToString()
+      # J22: the Python host tests that run bash, on Windows: they must find Git Bash themselves (tools/verbs/setup.py git_bash), never
+      # the WSL launcher, which the gates job on Linux cannot show. job.sh calls python3, which setup-python does not provide here.
+      - name: Python host tests that run bash (Git Bash found explicitly)
+        timeout-minutes: 3
+        shell: powershell
+        run: |
+          $py = (Get-Command python).Source
+          $py3 = Join-Path (Split-Path $py) 'python3.exe'
+          if (-not (Test-Path $py3)) { Copy-Item $py $py3 }
+          python -m unittest tests.test_job_sh tests.test_pc_deploy tests.test_claude_hook tests.test_setup tests.test_proxy_host.GitBash
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: harness host tests (unit and integration)
         # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept
         timeout-minutes: 18
