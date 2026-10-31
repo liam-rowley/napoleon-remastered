@@ -1,0 +1,10 @@
+{
+  "verb": "scene",
+  "status": "refused",
+  "reason": "launch refused: rule \"add data\\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\\packs\\zz_napoleon_remastered_fixed_sky.pack\" in napoleon_remastered\\lua\\fixed_sky_rules.txt: napoleon_remastered\\packs\\zz_napoleon_remastered_fixed_sky.pack is not in kit kit_20261031T115322Z_40377bbdba78 (the kit says: no fixed-sky pack, J45 step a: the game packs are treated as unreadable (a CI kit)): rebuild the kit where the pack builds (the PC)",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-10-31T11:53:40.660Z",
+  "end_utc": "2026-10-31T11:53:40.984Z"
+}
