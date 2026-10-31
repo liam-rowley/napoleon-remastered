@@ -1,3 +1,36 @@
+## Round 2 (2026-10-31, branch job/J22 at 4ede7b0)
+**Verdict: merge.**
+
+Machines: `wsc gates` on the PC: 12 ok, 0 warn, 0 failed (199.7 s) after the row was set (the one earlier failure, `jobs check`, was this round's own verdict seen before the row change); `tests` 385 host tests, 10 skipped. `pr_policy.py --branch job/J22 --base origin/main` before this review: the only
+refusals are the two review-pending lines this round answers (verdict and row); rule 79 no longer refuses. CI run 41218396340 on
+`4ede7b0`: `changes`, `gates`, `proxy`, `harness-windows` success (`gh run view`).
+
+Round 1's one blocker (rule 79) is answered in `## Fix round 1`:
+- `acceptance.py streak --build 41cde4716ac7 --watcher 1.1.0` here gives `20 consecutive passes ... (need 20)`.
+- The ledger has 21 `job/J22` lines: the failed pass 1 of `20261031_j22acc` and 20 passes of `20261031_j22acc2`, each with its
+  `pass_NN.json` on the branch; all 20 evidence files have `passed: true` and `build_id 41cde4716ac7`. The diff of the ledger
+  since round 1 adds lines only.
+- `proxy/tools/build_id.py` on this head gives `41cde4716ac7`, and the one commit `main` gained since the base (`e3b5a79`, a J12
+  brief) touches no DLL input, so the passes stand for the merged code.
+- Since round 1 the branch changed only `jobs/J22/report.md`, the job row and the run evidence: no J22 code changed, so round 1's
+  reading of the code stands. Commit trailers: every commit carries `Claude-Session`; this review's session wrote neither the
+  report nor round 1.
+
+The builder deleted the first attempt's ledger line (a launch refusal before any pass, never committed); the report names it.
+That is fine: nothing pushed was rewritten.
+
+## Blockers
+None.
+
+## Should-fix
+None.
+
+## Later (this repo)
+- Round 1's three later items stand (`ctl.bash()` silent fallback, `BARE_BASH` gaps, a brief check for rule 79).
+- **Empire repeat:** the first acceptance pass after a fresh kit install fails `settings_identical` by construction (the launch
+  config writes the dev keys after the "before" snapshot; `harness/runs/20261031_j22acc/pass_01.json`). That is a trap the next
+  job will hit again. It wants a harness job: take the snapshot after the launch config is applied, or exclude the keys the pass owns.
+
 ## Round 1 (2026-10-31, branch job/J22 at 87b18c3)
 **Verdict: merge after fixes.**
 
