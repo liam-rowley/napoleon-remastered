@@ -70,6 +70,27 @@ class Baseline(unittest.TestCase):
             self.assertIn('invalid', str(e.exception))
 
 
+class RunPreflight(unittest.TestCase):
+    """J45: a run checks its setup before pass 1 instead of spending a failed ledger line on it (run 20261031_j45acc)."""
+    def a(self, branch=''):
+        import types
+        return types.SimpleNamespace(branch=branch)
+
+    def test_failing_fixture_a_missing_pillow_is_refused_before_pass_1(self):
+        bad = acc.run_problems(self.a('job/J9'), has_pil=False)
+        self.assertEqual(len(bad), 1)
+        self.assertIn('Pillow', bad[0])
+
+    def test_failing_fixture_no_branch_is_refused(self):
+        self.assertIn('no branch', acc.run_problems(self.a(), branch_of=lambda: 'HEAD', has_pil=True)[0])
+
+    def test_the_branch_defaults_to_the_checkout(self):
+        a = self.a()
+        self.assertEqual(acc.run_problems(a, branch_of=lambda: 'job/J9', has_pil=True), [])
+        self.assertEqual(a.branch, 'job/J9')
+        self.assertEqual(acc.run_problems(self.a('job/J7'), branch_of=lambda: 'job/J9', has_pil=True), [])
+
+
 class Compare(unittest.TestCase):
     def test_load_time_tolerance(self):
         self.assertTrue(acc.load_time_ok(20, 29.9, 50)[0])
