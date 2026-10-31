@@ -227,6 +227,11 @@ class InputSet(unittest.TestCase):
     def test_harness_set(self):
         self.assertEqual(ci.classify(['proxy/tools/pc_deploy.py']), {'proxy': True, 'harness': True, 'viewer': False})
         self.assertEqual(ci.classify(['harness/core/job.sh']), {'proxy': False, 'harness': True, 'viewer': False})
+        # J22: the Windows step of harness-windows runs the Python tests that run bash
+        for f in ('tests/test_job_sh.py', 'tests/test_claude_hook.py', 'tests/test_setup.py', 'tests/test_proxy_host.py',
+                  'tools/verbs/setup.py', 'tools/claude_hook.py', '.claude/settings.json'):
+            self.assertEqual(ci.classify([f]), {'proxy': False, 'harness': True, 'viewer': False}, f)
+        self.assertEqual(ci.classify(['tests/test_jobs.py', 'tools/verbs/jobs.py']), {'proxy': False, 'harness': False, 'viewer': False})
 
     def test_viewer_set(self):
         # J31: viewer/ and its test build the viewer; viewer/runs/ is committed evidence

@@ -14,6 +14,10 @@ HOOK = ROOT / 'tools' / 'claude_hook.py'
 spec = importlib.util.spec_from_file_location('claude_hook', HOOK)
 ch = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(ch)
+_spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools' / 'verbs' / 'setup.py')
+sv = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(sv)
+BASH, NO_BASH = sv.bash_for_tests()   # Claude Code runs the hook command with Git Bash on Windows, never the WSL launcher (J22)
 
 
 def ev(cmd, tool='Bash', sid='abc-123'):
@@ -50,6 +54,8 @@ class Hook(unittest.TestCase):
         self.assertEqual((r.returncode, r.stdout), (0, ''))
 
     def test_the_settings_command_never_blocks(self):
+        if NO_BASH:
+            self.skipTest(NO_BASH)
         # J20 review: the old command ran `git rev-parse` and, outside a repo, python on /tools/claude_hook.py: exit 2 = block the call.
         cmd = next(x['command'] for h in json.loads((ROOT / '.claude' / 'settings.json').read_text(encoding='utf-8'))['hooks']['PreToolUse']
                    for x in h['hooks'])
@@ -59,13 +65,13 @@ class Hook(unittest.TestCase):
             for env in ({}, {'CLAUDE_PROJECT_DIR': t}, {'CLAUDE_PROJECT_DIR': str(Path(t) / 'missing')}):
                 e = {k: v for k, v in os.environ.items() if k != 'CLAUDE_PROJECT_DIR'}
                 e.update(env)
-                r = subprocess.run(['bash', '-c', cmd], input=commit, cwd=t, env=e, capture_output=True, text=True)
+                r = subprocess.run([BASH, '-c', cmd], input=commit, cwd=t, env=e, capture_output=True, text=True)
                 self.assertEqual((r.returncode, r.stdout), (0, ''), (env, r.stderr))
             e = dict(os.environ, CLAUDE_PROJECT_DIR=str(ROOT))   # the real project dir: the hook runs and denies
-            r = subprocess.run(['bash', '-c', cmd], input=commit, cwd=t, env=e, capture_output=True, text=True)
+            r = subprocess.run([BASH, '-c', cmd], input=commit, cwd=t, env=e, capture_output=True, text=True)
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertEqual(json.loads(r.stdout)['hookSpecificOutput']['permissionDecision'], 'deny')
-            r = subprocess.run(['bash', '-c', cmd], input='[1, 2]', cwd=t, env=e, capture_output=True, text=True)
+            r = subprocess.run([BASH, '-c', cmd], input='[1, 2]', cwd=t, env=e, capture_output=True, text=True)
             self.assertEqual((r.returncode, r.stdout), (0, ''))
 
     def test_settings_wire_the_hook_and_deny_edits(self):

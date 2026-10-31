@@ -17,9 +17,12 @@ WORKFLOWS = r'^\.github/workflows/'
 # proxy: proxy/ and the two registries proxy/tools/gen_tables.py reads; harness: harness/ and pc_deploy.py (the integration tests run
 # `pc_deploy.py kit --what harness`); viewer: viewer/ and its test (J31). A workflow change runs all three. proxy/runs/ and viewer/runs/
 # are committed run evidence, not build inputs (J42).
+# harness also runs the Python tests that run bash on Windows (J22): those tests, the finder in setup.py, and the hook they run.
 INPUTS = {
     'proxy': re.compile(rf'{WORKFLOWS}|^proxy/(?!runs/)|^registries/(engine_sites|config_keys)\.jsonl$'),
-    'harness': re.compile(rf'{WORKFLOWS}|^harness/|^proxy/tools/pc_deploy\.py$'),
+    'harness': re.compile(rf'{WORKFLOWS}|^harness/|^proxy/tools/pc_deploy\.py$'
+                          r'|^tests/test_(job_sh|pc_deploy|claude_hook|setup|proxy_host)\.py$'
+                          r'|^tools/verbs/setup\.py$|^tools/claude_hook\.py$|^\.claude/settings\.json$'),
     'viewer': re.compile(rf'{WORKFLOWS}|^viewer/(?!runs/)|^tests/test_viewer\.py$'),
 }
 

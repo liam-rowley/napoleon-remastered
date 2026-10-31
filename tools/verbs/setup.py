@@ -65,6 +65,15 @@ def git_bash(nt=os.name == 'nt', which=shutil.which, git_exec_path=None, isfile=
     return None
 
 
+def bash_for_tests(nt=os.name == 'nt', find=None):
+    """(bash, None) or (None, reason) for a host test that runs a shell script (J22). On Windows git_bash() or a skip reason, never the
+    WSL `bash` on PATH; off Windows git_bash() or plain 'bash', so a missing bash fails as before instead of skipping."""
+    b = (find or git_bash)(nt=nt)
+    if b or not nt:
+        return b or 'bash', None
+    return None, 'no Git Bash found (`python3 core/wsc.py setup` says what was looked for); the WSL bash on PATH is never used'
+
+
 def cr_files(root, paths):
     """The paths (relative) whose working-tree bytes contain a CR: a CRLF shell script fails in bash (`$'\\r': command not found`)."""
     return [p for p in paths if b'\r' in (Path(root) / p).read_bytes()]
@@ -89,14 +98,22 @@ def _run(cmd, cwd=None, timeout=60):
         return 127, str(e)
 
 
+def bash_check(on_path, explicit, msystem, nt=os.name == 'nt'):
+    """(ok, detail, fix) for the git_bash check from the bash on PATH, the explicit git_bash() path and $MSYSTEM (J22). It fails only
+    when git_bash() finds none: the repo's tools and tests run that one. On Windows a PATH bash that is not Git's (the WSL launcher), or
+    a session not started from Git Bash, is a warning line: the tools still work, a bare `bash` typed in the session does not."""
+    if not nt:
+        return explicit is not None, f'bash at {explicit}', 'install bash'
+    k = bash_kind(on_path, nt=True)
+    detail = f'bash on PATH: {on_path} ({k}); MSYSTEM={msystem or "unset"}; repo tools use: {explicit}'
+    if explicit and not (k == 'git' and msystem):
+        detail += ('\n     warn: this session is not a Git Bash one: start Claude Code from Git Bash, or put C:\\Program Files\\Git\\usr\\bin '
+                   'before WindowsApps and System32 on PATH')
+    return explicit is not None, detail, 'install Git for Windows (it brings Git Bash), then start Claude Code from Git Bash'
+
+
 def check_git_bash(root, fix):
-    b = shutil.which('bash')
-    k = bash_kind(b)
-    if os.name != 'nt':
-        return k is not None, f'bash at {b}', 'install bash'
-    ok = k == 'git' and bool(os.environ.get('MSYSTEM'))
-    return ok, f'bash on PATH: {b} ({k}); MSYSTEM={os.environ.get("MSYSTEM", "unset")}', \
-        'start Claude Code from Git Bash (Git for Windows), so `bash` is Git\'s and not C:\\Windows\\System32\\bash.exe (WSL)'
+    return bash_check(shutil.which('bash'), git_bash(), os.environ.get('MSYSTEM'))
 
 
 def check_python3(root, fix):
@@ -179,7 +196,10 @@ def check_playwright(root, fix):
 
 
 def check_watcher(root, fix):
-    rc, out = _run(['bash', str(root / 'harness' / 'core' / 'job.sh'), 'status'], timeout=30)
+    bash = git_bash()
+    if bash is None:
+        return False, 'no Git Bash to run job.sh with', 'install Git for Windows (the git_bash check says what was looked for)'
+    rc, out = _run([bash, str(root / 'harness' / 'core' / 'job.sh'), 'status'], timeout=30)
     tail = out.splitlines()[-1][:120] if out else ''
     return rc == 0, f'job.sh status exit {rc}: {tail}', 'the watcher runs as a logon task: after a reboot wait for it, or double-click <state>\\watcher\\src\\watch.cmd (harness/README.md)'
 

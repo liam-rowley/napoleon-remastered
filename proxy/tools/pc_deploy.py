@@ -412,10 +412,11 @@ def windows_images():
     return {line.split('","')[0].strip('"').lower() for line in r.stdout.splitlines() if line.startswith('"')}
 
 
-def running_check(game, mod_dir, exe_name, now=None, state=None, other_exes=()):
+def running_check(game, mod_dir, exe_name, now=None, state=None, other_exes=(), images=None):
     """'' when no game looks open, else why not. With a watcher installed (<state>/watcher) its process list is authoritative for BOTH
     titles. Without one: tasklist on Windows; elsewhere (host tests) the proxy's own log - a launch whose log has no final 'process
-    detach' line and was written in the last 10 minutes is taken as running."""
+    detach' line and was written in the last 10 minutes is taken as running. `images` is the process-list provider (None: windows_images,
+    looked up at call time), so a test reaches the log fallback on any OS (J22)."""
     why, st = watcher_view(state, now)
     if why:
         return why
@@ -425,7 +426,7 @@ def running_check(game, mod_dir, exe_name, now=None, state=None, other_exes=()):
         hits = [p for p in st.get('processes', []) if str(p.get('image', '')).lower() in lower]
         return ('watcher process list: ' + ', '.join(f"{p['image']} (pid {p['pid']})" for p in hits) + ' is running') if hits else ''
     try:
-        images = windows_images()
+        images = (images or windows_images)()
     except (OSError, subprocess.SubprocessError):
         return 'tasklist failed: cannot tell whether the game is running'
     if images is not None:

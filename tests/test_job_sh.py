@@ -1,5 +1,6 @@
 """Host tests for harness/core/job.sh (the agent helper): root from the adapter, atomic submit, blocking wait, exit codes (refused 2,
 no answer 124), owner added to the request, lock take/refresh/release. A thread plays the watcher. Runs in `wsc gates` (tests gate)."""
+import importlib.util
 import json
 import os
 import subprocess
@@ -11,6 +12,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 JOB = ROOT / 'harness' / 'core' / 'job.sh'
+_spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools' / 'verbs' / 'setup.py')
+sv = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(sv)
+BASH, NO_BASH = sv.bash_for_tests()   # Git Bash on Windows, never the WSL launcher on PATH (J22)
 
 
 def bash_path(p):
@@ -24,7 +29,7 @@ def run(args, env, stdin=None, timeout=60):
     e.pop('WATCHER_ROOT', None)
     e.pop('HARNESS_ADAPTER', None)
     e.update(env)
-    return subprocess.run(['bash', str(JOB), *args], input=stdin, capture_output=True, text=True, env=e, timeout=timeout)
+    return subprocess.run([BASH, str(JOB), *args], input=stdin, capture_output=True, text=True, env=e, timeout=timeout)
 
 
 class FakeWatcher(threading.Thread):
@@ -52,6 +57,8 @@ class FakeWatcher(threading.Thread):
 
 class JobSh(unittest.TestCase):
     def setUp(self):
+        if NO_BASH:
+            self.skipTest(NO_BASH)
         self.tmp = tempfile.TemporaryDirectory()
         t = Path(self.tmp.name)
         self.state = t / 'napoleon_remastered_pc'
