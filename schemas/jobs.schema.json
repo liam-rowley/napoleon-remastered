@@ -11,7 +11,7 @@
     "description": {"type": "string", "minLength": 1, "description": "the scope in one or two lines (what a brief must cover)"},
     "title": {"type": "string", "minLength": 1},
     "phase": {"type": "integer", "minimum": 0, "maximum": 6},
-    "status": {"enum": ["needs_brief", "queued", "review", "done", "blocked"]},
+    "status": {"enum": ["needs_brief", "queued", "review", "fix", "done", "blocked"], "description": "fix: a review round asked for changes; only a reviewer sets it (D36)"},
     "model": {"enum": ["sonnet", "opus"], "description": "opus only with the reason in the brief (D15)"},
     "needs_pc": {"type": "boolean"},
     "depends_on": {"type": "array", "uniqueItems": true, "items": {"type": "string", "x-ref": "jobs"}},
@@ -21,9 +21,9 @@
     "blocked_by": {"type": "string", "minLength": 1, "description": "why, when status is blocked"}
   },
   "allOf": [
-    {"if": {"properties": {"status": {"enum": ["queued", "review", "done"]}}}, "then": {"required": ["brief"]}},
-    {"if": {"properties": {"status": {"enum": ["review", "done"]}}}, "then": {"required": ["report"]}},
-    {"if": {"properties": {"status": {"const": "done"}}}, "then": {"required": ["review"]}},
+    {"if": {"properties": {"status": {"enum": ["queued", "review", "fix", "done"]}}}, "then": {"required": ["brief"]}},
+    {"if": {"properties": {"status": {"enum": ["review", "fix", "done"]}}}, "then": {"required": ["report"]}},
+    {"if": {"properties": {"status": {"enum": ["fix", "done"]}}}, "then": {"required": ["review"]}},
     {"if": {"properties": {"status": {"const": "blocked"}}}, "then": {"required": ["blocked_by"]}}
   ],
   "x-view": {"title": "Jobs", "columns": ["id", "status", "title", "phase", "model", "needs_pc", "depends_on", "brief", "report", "review"]}

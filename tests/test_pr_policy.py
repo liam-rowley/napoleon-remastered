@@ -88,6 +88,31 @@ class Policy(unittest.TestCase):
         other = lambda p: [{'S1'}] if p.endswith('report.md') else [{'S2'}]
         self.assertEqual(pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, other), [])
 
+    def test_the_newest_round_verdict_decides(self):
+        """D36 (J52): review.md rounds are newest first, so verdict() reads the latest round with no change to its parser."""
+        r1 = '## Round 1 (2026-11-01, branch job/J1 at abc1231)\n\n**Verdict: do not merge.**\n\n'
+        r2 = '## Round 2 (2026-11-02, branch job/J1 at abc1232)\n\n**Verdict: merge.**\n\n'
+        done = dict(ROW, status='done', report='jobs/J1/report.md', review='jobs/J1/review.md')
+        base = files(**{'jobs/J1/brief.md': 'b'})
+        reverse = r2.replace('Verdict: merge.', 'Verdict: do not merge.') + r1.replace('Verdict: do not merge.', 'Verdict: merge.')
+        for review, ok in (('# R\n\n' + r2 + r1, True), ('# R\n\n' + reverse, False)):
+            e = pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base,
+                         files(**{'jobs/J1/report.md': 'r', 'jobs/J1/review.md': review}))
+            self.assertEqual(e == [], ok, e)
+        self.assertEqual(pp.verdict(r2 + r1), 'merge')
+        self.assertEqual(pp.verdict(r1 + r2), 'do not merge')
+
+    def test_fix_sessions_writing_the_report_do_not_trip_the_own_review_rule(self):
+        """Builder S1 writes the report, reviewer R1 round 1, fixer F1 appends Fix round 1 to the report, reviewer R2 round 2."""
+        done = dict(ROW, status='done', report='jobs/J1/report.md', review='jobs/J1/review.md')
+        head = files(**{'jobs/J1/report.md': 'r', 'jobs/J1/review.md': '**Verdict: merge.**'})
+        base = files(**{'jobs/J1/brief.md': 'b'})
+        rounds = lambda p: [{'S1'}, {'F1'}] if p.endswith('report.md') else [{'R1'}, {'R2'}]
+        self.assertEqual(pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, rounds), [])
+        fixer_reviews = lambda p: [{'S1'}, {'F1'}] if p.endswith('report.md') else [{'R1'}, {'F1'}]
+        e = pp.check('job/J1', ['x'], {'J1': ROW, 'J2': OTHER}, {'J1': done, 'J2': OTHER}, base, head, fixer_reviews)
+        self.assertTrue(any('also wrote the report (F1)' in x for x in e), e)
+
     def test_a_commit_without_a_trailer_fails_closed(self):
         done = {'id': 'J1', 'status': 'done', 'brief': 'jobs/J1/brief.md', 'report': 'jobs/J1/report.md', 'review': 'jobs/J1/review.md'}
         head = files(**{'jobs/J1/report.md': 'r', 'jobs/J1/review.md': '**Verdict: merge.**'})

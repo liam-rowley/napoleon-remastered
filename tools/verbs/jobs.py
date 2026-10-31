@@ -1,18 +1,28 @@
-"""The job queue (D16) as a verb: check the queue, pick up the next job, find the next job to review.
+"""The job queue (D16) as a verb: check the queue, pick up the next job, find the next job to review or to fix.
 
-purpose: Check the jobs registry against jobs/ (status invariants, file links, brief shape), pick the next job to build or review, and show the queue as a readable page.
-usage: python3 core/wsc.py jobs check | jobs next [--id J<n>] [--offline] | jobs review [--id J<n>] [--offline] | jobs view [--offline] [--out PATH] [--no-open] | jobs view --serve [--port N] [--dry-run] [--no-open]
-when: `next` when Liam says "pick up the next job" (`--id` for a named job: what a session launched from the view runs); `review` for "review the next job"; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser instead of registries/jobs.md, `view --serve` to start a job's brief, build or review session from its button.
+purpose: Check the jobs registry against jobs/ (status invariants, file links, brief shape, review rounds), pick the next job to build, review or fix, and show the queue as a readable page.
+usage: python3 core/wsc.py jobs check | jobs next [--id J<n>] [--offline] | jobs review [--id J<n>] [--offline] | jobs fix [--id J<n>] [--offline] | jobs view [--offline] [--out PATH] [--no-open] | jobs view --serve [--port N] [--dry-run] [--no-open] [--auto [--interval SECONDS]]
+when: `next` when Liam says "pick up the next job" (`--id` for a named job: what a session launched from the view runs); `review` for "review the next job"; `fix` for a job whose review asked for changes; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser instead of registries/jobs.md, `view --serve` to start a job's brief, build, review or fix session from its button, `--auto` to start every ready review and fix by itself (D36).
 verb: jobs
 
 The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review` and `view` read the remote
 branches (`git ls-remote origin`), and `review` fetches the job branches it inspects; `--offline` uses the local remote-tracking refs
 instead. `next`, `review` and `view` first print every open pull request with a failed check (one `gh pr list` call; `--offline`
 skips it), so a red check is told to the next session instead of waiting to be noticed (J42, D32). `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
-Its cards carry a button for each action not_ready() allows (Write brief, Implement, Review). On the written page a button copies the
+Its cards carry a button for each action not_ready() allows (Write brief, Implement, Review, Fix). On the written page a button copies the
 `claude --bg` command; `view --serve` serves the page on 127.0.0.1 and the button posts (id, action) to the server, which checks a
-per-run token, Origin, Host, content type, readiness against fresh branches and no running session of the same name (`claude agents --json`, fail closed; no count cap: D34),
+per-run token, Origin, Host, content type, readiness against fresh branches and no live session of the same name (`claude agents --json`, fail closed; no count cap: D34),
 then runs the command itself. The prompt and the argv are written here, never by the page; no permission flag is ever passed.
+
+Review rounds (D36, J52): review.md holds `## Round N (YYYY-MM-DD, branch job/J<n> at <sha>)` sections, newest first, at most 3, one
+verdict each, so verdict() reads the latest. The reviewer sets the row: merge -> done; otherwise fix (rounds 1 and 2) or blocked (round 3).
+A fix session appends `## Fix round N` to report.md and sets review again. `--serve --auto` runs a thread that, every `--interval`
+seconds, takes the same snapshot as the buttons and starts every ready review and fix through the same launch path (never a brief or a
+build), skipping a job while any session named J<n>-* is live, and starting each (job, action) at most once per branch head (a session
+that ends without pushing is not restarted every tick); each tick, launch and refusal is one line on stderr and in _scratch/jobs_auto.log.
+`claude agents --json` (Claude Code 2.1.316, read on the PC 2026-10-31, J52): lists background sessions with `state` "working", "blocked"
+(waiting for input) or "done" (finished sessions stay listed until removed); interactive sessions carry no state. Live = working or
+blocked. `--name` is a display name (`claude --help`); the launch reports the session id, which is what `claude attach` should be given.
 """
 import html
 import json
@@ -28,6 +38,7 @@ import webbrowser
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from typing import NamedTuple, Optional
 
 NAME = 'jobs'
 HELP = 'the job queue: check it, pick the next job to build (next) or to review (review)'
@@ -35,8 +46,16 @@ HELP = 'the job queue: check it, pick the next job to build (next) or to review 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from pr_policy import verdict  # noqa: E402  (one parser for the Verdict line: CI's policy check uses it too)
 
-STATUSES_WITH = {'brief': {'queued', 'review', 'done'}, 'report': {'review', 'done'}, 'review': {'done'}}
+STATUSES_WITH = {'brief': {'queued', 'review', 'fix', 'done'}, 'report': {'review', 'fix', 'done'}, 'review': {'fix', 'done'}}
 DATED = re.compile(r'\b20\d\d-\d\d-\d\d\b')
+ROUND = re.compile(r'^## Round\b.*$', re.M)
+ROUND_HEAD = re.compile(r'^## Round ([1-9]\d*) \(20\d\d-\d\d-\d\d, branch `?job/J\d+`? at `?[0-9a-f]{7,40}`?\)\s*$')
+MAX_ROUNDS = 3
+BLOCKED_BY_ROUNDS = f'{MAX_ROUNDS} review rounds without merge'
+# Jobs whose review.md was on main when D36 introduced review rounds (J52's base, 39eab5e). They were written before the round format
+# and are never rewritten (merged history), so they are exempt from the round rules only; the date and verdict rules still apply.
+LEGACY_REVIEWS = frozenset({'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J13', 'J14', 'J15', 'J17', 'J18', 'J19', 'J20', 'J21', 'J36',
+                            'J39', 'J41', 'J42', 'J43', 'J44', 'J51'})
 
 
 def num(jid):
@@ -81,6 +100,73 @@ def report_problems(jid, text):
     return errs
 
 
+def review_rounds(text):
+    """(text before the first round, [(heading line, body)] in file order) of a review.md."""
+    heads = list(ROUND.finditer(text or ''))
+    if not heads:
+        return text or '', []
+    ends = [h.start() for h in heads[1:]] + [len(text)]
+    return text[:heads[0].start()], [(h.group(0), text[h.end():end]) for h, end in zip(heads, ends)]
+
+
+def round_count(text):
+    return len(review_rounds(text)[1])
+
+
+def verdict_lines(text):
+    """Lines verdict() would read: one parser for what counts as a verdict (CI's policy check reads the first one)."""
+    return [l for l in (text or '').splitlines() if verdict(l)]
+
+
+def round_problems(text):
+    """D36 round rules for one review.md: rounds numbered from 1 with no gap, newest first, at most MAX_ROUNDS, each heading dated
+    with its branch and sha, exactly one verdict per round and none outside a round (so verdict() returns the newest round's)."""
+    pre, rounds = review_rounds(text)
+    if not rounds:
+        return ['review.md has no "## Round N (YYYY-MM-DD, branch job/J<n> at <sha>)" section (docs/REVIEW.md)']
+    errs = []
+    nums = []
+    for head, body in rounds:
+        m = ROUND_HEAD.match(head)
+        if not m:
+            errs.append(f'"{head.strip()}" is not "## Round N (YYYY-MM-DD, branch job/J<n> at <sha>)"')
+            n = re.match(r'## Round (\d+)', head)
+            nums.append(int(n.group(1)) if n else 0)
+        else:
+            nums.append(int(m.group(1)))
+        if len(verdict_lines(body)) != 1:
+            errs.append(f'"{head.strip()}" has {len(verdict_lines(body))} verdict lines, not exactly one')
+    if len(rounds) > MAX_ROUNDS:
+        errs.append(f'review.md has {len(rounds)} rounds: at most {MAX_ROUNDS} (after round {MAX_ROUNDS} without merge the job is blocked)')
+    if nums != list(range(len(nums), 0, -1)):
+        errs.append(f'rounds are {", ".join(map(str, nums))}: they must count up from 1 with no gap, newest first '
+                    f'(want {", ".join(map(str, range(len(nums), 0, -1)))})')
+    if verdict_lines(pre):
+        errs.append('a verdict line sits above the first round: each verdict belongs inside its round')
+    return errs
+
+
+def round_status_problems(row, review, report):
+    """The row must agree with the newest round's verdict (D36): merge -> done; a non-merge in round N < 3 -> fix, or review once
+    report.md has "## Fix round N"; a non-merge in round 3 -> blocked with BLOCKED_BY_ROUNDS."""
+    st, n, v = row.get('status'), round_count(review), verdict(review)
+    if v not in ('merge', 'merge after fixes', 'do not merge') or not n:
+        return []   # reported by the verdict and round rules
+    if v == 'merge':
+        return [] if st == 'done' else [f'round {n} says merge, so the row should be done, not {st}']
+    if n >= MAX_ROUNDS:
+        if st == 'blocked' and row.get('blocked_by') == BLOCKED_BY_ROUNDS:
+            return []
+        return [f'round {n} says "{v}": the row must be blocked with blocked_by="{BLOCKED_BY_ROUNDS}", not {st}']
+    fixed = bool(re.search(rf'^## Fix round {n}\b', report or '', re.M))
+    if st == 'fix' and not fixed:
+        return []
+    if st == 'review' and fixed:
+        return []
+    want = 'review (report.md has "## Fix round %d")' % n if fixed else f'fix (report.md has no "## Fix round {n}" yet)'
+    return [f'round {n} says "{v}", so the row should be {want}, not {st}']
+
+
 def problems(rows, read, folders=()):
     """Errors for the queue. `rows`: the jobs rows; `read(path)`: file text or None; `folders`: job ids that have a jobs/<id>/ folder."""
     errs, by = [], {r['id']: r for r in rows}
@@ -113,6 +199,8 @@ def problems(rows, read, folders=()):
                 errs.append(f'{jid}: review.md has no Verdict line of the three allowed (docs/REVIEW.md "Output")')
             elif st == 'done' and verdict(review) != 'merge':
                 errs.append(f'{jid}: done, but the review verdict is "{verdict(review)}" (only "merge" makes a job done)')
+            if jid not in LEGACY_REVIEWS:
+                errs += [f'{jid}: {e}' for e in round_problems(review) + round_status_problems(r, review, report)]
         if st in ('review', 'done'):
             late = [d for d in r.get('depends_on', []) if by.get(d, {}).get('status') != 'done']
             if late:
@@ -138,25 +226,44 @@ def problems(rows, read, folders=()):
 
 # ------------------------------------------------------------------ next and review
 ACTIONS = {'brief': ('needs_brief', 'brief'), 'build': ('queued', 'job')}   # action: (status it needs, branch prefix that claims it)
+BRANCH_ACTIONS = ('review', 'fix')   # ready from the job branch's own row (the status names the action); the only ones --auto starts
+
+
+class Branch(NamedTuple):
+    """What branch_rows reads from one origin/job/<id>: its row, the rounds in its review.md, its head sha."""
+    row: Optional[dict]
+    rounds: int = 0
+    head: Optional[str] = None
+
+
+def branch_state(v):
+    """An on_branch value as a Branch (a bare row, as the tests and older callers pass, has no rounds and no known head)."""
+    return v if isinstance(v, Branch) else Branch(v)
 
 
 def not_ready(action, jid, by, branches, on_branch=None):
-    """The one readiness rule (`jobs next`, `--id`, the view's buttons and its server): why job `jid` cannot be started for `action`,
-    or None when it can. brief: needs_brief, every depends_on done, no brief/<id> branch; build: the same with queued and job/<id>;
-    review: a job/<id> branch whose row says review and that has no jobs/<id>/review.md. `by`: rows on main by id; `branches`:
-    remote branch names; `on_branch`: {id: (row on job/<id> or None, has review.md)} (see branch_rows)."""
+    """The one readiness rule (`jobs next|review|fix`, `--id`, the view's buttons, its server and --auto): why job `jid` cannot be
+    started for `action`, or None when it can. brief: needs_brief, every depends_on done, no brief/<id> branch; build: the same with
+    queued and job/<id>; review: a job/<id> branch whose row says review (round 2 and 3 too: review.md may exist); fix: a job/<id>
+    branch whose row says fix. Both on the branch's own row and its review.md rounds (J52 review 2): review refuses once MAX_ROUNDS
+    are written, fix refuses with no round to answer. `by`: rows on main by id; `branches`: remote branch names; `on_branch`:
+    {id: Branch or a bare row} (see branch_rows)."""
     r = by.get(jid)
     if r is None:
         return f'{jid} is not a row of the jobs registry'
-    if action == 'review':
+    if action in BRANCH_ACTIONS:
         if jid not in (on_branch or {}) and f'job/{jid}' not in branches:
             return f'{jid} has no job/{jid} branch on origin'
-        row, reviewed = (on_branch or {}).get(jid, (None, False))
+        row, rounds, _ = branch_state((on_branch or {}).get(jid))
         if not row:
             return f'job/{jid} has no {jid} row'
-        if row.get('status') != 'review':
-            return f'{jid} is {row.get("status")} on job/{jid}, not review' + (' (no report yet)' if row.get('status') == 'queued' else '')
-        return f'{jid} is already reviewed (job/{jid} has jobs/{jid}/review.md)' if reviewed else None
+        if row.get('status') != action:
+            return f'{jid} is {row.get("status")} on job/{jid}, not {action}' + (' (no report yet)' if row.get('status') == 'queued' else '')
+        if action == 'review' and rounds >= MAX_ROUNDS:
+            return f'{jid}: review.md already has {rounds} rounds; after round {MAX_ROUNDS} the job is blocked for Liam (D36)'
+        if action == 'fix' and not rounds:
+            return f'{jid} is fix on job/{jid} but its review.md has no round to answer'
+        return None
     st, prefix = ACTIONS[action]
     if r.get('status') != st:
         return f'{jid} is {r.get("status")}, not {st}'
@@ -186,13 +293,16 @@ def pick_next(rows, branches):
     return None, None, sorted(set(waiting), key=lambda w: num(w.split()[0].rstrip(':')))
 
 
-def pick_review(on_branch):
-    """`on_branch`: {id: (row on that job branch or None, branch has jobs/<id>/review.md)}. The lowest-numbered branch whose row
-    says review and that has no review yet, or None."""
+def pick_branch(action, on_branch):
+    """`on_branch`: see not_ready. The lowest-numbered branch ready for `action` (review or fix), or None."""
     for jid in sorted(on_branch, key=num):   # the rule needs a main row only to exist: the branch's row is the one that counts here
-        if not_ready('review', jid, {jid: {}}, set(), on_branch) is None:
+        if not_ready(action, jid, {jid: {}}, set(), on_branch) is None:
             return jid
     return None
+
+
+def pick_review(on_branch):
+    return pick_branch('review', on_branch)
 
 
 FAILED_CHECK = {'FAILURE', 'TIMED_OUT', 'STARTUP_FAILURE', 'ACTION_REQUIRED', 'ERROR'}
@@ -251,8 +361,8 @@ def remote_branches(root, offline):
 
 
 def branch_rows(root, branches, offline, jobs_path, only=None):
-    """{id: (row on job/<id> or None, job/<id> has jobs/<id>/review.md)} for each remote job branch (or just `only`), fetching each
-    one unless offline."""
+    """{id: Branch(row on job/<id> or None, rounds in its review.md, head sha)} for each remote job branch (or just `only`),
+    fetching each one unless offline."""
     on_branch = {}
     for b in sorted(x for x in branches if x.startswith('job/')):
         jid, ref = b.split('/', 1)[1], f'origin/{b}'
@@ -261,20 +371,23 @@ def branch_rows(root, branches, offline, jobs_path, only=None):
         if not offline and _git(root, 'fetch', '-q', 'origin', f'+refs/heads/{b}:refs/remotes/{ref}') is None:
             raise ValueError(f'could not fetch {b}')
         row = next((x for x in load_rows(_git(root, 'show', f'{ref}:{jobs_path}')) if x.get('id') == jid), None)
-        on_branch[jid] = (row, _git(root, 'cat-file', '-e', f'{ref}:jobs/{jid}/review.md') is not None)
+        on_branch[jid] = Branch(row, round_count(_git(root, 'show', f'{ref}:jobs/{jid}/review.md')),
+                                (_git(root, 'rev-parse', ref) or '').strip() or None)
     return on_branch
 
 
 # ------------------------------------------------------------------ launch (the view's buttons; D15 and D30)
 PROMPTS = {'brief': 'Write the brief for job {id}: git pull, then run python3 core/wsc.py jobs next --id {id} and follow it.',
            'build': 'Pick up job {id}: git pull, then run python3 core/wsc.py jobs next --id {id} and follow it.',
-           'review': 'Review job {id}: git pull, then run python3 core/wsc.py jobs review --id {id} and follow docs/REVIEW.md.'}
-LABELS = {'brief': 'Write brief', 'build': 'Implement', 'review': 'Review'}
+           'review': 'Review job {id}: git pull, then run python3 core/wsc.py jobs review --id {id} and follow docs/REVIEW.md.',
+           'fix': 'Fix job {id}: git pull, then run python3 core/wsc.py jobs fix --id {id} and follow it.'}
+LABELS = {'brief': 'Write brief', 'build': 'Implement', 'review': 'Review', 'fix': 'Fix'}
+LIVE_STATES = {'working', 'blocked'}   # `claude agents --json` states of a session that has not ended ("done" stays listed: J52)
 
 
 def launch_argv(claude, jid, action, row):
-    """The background session for one job: named <id>-<action>, Sonnet for a brief (the D15 default), the row's model otherwise. No
-    permission flags: the session runs under Liam's own settings."""
+    """The background session for one job: named <id>-<action>, Sonnet for a brief (the D15 default), the row's model otherwise
+    (build, review and fix). No permission flags: the session runs under Liam's own settings."""
     model = 'sonnet' if action == 'brief' else (row.get('model') or 'sonnet')
     return [claude, '--bg', '--name', f'{jid}-{action}', '--model', model, '--effort', 'medium', PROMPTS[action].format(id=jid)]
 
@@ -304,6 +417,7 @@ def load_rows(text):
 # (key, heading, what it means): the page's sections, in reading order.
 LANES = [('progress', 'In progress', 'a job/ or brief/ branch is open on origin'),
          ('review', 'Waiting for review', 'report written; needs an independent review (wsc jobs review)'),
+         ('fix', 'Waiting for fixes', 'a review round asked for changes; a fix session answers it (wsc jobs fix)'),
          ('ready', 'Ready to pick up', 'queued, every dependency done, nobody on it'),
          ('waiting', 'Queued, waiting on dependencies', 'brief written; a dependency is not done yet'),
          ('brief', 'Needs a brief', 'no brief yet; one can be written once the dependencies make sense'),
@@ -311,14 +425,20 @@ LANES = [('progress', 'In progress', 'a job/ or brief/ branch is open on origin'
          ('done', 'Done', 'reviewed and merged')]
 
 
-def lane(r, by, branches):
-    """(lane key, short note) for one row: the registry status refined by the remote branches and the dependencies."""
+def lane(r, by, branches, on_branch=None):
+    """(lane key, short note) for one row: the registry status refined by the remote branches, the job branch's own row (review,
+    fix and blocked are set there before main sees them) and the dependencies."""
     st, jid = r.get('status'), r['id']
     late = [d for d in r.get('depends_on', []) if by.get(d, {}).get('status') != 'done']
+    br = branch_state((on_branch or {}).get(jid)).row or {}
+    if st != 'done' and br.get('status') in ('review', 'fix', 'blocked'):
+        st, r = br['status'], br
     if st == 'done':
         return 'done', ''
     if st == 'review':
         return 'review', ''
+    if st == 'fix':
+        return 'fix', f'fixing on job/{jid}'
     if st == 'blocked':
         return 'blocked', r.get('blocked_by', '')
     if st == 'queued' and f'job/{jid}' in branches:
@@ -383,17 +503,18 @@ def pc_block(pc):
             f'kit <code>{e(pc["kit"])}</code> · last acceptance: {e(acc)} · usage source: {e(pc["usage"])}</p>')
 
 
-def render_view(rows, read, branches, generated, on_branch=None, token=None, root=None):
+def render_view(rows, read, branches, generated, on_branch=None, token=None, root=None, auto=None):
     """The queue as one HTML page. `read(path)`: file text or None; `branches`: remote branch names; `generated`: timestamp text;
-    `on_branch`: see branch_rows (review buttons need it). Brief, report and review are embedded as escaped Markdown and rendered by
+    `on_branch`: see branch_rows (review and fix buttons need it). Brief, report and review are embedded as escaped Markdown and rendered by
     marked.js when it loads (plain text otherwise). A card gets a button for each action not_ready() allows: with `token` (served by
-    `--serve`) it posts (id, action) to /launch; without, it copies the command line (run in `root`)."""
+    `--serve`) it posts (id, action) to /launch; without, it copies the command line (run in `root`). `auto`: the autopilot's state
+    ({'interval', 'last', 'dry_run'}) when `--auto` runs."""
     e = html.escape
     by = {r['id']: r for r in rows}
     order = sorted(rows, key=lambda r: num(r['id']))
     placed = {k: [] for k, _, _ in LANES}
     for r in order:
-        k, note = lane(r, by, branches)
+        k, note = lane(r, by, branches, on_branch)
         placed[k].append((r, note))
     kind, nxt, _ = pick_next(rows, branches)
     if kind == 'job':
@@ -432,6 +553,9 @@ def render_view(rows, read, branches, generated, on_branch=None, token=None, roo
                     for k, h, why in LANES if placed[k])
     refresh = ('Served by <code>wsc jobs view --serve</code>: reload to refresh; the buttons start background sessions.' if token else
                'Rerun it to refresh; the buttons copy the command (<code>wsc jobs view --serve</code> makes them start it).')
+    if auto:
+        refresh += (f' <b>Autopilot on</b>{" (dry run)" if auto.get("dry_run") else ""}: starts ready reviews and fixes every '
+                    f'{int(auto["interval"])} s; last ran {e(auto.get("last") or "not yet")} (log: <code>_scratch/jobs_auto.log</code>).')
     return VIEW_PAGE.format(generated=e(generated), head=head, counts=counts, lanes=lanes, total=len(rows), refresh=refresh,
                             serve=json.dumps({'token': token} if token else None))
 
@@ -458,7 +582,7 @@ input {{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radi
 .card header {{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }}
 .id {{ font-weight:700; font-family:ui-monospace, Consolas, monospace; }}
 .status, .dep {{ font-size:12px; border-radius:10px; padding:1px 8px; border:1px solid currentColor; text-decoration:none; }}
-.s-done {{ color:var(--done); }} .s-review {{ color:var(--review); }} .s-queued {{ color:var(--queued); }}
+.s-done {{ color:var(--done); }} .s-review, .s-fix {{ color:var(--review); }} .s-queued {{ color:var(--queued); }}
 .s-needs_brief {{ color:var(--needs); }} .s-blocked, .s-unknown {{ color:var(--blocked); }}
 .note {{ color:var(--review); font-size:14px; }} .desc {{ margin:6px 0; }} .meta {{ color:var(--muted); font-size:13px; }}
 .doc {{ margin-top:6px; }} .doc summary {{ cursor:pointer; color:var(--accent); }}
@@ -600,29 +724,129 @@ class _Handler(BaseHTTPRequestHandler):
         self._send(code, json.dumps({'ok': code == 200, 'message': msg, **extra}), 'application/json')
 
 
+def utc_now():
+    return datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+
+
 class JobServer(ThreadingHTTPServer):
     """`wsc jobs view --serve` on 127.0.0.1: GET / renders the queue fresh, POST /launch starts one session after the checks of
-    launch_request. Seams (the tests pass fakes): snapshot() -> (rows, read, branches, on_branch), read fresh each time; agents() ->
-    the `claude agents --json` list; launch(argv) -> session id; which(name) -> path or None."""
+    launch_request; with --auto, run_auto() ticks in a thread. Seams (the tests pass fakes): snapshot() -> (rows, read, branches,
+    on_branch), read fresh each time; agents() -> the `claude agents --json` list; launch(argv) -> session id; which(name) -> path or
+    None; log_path: the autopilot's log file (None: stderr only)."""
     daemon_threads = True
     log = True   # one stderr line per request
 
-    def __init__(self, snapshot, agents, launch, which=shutil.which, port=0, dry_run=False, root=None):
+    def __init__(self, snapshot, agents, launch, which=shutil.which, port=0, dry_run=False, root=None, log_path=None):
         super().__init__(('127.0.0.1', port), _Handler)
         self.snapshot, self.agents, self.launch, self.which, self.dry_run, self.root = snapshot, agents, launch, which, dry_run, root
+        self.log_path = log_path
         self.token = secrets.token_urlsafe(32)
         self.host = f'127.0.0.1:{self.server_address[1]}'
         self.url = f'http://{self.host}/'
         self.lock = threading.Lock()
+        self.auto = None   # {'interval', 'last', 'dry_run'} while the autopilot runs
+        self.started = {}  # (id, action) -> the job branch head the autopilot started it at (J52 review 1)
 
     def page(self):
         rows, read, branches, on_branch = self.snapshot()
         stamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
-        return render_view(rows, read, branches, stamp, on_branch, self.token, self.root)
+        return render_view(rows, read, branches, stamp, on_branch, self.token, self.root, self.auto)
+
+    def start(self, jid, action, by, branches, on_branch, family=False, agents=None):
+        """The one launch path (buttons and --auto): (code, message, extra). Readiness 409; a live session of the same name 429 (with
+        `family`, any live J<n>-* session: a build or fix that pushed status=review but has not ended must not race its reviewer);
+        an agent list that cannot be read 503 (fail closed); claude missing 503; then the launch (no count cap: D34). `agents`: a
+        list already read this tick, else it is read here."""
+        why = not_ready(action, jid, by, branches, on_branch)
+        if why:
+            return 409, f'refused: {why}', {}
+        name = f'{jid}-{action}'
+        with self.lock:   # one launch at a time, so a double click cannot start the same session twice
+            try:
+                agents = self.agents() if agents is None else agents
+            except Exception as x:
+                return 503, f'refused: cannot list the running sessions ({x})', {}
+            live = [str(a.get('name') or '') for a in agents if isinstance(a, dict) and a.get('state') in LIVE_STATES]
+            clash = [n for n in live if (n.lower().startswith(f'{jid.lower()}-') if family else n.lower() == name.lower())]
+            if clash:
+                return 429, (f'refused: {clash[0]} is still running' if family else f'refused: {name} is already running'), {}
+            claude = self.which('claude')
+            if not claude:
+                return 503, 'refused: claude is not on PATH', {}
+            argv = launch_argv(claude, jid, action, by[jid])
+            if self.dry_run:
+                return 200, 'dry run, would start: ' + command_line(argv), {'argv': argv}
+            try:
+                sid = self.launch(argv)
+            except Exception as x:
+                return 500, f'claude --bg failed: {x}', {'argv': argv}
+        return 200, f'started {name}: claude attach {sid}', {'argv': argv, 'session': sid}
+
+    def auto_log(self, line):
+        line = f'{utc_now()} jobs auto: {line}'
+        if self.log_path:   # the file first: a stop right after the stderr line must not lose it from the log
+            try:
+                Path(self.log_path).parent.mkdir(parents=True, exist_ok=True)
+                with open(self.log_path, 'a', encoding='utf-8') as f:
+                    f.write(line + '\n')
+            except OSError as x:
+                sys.stderr.write(f'jobs auto: cannot write {self.log_path}: {x}\n')
+        sys.stderr.write(line + '\n')
+        sys.stderr.flush()
+
+    def auto_tick(self):
+        """One autopilot pass (D36): a fresh snapshot and agent list, then every job branch ready for review or fix is started through
+        start(..., family=True). Never a brief or a build. A snapshot or agent-list error skips the whole tick. Each (id, action) is
+        started at most once per branch head (J52 review 1): a session that ends without pushing leaves the row as it was, and must
+        not be started again every tick until someone looks; a push moves the head and allows the next start. The memory is this
+        process's: a restarted server may start such a job once more. Returns the (id, action, code, message) of every attempt."""
+        if self.auto is not None:
+            self.auto['last'] = utc_now()
+        try:
+            rows, _, branches, on_branch = self.snapshot()
+        except Exception as x:
+            self.auto_log(f'tick skipped: cannot read the queue ({x})')
+            return []
+        try:
+            agents = self.agents()
+        except Exception as x:
+            self.auto_log(f'tick skipped: cannot list the running sessions ({x})')
+            return []
+        by = {r['id']: r for r in rows}
+        done, waiting = [], 0
+        for jid in sorted(on_branch or {}, key=num):
+            for action in BRANCH_ACTIONS:
+                if jid not in by or not_ready(action, jid, by, branches, on_branch) is not None:
+                    continue
+                head = branch_state(on_branch[jid]).head
+                if (jid, action) in self.started and self.started[(jid, action)] == head:
+                    self.auto_log(f'{jid}-{action}: started at {(head or "unknown head")[:12]}, waiting for a push to job/{jid}')
+                    waiting += 1
+                    continue
+                code, msg, _ = self.start(jid, action, by, branches, on_branch, family=True, agents=agents)
+                if code == 200:
+                    self.started[(jid, action)] = head
+                self.auto_log(f'{jid}-{action}: {msg}')
+                done.append((jid, action, code, msg))
+        if not done and not waiting:
+            self.auto_log(f'tick: nothing ready for review or fix ({len(on_branch or {})} job branches)')
+        return done
+
+    def run_auto(self, interval, stop):
+        """Tick now, then every `interval` seconds until `stop` (a threading.Event) is set. An unexpected error is logged and the
+        loop goes on."""
+        self.auto = {'interval': interval, 'last': None, 'dry_run': self.dry_run}
+        self.auto_log(f'on, every {interval} s{" (dry run: nothing is started)" if self.dry_run else ""}')
+        while not stop.is_set():
+            try:
+                self.auto_tick()
+            except Exception as x:
+                self.auto_log(f'tick failed: {x!r}')
+            stop.wait(interval)
 
     def launch_request(self, headers, body):
         """(HTTP code, message, extra JSON fields), checked in this order: token 403, Origin and Host 403, content type 415, id and
-        action 400, readiness 409, a same-name session 429, then the launch (no count cap: D34)."""
+        action 400, then start(): readiness 409, a same-name session 429, the launch (no count cap: D34)."""
         try:
             req = json.loads(body.decode('utf-8'))
         except ValueError:
@@ -643,41 +867,21 @@ class JobServer(ThreadingHTTPServer):
         jid, action = req.get('id'), req.get('action')
         if not isinstance(jid, str) or jid not in by or action not in PROMPTS:
             return 400, f'refused: no such job or action ({jid!r}, {action!r})', {}
-        why = not_ready(action, jid, by, branches, on_branch)
-        if why:
-            return 409, f'refused: {why}', {}
-        name = f'{jid}-{action}'
-        with self.lock:   # one launch at a time, so a double click cannot start the same session twice
-            try:
-                agents = self.agents()
-            except Exception as x:
-                return 503, f'refused: cannot list the running sessions ({x})', {}
-            working = [a for a in agents if isinstance(a, dict) and a.get('state') == 'working']
-            if any(str(a.get('name') or '').lower() == name.lower() for a in working):
-                return 429, f'refused: {name} is already running', {}
-            claude = self.which('claude')
-            if not claude:
-                return 503, 'refused: claude is not on PATH', {}
-            argv = launch_argv(claude, jid, action, by[jid])
-            if self.dry_run:
-                return 200, 'dry run, would start: ' + command_line(argv), {'argv': argv}
-            try:
-                sid = self.launch(argv)
-            except Exception as x:
-                return 500, f'claude --bg failed: {x}', {'argv': argv}
-        return 200, f'started {name}: claude attach {sid}', {'argv': argv, 'session': sid}
+        return self.start(jid, action, by, branches, on_branch)
 
 
 # ------------------------------------------------------------------ verb
 def add_arguments(p):
-    p.add_argument('action', choices=['check', 'next', 'review', 'view'])
+    p.add_argument('action', choices=['check', 'next', 'review', 'fix', 'view'])
     p.add_argument('--offline', action='store_true', help='use local remote-tracking refs instead of asking origin (a single-branch or shallow clone sees only the branches it fetched)')
-    p.add_argument('--id', help='next, review: this job only (J<n>): its steps when it is ready, else exit 1 with the reason')
+    p.add_argument('--id', help='next, review, fix: this job only (J<n>): its steps when it is ready, else exit 1 with the reason')
     p.add_argument('--out', default='_scratch/jobs.html', help='view: where to write the page, relative to the repo root (default %(default)s)')
     p.add_argument('--no-open', action='store_true', help='view: write the page (or start the server) but do not open a browser')
     p.add_argument('--serve', action='store_true', help='view: serve the page on 127.0.0.1 so its buttons start background Claude Code sessions (until Ctrl+C)')
     p.add_argument('--port', type=int, default=0, help='view --serve: the port (default 0: the OS picks one)')
-    p.add_argument('--dry-run', action='store_true', help='view --serve: make every check, but answer with the command instead of running it')
+    p.add_argument('--dry-run', action='store_true', help='view --serve: make every check, but answer with the command instead of running it (with --auto: log what it would start)')
+    p.add_argument('--auto', action='store_true', help='view --serve: also start every ready review and fix by itself, each --interval (D36; never a brief or a build)')
+    p.add_argument('--interval', type=int, default=300, help='view --serve --auto: seconds between autopilot ticks (default %(default)s)')
 
 
 def build_steps(r):
@@ -700,9 +904,24 @@ def brief_steps(r, root, lead='needs a brief (nothing queued is ready)'):
             + ''.join(f'\nThe brief must cover {o}' for o in owed))
 
 
-def review_steps(jid):
-    return (f'{jid}: review branch job/{jid} (git checkout job/{jid}) following docs/REVIEW.md. You must not have built it: '
-            f'CI\'s policy check refuses a review.md written in a session that wrote report.md.')
+def review_steps(jid, done_rounds=0):
+    n = done_rounds + 1
+    after = (f'then set the row: merge -> status=done review=jobs/{jid}/review.md (and queue the merge); otherwise '
+             + (f'status=fix review=jobs/{jid}/review.md (a fix session answers it, then round {n + 1})' if n < MAX_ROUNDS else
+                f'status=blocked blocked_by="{BLOCKED_BY_ROUNDS}" review=jobs/{jid}/review.md (round {MAX_ROUNDS} is the last: Liam decides)'))
+    return (f'{jid}: review branch job/{jid} (git checkout job/{jid}) following docs/REVIEW.md. You must not have built it or fixed it: '
+            f'CI\'s policy check refuses a review.md written in a session that wrote report.md.\n'
+            f'This is round {n}: write "## Round {n} (YYYY-MM-DD, branch job/{jid} at <sha>)" with its one verdict line at the TOP of '
+            f'jobs/{jid}/review.md' + (', above the earlier rounds (read them first; never edit them)' if done_rounds else '') + f'; {after}.')
+
+
+def fix_steps(jid, n):
+    return (f'{jid}: fix round {n} on branch job/{jid} (git checkout job/{jid}). Read "## Round {n}" at the top of jobs/{jid}/review.md '
+            f'and address its blockers and should-fix items, one commit each where you can, with a test where the code allows.\n'
+            f'Then append "## Fix round {n}" to the end of jobs/{jid}/report.md: for each finding what you changed (commit sha), what you '
+            f'left and why. Run python3 core/wsc.py gates and python3 tools/pr_policy.py --branch job/{jid} --base origin/main (only '
+            f'the missing merge verdict and done row may fail), then wsc reg set jobs {jid} status=review and push. '
+            f'Never touch review.md or earlier report sections, and never merge: the next review round is a fresh session.')
 
 
 def refuse(why):
@@ -727,13 +946,22 @@ def run(args, ctx):
         print(f'jobs check: {len(rows)} rows, {"%d problems" % len(errs) if errs else "ok"}')
         return 1 if errs else 0
 
+    if args.auto and not (args.action == 'view' and args.serve):
+        return refuse('--auto runs inside jobs view --serve')
+    if args.auto and args.interval < 30:
+        return refuse('--interval must be at least 30 seconds (each tick fetches every job branch)')
+
     if args.action == 'view' and args.serve:
         def snapshot():   # fresh on every request: the working tree's rows and docs, origin's branches, each job branch's row
             now = load_rows((ctx.root / jobs_path).read_text(encoding='utf-8'))
             branches = remote_branches(ctx.root, args.offline)
             return now, read, branches, branch_rows(ctx.root, branches, args.offline, jobs_path)
-        srv = JobServer(snapshot, list_agents, lambda argv: start_session(argv, ctx.root), port=args.port, dry_run=args.dry_run, root=ctx.root)
+        srv = JobServer(snapshot, list_agents, lambda argv: start_session(argv, ctx.root), port=args.port, dry_run=args.dry_run,
+                        root=ctx.root, log_path=ctx.root / '_scratch' / 'jobs_auto.log')
         print(f'jobs view: serving {srv.url}{" (dry run: nothing is started)" if args.dry_run else ""}; Ctrl+C stops it', flush=True)
+        stop = threading.Event()
+        if args.auto:
+            threading.Thread(target=srv.run_auto, args=(args.interval, stop), daemon=True).start()
         if not args.no_open:
             webbrowser.open(srv.url)
         try:
@@ -741,6 +969,7 @@ def run(args, ctx):
         except KeyboardInterrupt:
             pass
         finally:
+            stop.set()
             srv.server_close()
         return 0
 
@@ -778,17 +1007,21 @@ def run(args, ctx):
             webbrowser.open(out.resolve().as_uri())
         return 0
 
+    action = args.action   # review or fix: both read the job branch's own row
     if args.id:
-        why = not_ready('review', args.id, by, branches, branch_rows(ctx.root, branches, args.offline, jobs_path, only=args.id))
+        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path, only=args.id)
+        why = not_ready(action, args.id, by, branches, on_branch)
         if why:
             return refuse(why)
-        print(review_steps(args.id))
-        return 0
-    on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path)
-    jid = pick_review(on_branch)
-    if jid:
-        print(review_steps(jid))
+        jid = args.id
     else:
-        print('No job branch is waiting for review: ' + (', '.join(f'{j} ({(r or {}).get("status", "no row")}'
-              f'{", reviewed" if rv else ""})' for j, (r, rv) in sorted(on_branch.items(), key=lambda x: num(x[0]))) or 'no job branches'))
+        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path)
+        jid = pick_branch(action, on_branch)
+        if not jid:
+            print(f'No job branch is waiting for {"review" if action == "review" else "fixes"}: ' + (', '.join(
+                f'{j} ({(branch_state(b).row or {}).get("status", "no row")})' for j, b in sorted(on_branch.items(), key=lambda x: num(x[0])))
+                or 'no job branches'))
+            return 0
+    rounds = on_branch[jid].rounds   # not_ready has already refused a 4th review and a fix with no round
+    print(review_steps(jid, rounds) if action == 'review' else fix_steps(jid, rounds))
     return 0
