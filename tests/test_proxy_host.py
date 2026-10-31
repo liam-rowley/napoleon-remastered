@@ -227,6 +227,11 @@ class InputSet(unittest.TestCase):
     def test_harness_set(self):
         self.assertEqual(ci.classify(['proxy/tools/pc_deploy.py']), {'proxy': True, 'harness': True})
         self.assertEqual(ci.classify(['harness/core/job.sh']), {'proxy': False, 'harness': True})
+        # J22: the Windows step of harness-windows runs the Python tests that run bash
+        for f in ('tests/test_job_sh.py', 'tests/test_claude_hook.py', 'tests/test_setup.py', 'tests/test_proxy_host.py',
+                  'tools/verbs/setup.py', 'tools/claude_hook.py', '.claude/settings.json'):
+            self.assertEqual(ci.classify([f]), {'proxy': False, 'harness': True}, f)
+        self.assertEqual(ci.classify(['tests/test_jobs.py', 'tools/verbs/jobs.py']), {'proxy': False, 'harness': False})
 
     def test_unknown_base_means_changed(self):
         self.assertIsNone(ci.local_changes(ROOT, FakeGit(shallow=True))[1])
