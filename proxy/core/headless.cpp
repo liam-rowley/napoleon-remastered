@@ -59,6 +59,7 @@ bool s_cloaked = false, s_hiddenByGuard = false, s_pending = false, s_placed = f
 uint64_t s_layoutAt = 0, s_metricsAt = 0;
 double s_lastTrigger = -1e9, s_noTargetSince = -1;
 DWORD s_ownMoveThread = 0;              // the thread inside the guard's own SetWindowPos (its WM_WINDOWPOSCHANGING passes)
+OwnMove s_ownMove;                      // the main window's last placement by the guard, matched by rect on any thread (IsOwnMove)
 long s_frames = 0;
 int s_logBudget = 40;                   // per-call log lines (gated calls) before only counting
 long s_geomDropped = 0;
@@ -235,6 +236,7 @@ bool PlaceLocked(HWND h) {
     {
         DpiScope d;
         s_ownMoveThread = GetCurrentThreadId();
+        if (pin) { s_ownMove.armed = true; s_ownMove.want = R(t.l, t.t, w, hh); s_ownMove.at = MonoS(); }
         SetWindowPos(h, nullptr, t.l, t.t, w, hh, fl);
         s_ownMoveThread = 0;
     }
@@ -294,19 +296,24 @@ void PostCheckLocked(const char* where) {
 }
 
 // ---- the main window's procedure: topology messages and its own geometry ------------------------------------------------------------
+Pos PosOf(const WINDOWPOS* p) { Pos in; in.x = p->x; in.y = p->y; in.cx = p->cx; in.cy = p->cy; in.flags = p->flags; return in; }
+bool OwnLocked(const Pos& in) { return s_ownMoveThread == GetCurrentThreadId() || IsOwnMove(s_ownMove, in, MonoS()); }
+
 LRESULT CALLBACK GuardProc(HWND h, UINT msg, WPARAM wp, LPARAM lp) {
-    Event ev = Event::Tick; bool trigger = false;
+    Event ev = Event::Tick; bool trigger = false, ownChanged = false;
     switch (msg) {
     case WM_WINDOWPOSCHANGING: if (lp) {
         auto* p = reinterpret_cast<WINDOWPOS*>(lp);
         Lock l;
-        Pos in; in.x = p->x; in.y = p->y; in.cx = p->cx; in.cy = p->cy; in.flags = p->flags;
-        const bool own = s_ownMoveThread == GetCurrentThreadId();
+        const Pos in = PosOf(p);
+        const bool own = OwnLocked(in);
         const PosVerdict v = GatePos(in, own, s_targetKnown, s_targetKnown && Inside(WinRect(h), s_t.m.rc), s_cloaked);
         if (v.changed) { p->flags = v.out.flags; if (v.why && s_logBudget > 0) { --s_logBudget; LOGI("headless: WM_WINDOWPOSCHANGING flags 0x%x -> 0x%x: %s", in.flags, v.out.flags, v.why); } }
         if (v.cloak) TriggerLocked("a show off the target");
     } break;
-    case WM_WINDOWPOSCHANGED: ev = Event::PosChanged; trigger = true; break;
+    case WM_WINDOWPOSCHANGED: ev = Event::PosChanged; trigger = true;
+        if (lp) { Lock l; ownChanged = OwnLocked(PosOf(reinterpret_cast<WINDOWPOS*>(lp))); }
+        break;
     case WM_DISPLAYCHANGE: ev = Event::DisplayChange; trigger = true; break;
     case WM_DPICHANGED: ev = Event::DpiChanged; trigger = true; break;
     case WM_SETTINGCHANGE: if (wp == SPI_SETWORKAREA) { ev = Event::SettingChange; trigger = true; } break;
@@ -319,17 +326,19 @@ LRESULT CALLBACK GuardProc(HWND h, UINT msg, WPARAM wp, LPARAM lp) {
     if (trigger) {
         Lock l;
         if (ev != Event::PosChanged) LOGI("headless: %s", EventName(ev));
-        if (!(ev == Event::PosChanged && s_ownMoveThread == GetCurrentThreadId())) ApplyLocked(Decide(ev, ObserveLocked(ev != Event::PosChanged)));
+        if (!(ev == Event::PosChanged && ownChanged)) ApplyLocked(Decide(ev, ObserveLocked(ev != Event::PosChanged)));
     }
     WNDPROC next; { Lock l; next = s_next; }
     return next ? CallWindowProcW(next, h, msg, wp, lp) : DefWindowProcW(h, msg, wp, lp);
 }
 
 // ---- the guard thread ---------------------------------------------------------------------------------------------------------------
+BOOL CALLBACK SweepCb(HWND h, LPARAM);
 DWORD WINAPI GuardThread(void*) {
     uint64_t lastMetrics = 0;
-    for (unsigned n = 0;; ++n) {
+    for (unsigned n = 1;; ++n) {
         Sleep(4);
+        if (SweepDue(n)) EnumWindows(SweepCb, 0);   // windows no gate saw (SweepHides); outside s_cs, SweepCb locks per window
         Lock l;
         if (!s_haveWindow || !s_main) continue;
         // the cheapest check every poll; the full layout every 25th poll, after any metrics change and while cloaked
@@ -349,13 +358,14 @@ void StartGuardThread() {
     else LOGE("headless: guard thread not started (%lu)", GetLastError());
 }
 
-// A window created before the hooks were in place: hidden unless it is on the target.
+// A window created before the hooks were in place, or since by a DLL through its own imports: hidden unless it is on the target.
 BOOL CALLBACK SweepCb(HWND h, LPARAM) {
     DWORD pid = 0; GetWindowThreadProcessId(h, &pid);
-    if (pid == GetCurrentProcessId() && IsWindowVisible(h) && !Guarded(h)) {
-        const Rect r = WinRect(h);
-        Lock l;
-        if (Width(r) > kHelperMax && !Inside(r, s_t.m.rc)) { LOGW("headless: pre-existing window %p visible at %s: hidden", (void*)h, RectStr(r).c_str()); CloakWindow(h, true); ShowWindowAsync(h, SW_HIDE); }
+    if (pid != GetCurrentProcessId() || !IsWindowVisible(h)) return TRUE;
+    const Rect r = WinRect(h);
+    Lock l;
+    if (SweepHides(IsWindowVisible(h) != 0, s_wins.count(h) != 0, r, s_targetKnown, s_t.m.rc)) {
+        LOGW("headless: unguarded window %p visible at %s: hidden", (void*)h, RectStr(r).c_str()); CloakWindow(h, true); ShowWindowAsync(h, SW_HIDE);
     }
     return TRUE;
 }

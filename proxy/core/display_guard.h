@@ -205,6 +205,31 @@ inline PosVerdict GatePos(const Pos& in, bool own, bool targetKnown, bool inside
     v.changed = v.out.flags != in.flags;
     return v;
 }
+// The guard's own relocation, recognised by its target rect (J13 review should-fix 1). When the guard moves a window another thread
+// owns (a game that presents from a worker thread), SetWindowPos goes asynchronous and the window's own thread handles
+// WM_WINDOWPOSCHANGING later, so the calling thread's id cannot tell the guard's move from the engine's: the move was dropped and the
+// window stayed cloaked for good. The guard arms this record before each placement; a position message that moves and sizes to
+// exactly that rect within kOwnMoveMs is the guard's (an engine move to the very same rect is harmless). Physical pixels: at a
+// scaled target DPI a DPI-unaware window thread sees other numbers, and only the same-thread case is recognised (logged at resolve).
+constexpr unsigned kOwnMoveMs = 2000;
+struct OwnMove { bool armed = false; Rect want; double at = 0; };   // at: monotonic seconds of the arming
+inline bool IsOwnMove(const OwnMove& m, const Pos& in, double now) {
+    if (!m.armed || now < m.at || (now - m.at) * 1000.0 > kOwnMoveMs || (in.flags & (kSwpNoMove | kSwpNoSize))) return false;
+    return in.x == m.want.l && in.y == m.want.t && in.cx == Width(m.want) && in.cy == Height(m.want);
+}
+
+// ---- the window sweep ---------------------------------------------------------------------------------------------------------
+// A top-level window of the process that the guard did not create (a DLL's own CreateWindowExW or MessageBoxW, a CRT or loader
+// dialog) is not in the guarded set, so no gate sees it. The guard thread sweeps every top-level window of the process every
+// kSweepPolls polls (~250 ms; J13 review should-fix 2) and at start-up: a visible unguarded window larger than the helper size is
+// hidden unless it lies wholly inside a known target. The sweep runs outside the guard's lock (it takes it per window).
+constexpr unsigned kSweepPolls = 62;   // x 4 ms poll
+inline bool SweepDue(unsigned poll) { return poll % kSweepPolls == 0; }
+inline bool SweepHides(bool visible, bool guarded, const Rect& r, bool targetKnown, const Rect& target) {
+    if (!visible || guarded) return false;
+    if (Width(r) <= kHelperMax && Height(r) <= kHelperMax) return false;
+    return !(targetKnown && Inside(r, target));
+}
 
 // ---- devices (CreateDevice / Reset) --------------------------------------------------------------------------------------------
 // The game device must be windowed at exactly the wanted size. A windowed device with a tiny back buffer is the engine's offscreen

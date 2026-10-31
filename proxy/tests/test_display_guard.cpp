@@ -119,6 +119,42 @@ void TestGatePos() {
     CHECK((v.out.flags & (kSwpNoMove | kSwpNoSize)) == (kSwpNoMove | kSwpNoSize)); CHECK(!(v.out.flags & kSwpShowWindow));
 }
 
+void TestOwnMove() {
+    OwnMove m; m.armed = true; m.want = R(3840, 0, 3840, 2160); m.at = 10.0;
+    Pos p; p.x = 3840; p.y = 0; p.cx = 3840; p.cy = 2160; p.flags = kSwpNoActivate | kSwpNoZOrder | kSwpAsync;
+    CHECK(IsOwnMove(m, p, 10.05));                                   // the guard's async move, handled later on the window's thread
+    CHECK(!IsOwnMove(m, p, 10.0 + kOwnMoveMs / 1000.0 + 0.01));       // stale record
+    CHECK(!IsOwnMove(m, p, 9.0));                                     // before the arming
+    Pos q = p; q.x = 0; CHECK(!IsOwnMove(m, q, 10.05));               // the engine's own move elsewhere
+    q = p; q.cx = 1920; CHECK(!IsOwnMove(m, q, 10.05));
+    q = p; q.flags |= kSwpNoMove; CHECK(!IsOwnMove(m, q, 10.05));     // a z-order-only call is not a placement
+    OwnMove off; CHECK(!IsOwnMove(off, p, 0.0));
+    // through the gate: recognised -> the move passes; unrecognised (the J13 thread-id test on another thread) -> dropped
+    CHECK(!(GatePos(p, IsOwnMove(m, p, 10.05), false, false, true).out.flags & kSwpNoMove));
+    CHECK(GatePos(p, false, false, false, true).out.flags & kSwpNoMove);
+}
+
+void TestSweep() {
+    const Rect t = R(3839, 2160, 3840, 2160);
+    CHECK(SweepHides(true, false, R(0, 0, 640, 480), true, t));       // a DLL's dialog on the primary
+    CHECK(!SweepHides(true, false, R(4000, 2300, 640, 480), true, t));// on the target: left alone
+    CHECK(SweepHides(true, false, R(4000, 2300, 640, 480), false, t));// target being re-resolved: fail closed
+    CHECK(!SweepHides(false, false, R(0, 0, 640, 480), true, t));     // not visible
+    CHECK(!SweepHides(true, true, R(0, 0, 3840, 2160), true, t));     // guarded: the gates and the guard own it
+    CHECK(!SweepHides(true, false, R(0, 0, 1, 1), true, t));          // the engine's helper size
+    CHECK(SweepHides(true, false, R(0, 0, 2, 400), true, t));         // thin but tall is not a helper
+    CHECK(SweepDue(kSweepPolls)); CHECK(!SweepDue(kSweepPolls + 1)); CHECK(kSweepPolls * 4 <= 250u);
+    // timeline: a DLL shows a window at 1500 ms on the primary; the guard polls every 4 ms (n from 1, as GuardThread counts)
+    int visibleMs = 0; bool shown = false, hidden = false;
+    for (int now = 0, n = 0; now < 3000; ++now) {
+        if (now == 1500) shown = true;
+        if (now % 4 == 0) { ++n; if (SweepDue((unsigned)n) && shown && !hidden && SweepHides(true, false, R(0, 0, 640, 480), true, t)) hidden = true; }
+        if (shown && !hidden) ++visibleMs;
+    }
+    CHECK(hidden); CHECK(visibleMs <= (int)(kSweepPolls * 4));
+    printf("  sweep: a DLL window after start-up hidden after %d ms (sweep every %u ms)\n", visibleMs, kSweepPolls * 4);
+}
+
 Obs Steady() {
     Obs o; o.haveWindow = true; o.visible = true; o.window = R(3839, 2160, 3840, 2160);
     o.targetKnown = true; o.target = o.window; o.liveOk = true; o.live = o.window;
@@ -176,6 +212,10 @@ struct Sim {
     int lastTrigger = -100000, noTargetSince = -1;
     int onRealMs = 0, cloakedMs = 0, triggers = 0, relocations = 0;
     unsigned settle = 500, grace = 5000;
+    // workerPresent: the game presents from a thread that does not own the window, so the guard's move is asynchronous and the
+    // window's thread handles WM_WINDOWPOSCHANGING asyncLagMs later (J13 review should-fix 1); byRect = the fix (IsOwnMove), else
+    // the J13 test (thread id, which never matches there)
+    bool workerPresent = false, byRect = true; int asyncLagMs = 3, asyncAt = -1; Rect asyncWant; OwnMove own;
 
     uint64_t Metrics() const {   // count + bounding box of the desktop
         long l = 1 << 30, t = 1 << 30, r = -(1 << 30), b = -(1 << 30);
@@ -206,7 +246,9 @@ struct Sim {
         const uint64_t before = Layout(mons);
         if (!Resolve()) { if (noTargetSince < 0) noTargetSince = now; if (RefuseNow((unsigned)(now - noTargetSince), grace)) { refused = true; visible = false; } return; }
         noTargetSince = -1;
-        window = target; ++relocations;
+        ++relocations;
+        if (workerPresent) { own.armed = true; own.want = target; own.at = now / 1000.0; asyncWant = target; asyncAt = now + asyncLagMs; }
+        else window = target;
         const Monitor* l = Live();
         if (PlacementVerified(target, window, l != nullptr, l ? l->rc : Rect{}, before, Layout(mons))) {
             placed = true; targetKnown = true; pending = false; layoutAt = before; metricsAt = Metrics();
@@ -219,6 +261,11 @@ struct Sim {
         size_t next = 0;
         for (int now = 0; now < endMs && !refused; ++now) {
             while (next < changes.size() && changes[next].first == now) mons = changes[next++].second;   // Windows changes the topology; the window stays put
+            if (now == asyncAt) {   // the window's thread handles the guard's queued move (GuardProc's WM_WINDOWPOSCHANGING)
+                Pos in; in.x = asyncWant.l; in.y = asyncWant.t; in.cx = Width(asyncWant); in.cy = Height(asyncWant); in.flags = kSwpNoActivate | kSwpAsync;
+                const PosVerdict v = GatePos(in, byRect && IsOwnMove(own, in, now / 1000.0), targetKnown, targetKnown && Inside(window, target), cloaked);
+                if (!(v.out.flags & kSwpNoMove)) window = asyncWant;
+            }
             if (now % 4 == 0) { Obs o = Observe(true); o.msSinceTrigger = (unsigned)(now - lastTrigger); Apply(Decide(Event::Tick, o), now); }
             if (now % 16 == 0) {
                 Obs o = Observe(false); o.msSinceTrigger = (unsigned)(now - lastTrigger); Apply(Decide(Event::Tick, o), now);
@@ -247,6 +294,15 @@ void TestSimulation() {
         s.changes.push_back({ 1000, moved }); s.Run(3000);
         CHECK(!s.refused); CHECK_EQ(s.onRealMs, 0); CHECK(Same(s.window, R(3840, 0, 3840, 2160))); CHECK(!s.cloaked);
         CHECK(s.cloakedMs >= 500);                                    // settled before uncloaking
+    }
+    {   // J13 should-fix 1: the same move with Present on a worker thread. Fixed: the async move is recognised by its rect, ends uncloaked
+        Sim s; s.mons = TopoToday(); s.workerPresent = true; auto moved = TopoToday(); moved[2].rc = R(3840, 0, 3840, 2160);
+        s.changes.push_back({ 1000, moved }); s.Run(3000);
+        CHECK(!s.refused); CHECK_EQ(s.onRealMs, 0); CHECK(Same(s.window, R(3840, 0, 3840, 2160))); CHECK(!s.cloaked);
+        // the J13 behaviour (own = same thread): the move is dropped every time and the window stays cloaked for good
+        Sim o; o.mons = TopoToday(); o.workerPresent = true; o.byRect = false; o.changes.push_back({ 1000, moved }); o.Run(3000);
+        CHECK(o.cloaked); CHECK(!Same(o.window, R(3840, 0, 3840, 2160))); CHECK_EQ(o.onRealMs, 0);
+        printf("  sim worker-thread present: fixed ends on the target uncloaked; thread-id test still cloaked after %d ms\n", o.cloakedMs);
     }
     {   // a burst: the virtual display vanishes for 1.2 s (a monitor coming online) and returns elsewhere: recovers, never refuses
         Sim s; s.mons = TopoToday(); auto gone = TopoToday(); gone.pop_back(); auto back = TopoToday(); back[2].rc = R(-6400, 0, 3840, 2160);
@@ -315,6 +371,6 @@ void TestLints() {
 
 int main(int argc, char** argv) {
     tk::Args(argc, argv);
-    TestSelect(); TestModes(); TestCreateShowStyle(); TestGatePos(); TestDecide(); TestStatus(); TestSimulation(); TestLints();
+    TestSelect(); TestModes(); TestCreateShowStyle(); TestGatePos(); TestOwnMove(); TestSweep(); TestDecide(); TestStatus(); TestSimulation(); TestLints();
     return tk::Done("test_display_guard");
 }
