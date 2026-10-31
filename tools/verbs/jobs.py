@@ -18,7 +18,8 @@ Review rounds (D36, J52): review.md holds `## Round N (YYYY-MM-DD, branch job/J<
 verdict each, so verdict() reads the latest. The reviewer sets the row: merge -> done; otherwise fix (rounds 1 and 2) or blocked (round 3).
 A fix session appends `## Fix round N` to report.md and sets review again. `--serve --auto` runs a thread that, every `--interval`
 seconds, takes the same snapshot as the buttons and starts every ready review and fix through the same launch path (never a brief or a
-build), skipping a job while any session named J<n>-* is live; each tick, launch and refusal is one line on stderr and in _scratch/jobs_auto.log.
+build), skipping a job while any session named J<n>-* is live, and starting each (job, action) at most once per branch head (a session
+that ends without pushing is not restarted every tick); each tick, launch and refusal is one line on stderr and in _scratch/jobs_auto.log.
 `claude agents --json` (Claude Code 2.1.316, read on the PC 2026-10-31, J52): lists background sessions with `state` "working", "blocked"
 (waiting for input) or "done" (finished sessions stay listed until removed); interactive sessions carry no state. Live = working or
 blocked. `--name` is a display name (`claude --help`); the launch reports the session id, which is what `claude attach` should be given.
@@ -744,6 +745,7 @@ class JobServer(ThreadingHTTPServer):
         self.url = f'http://{self.host}/'
         self.lock = threading.Lock()
         self.auto = None   # {'interval', 'last', 'dry_run'} while the autopilot runs
+        self.started = {}  # (id, action) -> the job branch head the autopilot started it at (J52 review 1)
 
     def page(self):
         rows, read, branches, on_branch = self.snapshot()
@@ -794,8 +796,10 @@ class JobServer(ThreadingHTTPServer):
 
     def auto_tick(self):
         """One autopilot pass (D36): a fresh snapshot and agent list, then every job branch ready for review or fix is started through
-        start(..., family=True). Never a brief or a build. A snapshot or agent-list error skips the whole tick. Returns the
-        (id, action, code, message) of every attempt."""
+        start(..., family=True). Never a brief or a build. A snapshot or agent-list error skips the whole tick. Each (id, action) is
+        started at most once per branch head (J52 review 1): a session that ends without pushing leaves the row as it was, and must
+        not be started again every tick until someone looks; a push moves the head and allows the next start. The memory is this
+        process's: a restarted server may start such a job once more. Returns the (id, action, code, message) of every attempt."""
         if self.auto is not None:
             self.auto['last'] = utc_now()
         try:
@@ -809,15 +813,22 @@ class JobServer(ThreadingHTTPServer):
             self.auto_log(f'tick skipped: cannot list the running sessions ({x})')
             return []
         by = {r['id']: r for r in rows}
-        done = []
+        done, waiting = [], 0
         for jid in sorted(on_branch or {}, key=num):
             for action in BRANCH_ACTIONS:
                 if jid not in by or not_ready(action, jid, by, branches, on_branch) is not None:
                     continue
+                head = branch_state(on_branch[jid]).head
+                if (jid, action) in self.started and self.started[(jid, action)] == head:
+                    self.auto_log(f'{jid}-{action}: started at {(head or "unknown head")[:12]}, waiting for a push to job/{jid}')
+                    waiting += 1
+                    continue
                 code, msg, _ = self.start(jid, action, by, branches, on_branch, family=True, agents=agents)
+                if code == 200:
+                    self.started[(jid, action)] = head
                 self.auto_log(f'{jid}-{action}: {msg}')
                 done.append((jid, action, code, msg))
-        if not done:
+        if not done and not waiting:
             self.auto_log(f'tick: nothing ready for review or fix ({len(on_branch or {})} job branches)')
         return done
 

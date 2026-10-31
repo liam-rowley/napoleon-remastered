@@ -536,6 +536,28 @@ class Autopilot(unittest.TestCase):
         srv.auto_tick()
         self.assertEqual(self.launched, ['J4-review'])   # a finished J4 session and another job's session do not count
 
+    def test_a_session_that_ends_without_pushing_is_started_once_per_branch_head(self):
+        # J52 review 1: the reviewer ended (state done) and the row still says review; only a push to the branch allows another start
+        srv = self.make({'J4': jv.Branch(row('J4', status='review', model='sonnet'), 0, 'aaa111')},
+                        agents=lambda: [{'name': 'J4-review', 'state': 'done'}])
+        for _ in range(3):
+            srv.auto_tick()
+        self.assertEqual(self.launched, ['J4-review'])
+        self.assertIn('J4-review: started at aaa111, waiting for a push to job/J4', self.lines[-1])
+        self.state['on']['J4'] = jv.Branch(row('J4', status='review', model='sonnet'), 0, 'bbb222')
+        srv.auto_tick()
+        srv.auto_tick()
+        self.assertEqual(self.launched, ['J4-review', 'J4-review'])
+
+    def test_a_refused_launch_is_not_remembered(self):
+        busy = {'on': True}
+        srv = self.make({'J4': jv.Branch(row('J4', status='review', model='sonnet'), 0, 'aaa111')},
+                        agents=lambda: [{'name': 'J4-build', 'state': 'working'}] if busy['on'] else [])
+        srv.auto_tick()
+        busy['on'] = False
+        srv.auto_tick()
+        self.assertEqual(self.launched, ['J4-review'])   # the build ended; the same head may start now
+
     def test_never_starts_a_brief_or_a_build(self):
         srv = self.make({})   # J2 is ready to build and J3 to brief (the button fixture), and nothing is on a job branch
         self.assertEqual(srv.auto_tick(), [])
