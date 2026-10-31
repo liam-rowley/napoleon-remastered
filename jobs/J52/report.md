@@ -101,3 +101,25 @@ After this branch's row was set to `review` and pushed, one more dry-run tick fo
   or skipping branches whose main row is `done`, would make ticks faster.
 - **`test_pc_deploy` fails while the game is running.** Those tests could stub the "is the game running" check so `wsc gates`
   passes on the PC with the game open. That belongs in a separate job.
+
+## Fix round 1
+Answers review round 1 (2026-10-31, at 1eefcf9). Same session as the build (7c221f81); `review.md` is untouched.
+
+- **1, blocker (relaunch loop): fixed in aa3af7f.** `JobServer.started` keeps, in this process, the branch head each (job,
+  action) was started at; `branch_rows` now also reads each branch's head sha. `auto_tick` skips an action already started at the
+  current head with one line (`J<n>-review: started at <sha>, waiting for a push to job/J<n>`) and starts it again once the head
+  moves. Only a successful start is remembered, so a launch refused for a live session is retried on the next tick.
+  Tests: `Autopilot.test_a_session_that_ends_without_pushing_is_started_once_per_branch_head` (the reviewer's repro: a `done`
+  J4-review and a `review` row give one launch over three ticks, and one more after the head changes) and
+  `test_a_refused_launch_is_not_remembered`. Limit: the memory is in-process, so restarting `--serve --auto` can start a stuck
+  job once more (named in the docstring).
+- **2, should-fix (round cap outside readiness): fixed in 6e0320e.** `branch_rows` returns `Branch(row, rounds, head)`, and
+  `not_ready` refuses `review` once `review.md` has 3 rounds and `fix` with no round. `jobs review` and `jobs fix` no longer refuse
+  on their own; the buttons, the server and the loop get the same answer. A bare row is still accepted as an `on_branch` value
+  (no rounds, unknown head), so callers and tests that pass rows keep working. Tests: `Ready.test_the_round_cap_is_part_of_readiness`
+  (no button for a 4th review) and the no-round case in `Ready.test_fix_is_ready_from_the_branch_row`; the fix fixtures now carry a round.
+- **3, later (overlapping fetches): left.** It fails closed (a skipped tick or a page error). A shared cached snapshot, and
+  skipping branches whose main row is `done`, belong with the tick-cost question already in Open questions.
+- **4, later (`test_pc_deploy` with the game open): left**, as the review says: a separate job.
+
+Results: `tests.test_jobs` + `tests.test_pr_policy` 86 ok; `wsc jobs check` 52 rows ok; full `wsc gates` 11 ok, 1 warn (hooks path), 0 failed (the game was closed this time, so `test_pc_deploy` passed). Row set back to `status=review`.
