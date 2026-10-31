@@ -16,6 +16,6 @@ Report and evidence: `jobs/J36/report.md`, `upscale/runs/`. Sheets to judge: `up
 ## Rules (code: `upscale/core/rules.py`, `resample.py`, `batch.py`)
 - Target = floor(2.5 x size + 0.5) per axis; a longest side at or above `native_cap` (2048) or a non-image file is skipped with a reason.
 - RGB goes through the model (x2) after dilation under A = 0, then Lanczos to the exact target; alpha never meets the model (Lanczos, cut at 128 when the vanilla alpha is a cut-out).
-- DDS keeps the vanilla format and header (size and mips change) with the full chain: RGB box in linear light, alpha plain box. TGA and JPG keep their container, no mips: a DDS at a `.tga` path is not drawn (fact `napoleon.ui_art.dds_at_tga_paths`, refuted in J50).
+- DDS keeps the vanilla format and header (size and mips change) with the full chain: RGB box in linear light, alpha plain box. TGA and JPG keep their container, no mips: a DDS at a `.tga` path was not drawn (fact `napoleon.ui_art.dds_at_tga_paths`, refuted in J50 on one probe whose DXT size was not a multiple of 4: see the fact's notes).
 - Resume key = input sha256 + model sha256 + settings; a second run changes nothing. Pack entries sit under `ui_art_2x5\<vanilla path>`.
 - Models are pinned in `upscale/napoleon/models.json` (URL, sha256, licence) and fetched into the work folder, never committed.
