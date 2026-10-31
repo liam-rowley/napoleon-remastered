@@ -1,5 +1,55 @@
 # Review of J18 (PC-side rule guards)
 
+## Round 2 (2026-10-31, branch `job/J18` at 076dae9)
+
+Reviewer: session `8447249e-c752-4a91-ac0b-a52ac8a6c509` (did not build the branch; builder `ac3e361c-a547-407e-9359-4d1c376bf94e`).
+
+**Verdict: merge.**
+
+Round 1's only blocker (rule 79) is met, and nothing else on the branch has changed since round 1 except the report and the evidence.
+The commits since round 1 are `41e1a7f` (the report's CI evidence now names run 41147641941, round 1 finding 6) and `076dae9`
+(acceptance). Neither touches code.
+
+### Machines
+- `python3 tools/pr_policy.py --branch job/J18 --base origin/main` at 076dae9: rule 79 passes. The only refusals left were this
+  review's verdict and the row, and both are settled by this commit.
+- CI on 076dae9 (run 41189004189): `changes`, `gates`, `proxy`, `harness-windows` all success.
+- `wsc gates`, run from PowerShell on the PC: `tests` fails in 11 `test_job_sh` cases with exit 127, and **main fails the same way**.
+  `bash` there resolves to WSL's `WindowsApps\bash.exe`, which drops the backslashes in the path (later 2). Under Git Bash (D30's shell),
+  `tests.test_job_sh`, `test_claude_hook`, `test_pc_deploy` and `test_setup` run 63 tests and pass.
+
+### Acceptance evidence (blocker 1), checked against the PC
+- The build id is right. `pr_policy.py:231` takes the last commit of the DLL inputs, and J18 changes none of them, so the id is
+  `32c0b9a66de1` (main's J44 merge) on this branch. The kit was cut from `03354d8`, which includes both round 1 code fixes
+  (`ca33dc3`, `5ac23b2`). From the PC install (`119004d`) to HEAD, `harness/core/` is unchanged. The only change in that range is
+  `pc_deploy.py` sync-lua (+4), which runs from the repo, not the kit, so watcher 1.1.0 on the PC is this branch's watcher.
+- The ledger has 21 new lines. The first is pass 1 of `20261031_j18acc`, which failed only `settings_identical`; the report explains
+  why. After it come 20 passes in `20261031_j18acc2`, all `job/J18`, build `32c0b9a66de1`, watcher 1.1.0, and about 3m55s apart,
+  which is a real game cycle. `pass_20.json` agrees with its ledger line (start 09:26:37, end 09:30:29, 26 steps, passed).
+- Live `pc_deploy.py status` on the PC: kit `kit_20261031T080721Z_03354d8bfb63` installed 08:07:22, `exe: ok` (vanilla sha1 in the
+  identity), `git: ok`, `foreign: 0`. One line reads `BAD napoleon_remastered.ini`: that is the ini change from `ctl.py`'s launch keys
+  that the report names (later 1). It is not damage.
+
+## Findings (round 2)
+
+### Blocker
+None.
+
+### Should-fix
+None.
+
+### Later
+1. **The PC's ini reads BAD after any acceptance run, and pass 1 after a fresh install always fails.** `ctl.py` leaves its launch keys
+   in the installed ini through `pc_deploy set`. So `pc_deploy status` shows `BAD napoleon_remastered.ini` from then on, and
+   `settings_identical` fails the first pass after a fresh install (run `20261031_j18acc`). The report proposes the fix, which is an
+   Empire repeat. `acceptance.py run` should apply the launch keys before its "before" snapshot and read the build id after the first
+   launch. `status` should treat the known launch keys as set, not as damage. Proposed `needs_brief` row.
+2. **`wsc gates` fails falsely when run from PowerShell.** The bash found first on PATH is WSL's, so `tests/test_job_sh.py` gets exit
+   127. Main fails the same way, so this is not from J18. The test (or `wsc setup`) should resolve Git Bash explicitly, or say which
+   bash it found. Proposed `needs_brief` row.
+3. Round 1 later items 4 (hooks only run in a session started in the repo folder), 7 (`origin/rescue/J18-7b8bd96` can be deleted,
+   Liam's call) and 8 (`Script-RunsGit` word match) still stand. Item 5 (the PC runs an unmerged watcher) is settled by this merge.
+
 ## Round 1 (2026-10-31, branch `job/J18` at 4daf44e)
 
 Reviewer: session `92704410-67e1-4f26-a0b0-9f495e9d8031` (did not build the branch; builder `ac3e361c-a547-407e-9359-4d1c376bf94e`).
