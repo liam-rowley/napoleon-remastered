@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # purpose: build the proxy d3d9.dll (mingw-w64 i686, the release route) and/or build and run the host tests (g++)
-# usage: proxy/tools/build.sh [--docker] [dll|tests|all|smoke|repro] [--adapter napoleon]   (--docker: the same target inside ubuntu:24.04 pinned by digest with CI's packages, the PC route (D31); smoke: run the built DLL under wine with a stand-in exe; repro: rebuild from a copy at another path, fail unless byte-identical)   (outputs in build/proxy/; needs g++-mingw-w64-i686 for dll, or Docker Desktop with --docker)
+# usage: proxy/tools/build.sh [--docker] [dll|tests|all|smoke|repro|id] [--adapter napoleon]   (--docker: the same target inside ubuntu:24.04 pinned by digest with CI's packages, the PC route (D31); smoke: run the built DLL under wine with a stand-in exe; repro: rebuild from a copy at another path, fail unless byte-identical; id: print the build id only)   (outputs in build/proxy/; needs g++-mingw-w64-i686 for dll, or Docker Desktop with --docker)
 # when: after any change under proxy/ (CI runs `all` on every push); on the PC always with --docker; the DLL in build/proxy/<adapter>/d3d9.dll is what proxy/tools/pc_deploy.py kits
 # not-a-verb: a compiler driver for C++ sources, not a registry operation; CI and agents call it directly
 set -euo pipefail
@@ -12,21 +12,14 @@ APT="g++-mingw-w64-i686 g++ python3 ca-certificates"
 WHAT="${1:-all}"; ADAPTER="napoleon"
 [[ "${2:-}" == "--adapter" ]] && ADAPTER="${3:?adapter name}"
 OUT="$ROOT/build/proxy"; mkdir -p "$OUT/$ADAPTER" "$OUT/tests"
-# Build id = the last commit that changed the DLL's inputs, not HEAD: a later report or run commit must not change the binary, or
-# the DLL tested on the PC is never the head DLL (J1 review finding 2). -dirty when an input has local changes.
-DLL_INPUTS=(proxy/core proxy/napoleon proxy/tools/build.sh proxy/tools/fetch_lua.py)
-# The build id comes from the commit history: a shallow clone sees HEAD as the last commit touching the inputs and builds a DLL
-# whose id is not the tested one (J1 deviation: CI run 40775169543). Refuse instead of building a wrong id.
+# Build id = a hash of the DLL inputs' content (proxy/tools/build_id.py, the one implementation, which rule 79 also uses): a report
+# commit, a reword or a rebase that leaves the inputs alone keeps the id; -dirty when an input has local changes (J45).
 if [[ -n "${WSP_BUILD_ID:-}" ]]; then
   BUILD_ID="$WSP_BUILD_ID"   # inside --docker: the host computed it (a worktree's .git points at a host path the container cannot see)
 else
-  if [[ "$(git -C "$ROOT" rev-parse --is-shallow-repository 2>/dev/null)" == true ]]; then
-    echo "build.sh: $ROOT is a shallow clone: the build id would be wrong. Fetch the history first (git fetch --unshallow, or a bounded"
-    echo "          git fetch --depth=1000 origin <branch>; CI: actions/checkout fetch-depth: 0)"; exit 4
-  fi
-  BUILD_ID="$(git -C "$ROOT" log -1 --format=%h --abbrev=12 -- "${DLL_INPUTS[@]}" 2>/dev/null || true)"; BUILD_ID="${BUILD_ID:-nogit}"
-  BUILD_ID="$BUILD_ID$(git -C "$ROOT" diff --quiet HEAD -- "${DLL_INPUTS[@]}" 2>/dev/null || echo -dirty)"
+  BUILD_ID="$(python3 "$ROOT/proxy/tools/build_id.py" --root "$ROOT")" || { echo "build.sh: no build id (above)"; exit 4; }
 fi
+[[ "$WHAT" == id ]] && { echo "$BUILD_ID"; exit 0; }   # the id this checkout's DLL would carry (tests: build.sh and rule 79 agree)
 
 if [[ $DOCKER == 1 ]]; then
   docker info >/dev/null 2>&1 || { echo "build.sh --docker: Docker is not answering: start Docker Desktop (Linux containers); fallback: the CI artifact (proxy/README.md \"Build\")"; exit 2; }

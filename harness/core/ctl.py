@@ -324,7 +324,7 @@ class Pc:
         inst = Path(self.a['state_dir']) / 'install.json'
         rec = json.loads(inst.read_text(encoding='utf-8')) if inst.exists() else {}
         ini = ini_values(self.ini_path().read_text(encoding='utf-8')) if self.ini_path().exists() else {}
-        # the DLL's own build id (the last commit of its inputs: what rule 79 compares), from its load line; the kit id names HEAD at kit time
+        # the DLL's own build id (a hash of its inputs' content, proxy/tools/build_id.py: what rule 79 compares), from its load line; the kit id names HEAD at kit time
         log = self.ini_path().parent / ident_mod(self.a) / 'logs' / 'proxy.log'
         m = re.search(r'd3d9\.dll build (\S+) loaded', log.read_text(encoding='utf-8', errors='replace')) if log.exists() else None
         return {'build': m.group(1) if m else rec.get('build_id'), 'kit': rec.get('kit_id'), 'backend': ini.get('proxy.backend'),

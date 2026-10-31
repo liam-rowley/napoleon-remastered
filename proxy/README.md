@@ -22,7 +22,7 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 **Release route: mingw-w64 i686 (`g++-mingw-w64-i686`, GCC 13 win32 thread model) on Linux**, in CI (`ubuntu-24.04`) and on the
 PC inside Docker Desktop (`ubuntu:24.04` pinned by digest in `build.sh`, the same apt packages; D31). Why this one and not MSVC on the Windows runner:
 - one toolchain everywhere an agent works: the local container builds exactly what CI builds, so the DLL tested on the PC is reproducible
-  from the commit (no PE timestamp, relative file names; build id = commit, `-dirty` if `proxy/` has local changes);
+  from the commit (no PE timestamp, relative file names; build id = a hash of the DLL inputs' content, `proxy/tools/build_id.py`, `-dirty` if an input has local changes: J45);
 - DXVK's own release route is mingw (empire-remastered `dxvk_fork/docs/build.md`), so a later DXVK-side change needs no second toolchain;
 - the DLL depends on system DLLs only (static libgcc/libstdc++, no winpthread): `build.sh` fails on any other import, and on a
   missing or decorated export (`Direct3DCreate9@4`).

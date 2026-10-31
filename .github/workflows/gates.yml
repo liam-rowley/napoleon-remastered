@@ -82,13 +82,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      # full history: the build id is the last commit touching the DLL inputs (build.sh); a shallow clone sees only HEAD, so every
-      # push would get a new build id and new DLL bytes, and the CI DLL would stop matching the PC-tested one (J1 run 40775169543).
+      # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (proxy/tools/build_id.py, J45), not history
       - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: the checkout has full history (the build id depends on it)
-        run: test "$(git rev-parse --is-shallow-repository)" = false
       - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
       - run: proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path
