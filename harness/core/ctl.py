@@ -466,9 +466,10 @@ class Ctl:
             raise RuntimeError(f'ctl state failed (exit {rc}): is the game running with dev.ctl=1?')
         return r['state']
 
-    def settle(self):
+    def settle(self, extra_scenes=()):
         s = self.cfg.get('settle', {})
-        return Settle(s.get('frames', 30), s.get('quiet_ms', 2000), s.get('timeout_s', 120), s.get('ready_scenes', list(BATTLE_SCENES) + ['campaign']),
+        ready = list(s.get('ready_scenes', list(BATTLE_SCENES) + ['campaign'])) + list(extra_scenes)
+        return Settle(s.get('frames', 30), s.get('quiet_ms', 2000), s.get('timeout_s', 120), ready,
                       self.state, self.clock, self.sleep).wait()
 
     def current_kind(self):
@@ -693,7 +694,8 @@ class Ctl:
             raise Refused('a shot name is letters, digits, . _ -')
         if self.shotter is None:
             raise Refused('no shot helper configured')
-        settle = self.settle()
+        # a shot is also wanted at the main menu (J50: the 120 s settle timeout at 'frontend'); scenes and resets keep the adapter's list
+        settle = self.settle(extra_scenes=('frontend',))
         if not settle['settled']:
             return make_result('shot', 'failed', 'step settle: ' + json.dumps(settle), start, settle=settle)
         path, size = self.shotter(name)

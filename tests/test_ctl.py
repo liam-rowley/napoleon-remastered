@@ -164,6 +164,13 @@ class Refusals(unittest.TestCase):
         self.assertEqual(make().run('speed', 'fast')['status'], 'refused')
         self.assertEqual(make(shotter=lambda n: ('p', 1)).run('shot', '../x')['status'], 'refused')
 
+    def test_shot_settles_at_the_main_menu(self):
+        """J50: a shot at 'frontend' waited the whole settle timeout and failed; the main menu is a shot target, not a scene target."""
+        r = make(shotter=lambda n: (f'/tmp/{n}.jpg', 1000)).run('shot', 'menu')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+        self.assertEqual(r['settle']['scene'], 'frontend')
+        self.assertFalse(make().settle()['settled'])   # scene and reset still wait for the adapter's ready scenes only
+
     def test_perf_checks_its_numbers(self):
         r = make().run('perf', '10')
         self.assertEqual(r['frame_ms']['p50'], 16.6)
