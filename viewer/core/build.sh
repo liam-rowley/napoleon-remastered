@@ -15,8 +15,10 @@ if [[ $DOCKER == 1 ]]; then
   SRC="$ROOT"; command -v cygpath >/dev/null && SRC="$(cygpath -w "$ROOT")"   # Git Bash: docker wants C:\...
   echo "build.sh --docker: $WHAT in $IMAGE"
   # The CMake tree lives in a named volume (a Windows bind mount is slow for thousands of objects); /src is the same path in CI.
+  # One volume per checkout (J31 review): worktrees sharing one tree would reuse objects newer than their own sources, and race.
+  VOL="napoleon-viewer-cmake-$(printf %s "$ROOT" | sha256sum | cut -c1-12)"
   # MSYS_NO_PATHCONV: Git Bash would rewrite /src and the -v arguments into Windows paths
-  MSYS_NO_PATHCONV=1 docker run --rm -v "$SRC:/src" -v napoleon-viewer-cmake:/src/build/viewer/cmake -w /src "$IMAGE" \
+  MSYS_NO_PATHCONV=1 docker run --rm -v "$SRC:/src" -v "$VOL:/src/build/viewer/cmake" -w /src "$IMAGE" \
     bash viewer/core/build.sh "$WHAT"
   exit $?
 fi
