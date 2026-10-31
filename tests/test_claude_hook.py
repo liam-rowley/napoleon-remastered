@@ -155,6 +155,16 @@ class PcRules(unittest.TestCase):
             self.assertIn('protected PC folder', why)
             self.assertIn('job.sh scratch', why)
 
+    def test_bash_escaped_spaces_are_read_as_the_path(self):
+        """J18 review: tab completion writes `Napoleon\\ Total\\ War`; the backslash there is an escape, not a Windows separator."""
+        esc = r'/c/Program\ Files\ \(x86\)/Steam/steamapps/common/Napoleon\ Total\ War'
+        for c in (f'cd {esc} && git status', f'git -C {esc} log', f'GIT_DIR={esc}/.git git log'):
+            self.assertIn('Never run git', pc(c) or '', c)
+        for c in (f'cp x.dll {esc}/', f'echo x > {esc}/dxvk.conf', f'rm {esc}/d3d9.dll'):
+            self.assertIn('protected PC folder', pc(c) or '', c)
+        self.assertIsNone(pc(r'ls /c/Program\ Files\ \(x86\)/Steam/steamapps/common/Napoleon\ Total\ War'))
+        self.assertIsNone(pc(r'cp a.txt notes\ for\ j18.txt'))
+
     def test_reads_scratch_and_the_sanctioned_writers_pass(self):
         for c in (f'ls -la "{NAP}"', f'cat "{NAP}/napoleon_remastered.ini"', f'sha1sum "{NAP}/Napoleon.exe"', f'cp "{NAP}/dxvk.conf" /tmp/x',
                   rf'grep -r x "{STATE}/watcher" > /tmp/out.txt', rf'Get-Content "{NAP}\dxvk.conf"', rf'Copy-Item "{NAP}\dxvk.conf" C:\tmp\x',

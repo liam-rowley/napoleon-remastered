@@ -20,9 +20,12 @@ GIT = re.compile(r'''(?<![\w./$-])git(?:\.exe)?(?![\w.-])''')
 SEP = re.compile(r'&&|\|\||[;\n|]|(?<!>)&(?!>)')   # 2>&1 and &> stay inside their command
 SCRATCH_OWNER = re.compile(r'^[a-z0-9][a-z0-9_-]{0,31}$')
 EXEMPT = re.compile(r'(?<![\w-])(pc_deploy\.py|job\.sh)(?![\w-])')
-REDIRECT = re.compile(r'''(?<![<>&\d])\d?>>?\|?\s*("[^"]*"|'[^']*'|[^\s;&|<>]+)''')
-GIT_ENV = re.compile(r'''\bGIT_(?:DIR|WORK_TREE)\s*=\s*("[^"]*"|'[^']*'|[^\s;&|]+)''', re.I)
-GIT_OPT = re.compile(r'''--(?:git-dir|work-tree)(?:=|\s+)("[^"]*"|'[^']*'|[^\s;&|]+)''')
+# Bash escapes a space or a parenthesis with a backslash (`Napoleon\ Total\ War`, tab completion's spelling); any other backslash is a
+# Windows separator
+ESCAPED = re.compile(r'\\(?=[ ()])')
+REDIRECT = re.compile(r'''(?<![<>&\d])\d?>>?\|?\s*("[^"]*"|'[^']*'|(?:\\[ ()]|[^\s;&|<>])+)''')
+GIT_ENV = re.compile(r'''\bGIT_(?:DIR|WORK_TREE)\s*=\s*("[^"]*"|'[^']*'|(?:\\[ ()]|[^\s;&|])+)''', re.I)
+GIT_OPT = re.compile(r'''--(?:git-dir|work-tree)(?:=|\s+)("[^"]*"|'[^']*'|(?:\\[ ()]|[^\s;&|])+)''')
 WRAPPERS = {'sudo', 'xargs', 'command', 'exec', 'env', 'time', 'nohup'}
 CD = {'cd', 'pushd', 'set-location', 'push-location', 'sl'}
 # the write commands; the value says which arguments are written: all (every path argument), last (the destination), sed (only with -i),
@@ -52,7 +55,7 @@ def resolve(arg, cwd):
     """The normalised absolute path of a shell argument, or None when it cannot be known ($VAR, ~, a flag, empty)."""
     if not arg or '$' in arg or '%' in arg or arg.startswith(('-', '~')) or arg in ('/dev/null', 'nul', 'NUL'):
         return None
-    a = norm(arg)
+    a = norm(ESCAPED.sub('', arg))
     if is_abs(a):
         return a
     return norm(posixpath.join(cwd, a)) if cwd else None
@@ -81,10 +84,11 @@ def scratch_ok(p, roots):
 
 
 def split_words(seg):
+    seg = re.sub(r'\\(?![ ()])', '/', seg)   # Windows separators to slashes; Bash's escaped spaces stay for shlex
     try:
-        return shlex.split(seg.replace('\\', '/'), posix=True)
+        return shlex.split(seg, posix=True)
     except ValueError:
-        return seg.replace('\\', '/').split()
+        return ESCAPED.sub('', seg).split()
 
 
 def segments(cmd, cwd):
