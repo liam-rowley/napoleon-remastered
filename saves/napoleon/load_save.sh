@@ -41,12 +41,17 @@ step turn "lua $P/campaign_turn.lua" 60 || fail turn
 if [ "$END" = 1 ]; then
   before="$(chunk campaign_turn.lua)"
   step end_turn "lua $P/campaign_end_turn.lua" 60 || fail end_turn
-  t0=$(date +%s); now="$before"; IFS='|' read -r by bs _ <<< "$before"; moved=0; silent=0
+  t0=$(date +%s); now="$before"; IFS='|' read -r by bs _ _ _ bd <<< "$before"; moved=0; silent=0
   while [ $(( $(date +%s) - t0 )) -lt 900 ]; do   # the AI turn: poll the turn probe every 10 s, up to 15 min
-    sleep 10; now="$(chunk campaign_turn.lua)"; IFS='|' read -r ny ns np _ <<< "$now"
-    [ "$np" = true ] && [ "$ny|$ns" != "$by|$bs" ] && { moved=1; break; }   # year|season|players_turn|...
-    # No answer = the campaign script is not pumping: a modal popup (AI diplomacy offer, turn-start event) or a minimised,
-    # unfocused window stops frames and Lua (run 20261029_j14pc). Nothing in Lua can dismiss it, so stop instead of waiting.
+    sleep 10
+    # An AI diplomacy proposal or a turn-start event message waits on the player; in a headless launch the Lua pump keeps running behind
+    # it, so the probe declines or closes it (J40, run 20261031_j40pc). Its answer goes to the log when it did something.
+    mc="$(chunk campaign_modal_close.lua)"; [ -n "$mc" ] && [ "$mc" != none ] && printf '{"step":"modal","chunk":"%s"}\n' "$mc" | tee -a "$LOG"
+    now="$(chunk campaign_turn.lua)"; IFS='|' read -r ny ns np _ nce nd <<< "$now"
+    # year|season|players_turn|can_save|can_end_turn|date: a turn is two weeks, so the HUD date moves when year and season do not (J40)
+    [ "$np" = true ] && [ "$nce" = true ] && [ "$nd" != "$bd" ] && [ "$mc" = none ] && { moved=1; break; }
+    # No answer = the campaign script is not pumping: a minimised, unfocused visible window stops frames and Lua (run 20261029_j14pc);
+    # a headless launch keeps pumping behind a popup (J40). Stop instead of waiting.
     if [ -z "$now" ]; then silent=$((silent + 1)); else silent=0; fi
     [ "$silent" -ge 4 ] && { echo '{"step":"next_turn","status":"pump_stalled","reason":"no Lua pump for 4 polls: a modal popup or focus loss (SAVE_FORMAT.md Open)"}' | tee -a "$LOG"; fail next_turn; }
   done
