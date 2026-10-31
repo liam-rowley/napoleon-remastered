@@ -5,6 +5,7 @@ import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools/verbs/setup.py')
@@ -26,6 +27,40 @@ class Setup(unittest.TestCase):
         self.assertEqual(sv.bash_kind(r'C:\msys64\usr\bin\bash.exe', nt=True), 'other')
         self.assertEqual(sv.bash_kind('/usr/bin/bash', nt=False), 'posix')
         self.assertIsNone(sv.bash_kind(None))
+
+    def test_bash_check_reports_both_bashes(self):
+        git, wsl = r'C:\Program Files\Git\usr\bin\bash.exe', r'C:\Users\x\AppData\Local\Microsoft\WindowsApps\bash.exe'
+        ok, detail, _ = sv.bash_check(git, git, 'MINGW64', nt=True)   # started from Git Bash
+        self.assertTrue(ok)
+        self.assertIn(f'bash on PATH: {git} (git)', detail)
+        self.assertIn(f'repo tools use: {git}', detail)
+        self.assertNotIn('warn', detail)
+        ok, detail, _ = sv.bash_check(wsl, git, None, nt=True)   # WSL first on PATH: a warning, not a failure
+        self.assertTrue(ok)
+        self.assertIn('(wsl)', detail)
+        self.assertIn('warn:', detail)
+        self.assertIn(r'C:\Program Files\Git\usr\bin', detail)
+        ok, detail, fix = sv.bash_check(wsl, None, None, nt=True)   # no Git Bash at all: the one failure
+        self.assertFalse(ok)
+        self.assertIn('Git for Windows', fix)
+        self.assertEqual(sv.bash_check('/usr/bin/bash', '/usr/bin/bash', None, nt=False)[:2], (True, 'bash at /usr/bin/bash'))
+        self.assertFalse(sv.bash_check(None, None, None, nt=False)[0])
+
+    def test_bash_for_tests(self):
+        git = r'C:\Program Files\Git\bin\bash.exe'
+        self.assertEqual(sv.bash_for_tests(nt=True, find=lambda nt: git), (git, None))
+        b, why = sv.bash_for_tests(nt=True, find=lambda nt: None)   # Windows, no Git Bash: skip with the reason, never the WSL bash
+        self.assertIsNone(b)
+        self.assertIn('python3 core/wsc.py setup', why)
+        self.assertEqual(sv.bash_for_tests(nt=False, find=lambda nt: None), ('bash', None))   # off Windows a missing bash fails later
+        self.assertEqual(sv.bash_for_tests(nt=False, find=lambda nt: '/usr/bin/bash'), ('/usr/bin/bash', None))
+
+    def test_watcher_check_without_git_bash_fails_with_a_fix(self):
+        with mock.patch.object(sv, 'git_bash', lambda: None):
+            ok, detail, fix = sv.check_watcher(ROOT, False)
+        self.assertFalse(ok)
+        self.assertIn('no Git Bash', detail)
+        self.assertIn('Git for Windows', fix)
 
     def test_cr_files(self):
         with tempfile.TemporaryDirectory() as t:

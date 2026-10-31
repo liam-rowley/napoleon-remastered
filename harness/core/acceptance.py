@@ -228,7 +228,7 @@ class PcEnv:
 
     def sh(self, *args):
         import subprocess
-        p = subprocess.run(['bash', str(HERE / 'job.sh'), '--adapter', self.adapter_path, *args], capture_output=True, text=True)
+        p = subprocess.run([self.ctlmod.bash(), str(HERE / 'job.sh'), '--adapter', self.adapter_path, *args], capture_output=True, text=True)
         return p.returncode, p.stdout + p.stderr
 
     def lock(self):
