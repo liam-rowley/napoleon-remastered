@@ -53,7 +53,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J48` | needs_brief | Watcher: a virtual display restore whose position is gone | 1 | sonnet | yes | J18 |  |  |  |
 | `J49` | needs_brief | Usage source for the PC jobs view (rule 75) | 1 | sonnet | yes | J44 |  |  |  |
 | `J5` | done | Determinism audit: rules into gates | 1 | opus | no | J3 | jobs/J5/brief.md | jobs/J5/report.md | jobs/J5/review.md |
-| `J50` | review | UI art packs load in game | 5 | sonnet | yes | J36 | jobs/J50/brief.md | jobs/J50/report.md |  |
+| `J50` | done | UI art packs load in game | 5 | sonnet | yes | J36 | jobs/J50/brief.md | jobs/J50/report.md | jobs/J50/review.md |
 | `J51` | done | Upscale the remaining UI art roles | 5 | sonnet | yes | J36 | jobs/J51/brief.md | jobs/J51/report.md | jobs/J51/review.md |
 | `J52` | done | Automatic review and fix rounds | 1 | sonnet | no |  | jobs/J52/brief.md | jobs/J52/report.md | jobs/J52/review.md |
 | `J6` | done | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md | jobs/J6/review.md |
