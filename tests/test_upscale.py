@@ -64,6 +64,20 @@ class SizeRule(unittest.TestCase):
         self.assertNotEqual(a, rules.input_key('aa', rules.cfg_signature({'m': 2})))
 
 
+class RoleOrder(unittest.TestCase):
+    def test_items_follow_the_roles_order_not_the_registry_order(self):
+        sys.path.insert(0, os.path.join(ROOT, 'upscale', 'napoleon'))
+        import cli
+        rows = [('f1', 'flag'), ('t1', 'technology_icon'), ('f2', 'flag'), ('t2', 'technology_icon')]
+        with tempfile.TemporaryDirectory() as d:
+            reg = os.path.join(d, 'assets.jsonl')
+            with open(reg, 'w', encoding='utf-8') as f:
+                for i, role in rows:
+                    f.write(json.dumps({'id': i, 'path': i, 'role': role, 'format': 'tga bgra8 16x16'}) + '\n')
+            got = [it['id'] for it in cli.items_for(['technology_icon', 'flag'], reg)]
+        self.assertEqual(got, ['t1', 't2', 'f1', 'f2'])
+
+
 class PackWriter(unittest.TestCase):
     def setUp(self):
         self.d = tempfile.mkdtemp()
