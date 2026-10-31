@@ -258,17 +258,13 @@ class Deploy(unittest.TestCase):
         # the log fallback (no watcher, no process list) on every OS: the provider is injected, not taken from the host (J22)
         log = self.game / 'napoleon_remastered' / 'logs' / 'proxy.log'
         log.parent.mkdir(parents=True)
-        log.write_text('2026-10-28T20:00:00.000Z [INFO ] [t1] init done
-')
+        log.write_text('2026-10-28T20:00:00.000Z [INFO ] [t1] init done\n')
         none = lambda: None
         self.assertIn('may be running', pd.running_check(self.game, 'napoleon_remastered', 'Napoleon.exe', images=none))
         self.assertEqual(pd.running_check(self.game, 'napoleon_remastered', 'Napoleon.exe', now=time.time() + 3600, images=none), '')
-        log.write_text('x
-2026-10-28T20:00:00.000Z [INFO ] [t1] process detach (process exit)
-')
+        log.write_text('x\n2026-10-28T20:00:00.000Z [INFO ] [t1] process detach (process exit)\n')
         self.assertEqual(pd.running_check(self.game, 'napoleon_remastered', 'Napoleon.exe', images=none), '')
-        log.write_text('init done
-')
+        log.write_text('init done\n')
         with mock.patch.object(pd, 'windows_images', none):   # install() calls running_check with the default provider
             with self.assertRaises(SystemExit):
                 pd.install(self.kit, self.game, self.state)
