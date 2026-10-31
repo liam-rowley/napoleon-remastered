@@ -1,9 +1,8 @@
 # J12 report: Promote phase 1 core candidates to warscape-core
 
-Status at this report: **part 1 of 2.** Everything before the move is done on `job/J12`: the fixes, the path wiring, the game-name
-lint, the PC proofs and the 20-pass run. The core pull request is open for Liam to merge and tag v0.4.0
-(`liam-rowley/warscape-core` branch `napoleon-j12`). The Napoleon switch (deliverables 5 and 6: pin bump, deletions, repointing,
-superseded rows, proof of a pure move) waits for the tag, as the brief says. The row stays `queued` until then; part 2 sets `review`.
+Both parts are done. Part 1 (before the move): the fixes, the path wiring, the game-name lint, the PC proofs and the 20-pass run on
+`job/J12`, and the core PR, liam-rowley/warscape-core#7, which Liam merged and tagged v0.4.0 (cf7c6e3). Part 2 (after the tag): the
+switch to v0.4.0 and the proof that the move is pure (section "Part 2" below).
 
 ## What exists
 
@@ -52,6 +51,32 @@ and `saves.*` are new), C13 (Pillow on the PC side only), C14, backlog B15-B19, 
 Locally: `wsc gates` 11 ok, 76 host tests; in the CI container the null DLL builds, 9 C++ host-test binaries pass, repro identical,
 wine smoke passes (5 launches, 2 dumps).
 
+## Part 2: the switch to core v0.4.0 (deliverables 5 and 6)
+- `main` merged in first (J50, D37, J53 plan: no DLL input or harness file changed; the build id stayed `31094f6055c2`).
+- **One commit** (core backlog B9) bumps `core` to v0.4.0, sets `wsc.toml` `[core] version = "v0.4.0"`, deletes the local copies
+  (`proxy/core`, `proxy/tests`, the moved `proxy/tools`, `proxy/tools/wer`, `harness/core`, `harness/tests`, `saves/core`) and points
+  everything at `core/`:
+  - CI: `core/proxy/tools/build.sh` and `core/harness/tests/Run-HostTests.ps1`; the proxy and harness-windows jobs check out the core;
+    `tools/changed_inputs.py` treats a `core` gitlink change as a proxy and harness input.
+  - `tools/pr_policy.py`: reads `core/...` through the gitlink (the watcher version, the base's acceptance checker in either layout,
+    the build id tool), and a pin change is in rule 79's scope.
+  - The tests, `setup`, the hook, `ci_notify`, `saves/napoleon`, the discovery and viewer docs, `CLAUDE.md`, `proxy/README.md`,
+    `harness/README.md` and `docs/CI_FAILURES.md`.
+  - The J41 item: no proxy toolchain is now a plain skip (`tests/test_proxy_host.py`), shown as a warn by the core's tests gate.
+- **Proof that the move is pure:**
+  - `build.sh id`: `31094f6055c2` before and after. `build_id.py --inputs` after: `core core/proxy/src 2874c2ab1338...`,
+    `build_sh core/proxy/tools/build.sh 82198d12...`, `fetch_lua core/proxy/tools/fetch_lua.py 5ed63198...`,
+    `build_id core/proxy/tools/build_id.py 06865096...`, `adapter proxy/napoleon aa363225...`: the same object ids as before.
+  - `core/proxy/tools/build.sh --docker all`: sha256 `3f5bc62e5575d9ef3546ea72eb2eac34a22edadfb26cb9240831443c8ae893fc`, byte-identical
+    (`cmp`) to the DLL the 20 passes ran on; all host tests passed; `build.sh --docker repro`: identical from another path.
+  - `pc_deploy.py kit` from the switched tree (`kit_20261031T215915Z_23cf2ff5aeec`) against the run's kit
+    (`kit_20261031T194958Z_d5c606bb5661`): all 35 file sha256s equal. Harness kit (`harness_20261031T215916Z_23cf2ff5aeec` against
+    `harness_20261031T194802Z_d5c606bb5661`): all 22 files and 5 kit files equal, watcher 1.2.0.
+  - `acceptance.py streak --build 31094f6055c2 --watcher 1.2.0`: 20. `pr_policy.py --branch job/J12 --base origin/main`: no rule 79
+    error (only the review and the `done` row, which the reviewer supplies).
+  - `wsc gates`: 10 ok, 2 warn (the local hooksPath setting; 14 skips with reasons), 0 failed, 411 host tests. warscape-core CI on
+    the merged PR: gates (Linux and Windows), proxy, harness-windows all green.
+
 ## Evidence
 - `harness/runs/20261031_j12pc/`: 1a and 1b proxy log excerpts and window probes, the 1c shot.
 - Build id of the run's DLL: `31094f6055c2` (kit `kit_20261031T194958Z_d5c606bb5661`, watcher 1.2.0).
@@ -79,6 +104,12 @@ wine smoke passes (5 launches, 2 dumps).
   profile); run `20261031_j12acc2` began on a freshly installed ini, and `ctl.py` writes the launch keys into the mod ini outside any
   snapshot, so pass 1 compared against an ini without them (now the run applies the keys once before pass 1). Their ledger lines stay.
 
+- **The 39 moved tools' rows are removed from Napoleon's registry, not superseded.** The tools gate only takes a superseded target that
+  is a row in the same registry, and the core's rows live in the core's registry (`proxy.tools.*` keep their ids there; `harness.*`
+  and `saves.*` are path slugs, C8). The gate's own message allows removal; git keeps the history.
+- **The adapter's files still name old paths in comments** (`proxy/napoleon/adapter.cpp`, `generated/tables.h`, `lua/`): they are DLL
+  inputs, so editing them would change the build id the 20 passes ran on. They get fixed with the next real adapter change.
+
 ## Open branches on old paths
 - `job/J16` (queued, changes `proxy/core`): not carried. Once J12 merges, its `proxy/core` change becomes a warscape-core PR against
   `proxy/src` plus a pin bump in Napoleon; its brief and evidence stay in Napoleon.
@@ -98,3 +129,5 @@ wine smoke passes (5 launches, 2 dumps).
    before the snapshot). That was already so; is the end state Liam wants an ini with the dev keys on?
 3. `headless_status.json` is written once, at `on_virtual`: after a relocation it still names the old rect (seen in 1a). A rewrite after
    each verified relocation would keep `shot.sh` right after a display move.
+4. Cross-repo retirement: should the core's tools gate accept `superseded:core:<id>` (checked against the pinned core's registry), so a
+   game can retire a row in favour of a core tool instead of deleting it? A small core change for the next tag.
