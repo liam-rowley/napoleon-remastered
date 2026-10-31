@@ -55,29 +55,29 @@ function New-Tmp([string]$tag) {
 }
 $Utf8NoBom = New-Object Text.UTF8Encoding $false
 function Sha256File([string]$p) { return (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLower() }
-# A test adapter: fake game and AppData folders under $dir, the real config-file table (same ids as harness/napoleon/adapter.json).
-function New-TestAdapter([string]$dir, [string]$gameImage = 'Napoleon.exe', [string]$otherImage = 'Empire.exe', [string]$launchArgs = '') {
+# A test adapter: fake game and AppData folders under $dir, the real config-file table (the ids a game adapter uses).
+function New-TestAdapter([string]$dir, [string]$gameImage = 'Game.exe', [string]$otherImage = 'Other.exe', [string]$launchArgs = '') {
     $game = Join-Path $dir 'game'; $app = Join-Path $dir 'appdata'
     foreach ($d in @($game, (Join-Path $app 'scripts'), (Join-Path $game 'logs'))) { New-Item -ItemType Directory -Path $d -Force | Out-Null }
     $adapter = [ordered]@{
-        game = 'testgame'; title = 'Test Game'; state_dir = $dir; watcher_subdir = 'watcher'; task_name = 'napoleon_remastered watcher citest'
+        game = 'testgame'; title = 'Test Game'; state_dir = $dir; watcher_subdir = 'watcher'; task_name = 'testmod watcher citest'
         game_dir = $game; appdata_dir = $app; game_image = $gameImage; other_images = @($otherImage)
         launch = [ordered]@{ route = 'exe'; exe = $gameImage; args = $launchArgs; steam_uri = ''; steam_wait_s = 5 }
-        heartbeat_files = @('logs\proxy.log', 'napoleon_remastered\headless_status.json')
+        heartbeat_files = @('logs\proxy.log', 'testmod\headless_status.json')
         headless = [ordered]@{
-            display_name = 'Virtual Display Driver'; default_size = '3840x2160'; status_file = 'napoleon_remastered\headless_status.json'
+            display_name = 'Virtual Display Driver'; default_size = '3840x2160'; status_file = 'testmod\headless_status.json'
             marker_file = 'd3d9.dll'; marker = 'headless_status.json'; exit_code = 2160
             prefs = [ordered]@{ x_res = '{W}'; y_res = '{H}'; gfx_fullscreen = 'false' }
             mod_ini = [ordered]@{ 'headless.enabled' = '1'; 'headless.size' = '{W}x{H}' }
         }
-        archive = [ordered]@{ dirs_log = @('logs'); dirs_dump = @('dumps'); files = @('napoleon_remastered.ini', 'dxvk.conf') }
+        archive = [ordered]@{ dirs_log = @('logs'); dirs_dump = @('dumps'); files = @('testmod.ini', 'dxvk.conf') }
         foreign_locks = @((Join-Path $dir 'foreign\game.lock'))
         virtualstore_guard = @('testmod')
         config_files = @(
             [ordered]@{ id = 'prefs'; anchor = 'appdata'; path = 'scripts\preferences.script.txt'; style = 'prefs' },
             [ordered]@{ id = 'keys'; anchor = 'appdata'; path = 'custom_keys.keys.xml'; style = 'none' },
             [ordered]@{ id = 'battle_prefs'; anchor = 'appdata'; path = 'battle_preferences\.sp_default.battle_preferences'; style = 'none' },
-            [ordered]@{ id = 'mod_ini'; anchor = 'game'; path = 'napoleon_remastered.ini'; style = 'ini' },
+            [ordered]@{ id = 'mod_ini'; anchor = 'game'; path = 'testmod.ini'; style = 'ini' },
             [ordered]@{ id = 'dxvk_conf'; anchor = 'game'; path = 'dxvk.conf'; style = 'conf' }
         )
     }

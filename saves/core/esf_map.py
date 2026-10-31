@@ -3,10 +3,10 @@
 
 purpose: library for a game's save map: navigate records by name, read values by child position @N, find record paths, and grep every value that equals an id
 usage: from esf_map import Save; s = Save(path); s.sub(span, 'NAME'); s.vals(span)[N]; s.items(span, 'ARRAY'); s.path('WORLD', 'FACTION_ARRAY')  |  python3 -I saves/core/esf_map.py SAVE id ID
-when: writing a game's semantic map (saves/napoleon/save_map.py) or chasing an id through a save (both ends of every link); field meanings live in saves/SAVE_FORMAT.md
+when: writing a game's semantic map (a game repo's save_map.py) or chasing an id through a save (both ends of every link); field meanings live in saves/SAVE_FORMAT.md
 not-a-verb: a game-agnostic library and id grep run on the PC against saves outside the repo (warscape-core candidate, D10)
 
-Ported from the generic half of empire-remastered rml_mod/tools/db/esf_map.py (J14); the Empire record paths stayed behind.
+Ported from the generic half of empire-remastered rml_mod/tools/db/esf_map.py (J14); that game's record paths stayed behind.
 A span is (start, end) of a record's children; @N counts every child (records too), as esf_diff and esf_dump print it.
 """
 import os
@@ -15,7 +15,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from esf_dump import Esf, find, root_span  # noqa: E402
 
-FIX = 1 << 20  # positions are 12.20 fixed point map units (Empire and Napoleon LOCOMOTABLE, residences)
+FIX = 1 << 20  # positions are 12.20 fixed point map units (LOCOMOTABLE, residences, in both PFH0 titles seen)
 
 
 class Save:

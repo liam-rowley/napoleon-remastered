@@ -12,7 +12,8 @@ $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'Test-Lib.ps1')
 $script:TcOnly = $Only; $script:TcRepeat = $Repeat   # Tc names: a $script:Only in Test-Lib would BE the -Only param (case-insensitive, same scope) and reset it (J19 run 40898907246)
 if (-not $Repo) { $Repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')) }
-$core = Join-Path $Repo 'harness\core'
+# the harness scripts: harness\core\ before the move to warscape-core, harness\ after it (J12); the tests find them, not a layout
+$core = Split-Path $PSScriptRoot; if (Test-Path -LiteralPath (Join-Path $core 'core\watcher.ps1')) { $core = Join-Path $core 'core' }
 $Inv = [Globalization.CultureInfo]::InvariantCulture
 $tmp = New-Tmp 'int'
 $state = Join-Path $tmp 'state'; $root = Join-Path $state 'watcher'; $kits = Join-Path $state 'kits'
@@ -21,7 +22,7 @@ New-Item -ItemType Directory -Path (Join-Path $root 'src'), $kits -Force | Out-N
 $SuiteState = @{ n = 0; tz = $null }
 $env:WSP_VIRTUALSTORE_ROOT = Join-Path $tmp 'VirtualStore'   # the watcher's VirtualStore guard (fix 1g) looks here, not in the runner's profile
 
-# ---- fake games (compiled here): FakeNapoleon.exe is 32-bit like the real game (the dump path must cope with WoW64) -----------------
+# ---- fake games (compiled here): FakeGame.exe is 32-bit like the real game (the dump path must cope with WoW64) -----------------
 $fakeSrc = @'
 using System;
 using System.Diagnostics;
@@ -51,19 +52,19 @@ function New-Fake([string]$exe, [string]$cls, [string]$platform) {
     if ($res.Errors.HasErrors) { throw ("fake game compile failed: " + (($res.Errors | ForEach-Object { $_.ToString() }) -join '; ')) }
 }
 New-Item -ItemType Directory -Path $game -Force | Out-Null
-New-Fake (Join-Path $game 'FakeNapoleon.exe') 'FakeA' 'x86'
-New-Fake (Join-Path $game 'FakeEmpire.exe') 'FakeB' 'x86'
+New-Fake (Join-Path $game 'FakeGame.exe') 'FakeA' 'x86'
+New-Fake (Join-Path $game 'FakeOther.exe') 'FakeB' 'x86'
 New-Fake (Join-Path $tmp 'Fake64.exe') 'FakeC' 'x64'
 $logPath = Join-Path $game 'logs\proxy.log'
-$adapterPath = New-TestAdapter $tmp 'FakeNapoleon.exe' 'FakeEmpire.exe' ("log `"$logPath`"")
+$adapterPath = New-TestAdapter $tmp 'FakeGame.exe' 'FakeOther.exe' ("log `"$logPath`"")
 # the exe identity the watcher checks before every launch (J18): a fixture with the fake game's sha1, beside the adapter it is started with
 $identityPath = Join-Path $tmp 'exe_identity.json'
-$fakeSha1 = (Get-FileHash -LiteralPath (Join-Path $game 'FakeNapoleon.exe') -Algorithm SHA1).Hash.ToLower()
+$fakeSha1 = (Get-FileHash -LiteralPath (Join-Path $game 'FakeGame.exe') -Algorithm SHA1).Hash.ToLower()
 [IO.File]::WriteAllText($identityPath, "{`"sha1`": `"$fakeSha1`"}", $Utf8NoBom)
 foreach ($f in 'watcher.ps1', 'watch.cmd', 'update.ps1', 'dump.ps1', 'procfreeze.ps1', 'spawn_detached.ps1', 'vdisplay_probe.ps1', 'win_probe.ps1') { Copy-Item -LiteralPath (Join-Path $core $f) -Destination (Join-Path $root 'src') }
 Copy-Item -LiteralPath $adapterPath -Destination (Join-Path $root 'src\adapter.json')
 New-Item -ItemType Directory -Path (Join-Path $root 'profiles') -Force | Out-Null
-Copy-Item -Path (Join-Path $Repo 'harness\napoleon\profiles\*') -Destination (Join-Path $root 'profiles') -Recurse -Force
+Copy-Item -Path (Join-Path $PSScriptRoot 'fixtures\profiles\*') -Destination (Join-Path $root 'profiles') -Recurse -Force
 # The CI runner has no virtual display (the real tool exits 3 there), so the watcher is pointed at a stateful stand-in (test_vdisplay_script).
 $vdFake = Join-Path $tmp 'fake_vdisplay.ps1'
 [IO.File]::WriteAllText($vdFake, @'
@@ -177,10 +178,10 @@ function Clear-Lock {
     $l = Join-Path $root 'game.lock'
     if (Test-Path -LiteralPath $l) { $d = Join-Path $root '_to_delete'; New-Item -ItemType Directory -Path $d -Force | Out-Null; $SuiteState.n++; Move-Item -LiteralPath $l -Destination (Join-Path $d "game.lock.test$($SuiteState.n)") -Force }
 }
-function Stop-Fakes { foreach ($n in 'FakeNapoleon', 'FakeEmpire', 'Fake64') { Get-Process -Name $n -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue } }
-function Fake-Procs([string]$n = 'FakeNapoleon') { return @(Get-Process -Name $n -ErrorAction SilentlyContinue) }
+function Stop-Fakes { foreach ($n in 'FakeGame', 'FakeOther', 'Fake64') { Get-Process -Name $n -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue } }
+function Fake-Procs([string]$n = 'FakeGame') { return @(Get-Process -Name $n -ErrorAction SilentlyContinue) }
 $prefs = Join-Path $app 'scripts\preferences.script.txt'; $keys = Join-Path $app 'custom_keys.keys.xml'
-$modIni = Join-Path $game 'napoleon_remastered.ini'; $dxc = Join-Path $game 'dxvk.conf'
+$modIni = Join-Path $game 'testmod.ini'; $dxc = Join-Path $game 'dxvk.conf'
 $bprefs = Join-Path $app 'battle_preferences\.sp_default.battle_preferences'   # HIDDEN on the PC (J3 run 20261029_4kcrash: Get-Item without -Force threw)
 # one read per file, never Test-Path then hash: the watcher deletes a file between the two while it restores (J42, run 40898971722:
 # "Cannot find path ...dxvk.conf"); a file mid-write reads 'busy', which matches no baseline, so a wait simply polls again
@@ -224,7 +225,7 @@ try {
         $first = (Get-Log) -split "`r?`n" | Select-Object -First 1
         Assert-Match $first '^\[\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ\] ' 'log timestamps are UTC with a Z'
     }
-    Test-Case 'queue: a job with no output finishes normally and the next job still runs (Empire 5.0 wedged here)' {
+    Test-Case 'queue: a job with no output finishes normally and the next job still runs (the earlier remaster watcher 5.0 wedged here)' {
         $a = Submit "@echo off`r`nrem prints nothing" (New-JobId 'empty'); Start-Sleep -Milliseconds 80
         $b = Submit "@echo off`r`nexit /b 3" (New-JobId 'fail'); Start-Sleep -Milliseconds 80
         $c = Submit "@echo off`r`necho line one`r`necho line two" (New-JobId 'normal'); Start-Sleep -Milliseconds 80
@@ -268,7 +269,7 @@ try {
     }
     Test-Case 'job timeout kills the job tree but spares the game; a game started by the job does not block the next job' {
         Set-Lock 'ci1'
-        $body = "#job owner=ci1 timeout=5`r`n@echo off`r`nstart `"`" /b `"$game\FakeNapoleon.exe`" idle`r`nping -n 60 127.0.0.1 >nul"
+        $body = "#job owner=ci1 timeout=5`r`n@echo off`r`nstart `"`" /b `"$game\FakeGame.exe`" idle`r`nping -n 60 127.0.0.1 >nul"
         $r = Run-Job $body 'timeout' 40
         Assert-Eq $r.d.status 'timeout' 'status'; Assert-Eq $r.d.exit -1 'exit'
         Assert-True ((Fake-Procs).Count -eq 1) 'the game the job started is still running'
@@ -288,12 +289,12 @@ try {
         $w = Run-Job 'launch owner=someone-else' 'wrong'
         Assert-Eq $w.d.status 'refused' 'wrong owner'; Assert-Match $w.d.reason 'does not hold the game' 'reason'
         Assert-Eq (Run-Job 'launch' 'noowner').d.status 'refused' 'no owner in the request'
-        $s = Run-Job "@echo off`r`ntaskkill /f /im FakeNapoleon.exe" 'script'
+        $s = Run-Job "@echo off`r`ntaskkill /f /im FakeGame.exe" 'script'
         Assert-Eq $s.d.status 'refused' 'taskkill script without owner'; Assert-Match $s.d.reason 'needs' 'reason'
         $c = Run-Job "@echo off`r`ncopy NUL `"$dxc`"" 'cfg'
         Assert-Eq $c.d.status 'refused' 'config-writing script without owner'
         Assert-True (-not (Test-Path -LiteralPath $dxc)) 'and it did not run'
-        $ro = Run-Job "@echo off`r`ntasklist /fi `"imagename eq FakeNapoleon.exe`" /fo csv /nh" 'readonly'
+        $ro = Run-Job "@echo off`r`ntasklist /fi `"imagename eq FakeGame.exe`" /fo csv /nh" 'readonly'
         Assert-Eq $ro.d.status 'ok' 'read-only tasklist is never blocked'
         Clear-Lock
     }
@@ -330,23 +331,23 @@ try {
     Test-Case 'launch and kill: pid confirmed, second launch refused, the other title blocks, a foreign lock blocks, kill is clean' {
         Set-Lock 'ci2'
         $l = Run-Job 'launch visible=1 owner=ci2' 'launch' 40
-        Assert-Eq $l.d.status 'ok' "launch ($($l.out))"; Assert-Match $l.out 'running: FakeNapoleon.exe pid \d+' 'pid confirmed'
+        Assert-Eq $l.d.status 'ok' "launch ($($l.out))"; Assert-Match $l.out 'running: FakeGame.exe pid \d+' 'pid confirmed'
         Assert-True ((Fake-Procs).Count -eq 1) 'running'
         Wait-Until { (Get-St).game_state.state -eq 'running' } 10 'status says running' | Out-Null
         $l2 = Run-Job 'launch visible=1 owner=ci2' 'launch2'
         Assert-Eq $l2.d.status 'refused' 'second launch'; Assert-Match $l2.d.reason 'already running' 'reason'
         $k = Run-Job 'kill owner=ci2' 'kill' 40
         Assert-Eq $k.d.status 'ok' 'kill'; Assert-True ((Fake-Procs).Count -eq 0) 'gone'
-        $e = Start-Process -FilePath (Join-Path $game 'FakeEmpire.exe') -ArgumentList 'idle' -PassThru
+        $e = Start-Process -FilePath (Join-Path $game 'FakeOther.exe') -ArgumentList 'idle' -PassThru
         $l3 = Run-Job 'launch visible=1 owner=ci2' 'other'
-        Assert-Eq $l3.d.status 'refused' 'the other title is running'; Assert-Match $l3.d.reason 'FakeEmpire.exe' 'names it'
+        Assert-Eq $l3.d.status 'refused' 'the other title is running'; Assert-Match $l3.d.reason 'FakeOther.exe' 'names it'
         Stop-Process -Id $e.Id -Force
         $fl = $A_foreign = (Get-Content -LiteralPath $adapterPath -Raw | ConvertFrom-Json).foreign_locks[0]
         New-Item -ItemType Directory -Path (Split-Path $fl) -Force | Out-Null
-        [IO.File]::WriteAllText($fl, "owner=empire-agent session=e purpose=probe started=$(UtcNow-Str)`r`n", $Utf8NoBom)
+        [IO.File]::WriteAllText($fl, "owner=other-agent session=e purpose=probe started=$(UtcNow-Str)`r`n", $Utf8NoBom)
         $l4 = Run-Job 'launch visible=1 owner=ci2' 'foreign'
         Assert-Eq $l4.d.status 'refused' 'foreign lock'; Assert-Match $l4.d.reason 'another watcher' 'reason'
-        Assert-Match ([IO.File]::ReadAllText($fl)) 'empire-agent' 'the foreign lock was only read'
+        Assert-Match ([IO.File]::ReadAllText($fl)) 'other-agent' 'the foreign lock was only read'
         Remove-Item -LiteralPath $fl -Force
         # J12 fix 1g: stale VirtualStore copies of a guarded folder are moved aside before the launch, whoever asks for it
         $vsd = Join-Path (Join-Path $env:WSP_VIRTUALSTORE_ROOT (Split-Path -NoQualifier $game)) 'testmod'
@@ -362,7 +363,7 @@ try {
     }
     # ---- headless launch (J13): the watcher side. A fake game writes the proxy's headless_status.json itself. -----------------------------------
     $hdll = Join-Path $game 'd3d9.dll'
-    $hstat = Join-Path $game 'napoleon_remastered\headless_status.json'
+    $hstat = Join-Path $game 'testmod\headless_status.json'
     $vdDir = $tmp
     function Set-Vd([string]$state, [string]$offered = '3840x2160') {
         [IO.File]::WriteAllText((Join-Path $vdDir 'vd_state.txt'), $state, $Utf8NoBom); [IO.File]::WriteAllText((Join-Path $vdDir 'vd_offered.txt'), $offered, $Utf8NoBom)
@@ -371,7 +372,7 @@ try {
     function Vd-State { return ([IO.File]::ReadAllText((Join-Path $vdDir 'vd_state.txt'))).Trim() }
     function Vd-Calls { $p = Join-Path $vdDir 'vd_calls.txt'; if (Test-Path -LiteralPath $p) { return [IO.File]::ReadAllText($p) } else { return '' } }
     function Set-Proxy([bool]$withMarker) {
-        [IO.File]::WriteAllBytes($hdll, [Text.Encoding]::ASCII.GetBytes($(if ($withMarker) { 'MZ fake proxy ... napoleon_remastered\headless_status.json ...' } else { 'MZ fake old proxy' })))
+        [IO.File]::WriteAllBytes($hdll, [Text.Encoding]::ASCII.GetBytes($(if ($withMarker) { 'MZ fake proxy ... testmod\headless_status.json ...' } else { 'MZ fake old proxy' })))
     }
     function Write-HStatus([int]$p, [string]$state, [string]$detail = '') {
         New-Item -ItemType Directory -Path (Split-Path $hstat) -Force | Out-Null
@@ -574,7 +575,7 @@ try {
         Clear-Lock
         # d) deferred while the game runs
         Set-Lock 'ci8'; Run-Job 'profile proxy-dxvk owner=ci8' 'd1' | Out-Null
-        $idleGame = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'idle' -PassThru
+        $idleGame = Start-Process -FilePath (Join-Path $game 'FakeGame.exe') -ArgumentList 'idle' -PassThru
         Clear-Lock
         Wait-Until { (Get-LogSince $mark) -match "auto-restore of 'proxy-dxvk' \(owner=ci8\) pending" } 15 'pending is logged' | Out-Null
         Assert-True ((Hashes) -ne $baseline) 'not restored while the game is open'
@@ -587,18 +588,18 @@ try {
         $runsBefore = @(Get-ChildItem (Join-Path $root 'runs') -Directory -Filter '*_hang' -ErrorAction SilentlyContinue | ForEach-Object { $_.Name })
         # unarmed: no lock, no watcher launch -> a game Liam started himself is never touched
         Clear-Lock
-        $u = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'idle' -PassThru
+        $u = Start-Process -FilePath (Join-Path $game 'FakeGame.exe') -ArgumentList 'idle' -PassThru
         Start-Sleep -Seconds 11
         Assert-True (-not $u.HasExited) 'an unarmed idle game is left alone'
         Stop-Process -Id $u.Id -Force; Start-Sleep -Seconds 1
         # armed (valid lock, hang_s=6): CPU-busy game with no log is alive
         Set-Lock 'ci9' ' hang_s=6'
-        $s = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList 'spin' -PassThru
+        $s = Start-Process -FilePath (Join-Path $game 'FakeGame.exe') -ArgumentList 'spin' -PassThru
         Start-Sleep -Seconds 11
         Assert-True (-not $s.HasExited) 'a game that burns CPU is alive'
         Stop-Process -Id $s.Id -Force; Start-Sleep -Seconds 1
         # armed, log writer (no CPU to speak of): alive, then frozen
-        $h = Start-Process -FilePath (Join-Path $game 'FakeNapoleon.exe') -ArgumentList "log `"$logPath`"" -PassThru
+        $h = Start-Process -FilePath (Join-Path $game 'FakeGame.exe') -ArgumentList "log `"$logPath`"" -PassThru
         Start-Sleep -Seconds 10
         Assert-True (-not $h.HasExited) 'a game that keeps writing its log is alive'
         $fz = Run-Job "#job type=ps1 owner=ci9`r`n& `"$(Join-Path $root 'src\procfreeze.ps1')`" -ProcessId $($h.Id) -Mode suspend" 'freeze' 30
@@ -619,7 +620,7 @@ try {
         Assert-NotMatch $hangTxt 'kill: pending' 'hang.txt was rewritten after the kill'
         Assert-True (@(Get-ChildItem $dir -Filter '*proxy.log').Count -eq 1) 'the proxy log was archived'
         Assert-True (Test-Path -LiteralPath (Join-Path $dir 'game.lock')) 'the lock was archived'
-        Assert-Match (Get-LogSince $mark) 'HANG: FakeNapoleon.exe' 'logged'
+        Assert-Match (Get-LogSince $mark) 'HANG: FakeGame.exe' 'logged'
         Wait-Until { $x = Get-St; $x -and $x.last_hang -and [bool]$x.last_hang.killed } 15 'status.last_hang.killed' | Out-Null
         Assert-True ((Fake-Procs).Count -eq 0) 'process gone'
         Clear-Lock
@@ -756,7 +757,7 @@ try {
         Assert-Eq $LASTEXITCODE 0 'pc_deploy kit'
         $kit = (Get-ChildItem $out -Directory | Select-Object -First 1).FullName
         $iroot = Join-Path $tmp 'inst\watcher'
-        $tn = 'napoleon_remastered watcher citest'
+        $tn = 'testmod watcher citest'
         # a tampered staged file: refused, nothing installed
         $copy = Join-Path $tmp 'tamperedkit'; Copy-Item -LiteralPath $kit -Destination $copy -Recurse
         $m = (ReadText (Join-Path $copy 'manifest.json')) | ConvertFrom-Json
@@ -788,7 +789,7 @@ try {
 finally {
     try { Stop-TestWatcher } catch { }
     Stop-Fakes
-    Get-ScheduledTask -TaskName 'napoleon_remastered watcher citest' -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
+    Get-ScheduledTask -TaskName 'testmod watcher citest' -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
     if ($SuiteState.tz) { & tzutil.exe /s $SuiteState.tz }
     if ($script:Fail) {
         Write-Host '---- watcher.log (last 120 lines) ----'

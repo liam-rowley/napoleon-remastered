@@ -1,4 +1,4 @@
-# purpose: static and unit host tests for the harness: every learning from Empire's watcher history as a guard (BOM-less UTF-8, byte[] returns, UTC everywhere, id and lock rules, hang verdicts, overlays, profile snapshot/restore, tolerant status reads)
+# purpose: static and unit host tests for the harness: every learning from the earlier remaster's watcher history as a guard (BOM-less UTF-8, byte[] returns, UTC everywhere, id and lock rules, hang verdicts, overlays, profile snapshot/restore, tolerant status reads)
 # usage: powershell -NoProfile -ExecutionPolicy Bypass -File Test-Unit.ps1 [-Repo <repo root>]   (CI: Windows PowerShell 5.1; the pure parts also run under pwsh on Linux)
 # when: on every push (CI job harness-windows) and before committing a change to harness/
 # not-a-verb: a PowerShell test script, not a repo operation
@@ -6,9 +6,10 @@ param([string]$Repo = '')
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'Test-Lib.ps1')
 if (-not $Repo) { $Repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')) }
-$core = Join-Path $Repo 'harness\core'
-$allScripts = @(Get-ChildItem -LiteralPath (Join-Path $Repo 'harness') -Recurse -File | Where-Object { $_.Extension -in '.ps1', '.cmd' })
-$coreScripts = @($allScripts | Where-Object { $_.DirectoryName -like '*core' })
+# the harness scripts: harness\core\ before the move to warscape-core, harness\ after it (J12); the tests find them, not a layout
+$core = Split-Path $PSScriptRoot; if (Test-Path -LiteralPath (Join-Path $core 'core\watcher.ps1')) { $core = Join-Path $core 'core' }
+$allScripts = @(Get-ChildItem -LiteralPath (Split-Path $PSScriptRoot) -Recurse -File | Where-Object { $_.Extension -in '.ps1', '.cmd' })
+$coreScripts = @($allScripts | Where-Object { $_.DirectoryName -eq [IO.Path]::GetFullPath($core) })
 
 # ---- static guards over the source ---------------------------------------------------------------------------------------------
 Test-Case 'static: every harness script parses (Windows PowerShell grammar)' {
@@ -141,8 +142,8 @@ Test-Case 'game lock: absent, empty, owner rules, refresh by mtime, staleness af
 Test-Case 'foreign lock (another watcher on this PC) is read, never written' {
     $fl = $A.foreign_locks[0]; New-Item -ItemType Directory -Path (Split-Path $fl) -Force | Out-Null
     Assert-True ($null -eq (Foreign-LockReason)) 'none'
-    [IO.File]::WriteAllText($fl, "owner=empire-agent session=e purpose=probe started=2026-10-28T10:00:00Z`r`n", $Utf8)
-    Assert-Match (Foreign-LockReason) 'another watcher.*empire-agent' 'fresh foreign lock blocks'
+    [IO.File]::WriteAllText($fl, "owner=other-agent session=e purpose=probe started=2026-10-28T10:00:00Z`r`n", $Utf8)
+    Assert-Match (Foreign-LockReason) 'another watcher.*other-agent' 'fresh foreign lock blocks'
     $before = Sha256File $fl
     (Get-Item -LiteralPath $fl).LastWriteTime = (Get-Date).AddMinutes(-30)
     Assert-True ($null -eq (Foreign-LockReason)) 'a stale foreign lock does not block'
@@ -227,11 +228,11 @@ Test-Case 'overlay (conf): whole-name keys, written as "key = value", appended w
 }
 
 # ---- profiles: snapshot, apply, switch (never stack), restore byte for byte, absent as a recorded state ---------------------------
-$profSrc = Join-Path $Repo 'harness\napoleon\profiles'
+$profSrc = Join-Path $PSScriptRoot 'fixtures\profiles'
 Copy-Item -Path (Join-Path $profSrc '*') -Destination $ProfilesDir -Recurse -Force
 $prefs = Join-Path $A.appdata_dir 'scripts\preferences.script.txt'
 $keys = Join-Path $A.appdata_dir 'custom_keys.keys.xml'
-$ini = Join-Path $A.game_dir 'napoleon_remastered.ini'
+$ini = Join-Path $A.game_dir 'testmod.ini'
 $dxc = Join-Path $A.game_dir 'dxvk.conf'
 $odd = [byte[]](0, 255, 13, 10, 10, 13, 0xC3, 0xA9, 200, 1, 2, 3)           # NULs, lone CR/LF, high bytes: nothing may normalise these
 [IO.File]::WriteAllBytes($prefs, $odd)
@@ -339,23 +340,23 @@ Test-Case 'exe check: the sha1 against exe_identity.json beside the adapter; a m
     Remove-Quiet $idp; Remove-Quiet $exe
 }
 Test-Case 'guards: scripts that start/kill the game or write its config need an owner; read-only ones never do' {
-    Assert-True ($null -ne (Script-TouchesGame 'taskkill /f /im Napoleon.exe')) 'taskkill'
-    Assert-True ($null -ne (Script-TouchesGame 'start "" "C:\x\Napoleon.exe"')) 'start'
-    Assert-True ($null -ne (Script-TouchesGame 'Stop-Process -Name Napoleon -Force')) 'Stop-Process'
+    Assert-True ($null -ne (Script-TouchesGame 'taskkill /f /im Game.exe')) 'taskkill'
+    Assert-True ($null -ne (Script-TouchesGame 'start "" "C:\x\Game.exe"')) 'start'
+    Assert-True ($null -ne (Script-TouchesGame 'Stop-Process -Name Game -Force')) 'Stop-Process'
     Assert-True ($null -ne (Script-TouchesGame 'start steam://rungameid/34030')) 'steam'
-    Assert-True ($null -ne (Script-TouchesGame '& "C:\x\Empire.exe"')) 'direct call (either title)'
-    Assert-True ($null -eq (Script-TouchesGame 'tasklist /fi "imagename eq Napoleon.exe" /fo csv /nh')) 'tasklist is read-only'
-    Assert-True ($null -eq (Script-TouchesGame 'rem taskkill /f /im Napoleon.exe')) 'comments are ignored'
+    Assert-True ($null -ne (Script-TouchesGame '& "C:\x\Other.exe"')) 'direct call (either title)'
+    Assert-True ($null -eq (Script-TouchesGame 'tasklist /fi "imagename eq Game.exe" /fo csv /nh')) 'tasklist is read-only'
+    Assert-True ($null -eq (Script-TouchesGame 'rem taskkill /f /im Game.exe')) 'comments are ignored'
     Assert-True ($null -ne (Script-TouchesConfig 'copy x.txt "C:\g\dxvk.conf"')) 'copy over a config'
-    Assert-True ($null -ne (Script-TouchesConfig 'echo a>> napoleon_remastered.ini')) 'redirect into a config'
+    Assert-True ($null -ne (Script-TouchesConfig 'echo a>> testmod.ini')) 'redirect into a config'
     Assert-True ($null -eq (Script-TouchesConfig 'type dxvk.conf')) 'reading a config is fine'
 }
 Test-Case 'zombie: cleared when the pid is free or reused by another image (the flag outlives the reboot it asks for)' {
-    $z = [pscustomobject]@{ pid = 4242; image = 'Napoleon.exe' }
+    $z = [pscustomobject]@{ pid = 4242; image = 'Game.exe' }
     Assert-True (Zombie-Gone $z $null) 'pid free'
     Assert-True (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'svchost' })) 'pid reused by another image'
-    Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'Napoleon' }))) 'same image still there'
-    Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'NAPOLEON' }))) 'image compared case-insensitively'
+    Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'Game' }))) 'same image still there'
+    Assert-True (-not (Zombie-Gone $z ([pscustomobject]@{ ProcessName = 'GAME' }))) 'image compared case-insensitively'
 }
 Test-Case 'test runner: -Only selects by regex, -Repeat runs n times and stops at the first failure (J19)' {
     $box = @{ n = 0 }

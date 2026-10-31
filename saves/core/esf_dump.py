@@ -6,7 +6,7 @@ usage: python3 -I saves/core/esf_dump.py tree FILE [--depth N] | dump FILE --pat
 when: looking inside a save before a diff or a recipe (record names, child positions @N, values); esf_edit.py writes, esf_diff.py compares
 not-a-verb: a game-agnostic ESF codec run on the PC against saves outside the repo (warscape-core candidate, D10)
 
-Ported from empire-remastered rml_mod/tools/db/esf_dump.py (J14): the Empire-only `slots` command is dropped.
+Ported from empire-remastered rml_mod/tools/db/esf_dump.py (J14): the earlier remaster's own `slots` command is dropped.
 Format (ABCA startpos / ABCE save): u32 magic, u32 0, u32 timestamp, u32 offset of the name table; root node at 16.
 Node tags: 0x01 bool, 0x02 i8, 0x03 i16, 0x04 i32, 0x05 i64, 0x06 u8, 0x07 u16, 0x08 u32, 0x09 u64,
 0x0a f32, 0x0b f64, 0x0c xy f32, 0x0d xyz f32, 0x0e utf16 (u16 len), 0x0f ascii (u16 len), 0x10 angle u16,

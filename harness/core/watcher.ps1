@@ -139,7 +139,7 @@ function Write-AtomicBytes([string]$path, [byte[]]$bytes) {
 }
 function Read-Shared([string]$path) {
     # Always returns a [byte[]], also for a 0-byte file. The unary comma matters: a plain 'return $ms.ToArray()' is unrolled by
-    # PowerShell, so 0 bytes came back as $null, 1 byte as a scalar and N bytes as an object[] (Empire watcher 5.0 wedged its queue on
+    # PowerShell, so 0 bytes came back as $null, 1 byte as a scalar and N bytes as an object[] (the earlier remaster's watcher 5.0 wedged its queue on
     # an empty job output, 2026-10-21).
     $fs = New-Object IO.FileStream($path, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]'ReadWrite,Delete')
     try { $ms = New-Object IO.MemoryStream; $fs.CopyTo($ms); return ,$ms.ToArray() } finally { $fs.Dispose() }
@@ -254,7 +254,7 @@ function Expire-StaleLock {
     if ($act) { $tail = " Profile '$($act.name)' is active for owner=$($act.owner): it is restored under that owner as soon as the game is closed." }
     Log "LOCK EXPIRED: game.lock owner=$($l.owner) purpose=$($l.purpose) was not refreshed for $([int]($l.age_s / 60)) min (limit $($S.lock_stale_min)); moved to _to_delete\$name.$tail"
 }
-# One game at a time across titles (D11): a lock another watcher on this PC holds (e.g. Empire's rml_mod\game.lock) blocks a launch. Read only, never written.
+# One game at a time across titles (D11): a lock another watcher on this PC holds (e.g. the earlier remaster's rml_mod\game.lock) blocks a launch. Read only, never written.
 function Foreign-LockReason {
     foreach ($p in $A.foreign_locks) {
         if (-not (Test-Path -LiteralPath $p)) { continue }
@@ -1021,7 +1021,7 @@ function Watchdog {
 }
 function Invoke-MiniDump([int]$procId, [string]$outFile) {
     # Out of process, from the watcher: the dump is written by a child PowerShell of the TARGET's bitness (a 64-bit dbghelp cannot
-    # produce a usable dump of a 32-bit WoW64 process). Napoleon.exe is 32-bit.
+    # produce a usable dump of a 32-bit WoW64 process). The first consumer's game is 32-bit.
     $script = Join-Path $SrcDir 'dump.ps1'
     if (-not (Test-Path -LiteralPath $script)) { return "dump.ps1 not found next to the watcher ($script)" }
     $ps = Join-Path $env:windir 'System32\WindowsPowerShell\v1.0\powershell.exe'
@@ -1192,7 +1192,7 @@ function Start-Detached([string]$commandLine, [string]$cwd) {
     return $r
 }
 # A script's output goes to a unique .part file and is copied to <id>.out by the WATCHER when the script ends. Anything the script started
-# inherits the redirect handle and may hold it open for hours (a game): with a fixed output file that silently broke every later job (Empire v4).
+# inherits the redirect handle and may hold it open for hours (a game): with a fixed output file that silently broke every later job (the earlier remaster's watcher v4).
 function Collect-Part($c) {
     if (-not $c.part) { return }
     $bytes = [byte[]]@()
@@ -1392,7 +1392,7 @@ if ($NoRun) { return }
 
 # ------------------------------------------------------------------------------------------------ single instance ---
 $RootHash = [BitConverter]::ToString((New-Object Security.Cryptography.SHA1Managed).ComputeHash($Utf8.GetBytes($Root.ToLower()))).Replace('-', '').Substring(0, 16)
-$Mutex = New-Object Threading.Mutex($false, "Local\napoleon_remastered_watcher_$RootHash")
+$Mutex = New-Object Threading.Mutex($false, "Local\warscape_watcher_$RootHash")
 $owned = $false
 try { $owned = $Mutex.WaitOne(0) } catch [Threading.AbandonedMutexException] { $owned = $true }
 if (-not $owned) {

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Turn proxy phase timelines (napoleon_remastered/logs/timeline.json, dev.timeline=1) into a table: median and spread per phase, n per arm.
+"""Turn proxy phase timelines (<mod_dir>/logs/timeline.json, dev.timeline=1) into a table: median and spread per phase, n per arm.
 
 purpose: compare load phases across launches and arms (baseline vs intro skip vs autostart): t from process start, in seconds
 usage: timeline_table.py ARM=FILE[,FILE...] [ARM=...] [--json OUT] [--md]   (a FILE may be a folder: every timeline*.json in it)

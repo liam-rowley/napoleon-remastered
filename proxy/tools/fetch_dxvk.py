@@ -14,7 +14,10 @@ import tarfile
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import layout  # noqa: E402
+
+ROOT = layout.game_root()   # downloads and output under the game repo's build/ (J12)
 # Stock DXVK, latest stable release when pinned (2026-10-28: tags v3.0 .. v3.1.1, no newer). Never a fork (proxy job decision).
 PIN = {
     'version': '3.1.1',

@@ -26,7 +26,7 @@ resolve_root() {
 import json, re, sys
 a = json.load(open(sys.argv[1], encoding='utf-8'))
 s = a['state_dir'].replace('\\', '/').rstrip('/')
-m = re.match(r'^([A-Za-z]):(/.*)?$', s)   # C:\napoleon_remastered_pc -> /c/napoleon_remastered_pc (Git Bash); a POSIX path stays
+m = re.match(r'^([A-Za-z]):(/.*)?$', s)   # C:\state -> /c/state (Git Bash); a POSIX path stays
 print((f'/{m.group(1).lower()}{m.group(2) or ""}' if m else s) + '/' + a['watcher_subdir'], end='')
 PY
 }

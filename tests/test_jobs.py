@@ -46,6 +46,33 @@ def files(**kw):
     return lambda p: m.get(p)
 
 
+class Promotions(unittest.TestCase):
+    """Rule 76 (J12): core candidate folders and the jobs that promote them."""
+    T = {'proxy/core': 'J12', 'discovery/core': None}
+
+    def test_listed_folders_pass_while_the_job_is_open(self):
+        self.assertEqual(jv.promotion_problems([row('J12', status='review')], {'proxy/core', 'proxy/core/x', 'discovery/core'}, self.T), [])
+
+    def test_failing_fixture_a_folder_whose_promotion_is_done_must_be_gone(self):
+        e = jv.promotion_problems([row('J12', status='done')], {'proxy/core'}, self.T)
+        self.assertEqual(len(e), 1); self.assertIn('promotion job J12 is done', e[0])
+        self.assertEqual(jv.promotion_problems([row('J12', status='done')], {'proxy/napoleon'}, self.T), [])   # gone: fine
+
+    def test_failing_fixture_an_unlisted_core_folder_fails(self):
+        e = jv.promotion_problems([row('J12')], {'audio/core/a'}, self.T)
+        self.assertEqual(len(e), 1); self.assertIn('audio/core/ is a core candidate with no promotion job', e[0])
+
+    def test_the_submodule_and_unknown_jobs(self):
+        self.assertEqual(jv.promotion_problems([], {'core/proxy/src', 'core/warscape'}, self.T), [])   # the core itself is not a candidate
+        self.assertIn('has no row', jv.promotion_problems([], {'proxy/core'}, self.T)[0])
+
+    def test_the_repo_table_covers_every_core_folder_here(self):
+        root = Path(__file__).resolve().parent.parent
+        tracked = subprocess.run(['git', '-C', str(root), 'ls-files'], capture_output=True, text=True).stdout.split()
+        rows = [json.loads(l) for l in (root / 'registries' / 'jobs.jsonl').read_text(encoding='utf-8').splitlines() if l.strip()]
+        self.assertEqual(jv.promotion_problems(rows, {str(Path(f).parent.as_posix()) for f in tracked}), [])
+
+
 class Check(unittest.TestCase):
     def errs(self, rows, read=None, folders=()):
         return jv.problems(rows, read or files(), folders)

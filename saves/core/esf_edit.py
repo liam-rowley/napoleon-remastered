@@ -3,13 +3,13 @@
 
 purpose: parse an ESF save into a tree, write it back byte for byte, and edit it (set a value, copy or remove a record-array item) with every end offset, count and the name table rebuilt
 usage: python3 -I saves/core/esf_edit.py info|roundtrip|tree FILE... | dump FILE SPEC | set FILE SPEC @N VALUE -o OUT | copy-item|remove-item FILE SPEC INDEX [--to I] -o OUT
-when: the round-trip gate on every new save (sha-equal, no unknown tag); a save needed in another state (recipes in saves/napoleon/ import this). SPEC: [//]A/B[3]/C (Esf.select). Writes only with -o, never over the input
+when: the round-trip gate on every new save (sha-equal, no unknown tag); a save needed in another state (a game's recipes import this). SPEC: [//]A/B[3]/C (Esf.select). Writes only with -o, never over the input
 not-a-verb: a game-agnostic ESF codec run on the PC against saves outside the repo (warscape-core candidate, D10)
 
 Ported from empire-remastered rml_mod/tools/db/esf_edit.py (J14). Added: unknown packed-array element types are collected
 (kept raw, and `roundtrip` fails on them), a failed round trip names the first differing offset with its tag and record path,
 and `-o` may not name the input. `set ... @N` and `dump` count N over all children (records too), the same @N esf_diff and
-esf_dump print (Empire's `set` counted values only). Cost: about 15x the file size in RAM while a tree is held; one save per process.
+esf_dump print (the earlier remaster's `set` counted values only). Cost: about 15x the file size in RAM while a tree is held; one save per process.
 """
 import argparse
 import copy

@@ -10,7 +10,7 @@ One pass: exe sha1 equals the adapter pin (rule 28); launch headless at the base
 `shot` each; `perf 10` once; a warm reset; a relaunch; exit. Each step is compared with the baseline: load time within its tolerance, the shot
 against the baseline shot (mean absolute pixel difference within the step's threshold), every settings file byte-identical after the exit.
 A step's verb that is refused or failed fails the pass (nothing is skipped silently). Camera moves are never key or click (rule 78).
-A step whose `pose` is null (the campaign: its camera route is open, fact napoleon.campaign.camera_route) is shot at the default view.
+A step whose `pose` is null (the campaign: its camera route is open, the game repo's engine fact campaign.camera_route) is shot at the default view.
 PC binding (J44, `PcEnv`): each pass takes the game lock, launches through the watcher with the adapter's keys (ctl.py `Pc`), and after the exit
 releases the lock and waits for the watcher's byte-for-byte restore before the settings are compared, so the check is the end state Liam sees.
 Shots stay on the PC (<state>/acceptance/<run>/pass_NN/); each pass commits harness/runs/<run>/pass_NN.json (results, shot sha256 and diffs),
@@ -29,7 +29,11 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[1]
+# the game repo and its adapters come from proxy/tools/layout.py (J12): the same answer before and after the move to warscape-core
+_OWN = next(d for d in (HERE, *HERE.parents) if (d / 'wsc.toml').is_file())
+sys.path.insert(0, str(_OWN / 'proxy' / 'tools'))
+import layout  # noqa: E402
+ROOT = layout.game_root(_OWN)
 BASELINE = ROOT / 'harness' / 'acceptance' / 'baseline.json'
 LEDGER = ROOT / 'harness' / 'acceptance' / 'ledger.jsonl'
 NEEDED = 20   # rule 79
@@ -124,7 +128,7 @@ def settings_unchanged(before, after):
 
 
 def exe_pin_ok(exe_sha1, pin):
-    return exe_sha1 == pin, {'compared': 'Napoleon.exe sha1 against the pin (rule 28)', 'expected': pin, 'got': exe_sha1}
+    return exe_sha1 == pin, {'compared': 'the game exe sha1 against the pin (rule 28)', 'expected': pin, 'got': exe_sha1}
 
 
 # ---- the ledger (rule 79) ----------------------------------------------------------------------------------------------------
@@ -424,7 +428,7 @@ def cmd_measure(a):
             st['why_not'] = f"two launches differ by {e['diff']} (mean abs diff > {NONDET_DIFF}): load and readback still count, the shot is not compared"
         steps.append(st)
     b = {'schema': 1, 'date': utc()[:10], 'build_id': build, 'watcher': watcher, 'kit': kit, 'fresh_boot': False, 'size': ad['ctl']['launch']['size'],
-         'exe_sha1': json.loads((ROOT / 'proxy' / ad['game'] / 'identity.json').read_text(encoding='utf-8'))['sha1'], 'run': f'harness/runs/{a.run}',
+         'exe_sha1': json.loads((layout.proxy_adapter(ROOT) / 'identity.json').read_text(encoding='utf-8'))['sha1'], 'run': f'harness/runs/{a.run}',
          'steps': steps, 'settings_files': [c['id'] for c in ad['config_files']], 'perf': rec.get('_perf')}
     errs = baseline_problems(b)
     if errs:
@@ -442,7 +446,7 @@ def cmd_measure(a):
 def main(argv=None):
     ap = argparse.ArgumentParser(description='acceptance gate')
     sub = ap.add_subparsers(dest='cmd', required=True)
-    adapter = str(ROOT / 'harness' / 'napoleon' / 'adapter.json')
+    adapter = str(layout.harness_adapter(ROOT))
     r = sub.add_parser('run'); r.add_argument('--passes', type=int, default=NEEDED); r.add_argument('--owner', default='claude-acceptance')
     r.add_argument('--baseline', default=str(BASELINE)); r.add_argument('--ledger', default=str(LEDGER)); r.add_argument('--run', required=True)
     r.add_argument('--session', default='acceptance'); r.add_argument('--adapter', default=adapter); r.add_argument('--branch', default='')

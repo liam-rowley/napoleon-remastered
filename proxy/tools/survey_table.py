@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Summarise a file-open survey (napoleon_remastered/logs/files.log, dev.log_files=1): distinct paths by folder, API and result.
+"""Summarise a file-open survey (<mod_dir>/logs/files.log, dev.log_files=1): distinct paths by folder, API and result.
 
 purpose: find what the engine opens, probes and lists (start-up movies, scripts, preferences, packs) from the survey log, not by assumption
 usage: survey_table.py FILES.LOG [--grep TEXT ...] [--failed] [--depth N] [--paths]   (--paths: every matching path, else counts per folder)

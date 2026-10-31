@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""List or extract entries of Warscape PFH0 packs (Empire, Napoleon), read only.
+"""List or extract entries of Warscape PFH0 packs (the PFH0 titles), read only.
 
 Purpose: find files inside the game's packs (movies, UI scripts, layouts, battle presets) without a pack editor.
 Usage: pack_list.py PACK [PACK ...] [--grep TEXT ...] [--ext .luac|none ...] [--under ui ...] [--extract OUTDIR] [--json]

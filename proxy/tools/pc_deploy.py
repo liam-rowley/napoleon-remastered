@@ -18,7 +18,15 @@ import sys
 import time
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+# The game repo and its adapters come from layout.py (J12). A kit's copy of this script on the PC has no repo around it: install,
+# uninstall, set, status and diff use only their arguments and the kit, so the repo paths are simply absent there.
+try:
+    sys.path.insert(0, str(HERE))
+    import layout
+    ROOT = layout.game_root()
+except Exception:   # noqa: BLE001  (ImportError beside a kit, LayoutError outside a repo)
+    layout, ROOT = None, HERE
 BIG = 100 * 1024 * 1024   # snapshot: files above this are compared by size + mtime (game packs: nothing here ever writes them)
 STATE_FILE = 'install.json'
 
@@ -47,7 +55,32 @@ def sha1_file(p, chunk=1 << 20):
 
 
 # ---- the exe identity (J18, J5 ledger row 28: the exe stays vanilla on disk) ------------------------------------------------------
-IDENTITY_COPY = 'exe_identity.json'   # the sha-checked copy of proxy/<adapter>/identity.json that travels in every kit
+IDENTITY_COPY = 'exe_identity.json'   # the sha-checked copy of the proxy adapter's identity.json that travels in every kit
+
+
+def _need_repo(what):
+    if layout is None:
+        raise SystemExit(f'pc_deploy {what}: needs the repo checkout (proxy/tools/layout.py), not a kit copy')
+
+
+def proxy_adapter(adapter=None):
+    """The game's proxy adapter folder: the --adapter folder, else layout.py's."""
+    if adapter:
+        return Path(adapter).resolve()
+    _need_repo('kit')
+    return layout.proxy_adapter(ROOT)
+
+
+def harness_adapter():
+    _need_repo('kit')
+    return layout.harness_adapter(ROOT)
+
+
+def harness_scripts():
+    """The watcher's scripts: harness/core/ before the move to warscape-core, harness/ in the core after it."""
+    _need_repo('kit')
+    own = layout.own_root()
+    return own / 'harness' / 'core' if (own / 'harness' / 'core' / 'watcher.ps1').is_file() else own / 'harness'
 
 
 def load_identity(*candidates):
@@ -58,15 +91,20 @@ def load_identity(*candidates):
     return None
 
 
-def default_identity(adapter='napoleon'):
-    return load_identity(Path(__file__).with_name(IDENTITY_COPY), ROOT / 'proxy' / adapter / 'identity.json')
+def default_identity(adapter=None):
+    try:
+        repo = proxy_adapter(adapter) / 'identity.json'
+    except (SystemExit, Exception):   # noqa: BLE001  (a kit copy: only the copy beside it)
+        repo = None
+    return load_identity(Path(__file__).with_name(IDENTITY_COPY), repo)
 
 
 def exe_verdict(game, ident, exe_name=None):
     """(ok, sha1, line) for the exe in the game folder against an identity. ok is None when it cannot be judged (no identity, no exe)."""
-    exe = Path(game) / (exe_name or (ident or {}).get('exe_name', 'Napoleon.exe'))
-    if not ident or not ident.get('sha1'):
-        return None, None, f'exe: CANNOT CHECK {exe.name}: no exe identity (proxy/<adapter>/identity.json or a kit copy {IDENTITY_COPY})'
+    name = exe_name or (ident or {}).get('exe_name')
+    if not ident or not ident.get('sha1') or not name:
+        return None, None, f'exe: CANNOT CHECK {name or "the exe"}: no exe identity (the proxy adapter\'s identity.json or a kit copy {IDENTITY_COPY})'
+    exe = Path(game) / name
     if not exe.is_file():
         return None, None, f'exe: CANNOT CHECK: {exe} not found'
     h = sha1_file(exe)
@@ -82,9 +120,12 @@ def git_dirs(game):
     return [str(d / '.git') for d in (g, *g.parents) if (d / '.git').exists()]
 
 
-def game_config_paths(adapter='napoleon'):
-    """The adapter's game-anchored config files (a profile overlays them; never foreign), as game-relative POSIX paths."""
-    a = ROOT / 'harness' / adapter / 'adapter.json'
+def game_config_paths(adapter=None):
+    """The harness adapter's game-anchored config files (a profile overlays them; never foreign), as game-relative POSIX paths."""
+    try:
+        a = Path(adapter) if adapter else harness_adapter()
+    except (SystemExit, Exception):   # noqa: BLE001
+        return []
     if not a.is_file():
         return []
     return [c['path'].replace('\\', '/') for c in json.loads(a.read_text(encoding='utf-8')).get('config_files', []) if c.get('anchor') == 'game']
@@ -151,13 +192,39 @@ def record_exe(rec, game, ident, action, stamp):
 
 
 # ---- kit ------------------------------------------------------------------------------------------------------------
-def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None, identity=None):
+def kit_packs(had, mod):
+    """Game packs the kit carries beside the proxy, built by the game's own builders: the harness adapter's `kit_packs` list of
+    {id, module (repo-relative .py with build(input) -> (path, info)), input (repo-relative)}. A builder that cannot run here (the game's
+    packs unreadable: CI) is recorded as absent with its reason, so a launch whose file rules need the pack is refused (ctl.py).
+    -> ([(path, kit path, role)], {id: {present, path, sha256} | {present: False, reason}})"""
+    import importlib.util
+    files, packs = [], {}
+    for p in had.get('kit_packs', []):
+        stem = Path(p['module']).stem
+        try:
+            mod_ = sys.modules.get(stem)
+            if mod_ is None:
+                spec = importlib.util.spec_from_file_location(stem, ROOT / p['module'])
+                mod_ = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod_)
+            path, _ = mod_.build(ROOT / p['input'])
+            files.append((path, f'{mod}/packs/{Path(path).name}', 'dev'))
+            packs[p['id']] = {'present': True, 'path': f'{mod}/packs/{Path(path).name}', 'sha256': hashlib.sha256(Path(path).read_bytes()).hexdigest()}
+        except (OSError, SystemExit, KeyError, ImportError) as e:
+            packs[p['id']] = {'present': False, 'reason': str(e) or type(e).__name__}
+            print(f"pc_deploy kit: no {p['id']} pack ({e}): a file rule that adds it then finds nothing (ctl.py refuses that launch)")
+    return files, packs
+
+
+def build_kit(out, adapter=None, dll=None, dxvk_dir=None, build_id=None, identity=None):
     """Kit folder: manifest.json + payload files stored FLAT under unique names (<sha12>__<name>): a resend of a stale cached copy
     (empire-remastered LEARNINGS lesson 18) can never pass for the new file, because install checks every staged file's sha256."""
-    ident_path = Path(identity or ROOT / 'proxy' / adapter / 'identity.json')
+    adir = proxy_adapter(adapter)
+    ident_path = Path(identity or adir / 'identity.json')
     ident = json.loads(ident_path.read_text(encoding='utf-8'))
     mod, ini = ident['mod_dir'], ident['config_file']
-    dll = Path(dll or ROOT / 'build' / 'proxy' / adapter / 'd3d9.dll')
+    had = json.loads(harness_adapter().read_text(encoding='utf-8'))
+    dll = Path(dll or ROOT / 'build' / 'proxy' / adir.name / 'd3d9.dll')
     if not dll.exists():
         raise SystemExit(f'pc_deploy kit: {dll} missing: run proxy/tools/build.sh dll first')
     if dxvk_dir is None:
@@ -166,26 +233,19 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None, i
         d, lic = fetch_dxvk.fetch(ROOT / 'build' / 'dxvk')
     else:
         d, lic = Path(dxvk_dir) / 'd3d9_dxvk.dll', Path(dxvk_dir) / 'LICENSE.dxvk.txt'
-    files = [(dll, 'd3d9.dll', 'proxy'), (ROOT / 'proxy' / adapter / ini, ini, 'config'),
+    files = [(dll, 'd3d9.dll', 'proxy'), (adir / ini, ini, 'config'),
              (d, f'{mod}/dxvk/d3d9_dxvk.dll', 'backend'), (lic, f'{mod}/LICENSE.dxvk.txt', 'licence')]
     # dev side (J3): the Lua bridge files and the wrapper pack; inert unless dev keys are set (all default off)
-    ldir = ROOT / 'proxy' / adapter / 'lua'
-    fixed_sky = {'present': False, 'reason': f'no dev side (no {ldir.relative_to(ROOT).as_posix()})'}
+    ldir = adir / 'lua'
+    packs = {}
     if ldir.is_dir():
         sys.path.insert(0, str(Path(__file__).parent))
         import build_dev_pack
-        pack, _ = build_dev_pack.build(adapter)
+        pack, _ = build_dev_pack.build(adir)
         files.append((pack, f'{mod}/packs/{pack.name}', 'dev'))
-        # the fixed-sky pack (J44) is built from the game's own tables, so only where the packs are readable (the PC); CI kits go without it
-        try:
-            import build_fixed_sky_pack
-            sky, _ = build_fixed_sky_pack.build(ROOT / 'discovery' / adapter / 'games.json')
-            files.append((sky, f'{mod}/packs/{sky.name}', 'dev'))
-            fixed_sky = {'present': True, 'path': f'{mod}/packs/{sky.name}', 'sha256': hashlib.sha256(sky.read_bytes()).hexdigest()}
-        except (OSError, SystemExit, KeyError, ImportError) as e:
-            # a CI kit cannot build it; on the PC, ctl.py Pc.launch refuses a launch whose dev.file_rules adds it (J45, J44 review 3)
-            fixed_sky = {'present': False, 'reason': str(e) or type(e).__name__}
-            print(f'pc_deploy kit: no fixed-sky pack ({e}): dev.file_rules=.../fixed_sky_rules.txt then leaves the vanilla sky in place')
+        # the game's own packs (J44's fixed sky, J12: declared by the game, built where its packs are readable; a CI kit goes without)
+        more, packs = kit_packs(had, mod)
+        files += more
         for p in sorted(ldir.rglob('*')):
             if p.is_file() and p.suffix in ('.lua', '.txt') and p.name != 'wrappers.txt':
                 files.append((p, f'{mod}/lua/' + p.relative_to(ldir).as_posix(), 'dev'))
@@ -205,8 +265,8 @@ def build_kit(out, adapter='napoleon', dll=None, dxvk_dir=None, build_id=None, i
         (kdir / staged).write_bytes(b)
         entries.append({'path': dest, 'staged': staged, 'sha256': h, 'size': len(b), 'role': role})
     man = {'kit_id': kit_id, 'build_id': build_id, 'created_utc': utc_stamp(), 'game': ident['game'], 'exe_name': ident['exe_name'],
-           'other_exes': ident.get('other_exes', ['Empire.exe']), 'mod_dir': mod, 'config_file': ini, 'owned': ['d3d9.dll', ini, mod + '/'], 'files': entries,
-           'game_config_files': game_config_paths(adapter), 'fixed_sky': fixed_sky}
+           'other_exes': list(had.get('other_images', [])), 'mod_dir': mod, 'config_file': ini, 'owned': ['d3d9.dll', ini, mod + '/'], 'files': entries,
+           'game_config_files': game_config_paths(), 'packs': packs}
     ib = ident_path.read_bytes()   # the copy install checks the exe against (J18): byte-identical to the source, sha256 in the manifest
     (kdir / IDENTITY_COPY).write_bytes(ib)
     man['exe_identity'] = {'name': IDENTITY_COPY, 'sha256': hashlib.sha256(ib).hexdigest()}
@@ -257,16 +317,16 @@ def norm_for_pc(name, b):
     return b
 
 
-def build_harness_kit(out, adapter='napoleon', build_id=None, identity=None):
+def build_harness_kit(out, adapter=None, build_id=None, identity=None):
     """Kit folder for the watcher: manifest.json (kind harness) + payload files stored FLAT under unique names (<sha12>__<path>) whose
     paths are relative to the watcher root (src/..., profiles/...), + the installer and job.sh under their real names (kit_files, sha256 in
     the manifest), + pc_deploy.py. Every kit has a new id; install.ps1 and update.ps1 check every sha256 before anything is written."""
-    hdir = ROOT / 'harness'
-    adir = hdir / adapter
+    hdir = harness_scripts()                 # the watcher's scripts
+    adir = harness_adapter().parent          # the game's harness adapter: adapter.json and profiles/
     ad = json.loads((adir / 'adapter.json').read_text(encoding='utf-8'))
-    files = [(hdir / 'core' / n, 'src/' + n, 'watcher') for n in HARNESS_SRC] + [(adir / 'adapter.json', 'src/adapter.json', 'adapter')]
+    files = [(hdir / n, 'src/' + n, 'watcher') for n in HARNESS_SRC] + [(adir / 'adapter.json', 'src/adapter.json', 'adapter')]
     # the watcher checks the exe before every launch against this copy, beside its adapter.json (J18)
-    files.append((Path(identity or ROOT / 'proxy' / adapter / 'identity.json'), 'src/' + IDENTITY_COPY, 'identity'))
+    files.append((Path(identity or proxy_adapter(adapter) / 'identity.json'), 'src/' + IDENTITY_COPY, 'identity'))
     for p in sorted((adir / 'profiles').rglob('*')):
         if p.is_file():
             files.append((p, 'profiles/' + p.relative_to(adir / 'profiles').as_posix(), 'profile'))
@@ -287,11 +347,11 @@ def build_harness_kit(out, adapter='napoleon', build_id=None, identity=None):
         entries.append({'path': dest, 'staged': staged, 'sha256': h, 'size': len(b), 'role': role})
     kit_files = []
     for n in HARNESS_KIT_FILES + ['adapter.json']:
-        src = adir / 'adapter.json' if n == 'adapter.json' else hdir / 'core' / n
+        src = adir / 'adapter.json' if n == 'adapter.json' else hdir / n
         b = norm_for_pc(n, src.read_bytes())
         (kdir / n).write_bytes(b)
         kit_files.append({'name': n, 'sha256': hashlib.sha256(b).hexdigest()})
-    m = re.search(r"\$Version\s*=\s*'([^']+)'", (hdir / 'core' / 'watcher.ps1').read_text(encoding='ascii'))
+    m = re.search(r"\$Version\s*=\s*'([^']+)'", (hdir / 'watcher.ps1').read_text(encoding='ascii'))
     wroot = ad['state_dir'].rstrip('\\') + '\\' + ad['watcher_subdir']
     man = {'kind': 'harness', 'kit_id': kit_id, 'build_id': build_id, 'created_utc': utc_stamp(), 'game': ad['game'],
            'watcher_version': m.group(1) if m else None, 'watcher_root': wroot, 'task_name': ad['task_name'], 'files': entries, 'kit_files': kit_files}
@@ -444,7 +504,7 @@ def running_check(game, mod_dir, exe_name, now=None, state=None, other_exes=(), 
 
 
 def require_closed(game, man, assume, state=None):
-    why = running_check(game, man['mod_dir'], man['exe_name'], state=state, other_exes=man.get('other_exes', ['Empire.exe']))
+    why = running_check(game, man['mod_dir'], man['exe_name'], state=state, other_exes=man.get('other_exes', []))
     if why and not assume:
         raise SystemExit(f'pc_deploy: refusing: {why}. Close the game first (or pass --assume-closed once Liam has confirmed it is closed).')
     if why:
@@ -508,7 +568,7 @@ def install(kit, game, state, assume_closed=False):
         pre_path.write_text(json.dumps(pre), encoding='utf-8')
         rec = {'pre_snapshot': str(pre_path.relative_to(state)), 'backups': [], 'history': [], 'kit_id': None, 'build_id': None,
                'installed_utc': None, 'files': []}
-        rec.update({'owned': man['owned'], 'mod_dir': man['mod_dir'], 'exe_name': man['exe_name'], 'config_file': man['config_file'], 'other_exes': man.get('other_exes', ['Empire.exe'])})
+        rec.update({'owned': man['owned'], 'mod_dir': man['mod_dir'], 'exe_name': man['exe_name'], 'config_file': man['config_file'], 'other_exes': man.get('other_exes', [])})
         save()
         # anything already at a path the kit owns is foreign (not ours): back it up for the uninstall to restore
         for o in man['owned']:
@@ -538,7 +598,7 @@ def install(kit, game, state, assume_closed=False):
     rec.update({'kit_id': man['kit_id'], 'build_id': man['build_id'], 'installed_utc': stamp, 'owned': man['owned'],
                 'files': [{k: e[k] for k in ('path', 'sha256', 'size')} for e in man['files']], 'mod_dir': man['mod_dir'],
                 'exe_name': man['exe_name'], 'config_file': man['config_file'], 'game_config_files': man.get('game_config_files', []),
-                'fixed_sky': man.get('fixed_sky')})
+                'packs': man.get('packs', {})})
     rec['history'].append({'utc': stamp, 'action': 'install', 'kit_id': man['kit_id']})
     after = record_exe(rec, game, ident, 'install', stamp)
     rec_path.write_text(json.dumps(rec, indent=2) + '\n', encoding='utf-8')
@@ -638,6 +698,11 @@ def resolve_keys(text, sets):
 
 def set_keys(game, pairs, config_file, state=None):
     """Returns 0, or 1 when the exe is not vanilla afterwards (checked after, never refused; recorded in install.json when there is one)."""
+    if not config_file:   # the installed kit's name for it, else the identity's (a kit copy: the one beside it)
+        rec0 = Path(state) / STATE_FILE if state else None
+        config_file = (json.loads(rec0.read_text(encoding='utf-8')).get('config_file') if rec0 and rec0.exists() else None) or (default_identity() or {}).get('config_file')
+        if not config_file:
+            raise SystemExit('pc_deploy set: no --config-file and no install record or identity that names it')
     p = Path(game) / config_file
     bad = [x for x in pairs if '=' not in x]
     if bad:
@@ -678,15 +743,16 @@ def status(game, state):
     return 1 if bad or fails else 0
 
 
-def lua_files(adapter='napoleon'):
+def lua_files(adapter=None):
     """The repo's dev Lua files as (source, path under the game folder, mod_dir): the same set `kit` ships."""
-    ident = json.loads((ROOT / 'proxy' / adapter / 'identity.json').read_text(encoding='utf-8'))
-    ldir = ROOT / 'proxy' / adapter / 'lua'
+    adir = proxy_adapter(adapter)
+    ident = json.loads((adir / 'identity.json').read_text(encoding='utf-8'))
+    ldir = adir / 'lua'
     return [(p, f"{ident['mod_dir']}/lua/" + p.relative_to(ldir).as_posix())
             for p in sorted(ldir.rglob('*')) if p.is_file() and p.suffix in ('.lua', '.txt') and p.name != 'wrappers.txt']
 
 
-def sync_lua(game, state, adapter='napoleon', assume_closed=False, dry_run=False):
+def sync_lua(game, state, adapter=None, assume_closed=False, dry_run=False):
     """Bring the installed Lua files (the dev scripts and battle presets) up to the repo's, no new kit: each changed file is staged under a
     unique name (<sha12>__<name>) beside its destination, sha-checked, then moved into place; the old copy goes to <state>/_to_delete and
     install.json is updated, so uninstall stays byte-exact. Files the install does not own are never touched. Returns the changed paths."""
@@ -736,12 +802,12 @@ def sync_lua(game, state, adapter='napoleon', assume_closed=False, dry_run=False
 def main():
     ap = argparse.ArgumentParser(description='proxy kit, install, uninstall')
     sub = ap.add_subparsers(dest='cmd', required=True)
-    k = sub.add_parser('kit'); k.add_argument('--out', default=str(ROOT / 'build' / 'kits')); k.add_argument('--adapter', default='napoleon'); k.add_argument('--dll'); k.add_argument('--what', choices=['proxy', 'harness'], default='proxy')
+    k = sub.add_parser('kit'); k.add_argument('--out', default=str(ROOT / 'build' / 'kits')); k.add_argument('--adapter', help='the proxy adapter folder (default: layout.py proxy-adapter)'); k.add_argument('--dll'); k.add_argument('--what', choices=['proxy', 'harness'], default='proxy')
     sd = sub.add_parser('send'); sd.add_argument('--kit', required=True); sd.add_argument('--state', required=True)
     s = sub.add_parser('snapshot'); s.add_argument('--game', required=True); s.add_argument('--out', required=True)
     i = sub.add_parser('install'); i.add_argument('--kit', required=True); i.add_argument('--game', required=True); i.add_argument('--state', required=True); i.add_argument('--assume-closed', action='store_true')
     u = sub.add_parser('uninstall'); u.add_argument('--game', required=True); u.add_argument('--state', required=True); u.add_argument('--assume-closed', action='store_true')
-    c = sub.add_parser('set'); c.add_argument('--game', required=True); c.add_argument('--state'); c.add_argument('--config-file', default='napoleon_remastered.ini'); c.add_argument('pairs', nargs='+')
+    c = sub.add_parser('set'); c.add_argument('--game', required=True); c.add_argument('--state'); c.add_argument('--config-file', help="the proxy's config file name (default: the identity's config_file)"); c.add_argument('pairs', nargs='+')
     st = sub.add_parser('status'); st.add_argument('--game', required=True); st.add_argument('--state', required=True)
     sl = sub.add_parser('sync-lua'); sl.add_argument('--game', required=True); sl.add_argument('--state', required=True); sl.add_argument('--assume-closed', action='store_true'); sl.add_argument('--dry-run', action='store_true')
     d = sub.add_parser('diff'); d.add_argument('a'); d.add_argument('b')

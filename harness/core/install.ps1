@@ -14,7 +14,7 @@ if ($man.kind -ne 'harness') { throw "$Kit is not a harness kit (kind=$($man.kin
 if (-not $Root) { $Root = [string]$man.watcher_root }
 if (-not $TaskName) { $TaskName = [string]$man.task_name }
 $Root = [IO.Path]::GetFullPath($Root).TrimEnd('\', '/')
-if ($TaskName -eq 'rml_mod watcher') { throw "refusing to touch Empire's scheduled task 'rml_mod watcher'" }
+if ($TaskName -eq 'rml_mod watcher') { throw "refusing to touch the earlier remaster's scheduled task 'rml_mod watcher'" }
 if (-not (Test-Path -LiteralPath $Root)) { New-Item -ItemType Directory -Path $Root -Force | Out-Null }
 $logFile = Join-Path $Root 'install.log'
 function Say([string]$m) { $l = "[$(Utc)] $m"; Write-Output $l; try { [IO.File]::AppendAllText($logFile, "$l`r`n", $Utf8) } catch { } }
@@ -80,12 +80,12 @@ $launcher = Join-Path (Join-Path $Root 'src') 'watch.cmd'
 # 3. the logon task: Register-ScheduledTask for the CURRENT user needs no elevation (schtasks /create /sc onlogon is refused for a non-admin)
 if (-not $NoTask) {
     $user = "$env:USERDOMAIN\$env:USERNAME"
-    $action = New-ScheduledTaskAction -Execute $env:ComSpec -Argument "/c start `"napoleon_remastered watcher`" /min `"$launcher`"" -WorkingDirectory (Split-Path $launcher)
+    $action = New-ScheduledTaskAction -Execute $env:ComSpec -Argument "/c start `"$TaskName`" /min `"$launcher`"" -WorkingDirectory (Split-Path $launcher)
     $trigger = New-ScheduledTaskTrigger -AtLogOn -User $user
     $trigger.Delay = 'PT15S'
     $principal = New-ScheduledTaskPrincipal -UserId $user -LogonType Interactive -RunLevel Limited
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit ([TimeSpan]::Zero) -MultipleInstances IgnoreNew -StartWhenAvailable
-    Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "Napoleon remaster: PC watcher ($launcher). See harness/README.md." -Force | Out-Null
+    Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "$TaskName`: the PC watcher ($launcher)." -Force | Out-Null
     $t = Get-ScheduledTask -TaskName $TaskName
     Say "task: '$TaskName' state=$($t.State) trigger=AtLogOn user=$user action=$($t.Actions[0].Execute) $($t.Actions[0].Arguments)"
 }

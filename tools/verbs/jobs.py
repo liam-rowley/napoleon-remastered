@@ -167,6 +167,40 @@ def round_status_problems(row, review, report):
     return [f'round {n} says "{v}", so the row should be {want}, not {st}']
 
 
+# Rule 76 (PLAN section 4, J5 ledger row 76; code since J12): every core candidate folder (`<area>/core/`) is listed here with the job
+# that promotes it to warscape-core, or None while that job has no row yet (named needs_brief in the promoting job's report). A folder
+# whose promotion job is done must be gone (its code lives in the core now), and an unlisted folder fails. The table lives here, not in
+# wsc.toml, because the pinned core's config loader refuses keys it does not know.
+PROMOTIONS = {
+    'proxy/core': 'J12',      # -> warscape-core proxy/src
+    'harness/core': 'J12',    # -> warscape-core harness/
+    'saves/core': 'J12',      # -> warscape-core saves/
+    'discovery/core': None,   # phase 2 promotion, after the discovery gate J11 (no row yet)
+    'upscale/core': None,     # its own promotion, after J50 and J51 (no row yet)
+    'viewer/core': None,      # the review viewer (J31): promotion with the RmlUi host work (no row yet)
+}
+
+
+def promotion_problems(rows, tracked_dirs, table=None):
+    """Rule 76 errors. `tracked_dirs`: repo-relative folders holding tracked files; `table`: folder -> promoting job id or None."""
+    table = PROMOTIONS if table is None else table
+    by = {r['id']: r for r in rows}
+    cores = sorted({'/'.join(d.split('/')[:2]) for d in tracked_dirs if len(d.split('/')) >= 2 and d.split('/')[1] == 'core'
+                    and d.split('/')[0] != 'core'})
+    errs = []
+    for d in cores:
+        if d not in table:
+            errs.append(f'rule 76: {d}/ is a core candidate with no promotion job: add it to PROMOTIONS in tools/verbs/jobs.py '
+                        '(the job id, or None until its row exists)')
+            continue
+        j = table[d]
+        if j and j not in by:
+            errs.append(f'rule 76: {d}/ is promoted by {j}, which has no row')
+        elif j and by[j].get('status') == 'done':
+            errs.append(f'rule 76: {d}/ still exists but its promotion job {j} is done: the code belongs in warscape-core now')
+    return errs
+
+
 def problems(rows, read, folders=()):
     """Errors for the queue. `rows`: the jobs rows; `read(path)`: file text or None; `folders`: job ids that have a jobs/<id>/ folder."""
     errs, by = [], {r['id']: r for r in rows}
@@ -941,6 +975,7 @@ def run(args, ctx):
     if args.action == 'check':
         folders = [d.name for d in (ctx.root / 'jobs').iterdir() if d.is_dir()] if (ctx.root / 'jobs').is_dir() else []
         errs = problems(rows, read, folders)
+        errs += promotion_problems(rows, {str(Path(f).parent.as_posix()) for f in ctx.files()})
         for e in errs:
             print(f'jobs: {e}', file=sys.stderr)
         print(f'jobs check: {len(rows)} rows, {"%d problems" % len(errs) if errs else "ok"}')

@@ -417,7 +417,7 @@ class PcLaunch(unittest.TestCase):
             (game / 'napoleon_remastered' / 'packs' / 'zz_napoleon_remastered_fixed_sky.pack').write_bytes(b'PFH4')
             files.append({'path': 'napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack'})
         sky = {'present': True} if with_pack else {'present': False, 'reason': 'the game packs are not readable here'}
-        (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_20261031T000000Z_abc', 'files': files, 'fixed_sky': sky}))
+        (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_20261031T000000Z_abc', 'files': files, 'packs': {'fixed_sky': sky}}))
         p, calls = self.pc([(0, 'ok')])
         p.a.update(game_dir=str(game), state_dir=str(state))
         p.launch_cfg = dict(p.launch_cfg, keys={'dev.file_rules': r'napoleon_remastered\lua\fixed_sky_rules.txt'})

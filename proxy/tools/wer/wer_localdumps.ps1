@@ -1,14 +1,29 @@
-# purpose: turn Windows Error Reporting LocalDumps on, off or report it for ONE exe (default Napoleon.exe): full dumps written out of process, so they work when the game's heap is corrupt and the in-process minidump is empty
-# usage: powershell -ExecutionPolicy Bypass -File wer_localdumps.ps1 -Mode status|enable|disable [-ExeName Napoleon.exe] [-DumpFolder <path>] [-DumpCount 5]   (enable/disable need an elevated prompt: "Enable crash dumps.cmd")
+# purpose: turn Windows Error Reporting LocalDumps on, off or report it for ONE exe (default: the game's exe, from its proxy adapter's identity.json): full dumps written out of process, so they work when the game's heap is corrupt and the in-process minidump is empty
+# usage: powershell -ExecutionPolicy Bypass -File wer_localdumps.ps1 -Mode status|enable|disable [-ExeName <game exe>] [-DumpFolder <path>] [-DumpCount 5]   (enable/disable need an elevated prompt: "Enable crash dumps.cmd")
 # when: once per PC before PC tests (Liam runs "Enable crash dumps.cmd"); after any start-up crash read these dumps FIRST (empire-remastered LEARNINGS lesson 23)
 # not-a-verb: runs on Windows as administrator, outside the repo checkout
 # Ported from empire-remastered rml_mod/tools/crash_dumps/wer_localdumps.ps1. Only the HKLM ...\LocalDumps\<ExeName> subkey is written,
 # in the 64-bit registry view (a 32-bit PowerShell would be redirected to Wow6432Node, which WER does not read). The default dump folder
-# is OUTSIDE the game folder (%LOCALAPPDATA%\CrashDumps\napoleon_remastered, stored unexpanded), so a dump never breaks the byte-exact
+# is OUTSIDE the game folder (%LOCALAPPDATA%\CrashDumps\<mod_dir>, stored unexpanded), so a dump never breaks the byte-exact
 # uninstall and the key keeps working after the mod is removed. The proxy logs the key's state at every start ("crash: WER LocalDumps").
-param([ValidateSet('status', 'enable', 'disable')][string]$Mode = 'status', [string]$ExeName = 'Napoleon.exe',
-      [string]$DumpFolder = '%LOCALAPPDATA%\CrashDumps\napoleon_remastered', [int]$DumpCount = 5)
+param([ValidateSet('status', 'enable', 'disable')][string]$Mode = 'status', [string]$ExeName = '',
+      [string]$DumpFolder = '', [int]$DumpCount = 5)
 $ErrorActionPreference = 'Stop'
+# defaults from the game (J12: no game name here): the repo above this script (a wsc.toml), its proxy adapter (proxy\tools\layout.py)
+if (-not $ExeName -or -not $DumpFolder) {
+    $own = $PSScriptRoot; while ($own -and -not (Test-Path -LiteralPath (Join-Path $own 'wsc.toml'))) { $own = Split-Path $own }
+    $id = $null
+    if ($own) {
+        foreach ($py in 'python', 'python3', 'py') {
+            if (-not (Get-Command $py -ErrorAction SilentlyContinue)) { continue }
+            $ad = & $py (Join-Path $own 'proxy\tools\layout.py') proxy-adapter 2>$null
+            if ($LASTEXITCODE -eq 0 -and $ad) { $id = [IO.File]::ReadAllText((Join-Path $ad 'identity.json')) | ConvertFrom-Json; break }
+        }
+    }
+    if (-not $id) { throw 'no -ExeName and no proxy adapter identity.json to take it from (run it from the repo, or pass -ExeName and -DumpFolder)' }
+    if (-not $ExeName) { $ExeName = [string]$id.exe_name }
+    if (-not $DumpFolder) { $DumpFolder = '%LOCALAPPDATA%\CrashDumps\' + [string]$id.mod_dir }
+}
 $parentPath = 'SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps'
 $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 $hklm = [Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64)

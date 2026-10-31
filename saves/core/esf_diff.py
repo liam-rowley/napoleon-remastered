@@ -2,7 +2,7 @@
 """esf_diff.py: node-level diff of two ESF files (saves, startpos) by record path. Stdlib only.
 
 purpose: list changed values, added and removed records and record-array items between two saves, by record path (NAME[i], NAME#n, @N = child position)
-usage: python3 -I saves/core/esf_diff.py A.save B.save [--under PATH] [--max N] [--ignore-float EPS] [--skip NAME,NAME|@saves/napoleon/noise.txt]
+usage: python3 -I saves/core/esf_diff.py A.save B.save [--under PATH] [--max N] [--ignore-float EPS] [--skip NAME,NAME|@<game>/noise.txt]
 when: mapping which records encode a game state from two saves made one action apart (saves/SAVE_FORMAT.md), and checking that a recipe changed only what it meant to; read-only, offset based (two files in memory, no tree objects)
 not-a-verb: a game-agnostic ESF reader run on the PC against saves outside the repo (warscape-core candidate, D10)
 
@@ -75,7 +75,7 @@ class Differ:
         return (a1 - a0) == (b1 - b0) and a0 == b0 and self.ma[a0:a1] == self.mb[b0:b1]
 
     def same_values(self, va, vb):
-        if va == vb or repr(va) == repr(vb):   # repr: nan == nan (Napoleon REGION@42 holds nan; nan != nan is not a change)
+        if va == vb or repr(va) == repr(vb):   # repr: nan == nan (a REGION@42 can hold nan; nan != nan is not a change)
             return True
         if self.eps and isinstance(va, (float, tuple)) and type(va) is type(vb):
             ta = va if isinstance(va, tuple) else (va,)
@@ -205,7 +205,7 @@ def main():
     ap.add_argument('--under', help='only diff below this record path (names, e.g. CAMPAIGN_ENV/CAMPAIGN_MODEL/WORLD)')
     ap.add_argument('--max', type=int, default=4000, help='max output lines')
     ap.add_argument('--ignore-float', type=float, default=0.0, help='treat floats within EPS as equal')
-    ap.add_argument('--skip', default='', help='record names not to descend: NAME,NAME or @FILE (e.g. @saves/napoleon/noise.txt)')
+    ap.add_argument('--skip', default='', help='record names not to descend: NAME,NAME or @FILE (e.g. the game repo noise.txt)')
     a = ap.parse_args()
     A, B = Esf(a.a), Esf(a.b)
     ra, oa, ea = root_span(A)

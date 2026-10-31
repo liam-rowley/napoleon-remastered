@@ -10,7 +10,7 @@ Result contract (every verb, tests/test_ctl.py): `status` ok | failed | refused,
 long), `check` (what was compared: expected against got; ok is never returned without one), `evidence` (paths: shot, state, log) and
 `start_utc` / `end_utc`. A failure names the step and keeps its evidence. Exit code 0 only for ok (failed 1, refused 2).
 Settle (defined once, `Settle`): scene ready + N presented frames + the scene unchanged for T ms (the proxy has no shader-creation hook
-yet: frame and scene stability stand in, fact napoleon.ctl.settle_signal). N and T are adapter fields, never sleeps in callers.
+yet: frame and scene stability stand in, the game repo's engine fact on the settle signal). N and T are adapter fields, never sleeps in callers.
 PC binding (J44, `Pc`): `scene` launches through the watcher when no game runs (or its dev keys differ from the adapter's ctl.launch.keys, set
 with pc_deploy set), warm-resets from a battle and relaunches from a campaign or a historical battle; the loaded scenario is kept per game pid
 in <state>/ctl/_ctl_session.json, so a later call's `current_kind` uses the row. `shot` goes through shot.sh; `perf` adds VRAM (the Windows GPU
@@ -31,7 +31,11 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[1]
+# the game repo and its adapters come from proxy/tools/layout.py (J12): the same answer before and after the move to warscape-core
+_OWN = next(d for d in (HERE, *HERE.parents) if (d / 'wsc.toml').is_file())
+sys.path.insert(0, str(_OWN / 'proxy' / 'tools'))
+import layout  # noqa: E402
+ROOT = layout.game_root(_OWN)
 sys.path.insert(0, str(HERE))
 import campose  # noqa: E402  (the camera readback's maths, J43)
 BATTLE_SCENES = ('battle_deploy', 'battle', 'naval')   # the proxy's scene tracker: a naval battle is its own scene (devcore.h SceneTracker)
@@ -192,7 +196,7 @@ def win_to_posix(p):
 
 
 def ini_values(text):
-    """{'section.key': value} from an ini text (the proxy's napoleon_remastered.ini)."""
+    """{'section.key': value} from an ini text (the proxy's config file)."""
     out, sec = {}, ''
     for line in text.splitlines():
         s = line.strip()
@@ -206,9 +210,19 @@ def ini_values(text):
     return out
 
 
+def identity(adapter=None):
+    """The game's proxy identity.json (exe, mod folder, config file names), from the proxy adapter layout.py finds; {} when none."""
+    try:
+        return json.loads((layout.proxy_adapter(ROOT) / 'identity.json').read_text(encoding='utf-8'))
+    except (layout.LayoutError, OSError, ValueError):
+        return {}
+
+
 def ident_mod(adapter):
-    ident = ROOT / 'proxy' / adapter.get('game', 'napoleon') / 'identity.json'
-    return json.loads(ident.read_text(encoding='utf-8'))['mod_dir'] if ident.exists() else 'napoleon_remastered'
+    mod = identity(adapter).get('mod_dir')
+    if not mod:
+        raise RuntimeError('no proxy adapter identity.json (proxy/tools/layout.py proxy-adapter): the mod folder is unknown')
+    return mod
 
 
 class Pc:
@@ -218,8 +232,8 @@ class Pc:
         self.owner, self.adapter_path, self.a = owner, str(adapter_path), adapter
         self.launch_cfg = adapter.get('ctl', {}).get('launch', {})
         self.sh, self.clock, self.sleep = sh or self._sh, clock, sleep
-        ident = ROOT / 'proxy' / adapter.get('game', 'napoleon') / 'identity.json'
-        self.ini_name = json.loads(ident.read_text(encoding='utf-8'))['config_file'] if ident.exists() else 'napoleon_remastered.ini'
+        self.ini_name = identity(adapter).get('config_file') or next(
+            (c['path'] for c in adapter.get('config_files', []) if c.get('id') == 'mod_ini'), None)
 
     @staticmethod
     def _sh(argv, stdin=None, timeout=None):
@@ -267,7 +281,7 @@ class Pc:
 
     def file_rule_problems(self):
         """The launch's dev.file_rules file and every `add` rule's source must be installed by the kit (install.json `files`), or the
-        game starts without them: a kit built without the fixed-sky pack launched with the vanilla sky, and the first sign was a land
+        game starts without them: a kit built without a game pack (the fixed sky) launched with the vanilla sky, and the first sign was a land
         shot_match failure that looked like a lighting regression (J44 review 3, J45). Problems as text; [] when there is nothing missing."""
         rules = self.keys().get('dev.file_rules')
         if not rules:
@@ -276,8 +290,8 @@ class Pc:
         rec = json.loads(inst.read_text(encoding='utf-8')) if inst.exists() else {}
         kit = rec.get('kit_id') or 'none installed'
         have = {f['path'].replace('\\', '/').lower() for f in rec.get('files', [])}
-        sky = rec.get('fixed_sky') or {}
-        why = f" (the kit says: no fixed-sky pack, {sky['reason']})" if sky.get('present') is False and sky.get('reason') else ''
+        absent = [f"no {k} pack, {v.get('reason')}" for k, v in sorted((rec.get('packs') or {}).items()) if v.get('present') is False]
+        why = f" (the kit says: {'; '.join(absent)})" if absent else ''
         split = lambda p: [s for s in re.split(r'[\\/]', p) if s]   # rule paths use backslashes; a host Path would not split them
         def installed(rel):
             return '/'.join(split(rel)).lower() in have and Path(self.a['game_dir'], *split(rel)).is_file()
@@ -423,7 +437,7 @@ def job_sh_transport(owner, adapter=None):
 class Ctl:
     def __init__(self, transport, scenarios, adapter, battles_dir=None, shotter=None, clock=time.monotonic, sleep=time.sleep, pc=None, session=None):
         self.t, self.rows, self.cfg = transport, scenarios, adapter.get('ctl', {})
-        self.battles_dir = battles_dir or ROOT / 'proxy' / adapter.get('game', 'napoleon') / 'lua' / 'battles'
+        self.battles_dir = battles_dir or layout.proxy_adapter(ROOT) / 'lua' / 'battles'
         self.shotter, self.clock, self.sleep = shotter, clock, sleep
         self.pc, self.session = pc, session or Session(None)   # pc: the game binding (launch, keys, exit, vram); None = a game already running
         self.scene_id = None
@@ -516,7 +530,7 @@ class Ctl:
 
     def v_scene(self, start, sid, *opts):
         """Load a scenario from any state: launch (with the adapter's dev keys) when no game runs or its keys are wrong, autostart from the
-        front end, warm reset from a battle, relaunch from a campaign (no quit flow: fact napoleon.campaign.quit_to_menu); settle; then
+        front end, warm reset from a battle, relaunch from a campaign (no quit flow: the game repo's engine fact campaign.quit_to_menu); settle; then
         `--deploy end` ends deployment (the row's launch command names it) so pause, speed and battle-time shots work."""
         row = resolve_scenario(self.rows, sid)
         deploy = 'end' if ('--deploy' in opts and 'end' in opts) or 'deploy=end' in opts else 'running'
@@ -530,7 +544,7 @@ class Ctl:
             if pid is None:
                 path['launch'] = self.pc.launch()
         here = self.state().get('scene', '')
-        # a campaign has no quit flow (fact napoleon.campaign.quit_to_menu), and the warm reset stops at a historical battle's post-battle
+        # a campaign has no quit flow (the game repo's engine fact campaign.quit_to_menu), and the warm reset stops at a historical battle's post-battle
         # screen (mp_postbattle; run 20261030_j44pc): both leave by a relaunch
         was = self.rows.get(self.scene_id or '', {}).get('kind')
         if here == 'campaign' or (here in BATTLE_SCENES and was == 'historical'):
@@ -707,7 +721,7 @@ class Ctl:
 def main(argv=None):
     ap = argparse.ArgumentParser(description='control API: one checked JSON result per verb')
     ap.add_argument('--owner', default='claude-ctl')
-    ap.add_argument('--adapter', default=str(ROOT / 'harness' / 'napoleon' / 'adapter.json'))
+    ap.add_argument('--adapter', default=None, help='the harness adapter (default: proxy/tools/layout.py harness-adapter)')
     ap.add_argument('--registry', default=str(ROOT / 'registries' / 'scenarios.jsonl'))
     ap.add_argument('--out', help='folder for shots (default <state>/ctl/shots)')
     ap.add_argument('--no-pc', action='store_true', help='no watcher binding: never launch, no shots, no VRAM (a game someone else launched)')
@@ -720,6 +734,7 @@ def main(argv=None):
     if a.verb not in VERBS:
         print(json.dumps(make_result(a.verb, 'refused', f'unknown verb; verbs: {", ".join(VERBS)}')))
         return 2
+    a.adapter = a.adapter or str(layout.harness_adapter(ROOT))
     adapter = json.loads(Path(a.adapter).read_text(encoding='utf-8'))
     pc = None if a.no_pc else Pc(a.owner, a.adapter, adapter)
     state_dir = Path(adapter.get('state_dir', '.'))

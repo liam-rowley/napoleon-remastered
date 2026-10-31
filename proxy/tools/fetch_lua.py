@@ -7,7 +7,7 @@ usage: python3 proxy/tools/fetch_lua.py [--out build/lua]
 when: build.sh runs it before compiling the DLL (the Lua bridge needs lua_* that work on the ENGINE's lua_State); never commit the output
 not-a-verb: needs network and writes build output, not a registry operation; build.sh calls it
 
-Why these patches (empire-remastered rml_mod/src/CMakeLists.txt, proven on Empire 2026-10-19; Napoleon re-checked 2026-10-29: the exe
+Why these patches (empire-remastered rml_mod/src/CMakeLists.txt, proven on the earlier remaster 2026-10-19; re-checked on the first consumer 2026-10-29: the exe
 says "Lua 5.1 Copyright (C) 1994-2006" and its chunks carry a 4-byte float lua_Number):
   luaconf.h  LUA_NUMBER float, as the engine's build.
   ltable.c   the engine's VM tests "no hash part" by pointer equality with ITS static dummynode, so ours is the engine's address,
@@ -22,7 +22,10 @@ import tarfile
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import layout  # noqa: E402
+
+ROOT = layout.game_root()   # downloads and output under the game repo's build/ (J12)
 PIN = {
     'version': '5.1.1',
     'url': 'https://www.lua.org/ftp/lua-5.1.1.tar.gz',
