@@ -105,3 +105,23 @@ d) CI run 41208229617 on `02d6b5c`: `gates`, `proxy` and `harness-windows` all s
   to `core/.githooks`. That is for Liam to run, since it is clone config and not repo content.
 - The `BARE_BASH` guard covers Python only. `.sh` scripts that call `bash` inside themselves are not scanned. The only one was
   `shot.sh`, now `"$BASH"`. A `.sh` rule could be added if more appear.
+
+## Fix round 1
+Review round 1 (`merge after fixes`) had one blocker: rule 79. The reviewer decided to run the acceptance passes, with no exemption
+and no split. No J22 code changed in this round.
+- **The PC had no proxy kit installed** (`pc_deploy.py status`: "not installed by this tool"). The first try,
+  `acceptance.py run --run 20261031_j22acc`, was refused at launch: `dev.file_rules names ...fixed_sky_rules.txt, which kit none
+  installed did not install`. I deleted that attempt's ledger line and run folder (a launch refusal, with no pass run). I then took the
+  `proxy/README.md` route: `build.sh --docker all` (host tests passed), `pc_deploy.py kit`, `send`, `install`. That installed
+  `kit_20261031T144321Z_13d00a1d4302`. The exe stayed vanilla (sha1 `9aebcd21...`).
+- **Run `20261031_j22acc`, pass 1: FAIL** at `settings_identical` (`changed: ['mod_ini']`). Every game step in that pass was ok:
+  loads, poses, shot matches, perf and warm reset. The cause is a first-pass-after-fresh-install effect. The ini was installed with
+  the dev keys at 0. The run's launch config then wrote `ctl=1`, `camera=1`, `file_rules=...` and the other dev keys after the pass had
+  taken its "before" settings snapshot. J45's passes started from an ini that already had those keys, so the write changed nothing
+  there. The ledger line and `harness/runs/20261031_j22acc/pass_01.json` are kept as the record.
+- **Run `20261031_j22acc2`: 20 of 20 passed** (14:52 to 16:10 UTC, about 3.9 min per pass). `acceptance.py streak --build 41cde4716ac7
+  --watcher 1.1.0` gives `20 consecutive passes ... (need 20)`, all on branch `job/J22`. The evidence is in
+  `harness/runs/20261031_j22acc2/pass_01.json` to `pass_20.json` and 20 ledger lines.
+- **Later (harness):** pass 1 after a fresh install fails `settings_identical` by construction. The fix would be to apply the launch
+  config before taking the "before" snapshot, or to compare only keys the pass does not own. That is outside J22's scope ("no harness
+  behaviour change"), so it is left for a job.
