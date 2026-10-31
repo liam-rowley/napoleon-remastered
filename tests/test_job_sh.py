@@ -168,10 +168,16 @@ class JobSh(unittest.TestCase):
     def test_ctl_without_an_ini_uses_the_registered_default(self):
         (self.game / 'mod.ini').unlink()
         r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], self.env)
-        self.assertEqual(r.returncode, 124)
         default = next(json.loads(l)['default'] for l in (ROOT / 'registries' / 'config_keys.jsonl').read_text(encoding='utf-8').splitlines()
                        if l.strip() and json.loads(l)['id'] == 'dev.ctl_dir')
         self.assertIn(bash_path(default), r.stderr)
+        # the default is a Windows drive path: on the PC the request waits there (no answer, 124); a Linux CI runner cannot create /c,
+        # so job.sh stops with "cannot write into <default>" (1). Either way the stderr above proves the default was the folder chosen.
+        if os.name == 'nt':
+            self.assertEqual(r.returncode, 124)
+        else:
+            self.assertEqual(r.returncode, 1)
+            self.assertIn('cannot write into', r.stderr)
 
     def test_ctl_no_answer_withdraws_the_request(self):
         # a request nobody answered must not stay as .cmd: the proxy would run it on its next launch (a stale exit or reset)

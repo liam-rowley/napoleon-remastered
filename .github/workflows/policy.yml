@@ -20,6 +20,8 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          submodules: true   # pr_policy hashes the DLL inputs with core/proxy/tools/build_id.py, in the core since J12
+          token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'

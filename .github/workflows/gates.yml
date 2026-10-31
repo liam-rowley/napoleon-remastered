@@ -113,6 +113,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
+        with:
+          submodules: true   # the viewer pin tests read core/proxy/tools (fetch_lua.py), in the core since J12
+          token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
       # the container runs as root: hand build/ back to the runner user for the render steps
       - run: viewer/core/build.sh --docker all && sudo chown -R "$(id -u):$(id -g)" build
       - uses: actions/setup-python@v6
