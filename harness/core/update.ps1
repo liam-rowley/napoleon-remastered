@@ -1,5 +1,5 @@
 # purpose: in-place update of the live watcher from a harness kit with a dead-man switch: the new watcher must come up, answer a noop job and stay alive, or the old files are put back byte for byte
-# usage: started detached by the watcher's "update kit=<kit id>" job (a copy of this file runs, because the update replaces src\update.ps1); by hand: powershell -File update.ps1 -Root <watcher root> -Kit <kit dir> [-NoopS 60] [-HealthyS 90] [-StableS 30]
+# usage: started detached by the watcher's "update kit=<kit id>" job (exit 0 CONFIRMED, 1 REVERTED, 2 ABORT before any change, 3 revert copy failed, 4 NOTHING TO DO) (a copy of this file runs, because the update replaces src\update.ps1); by hand: powershell -File update.ps1 -Root <watcher root> -Kit <kit dir> [-NoopS 60] [-HealthyS 90] [-StableS 30]
 # when: whenever harness files change on the PC after the first install (never copy them by hand); the first install is "Install watcher.cmd"
 # not-a-verb: runs on the PC under Windows PowerShell 5.1, outside the repo checkout
 param([Parameter(Mandatory = $true)][string]$Root, [Parameter(Mandatory = $true)][string]$Kit, [int]$NoopS = 60, [int]$HealthyS = 90, [int]$StableS = 30)
@@ -102,6 +102,15 @@ foreach ($e in @($man.files)) {
     if (-not (Test-Path -LiteralPath $staged) -or (Sha $staged) -ne $e.sha256) { Log "ABORT: staged file $($e.staged) is missing or does not match the manifest sha256 (stale or partial copy; re-send the kit under a new id) - nothing changed"; exit 2 }
     $plan += [pscustomobject]@{ rel = $rel; staged = $staged; sha = [string]$e.sha256 }
 }
+# J2 question 4: a manifest copied from another kit (run 20261029T002439Z: kit j2badwatcher carried the good kit's id and files) is refused
+$leaf = Split-Path $Kit -Leaf
+if ([string]$man.kit_id -ne $leaf) { Log "ABORT: the manifest's kit_id '$($man.kit_id)' is not this kit's folder '$leaf' (a manifest copied from another kit; re-send the kit) - nothing changed"; exit 2 }
+# J2 L7: an update with nothing to replace is its own outcome (exit 4): no backup, no restart, never CONFIRMED
+$todo = @($plan | Where-Object { $a = Join-Path $Root $_.rel; -not (Test-Path -LiteralPath $a) -or (Sha $a) -ne $_.sha })
+if (@($todo | Where-Object { $_.rel -ne 'src\watch.cmd' }).Count -eq 0) {
+    if ($todo.Count) { Log 'src\watch.cmd differs in the kit but is never replaced while it runs: re-run Install watcher.cmd for a new launcher' }
+    Log "NOTHING TO DO: every file of kit $($man.kit_id) is already in place (sha256) - no backup, no restart"; exit 4
+}
 $st0 = Status; $age0 = AliveAge
 if (-not $st0 -or $null -eq $age0 -or $age0 -gt 10) { Log 'ABORT: the watcher is not running (heartbeat stale) - nothing changed; use Install watcher.cmd'; exit 2 }
 $script:oldVersion = $st0.version; $script:oldPid = [int]$st0.pid
@@ -140,11 +149,13 @@ try {
     Log "$changed file(s) replaced"
 } catch { Log "copy failed: $($_.Exception.Message)"; Revert 'copy failed' }
 [IO.File]::WriteAllText((Join-Path $Root 'restart.request'), "update`r`n", $Utf8)
-# healthy: the expected version under a NEW pid, a fresh heartbeat, no zombie
+# healthy: the expected version under a NEW pid, a fresh heartbeat, no zombie. A needs_reboot flag the old watcher already had passes
+# (J2 L1: a zombie flag set before the update must not block the update that may fix it); a NEW one still fails the update.
+$rebootBefore = [bool]$st0.needs_reboot
 $ok = $null; $deadline = (Get-Date).AddSeconds($HealthyS)
 while ((Get-Date) -lt $deadline -and -not $ok) {
     $st = Status; $age = AliveAge
-    if ($st -and (-not $expect -or $st.version -eq $expect) -and [int]$st.pid -ne $script:oldPid -and $null -ne $age -and $age -lt 10 -and -not $st.needs_reboot) { $ok = $st }
+    if ($st -and (-not $expect -or $st.version -eq $expect) -and [int]$st.pid -ne $script:oldPid -and $null -ne $age -and $age -lt 10 -and ($rebootBefore -or -not $st.needs_reboot)) { $ok = $st }
     Start-Sleep -Milliseconds 500
 }
 if (-not $ok) { Revert "watcher $expect not healthy within $HealthyS s" }

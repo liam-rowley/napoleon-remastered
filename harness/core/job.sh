@@ -1,22 +1,27 @@
 #!/usr/bin/env bash
 # purpose: agent helper on the PC (Git Bash): submit a watcher job, block inside ONE call until its result (or a timeout), print the output, return the job's exit code (refused 2, no answer 124); also take, refresh and release the game lock
-# usage: job.sh [--adapter FILE] <owner> <file|-> [timeout_s]  |  job.sh [--adapter FILE] lock <owner> <session> <purpose> [hang_s]  |  touch  |  unlock <owner> [--force]  |  status  |  root  |  scratch <owner>  |  ctl <owner> '<verb args>' [wait_s]
+# usage: job.sh [--adapter FILE] <owner> <file|-> [timeout_s]  |  job.sh adapter  |  job.sh [--adapter FILE] lock <owner> <session> <purpose> [hang_s]  |  touch  |  unlock <owner> [--force]  |  status  |  root  |  scratch <owner>  |  ctl <owner> '<verb args>' [wait_s]
 # when: every time an agent runs something on the PC (launch, kill, profile, scripts): the watcher root comes from the adapter (state_dir + watcher_subdir), never a default path; waiting belongs here, not in repeated agent calls
 # not-a-verb: a bash helper agents call directly from Git Bash (python3 only reads JSON); the PC side of the protocol is harness/core/watcher.ps1
 # scratch <owner> creates <state>/_scratch/<owner>/ and prints its Git Bash path (the only place for PC experiments; the Claude Code hook denies other writes there).
 # Body: a one-line control job (launch|kill|profile <name>|restore|update kit=<id>|restart|status|noop) or a cmd/ps1 script ('#ps1' first line or '#job type=ps1').
 # launch/kill/profile get ' owner=<owner>' appended when missing; a script without a '#job owner=' line gets one. Root: $WATCHER_ROOT when set (tests), else <adapter state_dir as a Git Bash path>/<watcher_subdir>.
+# Adapter (J12): --adapter FILE, else $HARNESS_ADAPTER, else adapter.json beside this script (a kit), else the game repo's harness adapter
+# (proxy/tools/layout.py harness-adapter: wsc.toml [harness] adapter, or the one harness/*/adapter.json); never a game name or folder.
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ADAPTER="${HARNESS_ADAPTER:-}"
 if [ "${1:-}" = "--adapter" ]; then ADAPTER="${2:?--adapter FILE}"; shift 2; fi
+own_root() { local d="$HERE"; while [ "$d" != "/" ] && [ ! -f "$d/wsc.toml" ]; do d="$(dirname "$d")"; done; [ -f "$d/wsc.toml" ] && printf '%s' "$d"; }
+find_adapter() {
+  [ -n "$ADAPTER" ] && [ -f "$ADAPTER" ] && return 0
+  [ -f "$HERE/adapter.json" ] && { ADAPTER="$HERE/adapter.json"; return 0; }
+  local o; o="$(own_root)" && [ -f "$o/proxy/tools/layout.py" ] && ADAPTER="$(python3 "$o/proxy/tools/layout.py" harness-adapter 2>/dev/null)"
+  [ -n "$ADAPTER" ] && [ -f "$ADAPTER" ]
+}
 resolve_root() {
   if [ -n "${WATCHER_ROOT:-}" ]; then printf '%s' "$WATCHER_ROOT"; return 0; fi
-  local a
-  for a in "$ADAPTER" "$HERE/adapter.json" "$HERE/../napoleon/adapter.json"; do
-    [ -n "$a" ] && [ -f "$a" ] && { ADAPTER="$a"; break; }
-  done
-  [ -f "$ADAPTER" ] || { echo "job.sh: no adapter.json found (use --adapter FILE, \$HARNESS_ADAPTER or \$WATCHER_ROOT)" >&2; return 64; }
+  find_adapter || { echo "job.sh: no adapter.json found (use --adapter FILE, \$HARNESS_ADAPTER or \$WATCHER_ROOT; from a repo: proxy/tools/layout.py harness-adapter says why)" >&2; return 64; }
   python3 - "$ADAPTER" <<'PY'
 import json, re, sys
 a = json.load(open(sys.argv[1], encoding='utf-8'))
@@ -25,6 +30,7 @@ m = re.match(r'^([A-Za-z]):(/.*)?$', s)   # C:\napoleon_remastered_pc -> /c/napo
 print((f'/{m.group(1).lower()}{m.group(2) or ""}' if m else s) + '/' + a['watcher_subdir'], end='')
 PY
 }
+if [ "${1:-}" = "adapter" ]; then find_adapter && { printf '%s\n' "$ADAPTER"; exit 0; }; echo "job.sh: no adapter.json found" >&2; exit 64; fi
 ROOT="$(resolve_root)" || exit 64
 if [ "${1:-}" = "scratch" ]; then
   # J18 (J5 ledger row 31): PC experiments live in <state>/_scratch/<owner>/, the one place in the state folder an agent writes by hand
@@ -36,6 +42,39 @@ if [ "${1:-}" = "scratch" ]; then
 ' "$d"; exit 0
 fi
 [ -d "$ROOT" ] || { echo "job.sh: watcher root $ROOT does not exist: is the watcher installed (harness/README.md)?" >&2; exit 64; }
+# The control channel's folder is the proxy's dev.ctl_dir (J3 review 5, J12 fix 1c): from the game's mod ini (the adapter's config_files
+# entry `mod_ini`, [dev] ctl_dir) when it sets one, else the game repo's registered default (registries/config_keys.jsonl); never guessed.
+ctl_dir() {
+  find_adapter || { echo "job.sh ctl: no adapter, so no mod ini to read dev.ctl_dir from" >&2; return 64; }
+  python3 - "$ADAPTER" "$(own_root)" <<'PY'
+import configparser, json, os, re, sys
+from pathlib import Path
+a = json.load(open(sys.argv[1], encoding='utf-8'))
+own = sys.argv[2]
+v, where = None, ''
+ini = next((c['path'] for c in a.get('config_files', []) if c.get('id') == 'mod_ini'), None)
+if ini and a.get('game_dir'):
+    p = Path(os.path.expandvars(a['game_dir'])) / ini.replace('\\', '/')
+    if p.is_file():
+        cp = configparser.ConfigParser(interpolation=None, strict=False)
+        cp.read_string(p.read_text(encoding='utf-8', errors='replace'))
+        v, where = cp.get('dev', 'ctl_dir', fallback=None), str(p)
+if not v and own:
+    try:
+        sys.path.insert(0, os.path.join(own, 'proxy', 'tools')); import layout
+        reg = layout.game_root(Path(own)) / 'registries' / 'config_keys.jsonl'
+        for line in reg.read_text(encoding='utf-8').splitlines():
+            if line.strip() and json.loads(line).get('id') == 'dev.ctl_dir':
+                v, where = json.loads(line).get('default'), f'{reg} (default)'
+    except Exception:
+        pass
+if not v:
+    sys.exit(f'job.sh ctl: dev.ctl_dir is not set in the mod ini and has no registered default: nowhere to send requests')
+s = v.replace('\\', '/').rstrip('/')
+m = re.match(r'^([A-Za-z]):(/.*)?$', s)
+print((f'/{m.group(1).lower()}{m.group(2) or ""}' if m else s), end='')
+PY
+}
 jget() { python3 -c 'import json,sys; d=json.load(open(sys.argv[1],encoding="utf-8")); print(d.get(sys.argv[2],""))' "$1" "$2"; }
 utc() { date -u +%Y-%m-%dT%H:%M:%SZ; }
 lock_owner() { [ -f "$ROOT/game.lock" ] && tr -d '\r' < "$ROOT/game.lock" | head -1 | sed -n 's/.*\bowner=\([^ ]*\).*/\1/p'; }
@@ -47,7 +86,7 @@ case "$cmd" in
     # The proxy's dev control channel (dev.ctl=1): <state>/ctl/<id>.cmd -> <id>.done (proxy/README.md "Dev control channel").
     # Blocks inside this one call until the result; exit 0 ok, 1 failed, 3 timeout (the proxy's own), 2 refused, 124 no answer.
     owner="${2:?ctl <owner> '<verb args>' [wait_s]}"; line="${3:?ctl <owner> '<verb args>' [wait_s]}"; w="${4:-170}"
-    C="$(dirname "$ROOT")/ctl"; mkdir -p "$C"
+    C="$(ctl_dir)" || exit 64; mkdir -p "$C"
     id="$(printf '%s' "$owner" | tr -c 'A-Za-z0-9._-' '_')-$(date -u +%Y%m%dT%H%M%SZ)-$RANDOM$RANDOM"
     printf '%s\n' "$line" > "$C/$id.tmp" && mv "$C/$id.tmp" "$C/$id.cmd" || { echo "job.sh ctl: cannot write into $C" >&2; exit 1; }
     end=$(( $(date +%s) + w ))
@@ -80,8 +119,20 @@ case "$cmd" in
     fi
     line="owner=${owner//[$'\r\n']/_} session=${session//[$'\r\n']/_} purpose=${purpose//[$'\r\n']/ } started=$(utc)"
     [ -n "$hang" ] && line="$line hang_s=$hang"
-    printf '%s\n' "$line" > "$ROOT/game.lock.tmp" && mv "$ROOT/game.lock.tmp" "$ROOT/game.lock" || exit 1
-    echo "game.lock taken: $line  (refresh at least every 10 min with: job.sh touch; the watcher expires it after 20 min)"; exit 0;;
+    # J2 L3: an exclusive create (noclobber, O_EXCL), so two agents taking a free lock in the same second cannot both win. Our own lock is
+    # rewritten in place; a stale one is first moved aside, a rename only one taker can win, then created exclusively.
+    create() { ( set -o noclobber; printf '%s\n' "$line" > "$ROOT/game.lock" ) 2>/dev/null; }
+    taken() { echo "game.lock taken: $line  (refresh at least every 10 min with: job.sh touch; the watcher expires it after 20 min)"; exit 0; }
+    create && taken
+    cur="$(lock_owner)"
+    if [ -n "$cur" ] && [ "$cur" = "$owner" ]; then
+      printf '%s\n' "$line" > "$ROOT/game.lock.tmp" && mv "$ROOT/game.lock.tmp" "$ROOT/game.lock" || exit 1; taken
+    fi
+    # someone else's lock (or one being written this instant: no owner yet) is only ever moved aside when it is stale
+    if [ -f "$ROOT/game.lock" ] && [ "$(lock_age)" -lt 1200 ]; then echo "game.lock is held by '${cur:-another agent}' (just taken): refused" >&2; exit 2; fi
+    mkdir -p "$ROOT/_to_delete"
+    mv "$ROOT/game.lock" "$ROOT/_to_delete/game.lock.stale_${cur:-unknown}_$(date -u +%Y%m%dT%H%M%SZ)_$$" 2>/dev/null && create && taken
+    echo "game.lock was taken by another agent at the same moment: refused (job.sh status, then retry)" >&2; exit 2;;
   touch)
     [ -f "$ROOT/game.lock" ] || { echo "no game.lock to refresh" >&2; exit 2; }
     touch "$ROOT/game.lock" && echo "game.lock refreshed"; exit 0;;

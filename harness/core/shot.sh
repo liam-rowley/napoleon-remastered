@@ -7,7 +7,9 @@ set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 owner="${1:?owner}"; out="${2:?out.jpg}"
 win="$(cygpath -aw "$out" 2>/dev/null || echo "$out")"
-status="$(cygpath -w "/c/Program Files (x86)/Steam/steamapps/common/Napoleon Total War/napoleon_remastered/headless_status.json")"
+# the status file the adapter names (headless.status_file under game_dir; J15 review 9, J12 fix 1c): job.sh resolves the adapter
+adapter="$("$BASH" "$HERE/job.sh" adapter)" || exit 64
+status="$(python3 -c 'import json,os,sys; a=json.load(open(sys.argv[1],encoding="utf-8")); print(os.path.join(os.path.expandvars(a["game_dir"]), a["headless"]["status_file"]))' "$adapter")" || { echo "shot.sh: the adapter $adapter names no game_dir or headless.status_file" >&2; exit 64; }
 tmp="$(mktemp)"
 cat > "$tmp" <<PS
 #ps1

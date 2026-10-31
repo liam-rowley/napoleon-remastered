@@ -265,33 +265,6 @@ class Pc:
         if rc != 0:
             raise RuntimeError(f'step keys: pc_deploy set failed: {out[-300:]}')
 
-    def virtualstore_dir(self):
-        """Where UAC file virtualization puts the 32-bit game's writes under Program Files once one write there failed: the game then
-        writes headless_status.json and state.json into this copy while the watcher reads the stale real files (J44 run 20261030_j44pc:
-        every launch failed HEADLESS FAILED with the game itself fine)."""
-        m = re.match(r'^[A-Za-z]:[\\/](.*)$', self.a['game_dir'])
-        local = os.environ.get('LOCALAPPDATA')
-        if not m or not local:
-            return None
-        # split on both separators: a host (Linux CI) Path treats the backslash as part of one name
-        return Path(local, 'VirtualStore', *[s for s in re.split(r'[\\/]', m.group(1)) if s], ident_mod(self.a))
-
-    def clear_virtualstore(self):
-        """Move the VirtualStore copies of the mod folder's files to <state>/_to_delete (nothing is deleted), so the game's writes reach
-        the real files again. Returns the names moved."""
-        d = self.virtualstore_dir()
-        if d is None or not d.is_dir():
-            return []
-        files = [f for f in d.rglob('*') if f.is_file()]
-        if not files:
-            return []
-        dest = Path(self.a['state_dir']) / '_to_delete' / ('virtualstore_' + utc().replace(':', '').replace('.', '_'))
-        for f in files:
-            t = dest / f.relative_to(d)
-            t.parent.mkdir(parents=True, exist_ok=True)
-            f.replace(t)
-        return sorted(f.relative_to(d).as_posix() for f in files)
-
     def file_rule_problems(self):
         """The launch's dev.file_rules file and every `add` rule's source must be installed by the kit (install.json `files`), or the
         game starts without them: a kit built without the fixed-sky pack launched with the vanilla sky, and the first sign was a land
@@ -321,14 +294,14 @@ class Pc:
         return out
 
     def launch(self, size=None):
-        """Apply the launch keys, clear stray VirtualStore copies, launch headless through the watcher and wait for the front end.
+        """Apply the launch keys, launch headless through the watcher and wait for the front end. The watcher moves stray VirtualStore
+        copies aside before every launch (adapter virtualstore_guard, J12 fix 1g); its "virtualstore:" lines come back here.
         Refused before anything starts when a file rule names a source the installed kit lacks (file_rule_problems).
         Returns {size, keys_set, launch_s} (+ virtualstore_cleared, retried_after when they happened)."""
         t0 = self.clock()
         bad = self.file_rule_problems()
         if bad:
             raise Refused('launch refused: ' + '; '.join(bad))
-        vs = self.clear_virtualstore()
         miss = self.missing_keys()
         if miss:
             self.set_keys(miss)
@@ -342,6 +315,7 @@ class Pc:
             rc, out = self.job(f'launch size={size}', 300)
         if rc != 0:
             raise RuntimeError(f'step launch: exit {rc}: {out[-400:]}')
+        vs = [l.strip() for l in out.splitlines() if l.strip().startswith('virtualstore:')]
         ok, r = self.ctl(f"waitfor frontend {self.launch_cfg.get('frontend_wait_s', 180)}", self.launch_cfg.get('frontend_wait_s', 180) + 20)
         if not ok:
             raise RuntimeError(f'step frontend: {(r or {}).get("reason", "no answer")}')

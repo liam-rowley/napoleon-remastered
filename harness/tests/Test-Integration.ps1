@@ -19,6 +19,7 @@ $state = Join-Path $tmp 'state'; $root = Join-Path $state 'watcher'; $kits = Joi
 $game = Join-Path $tmp 'game'; $app = Join-Path $tmp 'appdata'
 New-Item -ItemType Directory -Path (Join-Path $root 'src'), $kits -Force | Out-Null
 $SuiteState = @{ n = 0; tz = $null }
+$env:WSP_VIRTUALSTORE_ROOT = Join-Path $tmp 'VirtualStore'   # the watcher's VirtualStore guard (fix 1g) looks here, not in the runner's profile
 
 # ---- fake games (compiled here): FakeNapoleon.exe is 32-bit like the real game (the dump path must cope with WoW64) -----------------
 $fakeSrc = @'
@@ -229,7 +230,11 @@ try {
         $c = Submit "@echo off`r`necho line one`r`necho line two" (New-JobId 'normal'); Start-Sleep -Milliseconds 80
         $d = Submit "#ps1`r`n`$x = 1" (New-JobId 'ps1empty'); Start-Sleep -Milliseconds 80
         $e = Submit "#ps1`r`nWrite-Output (`"ps `" + `$PSVersionTable.PSVersion.Major)" (New-JobId 'ps1')
-        $ra = Get-Result $a; $rb = Get-Result $b; $rc = Get-Result $c; $rd = Get-Result $d; $re = Get-Result $e
+        $f = Submit "#ps1`r`ncmd /c exit 5" (New-JobId 'ps1fail'); Start-Sleep -Milliseconds 80
+        $g = Submit "#ps1`r`ncmd /c exit 5`r`nexit 0" (New-JobId 'ps1exit0')
+        $ra = Get-Result $a; $rb = Get-Result $b; $rc = Get-Result $c; $rd = Get-Result $d; $re = Get-Result $e; $rf = Get-Result $f; $rg = Get-Result $g
+        Assert-Eq $rf.d.status 'failed' 'a ps1 job whose last call failed fails (J13 question 1)'; Assert-Eq $rf.d.exit 5 'with that exit code'
+        Assert-Eq $rg.d.status 'ok' 'an explicit exit 0 in the body still wins'
         Assert-Eq $ra.d.status 'ok' 'empty status'; Assert-Eq $ra.d.exit 0 'empty exit'; Assert-Eq $ra.out.Length 0 'empty output stays empty'
         Assert-Eq $rb.d.status 'failed' 'fail status'; Assert-Eq $rb.d.exit 3 'real exit code'
         Assert-Match $rc.out 'line two' 'normal output'
@@ -343,6 +348,16 @@ try {
         Assert-Eq $l4.d.status 'refused' 'foreign lock'; Assert-Match $l4.d.reason 'another watcher' 'reason'
         Assert-Match ([IO.File]::ReadAllText($fl)) 'empire-agent' 'the foreign lock was only read'
         Remove-Item -LiteralPath $fl -Force
+        # J12 fix 1g: stale VirtualStore copies of a guarded folder are moved aside before the launch, whoever asks for it
+        $vsd = Join-Path (Join-Path $env:WSP_VIRTUALSTORE_ROOT (Split-Path -NoQualifier $game)) 'testmod'
+        New-Item -ItemType Directory -Path (Join-Path $vsd 'logs') -Force | Out-Null
+        [IO.File]::WriteAllText((Join-Path $vsd 'headless_status.json'), '{}', $Utf8NoBom); [IO.File]::WriteAllText((Join-Path $vsd 'logs\x.log'), 'x', $Utf8NoBom)
+        $l5 = Run-Job 'launch visible=1 owner=ci2' 'launchvs' 40
+        Assert-Eq $l5.d.status 'ok' "launch after the VirtualStore guard ($($l5.out))"
+        Assert-Match $l5.out 'virtualstore: moved 2 stale file\(s\) of testmod aside' 'the copies are named in the output'
+        Assert-True (@(Get-ChildItem -LiteralPath $vsd -Recurse -File).Count -eq 0) 'no copy left in the VirtualStore'
+        Assert-True (@(Get-ChildItem -LiteralPath (Join-Path $root '_to_delete') -Recurse -File -Filter 'headless_status.json').Count -ge 1) 'moved, never deleted'
+        Assert-Eq (Run-Job 'kill owner=ci2' 'killvs' 40).d.status 'ok' 'kill after the VirtualStore case'
         Clear-Lock
     }
     # ---- headless launch (J13): the watcher side. A fake game writes the proxy's headless_status.json itself. -----------------------------------
@@ -710,6 +725,24 @@ try {
         Assert-Eq (Sha256File (Join-Path $root 'src\watcher.ps1')) $before 'nothing changed'
         $none = Run-Job 'update kit=no-such-kit' 'updnone' 20
         Assert-Eq $none.d.status 'refused' 'unknown kit'
+    }
+    Test-Case 'update: a kit whose files are all in place is NOTHING TO DO: no backup, no restart, never CONFIRMED (J2 L7)' {
+        New-TestKit 'kit-same' @{} | Out-Null
+        $pid0 = Pid-Of-Watcher; $baks = @(Get-ChildItem (Join-Path $root 'backup') -Directory -ErrorAction SilentlyContinue).Count
+        $mark = Log-Mark
+        Run-Job 'update kit=kit-same noop_s=10 healthy_s=20' 'updsame' 30 | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match 'NOTHING TO DO: every file of kit kit-same' } 40 'nothing to do' | Out-Null
+        Assert-True (-not ((Get-LogSince $mark) -match '\[update\] (CONFIRMED|backup:)')) 'no backup and no CONFIRMED'
+        Assert-Eq (Pid-Of-Watcher) $pid0 'the watcher was not restarted'
+        Assert-Eq @(Get-ChildItem (Join-Path $root 'backup') -Directory -ErrorAction SilentlyContinue).Count $baks 'no new backup'
+    }
+    Test-Case 'update refuses a manifest whose kit_id is not its folder (J2 question 4)' {
+        New-TestKit 'kit-copied' @{} | Out-Null
+        $mf = Join-Path (Join-Path $kits 'kit-copied') 'manifest.json'
+        [IO.File]::WriteAllText($mf, ([IO.File]::ReadAllText($mf) -replace '"kit_id":\s*"kit-copied"', '"kit_id": "kit-good"'), $Utf8NoBom)
+        $mark = Log-Mark
+        Run-Job 'update kit=kit-copied noop_s=10 healthy_s=20' 'updcopied' 30 | Out-Null
+        Wait-Until { (Get-LogSince $mark) -match "ABORT: the manifest's kit_id 'kit-good' is not this kit's folder 'kit-copied'" } 40 'the abort' | Out-Null
     }
     Stop-TestWatcher
     Stop-Fakes

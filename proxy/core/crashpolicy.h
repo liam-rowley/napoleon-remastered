@@ -1,5 +1,5 @@
 // crashpolicy.h - what the in-process crash handlers may do on the faulting thread (pure logic, host-tested in tests/test_crash.cpp).
-// Learning (J3, 2026-10-29, WER dumps Napoleon.exe.17648/18824 in proxy/runs/20261029_4kcrash): at 4K the main thread's 1 MB stack
+// Learning (J3, 2026-10-29, two WER dumps from the first consumer, its run 20261029_4kcrash): at 4K the main thread's 1 MB stack
 // overflowed (STATUS_STACK_OVERFLOW first-chance); the vectored handler then formatted a log line (~5 KB of stack: LogWrite's buffers
 // and vsnprintf) on the exhausted stack and took an access violation inside d3d9.dll, so the proxy turned the overflow into a crash
 // of its own and hid the real culprit. Rule: on a stack overflow, or with too little stack left, the handler only records the event

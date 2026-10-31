@@ -463,27 +463,13 @@ class PcLaunch(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             p.launch()
 
-    def test_virtualstore_copies_are_moved_aside_before_a_launch(self):
-        import os, tempfile
-        with tempfile.TemporaryDirectory() as d:
-            d = Path(d)
-            old = os.environ.get('LOCALAPPDATA')
-            os.environ['LOCALAPPDATA'] = str(d / 'local')
-            try:
-                p, _ = self.pc([(0, 'ok')])
-                p.a.update(game_dir=r'C:\Program Files (x86)\Game', state_dir=str(d / 'state'))
-                vs = d / 'local' / 'VirtualStore' / 'Program Files (x86)' / 'Game' / 'napoleon_remastered'
-                vs.mkdir(parents=True)
-                (vs / 'headless_status.json').write_text('{}')
-                r = p.launch()
-                self.assertEqual(r['virtualstore_cleared'], ['headless_status.json'])
-                self.assertFalse((vs / 'headless_status.json').exists())
-                self.assertEqual(len(list((d / 'state' / '_to_delete').rglob('headless_status.json'))), 1)   # moved, never deleted
-            finally:
-                if old is None:
-                    del os.environ['LOCALAPPDATA']
-                else:
-                    os.environ['LOCALAPPDATA'] = old
+    def test_the_watchers_virtualstore_lines_are_recorded(self):
+        # the watcher moves the copies aside before every launch (fix 1g, harness/tests/Test-Integration.ps1); ctl records what it says
+        line = r'virtualstore: moved 1 stale file(s) of mod aside to C:\s\_to_delete\virtualstore_x: headless_status.json'
+        p, _ = self.pc([(0, 'started\n' + line + '\n')])
+        self.assertEqual(p.launch()['virtualstore_cleared'], [line])
+        p, _ = self.pc([(0, 'started\n')])
+        self.assertNotIn('virtualstore_cleared', p.launch())
 
     def test_status_survives_a_moment_without_the_file(self):
         answers = ['cat: watcher.status: No such file or directory', '{"version": "1.0.1", "game_state": {"state": "not_running"}}']

@@ -8,7 +8,7 @@
 param([string]$Root = '', [string]$Adapter = '', [switch]$NoRun)
 
 $ErrorActionPreference = 'Stop'
-$Version = '1.1.0'
+$Version = '1.2.0'
 $SrcDir = $PSScriptRoot
 if (-not $Root) { $Root = Join-Path $SrcDir '..' }
 $Root = [IO.Path]::GetFullPath($Root).TrimEnd('\', '/')
@@ -79,6 +79,7 @@ function Load-Adapter {
     $x.archive_dirs_log = @(@($j.archive.dirs_log) | Where-Object { $_ })
     $x.archive_dirs_dump = @(@($j.archive.dirs_dump) | Where-Object { $_ })
     $x.archive_files = @(@($j.archive.files) | Where-Object { $_ })
+    $x.virtualstore_guard = @(@($j.virtualstore_guard) | Where-Object { $_ })
     $x.foreign_locks = @(@($j.foreign_locks) | Where-Object { $_ } | ForEach-Object { [Environment]::ExpandEnvironmentVariables([string]$_) })
     $x.headless = $null
     if ($j.headless) {
@@ -367,10 +368,37 @@ function Exe-Gate($out) {
 }
 
 # Routes: exe = start the game exe directly (needs the Steam client running); steam = steam://rungameid/<id> (Steam starts it; the game is not our child).
+# UAC file virtualization (J44, J12 fix 1g): after one failed write under Program Files a 32-bit game's later writes there go to
+# %LOCALAPPDATA%\VirtualStore\<game path>\..., and the watcher reads the stale real files (heartbeats, the headless status). Before every
+# launch, whoever asks for it, the copies of the adapter's virtualstore_guard folders (game-relative) are moved to _to_delete\ (nothing
+# is deleted) and named in the job output ("virtualstore: moved ..."). $env:WSP_VIRTUALSTORE_ROOT replaces the VirtualStore folder (tests).
+function Clear-VirtualStore($out) {
+    $base = if ($env:WSP_VIRTUALSTORE_ROOT) { $env:WSP_VIRTUALSTORE_ROOT } elseif ($env:LOCALAPPDATA) { Join-Path $env:LOCALAPPDATA 'VirtualStore' } else { $null }
+    if (-not $base -or -not @($A.virtualstore_guard).Count) { return }
+    $q = Split-Path -NoQualifier $A.game_dir
+    foreach ($d in $A.virtualstore_guard) {
+        $vs = (Join-Path (Join-Path $base $q) $d).TrimEnd('\')
+        if (-not (Test-Path -LiteralPath $vs)) { continue }
+        $files = @(Get-ChildItem -LiteralPath $vs -Recurse -File -Force -ErrorAction SilentlyContinue)
+        if (-not $files.Count) { continue }
+        $dest = ToDelete ('virtualstore_' + (Get-Date).ToUniversalTime().ToString('yyyyMMdd\THHmmss\Z', $Inv))
+        $names = @()
+        foreach ($f in $files) {
+            $rel = $f.FullName.Substring($vs.Length).TrimStart('\')
+            $t = Join-Path (Join-Path $dest $d) $rel
+            New-Item -ItemType Directory -Path (Split-Path $t) -Force | Out-Null
+            Move-Item -LiteralPath $f.FullName -Destination $t -Force
+            $names += $rel
+        }
+        $line = "virtualstore: moved $($files.Count) stale file(s) of $d aside to $dest`: $($names -join ', ')"
+        $out.Add($line); Log $line
+    }
+}
 function Do-Launch([string]$route, [string]$why, $out) {
     $z = Zombie-Reason; if ($z) { return $z }
     $r = Game-Running-Reason; if ($r) { return "$r - refusing to start a second instance (close it with a kill job first)" }
     $f = Foreign-LockReason; if ($f) { return $f }
+    try { Clear-VirtualStore $out } catch { return "could not move the VirtualStore copies aside: $($_.Exception.Message)" }
     if (-not $route) { $route = $A.launch_route }
     if ($route -eq 'steam') {
         if (-not $A.steam_uri) { return 'this adapter has no steam_uri' }
@@ -380,6 +408,8 @@ function Do-Launch([string]$route, [string]$why, $out) {
         Log "launch: $why -> $($A.steam_uri)"
         $deadline = (Get-Date).AddSeconds($A.steam_wait_s)
         while ((Get-Date) -lt $deadline -and -not @(Get-GameProcs).Count) { Pump; Start-Sleep -Milliseconds 500 }
+        # J2 L5: the steam route fails when no game process appears (it used to return success and only warn)
+        if (-not @(Get-GameProcs).Count) { return "no $($A.game_image) process within steam_wait_s=$($A.steam_wait_s) s of $($A.steam_uri)" }
         return $null
     }
     $exe = GamePath $A.launch_exe
@@ -1261,7 +1291,9 @@ function Start-NextJob {
             if ($c.type -eq 'ps1') {
                 # PowerShell 5.1 reads a script without a BOM as ANSI: a ps1 job body is UTF-8 from the shell, so it is saved WITH a BOM
                 # (the one deliberate exception; every data file the watcher writes is BOM-less).
-                $u8 = $Utf8.GetString($Latin1.GetBytes($text))
+                # J13 question 1: a ps1 job whose last native or script call failed ($LASTEXITCODE) fails with that code (it used to end
+                # ok exit=0); an explicit `exit N` in the body still wins, since it never reaches this line
+                $u8 = $Utf8.GetString($Latin1.GetBytes($text)) + "`r`n# [watcher] the last native or script call's failure fails the job`r`nif (`$LASTEXITCODE) { exit `$LASTEXITCODE }"
                 [IO.File]::WriteAllBytes($c.script, [byte[]](@(0xEF, 0xBB, 0xBF) + $Utf8.GetBytes($u8 + "`r`n")))
             } else { [IO.File]::WriteAllText($c.script, $text + "`r`n", $Latin1) }
             $c.part = Join-Path $JobsDir "$id.part"

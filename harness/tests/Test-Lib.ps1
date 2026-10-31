@@ -72,6 +72,7 @@ function New-TestAdapter([string]$dir, [string]$gameImage = 'Napoleon.exe', [str
         }
         archive = [ordered]@{ dirs_log = @('logs'); dirs_dump = @('dumps'); files = @('napoleon_remastered.ini', 'dxvk.conf') }
         foreign_locks = @((Join-Path $dir 'foreign\game.lock'))
+        virtualstore_guard = @('testmod')
         config_files = @(
             [ordered]@{ id = 'prefs'; anchor = 'appdata'; path = 'scripts\preferences.script.txt'; style = 'prefs' },
             [ordered]@{ id = 'keys'; anchor = 'appdata'; path = 'custom_keys.keys.xml'; style = 'none' },
