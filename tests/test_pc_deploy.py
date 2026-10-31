@@ -52,6 +52,35 @@ class Deploy(unittest.TestCase):
             self.assertTrue(e['staged'].startswith(e['sha256'][:12] + '__'))   # unique per content
         self.assertTrue((self.kit / 'pc_deploy.py').exists())
 
+    def sky_kit(self, build):
+        """A kit whose fixed-sky step runs `build` instead of reading the game's packs (J45)."""
+        import sys
+        import types
+        fake = types.SimpleNamespace(build=build)
+        with mock.patch.dict(sys.modules, {'build_fixed_sky_pack': fake}):
+            return pd.build_kit(self.kits, dll=self.src / 'd3d9.dll', dxvk_dir=self.src, build_id=f'sky{time.time_ns()}', identity=self.ident)
+
+    def test_failing_fixture_a_kit_without_the_sky_pack_says_so_in_its_manifest(self):
+        # J44 review 3: the kit only printed a warning; the launch then ran with a rule naming a pack that was not there
+        def no_packs(games):
+            raise SystemExit('the game packs are not readable here')
+        kit = self.sky_kit(no_packs)
+        man = json.loads((kit / 'manifest.json').read_text())
+        self.assertEqual(man['fixed_sky'], {'present': False, 'reason': 'the game packs are not readable here'})
+        self.assertFalse(any(e['path'].endswith('fixed_sky.pack') for e in man['files']))
+        pd.install(kit, self.game, self.state, assume_closed=True)
+        rec = json.loads((self.state / 'install.json').read_text())
+        self.assertEqual(rec['fixed_sky']['present'], False)   # ctl.py Pc.launch reads it from the install record
+
+    def test_a_kit_with_the_sky_pack_records_its_sha(self):
+        pack = self.src / 'zz_napoleon_remastered_fixed_sky.pack'
+        pack.write_bytes(b'PFH4sky')
+        kit = self.sky_kit(lambda games: (pack, None))
+        man = json.loads((kit / 'manifest.json').read_text())
+        self.assertEqual(man['fixed_sky'], {'present': True, 'path': 'napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack',
+                                            'sha256': hashlib.sha256(b'PFH4sky').hexdigest()})
+        self.assertIn(man['fixed_sky']['path'], {e['path'] for e in man['files']})
+
     def test_stale_resend_refused(self):
         man = json.loads((self.kit / 'manifest.json').read_text())
         (self.kit / man['files'][0]['staged']).write_bytes(b'old cached copy')

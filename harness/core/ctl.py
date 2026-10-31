@@ -272,10 +272,42 @@ class Pc:
             f.replace(t)
         return sorted(f.relative_to(d).as_posix() for f in files)
 
+    def file_rule_problems(self):
+        """The launch's dev.file_rules file and every `add` rule's source must be installed by the kit (install.json `files`), or the
+        game starts without them: a kit built without the fixed-sky pack launched with the vanilla sky, and the first sign was a land
+        shot_match failure that looked like a lighting regression (J44 review 3, J45). Problems as text; [] when there is nothing missing."""
+        rules = self.keys().get('dev.file_rules')
+        if not rules:
+            return []
+        inst = Path(self.a['state_dir']) / 'install.json'
+        rec = json.loads(inst.read_text(encoding='utf-8')) if inst.exists() else {}
+        kit = rec.get('kit_id') or 'none installed'
+        have = {f['path'].replace('\\', '/').lower() for f in rec.get('files', [])}
+        sky = rec.get('fixed_sky') or {}
+        why = f" (the kit says: no fixed-sky pack, {sky['reason']})" if sky.get('present') is False and sky.get('reason') else ''
+        split = lambda p: [s for s in re.split(r'[\\/]', p) if s]   # rule paths use backslashes; a host Path would not split them
+        def installed(rel):
+            return '/'.join(split(rel)).lower() in have and Path(self.a['game_dir'], *split(rel)).is_file()
+        absolute = re.match(r'^([A-Za-z]:)?[\\/]', rules)   # an absolute rule file is the developer's own, not the kit's
+        path = Path(rules) if absolute else Path(self.a['game_dir'], *split(rules))
+        if not (path.is_file() if absolute else installed(rules)):
+            return [f'dev.file_rules names {rules}, which kit {kit} did not install: build and install a kit with it (pc_deploy.py kit, install)']
+        text = path.read_text(encoding='utf-8', errors='replace')
+        out = []
+        for line in text.splitlines():
+            m = re.match(r'^\s*add\s+.+?->\s*(\S.*?)\s*$', line, re.I)
+            if m and not installed(m.group(1)):
+                out.append(f'rule "{line.strip()}" in {rules}: {m.group(1)} is not in kit {kit}{why}: rebuild the kit where the pack builds (the PC)')
+        return out
+
     def launch(self, size=None):
         """Apply the launch keys, clear stray VirtualStore copies, launch headless through the watcher and wait for the front end.
+        Refused before anything starts when a file rule names a source the installed kit lacks (file_rule_problems).
         Returns {size, keys_set, launch_s} (+ virtualstore_cleared, retried_after when they happened)."""
         t0 = self.clock()
+        bad = self.file_rule_problems()
+        if bad:
+            raise Refused('launch refused: ' + '; '.join(bad))
         vs = self.clear_virtualstore()
         miss = self.missing_keys()
         if miss:

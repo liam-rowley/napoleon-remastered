@@ -175,6 +175,9 @@ Warm reset works from a battle; from a campaign it is open (fact `napoleon.campa
 `dev.file_rules=napoleon_remastered\lua\fixed_sky_rules.txt` lists it in `data\` virtually (no file written there). Presets pin weather and time
 of day by option index (`weather=`, `time_of_day=`); historical presets use `type=historic`, `all_maps=1`, `terrain=`. Facts
 `napoleon.battle.fixed_sky`, `napoleon.battle.weather_options`, `napoleon.autostart.historical`.
+The kit manifest's `fixed_sky` says whether the pack is in the kit (`present` with its sha256, or not with the reason). A kit without it
+(CI, or a PC whose packs did not read) installs, but `ctl.py` `Pc.launch` refuses before starting the game when the launch's
+`dev.file_rules` adds a source the installed kit lacks, naming the rule, the file and the kit (J45).
 
 ## Battle camera (J43)
 
