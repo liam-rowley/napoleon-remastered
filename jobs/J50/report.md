@@ -12,7 +12,7 @@ Branch `job/J50`, session `0afa23ee-dbcb-40f4-a69e-7a223f2f7a65`, model Opus 5.5
   real J36 outputs together with a battle marker, DDS at a TGA path, and one vanilla control run (`s2r`).
 
 ## Verdicts
-- **`napoleon.ui_art.pack_loads`: verified.** The game reaches all three scenes with the packs in `data\`; it proves "no crash" only, as the brief says.
+- **`napoleon.ui_art.pack_loads`: verified 2026-10-31, run `2026-10-31_j50`.** The game reaches all three scenes with the packs in `data\`; it proves "no crash" only, as the brief says.
 - **J36 kill criterion "any crash when the packed files load": not hit; J36's output passes.** One launch of the stage-1 run died (pid 33332, `0xc0000374`
   heap corruption at `ntdll+0xfd71f`), but 156 ms after process start and before the first d3d9 call or any data pack read; the repeat launch was clean;
   J44 saw it with no UI packs, and the same WER bucket was reported at 12:17 during J45 (no UI packs). That is a crash of the launch, not of the packs: new open
