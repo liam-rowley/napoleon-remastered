@@ -10,6 +10,7 @@ __pycache__/
 # run evidence (PC logs) is committed: proxy/runs/<run>/
 !proxy/runs/**/*.log
 !harness/runs/**/*.log
+!viewer/runs/**/*.log
 *.dmp
 *.bak
 *.orig
