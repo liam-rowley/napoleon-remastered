@@ -39,6 +39,12 @@ class Pins(unittest.TestCase):
         self.assertEqual(pins['lua']['sha256'], proxy.PIN['sha256'])
         self.assertEqual(pins['lua']['version'], proxy.PIN['version'])
 
+    def test_lua_number_patches_match_proxy(self):
+        # J31 review: the viewer's luaconf.h edits are a copy of the proxy's; a drift would give the viewer other numbers than the host
+        proxy = load('fetch_lua', ROOT / 'proxy' / 'tools' / 'fetch_lua.py')
+        viewer = load('fetch_sources', ROOT / 'viewer' / 'core' / 'fetch_sources.py')
+        self.assertEqual(viewer.LUACONF, proxy.PATCHES['luaconf.h'])
+
     def test_every_pin_is_exact(self):
         pins = json.loads((ROOT / 'viewer' / 'pins.json').read_text())
         for k in ('rmlui', 'freetype'):
