@@ -348,6 +348,14 @@ def cmd_run(a):
         return 2
     state = Path(json.loads(Path(a.adapter).read_text(encoding='utf-8'))['state_dir'])
     led = Path(a.ledger)
+    # J12 run 20261031_j12acc2: ctl.py writes the launch keys into the mod ini before its launch, outside any snapshot, so on a fresh
+    # install pass 1 read its "before" without them and failed settings_identical. The keys are the run's setup: applied once here,
+    # before pass 1 reads the settings (every earlier run had them in the ini already).
+    pre = PcEnv(a.owner, a.session, a.adapter, state / 'acceptance' / a.run / 'setup', Path(a.baseline).parent)
+    miss = pre.pc.missing_keys()
+    if miss:
+        pre.pc.set_keys(miss)
+        print(f"acceptance: launch keys applied before pass 1: {', '.join(sorted(miss))}")
     for n in range(1, a.passes + 1):
         env = PcEnv(a.owner, a.session, a.adapter, state / 'acceptance' / a.run / f'pass_{n:02d}', Path(a.baseline).parent)
         build, watcher, kit = env.identity()

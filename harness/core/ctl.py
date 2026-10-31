@@ -274,7 +274,7 @@ class Pc:
         return {k: v for k, v in self.keys().items() if have.get(k) != v}
 
     def set_keys(self, keys):
-        argv = ['python3', str(ROOT / 'proxy' / 'tools' / 'pc_deploy.py'), 'set', '--game', self.a['game_dir'], '--config-file', self.ini_name]
+        argv = ['python3', str(_OWN / 'proxy' / 'tools' / 'pc_deploy.py'), 'set', '--game', self.a['game_dir'], '--config-file', self.ini_name]
         rc, out = self.sh(argv + [f'{k}={v}' for k, v in keys.items()], None, 60)
         if rc != 0:
             raise RuntimeError(f'step keys: pc_deploy set failed: {out[-300:]}')
