@@ -6,6 +6,11 @@
   "data": "data",
   "pack_order": ["boot", "battleterrain", "buildings", "data", "local_en", "rigidmodels", "sound", "variantmodels",
                  "variantmodels2", "local_en_patch", "media"],
+  "mod_packs": ["ui_art_2x5_ui_art.pack", "ui_art_2x5_icon.pack", "ui_art_2x5_panel_frame.pack", "ui_art_2x5_button_state.pack",
+                "ui_art_2x5_map_pip.pack", "ui_art_2x5_building_icon.pack", "ui_art_2x5_technology_icon.pack",
+                "ui_art_2x5_achievement_icon.pack", "ui_art_2x5_event_picture.pack", "ui_art_2x5_unit_card.pack",
+                "ui_art_2x5_portrait.pack", "ui_art_2x5_flag.pack", "ui_art_2x5_loading_screen.pack", "ui_art_2x5_cursor.pack"],
+  "mod_packs_note": "this mod's packs that may sit in data\\ (the J36 upscaler's role packs, J50): never indexed as game packs; tests/test_mod_packs.py checks every pack the upscaler config can name is listed",
   "pack_order_note": "header type (0 boot, 1 release, 2 patch, 4 movie), then name; no pack lists a dependency (J7, 2026-10-29). Loose data\\ files come after the packs in discovery/core/packfs.py (napoleon.files.loose_override is open)"
  },
  "empire": {
