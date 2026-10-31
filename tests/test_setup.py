@@ -1,5 +1,6 @@
 """Host tests for the pure parts of tools/verbs/setup.py (`wsc setup`): version parsing, which bash is on PATH, CR detection, the
 pinned core tag, core.hooksPath and the main clone behind a worktree. Runs in `wsc gates` (tests gate)."""
+import hashlib
 import importlib.util
 import tempfile
 import unittest
@@ -47,6 +48,30 @@ class Setup(unittest.TestCase):
             (Path(t) / 'repos' / 'napoleon-remastered' / '.git').mkdir(parents=True)
             self.assertEqual(sv.main_clone(Path(t) / 'repos' / 'napoleon-remastered' / '.git'),
                              (Path(t) / 'repos' / 'napoleon-remastered').resolve())
+
+    def test_pc_rules_present_absent_and_failing(self):
+        pd = sv.load_pc_deploy(ROOT)
+        with tempfile.TemporaryDirectory() as tmp:
+            t = Path(tmp)
+            game, state, emp = t / 'game', t / 'state', t / 'empire'
+            self.assertIsNone(sv.pc_rules_result(pd, game, state, [emp], None))   # absent: skipped (CI, other hosts)
+            for d in (game, state, emp):
+                d.mkdir()
+            (game / 'Napoleon.exe').write_bytes(b'MZ fake')
+            ident = {'exe_name': 'Napoleon.exe', 'sha1': hashlib.sha1(b'MZ fake').hexdigest()}
+            ok, detail = sv.pc_rules_result(pd, game, state, [emp], ident)
+            self.assertTrue(ok, detail)
+            self.assertIn('exe: ok', detail)
+            self.assertIn('foreign: not checked', detail)
+            (emp / '.git').mkdir()
+            ok, detail = sv.pc_rules_result(pd, game, state, [emp], ident)
+            self.assertFalse(ok)
+            self.assertIn('git (empire): FAIL', detail)
+            (emp / '.git').rmdir()
+            ok, detail = sv.pc_rules_result(pd, game, state, [emp], dict(ident, sha1='0' * 40))
+            self.assertFalse(ok)
+            self.assertIn('MISMATCH', detail)
+            self.assertFalse(sv.pc_rules_result(pd, game, state, [emp], None)[0])   # cannot check is not a pass
 
     def test_every_check_has_a_function(self):
         for c in sv.CHECKS:

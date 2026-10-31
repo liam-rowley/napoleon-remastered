@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # purpose: agent helper on the PC (Git Bash): submit a watcher job, block inside ONE call until its result (or a timeout), print the output, return the job's exit code (refused 2, no answer 124); also take, refresh and release the game lock
-# usage: job.sh [--adapter FILE] <owner> <file|-> [timeout_s]  |  job.sh [--adapter FILE] lock <owner> <session> <purpose> [hang_s]  |  touch  |  unlock <owner> [--force]  |  status  |  root  |  ctl <owner> '<verb args>' [wait_s]
+# usage: job.sh [--adapter FILE] <owner> <file|-> [timeout_s]  |  job.sh [--adapter FILE] lock <owner> <session> <purpose> [hang_s]  |  touch  |  unlock <owner> [--force]  |  status  |  root  |  scratch <owner>  |  ctl <owner> '<verb args>' [wait_s]
 # when: every time an agent runs something on the PC (launch, kill, profile, scripts): the watcher root comes from the adapter (state_dir + watcher_subdir), never a default path; waiting belongs here, not in repeated agent calls
 # not-a-verb: a bash helper agents call directly from Git Bash (python3 only reads JSON); the PC side of the protocol is harness/core/watcher.ps1
+# scratch <owner> creates <state>/_scratch/<owner>/ and prints its Git Bash path (the only place for PC experiments; the Claude Code hook denies other writes there).
 # Body: a one-line control job (launch|kill|profile <name>|restore|update kit=<id>|restart|status|noop) or a cmd/ps1 script ('#ps1' first line or '#job type=ps1').
 # launch/kill/profile get ' owner=<owner>' appended when missing; a script without a '#job owner=' line gets one. Root: $WATCHER_ROOT when set (tests), else <adapter state_dir as a Git Bash path>/<watcher_subdir>.
 set -u
@@ -25,6 +26,15 @@ print((f'/{m.group(1).lower()}{m.group(2) or ""}' if m else s) + '/' + a['watche
 PY
 }
 ROOT="$(resolve_root)" || exit 64
+if [ "${1:-}" = "scratch" ]; then
+  # J18 (J5 ledger row 31): PC experiments live in <state>/_scratch/<owner>/, the one place in the state folder an agent writes by hand
+  owner="${2:-}"
+  printf '%s' "$owner" | grep -Eq '^[a-z0-9][a-z0-9_-]{0,31}$' || { echo "job.sh scratch: owner '$owner' must match ^[a-z0-9][a-z0-9_-]{0,31}\$ (a job id like j18)" >&2; exit 64; }
+  d="$(dirname "$ROOT")/_scratch/$owner"
+  mkdir -p "$d" || { echo "job.sh scratch: cannot create $d" >&2; exit 1; }
+  printf '%s
+' "$d"; exit 0
+fi
 [ -d "$ROOT" ] || { echo "job.sh: watcher root $ROOT does not exist: is the watcher installed (harness/README.md)?" >&2; exit 64; }
 jget() { python3 -c 'import json,sys; d=json.load(open(sys.argv[1],encoding="utf-8")); print(d.get(sys.argv[2],""))' "$1" "$2"; }
 utc() { date -u +%Y-%m-%dT%H:%M:%SZ; }

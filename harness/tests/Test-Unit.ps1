@@ -303,6 +303,41 @@ Test-Case 'profile: a mismatching restore is reported, not hidden' {
     Assert-True ($null -eq (Profile-Restore 'test' $o)) 'second restore'
     Assert-Eq (Hashes) $baseline 'back to the baseline'
 }
+Test-Case 'guards: a script that runs git is refused whatever the owner (J18: never git in a game folder); look-alikes pass' {
+    foreach ($b in @('git status', 'cd /d "C:\g" && git init', '"C:\Program Files\Git\bin\git.exe" log', '& git -C C:\g status', 'GIT.EXE fetch')) {
+        Assert-True ($null -ne (Script-RunsGit $b)) "runs git: $b"
+    }
+    foreach ($b in @('rem git status', ':: git', '# git status', 'dir C:\g\.git', 'echo github', 'type .gitattributes', 'tasklist')) {
+        Assert-True ($null -eq (Script-RunsGit $b)) "no git: $b"
+    }
+}
+Test-Case 'exe check: the sha1 against exe_identity.json beside the adapter; a mismatch refuses, warn launches with a warning, no identity is not a pass (J18)' {
+    $exe = Join-Path $A.game_dir $A.game_image
+    [IO.File]::WriteAllBytes($exe, [Text.Encoding]::ASCII.GetBytes('MZ fake vanilla exe'))
+    $good = (Get-FileHash -LiteralPath $exe -Algorithm SHA1).Hash.ToLower()
+    $idp = Exe-IdentityPath
+    Assert-Eq (Split-Path -Parent $idp) (Split-Path -Parent $adapterPath) 'the copy sits beside adapter.json'
+    Remove-Quiet $idp
+    $o = New-Object Collections.Generic.List[string]
+    Assert-Match (Exe-Gate $o) '^EXE CHECK: no exe identity' 'no identity: refused'
+    [IO.File]::WriteAllText($idp, "{`"sha1`": `"$($good.ToUpper())`"}", $Utf8)
+    Assert-True ($null -eq (Exe-Gate $o)) 'vanilla: launch goes ahead'
+    Assert-Match ($o -join ' ') 'exe check: ok' 'and says so'
+    Assert-Eq $ExeState.ok $true 'state ok'; Assert-Eq $ExeState.sha1 $good 'state sha1'
+    [IO.File]::WriteAllText($idp, '{"sha1": "0000000000000000000000000000000000000000"}', $Utf8)
+    $r = Exe-Gate $o
+    Assert-Match $r '^EXE CHECK: MISMATCH' 'mismatch: refused'
+    Assert-Match $r 'exe_info\.py' 'names the next step'
+    Assert-NotMatch $r 'did not verify|^ZOMBIE|watcher error' 'a refusal (exit -2), not a failure'
+    $S.exe_check = 'warn'
+    try { $o2 = New-Object Collections.Generic.List[string]; Assert-True ($null -eq (Exe-Gate $o2)) 'warn: goes ahead'; Assert-Match ($o2 -join ' ') 'WARNING \(watcher\): exe check failed' 'with a warning' }
+    finally { $S.exe_check = 'refuse' }
+    $old = $ExeCache.key
+    [IO.File]::WriteAllBytes($exe, [Text.Encoding]::ASCII.GetBytes('MZ fake patched exe, longer'))
+    [void](Exe-Check)
+    Assert-True ($ExeCache.key -ne $old) 'a changed exe is hashed again (size + mtime cache)'
+    Remove-Quiet $idp; Remove-Quiet $exe
+}
 Test-Case 'guards: scripts that start/kill the game or write its config need an owner; read-only ones never do' {
     Assert-True ($null -ne (Script-TouchesGame 'taskkill /f /im Napoleon.exe')) 'taskkill'
     Assert-True ($null -ne (Script-TouchesGame 'start "" "C:\x\Napoleon.exe"')) 'start'

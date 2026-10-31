@@ -1,0 +1,2 @@
+build_fixed_sky_pack: C:\Users\liamr\repos\napoleon-remastered\.claude\worktrees\J18-build\build\proxy\napoleon\zz_napoleon_remastered_fixed_sky.pack (705 of 858 junction rows, 588 of 1675 skies, sha256 e23ad1a7b064275d)
+pc_deploy kit: C:\Users\liamr\repos\napoleon-remastered\.claude\worktrees\J18-build\build\kits\kit_20261030T235230Z_d5ee0a5997e6 (35 files)

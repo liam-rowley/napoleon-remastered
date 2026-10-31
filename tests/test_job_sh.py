@@ -71,6 +71,19 @@ class JobSh(unittest.TestCase):
         self.w = FakeWatcher(self.root / 'jobs', result)
         self.w.start()
 
+    def test_scratch_creates_the_owner_folder_and_refuses_bad_owners(self):
+        # J18 (J5 ledger row 31): <state>/_scratch/<owner>/, owner like the job ids J2 to J6 used (j2, j3s2, j6)
+        for owner in ('j18', 'j3s2', 'a', 'x_y-z', 'a' * 32):
+            r = run(['--adapter', str(self.adapter), 'scratch', owner], self.env)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            self.assertEqual(r.stdout.strip(), bash_path(self.state / '_scratch' / owner))
+            self.assertTrue((self.state / '_scratch' / owner).is_dir())
+        for owner in ('', 'J18', '-x', '_x', 'a b', '../x', 'a/b', 'a' * 33, 'x.y'):
+            r = run(['--adapter', str(self.adapter), 'scratch', owner], self.env)
+            self.assertEqual(r.returncode, 64, owner)
+            self.assertIn('must match', r.stderr)
+        self.assertEqual(sorted(p.name for p in (self.state / '_scratch').iterdir()), sorted(['j18', 'j3s2', 'a', 'x_y-z', 'a' * 32]))
+
     def test_root_comes_from_the_adapter_not_a_default(self):
         r = run(['--adapter', str(self.adapter), 'root'], self.env)
         self.assertEqual(r.stdout.strip(), bash_path(self.root))

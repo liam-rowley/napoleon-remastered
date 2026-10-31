@@ -4,7 +4,14 @@
     "deny": [
       "Edit(//c/Program Files (x86)/Steam/steamapps/common/Napoleon Total War/**)",
       "Edit(~/repos/empire-remastered/**)",
-      "Edit(/core/**)"
+      "Edit(/core/**)",
+      "Edit(//c/Program Files (x86)/Steam/steamapps/common/Empire Total War/**)",
+      "Edit(//c/napoleon_remastered_pc/watcher/**)",
+      "Edit(//c/napoleon_remastered_pc/kits/**)",
+      "Edit(//c/napoleon_remastered_pc/backup/**)",
+      "Edit(//c/napoleon_remastered_pc/snapshots/**)",
+      "Edit(//c/napoleon_remastered_pc/_to_delete/**)",
+      "Edit(//c/napoleon_remastered_pc/install.json)"
     ]
   },
   "hooks": {

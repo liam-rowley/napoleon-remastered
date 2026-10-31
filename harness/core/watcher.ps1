@@ -8,7 +8,7 @@
 param([string]$Root = '', [string]$Adapter = '', [switch]$NoRun)
 
 $ErrorActionPreference = 'Stop'
-$Version = '1.0.1'
+$Version = '1.1.0'
 $SrcDir = $PSScriptRoot
 if (-not $Root) { $Root = Join-Path $SrcDir '..' }
 $Root = [IO.Path]::GetFullPath($Root).TrimEnd('\', '/')
@@ -32,6 +32,7 @@ $Defaults = [ordered]@{
     prune_hours       = 24
     lock_stale_min    = 20
     job_script_guard  = 'refuse'  # a script that starts/kills the game or writes a config file without #job owner=: refuse | warn
+    exe_check         = 'refuse'  # the game exe's sha1 against exe_identity.json beside adapter.json before every launch: refuse | warn (J18)
     launch_confirm_s  = 20
     loop_ms           = 1000
     test_hooks        = 0       # tests only: enables '#job test=...' hooks
@@ -331,6 +332,40 @@ function Kill-Game([string]$why, $out) {
 }
 
 # ------------------------------------------------------------------------------------------------ launch ------------
+# ------------------------------------------------------------------------------------------------ exe identity ------
+# J18 (J5 ledger row 28, D2: the exe stays vanilla on disk): the game exe is hashed before every launch and compared with the sha1 in
+# exe_identity.json (pc_deploy.py stages it beside adapter.json from proxy/<adapter>/identity.json). The hash is cached by size + mtime.
+$ExeCache = $null
+$ExeState = $null
+function Exe-IdentityPath { return (Join-Path (Split-Path -Parent $Adapter) 'exe_identity.json') }
+function Exe-Check {
+    $exe = GamePath $A.game_image
+    $want = $null
+    $idp = Exe-IdentityPath
+    if (Test-Path -LiteralPath $idp) { try { $want = ([string](([IO.File]::ReadAllText($idp, $Utf8)) | ConvertFrom-Json).sha1).ToLower() } catch { $want = $null } }
+    $sha = $null; $ok = $null
+    if (-not (Test-Path -LiteralPath $exe)) { $detail = "the game exe $exe is not there" }
+    else {
+        $it = Get-Item -LiteralPath $exe
+        $key = "$($it.Length)|$($it.LastWriteTimeUtc.Ticks)"
+        if (-not $ExeCache -or $ExeCache.key -ne $key) { $script:ExeCache = @{ key = $key; sha1 = (Get-FileHash -LiteralPath $exe -Algorithm SHA1).Hash.ToLower() } }
+        $sha = $ExeCache.sha1
+        if (-not $want) { $detail = "no exe identity to check $($A.game_image) against ($idp missing or unreadable: install a harness kit built by pc_deploy.py)" }
+        elseif ($sha -eq $want) { $ok = $true; $detail = "$($A.game_image) sha1 $sha is the vanilla build in exe_identity.json" }
+        else { $ok = $false; $detail = "MISMATCH: $($A.game_image) sha1 $sha is not the vanilla build in exe_identity.json ($want): a Steam update or a modified exe; a new identity.json from proxy/tools/exe_info.py is Liam's call" }
+    }
+    $script:ExeState = [ordered]@{ sha1 = $sha; ok = $ok; checked_utc = (UtcStr (Get-Date)); expected = $want; detail = $detail }
+    return $script:ExeState
+}
+# The launch gate: $null to go ahead (a warning in $out under exe_check=warn), else the refusal.
+function Exe-Gate($out) {
+    $x = Exe-Check
+    if ($x.ok -eq $true) { $out.Add("exe check: ok, $($x.detail)"); return $null }
+    if ($S.exe_check -eq 'warn') { $out.Add("WARNING (watcher): exe check failed, launching anyway (exe_check=warn): $($x.detail)"); Log "exe check (warn): $($x.detail)"; return $null }
+    Log "exe check: launch refused: $($x.detail)"
+    return "EXE CHECK: $($x.detail) - launch refused (exe_check=refuse in watcher.ini; D2: the exe stays vanilla on disk)"
+}
+
 # Routes: exe = start the game exe directly (needs the Steam client running); steam = steam://rungameid/<id> (Steam starts it; the game is not our child).
 function Do-Launch([string]$route, [string]$why, $out) {
     $z = Zombie-Reason; if ($z) { return $z }
@@ -840,6 +875,7 @@ function Headless-Wait([int]$waitS, $out) {
 }
 # The launch job. Headless unless visible=1 (or the adapter has no headless block).
 function Launch-Job($hdr, $c, $o) {
+    $err = Exe-Gate $o; if ($err) { return $err }   # before any display or config change
     $headless = ($A.headless -and $hdr['visible'] -ne '1')
     $W = 0; $H = 0
     if ($headless) {
@@ -1041,6 +1077,7 @@ function Write-Status {
         zombie = [bool]$Zombie; needs_reboot = [bool]$Zombie; zombie_detail = $Zombie
         profile_active = (Get-Active)
         last_hang = $LastHang
+        exe = $ExeState
     }
     Write-Atomic $StatusPath ($st | ConvertTo-Json -Depth 6)
 }
@@ -1085,6 +1122,16 @@ function Script-TouchesGame([string]$body) {
         $t = $line.Trim()
         if ($t -match '^(@?rem\b|::|#)') { continue }
         foreach ($rx in $rxs) { if ($t -match $rx) { return $t } }
+    }
+    return $null
+}
+# J18 (J5 ledger row 32: never git in a game folder): a watcher job has no reason to run git (agents have Git Bash in the repo checkout),
+# so any cmd or ps1 script that runs it is refused whatever job_script_guard says.
+function Script-RunsGit([string]$body) {
+    foreach ($line in ($body -split "`r?`n")) {
+        $t = $line.Trim()
+        if ($t -match '^(@?rem\b|::|#)') { continue }
+        if ($t -match '(?i)(?<![\w.-])git(\.exe)?(?![\w.-])') { return $t }
     }
     return $null
 }
@@ -1196,6 +1243,8 @@ function Start-NextJob {
     switch ($c.type) {
         { $_ -in @('cmd', 'ps1') } {
             $text = $bodyLines -join "`r`n"
+            $git = Script-RunsGit $text
+            if ($git) { Refuse-Job $c "this script runs git ('$git'): watcher jobs never run git (J18: never git in a game folder); run git from Git Bash in the repo checkout and sync with pc_deploy.py"; $script:Cur = $null; return $true }
             $hit = Script-TouchesGame $text
             $hitc = $null; if (-not $hit) { $hitc = Script-TouchesConfig $text }
             if ($hit -or $hitc) {
@@ -1221,7 +1270,7 @@ function Start-NextJob {
             return $true
         }
         'noop' { [IO.File]::WriteAllText($c.out, "noop ok (watcher $Version)`r`n", $Utf8); Finish-Job $c 0 'ok' $null; $script:Cur = $null; return $true }
-        'status' { Write-Status; [IO.File]::WriteAllText($c.out, ([IO.File]::ReadAllText($StatusPath, $Utf8)) + "`r`n", $Utf8); Finish-Job $c 0 'ok' $null; $script:Cur = $null; return $true }
+        'status' { [void](Exe-Check); Write-Status; [IO.File]::WriteAllText($c.out, ([IO.File]::ReadAllText($StatusPath, $Utf8)) + "`r`n", $Utf8); Finish-Job $c 0 'ok' $null; $script:Cur = $null; return $true }
         'restart' { [IO.File]::WriteAllText($c.out, "watcher restarting (re-reads watcher.ps1)`r`n", $Utf8); Finish-Job $c 0 'ok' $null; $script:Cur = $null; $script:RestartAfter = $(if ($c.args -contains 'full') { 4 } else { 3 }); return $true }
         'update' {
             $kit = $hdr['kit']
@@ -1236,7 +1285,8 @@ function Start-NextJob {
             if ($hdr['healthy_s']) { $cl += " -HealthyS $([int]$hdr['healthy_s'])" }
             if ($hdr['stable_s']) { $cl += " -StableS $([int]$hdr['stable_s'])" }
             $r = Start-Detached $cl $upd
-            [IO.File]::WriteAllText($c.out, "update started detached (rc=$($r.ReturnValue) pid=$($r.ProcessId)); log: $upd\update.log and watcher.log ([update] lines). Watch watcher.status version.`r`n", $Utf8)
+            $x = Exe-Check
+            [IO.File]::WriteAllText($c.out, "update started detached (rc=$($r.ReturnValue) pid=$($r.ProcessId)); log: $upd\update.log and watcher.log ([update] lines). Watch watcher.status version.`r`nexe: $(if ($x.ok -eq $true) { 'ok' } elseif ($x.ok -eq $false) { 'MISMATCH' } else { 'unchecked' }) - $($x.detail)`r`n", $Utf8)
             Finish-Job $c 0 'ok' $null; $script:Cur = $null; return $true
         }
     }

@@ -1,0 +1,1 @@
+pc_deploy kit: C:\Users\liamr\repos\napoleon-remastered\.claude\worktrees\J18-build\build\kits\harness_20261030T235125Z_d5ee0a5997e6 (22 files + 5 kit files; watcher 1.1.0)
