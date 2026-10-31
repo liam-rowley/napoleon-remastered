@@ -17,9 +17,9 @@ Branch kinds (the branch name decides):
               plus everything plan/* may touch. No game code (proxy/ and later feature folders).
 Anything else is refused.
 Job branches after J4 (rule 79): a branch that changes proxy/ or harness/ (not their runs/ folders, READMEs or the acceptance files) must carry
-harness/acceptance/ledger.jsonl with 20 consecutive passes on the branch's final DLL build id and watcher version (harness/core/acceptance.py);
+harness/acceptance/ledger.jsonl with 20 consecutive passes on the branch's final DLL build id and watcher version (core/harness/acceptance.py);
 a pass counts only when its line was run for this branch and names a run and an evidence file committed on the branch (J4 review 7, J44 review). It applies once the base holds the
-ledger and a baseline that the BASE's harness/core/acceptance.py accepts (so a branch cannot switch the rule off for itself, J44).
+ledger and a baseline that the BASE's acceptance.py accepts (so a branch cannot switch the rule off for itself, J44).
 Every branch kind: `docs/DECISIONS.md` is append only (existing rows unchanged and in order; new rows numbered D<last+1>, D<last+2>,
 with a YYYY-MM-DD date and Reversible yes or no). A reversal is a new row that names the one it replaces.
 """
@@ -42,19 +42,38 @@ def git(*args):
 
 
 def show(ref, path):
-    """File text at ref, or None when it does not exist there."""
+    """File text at ref, or None when it does not exist there. A path under `core/` is read inside the submodule at the commit the
+    ref's gitlink pins (`git show <ref>:core/...` does not reach into a submodule; J12)."""
     try:
         return git('show', f'{ref}:{path}')
     except subprocess.CalledProcessError:
-        return None
+        pass
+    if path.startswith('core/'):
+        try:
+            pin = git('rev-parse', f'{ref}:core').strip()
+            return subprocess.run(['git', '-C', str(Path(__file__).resolve().parents[1] / 'core'), 'show', f'{pin}:{path[5:]}'],
+                                  capture_output=True, text=True, check=True).stdout
+        except (subprocess.CalledProcessError, OSError):
+            return None
+    return None
+
+
+def show_first(ref, *paths):
+    """The first of `paths` that exists at ref (the harness moved from harness/core/ to the core's harness/ in J12)."""
+    for p in paths:
+        t = show(ref, p)
+        if t is not None:
+            return t
+    return None
 
 
 def dll_build_id(root=None):
-    """The final DLL's build id at HEAD, committed content only: proxy/tools/build_id.py, the implementation build.sh uses (J45)."""
+    """The final DLL's build id at HEAD, committed content only: the core's proxy/tools/build_id.py, the implementation build.sh uses (J45)."""
     import importlib.util
     root = Path(root or Path(__file__).resolve().parents[1])
     try:
-        spec = importlib.util.spec_from_file_location('build_id', root / 'proxy/tools/build_id.py')
+        tool = next(p for p in (root / 'core/proxy/tools/build_id.py', root / 'proxy/tools/build_id.py') if p.is_file())
+        spec = importlib.util.spec_from_file_location('build_id', tool)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         return mod.build_id(root, 'HEAD', dirty=False)
@@ -111,7 +130,7 @@ def allowed(path, globs):
 ACC_LEDGER = 'harness/acceptance/ledger.jsonl'
 ACC_BASELINE = 'harness/acceptance/baseline.json'
 ACC_NEEDED = 20
-ACC_CHECKER = 'harness/core/acceptance.py'
+ACC_CHECKERS = ('core/harness/acceptance.py', 'harness/core/acceptance.py')   # after J12, then before it (an older base)
 
 
 def acc_exempt(path):
@@ -127,9 +146,9 @@ def acceptance_active(ledger, baseline, checker_src):
     copy cannot switch the rule off for itself."""
     if ledger is None or baseline is None or not checker_src:
         return False
-    ns = {'__name__': 'acceptance_base', '__file__': str(Path(__file__).resolve().parents[1] / ACC_CHECKER)}
+    ns = {'__name__': 'acceptance_base', '__file__': str(Path(__file__).resolve().parents[1] / ACC_CHECKERS[0])}
     try:
-        exec(compile(checker_src, f'<base>/{ACC_CHECKER}', 'exec'), ns)
+        exec(compile(checker_src, f'<base>/{ACC_CHECKERS[0]}', 'exec'), ns)
         return not ns['baseline_problems'](json.loads(baseline))
     except (ValueError, TypeError, AttributeError, KeyError, SyntaxError):
         return False
@@ -142,7 +161,7 @@ def acceptance_problems(changed, acc):
     pass without evidence ends the run."""
     if not acc or not acc.get('active'):
         return []
-    code = [p for p in changed if p.startswith(('proxy/', 'harness/')) and not acc_exempt(p)]
+    code = [p for p in changed if (p.startswith(('proxy/', 'harness/')) or p == 'core') and not acc_exempt(p)]   # core: the pin (J12)
     if not code:
         return []
     exists = acc.get('exists') or (lambda p: False)
@@ -164,7 +183,7 @@ def acceptance_problems(changed, acc):
     why = (f' (the streak ends at a line whose evidence is not committed: {unproved})' if unproved else
            f' (the streak ends at a line of another branch: {foreign})' if foreign else '')
     return [f'rule 79: this branch changes {code[0]}{" and more" if len(code) > 1 else ""} but {ACC_LEDGER} holds {n} consecutive acceptance passes '
-            f'on build {acc["build_id"]}, watcher {acc["watcher"]}{why} (need {ACC_NEEDED}): run `python3 harness/core/acceptance.py run` on the final build']
+            f'on build {acc["build_id"]}, watcher {acc["watcher"]}{why} (need {ACC_NEEDED}): run `python3 core/harness/acceptance.py run` on the final build']
 
 
 def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=None, acceptance=None):
@@ -242,9 +261,9 @@ def main(argv=None):
         recs = [r.strip('\n').split('\x1f') for r in out.split('\x1e') if r.strip()]
         return [{v.strip() for v in r[1:] if v.strip()} for r in recs]
     build_id = dll_build_id()
-    wsrc = show('HEAD', 'harness/core/watcher.ps1') or ''
+    wsrc = show_first('HEAD', 'core/harness/watcher.ps1', 'harness/core/watcher.ps1') or ''
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
-    acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE), show(a.base, ACC_CHECKER)), 'ledger': show('HEAD', ACC_LEDGER),
+    acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE), show_first(a.base, *ACC_CHECKERS)), 'ledger': show('HEAD', ACC_LEDGER),
            'build_id': build_id, 'watcher': wm.group(1) if wm else '?', 'branch': a.branch, 'exists': lambda p: show('HEAD', p) is not None}
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
                  lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions, acc)

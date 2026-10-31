@@ -23,8 +23,8 @@ def class_hint(job, step):
         return 'branch bug: `python3 tools/pr_policy.py --branch <branch> --base origin/main` says what the branch may not change'
     if job == 'proxy':
         if 'wine' in step or 'smoke' in step:
-            return 'CI-only test unless `proxy/tools/build.sh --docker smoke` ran (the `tests` gate runs it when proxy inputs change)'
-        return 'branch bug first: `proxy/tools/build.sh --docker all` (the `tests` gate runs it when proxy inputs change)'
+            return 'CI-only test unless `core/proxy/tools/build.sh --docker smoke` ran (the `tests` gate runs it when proxy inputs change)'
+        return 'branch bug first: `core/proxy/tools/build.sh --docker all` (the `tests` gate runs it when proxy inputs change)'
     if job == 'harness-windows':
         return ('flaky only if the same commit passed elsewhere: rerun the case with '
                 "`gh workflow run gates.yml --ref <branch> -f only='<case>' -f repeat=20`; otherwise branch bug "

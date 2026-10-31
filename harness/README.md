@@ -1,13 +1,13 @@
 # Harness: PC watcher, game lock, profiles, hang watchdog (job J2)
 
 Agents (Claude Code on the PC, D30) never start, kill or profile the game themselves. They drop job files into a folder the watcher reads. The watcher is
-`harness/core/watcher.ps1` (game-agnostic); everything Napoleon-specific is in `harness/napoleon/adapter.json` and
+`core/harness/watcher.ps1` (game-agnostic); everything Napoleon-specific is in `harness/napoleon/adapter.json` and
 `harness/napoleon/profiles/`. Everything is Windows PowerShell 5.1 and ASCII-only; all data files are UTF-8 without BOM (`tests/test_repo_rules.py`);
 all times are UTC (`...Z`).
 
 ## Install (Liam, once)
-1. In Git Bash in the repo: `python3 proxy/tools/pc_deploy.py kit --what harness` builds a kit in `build/kits/`, then
-   `python3 proxy/tools/pc_deploy.py send --kit build/kits/<id> --state 'C:\napoleon_remastered_pc'` copies it sha-checked to `<state>\kits\<id>`.
+1. In Git Bash in the repo: `python3 core/proxy/tools/pc_deploy.py kit --what harness` builds a kit in `build/kits/`, then
+   `python3 core/proxy/tools/pc_deploy.py send --kit build/kits/<id> --state 'C:\napoleon_remastered_pc'` copies it sha-checked to `<state>\kits\<id>`.
 2. Double-click `Install watcher.cmd` in that kit folder (`Uninstall watcher.cmd` removes it). It copies the files
    sha-checked into `C:\napoleon_remastered_pc\watcher\src`, registers the logon task `napoleon_remastered watcher` (never
    Empire's `rml_mod watcher`), starts it and writes `install_result.json`. It refuses when a game is running.
@@ -38,7 +38,7 @@ Write `jobs\<id>.request` (write a temp name, then rename). Ids are never reused
 `game.lock` is one line: `owner= session= purpose= started=<UTC> [hang_s=<n>]`. Its mtime is the refresh time; 20 minutes without a refresh and it
 expires (moved to `_to_delete`). Release = move it away. A fresh lock from the Empire watcher, or the other title running, blocks a launch. The
 watchdog is armed only while a valid lock exists and the watcher launched the game.
-`harness/core/job.sh` does all of it from Git Bash: `job.sh lock <owner> <session> <purpose> [hang_s]`, `job.sh <owner> <file|-> [timeout_s]`
+`core/harness/job.sh` does all of it from Git Bash: `job.sh lock <owner> <session> <purpose> [hang_s]`, `job.sh <owner> <file|-> [timeout_s]`
 (blocks inside one call until the result; exit code = the job's, refused 2, no answer 124), `touch`, `unlock <owner>`, `status`, `root`, `scratch <owner>`.
 The root comes from the adapter: `state_dir` as a Git Bash path plus `watcher_subdir` (no environment variable; `$WATCHER_ROOT` overrides it for tests).
 
@@ -90,7 +90,7 @@ the virtual display), `cloaked_ms`, `monitor_changes` (each with the monitor lis
 `topology_end`, `exit_code`. About 10 ms samples, the monitor list re-read every sample, physical pixels (per-monitor DPI V2), no admin. Windows of at most 1x1 pixel are listed, not counted.
 
 ## Tests
-`harness/tests/Run-HostTests.ps1 -Suite unit|integration|all`; CI job `harness-windows` runs all under Windows PowerShell 5.1 with compiled fake games.
+`core/harness/tests/Run-HostTests.ps1 -Suite unit|integration|all`; CI job `harness-windows` runs all under Windows PowerShell 5.1 with compiled fake games.
 A flaky integration case: `-Only <case regex> -Repeat <n>` (fails on the first failed run, prints the pass count), or on the runner
 `gh workflow run gates.yml --ref <branch> -f only='hang watchdog' -f repeat=10` (only `harness-windows` runs). Integration cases
 assert on watcher output only after the watcher's own completion line (`Wait-LogMatch ... -Since (Log-Mark)`), never just after a
@@ -110,11 +110,11 @@ test that finds no Git Bash skips with the reason. `harness-windows` also runs t
 `test_pc_deploy`, `test_claude_hook`, `test_setup`, `test_proxy_host.GitBash`); their inputs are in `tools/changed_inputs.py`.
 
 ## Control API and acceptance (J4, J43, J44)
-`harness/core/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`
-when needed, moving UAC VirtualStore copies of the mod folder aside first (fact `napoleon.harness.uac_virtualstore`). `harness/core/acceptance.py
+`core/harness/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`
+when needed, moving UAC VirtualStore copies of the mod folder aside first (fact `napoleon.harness.uac_virtualstore`). `core/harness/acceptance.py
 measure --run <id>` writes `harness/acceptance/baseline.json` from two passes; `run --passes 20 --run <id>` takes the lock per pass, compares with
 the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/pr_policy.py`). The ledger's `build_id` is the DLL inputs' content hash
-(`proxy/tools/build_id.py`, J45; lines before J45 carry the old commit-hash ids as a record).
+(`core/proxy/tools/build_id.py`, J45; lines before J45 carry the old commit-hash ids as a record).
 
 ## Open questions
 See `jobs/J2/report.md` and `jobs/J13/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format`.

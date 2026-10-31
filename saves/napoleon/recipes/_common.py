@@ -12,7 +12,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(HERE)), 'core'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))), 'core', 'saves'))   # the ESF tools (warscape-core, J12)
 import esf_edit  # noqa: E402
 from esf_edit import Rec, RArr, Val  # noqa: E402
 

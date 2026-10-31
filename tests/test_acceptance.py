@@ -1,4 +1,4 @@
-"""Host tests for harness/core/acceptance.py (J4): the baseline schema (rule 74), the comparisons, the ledger streak (rule 79), one pass against
+"""Host tests for core/harness/acceptance.py (J4): the baseline schema (rule 74), the comparisons, the ledger streak (rule 79), one pass against
 fakes (stops at the first failure, fails on a refused verb, checks the exe pin and the settings files), and the refusal to run without a baseline."""
 import copy
 import importlib.util
@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('acceptance', ROOT / 'harness' / 'core' / 'acceptance.py')
+spec = importlib.util.spec_from_file_location('acceptance', ROOT / 'core' / 'harness' / 'acceptance.py')
 acc = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(acc)
 
@@ -89,6 +89,12 @@ class RunPreflight(unittest.TestCase):
         self.assertEqual(acc.run_problems(a, branch_of=lambda: 'job/J9', has_pil=True), [])
         self.assertEqual(a.branch, 'job/J9')
         self.assertEqual(acc.run_problems(self.a('job/J7'), branch_of=lambda: 'job/J9', has_pil=True), [])
+
+    def test_failing_fixture_a_run_does_not_start_under_a_held_lock_or_an_active_profile(self):
+        # J12 run 20261031_j12acc: pass 1 began under the sitting's own lock and headless overlay and failed settings_identical
+        bad = acc.run_problems(self.a('job/J9'), has_pil=True, watcher_status={'lock': {'owner': 'j12'}, 'profile_active': 'headless'})
+        self.assertEqual(len(bad), 2); self.assertIn('lock is held (j12)', bad[0]); self.assertIn('profile is active (headless)', bad[1])
+        self.assertEqual(acc.run_problems(self.a('job/J9'), has_pil=True, watcher_status={'lock': None, 'profile_active': None}), [])
 
 
 class Compare(unittest.TestCase):

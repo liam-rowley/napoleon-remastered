@@ -1,0 +1,38 @@
+2026-10-31T19:50:31.065Z [INFO ] [t33372] launch 20261031T195031Z-p31356: Napoleon: Total War proxy d3d9.dll build 31094f6055c2 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 31356, base 00760000)
+2026-10-31T19:50:31.179Z [WARN ] [t33372] headless: TEST HOOKS on: off_thread=1 dll_window_ms=0 (PC proof only, never a release)
+2026-10-31T19:50:31.179Z [INFO ] [t33372] headless: on: target 'Virtual Display Driver' at exactly 3840x2160, settle 500 ms, refuse grace 5000 ms
+2026-10-31T19:50:32.449Z [INFO ] [t33372] headless: 2 displays (physical pixels):
+2026-10-31T19:50:32.449Z [INFO ] [t33372] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-10-31T19:50:32.449Z [INFO ] [t33372] headless:   \\.\DISPLAY11 2560,1440 3840x2160 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-10-31T19:50:32.450Z [INFO ] [t33372] headless: target 2560,1440 3840x2160 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 3840x2160); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 3840x2160@60
+2026-10-31T19:50:32.451Z [INFO ] [t33372] headless: GetAdapterDisplayMode(adapter 0) -> 3840x2160@60 (the target)
+2026-10-31T19:50:32.451Z [INFO ] [t33372] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-10-31T19:50:32.451Z [INFO ] [t33372] headless: GetAdapterDisplayMode(adapter 1) -> 3840x2160@60 (the target)
+2026-10-31T19:50:32.451Z [INFO ] [t33372] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-10-31T19:50:32.538Z [INFO ] [t33372] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 121)
+2026-10-31T19:50:32.538Z [INFO ] [t33372] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-10-31T19:50:32.540Z [INFO ] [t33372] headless: window 01840d94 'Total War: NAPOLEON' class 'Napoleon' asked 3858x2207 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-10-31T19:50:32.540Z [INFO ] [t33372] headless: window 01840d94 placed at 2560,1440 3840x2160 (inside the target)
+2026-10-31T19:50:32.541Z [INFO ] [t33372] headless: SetFocus(01840d94) dropped (another process has the foreground; 1 so far)
+2026-10-31T19:50:32.541Z [INFO ] [t33372] headless: CreateDevice: back buffer 3840x2160, windowed, window 01840d94
+2026-10-31T19:50:32.603Z [INFO ] [t33372] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-10-31T19:50:32.624Z [INFO ] [t33372] headless: ON THE VIRTUAL DISPLAY: window 2560,1440 3840x2160 on \\.\DISPLAY11, first frame presented there at 1.4 s (client 3840x2160, back buffer 3840x2160)
+2026-10-31T19:50:35.690Z [INFO ] [t33372] headless: DirectInput SetCooperativeLevel(2aef2860, window 01840d94, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-10-31T19:51:18.921Z [WARN ] [t20712] headless: CLOAKED (virtual-screen metrics changed) at 47.742 s
+2026-10-31T19:51:18.921Z [INFO ] [t20712] headless: relocation queued (virtual-screen metrics changed)
+2026-10-31T19:51:18.925Z [INFO ] [t20712] headless: 2 displays (physical pixels):
+2026-10-31T19:51:18.925Z [INFO ] [t20712] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-10-31T19:51:18.925Z [INFO ] [t20712] headless:   \\.\DISPLAY11 2560,0 3840x2160 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-10-31T19:51:18.945Z [INFO ] [t20712] headless: target 2560,0 3840x2160 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 3840x2160); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 3840x2160@60
+2026-10-31T19:51:18.963Z [INFO ] [t33372] headless: WM_DISPLAYCHANGE
+2026-10-31T19:51:18.983Z [INFO ] [t20712] headless: relocated and verified on \\.\DISPLAY11 2560,0 3840x2160 (cloaked until the layout is quiet for 500 ms)
+2026-10-31T19:51:19.471Z [INFO ] [t20712] headless: uncloaked (verified on the target, layout stable) at 48.291 s
+2026-10-31T19:51:52.305Z [WARN ] [t20712] headless: CLOAKED (monitor layout changed) at 81.125 s
+2026-10-31T19:51:52.305Z [INFO ] [t20712] headless: relocation queued (monitor layout changed)
+2026-10-31T19:51:52.307Z [INFO ] [t20712] headless: 2 displays (physical pixels):
+2026-10-31T19:51:52.307Z [INFO ] [t20712] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-10-31T19:51:52.307Z [INFO ] [t20712] headless:   \\.\DISPLAY11 2560,1440 3840x2160 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-10-31T19:51:52.330Z [INFO ] [t20712] headless: target 2560,1440 3840x2160 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 3840x2160); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 3840x2160@60
+2026-10-31T19:51:52.349Z [INFO ] [t33372] headless: WM_DISPLAYCHANGE
+2026-10-31T19:51:52.370Z [INFO ] [t20712] headless: relocated and verified on \\.\DISPLAY11 2560,1440 3840x2160 (cloaked until the layout is quiet for 500 ms)
+2026-10-31T19:51:52.858Z [INFO ] [t20712] headless: uncloaked (verified on the target, layout stable) at 81.678 s

@@ -5,7 +5,7 @@
 # not-a-verb: a PC sitting helper over job.sh and stage_save.py, run in Git Bash on the PC
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"; REPO="$(cd "$HERE/../.." && pwd)"
-JOB="bash $REPO/harness/core/job.sh"; STAGE="python3 -I $HERE/stage_save.py"
+JOB="bash $REPO/core/harness/job.sh"; STAGE="python3 -I $HERE/stage_save.py"
 owner="${1:?owner}"; src="${2:?save file}"; name="${3:?zz_name}"; shift 3
 END=0; QS=0; LOG=/dev/null
 while [ $# -gt 0 ]; do case "$1" in --end-turn) END=1;; --quicksave) QS=1;; --log) LOG="$2"; shift;; *) echo "unknown $1" >&2; exit 64;; esac; shift; done

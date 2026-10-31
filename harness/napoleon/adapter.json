@@ -31,6 +31,9 @@
     "prefs": {"x_res": "{W}", "y_res": "{H}", "gfx_fullscreen": "false", "sound_master_enabled": "false", "sound_master_volume": "0"},
     "mod_ini": {"headless.enabled": "1", "headless.size": "{W}x{H}"}
   },
+  "virtualstore_guard": ["napoleon_remastered"],
+  "kit_packs": [{"id": "fixed_sky", "module": "proxy/tools/build_fixed_sky_pack.py", "input": "discovery/napoleon/games.json",
+                 "note": "J44: one sky per season, weather and time of day, so battle lighting repeats; built only where the game packs are readable (the PC)"}],
   "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
   "ctl": {
     "launch": {"size": "1920x1080", "frontend_wait_s": 180, "keys": {"dev.ctl": "1", "dev.lua_bridge": "1", "dev.state_json": "1", "dev.skip_intro": "1", "dev.camera": "1", "dev.perf": "1", "dev.timeline": "1", "dev.file_rules": "napoleon_remastered\\lua\\fixed_sky_rules.txt"},

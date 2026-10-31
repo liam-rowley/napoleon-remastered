@@ -1,4 +1,4 @@
-"""Host tests for harness/core/ctl.py (J4): the result contract, scenario and pose resolution, tolerance checks, settle, the refusals, and the
+"""Host tests for core/harness/ctl.py (J4): the result contract, scenario and pose resolution, tolerance checks, settle, the refusals, and the
 rules turned into tests: row 77 (no verb returns ok without a check) and row 78 (no key or click camera moves in scenario rows, generated
 files or the acceptance script). No game: a fake transport plays the proxy."""
 import importlib.util
@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('ctl', ROOT / 'harness' / 'core' / 'ctl.py')
+spec = importlib.util.spec_from_file_location('ctl', ROOT / 'core' / 'harness' / 'ctl.py')
 ctl = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(ctl)
 
@@ -181,7 +181,7 @@ class Rule78(unittest.TestCase):
     def files(self):
         out = [ROOT / 'registries' / 'scenarios.jsonl']
         out += sorted((ROOT / 'proxy' / 'napoleon' / 'lua' / 'battles').glob('*.txt'))
-        out += [p for p in [ROOT / 'harness' / 'core' / 'acceptance.py'] if p.exists()]
+        out += [p for p in [ROOT / 'core' / 'harness' / 'acceptance.py'] if p.exists()]
         return out
 
     def test_no_key_or_click_in_scenario_rows_generated_files_or_acceptance(self):
@@ -417,7 +417,7 @@ class PcLaunch(unittest.TestCase):
             (game / 'napoleon_remastered' / 'packs' / 'zz_napoleon_remastered_fixed_sky.pack').write_bytes(b'PFH4')
             files.append({'path': 'napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack'})
         sky = {'present': True} if with_pack else {'present': False, 'reason': 'the game packs are not readable here'}
-        (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_20261031T000000Z_abc', 'files': files, 'fixed_sky': sky}))
+        (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_20261031T000000Z_abc', 'files': files, 'packs': {'fixed_sky': sky}}))
         p, calls = self.pc([(0, 'ok')])
         p.a.update(game_dir=str(game), state_dir=str(state))
         p.launch_cfg = dict(p.launch_cfg, keys={'dev.file_rules': r'napoleon_remastered\lua\fixed_sky_rules.txt'})
@@ -463,27 +463,13 @@ class PcLaunch(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             p.launch()
 
-    def test_virtualstore_copies_are_moved_aside_before_a_launch(self):
-        import os, tempfile
-        with tempfile.TemporaryDirectory() as d:
-            d = Path(d)
-            old = os.environ.get('LOCALAPPDATA')
-            os.environ['LOCALAPPDATA'] = str(d / 'local')
-            try:
-                p, _ = self.pc([(0, 'ok')])
-                p.a.update(game_dir=r'C:\Program Files (x86)\Game', state_dir=str(d / 'state'))
-                vs = d / 'local' / 'VirtualStore' / 'Program Files (x86)' / 'Game' / 'napoleon_remastered'
-                vs.mkdir(parents=True)
-                (vs / 'headless_status.json').write_text('{}')
-                r = p.launch()
-                self.assertEqual(r['virtualstore_cleared'], ['headless_status.json'])
-                self.assertFalse((vs / 'headless_status.json').exists())
-                self.assertEqual(len(list((d / 'state' / '_to_delete').rglob('headless_status.json'))), 1)   # moved, never deleted
-            finally:
-                if old is None:
-                    del os.environ['LOCALAPPDATA']
-                else:
-                    os.environ['LOCALAPPDATA'] = old
+    def test_the_watchers_virtualstore_lines_are_recorded(self):
+        # the watcher moves the copies aside before every launch (fix 1g, harness/tests/Test-Integration.ps1); ctl records what it says
+        line = r'virtualstore: moved 1 stale file(s) of mod aside to C:\s\_to_delete\virtualstore_x: headless_status.json'
+        p, _ = self.pc([(0, 'started\n' + line + '\n')])
+        self.assertEqual(p.launch()['virtualstore_cleared'], [line])
+        p, _ = self.pc([(0, 'started\n')])
+        self.assertNotIn('virtualstore_cleared', p.launch())
 
     def test_status_survives_a_moment_without_the_file(self):
         answers = ['cat: watcher.status: No such file or directory', '{"version": "1.0.1", "game_state": {"state": "not_running"}}']

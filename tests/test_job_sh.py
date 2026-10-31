@@ -1,4 +1,4 @@
-"""Host tests for harness/core/job.sh (the agent helper): root from the adapter, atomic submit, blocking wait, exit codes (refused 2,
+"""Host tests for core/harness/job.sh (the agent helper): root from the adapter, atomic submit, blocking wait, exit codes (refused 2,
 no answer 124), owner added to the request, lock take/refresh/release. A thread plays the watcher. Runs in `wsc gates` (tests gate)."""
 import importlib.util
 import json
@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-JOB = ROOT / 'harness' / 'core' / 'job.sh'
+JOB = ROOT / 'core' / 'harness' / 'job.sh'
 _spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools' / 'verbs' / 'setup.py')
 sv = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(sv)
@@ -65,7 +65,12 @@ class JobSh(unittest.TestCase):
         self.root = self.state / 'watcher'
         (self.root / 'jobs').mkdir(parents=True)
         self.adapter = t / 'adapter.json'
-        self.adapter.write_text(json.dumps({'state_dir': str(self.state), 'watcher_subdir': 'watcher'}))
+        self.game = t / 'game'
+        self.game.mkdir()
+        # dev.ctl_dir comes from the game's mod ini (fix 1c): this fixture's ini points it at <state>/ctl
+        (self.game / 'mod.ini').write_text(f'[proxy]\nbackend=system\n[dev]\nctl={1}\nctl_dir={self.state / "ctl"}\n')
+        self.adapter.write_text(json.dumps({'state_dir': str(self.state), 'watcher_subdir': 'watcher', 'game_dir': str(self.game),
+                                            'config_files': [{'id': 'mod_ini', 'anchor': 'game', 'path': 'mod.ini', 'style': 'ini'}]}))
         self.env = {}
         self.w = None
 
@@ -151,6 +156,29 @@ class JobSh(unittest.TestCase):
         codes = [run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '20'], self.env).returncode for _ in range(4)]
         self.assertEqual(codes, [0, 1, 3, 2])
 
+    def test_ctl_dir_comes_from_the_mod_ini_not_the_watcher_root(self):
+        # J3 review 5: a changed dev.ctl_dir used to time out every call; now the requests go where the proxy reads them
+        elsewhere = Path(self.tmp.name) / 'ctl_elsewhere'
+        (self.game / 'mod.ini').write_text(f'[dev]\nctl_dir={elsewhere}\n')
+        r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], self.env)
+        self.assertEqual(r.returncode, 124)
+        self.assertEqual(len(list(elsewhere.glob('*.cmd.expired'))), 1)
+        self.assertFalse((self.state / 'ctl').exists())
+
+    def test_ctl_without_an_ini_uses_the_registered_default(self):
+        (self.game / 'mod.ini').unlink()
+        r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], self.env)
+        default = next(json.loads(l)['default'] for l in (ROOT / 'registries' / 'config_keys.jsonl').read_text(encoding='utf-8').splitlines()
+                       if l.strip() and json.loads(l)['id'] == 'dev.ctl_dir')
+        self.assertIn(bash_path(default), r.stderr)
+        # the default is a Windows drive path: on the PC the request waits there (no answer, 124); a Linux CI runner cannot create /c,
+        # so job.sh stops with "cannot write into <default>" (1). Either way the stderr above proves the default was the folder chosen.
+        if os.name == 'nt':
+            self.assertEqual(r.returncode, 124)
+        else:
+            self.assertEqual(r.returncode, 1)
+            self.assertIn('cannot write into', r.stderr)
+
     def test_ctl_no_answer_withdraws_the_request(self):
         # a request nobody answered must not stay as .cmd: the proxy would run it on its next launch (a stale exit or reset)
         r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'exit', '1'], self.env)
@@ -184,6 +212,29 @@ class JobSh(unittest.TestCase):
         self.assertEqual(run(a + ['unlock', 'other'], self.env).returncode, 0)
         self.assertFalse((self.root / 'game.lock').exists())
         self.assertEqual(len(list((self.root / '_to_delete').glob('game.lock.released_other_*'))), 1)
+
+    def test_lock_is_an_exclusive_create(self):
+        # J2 L3: of agents racing for a free lock, exactly one wins; the losers are refused, never silently overwritten
+        a = ['--adapter', str(self.adapter)]
+        for rnd in range(3):
+            procs = [subprocess.Popen([BASH, str(JOB), *a, 'lock', f'r{rnd}a{i}', 's', 'p'], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                      text=True, env={k: v for k, v in os.environ.items() if k not in ('WATCHER_ROOT', 'HARNESS_ADAPTER')})
+                     for i in range(4)]
+            codes = [p.wait(60) for p in procs]
+            self.assertEqual(sorted(codes), [0, 2, 2, 2], codes)
+            winner = f'r{rnd}a{codes.index(0)}'
+            self.assertIn(f'owner={winner} ', (self.root / 'game.lock').read_text())
+            self.assertEqual(run(a + ['unlock', winner], self.env).returncode, 0)
+
+    def test_a_stale_lock_is_moved_aside_before_it_is_taken(self):
+        a = ['--adapter', str(self.adapter)]
+        self.assertEqual(run(a + ['lock', 'old', 's', 'p'], self.env).returncode, 0)
+        os.utime(self.root / 'game.lock', (time.time() - 1300, time.time() - 1300))
+        self.assertEqual(run(a + ['lock', 'new', 's', 'p'], self.env).returncode, 0)
+        self.assertIn('owner=new ', (self.root / 'game.lock').read_text())
+        self.assertEqual(len(list((self.root / '_to_delete').glob('game.lock.stale_old_*'))), 1)
+        self.assertEqual(run(a + ['lock', 'new', 's2', 'refresh'], self.env).returncode, 0)   # its own lock: rewritten in place
+        self.assertIn('session=s2 ', (self.root / 'game.lock').read_text())
 
     def test_status_reads_heartbeat(self):
         a = ['--adapter', str(self.adapter)]

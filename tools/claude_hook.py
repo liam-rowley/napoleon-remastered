@@ -192,12 +192,12 @@ def decide(event, roots=None):
     p = git_reason(cmd, cwd, roots)
     if p:
         return (f'Never run git in a game folder or the PC state folder (CLAUDE.md, J18): this call would run git in {p}. Work in the repo '
-                f'checkout and sync files to the PC with proxy/tools/pc_deploy.py (sha-checked copies).')
+                f'checkout and sync files to the PC with core/proxy/tools/pc_deploy.py (sha-checked copies).')
     p = write_reason(cmd, cwd, roots)
     if p:
         return (f'This call writes into {p}, a protected PC folder (a game folder or the state folder; CLAUDE.md, J18). Game files change '
-                f'only through proxy/tools/pc_deploy.py, the watcher only through harness/core/job.sh; experiments go under '
-                f'`harness/core/job.sh scratch <owner>` (<state>\\_scratch\\<owner>\\).')
+                f'only through core/proxy/tools/pc_deploy.py, the watcher only through core/harness/job.sh; experiments go under '
+                f'`core/harness/job.sh scratch <owner>` (<state>\\_scratch\\<owner>\\).')
     return None
 
 

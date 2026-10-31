@@ -1,4 +1,4 @@
-"""Host tests for proxy/tools/pc_deploy.py (manifest, stale-resend guard, install, byte-exact uninstall, config edits, closed check)
+"""Host tests for core/proxy/tools/pc_deploy.py (manifest, stale-resend guard, install, byte-exact uninstall, config edits, closed check)
 on a fake game folder. Runs in `wsc gates` (tests gate)."""
 import importlib.util
 import hashlib
@@ -11,7 +11,7 @@ from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('pc_deploy', ROOT / 'proxy/tools/pc_deploy.py')
+spec = importlib.util.spec_from_file_location('pc_deploy', ROOT / 'core/proxy/tools/pc_deploy.py')
 pd = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pd)
 
@@ -66,20 +66,20 @@ class Deploy(unittest.TestCase):
             raise SystemExit('the game packs are not readable here')
         kit = self.sky_kit(no_packs)
         man = json.loads((kit / 'manifest.json').read_text())
-        self.assertEqual(man['fixed_sky'], {'present': False, 'reason': 'the game packs are not readable here'})
+        self.assertEqual(man['packs']['fixed_sky'], {'present': False, 'reason': 'the game packs are not readable here'})
         self.assertFalse(any(e['path'].endswith('fixed_sky.pack') for e in man['files']))
         pd.install(kit, self.game, self.state, assume_closed=True)
         rec = json.loads((self.state / 'install.json').read_text())
-        self.assertEqual(rec['fixed_sky']['present'], False)   # ctl.py Pc.launch reads it from the install record
+        self.assertEqual(rec['packs']['fixed_sky']['present'], False)   # ctl.py Pc.launch reads it from the install record
 
     def test_a_kit_with_the_sky_pack_records_its_sha(self):
         pack = self.src / 'zz_napoleon_remastered_fixed_sky.pack'
         pack.write_bytes(b'PFH4sky')
         kit = self.sky_kit(lambda games: (pack, None))
         man = json.loads((kit / 'manifest.json').read_text())
-        self.assertEqual(man['fixed_sky'], {'present': True, 'path': 'napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack',
+        self.assertEqual(man['packs']['fixed_sky'], {'present': True, 'path': 'napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack',
                                             'sha256': hashlib.sha256(b'PFH4sky').hexdigest()})
-        self.assertIn(man['fixed_sky']['path'], {e['path'] for e in man['files']})
+        self.assertIn(man['packs']['fixed_sky']['path'], {e['path'] for e in man['files']})
 
     def test_stale_resend_refused(self):
         man = json.loads((self.kit / 'manifest.json').read_text())

@@ -182,7 +182,7 @@ class PolicyOnGit(unittest.TestCase):
 
 class Rule79(unittest.TestCase):
     """J4 rule 79: a job branch that changes proxy/ or harness/ needs 20 consecutive acceptance passes on its final build."""
-    CHECKER = (ROOT / 'harness' / 'core' / 'acceptance.py').read_text(encoding='utf-8')
+    CHECKER = (ROOT / 'core' / 'harness' / 'acceptance.py').read_text(encoding='utf-8')
 
     @staticmethod
     def led(n, build='abc', watcher='1.0.1', fail_at=None, evidence=True, branch='job/J9'):
@@ -216,7 +216,7 @@ class Rule79(unittest.TestCase):
         self.assertFalse(pp.acceptance_active('', b, weak))           # a weakened checker would say inactive...
         self.assertTrue(pp.acceptance_active('', b, self.CHECKER))    # ...but main() passes the base's text, which says active
         src = (ROOT / 'tools' / 'pr_policy.py').read_text(encoding='utf-8')
-        self.assertIn('show(a.base, ACC_CHECKER)', src)
+        self.assertIn('show_first(a.base, *ACC_CHECKERS)', src)   # the base's checker, in either layout (J12)
         self.assertNotIn("spec_from_file_location('acceptance'", src)
 
     def test_failing_fixture_another_branchs_passes_do_not_count(self):
@@ -273,7 +273,7 @@ class Rule79(unittest.TestCase):
         g = lambda *a: subprocess.run(['git', *a], cwd=d, capture_output=True, text=True, check=True)
         g('init', '-q', '-b', 'job/J9'); g('config', 'user.email', 't@example.invalid'); g('config', 'user.name', 'test')
         for rel, data in (('proxy/core/a.cpp', b'int a;\n'), ('proxy/napoleon/adapter.cpp', b'int b;\n'), ('proxy/tools/build.sh', b'#!\n'),
-                          ('proxy/tools/fetch_lua.py', b'#\n'), ('proxy/tools/build_id.py', (ROOT / 'proxy/tools/build_id.py').read_bytes())):
+                          ('proxy/tools/fetch_lua.py', b'#\n'), ('proxy/tools/build_id.py', (ROOT / 'core/proxy/tools/build_id.py').read_bytes())):
             (Path(d) / rel).parent.mkdir(parents=True, exist_ok=True)
             (Path(d) / rel).write_bytes(data)
         g('add', '-A'); g('commit', '-q', '-m', 'J9: proxy change')

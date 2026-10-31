@@ -15,7 +15,7 @@
 - Clones live side by side under `%USERPROFILE%\repos\` (`/c/Users/liamr/repos/` in Git Bash): `napoleon-remastered` (this repo),
   `empire-remastered` and, only when making a core change, `warscape-core`. **`empire-remastered` is read-only evidence: never
   edit, commit or push there from Napoleon work.** Bring it into a session with `--add-dir ../empire-remastered` when a job needs it.
-- **The game is launched, killed and profiled only through the watcher** (`harness/README.md`, `harness/core/job.sh`), never by
+- **The game is launched, killed and profiled only through the watcher** (`harness/README.md`, `core/harness/job.sh`), never by
   starting `Napoleon.exe` yourself: the watcher holds the game lock, the hang watchdog and the profile restore.
 - One-time setup and its check: run `python3 core/wsc.py setup` (`--fix` for the safe fixes); every line says how to fix a failure.
 - Every commit carries a `Claude-Session: <session id>` trailer: the `.claude/settings.json` hook refuses a `git commit` without it
@@ -27,6 +27,9 @@
   The submodule is enough to read the core; a core change is made in a separate `warscape-core` clone beside this one.
 - Everything goes through `python3 core/wsc.py <verb>`: `find <words>` searches every registry, `reg add|set|render` changes them,
   `gates` runs the checks CI runs (`--fast` is what the pre-push hook runs). Never edit a generated `registries/*.md` view.
+- Since J12 the core carries the proxy sources and tools (`core/proxy/src`, `core/proxy/tools`), the watcher kit (`core/harness/`) and the
+  ESF tools (`core/saves/`); this repo keeps the adapters (`proxy/napoleon`, `harness/napoleon`, `saves/napoleon`). `python3 core/proxy/tools/layout.py`
+  shows what the tools use.
 - **Never change files inside `core/`.** A change the game needs goes to warscape-core as a PR and arrives with a new tag
   (`core/docs/CONSUMING.md`); the `core_pin` gate fails on local edits.
 
@@ -44,7 +47,7 @@
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
   the docstring of `tools/pr_policy.py`, which CI's `policy` check runs (run it locally before opening a pull request). Work Liam asks
   for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself.
-- **Rule 79 and history edits (J45):** the DLL build id is a hash of the DLL inputs' content (`proxy/tools/build_id.py`), so a reword,
+- **Rule 79 and history edits (J45):** the DLL build id is a hash of the DLL inputs' content (`core/proxy/tools/build_id.py`), so a reword,
   rebase or merge of `main` after the 20-pass run keeps the passes when it leaves those inputs unchanged; when `main` brings in a
   change to them, the branch needs a new run either way. Rebase or merge as you like.
 
