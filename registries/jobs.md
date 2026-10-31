@@ -55,7 +55,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J5` | done | Determinism audit: rules into gates | 1 | opus | no | J3 | jobs/J5/brief.md | jobs/J5/report.md | jobs/J5/review.md |
 | `J50` | queued | UI art packs load in game | 5 | sonnet | yes | J36 | jobs/J50/brief.md |  |  |
 | `J51` | done | Upscale the remaining UI art roles | 5 | sonnet | yes | J36 | jobs/J51/brief.md | jobs/J51/report.md | jobs/J51/review.md |
-| `J52` | queued | Automatic review and fix rounds | 1 | sonnet | no |  | jobs/J52/brief.md |  |  |
+| `J52` | review | Automatic review and fix rounds | 1 | sonnet | no |  | jobs/J52/brief.md | jobs/J52/report.md |  |
 | `J6` | done | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md | jobs/J6/review.md |
 | `J7` | done | Asset index, contact sheets, loc and db | 2 | sonnet | yes | J6 | jobs/J7/brief.md | jobs/J7/report.md | jobs/J7/review.md |
 | `J8` | needs_brief | Shader catalogue and frame anatomy | 2 | opus | yes | J4, J12, J44 |  |  |  |

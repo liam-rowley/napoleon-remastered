@@ -8,6 +8,12 @@ Liam says "review the next job" (or "review J<n>"). `python3 core/wsc.py jobs re
 CI's `policy` check refuses a review written by a session that also wrote the report. The job's own brief is
 `jobs/<id>/brief.md` on that branch: it is what you check the work against, so nothing needs pasting.
 
+## Rounds (D36)
+A job gets at most 3 review rounds. Each round is a **fresh** session (never the builder, never an earlier round's fixer):
+`wsc jobs view --serve --auto` starts one whenever a job branch's row says `review`, and `wsc jobs review` names the round.
+A non-merge verdict in round 1 or 2 hands the branch to a fix session (`wsc jobs fix`), which appends `## Fix round N` to
+`report.md` and sets `review` again; the loop then starts the next round. Round 3 without `merge` blocks the job for Liam.
+
 ## Setup
 A **new** Claude Code session (never the one that built the branch), in the napoleon-remastered folder: `git fetch`, check out the
 job branch, `git submodule update --init`. Follow `CLAUDE.md`. Read, in this order: `jobs/<id>/brief.md`, `jobs/<id>/report.md`, `docs/DECISIONS.md`, then
@@ -33,8 +39,14 @@ check reads it: only `merge` lets the branch merge), and findings ranked **block
 - Fix small should-fix items yourself on the branch: one commit each, with a test where the code allows, listed in the review.
 - Leave blockers and larger items as findings for the job chat.
 - **Later** items for the core go to warscape-core `docs/BACKLOG.md` through a warscape-core PR; for this repo, into the review.
-- Write the review as `jobs/<id>/review.md` on the branch, dated at the top (`wsc jobs check` checks the date and the verdict line). With a `merge` verdict, set the row to
-  `status=done review=jobs/<id>/review.md` (`CLAUDE.md` Jobs); otherwise leave it at `review` and say what must change.
+- Write the review into `jobs/<id>/review.md` on the branch as a round section at the **top** of the file:
+  `## Round N (YYYY-MM-DD, branch job/<id> at <sha>)`, with exactly one verdict line inside it. Rounds are newest first, numbered from 1
+  with no gap, at most 3; never edit an earlier round (in round 2 and 3, read it and check its findings were answered in `## Fix round N-1`
+  of the report). `wsc jobs check` enforces all of this, and CI's `policy` check reads the newest verdict.
+- Then set the row (`wsc reg set jobs <id> ...`), which `wsc jobs check` checks against the newest round:
+  - `merge`: `status=done review=jobs/<id>/review.md`, then merge (below).
+  - `merge after fixes` or `do not merge` in round 1 or 2: `status=fix review=jobs/<id>/review.md`. A fix session answers it.
+  - the same in round 3: `status=blocked blocked_by="3 review rounds without merge" review=jobs/<id>/review.md`. Liam decides.
 
 ## Merging (D32, `merge` verdict only)
 After the review commit is pushed, run `python3 tools/pr_policy.py --branch job/<id> --base origin/main` (it must say ok), then
@@ -44,7 +56,7 @@ review's verdict and findings), then `gh pr merge job/<id> --auto --squash`. Git
 when the branch does not touch their inputs: `.github/workflows/gates.yml` job `changes`): do not wait or poll. If the merge changes a rule that other open job
 branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply. A check that fails leaves the
 pull request open: CI comments on the pull request (`tools/ci_notify.py`) and `wsc jobs next|review|view` list it first, so the
-next session sees it; the next review round decides. Any other verdict is never merged. A `brief/` branch merges the
+next session sees it; Liam decides whether it takes another round. Any other verdict is never merged. A `brief/` branch merges the
 same way without a review (D33); `plan/` and `meta/` branches still wait for Liam.
 
 ## Keeping this file useful

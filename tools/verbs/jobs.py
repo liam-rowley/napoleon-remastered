@@ -766,14 +766,15 @@ class JobServer(ThreadingHTTPServer):
 
     def auto_log(self, line):
         line = f'{utc_now()} jobs auto: {line}'
-        sys.stderr.write(line + '\n')
-        if self.log_path:
+        if self.log_path:   # the file first: a stop right after the stderr line must not lose it from the log
             try:
                 Path(self.log_path).parent.mkdir(parents=True, exist_ok=True)
                 with open(self.log_path, 'a', encoding='utf-8') as f:
                     f.write(line + '\n')
             except OSError as x:
                 sys.stderr.write(f'jobs auto: cannot write {self.log_path}: {x}\n')
+        sys.stderr.write(line + '\n')
+        sys.stderr.flush()
 
     def auto_tick(self):
         """One autopilot pass (D36): a fresh snapshot and agent list, then every job branch ready for review or fix is started through
