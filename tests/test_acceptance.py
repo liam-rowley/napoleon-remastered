@@ -90,6 +90,12 @@ class RunPreflight(unittest.TestCase):
         self.assertEqual(a.branch, 'job/J9')
         self.assertEqual(acc.run_problems(self.a('job/J7'), branch_of=lambda: 'job/J9', has_pil=True), [])
 
+    def test_failing_fixture_a_run_does_not_start_under_a_held_lock_or_an_active_profile(self):
+        # J12 run 20261031_j12acc: pass 1 began under the sitting's own lock and headless overlay and failed settings_identical
+        bad = acc.run_problems(self.a('job/J9'), has_pil=True, watcher_status={'lock': {'owner': 'j12'}, 'profile_active': 'headless'})
+        self.assertEqual(len(bad), 2); self.assertIn('lock is held (j12)', bad[0]); self.assertIn('profile is active (headless)', bad[1])
+        self.assertEqual(acc.run_problems(self.a('job/J9'), has_pil=True, watcher_status={'lock': None, 'profile_active': None}), [])
+
 
 class Compare(unittest.TestCase):
     def test_load_time_tolerance(self):

@@ -306,7 +306,7 @@ def pass_file(run, n):
     return ROOT / 'harness' / 'runs' / run / f'pass_{n:02d}.json'
 
 
-def run_problems(a, branch_of=None, has_pil=None):
+def run_problems(a, branch_of=None, has_pil=None, watcher_status=None):
     """Checks before pass 1, so a run cannot spend a ledger line on its setup (J45 run 20261031_j45acc: pass 1 failed on a missing
     Pillow in the interpreter, and its line carried no branch, which rule 79 never counts). Fills a.branch from git when not given."""
     if not a.branch:
@@ -322,12 +322,26 @@ def run_problems(a, branch_of=None, has_pil=None):
     if not has_pil:
         out.append(f'Pillow is not installed for {sys.executable} (the shot comparison needs it): run with the python that has it, '
                    f'or `{Path(sys.executable).name} -m pip install pillow`')
+    # J12 run 20261031_j12acc: pass 1 began under a sitting's own lock and active headless overlay (same owner), so its "before" settings
+    # held the overlay and the release restored the older files: settings_identical failed with every game step passing. A run starts
+    # only with no lock and no active profile, so pass 1 compares against the files Liam has.
+    st = watcher_status if watcher_status is not None else {}
+    if st.get('lock'):
+        out.append(f"the game lock is held ({st['lock'].get('owner', '?') if isinstance(st['lock'], dict) else st['lock']}): release it "
+                   '(job.sh unlock <owner>) and let the watcher restore, then start the run; each pass takes and releases its own lock')
+    if st.get('profile_active'):
+        out.append(f"a profile is active ({st['profile_active']}): release the lock that applied it and wait for the restore before the run")
     return out
 
 
 def cmd_run(a):
     baseline = load_baseline(a.baseline)   # refuses without a valid baseline (rule 74)
-    bad = run_problems(a)
+    ad = json.loads(Path(a.adapter).read_text(encoding='utf-8'))
+    try:   # the watcher's own status file (rewritten every 2 s); unreadable = nothing known, the passes then find out
+        st = json.loads(Path(ad['state_dir'], ad.get('watcher_subdir', 'watcher'), 'watcher.status').read_text(encoding='utf-8-sig'))
+    except (OSError, ValueError, KeyError):
+        st = {}
+    bad = run_problems(a, watcher_status=st)
     if bad:
         for b in bad:
             print(f'acceptance run: refused: {b}', file=sys.stderr)
