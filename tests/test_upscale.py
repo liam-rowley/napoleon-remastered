@@ -1,4 +1,4 @@
-"""Host tests of the UI art upscaler (J36): synthetic images, no GPU, no game.
+﻿"""Host tests of the UI art upscaler (J36): synthetic images, no GPU, no game.
 
 The size rule, status mapping and pack writer are standard library and always run. The image tests (DDS header round trip,
 alpha rules, mips, manifest and resume, determinism, verify) need numpy and Pillow (upscale/requirements.txt) and are skipped
@@ -126,7 +126,7 @@ def _rgba(w, h, alpha):
 @unittest.skipUnless(HAVE, 'numpy and Pillow are not installed here (upscale/requirements.txt)')
 class Images(unittest.TestCase):
     def test_dds_header_round_trip_keeps_the_vanilla_header(self):
-        for fmt in ('DXT1', 'DXT3', 'DXT5', 'A8R8G8B8'):
+        for fmt in ('DXT1', 'DXT3', 'DXT5', 'A8R8G8B8', 'R8G8B8'):
             img = _rgba(32, 16, 'soft')
             lv = resample.mip_chain(img, 3)
             van = dds.make_header(fmt, 32, 16, 3)

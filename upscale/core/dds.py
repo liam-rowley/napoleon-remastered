@@ -19,7 +19,7 @@ DDPF_ALPHAPIXELS, DDPF_FOURCC, DDPF_RGB = 0x1, 0x4, 0x40
 DDSCAPS_COMPLEX, DDSCAPS_TEXTURE, DDSCAPS_MIPMAP = 0x8, 0x1000, 0x400000
 
 BLOCK = {'DXT1': 8, 'DXT3': 16, 'DXT5': 16}
-FORMATS = ('DXT1', 'DXT3', 'DXT5', 'A8R8G8B8')
+FORMATS = ('DXT1', 'DXT3', 'DXT5', 'A8R8G8B8', 'R8G8B8')
 
 
 # ================================================================================================ geometry
@@ -32,6 +32,8 @@ def level_size(fmt, w, h):
         return max(1, (w + 3) // 4) * max(1, (h + 3) // 4) * BLOCK[fmt]
     if fmt == 'A8R8G8B8':
         return w * h * 4
+    if fmt == 'R8G8B8':
+        return w * h * 3
     raise ValueError('unsupported format %s' % fmt)
 
 
@@ -61,6 +63,8 @@ def parse_header(b):
             raise ValueError('DX10 header not supported')
     elif pfflags & DDPF_RGB and bits == 32 and (rm, gm, bm) == (0xFF0000, 0xFF00, 0xFF):
         fmt = 'A8R8G8B8' if (pfflags & DDPF_ALPHAPIXELS and am == 0xFF000000) else 'X8R8G8B8'
+    elif pfflags & DDPF_RGB and bits == 24 and (rm, gm, bm) == (0xFF0000, 0xFF00, 0xFF):
+        fmt = 'R8G8B8'
     else:
         fmt = 'RGB%d_%x_%x_%x_%x' % (bits, rm, gm, bm, am)
     return {'flags': flags, 'height': h, 'width': w, 'pitch': pitch, 'depth': depth,
@@ -81,7 +85,7 @@ def make_header(fmt, w, h, mips, template=None):
         elif fmt in BLOCK:
             pitch = level_size(fmt, w, h)
         else:
-            pitch = w * 4
+            pitch = w * (3 if fmt == 'R8G8B8' else 4)
         struct.pack_into('<5I', b, 8, t['flags'], h, w, pitch, 0)
         if t['flags'] & DDSD_MIPMAPCOUNT or mips > 1:
             struct.pack_into('<I', b, 28, mips)
@@ -101,6 +105,10 @@ def make_header(fmt, w, h, mips, template=None):
         struct.pack_into('<7I', b, 4, 124, flags, h, w, w * 4, 0, mips if mips > 1 else 0)
         struct.pack_into('<II4s5I', b, 76, 32, DDPF_RGB | DDPF_ALPHAPIXELS, b'\0\0\0\0', 32,
                          0xFF0000, 0xFF00, 0xFF, 0xFF000000)
+    elif fmt == 'R8G8B8':
+        flags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT | DDSD_PITCH | (DDSD_MIPMAPCOUNT if mips > 1 else 0)
+        struct.pack_into('<7I', b, 4, 124, flags, h, w, w * 3, 0, mips if mips > 1 else 0)
+        struct.pack_into('<II4s5I', b, 76, 32, DDPF_RGB, b'\0\0\0\0', 24, 0xFF0000, 0xFF00, 0xFF, 0)
     else:
         raise ValueError('unsupported format %s' % fmt)
     struct.pack_into('<I', b, 108, caps)
@@ -210,6 +218,9 @@ def _blocks_to_image(px, w, h):
 
 
 def decode_level(data, fmt, w, h):
+    if fmt == 'R8G8B8':
+        a = np.frombuffer(data, np.uint8, w * h * 3).reshape(h, w, 3)
+        return np.dstack([a[..., [2, 1, 0]], np.full((h, w), 255, np.uint8)])
     if fmt in ('A8R8G8B8', 'X8R8G8B8'):
         a = np.frombuffer(data, np.uint8, w * h * 4).reshape(h, w, 4)
         out = a[..., [2, 1, 0, 3]].copy()
@@ -354,6 +365,8 @@ def encode_python(rgba, fmt, alpha_threshold=128):
     rgba = np.asarray(rgba)
     if fmt == 'A8R8G8B8':
         return np.ascontiguousarray(rgba[..., [2, 1, 0, 3]]).astype(np.uint8).tobytes()
+    if fmt == 'R8G8B8':
+        return np.ascontiguousarray(rgba[..., [2, 1, 0]]).astype(np.uint8).tobytes()
     blk = _image_to_blocks(rgba.astype(np.float32))
     if fmt == 'DXT1':
         opaque = blk[:, :, 3] >= alpha_threshold
@@ -405,7 +418,7 @@ def _wine_prefix():
 def encode_texconv(levels, fmt, exe, uniform=False, workdir=None, extra=()):
     """Compress our own mip chain with texconv. levels: list of HxWx4 RGBA uint8 (level 0 first). Returns bytes per level.
     The chain is handed over as an A8R8G8B8 DDS; texconv keeps supplied mips (verified in step 4)."""
-    if fmt == 'A8R8G8B8':
+    if fmt in ('A8R8G8B8', 'R8G8B8'):
         return [encode_python(l, fmt) for l in levels]
     h, w = levels[0].shape[:2]
     tf = {'DXT1': 'BC1_UNORM', 'DXT3': 'BC2_UNORM', 'DXT5': 'BC3_UNORM'}[fmt]
@@ -447,7 +460,7 @@ def encode_texconv(levels, fmt, exe, uniform=False, workdir=None, extra=()):
 
 def encode_chain(levels, fmt, encoder='python', texconv=None, uniform=False, quicktex_level=10, workdir=None):
     """levels: list of RGBA uint8 arrays -> list of bytes. encoder: python | quicktex | texconv"""
-    if fmt == 'A8R8G8B8':
+    if fmt in ('A8R8G8B8', 'R8G8B8'):
         return [encode_python(l, fmt) for l in levels]
     if encoder == 'texconv':
         if not texconv:

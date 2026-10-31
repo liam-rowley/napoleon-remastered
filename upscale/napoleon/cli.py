@@ -64,7 +64,7 @@ def registry_updates(man, items):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('action', choices=['plan', 'run', 'verify', 'sheets', 'pack'])
+    ap.add_argument('action', choices=['plan', 'run', 'verify', 'sheets', 'compare', 'pack'])
     ap.add_argument('--work', default=DEFAULT_WORK)
     ap.add_argument('--roles', help='comma list; default: the configured first_roles')
     ap.add_argument('--sample', type=int, default=0, help='a fixed sample of N assets across the roles (same sample every time)')
@@ -142,6 +142,21 @@ def main(argv=None):
             p = contact.role_sheet(r, es, work, read, allit, os.path.join(outdir, r + '.png'))
             print('sheet', r, p)
         print('hard', contact.hard_case_sheet(es, work, read, allit, os.path.join(outdir, 'hard_cases.png')))
+        return 0
+
+    if a.action == 'compare':
+        import batch
+        import contact
+        read_fs = _packfs(a.games)
+        read = lambda it: read_fs.read(it['path'])
+        works, ents = {}, {}
+        for name in pins:
+            w = os.path.join(work, 'cmp_' + name)
+            man = batch.run(items, lambda it: read_fs.read(it['path']), w, cfg, pins, models_dir, role_cfgs, 0, a.device or cfg['run']['device'], model_override=name)
+            works[name], ents[name] = w, [e for e in man['entries'].values()]
+        outdir = os.path.join(REPO, 'extract', 'napoleon', 'upscale_sheets')
+        for r in roles:
+            print('compare', r, contact.compare_sheet(r, works, ents, read, byid, os.path.join(outdir, 'compare_' + r + '.png')))
         return 0
 
     if a.action == 'pack':

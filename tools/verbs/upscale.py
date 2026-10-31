@@ -15,7 +15,7 @@ WORK = Path(r'C:\napoleon_remastered_pc\upscale')
 
 
 def add_arguments(p):
-    p.add_argument('action', choices=('env', 'plan', 'run', 'verify', 'sheets', 'pack'))
+    p.add_argument('action', choices=('env', 'plan', 'run', 'verify', 'sheets', 'compare', 'pack'))
     p.add_argument('rest', nargs=argparse.REMAINDER, help='passed to upscale/napoleon/cli.py (--roles, --sample, --limit, --model, --work, --registry)')
 
 

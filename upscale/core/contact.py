@@ -105,3 +105,33 @@ def hard_case_sheet(entries, work, read, items, out_png, per_case=3, crop=128):
     os.makedirs(os.path.dirname(out_png), exist_ok=True)
     sheet.save(out_png)
     return out_png
+
+
+def compare_sheet(role, works, entries_by_label, read, items, out_png, n=8, crop=160):
+    """side by side for the model choice: [Lanczos baseline | model A | model B ...] on the same fixed sample, 1:1 crops of the 2.5x size.
+    works: {label: work dir}; entries_by_label: {label: [manifest entries]}"""
+    labels = list(works)
+    common = None
+    for lb in labels:
+        ids = {e['id'] for e in entries_by_label[lb] if e['role'] == role and e['status'] == 'done'}
+        common = ids if common is None else common & ids
+    es = pick([e for e in entries_by_label[labels[0]] if e['id'] in (common or ())], n, 'cmp' + role)
+    if not es:
+        return None
+    cols = 1 + len(labels)
+    sheet = Image.new('RGB', (cols * (crop + GAP) + GAP, len(es) * (crop + LABEL + GAP) + GAP), (40, 40, 40))
+    d = ImageDraw.Draw(sheet)
+    for r, e in enumerate(es):
+        y0 = GAP + r * (crop + LABEL + GAP)
+        imgs = [_before(e, read, items[e['id']])] + [_after(next(x for x in entries_by_label[lb] if x['id'] == e['id']), works[lb]) for lb in labels]
+        h, w = imgs[0].shape[:2]
+        ys, xs = np.nonzero(imgs[0][..., 3] > 0)
+        cy, cx = (int(ys.mean()), int(xs.mean())) if len(ys) else (h // 2, w // 2)
+        top, left = min(max(0, cy - crop // 2), max(0, h - crop)), min(max(0, cx - crop // 2), max(0, w - crop))
+        d.text((GAP, y0), '%s   lanczos | %s' % (e['id'].rsplit('/', 1)[-1][:30], ' | '.join(labels)), fill=(230, 230, 230))
+        for k, img in enumerate(imgs):
+            c = np.ascontiguousarray(img[top:top + crop, left:left + crop])
+            _paste(sheet, c, GAP + k * (crop + GAP), y0 + LABEL, c.shape[1], c.shape[0])
+    os.makedirs(os.path.dirname(out_png), exist_ok=True)
+    sheet.save(out_png)
+    return out_png

@@ -1,4 +1,4 @@
-"""Resumable batch of the UI art upscaler (J36): plan, run, verify (needs numpy, Pillow; torch for real models).
+﻿"""Resumable batch of the UI art upscaler (J36): plan, run, verify (needs numpy, Pillow; torch for real models).
 
 purpose: turn a list of UI images into 2.5x master images (model x2, Lanczos to the exact size, alpha by Lanczos only, full mip chain), with a per-asset manifest, resume by input hash, and a per-asset verify
 usage: library (upscale/core), driven by `python3 core/wsc.py upscale plan|run|verify|sheets|pack`; run() takes items [{id, path, role, fmt, w, h}] and a read(item) -> bytes function
@@ -23,7 +23,7 @@ import model as modelmod
 import resample
 import rules
 
-MANIFEST_VERSION = 1
+MANIFEST_VERSION = 2
 
 
 def _sha(b):
@@ -47,13 +47,20 @@ def method_text(s, ran_model):
     return '%s(x2)+lanczos->%sx %s tile%s/ov%s' % (s['model'], s['scale'], r.get('precision', ''), r.get('tile', ''), r.get('overlap', ''))
 
 
+def _visible_std(rgba):
+    """std of RGB over the visible texels (A > 0), 0 when none: the flat-output check compares like with like"""
+    v = rgba[rgba[..., 3] > 0][:, :3].astype(np.float32)
+    return round(float(v.std()), 3) if v.size else 0.0
+
+
 def process(src, target, mdl, cfg, encoder_path=None):
     """Source -> (output bytes, info). The whole image pipeline, no file access."""
     tw, th = target
     w, h = src.size
     rgba = src.rgba
     kind = src.alpha_kind()
-    rgb = resample.dilate_rgb(rgba) if kind != 'none' else rgba[..., :3].astype(np.float32)
+    # a fully transparent image has no colour to spread: its RGB goes through as it is (nothing is visible either way)
+    rgb = resample.dilate_rgb(rgba) if kind != 'none' and rgba[..., 3].any() else rgba[..., :3].astype(np.float32)
     ran = min(w, h) >= rules.TINY_PX
     up = mdl.run(rgb) if ran else rgb
     rgb_t = resample.lanczos(up, tw, th)
@@ -126,7 +133,7 @@ def run(items, read, work, cfg, pins, models_dir, role_cfgs, limit=0, device='cu
                 'method': method_text(s, info['ran_model']),
                 'src': {'sha256': _sha(data), 'w': src.size[0], 'h': src.size[1], 'kind': src.kind, 'fmt': src.fmt, 'mips': src.mips,
                         'alpha': info['alpha'], 'cov': round(resample.alpha_mean(a), 6),
-                        'std': round(float(src.rgba[..., :3].astype(np.float32).std()), 3)},
+                        'std': _visible_std(src.rgba)},
                 'out': {'file': os.path.relpath(op, work).replace('\\', '/'), 'sha256': _sha(blob), 'bytes': len(blob),
                         'w': val[0], 'h': val[1], 'mips': info['mips'], 'fmt': info['fmt']},
                 'seconds': round(time.time() - t1, 3)}
@@ -175,7 +182,7 @@ def plan(items, role_cfgs, cfg):
     return per, out
 
 
-def verify_entry(e, work, tol=0.03):
+def verify_entry(e, work, tol=0.02):
     """Problems of one finished asset (empty = fine): exact size, mips, format, alpha coverage at each mip, NaN or flat, sha."""
     if e.get('status') != rules.DONE:
         return []
@@ -210,13 +217,13 @@ def verify_entry(e, work, tol=0.03):
     except Exception as ex:
         return probs + ['unreadable: %s' % ex]
     l0 = levels[0]
-    if float(l0[..., :3].astype(np.float32).std()) < 1.0 and e['src']['std'] >= 3.0:
+    if _visible_std(l0) < 1.0 and e['src']['std'] >= 3.0:
         probs.append('flat output (source std %.1f)' % e['src']['std'])
     if e['src']['alpha'] != 'none':
         want = e['src']['cov']
         for k, lv in enumerate(levels):
             n = lv.shape[0] * lv.shape[1]
-            t = tol + (2.0 / np.sqrt(n) if k else 0)
+            t = tol + 1.5 / min(lv.shape[:2]) + (2.0 / np.sqrt(n) if k else 0)
             got = resample.alpha_mean(lv[..., 3])
             if abs(got - want) > t:
                 probs.append('mean alpha at mip %d is %.3f, vanilla %.3f (tol %.3f)' % (k, got, want, t))
