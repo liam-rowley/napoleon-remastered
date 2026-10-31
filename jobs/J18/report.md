@@ -83,6 +83,17 @@ exe check and `exe_check`. `jobs/J5/rules.md` is untouched (dated ledger): rows 
   `wsc setup` `ok pc_rules`, 11 ok; `launch` under dev-dxvk: `exe check: ok ...`, on_virtual, kill clean, profile restored byte-identical;
   uninstall identical to the pre-install snapshot (1564 files).
 
+## Acceptance (rule 79, review round 1 blocker 1)
+- DLL rebuilt clean from this branch (`proxy/tools/build.sh --docker dll`: build `32c0b9a66de1`, the last commit of the DLL inputs; J18 changes
+  none of them) and installed as kit `kit_20261031T080721Z_03354d8bfb63`; the DLL used in run `20261030_j18pc` had come from another session's
+  build folder and reported `32c0b9a66de1-dirty`, so it could not count. Watcher 1.1.0 (from run `20261030_j18pc`).
+- Run `harness/runs/20261031_j18acc` (2026-10-31 08:07 UTC): pass 1 FAIL, only `settings_identical` (`mod_ini` changed), every scene, cam,
+  shot, perf and reset step ok. Cause: the proxy had just been installed with the default ini, and `ctl.py` applies its launch keys
+  (`dev.ctl=1`, `dev.camera=1`, ...) with `pc_deploy set` on purpose and leaves them, so the first pass after a fresh install sees the ini
+  change. Not from J18. That pass also recorded the kit's build id, because no `proxy.log` existed yet.
+- Run `harness/runs/20261031_j18acc2` (08:12-09:30 UTC): **20 of 20 passes**, `acceptance.py streak --build 32c0b9a66de1 --watcher 1.1.0`:
+  20 consecutive. Ledger lines and pass files are committed.
+
 ## Deviations
 - **The in-session hook demo is a replay.** This session started in `C:\Users\liamr\repos`, so Claude Code never loaded the repo's settings and
   the hook did not run on its own calls (the commit-trailer rule did not fire either: every commit here carries the trailer by hand). Running
@@ -107,3 +118,6 @@ exe check and `exe_check`. `jobs/J5/rules.md` is untouched (dated ledger): rows 
 - Should the hook also cover `robocopy`/`xcopy`/`Rename-Item` and Python one-liners? Each widens the false-positive surface; left out for now.
 - Should the D30 rule "start Claude Code in the repo folder" itself get a guard (for example `wsc setup` checking `CLAUDE_PROJECT_DIR`), since
   a session started one folder up runs without either hook rule?
+- The first pass after a fresh proxy install fails `settings_identical`, because `ctl.py` turns its launch keys on in the installed ini
+  (run `20261031_j18acc`). Should `acceptance.py run` apply those keys before taking its "before" snapshot, so pass 1 on a new install can
+  pass? It should also read the build id after the first launch rather than from `install.json`.
