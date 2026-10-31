@@ -1,4 +1,4 @@
-"""Host tests for the J14 save tools (saves/core ESF codec, diff, map walker; saves/napoleon map, recipes, staging) on synthetic files."""
+"""Host tests for the J14 save tools (core/saves ESF codec, diff, map walker; saves/napoleon map, recipes, staging) on synthetic files."""
 import contextlib
 import io
 import os
@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'saves', 'core'))
+sys.path.insert(0, os.path.join(ROOT, 'core', 'saves'))
 sys.path.insert(0, os.path.join(ROOT, 'saves', 'napoleon'))
 sys.path.insert(0, os.path.join(ROOT, 'saves', 'napoleon', 'recipes'))
 

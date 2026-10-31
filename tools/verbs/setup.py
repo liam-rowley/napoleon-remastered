@@ -158,7 +158,7 @@ def check_hooks_path(root, fix):
 def check_lf_scripts(root, fix):
     rc, out = _run(['git', 'ls-files', '*.sh', '*.py'], cwd=root)
     bad = cr_files(root, [p for p in out.splitlines() if p and (root / p).is_file()]) if rc == 0 else ['git ls-files failed']
-    _, attr = _run(['git', 'check-attr', 'eol', '--', 'harness/core/job.sh'], cwd=root)
+    _, attr = _run(['git', 'check-attr', 'eol', '--', 'core/harness/job.sh'], cwd=root)
     _, crlf = _run(['git', 'config', '--get', 'core.autocrlf'], cwd=root)
     return not bad, f'{len(out.splitlines())} scripts, {len(bad)} with CR ({", ".join(bad[:3])}); {attr.split(": ")[-1] or "?"} attribute, core.autocrlf={crlf or "unset"}', \
         'the .gitattributes eol=lf rules must be in the checkout: git rm --cached -r . && git reset --hard (only with no local changes)'
@@ -205,7 +205,7 @@ def check_watcher(root, fix):
 
 
 def load_pc_deploy(root):
-    """proxy/tools/pc_deploy.py as a module: the one owner of the PC-rule damage checks (it also travels in every kit, stdlib only)."""
+    """core/proxy/tools/pc_deploy.py as a module: the one owner of the PC-rule damage checks (it also travels in every kit, stdlib only)."""
     import importlib.util
     spec = importlib.util.spec_from_file_location('pc_deploy', root / 'proxy' / 'tools' / 'pc_deploy.py')
     m = importlib.util.module_from_spec(spec)
@@ -233,7 +233,7 @@ def check_pc_rules(root, fix):
     r = pc_rules_result(pd, ad['game_dir'], ad['state_dir'], [games['empire']['root']], pd.default_identity())
     if r is None:
         return True, f'skipped: no game folder ({ad["game_dir"]}) or state folder ({ad["state_dir"]}) on this host', ''
-    return r[0], r[1], ('python3 proxy/tools/pc_deploy.py status --game <game_dir> --state <state_dir> lists each failure; '
+    return r[0], r[1], ('python3 core/proxy/tools/pc_deploy.py status --game <game_dir> --state <state_dir> lists each failure; '
                         'an exe mismatch or a .git there is for Liam to decide (nothing is fixed here, --fix included)')
 
 

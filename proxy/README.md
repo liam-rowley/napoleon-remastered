@@ -22,16 +22,16 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 **Release route: mingw-w64 i686 (`g++-mingw-w64-i686`, GCC 13 win32 thread model) on Linux**, in CI (`ubuntu-24.04`) and on the
 PC inside Docker Desktop (`ubuntu:24.04` pinned by digest in `build.sh`, the same apt packages; D31). Why this one and not MSVC on the Windows runner:
 - one toolchain everywhere an agent works: the local container builds exactly what CI builds, so the DLL tested on the PC is reproducible
-  from the commit (no PE timestamp, relative file names; build id = a hash of the DLL inputs' content, `proxy/tools/build_id.py`, `-dirty` if an input has local changes: J45);
+  from the commit (no PE timestamp, relative file names; build id = a hash of the DLL inputs' content, `core/proxy/tools/build_id.py`, `-dirty` if an input has local changes: J45);
 - DXVK's own release route is mingw (empire-remastered `dxvk_fork/docs/build.md`), so a later DXVK-side change needs no second toolchain;
 - the DLL depends on system DLLs only (static libgcc/libstdc++, no winpthread): `build.sh` fails on any other import, and on a
   missing or decorated export (`Direct3DCreate9@4`).
 MSVC stays the fallback (kill criterion: 3 failed loads on the PC -> stop and propose it).
 
 ```sh
-proxy/tools/build.sh --docker all     # on the PC (Git Bash, Docker Desktop running): gen --check, build/proxy/napoleon/d3d9.dll, host tests
-proxy/tools/build.sh --docker repro   # the same bytes from another checkout path
-proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 installed (CI)
+core/proxy/tools/build.sh --docker all     # on the PC (Git Bash, Docker Desktop running): gen --check, build/proxy/napoleon/d3d9.dll, host tests
+core/proxy/tools/build.sh --docker repro   # the same bytes from another checkout path
+core/proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 installed (CI)
 ```
 `--docker` computes the build id on the host (a worktree's `.git` points at a host path the container cannot see) and passes it in;
 `smoke` runs the built DLL under wine: `build.sh --docker smoke` (after `--docker all`; the same container plus CI's wine packages,
@@ -43,8 +43,8 @@ keeps the DLL as an artifact; the `gates` job runs `tests/test_proxy_tables.py` 
 `tests/test_proxy_host.py`, which skips in about a second when no proxy input changed against the merge base with `origin/main`
 (uncommitted and untracked files count), and otherwise runs `build.sh all` (native mingw) or `build.sh --docker all` (~1 min) through
 Git Bash, then the wine smoke test on the same route (`--docker smoke`, or native `smoke` with wine on PATH; otherwise a warning
-that it is CI-only; J42). With neither toolchain it **fails** naming the suites not run; `WSP_PROXY_TESTS=skip` turns that into a skip with a warning
-for one run (CI still runs them).
+that it is CI-only; J42). With neither toolchain it is a skip naming the suites not run, which the core's
+`tests` gate shows as a warn (J41; since core v0.4.0, J12). CI still runs them.
 
 ## Start-up and the pass-through contract
 
@@ -85,7 +85,7 @@ patched counts as done. **Any bad site -> nothing is written**, every site still
 checked always and written only when the key is on. No real sites yet: `tests/test_patch_engine.cpp` proves the engine on a synthetic
 image with Napoleon's section layout at three load bases.
 
-Adding a site: `python3 core/wsc.py reg add engine_sites ...` (with `exe=sha1:<pin>`), `python3 proxy/tools/gen_tables.py`, rebuild,
+Adding a site: `python3 core/wsc.py reg add engine_sites ...` (with `exe=sha1:<pin>`), `python3 core/proxy/tools/gen_tables.py`, rebuild,
 then a PC run that logs `patch_engine: apply` and the site `stock`, and set `verified`.
 
 ## Config, log, crash capture
@@ -112,11 +112,11 @@ break the byte-exact uninstall.
 ## PC install and uninstall (`tools/pc_deploy.py`)
 
 The game folder is a deploy target; everything runs in Git Bash in the repo.
-1. `proxy/tools/build.sh --docker all && python3 proxy/tools/pc_deploy.py kit` -> `build/kits/kit_<utc>_<build>/`: `manifest.json`,
+1. `core/proxy/tools/build.sh --docker all && python3 core/proxy/tools/pc_deploy.py kit` -> `build/kits/kit_<utc>_<build>/`: `manifest.json`,
    payload files under unique names `<sha12>__<name>`, and `pc_deploy.py` itself.
-2. `python3 proxy/tools/pc_deploy.py send --kit build/kits/<id> --state <state>` copies it sha-checked to `<state>\kits\<id>`; a kit id
+2. `python3 core/proxy/tools/pc_deploy.py send --kit build/kits/<id> --state <state>` copies it sha-checked to `<state>\kits\<id>`; a kit id
    already there is refused (a new kit id every time: the stale-resend bug, empire-remastered LEARNINGS lesson 18).
-3. `python3 proxy/tools/pc_deploy.py install --kit <state>/kits/<id> --game <game> --state <state>`: checks every staged sha256 first (a stale copy is
+3. `python3 core/proxy/tools/pc_deploy.py install --kit <state>/kits/<id> --game <game> --state <state>`: checks every staged sha256 first (a stale copy is
    refused, nothing installed), refuses while the game looks open, snapshots the game folder (first install), backs up any foreign file
    at an owned path, copies with a temp name + rename, re-hashes every destination, writes `<state>\install.json`.
 4. `pc_deploy.py uninstall --game <game> --state <state>`: moves everything owned (`d3d9.dll`, the ini, the whole
@@ -136,8 +136,8 @@ exe's user32 window imports and more `IDirect3D9` slots the same way, each slot 
 ## Dev control channel (J3)
 
 All `[dev]` keys default off with release value off (`registries/config_keys.jsonl`); with none set the proxy is the skeleton.
-- `dev.timeline`: `napoleon_remastered\logs\timeline.json` (phases, UTC ms, t from process creation); `proxy/tools/timeline_table.py`.
-- `dev.log_files`: the file survey `logs\files.log` (every distinct open, check and listing); `proxy/tools/survey_table.py`.
+- `dev.timeline`: `napoleon_remastered\logs\timeline.json` (phases, UTC ms, t from process creation); `core/proxy/tools/timeline_table.py`.
+- `dev.log_files`: the file survey `logs\files.log` (every distinct open, check and listing); `core/proxy/tools/survey_table.py`.
 - `dev.skip_intro`, `dev.file_rules`: movie and file rules (`core/filerules.h`: redirect, fail, add, movie-fail, movie-redirect).
 - `dev.state_json`: `napoleon_remastered\state.json` ~2/s (scene, frame, Lua context, battle probe, memory, Lua reports); in the
   adapter's `heartbeat_files`, so a watcher launch can wait on `"scene": "frontend"` (`wait_log` regex). For a consistent
@@ -186,7 +186,7 @@ battle pump) it calls the active camera mode's own `SetTargetAndPosition(target,
 the mode comes from a pointer chain (battle owner global, +0xf8, +0x281b8, +0x800, engine_sites `battle.camera_*`) and its vtable slot is
 compared with the checked site before every call. Pure parts in `core/camera.h` (`tests/test_camera.cpp`), driver `core/camera.cpp`.
 The chunks `napoleon/lua/ctl/cam_set.lua`, `cam_read.lua` (readback through `BattleUI.BackProjectPosition`) and `speed.lua` (RequestSpeed)
-are what `harness/core/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.battle.camera_route`, `napoleon.battle.speed_route`.
+are what `core/harness/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.battle.camera_route`, `napoleon.battle.speed_route`.
 Engine Lua never calls `string.find`, `string.sub` or `gmatch`: one call stops the battle pump (fact `napoleon.lua.string_find_stalls_pump`,
 `tests/test_repo_rules.py`).
 

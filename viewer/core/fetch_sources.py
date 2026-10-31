@@ -7,7 +7,7 @@ when: viewer/core/build.sh runs it before the wasm build (inside the emsdk conta
 not-a-verb: needs network and writes build output, not a registry operation; build.sh calls it
 
 Lua's number type follows the engine (a 4-byte float lua_Number: discovery/core/luachunk.py). The luaconf.h edits are the
-number-type half of proxy/tools/fetch_lua.py's patches (the proxy's dummynode and GC patches are for running on the engine's own
+number-type half of core/proxy/tools/fetch_lua.py's patches (the proxy's dummynode and GC patches are for running on the engine's own
 lua_State and do not apply here: the viewer owns its state). The viewer keeps Lua's standard libraries.
 """
 import argparse

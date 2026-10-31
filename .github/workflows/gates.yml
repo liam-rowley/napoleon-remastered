@@ -83,17 +83,20 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (proxy/tools/build_id.py, J45), not history
+      # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (core/proxy/tools/build_id.py, J45), not history
       - uses: actions/checkout@v5
+        with:
+          submodules: true   # the proxy sources, tools and the harness live in the core since J12
+          token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
       - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
-      - run: proxy/tools/build.sh all
+      - run: core/proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path
-        run: proxy/tools/build.sh repro
+        run: core/proxy/tools/build.sh repro
       - name: smoke test the DLL under wine (a stand-in exe loads it; guard verdicts, config, log, clean detach)
         run: |
           sudo dpkg --add-architecture i386 && sudo apt-get update -q
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends wine wine32:i386
-          proxy/tools/build.sh smoke
+          core/proxy/tools/build.sh smoke
       - uses: actions/upload-artifact@v4
         with:
           name: proxy-d3d9-napoleon
@@ -140,6 +143,9 @@ jobs:
       CI: 'true'
     steps:
       - uses: actions/checkout@v5
+        with:
+          submodules: true   # the proxy sources, tools and the harness live in the core since J12
+          token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -165,7 +171,7 @@ jobs:
         env:
           HT_ONLY: ${{ inputs.only }}
           HT_REPEAT: ${{ inputs.repeat || '1' }}
-        run: ./harness/tests/Run-HostTests.ps1 -Suite $(if ($env:HT_ONLY) { 'integration' } else { 'all' }) -Only $env:HT_ONLY -Repeat ([int]$env:HT_REPEAT)
+        run: ./core/harness/tests/Run-HostTests.ps1 -Suite $(if ($env:HT_ONLY) { 'integration' } else { 'all' }) -Only $env:HT_ONLY -Repeat ([int]$env:HT_REPEAT)
 
   # notify: the last job; a failure in any job above, on a branch with an open pull request, comments once there (D32: a failed check
   # leaves the pull request open; this makes it impossible to miss). The only job with write access, and only to pull requests.

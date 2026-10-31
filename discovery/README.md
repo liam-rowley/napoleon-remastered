@@ -7,7 +7,7 @@ candidates, D10). `napoleon/` holds the inputs: `games.json` (install paths, Emp
 
 ## Re-run (on the PC, read only; the game folders are never written)
 
-1. Extract the small files into the git-ignored `/extract/` (`proxy/tools/pack_list.py`; N and E are the two `data` folders):
+1. Extract the small files into the git-ignored `/extract/` (`core/proxy/tools/pack_list.py`; N and E are the two `data` folders):
    - Napoleon: `data.pack boot.pack --under ui --ext none --ext .luac`, `local_en.pack local_en_patch.pack --ext .cuf`,
      `data.pack boot.pack --under fx`, `data.pack --ext .lua`, each with `--extract extract/napoleon`.
    - Empire (`boot main patch patch2 patch3 patch4 patch5 patch_en local_en ui` .pack): `--ext .cuf`, `--under fx`,

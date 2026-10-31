@@ -1,4 +1,4 @@
-"""Host tests for harness/core/acceptance.py (J4): the baseline schema (rule 74), the comparisons, the ledger streak (rule 79), one pass against
+"""Host tests for core/harness/acceptance.py (J4): the baseline schema (rule 74), the comparisons, the ledger streak (rule 79), one pass against
 fakes (stops at the first failure, fails on a refused verb, checks the exe pin and the settings files), and the refusal to run without a baseline."""
 import copy
 import importlib.util
@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('acceptance', ROOT / 'harness' / 'core' / 'acceptance.py')
+spec = importlib.util.spec_from_file_location('acceptance', ROOT / 'core' / 'harness' / 'acceptance.py')
 acc = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(acc)
 

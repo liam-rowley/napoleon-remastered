@@ -1,4 +1,4 @@
-"""Host tests for harness/core/ctl.py (J4): the result contract, scenario and pose resolution, tolerance checks, settle, the refusals, and the
+"""Host tests for core/harness/ctl.py (J4): the result contract, scenario and pose resolution, tolerance checks, settle, the refusals, and the
 rules turned into tests: row 77 (no verb returns ok without a check) and row 78 (no key or click camera moves in scenario rows, generated
 files or the acceptance script). No game: a fake transport plays the proxy."""
 import importlib.util
@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('ctl', ROOT / 'harness' / 'core' / 'ctl.py')
+spec = importlib.util.spec_from_file_location('ctl', ROOT / 'core' / 'harness' / 'ctl.py')
 ctl = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(ctl)
 
@@ -181,7 +181,7 @@ class Rule78(unittest.TestCase):
     def files(self):
         out = [ROOT / 'registries' / 'scenarios.jsonl']
         out += sorted((ROOT / 'proxy' / 'napoleon' / 'lua' / 'battles').glob('*.txt'))
-        out += [p for p in [ROOT / 'harness' / 'core' / 'acceptance.py'] if p.exists()]
+        out += [p for p in [ROOT / 'core' / 'harness' / 'acceptance.py'] if p.exists()]
         return out
 
     def test_no_key_or_click_in_scenario_rows_generated_files_or_acceptance(self):

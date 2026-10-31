@@ -3,7 +3,8 @@ review commit 6316cb9 broke test_console's lint and only CI saw it). Runs in `ws
 
 Routes, in order: proxy inputs (tools/changed_inputs.py) unchanged against the merge base with origin/main -> skip in about a second;
 in CI -> skip (the `proxy` job runs them); native mingw-w64 and g++ on PATH -> `proxy/tools/build.sh all`; Docker answering ->
-`build.sh --docker all` (~1 min); else no toolchain -> FAIL naming the suites not run, unless WSP_PROXY_TESTS=skip. build.sh always
+`build.sh --docker all` (~1 min); else no toolchain -> a skip naming the suites not run (core 0.4.0's tests gate shows it as a warn,
+J41; it failed until that tag was pinned, J12). build.sh always
 runs through Git Bash on Windows (tools/verbs/setup.py git_bash), never the WSL `bash` on PATH.
 After `all` passes, the wine smoke test runs on the same route (J42: PR #50's smoke failure was seen only by CI): `--docker smoke`
 (the container plus wine, about 70 s on the PC), native `smoke` when wine is on PATH, else a warning that it is CI-only.
@@ -34,13 +35,13 @@ SMOKE_TIMEOUT_S = 300   # `--docker smoke` measured 70 s on the PC with apt and 
 
 
 def suites(root=ROOT):
-    return sorted(p.stem for p in (Path(root) / 'proxy/tests').glob('test_*.cpp'))
+    return sorted(p.stem for p in (Path(root) / 'core/proxy/tests').glob('test_*.cpp'))
 
 
 def no_toolchain_message(names):
     return (f'proxy host tests NOT RUN (no toolchain): {", ".join(names)}. Fix: start Docker Desktop (Linux containers) and wait for '
-            f'"Engine running", or run `python3 core/wsc.py setup` and follow its docker line (proxy/README.md "Build"). '
-            f'One-off opt-out: WSP_PROXY_TESTS=skip (CI\'s `proxy` job still runs them).')
+            f'"Engine running", or run `python3 core/wsc.py setup` and follow its docker line (proxy/README.md "Build"); '
+            f'CI\'s `proxy` job runs them.')
 
 
 def docker_answers():
@@ -51,8 +52,8 @@ def docker_answers():
 
 
 def choose_route(env, base, files, which=shutil.which, docker_ok=docker_answers, names=None):
-    """(kind, detail): kind is 'skip' (detail = reason), 'native' or 'docker' (detail = build.sh arguments), 'optout' (skip with a
-    warning, detail = message) or 'fail' (detail = message). files None = base unknown = changed."""
+    """(kind, detail): kind is 'skip' (detail = reason), 'native' or 'docker' (detail = build.sh arguments), or 'none' (no toolchain:
+    a skip whose reason names the suites not run). files None = base unknown = changed."""
     if files is not None and not ci.classify(files)['proxy']:
         return 'skip', f'proxy inputs unchanged against {base[:12]}'
     if env.get('GITHUB_ACTIONS'):
@@ -61,10 +62,7 @@ def choose_route(env, base, files, which=shutil.which, docker_ok=docker_answers,
         return 'native', ['all']
     if docker_ok():
         return 'docker', ['--docker', 'all']
-    msg = no_toolchain_message(names if names is not None else suites())
-    # J41: until warscape-core's `tests` gate reports skips as `warn` (core PR from J41; it arrives with the first core tag after
-    # v0.2.0 that has it), a skip here would be a silent pass, so no toolchain fails. Once that tag is pinned this becomes a plain skip.
-    return ('optout', msg) if env.get('WSP_PROXY_TESTS') == 'skip' else ('fail', msg)
+    return 'none', no_toolchain_message(names if names is not None else suites())
 
 
 def smoke_route(kind, which=shutil.which):
@@ -74,7 +72,7 @@ def smoke_route(kind, which=shutil.which):
     if kind == 'native' and which('wine'):
         return ['smoke'], None
     return None, ('proxy wine smoke test NOT RUN (CI-only, warned): no wine here and not the Docker route. '
-                  'Run `proxy/tools/build.sh --docker smoke` with Docker Desktop up, or rely on CI\'s `proxy` job.')
+                  'Run `core/proxy/tools/build.sh --docker smoke` with Docker Desktop up, or rely on CI\'s `proxy` job.')
 
 
 def failed_suites(output, names):
@@ -90,17 +88,14 @@ class ProxyHostTests(unittest.TestCase):
         kind, detail = choose_route(os.environ, base or '', files)
         if kind == 'skip':
             self.skipTest(detail)
-        if kind == 'optout':
-            print(f'WARNING: {detail}', file=sys.stderr)
-            self.skipTest(detail)
-        if kind == 'fail':
-            self.fail(detail)
+        if kind == 'none':
+            self.skipTest(detail)   # the core's tests gate reports it as a warn with this reason (J41)
         bash = sv.git_bash()
-        self.assertIsNotNone(bash, 'no Git Bash found to run proxy/tools/build.sh (`python3 core/wsc.py setup` says why)')
+        self.assertIsNotNone(bash, 'no Git Bash found to run core/proxy/tools/build.sh (`python3 core/wsc.py setup` says why)')
 
         def build(args, timeout):
             try:
-                p = subprocess.run([bash, 'proxy/tools/build.sh', *args], cwd=ROOT, capture_output=True, text=True,
+                p = subprocess.run([bash, 'core/proxy/tools/build.sh', *args], cwd=ROOT, capture_output=True, text=True,
                                    encoding='utf-8', errors='replace', timeout=timeout)
             except subprocess.TimeoutExpired:
                 self.fail(f'build.sh {" ".join(args)} took over {timeout} s')
@@ -151,19 +146,14 @@ class Route(unittest.TestCase):
     def test_docker_when_native_incomplete(self):
         self.assertEqual(self.route(which=which_of('g++'), docker=True), ('docker', ['--docker', 'all']))
 
-    def test_no_toolchain_fails_naming_suites(self):
+    def test_no_toolchain_is_a_skip_naming_suites(self):
         kind, msg = self.route()
-        self.assertEqual(kind, 'fail')
-        for s in ('test_console', 'test_guard', 'Docker Desktop', 'wsc.py setup', 'WSP_PROXY_TESTS=skip'):
+        self.assertEqual(kind, 'none')
+        for s in ('test_console', 'test_guard', 'Docker Desktop', 'wsc.py setup'):
             self.assertIn(s, msg)
 
-    def test_no_toolchain_opt_out(self):
-        kind, msg = self.route(env={'WSP_PROXY_TESTS': 'skip'})
-        self.assertEqual(kind, 'optout')
-        self.assertIn('test_console', msg)
-
     def test_unknown_base_counts_as_changed(self):
-        self.assertEqual(self.route(files=None)[0], 'fail')
+        self.assertEqual(self.route(files=None)[0], 'none')
 
     def test_suites_are_the_cpp_stems(self):
         self.assertIn('test_console', suites())
@@ -225,7 +215,7 @@ class InputSet(unittest.TestCase):
         self.assertEqual(ci.classify(['.github/workflows/gates.yml']), {'proxy': True, 'harness': True, 'viewer': True})
 
     def test_harness_set(self):
-        self.assertEqual(ci.classify(['proxy/tools/pc_deploy.py']), {'proxy': True, 'harness': True, 'viewer': False})
+        self.assertEqual(ci.classify(['core']), {'proxy': True, 'harness': True, 'viewer': False})   # the pin: the proxy and harness live there (J12)
         self.assertEqual(ci.classify(['harness/core/job.sh']), {'proxy': False, 'harness': True, 'viewer': False})
         # J22: the Windows step of harness-windows runs the Python tests that run bash
         for f in ('tests/test_job_sh.py', 'tests/test_claude_hook.py', 'tests/test_setup.py', 'tests/test_proxy_host.py',

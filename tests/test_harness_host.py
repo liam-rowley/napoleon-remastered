@@ -49,7 +49,7 @@ def choose_route(env, base, files, which=shutil.which):
     ps = find_powershell(which)
     if not ps:
         return 'fail', no_powershell_message()
-    return 'run', [ps, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(ROOT / 'harness/tests/Run-HostTests.ps1'), '-Suite', 'unit']
+    return 'run', [ps, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(ROOT / 'core/harness/tests/Run-HostTests.ps1'), '-Suite', 'unit']
 
 
 class HarnessHostTests(unittest.TestCase):

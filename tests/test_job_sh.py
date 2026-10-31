@@ -1,4 +1,4 @@
-"""Host tests for harness/core/job.sh (the agent helper): root from the adapter, atomic submit, blocking wait, exit codes (refused 2,
+"""Host tests for core/harness/job.sh (the agent helper): root from the adapter, atomic submit, blocking wait, exit codes (refused 2,
 no answer 124), owner added to the request, lock take/refresh/release. A thread plays the watcher. Runs in `wsc gates` (tests gate)."""
 import importlib.util
 import json
@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-JOB = ROOT / 'harness' / 'core' / 'job.sh'
+JOB = ROOT / 'core' / 'harness' / 'job.sh'
 _spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools' / 'verbs' / 'setup.py')
 sv = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(sv)

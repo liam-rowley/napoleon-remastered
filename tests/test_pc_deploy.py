@@ -1,4 +1,4 @@
-"""Host tests for proxy/tools/pc_deploy.py (manifest, stale-resend guard, install, byte-exact uninstall, config edits, closed check)
+"""Host tests for core/proxy/tools/pc_deploy.py (manifest, stale-resend guard, install, byte-exact uninstall, config edits, closed check)
 on a fake game folder. Runs in `wsc gates` (tests gate)."""
 import importlib.util
 import hashlib
@@ -11,7 +11,7 @@ from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('pc_deploy', ROOT / 'proxy/tools/pc_deploy.py')
+spec = importlib.util.spec_from_file_location('pc_deploy', ROOT / 'core/proxy/tools/pc_deploy.py')
 pd = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pd)
 

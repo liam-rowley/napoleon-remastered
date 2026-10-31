@@ -1,4 +1,4 @@
-"""Host tests for proxy/tools/build_id.py (J45): the DLL build id follows the inputs' content, not the history, and build.sh and rule 79
+"""Host tests for core/proxy/tools/build_id.py (J45): the DLL build id follows the inputs' content, not the history, and build.sh and rule 79
 (tools/pr_policy.py) compute the same id. Each test runs on a throwaway git repository holding copies of the real id tool and build.sh."""
 import importlib.util
 import shutil
@@ -18,7 +18,7 @@ def _load(name, rel):
     return mod
 
 
-bi = _load('build_id', 'proxy/tools/build_id.py')
+bi = _load('build_id', 'core/proxy/tools/build_id.py')
 pp = _load('pr_policy', 'tools/pr_policy.py')
 sv = _load('setup_verb', 'tools/verbs/setup.py')
 
@@ -36,7 +36,7 @@ class Fixture(unittest.TestCase):
         self.write('proxy/napoleon/adapter.cpp', 'int b;\n')
         self.write('proxy/tools/fetch_lua.py', '# lua\n')
         for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py', 'proxy/tools/layout.py'):
-            self.write(rel, (ROOT / rel).read_bytes())
+            self.write(rel, (ROOT / 'core' / rel).read_bytes())   # the tools live in the core since J12; the fixture keeps the flat layout
         self.write('wsc.toml', '# the repo marker layout.py looks for' + chr(10))
         self.write('docs/x.md', 'x\n')
         self.commit('inputs')
@@ -197,7 +197,7 @@ class OneImplementation(Fixture):
         self.assertEqual(r.stdout.strip(), self.bid())
 
     def test_neither_computes_its_own_id(self):
-        sh = (ROOT / 'proxy/tools/build.sh').read_text(encoding='utf-8')
+        sh = (ROOT / 'core/proxy/tools/build.sh').read_text(encoding='utf-8')
         pol = (ROOT / 'tools/pr_policy.py').read_text(encoding='utf-8')
         self.assertIn('proxy/tools/build_id.py', sh)
         self.assertIn('proxy/tools/build_id.py', pol)

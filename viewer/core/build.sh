@@ -2,7 +2,7 @@
 # purpose: build the review viewer (RmlUi + FreeType + float Lua 5.1.1) to build/viewer/out/viewer.js + viewer.wasm and run its Node tests
 # usage: viewer/core/build.sh [--docker] [build|test|all]   (--docker: inside the emsdk image pinned in viewer/pins.json, the PC route (D30, D31); default all; prints the sha256 of both outputs)
 # when: after any change under viewer/core/ or viewer/pins.json; on the PC always with --docker (no Emscripten on the PC); CI's viewer job runs `--docker all`
-# not-a-verb: a build script with a container round trip, like proxy/tools/build.sh; not a registry operation
+# not-a-verb: a build script with a container round trip, like core/proxy/tools/build.sh; not a registry operation
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 DOCKER=0; [[ "${1:-}" == "--docker" ]] && { DOCKER=1; shift; }
