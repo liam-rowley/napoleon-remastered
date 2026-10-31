@@ -28,8 +28,6 @@ Branch `job/J50`, session `0afa23ee-dbcb-40f4-a69e-7a223f2f7a65`, model Opus 5.5
 - `discovery/napoleon/games.json`: `napoleon.mod_packs` lists all 14 `ui_art_2x5_<role>.pack` names the upscaler config can build (the brief named four; nine more
   are already built on the PC by J51, and the new test found a 14th, `cursor`). `tests/test_mod_packs.py`: every role pack in the config is in the list, and a
   `PackFS` from `games.json` leaves such a pack out (2 tests).
-- `harness/core/ctl.py`: `shot` also settles at the main menu (`frontend`). Before, a shot there waited the full 120 s and failed (`raw/s1_frontend_shot.json`);
-  `scene` and `reset` still wait for the adapter's ready scenes. Test `tests/test_ctl.py` `test_shot_settles_at_the_main_menu`.
 - `upscale/pc/install_packs.ps1` with a tools row; `upscale/README.md` step 3 and the TGA rule updated.
 - `python3 core/wsc.py gates`: 11 ok, 1 warn (`hooks`: this worktree's `core.hooksPath` is an absolute path; environment, not code), 0 failed.
 
@@ -43,6 +41,9 @@ Branch `job/J50`, session `0afa23ee-dbcb-40f4-a69e-7a223f2f7a65`, model Opus 5.5
 - **Marker targets:** the first guesses (`simple_button_center_up`, `ui\battle ui\buttons`) are not on screen; marker v2 and v3 tinted whole folders instead. The
   red main-menu buttons were never identified (a UI host or template question, not needed for the facts).
 - **Sharpness** was judged on 1280x720 shots (`shot.sh` scales the 1920x1080 frame down), so "not visibly sharper" is weak evidence either way.
+- **`ctl.py shot` at the main menu is not fixed here.** `ctl.py shot` at `frontend` waits the full 120 s settle and fails (`raw/s1_frontend_shot.json`;
+  the main-menu shots were taken with `shot.sh`). I made and tested a fix (`shot` settles with `frontend` added to the ready scenes; `scene` and `reset`
+  unchanged), but `harness/core/ctl.py` is a rule 79 input and 20 acceptance passes were out of this job's scope, so I took it out again (Open question 5).
 - Five redundant shots were deleted to stay under about 2 MB (their result JSONs are kept): 1.6 MB of shots in all.
 
 ## Open questions
@@ -54,3 +55,5 @@ Branch `job/J50`, session `0afa23ee-dbcb-40f4-a69e-7a223f2f7a65`, model Opus 5.5
    packs only add bytes.
 4. **J22's leftover kit:** jobs that end with a proxy installed leave the next job a surprise. Should `pc_deploy` or the job finish steps require an uninstall
    (or name the kit left installed in the report)?
+5. **`ctl.py shot` at the main menu:** the fix is about 4 lines in `Ctl.settle`/`v_shot` plus a FakeGame test (FakeGame starts at `frontend`). Bundle it into
+   the next job that runs the 20 acceptance passes anyway, or give it a small job of its own?
