@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "upscale\\runs\\2026-10-31_j50\\raw\\s2r_campaign.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 2.88,
+    "frames": 815,
+    "scene": "campaign",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 141233,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "upscale\\runs\\2026-10-31_j50\\raw\\s2r_campaign.jpg"
+  },
+  "start_utc": "2026-10-31T17:02:32.900Z",
+  "end_utc": "2026-10-31T17:02:39.114Z"
+}
