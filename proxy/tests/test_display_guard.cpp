@@ -361,11 +361,14 @@ void TestLints() {
     CHECK(hl.find("rt.plan.engineHooks") != std::string::npos);
     // every key it reads by name is registered
     std::set<std::string> known; for (size_t i = 0; i < gen::kKeyCount; ++i) known.insert(gen::kKeys[i].id);
-    for (const char* k : { "headless.enabled", "headless.size", "headless.display_name", "headless.settle_ms", "headless.refuse_grace_ms" }) {
+    for (const char* k : { "headless.enabled", "headless.size", "headless.display_name", "headless.settle_ms", "headless.refuse_grace_ms",
+                           "headless.test_off_thread", "headless.test_dll_window_ms" }) {
         CHECK(known.count(k)); CHECK(raw.find(std::string("\"") + k + "\"") != std::string::npos);
     }
     // the release value is off: a normal install never runs headless
-    for (size_t i = 0; i < gen::kKeyCount; ++i) if (std::string(gen::kKeys[i].id) == "headless.enabled") CHECK(std::string(gen::kKeys[i].def) == "0");
+    for (size_t i = 0; i < gen::kKeyCount; ++i)
+        for (const char* off : { "headless.enabled", "headless.test_off_thread", "headless.test_dll_window_ms" })   // test hooks too
+            if (std::string(gen::kKeys[i].id) == off) CHECK(std::string(gen::kKeys[i].def) == "0");
 }
 }  // namespace
 

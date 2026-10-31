@@ -61,6 +61,11 @@ double s_lastTrigger = -1e9, s_noTargetSince = -1;
 DWORD s_ownMoveThread = 0;              // the thread inside the guard's own SetWindowPos (its WM_WINDOWPOSCHANGING passes)
 OwnMove s_ownMove;                      // the main window's last placement by the guard, matched by rect on any thread (IsOwnMove)
 long s_frames = 0;
+// PC test hooks (J12, dev only, release 0): off_thread moves every relocation to the guard thread, which does not own the window, so the
+// guard's move is asynchronous as in a game that presents from a worker thread (fix 1a); dll_window_ms shows a window this many ms
+// after start-up from a thread of the proxy's own, through its own user32 import, as a DLL's dialog would appear (fix 1b).
+bool s_testOffThread = false;
+unsigned s_testDllWindowMs = 0;
 int s_logBudget = 40;                   // per-call log lines (gated calls) before only counting
 long s_geomDropped = 0;
 
@@ -348,7 +353,19 @@ DWORD WINAPI GuardThread(void*) {
         Obs o = ObserveLocked(full);
         o.metricsNow = m;
         ApplyLocked(Decide(Event::Tick, o));
+        if (s_testOffThread && s_pending) RelocateLocked();   // test hook: the async placement path (fix 1a)
     }
+}
+
+// test hook (fix 1b): a visible 640x480 top-level window at the primary's origin, created and pumped by a thread of our own through our
+// own import of CreateWindowExW (not the exe's hooked slot), as a third-party DLL's window would be; the sweep must hide it
+DWORD WINAPI TestDllWindowThread(void*) {
+    Sleep(s_testDllWindowMs);
+    const HWND h = CreateWindowExW(WS_EX_NOACTIVATE, L"STATIC", L"wsp test: a DLL's own window", WS_POPUP | WS_VISIBLE, 0, 0, 640, 480, nullptr, nullptr, nullptr, nullptr);
+    LOGW("headless: TEST HOOK headless.test_dll_window_ms: window %p shown at 0,0 640x480 through the proxy's own import", (void*)h);
+    MSG msg;
+    while (GetMessageW(&msg, nullptr, 0, 0) > 0) { TranslateMessage(&msg); DispatchMessageW(&msg); }
+    return 0;
 }
 
 void StartGuardThread() {
@@ -386,6 +403,7 @@ void Ensure(const char* where) {
     }
     StartGuardThread();
     EnumWindows(SweepCb, 0);
+    if (s_testDllWindowMs) { if (HANDLE h = CreateThread(nullptr, 0, TestDllWindowThread, nullptr, 0, nullptr)) CloseHandle(h); }
 }
 
 // ---- user32 detours ---------------------------------------------------------------------------------------------------------------
@@ -644,7 +662,7 @@ void HeadlessPresent() {
     if (!s_on) return;
     Lock l;
     ++s_frames;
-    if (s_pending) RelocateLocked();
+    if (s_pending && !s_testOffThread) RelocateLocked();
     PostCheckLocked("Present");
     if (s_st.state != "on_virtual" && s_device && s_main && s_haveWindow && !s_cloaked && IsWindowVisible(s_main)) {
         const Rect r = WinRect(s_main);
@@ -679,6 +697,9 @@ void HeadlessInit() {
     s_name = rt.cfg.Str("headless.display_name");
     s_settleMs = (unsigned)rt.cfg.Int("headless.settle_ms");
     s_graceMs = (unsigned)rt.cfg.Int("headless.refuse_grace_ms");
+    s_testOffThread = rt.cfg.Bool("headless.test_off_thread");
+    s_testDllWindowMs = (unsigned)rt.cfg.Int("headless.test_dll_window_ms");
+    if (s_testOffThread || s_testDllWindowMs) LOGW("headless: TEST HOOKS on: off_thread=%d dll_window_ms=%u (PC proof only, never a release)", s_testOffThread ? 1 : 0, s_testDllWindowMs);
     { Lock l; s_st.state = "starting"; s_st.detail = "DllMain"; WriteStatus(); }
     if (!ParseSize(rt.cfg.Str("headless.size"), s_w, s_h)) Refuse("headless.size '" + rt.cfg.Str("headless.size") + "' is not WxH");
     if (!rt.plan.engineHooks) Refuse("the exe-identity guard put the proxy in pass-through (no hooks): nothing could keep the window off the real monitors");
