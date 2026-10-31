@@ -1,0 +1,26 @@
+{
+ "note": "Napoleon adapter settings of the UI art upscaler (J36). Model per role is provisional until Liam judges the sheets (the side-by-side sample is in upscale/runs/); both models are 2x.",
+ "scale": 2.5,
+ "encoder": "python",
+ "jpg_quality": 95,
+ "run": {"device": "cuda", "precision": "fp16", "tile": 256, "overlap": 16},
+ "pack_prefix": "ui_art_2x5\\",
+ "pack_name": "ui_art_2x5_{role}",
+ "first_roles": ["ui_art", "icon", "panel_frame", "button_state"],
+ "roles": {
+  "ui_art":            {"model": "nomos_esrgan_2x"},
+  "icon":              {"model": "hfa2k_compact_2x"},
+  "panel_frame":       {"model": "hfa2k_compact_2x"},
+  "button_state":      {"model": "hfa2k_compact_2x"},
+  "map_pip":           {"model": "hfa2k_compact_2x"},
+  "cursor":            {"model": "hfa2k_compact_2x"},
+  "building_icon":     {"model": "nomos_esrgan_2x"},
+  "technology_icon":   {"model": "nomos_esrgan_2x"},
+  "achievement_icon":  {"model": "nomos_esrgan_2x"},
+  "event_picture":     {"model": "nomos_esrgan_2x"},
+  "unit_card":         {"model": "nomos_esrgan_2x"},
+  "portrait":          {"model": "nomos_esrgan_2x"},
+  "flag":              {"model": "nomos_esrgan_2x"},
+  "loading_screen":    {"model": "nomos_esrgan_2x", "native_cap": 4096}
+ }
+}
