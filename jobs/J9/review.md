@@ -13,7 +13,7 @@ Reviewer session `47985340-a559-4b5b-bf9c-6d1f70c95d84` (Opus, independent check
   19 of 19 (shadow, sprite, unit LOD, ship, trees, grass). The written addresses in the proxy logs are `base + rva + len(anchor)`, and they agree
   with the descriptions (grass rows 3 and 4 of the 12-byte table at 0x1019ab4; `mov dl,1; mov ebx,0x800` for the shadow edge).
   `battle.selection_ctor`'s stock bytes hold a vtable address, which is fine: the start-up check takes the load delta off relocated dwords (`proxy/README.md:83`).
-- **Start-up check and key isolation**: `raw/j9_mixc_stock_proxy.log` "45 sites: 45 ok, 0 bad, 0 to write, 26 hooks verified" on 46f52d356ce8;
+- **Start-up check and key isolation**: `raw/j9_mixc_stock_proxy.log` "45 sites: 45 ok, 0 bad, 0 to write" with all 26 hook rows passing on 46f52d356ce8 (2026-11-01, run 20261101_j9pc);
   `raw/j9_mixc_on_proxy.log` and `raw/j9_land_shgr_proxy.log` write exactly their family's sites with the stated stock -> patch bytes.
 - **Keys**: the 7 `gfx.*_proof` keys are default and release false in `config_keys.jsonl`, 0 in `napoleon_remastered.ini`, with owners J24 / J27.
 - **Rule 79**: `build_id.py` on the branch head = `46f52d356ce8`, the build of `harness/runs/20261101_j9acc`; 20 pass files, every check `ok: true`.
