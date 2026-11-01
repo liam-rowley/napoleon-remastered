@@ -2,7 +2,7 @@
 """Performance baseline (J23): what Napoleon costs today, per backend x size x scenario x pose, through the existing ctl verbs.
 
 purpose: drive core/harness/ctl.py (scene, cam, perf) over a matrix of backend (proxy.backend dxvk|system), headless size, scenario, pose and repeat, one JSON per cell with the pins a number belongs to; summarize the cells into the baseline file; check a baseline; compare a later run against it and flag budget breaches
-usage: perf_baseline.py measure --run RUN [--owner O] [--session S] [--backends dxvk,system] [--sizes 1920x1080,2560x1440,3840x2160] [--scenarios a,b] [--poses deploy] [--repeats 3] [--perf-s 20] [--deploy-end-s 60] [--dxvk-variants FILE] | summarize --run DIR [--out F] | check [--baseline F] | compare --run DIR [--baseline F] [--budgets F] [--feature NAME]
+usage: perf_baseline.py measure --run RUN [--owner O] [--session S] [--backends dxvk,system] [--sizes 1920x1080,2560x1440,3840x2160] [--scenarios a,b] [--poses deploy] [--repeats 3] [--perf-s 20] [--deploy-end-s 60] [--dxvk-variants FILE] | summarize --run DIR [--out F] | check [--baseline F] | compare --run DIR [--baseline F] [--budgets F] [--feature NAME] | table [--baseline F | --run DIR]
 when: J23 measured perf/baseline.json with it; every later phase 3 job (J24 shadows, J26 cascades, J27 distances, J59 the J46 rows) re-runs `measure` on its build and reports `compare` against the committed baseline
 not-a-verb: orchestrates PC sessions through core/harness/ctl.py and job.sh (a tools/ driver so it adds no harness/ file, rule 79); a warscape-core candidate once a second game has a baseline
 
@@ -568,6 +568,25 @@ def cmd_summarize(a):
     return 0
 
 
+def table(s):
+    """A summary or baseline as a Markdown table: one row per cell key, medians (p50 with its spread), cold and warm load."""
+    head = '| backend | size | scenario | pose | p50 ms (spread) | p99 ms | load s (cold) | VA used / peak MB | commit MB | VRAM MB |'
+    out = [head, '|' + '---|' * 10]
+    for k, r in sorted(s['cells'].items(), key=lambda kv: (kv[0].split('|')[0], SIZES.index(kv[0].split('|')[1]) if kv[0].split('|')[1] in SIZES else 9, kv[0])):
+        be, size, sid, pose = (k.split('|') + [''])[:4]
+        g = lambda m: (r.get(m) or {}).get('median')
+        out.append(f"| {be} | {size} | {sid} | {pose}{' (battle)' if k.endswith('|battle') else ''} | {g('p50_ms')} ({(r.get('p50_ms') or {}).get('spread')}) "
+                   f"| {g('p99_ms')} | {g('load_s')} ({r.get('cold_load_s')}) | {g('va_used_mb')} / {g('va_peak_mb')} | {g('commit_mb')} | {g('vram_mb')} |"
+                   + (' noisy' if r.get('noisy') else ''))
+    return '\n'.join(out)
+
+
+def cmd_table(a):
+    s = summarize(read_cells(a.run), [Path(a.run).name], load_rows()) if a.run else json.loads(Path(a.baseline).read_text(encoding='utf-8'))
+    print(table(s))
+    return 0
+
+
 def cmd_check(a):
     b = json.loads(Path(a.baseline).read_text(encoding='utf-8'))
     bad = baseline_problems(b)
@@ -612,6 +631,9 @@ def main(argv=None):
     s = sub.add_parser('summarize')
     s.add_argument('--run', required=True, action='append')
     s.add_argument('--out')
+    tb = sub.add_parser('table')
+    tb.add_argument('--baseline', default=str(BASELINE))
+    tb.add_argument('--run')
     c = sub.add_parser('check')
     c.add_argument('--baseline', default=str(BASELINE))
     k = sub.add_parser('compare')
@@ -620,7 +642,7 @@ def main(argv=None):
     k.add_argument('--budgets', default=str(BUDGETS))
     k.add_argument('--feature')
     a = ap.parse_args(argv)
-    return {'measure': measure, 'summarize': cmd_summarize, 'check': cmd_check, 'compare': cmd_compare}[a.cmd](a)
+    return {'measure': measure, 'summarize': cmd_summarize, 'check': cmd_check, 'compare': cmd_compare, 'table': cmd_table}[a.cmd](a)
 
 
 if __name__ == '__main__':
