@@ -1,6 +1,6 @@
 {
   "id": "napoleon.shaders.catalogue",
-  "claim": "167 distinct runtime shaders captured over the acceptance scenes, the shadow-quality sweep, 2560x1440 and the pose and yaw captures (canonical FNV-1a-64 to the walked end token, core capture.h); 162 map byte for byte to an fx source and technique (discovery/napoleon/shader_catalog.json); the 5 left appear only with shadows off and need ENABLE_SHADOWS and SOFTWARE_SHADOWS both undefined (profile shadows_off, mapped on the next fxmap run)",
+  "claim": "168 distinct runtime shaders captured over the acceptance scenes, the front end, the shadow-quality sweep, 2560x1440 and the pose and yaw captures (canonical FNV-1a-64 to the walked end token, core capture.h); 163 map byte for byte to an fx source and technique (discovery/napoleon/shader_catalog.json, with the macro profile that reproduces each); 5 pixel shaders seen only with shadows off stay unmapped",
   "state": "verified",
   "evidence": "harness/runs/20261101_j8pc/README.md",
   "date": "2026-11-01"

@@ -568,10 +568,27 @@
    "MRT_SUPPORT",
    "ENABLE_REFLECTION",
    "ENABLE_REFRACTION"
+  ],
+  "shadows_off": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
   ]
  },
- "captured": 167,
- "mapped": 162,
+ "captured": 168,
+ "mapped": 163,
  "shaders": {
   "03a10d71d53688e4": [
    {
@@ -1935,6 +1952,13 @@
     "profiles": [
      "-DEPTH_PRE_PASS"
     ]
+   }
+  ],
+  "6d3df9334d7713eb": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
    }
   ],
   "6e21f41b4ccfa743": [
@@ -3385,5 +3409,788 @@
   "naval.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\naval.fx(77,34): error X3004: undeclared identifier 'world_view_projection'",
   "skybox.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\skybox.fx(36,34): error X3004: undeclared identifier 'world_view_projection'",
   "skydome.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\skydome.fx(37,34): error X3004: undeclared identifier 'world_view_projection'"
+ },
+ "includes": {
+  "battlefieldterrain.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignbuilding.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "campaignbuilding_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignflag.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignoverlay.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignriver.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignterrain.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaigntree.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "campaigntree_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "cloth.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "cloud.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "cloud_plane.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fx_cloud.h",
+   "fx_instancing.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "custom_sprite.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "debuggeometry.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "debuglines.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "decal.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "util.fx_fragment"
+  ],
+  "depth.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "directional_blur.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "example.fx": [],
+  "explosion_particle.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "extendedsprite.fx": [],
+  "filterfoam.fx": [
+   "fxconfig.h"
+  ],
+  "formationlayouticons.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "fur.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "gaussianblur.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grass.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grid.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grid_spline.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grid_surface.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "hdr_to_screen.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "high_pass.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "icons.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "imposter.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "lenseflare.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "lightmap.fx": [
+   "fxconfig.h",
+   "lightmap.fx_fragment"
+  ],
+  "luminance.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "naval.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "navalsail.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "navalship.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "ocean.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "outline.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "particle.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "particle2.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "particle_distortion.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "passthrough.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "projectiletrail.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "ribbon.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "rigid.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "depth_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "rigid_depth_shadow.fx_fragment",
+   "rigid_imposter.fx_fragment",
+   "rigid_simple.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "simple_textured_vertex.fx_fragment",
+   "simple_vertex.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "textured_vertex.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "rope.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sea_particles.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "seainteraction.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fx_instancing.h",
+   "fx_sea_interaction.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shared_params.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shipbowwave.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shipwake.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shroud.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shroud.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "simple.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "simplematerial.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "simple_texture.fx": [
+   "camera.fx_fragment",
+   "colour_conversion.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "simpletexturematerial.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sky.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "skybox.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "skydome.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "spline.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sprite.fx": [
+   "camera.fx_fragment",
+   "colour_conversion.fx_fragment",
+   "extendedsprite.fx",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "ssaox.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "strengthbar.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_strengthbar.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sun.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "supertexturetile.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "template.fx": [
+   "camera.fx_fragment",
+   "depth_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "litmaterial.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "terrain_ao.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "terrain_shared.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "terraindecal.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "textured_rigid.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "depth_textured_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "rigid_imposter.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_textured_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "textured_rigid_depth_shadow.fx_fragment",
+   "textured_rigid_vertex.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "variantmesh.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "vegetation_billboard.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_branch.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_branch.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_frond.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_frond.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_leaf_card.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_leafcard.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_leaf_mesh.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_leafcard.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "volumefog.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment",
+   "volumefog_vertex.fx_fragment"
+  ],
+  "weather.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "weighted.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "util.fx_fragment"
+  ]
  }
 }

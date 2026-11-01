@@ -50,3 +50,7 @@ attempt relaunched headless because the final kit's install had reset the ctl la
 - `wsc setup` reports the watcher check failing with `harness/core/job.sh` not found: the check still uses the pre-J12 path (`core/harness/job.sh`
   works). Not fixed here (setup is outside J8's files); in the report's open questions.
 - The first acceptance attempt was refused: run with `python3` (Pillow), and with the j8 lock and the headless profile still held.
+
+## f) After the 20 passes
+Front end from a fresh launch (`f1_frontend`, 33 draws), final fxmap (168 shaders, 163 mapped), then `pc_deploy uninstall`: the game
+folder is identical to the pre-install snapshot (1564 files), the exe vanilla; no lock and no active profile.

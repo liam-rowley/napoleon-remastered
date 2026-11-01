@@ -20,7 +20,8 @@ no depth of field and no depth prepass** (no pass writes depth with colour write
 7. **Composite** to the backbuffer (X8R8G8B8, 6 draws, reading the main target at s0): the scene/UI boundary.
 8. **UI** on the backbuffer with a depth surface (clear z+stencil first).
 
-The campaign adds, after the shadow map, a 2400x1350 A8R8G8B8 overlay target (1.25x the backbuffer, 267 draws, no depth) that the main
+The front end (`f1_frontend`, a fresh launch) runs the same skeleton with nothing in it (the shadow, water and main passes only clear),
+then the composite and the UI (27 draws). The campaign adds, after the shadow map, a 2400x1350 A8R8G8B8 overlay target (1.25x the backbuffer, 267 draws, no depth) that the main
 pass, the composite and the UI sample at s10, like Empire's political overlay; its shaders are `campaignterrain.fx`, `campaignoverlay.fx`,
 `campaigntree.fx` and the like.
 
@@ -30,20 +31,20 @@ A `land_small` capture at 2560x1440 (`w1440_land_small`) against 1920x1080: **ev
 <!-- gen:targets -->
 | size | format | msaa | texture | size rule | captures |
 |---|---|---|---|---|---|
-| 2048x2048 | D24X8 | 0 | no | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
-| 2048x2048 | R16F | 0 | yes | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, q3_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 2048x2048 | D24X8 | 0 | no | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 2048x2048 | R16F | 0 | yes | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q3_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
 | 2048x2048 | R32F | 0 | yes | fixed | q4_land_small |
 | 2560x1440 | A8R8G8B8 | 0 | yes | bb | w1440_land_small |
 | 2560x1440 | D24S8 | 0 | no | bb | w1440_land_small |
 | 2560x1440 | X8R8G8B8 | 0 | no | bb | w1440_land_small |
 | 2400x1350 | A8R8G8B8 | 0 | yes | fixed | r1_campaign_after_reset, r1_campaign_start |
-| 1920x1080 | A8R8G8B8 | 0 | yes | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
-| 1920x1080 | D24S8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
-| 1920x1080 | X8R8G8B8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 1920x1080 | A8R8G8B8 | 0 | yes | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 1920x1080 | D24S8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 1920x1080 | X8R8G8B8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
 | 1024x1024 | D24X8 | 0 | no | fixed | q2_land_small |
 | 1024x1024 | R16F | 0 | yes | fixed | q2_land_small |
 | 1280x720 | A8R8G8B8 | 0 | yes | bb/2 | w1440_land_small |
-| 960x540 | A8R8G8B8 | 0 | yes | bb/2 | b_d1000, b_d1400, b_d700, b_deploy, b_near, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 960x540 | A8R8G8B8 | 0 | yes | bb/2 | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
 | 512x512 | D24X8 | 0 | no | fixed | q1_land_small |
 | 512x512 | R16F | 0 | yes | fixed | q1_land_small |
 <!-- /gen -->
@@ -90,6 +91,7 @@ A `land_small` capture at 2560x1440 (`w1440_land_small`) against 1920x1080: **ev
 | 20261101_j8pc/b_d700 | battle_deploy | 608 | 8 | 1920x1080 | 83 | 1 |
 | 20261101_j8pc/b_deploy | battle_deploy | 674 | 8 | 1920x1080 | 83 | 1 |
 | 20261101_j8pc/b_near | battle_deploy | 1282 | 8 | 1920x1080 | 80 | 1 |
+| 20261101_j8pc/f1_frontend | frontend | 33 | 6 | 1920x1080 | 16 | 1 |
 | 20261101_j8pc/q0_land_small | battle_deploy | 626 | 7 | 1920x1080 | 66 | 1 |
 | 20261101_j8pc/q1_land_small | battle_deploy | 660 | 8 | 1920x1080 | 83 | 1 |
 | 20261101_j8pc/q2_land_small | battle_deploy | 670 | 8 | 1920x1080 | 83 | 1 |
@@ -174,7 +176,14 @@ A `land_small` capture at 2560x1440 (`w1440_land_small`) against 1920x1080: **ev
 
 ## Passes: front end
 <!-- gen:passes_f1_frontend -->
-(no table passes_f1_frontend)
+| # | render targets | depth | draws | prims | classes (clear) | reads passes | events |
+|---|---|---|---|---|---|---|---|
+| 0 | rt1 2048x2048 R16F | rt2 2048x2048 D24X8 | 0 | 0 |  (clear 3) |  |  |
+| 1 | rt3 960x540 A8R8G8B8 | rt4 1920x1080 D24S8 | 0 | 0 |  (clear 3) |  |  |
+| 2 | rt5 960x540 A8R8G8B8 | rt4 1920x1080 D24S8 | 0 | 0 |  (clear 3) |  |  |
+| 3 | rt6 1920x1080 A8R8G8B8 | rt7 1920x1080 D24S8 | 0 | 0 |  (clear 7) |  |  |
+| 4 | rt8 1920x1080 X8R8G8B8 bb | - | 6 | 12 | post 6 | 3 |  |
+| 5 | rt8 1920x1080 X8R8G8B8 bb | rt4 1920x1080 D24S8 | 27 | 824 | sprite 27 (clear 6) |  |  |
 <!-- /gen -->
 
 ## Matrix and constant registers per shader class
@@ -334,7 +343,7 @@ From the CTABs; the uploaded values (first draw per shader) are in each capture 
 <!-- gen:classes -->
 | class | shaders |
 |---|---|
-| sprite | 20 |
+| sprite | 21 |
 | vegetation | 17 |
 | shadow_caster | 16 |
 | post | 11 |
@@ -366,20 +375,23 @@ From the CTABs; the uploaded values (first draw per shader) are in each capture 
 <!-- /gen -->
 
 ## Flagged sources (`napoleon.diff.shaders.j8_flags`)
-A fragment counts the mapped shaders whose source includes it. `extendedsprite.fx` does not compile on its own (its techniques are a
-macro template) and none of its shaders was drawn in these scenes.
+A file that another source includes counts the mapped shaders of that source: `extendedsprite.fx` is a macro template included by
+`sprite.fx` (it does not compile on its own), the fragments are included by most effects. Macro profiles: 386 of the mapped records
+reproduce with the base set; 44 `rigid.fx` and `textured_rigid.fx` records (no shadow receiver among them) only with `SOFTWARE_SHADOWS`
+undefined, and some effects only with `DEPTH_PRE_PASS` or `ENABLE_SHADOWS` undefined: the engine does not pass every macro to every effect.
+5 pixel shaders seen only with shadows off stay unmapped (not even with `ENABLE_SHADOWS` and `SOFTWARE_SHADOWS` both undefined).
 <!-- gen:flagged -->
 | flagged source | captured shaders mapped |
 |---|---|
-| sprite.fx | 10 |
+| sprite.fx | 11 |
 | variantmesh.fx | 9 |
 | weighted.fx | 9 |
 | vegetation_billboard.fx | 6 |
 | custom_sprite.fx | 6 |
-| extendedsprite.fx | none captured |
+| extendedsprite.fx | 11 |
 | imposter.fx | 5 |
-| rigid_imposter.fx_fragment | none captured |
-| shadowmap.fx_fragment | none captured |
+| rigid_imposter.fx_fragment | 12 |
+| shadowmap.fx_fragment | 117 |
 <!-- /gen -->
 
 ## What the capture cannot see
