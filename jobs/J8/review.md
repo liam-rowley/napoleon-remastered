@@ -1,5 +1,39 @@
 # J8 review
 
+## Round 2 (2026-11-01, branch job/J8 at a720351)
+
+**Verdict: merge.**
+
+Checked against round 1's findings and `## Fix round 1` of the report. Liam waived a second 20-pass run for this round; it is not needed
+anyway: the fix round touched no DLL input (`core/proxy/tools/build.sh id` on `a720351`: `2b56389bc740`), and a trial merge of `main`
+(`60de398`) leaves the core at v0.7.0 and the id unchanged, so run `20261101_j8acc` (20 of 20) still covers the merged build.
+
+### Machines
+- `wsc gates`: the same 3 environment-only `tests` failures as round 1 (no `powershell.exe`, root user); nothing new.
+- `shader_catalog.py build --check`: ok (168, 163 mapped). `wsc jobs check`: ok. `pr_policy.py`: refused only for the round-1 verdict and
+  the row, as expected before this round.
+- CI on `a720351`: `gates`, `changes` green; `harness-windows` still running when read; `proxy` skipped (inputs unchanged). The merge is
+  queued on green, so a red `harness-windows` stops it.
+
+### Round-1 findings
+1. **Answered.** Run `20261101_j8idle2`: one pass on `2b56389bc740` with `dev.capture=1`, no capture: pass, perf p50 1.915 ms. Its
+   `proxy.log` shows `build 2b56389bc740 loaded`, `dev.capture = 1` and 36 of 36 slots hooked. The pass file and ledger line carry a
+   hand-corrected `build_id` with a `note`, on Liam's choice, because `core/harness/acceptance.py` read the build before the first
+   launch after an install; the log is the evidence and the cause is in the core backlog. Accepted.
+2. **Answered** (doc corrected in round 1; the hook is a core item).
+3. **Answered as an open fact.** `hw_land_small` under `j8-hwshadow` drew the software path again because the prefs file holds
+   `gfx_hardware_shadows` twice and the watcher overlay sets only the first. `napoleon.shadow.hardware_path` is open for J24 and the cause
+   is in the core backlog. The shadow-quality sweep is unaffected (its map sizes changed with the profile).
+4. **Answered.** `shader_catalog.py density` owns the metric; rerun here on `captures/y_{0,45,90,315}.json` it gives 5.24/5.18/5.06,
+   3.65/3.25/2.65, 20.88/12.76/6.55, 10.08/8.98/7.31, matching round 1's recomputation, the generated anatomy table and the fact.
+5. and 6. Kept as fixed in round 1.
+- Later items: run evidence on the two facts done; the two missing deviations now listed in the report.
+
+### New findings
+None blocking. Later (core): the five items the fix round lists go to warscape-core `docs/BACKLOG.md` (capture timeout path, capture
+thread safety, state-block hooks, `acceptance.py` build id after a fresh install, the prefs overlay and duplicated keys, which should
+refuse or set every occurrence). Queue row still needed: `wsc setup`'s stale `harness/core/job.sh` path.
+
 ## Round 1 (2026-11-01, branch job/J8 at ee92f6a)
 
 **Verdict: merge after fixes.**
