@@ -397,5 +397,9 @@ undefined, and some effects only with `DEPTH_PRE_PASS` or `ENABLE_SHADOWS` undef
 ## What the capture cannot see
 - The system d3d9 backend: with Windows' own d3d9 the hooked device vtables see no `Present` (frame 0 after both devices were hooked),
   and the headless launch never reaches the virtual display; nothing was captured there (open, owner J16).
-- Draws through state blocks applied with `IDirect3DStateBlock9::Apply` (no `SBBEGIN` was recorded in any capture, so none are expected).
+- State set through state blocks: `CreateStateBlock` (device slot 59) and `IDirect3DStateBlock9::Apply`/`Capture` are not hooked, so a
+  block made before the capture (or by `CreateStateBlock`) and applied during it changes render, sampler and texture state and constants
+  unseen. No `SBBEGIN` in a capture says only that no block was recorded with Begin/End during it. D3DX effects save and restore state
+  through state blocks unless created with `D3DXFX_DONOTSAVESTATE`, so per-draw render/sampler state and textures after an effect's
+  `End` may be stale here; render targets, depth surfaces and shader binds inside `BeginPass` are not affected (open: J8 review round 1).
 - GPU time per pass: `perf` gives the frame time only.
