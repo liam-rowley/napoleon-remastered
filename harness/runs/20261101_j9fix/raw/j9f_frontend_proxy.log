@@ -1,0 +1,519 @@
+2026-11-01T19:43:16.551Z [INFO ] [t36980] launch 20261101T194316Z-p23156: Napoleon: Total War proxy d3d9.dll build 46f52d356ce8 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 23156, base 00540000)
+2026-11-01T19:43:16.551Z [INFO ] [t36980] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.autostart                      =             
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.autostart_delay_ms             = 1500        
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.camera                         = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.capture                        = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.capture_dir                    = C:\napoleon_remastered_pc\captures
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.console                        = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.ctl                            = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.file_rules                     = napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.log_files                      = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.lua_bridge                     = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.perf                           = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.skip_intro                     = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.state_json                     = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   dev.timeline                       = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   gfx.grass_proof                    = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   gfx.shadow_proof                   = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   gfx.shadow_sweep_proof             = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   gfx.ship_lod_proof                 = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   gfx.sprite_page_proof              = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   gfx.tree_lod_proof                 = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   gfx.unit_lod_proof                 = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   headless.display_name              = Virtual Display Driver
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   headless.enabled                   = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   headless.refuse_grace_ms           = 5000        
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   headless.settle_ms                 = 500         
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   headless.size                      = 3840x2160   
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   headless.test_dll_window_ms        = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   headless.test_off_thread           = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.backend                      = dxvk        
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.enabled                      = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.exe_guard                    = 1           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.log_level                    = info        
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.minidump                     = 2           
+2026-11-01T19:43:16.551Z [INFO ] [t36980] config:   proxy.runtime_patches              = 1           
+2026-11-01T19:43:16.552Z [INFO ] [t36980] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-11-01T19:43:16.552Z [INFO ] [t36980] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-11-01T19:43:16.588Z [INFO ] [t36980] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 46 ms)
+2026-11-01T19:43:16.588Z [INFO ] [t36980] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine: image base 00540000 (file ImageBase 0x00400000, delta 0x00140000)
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   unit_lod.override_default        patch RVA 0x00015431 -> 00555431: stock (key off) cur [00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   unit_lod.imposter_distance_default patch RVA 0x000155a1 -> 005555a1: stock (key off) cur [00 00 c8 42]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   ship_lod.knot_distance_default   patch RVA 0x00015631 -> 00555631: stock (key off) cur [00 00 48 42]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   unit_lod.large_imposter_distance_default patch RVA 0x000156c1 -> 005556c1: stock (key off) cur [00 00 48 43]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   ship_lod.rope_distance_default   patch RVA 0x000159c1 -> 005559c1: stock (key off) cur [00 00 48 43]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   ship_lod.rope_distance_fadeout_default patch RVA 0x00015a11 -> 00555a11: stock (key off) cur [00 00 16 43]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.order_formation_push      hook  RVA 0x0018d780 -> 006cd780: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.order_move_push           hook  RVA 0x0018dc00 -> 006cdc00: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.order_formation_ctor      hook  RVA 0x00199320 -> 006d9320: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.order_move_ctor           hook  RVA 0x00199760 -> 006d9760: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.command_dtor              hook  RVA 0x001a95b0 -> 006e95b0: stock cur [56 8b f1 8b 46 44 85 c0]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   guard.proxy_set_push             hook  RVA 0x001b04e0 -> 006f04e0: stock cur [55 56 8b f1 8b 6e 18]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.camera_chain_read         hook  RVA 0x001ce998 -> 0070e998: stock cur [a1 8c 41 4a 01 83 c4 08 8b 80 f8 00 00 00 8b 80 b8 81 02 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   guard.men_inside_battle_bounds   hook  RVA 0x001dae50 -> 0071ae50: stock cur [55 8b ec 83 e4 f0]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.camera_mode_read          hook  RVA 0x001fb0aa -> 0073b0aa: stock cur [8b 8e 00 08 00 00 ff 74 24 0c ff 74 24 0c 8b 01 ff 90 c0 00 00 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.camera_set_target_pos     hook  RVA 0x001fb320 -> 0073b320: stock cur [83 ec 08 53 56 8b 74 24 18 8b d9 57 8b 7c 24 18]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.unit_position_get         hook  RVA 0x00216d10 -> 00756d10: stock cur [83 ec 0c 56 ff 74 24 14]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.unit_bearing_get          hook  RVA 0x00216d60 -> 00756d60: stock cur [56 ff 74 24 08 8b f1 e8 d4 39 06 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.selection_ctor            hook  RVA 0x0028f580 -> 007cf580: stock cur [c7 01 e8 b5 32 01 8b c1]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   battle.selection_add_unit        hook  RVA 0x002a0480 -> 007e0480: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   guard.nav_node_2d                hook  RVA 0x0041c050 -> 0095c050: stock cur [8b 44 24 08 85 c0]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   guard.nav_node_at_point          hook  RVA 0x0041c080 -> 0095c080: stock cur [83 ec 14 56 57]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   campaign.cli_ctor                hook  RVA 0x005011f0 -> 00a411f0: stock (key off) cur [83 ec 0c 56 8b f1 8d 4c 24 04 68 e8 1b 36 01 e8]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   campaign.cli_ctor_tail           hook  RVA 0x00501240 -> 00a41240: stock (key off) cur [8b 44 24 14 8b 00 89 46 28 8b c6 c7 06 c4 1b 36 01 5e 83 c4 0c c2 04 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   campaign.cli_execute             hook  RVA 0x00525200 -> 00a65200: stock (key off) cur [51 53 55 56 57 89 4c 24 10 e8 42 07 00 00 ff 74]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   campaign.owner_selection_wiring  hook  RVA 0x0058c6b0 -> 00acc6b0: stock (key off) cur [8d 8b f4 00 00 00 c7 01 40 a5 36 01 8d bb fc 09 00 00 8b 45 00 89 41 04 89 7c 24 38 89 48 28]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   campaign.owner_global_read       hook  RVA 0x005dfecf -> 00b1fecf: stock (key off) cur [8b 0d 38 49 5c 01 83 c4 04 8b d8 8b 89 fc 09 00 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   campaign.handler_gate_test       hook  RVA 0x006afa4b -> 00befa4b: stock (key off) cur [80 7f 54 00 74 64 83 7f 08 00 74 5e]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   guard.engine_free                hook  RVA 0x00bf7ef0 -> 01137ef0: stock cur [8b 44 24 04 83 ec 08]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   guard.heap_serialize_setter      hook  RVA 0x00bf8890 -> 01138890: stock cur [0f b6 44 24 04]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   console.handler_slot_test        hook  RVA 0x00c5612c -> 0119612c: stock (key off) cur [83 3d b0 70 76 01 00 0f 84 fe fe ff ff]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   console.handler_slot_call        hook  RVA 0x00c56143 -> 01196143: stock (key off) cur [8b 0d b0 70 76 01 8d 54 24 2c 83 c4 04 8b 01 52 8d 54 24 1c 52 8b 00 ff d0 84 c0]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   shadow.light_sweep               patch RVA 0x00d276ac -> 012676ac: stock (key off) cur [00 00 96 c2]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   shadow.far_cap_q3                patch RVA 0x00d86976 -> 012c6976: stock (key off) cur [00 00 fa 43]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   shadow.map_size_q34              patch RVA 0x00d86986 -> 012c6986: stock (key off) cur [00 08 00 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   trees.far_other                  patch RVA 0x00de14c6 -> 013214c6: stock (key off) cur [00 00 48 42]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   trees.far_q3                     patch RVA 0x00de14dc -> 013214dc: stock (key off) cur [00 00 48 43]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   trees.far_q2                     patch RVA 0x00de14f2 -> 013214f2: stock (key off) cur [00 00 16 43]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   trees.far_q1                     patch RVA 0x00de14fc -> 013214fc: stock (key off) cur [00 00 c8 42]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   sprite.page_q0                   patch RVA 0x00e400d4 -> 013800d4: stock (key off) cur [00 00 00 44]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   sprite.page_q3                   patch RVA 0x00e400e5 -> 013800e5: stock (key off) cur [00 00 80 44]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   sprite.page_q2                   patch RVA 0x00e40100 -> 01380100: stock (key off) cur [00 00 80 44]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   sprite.page_q1                   patch RVA 0x00e40113 -> 01380113: stock (key off) cur [00 00 80 44]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine: nothing to do - 45 sites: 45 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 26 hooks verified
+2026-11-01T19:43:16.963Z [INFO ] [t36980] patch_engine: 0 of 0 planned sites written
+2026-11-01T19:43:16.963Z [INFO ] [t36980] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='napoleon_remastered\lua\fixed_sky_rules.txt' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-11-01T19:43:16.963Z [INFO ] [t36980] timeline: dllmain +436 ms
+2026-11-01T19:43:16.966Z [INFO ] [t36980] console: dev.console=0
+2026-11-01T19:43:16.966Z [INFO ] [t36980] camera: dev.camera=1
+2026-11-01T19:43:16.966Z [INFO ] [t36980] redirect: 1 rules from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-01T19:43:16.966Z [INFO ] [t36980] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-11-01T19:43:16.966Z [INFO ] [t36980] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-11-01T19:43:16.966Z [INFO ] [t36980] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-11-01T19:43:16.966Z [INFO ] [t36980] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-11-01T19:43:16.966Z [INFO ] [t36980] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-11-01T19:43:16.966Z [INFO ] [t36980] redirect: rule file add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack (rules line 3)
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!CreateFileW slot 01447170: 7634ea50 -> 6951ca00
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!CreateFileA slot 01447188: 7634ea40 -> 6951c820
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!GetFileAttributesW slot 0144722c: 7634ec70 -> 6951c720
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!GetFileAttributesExW slot 0144728c: 7634ec60 -> 6951c600
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!GetFileAttributesExA slot 0144724c: 7634ec50 -> 6951c490
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!FindFirstFileExW slot 014470cc: 7634eb30 -> 6951c3d0
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!FindFirstFileW slot 0144721c: 7634eb50 -> 6951c330
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!FindNextFileW slot 01447220: 7634eba0 -> 695193d0
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat KERNEL32.dll!FindClose slot 01447218: 7634ead0 -> 69517fc0
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat binkw32.dll!_BinkOpen@8 slot 01447480: 1800d690 -> 6951e5b0
+2026-11-01T19:43:16.966Z [INFO ] [t36980] hook: iat binkw32.dll!_BinkClose@4 slot 01447490: 1800f850 -> 69518a00
+2026-11-01T19:43:16.968Z [INFO ] [t36980] headless: on: target 'Virtual Display Driver' at exactly 3840x2160, settle 500 ms, refuse grace 5000 ms
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!CreateWindowExW slot 014473b4: 7526e930 -> 6952a570
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!ShowWindow slot 014473b0: 7527b6a0 -> 69525420
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!SetWindowPos slot 01447310: 7527b5e0 -> 69524da0
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!MoveWindow slot 014473ac: 7527ae90 -> 69524890
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!SetWindowLongW slot 01447374: 75267570 -> 69525a70
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!ChangeDisplaySettingsW slot 01447378: 75305c30 -> 69522d80
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!MessageBoxW slot 01447328: 752ea5b0 -> 695249a0
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!DialogBoxIndirectParamW slot 0144730c: 752c11f0 -> 69522d10
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat user32.dll!SetFocus slot 0144739c: 7527b3e0 -> 69523b40
+2026-11-01T19:43:16.968Z [INFO ] [t36980] hook: iat dinput8.dll!DirectInput8Create slot 01447024: 698d6fa0 -> 69522e10
+2026-11-01T19:43:16.968Z [INFO ] [t36980] init done; the dxvk backend loads at the first d3d9 call
+2026-11-01T19:43:16.975Z [INFO ] [t8568] ctl: watching C:\napoleon_remastered_pc\ctl\ (13236 ids already used)
+2026-11-01T19:43:17.093Z [INFO ] [t8568] ctl: j9-20261101T193509Z-654726500: lua napoleon_remastered/lua/probes/api_surface.lua -- frontend
+2026-11-01T19:43:17.815Z [INFO ] [t36980] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-11-01T19:43:17.815Z [INFO ] [t36980] redirect: add data\zz_napoleon_remastered_fixed_sky.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack; rules line 3)
+2026-11-01T19:43:17.895Z [WARN ] [t36980] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-11-01T19:43:17.896Z [INFO ] [t36980] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-01T19:43:17.896Z [INFO ] [t36980] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-01T19:43:17.896Z [INFO ] [t36980] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-11-01T19:43:17.898Z [INFO ] [t36980] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-01T19:43:17.898Z [INFO ] [t36980] backend: dxvk ready (Direct3DCreate9=5db81530)
+2026-11-01T19:43:18.052Z [INFO ] [t36980] Direct3DCreate9(sdk=32) -> 0bb4d428 [dxvk]
+2026-11-01T19:43:18.053Z [INFO ] [t36980] headless: 3 displays (physical pixels):
+2026-11-01T19:43:18.053Z [INFO ] [t36980] headless:   \\.\DISPLAY2 -2560,327 2560x1440 adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-11-01T19:43:18.053Z [INFO ] [t36980] headless:   \\.\DISPLAY11 3839,2160 3840x2160 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-11-01T19:43:18.053Z [INFO ] [t36980] headless:   \\.\DISPLAY1 0,0 3840x2160 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor' dpi=144
+2026-11-01T19:43:18.053Z [INFO ] [t36980] headless: target 3839,2160 3840x2160 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 3840x2160); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 3840x2160@60
+2026-11-01T19:43:18.054Z [INFO ] [t36980] hook: vtable IDirect3D9::GetAdapterModeCount (headless) slot 5e21e018 [6]: 5db81ee0 -> 695238f0
+2026-11-01T19:43:18.054Z [INFO ] [t36980] hook: vtable IDirect3D9::EnumAdapterModes (headless) slot 5e21e01c [7]: 5db81f40 -> 69525120
+2026-11-01T19:43:18.054Z [INFO ] [t36980] hook: vtable IDirect3D9::GetAdapterDisplayMode (headless) slot 5e21e020 [8]: 5db81a20 -> 69523760
+2026-11-01T19:43:18.054Z [INFO ] [t36980] hook: vtable IDirect3D9::GetAdapterMonitor (headless) slot 5e21e03c [15]: 5db81da0 -> 69523560
+2026-11-01T19:43:18.054Z [INFO ] [t36980] hook: vtable IDirect3D9::CreateDevice (headless) slot 5e21e040 [16]: 5db82980 -> 69526500
+2026-11-01T19:43:18.054Z [INFO ] [t36980] timeline: d3d_create +1527 ms
+2026-11-01T19:43:18.055Z [INFO ] [t36980] camera: install: owner global 015e418c, battle +0xf8, controller +0x281b8, mode +0x800, SetTargetAndPosition 0073b320 (slot 47); sites battle.camera_chain_read battle.camera_mode_read battle.camera_set_target_pos
+2026-11-01T19:43:18.055Z [INFO ] [t36980] hook: vtable IDirect3D9::CreateDevice slot 5e21e040 [16]: 69526500 -> 695092e0
+2026-11-01T19:43:18.055Z [INFO ] [t36980] headless: GetAdapterDisplayMode(adapter 0) -> 3840x2160@60 (the target)
+2026-11-01T19:43:18.055Z [INFO ] [t36980] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-11-01T19:43:18.055Z [INFO ] [t36980] headless: GetAdapterDisplayMode(adapter 1) -> 3840x2160@60 (the target)
+2026-11-01T19:43:18.055Z [INFO ] [t36980] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-11-01T19:43:18.055Z [INFO ] [t36980] headless: GetAdapterDisplayMode(adapter 2) -> 3840x2160@60 (the target)
+2026-11-01T19:43:18.055Z [INFO ] [t36980] headless: GetAdapterMonitor(adapter 2) -> the target \\.\DISPLAY11
+2026-11-01T19:43:18.137Z [INFO ] [t36980] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 116)
+2026-11-01T19:43:18.137Z [INFO ] [t36980] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-11-01T19:43:18.139Z [INFO ] [t36980] headless: window 01170764 'Total War: NAPOLEON' class 'Napoleon' asked 3862x2216 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-11-01T19:43:18.139Z [INFO ] [t36980] headless: window 01170764 placed at 3839,2160 3840x2160 (inside the target)
+2026-11-01T19:43:18.140Z [INFO ] [t36980] headless: SetFocus(01170764) dropped (another process has the foreground; 1 so far)
+2026-11-01T19:43:18.140Z [INFO ] [t36980] headless: CreateDevice: back buffer 3840x2160, windowed, window 01170764
+2026-11-01T19:43:18.183Z [INFO ] [t36980] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-11-01T19:43:18.183Z [INFO ] [t36980] hook: vtable IDirect3DDevice9::Reset (headless) slot 5e21d7f0 [16]: 5dbab9e0 -> 69526640
+2026-11-01T19:43:18.184Z [INFO ] [t36980] hook: vtable IDirect3DDevice9::Present (headless) slot 5e21d7f4 [17]: 5dbb9dd0 -> 6952bf80
+2026-11-01T19:43:18.184Z [INFO ] [t36980] timeline: device_created +1657 ms hr 0x00000000 flags 0x42
+2026-11-01T19:43:18.185Z [INFO ] [t36980] hook: vtable IDirect3DDevice9::Present slot 5e21d7f4 [17]: 6952bf80 -> 69509be0
+2026-11-01T19:43:18.208Z [INFO ] [t36980] timeline: first_present +1681 ms
+2026-11-01T19:43:18.211Z [INFO ] [t36980] headless: ON THE VIRTUAL DISPLAY: window 3839,2160 3840x2160 on \\.\DISPLAY11, first frame presented there at 1.2 s (client 3840x2160, back buffer 3840x2160)
+2026-11-01T19:43:21.471Z [INFO ] [t36980] hook: vtable IDirectInput8::CreateDevice (headless) slot 698f6270 [3]: 698d4b20 -> 69522eb0
+2026-11-01T19:43:21.471Z [INFO ] [t36980] hook: vtable IDirectInputDevice8::SetCooperativeLevel (headless) slot 698f60a0 [13]: 698dcdd0 -> 69522a40
+2026-11-01T19:43:21.471Z [INFO ] [t36980] headless: DirectInput SetCooperativeLevel(2ac13e38, window 01170764, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-11-01T19:43:22.910Z [INFO ] [t36980] wsp_sentinel: engine dummynode = 0152d128 (sizearray 0, lsizenode 0)
+2026-11-01T19:43:22.910Z [INFO ] [t36980] luaopen_wsp: engine lua_State 050d2128, global state 0514e624 (thread 36980)
+2026-11-01T19:43:22.910Z [INFO ] [t36980] timeline: lua_bridge_loaded +6383 ms
+2026-11-01T19:43:22.911Z [INFO ] [t36980] lua: wsp.lua loaded (wsp 1)
+2026-11-01T19:43:22.932Z [INFO ] [t36980] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-11-01T19:43:22.934Z [INFO ] [t36980] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-11-01T19:43:23.036Z [INFO ] [t36980] lua: wrapper: frontend pumps from OnUpdate
+2026-11-01T19:43:23.163Z [INFO ] [t36980] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 00000754 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-11-01T19:43:23.163Z [INFO ] [t36980] timeline: movie_refused +6636 ms movies\sega_logo_sting_hd.bik
+2026-11-01T19:43:23.167Z [INFO ] [t36980] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 00000754 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-11-01T19:43:23.167Z [INFO ] [t36980] timeline: movie_refused +6640 ms movies\corei7_intro.bik
+2026-11-01T19:43:23.170Z [INFO ] [t36980] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 00000754 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-11-01T19:43:23.170Z [INFO ] [t36980] timeline: movie_refused +6643 ms movies\ntw_intro.bik
+2026-11-01T19:43:23.172Z [INFO ] [t36980] timeline: movie_open +6645 ms movies\frontend2.bik
+2026-11-01T19:43:23.174Z [INFO ] [t36980] movies: BinkOpen movies\frontend2.bik [handle 00000754 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b133600
+2026-11-01T19:43:23.174Z [INFO ] [t36980] scene: intro -> frontend after 291272.3 s (uptime 6.2 s, frame 4, lua frontend)
+2026-11-01T19:43:23.179Z [INFO ] [t36980] lua: first pump from context 'frontend' (thread 36980)
+2026-11-01T19:43:23.179Z [INFO ] [t36980] timeline: frontend_first_pump +6652 ms
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S UIPaletisedImage:table out:table DebugMessage:function UniChar:table decoda_name:string SetText:function UIComponentImageMetrics:table DirectoryUtils:table Component:table UIComponent:table UIComponentState:table Address:userdata Localisation:table UIImage:table OnUpdate:function UISelectionManager:table
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIPaletisedImage Dimensions:function Query:function SetComponentTexture:function Release:function SetPaletteEntry:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIPaletisedImage#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.out kostas:function design:function tom:function ting:function dylan:function shane:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UniChar is_AZ:function is_09:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentImageMetrics Offset:function Set:function Dimensions:function Get:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentImageMetrics#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.DirectoryUtils DeleteFiles:function EnumerateDirectory:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.Component ShaderTechniqueSet:function CursorPosition:function ShaderVarSet:function CallByAddress:function SequentialFind:function MouseOver:function FindChildAddress:function Call:function SetState:function HideChildren:function CreateComponentFromTemplate:function CreateFromComponent:function Messages:table Destroy:function KeyboardModifiersHeld:function RegisterTooltipObject:function CollectGarbage:function Root:function ShaderVarsGet:function ShaderTechniqueGet:function RootDimensions:function ListProperties:function SetProperty:function LockPriority:function GetProperty:function TemplateImageList:function ShowChildren:function CreateFromLayout:function Adopt:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponent Visible:function Highlight:function ChildCount:function IsDragged:function Divorce:function PopulateTextures:function SetState:function ReorderChildren:function SetImageRotation:function CurrentState:function SetDragged:function DockingPoint:function Id:function DestroyChildren:function TriggerAnimation:function IsCharPrintable:function PropagateOpacity:function GetProperty:function GetStateTextDetails:function SetVisible:function SetGlobal:function ForceEvent:function SetProperty:function GlobalExists:function TextShaderTechniqueSet:function SaveUIHeirarchy:function Layout:function StealShortcutKey:function Position:function Height:function IsMouseOverChildren:function LuaCall:function GetStateText:function SetTooltipText:function IsInteractive:function SetImageColour:function Priority:function Resize:function SetImageMetrics:function SetStateTextDetails:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponent SetMoveable:function CurrentStateUI:function GetTooltipText:function Width:function ShaderTechniqueGet:function Bounds:function Adopt:function ShaderTechniqueSet:function PropagateImageColour:function SequentialFind:function SetZDepth:function SetInteractive:function TextShaderVarsSet:function WidthOfTextLine:function SetDockingPoint:function FindPositionIntoCurrentText:function RestoreUIHeirarchy:function SetStateTextXOffset:function ShaderVarsSet:function SetDisabled:function TextShaderVarsGet:function PropagatePriority:function RunScript:function ImageMetrics:function SetEventCallback:function SetStateText:function PropagateVisibility:function Find:function MoveTo:function AttachCustomControl:function Parent:function SetOpacity:function Address:function ShaderVarsGet:function StealInputFocus:function new:function Dimensions:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponent#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentState ImageMetrics:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentState#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.Address#mt type:string __tostring:function __eq:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.Localisation Get:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIImage SetComponentTextureDetails:function Dimensions:function SetComponentTexture:function Release:function UnManage:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UIImage#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UISelectionManager ManageSelection:function Remove:function RemoveAll:function DeselectAll:function Selected:function Add:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend S.UISelectionManager#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G UIBattleSetup:table ChatManager:table ChatRoomInterface:table UIHistoricBattleSetup:table UIFEDropInInterface:table Cursor:table UICardManager:table BlockedPlayers:table FrontEnd:table UIPrefsInterface:table MPAvatar:table UIMPDropInInterface:table MultiplayerPlayerInterface:table UIMPInterface:table decoda_name:string
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UIBattleSetup SetDetails:function Address:function SetFromSetup:function RetrieveDetails:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UIBattleSetup#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.ChatManager SendOffChatMessage:function ChangeChatPanel:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.ChatManager#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.ChatRoomInterface ChangeCurrentChatRoom:function ListOfCurrentRooms:function GetCurrentRoomId:function GetPlayersInCurrentRoom:function CreateNewChatRoom:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.ChatRoomInterface#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UIHistoricBattleSetup Address:function RetrieveDetails:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UIHistoricBattleSetup#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UIFEDropInInterface SyncProgress:function Release:function SetDropInAvailable:function CanCancel:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UIFEDropInInterface#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.Cursor SetMode:function DistanceToBL:function ModeString:function Modes:function Mode:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.Cursor#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UICardManager Cards:function IsCtrlHeld:function ManageGroupSelection:function DragSelected:function PositionCards:function RemoveCard:function Selected:function new:function ManageSelection:function AddCard:function RemoveAll:function RemoveFromGroup:function ToggleGrouping:function FindContainingGroupID:function DeselectCard:function SetAsActive:function SetInactive:function DeselectAll:function IsShiftHeld:function AddToGroup:function SelectCardList:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.UICardManager#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.BlockedPlayers BlockPlayerID:function new:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.BlockedPlayers#mt __call:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.FrontEnd MPIsJoiningByInvite:function MPHostCustomBattle:function MPHasLobby:function MPJoinGame:function Quit:function GenerateShipName:function BattleWeatherAndTimeOfDayOptionsString:function GenerateRegionOwnershipMaps:function SaveBattleSetup:function LoadCampaign:function RetrieveArmyPresets:function FrontEnd:function FactionDetails:function SteamNewContentAvailable:function EnumerateArmySetups:function RetrieveGameCore:function TriggerSliderUpdateEvent:function MPReadyForLogOn:function MPLogOut:function MaxUnitsFromUnitScaleFactor:function DefaultPrefsForBattle:function MPCurrentGameDetails:function MPExperienceTables:function AreFriendsStatsDownloading:function ListOfPlayersInGame:function ResumeMultiplayerCampaign:function EnumerateCampaignSaves:function FullUnitInformation:function MPCanCancelQuickBattle:function ClearPreviousSetup:function BattleMapDetailsFromPreviousSetup:function EnumerateBattleMaps:function RetrieveFriendsStats:function GetExtendedMPSaveGameInfo:function FactionListForBattles:function EnumerateCampaigns:function BuildCredits:function MPLocalPlayerId:function StopFriendStatsDownload:function StartFriendStatsDownload:function
+2026-11-01T19:43:23.182Z [INFO ] [t36980] lua: api frontend@frontend G.FrontEnd OpenMapDataFile:function EnableCreditScreenMusic:function BuildInfoSetup:function ValidateArmySetup:function MPHostCampaign:function ArmyFundsForSize:function TimeOfDayOptionsString:function EnumerateBattleReplays:function LoadBattleSetup:function ScreenSize:function MPGameInfoList:function navigate:function MPChangeRoom:function SaveArmySetup:function LoadBattleReplay:function LoadArmySetup:function FileExtenstionAndPathForWriteClass:function BattleTypeString:function EnumerateNapoleonsBattleMaps:function LocalisedGameTypeString:function GetExtendedSaveGameInfo:function PreviousBattleSetup:function DropInInterface:function FormatMinutesString:function EnumerateMultiplayerCampaignSaves:function MPInterface:function RetrieveRandomPortraitPath:function MPIsOnline:function EnableVoiceChat:function TriggerMessageBoxOpenedEvent:function WindLevelOptionsString:function BattleTypesFilterString:function MPQuickBattleSearchRange:function MPInviteToGame:function MoviePlaying:function BuildCpuName:function RecruitableUnits:function TheatreList:function MPLocalPlayerStats:function StopAllMovies:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.FrontEnd StartBattle:function StartCampaign:function MPCampaignEnabled:function EnumerateNapoleonsCampaigns:function CampaignDetails:function SteamOpenStore:function MPQuickBattleDetails:function CampaignSavesExist:function CancelHostedGame:function UILocalisationString:function StartTutorialCampaign:function MPLocalPlayerInLobby:function MPLogOn:function CloseMapDataFile:function StartTutorialBattle:function SetCurrentGameType:function MPQuickBattleStart:function SpanishCampaignEnabled:function MPLocalPlayerHosting:function SteamFriendsList:function MultiplayerBaseInterface:function UnitScaleFactor:function GetWaterlooBattleDetails:function GameVersion:function StopDemoMovie:function MPHasGameInvite:function MPCampaignSavesExist:function MPOnlinePresence:function PreviousGameType:function ResumeFrontEndMovie:function ShowVoiceChat:function ContinueCampaign:function LocalisationString:function MPJoinInvitedGame:function MPQuickBattleCancel:function PlayMovieInComponent:function ShowDemoMovie:function LocalPlayerName:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.UIPrefsInterface EnumerateSoundProviders:function EnumerateScreenModes:function CurrentOptions:function SetGameOptions:function AvailableGfxQualities:function SetControlOptions:function SetGammaOptions:function SetVoiceChatGain:function BattleDifficulty:function ClosestScreenModeToCurrent:function SteamOpenPrefs:function SetGraphicsOptions:function new:function EnableTestVoiceChat:function SetAudioVolume:function SetAudioOptions:function SelectGraphicQualityPreset:function SetScreenMode:function AvailableGfxOptions:function GetKeyboardDefinitions:function SelectAudioQualityPreset:function LocalisationString:function ModifierHeld:function LocalisedKeyString:function BuildKeyMappingTable:function SetUIOptions:function IsModifier:function ModifierUsed:function SetVoiceChatOptions:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.UIPrefsInterface#mt __call:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.MPAvatar SetComponentTexture:function Valid:function Free:function new:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.MPAvatar#mt __call:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPDropInInterface SyncProgress:function AcceptRemoteDropIn:function GetCandidateTimeOut:function SetDropInAvailable:function RemoteCandidateDetails:function CanCancel:function Release:function DeclineRemoteDropIn:function new:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPDropInInterface#mt __call:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.MultiplayerPlayerInterface OpenUpSteamFriendsList:function BlockPlayerForVoiceChat:function ChangeVoiceChatEnabled:function BlockPlayerForTextChat:function new:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.MultiplayerPlayerInterface#mt __call:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPInterface GetPlayerDifficultySettings:function AddAiBot:function SetUnits:function CanSwapPlayers:function IsOnlineMode:function SwapPlayers:function CanBeSelected:function GetUnitsForSlot:function DeclareReady:function LocalPlayerHosting:function SetArmyIndex:function PlayerVOIPTalking:function Ranked:function new:function TeamLeaderStatus:function PlayerIdFromSlot:function PlayerDetails:function GetArmyIndex:function PlayerVOIPActive:function SetArmyAndTeam:function GetReadyStatus:function JoinTeam:function LeaveLobby:function KickPlayer:function SendChatMessage:function AssignPortrait:function SetCampaignGameOptions:function SetFaction:function LocalPlayerSpectating:function LocalPlayerSlot:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPInterface#mt __call:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G vfs:table tostring:function gcinfo:function RoundToInt:function NamespaceFile:function getfenv:function pairs:function RequireRegister:function system:table udata_lookup:table io:table load:function module:function PrintTable:function _G:table __wsp_lua:table coroutine:table TruncToInt:function Max:function loadstring:function decoda_name:string string:table xpcall:function package:table bit:table _VERSION:string table:table require:function outputbitfield:function setmetatable:function next:function defined:table ipairs:function Min:function rawequal:function UnRequire:function collectgarbage:function getmetatable:function UnRequireAll:function rawset:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G CopyIntoTable:function CliExecute:function newproxy:function CompareByValue:function print:function math:table PickFGColour:function pcall:function os:table Clamp:function type:function unpack:function CopyTable:function select:function assert:function tonumber:function rawget:function Require:function RupToInt:function lookup:table setfenv:function debug:table dofile:function error:function loadfile:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.vfs exists:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.system ClearRequiredFiles:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.udata_lookup#mt __mode:string
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.__wsp_lua wsp:table pump:function wrap:function hook:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.bit band:function rshift:function bor:function bnot:function bxor:function bits:number lshift:function cast:function arshift:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.defined shane:boolean debug:boolean tom:boolean demo:boolean intel:boolean kostas:boolean demo2:boolean final_release:boolean tom_s:boolean dylan:boolean
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend G.lookup#mt __mode:string
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIComponent __eq:function __metatable:table __tostring:function __add:function __div:function userdata:table __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIComponentImageMetrics __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.BlockedPlayers __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIBattleSetup __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UICardManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.Pointer<Component> type:string __tostring:function __eq:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIComponentState __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.ChatManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.FILE* setvbuf:function lines:function write:function close:function flush:function __gc:function read:function seek:function __index:table __tostring:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIImage __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.ChatRoomInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.MPAvatar __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIFEDropInInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIMPInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.Cursor __eq:function __metatable:table __tostring:function __add:function __div:function userdata:table __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIHistoricBattleSetup __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R._LOADLIB __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIPaletisedImage __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIMPDropInInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.MultiplayerPlayerInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UIPrefsInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend R.UISelectionManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:23.183Z [INFO ] [t36980] lua: api frontend@frontend __end total=721
+2026-11-01T19:43:23.184Z [INFO ] [t36980] timeline: first_present_after_ready +6657 ms frontend
+2026-11-01T19:43:23.190Z [INFO ] [t8568] ctl: j9-20261101T193509Z-654726500: ok
+2026-11-01T19:43:23.205Z [INFO ] [t8568] ctl: j9-20261101T194320Z-2167821655: waitfor frontend
+2026-11-01T19:43:23.205Z [INFO ] [t8568] ctl: j9-20261101T194320Z-2167821655: ok
+2026-11-01T19:43:29.670Z [INFO ] [t8568] ctl: j9-20261101T194329Z-3008016162: lua napoleon_remastered/lua/probes/api_surface.lua -- frontend
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S UIPaletisedImage:table out:table DebugMessage:function UniChar:table decoda_name:string SetText:function UIComponentImageMetrics:table DirectoryUtils:table Component:table UIComponent:table UIComponentState:table Address:userdata Localisation:table UIImage:table OnUpdate:function UISelectionManager:table
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIPaletisedImage Dimensions:function Query:function SetComponentTexture:function Release:function SetPaletteEntry:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIPaletisedImage#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.out kostas:function design:function tom:function ting:function dylan:function shane:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UniChar is_AZ:function is_09:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentImageMetrics Offset:function Set:function Dimensions:function Get:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentImageMetrics#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.DirectoryUtils DeleteFiles:function EnumerateDirectory:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.Component ShaderTechniqueSet:function CursorPosition:function ShaderVarSet:function CallByAddress:function SequentialFind:function MouseOver:function FindChildAddress:function Call:function SetState:function HideChildren:function CreateComponentFromTemplate:function CreateFromComponent:function Messages:table Destroy:function KeyboardModifiersHeld:function RegisterTooltipObject:function CollectGarbage:function Root:function ShaderVarsGet:function ShaderTechniqueGet:function RootDimensions:function ListProperties:function SetProperty:function LockPriority:function GetProperty:function TemplateImageList:function ShowChildren:function CreateFromLayout:function Adopt:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponent Visible:function Highlight:function ChildCount:function IsDragged:function Divorce:function PopulateTextures:function SetState:function ReorderChildren:function SetImageRotation:function CurrentState:function SetDragged:function DockingPoint:function Id:function DestroyChildren:function TriggerAnimation:function IsCharPrintable:function PropagateOpacity:function GetProperty:function GetStateTextDetails:function SetVisible:function SetGlobal:function ForceEvent:function SetProperty:function GlobalExists:function TextShaderTechniqueSet:function SaveUIHeirarchy:function Layout:function StealShortcutKey:function Position:function Height:function IsMouseOverChildren:function LuaCall:function GetStateText:function SetTooltipText:function IsInteractive:function SetImageColour:function Priority:function Resize:function SetImageMetrics:function SetStateTextDetails:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponent SetMoveable:function CurrentStateUI:function GetTooltipText:function Width:function ShaderTechniqueGet:function Bounds:function Adopt:function ShaderTechniqueSet:function PropagateImageColour:function SequentialFind:function SetZDepth:function SetInteractive:function TextShaderVarsSet:function WidthOfTextLine:function SetDockingPoint:function FindPositionIntoCurrentText:function RestoreUIHeirarchy:function SetStateTextXOffset:function ShaderVarsSet:function SetDisabled:function TextShaderVarsGet:function PropagatePriority:function RunScript:function ImageMetrics:function SetEventCallback:function SetStateText:function PropagateVisibility:function Find:function MoveTo:function AttachCustomControl:function Parent:function SetOpacity:function Address:function ShaderVarsGet:function StealInputFocus:function new:function Dimensions:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponent#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentState ImageMetrics:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIComponentState#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.Address#mt type:string __tostring:function __eq:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.Localisation Get:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIImage SetComponentTextureDetails:function Dimensions:function SetComponentTexture:function Release:function UnManage:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UIImage#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UISelectionManager ManageSelection:function Remove:function RemoveAll:function DeselectAll:function Selected:function Add:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend S.UISelectionManager#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G UIBattleSetup:table ChatManager:table ChatRoomInterface:table UIHistoricBattleSetup:table UIFEDropInInterface:table Cursor:table UICardManager:table BlockedPlayers:table FrontEnd:table UIPrefsInterface:table MPAvatar:table UIMPDropInInterface:table MultiplayerPlayerInterface:table UIMPInterface:table decoda_name:string
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIBattleSetup SetDetails:function Address:function SetFromSetup:function RetrieveDetails:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIBattleSetup#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.ChatManager SendOffChatMessage:function ChangeChatPanel:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.ChatManager#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.ChatRoomInterface ChangeCurrentChatRoom:function ListOfCurrentRooms:function GetCurrentRoomId:function GetPlayersInCurrentRoom:function CreateNewChatRoom:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.ChatRoomInterface#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIHistoricBattleSetup Address:function RetrieveDetails:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIHistoricBattleSetup#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIFEDropInInterface SyncProgress:function Release:function SetDropInAvailable:function CanCancel:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIFEDropInInterface#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.Cursor SetMode:function DistanceToBL:function ModeString:function Modes:function Mode:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.Cursor#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UICardManager Cards:function IsCtrlHeld:function ManageGroupSelection:function DragSelected:function PositionCards:function RemoveCard:function Selected:function new:function ManageSelection:function AddCard:function RemoveAll:function RemoveFromGroup:function ToggleGrouping:function FindContainingGroupID:function DeselectCard:function SetAsActive:function SetInactive:function DeselectAll:function IsShiftHeld:function AddToGroup:function SelectCardList:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UICardManager#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.BlockedPlayers BlockPlayerID:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.BlockedPlayers#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.FrontEnd MPIsJoiningByInvite:function MPHostCustomBattle:function MPHasLobby:function MPJoinGame:function Quit:function GenerateShipName:function BattleWeatherAndTimeOfDayOptionsString:function GenerateRegionOwnershipMaps:function SaveBattleSetup:function LoadCampaign:function RetrieveArmyPresets:function FrontEnd:function FactionDetails:function SteamNewContentAvailable:function EnumerateArmySetups:function RetrieveGameCore:function TriggerSliderUpdateEvent:function MPReadyForLogOn:function MPLogOut:function MaxUnitsFromUnitScaleFactor:function DefaultPrefsForBattle:function MPCurrentGameDetails:function MPExperienceTables:function AreFriendsStatsDownloading:function ListOfPlayersInGame:function ResumeMultiplayerCampaign:function EnumerateCampaignSaves:function FullUnitInformation:function MPCanCancelQuickBattle:function ClearPreviousSetup:function BattleMapDetailsFromPreviousSetup:function EnumerateBattleMaps:function RetrieveFriendsStats:function GetExtendedMPSaveGameInfo:function FactionListForBattles:function EnumerateCampaigns:function BuildCredits:function MPLocalPlayerId:function StopFriendStatsDownload:function StartFriendStatsDownload:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.FrontEnd OpenMapDataFile:function EnableCreditScreenMusic:function BuildInfoSetup:function ValidateArmySetup:function MPHostCampaign:function ArmyFundsForSize:function TimeOfDayOptionsString:function EnumerateBattleReplays:function LoadBattleSetup:function ScreenSize:function MPGameInfoList:function navigate:function MPChangeRoom:function SaveArmySetup:function LoadBattleReplay:function LoadArmySetup:function FileExtenstionAndPathForWriteClass:function BattleTypeString:function EnumerateNapoleonsBattleMaps:function LocalisedGameTypeString:function GetExtendedSaveGameInfo:function PreviousBattleSetup:function DropInInterface:function FormatMinutesString:function EnumerateMultiplayerCampaignSaves:function MPInterface:function RetrieveRandomPortraitPath:function MPIsOnline:function EnableVoiceChat:function TriggerMessageBoxOpenedEvent:function WindLevelOptionsString:function BattleTypesFilterString:function MPQuickBattleSearchRange:function MPInviteToGame:function MoviePlaying:function BuildCpuName:function RecruitableUnits:function TheatreList:function MPLocalPlayerStats:function StopAllMovies:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.FrontEnd StartBattle:function StartCampaign:function MPCampaignEnabled:function EnumerateNapoleonsCampaigns:function CampaignDetails:function SteamOpenStore:function MPQuickBattleDetails:function CampaignSavesExist:function CancelHostedGame:function UILocalisationString:function StartTutorialCampaign:function MPLocalPlayerInLobby:function MPLogOn:function CloseMapDataFile:function StartTutorialBattle:function SetCurrentGameType:function MPQuickBattleStart:function SpanishCampaignEnabled:function MPLocalPlayerHosting:function SteamFriendsList:function MultiplayerBaseInterface:function UnitScaleFactor:function GetWaterlooBattleDetails:function GameVersion:function StopDemoMovie:function MPHasGameInvite:function MPCampaignSavesExist:function MPOnlinePresence:function PreviousGameType:function ResumeFrontEndMovie:function ShowVoiceChat:function ContinueCampaign:function LocalisationString:function MPJoinInvitedGame:function MPQuickBattleCancel:function PlayMovieInComponent:function ShowDemoMovie:function LocalPlayerName:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIPrefsInterface EnumerateSoundProviders:function EnumerateScreenModes:function CurrentOptions:function SetGameOptions:function AvailableGfxQualities:function SetControlOptions:function SetGammaOptions:function SetVoiceChatGain:function BattleDifficulty:function ClosestScreenModeToCurrent:function SteamOpenPrefs:function SetGraphicsOptions:function new:function EnableTestVoiceChat:function SetAudioVolume:function SetAudioOptions:function SelectGraphicQualityPreset:function SetScreenMode:function AvailableGfxOptions:function GetKeyboardDefinitions:function SelectAudioQualityPreset:function LocalisationString:function ModifierHeld:function LocalisedKeyString:function BuildKeyMappingTable:function SetUIOptions:function IsModifier:function ModifierUsed:function SetVoiceChatOptions:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIPrefsInterface#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.MPAvatar SetComponentTexture:function Valid:function Free:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.MPAvatar#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPDropInInterface SyncProgress:function AcceptRemoteDropIn:function GetCandidateTimeOut:function SetDropInAvailable:function RemoteCandidateDetails:function CanCancel:function Release:function DeclineRemoteDropIn:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPDropInInterface#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.MultiplayerPlayerInterface OpenUpSteamFriendsList:function BlockPlayerForVoiceChat:function ChangeVoiceChatEnabled:function BlockPlayerForTextChat:function new:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.MultiplayerPlayerInterface#mt __call:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPInterface GetPlayerDifficultySettings:function AddAiBot:function SetUnits:function CanSwapPlayers:function IsOnlineMode:function SwapPlayers:function CanBeSelected:function GetUnitsForSlot:function DeclareReady:function LocalPlayerHosting:function SetArmyIndex:function PlayerVOIPTalking:function Ranked:function new:function TeamLeaderStatus:function PlayerIdFromSlot:function PlayerDetails:function GetArmyIndex:function PlayerVOIPActive:function SetArmyAndTeam:function GetReadyStatus:function JoinTeam:function LeaveLobby:function KickPlayer:function SendChatMessage:function AssignPortrait:function SetCampaignGameOptions:function SetFaction:function LocalPlayerSpectating:function LocalPlayerSlot:function
+2026-11-01T19:43:29.673Z [INFO ] [t36980] lua: api frontend@frontend G.UIMPInterface#mt __call:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G vfs:table tostring:function gcinfo:function RoundToInt:function NamespaceFile:function getfenv:function pairs:function RequireRegister:function system:table udata_lookup:table io:table load:function module:function PrintTable:function _G:table __wsp_lua:table coroutine:table TruncToInt:function Max:function loadstring:function decoda_name:string string:table xpcall:function package:table bit:table _VERSION:string table:table require:function outputbitfield:function setmetatable:function next:function defined:table ipairs:function Min:function rawequal:function UnRequire:function collectgarbage:function getmetatable:function UnRequireAll:function rawset:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G CopyIntoTable:function CliExecute:function newproxy:function CompareByValue:function print:function math:table PickFGColour:function pcall:function os:table Clamp:function type:function unpack:function CopyTable:function select:function assert:function tonumber:function rawget:function Require:function RupToInt:function lookup:table setfenv:function debug:table dofile:function error:function loadfile:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G.vfs exists:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G.system ClearRequiredFiles:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G.udata_lookup#mt __mode:string
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G.__wsp_lua wsp:table pump:function wrap:function hook:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G.bit band:function rshift:function bor:function bnot:function bxor:function bits:number lshift:function cast:function arshift:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G.defined shane:boolean debug:boolean tom:boolean demo:boolean intel:boolean kostas:boolean demo2:boolean final_release:boolean tom_s:boolean dylan:boolean
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend G.lookup#mt __mode:string
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIComponent __eq:function __metatable:table __tostring:function __add:function __div:function userdata:table __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIComponentImageMetrics __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.BlockedPlayers __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIBattleSetup __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UICardManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.Pointer<Component> type:string __tostring:function __eq:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIComponentState __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.ChatManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.FILE* setvbuf:function lines:function write:function close:function flush:function __gc:function read:function seek:function __index:table __tostring:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIImage __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.ChatRoomInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.MPAvatar __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIFEDropInInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIMPInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.Cursor __eq:function __metatable:table __tostring:function __add:function __div:function userdata:table __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIHistoricBattleSetup __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R._LOADLIB __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIPaletisedImage __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIMPDropInInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.MultiplayerPlayerInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UIPrefsInterface __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend R.UISelectionManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function
+2026-11-01T19:43:29.674Z [INFO ] [t36980] lua: api frontend@frontend __end total=721
+2026-11-01T19:43:29.681Z [INFO ] [t8568] ctl: j9-20261101T194329Z-3008016162: ok
+2026-11-01T19:43:31.697Z [INFO ] [t8568] ctl: j9-20261101T194331Z-12507804: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/getters.lua -- C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/probe_safe_list.lua
+2026-11-01T19:43:31.698Z [INFO ] [t36980] lua: sample frontend G.FrontEnd BattleTypesFilterString string Classic Land Battle|Naval Battle|Siege Battle|Scenario Battle
+2026-11-01T19:43:31.701Z [INFO ] [t36980] lua: sample frontend G.FrontEnd CampaignSavesExist boolean true
+2026-11-01T19:43:31.701Z [INFO ] [t36980] lua: sample frontend G.FrontEnd GameVersion string v1.3.0  Build 2081.2931570
+2026-11-01T19:43:31.701Z [INFO ] [t36980] lua: sample frontend G.FrontEnd GetWaterlooBattleDetails string Battle of Waterloo | The Battle of Waterloo (18 June, 1815) proved to be Napoleon's last action. The combined British, Hanoverian, Prussian and Dutch-Belgian force of the Seventh Coalition decisively defeated Napoleon and his loyal generals, ending the emperor's rule forever and leading to his exile on the Atlantic island of St. Helena. | Napoleon_Historical_Battles/Waterloo_Campaign/Waterloo_Battle.xml
+2026-11-01T19:43:31.701Z [INFO ] [t36980] lua: sample frontend G.FrontEnd LocalPlayerName string 
+2026-11-01T19:43:31.701Z [INFO ] [t36980] lua: sample frontend G.FrontEnd RetrieveGameCore userdata 
+2026-11-01T19:43:31.701Z [INFO ] [t36980] lua: sample frontend G.FrontEnd ScreenSize number 3840 | 2160
+2026-11-01T19:43:31.708Z [INFO ] [t8568] ctl: j9-20261101T194331Z-12507804: ok
+2026-11-01T19:43:33.840Z [INFO ] [t8568] ctl: j9-20261101T194333Z-2292115525: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/fe_pages.lua
+2026-11-01T19:43:33.841Z [INFO ] [t36980] lua: fepage pages 2 visible-first=layout: layout* main*
+2026-11-01T19:43:33.841Z [INFO ] [t36980] lua: fepage layout globals=65 registry=25
+2026-11-01T19:43:33.841Z [INFO ] [t36980] lua: fepage sp_battle1 absent
+2026-11-01T19:43:33.841Z [INFO ] [t36980] lua: fepage sp_battle2 absent
+2026-11-01T19:43:33.841Z [INFO ] [t36980] lua: fepage sp_battle2_scenario absent
+2026-11-01T19:43:33.997Z [INFO ] [t36980] lua: fepage grand_campaign transition=true visible=true globals=65 registry=30 new_globals= new_registry=OptionsTable,Pointer<>,Pointer<EMPIRE_MP_BASE>,Pointer<EMPIRE_MP_CAMPAIGN_DROP_IN>,Pointer<KEYBOARD_SHORTCUT_DESCRIPTION>
+2026-11-01T19:43:34.010Z [INFO ] [t36980] lua: fepage back to layout true
+2026-11-01T19:43:34.019Z [INFO ] [t8568] ctl: j9-20261101T194333Z-2292115525: ok
+2026-11-01T19:43:41.704Z [INFO ] [t8568] ctl: j9-20261101T194341Z-24100281: lua napoleon_remastered/lua/probes/api_surface.lua -- frontend_after_pages
+2026-11-01T19:44:06.060Z [INFO ] [t36980] headless: WM_DEVICECHANGE
+2026-11-01T19:44:06.062Z [WARN ] [t36980] headless: CLOAKED (WM_DEVICECHANGE) at 49.084 s
+2026-11-01T19:44:06.062Z [INFO ] [t36980] headless: relocation queued (WM_DEVICECHANGE)
+2026-11-01T19:44:06.100Z [INFO ] [t36980] headless: WM_DEVICECHANGE
+2026-11-01T19:44:06.104Z [INFO ] [t36980] headless: 2 displays (physical pixels):
+2026-11-01T19:44:06.104Z [INFO ] [t36980] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-11-01T19:44:06.104Z [INFO ] [t36980] headless:   \\.\DISPLAY11 2560,1440 3840x2160 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-11-01T19:44:06.121Z [INFO ] [t36980] headless: target 2560,1440 3840x2160 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 3840x2160); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 3840x2160@60
+2026-11-01T19:44:06.137Z [INFO ] [t36980] headless: relocated and verified on \\.\DISPLAY11 2560,1440 3840x2160 (cloaked until the layout is quiet for 500 ms)
+2026-11-01T19:44:06.183Z [INFO ] [t36980] headless: WM_DISPLAYCHANGE
+2026-11-01T19:44:06.183Z [INFO ] [t36980] headless: relocation queued (WM_DISPLAYCHANGE)
+2026-11-01T19:44:06.224Z [INFO ] [t36980] headless: relocated and verified on \\.\DISPLAY11 2560,1440 3840x2160 (cloaked until the layout is quiet for 500 ms)
+2026-11-01T19:44:06.679Z [INFO ] [t11552] headless: uncloaked (verified on the target, layout stable) at 49.712 s
+2026-11-01T19:44:11.708Z [INFO ] [t8568] ctl: j9-20261101T194341Z-24100281: timeout: no result after 30 s (last Lua pump 37.9 s ago, context frontend)
+2026-11-01T19:44:13.616Z [INFO ] [t8568] ctl: j9-20261101T194413Z-175993100: state
+2026-11-01T19:44:13.616Z [INFO ] [t8568] ctl: j9-20261101T194413Z-175993100: ok
+2026-11-01T19:44:15.625Z [INFO ] [t8568] ctl: j9-20261101T194415Z-3139028726: state
+2026-11-01T19:44:15.626Z [INFO ] [t8568] ctl: j9-20261101T194415Z-3139028726: ok
+2026-11-01T19:44:17.310Z [INFO ] [t8568] ctl: j9-20261101T194417Z-2076025626: state
+2026-11-01T19:44:17.310Z [INFO ] [t8568] ctl: j9-20261101T194417Z-2076025626: ok
+2026-11-01T19:44:19.206Z [INFO ] [t8568] ctl: j9-20261101T194419Z-59725690: state
+2026-11-01T19:44:19.206Z [INFO ] [t8568] ctl: j9-20261101T194419Z-59725690: ok
+2026-11-01T19:44:24.217Z [INFO ] [t8568] ctl: j9-20261101T194424Z-210923693: state
+2026-11-01T19:44:24.217Z [INFO ] [t8568] ctl: j9-20261101T194424Z-210923693: ok
+2026-11-01T19:44:26.008Z [INFO ] [t8568] ctl: j9-20261101T194425Z-1072225737: state
+2026-11-01T19:44:26.008Z [INFO ] [t8568] ctl: j9-20261101T194425Z-1072225737: ok
+2026-11-01T19:44:28.016Z [INFO ] [t8568] ctl: j9-20261101T194427Z-3231120708: state
+2026-11-01T19:44:28.016Z [INFO ] [t8568] ctl: j9-20261101T194427Z-3231120708: ok
+2026-11-01T19:44:29.363Z [INFO ] [t8568] ctl: j9-20261101T194429Z-233939404: state
+2026-11-01T19:44:29.363Z [INFO ] [t8568] ctl: j9-20261101T194429Z-233939404: ok
+2026-11-01T19:44:34.938Z [INFO ] [t8568] ctl: j9-20261101T194434Z-1373513120: state
+2026-11-01T19:44:34.938Z [INFO ] [t8568] ctl: j9-20261101T194434Z-1373513120: ok
+2026-11-01T19:44:37.062Z [INFO ] [t8568] ctl: j9-20261101T194436Z-289852740: state
+2026-11-01T19:44:37.062Z [INFO ] [t8568] ctl: j9-20261101T194436Z-289852740: ok
+2026-11-01T19:44:38.746Z [INFO ] [t8568] ctl: j9-20261101T194438Z-940227655: state
+2026-11-01T19:44:38.746Z [INFO ] [t8568] ctl: j9-20261101T194438Z-940227655: ok
+2026-11-01T19:44:40.537Z [INFO ] [t8568] ctl: j9-20261101T194440Z-134134941: state
+2026-11-01T19:44:40.537Z [INFO ] [t8568] ctl: j9-20261101T194440Z-134134941: ok
+2026-11-01T19:44:42.549Z [INFO ] [t8568] ctl: j9-20261101T194442Z-2951513984: state
+2026-11-01T19:44:42.550Z [INFO ] [t8568] ctl: j9-20261101T194442Z-2951513984: ok
+2026-11-01T19:44:44.245Z [INFO ] [t8568] ctl: j9-20261101T194444Z-71202072: state
+2026-11-01T19:44:44.245Z [INFO ] [t8568] ctl: j9-20261101T194444Z-71202072: ok
+2026-11-01T19:44:46.034Z [INFO ] [t8568] ctl: j9-20261101T194445Z-2253524888: state
+2026-11-01T19:44:46.034Z [INFO ] [t8568] ctl: j9-20261101T194445Z-2253524888: ok
+2026-11-01T19:44:48.168Z [INFO ] [t8568] ctl: j9-20261101T194448Z-388215197: state
+2026-11-01T19:44:48.168Z [INFO ] [t8568] ctl: j9-20261101T194448Z-388215197: ok
+2026-11-01T19:44:49.851Z [INFO ] [t8568] ctl: j9-20261101T194449Z-79533601: state
+2026-11-01T19:44:49.851Z [INFO ] [t8568] ctl: j9-20261101T194449Z-79533601: ok
+2026-11-01T19:44:51.655Z [INFO ] [t8568] ctl: j9-20261101T194451Z-2324024219: state
+2026-11-01T19:44:51.655Z [INFO ] [t8568] ctl: j9-20261101T194451Z-2324024219: ok
+2026-11-01T19:44:53.559Z [INFO ] [t8568] ctl: j9-20261101T194453Z-1355121440: state
+2026-11-01T19:44:53.559Z [INFO ] [t8568] ctl: j9-20261101T194453Z-1355121440: ok
+2026-11-01T19:44:55.353Z [INFO ] [t8568] ctl: j9-20261101T194455Z-186523229: state
+2026-11-01T19:44:55.353Z [INFO ] [t8568] ctl: j9-20261101T194455Z-186523229: ok
+2026-11-01T19:44:56.705Z [INFO ] [t8568] ctl: j9-20261101T194456Z-2387312083: state
+2026-11-01T19:44:56.705Z [INFO ] [t8568] ctl: j9-20261101T194456Z-2387312083: ok
+2026-11-01T19:44:58.726Z [INFO ] [t8568] ctl: j9-20261101T194458Z-236171016: state
+2026-11-01T19:44:58.726Z [INFO ] [t8568] ctl: j9-20261101T194458Z-236171016: ok
+2026-11-01T19:45:00.532Z [INFO ] [t8568] ctl: j9-20261101T194500Z-358612765: state
+2026-11-01T19:45:00.532Z [INFO ] [t8568] ctl: j9-20261101T194500Z-358612765: ok
+2026-11-01T19:45:02.671Z [INFO ] [t8568] ctl: j9-20261101T194502Z-1389825730: state
+2026-11-01T19:45:02.671Z [INFO ] [t8568] ctl: j9-20261101T194502Z-1389825730: ok
+2026-11-01T19:45:04.348Z [INFO ] [t8568] ctl: j9-20261101T194504Z-237324129: state
+2026-11-01T19:45:04.348Z [INFO ] [t8568] ctl: j9-20261101T194504Z-237324129: ok
+2026-11-01T19:45:06.138Z [INFO ] [t8568] ctl: j9-20261101T194506Z-1167425419: state
+2026-11-01T19:45:06.138Z [INFO ] [t8568] ctl: j9-20261101T194506Z-1167425419: ok
+2026-11-01T19:45:08.140Z [INFO ] [t8568] ctl: j9-20261101T194508Z-2961612105: state
+2026-11-01T19:45:08.140Z [INFO ] [t8568] ctl: j9-20261101T194508Z-2961612105: ok
+2026-11-01T19:45:09.922Z [INFO ] [t8568] ctl: j9-20261101T194509Z-34279633: state
+2026-11-01T19:45:09.922Z [INFO ] [t8568] ctl: j9-20261101T194509Z-34279633: ok
+2026-11-01T19:45:11.710Z [INFO ] [t8568] ctl: j9-20261101T194511Z-2740013260: state
+2026-11-01T19:45:11.710Z [INFO ] [t8568] ctl: j9-20261101T194511Z-2740013260: ok
+2026-11-01T19:45:13.726Z [INFO ] [t8568] ctl: j9-20261101T194513Z-258334994: state
+2026-11-01T19:45:13.726Z [INFO ] [t8568] ctl: j9-20261101T194513Z-258334994: ok
+2026-11-01T19:45:15.406Z [INFO ] [t8568] ctl: j9-20261101T194515Z-2693331805: state
+2026-11-01T19:45:15.406Z [INFO ] [t8568] ctl: j9-20261101T194515Z-2693331805: ok
+2026-11-01T19:45:17.300Z [INFO ] [t8568] ctl: j9-20261101T194517Z-1065630947: state
+2026-11-01T19:45:17.300Z [INFO ] [t8568] ctl: j9-20261101T194517Z-1065630947: ok
+2026-11-01T19:45:19.201Z [INFO ] [t8568] ctl: j9-20261101T194519Z-526722574: state
+2026-11-01T19:45:19.201Z [INFO ] [t8568] ctl: j9-20261101T194519Z-526722574: ok
+2026-11-01T19:45:20.875Z [INFO ] [t8568] ctl: j9-20261101T194520Z-2622824976: state
+2026-11-01T19:45:20.876Z [INFO ] [t8568] ctl: j9-20261101T194520Z-2622824976: ok
+2026-11-01T19:45:22.218Z [INFO ] [t8568] ctl: j9-20261101T194522Z-271163079: state
+2026-11-01T19:45:22.218Z [INFO ] [t8568] ctl: j9-20261101T194522Z-271163079: ok
+2026-11-01T19:45:23.671Z [INFO ] [t8568] ctl: j9-20261101T194523Z-2593219891: state
+2026-11-01T19:45:23.671Z [INFO ] [t8568] ctl: j9-20261101T194523Z-2593219891: ok
+2026-11-01T19:45:25.456Z [INFO ] [t8568] ctl: j9-20261101T194525Z-226932397: state
+2026-11-01T19:45:25.456Z [INFO ] [t8568] ctl: j9-20261101T194525Z-226932397: ok
+2026-11-01T19:45:27.357Z [INFO ] [t8568] ctl: j9-20261101T194527Z-2917526924: state
+2026-11-01T19:45:27.357Z [INFO ] [t8568] ctl: j9-20261101T194527Z-2917526924: ok
+2026-11-01T19:45:28.813Z [INFO ] [t8568] ctl: j9-20261101T194528Z-53395924: state
+2026-11-01T19:45:28.813Z [INFO ] [t8568] ctl: j9-20261101T194528Z-53395924: ok
+2026-11-01T19:45:30.602Z [INFO ] [t8568] ctl: j9-20261101T194530Z-1693025369: state
+2026-11-01T19:45:30.602Z [INFO ] [t8568] ctl: j9-20261101T194530Z-1693025369: ok
+2026-11-01T19:45:32.506Z [INFO ] [t8568] ctl: j9-20261101T194532Z-274198159: state
+2026-11-01T19:45:32.506Z [INFO ] [t8568] ctl: j9-20261101T194532Z-274198159: ok
+2026-11-01T19:45:34.294Z [INFO ] [t8568] ctl: j9-20261101T194534Z-3220229431: state
+2026-11-01T19:45:34.294Z [INFO ] [t8568] ctl: j9-20261101T194534Z-3220229431: ok
+2026-11-01T19:45:36.086Z [INFO ] [t8568] ctl: j9-20261101T194535Z-638019827: state
+2026-11-01T19:45:36.086Z [INFO ] [t8568] ctl: j9-20261101T194535Z-638019827: ok
+2026-11-01T19:45:38.106Z [INFO ] [t8568] ctl: j9-20261101T194538Z-3727697: state
+2026-11-01T19:45:38.106Z [INFO ] [t8568] ctl: j9-20261101T194538Z-3727697: ok
+2026-11-01T19:45:39.786Z [INFO ] [t8568] ctl: j9-20261101T194539Z-1373130350: state
+2026-11-01T19:45:39.787Z [INFO ] [t8568] ctl: j9-20261101T194539Z-1373130350: ok
+2026-11-01T19:45:41.584Z [INFO ] [t8568] ctl: j9-20261101T194541Z-2520218201: state
+2026-11-01T19:45:41.584Z [INFO ] [t8568] ctl: j9-20261101T194541Z-2520218201: ok
+2026-11-01T19:45:43.154Z [INFO ] [t8568] ctl: j9-20261101T194543Z-2417710776: state
+2026-11-01T19:45:43.154Z [INFO ] [t8568] ctl: j9-20261101T194543Z-2417710776: ok
+2026-11-01T19:45:44.842Z [INFO ] [t8568] ctl: j9-20261101T194544Z-901010579: state
+2026-11-01T19:45:44.842Z [INFO ] [t8568] ctl: j9-20261101T194544Z-901010579: ok
+2026-11-01T19:45:46.742Z [INFO ] [t8568] ctl: j9-20261101T194546Z-850211338: state
+2026-11-01T19:45:46.742Z [INFO ] [t8568] ctl: j9-20261101T194546Z-850211338: ok
+2026-11-01T19:45:48.644Z [INFO ] [t8568] ctl: j9-20261101T194548Z-46886528: state
+2026-11-01T19:45:48.644Z [INFO ] [t8568] ctl: j9-20261101T194548Z-46886528: ok
+2026-11-01T19:45:50.333Z [INFO ] [t8568] ctl: j9-20261101T194550Z-4792957: state
+2026-11-01T19:45:50.333Z [INFO ] [t8568] ctl: j9-20261101T194550Z-4792957: ok
+2026-11-01T19:45:52.244Z [INFO ] [t8568] ctl: j9-20261101T194552Z-136214504: state
+2026-11-01T19:45:52.244Z [INFO ] [t8568] ctl: j9-20261101T194552Z-136214504: ok
+2026-11-01T19:45:54.275Z [INFO ] [t8568] ctl: j9-20261101T194554Z-2770629: state
+2026-11-01T19:45:54.275Z [INFO ] [t8568] ctl: j9-20261101T194554Z-2770629: ok
+2026-11-01T19:45:56.077Z [INFO ] [t8568] ctl: j9-20261101T194556Z-271062980: state
+2026-11-01T19:45:56.077Z [INFO ] [t8568] ctl: j9-20261101T194556Z-271062980: ok
+2026-11-01T19:45:58.100Z [INFO ] [t8568] ctl: j9-20261101T194558Z-9501513: state
+2026-11-01T19:45:58.100Z [INFO ] [t8568] ctl: j9-20261101T194558Z-9501513: ok
+2026-11-01T19:45:59.878Z [INFO ] [t8568] ctl: j9-20261101T194559Z-2677030902: state
+2026-11-01T19:45:59.879Z [INFO ] [t8568] ctl: j9-20261101T194559Z-2677030902: ok
+2026-11-01T19:46:01.671Z [INFO ] [t8568] ctl: j9-20261101T194601Z-819932385: state
+2026-11-01T19:46:01.671Z [INFO ] [t8568] ctl: j9-20261101T194601Z-819932385: ok
+2026-11-01T19:46:03.807Z [INFO ] [t8568] ctl: j9-20261101T194603Z-1397113610: state
+2026-11-01T19:46:03.807Z [INFO ] [t8568] ctl: j9-20261101T194603Z-1397113610: ok
+2026-11-01T19:46:05.508Z [INFO ] [t8568] ctl: j9-20261101T194605Z-1695514003: state
+2026-11-01T19:46:05.508Z [INFO ] [t8568] ctl: j9-20261101T194605Z-1695514003: ok
+2026-11-01T19:46:07.302Z [INFO ] [t8568] ctl: j9-20261101T194607Z-1772329153: state
+2026-11-01T19:46:07.302Z [INFO ] [t8568] ctl: j9-20261101T194607Z-1772329153: ok
+2026-11-01T19:46:09.319Z [INFO ] [t8568] ctl: j9-20261101T194609Z-152231259: state
+2026-11-01T19:46:09.319Z [INFO ] [t8568] ctl: j9-20261101T194609Z-152231259: ok
+2026-11-01T19:46:11.004Z [INFO ] [t8568] ctl: j9-20261101T194610Z-2353618473: state
+2026-11-01T19:46:11.004Z [INFO ] [t8568] ctl: j9-20261101T194610Z-2353618473: ok
+2026-11-01T19:46:12.903Z [INFO ] [t8568] ctl: j9-20261101T194612Z-284921644: state
+2026-11-01T19:46:12.903Z [INFO ] [t8568] ctl: j9-20261101T194612Z-284921644: ok

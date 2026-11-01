@@ -1,0 +1,802 @@
+AGENT_INDICATOR_ARMY_OFFSET_FROM_EACHOTHER_Z	0x454730	0x15c4450	dword	0xbf000000	-0.5	0x1e6b1	
+AGENT_INDICATOR_ARMY_OFFSET_X	0x454730	0x15c3e80	None	None	None	None	
+AGENT_INDICATOR_ARMY_OFFSET_Y	0x454730	0x15c3f08	dword	0x0	0.0	0x1e751	
+AGENT_INDICATOR_ARMY_OFFSET_Z	0x454730	0x15c3ab8	dword	0x40800000	4.0	0x1e7a1	
+AGENT_INDICATOR_FACTION_OFFSET_Z	0x454730	0x15c2220	dword	0x40400000	3.0	0x1e7f1	
+AGENT_INDICATOR_NAVY_OFFSET_FROM_EACHOTHER_Z	0x454730	0x15c35e8	dword	0xbf000000	-0.5	0x1e841	
+AGENT_INDICATOR_NAVY_OFFSET_X	0x454730	0x15c1c60	None	None	None	None	
+AGENT_INDICATOR_NAVY_OFFSET_Y	0x454730	0x15c3170	dword	0x0	0.0	0x1e8e1	
+AGENT_INDICATOR_NAVY_OFFSET_Z	0x454730	0x15c38b0	dword	0x40a00000	5.0	0x1e931	
+AGENT_INDICATOR_OFFSET_FROM_EACHOTHER_SETTLEMENT_OFFSET_Z	0x454730	0x15c1d20	dword	0xbf000000	-0.5	0x1e981	Settlement agent indicator separation on Z
+AGENT_INDICATOR_SETTLEMENT_OFFSET_X	0x454730	0x15c2280	None	None	None	None	
+AGENT_INDICATOR_SETTLEMENT_OFFSET_Y	0x454730	0x15c2160	dword	0x0	0.0	0x1ea21	Settlement agent indicator y offset
+AGENT_INDICATOR_SETTLEMENT_OFFSET_Z	0x454730	0x15c1f60	dword	0x40300000	2.75	0x1ea71	Settlement agent indicator z offset
+AI_FORMED_INFANTRY	0x4548c0	0x15bc3e8	byte	0x0	None	0x18291	Prioritises AI behaviour towards keeping missile infantry in formation
+ALL_UNITS_VISIBLE	0x4548c0	0x150de88	byte	0x0	None	0x15251	all units visible
+ALWAYS_SAVE_BATTLE_REPLAY	0x4548c0	0x14a60b0	byte	0x0	None	0x7f21	Ensures that even in Final Release Builds a battle replay is saved
+ANIMAL_MIN_SPEED	0x454730	0x14a4978	dword	0x3f800000	1.0	0x7f61	ANIMAL_MIN_SPEED
+AUDIO_RAIN_LEVEL	0x454730	0x14a62d8	dword	0x0	0.0	0x7fb1	s:\branches\napoleon\curator\common\EmpireBattle\Source\sound\SoundTra
+AUDIO_TREE_HEIGHT_OFFSET	0x454730	0x14a51a8	dword	0xc1200000	-10.0	0x8001	AUDIO_TREE_HEIGHT_OFFSET
+AUDIO_WEATHER_LEVEL	0x454730	0x14a6c68	dword	0x0	0.0	0x8051	AUDIO_WEATHER_LEVEL
+BATTLE_AI_EXCLUSIVE	0x4548c0	0x14a3b28	byte	0x0	None	0x63d4	AI versus AI (no manual player control)
+BATTLE_AI_INVERT	0x4548c0	0x14a3640	byte	0x0	None	0x6424	Inversely defaults the AI-controlled force to be the 'other' one
+BATTLE_AI_LOG_MELEE	0x4548c0	0x150ce50	byte	0x0	None	0x152b1	Spools Melee Manager decision-making. WARNING - May cripple the frame-
+BATTLE_LOG_DEBUGDRAW	0x4548c0	0x14a5a10	byte	0x0	None	0x8131	Enables rendering of the Battle Log Messages to the display in world-s
+BATTLE_LOG_SPOOL	0x4548c0	0x14a6198	byte	0x0	None	0x8171	Enables spooling output of Battle Log Messages
+BATTLE_RAIN_CROSSFADE_TIME	0x454730	0x14a6550	dword	0x3f000000	0.5	0x81b1	BATTLE_RAIN_CROSSFADE_TIME
+BATTLE_RAIN_FADE_IN_TIME	0x454730	0x14a5a78	dword	0xbf800000	-1.0	0x8201	BATTLE_RAIN_FADE_IN_TIME
+BATTLE_RAIN_FADE_OUT_TIME	0x454730	0x14a6208	dword	0x40000000	2.0	0x8251	BATTLE_RAIN_FADE_OUT_TIME
+BATTLE_RAIN_VOLUME_TIME	0x454730	0x14a6f88	dword	0x3f000000	0.5	0x82a1	BATTLE_RAIN_VOLUME_TIME
+BATTLE_REPLAY_TIMESTAMP	0x4548c0	0x14a5d90	byte	0x0	None	0x82f1	Appends the battle replay filename with the date/time to prevent futur
+BATTLE_SHIP_WAKE_CROSSFADE_TIME	0x454730	0x14a5568	dword	0x3f000000	0.5	0x8331	BATTLE_SHIP_WAKE_CROSSFADE_TIME
+BATTLE_SHIP_WAKE_FADE_IN_TIME	0x454730	0x14a5748	dword	0x3f800000	1.0	0x8381	BATTLE_SHIP_WAKE_FADE_IN_TIME
+BATTLE_SHIP_WAKE_FADE_OUT_TIME	0x454730	0x14a5078	dword	0x3f800000	1.0	0x83d1	BATTLE_SHIP_WAKE_FADE_OUT_TIME
+BATTLE_UNIT_GROUP_CROSSFADE_TIME	0x454730	0x14a5268	dword	0x3fc00000	1.5	0x8421	BATTLE_UNIT_GROUP_CROSSFADE_TIME
+BATTLE_UNIT_GROUP_FADE_IN_TIME	0x454730	0x14a50d8	dword	0x3f800000	1.0	0x8471	BATTLE_UNIT_GROUP_FADE_IN_TIME
+BATTLE_UNIT_GROUP_FADE_OUT_TIME	0x454730	0x14a6cc8	dword	0x3e800000	0.25	0x84c1	BATTLE_UNIT_GROUP_FADE_OUT_TIME
+BATTLE_WIND_CROSSFADE_TIME	0x454730	0x14a78b0	dword	0x3f800000	1.0	0x8511	BATTLE_WIND_CROSSFADE_TIME
+BATTLE_WIND_FADE_IN_TIME	0x454730	0x14a6748	dword	0xbf800000	-1.0	0x8561	BATTLE_WIND_FADE_IN_TIME
+BATTLE_WIND_FADE_OUT_TIME	0x454730	0x14a6128	dword	0x40000000	2.0	0x85b1	BATTLE_WIND_FADE_OUT_TIME
+BATTLE_WIND_VOLUME_TIME	0x454730	0x14a5938	dword	0x40400000	3.0	0x8601	BATTLE_WIND_VOLUME_TIME
+BRIDGE_FALLING_INTO_WATER_START_DELAY	0x454730	0x14a6d30	dword	0x3fc00000	1.5	0x8651	BRIDGE_FALLING_INTO_WATER_START_DELAY
+CAI_ACCEPTABLE_SUCCESS_CHANCE	0x4545b0	0x15f4368	dword	0x3c	0.0	0x310d1	Minimum success chance for a reactive agent to consider a mission
+CAI_BASIC_MISSION_MOBILE_CLOSE_ENOUGH	0x454730	0x15f4688	None	None	None	None	CAI_BASIC_MISSION_MOBILE_CLOSE_ENOUGH
+CAI_BASIC_MISSION_POSITION_CLOSE_ENOUGH	0x454730	0x15f45a8	dword	0x3dced917	0.101	0x31174	How close to a target position do we need to get to be considered ther
+CAI_BDI_COMPLETION_REPORTER_PRIORITY	0x454730	0x15f4308	dword	0x461c4000	10000.0	0x311c4	On related component completion reports this to the console.
+CAI_BDI_POSITION_EQUIVELENCE_TOLERANCE	0x454730	0x15f4548	dword	0x3c23d70a	0.01	0x31211	CAI BDI system position equivalence tolerance
+CAI_BDI_PROCESSING_FAILSAFE	0x454670	0x15f4428	dword	0x7d0	0.0	0x31264	The maximum number of execution steps allowed before failing automatic
+CAI_BDI_WORLD_AND_ANALYSIS_BELIEF_PRIORITY	0x4545b0	0x15f4488	dword	0x64	0.0	0x312b4	Externally managed world and analysis elements are system 'beliefs', t
+CAI_DEBUG_ECON_GDPGROWTH	0x454730	0x15c6870	dword	0x3a83126f	0.001	0x2b794	Adjustment of GDP delta over iteration of debug econ model
+CAI_MAXIMUM_NUMBER_OF_ROUNDS_TO_RETAIN_GOAL_FAILURE_MEMORY	0x454670	0x15f43c8	dword	0xa	0.0	0x31304	Length of failed goal memory in rounds. anything older than this is re
+CAI_MINIMUM_ATTACK_STRENGTH	0x4545b0	0x15f6478	dword	0x14	0.0	0x31524	The minimum attack strength a mobile should be in considering its use 
+CAI_PATROL_POINT_MAXIMUM_NAVIGABLE_DISTANCE_BETWEEN_POINTS_TO_CHECK_FOR_AS_MULTI	0x454730	0x15f6240	dword	0x40400000	3.0	0x31611	When checking for the navigability of points, the maximum distance to 
+CAI_PATROL_POINT_MAXIMUM_NAVIGABLE_DISTANCE_BETWEEN_POINTS_TO_CHECK_FOR_AS_MULTI	0x454730	0x15f65a8	dword	0x40c00000	6.0	0x31661	When checking for the navigability of points, the maximum distance to 
+CAI_PATROL_POINT_MINIMUM_LINEAR_DISTANCE_BEFORE_POINT_MERGE	0x454730	0x15f63c0	dword	0x3f800000	1.0	0x316b1	The minimum linear distance between points allowed before a merge is f
+CAI_PAULS_RANDOM_MOVEMENT_RANGE	0x454730	0x15f4628	dword	0x42c80000	100.0	0x31354	Intention of mobiles to move insanely, the range of motion
+CAI_RECRUITMENT_RETRY_MAX	0x4545b0	0x15f44e8	None	None	None	None	How many times should an attempt to recruit this unit be made before f
+CAI_REGION_TRANSITION_POINT_CLOSE_ENOUGH	0x454730	0x15f62a0	dword	0x3f800000	1.0	0x31701	The area within which two points are considered identical for the purp
+CAI_RTP_EXTERNAL_HISTORY_LENGTH	0x454670	0x15f64d8	dword	0x19	0.0	0x31751	Length of the externa; point transition history
+CAI_RTP_INTERNAL_HISTORY_LENGTH	0x454670	0x15f6608	dword	0xa	0.0	0x317a1	Length of the internal point transition history
+CAI_RTP_INTERNAL_SIMPLE_HISTORY_LENGTH	0x454670	0x15f6538	dword	0xa	0.0	0x317f1	Length of the internal point transition history
+CAI_TARGET_IMMEDIATE_AREA	0x454730	0x15f6798	dword	0x3f800000	1.0	0x31841	Number of turns to get to such theat we consider it an immediate targe
+CAI_TARGET_NEAR_AREA	0x454730	0x15f6668	dword	0x3f800000	1.0	0x31891	Number of turns to get to such that we consider it a near target
+CAI_TAS_IMMEDIATE_AREA	0x454730	0x15f6300	dword	0x3f800000	1.0	0x318e1	Number of turns to arrive that is considered an immediate threat
+CAI_TAS_NEAR_AREA	0x454730	0x15f6360	dword	0x40000000	2.0	0x31931	s:\branches\napoleon\curator\common\EmpireCampaign\Source\CAI\Analyser
+CAMERA_HEIGHT_MAX_LAND	0x454730	0x14a73e0	dword	0x42700000	60.0	0x87e1	CAMERA_HEIGHT_MAX_LAND
+CAMERA_HEIGHT_MAX_SEA	0x454730	0x14a5b40	dword	0x43160000	150.0	0x8831	CAMERA_HEIGHT_MAX_SEA
+CAMERA_HEIGHT_MIN_LAND	0x454730	0x14a5d18	dword	0x40200000	2.5	0x8881	CAMERA_HEIGHT_MIN_LAND
+CAMERA_HEIGHT_MIN_SEA	0x454730	0x14a6430	dword	0x41700000	15.0	0x88d1	CAMERA_HEIGHT_MIN_SEA
+CAMERA_MOVE_SPEED_MAX	0x454730	0x14a5810	dword	0x42c80000	100.0	0x8921	CAMERA_MOVE_SPEED_MAX
+CAMERA_MOVE_SPEED_MIN	0x454730	0x14a5c88	dword	0x41200000	10.0	0x8971	CAMERA_MOVE_SPEED_MIN
+CAMERA_SPEED	0x454730	0x14a63d0	dword	0x3fc00000	1.5	0x89c4	camera_speed
+CAMERA_TURN_SPEED	0x454730	0x14a5ad8	dword	0x40a00000	5.0	0x8a11	CAMERA_TURN_SPEED
+CAMPAIGN_CAMERA_MAXIMUM_DISTANCE	0x454730	0x15c2fa0	dword	0x42c80000	100.0	0x1eb51	Sets the distance from the campaign camera to the target when fully zo
+CAMPAIGN_CAMERA_MAXIMUM_TILT_ANGLE	0x454730	0x15c3b20	dword	0x3f800000	1.0	0x1eba1	Sets the maximum tilt angle of the campaign camera relative to -y
+CAMPAIGN_CAMERA_MINIMUM_DISTANCE	0x454730	0x15c3a30	dword	0x41700000	15.0	0x1ebf1	Sets the distance from the campaign camera to the target when fully zo
+CAMPAIGN_CAMERA_MINIMUM_TILT_ANGLE	0x454730	0x15c4078	dword	0x3f000000	0.5	0x1ec41	Sets the minimum tilt angle of the campaign camera relative to -y
+CAMPAIGN_CAMERA_PAN_SPEED	0x454730	0x15c4258	dword	0x42480000	50.0	0x1ec91	Sets the pan speed of the campaign camera
+CAMPAIGN_CAMERA_TILT_SPEED	0x454730	0x15c36e0	dword	0x42480000	50.0	0x1ece1	Sets the tilt speed of the campaign camera
+CAMPAIGN_WIND_CHANGE_FADE_IN_TIME	0x454730	0x15c6030	dword	0x41200000	10.0	0x2b7e1	CAMPAIGN_WIND_CHANGE_FADE_IN_TIME
+CAMPAIGN_WIND_CHANGE_FADE_OUT_TIME	0x454730	0x15c6270	dword	0x41200000	10.0	0x2b831	CAMPAIGN_WIND_CHANGE_FADE_OUT_TIME
+CAMPAIGN_WIND_CROSSFADE_TIME	0x454730	0x15c5df0	dword	0x3f000000	0.5	0x2b881	CAMPAIGN_WIND_CROSSFADE_TIME
+CAMPAIGN_WIND_FADE_IN_TIME	0x454730	0x15c69b8	dword	0xbf800000	-1.0	0x2b8d1	CAMPAIGN_WIND_FADE_IN_TIME
+CAMPAIGN_WIND_FADE_OUT_TIME	0x454730	0x15c66f8	dword	0xbf800000	-1.0	0x2b921	CAMPAIGN_WIND_FADE_OUT_TIME
+CAMPAIGN_WIND_VOLUME_FADE_TIME	0x454730	0x15c6e88	dword	0x3f800000	1.0	0x2b971	CAMPAIGN_WIND_VOLUME_FADE_TIME
+CHARGE_CHECK_DISTANCE_TIME	0x454730	0x14a52c8	dword	0x3f000000	0.5	0x8a61	CHARGE_CHECK_DISTANCE_TIME
+CHARGE_FADE_OUT_TIME	0x454730	0x14a7910	dword	0x40200000	2.5	0x8ab1	CHARGE_FADE_OUT_TIME
+CHARGE_MIN_DIST_SQUARED	0x454730	0x14a4918	dword	0x442f0000	700.0	0x8b01	CHARGE_MIN_DIST_SQUARED
+CHECK_PROJECTILES_HIT_TREE_CANOPY_UPDATE_TIME	0x454730	0x14a65b0	dword	0x3e19999a	0.15	0x8b61	CHECK_PROJECTILES_HIT_TREE_CANOPY_UPDATE_TIME
+COLLISION_TIME	0x454730	0x14a6e68	dword	0x40800000	4.0	0x8bb1	COLLISION_TIME
+COMBAT_WITNESS_RESTRICT_SPACE	0x4548c0	0x14d0760	None	None	None	None	restrict space available for matched combat
+CONTEXT_CAMERA_FAR_PLANE	0x454730	0x14a5f28	dword	0x459c4000	5000.0	0x8c01	CONTEXT_CAMERA_FAR_PLANE
+CONTEXT_CAMERA_NEAR_PLANE	0x454730	0x14a6818	dword	0x3e19999a	0.15	0x8c51	CONTEXT_CAMERA_NEAR_PLANE
+DECK_Y_OFFSET	0x454730	0x14a4590	dword	0x40800000	4.0	0x9541	DECK_Y_OFFSET
+DISPLAY_PROJECTILE_TRAILS	0x4548c0	0x150d948	None	None	None	None	
+DS_mulitplier	0x454730	0x164c3b0	dword	0x3f000000	0.5	0x33911	Diamond Square Noise Multiplier
+EMPIRE_CUSTOM_TIME_CONTROL_SPEED	0x454730	0x14a3788	dword	0x3f800000	1.0	0x7641	Sets the custom time control speed
+ENABLE_HARD_COLLISION	0x4548c0	0x150fc38	None	None	None	None	enable hard collision
+ENABLE_MAN_LOOK_AT	0x4548c0	0x150e8d8	None	None	None	None	enable man look at
+ENTITY_ACTION_MOVE_TELPORT_TIME	0x454730	0x150fbd0	dword	0x40a00000	5.0	0x17e01	ENTITY_ACTION_MOVE_TELPORT_TIME
+ENTITY_FADE_TIME	0x454730	0x14a7708	dword	0x40000000	2.0	0x96f1	ENTITY_FADE_TIME
+ENTITY_GROUP_UPDATE_DELAY	0x454730	0x14a5628	dword	0x3f800000	1.0	0x9741	ENTITY_GROUP_UPDATE_DELAY
+ENTITY_IDLE_SOUND_PERCENT_CHANCE_MOUNT	0x454730	0x14a76a0	dword	0x3e800000	0.25	0x9791	ENTITY_IDLE_SOUND_PERCENT_CHANCE_MOUNT
+ENTITY_LOD_OVERRIDE	0x4548c0	0x150d190	byte	0x0	None	0x15431	use explicit lod distances from tweakers
+ENTITY_ZONE_PATH_ITERATOR_DEBUG	0x454670	0x14d07e0	dword	0xffffffff	nan	0x10674	ENTITY_ZONE_PATH_ITERATOR_DEBUG
+FALLBACK_MAX_WIND_HEIGHT	0x454730	0x14a5c10	dword	0x43960000	300.0	0x9961	FALLBACK_MAX_WIND_HEIGHT
+FAR_BUILDING_LOD_THRESHOLD	0x454730	0x150c2b0	dword	0x0	0.0	0x154b4	FAR_BUILDING_LOD_THRESHOLD
+FEATHERED_SHARED_POSE_RANGE	0x454730	0x150d6a8	dword	0x3f000000	0.5	0x15501	feathered shared pose range
+FIRE_CROSSFADE_DURATION	0x454730	0x14a5018	dword	0x40200000	2.5	0x99f1	FIRE_CROSSFADE_DURATION
+FIRE_FADE_IN_TIME	0x454730	0x14a6948	dword	0x3fc00000	1.5	0x9a41	FIRE_FADE_IN_TIME
+FIRE_FADE_OUT_TIME	0x454730	0x14a74b0	dword	0x40000000	2.0	0x9a91	FIRE_FADE_OUT_TIME
+FIRE_INTENSITY_MULTIPLIER	0x454730	0x14a6880	dword	0x40400000	3.0	0x9ae1	FIRE_INTENSITY_MULTIPLIER
+FIRE_POSITION_UPDATE_TIME	0x454730	0x14a4d18	dword	0x40000000	2.0	0x9b31	FIRE_POSITION_UPDATE_TIME
+FORCED_UNIT_MOVE_INTENSITY	0x454730	0x14a6678	dword	0x403f5c29	2.99	0x9b81	FORCED_UNIT_MOVE_INTENSITY
+FORCE_AUDIO_MATERIAL	0x4545b0	0x164b418	dword	0xffffffff	nan	0x32c14	FORCE_AUDIO_MATERIAL
+FORCE_GENERATE_FOREST_GROUND_TYPES_TREE_DENSITY	0x454670	0x164cc58	dword	0x0	0.0	0x339a1	FORCE_GENERATE_FOREST_GROUND_TYPES_TREE_DENSITY
+FORCE_GENERATE_GRASSMAP_FROM_BLENDMAP	0x4548c0	0x164ca10	byte	0x0	None	0x339f1	FORCE_GENERATE_GRASSMAP_FROM_BLENDMAP
+FORCE_IDLE	0x4548c0	0x1507988	byte	0x0	None	0x10f31	
+FOREST_BIRD_HEIGHT_OFFSET	0x454730	0x14a7788	dword	0x40a00000	5.0	0x9bd1	FOREST_BIRD_HEIGHT_OFFSET
+FOREST_BIRD_MAX_TIME	0x454670	0x14a46b0	dword	0xa	0.0	0x9c21	FOREST_BIRD_MAX_TIME
+FOREST_BIRD_MIN_TIME	0x454670	0x14a7378	None	None	None	None	FOREST_BIRD_MIN_TIME
+GROUP_FORMATION_SELECTION_DEBUG_OUTPUT	0x4548c0	0x1508fb0	byte	0x0	None	0x10fa1	GROUP_FORMATION_SELECTION_DEBUG_OUTPUT
+GROUP_MOVEMENT_FADE_TIME	0x454730	0x14a6618	dword	0x40200000	2.5	0x9d91	GROUP_MOVEMENT_FADE_TIME
+HIGHEST_MAST_Y_OFFSET	0x454730	0x14a4b38	dword	0x40a00000	5.0	0x9e21	HIGHEST_MAST_Y_OFFSET
+HILLS_1_THRESHHOLD	0x454670	0x165e570	dword	0x14a	0.0	0x397b4	HILLS_1_THRESHHOLD
+HILLS_2_THRESHHOLD	0x454670	0x165e4f8	dword	0x14a	0.0	0x39804	HILLS_2_THRESHHOLD
+HILLS_3_THRESHHOLD	0x454670	0x165e438	dword	0x14a	0.0	0x39854	HILLS_3_THRESHHOLD
+IMPOSTER_DISTANCE	0x454730	0x150e250	dword	0x42c80000	100.0	0x155a1	imposter distance
+INCENDIARY_PROJECTILE_CHANCE_HIGH	0x454730	0x1507c88	dword	0x42c80000	100.0	0x11004	INCENDIARY_PROJECTILE_CHANCE_HIGH
+INCENDIARY_PROJECTILE_CHANCE_LOW	0x454730	0x1507ff0	None	None	None	None	INCENDIARY_PROJECTILE_CHANCE_LOW
+INCENDIARY_PROJECTILE_CHANCE_MEDIUM	0x454730	0x1507928	dword	0x41200000	10.0	0x110a4	INCENDIARY_PROJECTILE_CHANCE_MEDIUM
+INCENDIARY_PROJECTILE_CHANCE_NONE	0x454730	0x1507d18	None	None	None	None	
+ISLANDS_THRESHHOLD	0x454670	0x165e310	dword	0x32	0.0	0x398c4	ISLANDS_THRESHHOLD
+KNOT_DISTANCE	0x454730	0x150d828	dword	0x42480000	50.0	0x15631	knot distance
+LARGE_IMPOSTER_DISTANCE	0x454730	0x150da68	dword	0x43480000	200.0	0x156c1	entity display
+LOCOMOTIVE_FORCE_STRAFE	0x4548c0	0x150fb48	byte	0x0	None	0x17f21	Forces locomotives to strafe
+LOD_DUMP	0x4548c0	0x182f290	byte	0x0	None	0x3ea21	LOD_DUMP
+LuaProfile	0x4548c0	0x176b890	byte	0x0	None	0x3d571	Enable lua profiling
+MAN_FOOTSTEP_HEIGHT_OFFSET	0x454730	0x14a4e98	dword	0x3f800000	1.0	0xa151	MAN_FOOTSTEP_HEIGHT_OFFSET
+MAST_LOD_DISTANCE	0x454730	0x150d0d0	dword	0x437a0000	250.0	0x15711	mast lod distance
+MAX_FIRE_SOUNDS_PER_SHIP	0x454730	0x14a5448	dword	0x40a00000	5.0	0xa1a1	MAX_FIRE_SOUNDS_PER_SHIP
+MAX_PROJECTILES_FIRED_PER_SHIP_EACH_FRAME	0x454670	0x14a4e38	None	None	None	None	MAX_PROJECTILES_FIRED_PER_SHIP_EACH_FRAME
+MAX_RANDOM_WIND_OFFSETS_FOR_SAIL_GUSTING	0x454670	0x14a5328	None	None	None	None	MAX_RANDOM_WIND_OFFSETS_FOR_SAIL_GUSTING
+MAX_TREE_SCALE	0x454730	0x164cd28	dword	0x3fb33333	1.4	0x33a71	s:\branches\napoleon\curator\common\EmpireUtility\Source\VegetationPic
+MAX_WEATHER_LEVEL_FOR_AMBIENCE_TO_PLAY	0x454730	0x14a7148	None	None	None	None	MAX_WEATHER_LEVEL_FOR_AMBIENCE_TO_PLAY
+MAX_WIND_GUST_TIME_OFFSET	0x454730	0x14a6f28	dword	0x41200000	10.0	0xa2e1	MAX_WIND_GUST_TIME_OFFSET
+MELEE_CROSSFADE_DURATION	0x454730	0x14a71d0	dword	0x40200000	2.5	0xa331	MELEE_CROSSFADE_DURATION
+MELEE_FADE_IN_TIME	0x454730	0x14a4a38	dword	0x40000000	2.0	0xa381	MELEE_FADE_IN_TIME
+MELEE_FADE_OUT_TIME	0x454730	0x14a55c8	dword	0x40400000	3.0	0xa3d1	MELEE_FADE_OUT_TIME
+MIN_DIST_SQUARED_PROJECTILES_HIT_TREE_CANOPY	0x454730	0x14a4f58	dword	0x42c80000	100.0	0xa421	MIN_DIST_SQUARED_PROJECTILES_HIT_TREE_CANOPY
+MIN_ENTITIES_MOVING_PERCENTAGE_FOR_GROUP_SPLITTING	0x454730	0x14a4dd8	dword	0x3f666666	0.9	0xa471	MIN_ENTITIES_MOVING_PERCENTAGE_FOR_GROUP_SPLITTING
+MIN_ENTITY_SPEED_TO_PLAY_MOVEMENT_SOUNDS	0x454730	0x14a4ef8	None	None	None	None	
+MIN_ENTITY_SPEED_TO_PLAY_SOUND	0x454730	0x14a4858	dword	0x3f000000	0.5	0xa511	MIN_ENTITY_SPEED_TO_PLAY_SOUND
+MIN_FIRE_INTENSITY	0x454730	0x14a54a8	dword	0x3f000000	0.5	0xa561	MIN_FIRE_INTENSITY
+MIN_MELEE_ENTITIES	0x454670	0x14a7290	None	None	None	None	MIN_MELEE_ENTITIES
+MIN_SHIP_HEALTH_DISPLAY	0x454730	0x1508568	None	None	None	None	MIN_SHIP_HEALTH_DISPLAY
+MIN_TREES_IN_GROUP	0x454670	0x14a45f0	dword	0xa	0.0	0xa601	MIN_TREES_IN_GROUP
+MIN_TREE_BOUNDING_BOX_HEIGHT	0x454730	0x14a7230	dword	0x40a00000	5.0	0xa651	MIN_TREE_BOUNDING_BOX_HEIGHT
+MIN_TREE_SCALE	0x454730	0x164cd90	dword	0x3f000000	0.5	0x33ac1	MIN_TREE_SCALE
+MIN_VELOCITY_LOWER_ANCHOR	0x454730	0x14a75e0	None	None	None	None	
+MIN_VELOCITY_RAISE_ANCHOR	0x454730	0x14a5208	None	None	None	None	MIN_VELOCITY_RAISE_ANCHOR
+MOUNTAINS_THRESHHOLD	0x454670	0x165e2b0	dword	0x14a	0.0	0x39914	MOUNTAINS_THRESHHOLD
+MUSIC_ASYNC	0x4548c0	0x14a48b8	None	None	None	None	MUSIC_ASYNC
+MUSIC_BATTLE_RESULTS_FADE	0x454730	0x14a4fb8	dword	0x3e051eb8	0.13	0xa901	MUSIC_BATTLE_RESULTS_FADE
+MUSIC_DEPLOYMENT_FADE	0x454730	0x14a4710	dword	0x41000000	8.0	0xa951	MUSIC_DEPLOYMENT_FADE
+MUSIC_FADE_OUT_TIME	0x454730	0x149e0d8	dword	0x40000000	2.0	0x2461	MUSIC_FADE_OUT_TIME
+MUSIC_FORCE_BATTLE	0x4548c0	0x14a56e8	byte	0x0	None	0xa9a1	MUSIC_FORCE_BATTLE
+MUSIC_FRONT_END_FADE	0x454730	0x14a05e8	dword	0x3f800000	1.0	0x24b1	MUSIC_FRONT_END_FADE
+MUSIC_TIME_UNTIL_MUSIC_CHANGES	0x4545b0	0x14a7b38	dword	0xffffffff	nan	0xa9e1	MUSIC_TIME_UNTIL_MUSIC_CHANGES
+NAVAL_AI_EXCLUSIVE_BOARD	0x4548c0	0x150cc20	byte	0x0	None	0x157e1	Prioritises AI behaviour towards boarding the enemy
+NEW_VO_CODE	0x4548c0	0x1765830	None	None	None	None	NEW_VO_CODE
+NO_VARIANT_DISTANCE	0x454730	0x150e998	dword	0x42c80000	100.0	0x15891	no variant distance
+OCEAN_FADE_TIME	0x454730	0x14a70b0	dword	0x40000000	2.0	0xabe1	OCEAN_FADE_TIME
+OVERRIDE_QUOTE_ENTRY	0x4545b0	0x164ef90	dword	0xffffffff	nan	0x36481	OVERRIDE_QUOTE_ENTRY
+OVERRIDE_QUOTE_SOURCE	0x4545b0	0x164f070	dword	0xffffffff	nan	0x36521	OVERRIDE_QUOTE_SOURCE
+PLAINS_THRESHHOLD	0x454670	0x165e3d8	dword	0x14a	0.0	0x39964	PLAINS_THRESHHOLD
+PREVENT_MISFIRES	0x4548c0	0x14a59a0	byte	0x0	None	0xac34	Prevent engines from misfiring
+PROJECTILE_TRAIL_TEST	0x4548c0	0x183a308	byte	0x0	None	0x407f1	projectile_trail_test
+PROJECTILE_TRAIL_TEST_COLOUR_BLUE	0x454730	0x18377b0	dword	0x437f0000	255.0	0x40831	projectile_trail_test_colour_blue
+PROJECTILE_TRAIL_TEST_COLOUR_GREEN	0x454730	0x18390f0	dword	0x437f0000	255.0	0x40881	projectile_trail_test_colour_green
+PROJECTILE_TRAIL_TEST_COLOUR_RED	0x454730	0x1839700	dword	0x437f0000	255.0	0x408d1	projectile_trail_test_colour_red
+PROJECTILE_TRAIL_TEST_CROSS_FADE_RANGE	0x454730	0x1838c70	dword	0x42480000	50.0	0x40921	projectile_trail_cross_fade_range
+PROJECTILE_TRAIL_TEST_CROSS_FADE_START_DISTANCE	0x454730	0x18375d0	dword	0x42c80000	100.0	0x40971	projectile_trail_cross_fade_start_distance
+PROJECTILE_TRAIL_TEST_DURATION	0x454730	0x1837810	dword	0x3e99999a	0.3	0x409c1	projectile_trail_test_duration
+PROJECTILE_TRAIL_TEST_FADE_OUT_DISTANCE	0x454730	0x18387e0	dword	0x43960000	300.0	0x40a11	projectile_trail_test_fade_out_distance
+PROJECTILE_TRAIL_TEST_MIN_APPARENT_WIDTH_DISTANCE	0x454730	0x18378d0	dword	0x42480000	50.0	0x40a61	projectile_trail_test_min_apparent_width_distance
+PROJECTILE_TRAIL_TEST_OPACITY	0x454730	0x1838780	dword	0x43000000	128.0	0x40ab1	projectile_trail_test_opacity
+PROJECTILE_TRAIL_TEST_TYPE	0x454670	0x1839640	dword	0x0	0.0	0x40b01	projectile_trail_test_type
+PROJECTILE_TRAIL_TEST_WIDTH	0x454730	0x183a188	None	None	None	None	PROJECTILE_TRAIL_TEST_WIDTH
+RAIN_CROSSFADE_DURATION	0x454730	0x14a6a70	dword	0x3f000000	0.5	0xad21	RAIN_CROSSFADE_DURATION
+RAIN_FADE_TIME	0x454730	0x14a5e60	dword	0x40000000	2.0	0xad71	RAIN_FADE_TIME
+RANDOM_SOUND_TIME_NUM_ENTITIES_DIVIDER	0x454730	0x14a58d8	dword	0x41200000	10.0	0xadc1	RANDOM_SOUND_TIME_NUM_ENTITIES_DIVIDER
+RECORD_SHADOW_AABB	0x4548c0	0x18333e8	byte	0x0	None	0x3ea61	shadow
+RIGGING_UPDATE_ALL_SAILS	0x4548c0	0x150dac8	byte	0x0	None	0x15921	update all sails all the time
+ROPE_DISTANCE	0x454730	0x150de28	dword	0x43480000	200.0	0x159c1	rope distance
+ROPE_DISTANCE_FADEOUT	0x454730	0x150df48	dword	0x43160000	150.0	0x15a11	rope distance fade out start
+ROPE_POSITION_OFFSET	0x454730	0x14a6ec8	dword	0x40000000	2.0	0xae71	ROPE_POSITION_OFFSET
+RULES_LOGGING	0x4548c0	0x1507c28	byte	0x0	None	0x11361	Outputs results of rules resolving to log file
+
+SAILS_ON_FIRE_TIME	0x454730	0x14a5388	dword	0x40c00000	6.0	0xafc1	SAILS_ON_FIRE_TIME
+SAIL_CHANGE_STATE_FADE_TIME	0x454730	0x14a4a98	dword	0x3f800000	1.0	0xb021	SAIL_CHANGE_STATE_FADE_TIME
+SAVE_AUTOGENERATED_BMD	0x4548c0	0x164c7b8	byte	0x0	None	0x33b11	SAVE_AUTOGENERATED_BMD
+SEA_SURFACE_CROSSFADE_DURATION	0x454730	0x14a6e08	dword	0x40c00000	6.0	0xb071	SEA_SURFACE_CROSSFADE_DURATION
+SHARED_POSE_DISTANCE	0x454730	0x150e2b0	dword	0x42480000	50.0	0x15a81	shared pose distance
+SHIP_DESTROYED_SOUND_SINKING_TIME	0x454730	0x14a7970	dword	0x41b80000	23.0	0xb0c1	SHIP_DESTROYED_SOUND_SINKING_TIME
+SHIP_DESTROYED_SOUND_SUNK_END_TIME	0x454730	0x14a4b98	dword	0x42700000	60.0	0xb111	SHIP_DESTROYED_SOUND_SUNK_END_TIME
+SHIP_DESTROYED_SOUND_SUNK_TIME	0x454730	0x14a7518	dword	0x420c0000	35.0	0xb161	SHIP_DESTROYED_SOUND_SUNK_TIME
+SHIP_SINKING_CROSSFADE_TIME	0x454730	0x14a69a8	dword	0x3f000000	0.5	0xb1b1	SHIP_SINKING_CROSSFADE_TIME
+SHIP_SINKING_DELAY_MS	0x454670	0x15c3fd0	dword	0x7d0	0.0	0x1ed91	SHIP_SINKING_DELAY_MS
+SHIP_SINKING_FADE_IN_TIME	0x454730	0x14a7ad0	dword	0x3f800000	1.0	0xb201	SHIP_SINKING_FADE_IN_TIME
+SHIP_SINKING_FADE_OUT_TIME	0x454730	0x14a5508	dword	0x40800000	4.0	0xb251	SHIP_SINKING_FADE_OUT_TIME
+SHIP_SUNK_HEIGHT_CROSSFADE	0x454730	0x14a6bd8	dword	0xc0a00000	-5.0	0xb2a1	SHIP_SUNK_HEIGHT_CROSSFADE
+SHIP_VELOCITY_VOLUME_IDLE	0x454730	0x14a7850	dword	0x3f59999a	0.85	0xb2f1	SHIP_VELOCITY_VOLUME_IDLE
+SINKING_FADE_IN_TIME	0x454730	0x14a4770	dword	0xbf800000	-1.0	0xb3a1	SINKING_FADE_IN_TIME
+SINKING_FADE_OUT_TIME	0x454730	0x14a49d8	dword	0xbf800000	-1.0	0xb3f1	SINKING_FADE_OUT_TIME
+SINKING_MULTIPLIER_SOUND_1	0x454730	0x14a4c58	dword	0x3f800000	1.0	0xb441	SINKING_MULTIPLIER_SOUND_1
+SINKING_VOLUME_SCALE	0x454730	0x14a47d0	dword	0x3f800000	1.0	0xb491	SINKING_VOLUME_SCALE
+SOUND_HANDLE_MIN_REMOVAL_TIME	0x454670	0x17653a0	dword	0x3e8	0.0	0x3b9e1	SOUND_HANDLE_MIN_REMOVAL_TIME
+SOUND_SAMPLE_DEACTIVATION_MIN_SAMPLES	0x454670	0x1765340	dword	0x96	0.0	0x3ba31	SOUND_SAMPLE_DEACTIVATION_MIN_SAMPLES
+SOUND_SAMPLE_DEACTIVATION_TIME_DIVISOR	0x454670	0x1765218	dword	0x32	0.0	0x3ba81	SOUND_SAMPLE_DEACTIVATION_TIME_DIVISOR
+SOUND_SAMPLE_DEACTIVATION_TIME_MS_MAX	0x454670	0x1765278	dword	0x3a98	0.0	0x3bad1	SOUND_SAMPLE_DEACTIVATION_TIME_MS_MAX
+SOUND_SAMPLE_DEACTIVATION_TIME_MS_MIN	0x454670	0x17652e0	dword	0x1f4	0.0	0x3bb21	SOUND_SAMPLE_DEACTIVATION_TIME_MS_MIN
+SOUND_WEATHER_DISABLED	0x454670	0x14a5870	dword	0x0	0.0	0xb541	SOUND_WEATHER_DISABLED
+SOUND_WEATHER_VO_IDLE_CHANCE	0x454670	0x14a4cb8	dword	0x19	0.0	0xb591	SOUND_WEATHER_VO_IDLE_CHANCE
+STEAMSHIP_FADE_OUT_TIME	0x454730	0x14a77e8	dword	0x40400000	3.0	0xb5e1	STEAMSHIP_FADE_OUT_TIME
+TBB_ADD_TILE_TO_HEIGHT_COLOUR_GRAIN_SIZE	0x454670	0x164cdf0	dword	0x186a0	0.0	0x33cd1	TBB_ADD_TILE_TO_HEIGHT_COLOUR_GRAIN_SIZE
+TBB_ADD_TILE_TO_HEIGHT_COLOUR_SIMPLE_GRAIN_SIZE	0x454670	0x164c480	dword	0x186a0	0.0	0x33d21	TBB_ADD_TILE_TO_HEIGHT_COLOUR_SIMPLE_GRAIN_SIZE
+TBB_GENERATE_PERLIN_NOISE_GRASSMAP_GRAIN_SIZE	0x454670	0x164c618	dword	0x40	0.0	0x33d71	TBB_GENERATE_PERLIN_NOISE_GRASSMAP_GRAIN_SIZE
+TBB_HEIGHTFIELD_OUTLINE_RASTERISE_MIN_GRAIN_SIZE	0x454670	0x164c878	None	None	None	None	TBB_HEIGHTFIELD_OUTLINE_RASTERISE_MIN_GRAIN_SIZE
+TBB_NORMALISE_BLENDMAP_GRAIN_SIZE	0x454670	0x164c758	dword	0x40	0.0	0x33e14	TBB_NORMALISE_BLENDMAP_GRAIN_SIZE
+TBB_RADAR_GENERATOR_COLOUR_OVERLAY_GRAIN_SIZE	0x454670	0x164fe68	dword	0x40	0.0	0x369e4	TBB_RADAR_GENERATOR_COLOUR_OVERLAY_GRAIN_SIZE
+TBB_RADAR_GENERATOR_GROUNDTYPE_OVERLAY_GRAIN_SIZE	0x454670	0x164fde0	dword	0x40	0.0	0x36a34	TBB_RADAR_GENERATOR_GROUNDTYPE_OVERLAY_GRAIN_SIZE
+TBB_RADAR_GENERATOR_HEIGHT_OVERLAY_GRAIN_SIZE	0x454670	0x164ff48	dword	0x40	0.0	0x36a84	TBB_RADAR_GENERATOR_HEIGHT_OVERLAY_GRAIN_SIZE
+TBB_RADAR_GENERATOR_NO_GO_OVERLAY_GRAIN_SIZE	0x454670	0x164fec8	dword	0x40	0.0	0x36ad4	TBB_RADAR_GENERATOR_NO_GO_OVERLAY_GRAIN_SIZE
+TBB_SET_GROUNDTYPE_GRAIN_SIZE	0x454670	0x164cad8	dword	0x40	0.0	0x33e61	TBB_SET_GROUNDTYPE_GRAIN_SIZE
+TBB_TERRAIN_LAND_TYPE_ANALYSIS_GRAIN_SIZE	0x454670	0x165e370	None	None	None	None	TBB_TERRAIN_LAND_TYPE_ANALYSIS_GRAIN_SIZE
+TBB_TILE_LAYER_ABS_MERGE_GRAIN_SIZE	0x454670	0x164c420	dword	0x186a0	0.0	0x33eb1	TBB_TILE_LAYER_ABS_MERGE_GRAIN_SIZE
+TBB_TILE_LAYER_COLOURMAP_MERGE_GRAIN_SIZE	0x454670	0x164ca78	dword	0x186a0	0.0	0x33f01	TBB_TILE_LAYER_COLOURMAP_MERGE_GRAIN_SIZE
+TBB_TILE_LAYER_GROUNDTYPE_MERGE_GRAIN_SIZE	0x454670	0x164c678	dword	0x186a0	0.0	0x33f51	TBB_TILE_LAYER_GROUNDTYPE_MERGE_GRAIN_SIZE
+TBB_TILE_LAYER_REL_MERGE_GRAIN_SIZE	0x454670	0x164c940	dword	0x186a0	0.0	0x33fa1	TBB_TILE_LAYER_REL_MERGE_GRAIN_SIZE
+TBB_VEGETATION_BLEND_MAP_GRAIN_SIZE	0x454670	0x164cbf8	dword	0x40	0.0	0x33ff1	TBB_VEGETATION_BLEND_MAP_GRAIN_SIZE
+TBB_VEGETATION_COLOUR_MAP_GRAIN_SIZE	0x454670	0x164ccb8	dword	0x40	0.0	0x34041	TBB_VEGETATION_COLOUR_MAP_GRAIN_SIZE
+TBB_VEGETATION_GRASS_MAP_GRAIN_SIZE	0x454670	0x164c6d8	dword	0x40	0.0	0x34091	TBB_VEGETATION_GRASS_MAP_GRAIN_SIZE
+TERRAIN_UPDATE_DELAY	0x454730	0x14a7a00	dword	0x40000000	2.0	0xb951	TERRAIN_UPDATE_DELAY
+TEST_AI_BUILD	0x4545b0	0x14a5ba8	dword	0x0	0.0	0xb9a4	Exclusive AI resetting and seed-changing game (amount of battles suppl
+THUNDER_MIN_HEIGHT	0x454730	0x14a67a8	dword	0x42c80000	100.0	0xbb41	THUNDER_MIN_HEIGHT
+TOP_DECK_HEIGHT_OFFSET	0x454730	0x14a6ff0	dword	0xc0a00000	-5.0	0xbb91	TOP_DECK_HEIGHT_OFFSET
+TREE_GROUP_MIN_DIST_SQUARED	0x454670	0x14a5688	dword	0x1f4	0.0	0xbbe1	TREE_GROUP_MIN_DIST_SQUARED
+TREE_RAIN_UPDATE_TIME	0x454730	0x14a7a70	None	None	None	None	TREE_RAIN_UPDATE_TIME
+UI_ORDERS_TEST	0x4548c0	0x14a5fc0	byte	0x0	None	0xbf24	Test for adding functionality to battle UI orders
+UNIT_SOUND_INTERPOLATE_FADE_OUT_TIME	0x454730	0x14a4650	dword	0x40000000	2.0	0xbf71	UNIT_SOUND_INTERPOLATE_FADE_OUT_TIME
+UNIT_SOUND_POSITIONER_CROSSFADE_DURATION	0x454730	0x14a66d8	dword	0x40200000	2.5	0xbfc1	UNIT_SOUND_POSITIONER_CROSSFADE_DURATION
+UNIT_SOUND_POSITIONER_FADE_TIME	0x454730	0x14a7318	dword	0x3fc00000	1.5	0xc021	UNIT_SOUND_POSITIONER_FADE_TIME
+UPDATE_UNIT_SOUNDS_FAR_UNIT	0x454730	0x14a4d78	dword	0x3f800000	1.0	0xc071	UPDATE_UNIT_SOUNDS_FAR_UNIT
+UPDATE_UNIT_SOUNDS_NEAR_UNIT	0x454730	0x14a68e8	dword	0x3e800000	0.25	0xc0c1	UPDATE_UNIT_SOUNDS_NEAR_UNIT
+VEHICLE_MIN_SPEED	0x454730	0x14a4bf8	dword	0x3f333333	0.7	0xc171	VEHICLE_MIN_SPEED
+WATER_WILDLIFE_MAX_TIME	0x454730	0x14a5138	dword	0x41200000	10.0	0xc1e1	WATER_WILDLIFE_MAX_TIME
+WATER_WILDLIFE_MIN_TIME	0x454730	0x14a53e8	dword	0x40a00000	5.0	0xc231	WATER_WILDLIFE_MIN_TIME
+WATER_WILDLIFE_RANDOM_DIST	0x454730	0x14a6a10	dword	0x41c80000	25.0	0xc281	WATER_WILDLIFE_RANDOM_DIST
+WAYPOINT_PATH_WIDTH	0x454730	0x150e008	dword	0x40200000	2.5	0x15d51	width_of_the_waypoint_arrow
+WIND_SCALE	0x454730	0x1839d68	dword	0x3f800000	1.0	0x40c61	wind scale
+WIND_SCALE_UPDATE_TIME	0x454730	0x14a7580	dword	0x40a00000	5.0	0xc2d1	WIND_SCALE_UPDATE_TIME
+abandon_when_on_fire	0x4548c0	0x1508498	None	None	None	None	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\naval\sh
+adjustable_hill_scale	0x454730	0x165e5d0	dword	0x3f800000	1.0	0x39ac1	adjustable_hill_scale
+agent_flag_scale	0x454730	0x15c34a8	None	None	None	None	agent_flag_scale
+agent_flag_y_offset	0x454730	0x15c3c00	None	None	None	None	
+allow_drop_in_battles	0x454480	0x149cee0	None	None	None	None	Allow invititations to other peoples campaign battles when playing a s
+alpha_move_speed_tweaker	0x454730	0x1833310	dword	0x3d75c28f	0.06	0x3eb64	alpha_move_speed_tweaker
+amibient_particle_max_time	0x454730	0x183f780	dword	0x3f800000	1.0	0x43fb1	amibient_particle_max_time
+angle_max	0x454730	0x14d06a0	dword	0x3fac0508	1.3439	0x10b04	
+angle_min	0x454730	0x14d0700	dword	0x3f490fdb	0.7854	0x10b54	
+app_multirun	0x454480	0x149eb58	byte	0x0	None	0x2d64	Allow multiple instances of the application
+army_flag_scale	0x454730	0x15c37a8	None	None	None	None	army_flag_scale
+army_flag_y_offset	0x454730	0x15c30e8	None	None	None	None	
+audio_memory_size_in_megabytes	0x454300	0x149edb0	dword	0x64	0.0	0x2db4	Audio memory size in megabytes. Default = (100MB). More memory means f
+automanage_regions	0x454480	0x149da00	byte	0x0	None	0x2e04	Let the AI manage taxes etc in players regions
+autoresolve_difficulty	0x454300	0x149f4a0	dword	0x0	0.0	0x2e54	Sets the handicap for battles that are autoresolved. Positive gives ad
+autoresolve_logging_level	0x454670	0x150ee20	None	None	None	None	Level of logging output
+autoresolve_take_all_possible_naval_captives	0x4548c0	0x150d7c8	byte	0x0	None	0x15e11	When true naval captives will always be taken if in the list of possib
+award_all_achievements	0x4548c0	0x14a1350	byte	0x0	None	0x5d61	award_all_achievements
+battle_advice_level	0x454300	0x149d2a8	None	None	None	None	Sets advice level in the battle game
+battle_camera_shake_enabled	0x454480	0x14a03a8	None	None	None	None	Enable battle camera shake effects
+battle_difficulty	0x454300	0x149d5d0	dword	0x0	0.0	0x2f44	Sets the handicap for battles. Positive gives advantage.  -2 is vhard,
+battle_prop_scale_position	0x454730	0x150bde8	dword	0x461c4000	10000.0	0x15ea1	battle_prop_scale_position
+battle_prop_x_offset	0x454730	0x150c568	dword	0x0	0.0	0x15ef1	battle_prop_x_offset
+battle_prop_y_offset	0x454730	0x150c390	dword	0x0	0.0	0x15f41	battle_prop_y_offset
+battle_time_limit	0x454300	0x14a0200	dword	0x3c	0.0	0x2f94	Sets the time (in minutes) for each battle. -1 for unlimited
+bink_use_thread	0x454480	0x14a0080	None	None	None	None	tells bink to use asynchronous update, increased performance on some s
+boarding_ui_offset	0x454730	0x14a7050	dword	0x0	0.0	0xfac4	boarding_ui_offset
+break_on_cannon_id	0x454670	0x14a3aa8	dword	0xa0	0.0	0x7ab1	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\squad\sq
+bridge_curve	0x454730	0x1838240	dword	0x3f000000	0.5	0x40cb1	temp
+bridge_offset	0x454730	0x18388b0	dword	0x3e99999a	0.3	0x40d01	temp
+build_audio_mod_data	0x454480	0x149f3d8	byte	0x0	None	0x30c4	Allows modders to build binary sound packs
+build_sound_packs	0x454480	0x149ebb8	byte	0x0	None	0x3114	used for building sound engines binary data packs, requires sound_debu
+building_destruction_anims	0x4548c0	0x150bc50	None	None	None	None	building_destruction_anims are loaded up and played
+building_destruction_emitters	0x4548c0	0x150ceb0	None	None	None	None	building_destruction_emitters are loaded up and played
+building_flatten_hom_scale	0x454730	0x164c9a0	dword	0x3e99999a	0.3	0x341e1	building_flatten_hom_scale
+cache_scripts	0x4548c0	0x1765de8	None	None	None	None	When scripts are cached (the default option), they will be loaded once
+campaign_advice_level	0x454300	0x149e208	None	None	None	None	Sets advice level in the campaign game
+campaign_difficulty	0x454300	0x149f7c8	dword	0x0	0.0	0x3254	Sets the handicap for campaigns.  Positive gives advantage.  -2 is vha
+campaign_fov	0x454730	0x15c3028	None	None	None	None	campaign_fov
+campaign_height_scale	0x454730	0x1838180	dword	0x40266666	2.6	0x40d54	campaign_height_scale
+campaign_snow_height	0x454730	0x1838970	dword	0x3fb33333	1.4	0x40da4	campaign_snow_height
+campaign_time_limit	0x454300	0x149ef40	dword	0xffffffff	nan	0x32a4	campaign_time_limit
+campaign_tree_lod_distance	0x454730	0x15c2be0	None	None	None	None	campaign_tree_lod_distance
+campaign_wind_dir	0x454730	0x15c3588	dword	0x3fc00000	1.5	0x23ff1	campaign_wind_dir
+campaign_wind_str	0x454730	0x15c3dc8	dword	0x3fc00000	1.5	0x24041	campaign_wind_str
+cannon_crew_validity	0x4548c0	0x1508ef0	byte	0x0	None	0x11741	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\engine\E
+cannon_impulse	0x454730	0x1507680	dword	0x447a0000	1000.0	0x11781	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\engine\E
+casualties_famous_weighting	0x454730	0x15c0a10	dword	0x40800000	4.0	0x1df61	Max amount of battles on map
+chance_of_adding_AI_battle	0x454730	0x15c0cc0	dword	0x0	0.0	0x1dfb1	Chance of adding a fully AI battle
+city_dist	0x454730	0x164cb38	dword	0x44fa0000	2000.0	0x34231	city_dist
+city_radius	0x454730	0x15c0580	dword	0x41000000	8.0	0x1e004	city_radius
+collision_rot	0x454730	0x1508b30	dword	0x0	0.0	0x117d4	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\naval\sh
+collision_rot_flag	0x4548c0	0x1508b90	None	None	None	None	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\naval\sh
+combustion_modifier	0x454730	0x1508f50	dword	0x3ba3d70a	0.005	0x11871	combustion_modifier
+conversion_constants_conversion_points_base	0x454730	0x15c6e28	dword	0x3ff33333	1.9	0x2e3b4	
+conversion_constants_conversion_points_mult	0x454730	0x15c62d0	dword	0x4019999a	2.4	0x2e404	
+conversion_constants_conversion_points_zeal_mult	0x454730	0x15c65b0	None	None	None	None	
+conversion_constants_pop_added	0x454730	0x15c6620	dword	0x43480000	200.0	0x2e4a4	
+conversion_constants_pop_mult	0x454730	0x15c6da0	dword	0x3b83126f	0.004	0x2e4f4	
+cull_sea	0x4548c0	0x182ef90	None	None	None	None	
+debug_building_rotation	0x454730	0x15c33c0	dword	0x0	0.0	0x24951	debug_building_rotation
+debug_building_scale	0x454730	0x15c3f68	dword	0x41700000	15.0	0x249a1	debug_building_scale
+debug_building_x	0x454730	0x15c1ae0	dword	0x0	0.0	0x249f1	debug_building_x
+debug_building_y	0x454730	0x15c1f00	dword	0x0	0.0	0x24a41	debug_building_y
+debug_effect_x	0x454730	0x15c2400	dword	0x0	0.0	0x24a91	debug_effect_x
+debug_effect_y	0x454730	0x15c1b40	dword	0x0	0.0	0x24ae1	debug_effect_y
+debug_effect_z	0x454730	0x15c22e0	dword	0x0	0.0	0x24b31	debug_effect_z
+debug_log_draw	0x4548c0	0x149f9b0	byte	0x0	None	0x33d4	debug_log_draw
+debug_slowdown	0x454670	0x149fdc8	dword	0x0	0.0	0x3424	debug_slowdown
+debug_terrain_culling	0x4548c0	0x1833d50	byte	0x0	None	0x3ec01	debug_terrain_culling
+decal_angle	0x454730	0x18337a8	dword	0x0	0.0	0x3ec41	
+default_camera_type	0x454300	0x149ffb0	dword	0x0	0.0	0x3474	default battle camera: 0-totalwar 1-rts 2-debug
+defrag_free_immediate	0x4548c0	0x182f230	byte	0x0	None	0x3ec91	
+defrag_incremental_enable	0x4548c0	0x182f110	None	None	None	None	
+defrag_per_frame_count	0x4545b0	0x1833ab8	None	None	None	None	
+dest_length_cap	0x454730	0x150d888	dword	0x3f000000	0.5	0x16024	
+diffuse_move_speed_tweaker	0x454730	0x1833168	dword	0x3edc28f6	0.43	0x3ed64	diffuse_move_speed_tweaker
+disable_building_slot_display	0x4548c0	0x15c3238	byte	0x0	None	0x25001	disable_building_slot_display
+disable_building_upgrade_icons	0x4548c0	0x15c5bf8	byte	0x0	None	0x2e661	s:\branches\napoleon\curator\common\EmpireCampaign\Source\Regions\Empi
+disable_fire	0x4548c0	0x1507b68	byte	0x0	None	0x118c1	disable_fire
+disable_reflection	0x4548c0	0x1832918	byte	0x0	None	0x3edb1	disable_reflection
+disable_reflection_pvs	0x4548c0	0x1832ba8	byte	0x0	None	0x3edf1	disable_reflection_pvs
+disable_refraction	0x4548c0	0x1832e98	byte	0x0	None	0x3ee31	disable_refraction
+disable_render	0x4548c0	0x1833388	byte	0x0	None	0x3ee71	
+disable_ship_instance_override	0x4548c0	0x183a2a8	None	None	None	None	
+disable_weather	0x4548c0	0x183a128	byte	0x0	None	0x40e31	
+distortion_amount_tweaker	0x454730	0x18335f8	dword	0x3cf5c28f	0.03	0x3eeb4	distortion_amount_tweaker
+distortion_speed_tweaker	0x454730	0x1832f08	dword	0x3e2e147b	0.17	0x3ef04	distortion_speed_tweaker
+downflow_rate	0x454730	0x1507bc8	dword	0x3f000000	0.5	0x11901	Rate of flow of water downwards
+drag_scaling_x	0x454730	0x14a64d0	dword	0x420c0000	35.0	0xfce1	drag_scaling_x
+drag_scaling_y	0x454730	0x14a6028	dword	0x42340000	45.0	0xfd31	drag_scaling_y
+draw_all_buildings_on_radar	0x4548c0	0x15bdf98	None	None	None	None	draw_all_buildings_on_radar
+dump_buffer_usage_stats	0x4548c0	0x1833cf0	byte	0x0	None	0x3ef51	
+dynamic_grass_vb	0x4548c0	0x1838d90	byte	0x0	None	0x40e71	
+effect_spawn_quality_override	0x4545b0	0x183a668	dword	0xffffffff	nan	0x40eb1	effect_spawn_quality_override
+enable_animated_cache	0x4548c0	0x18322f0	None	None	None	None	enable_animated_cache
+enable_campaign_stat	0x4548c0	0x15c2a38	byte	0x0	None	0x251f1	
+enable_campaign_tree_lods	0x4548c0	0x15c31d0	None	None	None	None	
+enable_debug_building	0x4548c0	0x15c3d68	byte	0x0	None	0x25271	enable_debug_building
+enable_debug_effect	0x4548c0	0x15c1ba0	byte	0x0	None	0x252b1	enable_debug_effect
+enable_entity_fast_cull	0x4548c0	0x150ee80	None	None	None	None	enable_entity_fast_cull
+enable_flatten_buildings_on_load	0x4548c0	0x164c8e0	byte	0x0	None	0x34281	enable_flatten_buildings_on_load
+enable_foam_test	0x4548c0	0x1833c10	None	None	None	None	
+enable_invalidate_all_tiles	0x4548c0	0x1833a58	None	None	None	None	enable_invalidate_all_tiles
+enable_look_at	0x4548c0	0x150c7b8	None	None	None	None	enable_look_at
+enable_naval_land_mass	0x4548c0	0x165e498	None	None	None	None	enable_naval_land_mass
+enable_new_unit_variants	0x4548c0	0x150dfa8	None	None	None	None	enable_new_unit_variants
+enable_new_unit_variants_pose_debug	0x4548c0	0x150e4f0	byte	0x0	None	0x16154	enable_new_unit_variants_pose_debug
+enable_render_stat	0x4548c0	0x18324e0	byte	0x0	None	0x3f061	
+enable_retexture_farms_on_load	0x4548c0	0x164cb98	byte	0x0	None	0x342c1	enable_retexture_farms_on_load
+enable_sco	0x454730	0x15081f8	dword	0x3f800000	1.0	0x11954	temp
+enable_sea_stenciling	0x4548c0	0x1833998	None	None	None	None	
+enable_sea_stenciling_effect	0x4548c0	0x1833c70	None	None	None	None	
+enable_ship_wave_test	0x4548c0	0x1832350	byte	0x0	None	0x3f121	
+enable_slope	0x4548c0	0x183d810	None	None	None	None	enable_slope
+enable_sound	0x454480	0x149d248	None	None	None	None	enables all audio content (default = true). If disabled none of the da
+enable_stencil_clear	0x4548c0	0x150d430	None	None	None	None	
+enable_surface_texture	0x4548c0	0x18323b0	None	None	None	None	
+enable_tbb_draw_tracker	0x4548c0	0x150d8e8	None	None	None	None	enable_tbb_draw_tracker
+enable_visibility_cache	0x4548c0	0x1508370	None	None	None	None	enable_visibility_cache
+end_control_length_scale	0x454730	0x150d4f0	dword	0x3f800000	1.0	0x16234	
+entitiy_display_chinese_dead_visible_time	0x454730	0x150e190	dword	0x41200000	10.0	0x16281	entitiy_display_chinese_dead_visible_time
+entity_tracker_death_fade_out_depth	0x454730	0x150bd28	dword	0x3f800000	1.0	0x163b4	entity_tracker_death_fade_out_depth
+entity_tracker_death_fade_out_time	0x454730	0x150ca20	dword	0x3f800000	1.0	0x16404	entity_tracker_death_fade_out_time
+exclude_sea	0x4548c0	0x1838120	None	None	None	None	exclude_sea
+famous_battles_max_allowed	0x454730	0x15c0b90	dword	0x49742400	1000000.0	0x1e0e1	Max amount of battles on map
+famous_battles_start_amount	0x454730	0x15c0a70	dword	0x40800000	4.0	0x1e131	Starting amount of battles on map
+far_buildings	0x4548c0	0x150bcb0	None	None	None	None	far_buildings are loaded up
+farm_flatten_base_expansion	0x454730	0x164c350	dword	0x3e800000	0.25	0x34341	farm_flatten_base_expansion
+farm_flatten_hom_scale	0x454730	0x164c4e0	dword	0x3e99999a	0.3	0x34391	farm_flatten_hom_scale
+farm_flatten_num_passes	0x454670	0x164c5b0	None	None	None	None	farm_flatten_num_passes
+firc_arc_subdivision	0x454730	0x150eab8	dword	0x41200000	10.0	0x16491	firc_arc_subdivision
+fire_arc_curve	0x454730	0x150e3d0	dword	0x3f800000	1.0	0x164e1	fire_arc_curve
+fire_arc_width	0x454730	0x150d9a8	dword	0x40200000	2.5	0x16531	fire_arc_width
+fire_now	0x4548c0	0x15077b0	None	None	None	None	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\engine\E
+fix_res	0x454480	0x149de78	None	None	None	None	Forbid window resizing
+fix_window_pos	0x454480	0x149d690	None	None	None	None	Forbid window repositioning
+flag_max_size	0x454730	0x150e370	dword	0x40300000	2.75	0x16581	s:\branches\napoleon\curator\common\EmpireBattle\Source\view\Entity\En
+flag_min_apparent_size	0x454730	0x150e850	dword	0x3cf5c28f	0.03	0x165d1	s:\branches\napoleon\curator\common\EmpireBattle\Source\view\Entity\En
+flat_sea_surface	0x4548c0	0x182f050	byte	0x0	None	0x3f1a1	
+force_buildings_refresh	0x4548c0	0x15c2100	byte	0x0	None	0x25531	force_buildings_refresh
+force_low_lod_variant_shadows	0x4548c0	0x183cc08	byte	0x0	None	0x43244	force_low_lod_variant_shadows
+force_out_of_video_memory_at	0x454670	0x1833808	dword	0xffffffff	nan	0x3f274	
+force_resource_budget	0x454670	0x1838af0	dword	0xffffffff	nan	0x40f51	
+force_size_famous_weighting	0x454730	0x15c0c60	dword	0x40800000	4.0	0x1e181	Max amount of battles on map
+force_total_video_memory	0x454670	0x18332b0	dword	0x0	0.0	0x3f2c4	
+force_tree_billboards	0x4548c0	0x1837bd8	byte	0x0	None	0x40fa1	
+force_unit_imposters	0x4548c0	0x150cdf0	byte	0x0	None	0x16624	
+force_variants_single_mesh	0x4548c0	0x1840df0	byte	0x0	None	0x44644	force_variants_single_mesh
+fps_log	0x4548c0	0x1833868	byte	0x0	None	0x3f311	fps_log
+friend_only_drop_in_battles	0x454480	0x149d8e0	byte	0x0	None	0x3844	invite only friends to your campaign drop in battles when playing a si
+g_bridge_scale	0x454730	0x18394b0	dword	0x3f800000	1.0	0x40fe1	g_bridge_scale
+g_compass_x	0x454730	0x150c878	None	None	None	None	
+g_compass_y	0x454730	0x150cad8	dword	0x3f333333	0.7	0x166c1	g_compass_y
+g_compass_z	0x454730	0x150c660	dword	0x3f933333	1.15	0x16711	g_compass_z
+g_detail_size_meters	0x454730	0x183dca8	dword	0x41200000	10.0	0x43391	terrain detail size meters
+g_diffuse_size_meters	0x454730	0x183da98	dword	0x43000000	128.0	0x433e1	terrain diffuse size meters
+g_light_scale_multiplier	0x454730	0x1832a10	dword	0x3f800000	1.0	0x3f4c1	g_light_scale_multiplier
+g_slope_map_scale	0x454730	0x183d5b8	dword	0x3ca3d70a	0.02	0x43431	terrain diffuse slope map scale
+g_sm2_slope_max_scale	0x454730	0x183d7b0	dword	0x3ba3d70a	0.005	0x43481	terrain sm2/sm3low diffuse slope map scale
+g_snow_col_sm2	0x454730	0x183a5a8	None	None	None	None	g_snow_col_sm2
+g_snow_col_sm3	0x454730	0x1839210	dword	0x3e9eb852	0.31	0x41081	g_snow_col_sm3
+g_snow_top_proj_size	0x454730	0x1838d30	dword	0x40a00000	5.0	0x410d1	g_snow_top_proj_size
+g_spinner_s	0x454730	0x150cd90	dword	0x3cf5c28f	0.03	0x16761	g_spinner_s
+g_spinner_tilt	0x454730	0x150bf10	dword	0xbf666666	-0.9	0x167b1	g_spinner_tilt
+g_spinner_tilt_amount	0x454730	0x150c758	dword	0x0	0.0	0x16801	g_spinner_tilt_amount
+g_spinner_x	0x454730	0x150c3f0	None	None	None	None	
+g_spinner_y	0x454730	0x150c818	dword	0x3f333333	0.7	0x168a1	g_spinner_y
+g_spinner_z	0x454730	0x150c1b0	dword	0x3f933333	1.15	0x168f1	g_spinner_z
+g_terrain_max_a	0x454730	0x183d870	None	None	None	None	g_terrain_max_a
+g_terrain_size_meters	0x454730	0x183dbe8	dword	0x45000000	2048.0	0x43581	terrain terrain size meters
+g_water_direction_1_x	0x454730	0x183d9b8	dword	0x3f800000	1.0	0x435d1	Terrain Water
+g_water_direction_1_y	0x454730	0x183db88	dword	0x0	0.0	0x43621	Terrain Water
+g_water_direction_2_x	0x454730	0x183d630	dword	0x0	0.0	0x43671	Terrain Water
+g_water_direction_2_y	0x454730	0x183d558	dword	0xbf800000	-1.0	0x436c1	Terrain Water
+g_water_offset_1_x	0x454730	0x183d6f0	dword	0x0	0.0	0x43711	Terrain Water
+g_water_offset_1_y	0x454730	0x183da28	dword	0x0	0.0	0x43761	Terrain Water
+g_water_offset_2_x	0x454730	0x183d690	dword	0x0	0.0	0x437b1	Terrain Water
+g_water_offset_2_y	0x454730	0x183daf8	dword	0x0	0.0	0x43801	Terrain Water
+g_water_scale_1	0x454730	0x183dc48	dword	0x3f800000	1.0	0x43851	Terrain Water
+g_water_scale_2	0x454730	0x183d930	dword	0x3f800000	1.0	0x438a1	Terrain Water
+g_wind_dir_offset	0x454730	0x150cf10	dword	0x0	0.0	0x16941	s:\branches\napoleon\curator\common\EmpireBattle\Source\view\WindGauge
+generate_audio_pack_file	0x454480	0x149dfd0	byte	0x0	None	0x3924	To generate pack files automatically (default = false)
+gfx_aa	0x454300	0x149d9a0	dword	0x0	0.0	0x3974	Set antialiasing, 0-no, 3-8x
+gfx_building_quality	0x454300	0x149db70	None	None	None	None	Set the quality of buildings. 0 - lowest, 3 - ultra
+gfx_depth_of_field	0x454480	0x149f060	byte	0x0	None	0x3a64	Enable Depth of Field effects
+gfx_disable_terrain_ao_gpu	0x454480	0x149dd50	byte	0x0	None	0x3ab4	Disable terrain ambient occlusion term. Supported only on ShaderModel 
+gfx_distortion	0x454480	0x14a0648	byte	0x0	None	0x3b04	Enable Distortion Effect buffer
+gfx_effects_quality	0x454300	0x149fd68	None	None	None	None	Set effects quality. 0 - lowest, 3 - ultra
+gfx_first_run	0x454480	0x149f2b8	None	None	None	None	First time application run
+gfx_frame_rate	0x454300	0x149cf40	dword	0x3c	0.0	0x3c54	Set frame rate (fps)
+gfx_fullscreen	0x454480	0x14a00e0	None	None	None	None	Run the application in fullscreen or not
+gfx_grass_quality	0x454300	0x149f560	None	None	None	None	Set unit scale. 0 - off, 4 - ultra
+gfx_hardware_shadows	0x454480	0x149e1a8	byte	0x0	None	0x3d94	Enable hardware shadow mapping
+gfx_hdr	0x454480	0x149ed50	None	None	None	None	Use high dynamic range rendering pipeline
+gfx_low_quality_shaders	0x454480	0x14a02c0	byte	0x0	None	0x3e34	Use SM2 pixel shader code with SM3 vertex shaders and instancing.
+gfx_picture_in_picture	0x454480	0x149f0c0	None	None	None	None	Enable picture_in_picture
+gfx_shadermodel	0x454300	0x149f950	None	None	None	None	Set shader model, 0-2.0, 1-3.0
+gfx_shadow_quality	0x454300	0x149fa70	None	None	None	None	Set unit scale. 0 - off, 4 - ultra
+gfx_ship_quality	0x454300	0x149ecf0	None	None	None	None	Set the quality of ships. 0 - lowest, 3 - ultra
+gfx_sky_quality	0x454300	0x149d940	None	None	None	None	Set the quality of sky. 0 - lowest, 3 - ultra
+gfx_ssao	0x454480	0x14a0578	byte	0x0	None	0x4074	gfx_ssao
+gfx_terrain_quality	0x454300	0x149f708	dword	0x0	0.0	0x40c4	Set unit scale. 0 - low, 1 - high
+gfx_texture_filtering	0x454300	0x149f378	None	None	None	None	Set texture filtering, 0-bilinear, 5- anisotropic 16x
+gfx_texture_quality	0x454300	0x149f198	None	None	None	None	Set the quality of textures. 0 - lowest, 3 - ultra
+gfx_tree_quality	0x454300	0x149df70	None	None	None	None	gfx_tree_quality
+gfx_unit_quality	0x454300	0x14a0140	None	None	None	None	Set the quality of units. 0 - lowest, 3 - ultra
+gfx_unit_scale	0x454300	0x149d880	None	None	None	None	Set unit scale. 0 - lowest, 3 - ultra
+gfx_video_memory	0x454300	0x149fa10	dword	0x0	0.0	0x42a4	Override available video memory (bytes)
+gfx_vignette	0x454480	0x149f890	None	None	None	None	Enable vignette
+gfx_volumetric_effect	0x454480	0x149d0c8	byte	0x0	None	0x4344	volumetric fog on sea battle
+gfx_vsync	0x454480	0x149f768	byte	0x0	None	0x4394	vertical synchronization
+gfx_water_quality	0x454300	0x149f120	None	None	None	None	Set the quality of water. 0 - lowest, 3 - ultra
+grass_blade_height	0x454730	0x1838480	dword	0x3f800000	1.0	0x41121	
+grass_blade_width	0x454730	0x1839820	dword	0x40000000	2.0	0x41171	
+grass_gust_falloff	0x454730	0x18383c0	dword	0x3fc00000	1.5	0x411c1	grass_gust_falloff
+grass_gust_rampup_high	0x454730	0x1838a30	dword	0x40a00000	5.0	0x41211	grass_gust_rampup_high
+grass_gust_rampup_low	0x454730	0x1839030	dword	0x3f800000	1.0	0x41261	grass_gust_rampup_low
+grass_wind_scale	0x454730	0x183a368	dword	0x3f800000	1.0	0x412b1	grass_wind_scale
+height_offset	0x454730	0x1837ed8	dword	0x0	0.0	0x41301	
+hull_sea_foam_duration	0x454730	0x150e068	dword	0x40c00000	6.0	0x16991	
+hull_sea_foam_end_scale	0x454730	0x150d370	dword	0x40200000	2.5	0x169e1	
+hull_sea_foam_fade_in	0x454730	0x150e1f0	dword	0x3f800000	1.0	0x16a31	
+hull_sea_foam_fade_out	0x454730	0x150e938	dword	0x40800000	4.0	0x16a81	
+hull_sea_foam_start_scale	0x454730	0x150ebd8	dword	0x40000000	2.0	0x16ad1	
+ignore_victory_conditions	0x4548c0	0x14a3420	byte	0x0	None	0x7bd1	ignores victory conditions
+imposter_min_offset	0x454730	0x1839c40	dword	0x3f800000	1.0	0x41351	
+imposter_random_offset_scale	0x454730	0x150ed60	dword	0x45fa0000	8000.0	0x16b61	
+intake_rate	0x454730	0x1508500	dword	0x3f000000	0.5	0x123b1	Rate of intake of water through a 1 metre breach
+invert_cam_x_axis	0x454480	0x149fd00	byte	0x0	None	0x44c4	invert camera tilting up/down
+invert_cam_y_axis	0x454480	0x149dc30	byte	0x0	None	0x4514	invert camera panning left/right
+land_height	0x454730	0x1839e88	dword	0x0	0.0	0x413a1	temp
+lighting_update_needed	0x4548c0	0x1833e88	None	None	None	None	
+limited_cycled_buffer_count	0x454670	0x182eff0	dword	0x0	0.0	0x3f591	
+limitless_ammo	0x454480	0x149db10	None	None	None	None	Enable/disable Infinite ammo on battlefields
+load_fx_fromfile	0x4548c0	0x1833fe0	byte	0x0	None	0x3f5e1	
+lock_fail_probability	0x454730	0x1832410	dword	0x0	0.0	0x3f621	lock_fail_probability
+lod_addition	0x454730	0x150e310	dword	0x0	0.0	0x16bb1	
+lod_distance_scaler	0x454730	0x18342a8	dword	0x3f800000	1.0	0x3f671	lod_distance_scaler
+max_ancillaries	0x454670	0x15c5050	None	None	None	None	How many ancillaries a character can have at any one time
+max_async_file_requests	0x454670	0x17680b8	dword	0x78	0.0	0x3cb24	
+max_async_files_reserve	0x454670	0x1767d88	dword	0xa	0.0	0x3cb74	
+max_dist_for_jumping	0x454730	0x1507870	dword	0x40c00000	6.0	0x12a54	
+max_drops	0x454670	0x18379f0	dword	0x320	0.0	0x413f1	
+max_premapped_blocks_reserve	0x454670	0x1767ef8	None	None	None	None	
+max_premapped_files_per_block_reserve	0x454670	0x1767e00	dword	0x1000	0.0	0x3cc14	
+max_size	0x454730	0x150bbf0	None	None	None	None	max_size
+max_traits	0x454670	0x15c0ad0	None	None	None	None	Define how many traits a character can have at any one time
+min_apparent_size	0x454730	0x150c990	dword	0x3cf5c28f	0.03	0x16c51	occupiable icon mininum apparent size (for flags in the distance)
+min_gradient_for_climbing	0x454730	0x1508788	None	None	None	None	
+minimised_ui	0x454480	0x149d7b8	byte	0x0	None	0x4614	show minimised ui
+minimum_casualties_required	0x454730	0x15c0bf0	dword	0x447a0000	1000.0	0x1e2a1	Minimum total casualties required
+minimum_force_required	0x454730	0x15c09b0	dword	0x447a0000	1000.0	0x1e2f1	Minimum men required (per side)
+minimum_units_per_side	0x454730	0x15c0b30	dword	0x41000000	8.0	0x1e341	Minimum units required (per side)
+mountain_height	0x454730	0x1839760	dword	0x3c449ba6	0.012	0x41441	temp
+mountain_scale	0x454730	0x183a488	dword	0x421d7af6	39.3701	0x41491	temp
+mouse_wheel_sensitivity	0x454300	0x149d068	dword	0x32	0.0	0x4684	mouse wheel sensitivity: <0-100> default value = 50 
+multithreaded_model_enabled	0x454480	0x149f440	None	None	None	None	Run the battle model on a separate thread
+napoleons_battles_unlocked	0x4548c0	0x14a35e0	byte	0x0	None	0x7c31	Unlocks all of napoleons battles for dev purposes
+naval_flag_amplitude	0x454730	0x150ec38	dword	0x40200000	2.5	0x16cc1	naval_flag_amplitude
+naval_flag_distance_scale	0x454730	0x150d310	dword	0x43480000	200.0	0x16d11	naval_flag_distance_scale
+naval_flag_frq	0x454730	0x150ec98	dword	0x40a00000	5.0	0x16d61	naval_flag_frq
+naval_flag_size	0x454730	0x150dca8	dword	0x3f000000	0.5	0x16db1	naval_flag_size
+navy_flag_scale	0x454730	0x15c1d80	dword	0x3f333333	0.7	0x25bc1	Flag scale for a navy
+navy_flag_y_offset	0x454730	0x15c2340	None	None	None	None	
+no_clip	0x4548c0	0x15076e0	byte	0x0	None	0x13284	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\naval\sh
+non_release_battles	0x4548c0	0x149f1f8	byte	0x0	None	0x4761	Shows all battles in the battle list
+num_critical_fires	0x454730	0x1508d50	dword	0x41200000	10.0	0x132d1	num_critical_fires
+num_grass_levels	0x454670	0x18396a0	None	None	None	None	
+number_of_threads	0x454300	0x149fef0	dword	0x0	0.0	0x47a4	Set the number of threads <= 0 - automatic, >0 = explicit number 
+oar_sea_foam_duration	0x454730	0x150d130	dword	0x40e00000	7.0	0x16e04	
+oar_sea_foam_end_size	0x454730	0x150e6d0	dword	0x41200000	10.0	0x16e54	
+oar_sea_foam_fade_in	0x454730	0x150d250	None	None	None	None	
+oar_sea_foam_fade_out	0x454730	0x150dc48	dword	0x40600000	3.5	0x16ef4	
+oar_sea_foam_start_size	0x454730	0x150dbe8	dword	0x3f800000	1.0	0x16f44	
+occupiable_building_markers	0x454480	0x14a0410	None	None	None	None	Enable/disable occupiable building markers on battlefields
+occupied_fort_flag_scale	0x454730	0x15c1cc0	dword	0x3f400000	0.75	0x25c61	Flag scale for an occupied fort
+occupied_fort_flag_y_offset	0x454730	0x15c23a0	dword	0x3d3851ec	0.045	0x25cb1	Y offset for an occupied fort
+occupied_settlement_flag_scale	0x454730	0x15c1c00	dword	0x3f400000	0.75	0x25d01	Flag scale for an occupied settlement
+occupied_settlement_flag_y_offset	0x454730	0x15c21c0	dword	0x3d3851ec	0.045	0x25d51	Y offset for an occupied settlement
+occupied_slot_flag_scale	0x454730	0x15c1e40	dword	0x3f400000	0.75	0x25da1	Flag scale for an occupied slot
+occupied_slot_flag_y_offset	0x454730	0x15c1de0	dword	0x3d3851ec	0.045	0x25df1	Y offset for an occupied slot
+out_of_video_memory	0x4548c0	0x1833f70	byte	0x0	None	0x3f764	
+output_distortion_only	0x4548c0	0x1834040	byte	0x0	None	0x3f7b1	
+override_autoresolve_handicap	0x454480	0x149dcf0	byte	0x0	None	0x4844	Enable/disable use of autoresolve_difficulty setting (otherwise uses b
+override_variant_lod	0x4548c0	0x18407e8	None	None	None	None	s:\branches\napoleon\curator\common\Warscape\Source\systems\variant\Va
+particle_emit_mod	0x454730	0x18381e0	dword	0x3f800000	1.0	0x41534	
+particle_wind_scale_high	0x454730	0x1839b20	dword	0x41a00000	20.0	0x41581	particle_wind_scale_high
+particle_wind_scale_low	0x454730	0x1838e50	dword	0x40a00000	5.0	0x415d1	particle_wind_scale_low
+pass_all_ancillaries	0x4548c0	0x15c0638	byte	0x0	None	0x1e391	pass_all_ancillaries
+pass_all_traits	0x4548c0	0x15c0480	byte	0x0	None	0x1e3d4	pass_all_traits
+peaking_threshold	0x454730	0x164c540	dword	0x40a00000	5.0	0x344a1	Diamond Square Noise Multiplier
+perform_preindexed_filecheck	0x4548c0	0x1767c88	None	None	None	None	Set/reset the collection of unpacked files for file_exists calls (defa
+pip_skip_frames	0x454670	0x14a7640	None	None	None	None	pip_skip_frames
+precache_ui	0x4548c0	0x1765e88	None	None	None	None	Preloads all UI layouts when the UI is created
+projectile_impulse	0x454730	0x15085c8	dword	0x41c80000	25.0	0x13321	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\naval\sh
+rain_box_size	0x454730	0x1837ab0	dword	0x42be0000	95.0	0x41641	
+rain_box_size_light	0x454730	0x1837990	dword	0x42be0000	95.0	0x41691	
+rain_half_width_far	0x454730	0x1837570	dword	0x3e800000	0.25	0x416e1	
+rain_half_width_far_light	0x454730	0x18393f0	dword	0x3e800000	0.25	0x41731	
+rain_half_width_near	0x454730	0x18389d0	dword	0x3c23d70a	0.01	0x41781	
+rain_half_width_near_light	0x454730	0x1837930	dword	0x3c23d70a	0.01	0x417d1	
+rain_level	0x454730	0x1838600	dword	0x0	0.0	0x41821	
+rain_particle_count	0x454670	0x1837cf8	dword	0x2710	0.0	0x41871	
+rain_particle_count_light	0x454670	0x1839270	dword	0x1f4	0.0	0x418c1	
+rain_random_drift_scale	0x454730	0x1839f48	dword	0x41400000	12.0	0x41911	
+rain_random_drift_scale_light	0x454730	0x183a0c8	dword	0x41400000	12.0	0x41961	
+rain_sea_height	0x454730	0x1838b50	dword	0x43480000	200.0	0x419b1	
+rain_speed_parameter	0x454730	0x1839390	dword	0x40000000	2.0	0x41a01	
+rain_speed_parameter_light	0x454730	0x1839570	dword	0x3f800000	1.0	0x41a51	
+rain_streak_length	0x454730	0x1838660	dword	0x40a00000	5.0	0x41aa1	
+rain_streak_length_light	0x454730	0x1837a50	dword	0x40000000	2.0	0x41af1	
+rain_wind_scale	0x454730	0x1839150	dword	0x3f38d4fe	0.722	0x41b41	
+rain_wind_scale_light	0x454730	0x1837750	dword	0x3f38d4fe	0.722	0x41b91	
+reload_battle_script	0x4548c0	0x14a57a8	byte	0x0	None	0x10041	reload_battle_script
+reload_display_variance	0x454730	0x1507750	dword	0x3f866666	1.05	0x137a1	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\naval\ca
+render_3d_depth_sprites	0x4548c0	0x1832e28	None	None	None	None	
+render_animatable_rigids	0x4548c0	0x1839b80	None	None	None	None	
+render_battle_props	0x4548c0	0x150cc80	None	None	None	None	render_battle_props
+render_blendmap	0x4548c0	0x150be98	None	None	None	None	render_blendmap
+render_borders	0x4548c0	0x18382a0	None	None	None	None	render_borders
+render_campaign_tree_imposters	0x4548c0	0x15c2ef0	None	None	None	None	
+render_campaign_trees	0x4548c0	0x15c42d0	None	None	None	None	
+render_clouds	0x4548c0	0x183a248	None	None	None	None	
+render_coast	0x4548c0	0x18380c0	None	None	None	None	
+render_debug_lines	0x4548c0	0x1832b48	None	None	None	None	
+render_decals	0x4548c0	0x18334a8	None	None	None	None	
+render_disable_ship	0x4548c0	0x150d768	byte	0x0	None	0x17021	
+render_disable_ship_planks	0x4548c0	0x150eee0	byte	0x0	None	0x17061	
+render_disable_ship_verlet	0x4548c0	0x150e670	byte	0x0	None	0x170a1	
+render_enable_draw	0x4548c0	0x1833db0	None	None	None	None	
+render_enable_flush	0x4548c0	0x1834308	byte	0x0	None	0x3f991	
+render_entities	0x4548c0	0x150e0c8	None	None	None	None	entity display
+render_equipment	0x4548c0	0x18400b8	None	None	None	None	render_equipment
+render_flags	0x4548c0	0x1839ee8	None	None	None	None	
+render_frame_stats	0x4548c0	0x1832c48	byte	0x0	None	0x3f9d1	
+render_front_spray	0x4548c0	0x150d708	None	None	None	None	
+render_grass	0x4548c0	0x183a608	None	None	None	None	
+render_imposters	0x4548c0	0x183a428	None	None	None	None	
+render_in_batches_of_one	0x4548c0	0x1833748	byte	0x0	None	0x3fa11	
+render_instanced	0x4548c0	0x1833250	None	None	None	None	
+render_land	0x4548c0	0x18385a0	None	None	None	None	
+render_mountains	0x4548c0	0x1838f10	None	None	None	None	
+render_new_batching	0x4548c0	0x1832540	None	None	None	None	
+render_no_syslock	0x4548c0	0x1834248	byte	0x0	None	0x3fad1	
+render_non_instanced	0x4548c0	0x1833658	None	None	None	None	
+render_only_big_batch	0x4548c0	0x18331c8	byte	0x0	None	0x3fb51	
+render_overlays	0x4548c0	0x1837ff8	None	None	None	None	render_overlays
+render_rivers	0x4548c0	0x1833ee8	None	None	None	None	
+render_roads	0x4548c0	0x1838f70	None	None	None	None	render_roads
+render_sea	0x4548c0	0x1838910	None	None	None	None	
+render_sea_flat	0x4548c0	0x1832f68	byte	0x0	None	0x3fbd1	
+render_sea_foam	0x4548c0	0x150d490	None	None	None	None	
+render_sea_surface	0x4548c0	0x182f170	None	None	None	None	
+render_set_stats	0x4548c0	0x18325a0	byte	0x0	None	0x3fc51	
+render_ship_splashes	0x4548c0	0x150da08	None	None	None	None	
+render_side_spray	0x4548c0	0x150e9f8	None	None	None	None	
+render_skip_dip	0x4548c0	0x18336c8	byte	0x0	None	0x3fc91	
+render_skip_render	0x4548c0	0x1832d18	byte	0x0	None	0x3fcd1	
+render_skydome	0x4548c0	0x1838bb0	None	None	None	None	
+render_sm3_no_instancing	0x4548c0	0x18328b8	byte	0x0	None	0x3fd11	
+render_sprites	0x4548c0	0x1834368	None	None	None	None	
+render_sprites_3d	0x4548c0	0x1833e10	None	None	None	None	
+render_terrain	0x4548c0	0x1834178	None	None	None	None	
+render_trade	0x4548c0	0x15c28a8	None	None	None	None	render_trade
+render_traderoutes	0x4548c0	0x18399a0	None	None	None	None	s:\branches\napoleon\curator\common\Warscape\Source\systems\campaignte
+render_tree_bounds	0x4548c0	0x150c5e8	byte	0x0	None	0x17221	
+render_tree_clipping	0x4548c0	0x150bd88	byte	0x0	None	0x17261	
+render_water	0x4548c0	0x1832d78	None	None	None	None	
+render_weighted_meshes	0x4548c0	0x1833928	None	None	None	None	
+render_weighted_models	0x4548c0	0x1833ba0	None	None	None	None	
+ribbon_random_diff	0x454730	0x1837c98	dword	0x3e99999a	0.3	0x41f61	ribbon_random_diff
+rigid_lod_distance_scaler	0x454730	0x182f0b0	dword	0x41200000	10.0	0x400a1	rigid_lod_distance_scaler
+root_time	0x454730	0x149f5e8	dword	0x3f800000	1.0	0x48f4	root_time
+rot_vel_foam	0x454730	0x150e5b0	None	None	None	None	
+round_sea_camera	0x4548c0	0x1832480	None	None	None	None	
+sea_clip_plane_w	0x454730	0x1833448	dword	0x3f800000	1.0	0x403a1	sea_clip_plane_w
+sea_height	0x454730	0x1839fa8	dword	0x0	0.0	0x41fb1	temp
+ship_to_ship_damage	0x4548c0	0x1507810	None	None	None	None	s:\branches\napoleon\curator\common\EmpireBattle\Source\model\naval\sh
+show_command_stars	0x4548c0	0x14a5ec8	byte	0x0	None	0x10134	show_command_stars
+show_cpu_moves	0x454480	0x149e268	None	None	None	None	Show/hide the movement of the ai pieces on the campaign map
+show_path_markers	0x454480	0x149ec18	None	None	None	None	Show paths in naval battles
+show_resource_icons	0x4548c0	0x15c4df0	byte	0x0	None	0x2b684	Show the icons
+show_selection_markers	0x454480	0x14a0260	None	None	None	None	Show the selection markers under the units
+show_target_zones	0x454480	0x149f258	None	None	None	None	Show firing arcs etc
+shroud_enabled	0x454730	0x1839a60	dword	0x3f800000	1.0	0x42001	
+slot_battle_radius	0x454730	0x15c0788	dword	0x40800000	4.0	0x1e504	slot_battle_radius
+sm_expand	0x454730	0x1832a70	None	None	None	None	sm_expand
+smoothing_threshold	0x454730	0x164c818	None	None	None	None	
+snow_box_size	0x454730	0x1839d00	dword	0x42be0000	95.0	0x42051	
+snow_box_size_light	0x454730	0x1837690	dword	0x42be0000	95.0	0x420a1	
+snow_drift_scale	0x454730	0x1838c10	dword	0x41200000	10.0	0x420f1	
+snow_drift_scale_light	0x454730	0x1839dc8	dword	0x42480000	50.0	0x42141	
+snow_half_width	0x454730	0x18395e0	dword	0x3da3d70a	0.08	0x42191	
+snow_particle_count	0x454670	0x1838840	dword	0x3e80	0.0	0x421e1	
+snow_particle_count_light	0x454670	0x1839ca0	dword	0x1f4	0.0	0x42231	
+snow_random_drift_scale	0x454730	0x183a068	dword	0x41a00000	20.0	0x42281	
+snow_random_drift_scale_light	0x454730	0x1837630	dword	0x41f80000	31.0	0x422d1	
+snow_speed_parameter	0x454730	0x1838fd0	None	None	None	None	
+snow_speed_parameter_light	0x454730	0x18392d0	None	None	None	None	
+snow_streak_length	0x454730	0x18398e0	dword	0x40a00000	5.0	0x423c1	
+snow_streak_length_light	0x454730	0x183a4e8	dword	0x40000000	2.0	0x42411	
+snow_wind_scale	0x454730	0x1837870	dword	0x3f38d4fe	0.722	0x42461	
+snow_wind_scale_light	0x454730	0x1839510	dword	0x3f38d4fe	0.722	0x424b1	
+sort_weighted_meshes	0x4548c0	0x1834118	None	None	None	None	sort_weighted_meshes
+sound_channels	0x454300	0x149d428	dword	0x80	0.0	0x4e94	Number of sound channels. Fewer channels means fewer sounds but faster
+sound_debug	0x454480	0x14a0010	byte	0x0	None	0x4ee4	sound debugging (debug lines, debug dialog, etc.). These can also be t
+sound_file_caching	0x454480	0x149f6a8	byte	0x0	None	0x4f34	Sounds are preloaded at start of battle and campaign. increase perform
+sound_master_enabled	0x454480	0x149d6f0	None	None	None	None	master sound enabled
+sound_master_volume	0x454300	0x149f648	dword	0x64	0.0	0x4fd4	master sound volume 0-100
+sound_max_files_to_read_each_frame	0x454300	0x149fc50	dword	0x100	0.0	0x5024	Number of sounds to launch each frame. Higher value is fewer delayed s
+sound_multithreading	0x454480	0x149f830	byte	0x0	None	0x5074	Enables audio multithreading. Default = false.
+sound_music_enabled	0x454480	0x149ee70	None	None	None	None	music sound enabled
+sound_music_volume	0x454300	0x14a01a0	dword	0x64	0.0	0x5114	music sound volume 0-100
+sound_provider	0x454300	0x149ee10	dword	0x0	0.0	0x5164	sound provider index (0-?)
+sound_sfx_enabled	0x454480	0x149d188	None	None	None	None	sound_sfx_enabled
+sound_sfx_volume	0x454300	0x149dee8	dword	0x64	0.0	0x5264	sfx sound volume 0-100
+sound_speech_enabled	0x454480	0x149d630	None	None	None	None	speech sound enabled
+sound_speech_volume	0x454300	0x14a0348	dword	0x64	0.0	0x5304	speech sound volume 0-100
+sound_variations	0x454300	0x149eed0	None	None	None	None	Number of sound variations (0 == 2 or less, 1 = half variations, 2 = a
+sprite_cache_report_interval	0x454670	0x1834448	dword	0x64	0.0	0x40514	sprite_cache_report_interval
+ssao_view	0x454670	0x18340b8	None	None	None	None	
+st_async	0x4548c0	0x1838420	byte	0x0	None	0x42504	st_async
+st_lod	0x454670	0x1838360	dword	0x0	0.0	0x42551	temp
+st_prefetch_delta	0x454730	0x1838300	dword	0x42960000	75.0	0x425a4	st_prefetch_delta
+st_s	0x454730	0x18386c0	dword	0x3f800000	1.0	0x42691	temp
+st_s2	0x454730	0x1839090	dword	0x3f800000	1.0	0x425f1	temp
+st_s3	0x454730	0x1839a00	dword	0x3f800000	1.0	0x42641	temp
+st_ss	0x454730	0x1839880	dword	0x3f800000	1.0	0x426e1	temp
+st_stress	0x4548c0	0x1838540	byte	0x0	None	0x42734	st_stress
+st_x	0x454730	0x1837f98	dword	0x0	0.0	0x42781	temp
+st_y	0x454730	0x1837f38	dword	0x42200000	40.0	0x427d1	temp
+start_control_length_scale	0x454730	0x150d070	dword	0x41000000	8.0	0x174c4	
+starting_height_size	0x454730	0x150bb90	dword	0x40500000	3.25	0x17511	occupiable icon starting_height_size (for flags in the distance)
+strong_heap_verification	0x4548c0	0x14a0508	byte	0x0	None	0x54b4	Dictates whether or not strong heap verification is carried out at the
+subtitles	0x454480	0x149f500	byte	0x0	None	0x5504	Display subtitles during movies
+supertexture_override	0x4548c0	0x18384e0	byte	0x0	None	0x42821	supertexture_override
+tbb_anim_aabb	0x4548c0	0x1840130	None	None	None	None	tbb_anim_aabb
+tbb_draw_tracker_grain	0x454670	0x150e730	dword	0xa	0.0	0x17564	tbb_draw_tracker_grain
+tbb_dynamic_platform_grain	0x454670	0x14a3938	dword	0x1f4	0.0	0x7c74	tbb_dynamic_platform_grain
+tbb_naval_proxy_model_updated_grain	0x454670	0x150d3d0	None	None	None	None	tbb_naval_proxy_model_updated_grain
+tbb_rigging_system_update_grain	0x454670	0x150ea58	None	None	None	None	tbb_rigging_system_update_grain
+tbb_sea_foam_grain	0x454670	0x1832cb8	None	None	None	None	tbb_sea_foam_grain
+tbb_test_worker_thread_number	0x454670	0x150db88	dword	0x0	0.0	0x17651	tbb_test_worker_thread_number
+tbb_tracker_model_updated_grain	0x454670	0x150d2b0	dword	0xa	0.0	0x176a4	tbb_tracker_model_updated_grain
+tbb_update_cloud_instances_grain_size	0x454670	0x1838720	dword	0x28	0.0	0x42861	
+terrain_detail	0x4548c0	0x183d8d0	None	None	None	None	terrain_detail
+terrain_far_tile	0x454670	0x183d750	None	None	None	None	terrain far tile index
+terrain_frame_only	0x4548c0	0x18339f8	byte	0x0	None	0x40601	
+test_loading_screen_quotes	0x4548c0	0x14a6d98	byte	0x0	None	0x10181	test_loading_screen_quotes
+tree_exp_density	0x454730	0x1837b78	dword	0x3e19999a	0.15	0x42911	
+tree_exp_height	0x454730	0x1837d58	dword	0x41700000	15.0	0x42961	
+tree_exp_height_addition	0x454730	0x183a6e0	dword	0x43480000	200.0	0x429b1	
+tree_exp_lod	0x4548c0	0x18397c0	None	None	None	None	
+tree_exp_max_height	0x454730	0x1839ac0	dword	0x42700000	60.0	0x42a41	
+tree_far_distance	0x454730	0x1839330	dword	0x43480000	200.0	0x42a91	
+tree_near_distance	0x454730	0x1839be0	dword	0x41f00000	30.0	0x42ae1	
+tree_wind_response	0x454730	0x18376f0	dword	0x3f19999a	0.6	0x42b31	
+tree_wind_response_limit	0x454730	0x1837e78	dword	0x3f800000	1.0	0x42b81	
+turning_angle_to_dest_proportion	0x454730	0x150e430	None	None	None	None	turning_angle_to_dest_proportion
+ui_card_mode	0x454300	0x149d008	dword	0x0	0.0	0x55e4	Only applicable with minimised ui. 0 = always, 1 = slide on, 2 = never
+ui_land_unit_ids	0x454300	0x149ff50	dword	0x0	0.0	0x5654	0 = always, 1 = on mouse over, 2 = never
+ui_mouse_scroll	0x454480	0x149d308	None	None	None	None	Allow/disallow scrolling of the map by putting the cursor at the edge 
+ui_naval_unit_ids	0x454300	0x149f318	dword	0x0	0.0	0x56f4	0 = always, 1 = on mouse over, 2 = never
+ui_order_button_mode	0x454300	0x149d368	dword	0x0	0.0	0x5744	Only applicable with minimised ui. 0 = always, 1 = slide on, 2 = never
+ui_radar_mode	0x454300	0x149d4b0	dword	0x0	0.0	0x5794	Only applicable with minimised ui. 0 = always, 1 = slide on, 2 = never
+ui_show_campaign_labels	0x454480	0x149fe28	None	None	None	None	Show/hide the labels under settlements
+unit_combat_query_base_kill_rate_melee_tweak	0x454730	0x150dd08	None	None	None	None	unit_combat_query_base_kill_rate_melee_tweak
+unit_combat_query_base_kill_rate_missile_tweak	0x454730	0x150d1f0	None	None	None	None	unit_combat_query_base_kill_rate_missile_tweak
+unit_combat_query_base_kill_rate_naval_tweak	0x454730	0x150e490	None	None	None	None	unit_combat_query_base_kill_rate_naval_tweak
+unit_combat_query_base_rout_point_tweak	0x454730	0x150e550	None	None	None	None	unit_combat_query_base_rout_point_tweak
+unit_combat_query_fuzziness_effect_tweak	0x454730	0x150dee8	None	None	None	None	unit_combat_query_fuzziness_effect_tweak
+unit_combat_query_land_kill_rate_multiplier_tweak	0x454730	0x150e7f0	None	None	None	None	
+unit_combat_query_melee_outnumbering_multiplier_tweak	0x454730	0x150eb78	dword	0x0	0.0	0x17921	The multiplier for the outnumbering ratio, which is then applied to th
+unit_combat_query_missile_outnumbering_multiplier_tweak	0x454730	0x150e610	dword	0x0	0.0	0x17971	The multiplier for the outnumbering ratio, which is then applied to th
+unit_combat_query_naval_outnumbering_multiplier_tweak	0x454730	0x150ddc8	dword	0x40000000	2.0	0x179c1	The multiplier for the outnumbering ratio, which is then applied to th
+unit_combat_query_shaken_rout_point_tweak	0x454730	0x150dd68	dword	0x3f666666	0.9	0x17a11	The point at which the unit is shaken before rout (% of rout point - k
+unit_test	0x454480	0x149efa0	byte	0x0	None	0x5834	unit test (for daily build)
+unit_visibility	0x454730	0x14a3820	dword	0x3f800000	1.0	0x7cc1	unit_visibility
+unoccupied_fort_flag_scale	0x454730	0x15c3910	None	None	None	None	unoccupied_fort_flag_scale
+unoccupied_fort_flag_y_offset	0x454730	0x15c3658	dword	0x3d3851ec	0.045	0x27c21	Y offset for flag in unoccupied fort
+unoccupied_settlement_flag_scale	0x454730	0x15c2018	dword	0x3eb33333	0.35	0x27c71	Flag scale for unoccupied settlement
+unoccupied_settlement_flag_y_offset	0x454730	0x15c1ea0	dword	0x3d3851ec	0.045	0x27cc1	Y offset for flag in unoccupied settlement
+unoccupied_slot_flag_scale	0x454730	0x15c2078	dword	0x3e333333	0.175	0x27d11	Flag scale for unoccupied slot
+unoccupied_slot_flag_y_offset	0x454730	0x15c4198	dword	0x3d3851ec	0.045	0x27d61	Y offset for flag in unoccupied slot
+update_disable_ship	0x4548c0	0x150d5b0	byte	0x0	None	0x17a61	
+update_terrain_textures	0x4548c0	0x1833b18	None	None	None	None	
+update_trees	0x4548c0	0x183a548	None	None	None	None	
+upflow_rate	0x454730	0x1508438	None	None	None	None	
+use_compiled_scripts	0x4548c0	0x1768118	None	None	None	None	If use_compiled_scripts is set to false then the raw lua scripts will 
+use_minimap_resize	0x4548c0	0x15be000	None	None	None	None	use_minimap_resize
+use_secondary_cull	0x4548c0	0x18338c8	None	None	None	None	use_secondary_cull
+use_ui_occlusion	0x4548c0	0x1833530	None	None	None	None	use_ui_occlusion
+variant_lod1	0x454730	0x1840950	dword	0x40a00000	5.0	0x44444	variant_lod1
+variant_lod2	0x454730	0x18408d0	dword	0x41200000	10.0	0x44494	variant_lod2
+variant_lod3	0x454730	0x1840788	dword	0x41700000	15.0	0x444e4	variant_lod3
+variant_lod_skip	0x454670	0x1840848	None	None	None	None	variant_lod_skip
+vd_use_tbb	0x4548c0	0x1839940	None	None	None	None	vd_use_tbb
+verbose_texture_manager_reporting	0x4548c0	0x182f1d0	byte	0x0	None	0x40751	enable verbose texture manager reporting
+vfs_log_level	0x454300	0x149fb28	dword	0x0	0.0	0x5884	0 - off, 1 - mod-user, 2 - dev
+vis_bump_max	0x454730	0x14a36c0	dword	0x43960000	300.0	0x7d11	unit_visibility
+vis_bump_min	0x454730	0x14a39b0	dword	0x43960000	300.0	0x7d61	unit_visibility
+vis_clamp_max	0x454730	0x14a38b8	dword	0x43960000	300.0	0x7db1	unit_visibility
+vis_invisible_decay	0x454730	0x14a3728	dword	0x3f800000	1.0	0x7e01	unit_visibility
+vis_natural_decay	0x454730	0x14a3558	dword	0x40400000	3.0	0x7e51	unit_visibility
+voice_chat_enable	0x454480	0x14a0498	None	None	None	None	Enables VOIP functionality in Steam. (default = true)
+voice_chat_microphone_gain	0x454300	0x149d1e8	dword	0x64	0.0	0x5924	voice_chat_microphone_gain (0-100).
+voice_chat_microphone_gain_boost	0x454480	0x149e2c8	None	None	None	None	Boost microphone gain.
+voice_chat_quality	0x454300	0x149fbe8	None	None	None	None	Voice chat quality (0-2, 0 = low, 1 = medium, 2 = high).
+voice_chat_transmit_only_when_key_pressed	0x454480	0x149d570	None	None	None	None	voice_chat_transmit_only_when_key_pressed (otherwise always trasnmitti
+voice_chat_volume	0x454300	0x149d128	dword	0x64	0.0	0x5a64	Voice chat volume (0-100).
+wall_lod_scale_0	0x454730	0x150cce0	dword	0x40a00000	5.0	0x17aa1	wall_lod_scale_0
+wall_lod_scale_1	0x454730	0x150c6c0	dword	0x40b00000	5.5	0x17af1	wall_lod_scale_1
+weather_override	0x454670	0x1837c38	dword	0x0	0.0	0x42c51	
+wheel_sea_foam_duration	0x454730	0x150db28	dword	0x41400000	12.0	0x17bd4	
+wheel_sea_foam_end_scale	0x454730	0x150edc0	dword	0x40c00000	6.0	0x17c21	
+wheel_sea_foam_fade_in	0x454730	0x150e790	dword	0x3f000000	0.5	0x17c74	
+wheel_sea_foam_fade_out	0x454730	0x150eb18	dword	0x40600000	3.5	0x17cc4	
+wheel_sea_foam_start_scale	0x454730	0x150d550	dword	0x3f800000	1.0	0x17d11	
+win_on_quit_battle	0x4548c0	0x14a3a20	byte	0x0	None	0x7ea4	By default lose on quitting a battle.
+wind_gust_falloff_div	0x454730	0x1838cd0	dword	0x3f800000	1.0	0x42ca1	
+wind_gust_len	0x454730	0x1837510	dword	0x40000000	2.0	0x42cf1	
+wind_gust_max	0x454730	0x183a1e8	dword	0x40000000	2.0	0x42d41	
+wind_gust_prob_high	0x454730	0x1839450	dword	0x3f800000	1.0	0x42d91	
+wind_gust_prob_low	0x454730	0x1837db8	dword	0x3f000000	0.5	0x42de1	
+wind_gust_rampup_snow_high	0x454730	0x1838a90	dword	0x3f000000	0.5	0x42e31	
+wind_gust_rampup_snow_low	0x454730	0x1838eb0	dword	0x3e99999a	0.3	0x42e81	
+wind_gust_size_variety	0x454730	0x183a008	dword	0x3f000000	0.5	0x42ed1	
+wind_gust_time_high	0x454730	0x1837e18	dword	0x3f800000	1.0	0x42f21	
+wind_gust_time_low	0x454730	0x183a3c8	dword	0x40400000	3.0	0x42f71	
+wind_gust_time_variety	0x454730	0x1839e28	dword	0x3f000000	0.5	0x42fc1	
+wind_maximum	0x454730	0x14a5df8	dword	0x43c80000	400.0	0x101c1	wind
+wind_tree_gust_high	0x454730	0x1838df0	dword	0x40000000	2.0	0x43021	wind_tree_gust_high
+wind_tree_gust_low	0x454730	0x18391b0	dword	0x3e2e147b	0.17	0x43071	wind_tree_gust_low
+wp_damp	0x454730	0x14a7450	None	None	None	None	
+wp_gain	0x454730	0x14a6338	None	None	None	None	
+write_preferences_at_exit	0x454480	0x149d3c8	None	None	None	None	Write preferences at exit
+x_pos	0x454300	0x149f000	dword	0x0	0.0	0x5b04	Window position
+x_res	0x454300	0x149dab0	dword	0x0	0.0	0x5b54	Fixed window width
+y_pos	0x454300	0x149d510	dword	0x0	0.0	0x5ba4	Window position
+y_res	0x454300	0x149ec90	dword	0x0	0.0	0x5bf4	Fixed window height

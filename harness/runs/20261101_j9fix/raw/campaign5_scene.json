@@ -1,0 +1,100 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "campaign_start",
+  "kind": "campaign",
+  "target": "campaign:new:mp_eur_napoleon:austria",
+  "load_s": 2.6,
+  "path": {
+    "launch": {
+      "size": "1920x1080",
+      "keys_set": [],
+      "launch_s": 17.5
+    },
+    "via": "autostart"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 6.56,
+    "frames": 2501,
+    "scene": "campaign",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "mp_eur_napoleon",
+      "deployment": "running"
+    },
+    "got": {
+      "map": null,
+      "scene": "campaign"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j9-20261101T201953Z-2247424",
+      "request": "autostart campaign:new:mp_eur_napoleon:austria 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-01T20:19:54.132Z",
+      "end_utc": "2026-11-01T20:19:56.922Z",
+      "launch_id": "20261101T201942Z-p19504",
+      "scene": "campaign",
+      "lua": "started new campaign mp_eur_napoleon as austria",
+      "load_s": 2.6,
+      "total_s": 2.8,
+      "state_at_end": {
+        "launch_id": "20261101T201942Z-p19504",
+        "pid": 19504,
+        "frame": 18898,
+        "scene": "campaign",
+        "scene_s": 0.0,
+        "uptime_s": 14.0,
+        "written_utc": "2026-11-01T20:19:56.922Z",
+        "last_present_utc": "2026-11-01T20:19:56.919Z",
+        "lua": {
+          "loaded": true,
+          "context": "campaign",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": -1,
+          "deploy_panel": -1,
+          "age_s": -1.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1716,
+          "commit_mb": 1128
+        },
+        "reports": {
+          "autostart.campaign": "mp_eur_napoleon",
+          "autostart.faction": "austria"
+        }
+      },
+      "log": [
+        "2026-11-01T20:19:54.133Z [INFO ] [t35384] timeline: autostart_issued +11648 ms campaign:mp_eur_napoleon:austria",
+        "2026-11-01T20:19:54.135Z [INFO ] [t39848] lua report: autostart.campaign = mp_eur_napoleon",
+        "2026-11-01T20:19:54.286Z [INFO ] [t39848] lua report: autostart.faction = austria",
+        "2026-11-01T20:19:54.290Z [INFO ] [t35384] autostart: lua ok: started new campaign mp_eur_napoleon as austria",
+        "2026-11-01T20:19:54.290Z [INFO ] [t35384] scene: frontend -> loading after 5.1 s (uptime 11.4 s, frame 18515, lua frontend)",
+        "2026-11-01T20:19:54.290Z [INFO ] [t39848] movies: BinkClose movies\\frontend2.bik",
+        "2026-11-01T20:19:54.291Z [INFO ] [t39848] timeline: movie_close +11806 ms movies\\frontend2.bik",
+        "2026-11-01T20:19:56.049Z [INFO ] [t39848] luaopen_wsp: engine lua_State 054ebf98, global state 054b64cc (thread 39848) (again)",
+        "2026-11-01T20:19:56.049Z [INFO ] [t39848] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-01T20:19:56.056Z [INFO ] [t39848] lua: wrapper: campaign pumps from OnUpdatePulse",
+        "2026-11-01T20:19:56.888Z [INFO ] [t39848] lua: first pump from context 'campaign' (thread 39848)",
+        "2026-11-01T20:19:56.889Z [INFO ] [t39848] scene: loading -> campaign after 2.6 s (uptime 14.0 s, frame 18896, lua campaign)",
+        "2026-11-01T20:19:56.911Z [INFO ] [t39848] timeline: first_present_after_ready +14426 ms campaign"
+      ]
+    }
+  },
+  "start_utc": "2026-11-01T20:19:34.353Z",
+  "end_utc": "2026-11-01T20:20:04.587Z"
+}

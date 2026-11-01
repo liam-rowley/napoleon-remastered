@@ -7,5 +7,5 @@
   "when": "J15 console RE; J9 engine sites and any later engine-site hunt (every address it prints is a candidate until an engine_sites row with anchor bytes is verified on the PC)",
   "not_a_verb": "reads a game exe in place (read only), outside the wsc registry operations",
   "status": "live",
-  "last_used": "2026-10-29"
+  "last_used": "2026-11-01"
 }

@@ -1,8 +1,8 @@
 {
   "id": "napoleon.diff.exe.function_candidates",
-  "claim": "Of 2,854 named Empire functions (perf_mod annotations, static initialisers left out), 1,159 have a unique 32-byte masked signature hit in Napoleon.exe, 33 share their hit address with different Empire code (class shared), 468 have several hits, 1,190 none (RVAs in detail.signatures)",
+  "claim": "Of J6's function candidates, J9 checked the ones J28 needs: the battle order chain is located and registered as verify-only hook rows battle.* (selection ctor, AddUnit (J6 unique, 28 fixed bytes), move and formation command ctors and pushes, command dtor (J6 unique, 24 fixed bytes), unit position and bearing getters from the battle.unit luaL_Reg table); the other candidates are unverified",
   "state": "open",
-  "evidence": "discovery/diff/exe.json",
-  "date": "2026-10-29",
-  "notes": "candidates for J9 naming, unverified"
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "notes and the UNIT layout: harness/runs/20261101_j9pc/j28_candidates.md (owner J28)"
 }

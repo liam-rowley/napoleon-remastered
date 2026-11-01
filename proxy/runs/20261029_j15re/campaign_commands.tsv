@@ -150,7 +150,7 @@ quick_create_armies	acts	empire_campaign	calls 6 engine functions	quick_create_a
 quick_create_navies	acts	empire_campaign	calls 6 engine functions	quick_create_navies	Create an navy at a position	0x563480	0x963480
 quick_create_navies_1	acts	empire_campaign	calls 6 engine functions	quick_create_navies_1	Create a navy at a position	0x563060	0x963060
 recruit_general_or_admiral	acts	empire_campaign	calls 2 engine functions	recruit_general_or_admiral	Recruit an available general or admiral at a selected character	0x565280	0x965280
-refresh_buildings	acts	empire_campaign	calls 0 engine functions	refresh_buildings	Refresh the campaign building display	0x5653a0	0x9653a0
+refresh_buildings	acts	empire_campaign	1 indirect calls or tail jumps (virtual or through a global)	refresh_buildings	Refresh the campaign building display	0x5653a0	0x9653a0
 register_instant_movie	acts	empire_campaign	calls 3 engine functions	register_instant_movie		0x566420	0x966420
 remove_ap	parse_only	empire_campaign	only reads its arguments or the selection	remove_ap	Remove all AP from the selected character	0x523060	0x923060
 remove_marker	acts	empire_campaign	calls 1 engine functions	remove_marker		0x567270	0x967270
@@ -176,20 +176,20 @@ set_region_rebellion_state	acts	empire_campaign	calls 1 engine functions	set_reg
 set_turn_time_limit	acts	empire_campaign	calls 5 engine functions	set_turn_time_limit <limit>	Set the turn timer time limit	0x56a2e0	0x96a2e0
 show_allies_attacked_dialog	acts	empire_campaign	calls 2 engine functions	show_allies_attacked_dialog <local fac> <aggressor fac> <defender_fac> <invited by aggressor> <invited by defender>	shows the requester to side with allies	0x56a390	0x96a390
 show_battle_abilities	acts	empire_campaign	calls 23 engine functions	show_military_abilities	Print a report on the battle setup for selected army/navy	0x56a4a0	0x96a4a0
-show_faction_death_msg	acts	empire_campaign	calls 0 engine functions	show_faction_death_msg	show_faction_death_msg	0x56b780	0x96b780
+show_faction_death_msg	acts	empire_campaign	1 indirect calls or tail jumps (virtual or through a global)	show_faction_death_msg	show_faction_death_msg	0x56b780	0x96b780
 show_faction_emerges_msg	acts	empire_campaign	calls 1 engine functions	show_faction_emerges_msg	show_faction_emerges_msg	0x56b800	0x96b800
 show_general_and_admiral_recruitment	acts	empire_campaign	calls 2 engine functions	show_general_and_admiral_recruitment	Show available general and admiral recruitment at a selected character	0x565280	0x965280
 siege_assault	acts	empire_campaign	calls 5 engine functions	siege_assault	Begin a siege assault	0x56b870	0x96b870
 spawn_revolution	acts	empire_campaign	calls 7 engine functions	spawn_revolution	Spawn a revolution in the specified factions home region	0x56ba50	0x96ba50
 split	acts	empire_campaign	calls 2 engine functions	split	Split a single unit from an army, make a military force for it	0x56bd00	0x96bd00
 split_garrison	acts	empire_campaign	calls 2 engine functions	split_garrison	Split a unit from a garrison, make a military force for it	0x56bdb0	0x96bdb0
-split_garrison_general	acts	empire_campaign	calls 0 engine functions	split_garrison_general	Split the general unit from a garrison, make a military force for it	0x56bec0	0x96bec0
+split_garrison_general	acts	empire_campaign	7 indirect calls or tail jumps (virtual or through a global)	split_garrison_general	Split the general unit from a garrison, make a military force for it	0x56bec0	0x96bec0
 split_general	parse_only	empire_campaign	only reads its arguments or the selection	split_general	Split the general unit from an army, make a military force for it	0x56bf50	0x96bf50
 teleport_to	acts	empire_campaign	calls 5 engine functions	teleport_to x y	Teleport the selected character to the selected position	0x56caf0	0x96caf0
 test_movement_extents	parse_only	empire_campaign	only reads its arguments or the selection	test_movement_extents	Move selected navy randomly 1000000 times and calculate movement extents for each position	0x523060	0x923060
 toggle_immortal	acts	empire_campaign	calls 1 engine functions	toggle_immortal		0x56d240	0x96d240
 toggle_marker_active	acts	empire_campaign	calls 1 engine functions	toggle_marker_active		0x56d290	0x96d290
-transition_theatre	acts	empire_campaign	calls 0 engine functions	transition_theatre	Make selected naval character transition to edge of nearest transition area	0x56d360	0x96d360
+transition_theatre	acts	empire_campaign	1 indirect calls or tail jumps (virtual or through a global)	transition_theatre	Make selected naval character transition to edge of nearest transition area	0x56d360	0x96d360
 transport_to_hlci	acts	empire_campaign	calls 1 engine functions	transport_to_hlci [hlci]	Transported the selected character to the specified high level connectivity index	0x6af9c0	0xaaf9c0
 transport_to_region	acts	empire_campaign	calls 3 engine functions	transport_to_region [region key]	Transported the selected character to the specified region	0x6afa30	0xaafa30
 trigger_historical_event	acts	empire_campaign	calls 5 engine functions	trigger_historical_event	Trigger a historical event	0x56d520	0x96d520
@@ -197,4 +197,4 @@ trigger_test_event	acts	empire_campaign	calls 3 engine functions	trigger_test_ev
 unpause_campaign_ai	no_op	empire_campaign	handler is a bare ret	unpause_campaign_ai	Unpauses campaign AI.	0x44b60	0x444b60
 unveil_black_shroud	no_op	empire_campaign	handler is a bare ret	unveil_black_shroud	unveil_black_shroud	0x44b60	0x444b60
 upgrade_fort	acts	empire_campaign	calls 4 engine functions	upgrade_fort	Upgrade the currently selected fort one level	0x574540	0x974540
-win_revolution	acts	empire_campaign	calls 0 engine functions	win_revolution	Win revolution for revolutionaries	0x574f20	0x974f20
+win_revolution	acts	empire_campaign	1 indirect calls or tail jumps (virtual or through a global)	win_revolution	Win revolution for revolutionaries	0x574f20	0x974f20

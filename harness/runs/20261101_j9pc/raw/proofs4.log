@@ -1,0 +1,160 @@
+== land_stock land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:23:25Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.6
+capture land_stock_a rc 0: ": {"va_mb": 1822, "commit_mb": 1200}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []} 
+shot rc 0
+api land rc 0: 177Z [INFO ] [t39564] lua: api land R.UISelectionManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function"]} 
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:23:39.214Z [INFO ] [t39564] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:23:39.214Z [INFO ] [t39564] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:23:39.214Z [INFO ] [t39564] patch_engine: nothing to do - 37 sites: 37 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:23:39.214Z [INFO ] [t39564] patch_engine: 0 of 0 planned sites written
+== frontend frontend keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:24:34Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T162445Z-75729523: ok exit=0]
+waitfor rc 0
+api frontend rc 0: tion __div:function __mul:function __sub:function __index:table __gc:function", "2026-11-01T16:25:08.953Z [INFO ] [t34284] lua: api frontend __end total=721"]}
+kill rc 0
+== land_shgr land_small keys: gfx.shadow_proof=1 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=1 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:25:14Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.8
+capture land_shgr_a rc 0: ": {"va_mb": 1886, "commit_mb": 1254}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "141"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:25:28.104Z [INFO ] [t30392] patch_engine: wrote shadow.map_size_q34 at 012c6986: [00 08 00 00] -> [00 10 00 00]
+2026-11-01T16:25:28.104Z [INFO ] [t30392] patch_engine: wrote grass.grid_q3 at 01559ad8: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T16:25:28.104Z [INFO ] [t30392] patch_engine: wrote grass.grid_q4 at 01559ae4: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T16:25:28.104Z [INFO ] [t30392] patch_engine: 4 of 4 planned sites written
+== land_sweep land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=1   16:26:20Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.7
+capture land_sweep_a rc 0: ": {"va_mb": 1823, "commit_mb": 1196}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "250"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:26:48.157Z [INFO ] [t37544] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:26:48.157Z [INFO ] [t37544] patch_engine: apply - 37 sites: 37 ok, 0 bad, 1 to write (2 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:26:48.157Z [INFO ] [t37544] patch_engine: wrote shadow.light_sweep at 012676ac: [00 00 96 c2] -> [00 00 c8 c3]
+2026-11-01T16:26:48.157Z [INFO ] [t37544] patch_engine: 1 of 1 planned sites written
+== land_sprite land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=1 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:27:40Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.1
+capture land_sprite_a rc 0: ": {"va_mb": 1886, "commit_mb": 1268}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:27:58.973Z [INFO ] [t22360] patch_engine: wrote sprite.page_q3 at 013800e5: [00 00 80 44] -> [00 00 00 45]
+2026-11-01T16:27:58.973Z [INFO ] [t22360] patch_engine: wrote sprite.page_q2 at 01380100: [00 00 80 44] -> [00 00 00 45]
+2026-11-01T16:27:58.973Z [INFO ] [t22360] patch_engine: wrote sprite.page_q1 at 01380113: [00 00 80 44] -> [00 00 00 45]
+2026-11-01T16:27:58.973Z [INFO ] [t22360] patch_engine: 4 of 4 planned sites written
+== land_unitlod land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=1 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:28:56Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.7
+capture land_unitlod_a rc 0: ": {"va_mb": 1839, "commit_mb": 1215}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:29:24.019Z [INFO ] [t39828] patch_engine: wrote unit_lod.override_default at 00555431: [00] -> [01]
+2026-11-01T16:29:24.020Z [INFO ] [t39828] patch_engine: wrote unit_lod.imposter_distance_default at 005555a1: [00 00 c8 42] -> [00 00 7a 44]
+2026-11-01T16:29:24.020Z [INFO ] [t39828] patch_engine: wrote unit_lod.large_imposter_distance_default at 005556c1: [00 00 48 43] -> [00 00 7a 44]
+2026-11-01T16:29:24.020Z [INFO ] [t39828] patch_engine: 3 of 3 planned sites written
+== land_tree land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=1 gfx.shadow_sweep_proof=0   16:30:18Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.7
+capture land_tree_a rc 0: ": {"va_mb": 1823, "commit_mb": 1194}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:30:39.502Z [INFO ] [t38368] patch_engine: wrote trees.far_q3 at 013214dc: [00 00 48 43] -> [00 00 16 44]
+2026-11-01T16:30:39.502Z [INFO ] [t38368] patch_engine: wrote trees.far_q2 at 013214f2: [00 00 16 43] -> [00 00 16 44]
+2026-11-01T16:30:39.502Z [INFO ] [t38368] patch_engine: wrote trees.far_q1 at 013214fc: [00 00 c8 42] -> [00 00 16 44]
+2026-11-01T16:30:39.502Z [INFO ] [t38368] patch_engine: 4 of 4 planned sites written
+== land_uq3 land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:31:39Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T163151Z-24326201: ok exit=0]
+scene rc 0 ok  load 3.8
+capture land_uq3_a rc 0: ": {"va_mb": 1837, "commit_mb": 1206}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "141"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:32:08.963Z [INFO ] [t32260] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:32:08.963Z [INFO ] [t32260] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:32:08.963Z [INFO ] [t32260] patch_engine: nothing to do - 37 sites: 37 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:32:08.963Z [INFO ] [t32260] patch_engine: 0 of 0 planned sites written
+== land_tq3 land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:33:07Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T163319Z-1703013829: ok exit=0]
+scene rc 0 ok  load 4.4
+capture land_tq3_a rc 0: ": {"va_mb": 1881, "commit_mb": 1241}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:33:44.669Z [INFO ] [t35648] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:33:44.669Z [INFO ] [t35648] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:33:44.669Z [INFO ] [t35648] patch_engine: nothing to do - 37 sites: 37 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:33:44.669Z [INFO ] [t35648] patch_engine: 0 of 0 planned sites written
+== land_uq0 land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:34:39Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T163450Z-327577293: ok exit=0]
+scene rc 0 ok  load 3.7
+capture land_uq0_a rc 0: ": {"va_mb": 1803, "commit_mb": 1172}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "157"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:35:08.357Z [INFO ] [t7468] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:35:08.357Z [INFO ] [t7468] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:35:08.357Z [INFO ] [t7468] patch_engine: nothing to do - 37 sites: 37 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:35:08.357Z [INFO ] [t7468] patch_engine: 0 of 0 planned sites written
+== naval_stock naval_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:36:07Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.4
+capture naval_stock_a rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1722, "commit_mb": 1080}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "125"}}, "log": []} 
+shot rc 0
+api naval rc 0: :37:06.151Z [INFO ] [t19172] lua: api naval R.BattleUnit __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function"]} 
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:36:29.685Z [INFO ] [t19172] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:36:29.685Z [INFO ] [t19172] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:36:29.685Z [INFO ] [t19172] patch_engine: nothing to do - 37 sites: 37 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:36:29.685Z [INFO ] [t19172] patch_engine: 0 of 0 planned sites written
+== naval_ship naval_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=1 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:37:28Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.4
+capture naval_ship_a rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1723, "commit_mb": 1080}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "109"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:37:55.934Z [INFO ] [t18620] patch_engine: wrote ship_lod.mast_lod_distance_default at 00555711: [00 00 7a 43] -> [00 00 7a 44]
+2026-11-01T16:37:55.934Z [INFO ] [t18620] patch_engine: wrote ship_lod.rope_distance_default at 005559c1: [00 00 48 43] -> [00 00 7a 44]
+2026-11-01T16:37:55.934Z [INFO ] [t18620] patch_engine: wrote ship_lod.rope_distance_fadeout_default at 00555a11: [00 00 16 43] -> [00 00 61 44]
+2026-11-01T16:37:55.934Z [INFO ] [t18620] patch_engine: 4 of 4 planned sites written
+== siege_stock siege_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:38:49Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 5.1
+capture siege_stock_a rc 0: s_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1892, "commit_mb": 1266}, "reports": {"autostart.map": "rti_fort_1", "autostart.map_folder": "rti_fort_1", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "rti_fort_1", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+api siege rc 0: 28Z [INFO ] [t33864] lua: api siege R.UISelectionManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function"]} 
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:39:09.553Z [INFO ] [t33864] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:39:09.553Z [INFO ] [t33864] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:39:09.553Z [INFO ] [t33864] patch_engine: nothing to do - 37 sites: 37 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:39:09.553Z [INFO ] [t33864] patch_engine: 0 of 0 planned sites written
+== camp_stock campaign_start keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:40:11Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.6
+capture camp_stock_a rc 0: pump_age_s": 0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1753, "commit_mb": 1162}, "reports": {"autostart.campaign": "mp_eur_napoleon", "autostart.faction": "austria"}}, "log": []} 
+shot rc 0
+api campaign rc 0: ion Find:function MoveTo:function AttachCustomControl:function Parent:function SetOpacity:function Address:function ShaderVarsGet:function StealInputFocus:function new:function Dimensions:function"]} 
+select rc 0: utostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1754, "commit_mb": 1164}, "reports": {"autostart.campaign": "mp_eur_napoleon", "autostart.faction": "austria"}}, "log": []}
+api campaign_selected rc 0: ateSiegeEquipmentPanel:function _NAME:string SiegeEquipmentCardPosition:function SetEnqueuedSiegeEquipmentCards:function SiegeEquipmentCardSelected:function SiegeEquipmentOptionsUnchanged:function"]} 
+capture camp_stock_sel rc 0: pump_age_s": 0.0}, "battle": {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1755, "commit_mb": 1168}, "reports": {"autostart.campaign": "mp_eur_napoleon", "autostart.faction": "austria"}}, "log": []} 
+shot rc 0
+perf rc 0 None 286b3fa123e4
+kill rc 0
+2026-11-01T16:40:37.965Z [INFO ] [t17296] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:40:37.965Z [INFO ] [t17296] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:40:37.965Z [INFO ] [t17296] patch_engine: nothing to do - 37 sites: 37 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 17 hooks verified
+2026-11-01T16:40:37.965Z [INFO ] [t17296] patch_engine: 0 of 0 planned sites written

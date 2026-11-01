@@ -1,8 +1,8 @@
 {
   "id": "napoleon.diff.lua_api.surface",
-  "claim": "Static API diff against Empire engine_api.json: CampaignUI 257 names (28 new, 8 gone), BattleUI 161 (11 new, 16 gone), FrontEnd 107 (16 new, 12 gone), component methods 210 (44 new incl. TriggerAnimation, ShaderTechniqueGet, SetZDepth), events 92 (OnDraw, OnPreDraw, OnAnimationFrameEnd new); Component.* identical; 38 shared names called with a different argument count",
-  "state": "open",
-  "evidence": "discovery/diff/lua_api.json",
-  "date": "2026-10-29",
-  "notes": "static bytecode only; whether each name is callable, and real signatures, are J9 (per-screen API surface). Empire side is engine_api.json (436 scripts), not a re-run on the Empire extract"
+  "claim": "At runtime (probe api_surface.lua, 19 states over runs 20261101_j9pc and 20261101_j9fix: front end, its pages, after a warm reset; campaign with nothing, an army, a fleet, an agent or a settlement selected, and with the lists, government, diplomacy, missions, technology and building panels open; land, siege, naval) all of J6's new names exist (CampaignUI 28, BattleUI 11, FrontEnd 16) and most 'gone' names still exist (CampaignUI 6 of 8, BattleUI 4 of 16, FrontEnd 10 of 12: present in the exe, unused by vanilla scripts); TriggerAnimation, ShaderTechniqueGet and SetZDepth are UIComponent methods in every state; OnDraw, OnPreDraw and OnAnimationFrameEnd are layout callbacks, not in any Lua table; of the 38 argument-count drifts 11 are real engine changes, 5 are not, 22 are script-defined functions (discovery/napoleon/lua_cfuncs.json); 45 probe-safe getters (discovery/napoleon/probe_safe.json) all returned a sample; the build-system names (buildcommands, project, ...) are not engine API",
+  "state": "verified",
+  "evidence": "discovery/napoleon/engine_api.json",
+  "date": "2026-11-01",
+  "notes": "34 of the 44 new component methods were not reached: multiplayer, chat and drop-in objects absent from single-player states"
 }

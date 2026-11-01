@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.size_route",
+  "claim": "The shadow map setup 0x11868f0 switches on gfx_shadow_quality (options +0x69d18): q1 512 (distance cap 100 m), q2 1024 (250), q3 2048 (500), q4 2048 with R32F (1000); one mov ebx, 0x800 sizes colour map and depth buffer for q3 and q4; with it at 4096 the map, its depth buffer and the shaders' shadow_map_texture_size follow (4096 R16F, 53 caster draws) and raising the q3 cap to 1000 lifts the fitted farz from 250.5 to 473.3 (J8's q4 value); texel density at 140 m on the centre ray 3.81 -> 5.8 per metre",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "8K: the same one site (8192 R16F + D24X8); J24 measures cost"
+}

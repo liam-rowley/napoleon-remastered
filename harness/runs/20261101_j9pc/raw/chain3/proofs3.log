@@ -1,0 +1,5 @@
+== land_stock land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0  16:15:01Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.0
+capture land_stock_a rc 124: ctl j9-20261101T161539Z-2535511528: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j9-20261101T161539Z-2535511528.cmd.expired). 
+shot rc 1

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.exe.options_object",
+  "claim": "The graphics options object is *[0x182eb14]: setter index i (vtable 0x140c978, 365 slots, no RTTI) stores at +0x69c84 + 4i and +0x69cfc + 4i, with a max at +0x69d74 + 4i; read fields: index 1 = gfx_texture_quality (the imposter switch), 7 = gfx_shadow_quality, 8 = gfx_tree_quality, 9 = gfx_grass_quality; byte +0x69d09 = gfx_hardware_shadows; the gfx_* preference tweakers reach it by name, not through direct vtable calls",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "index meanings proven by the J9 profile launches (texture, tree, grass) and J8's per-quality shadow captures"
+}

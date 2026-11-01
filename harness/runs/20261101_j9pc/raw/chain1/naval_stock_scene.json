@@ -1,0 +1,127 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "naval_small",
+  "kind": "naval",
+  "target": "battle:naval_small",
+  "load_s": 7.0,
+  "path": {
+    "launch": {
+      "size": "1920x1080",
+      "keys_set": [],
+      "launch_s": 20.1
+    },
+    "via": "autostart"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.44,
+    "frames": 800,
+    "scene": "naval",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "caribbean",
+      "deployment": "running"
+    },
+    "got": {
+      "map": "caribbean",
+      "scene": "naval"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j9-20261101T160423Z-439125837",
+      "request": "autostart battle:naval_small 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-01T16:04:23.829Z",
+      "end_utc": "2026-11-01T16:04:32.559Z",
+      "launch_id": "20261101T160404Z-p29788",
+      "scene": "naval",
+      "lua": "started battle caribbean (naval, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+      "load_s": 7.0,
+      "total_s": 8.7,
+      "map": "caribbean",
+      "map_folder_loaded": "caribbean",
+      "map_folder_loaded_after_request_ms": 219,
+      "map_folder_selected": "caribbean",
+      "preset_map": "caribbean",
+      "state_at_end": {
+        "launch_id": "20261101T160404Z-p29788",
+        "pid": 29788,
+        "frame": 32349,
+        "scene": "naval",
+        "scene_s": 1.0,
+        "uptime_s": 27.4,
+        "written_utc": "2026-11-01T16:04:32.559Z",
+        "last_present_utc": "2026-11-01T16:04:32.557Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 1,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1749,
+          "commit_mb": 1093
+        },
+        "reports": {
+          "autostart.map": "caribbean",
+          "autostart.map_folder": "caribbean",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "caribbean",
+          "battle.map_folder_ms": "219"
+        }
+      },
+      "log": [
+        "2026-11-01T16:04:23.830Z [INFO ] [t33976] timeline: autostart_issued +18993 ms battle:naval_small",
+        "2026-11-01T16:04:24.123Z [INFO ] [t40436] lua report: battle.map_folder = hb_trafalgar",
+        "2026-11-01T16:04:24.123Z [INFO ] [t40436] lua report: battle.map_folder_ms = ",
+        "2026-11-01T16:04:24.128Z [INFO ] [t40436] lua report: battle.map_folder = hb_nile",
+        "2026-11-01T16:04:24.132Z [INFO ] [t40436] lua report: battle.map_folder = caribbean",
+        "2026-11-01T16:04:24.134Z [INFO ] [t40436] lua report: autostart.map = caribbean",
+        "2026-11-01T16:04:24.134Z [INFO ] [t40436] lua report: autostart.map_folder = caribbean",
+        "2026-11-01T16:04:24.134Z [INFO ] [t40436] lua report: autostart.weather = dry/Dry",
+        "2026-11-01T16:04:24.134Z [INFO ] [t40436] lua report: autostart.time_of_day = 2",
+        "2026-11-01T16:04:24.549Z [INFO ] [t40436] movies: BinkClose movies\\frontend2.bik",
+        "2026-11-01T16:04:24.549Z [INFO ] [t40436] timeline: movie_close +19712 ms movies\\frontend2.bik",
+        "2026-11-01T16:04:24.551Z [INFO ] [t33976] autostart: lua ok: started battle caribbean (naval, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+        "2026-11-01T16:04:24.551Z [INFO ] [t33976] scene: frontend -> loading after 13.3 s (uptime 19.4 s, frame 31706, lua frontend)",
+        "2026-11-01T16:04:24.764Z [INFO ] [t40436] lua report: battle.map_folder = caribbean",
+        "2026-11-01T16:04:24.764Z [INFO ] [t40436] lua report: battle.map_folder_ms = 219",
+        "2026-11-01T16:04:24.766Z [INFO ] [t40436] Direct3DCreate9(sdk=32) -> 32d8a910 [dxvk]",
+        "2026-11-01T16:04:24.766Z [INFO ] [t40436] headless: CreateDevice: back buffer 1x1, windowed, window 0001000c",
+        "2026-11-01T16:04:24.766Z [INFO ] [t40436] headless: CreateDevice: a helper device (back buffer 1x1): allowed, it shows nothing",
+        "2026-11-01T16:04:24.839Z [INFO ] [t40436] headless: CreateDevice(adapter 0, flags 0x22) -> 0x00000000",
+        "2026-11-01T16:04:24.839Z [INFO ] [t40436] capture: 36 of 36 device slots hooked (dev.capture=1, dir 'C:\\napoleon_remastered_pc\\captures\\')",
+        "2026-11-01T16:04:28.868Z [INFO ] [t40436] luaopen_wsp: engine lua_State 054e7ba0, global state 05541a54 (thread 40436) (again)",
+        "2026-11-01T16:04:28.868Z [INFO ] [t40436] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-01T16:04:28.882Z [INFO ] [t40436] lua: wrapper: battle pumps from OnUpdate",
+        "2026-11-01T16:04:28.882Z [INFO ] [t40436] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-11-01T16:04:31.550Z [INFO ] [t40436] lua: first pump from context 'battle' (thread 40436)",
+        "2026-11-01T16:04:31.550Z [INFO ] [t40436] scene: loading -> battle after 7.0 s (uptime 26.4 s, frame 32134, lua battle)",
+        "2026-11-01T16:04:31.552Z [INFO ] [t40436] lua: battle details: FlagPath=data\\ui\\flags\\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=true",
+        "2026-11-01T16:04:31.552Z [INFO ] [t40436] scene: battle probe naval=1 deploy_panel=0",
+        "2026-11-01T16:04:31.552Z [INFO ] [t40436] scene: battle -> naval after 0.0 s (uptime 26.4 s, frame 32134, lua battle)",
+        "2026-11-01T16:04:31.727Z [INFO ] [t40436] timeline: first_present_after_ready +26890 ms naval",
+        "2026-11-01T16:04:31.788Z [INFO ] [t40436] scene: battle probe naval=1 deploy_panel=1"
+      ]
+    }
+  },
+  "start_utc": "2026-11-01T16:03:54.986Z",
+  "end_utc": "2026-11-01T16:04:36.779Z"
+}

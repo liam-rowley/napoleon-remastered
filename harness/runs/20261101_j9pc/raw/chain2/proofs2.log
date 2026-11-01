@@ -1,0 +1,7 @@
+== land_stock land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0  16:06:47Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.3
+capture land_stock_a rc 1: ": {"va_mb": 1818, "commit_mb": 1197}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+api land rc 0: .895Z [INFO ] [t6852] lua: api land R.UISelectionManager __eq:function __metatable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function"]} 
+reset rc 1

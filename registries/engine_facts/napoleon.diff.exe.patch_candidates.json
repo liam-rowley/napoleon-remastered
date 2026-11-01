@@ -1,8 +1,8 @@
 {
   "id": "napoleon.diff.exe.patch_candidates",
-  "claim": "Empire patch-site windows (value bytes masked) with a unique hit in Napoleon.exe (RVA): grass grid (Ultra) 0x1019ad8, shadow light sweep 0xd27696; the sprite, naval-LOD and flag-size tweaker windows match several near-identical initialisers (no unique site); 19 of 26 patch and 20 of 26 cfg sites have no hit",
-  "state": "open",
-  "evidence": "discovery/diff/exe.json",
-  "date": "2026-10-29",
-  "notes": "owner J9; sprite and LOD distances will need Napoleon-side discovery, not Empire signatures"
+  "claim": "J6's two unique patch candidates are real sites: the grass grid window at RVA 0x1019ad8 is the anchor of engine_sites grass.grid_q3 (the gfx_grass_quality table), the shadow light sweep window at 0xd27696 holds shadow.light_sweep (the shadow renderer ctor's [+0x9c] -75); the sprite, naval-LOD and flag tweakers that matched several initialisers were found from Napoleon's own tweaker strings (rows sprite.page_q*, unit_lod.*, ship_lod.*; flags not registered)",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "closed by J9: rows and proofs in harness/runs/20261101_j9pc/README.md; routes discovery/napoleon/engine_sites_routes.md"
 }
