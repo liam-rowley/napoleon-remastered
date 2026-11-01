@@ -1,6 +1,6 @@
 # J8 PC run 20261101_j8pc: frame captures, shadow sweep, view-angle sweep
 
-PC (RTX 4090, Windows 11), watcher 1.2.0, 2026-11-01 11:49 to 13:15 UTC, game lock `j8`. DXVK unless named. Every scene through
+PC (RTX 4090, Windows 11), watcher 1.2.0, 2026-11-01 11:49 to 14:36 UTC (captures to 13:02, acceptance 13:06 to 14:34, front end 14:35), game lock `j8`. DXVK unless named. Every scene through
 `ctl.py scene` with the adapter's `ctl.launch.keys` (fixed sky) plus `dev.capture=1` and `dev.capture_dir=C:\napoleon_remastered_pc\captures`;
 headless 1920x1080 unless named. Prefs: the PC's as the acceptance baseline uses them (`gfx_shadow_quality 3`, `gfx_hardware_shadows false`,
 `gfx_hdr/ssao/distortion/depth_of_field false`, `gfx_unit_quality 2`, `gfx_gamma_setting 2`). Builds: the capture branch before the tag
