@@ -64,5 +64,5 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J58` | done | Rule 79: a core pin bump that leaves the DLL and harness unchanged needs no acceptance run | 1 | sonnet | no |  | jobs/J58/brief.md | jobs/J58/report.md | jobs/J58/review.md |
 | `J6` | done | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md | jobs/J6/review.md |
 | `J7` | done | Asset index, contact sheets, loc and db | 2 | sonnet | yes | J6 | jobs/J7/brief.md | jobs/J7/report.md | jobs/J7/review.md |
-| `J8` | needs_brief | Shader catalogue and frame anatomy | 2 | opus | yes | J4, J12, J44 |  |  |  |
+| `J8` | queued | Shader catalogue and frame anatomy | 2 | opus | yes | J4, J12, J44 | jobs/J8/brief.md |  |  |
 | `J9` | needs_brief | Engine API surface and engine sites | 2 | opus | yes | J4, J6, J12, J44 |  |  |  |
