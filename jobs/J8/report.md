@@ -78,3 +78,29 @@ is unchanged (`build.sh id`: `2b56389bc740`).
 
 ## Finish
 `wsc reg set jobs J8 status=review report=jobs/J8/report.md`
+
+## Fix round 1
+Against review round 1 (`jobs/J8/review.md`), 2026-11-01. PC sitting 15:03 to 15:13 UTC (run README section g).
+1. **Idle check on the final build** (`3d9eca1`): run `20261101_j8idle2`, one acceptance pass on `2b56389bc740` with `dev.capture=1` and no
+   capture: pass, every shot and load inside its threshold, perf p50 1.915 ms. `acceptance.py` recorded the kit label `ee06e0f96f50` as the
+   build (after a fresh install there is no `proxy.log`, so `build_info` falls back to install.json); the pass's own `proxy.log` (committed)
+   shows "build 2b56389bc740 loaded". On Liam's choice the uncommitted ledger line and `pass_01.json` carry the DLL's id and a `note` naming
+   the evidence; streak 21.
+2. **State blocks** (reviewer, `e58e2dd`): left the core hook for later (warscape-core backlog item below).
+3. **Hardware shadow path** (`47f81bf`): profile `j8-hwshadow` and capture `hw_land_small`: the same shaders and R16F map as the software
+   path, because the prefs file holds `gfx_hardware_shadows` twice and the watcher overlay sets the first only. Open fact
+   `napoleon.shadow.hardware_path` for J24; this was a gap the report did not list as a deviation.
+4. **View-angle numbers** (`9eb8411`): `shader_catalog.py` owns the metric (`shadow_density`: sqrt|det| of the ground-plane Jacobian of
+   map texels on the screen-centre ray from inverse `view_projection`), a `density` subcommand and a generated "Shadow texel density"
+   table; it reproduces the reviewer's numbers; `napoleon.shadow.view_angle` and the anatomy text regenerated from it (yaw 90 20.9/12.8/6.6,
+   yaw 0 5.2/5.2/5.1, yaw 45 3.7/3.3/2.7 texels per metre). My hand numbers measured one axis, not the area.
+5. **System-backend fact** (reviewer, `862f735`): kept as reworded; J16 starts with a `dev.capture=0` control launch.
+6. **Run README window** (reviewer, `0cc8099`): kept.
+- **Later, done here** (`9eb8411`): `napoleon.shadow.registers` and `napoleon.render.pass_order` cite the run README.
+- **Deviations the report left out:** deliverable 6 was first answered as distant-unit (imposter) shadows before Liam named the view-angle
+  symptom; every capture came from the pre-tag build `f3e33f228416-dirty` (the capture code then differed only in the result's shader count),
+  the idle check and the 20 passes from `2b56389bc740`.
+- **Left, for the core (warscape-core backlog; a core PR needs Liam's merge):** the `CaptureRun` second-timeout path; the unsynchronised
+  globals (record only the arming thread); hooking `CreateStateBlock`/`Apply`; `acceptance.py` `build_info` reading the build before the
+  first launch after an install; the watcher prefs overlay setting only the first occurrence of a duplicated key. And `wsc setup`'s stale
+  `harness/core/job.sh` path needs a queue row.

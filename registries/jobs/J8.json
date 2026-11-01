@@ -3,7 +3,7 @@
   "description": "Catalogue the shader set and capture frame anatomy in the scenario library: render targets, the shadow pass, what draws blob shadows and why, matrix registers. Facts into engine_facts with run ids; inputs for the shadow and distance work.",
   "title": "Shader catalogue and frame anatomy",
   "phase": 2,
-  "status": "fix",
+  "status": "review",
   "model": "opus",
   "needs_pc": true,
   "depends_on": [
