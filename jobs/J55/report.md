@@ -125,7 +125,7 @@ Expected merge-main commits per job branch for registry reasons: **0**, apart fr
    tests and docs: `core/proxy/`, `core/harness/` and `core/saves/` are byte-identical to v0.5.0, and the DLL build id is unchanged
    (`f3e33f228416`, the same as J40's passes). I did not weaken the rule. Either run the 20 passes for `job/J55` on the PC, or file a
    rule change as its own job: exempt a pin change when the submodule diff between the two pins leaves `proxy/` and `harness/`
-   untouched.
+   untouched. **Liam chose the rule change (2026-11-01): J58, `needs_brief` on plan PR 101. This job merges after J58.**
 2. **Moving `assets` and the small registries.** `assets` (12295 game-derived rows, touched by 4 of the 30 branches) would be 12295
    files; it is worth moving only if branches start adding asset rows concurrently, or when discovery decides whether game-derived
    rows are committed at all (core B4). `scenarios`, `hotkeys`, `config_keys`, `engine_sites` and `ui_elements` each move with one
