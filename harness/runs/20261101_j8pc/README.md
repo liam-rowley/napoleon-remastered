@@ -54,3 +54,14 @@ attempt relaunched headless because the final kit's install had reset the ctl la
 ## f) After the 20 passes
 Front end from a fresh launch (`f1_frontend`, 33 draws), final fxmap (168 shaders, 163 mapped), then `pc_deploy uninstall`: the game
 folder is identical to the pre-install snapshot (1564 files), the exe vanilla; no lock and no active profile.
+
+## g) Review round 1 fixes (15:03 to 15:13 UTC)
+- Key on, no capture, on the final build: run `20261101_j8idle2`, one acceptance pass, **pass** (land 0.857, siege 1.017, naval 1.811,
+  Dresden 3.226, Nile 4.658 against the same thresholds; perf p50 1.915 ms); the DLL logged "build 2b56389bc740 loaded"
+  (`harness/runs/20261101_j8idle2/proxy.log`). `acceptance.py` labelled the pass with the kit id `ee06e0f96f50` (no proxy.log yet after a
+  fresh install, so `build_info` fell back to install.json); the ledger line and `pass_01.json` were corrected to `2b56389bc740` with a
+  `note` (Liam's choice, 2026-11-01). Streak: 21.
+- Hardware shadows: profile `j8-hwshadow` (`gfx_hardware_shadows true`), capture `hw_land_small`: 675 draws, the same 83 shaders and the
+  same 2048 R16F map as `r1_land_small`. The prefs file has the key twice (lines 24 and 37) and the overlay sets the first only, so the
+  path was not reached: fact `napoleon.shadow.hardware_path` (open, J24).
+- Then `pc_deploy uninstall`: identical to the pre-install snapshot (1564 files).

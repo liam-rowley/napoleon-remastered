@@ -8,6 +8,7 @@
   "20261101_j8pc/b_deploy",
   "20261101_j8pc/b_near",
   "20261101_j8pc/f1_frontend",
+  "20261101_j8pc/hw_land_small",
   "20261101_j8pc/q0_land_small",
   "20261101_j8pc/q1_land_small",
   "20261101_j8pc/q2_land_small",
@@ -483,6 +484,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 3,
      "passes": [
@@ -876,6 +884,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 8,
      "passes": [
@@ -1185,6 +1200,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 1,
      "passes": [
@@ -1342,6 +1364,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 13,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 10,
      "passes": [
       0
      ]
@@ -2081,6 +2110,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 59,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 68,
      "passes": [
       4
      ]
@@ -2917,6 +2953,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 3,
      "passes": [
@@ -3395,6 +3438,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 2,
      "passes": [
@@ -3847,6 +3897,14 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 2,
      "passes": [
@@ -4170,6 +4228,14 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 2,
      "passes": [
@@ -4402,6 +4468,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 1,
      "passes": [
       4
@@ -5285,6 +5358,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 4,
      "passes": [
@@ -5987,6 +6067,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 8,
      "passes": [
@@ -6209,6 +6296,13 @@
      "draws": 1,
      "passes": [
       4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
      ]
     },
     {
@@ -6457,6 +6551,13 @@
      "draws": 16,
      "passes": [
       5
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 42,
+     "passes": [
+      7
      ]
     },
     {
@@ -7019,6 +7120,13 @@
      "draws": 1,
      "passes": [
       4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
      ]
     },
     {
@@ -7767,6 +7875,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 5,
      "passes": [
@@ -7973,6 +8088,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 6,
      "passes": [
       0
      ]
@@ -8239,6 +8361,15 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 121,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 139,
      "passes": [
       2,
       3,
@@ -8928,6 +9059,13 @@
     {
      "capture": "20261101_j8pc/b_deploy",
      "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 9,
      "passes": [
       4
      ]
@@ -9673,6 +9811,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 1,
      "passes": [
@@ -9888,6 +10033,13 @@
     {
      "capture": "20261101_j8pc/b_deploy",
      "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 9,
      "passes": [
       0
      ]
@@ -10384,6 +10536,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 4,
      "passes": [
@@ -10625,6 +10784,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
      "passes": [
       4
      ]
@@ -10876,6 +11042,13 @@
      "draws": 10,
      "passes": [
       5
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 7,
+     "passes": [
+      7
      ]
     },
     {
@@ -11586,6 +11759,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 3,
      "passes": [
@@ -11910,6 +12090,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 221,
      "passes": [
@@ -12150,6 +12337,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 1,
      "passes": [
       4
@@ -12448,6 +12642,14 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 10,
      "passes": [
       2,
@@ -12851,6 +13053,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 23,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 2,
      "passes": [
       4
      ]
@@ -13362,6 +13571,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 2,
      "passes": [
@@ -13724,6 +13940,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 9,
      "passes": [
@@ -13893,6 +14116,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 9,
      "passes": [
       5
@@ -14138,6 +14368,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 2,
      "passes": [
@@ -14293,6 +14530,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 10,
      "passes": [
       5
@@ -14761,6 +15005,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 6,
      "passes": [
@@ -15054,6 +15305,13 @@
      "draws": 1,
      "passes": [
       4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
      ]
     },
     {
@@ -15653,6 +15911,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 5,
      "passes": [
@@ -16178,6 +16443,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 4,
      "passes": [
@@ -16448,6 +16720,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 10,
      "passes": [
@@ -16696,6 +16975,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 5,
      "passes": [
       7
@@ -17235,6 +17521,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 1,
      "passes": [
@@ -17464,6 +17757,13 @@
      "draws": 1,
      "passes": [
       4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
      ]
     },
     {
@@ -17699,6 +17999,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 4,
      "passes": [
@@ -17904,6 +18211,14 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 2,
      "passes": [
       2,
@@ -18152,6 +18467,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 10,
      "passes": [
       7
@@ -18905,6 +19227,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 7,
      "passes": [
@@ -19143,6 +19472,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 6,
      "passes": [
       4
@@ -19403,6 +19739,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 4,
      "passes": [
@@ -19637,6 +19980,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 7,
      "passes": [
@@ -19844,6 +20194,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 2,
      "passes": [
       4
@@ -20078,6 +20435,14 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 2,
      "passes": [
@@ -20298,6 +20663,13 @@
      "draws": 1,
      "passes": [
       4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
      ]
     },
     {
@@ -20851,6 +21223,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 4,
      "passes": [
@@ -21129,6 +21508,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 81,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 97,
      "passes": [
       4
      ]
@@ -21772,6 +22158,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 6,
      "passes": [
@@ -21944,6 +22337,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 4,
      "passes": [
       4
@@ -22167,6 +22567,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 6,
      "passes": [
       4
@@ -22410,6 +22817,14 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 8,
      "passes": [
@@ -22614,6 +23029,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 5,
      "passes": [
       0
@@ -23199,6 +23621,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 2,
      "passes": [
@@ -23466,6 +23895,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 5,
      "passes": [
       7
@@ -23942,6 +24378,14 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 8,
      "passes": [
@@ -24362,6 +24806,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 68,
      "passes": [
@@ -24758,6 +25209,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 1,
      "passes": [
@@ -25016,6 +25474,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 1,
      "passes": [
@@ -25235,6 +25700,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 6,
      "passes": [
       0
@@ -25514,6 +25986,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 4,
      "passes": [
@@ -25719,6 +26198,13 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 1,
      "passes": [
       7
@@ -25983,6 +26469,14 @@
     },
     {
      "capture": "20261101_j8pc/b_near",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
      "draws": 10,
      "passes": [
       2,
@@ -26276,6 +26770,13 @@
      "draws": 17,
      "passes": [
       5
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 52,
+     "passes": [
+      7
      ]
     },
     {
@@ -26828,6 +27329,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 9,
      "passes": [
@@ -27250,6 +27758,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 6,
      "passes": [
@@ -27422,6 +27937,13 @@
      "draws": 1,
      "passes": [
       4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
      ]
     },
     {
@@ -27666,6 +28188,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 222,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 221,
      "passes": [
       4
      ]
@@ -27958,6 +28487,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
      "passes": [
       0
      ]
@@ -28619,6 +29155,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 5,
      "passes": [
@@ -28890,6 +29433,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 6,
      "passes": [
       4
      ]
@@ -29224,6 +29774,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 1,
      "passes": [
@@ -29479,6 +30036,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 3,
      "passes": [
       4
      ]
@@ -29887,6 +30451,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q0_land_small",
      "draws": 1,
      "passes": [
@@ -30262,6 +30833,13 @@
      "draws": 1,
      "passes": [
       4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 1,
+     "passes": [
+      6
      ]
     },
     {
@@ -30715,6 +31293,13 @@
      ]
     },
     {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
      "capture": "20261101_j8pc/q1_land_small",
      "draws": 4,
      "passes": [
@@ -30963,6 +31548,13 @@
     {
      "capture": "20261101_j8pc/b_near",
      "draws": 81,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j8pc/hw_land_small",
+     "draws": 97,
      "passes": [
       4
      ]

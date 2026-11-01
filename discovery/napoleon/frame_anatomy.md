@@ -31,20 +31,20 @@ A `land_small` capture at 2560x1440 (`w1440_land_small`) against 1920x1080: **ev
 <!-- gen:targets -->
 | size | format | msaa | texture | size rule | captures |
 |---|---|---|---|---|---|
-| 2048x2048 | D24X8 | 0 | no | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
-| 2048x2048 | R16F | 0 | yes | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q3_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 2048x2048 | D24X8 | 0 | no | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, hw_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 2048x2048 | R16F | 0 | yes | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, hw_land_small, q3_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, w1440_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
 | 2048x2048 | R32F | 0 | yes | fixed | q4_land_small |
 | 2560x1440 | A8R8G8B8 | 0 | yes | bb | w1440_land_small |
 | 2560x1440 | D24S8 | 0 | no | bb | w1440_land_small |
 | 2560x1440 | X8R8G8B8 | 0 | no | bb | w1440_land_small |
 | 2400x1350 | A8R8G8B8 | 0 | yes | fixed | r1_campaign_after_reset, r1_campaign_start |
-| 1920x1080 | A8R8G8B8 | 0 | yes | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
-| 1920x1080 | D24S8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
-| 1920x1080 | X8R8G8B8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 1920x1080 | A8R8G8B8 | 0 | yes | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, hw_land_small, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 1920x1080 | D24S8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, hw_land_small, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 1920x1080 | X8R8G8B8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, hw_land_small, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
 | 1024x1024 | D24X8 | 0 | no | fixed | q2_land_small |
 | 1024x1024 | R16F | 0 | yes | fixed | q2_land_small |
 | 1280x720 | A8R8G8B8 | 0 | yes | bb/2 | w1440_land_small |
-| 960x540 | A8R8G8B8 | 0 | yes | bb/2 | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
+| 960x540 | A8R8G8B8 | 0 | yes | bb/2 | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend, hw_land_small, q0_land_small, q1_land_small, q2_land_small, q3_land_small, q4_land_small, r1_campaign_after_reset, r1_campaign_start, r1_hist_dresden, r1_hist_nile, r1_land_small, r1_naval_small, r1_siege_small, t1_land_small, y_0, y_135, y_180, y_225, y_270, y_315, y_45, y_90 |
 | 512x512 | D24X8 | 0 | no | fixed | q1_land_small |
 | 512x512 | R16F | 0 | yes | fixed | q1_land_small |
 <!-- /gen -->
@@ -93,6 +93,7 @@ Every capture with a shadow map; the metric is `shader_catalog.py` `shadow_densi
 | b_d700 | 42.7 | 2048 | 249.6 | 10.71 | 7.46 | 4.37 |
 | b_deploy | 57.7 | 2048 | 250.5 | 12.44 | 7.51 | 3.81 |
 | b_near | 52.7 | 2048 | 160.0 | 13.4 | 6.79 | 2.98 |
+| hw_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
 | q1_land_small | 57.7 | 512 | 72.3 | 9.06 | 3.36 | 1.22 |
 | q2_land_small | 57.7 | 1024 | 139.1 | 10.33 | 4.99 | 2.12 |
 | q3_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
@@ -126,6 +127,7 @@ Every capture with a shadow map; the metric is `shader_catalog.py` `shadow_densi
 | 20261101_j8pc/b_deploy | battle_deploy | 674 | 8 | 1920x1080 | 83 | 1 |
 | 20261101_j8pc/b_near | battle_deploy | 1282 | 8 | 1920x1080 | 80 | 1 |
 | 20261101_j8pc/f1_frontend | frontend | 33 | 6 | 1920x1080 | 16 | 1 |
+| 20261101_j8pc/hw_land_small | battle_deploy | 675 | 8 | 1920x1080 | 83 | 1 |
 | 20261101_j8pc/q0_land_small | battle_deploy | 626 | 7 | 1920x1080 | 66 | 1 |
 | 20261101_j8pc/q1_land_small | battle_deploy | 660 | 8 | 1920x1080 | 83 | 1 |
 | 20261101_j8pc/q2_land_small | battle_deploy | 670 | 8 | 1920x1080 | 83 | 1 |
@@ -437,3 +439,4 @@ undefined, and some effects only with `DEPTH_PRE_PASS` or `ENABLE_SHADOWS` undef
   through state blocks unless created with `D3DXFX_DONOTSAVESTATE`, so per-draw render/sampler state and textures after an effect's
   `End` may be stale here; render targets, depth surfaces and shader binds inside `BeginPass` are not affected (open: J8 review round 1).
 - GPU time per pass: `perf` gives the frame time only.
+- The hardware shadow path: a prefs profile cannot set `gfx_hardware_shadows` (the key is in the file twice; fact `napoleon.shadow.hardware_path`).
