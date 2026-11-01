@@ -1,0 +1,5 @@
+{
+  "description": "J8 backend check: the proxy on the system d3d9 (no DXVK) with the ctl launch keys as they are, for one land_small capture against the DXVK one",
+  "requires": [],
+  "warn_missing": ["game:d3d9.dll"]
+}

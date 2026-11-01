@@ -1,8 +1,7 @@
 {
   "id": "napoleon.diff.shaders.j8_flags",
-  "claim": "Changed fx sources J8 should read first: sprite.fx (1,577 lines changed), variantmesh.fx (811), weighted.fx (234), vegetation_billboard.fx (108), custom_sprite.fx, extendedsprite.fx, imposter.fx, rigid_imposter.fx_fragment, shadowmap.fx_fragment; none is named LOD",
-  "state": "open",
-  "evidence": "discovery/diff/shaders.json",
-  "date": "2026-10-29",
-  "notes": "owner J8"
+  "claim": "Changed fx sources J8 should read first: sprite.fx (1,577 lines changed), variantmesh.fx (811), weighted.fx (234), vegetation_billboard.fx (108), custom_sprite.fx, extendedsprite.fx, imposter.fx, rigid_imposter.fx_fragment, shadowmap.fx_fragment; none is named LOD. Closed by J8: captured shaders per source in shader_catalog.json flagged_sources: sprite.fx 11, variantmesh.fx 9, weighted.fx 9, vegetation_billboard.fx 6, custom_sprite.fx 6, imposter.fx 5; extendedsprite.fx 11 (a macro template included by sprite.fx, not compiled on its own); rigid_imposter.fx_fragment 12 and shadowmap.fx_fragment 117 by the mapped shaders whose source includes them",
+  "state": "verified",
+  "evidence": "discovery/napoleon/shader_catalog.json",
+  "date": "2026-11-01"
 }

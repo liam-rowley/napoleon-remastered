@@ -191,6 +191,29 @@ are what `core/harness/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.b
 Engine Lua never calls `string.find`, `string.sub` or `gmatch`: one call stops the battle pump (fact `napoleon.lua.string_find_stalls_pump`,
 `tests/test_repo_rules.py`).
 
+## Frame capture (J8)
+
+`dev.capture=1` (default and release off) hooks 36 `IDirect3DDevice9` vtable slots at `CreateDevice` (`core/capture.cpp`; pure parts and the hash in
+`core/capture.h`, `tests/test_capture.cpp`); with it off nothing is hooked, and with it on and no capture running each hook is one flag test.
+ctl `capture <name> [frames]` (1 to 8 frames, a new name each time) records every device call of the next frames to
+`<dev.capture_dir>\<name>\frame.txt` and each shader's bytecode once per hash to `<dev.capture_dir>\shaders\<hash>.vs|ps`; `dev.capture_dir`
+is outside the game folder (D25; empty refuses). Result fields: `dir`, `file`, `shader_dir`, `frames`, `bytes`, `lines`, `draws`, `shaders`,
+`shaders_new`, `shaders_unwalked` and `shaders_size_differs` (both must be 0: the walked length agrees with `GetFunction`), `record_s`.
+Hash: canonical FNV-1a-64 over the bytecode up to and including the walked end token (never the first `0x0000FFFF`, which a CTAB may hold);
+Empire's hashes are not comparable. The vtable survives a device `Reset`, so the hooks stay armed across it. The engine's `D3DPERF` events
+(`D3DPERF_BeginEvent` is imported by the exe) are recorded too. Offline: `discovery/core/shader_catalog.py` (summaries, disassembly, fx
+mapping, the catalogue and the anatomy tables).
+
+`frame.txt` is one call per line, in call order (pointers and hashes hex, states `name value`):
+`CAPTURE <name> launch build frames utc scene` | `STATE` ... `ENDSTATE` (what the previous frame left bound, read back with `Get*`) |
+`FRAME n` ... `PRESENT` | `BACKBUFFER ptr` | `SURF ptr w h fmt usage pool ms msq container` (first sight; container = the texture an RT
+belongs to) | `TEX ptr type levels w h d fmt usage pool` | `DECL ptr n s.off.type.method.usage.index...` | `SHADER ptr vs|ps hash size walked` |
+`RT i ptr` | `DS ptr` | `CLEAR n flags color z stencil` | `STRETCH src l t r b dst l t r b filter` | `FILL`, `UPDSURF`, `UPDTEX`, `READBACK` |
+`VS|PS hash` | `VC|PC start count v...` (floats, exact) | `VI|PI`, `VB|PB` | `T stage ptr` | `SS sampler type value` | `RS state value` |
+`TSS stage type value` | `VP x y w h minz maxz` | `SC l t r b` | `VD ptr` | `FVF` | `SSRC stream vb offset stride` | `FREQ stream value` |
+`IDX ptr` | `XFORM state m16` | `DP type start count` | `DIP type base min nv start prims` | `DPUP`, `DIPUP` | `BEGIN`, `END` |
+`SBBEGIN`, `SBEND ptr` | `EVENT name`, `EVENTEND`, `MARKER name`.
+
 ## Campaign console (J15)
 
 `dev.console=1` (default and release off): at the first `Direct3DCreate9` the proxy checks the 8 console `engine_sites`, takes the slot address

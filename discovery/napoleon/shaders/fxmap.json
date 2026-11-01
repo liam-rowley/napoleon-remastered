@@ -1,0 +1,4196 @@
+{
+ "compiler": "d3dx9_40.dll (System32, 9.24.950.2656) D3DXCreateEffectCompilerFromFileW + CompileEffect, flags 0x1000",
+ "profiles": {
+  "base": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "-ENABLE_DEPTH": [
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "-DEPTH_PRE_PASS": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "+ENABLE_HDR": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_HDR"
+  ],
+  "+ENABLE_SSAO": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_SSAO"
+  ],
+  "+ENABLE_DEPTH_OF_FIELD": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DEPTH_OF_FIELD"
+  ],
+  "+ENABLE_DISTORTION": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION"
+  ],
+  "-ENABLE_SHADOWS": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "-BORDER_ADDRESS_SUPPORT": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "-NVIDIA_GPU": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "-MRT_SUPPORT": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "+LOW_QUALITY_SHADERS": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "LOW_QUALITY_SHADERS"
+  ],
+  "-ENABLE_REFLECTION": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFRACTION"
+  ],
+  "-ENABLE_REFRACTION": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION"
+  ],
+  "+ENABLE_OFFSCREEN_PARTICLES": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_OFFSCREEN_PARTICLES"
+  ],
+  "DEPTH_PASS_COLORWRITEENABLE=RED": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=RED",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "DEPTH_PASS_COLORWRITEENABLE=15": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=15",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "GAMMA_VALUE=2.20": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.20",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "GAMMA_VALUE=1.00": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=1.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "GAMMA_CORRECT_TEXTURE=true": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=true",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "MIN_FILTER=ANISOTROPIC": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=ANISOTROPIC",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "MIN_FILTER=POINT": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=POINT",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "MAG_FILTER=POINT": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=POINT",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "MIP_FILTER=POINT": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=POINT",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "FILTER_MAX_ANISOTROPY=16": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=16",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "FILTER_MAX_ANISOTROPY=1": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=1",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "shadows_nvidia": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "shadows_ati": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "ATI_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "depth_rawz": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_RAWZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "gpu_ati": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "SOFTWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "ATI_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ],
+  "shadows_off": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "GAMMA_VALUE=2.00",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION"
+  ]
+ },
+ "captured": 168,
+ "mapped": 163,
+ "shaders": {
+  "03a10d71d53688e4": [
+   {
+    "fx": "grid.fx",
+    "technique": "grid_refraction_sm3",
+    "profiles": "base"
+   }
+  ],
+  "051f476527d39bbb": [
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_rigid_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_weighted_stream_instancing_sm3",
+    "profiles": "base"
+   }
+  ],
+  "07d6af67d0eb3351": [
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_rigid_stream_instancing_sm3",
+    "profiles": "base"
+   }
+  ],
+  "0ae2721ac3a58861": [
+   {
+    "fx": "vegetation_frond.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "vegetation_leaf_mesh.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "0afca69ba91b96bd": [
+   {
+    "fx": "campaigntree.fx",
+    "technique": "campaign_tree_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "0b48a1fe90e8db66": [
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_shadow_map_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "template.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "0ee0c3b570e58d91": [
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "119d8ec54df23cd3": [
+   {
+    "fx": "grid.fx",
+    "technique": "grid_far_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_far_wireframe_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_near_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_near_wireframe_sm3",
+    "profiles": "base"
+   }
+  ],
+  "12966fb795fede69": [
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_rigid_stream_instancing_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_weighted_stream_instancing_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ],
+  "15232253dfd84ffa": [
+   {
+    "fx": "grid.fx",
+    "technique": "grid_reflection_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ],
+  "156eba2c67e76f86": [
+   {
+    "fx": "campaignoverlay.fx",
+    "technique": "overlay_sm2",
+    "profiles": "base"
+   }
+  ],
+  "16bee86e3e9d722c": [
+   {
+    "fx": "campaigntree.fx",
+    "technique": "shadow_campaign_tree_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "16ea3fe4b019ceb4": [
+   {
+    "fx": "vegetation_leaf_card.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_leaf_card.fx",
+    "technique": "instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_leaf_card.fx",
+    "technique": "non_instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   }
+  ],
+  "178284fec1db529f": [
+   {
+    "fx": "campaignflag.fx",
+    "technique": "campaign_flag_sm3",
+    "profiles": "base"
+   }
+  ],
+  "1998c771d3447fff": [
+   {
+    "fx": "shipwake.fx",
+    "technique": "render_wake_sm2",
+    "profiles": "base"
+   }
+  ],
+  "19c11d6ee625b385": [
+   {
+    "fx": "weather.fx",
+    "technique": "rain_single",
+    "profiles": "base"
+   }
+  ],
+  "1bb3e689740b9829": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_no_vignette_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "1d6764dd07daff4b": [
+   {
+    "fx": "strengthbar.fx",
+    "technique": "strength_bar_shadow_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "strengthbar.fx",
+    "technique": "strength_bar_sm2",
+    "profiles": "base"
+   }
+  ],
+  "1e18101c7d00e563": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_land_sm3",
+    "profiles": "base"
+   }
+  ],
+  "1ef4ab151d38576a": [
+   {
+    "fx": "cloud_plane.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "2256f52d80bba547": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "229635aa6bcefbe4": [
+   {
+    "fx": "cloud_plane.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "22a94b89f64dea62": [
+   {
+    "fx": "sun.fx",
+    "technique": "sun_sm2",
+    "profiles": "base"
+   }
+  ],
+  "2898ed093f91a6e7": [
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "reflection_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "293c0792ea75011c": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "29d663204d8ea34f": [
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_default_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_reflection_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "navalship.fx",
+    "technique": "non_instanced_navalship_default_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "2a1a9d5a6f538f6b": [
+   {
+    "fx": "particle.fx",
+    "technique": "render_additive_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "particle.fx",
+    "technique": "render_alpha_20_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "particle.fx",
+    "technique": "render_alpha_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "particle.fx",
+    "technique": "t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "2f20dce921b96347": [
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_refraction_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "359b291134ec94c7": [
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_shadow_map_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "template.fx",
+    "technique": null,
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "reflection_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_shadow_map_sm3",
+    "profiles": "base"
+   }
+  ],
+  "35ee54727b36c1ef": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_no_vignette_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "36689f7a41908277": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "374188c7fbb184b5": [
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ],
+  "37b9f0af0ae45cf5": [
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_reflection_t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "394270c8d36a43f2": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_no_vignette_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "3a22a9acfef2dbe2": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_land_sm3",
+    "profiles": "base"
+   }
+  ],
+  "3a6a672f202cc0d1": [
+   {
+    "fx": "ocean.fx",
+    "technique": "sm_render_sm3",
+    "profiles": "base"
+   }
+  ],
+  "3d06d9c76f149854": [
+   {
+    "fx": "vegetation_billboard.fx",
+    "technique": "b360_shadowmap_sm2",
+    "profiles": "base"
+   }
+  ],
+  "3d2db53ed027ca36": [
+   {
+    "fx": "vegetation_frond.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "3d96bea8aca31bbe": [
+   {
+    "fx": "grid.fx",
+    "technique": "grid_far_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_far_wireframe_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_near_env_map_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_near_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_near_wireframe_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_reflection_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_refraction_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "wireframe_far_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "wireframe_near_sm3",
+    "profiles": "base"
+   }
+  ],
+  "40735ac32e75a815": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "4076a2aad3c75b64": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_road_sm2",
+    "profiles": "base"
+   }
+  ],
+  "41d710beff9ba0e3": [
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_campaign_sm3",
+    "profiles": "base"
+   }
+  ],
+  "451a6dd9f507ef47": [
+   {
+    "fx": "imposter.fx",
+    "technique": "imposter_sm3",
+    "profiles": "base"
+   }
+  ],
+  "461cc6b8ac86db82": [
+   {
+    "fx": "campaignbuilding.fx",
+    "technique": "campaign_building_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "4714a50f9f3c35b1": [
+   {
+    "fx": "campaignterrain.fx",
+    "technique": "sm3_campaign_coast_sm3",
+    "profiles": "base"
+   }
+  ],
+  "484e205fcbd1986d": [
+   {
+    "fx": "ocean.fx",
+    "technique": "sm_render_foam_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "ocean.fx",
+    "technique": "sm_render_sea_stenciling_foam_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "ocean.fx",
+    "technique": "sm_render_sea_stenciling_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "ocean.fx",
+    "technique": "sm_render_sm3",
+    "profiles": "base"
+   }
+  ],
+  "4900ada8ec3a7ba3": [
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_refraction_rigid_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_refraction_weighted_stream_instancing_sm3",
+    "profiles": "base"
+   }
+  ],
+  "4a8f500f5bc92b8a": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_no_vignette_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "50504571221e0203": [
+   {
+    "fx": "imposter.fx",
+    "technique": "shadow_imposter_sm3",
+    "profiles": "base"
+   }
+  ],
+  "510512c2e31afa6c": [
+   {
+    "fx": "campaigntree.fx",
+    "technique": "campaign_tree_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "53b5c65d2403a625": [
+   {
+    "fx": "strengthbar.fx",
+    "technique": "strength_bar_shadow_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "strengthbar.fx",
+    "technique": "strength_bar_sm2",
+    "profiles": "base"
+   }
+  ],
+  "5945f97652864295": [
+   {
+    "fx": "campaignriver.fx",
+    "technique": "sm_campaign_river_sm3",
+    "profiles": "base"
+   }
+  ],
+  "5f88a1e35cb95ab8": [
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_shadow_map_sm3",
+    "profiles": "base"
+   }
+  ],
+  "608238d2ff7d5a91": [
+   {
+    "fx": "vegetation_leaf_mesh.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "60964a7a4e51fbd8": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "63b6fbc539fb5542": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "66dee8f8e59710a7": [
+   {
+    "fx": "campaignterrain.fx",
+    "technique": "sm3_campaign_coast_sm3",
+    "profiles": "base"
+   }
+  ],
+  "67085086178a790b": [
+   {
+    "fx": "campaignterrain.fx",
+    "technique": "trade_route_sm2",
+    "profiles": "base"
+   }
+  ],
+  "68b2e7aeb10f6337": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_road_sm2",
+    "profiles": "base"
+   }
+  ],
+  "68f91769ac3dba36": [
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_shadow_map_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "template.fx",
+    "technique": null,
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_dip_batch_t0",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "reflection_full_dip_batch_t0",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_dip_batch_t0",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_dip_batch_t0",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_dip_batch_t0",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm2",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_rigid_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_weighted_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   },
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_shadow_map_sm3",
+    "profiles": [
+     "shadows_ati"
+    ]
+   }
+  ],
+  "698b3831c71bed70": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_naval_radar_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "6a431ce3f82bf2c7": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "6adc9aded3d67c62": [
+   {
+    "fx": "vegetation_billboard.fx",
+    "technique": "b360static_sm3",
+    "profiles": "base"
+   }
+  ],
+  "6c183673088d471a": [
+   {
+    "fx": "grid.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "6d0a8f4ab3b1bfa3": [
+   {
+    "fx": "vegetation_billboard.fx",
+    "technique": "b360_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   }
+  ],
+  "6d3df9334d7713eb": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "6e21f41b4ccfa743": [
+   {
+    "fx": "campaignbuilding.fx",
+    "technique": "campaign_building_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "7297978905e59c76": [
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_imposter_rigid_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_refraction_rigid_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_rigid_stream_instancing_sm3",
+    "profiles": "base"
+   }
+  ],
+  "7385335d6760c7a3": [
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "76560bb87f2049f8": [
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_weighted_stream_instancing_sm3",
+    "profiles": "base"
+   }
+  ],
+  "7d84a53968314783": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_border_sm2",
+    "profiles": "base"
+   }
+  ],
+  "7dc1f33e07f5538f": [
+   {
+    "fx": "navalship.fx",
+    "technique": "non_instanced_navalship_shadow_map_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "template.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "7fc71eea48ef11c1": [
+   {
+    "fx": "imposter.fx",
+    "technique": "imposter_sm3",
+    "profiles": "base"
+   }
+  ],
+  "8150f6fffcbb32cd": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "83d84232fa49ce4e": [
+   {
+    "fx": "vegetation_leaf_card.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "84482cbc9033bd82": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "856c89dde2cbecc0": [
+   {
+    "fx": "campaignoverlay.fx",
+    "technique": "overlay_sm2",
+    "profiles": "base"
+   }
+  ],
+  "864e48250e8f510e": [
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "instanced_30_t0_winter_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "instanced_t0_winter_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "non_instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "non_instanced_t0_winter_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   }
+  ],
+  "89e7c384543152a5": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "8cc76f9a3a55b0b4": [
+   {
+    "fx": "campaignterrain.fx",
+    "technique": "trade_route_sm2",
+    "profiles": "base"
+   }
+  ],
+  "8f99a4c70007939c": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "925d0b1712ae5f80": [
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_default_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_reflection_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "navalship.fx",
+    "technique": "instanced_30_navalship_refraction_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "9263bf8f511efc0b": [
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "reflection_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "9333fd52726a33ed": [
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "9529abc700850c44": [
+   {
+    "fx": "cloth.fx",
+    "technique": "non_instanced_navalsail_shadow_map_t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "9557834f08179f34": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "97450e1c7f405700": [
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_shadow_map_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "976d17afb07c3d55": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "9b3d5f51a9a32254": [
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_dip_batch_t0",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ],
+  "9bba0ec0180bf35b": [
+   {
+    "fx": "hdr_to_screen.fx",
+    "technique": "t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "9c481f4711222c82": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "9ccfa80f3501175c": [
+   {
+    "fx": "cloth.fx",
+    "technique": "non_instanced_navalsail_shadow_map_t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "9e76275f045255f7": [
+   {
+    "fx": "sky.fx",
+    "technique": "t0_envmap_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "sky.fx",
+    "technique": "t0_reflection_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "sky.fx",
+    "technique": "t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "9fdba5a0a1189aa4": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "a18833a8de64a559": [
+   {
+    "fx": "icons.fx",
+    "technique": "shadow_map_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "navalship.fx",
+    "technique": "non_instanced_navalship_shadow_map_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "rope.fx",
+    "technique": "non_instanced_rope_shadow_map_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "template.fx",
+    "technique": null,
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "campaign_trader_textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "reflection_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "refraction_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_reflection_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_snow_full_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_rigid_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_rigid_stream_instancing_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_weighted_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_shadow_map_weighted_stream_instancing_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "shadow_map_instanced_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "shadow_map_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_shadow_map_sm2",
+    "profiles": "base"
+   }
+  ],
+  "a6a47fc686d46d15": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "a9dd819b86fd99c8": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "af38ea726828a3c2": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "b010a9201a285d06": [
+   {
+    "fx": "imposter.fx",
+    "technique": "shadow_imposter_sm3",
+    "profiles": "base"
+   }
+  ],
+  "b078ec1f08b791ed": [
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "instanced_30_t0_winter_sm3",
+    "profiles": "base"
+   }
+  ],
+  "b6acedbf1aadabb8": [
+   {
+    "fx": "weighted.fx",
+    "technique": "imposter_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_campaign_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_refraction_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_sm3",
+    "profiles": "base"
+   }
+  ],
+  "b6ebd5f6a6c0593a": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_border_sm2",
+    "profiles": "base"
+   }
+  ],
+  "b767fec19ff76a0d": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "b877991af8c3bc82": [
+   {
+    "fx": "grid_spline.fx",
+    "technique": "battlefield_border_sm2",
+    "profiles": "base"
+   }
+  ],
+  "b938fd0e933ed489": [
+   {
+    "fx": "sky.fx",
+    "technique": "t0_envmap_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "sky.fx",
+    "technique": "t0_reflection_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "sky.fx",
+    "technique": "t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "b9c383241acba7dd": [
+   {
+    "fx": "hdr_to_screen.fx",
+    "technique": "t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "bcc069b45c4738f4": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_sea_sm3",
+    "profiles": "base"
+   }
+  ],
+  "bd6c152de0b01b8a": [
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_sm3",
+    "profiles": "base"
+   }
+  ],
+  "bd9d78f87a2ca71d": [
+   {
+    "fx": "grass.fx",
+    "technique": "grass_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   }
+  ],
+  "beaecaf30ed8071d": [
+   {
+    "fx": "cloud.fx",
+    "technique": "cloud_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "cloud.fx",
+    "technique": "depth_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "cloud.fx",
+    "technique": "shadow_map_t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "bf7542d1c1fd9a89": [
+   {
+    "fx": "grid.fx",
+    "technique": "grid_far_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_far_wireframe_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_near_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   },
+   {
+    "fx": "grid.fx",
+    "technique": "grid_near_wireframe_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ],
+  "bfc6fbb8361fbd83": [
+   {
+    "fx": "vegetation_frond.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_frond.fx",
+    "technique": "instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_frond.fx",
+    "technique": "non_instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   }
+  ],
+  "c06e81d3dfa4f93e": [
+   {
+    "fx": "grid_spline.fx",
+    "technique": "deployment_border_sm2",
+    "profiles": "base"
+   }
+  ],
+  "c139c3d9f2937e27": [
+   {
+    "fx": "grid_spline.fx",
+    "technique": "battlefield_border_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "grid_spline.fx",
+    "technique": "deployment_border_sm2",
+    "profiles": "base"
+   }
+  ],
+  "c20152f58549bd1e": [
+   {
+    "fx": "cloth.fx",
+    "technique": "non_instanced_navalsail_default_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "c55726c50ad3fd2e": [
+   {
+    "fx": "vegetation_billboard.fx",
+    "technique": "b360_shadowmap_sm2",
+    "profiles": "base"
+   }
+  ],
+  "c6230c69ecd39b7d": [
+   {
+    "fx": "weighted.fx",
+    "technique": "weighted_refraction_sm3",
+    "profiles": "base"
+   }
+  ],
+  "c67c28c69195dcd6": [
+   {
+    "fx": "vegetation_leaf_card.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "ca4339d2eae46d3b": [
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_default_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_reflection_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_refraction_t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "cad5c3ef32c1bfcb": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "cad6d46301d217b7": [
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_default_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "cadf0149696ac9cf": [
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_shadow_map_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "cc212c49d69a88c1": [
+   {
+    "fx": "cloth.fx",
+    "technique": "non_instanced_navalsail_default_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "cc6006e68d168416": [
+   {
+    "fx": "campaignbuilding.fx",
+    "technique": "shadow_campaign_building_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "cec0b8199c137cac": [
+   {
+    "fx": "grid.fx",
+    "technique": "grid_reflection_sm3",
+    "profiles": "base"
+   }
+  ],
+  "d0782bb0d8fb615e": [
+   {
+    "fx": "supertexturetile.fx",
+    "technique": "supertexture_sea_sm3",
+    "profiles": "base"
+   }
+  ],
+  "d0a2334c7fc7313d": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_no_vignette_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "d0b4fcf6da610d94": [
+   {
+    "fx": "weather.fx",
+    "technique": "rain_single",
+    "profiles": "base"
+   }
+  ],
+  "d191918bdb3c994a": [
+   {
+    "fx": "sun.fx",
+    "technique": "sun_sm2",
+    "profiles": "base"
+   }
+  ],
+  "d2a095afcbb9809d": [
+   {
+    "fx": "vegetation_branch.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "d2eefbbb79167feb": [
+   {
+    "fx": "particle.fx",
+    "technique": "render_alpha_20_sm3",
+    "profiles": [
+     "-ENABLE_DEPTH"
+    ]
+   },
+   {
+    "fx": "particle.fx",
+    "technique": "render_alpha_sm3",
+    "profiles": [
+     "-ENABLE_DEPTH"
+    ]
+   },
+   {
+    "fx": "particle.fx",
+    "technique": "t0_sm3",
+    "profiles": [
+     "-ENABLE_DEPTH"
+    ]
+   }
+  ],
+  "d3ee09bb70638ec9": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "d3f18c85829e69ed": [
+   {
+    "fx": "vegetation_billboard.fx",
+    "technique": "b360_sm3",
+    "profiles": "base"
+   }
+  ],
+  "d4d492ab639076cb": [
+   {
+    "fx": "cloud.fx",
+    "technique": "cloud_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "cloud.fx",
+    "technique": "depth_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "cloud.fx",
+    "technique": "shadow_map_t0_sm2",
+    "profiles": "base"
+   }
+  ],
+  "d59600f24d62f3c2": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "d64f05df13fd3b5a": [
+   {
+    "fx": "campaignflag.fx",
+    "technique": "campaign_flag_sm3",
+    "profiles": "base"
+   }
+  ],
+  "d8f4becf713c6bd7": [
+   {
+    "fx": "imposter.fx",
+    "technique": "imposter_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ],
+  "da548a0de99c41b9": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_naval_radar_t0_sm2",
+    "profiles": "base"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_naval_radar_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "dd9633ccc289598c": [
+   {
+    "fx": "sprite.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "dda5b65e7bc876bb": [
+   {
+    "fx": "navalsail.fx",
+    "technique": "non_instanced_navalsail_default_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "df79c48809471325": [
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_imposter_weighted_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_imposter_weighted_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_refraction_weighted_stream_instancing_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "variantmesh.fx",
+    "technique": "variant_weighted_stream_instancing_sm3",
+    "profiles": "base"
+   }
+  ],
+  "e022dc41db22fb48": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_no_vignette_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "e09c037e0c00130e": [
+   {
+    "fx": "vegetation_billboard.fx",
+    "technique": "b360static_sm3",
+    "profiles": "base"
+   }
+  ],
+  "e56db9a769c897c1": [
+   {
+    "fx": "shipbowwave.fx",
+    "technique": "render_bow_wave_sm2",
+    "profiles": "base"
+   }
+  ],
+  "e57bd5ed3171675f": [
+   {
+    "fx": "vegetation_leaf_mesh.fx",
+    "technique": "shadow_map_instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "e6433abf4d2f63f1": [
+   {
+    "fx": "campaignriver.fx",
+    "technique": "sm_campaign_river_sm3",
+    "profiles": "base"
+   }
+  ],
+  "e91f8f94b76c99cc": [
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_dip_batch_t0",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_instanced_vs30_t0_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "textured_rigid.fx",
+    "technique": "textured_full_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "ea4aeb5c8be28184": [
+   {
+    "fx": "vegetation_frond.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "ebaec2b702032302": [
+   {
+    "fx": "grid.fx",
+    "technique": null,
+    "profiles": "base"
+   }
+  ],
+  "efaf4eba5c59e9ce": [
+   {
+    "fx": "vegetation_leaf_card.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "f08b721e7b550f77": [
+   {
+    "fx": "shipbowwave.fx",
+    "technique": "render_bow_wave_sm2",
+    "profiles": "base"
+   }
+  ],
+  "f0bff41a54f6dfd8": [
+   {
+    "fx": "grid.fx",
+    "technique": null,
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ],
+  "f1b1315d6720cc01": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "f25c328cf894fda4": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "f717705e96abd1cf": [
+   {
+    "fx": "campaigntree.fx",
+    "technique": "shadow_campaign_tree_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "f71ee52eb5a5868e": [
+   {
+    "fx": "shipwake.fx",
+    "technique": "render_wake_sm2",
+    "profiles": "base"
+   }
+  ],
+  "f7612f60da6bd46f": [
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_no_vignette_sm3",
+    "profiles": "base"
+   },
+   {
+    "fx": "lenseflare.fx",
+    "technique": "lense_flare_sm3",
+    "profiles": "base"
+   }
+  ],
+  "f86373668432f0d7": [
+   {
+    "fx": "navalship.fx",
+    "technique": "non_instanced_navalship_default_t0_sm3",
+    "profiles": "base"
+   }
+  ],
+  "f8e4b1cffec734bc": [
+   {
+    "fx": "vegetation_leaf_mesh.fx",
+    "technique": "instanced_30_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_leaf_mesh.fx",
+    "technique": "instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   },
+   {
+    "fx": "vegetation_leaf_mesh.fx",
+    "technique": "non_instanced_t0_sm3",
+    "profiles": [
+     "-DEPTH_PRE_PASS"
+    ]
+   }
+  ],
+  "f946a7bff44662b6": [
+   {
+    "fx": "grass.fx",
+    "technique": "grass_sm3",
+    "profiles": "base"
+   }
+  ],
+  "fc2118c3a7fed048": [
+   {
+    "fx": "outline.fx",
+    "technique": "outline_sm2",
+    "profiles": "base"
+   }
+  ],
+  "fe89d4ef010bc487": [
+   {
+    "fx": "campaignbuilding.fx",
+    "technique": "shadow_campaign_building_instanced_vs30_sm3",
+    "profiles": "base"
+   }
+  ],
+  "fec918bb4541956c": [
+   {
+    "fx": "grid.fx",
+    "technique": "grid_refraction_sm3",
+    "profiles": [
+     "-ENABLE_SHADOWS"
+    ]
+   }
+  ]
+ },
+ "compile_errors": {
+  "battlefieldterrain.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\battlefieldterrain.fx(45,16): Unrecognized RHS value in assignment: 'g_gamma_correct_diffuse_textures'",
+  "explosion_particle.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\explosion_particle.fx(19,18): error X3004: undeclared identifier 'particle_vertex'",
+  "extendedsprite.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\extendedsprite.fx(25,24): error X3000: invalid target or usage string",
+  "formationlayouticons.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\formationlayouticons.fx(6,10): error X1507: failed to open source file: 'ShadowOcclusion.fx_fragment'",
+  "gaussianblur.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\gaussianblur.fx(115,75): error X3004: undeclared identifier 'sample_offsets'",
+  "naval.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\naval.fx(77,34): error X3004: undeclared identifier 'world_view_projection'",
+  "skybox.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\skybox.fx(36,34): error X3004: undeclared identifier 'world_view_projection'",
+  "skydome.fx": "C:\\Users\\liamr\\repos\\napoleon-remastered\\_scratch\\j8_fx\\a\\fx\\skydome.fx(37,34): error X3004: undeclared identifier 'world_view_projection'"
+ },
+ "includes": {
+  "battlefieldterrain.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignbuilding.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "campaignbuilding_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignflag.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignoverlay.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignriver.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaignterrain.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "campaigntree.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "campaigntree_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "cloth.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "cloud.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "cloud_plane.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fx_cloud.h",
+   "fx_instancing.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "custom_sprite.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "debuggeometry.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "debuglines.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "decal.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "util.fx_fragment"
+  ],
+  "depth.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "directional_blur.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "example.fx": [],
+  "explosion_particle.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "extendedsprite.fx": [],
+  "filterfoam.fx": [
+   "fxconfig.h"
+  ],
+  "formationlayouticons.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "fur.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "gaussianblur.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grass.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grid.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grid_spline.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "grid_surface.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "hdr_to_screen.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "high_pass.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "icons.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "imposter.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "lenseflare.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "lightmap.fx": [
+   "fxconfig.h",
+   "lightmap.fx_fragment"
+  ],
+  "luminance.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "naval.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "navalsail.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "navalship.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "ocean.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "outline.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "particle.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "particle2.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "particle_distortion.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "passthrough.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "projectiletrail.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "ribbon.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "particle_volumetric.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "rigid.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "depth_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "rigid_depth_shadow.fx_fragment",
+   "rigid_imposter.fx_fragment",
+   "rigid_simple.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "simple_textured_vertex.fx_fragment",
+   "simple_vertex.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "textured_vertex.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "rope.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sea_particles.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "seainteraction.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fx_instancing.h",
+   "fx_sea_interaction.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shared_params.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shipbowwave.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shipwake.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "shroud.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "shroud.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "simple.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "simplematerial.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "simple_texture.fx": [
+   "camera.fx_fragment",
+   "colour_conversion.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "simpletexturematerial.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sky.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "skybox.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "skydome.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "spline.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sprite.fx": [
+   "camera.fx_fragment",
+   "colour_conversion.fx_fragment",
+   "extendedsprite.fx",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "ssaox.fx": [
+   "camera.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "strengthbar.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_strengthbar.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "sun.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "supertexturetile.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "template.fx": [
+   "camera.fx_fragment",
+   "depth_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "litmaterial.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "terrain_ao.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "terrain_shared.fx": [
+   "camera.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "terraindecal.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "textured_rigid.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "depth_textured_vertex.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "matrix_retreval.fx_fragment",
+   "rigid_imposter.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadow_textured_vertex.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "textured_rigid_depth_shadow.fx_fragment",
+   "textured_rigid_vertex.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "variantmesh.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "vegetation_billboard.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_branch.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_branch.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_frond.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_frond.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_leaf_card.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_leafcard.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "vegetation_leaf_mesh.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fx_instancing.h",
+   "fx_veg_leafcard.h",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "terrain_shared.fx_fragment",
+   "util.fx_fragment",
+   "vegetation.fx_fragment"
+  ],
+  "volumefog.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment",
+   "volumefog_vertex.fx_fragment"
+  ],
+  "weather.fx": [
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "screeneffects.fx_fragment",
+   "standard_rigid_matrices.fx_fragment",
+   "util.fx_fragment"
+  ],
+  "weighted.fx": [
+   "blending.fx_fragment",
+   "camera.fx_fragment",
+   "fog.fx_fragment",
+   "frameview_mrt.fx_fragment",
+   "fxconfig.h",
+   "lighting.fx_fragment",
+   "lighting_brdf.fx_fragment",
+   "screeneffects.fx_fragment",
+   "shadowmap.fx_fragment",
+   "shroud.fx_fragment",
+   "util.fx_fragment"
+  ]
+ }
+}

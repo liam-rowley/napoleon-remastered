@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.hardware_path",
+  "claim": "The NVIDIA hardware shadow path (gfx_hardware_shadows true: NVIDIA_HARDWARE_SHADOWS, a depth-texture map with hardware PCF) was not captured: the PC prefs file holds gfx_hardware_shadows twice (lines 24 and 37), the watcher prefs overlay replaces only the first, and a land_small capture under profile j8-hwshadow drew the same 83 shaders and the same 2048 R16F map as the software path (capture hw_land_small), so the game reads the later line. Whether the hardware path changes the map format, size or registers is open",
+  "state": "open",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01",
+  "notes": "owner J24; needs a watcher overlay that sets every occurrence of a key (core)"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.render.system_backend",
+  "claim": "On the system d3d9 backend (proxy.backend=system, dev.capture=1) the headless launch never reaches on_virtual, and a visible launch reaches battle_deploy with frame 0: no Present reached the dev Present hook, already at the front end with the first device and after the second device (both hooked, identical originals; raw/sys_proxy.log). Cause not established: no control launch with dev.capture=0 on that backend; no capture there, so the backend comparison is not made",
+  "state": "open",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01",
+  "notes": "owner J16"
+}

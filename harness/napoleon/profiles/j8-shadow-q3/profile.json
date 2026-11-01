@@ -1,0 +1,5 @@
+{
+  "description": "J8 shadow-pass sweep: gfx_shadow_quality 3 (0 off, 4 ultra), every other pref as the acceptance baseline has it; restored byte for byte by the watcher",
+  "requires": [],
+  "warn_missing": ["game:d3d9.dll"]
+}

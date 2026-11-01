@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.unit_lod",
+  "claim": "Units cast per-soldier mesh shadows close up (variantmesh.fx variant_shadow_map_weighted_stream_instancing_sm3, 306 draws, camera z 330 on land_small) and imposter shadows past the unit LOD switch (imposter.fx shadow_imposter_sm3 from the deploy pose, camera z 446, out): the imposter's camera-angle frame on a light-facing quad, shrunk to 0.96 and alpha-tested; the switch distance is an engine setting, not located",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01",
+  "notes": "switch distance: owner J9"
+}
