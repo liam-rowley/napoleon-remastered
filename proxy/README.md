@@ -35,7 +35,8 @@ core/proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 in
 ```
 `--docker` computes the build id on the host (a worktree's `.git` points at a host path the container cannot see) and passes it in;
 `smoke` runs the built DLL under wine: `build.sh --docker smoke` (after `--docker all`; the same container plus CI's wine packages,
-about 70 s, J42) or `build.sh smoke` on Linux with wine. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`.
+about 70 s, J42) or `build.sh smoke` on Linux with wine. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`. When CI skipped `proxy` because the same input tree
+already passed (J54), the run's summary names the run that built it: download from that one.
 CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` and `smoke` when the branch changes its inputs (`tools/changed_inputs.py`) and
 keeps the DLL as an artifact; the `gates` job runs `tests/test_proxy_tables.py` (generated tables current) and `tests/test_pc_deploy.py`.
 

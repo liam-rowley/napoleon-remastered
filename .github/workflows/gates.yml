@@ -1,5 +1,6 @@
 # purpose: CI on every push and pull request: the full warscape-core `wsc gates` set, and the proxy DLL build, host tests and wine smoke test (job proxy).
-# `proxy` and `harness-windows` run only when the branch changes their inputs (job `changes`); a skipped job counts as passed for
+# `proxy`, `viewer` and `harness-windows` run only when the branch changes their inputs and that input tree has not passed already
+# (job `changes`, J54 below); a skipped job counts as passed for
 # required checks and auto-merge (D32), so a brief or plan branch does not wait for the slow Windows runner.
 # usage: runs on GitHub Actions; locally: python3 core/wsc.py gates
 # when: automatic; require the "gates" check in branch protection for main.
@@ -15,6 +16,14 @@
 # pull request (its base and head) and lives in policy.yml, which runs nothing else. Route proved on PR #57 (jobs/J42/report.md).
 # A newer push cancels an older run on the same branch (that commit is no longer the head auto-merge waits for), never on main.
 # notify: a failed run on a branch with an open pull request comments once on it (tools/ci_notify.py), so a red check is told.
+# Rule 79 for CI (J54): a slow job (proxy, viewer, harness-windows) that already passed on this exact input tree is skipped. On success
+# each saves a pass marker as its last step: actions/cache key `ci-pass-<salt>-<set>-<tree hash>` (tools/changed_inputs.py hashes the
+# set's files at HEAD: mode, object, path; bump its SALT to invalidate every marker), holding the run id, attempt and commit that passed.
+# `changes` restores each changed set's key; a hit skips the job and writes one step-summary line naming the set, the hash and the run
+# that passed it, so the D31 fallback (`gh run download <that run> -n proxy-d3d9-napoleon` / `-n viewer-wasm`) still finds the build.
+# Fails safe: a cache error, an empty hash or a marker that cannot be read runs the job. A workflow_dispatch run neither reads nor writes
+# markers. Caches are scoped by branch (GitHub: a run restores caches of its own branch or the default branch, never a sibling's; entries
+# unused for 7 days are evicted): a main push can only find markers written on main, a branch also finds main's.
 name: gates
 on:
   push:
@@ -36,14 +45,19 @@ concurrency:
 jobs:
   # changes: which slow jobs this run needs. Diffs against the merge base with main (a push to any branch but main)
   # or the previous main tip (a push to main). When the base is unknown (first push to main, a force push past it) everything runs.
-  # Which files feed which job: tools/changed_inputs.py.
+  # Which files feed which job: tools/changed_inputs.py. Then a changed set whose tree hash has a pass marker is turned off (J54, header);
+  # its outputs are the combined answer: true = inputs changed against the base AND no marker for this tree.
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
-      proxy: ${{ steps.diff.outputs.proxy }}
-      harness: ${{ steps.diff.outputs.harness }}
-      viewer: ${{ steps.diff.outputs.viewer }}
+      proxy: ${{ steps.run.outputs.proxy }}
+      harness: ${{ steps.run.outputs.harness }}
+      viewer: ${{ steps.run.outputs.viewer }}
+      proxy_tree: ${{ steps.diff.outputs.proxy_tree }}
+      harness_tree: ${{ steps.diff.outputs.harness_tree }}
+      viewer_tree: ${{ steps.diff.outputs.viewer_tree }}
+      tree_salt: ${{ steps.diff.outputs.tree_salt }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -56,6 +70,58 @@ jobs:
           else base=$(git merge-base origin/main HEAD || true); fi
           # the input sets live in one place, tools/changed_inputs.py, which the local `tests` gate also uses (J41)
           python3 tools/changed_inputs.py --base "$base" >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
+      # pass markers (J54): looked up only for a set that changed, on a push, with a hash; the marker is a one-line file, restored whole
+      - id: proxy_pass
+        if: github.event_name == 'push' && steps.diff.outputs.proxy == 'true' && steps.diff.outputs.proxy_tree != ''
+        continue-on-error: true
+        uses: actions/cache/restore@v5
+        with:
+          path: .ci-pass/proxy
+          key: ci-pass-${{ steps.diff.outputs.tree_salt }}-proxy-${{ steps.diff.outputs.proxy_tree }}
+          enableCrossOsArchive: true
+      - id: harness_pass
+        if: github.event_name == 'push' && steps.diff.outputs.harness == 'true' && steps.diff.outputs.harness_tree != ''
+        continue-on-error: true
+        uses: actions/cache/restore@v5
+        with:
+          path: .ci-pass/harness
+          key: ci-pass-${{ steps.diff.outputs.tree_salt }}-harness-${{ steps.diff.outputs.harness_tree }}
+          enableCrossOsArchive: true   # harness-windows saves it on Windows
+      - id: viewer_pass
+        if: github.event_name == 'push' && steps.diff.outputs.viewer == 'true' && steps.diff.outputs.viewer_tree != ''
+        continue-on-error: true
+        uses: actions/cache/restore@v5
+        with:
+          path: .ci-pass/viewer
+          key: ci-pass-${{ steps.diff.outputs.tree_salt }}-viewer-${{ steps.diff.outputs.viewer_tree }}
+          enableCrossOsArchive: true
+      # a set runs when its inputs changed and no readable marker exists for its tree hash; a skip names the run that passed it
+      - id: run
+        env:
+          PROXY: ${{ steps.diff.outputs.proxy }}
+          HARNESS: ${{ steps.diff.outputs.harness }}
+          VIEWER: ${{ steps.diff.outputs.viewer }}
+          PROXY_HIT: ${{ steps.proxy_pass.outputs.cache-hit }}
+          HARNESS_HIT: ${{ steps.harness_pass.outputs.cache-hit }}
+          VIEWER_HIT: ${{ steps.viewer_pass.outputs.cache-hit }}
+        run: |
+          decide() {   # set, changed, cache-hit, artifact
+            m=.ci-pass/$1/marker.txt
+            if [ "$2" = true ] && [ "$3" = true ] && grep -q '^run=[0-9]' "$m" 2>/dev/null; then
+              echo "$1=false" >> "$GITHUB_OUTPUT"
+              run=$(sed -n 's/^run=//p' "$m"); attempt=$(sed -n 's/^attempt=//p' "$m"); commit=$(sed -n 's/^commit=//p' "$m")
+              tree=$(sed -n 's/^tree=//p' "$m")
+              line="\`$1\` skipped: its input tree $tree already passed in run $run (attempt $attempt, commit $commit)"
+              [ -n "$4" ] && line="$line; its build: \`gh run download $run -n $4\`"
+              echo "- $line" >> "$GITHUB_STEP_SUMMARY"; echo "$line"
+            else
+              echo "$1=$2" >> "$GITHUB_OUTPUT"
+            fi
+          }
+          decide proxy "$PROXY" "$PROXY_HIT" proxy-d3d9-napoleon
+          decide harness "$HARNESS" "$HARNESS_HIT" ''
+          decide viewer "$VIEWER" "$VIEWER_HIT" viewer-wasm
           cat "$GITHUB_OUTPUT"
   gates:
     if: github.event_name != 'workflow_dispatch'
@@ -102,6 +168,21 @@ jobs:
           name: proxy-d3d9-napoleon
           path: build/proxy/napoleon/d3d9.dll
           if-no-files-found: error
+      # pass marker (J54, rule 79 for CI): the last step, on success of a push run only; `changes` skips this job on the same input tree
+      - name: pass marker
+        if: success() && github.event_name == 'push' && needs.changes.outputs.proxy_tree != ''
+        env:
+          TREE: ${{ needs.changes.outputs.proxy_tree }}
+        run: |
+          mkdir -p .ci-pass/proxy
+          { echo "set=proxy"; echo "tree=$TREE"; echo "run=$GITHUB_RUN_ID"; echo "attempt=$GITHUB_RUN_ATTEMPT"; echo "commit=$GITHUB_SHA"; } > .ci-pass/proxy/marker.txt
+          cat .ci-pass/proxy/marker.txt
+      - if: success() && github.event_name == 'push' && needs.changes.outputs.proxy_tree != ''
+        uses: actions/cache/save@v5
+        with:
+          path: .ci-pass/proxy
+          key: ci-pass-${{ needs.changes.outputs.tree_salt }}-proxy-${{ needs.changes.outputs.proxy_tree }}
+          enableCrossOsArchive: true
 
   # viewer: build the review viewer to wasm inside the emsdk image pinned in viewer/pins.json (the same container as the PC's
   # `build.sh --docker`, D30/D31), prove float32 Lua under Node, then render hello-world in headless Chromium and run its checks
@@ -133,6 +214,21 @@ jobs:
           name: viewer-wasm
           path: build/viewer/out/
           if-no-files-found: error
+      # pass marker (J54, rule 79 for CI): the last step, on success of a push run only; `changes` skips this job on the same input tree
+      - name: pass marker
+        if: success() && github.event_name == 'push' && needs.changes.outputs.viewer_tree != ''
+        env:
+          TREE: ${{ needs.changes.outputs.viewer_tree }}
+        run: |
+          mkdir -p .ci-pass/viewer
+          { echo "set=viewer"; echo "tree=$TREE"; echo "run=$GITHUB_RUN_ID"; echo "attempt=$GITHUB_RUN_ATTEMPT"; echo "commit=$GITHUB_SHA"; } > .ci-pass/viewer/marker.txt
+          cat .ci-pass/viewer/marker.txt
+      - if: success() && github.event_name == 'push' && needs.changes.outputs.viewer_tree != ''
+        uses: actions/cache/save@v5
+        with:
+          path: .ci-pass/viewer
+          key: ci-pass-${{ needs.changes.outputs.tree_salt }}-viewer-${{ needs.changes.outputs.viewer_tree }}
+          enableCrossOsArchive: true
 
   # harness-windows: the J2 watcher, lock, profiles, hang watchdog, updater and installer on GitHub's Windows runner under
   # Windows PowerShell 5.1 (shell: powershell), the same PowerShell the PC runs. Fake games are compiled on the runner.
@@ -175,6 +271,22 @@ jobs:
           HT_ONLY: ${{ inputs.only }}
           HT_REPEAT: ${{ inputs.repeat || '1' }}
         run: ./core/harness/tests/Run-HostTests.ps1 -Suite $(if ($env:HT_ONLY) { 'integration' } else { 'all' }) -Only $env:HT_ONLY -Repeat ([int]$env:HT_REPEAT)
+      # pass marker (J54, rule 79 for CI): the last step, on success of a push run only; `changes` skips this job on the same input tree
+      - name: pass marker
+        if: success() && github.event_name == 'push' && needs.changes.outputs.harness_tree != ''
+        shell: bash
+        env:
+          TREE: ${{ needs.changes.outputs.harness_tree }}
+        run: |
+          mkdir -p .ci-pass/harness
+          { echo "set=harness"; echo "tree=$TREE"; echo "run=$GITHUB_RUN_ID"; echo "attempt=$GITHUB_RUN_ATTEMPT"; echo "commit=$GITHUB_SHA"; } > .ci-pass/harness/marker.txt
+          cat .ci-pass/harness/marker.txt
+      - if: success() && github.event_name == 'push' && needs.changes.outputs.harness_tree != ''
+        uses: actions/cache/save@v5
+        with:
+          path: .ci-pass/harness
+          key: ci-pass-${{ needs.changes.outputs.tree_salt }}-harness-${{ needs.changes.outputs.harness_tree }}
+          enableCrossOsArchive: true
 
   # notify: the last job; a failure in any job above, on a branch with an open pull request, comments once there (D32: a failed check
   # leaves the pull request open; this makes it impossible to miss). The only job with write access, and only to pull requests.

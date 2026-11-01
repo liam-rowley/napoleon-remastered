@@ -8,7 +8,11 @@ verb: jobs
 The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review` and `view` read the remote
 branches (`git ls-remote origin`), and `review` fetches the job branches it inspects; `--offline` uses the local remote-tracking refs
 instead. `next`, `review` and `view` first print every open pull request with a failed check (one `gh pr list` call; `--offline`
-skips it), so a red check is told to the next session instead of waiting to be noticed (J42, D32). `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
+skips it), so a red check is told to the next session instead of waiting to be noticed (J42, D32). `review` and `fix` then read the
+chosen branch's head commit's check runs (one `gh api` call) and name every check that failed or is still running, with its URL, above
+the steps; `--offline`, a missing `gh` or an API error print one line instead (J54). The builder opens the pull request as a draft when
+the job reaches review (`build_steps`, `fix_steps`), so the branch's CI is on it from then on; CI's `policy` skips drafts and the
+reviewer's `gh pr ready` runs it (a merge verdict only: `review_steps`, docs/REVIEW.md). `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
 Its cards carry a button for each action not_ready() allows (Write brief, Implement, Review, Fix). On the written page a button copies the
 `claude --bg` command; `view --serve` serves the page on 127.0.0.1 and the button posts (id, action) to the server, which checks a
 per-run token, Origin, Host, content type, readiness against fresh branches and no live session of the same name (`claude agents --json`, fail closed; no count cap: D34),
@@ -377,6 +381,62 @@ def print_red_prs(root, offline):
     if lines:
         print('Failed checks on open pull requests (look first; docs/CI_FAILURES.md classes them):\n  ' + '\n  '.join(lines))
     return lines
+
+
+CHECKS_LEAD = 'read docs/CI_FAILURES.md; a red required check is a blocker for a merge verdict'
+
+
+def check_lines(runs):
+    """`check_runs` of one commit (GitHub's REST shape; the endpoint lists the latest run of each name) -> one line per run that failed,
+    was cancelled or is still running, by name; passed and skipped runs are not listed."""
+    out = []
+    for c in sorted(runs, key=lambda c: c.get('name') or ''):
+        name, url = c.get('name') or '?', c.get('html_url') or c.get('details_url') or ''
+        status, concl = (c.get('status') or '').lower(), (c.get('conclusion') or '').lower()
+        if status != 'completed':
+            what = f'still running ({status or "no status"})'
+        elif concl == 'cancelled':
+            what = 'did not finish (cancelled)'
+        elif concl.upper() in FAILED_CHECK:
+            what = f'failed ({concl})'
+        else:
+            continue
+        out.append(f'{name} {what}' + (f': {url}' if url else ''))
+    return out
+
+
+def branch_checks(root, branch, sha, offline, run=subprocess.run):
+    """The CI block `jobs review` and `jobs fix` print above their steps: every check run on the branch's head commit that failed or is
+    still running, or one line saying all passed, none ran yet or why they could not be read (never an exception, as red_prs)."""
+    where = f'{branch} at {sha[:7]}' if sha else branch
+    if offline:
+        return f'(CI checks on {where} not read: --offline; read them before a verdict)'
+    if not sha:
+        return f'(CI checks on {branch} not read: its head commit is unknown)'
+    try:   # gh fills {owner}/{repo} from this clone's origin
+        p = run(['gh', 'api', f'repos/{{owner}}/{{repo}}/commits/{sha}/check-runs?per_page=100'],
+                cwd=str(root), capture_output=True, text=True, timeout=60)
+    except (OSError, subprocess.TimeoutExpired) as x:
+        return f'(CI checks on {where} could not be read: {x}; --offline skips this)'
+    if p.returncode != 0:
+        return f'(CI checks on {where} could not be read: {(p.stderr or p.stdout).strip()[:200]}; --offline skips this)'
+    try:
+        runs = json.loads(p.stdout or '{}').get('check_runs') or []
+    except (ValueError, AttributeError) as x:
+        return f'(CI checks on {where} could not be read: {x})'
+    if not runs:
+        return f'CI on {where}: no check runs yet (CI has not reported; {CHECKS_LEAD})'
+    bad = check_lines(runs)
+    if not bad:
+        return f'CI on {where}: all {len(runs)} checks passed or were skipped.'
+    return f'CI on {where} ({CHECKS_LEAD}):\n  ' + '\n  '.join(bad)
+
+
+def draft_pr_step(jid, title):
+    """The last step of a build or a fix: the job's pull request, opened as a draft when none exists (J54); never a merge."""
+    return (f"Then open the pull request as a draft if none exists, so the review sees the branch's CI (CI's policy check skips drafts): "
+            f'gh pr view job/{jid}, else gh pr create --draft --base main --head job/{jid} --title "{jid}: {title}" '
+            f'--body "<the first paragraph of jobs/{jid}/report.md>". Never merge it: the reviewer marks it ready and merges (D32).')
 
 
 def _git(root, *args):
@@ -922,7 +982,8 @@ def build_steps(r):
     return (f'{r["id"]}: {r["title"]} (model {r["model"]}, needs_pc {"yes" if r["needs_pc"] else "no"})\n'
             f'Take it: git checkout -b job/{r["id"]} origin/main, follow jobs/{r["id"]}/brief.md, push early so the branch claims it.\n'
             f'Finish: jobs/{r["id"]}/report.md, then wsc reg set jobs {r["id"]} status=review report=jobs/{r["id"]}/report.md, pushed; '
-            f'CI\'s policy check runs locally as python3 tools/pr_policy.py --branch job/{r["id"]} --base origin/main.')
+            f'CI\'s policy check runs locally as python3 tools/pr_policy.py --branch job/{r["id"]} --base origin/main.\n'
+            + draft_pr_step(r['id'], r['title']))
 
 
 def brief_steps(r, root, lead='needs a brief (nothing queued is ready)'):
@@ -940,7 +1001,9 @@ def brief_steps(r, root, lead='needs a brief (nothing queued is ready)'):
 
 def review_steps(jid, done_rounds=0):
     n = done_rounds + 1
-    after = (f'then set the row: merge -> status=done review=jobs/{jid}/review.md (and queue the merge); otherwise '
+    after = (f'then set the row: merge -> status=done review=jobs/{jid}/review.md, push, and queue the merge (docs/REVIEW.md "Merging": '
+             f'python3 tools/pr_policy.py --branch job/{jid} --base origin/main says ok, then gh pr ready job/{jid}, then '
+             f'gh pr merge job/{jid} --auto --squash); otherwise leave the draft pull request open and set '
              + (f'status=fix review=jobs/{jid}/review.md (a fix session answers it, then round {n + 1})' if n < MAX_ROUNDS else
                 f'status=blocked blocked_by="{BLOCKED_BY_ROUNDS}" review=jobs/{jid}/review.md (round {MAX_ROUNDS} is the last: Liam decides)'))
     return (f'{jid}: review branch job/{jid} (git checkout job/{jid}) following docs/REVIEW.md. You must not have built it or fixed it: '
@@ -949,13 +1012,14 @@ def review_steps(jid, done_rounds=0):
             f'jobs/{jid}/review.md' + (', above the earlier rounds (read them first; never edit them)' if done_rounds else '') + f'; {after}.')
 
 
-def fix_steps(jid, n):
+def fix_steps(jid, n, title=''):
     return (f'{jid}: fix round {n} on branch job/{jid} (git checkout job/{jid}). Read "## Round {n}" at the top of jobs/{jid}/review.md '
             f'and address its blockers and should-fix items, one commit each where you can, with a test where the code allows.\n'
             f'Then append "## Fix round {n}" to the end of jobs/{jid}/report.md: for each finding what you changed (commit sha), what you '
             f'left and why. Run python3 core/wsc.py gates and python3 tools/pr_policy.py --branch job/{jid} --base origin/main (only '
             f'the missing merge verdict and done row may fail), then wsc reg set jobs {jid} status=review and push. '
-            f'Never touch review.md or earlier report sections, and never merge: the next review round is a fresh session.')
+            f'Never touch review.md or earlier report sections, and never merge: the next review round is a fresh session.\n'
+            + draft_pr_step(jid, title or '<title>'))
 
 
 def refuse(why):
@@ -1058,5 +1122,7 @@ def run(args, ctx):
                 or 'no job branches'))
             return 0
     rounds = on_branch[jid].rounds   # not_ready has already refused a 4th review and a fix with no round
-    print(review_steps(jid, rounds) if action == 'review' else fix_steps(jid, rounds))
+    print(branch_checks(ctx.root, f'job/{jid}', on_branch[jid].head, args.offline))
+    title = (on_branch[jid].row or by.get(jid) or {}).get('title', '')
+    print(review_steps(jid, rounds) if action == 'review' else fix_steps(jid, rounds, title))
     return 0
