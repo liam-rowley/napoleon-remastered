@@ -38,6 +38,16 @@ class Parse(unittest.TestCase):
             self.assertEqual(names['R.UIComponent:TriggerAnimation']['kind'], 'method')
             self.assertEqual(names['G:BattleUI']['states'], ['land'])
 
+    def test_logs_without_probe_lines_are_not_listed(self):
+        # a proof launch's proxy log added to the run later must not change the table (J9 review round 1: the committed table went stale)
+        with tempfile.TemporaryDirectory() as d:
+            raw = Path(d) / 'raw'
+            raw.mkdir()
+            self.write(raw, 'a_proxy.log', ['api land G BattleUI:table', 'api land __end total=1'])
+            self.write(raw, 'b_proxy.log', ['loaded probe file other.lua'])
+            doc = engine_api.build(d)
+            self.assertEqual([Path(p).name for p in doc['logs']], ['a_proxy.log'])
+
     def test_j6_answers(self):
         with tempfile.TemporaryDirectory() as d:
             diff = Path(d) / 'lua_api.json'

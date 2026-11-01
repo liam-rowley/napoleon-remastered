@@ -137,9 +137,17 @@ def add_cfuncs(names, path=CFUNCS):
     return cf.get('j6_arg_drift', [])
 
 
+def _has_probe(path):
+    with open(path, encoding='utf-8', errors='replace') as f:
+        return any(LINE.search(line) or END.search(line) for line in f)
+
+
 def build(run):
     logs = glob.glob(os.path.join(run, 'raw', '*_proxy.log'))
     seen, totals, dropped = parse_logs(logs)
+    # list only the logs that carry probe lines: a run folder also holds proof launches without the probe, and adding one must not
+    # make the committed table stale (J9 review round 1)
+    logs = [p for p in logs if _has_probe(p)]
     names = merge(seen)
     drift = add_cfuncs(names)
     rows = sorted(names.values(), key=lambda e: (e['owner'], e['name']))
