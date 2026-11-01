@@ -18,8 +18,8 @@ the brief asked for and two claims that say more than the evidence shows.
 - `shader_catalog.py build --check`: ok (168 shaders, 163 mapped). `wsc jobs check`: ok.
 - `core/proxy/tools/build.sh id` on the branch: `2b56389bc740`, the id of the 20 passes (run `20261101_j8acc`: 20 of 20, each
   `passed: true`, 13:06 to 14:34 UTC).
-- **CI not read:** this session has no GitHub API access to the repo, so the checks on the head were not seen. Read them before the
-  round-2 verdict (`wsc jobs review`).
+- CI on `ee92f6a` (draft PR #115): `gates`, `harness-windows`, `changes` green; `proxy` skipped (inputs already passed); `policy`
+  skipped (draft). PR left as a draft.
 
 ### Risk-first reading
 Picked `core/proxy/src/capture.cpp` and `capture.h` at v0.7.0 (36 vtable hooks on the live device, file writes from the render thread)
@@ -39,7 +39,7 @@ traversal; `devcore.h` refuses a bad name before `CaptureRun`). All correct. Key
    `CreateStateBlock` (slot 59) and `IDirect3DStateBlock9::Apply` are not hooked (`capture.cpp:341-361`), and D3DX effects save and
    restore state through state blocks unless created with `D3DXFX_DONOTSAVESTATE`. Per-draw render/sampler state and textures after an
    effect's `End` may be stale in the summaries; targets, depth surfaces and shader binds are not affected, so the pass order, the
-   target inventory and the shadow-pass facts stand. Doc line corrected in this round (commit `a7d5582`); the hook is a core item (later).
+   target inventory and the shadow-pass facts stand. Doc line corrected in this round (commit `e58e2dd`); the hook is a core item (later).
    See it: no hook for slot 59 in the table at `capture.cpp:341`.
 3. **The shadow caps path is the prefs' path, not the caps'.** Deliverable 5 asks which caps path the PC takes; the answer
    `SOFTWARE_SHADOWS` follows from `gfx_hardware_shadows false` in the baseline prefs (`frame_anatomy.md:53`), not from the RTX 4090's
@@ -55,9 +55,9 @@ traversal; `devcore.h` refuses a bad name before `CaptureRun`). All correct. Key
    it with the metric named, and the fact regenerated from it. (Empire repeats: a number in prose that a tool could own.)
 5. **The system-backend fact claimed a cause.** It said vtable hooks do not see the game's calls on Windows' d3d9; the evidence shows
    frame 0 already at the front end with the first device, and there is no control launch with `dev.capture=0`, so the capture's own
-   hooks are not ruled out. Claim reworded to the observation in this round (commit `0887615`); J16 should start with that control.
+   hooks are not ruled out. Claim reworded to the observation in this round (commit `862f735`); J16 should start with that control.
 6. **Run README time window** said 11:49 to 13:15; the files run to 14:35 (front end `f1_frontend` 14:35:00, acceptance to 14:34).
-   Fixed in this round (commit `e3ad054`).
+   Fixed in this round (commit `0cc8099`).
 
 ### Later
 - **Core (warscape-core `docs/BACKLOG.md`):** `CaptureRun` timeout path (`capture.cpp:423-436`): if the second 30 s wait also times out,
@@ -73,5 +73,5 @@ traversal; `devcore.h` refuses a bad name before `CaptureRun`). All correct. Key
 - `wsc setup` still checks `harness/core/job.sh` (report's own open question): needs a queue row.
 
 ### Fixes made in this round
-- `e3ad054` run README time window; `a7d5582` frame anatomy state-block limit; `0887615` system-backend fact wording.
+- `0cc8099` run README time window; `e58e2dd` frame anatomy state-block limit; `862f735` system-backend fact wording.
   `shader_catalog.py build --check` ok after each.
