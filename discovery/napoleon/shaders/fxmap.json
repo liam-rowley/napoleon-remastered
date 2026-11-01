@@ -1,0 +1,980 @@
+{
+ "compiler": "d3dx9_40.dll (System32, 9.24.950.2656) D3DXCreateEffectCompilerFromFileW + CompileEffect, flags 0x1000",
+ "profiles": {
+  "nvidia": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "ENABLE_HDR",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "ENABLE_DEPTH_OF_FIELD",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "ENABLE_SSAO",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES"
+  ],
+  "nvidia_aniso16": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "ENABLE_HDR",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "ENABLE_DEPTH_OF_FIELD",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "ENABLE_SSAO",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=ANISOTROPIC",
+   "FILTER_MAX_ANISOTROPY=16",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES"
+  ],
+  "nvidia_cw15": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=15",
+   "DEPTH_PRE_PASS",
+   "ENABLE_HDR",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "ENABLE_DEPTH_OF_FIELD",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "ENABLE_SSAO",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES"
+  ],
+  "nvidia_cwred": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=RED",
+   "DEPTH_PRE_PASS",
+   "ENABLE_HDR",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "ENABLE_DEPTH_OF_FIELD",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "ENABLE_SSAO",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES"
+  ],
+  "nvidia_nohdr": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "ENABLE_DEPTH_OF_FIELD",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "ENABLE_SSAO",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES"
+  ],
+  "nvidia_nossao_nodof": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "ENABLE_HDR",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES"
+  ],
+  "software": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "ENABLE_HDR",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "ENABLE_DEPTH_OF_FIELD",
+   "ENABLE_SHADOWS",
+   "ENABLE_SSAO",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES",
+   "SOFTWARE_SHADOWS"
+  ],
+  "low": [
+   "ENABLE_DEPTH",
+   "DEPTH_BUFFER_FORMAT_INTZ",
+   "DEPTH_PASS_COLORWRITEENABLE=0",
+   "DEPTH_PRE_PASS",
+   "ENABLE_HDR",
+   "GAMMA_CORRECT_TEXTURE=false",
+   "ENABLE_DEPTH_OF_FIELD",
+   "NVIDIA_HARDWARE_SHADOWS",
+   "ENABLE_SHADOWS",
+   "ENABLE_SSAO",
+   "MAG_FILTER=LINEAR",
+   "MIP_FILTER=LINEAR",
+   "MIN_FILTER=LINEAR",
+   "FILTER_MAX_ANISOTROPY=0",
+   "BORDER_ADDRESS_SUPPORT",
+   "NVIDIA_GPU",
+   "MRT_SUPPORT",
+   "ENABLE_REFLECTION",
+   "ENABLE_REFRACTION",
+   "ENABLE_DISTORTION",
+   "ENABLE_OFFSCREEN_PARTICLES",
+   "LOW_QUALITY_SHADERS"
+  ]
+ },
+ "captured": 83,
+ "mapped": 4,
+ "shaders": {
+  "976d17afb07c3d55": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_aniso16"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_cw15"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_cwred"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_nohdr"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_nossao_nodof"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "software"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "low"
+   }
+  ],
+  "cad5c3ef32c1bfcb": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_aniso16"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_cw15"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_cwred"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_nohdr"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "nvidia_nossao_nodof"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "software"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_radar_t0_sm3",
+    "profile": "low"
+   }
+  ],
+  "d3ee09bb70638ec9": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_aniso16"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_cw15"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_cwred"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_nohdr"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_nossao_nodof"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "software"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "low"
+   }
+  ],
+  "f25c328cf894fda4": [
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_aniso16"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_cw15"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_cwred"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_nohdr"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "nvidia_nossao_nodof"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "software"
+   },
+   {
+    "fx": "custom_sprite.fx",
+    "technique": "custom_sprite_land_radar_t0_sm3",
+    "profile": "low"
+   }
+  ]
+ },
+ "compile_errors": {
+  "battlefieldterrain.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "campaignbuilding.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "campaignflag.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "campaignriver.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "campaignterrain.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "campaigntree.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "cloth.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "cloud.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "cloud_plane.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "debuggeometry.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "debuglines.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "depth.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "directional_blur.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "explosion_particle.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "extendedsprite.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "formationlayouticons.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "gaussianblur.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "grass.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "grid.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "grid_spline.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "grid_surface.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "hdr_to_screen.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "high_pass.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "icons.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "imposter.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "lenseflare.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "luminance.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "naval.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "navalsail.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "navalship.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "ocean.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "particle.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "particle_distortion.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "passthrough.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "projectiletrail.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "ribbon.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "rigid.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "rope.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "shipwake.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "simple.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "simple_texture.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "sky.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "skybox.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "skydome.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "spline.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "sprite.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "ssaox.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "strengthbar.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "sun.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "supertexturetile.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "template.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "terrain_ao.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "textured_rigid.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "variantmesh.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "vegetation_billboard.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "vegetation_branch.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "vegetation_frond.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "vegetation_leaf_card.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "vegetation_leaf_mesh.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "volumefog.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "weather.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  },
+  "weighted.fx": {
+   "nvidia": "\u0000",
+   "nvidia_aniso16": "\u0000",
+   "nvidia_cw15": "\u0000",
+   "nvidia_cwred": "\u0000",
+   "nvidia_nohdr": "\u0000",
+   "nvidia_nossao_nodof": "\u0000",
+   "software": "\u0000",
+   "low": "\u0000"
+  }
+ }
+}
