@@ -3,11 +3,12 @@
   "description": "PLAN phase 6, designed now and grown with each feature: a player installer with zero-touch install and byte-exact uninstall checked against the snapshot (D25); the exe guard's pass-through proven as the Steam-update safety net (altered identity runs vanilla); saves load with and without the mod; a support bundle (logs, config, dumps, no personal data); LICENSES.txt (DXVK zlib, RmlUi MIT, fonts OFL, ...); release values for every config key (including proxy.minidump, J1 open question 1); versioned releases with generated notes.",
   "title": "Release packaging, install and support",
   "phase": 6,
-  "status": "needs_brief",
+  "status": "queued",
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
     "J1",
     "J12"
-  ]
+  ],
+  "brief": "jobs/J38/brief.md"
 }
