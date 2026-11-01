@@ -3,8 +3,7 @@
 Generated views are no longer committed. The three registries that collided most (`jobs`, `tools`, `engine_facts`) now keep one file
 per row, so two jobs in flight never edit the same registry file. Part 1 is warscape-core 0.6.0
 ([liam-rowley/warscape-core#11](https://github.com/liam-rowley/warscape-core/pull/11), merged by Liam as `d4c2677` and tagged `v0.6.0`).
-Part 2 switches this repo over. **It cannot merge yet:** rule 79 counts the core pin bump as a DLL or harness change and wants 20
-acceptance passes on the PC (Open questions 1).
+Part 2 switches this repo over. Rule 79 blocked the merge until J58 (Open questions 1).
 
 ## Part 1: warscape-core
 
@@ -125,7 +124,7 @@ Expected merge-main commits per job branch for registry reasons: **0**, apart fr
    tests and docs: `core/proxy/`, `core/harness/` and `core/saves/` are byte-identical to v0.5.0, and the DLL build id is unchanged
    (`f3e33f228416`, the same as J40's passes). I did not weaken the rule. Either run the 20 passes for `job/J55` on the PC, or file a
    rule change as its own job: exempt a pin change when the submodule diff between the two pins leaves `proxy/` and `harness/`
-   untouched. **Liam chose the rule change (2026-11-01): J58, `needs_brief` on plan PR 101. This job merges after J58.**
+   untouched. **Liam chose the rule change (2026-11-01): J58, `needs_brief` on plan PR 101. This job merges after J58.** J58 merged (#103); after merging main, `pr_policy.py` no longer raises rule 79 for this branch (2026-11-01).
 2. **Moving `assets` and the small registries.** `assets` (12295 game-derived rows, touched by 4 of the 30 branches) would be 12295
    files; it is worth moving only if branches start adding asset rows concurrently, or when discovery decides whether game-derived
    rows are committed at all (core B4). `scenarios`, `hotkeys`, `config_keys`, `engine_sites` and `ui_elements` each move with one
