@@ -30,6 +30,12 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      # rule 79 compares the core pins at the merge base and the head (J58). fetch-depth 0 already clones the core in full (no --depth on
+      # the submodule update), so the base pin is there whenever a core branch or tag reaches it; this fetch makes sure of it. A pin that
+      # still cannot be fetched is left to pr_policy, which counts the pin change and says why (fail closed).
+      - run: |
+          pin=$(git rev-parse "$(git merge-base "origin/${{ github.base_ref }}" HEAD):core")
+          git -C core cat-file -e "$pin^{commit}" 2>/dev/null || git -C core fetch --no-tags origin "$pin" || echo "could not fetch core pin $pin"
       - run: python tools/pr_policy.py --branch "${{ github.head_ref }}" --base "origin/${{ github.base_ref }}"
   notify:
     needs: [policy]
