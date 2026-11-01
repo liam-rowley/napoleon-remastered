@@ -3,10 +3,11 @@
   "description": "Liam asked (2026-10-31, after the J50 review) how to get the upscaled UI art into the game for play tests; there is no route today. The J36 packs put every file under ui_art_2x5\\<vanilla path>, which the game never reads (J50: napoleon.ui_art.pack_loads proves no crash only), and a movie pack at the vanilla path does override data.pack (napoleon.ui_art.movie_pack_overrides). Build: (1) a pack option in upscale/core/pack.py and upscale/napoleon/cli.py (`wsc upscale pack`) that writes the upscaled files at their vanilla paths, one pack per role, with a name in the mod_packs skip list (tests/test_mod_packs.py); (2) a play install for Liam: proxy kit plus the chosen role packs into data\\ through the existing tools (pc_deploy.py, upscale/pc/install_packs.ps1, watcher jobs), sha-checked, snapshot before, and a one-command uninstall that leaves the game folder snapshot-identical so Steam Verify is never the only undo; the launch is Liam's own (visible), never an agent's. Say in the report what Liam will and will not see: at UI scale 1 the 2.5x art is drawn into the vanilla rect and is not visibly sharper (napoleon.ui_art.hires_same_rect), so the play test checks that nothing breaks until a UI host draws above scale 1. Check first the J50 review's later item on DXT targets that are not multiples of 4 (6 loading_screen files) before shipping that role.",
   "title": "UI art play-test install",
   "phase": 5,
-  "status": "needs_brief",
+  "status": "queued",
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
     "J50"
-  ]
+  ],
+  "brief": "jobs/J53/brief.md"
 }
