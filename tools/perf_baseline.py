@@ -17,12 +17,12 @@ offset between the two current values). The lock is taken once for the whole run
 proxy.backend and proxy.dxvk_path are set back after the lock release and the watcher's restore.
 """
 import argparse
+import base64
 import datetime
 import hashlib
 import importlib.util
 import json
 import re
-import shutil
 import statistics
 import subprocess
 import sys
@@ -132,6 +132,9 @@ def cell_problems(cell):
     """Why a cell cannot be part of a baseline: a failed verb (first: it is the cause), a missing pin, no frames."""
     out = [f"status {cell.get('status')}: {str(cell.get('reason', '')).strip()[-300:]}"] if cell.get('status') != 'ok' else []
     out += [f'pin {k} missing' for k in PINS if (cell.get('pins') or {}).get(k) in (None, '', {})]
+    read = (cell.get('pins') or {}).get('dxvk_conf_read') or {}
+    if cell.get('variant') and cell.get('pins') and not read.get('found'):
+        out.append("variant cell but DXVK's log has no 'Found config file': the variant was not in effect")
     if cell.get('pass', 0) > 0 and not (metrics(cell).get('p50_ms') or 0) > 0:
         out.append('no frame times')
     return out
@@ -373,7 +376,17 @@ class Rig:
         return Path(p) if re.match(r'^[A-Za-z]:', p) else self.game / p
 
     def conf_path(self):
-        return self.dxvk_dll().parent / 'dxvk.conf'
+        # where the proxy points DXVK_CONFIG_FILE: always <mod>/dxvk/, whatever proxy.dxvk_path says (core/proxy/src/backend.cpp; run 20261101_j23sweep
+        # staged its confs next to a copied DLL and DXVK read none of them)
+        return self.game / DXVK_DIR / 'dxvk.conf'
+
+    def conf_read(self):
+        """What DXVK says it read, from its own log (<mod>/dxvk/<exe>_d3d9.log): 'Found config file' and the 'Effective configuration' lines."""
+        logs = sorted((self.game / DXVK_DIR).glob('*_d3d9.log'), key=lambda q: q.stat().st_mtime)
+        text = logs[-1].read_text(encoding='utf-8', errors='replace') if logs else ''
+        eff = text.split('Effective configuration:', 1)[1].split('info:  DXVK', 1)[0] if 'Effective configuration:' in text else ''
+        return {'found': 'Found config file:' in text, 'effective': dict(re.findall(r'info:\s+([\w.]+) = (\S+)', eff)),
+                'log': logs[-1].name if logs else None}
 
     def pins(self, run):
         b = self.pc.build_info()
@@ -385,6 +398,7 @@ class Rig:
         return {'build': b.get('build'), 'kit': b.get('kit'), 'watcher': st.get('version'), 'backend': b.get('backend'), 'size': b.get('size'),
                 'dxvk': self.dxvk_pin() if b.get('backend') == 'dxvk' else {'version': 'n/a (system d3d9)'},
                 'gpu': name, 'driver': drv, 'dxvk_conf_sha256': sha256(conf) or 'absent', 'dxvk_conf': text.strip(),
+                'dxvk_conf_read': self.conf_read() if b.get('backend') == 'dxvk' else None,
                 'prefs_gfx': prefs, 'frame_cap': frame_cap(prefs, text), 'date': utc()[:10], 'run': run}
 
 
@@ -425,11 +439,11 @@ def measure(a):
                 log(f'block {b}: exit, set keys, relaunch')
                 rig.use_size(b[0])
                 keys = {'proxy.backend': b[1]}
-                if b[2]:
-                    keys['proxy.dxvk_path'] = stage_variant(rig, b[2], variants[b[2]])
-                elif 'proxy.dxvk_path' in restore:
+                if 'proxy.dxvk_path' in restore:
                     keys['proxy.dxvk_path'] = restore['proxy.dxvk_path']
-                rig.set_keys(keys)
+                rig.set_keys(keys)   # exits the game first
+                if variants:
+                    log(stage_variant(rig, variants[b[2]] if b[2] else None))
                 pins = None
             if launch_fail.get(b, 0) >= 2:   # brief kill criterion: not launched headless twice in a row, the block is recorded failed
                 write_cell(cells_dir, dict(c, status='failed', reason='block skipped: two launch failures in a row', pins=pins or {}), log)
@@ -471,6 +485,8 @@ def measure(a):
         try:
             if rig.pc.pid() is not None:
                 log(f'exit: {rig.pc.exit()}')
+            if variants and rig.locked:
+                log(stage_variant(rig, None))
         finally:
             rig.release()
             if restore and {k: rig.ini().get(k) for k in restore} != restore:
@@ -511,15 +527,21 @@ def deploy_end_cell(rig, block, pins, a, cells_dir, log):
         write_cell(cells_dir, dict(c, status=r.get('status'), reason=r.get('reason'), pins=pins), log)
 
 
-def stage_variant(rig, name, conf_text):
-    """A copy of the installed DXVK DLL and this variant's dxvk.conf in <state>/_scratch/<owner>/dxvk_<name>/; returns the absolute DLL path."""
-    src = rig.game / DXVK_DIR / 'd3d9_dxvk.dll'
-    d = Path(rig.a['state_dir']) / '_scratch' / rig.owner / f'dxvk_{name}'
-    d.mkdir(parents=True, exist_ok=True)
-    if sha256(d / 'd3d9_dxvk.dll') != sha256(src):
-        shutil.copyfile(src, d / 'd3d9_dxvk.dll')
-    (d / 'dxvk.conf').write_text(conf_text, encoding='utf-8')
-    return str(d / 'd3d9_dxvk.dll')
+def stage_variant(rig, conf_text):
+    """Write (or with None remove) <mod>/dxvk/dxvk.conf, the file the proxy points DXVK_CONFIG_FILE at, through an owner-locked watcher job
+    with the game closed (agents never write into the game folder themselves). The folder is the kit's own (uninstall removes it).
+    Checked by sha256 afterwards; returns a log line."""
+    target = rig.conf_path()
+    if conf_text is None:
+        body = f"Remove-Item -LiteralPath '{target}' -Force -ErrorAction SilentlyContinue"
+    else:
+        b64 = base64.b64encode(conf_text.encode('utf-8')).decode('ascii')
+        body = f"[IO.File]::WriteAllBytes('{target}', [Convert]::FromBase64String('{b64}'))"
+    rc, out = rig.pc.job(f'#job owner={rig.owner} timeout=60 type=ps1\n{body}\n', 60)
+    want = hashlib.sha256(conf_text.encode('utf-8')).hexdigest() if conf_text is not None else None
+    if rc != 0 or sha256(target) != want:
+        raise RuntimeError(f'dxvk.conf staging failed (exit {rc}, sha {sha256(target)}, want {want}): {out.strip()[-200:]}')
+    return f"dxvk.conf {'removed' if conf_text is None else 'staged sha ' + want[:12]} at {target}"
 
 
 def write_cell(folder, c, log):

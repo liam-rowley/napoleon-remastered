@@ -94,6 +94,13 @@ class Summary(unittest.TestCase):
         bad['status'] = 'failed'
         self.assertTrue(pb.cell_problems(bad))
 
+    def test_variant_cell_refused_unless_dxvk_read_its_conf(self):
+        c = cell()
+        c['variant'] = 'latency1'
+        self.assertTrue(any('not in effect' in x for x in pb.cell_problems(c)))
+        c['pins']['dxvk_conf_read'] = {'found': True, 'effective': {'d3d9.maxFrameLatency': '1'}}
+        self.assertEqual(pb.cell_problems(c), [])
+
     def test_baseline_shape(self):
         b = pb.summarize(self.cells())
         b.update(date='2026-11-01', not_covered=['land_40: J46'], conditions={'headless': True})
