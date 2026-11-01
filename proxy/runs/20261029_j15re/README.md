@@ -18,6 +18,9 @@ ImageBase 0x400000 (RVA = VA - 0x400000). Every address the proxy uses is an `en
 
 Tables: `campaign_commands.tsv` (status acts / no_op / parse_only / prints_only, static only), `system_commands.tsv`,
 `campaign_vs_empire.tsv` (27 new, 0 gone, 10 status changes against Empire's 172).
+Re-run by J9 on 2026-11-01 after `x86re.walk` began recording indirect `jmp` tail calls (J15 review 8): one class changed, system
+`hdr_screenshot` `parse_only` -> `acts` (`mov ecx,[0x149ba6c]; mov eax,[ecx]; jmp [eax+0x48]`, a virtual tail call on a global); the
+other changed lines only name the indirect calls in `why`. No campaign status changed, so `console_table.h` is unchanged.
 
 ## J40: `transport_to_region` traced (2026-10-31, run `proxy/runs/20261031_j40pc`)
 

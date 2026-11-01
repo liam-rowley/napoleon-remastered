@@ -21,7 +21,7 @@ frame_rate_test_fps	parse_only	battle	only reads its arguments or the selection	
 game_startup_mode	acts	game_startup_mode	calls 3 engine functions	game_startup_mode <battle|campaign|campaign_edit|frontend|naval> opt:<xml name> opt:<xsd name> opt:<building list>	Which mode the application starts in	0x7a610	0x47a610
 gulftown_toggle_default_false	parse_only	battle	only reads its arguments or the selection	gulftown_toggle_default_false	sets gulftown toggle default to false	0x1d70f0	0x5d70f0
 hardware	acts	system	calls 2 engine functions	hardware	Outputs hardware analysis to the console	0xc777a0	0x10777a0
-hdr_screenshot	parse_only	engine	only reads its arguments or the selection	hdr_screenshot	take screenshot	0x7ba00	0x47ba00
+hdr_screenshot	acts	engine	1 indirect calls or tail jumps (virtual or through a global)	hdr_screenshot	take screenshot	0x7ba00	0x47ba00
 help	acts	system	calls 4 engine functions	help	list the commands	0xc780d0	0x10780d0
 here_kitty_kitty	acts	?	calls 4 engine functions	?	?	0x9acb20	0xdacb20
 import_all_mods	parse_only	VFS	only reads its arguments or the selection	import_all_mods	Import all mod packs	0xc782f0	0x10782f0
@@ -50,12 +50,12 @@ reset_advisories	parse_only	advice	only reads its arguments or the selection	res
 reset_skip_effect	acts	mesh manager	calls 2 engine functions	reset_skip_effect	reset effect skip list	0xd986b0	0x11986b0
 restart_replay	parse_only	restart_replay	only reads its arguments or the selection	restart_replay	restart_replay	0x260a60	0x660a60
 save_terrain_settings	acts	Terrain	calls 1 engine functions	 terrain textures settings	saves terrain textures  settings from xml file	0xe552f0	0x12552f0
-screenshot	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87800	0x487800
-screenshot2	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87520	0x487520
-screenshot3	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87560	0x487560
-screenshot4	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x875a0	0x4875a0
+screenshot	acts	engine	1 indirect calls or tail jumps (virtual or through a global)	screenshot	take screenshot	0x87800	0x487800
+screenshot2	acts	engine	1 indirect calls or tail jumps (virtual or through a global)	screenshot	take screenshot	0x87520	0x487520
+screenshot3	acts	engine	1 indirect calls or tail jumps (virtual or through a global)	screenshot	take screenshot	0x87560	0x487560
+screenshot4	acts	engine	1 indirect calls or tail jumps (virtual or through a global)	screenshot	take screenshot	0x875a0	0x4875a0
 screenshot_360	acts	engine	calls 5 engine functions	screenshot	take screenshot	0x875e0	0x4875e0
-screenshot_mul	acts	engine	calls 0 engine functions	screenshot	take screenshot	0x87840	0x487840
+screenshot_mul	acts	engine	1 indirect calls or tail jumps (virtual or through a global)	screenshot	take screenshot	0x87840	0x487840
 set_design_directory	acts	VFS	calls 2 engine functions	set_design_directory <directory name>	Set the source directory of design data	0xc99130	0x1099130
 set_pack_file_dependency	acts	VFS	calls 6 engine functions	set_pack_file_dependency <pack file name> <pack file name>	lhs pack is required by rhs pack (lhs < rhs): lhs will be loaded first and used by rhs pack	0xc9a910	0x109a910
 set_pack_file_precedence	acts	VFS	calls 6 engine functions	set_pack_file_precedence <pack file name> <pack file name>	lhs pack precedes rhs pack (lhs < rhs): lhs will be searched before rhs for files	0xc9aa10	0x109aa10
