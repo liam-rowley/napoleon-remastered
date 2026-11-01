@@ -59,7 +59,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J53` | needs_brief | UI art play-test install | 5 | sonnet | yes | J50 |  |  |  |
 | `J54` | done | CI skips a slow job whose input tree is unchanged; reviews see branch CI | 1 | sonnet | no |  | jobs/J54/brief.md | jobs/J54/report.md | jobs/J54/review.md |
 | `J55` | queued | Registry views out of git; job rows one file per job | 1 | sonnet | no | J56 | jobs/J55/brief.md |  |  |
-| `J56` | queued | jobs verbs fetch the job branches in one call | 1 | sonnet | no |  | jobs/J56/brief.md |  |  |
+| `J56` | done | jobs verbs fetch the job branches in one call | 1 | sonnet | no |  | jobs/J56/brief.md | jobs/J56/report.md | jobs/J56/review.md |
 | `J57` | needs_brief | Review merge cannot run on a skipped policy; a failed changes job runs every slow job; Deploy tests ignore the live game | 1 | sonnet | no | J54 |  |  |  |
 | `J6` | done | Empire to Napoleon diff | 2 | opus | yes | J2 | jobs/J6/brief.md | jobs/J6/report.md | jobs/J6/review.md |
 | `J7` | done | Asset index, contact sheets, loc and db | 2 | sonnet | yes | J6 | jobs/J7/brief.md | jobs/J7/report.md | jobs/J7/review.md |

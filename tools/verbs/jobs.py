@@ -1,13 +1,14 @@
 """The job queue (D16) as a verb: check the queue, pick up the next job, find the next job to review or to fix.
 
 purpose: Check the jobs registry against jobs/ (status invariants, file links, brief shape, review rounds), pick the next job to build, review or fix, and show the queue as a readable page.
-usage: python3 core/wsc.py jobs check | jobs next [--id J<n>] [--offline] | jobs review [--id J<n>] [--offline] | jobs fix [--id J<n>] [--offline] | jobs view [--offline] [--out PATH] [--no-open] | jobs view --serve [--port N] [--dry-run] [--no-open] [--auto [--interval SECONDS]]
+usage: python3 core/wsc.py jobs check | jobs next [--id J<n>] [--offline] | jobs review [--id J<n>] [--all] [--offline] | jobs fix [--id J<n>] [--all] [--offline] | jobs view [--all] [--offline] [--out PATH] [--no-open] | jobs view --serve [--port N] [--dry-run] [--no-open] [--auto [--interval SECONDS]]
 when: `next` when Liam says "pick up the next job" (`--id` for a named job: what a session launched from the view runs); `review` for "review the next job"; `fix` for a job whose review asked for changes; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser instead of registries/jobs.md, `view --serve` to start a job's brief, build, review or fix session from its button, `--auto` to start every ready review and fix by itself (D36).
 verb: jobs
 
-The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review` and `view` read the remote
-branches (`git ls-remote origin`), and `review` fetches the job branches it inspects; `--offline` uses the local remote-tracking refs
-instead. `next`, `review` and `view` first print every open pull request with a failed check (one `gh pr list` call; `--offline`
+The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review`, `fix` and `view` read the remote
+branch names (one `git ls-remote origin`); `review`, `fix` and `view` then read each job branch whose job is not done on main (its row,
+review rounds and head: branch_rows) after one `git fetch` of `job/*` (`--id`: that branch only, done or not; `--all`: done jobs too);
+`--offline` uses the local remote-tracking refs instead (J56). `next`, `review` and `view` first print every open pull request with a failed check (one `gh pr list` call; `--offline`
 skips it), so a red check is told to the next session instead of waiting to be noticed (J42, D32). `review` and `fix` then read the
 chosen branch's head commit's check runs (one `gh api` call) and name every check that failed or is still running, with its URL, above
 the steps; `--offline`, a missing `gh` or an API error print one line instead (J54). The builder opens the pull request as a draft when
@@ -292,6 +293,8 @@ def not_ready(action, jid, by, branches, on_branch=None):
     if action in BRANCH_ACTIONS:
         if jid not in (on_branch or {}) and f'job/{jid}' not in branches:
             return f'{jid} has no job/{jid} branch on origin'
+        if jid not in (on_branch or {}) and r.get('status') == 'done':   # branch_rows skips the branches of done jobs (J56)
+            return f'{jid} is done on main'
         row, rounds, _ = branch_state((on_branch or {}).get(jid))
         if not row:
             return f'job/{jid} has no {jid} row'
@@ -454,20 +457,54 @@ def remote_branches(root, offline):
     return {l.split('refs/heads/', 1)[1] for l in out.splitlines() if 'refs/heads/' in l}
 
 
-def branch_rows(root, branches, offline, jobs_path, only=None):
-    """{id: Branch(row on job/<id> or None, rounds in its review.md, head sha)} for each remote job branch (or just `only`),
-    fetching each one unless offline."""
-    on_branch = {}
-    for b in sorted(x for x in branches if x.startswith('job/')):
-        jid, ref = b.split('/', 1)[1], f'origin/{b}'
-        if only and jid != only:
-            continue
-        if not offline and _git(root, 'fetch', '-q', 'origin', f'+refs/heads/{b}:refs/remotes/{ref}') is None:
-            raise ValueError(f'could not fetch {b}')
-        row = next((x for x in load_rows(_git(root, 'show', f'{ref}:{jobs_path}')) if x.get('id') == jid), None)
-        on_branch[jid] = Branch(row, round_count(_git(root, 'show', f'{ref}:jobs/{jid}/review.md')),
-                                (_git(root, 'rev-parse', ref) or '').strip() or None)
-    return on_branch
+JOB_REFS = 'refs/remotes/origin/job/'
+
+
+def _blobs(root, specs, run=subprocess.run):
+    """{spec: text or None (missing)} for each `<ref>:<path>`, read in one `git cat-file --batch` call."""
+    if not specs:
+        return {}
+    p = run(['git', '-C', str(root), 'cat-file', '--batch'], input=''.join(f'{s}\n' for s in specs).encode(), capture_output=True,
+            timeout=300)
+    out, at, got = p.stdout or b'', 0, {}
+    for spec in specs:
+        nl = out.find(b'\n', at)
+        head = out[at:nl].split() if nl >= 0 else []
+        if len(head) == 3 and head[1] == b'blob':
+            size = int(head[2])
+            got[spec], at = out[nl + 1:nl + 1 + size].decode('utf-8', 'replace'), nl + 2 + size
+        else:   # "<spec> missing" (or an output cut short): no such file on that branch
+            got[spec], at = None, (nl + 1 if nl >= 0 else len(out))
+    return got
+
+
+def branch_row_spec(ref, jid, jobs_path):
+    """Where a job branch keeps job `jid`'s row (J55 changes this one place): (`<ref>:<path>`, text -> the row or None)."""
+    return f'{ref}:{jobs_path}', lambda text: next((x for x in load_rows(text) if x.get('id') == jid), None)
+
+
+def branch_rows(root, branches, offline, jobs_path, only=None, done=(), run=subprocess.run):
+    """{id: Branch(row on job/<id> or None, rounds in its review.md, head sha)} for each remote job branch (or just `only`), skipping
+    every job in `done` (done on main: lane() and not_ready() need nothing from its branch; `only` is read even when done). One
+    `git fetch` of the branches to read (unless offline; none when there is nothing to read), one `for-each-ref` for the heads and one
+    `git cat-file --batch` for every row and review.md (J56: was one fetch and three calls per branch)."""
+    ids = sorted((b.split('/', 1)[1] for b in branches if b.startswith('job/')), key=num)
+    ids = [j for j in ids if j == only] if only else [j for j in ids if j not in done]
+    if not ids:
+        return {}
+    if not offline:
+        src = f'refs/heads/job/{only}' if only else 'refs/heads/job/*'
+        p = run(['git', '-C', str(root), 'fetch', '-q', 'origin', f'+{src}:{JOB_REFS}{only or "*"}'], capture_output=True, text=True,
+                timeout=300)
+        if p.returncode != 0:
+            raise ValueError(f'git fetch of the job branches failed ({(p.stderr or "").strip()[:200]}): rerun with --offline to use local refs')
+    p = run(['git', '-C', str(root), 'for-each-ref', '--format=%(refname:strip=4) %(objectname)', JOB_REFS], capture_output=True,
+            text=True, timeout=300)
+    heads = dict(l.split(' ', 1) for l in (p.stdout or '').splitlines() if ' ' in l) if p.returncode == 0 else {}
+    rows = {j: branch_row_spec(f'origin/job/{j}', j, jobs_path) for j in ids}
+    reviews = {j: f'origin/job/{j}:jobs/{j}/review.md' for j in ids}
+    got = _blobs(root, [rows[j][0] for j in ids] + [reviews[j] for j in ids], run)
+    return {j: Branch(rows[j][1](got.get(rows[j][0])), round_count(got.get(reviews[j])), heads.get(j)) for j in ids}
 
 
 # ------------------------------------------------------------------ launch (the view's buttons; D15 and D30)
@@ -969,6 +1006,7 @@ def add_arguments(p):
     p.add_argument('action', choices=['check', 'next', 'review', 'fix', 'view'])
     p.add_argument('--offline', action='store_true', help='use local remote-tracking refs instead of asking origin (a single-branch or shallow clone sees only the branches it fetched)')
     p.add_argument('--id', help='next, review, fix: this job only (J<n>): its steps when it is ready, else exit 1 with the reason')
+    p.add_argument('--all', action='store_true', help='review, fix, view: also read the job branches of jobs done on main (skipped by default: J56)')
     p.add_argument('--out', default='_scratch/jobs.html', help='view: where to write the page, relative to the repo root (default %(default)s)')
     p.add_argument('--no-open', action='store_true', help='view: write the page (or start the server) but do not open a browser')
     p.add_argument('--serve', action='store_true', help='view: serve the page on 127.0.0.1 so its buttons start background Claude Code sessions (until Ctrl+C)')
@@ -1032,6 +1070,9 @@ def run(args, ctx):
     rows = load_rows((ctx.root / jobs_path).read_text(encoding='utf-8'))
     by = {r['id']: r for r in rows}
 
+    def done_ids(rs):   # the job branches branch_rows skips; --all reads them too
+        return set() if getattr(args, 'all', False) else {r['id'] for r in rs if r.get('status') == 'done'}
+
     def read(p):
         f = ctx.root / p
         return f.read_text(encoding='utf-8') if f.is_file() else None
@@ -1048,13 +1089,13 @@ def run(args, ctx):
     if args.auto and not (args.action == 'view' and args.serve):
         return refuse('--auto runs inside jobs view --serve')
     if args.auto and args.interval < 30:
-        return refuse('--interval must be at least 30 seconds (each tick fetches every job branch)')
+        return refuse('--interval must be at least 30 seconds (each tick fetches the job branches)')
 
     if args.action == 'view' and args.serve:
         def snapshot():   # fresh on every request: the working tree's rows and docs, origin's branches, each job branch's row
             now = load_rows((ctx.root / jobs_path).read_text(encoding='utf-8'))
             branches = remote_branches(ctx.root, args.offline)
-            return now, read, branches, branch_rows(ctx.root, branches, args.offline, jobs_path)
+            return now, read, branches, branch_rows(ctx.root, branches, args.offline, jobs_path, done=done_ids(now))
         srv = JobServer(snapshot, list_agents, lambda argv: start_session(argv, ctx.root), port=args.port, dry_run=args.dry_run,
                         root=ctx.root, log_path=ctx.root / '_scratch' / 'jobs_auto.log')
         print(f'jobs view: serving {srv.url}{" (dry run: nothing is started)" if args.dry_run else ""}; Ctrl+C stops it', flush=True)
@@ -1099,7 +1140,7 @@ def run(args, ctx):
         out = ctx.root / args.out
         out.parent.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
-        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path)
+        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path, done=done_ids(rows))
         out.write_text(render_view(rows, read, branches, stamp, on_branch, root=ctx.root), encoding='utf-8')
         print(f'jobs view: {len(rows)} jobs -> {out}')
         if not args.no_open:
@@ -1114,7 +1155,7 @@ def run(args, ctx):
             return refuse(why)
         jid = args.id
     else:
-        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path)
+        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path, done=done_ids(rows))
         jid = pick_branch(action, on_branch)
         if not jid:
             print(f'No job branch is waiting for {"review" if action == "review" else "fixes"}: ' + (', '.join(

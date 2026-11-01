@@ -735,6 +735,96 @@ class Autopilot(unittest.TestCase):
         self.assertRegex(lines[0], r'^20\d\d-\d\d-\d\d \d\d:\d\d:\d\d UTC jobs auto: tick: nothing ready')
 
 
+class BranchRows(unittest.TestCase):
+    """J56: branch_rows makes one fetch for every job branch, reads done jobs' branches only when asked, and its git calls are counted."""
+    JOBS = 'registries/jobs.jsonl'
+
+    def fake_git(self, files, fetch_rc=0):
+        """A recording git: `files` {"<ref>:<path>": text}; heads are a fixed sha per job branch in `files`. Returns (run, calls)."""
+        calls = []
+
+        def run(argv, input=None, **k):
+            args = argv[3:]   # after git -C <root>
+            calls.append(args[0])
+            if args[0] == 'fetch':
+                calls[-1] = ('fetch', args[-1])
+                return subprocess.CompletedProcess(argv, fetch_rc, '', 'fatal: no network' if fetch_rc else '')
+            if args[0] == 'for-each-ref':
+                jids = sorted({f.split(':')[0].split('/')[-1] for f in files})
+                return subprocess.CompletedProcess(argv, 0, ''.join(f'{j} {j.lower()}sha\n' for j in jids), '')
+            if args[0] == 'cat-file':
+                out = b''
+                for spec in input.decode().split():
+                    calls.append(('blob', spec))
+                    if spec in files:
+                        body = files[spec].encode()
+                        out += b'0123abcd blob %d\n' % len(body) + body + b'\n'
+                    else:
+                        out += spec.encode() + b' missing\n'
+                return subprocess.CompletedProcess(argv, 0, out, b'')
+            raise AssertionError(f'unexpected git {args}')
+        return run, calls
+
+    def files(self, *ids, status='review'):
+        f = {}
+        for j in ids:
+            f[f'origin/job/{j}:{self.JOBS}'] = json.dumps(row(j, status=status)) + '\n' + json.dumps(row('J1', status='done')) + '\n'
+            f[f'origin/job/{j}:jobs/{j}/review.md'] = review_md((1, 'changes'), jid=j)
+        return f
+
+    def test_one_fetch_for_n_branches(self):
+        ids = [f'J{n}' for n in range(60, 70)]
+        run, calls = self.fake_git(self.files(*ids))
+        on = jv.branch_rows(ROOT, {f'job/{j}' for j in ids} | {'brief/J99'}, False, self.JOBS, run=run)
+        self.assertEqual(sorted(on, key=jv.num), ids)
+        self.assertEqual([c for c in calls if isinstance(c, tuple) and c[0] == 'fetch'], [('fetch', '+refs/heads/job/*:refs/remotes/origin/job/*')])
+        self.assertEqual([c for c in calls if not isinstance(c, tuple)], ['for-each-ref', 'cat-file'])   # 3 git calls for 10 branches
+        self.assertEqual(on['J61'], jv.Branch(row('J61', status='review'), 1, 'j61sha'))
+
+    def test_offline_makes_no_fetch(self):
+        run, calls = self.fake_git(self.files('J60'))
+        on = jv.branch_rows(ROOT, {'job/J60'}, True, self.JOBS, run=run)
+        self.assertEqual(on['J60'].row['status'], 'review')
+        self.assertFalse([c for c in calls if isinstance(c, tuple) and c[0] == 'fetch'])
+
+    def test_done_jobs_read_no_blobs_unless_all(self):
+        run, calls = self.fake_git(self.files('J60', 'J61'))
+        on = jv.branch_rows(ROOT, {'job/J60', 'job/J61'}, False, self.JOBS, done={'J61'}, run=run)
+        self.assertEqual(list(on), ['J60'])
+        self.assertFalse([c for c in calls if isinstance(c, tuple) and c[0] == 'blob' and 'J61' in c[1]])
+        run, calls = self.fake_git(self.files('J60', 'J61'))   # every branch done: nothing to read, not even a fetch
+        self.assertEqual(jv.branch_rows(ROOT, {'job/J60', 'job/J61'}, False, self.JOBS, done={'J60', 'J61'}, run=run), {})
+        self.assertEqual(calls, [])
+        run, calls = self.fake_git(self.files('J60', 'J61'))   # --all passes no done set
+        self.assertEqual(sorted(jv.branch_rows(ROOT, {'job/J60', 'job/J61'}, False, self.JOBS, run=run)), ['J60', 'J61'])
+
+    def test_id_of_a_done_job_still_reads_that_branch_only(self):
+        run, calls = self.fake_git(self.files('J60', 'J61', status='done'))
+        on = jv.branch_rows(ROOT, {'job/J60', 'job/J61'}, False, self.JOBS, only='J61', done={'J60', 'J61'}, run=run)
+        self.assertEqual(list(on), ['J61'])
+        self.assertIn(('fetch', '+refs/heads/job/J61:refs/remotes/origin/job/J61'), calls)
+        self.assertEqual({c[1].split(':')[0] for c in calls if isinstance(c, tuple) and c[0] == 'blob'}, {'origin/job/J61'})
+
+    def test_a_missing_file_reads_as_none(self):
+        f = self.files('J60')
+        del f['origin/job/J60:jobs/J60/review.md']
+        run, _ = self.fake_git(f)
+        self.assertEqual(jv.branch_rows(ROOT, {'job/J60'}, False, self.JOBS, run=run)['J60'].rounds, 0)
+
+    def test_a_fetch_failure_names_offline(self):
+        run, _ = self.fake_git(self.files('J60'), fetch_rc=1)
+        with self.assertRaisesRegex(ValueError, '--offline'):
+            jv.branch_rows(ROOT, {'job/J60'}, False, self.JOBS, run=run)
+
+    def test_a_done_job_skipped_on_the_branch_is_refused_as_done(self):
+        self.assertEqual(jv.not_ready('review', 'J5', {'J5': row('J5', status='done')}, {'job/J5'}, {}), 'J5 is done on main')
+
+    def test_blobs_reads_a_real_repo(self):
+        got = jv._blobs(ROOT, ['HEAD:tools/verbs/jobs.py', 'HEAD:no/such/file'])
+        self.assertIn('def branch_rows', got['HEAD:tools/verbs/jobs.py'])
+        self.assertIsNone(got['HEAD:no/such/file'])
+
+
 class ThisRepo(unittest.TestCase):
     def test_the_queue_passes_jobs_check(self):
         p = subprocess.run([sys.executable, str(ROOT / 'core' / 'wsc.py'), '--root', str(ROOT), 'jobs', 'check'],
