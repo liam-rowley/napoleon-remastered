@@ -136,6 +136,7 @@ f) the 20-pass acceptance run on the final build; uninstall and compare with the
 - The 20-pass run fails twice for a cause in the host: stop and report; do not keep re-running.
 
 ## Open questions
+**Settled by Liam 2026-11-01 (D38):** the UI frame-cost budget is 1 ms p50 for this document at 4K and 0.1 ms for the idle host; 2 ms stays the hard stop. Report the measured numbers against it. Propose the `viewer/core` promotion row as below.
 - The UI frame-cost budget is not set yet (UI_PIPELINE names one without a number). 1 ms p50 for this document at 4K and 0.1 ms for the idle
   host are proposals; report the measured numbers so Liam can set it. The 2 ms kill figure is the only hard stop here.
 - `viewer/core` has no promotion row (rule 76, `PROMOTIONS` in `tools/verbs/jobs.py`); the host needs its fetcher and compat header. Propose

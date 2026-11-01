@@ -76,6 +76,7 @@ and the existing refusal test still fails closed without the setUp patch. It mus
 (do not start the game: simulate it).
 
 ## Deliverables
+**Settled by Liam 2026-11-01 (D38):** the `scratch/j57-changes-fail` CI run is kept as the proof of problem 2 (the host test alone only if it cannot be done after two attempts).
 1. Problem 1: `review_steps`, `docs/REVIEW.md` "Merging", `policy.yml` (`notify` `if:` and the header comment), the tests above.
 2. Problem 2: `gates.yml` (three `if:` lines plus a short header comment line), the host test, the scratch-branch run id.
 3. Problem 3: `Deploy.setUp` and its test.

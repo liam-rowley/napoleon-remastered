@@ -41,6 +41,7 @@ background inside one call; never poll with repeated calls.
   is a warscape-core pull request, listed in the report, not done here.
 
 ## Decisions already made for this job
+- **Settled by Liam 2026-11-01 (D38):** J9 stays one job: work in the priority order and stop at the cut line below; no J9a/J9b split.
 - **Order of work** (so a cut by the budget costs the least): 0 the kit fix; 1 the string index (the base of every hunt); 2 shadow, sprite and LOD
   sites (what J24 and J27 are waiting on); 3 the API surface (J10); 4 the guard and function candidates; 5 the loose-override probe. Deliverables
   are numbered the same way. At the cap, finish the item in hand, commit, and write what is left as open facts.

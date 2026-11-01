@@ -31,6 +31,7 @@ in the background inside one call; never poll with repeated calls.
   the DLL build id; see "Rule 79" below.
 
 ## Decisions already made for this job
+- **Settled by Liam 2026-11-01 (D38):** the campaign rows stay out of the acceptance order; "scene stages the row's save" goes in the report as a warscape-core backlog proposal, not built first.
 - **J44's standard for a row stands**: pinned `time_of_day` and `weather` by option index, sky pinned by the fixed-sky pack, measured
   `load_time_s` (date and run), two stored poses (`deploy`, `turned`: the deployment view read back with `cam read`, then turned 60
   degrees) checked against the kind's clamps, determinism proved by shots on two launches with a recorded mean difference and

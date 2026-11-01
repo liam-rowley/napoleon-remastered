@@ -36,6 +36,7 @@ commit, report what is left. Subagents are not needed. Waiting belongs to the ha
   (`-Restore` exits 3, the retry loop runs forever).
 
 ## Decisions already made for this job
+- **Settled by Liam 2026-11-01 (D38):** a missing virtual display (exit 3) moves the record aside, as below.
 - **A restore whose saved position cannot apply restores the mode at the display's current origin.** `-Restore` order: (1) already back at
   the saved mode and origin: ok; (2) the saved origin is legal (`Get-OriginPlan`) and applies and verifies: ok, as today; (3) otherwise apply
   the saved width, height and rate at the display's **current** origin (which cannot overlap anything, it is where the display is now), verify,

@@ -1,0 +1,13 @@
+{
+  "id": "J59",
+  "description": "Re-run tools/perf_baseline.py (J23) on the scenario rows J46 added (land_40, land_large, naval_large and any siege row) at 1080p, 1440p and 4K for system d3d9 and DXVK, extend perf/baseline.json, and re-propose the per-feature budgets against the 40-unit numbers for Liam to agree (D38).",
+  "title": "Performance baseline on the J46 rows; budgets re-agreed",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J23",
+    "J46"
+  ]
+}
