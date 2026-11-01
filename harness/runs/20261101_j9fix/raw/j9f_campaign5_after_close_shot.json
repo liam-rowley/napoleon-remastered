@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "harness\\runs\\20261101_j9fix\\raw\\j9f_campaign5_after_close.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.09,
+    "frames": 808,
+    "scene": "campaign",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 169254,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "harness\\runs\\20261101_j9fix\\raw\\j9f_campaign5_after_close.jpg"
+  },
+  "start_utc": "2026-11-01T20:14:31.366Z",
+  "end_utc": "2026-11-01T20:14:38.622Z"
+}

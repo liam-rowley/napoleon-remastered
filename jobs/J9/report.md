@@ -106,3 +106,37 @@ run `20261101_j9acc`, **20 of 20** (`acceptance.py streak --build 46f52d356ce8 -
 
 ## Finish
 `wsc reg set jobs J9 status=review report=jobs/J9/report.md`
+
+## Fix round 1
+Against review round 1 (`jobs/J9/review.md`), 2026-11-01. PC sitting 19:06 to 20:24 UTC on the 20-pass build 46f52d356ce8, run
+`harness/runs/20261101_j9fix` (README: one line per state); the proxy was reinstalled for it and uninstalled after it (game folder
+identical to the pre-install snapshot, 1564 files). No DLL input changed: the probes run from the run folder by absolute path through
+the proxy's `lua` verb, so the 20 passes of `20261101_j9acc` still hold (`build_id.py`: 46f52d356ce8).
+1. **Blocker** (the stale table): fixed by the reviewer in `2e6a75d`; kept.
+2. **Deliverable 3 states** (should-fix 2), now covered, 19 states in `discovery/napoleon/engine_api.json` (5,521 names):
+   - campaign with an army, a fleet, an agent and a settlement selected: Austria's army and agent; the settlement on the second attempt
+     (the first passed a nil address from RetrieveFactionRegionList and crashed the game: fact `napoleon.campaign.region_list_no_address`);
+     the fleet from the coalition campaign as Britain (Austria starts with no navy), started with the proxy's `autostart` verb;
+   - campaign panels: entity lists, government, diplomacy, missions, technology and the building browser, each seen on screen. The
+     hotkeys cannot be used from Lua (the engine handles them, the root's OnShortcut does not); the panels open through the root
+     functions their menu buttons call (fact `napoleon.campaign.panel_routes`). Prestige needs arguments the menu passes (its state is
+     recorded with the panel call's error);
+   - front-end screens: the pages are entered from the main menu pump and the probe returns to `main`; the battle pages add nothing an
+     enumeration can reach, the grand-campaign page adds 6 registry classes; a page's own script keeps a private environment reachable
+     only through LuaCall (fact `napoleon.frontend.screens_surface`);
+   - getter samples: a committed probe-safe list (`discovery/napoleon/probe_safe.json`, `engine_api.py probe-safe`: C bindings that read
+     no argument, named as getters, no action verb, no underscore) of 45 getters; all 45 returned a sample in their own context (28
+     CampaignUI, 10 BattleUI, 7 FrontEnd), merged into the table per state;
+   - C or Lua: `impl` per name (986 C from the static binding map, 2,911 Lua functions of the script environments).
+   Generator: `--run` repeatable, getter samples, `impl`, the `probe-safe` subcommand; tests for each (`tests/test_engine_api.py`).
+3. **`--no-verify` commit `5eafc75`** (later): kept as reported; this round's drivers write into the run folder while they run, and no
+   commit was made during a sitting. A guard (drivers write to `_scratch` and copy in at the end) is not built: listed for the next driver.
+4. **Core backlog rows B35 to B39** (later): filed by the reviewer; their pull request is for Liam or the orchestrator.
+5. **Weak anchors** (later): nothing to do now, as the review says.
+
+Deviation in this round: the probes live in the run folder, not in `proxy/napoleon/lua/probes/`, to keep the 20-pass build; they move
+there with the next DLL change. Attempts that did not work (panels through OnShortcut, a missed popup, a wrong page check, a headless
+launch failure, a scenario without an autostart target) are in the run README with their logs; their probe blocks are dropped by the
+generator, not merged.
+
+`wsc reg set jobs J9 status=review report=jobs/J9/report.md`

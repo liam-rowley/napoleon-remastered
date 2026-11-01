@@ -45,7 +45,7 @@ class Parse(unittest.TestCase):
             raw.mkdir()
             self.write(raw, 'a_proxy.log', ['api land G BattleUI:table', 'api land __end total=1'])
             self.write(raw, 'b_proxy.log', ['loaded probe file other.lua'])
-            doc = engine_api.build(d)
+            doc = engine_api.build([d])
             self.assertEqual([Path(p).name for p in doc['logs']], ['a_proxy.log'])
 
     def test_j6_answers(self):
@@ -63,16 +63,55 @@ class Parse(unittest.TestCase):
             self.assertEqual(a['component methods']['not_found'], ['Missing'])
 
 
+class Samples(unittest.TestCase):
+    def test_samples_and_impl(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / 'g_proxy.log'
+            p.write_text(''.join(T + l + '\n' for l in [
+                'api campaign@campaign G.CampaignUI CurrentTurn:function PlayerFactionId:function',
+                'api campaign@campaign S OnShortcut:function',
+                'api campaign@campaign __end total=3',
+                'sample campaign G.CampaignUI CurrentTurn number 1',
+                'sample campaign G.CampaignUI PlayerFactionId error attempt to call a nil value',
+            ]), encoding='utf-8')
+            seen, _, _ = engine_api.parse_logs([str(p)])
+            names = engine_api.merge(seen)
+            names['G.CampaignUI:CurrentTurn']['va'] = '0x9e0000'
+            engine_api.add_impl_and_samples(names, engine_api.parse_samples([str(p)]))
+            self.assertEqual(names['G.CampaignUI:CurrentTurn']['impl'], 'C')
+            self.assertEqual(names['G.CampaignUI:CurrentTurn']['samples'], {'campaign': {'type': 'number', 'value': '1'}})
+            self.assertEqual(names['G.CampaignUI:PlayerFactionId']['samples']['campaign'], {'error': 'attempt to call a nil value'})
+            self.assertEqual(names['S:OnShortcut']['impl'], 'Lua')
+            self.assertNotIn('impl', names['G.CampaignUI:PlayerFactionId'])
+
+
+class ProbeSafe(unittest.TestCase):
+    def test_rule(self):
+        with tempfile.TemporaryDirectory() as d:
+            cf = Path(d) / 'cf.json'
+            e = lambda n, a=0, m=0, doc='Out: a value': {'name': n, 'va': '0x1', 'static_args': a, 'static_args_min': m, 'doc': doc}
+            cf.write_text(json.dumps({'tables': {'CampaignUI': {'entries': [
+                e('CurrentTurn'), e('CampaignKey'), e('EndTurn'), e('CurrentSelection', 1, 1), e('Current_Selection_Halt'),
+                e('GetHealthStatus', doc='Update the killometer bar'), e('MPCanCancel'), e('Valid')]}}}), encoding='utf-8')
+            names = [r['name'] for r in engine_api.probe_safe(str(cf))['getters']]
+            self.assertEqual(names, ['CampaignKey', 'CurrentTurn'])
+
+    def test_committed_list_current(self):
+        self.assertEqual(engine_api.main(['probe-safe', '--check']), 0, 'discovery/napoleon/probe_safe.json is stale: rerun probe-safe')
+
+
 class Committed(unittest.TestCase):
     def test_table_current(self):
         out = Path(engine_api.OUT)
         if not out.exists():
             self.skipTest('no committed engine_api.json')
         doc = json.loads(out.read_text(encoding='utf-8'))
-        run = Path(engine_api.REPO) / doc['run']
-        if not (run / 'raw').is_dir():
-            self.skipTest(f'{run}/raw not present')
-        self.assertEqual(engine_api.main(['build', '--run', str(run), '--check']), 0, 'discovery/napoleon/engine_api.json is stale: rebuild it')
+        runs = [Path(engine_api.REPO) / r for r in doc['runs']]
+        missing = [str(r) for r in runs if not (r / 'raw').is_dir()]
+        if missing:
+            self.skipTest(f'{missing} not present')
+        args = ['build'] + [x for r in runs for x in ('--run', str(r))] + ['--check']
+        self.assertEqual(engine_api.main(args), 0, 'discovery/napoleon/engine_api.json is stale: rebuild it')
 
 
 if __name__ == '__main__':

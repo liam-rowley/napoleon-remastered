@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.frontend.screens_surface",
+  "claim": "The front end's Component.Root has two children, layout and main; its pages are created by their first root LuaCall TransitionTo (sp_battle1, sp_battle2, sp_battle2_scenario, grand_campaign with its campaign_key); entering the three battle pages adds no global and no registry entry an enumeration can reach, grand_campaign adds 6 registry classes (OptionsTable and the multiplayer / game-core Pointer<> classes); the pages' own scripts keep private environments reachable only through LuaCall; TransitionTo('main') brings back the main menu and its pumping advert",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9fix/README.md",
+  "date": "2026-11-01",
+  "notes": "only the main menu pumps (napoleon.lua.update_callbacks): per-page probing needs a probe that transitions, reads and returns in one chunk, as fe_pages.lua does"
+}
