@@ -14,7 +14,7 @@ engine_facts = "core:engine_facts"
 jobs = "schemas/jobs.schema.json"          # the job queue (D16); repo-local schema
 
 [core]
-version = "v0.5.0"
+version = "v0.6.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
@@ -24,3 +24,6 @@ max_kb = 30
 
 [cli]
 verb_dirs = ["tools/verbs"]   # game-specific verbs (same contract as core/warscape/verbs/): `jobs`
+
+[views]
+commit = false              # views are written to _scratch/registries/ (git-ignored), never committed (J55)
