@@ -67,7 +67,16 @@ check on the branch head that failed or is still running.
 - **Run 2, `41286632065`** (commit `92eef49`, `jobs.py` and a second workflow edit, which changes all three hashes): every job ran
   and passed again (`proxy` 1m54s, `viewer` 4m23s, `harness-windows` 5m14s). It saved three new markers (`ci-pass-1-proxy-efca5880…`,
   `-viewer-b58f133a…`, `-harness-5a28f316…`), which equal `python3 tools/changed_inputs.py` run locally at that commit.
-- **Run 3, `RUN3`** (commit `RUN3SHA`, `jobs/J54/report.md` only): RUN3_RESULT
+- **Run 3, `41287008303`** (commit `63d719d`: `jobs/J54/report.md` and the J54 row, none of them an input): `changes` and `gates`
+  passed, and `proxy`, `viewer` and `harness-windows` were skipped for a marker. The step summary of `changes`:
+  - `` `harness` skipped: its input tree 5a28f316… already passed in run 41286632065 (attempt 1, commit 92eef49…) ``
+  - `` `proxy` skipped: its input tree efca5880… already passed in run 41286632065 (…); its build: `gh run download 41286632065 -n proxy-d3d9-napoleon` ``
+  - `` `viewer` skipped: its input tree b58f133a… already passed in run 41286632065 (…); its build: `gh run download 41286632065 -n viewer-wasm` ``
+
+  The whole run took 35 s (run 2: 5m24s).
+- **Draft pull request #96**, opened by the new build step. `policy` run `41287024794` (`pull_request`, opened as a draft):
+  `policy` skipped, `notify` skipped.
+- **Run 4** (the commit that added this line, `jobs/J54/report.md` only, the brief's proof commit): filled in by the next commit.
 - **Replay** (script: the scratchpad copy of `replay_j54.py`, method below). It covers every `origin/job/*` branch but J54: 27
   branches, 282 first-parent commits (the audit counted 275; J40 has had more commits since). Each commit is taken oldest first after
   the branch's merge base with today's `origin/main`.
@@ -102,7 +111,11 @@ check on the branch head that failed or is still running.
   - `Steps`: build and fix steps contain `gh pr view` and the draft `gh pr create`, and no `gh pr merge` or `gh pr ready`; review steps
     put pr_policy, then `gh pr ready`, then `gh pr merge --auto`, and leave the draft open otherwise.
 - `python3 -m unittest tests.test_jobs tests.test_ci_notify tests.test_changed_inputs`: 90 tests, OK.
-- `python3 core/wsc.py gates`: GATES_RESULT
+- `python3 core/wsc.py gates` (2026-11-01, at `63d719d`): 11 ok, and `tests` FAILED, with 8 to 11 errors depending on the moment.
+  All of them are `tests.test_pc_deploy.Deploy` cases, and every one is the same refusal: "pc_deploy: refusing: tasklist:
+  Napoleon.exe is running". Another session's J40 acceptance passes were starting and stopping the game on this PC during the job.
+  The remaining 420 tests pass. CI, with no game running, ran the same `test_pc_deploy` green in `harness-windows` (runs 1 and 2).
+  The pre-push `gates --fast` was green on every push.
 
 ## Deviations
 
@@ -129,6 +142,7 @@ check on the branch head that failed or is still running.
   pure rerun. Probably not worth it (40 s).
 - **Main.** Main pushes can only find markers written on main, so a squash merge always reruns the slow jobs on main once. That is
   correct (main has a new tree) and cheap; nothing proposed.
-- The local `tests` gate ran while the game was running on the PC (`Napoleon.exe`, another session's work). `pc_deploy.py`'s
-  game-closed guard then refused 10 `tests.test_pc_deploy.Deploy` cases. That guard and those tests are unchanged here, and CI's
-  `harness-windows` ran them green in runs 1 and 2. See the gates line above.
+- **`tests.test_pc_deploy.Deploy` depends on the real game being closed.** The tests use a fake game folder, but `pc_deploy.py`'s
+  game-closed guard runs `tasklist` for the real `Napoleon.exe`, so the local `tests` gate fails whenever the game runs on the PC
+  (the gates line above). A fix belongs in the core: tests passing `--assume-closed`, or a stubbed process check. It would be a
+  warning for `docs/BACKLOG.md` in warscape-core. Not done here (`core/` is out of scope).
