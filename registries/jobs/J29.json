@@ -8,6 +8,7 @@
   "needs_pc": true,
   "depends_on": [
     "J21",
-    "J28"
+    "J28",
+    "J46"
   ]
 }
