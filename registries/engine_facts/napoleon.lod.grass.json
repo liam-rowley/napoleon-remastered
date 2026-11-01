@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.lod.grass",
+  "claim": "Grass range: a .rdata table at 0x1419ab4 holds one row per gfx_grass_quality (options +0x69d20): grid N, cell 16, density 1 / 16 / 24 / 28 / 32; N is 5 in every row (80 m); 0x11d0c90 reads it and steps the quality down when N^2 x density is over budget; rows grass.grid_q3 / q4 at N 9 (144 m) are accepted: grass 97 draws / 117,958 prims -> 213 / 260,694 at quality 3, 97 / 154,074 -> 213 / 340,400 at quality 4",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01"
+}

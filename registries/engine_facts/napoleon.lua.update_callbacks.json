@@ -1,8 +1,8 @@
 {
   "id": "napoleon.lua.update_callbacks",
-  "claim": "Which scripts get update calls: the front end's main.advert (OnUpdate) only on the main menu; no other front-end screen pumps, and an OnUpdate injected into the front-end root is never called; the battle root gets OnUpdatePulse (not OnUpdate)",
+  "claim": "Which scripts get update calls: the front end's main.advert (OnUpdate) only on the main menu; no other front-end screen pumps, and an OnUpdate injected into the front-end root is never called; the battle root gets OnUpdatePulse (not OnUpdate); the campaign pumps too: ctl lua requests are answered in context campaign (J9 run 20261101_j9pc, campaign_start, also after a character selection)",
   "state": "verified",
-  "evidence": "proxy/runs/20261029_j3pc/README.md",
-  "date": "2026-10-29",
-  "notes": "campaign root not run yet"
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "campaign evidence: harness/runs/20261101_j9pc/raw/j9_api_campaign.txt"
 }

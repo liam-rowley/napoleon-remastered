@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.tweakers.table",
+  "claim": "802 engine tweakers are CRT static initialisers: push <help>, <file>, <line>, mov [esp+0x18], <default>, push <NAME>, mov ecx, <object>, call <ctor> (float 0x454730, bool 0x4548c0, int 0x454300 / 0x454670, bool 0x454480); a float tweaker's value is at object+0x5c, read with mov ecx, <object>; call 0x45c180 (bool 0x45c190), set at run time by 0x5aa4a0; defaults patched in the initialiser take effect because the proxy patches in DllMain before the CRT runs them (unit and ship LOD rows)",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/tweakers.tsv",
+  "date": "2026-11-01"
+}

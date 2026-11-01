@@ -43,7 +43,19 @@
   "20261101_j9pc/j9c_land_uq3_a",
   "20261101_j9pc/j9c_naval_ship_a",
   "20261101_j9pc/j9c_naval_stock_a",
-  "20261101_j9pc/j9c_siege_stock_a"
+  "20261101_j9pc/j9c_siege_stock_a",
+  "20261101_j9pc/j9d_naval_far_ship_a",
+  "20261101_j9pc/j9d_naval_far_ship_c1",
+  "20261101_j9pc/j9d_naval_far_ship_c2",
+  "20261101_j9pc/j9d_naval_far_stock_a",
+  "20261101_j9pc/j9d_naval_far_stock_c1",
+  "20261101_j9pc/j9d_naval_far_stock_c2",
+  "20261101_j9pc/j9e_mixa_on_a",
+  "20261101_j9pc/j9e_mixa_stock_a",
+  "20261101_j9pc/j9e_mixb_on_a",
+  "20261101_j9pc/j9e_mixb_stock_a",
+  "20261101_j9pc/j9e_mixc_on_a",
+  "20261101_j9pc/j9e_mixc_stock_a"
  ],
  "count": 171,
  "mapped": 166,
@@ -695,6 +707,48 @@
      "passes": [
       3
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
     }
    ],
    "class": "grid"
@@ -1130,6 +1184,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "unit"
@@ -1516,6 +1612,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -1783,6 +1921,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 13,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 14,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 14,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "vegetation"
@@ -2011,6 +2191,20 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 20,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 20,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
      "draws": 20,
      "passes": [
       17
@@ -2632,6 +2826,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 77,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 68,
      "passes": [
       4
      ]
@@ -3529,6 +3765,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -3725,6 +4003,13 @@
    "seen": [
     {
      "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
      "draws": 7,
      "passes": [
       17
@@ -4223,6 +4508,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 2,
      "passes": [
       6
@@ -4804,6 +5173,102 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "sky"
@@ -5231,6 +5696,102 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "sky"
@@ -5540,6 +6101,90 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "sun"
@@ -5818,6 +6463,20 @@
      "draws": 2,
      "passes": [
       0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 5,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 4,
+     "passes": [
+      17
      ]
     }
    ],
@@ -6153,6 +6812,54 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 91,
      "passes": [
       19,
@@ -6587,6 +7294,90 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "particle"
@@ -6873,6 +7664,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 44,
      "passes": [
       20
@@ -7394,6 +8227,62 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 25,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 24,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 12,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 13,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 13,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "navalship"
@@ -7727,6 +8616,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 1,
      "passes": [
       6
@@ -8077,6 +9050,90 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -8414,6 +9471,48 @@
      "passes": [
       19
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 9,
+     "passes": [
+      19
+     ]
     }
    ],
    "class": "navalsail"
@@ -8747,6 +9846,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 1,
      "passes": [
       6
@@ -9236,6 +10419,48 @@
      "passes": [
       21
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
     }
    ],
    "class": "ocean"
@@ -9559,6 +10784,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -9837,6 +11104,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
      "passes": [
       0
      ]
@@ -10252,6 +11561,60 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 183,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 139,
      "passes": [
       2,
       3,
@@ -10993,6 +12356,90 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "sprite"
@@ -11318,6 +12765,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 1,
      "passes": [
       21
@@ -11903,6 +13392,90 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -12162,6 +13735,90 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 9,
      "passes": [
       0
      ]
@@ -12748,6 +14405,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -13082,6 +14781,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
      "passes": [
       4
      ]
@@ -13449,6 +15190,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 7,
      "passes": [
       7
@@ -14202,6 +15985,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "navalship"
@@ -14294,6 +16119,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 1,
      "passes": [
       24
@@ -14659,6 +16526,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 218,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 218,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -14978,6 +16887,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 1,
      "passes": [
       4
@@ -15383,6 +17334,54 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 8,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 10,
      "passes": [
       2,
       4
@@ -15819,6 +17818,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 2,
      "passes": [
       4
      ]
@@ -16404,6 +18445,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -16579,6 +18662,20 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
      "draws": 6,
      "passes": [
       17
@@ -16906,6 +19003,90 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "sprite"
@@ -17154,6 +19335,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 9,
      "passes": [
       5
@@ -17453,6 +19676,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -17729,6 +19994,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 10,
      "passes": [
       5
@@ -18251,6 +20600,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -18694,6 +21085,90 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -18883,6 +21358,60 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 126,
      "passes": [
       19,
@@ -19395,6 +21924,96 @@
      "draws": 109,
      "passes": [
       2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 7,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 5,
+     "passes": [
       4
      ]
     }
@@ -19999,6 +22618,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "cloth"
@@ -20374,6 +23035,90 @@
      "passes": [
       5
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
     }
    ],
    "class": "sprite"
@@ -20441,6 +23186,20 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
      "draws": 6,
      "passes": [
       17
@@ -20737,6 +23496,90 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 5,
      "passes": [
       7
      ]
@@ -21385,6 +24228,90 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -21715,6 +24642,90 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -21986,6 +24997,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
      "passes": [
       0
      ]
@@ -22346,6 +25399,102 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "sky"
@@ -22685,6 +25834,90 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -22984,6 +26217,20 @@
      "passes": [
       17
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 13,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
     }
    ],
    "class": "icons"
@@ -23058,6 +26305,20 @@
    "seen": [
     {
      "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 7,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
      "draws": 7,
      "passes": [
       21
@@ -23531,6 +26792,90 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -23849,6 +27194,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
      "passes": [
       4
      ]
@@ -24184,6 +27571,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
      "passes": [
       4
      ]
@@ -24545,6 +27974,48 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -24845,6 +28316,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 2,
      "passes": [
       4
@@ -25201,6 +28756,102 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "sky"
@@ -25512,6 +29163,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 1,
      "passes": [
       6
@@ -26087,6 +29822,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "unit"
@@ -26472,6 +30249,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 86,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 97,
      "passes": [
       4
      ]
@@ -27176,6 +30995,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -27469,6 +31330,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 4,
      "passes": [
       4
@@ -27790,6 +31735,90 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 6,
      "passes": [
       4
@@ -28123,6 +32152,54 @@
       3,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
     }
    ],
    "class": "cloth"
@@ -28382,6 +32459,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 5,
      "passes": [
       0
      ]
@@ -29027,6 +33146,48 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "vegetation"
@@ -29118,6 +33279,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 9,
      "passes": [
       19
@@ -29440,6 +33643,90 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -29525,6 +33812,48 @@
      "passes": [
       21
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 9,
+     "passes": [
+      21
+     ]
     }
    ],
    "class": "navalsail"
@@ -29594,6 +33923,20 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
      "draws": 6,
      "passes": [
       17
@@ -30026,6 +34369,54 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 10,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 8,
      "passes": [
       3,
       4
@@ -30509,6 +34900,48 @@
      "passes": [
       2
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
     }
    ],
    "class": "grid"
@@ -30651,6 +35084,20 @@
    "seen": [
     {
      "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 7,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
      "draws": 7,
      "passes": [
       21
@@ -31191,6 +35638,90 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -31526,6 +36057,90 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "sun"
@@ -31797,6 +36412,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
      "passes": [
       0
      ]
@@ -32206,6 +36863,90 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "particle"
@@ -32469,6 +37210,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 1,
      "passes": [
       7
@@ -32840,6 +37623,54 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 8,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 10,
      "passes": [
       2,
       4
@@ -33241,6 +38072,90 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -33540,6 +38455,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 1,
      "passes": [
       24
@@ -33862,6 +38819,48 @@
      "passes": [
       5
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
     }
    ],
    "class": "sprite"
@@ -34068,6 +39067,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 9,
      "passes": [
       21
@@ -34345,6 +39386,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 7,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
      "passes": [
       4
      ]
@@ -34683,6 +39766,90 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -34978,6 +40145,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 218,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 218,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 223,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -35048,6 +40257,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 1,
      "passes": [
       18
@@ -35344,6 +40595,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
      "passes": [
       0
      ]
@@ -36112,6 +41405,96 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 7,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "textured_rigid"
@@ -36460,6 +41843,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 6,
      "passes": [
       4
      ]
@@ -36876,6 +42301,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "grid"
@@ -37192,6 +42659,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -37259,6 +42768,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 1,
      "passes": [
       18
@@ -37703,6 +43254,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
      "draws": 1,
      "passes": [
       7
@@ -38218,6 +43811,90 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -38306,6 +43983,48 @@
     },
     {
      "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c1",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_ship_c2",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c1",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9d_naval_far_stock_c2",
      "draws": 9,
      "passes": [
       21
@@ -38710,6 +44429,48 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -39058,6 +44819,48 @@
     {
      "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 86,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_on_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixa_stock_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_on_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixb_stock_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_on_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9e_mixc_stock_a",
+     "draws": 97,
      "passes": [
       4
      ]

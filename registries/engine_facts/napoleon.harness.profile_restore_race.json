@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.harness.profile_restore_race",
+  "claim": "pc_deploy.py set right after a headless launch's kill and lock release is undone: the watcher's deferred profile restore (the pre-'headless' snapshot) lands after the set, so the next launch runs with the previous launch's ini; wait for profile_active null before setting keys",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "J9 chain 1 (harness/runs/20261101_j9pc/raw/chain1): every key-on launch logged its keys at 0; core fix proposed (pc_deploy set waits for or refuses a pending restore)"
+}

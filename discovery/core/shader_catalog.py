@@ -685,6 +685,10 @@ def anatomy_tables(cat):
         d = shadow_density(s)
         if d:
             rows.append([k.split('/')[-1], d['view_to_sun_deg'], d['map'], d['farz']] + list(d['texels_per_m'].values()))
+    merged = {}   # captures with the same numbers share a row (J9: most proof captures repeat the stock pose), so the doc stays under its cap
+    for r in rows:
+        merged.setdefault(tuple(r[1:]), []).append(r[0])
+    rows = [[n[0] + (f' (+{len(n) - 1} same)' if len(n) > 1 else '')] + list(k) for k, n in merged.items()]
     out['shadow_density'] = md_table(['capture', 'view to sun (deg)', 'map', 'farz (m)'] + [f'texels/m at {d} m' for d in DENSITY_M], rows)
     out['flagged'] = md_table(['flagged source', 'captured shaders mapped'], [[f, len(v) if v else 'none captured'] for f, v in cat['flagged_sources'].items()])
     return out

@@ -2,7 +2,7 @@
   "id": "napoleon.files.loose_override",
   "claim": "Whether a loose data\\ file beats a pack entry with the same path at runtime (discovery/core/packfs.py assumes it does: loose_wins=True)",
   "state": "open",
-  "evidence": "discovery/core/packfs.py",
-  "date": "2026-10-29",
-  "notes": "no vanilla case exists (napoleon.diff.packs.loose_files); needs a runtime probe: a loose copy of a known pack entry under data\\ and a visible check. Owner: J9 (engine API surface) unless a probe job is briefed"
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "J9 stopped the probe: pc_deploy.py kits place files only at fixed destinations (d3d9.dll, the ini, the mod folder), so a loose data\\ copy needs a core kit role owned by the install record; the file survey shows the engine checking loose data\\ and working_data\\ copies before reading packs (napoleon.files.loose_probe_dirs); of J7's 4 unparsed tgas, flag_animation0011.tga is probed per faction in battle (other factions than punjab and quebec in the surveyed runs), the two ai_hints textures were not opened in any surveyed run"
 }

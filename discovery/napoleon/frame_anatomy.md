@@ -33,20 +33,20 @@ A `land_small` capture at 2560x1440 (`w1440_land_small`) against 1920x1080: **ev
 |---|---|---|---|---|---|
 | 4096x4096 | D24X8 | 0 | no | fixed | j9c_land_shgr_a |
 | 4096x4096 | R16F | 0 | yes | fixed | j9c_land_shgr_a |
-| 2048x2048 | D24X8 | 0 | no | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+32 more) |
-| 2048x2048 | R16F | 0 | yes | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+31 more) |
+| 2048x2048 | D24X8 | 0 | no | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+44 more) |
+| 2048x2048 | R16F | 0 | yes | fixed | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+43 more) |
 | 2048x2048 | R32F | 0 | yes | fixed | q4_land_small |
 | 2560x1440 | A8R8G8B8 | 0 | yes | bb | w1440_land_small |
 | 2560x1440 | D24S8 | 0 | no | bb | w1440_land_small |
 | 2560x1440 | X8R8G8B8 | 0 | no | bb | w1440_land_small |
 | 2400x1350 | A8R8G8B8 | 0 | yes | fixed | j9c_camp_stock_a, r1_campaign_after_reset, r1_campaign_start |
-| 1920x1080 | A8R8G8B8 | 0 | yes | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+35 more) |
-| 1920x1080 | D24S8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+35 more) |
-| 1920x1080 | X8R8G8B8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+35 more) |
+| 1920x1080 | A8R8G8B8 | 0 | yes | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+47 more) |
+| 1920x1080 | D24S8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+47 more) |
+| 1920x1080 | X8R8G8B8 | 0 | no | bb | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+47 more) |
 | 1024x1024 | D24X8 | 0 | no | fixed | q2_land_small |
 | 1024x1024 | R16F | 0 | yes | fixed | q2_land_small |
 | 1280x720 | A8R8G8B8 | 0 | yes | bb/2 | w1440_land_small |
-| 960x540 | A8R8G8B8 | 0 | yes | bb/2 | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+35 more) |
+| 960x540 | A8R8G8B8 | 0 | yes | bb/2 | b_d1000, b_d1400, b_d700, b_deploy, b_near, f1_frontend (+47 more) |
 | 512x512 | D24X8 | 0 | no | fixed | q1_land_small |
 | 512x512 | R16F | 0 | yes | fixed | q1_land_small |
 <!-- /gen -->
@@ -93,25 +93,20 @@ Every capture with a shadow map; the metric is `shader_catalog.py` `shadow_densi
 | b_d1000 | 38.7 | 2048 | 250.5 | 8.89 | 6.81 | 4.47 |
 | b_d1400 | 36.7 | 2048 | 250.5 | 7.76 | 6.28 | 4.43 |
 | b_d700 | 42.7 | 2048 | 249.6 | 10.71 | 7.46 | 4.37 |
-| b_deploy | 57.7 | 2048 | 250.5 | 12.44 | 7.51 | 3.81 |
+| b_deploy (+2 same) | 57.7 | 2048 | 250.5 | 12.44 | 7.51 | 3.81 |
 | b_near | 52.7 | 2048 | 160.0 | 13.4 | 6.79 | 2.98 |
-| hw_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
+| hw_land_small (+16 same) | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
 | q1_land_small | 57.7 | 512 | 72.3 | 9.06 | 3.36 | 1.22 |
 | q2_land_small | 57.7 | 1024 | 139.1 | 10.33 | 4.99 | 2.12 |
-| q3_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
 | q4_land_small | 57.7 | 2048 | 473.3 | 6.43 | 4.7 | 2.9 |
 | r1_campaign_after_reset | 129.3 | 2048 | 170.3 | 12.91 | 6.61 | 2.93 |
 | r1_campaign_start | 129.3 | 2048 | 167.5 | 12.86 | 6.61 | 2.94 |
 | r1_hist_dresden | 127.7 | 2048 | 261.1 | 7.35 | 5.11 | 2.98 |
 | r1_hist_nile | 48.5 | 2048 | 326.8 | 11.91 | 9.0 | 5.79 |
-| r1_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
 | r1_naval_small | 19.2 | 2048 | 410.0 | 25.43 | 24.47 | 22.72 |
-| r1_siege_small | 172.3 | 2048 | 250.5 | 3.14 | 3.11 | 3.03 |
-| t1_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
-| w1440_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
+| r1_siege_small (+1 same) | 172.3 | 2048 | 250.5 | 3.14 | 3.11 | 3.03 |
 | y_0 | 172.3 | 2048 | 250.5 | 5.24 | 5.18 | 5.06 |
 | y_135 | 71.9 | 2048 | 250.5 | 11.98 | 8.42 | 4.98 |
-| y_180 | 57.7 | 2048 | 250.5 | 12.44 | 7.51 | 3.81 |
 | y_225 | 71.9 | 2048 | 250.5 | 8.69 | 6.11 | 3.61 |
 | y_270 | 103.2 | 2048 | 250.5 | 15.48 | 9.46 | 4.85 |
 | y_315 | 140.1 | 2048 | 250.5 | 10.08 | 8.98 | 7.31 |
@@ -119,17 +114,15 @@ Every capture with a shadow map; the metric is `shader_catalog.py` `shadow_densi
 | y_90 | 103.2 | 2048 | 250.5 | 20.88 | 12.76 | 6.55 |
 | j9c_camp_stock_a | 129.1 | 2048 | 188.3 | 13.23 | 6.64 | 2.9 |
 | j9c_land_shgr_a | 57.7 | 4096 | 473.3 | 12.87 | 9.39 | 5.8 |
-| j9c_land_sprite_a | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
-| j9c_land_stock_a | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
 | j9c_land_sweep_a | 57.7 | 2048 | 250.5 | 12.31 | 7.43 | 3.77 |
-| j9c_land_tq3_a | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
-| j9c_land_tree_a | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
-| j9c_land_unitlod_a | 57.7 | 2048 | 250.5 | 12.44 | 7.51 | 3.81 |
-| j9c_land_uq0_a | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
-| j9c_land_uq3_a | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
 | j9c_naval_ship_a | 160.8 | 2048 | 410.0 | 25.46 | 24.5 | 22.74 |
 | j9c_naval_stock_a | 19.2 | 2048 | 410.0 | 25.46 | 24.5 | 22.75 |
-| j9c_siege_stock_a | 172.3 | 2048 | 250.5 | 3.14 | 3.11 | 3.03 |
+| j9d_naval_far_ship_a | 160.8 | 2048 | 410.0 | 25.48 | 24.52 | 22.77 |
+| j9d_naval_far_ship_c1 | 29.2 | 2048 | 410.0 | 102.03 | 94.92 | 82.94 |
+| j9d_naval_far_ship_c2 | 32.2 | 2048 | 410.0 | 98.43 | 90.29 | 77.01 |
+| j9d_naval_far_stock_a | 19.2 | 2048 | 410.0 | 25.5 | 24.54 | 22.78 |
+| j9d_naval_far_stock_c1 | 29.2 | 2048 | 410.0 | 102.01 | 94.9 | 82.93 |
+| j9d_naval_far_stock_c2 | 32.2 | 2048 | 410.0 | 98.35 | 90.21 | 76.95 |
 <!-- /gen -->
 
 ## Captures
@@ -178,6 +171,18 @@ Every capture with a shadow map; the metric is `shader_catalog.py` `shadow_densi
 | 20261101_j9pc/j9c_naval_ship_a | naval | 263 | 8 | 1920x1080 | 59 | 1 |
 | 20261101_j9pc/j9c_naval_stock_a | naval | 247 | 8 | 1920x1080 | 56 | 1 |
 | 20261101_j9pc/j9c_siege_stock_a | battle_deploy | 627 | 8 | 1920x1080 | 83 | 1 |
+| 20261101_j9pc/j9d_naval_far_ship_a | naval | 263 | 8 | 1920x1080 | 59 | 1 |
+| 20261101_j9pc/j9d_naval_far_ship_c1 | naval | 218 | 8 | 1920x1080 | 51 | 1 |
+| 20261101_j9pc/j9d_naval_far_ship_c2 | naval | 211 | 8 | 1920x1080 | 49 | 1 |
+| 20261101_j9pc/j9d_naval_far_stock_a | naval | 247 | 8 | 1920x1080 | 56 | 1 |
+| 20261101_j9pc/j9d_naval_far_stock_c1 | naval | 211 | 8 | 1920x1080 | 49 | 1 |
+| 20261101_j9pc/j9d_naval_far_stock_c2 | naval | 211 | 8 | 1920x1080 | 49 | 1 |
+| 20261101_j9pc/j9e_mixa_on_a | battle_deploy | 798 | 8 | 1920x1080 | 83 | 1 |
+| 20261101_j9pc/j9e_mixa_stock_a | battle_deploy | 658 | 8 | 1920x1080 | 83 | 1 |
+| 20261101_j9pc/j9e_mixb_on_a | battle_deploy | 805 | 8 | 1920x1080 | 83 | 1 |
+| 20261101_j9pc/j9e_mixb_stock_a | battle_deploy | 671 | 8 | 1920x1080 | 83 | 1 |
+| 20261101_j9pc/j9e_mixc_on_a | battle_deploy | 813 | 8 | 1920x1080 | 83 | 1 |
+| 20261101_j9pc/j9e_mixc_stock_a | battle_deploy | 677 | 8 | 1920x1080 | 83 | 1 |
 <!-- /gen -->
 
 ## Passes: land_small (battle)
