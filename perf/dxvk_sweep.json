@@ -1,0 +1,7 @@
+{
+ "none": "# J23 sweep control: no option set (DXVK 3.1.1 defaults), served from the same scratch folder as the variants\n",
+ "latency1": "d3d9.maxFrameLatency = 1\n",
+ "interval0": "d3d9.presentInterval = 0\n",
+ "availmem2048": "d3d9.maxAvailableMemory = 2048\n",
+ "latencysleep_off": "dxvk.latencySleep = False\n"
+}

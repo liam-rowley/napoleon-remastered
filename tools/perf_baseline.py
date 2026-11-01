@@ -332,7 +332,7 @@ class Rig:
         import fetch_dxvk
         pin = getattr(fetch_dxvk, 'PIN', None) or {}
         dll = self.dxvk_dll()
-        m = re.search(r'dxvk-([\d.]+)', json.dumps(pin))
+        m = re.search(r'dxvk-(\d+(?:\.\d+)*)', json.dumps(pin))
         return {'version': m.group(1) if m else None, 'sha256': sha256(dll), 'pinned_sha256': pin.get('d3d9_sha256'), 'path': str(dll)}
 
     def dxvk_dll(self):
