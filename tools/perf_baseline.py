@@ -129,16 +129,15 @@ def metrics(cell):
 
 
 def cell_problems(cell):
-    """Why a cell cannot be part of a baseline: a missing pin, a failed verb, no frames."""
-    out = [f'pin {k} missing' for k in PINS if (cell.get('pins') or {}).get(k) in (None, '', {})]
-    if cell.get('status') != 'ok':
-        out.append(f"status {cell.get('status')}: {cell.get('reason', '')}")
+    """Why a cell cannot be part of a baseline: a failed verb (first: it is the cause), a missing pin, no frames."""
+    out = [f"status {cell.get('status')}: {str(cell.get('reason', '')).strip()[-300:]}"] if cell.get('status') != 'ok' else []
+    out += [f'pin {k} missing' for k in PINS if (cell.get('pins') or {}).get(k) in (None, '', {})]
     if cell.get('pass', 0) > 0 and not (metrics(cell).get('p50_ms') or 0) > 0:
         out.append('no frame times')
     return out
 
 
-def summarize(cells, run_ids=None):
+def summarize(cells, run_ids=None, rows=None):
     """Baseline-shaped summary: per cell key the median and spread of every metric over the counted passes, cold and warm loads, and the
     DXVK / system ratios. Cells without their pins are refused (listed under `refused`, never summarized)."""
     groups, cold, refused, pins = {}, {}, [], {}
@@ -170,8 +169,42 @@ def summarize(cells, run_ids=None):
             ratios[rest] = {m: round(row[m]['median'] / s[m]['median'], 3) for m in ('p50_ms', 'p99_ms', 'load_s', 'va_peak_mb', 'commit_mb', 'vram_mb')
                             if row.get(m) and s.get(m) and s[m]['median']}
     blocks = {k: {**v, 'runs': sorted(v['runs'])} for k, v in sorted(pins.items())}
-    return {'schema': 1, 'cells': out, 'dxvk_over_system': ratios, 'blocks': blocks, 'refused': refused,
-            'scenarios': sorted({k.split('|')[2] for k in out}), 'runs': sorted(run_ids or {b for v in blocks.values() for b in v['runs']})}
+    scen = sorted({k.split('|')[2] for k in out})
+    return {'schema': 1, 'date': max((v['date'] for v in blocks.values()), default=None), 'cells': out, 'dxvk_over_system': ratios,
+            'blocks': blocks, 'refused': refused, 'scenarios': scen, 'not_covered': not_covered(refused, list(out), rows),
+            'conditions': CONDITIONS, 'runs': sorted(run_ids or {b for v in blocks.values() for b in v['runs']})}
+
+
+CONDITIONS = {
+    'present': 'headless: the game runs windowed borderless on the virtual display at the cell size (the harness\'s only mode, J13); no cell is a real-monitor or fullscreen number',
+    'guard_thread': 'the headless guard thread takes the Present lock while it enumerates monitors (every 25th poll; J13 review Later 4): it is in every frame time',
+    'pc_use': 'Liam may have been using the PC during a run: the run README gives the time windows',
+    'va_peak_mb': 'the process peak since its launch (Get-Process PeakVirtualMemorySize64, equal to the proxy\'s 32-bit value when current): a scene loaded by a warm reset inherits the peak of the scenes before it in the same process; va_used_mb is the scene\'s own value at the end of perf',
+    'repeats': 'pass 0 after each fresh launch per backend x size is a warm-up (its loads are cold_load_s); medians and spreads over passes 1..n',
+    'battle': 'a key ending |battle is land_small with deployment ended and the battle running at 1x (ctl scene --deploy end, speed 1)',
+}
+UNBUILT = [{'what': 'land_40 (20 against 20), land_large, naval_large, siege_city', 'why': 'no scenario rows: the custom-battle army setup route is J46; J59 measures them with this tool'}]
+
+
+def not_covered(refused, keys, rows=None):
+    """What the baseline does not cover and why: blocks whose every cell was refused (first problem named), library rows not measured, unbuilt rows."""
+    out, blocks, measured = [], {}, {k.split('|')[2] for k in keys}
+    for r in refused:
+        be, size = r['cell'].split('_')[:2]
+        if 'block skipped' not in blocks.get(f'{be}|{size}', 'block skipped'):
+            continue   # keep the cause (a launch failure), not a later "block skipped"
+        blocks[f'{be}|{size}'] = r['problems'][0]
+    for b, why in sorted(blocks.items()):
+        be = b.split('|')[0]
+        if not any(k.startswith(be + '|') for k in keys):   # nothing at any size: the backend itself is not covered
+            out.append({'what': f'backend {be} (every size; tried: {b})', 'why': why})
+        elif not any(k.startswith(b + '|') for k in keys):
+            out.append({'what': f'block {b}', 'why': why})
+    for sid, row in sorted((rows or {}).items()):
+        if sid not in measured:
+            out.append({'what': sid, 'why': 'not a ctl scene row (' + str(row.get('launch', ''))[:60] + ')'
+                        if not str(row.get('launch', '')).startswith('ctl.py scene') else 'in the library, not measured in these runs'})
+    return out + UNBUILT
 
 
 def baseline_problems(b):
@@ -503,7 +536,7 @@ def read_cells(run_dir):
 
 def cmd_summarize(a):
     dirs = [Path(d) for d in a.run]
-    s = summarize([c for d in dirs for c in read_cells(d)], [d.name for d in dirs])
+    s = summarize([c for d in dirs for c in read_cells(d)], [d.name for d in dirs], load_rows())
     text = json.dumps(s, indent=1)
     if a.out:
         Path(a.out).write_text(text + '\n', encoding='utf-8')

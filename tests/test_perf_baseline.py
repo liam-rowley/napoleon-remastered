@@ -105,6 +105,16 @@ class Summary(unittest.TestCase):
         self.assertIn('no not_covered', probs)
         self.assertIn('block dxvk|1920x1080: pin gpu missing', probs)
 
+    def test_not_covered_names_a_failed_backend_and_unmeasured_rows(self):
+        bad = cell(backend='system', n=0, pose=None)
+        bad['status'], bad['reason'] = 'failed', 'HEADLESS FAILED'
+        s = pb.summarize([cell(), bad], rows=ROWS)
+        what = [x['what'] for x in s['not_covered']]
+        self.assertIn('backend system (every size; tried: system|1920x1080)', what)
+        self.assertIn('campaign_britain_1805', what)
+        self.assertIn('campaign_start', what)
+        self.assertEqual(s['date'], '2026-11-01')
+
     def test_compare_thresholds(self):
         base = pb.summarize(self.cells())
         later = [cell(n=n, p50=p) for n, p in ((1, 2.6), (2, 2.5), (3, 2.7))]
