@@ -3,7 +3,7 @@
   "kind": "script",
   "path": "tools/perf_baseline.py",
   "purpose": "drive core/harness/ctl.py (scene, cam, perf) over a matrix of backend (proxy.backend dxvk|system), headless size, scenario, pose and repeat, one JSON per cell with the pins a number belongs to; summarize the cells into the baseline file; check a baseline; compare a later run against it and flag budget breaches",
-  "usage": "perf_baseline.py measure --run RUN [--owner O] [--session S] [--backends dxvk,system] [--sizes 1920x1080,2560x1440,3840x2160] [--scenarios a,b] [--poses deploy] [--repeats 3] [--perf-s 20] [--deploy-end-s 60] [--dxvk-variants FILE] | summarize --run DIR [--out F] | check [--baseline F] | compare --run DIR [--baseline F] [--budgets F] [--feature NAME]",
+  "usage": "perf_baseline.py measure --run RUN [--owner O] [--session S] [--backends dxvk,system] [--sizes 1920x1080,2560x1440,3840x2160] [--scenarios a,b] [--poses deploy] [--repeats 3] [--perf-s 20] [--deploy-end-s 60] [--dxvk-variants FILE] | summarize --run DIR [--out F] | check [--baseline F] | compare --run DIR [--baseline F] [--budgets F] [--feature NAME] | table [--baseline F | --run DIR]",
   "when": "J23 measured perf/baseline.json with it; every later phase 3 job (J24 shadows, J26 cascades, J27 distances, J59 the J46 rows) re-runs `measure` on its build and reports `compare` against the committed baseline",
   "not_a_verb": "orchestrates PC sessions through core/harness/ctl.py and job.sh (a tools/ driver so it adds no harness/ file, rule 79); a warscape-core candidate once a second game has a baseline",
   "status": "live",
