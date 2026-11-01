@@ -3,10 +3,11 @@
   "description": "J44 handed this on: wsc jobs view shows the PC state when run on the PC but names no usage source, since no tool on the PC reads Claude usage numbers. Find one (Claude Code's local session logs or an exported usage report), show per-job usage in the view with its source and date, or record why none exists and close rule 75's usage half. Repo infrastructure only (tools/, tests/): no game code.",
   "title": "Usage source for the PC jobs view (rule 75)",
   "phase": 1,
-  "status": "needs_brief",
+  "status": "queued",
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
     "J44"
-  ]
+  ],
+  "brief": "jobs/J49/brief.md"
 }
