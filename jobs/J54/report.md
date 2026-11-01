@@ -76,7 +76,11 @@ check on the branch head that failed or is still running.
   The whole run took 35 s (run 2: 5m24s).
 - **Draft pull request #96**, opened by the new build step. `policy` run `41287024794` (`pull_request`, opened as a draft):
   `policy` skipped, `notify` skipped.
-- **Run 4** (the commit that added this line, `jobs/J54/report.md` only, the brief's proof commit): filled in by the next commit.
+- **Run 4, `41287792800`** (commit `e30d612`, which changes `jobs/J54/report.md` only: the brief's proof commit): `changes` and
+  `gates` passed, and `proxy`, `viewer` and `harness-windows` were skipped. The summary has the same three lines as run 3, naming run
+  `41286632065` and its `gh run download` commands. The whole run took 38 s.
+- **The two run ids the brief asks for:** `41286632065` ran everything and wrote the markers; `41287792800` skipped all three for
+  those markers.
 - **Replay** (script: the scratchpad copy of `replay_j54.py`, method below). It covers every `origin/job/*` branch but J54: 27
   branches, 282 first-parent commits (the audit counted 275; J40 has had more commits since). Each commit is taken oldest first after
   the branch's merge base with today's `origin/main`.
