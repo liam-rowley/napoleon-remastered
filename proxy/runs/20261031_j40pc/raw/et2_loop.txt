@@ -1,0 +1,10 @@
+before 1805|Winter|true|true|true|Early January 1805
+rc 0 {"status": "ok", "chunk": "end turn asked through button_end_turn at 1805 Winter"}
+poll 1 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+poll 2 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+poll 3 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "open diplomacy_panel:DeclineOffer=ok button_cancel:OnMouseLClickUp=ok button_cancel:DeclineOffer=ok diplomacy_panel:ClosePopup=ok button_close:OnMouseLClickUp=ok"}]
+poll 4 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "closed diplomacy_panel:ClosePopup"}]
+poll 5 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+poll 6 turn=[1805|Winter|true|true|true|Late January 1805] modal=[rc 0 {"status": "ok", "chunk": "closed event_message:OnOk"}]
+poll 7 turn=[1805|Winter|true|true|true|Late January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+NEXT TURN after poll 7: 1805|Winter|true|true|true|Early January 1805 -> 1805|Winter|true|true|true|Late January 1805
