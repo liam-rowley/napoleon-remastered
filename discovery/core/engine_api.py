@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the engine Lua API surface table from the api_surface.lua probe lines of a run, and check it against J6's static diff.
 
-purpose: read the "api <state> <owner> <name>:<type> ..." lines that proxy/<game>/lua/probes/api_surface.lua logs (in the run's committed proxy logs), merge them per name (owner, kind, the states where it exists, observed type) and answer the open questions of J6's static Lua API diff (discovery/diff/lua_api.json: are its new and gone names there at runtime); writes discovery/napoleon/engine_api.json
+purpose: read the "api <state> <owner> <name>:<type> ..." lines that proxy/<game>/lua/probes/api_surface.lua logs (in the run's committed proxy logs), merge them per name (owner, kind, the states where it exists, observed type) merge the static binding map discovery/napoleon/lua_cfuncs.json (address and argument counts per C function) and answer the open questions of J6's static Lua API diff (discovery/diff/lua_api.json: are its new and gone names there at runtime, which argument-count drifts are real); writes discovery/napoleon/engine_api.json
 usage: python3 discovery/core/engine_api.py build --run harness/runs/<id> [--out discovery/napoleon/engine_api.json] [--check]
 when: after a PC run of the api_surface probe (J9; again after a game update); --check in review rebuilds the table from the committed logs
 not-a-verb: a discovery pass over committed run evidence, writing one discovery table; outside the wsc registry operations
@@ -23,6 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
 OUT = os.path.join(REPO, 'discovery', 'napoleon', 'engine_api.json')
 DIFF = os.path.join(REPO, 'discovery', 'diff', 'lua_api.json')
+CFUNCS = os.path.join(REPO, 'discovery', 'napoleon', 'lua_cfuncs.json')   # J9 static RE: binding addresses and argument counts
 LINE = re.compile(r'\] lua: api (\S+) (\S+) (.*)$')
 END = re.compile(r'\] lua: api (\S+) __end total=(\d+)')
 # names the static diff caught from a non-game (build-system) script; they are not engine API
@@ -31,25 +32,35 @@ BUILD_SYSTEM = {'buildcommands', 'project', 'solution', 'configuration', 'config
 
 
 def parse_logs(paths):
-    """{state: {owner: {name: type}}}, {state: probe total} from every log line; a state probed twice keeps the union"""
-    seen, totals = {}, {}
+    """{state: {owner: {name: type}}}, {state: probe total}, [dropped blocks]. A probe run is one block of lines ended by its __end line;
+    when a state has several blocks (a stale request from a killed client can run in the next launch, in another context: J9 chain 4),
+    only the last complete block counts and the others are listed as dropped"""
+    blocks = {}
     for p in sorted(paths):
+        cur = {}
         with open(p, encoding='utf-8', errors='replace') as f:
             for line in f:
                 m = END.search(line)
                 if m:
-                    totals[m.group(1)] = max(totals.get(m.group(1), 0), int(m.group(2)))
+                    state = m.group(1)
+                    blocks.setdefault(state.split('@')[0], []).append((state, os.path.basename(p), int(m.group(2)), cur.pop(state, {})))
                     continue
                 m = LINE.search(line)
-                if not m or m.group(2).startswith('__end'):
+                if not m:
                     continue
                 state, owner, rest = m.groups()
-                d = seen.setdefault(state, {}).setdefault(owner, {})
+                d = cur.setdefault(state, {}).setdefault(owner, {})
                 for item in rest.split(' '):
                     name, _, typ = item.rpartition(':')
                     if name:
                         d[name] = typ
-    return seen, totals
+    seen, totals, dropped = {}, {}, []
+    for state, bl in blocks.items():
+        for label, log, total, owners in bl[:-1]:
+            dropped.append({'state': label, 'log': log, 'probe_total': total})
+        label, log, total, owners = bl[-1]
+        seen[state], totals[state] = owners, total
+    return seen, totals, dropped
 
 
 def kind(owner, name, typ):
@@ -85,7 +96,8 @@ def j6_answers(names, diff_path=DIFF):
     """J6's static names (new / gone against Empire) against the runtime surface: which exist in any probed state"""
     if not os.path.exists(diff_path):
         return {}
-    d = json.load(open(diff_path, encoding='utf-8'))['detail']['names']
+    with open(diff_path, encoding='utf-8') as f:
+        d = json.load(f)['detail']['names']
     runtime = {}
     for e in names.values():
         if e['owner'][:2] in ('G.', 'S.') and '#' not in e['owner']:
@@ -108,16 +120,34 @@ def j6_answers(names, diff_path=DIFF):
     return out
 
 
+def add_cfuncs(names, path=CFUNCS):
+    """merge the static binding map (address, argument counts read by the C function) into the runtime names; J6's drift verdicts out"""
+    if not os.path.exists(path):
+        return []
+    with open(path, encoding='utf-8') as f:
+        cf = json.load(f)
+    by = {(t, e['name']): e for t, v in cf.get('tables', {}).items() for e in v.get('entries', [])}
+    for e in names.values():
+        table = e['owner'].split('.', 1)[1].split('#')[0] if '.' in e['owner'] else None
+        hit = by.get((table, e['name']))
+        if hit:
+            for k in ('va', 'static_args', 'static_args_min', 'checks_gettop'):
+                if hit.get(k) is not None:
+                    e[k] = hit[k]
+    return cf.get('j6_arg_drift', [])
+
+
 def build(run):
     logs = glob.glob(os.path.join(run, 'raw', '*_proxy.log'))
-    seen, totals = parse_logs(logs)
+    seen, totals, dropped = parse_logs(logs)
     names = merge(seen)
+    drift = add_cfuncs(names)
     rows = sorted(names.values(), key=lambda e: (e['owner'], e['name']))
     per_state = {s: {'names': sum(len(d) for d in o.values()), 'probe_total': totals.get(s),
                      'owners': len(o)} for s, o in sorted(seen.items())}
     return {'generator': 'discovery/core/engine_api.py', 'run': run.replace('\\', '/'),
             'logs': sorted(os.path.relpath(p, REPO).replace('\\', '/') for p in logs),
-            'states': per_state, 'j6': j6_answers(names), 'names': rows}
+            'states': per_state, 'dropped_blocks': dropped, 'j6': j6_answers(names), 'j6_arg_drift': drift, 'names': rows}
 
 
 def main(argv=None):
@@ -132,7 +162,8 @@ def main(argv=None):
     text = json.dumps(doc, indent=1, ensure_ascii=False, sort_keys=False) + '\n'
     summary = ', '.join(f"{s} {v['names']}" for s, v in doc['states'].items())
     if a.check:
-        same = os.path.exists(a.out) and open(a.out, encoding='utf-8').read() == text
+        with open(a.out, encoding='utf-8') if os.path.exists(a.out) else open(os.devnull, encoding='utf-8') as f:
+            same = f.read() == text
         print(f'engine_api --check: {"ok" if same else "DIFFERS"} - {summary}')
         return 0 if same else 1
     with open(a.out, 'w', encoding='utf-8', newline='\n') as f:

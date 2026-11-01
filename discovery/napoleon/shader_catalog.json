@@ -30,14 +30,27 @@
   "20261101_j8pc/y_270",
   "20261101_j8pc/y_315",
   "20261101_j8pc/y_45",
-  "20261101_j8pc/y_90"
+  "20261101_j8pc/y_90",
+  "20261101_j9pc/j9c_camp_stock_a",
+  "20261101_j9pc/j9c_land_shgr_a",
+  "20261101_j9pc/j9c_land_sprite_a",
+  "20261101_j9pc/j9c_land_stock_a",
+  "20261101_j9pc/j9c_land_sweep_a",
+  "20261101_j9pc/j9c_land_tq3_a",
+  "20261101_j9pc/j9c_land_tree_a",
+  "20261101_j9pc/j9c_land_unitlod_a",
+  "20261101_j9pc/j9c_land_uq0_a",
+  "20261101_j9pc/j9c_land_uq3_a",
+  "20261101_j9pc/j9c_naval_ship_a",
+  "20261101_j9pc/j9c_naval_stock_a",
+  "20261101_j9pc/j9c_siege_stock_a"
  ],
- "count": 168,
- "mapped": 163,
+ "count": 171,
+ "mapped": 166,
  "by_class": {
   "sprite": 21,
+  "shadow_caster": 17,
   "vegetation": 17,
-  "shadow_caster": 16,
   "post": 11,
   "grid": 10,
   "unit": 10,
@@ -62,6 +75,7 @@
   "particle": 2,
   "ocean": 2,
   "campaignriver": 2,
+  "rope": 2,
   "shipbowwave": 2,
   "icons": 1
  },
@@ -165,6 +179,7 @@
    "16bee86e3e9d722c",
    "16ea3fe4b019ceb4",
    "178284fec1db529f",
+   "17d74010fbe91260",
    "1998c771d3447fff",
    "1d6764dd07daff4b",
    "1e18101c7d00e563",
@@ -220,6 +235,7 @@
    "9b3d5f51a9a32254",
    "9ccfa80f3501175c",
    "a18833a8de64a559",
+   "a73cecba0d6bcae6",
    "b010a9201a285d06",
    "b078ec1f08b791ed",
    "b6acedbf1aadabb8",
@@ -243,6 +259,7 @@
    "cc212c49d69a88c1",
    "cc6006e68d168416",
    "cec0b8199c137cac",
+   "cfa522146679c7c6",
    "d0782bb0d8fb615e",
    "d191918bdb3c994a",
    "d2a095afcbb9809d",
@@ -605,6 +622,76 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 5,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 3,
+     "passes": [
+      3
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 29,
      "passes": [
       3
      ]
@@ -973,6 +1060,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 36,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 7,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "unit"
@@ -1289,6 +1446,76 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 7,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -1486,6 +1713,76 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 14,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 7,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "vegetation"
@@ -1592,6 +1889,13 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 65,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "campaigntree"
@@ -1693,6 +1997,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 20,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 20,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 20,
      "passes": [
       17
@@ -1829,6 +2147,14 @@
    "seen": [
     {
      "capture": "20261101_j8pc/r1_campaign_start",
+     "draws": 44,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
      "draws": 44,
      "passes": [
       2,
@@ -2236,6 +2562,76 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 42,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 68,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 77,
      "passes": [
       4
      ]
@@ -2681,6 +3077,13 @@
      "passes": [
       1
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 147,
+     "passes": [
+      1
+     ]
     }
    ],
    "class": "campaignoverlay"
@@ -2730,6 +3133,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 72,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 68,
      "passes": [
       0
      ]
@@ -3056,6 +3466,69 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -3190,9 +3663,75 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 216,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 8,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "campaignflag"
+  },
+  "17d74010fbe91260": {
+   "stage": "vs",
+   "model": "vs_2_0",
+   "size": 652,
+   "preshader": false,
+   "fx": [
+    {
+     "fx": "rope.fx",
+     "technique": "non_instanced_rope_shadow_map_t0_sm2",
+     "profiles": "base"
+    }
+   ],
+   "ctab": {
+    "flags": 536875008,
+    "constants": [
+     {
+      "name": "light_direction",
+      "reg": "c8",
+      "set": "c",
+      "index": 8,
+      "count": 1
+     },
+     {
+      "name": "linear_z_shadow_map_projection_matrix",
+      "reg": "c4",
+      "set": "c",
+      "index": 4,
+      "count": 4
+     },
+     {
+      "name": "shadow_map_projection_matrix",
+      "reg": "c0",
+      "set": "c",
+      "index": 0,
+      "count": 4
+     }
+    ]
+   },
+   "samplers": {},
+   "seen": [
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      17
+     ]
+    }
+   ],
+   "class": "shadow_caster"
   },
   "1998c771d3447fff": {
    "stage": "vs",
@@ -3597,6 +4136,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 2,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 2,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -3706,6 +4336,14 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 42,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "strengthbar"
@@ -3809,6 +4447,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 38,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 47,
      "passes": [
       4
      ]
@@ -4058,6 +4703,102 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 2,
      "passes": [
       2,
@@ -4394,6 +5135,102 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "sky"
@@ -4615,6 +5452,90 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 1,
      "passes": [
       4
@@ -4845,6 +5766,55 @@
     },
     {
      "capture": "20261101_j8pc/r1_siege_small",
+     "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 22,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 5,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 4,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 2,
      "passes": [
       0
@@ -5167,6 +6137,22 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 91,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 91,
      "passes": [
       19,
@@ -5510,6 +6496,97 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "particle"
@@ -5782,6 +6859,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 44,
+     "passes": [
+      20
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 44,
      "passes": [
       20
@@ -6212,6 +7303,97 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 31,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 15,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 15,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 13,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 32,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 25,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 24,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 14,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "navalship"
@@ -6454,6 +7636,97 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 1,
      "passes": [
       6
@@ -6709,6 +7982,97 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 21,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 42,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 17,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 42,
      "passes": [
       7
@@ -7036,6 +8400,20 @@
      "passes": [
       19
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
     }
    ],
    "class": "navalsail"
@@ -7278,6 +8656,97 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 1,
      "passes": [
       6
@@ -7526,6 +8995,13 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 47,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "supertexturetile"
@@ -7742,6 +9218,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 1,
      "passes": [
       21
@@ -7999,6 +9489,76 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -8207,6 +9767,76 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 2,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 5,
      "passes": [
       0
      ]
@@ -8537,6 +10167,96 @@
       3,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 139,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 183,
+     "passes": [
+      2,
+      3,
+      4
+     ]
     }
    ],
    "class": "grid"
@@ -8607,6 +10327,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 100,
+     "passes": [
+      1
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 86,
      "passes": [
       1
      ]
@@ -8856,6 +10583,14 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 20,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 18,
      "passes": [
       2,
       4
@@ -9181,6 +10916,83 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "sprite"
@@ -9309,6 +11121,15 @@
       3,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 47,
+     "passes": [
+      2,
+      3,
+      4
+     ]
     }
    ],
    "class": "campaignbuilding"
@@ -9362,6 +11183,13 @@
     },
     {
      "capture": "20261101_j8pc/r1_campaign_start",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
      "draws": 1,
      "passes": [
       4
@@ -9476,6 +11304,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 1,
      "passes": [
       21
@@ -9970,6 +11812,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -10152,6 +12085,83 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
      "passes": [
       0
      ]
@@ -10340,6 +12350,13 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 65,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "campaigntree"
@@ -10392,6 +12409,14 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 54,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 42,
      "passes": [
       2,
       4
@@ -10453,6 +12478,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 24,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 23,
      "passes": [
       4
      ]
@@ -10636,6 +12668,83 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 1,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 18,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 9,
      "passes": [
       0
      ]
@@ -10906,6 +13015,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -10969,6 +13148,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 22,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 18,
      "passes": [
       6
      ]
@@ -11190,6 +13376,83 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -11247,6 +13510,13 @@
     },
     {
      "capture": "20261101_j8pc/r1_campaign_start",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
      "draws": 1,
      "passes": [
       4
@@ -11314,6 +13584,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 11,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 4,
      "passes": [
       4
      ]
@@ -11385,6 +13662,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 100,
+     "passes": [
+      1
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 86,
      "passes": [
       1
      ]
@@ -11848,6 +14132,76 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 36,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 7,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "navalship"
@@ -11926,6 +14280,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 1,
      "passes": [
       24
@@ -12221,6 +14589,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 29,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -12470,6 +14908,76 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 1,
      "passes": [
       4
@@ -12799,6 +15307,86 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 8,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -12956,6 +15544,15 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 44,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 47,
      "passes": [
       2,
       3,
@@ -13152,6 +15749,76 @@
     {
      "capture": "20261101_j8pc/y_225",
      "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 7,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 3,
      "passes": [
       4
      ]
@@ -13491,6 +16158,13 @@
      "passes": [
       3
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 22,
+     "passes": [
+      3
+     ]
     }
    ],
    "class": "textured_rigid"
@@ -13660,6 +16334,76 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 29,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 7,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -13703,6 +16447,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 33,
+     "passes": [
+      1
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 30,
      "passes": [
       1
      ]
@@ -13814,6 +16565,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 6,
      "passes": [
       17
@@ -14064,6 +16829,83 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 3,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "sprite"
@@ -14243,6 +17085,76 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 6,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 9,
      "passes": [
       5
      ]
@@ -14478,6 +17390,69 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -14674,6 +17649,90 @@
      "passes": [
       5
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
     }
    ],
    "class": "sprite"
@@ -14746,6 +17805,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 134,
+     "passes": [
+      1
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 147,
      "passes": [
       1
      ]
@@ -15115,6 +18181,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -15467,6 +18603,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -15521,6 +18748,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 11,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 4,
      "passes": [
       4
      ]
@@ -15631,6 +18865,24 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 126,
+     "passes": [
+      19,
+      20,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 126,
      "passes": [
       19,
@@ -16049,6 +19301,102 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 90,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 13,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 109,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "textured_rigid"
@@ -16385,6 +19733,20 @@
      "passes": [
       2
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 12,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 8,
+     "passes": [
+      2
+     ]
     }
    ],
    "class": "textured_rigid"
@@ -16564,6 +19926,76 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 5,
      "passes": [
       0
      ]
@@ -16858,6 +20290,90 @@
      "passes": [
       5
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      22
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      5
+     ]
     }
    ],
    "class": "sprite"
@@ -16911,6 +20427,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 6,
      "passes": [
       17
@@ -17123,6 +20653,90 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 7,
      "passes": [
       7
      ]
@@ -17680,6 +21294,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -17919,6 +21624,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -18120,6 +21916,76 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 5,
      "passes": [
       0
      ]
@@ -18384,6 +22250,102 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "sky"
@@ -18628,6 +22590,97 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 10,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 4,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 10,
      "passes": [
       7
@@ -18917,6 +22970,20 @@
      "passes": [
       17
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 13,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
     }
    ],
    "class": "icons"
@@ -18955,6 +23022,49 @@
    "samplers": {},
    "seen": [],
    "class": "outline"
+  },
+  "a73cecba0d6bcae6": {
+   "stage": "vs",
+   "model": "vs_3_0",
+   "size": 1100,
+   "preshader": false,
+   "fx": [
+    {
+     "fx": "rope.fx",
+     "technique": "non_instanced_rope_default_t0_sm3",
+     "profiles": "base"
+    }
+   ],
+   "ctab": {
+    "flags": 536875008,
+    "constants": [
+     {
+      "name": "camera_position",
+      "reg": "c4",
+      "set": "c",
+      "index": 4,
+      "count": 1
+     },
+     {
+      "name": "view_projection",
+      "reg": "c0",
+      "set": "c",
+      "index": 0,
+      "count": 4
+     }
+    ]
+   },
+   "samplers": {},
+   "seen": [
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      21
+     ]
+    }
+   ],
+   "class": "rope"
   },
   "a9dd819b86fd99c8": {
    "stage": "vs",
@@ -19344,6 +23454,83 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 3,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -19591,6 +23778,76 @@
     },
     {
      "capture": "20261101_j8pc/y_315",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 3,
      "passes": [
       4
@@ -19851,6 +24108,85 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 27,
+     "passes": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 18,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "unit"
@@ -19912,6 +24248,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 33,
+     "passes": [
+      1
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 30,
      "passes": [
       1
      ]
@@ -20121,6 +24464,83 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 7,
      "passes": [
       7
@@ -20341,6 +24761,90 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 2,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 2,
      "passes": [
       4
@@ -20601,6 +25105,102 @@
       2,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 2,
+     "passes": [
+      19,
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      2,
+      4
+     ]
     }
    ],
    "class": "sky"
@@ -20825,6 +25425,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -20928,6 +25619,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 38,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 47,
      "passes": [
       4
      ]
@@ -21319,6 +26017,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 18,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 9,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "unit"
@@ -21634,6 +26402,76 @@
     {
      "capture": "20261101_j8pc/y_90",
      "draws": 88,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 86,
      "passes": [
       4
      ]
@@ -22268,6 +27106,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -22477,6 +27385,90 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 4,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 4,
      "passes": [
       4
@@ -22714,6 +27706,90 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 6,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 6,
      "passes": [
       4
@@ -22967,6 +28043,86 @@
       3,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      3,
+      4
+     ]
     }
    ],
    "class": "cloth"
@@ -23155,6 +28311,76 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 4,
      "passes": [
       0
@@ -23553,6 +28779,13 @@
      "passes": [
       3
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 9,
+     "passes": [
+      3
+     ]
     }
    ],
    "class": "unit"
@@ -23731,6 +28964,69 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 3,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "vegetation"
@@ -23808,6 +29104,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 9,
+     "passes": [
+      19
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 9,
      "passes": [
       19
@@ -24046,6 +29356,90 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 3,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 7,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -24117,6 +29511,20 @@
      "passes": [
       21
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
     }
    ],
    "class": "navalsail"
@@ -24172,6 +29580,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 6,
+     "passes": [
+      17
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 6,
      "passes": [
       17
@@ -24528,6 +29950,86 @@
       3,
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 8,
+     "passes": [
+      3,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 10,
+     "passes": [
+      3,
+      4
+     ]
     }
    ],
    "class": "cloth"
@@ -24568,6 +30070,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 38,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 39,
      "passes": [
       0
      ]
@@ -24930,9 +30439,225 @@
      "passes": [
       2
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 68,
+     "passes": [
+      2
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 77,
+     "passes": [
+      2
+     ]
     }
    ],
    "class": "grid"
+  },
+  "cfa522146679c7c6": {
+   "stage": "ps",
+   "model": "ps_3_0",
+   "size": 3836,
+   "preshader": true,
+   "fx": [
+    {
+     "fx": "rope.fx",
+     "technique": "non_instanced_rope_default_t0_sm3",
+     "profiles": "base"
+    }
+   ],
+   "ctab": {
+    "flags": 536875008,
+    "constants": [
+     {
+      "name": "ambient_cube_fb",
+      "reg": "c8",
+      "set": "c",
+      "index": 8,
+      "count": 2
+     },
+     {
+      "name": "ambient_cube_lr",
+      "reg": "c4",
+      "set": "c",
+      "index": 4,
+      "count": 2
+     },
+     {
+      "name": "ambient_cube_tb",
+      "reg": "c6",
+      "set": "c",
+      "index": 6,
+      "count": 2
+     },
+     {
+      "name": "camera_position",
+      "reg": "c10",
+      "set": "c",
+      "index": 10,
+      "count": 1
+     },
+     {
+      "name": "g_fog_colour_blend",
+      "reg": "c18",
+      "set": "c",
+      "index": 18,
+      "count": 1
+     },
+     {
+      "name": "g_fog_distance_scale",
+      "reg": "c14",
+      "set": "c",
+      "index": 14,
+      "count": 1
+     },
+     {
+      "name": "g_fog_height_bottom",
+      "reg": "c15",
+      "set": "c",
+      "index": 15,
+      "count": 1
+     },
+     {
+      "name": "g_fog_height_strength",
+      "reg": "c17",
+      "set": "c",
+      "index": 17,
+      "count": 1
+     },
+     {
+      "name": "g_fog_height_top",
+      "reg": "c16",
+      "set": "c",
+      "index": 16,
+      "count": 1
+     },
+     {
+      "name": "g_volume_fog_colour",
+      "reg": "c13",
+      "set": "c",
+      "index": 13,
+      "count": 1
+     },
+     {
+      "name": "light_colour",
+      "reg": "c12",
+      "set": "c",
+      "index": 12,
+      "count": 1
+     },
+     {
+      "name": "light_direction",
+      "reg": "c11",
+      "set": "c",
+      "index": 11,
+      "count": 1
+     },
+     {
+      "name": "s_diffuse",
+      "reg": "s1",
+      "set": "s",
+      "index": 1,
+      "count": 1
+     },
+     {
+      "name": "s_jitter",
+      "reg": "s3",
+      "set": "s",
+      "index": 3,
+      "count": 1
+     },
+     {
+      "name": "s_normal",
+      "reg": "s2",
+      "set": "s",
+      "index": 2,
+      "count": 1
+     },
+     {
+      "name": "s_sky_diffuse_texture",
+      "reg": "s0",
+      "set": "s",
+      "index": 0,
+      "count": 1
+     }
+    ]
+   },
+   "samplers": {
+    "s_diffuse": "s1",
+    "s_jitter": "s3",
+    "s_normal": "s2",
+    "s_sky_diffuse_texture": "s0"
+   },
+   "seen": [
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      21
+     ]
+    }
+   ],
+   "class": "rope"
   },
   "d0782bb0d8fb615e": {
    "stage": "ps",
@@ -25119,6 +30844,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 38,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 47,
      "passes": [
       4
      ]
@@ -25364,6 +31096,97 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 1,
      "passes": [
       6
@@ -25619,6 +31442,90 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "sun"
@@ -25819,6 +31726,76 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 3,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 6,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 3,
      "passes": [
       0
@@ -26138,6 +32115,97 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "particle"
@@ -26331,6 +32399,76 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 1,
      "passes": [
       7
@@ -26621,6 +32759,86 @@
     },
     {
      "capture": "20261101_j8pc/y_90",
+     "draws": 8,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 10,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 8,
      "passes": [
       2,
@@ -26932,6 +33150,97 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 40,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 21,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 52,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -27000,6 +33309,22 @@
     },
     {
      "capture": "20261101_j8pc/r1_siege_small",
+     "draws": 8,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 216,
+     "passes": [
+      2,
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
      "draws": 8,
      "passes": [
       2,
@@ -27201,6 +33526,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 1,
      "passes": [
       24
@@ -27453,6 +33792,76 @@
      "passes": [
       5
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 9,
+     "passes": [
+      5
+     ]
     }
    ],
    "class": "sprite"
@@ -27645,6 +34054,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 9,
      "passes": [
       21
@@ -27852,6 +34275,76 @@
     {
      "capture": "20261101_j8pc/y_225",
      "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 29,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 7,
      "passes": [
       4
      ]
@@ -28099,6 +34592,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -28324,6 +34908,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 221,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 29,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -28380,6 +35034,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 1,
      "passes": [
       18
@@ -28609,6 +35277,76 @@
      "passes": [
       0
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      0
+     ]
     }
    ],
    "class": "shadow_caster"
@@ -28663,6 +35401,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 24,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 23,
      "passes": [
       4
      ]
@@ -29274,6 +36019,99 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 12,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 13,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 5,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 7,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 6,
+     "passes": [
+      21,
+      24
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 101,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "textured_rigid"
@@ -29552,6 +36390,76 @@
     {
      "capture": "20261101_j8pc/y_315",
      "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 10,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 5,
      "passes": [
       4
      ]
@@ -29898,6 +36806,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "grid"
@@ -30151,6 +37129,69 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 6,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 3,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -30204,6 +37245,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      18
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 1,
      "passes": [
       18
@@ -30582,6 +37637,76 @@
      "passes": [
       7
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      7
+     ]
     }
    ],
    "class": "sprite"
@@ -30636,6 +37761,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 72,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 68,
      "passes": [
       0
      ]
@@ -30995,6 +38127,97 @@
      "passes": [
       6
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 1,
+     "passes": [
+      5
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
+     "draws": 1,
+     "passes": [
+      23
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 1,
+     "passes": [
+      6
+     ]
     }
    ],
    "class": "post"
@@ -31069,6 +38292,20 @@
     },
     {
      "capture": "20261101_j8pc/r1_naval_small",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_ship_a",
+     "draws": 9,
+     "passes": [
+      21
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_naval_stock_a",
      "draws": 9,
      "passes": [
       21
@@ -31403,6 +38640,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 4,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 2,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -31684,6 +38991,76 @@
      "passes": [
       4
      ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_shgr_a",
+     "draws": 213,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sprite_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_stock_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_sweep_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tq3_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_tree_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_unitlod_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq0_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_land_uq3_a",
+     "draws": 97,
+     "passes": [
+      4
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_siege_stock_a",
+     "draws": 86,
+     "passes": [
+      4
+     ]
     }
    ],
    "class": "vegetation"
@@ -31761,6 +39138,13 @@
     {
      "capture": "20261101_j8pc/r1_campaign_start",
      "draws": 38,
+     "passes": [
+      0
+     ]
+    },
+    {
+     "capture": "20261101_j9pc/j9c_camp_stock_a",
+     "draws": 39,
      "passes": [
       0
      ]

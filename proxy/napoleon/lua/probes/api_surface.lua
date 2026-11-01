@@ -7,7 +7,7 @@
 -- metamethod is a call), never a string library call (fact napoleon.lua.string_find_stalls_pump), never a function call on the engine.
 local id, ctx, wsp = ...
 local args = wsp.dev_config("lua_args")
-local state = (type(args) == "string" and args ~= "" and args) or tostring(ctx)
+local state = ((type(args) == "string" and args ~= "" and args) or "state") .. "@" .. tostring(ctx)   -- the context that ran it: a stale request shows
 local env = getfenv(1)
 local total, buf, owner_now = 0, {}, nil
 

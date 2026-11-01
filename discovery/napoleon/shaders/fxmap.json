@@ -587,8 +587,8 @@
    "ENABLE_REFRACTION"
   ]
  },
- "captured": 168,
- "mapped": 163,
+ "captured": 171,
+ "mapped": 166,
  "shaders": {
   "03a10d71d53688e4": [
    {
@@ -802,6 +802,13 @@
    {
     "fx": "campaignflag.fx",
     "technique": "campaign_flag_sm3",
+    "profiles": "base"
+   }
+  ],
+  "17d74010fbe91260": [
+   {
+    "fx": "rope.fx",
+    "technique": "non_instanced_rope_shadow_map_t0_sm2",
     "profiles": "base"
    }
   ],
@@ -2731,6 +2738,13 @@
     "profiles": "base"
    }
   ],
+  "a73cecba0d6bcae6": [
+   {
+    "fx": "rope.fx",
+    "technique": "non_instanced_rope_default_t0_sm3",
+    "profiles": "base"
+   }
+  ],
   "a9dd819b86fd99c8": [
    {
     "fx": "outline.fx",
@@ -3027,6 +3041,13 @@
    {
     "fx": "grid.fx",
     "technique": "grid_reflection_sm3",
+    "profiles": "base"
+   }
+  ],
+  "cfa522146679c7c6": [
+   {
+    "fx": "rope.fx",
+    "technique": "non_instanced_rope_default_t0_sm3",
     "profiles": "base"
    }
   ],

@@ -554,6 +554,12 @@ def catalog_doc():
 GEN = re.compile(r'(<!-- gen:(\w+) -->\n)(.*?)(<!-- /gen -->)', re.S)
 
 
+def short_list(names, keep=6):
+    """a capture list for a table cell: the first `keep` names and a count of the rest, so the anatomy doc stays under the doc_size cap
+    as runs add captures (J9: 13 more captures took it to 31.9 KB); the full list is in each capture summary"""
+    return ', '.join(names[:keep]) + (f' (+{len(names) - keep} more)' if len(names) > keep else '')
+
+
 def md_table(head, rows):
     return '| ' + ' | '.join(head) + ' |\n|' + '---|' * len(head) + '\n' + ''.join('| ' + ' | '.join(str(x) for x in r) + ' |\n' for r in rows)
 
@@ -662,7 +668,7 @@ def anatomy_tables(cat):
             inv.setdefault(key, {'scenes': set(), 'tied': set()})
             inv[key]['scenes'].add(k.split('/')[-1]); inv[key]['tied'].add(tied)
     out['targets'] = md_table(['size', 'format', 'msaa', 'texture', 'size rule', 'captures'],
-                              [[f'{w}x{h}', f, m, 'yes' if t else 'no', ','.join(sorted(v['tied'])), ', '.join(sorted(v['scenes']))]
+                              [[f'{w}x{h}', f, m, 'yes' if t else 'no', ','.join(sorted(v['tied'])), short_list(sorted(v['scenes']))]
                                for (w, h, f, m, t), v in sorted(inv.items(), key=lambda x: (-(x[0][0] or 0) * (x[0][1] or 0), str(x[0][2])))])
     out['classes'] = md_table(['class', 'shaders'], [[c, n] for c, n in cat['by_class'].items()])
     # matrix, bone, instance and resolution-dependent constants per class (CTAB registers; values are in the capture summaries)
