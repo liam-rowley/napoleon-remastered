@@ -153,6 +153,7 @@ sha256) and a few small JPGs only.
 
 ## Open questions
 Recommendations, for Liam to confirm or overrule in the review:
+**Settled by Liam 2026-11-01 (D39):** all three as recommended: `engine.*` rows with the route in `description`; the atlas's routes are the default for J35 and J37; event-only units stay `static_only` and are captured in the contract stage.
 1. **Engine-drawn items as `ui_elements` rows.** The schema has no `route` field and `core/` cannot change in this job, so `engine.*` rows carry the route in `description` (and in `engine_drawn.json`). Recommendation: do that
    now; a `route` field is a core backlog item if Liam wants it queryable. The alternative (engine-drawn items only in `engine_drawn.json`) hides them from `wsc find` and from the review page.
 2. **Routes for the big engine-drawn items are proposals.** The radar, unit banners, the campaign map and the 3D previews decide how much of the HUD jobs is RmlUi work versus host work (render-target elements). Recommendation: take

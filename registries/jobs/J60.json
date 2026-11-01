@@ -1,0 +1,12 @@
+{
+  "id": "J60",
+  "description": "Ship orders on J28's route (D39): selection and live ship state (position, heading, speed, sails) from memory reads, move and face orders through the engine's own command path (the naval order types and whatever differs from land: the frame pointer, turning circles, wind), every address in engine_sites with anchor bytes behind the exe-identity guard. Proven through the control API `order` verb with checked results in naval_small, naval_storm and hist_nile, so J29's gestures can drive a fleet. The battle-script and posted-drag routes are not tried.",
+  "title": "Naval ship orders route",
+  "phase": 4,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J28"
+  ]
+}

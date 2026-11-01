@@ -176,6 +176,7 @@ build nothing), and anything in `core/` in this repo. Ordering a player's units 
 
 ## Open questions
 Recommendations for Liam; the job proceeds on them unless overruled.
+**Settled by Liam 2026-11-01 (D39):** the first three as recommended (J46 is now in J29's `depends_on`). Ship orders are wanted: they are job J60, built on this route, and stay out of this job; record what J60 needs (the naval order types seen, the frame pointer on water) as open facts.
 - **Selection source** departs slightly from the row's wording ("the engine's card manager"): C++ reads the selection the card manager's own
   update fills, and the cards route stays as the proven fallback. Recommended as written.
 - **Deployment-phase orders** (before the battle starts) are measured only. Recommend J29 keeps them inert unless the numbers show units walk.
