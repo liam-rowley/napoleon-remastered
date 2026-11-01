@@ -78,6 +78,19 @@ Rule: a game repo never patches the core in place; it files a change against the
 Promotion: core candidates are built in this repo under a `*/core/` folder next to their adapter, and move to the core once their
 interface has settled, in one promotion job per phase that depends on that phase's gate (phase 1: J12, after the J4 acceptance gate).
 Jobs that build heavily on a candidate depend on its promotion job, so their briefs cite core paths from the start.
+Promotion rows (2026-11-01): phase 1 was J12; the job pipeline itself (`tools/verbs/jobs.py`, `tools/pr_policy.py`, the CI notifier
+and workflows) is still game-side and moves in J62; `discovery/core` in J64 (after the discovery gate J11); `upscale/core` and
+`viewer/core` in J63 (after S3 parity, J32). The RmlUi host and panel host (J30, J35) are core candidates from their briefs.
+
+**Next games** (planning chat 2026-11-01, Liam's intent: back-port the core into Empire and start that game fresh; Shogun 2 later).
+- Empire restarts as a new consumer repo: `identity.json` for the vanilla `Empire.exe`, `engine_sites` transcribed from
+  `empire-remastered` `exe_patches.json` (J6: 23 of 23 guard sites and 33 of 52 patch anchors still hold), a `DevAdapter`, and the
+  committed discovery and upscale tools re-run. It starts only after J62 (the pipeline in the core) and after J30 and J35 are
+  promoted, so Empire's UI, the part that stalled it, is built once on the shared host; D11 (one game at a time) stands.
+- Shogun 2 needs core work before an adapter: its players run the DX11 renderer and the proxy is `d3d9.dll` with
+  `IDirect3DDevice9` hooks (core backlog B36, a renderer seam, to be designed when J30 builds the RmlUi render interface); the pack
+  reader is PFH0 only (B37, Shogun 2 is PFH2 and PFH3); the ESF tools read ABCA and ABCE only (B38, Shogun 2 saves are ABCF); whether
+  its UI still pumps Lua as Napoleon's does is the first probe, since the Lua bridge and dev channel ride on it.
 
 ## 5. Phases
 
@@ -144,6 +157,11 @@ Alt+F4. **Gate:** the hotkeys registry has no clash; host tests green; Liam sign
 Foundation first (design language, component library, panel host, review viewer), then screens. The whole process is
 `docs/plans/UI_PIPELINE.md`.
 
+**Screen rows (planning step, 2026-11-01).** The queue ends at the three proving screens (J35); no row exists for the screens
+themselves, and they are the largest unsized part of the project (Empire: 72 screens, 9 in game). Once J10's atlas lists them, a
+`plan/` branch adds one row per screen group (battle HUD, campaign HUD, front end, campaign panels, battle popups and tooltips) in
+priority order, each depending on J35, and proposes the release cut in section 6.
+
 ### Phase 6: release (designed in phase 1, built throughout)
 
 Zero-touch install and byte-exact uninstall; the exe guard's pass-through as the Steam-update safety net; saves loadable both with
@@ -153,3 +171,29 @@ OFL, …); versioned releases with generated release notes.
 ## 6. Open questions for Liam
 
 1. Doc size cap: 30 KB per living doc (dated records exempt), or another number?
+2. **Release cut** (2026-11-01). D6 (every screen RmlUi) and D14 (release fast-ish) pull apart on the screen long tail, where
+   Empire stalled. Recommended: versioned releases as phase 6 already allows, v0.1 = DXVK, the J16 fix, controls (J29), shadows
+   and distances (J24-J27), the upscaled art and the scale slider with the HUDs (J35 and the HUD rows); panels and the front end
+   in v0.2 and later. Each version keeps the vanilla screens it has not replaced. Decide before the screen rows are written.
+3. **J23 scope** (2026-11-01). The system d3d9 backend cannot launch headless or present through the hooked device (fact
+   `napoleon.render.system_backend`, open), so J23 as briefed cannot measure its vanilla half. Recommended: J23 reports DXVK-only
+   numbers now and J61 adds the vanilla half after J16; the alternative is J23 waiting on both. J23's `dxvk.conf` defaults should
+   also settle the release values players feel: anisotropic filtering, the frame limiter and the present interval (D1 performance).
+4. **J30 brief** (2026-11-01): amend it before it starts so the RmlUi render interface sits behind a backend seam (core backlog
+   B36), the cheapest point to buy the D3D11 option Shogun 2 needs; or leave J30 as briefed and pay for the seam later.
+5. The section 7 candidates: each needs a dated decision with its own kill criterion (D14), or a dated no.
+
+## 7. Candidates outside D1 (not in scope until a dated decision, D14)
+
+Found in the 2026-11-01 planning review; ordered by player value against cost. None is queued. Each would be a row of one or two
+jobs on machinery that exists; the kill criterion is the proposal for its decision line.
+
+| Candidate | Why players want it | Mechanism (exists) | Kill criterion |
+|---|---|---|---|
+| Borderless windowed, alt-tab safe, DPI-aware process | the first thing a 4K player with Windows scaling hits; alt-tab from exclusive fullscreen loses the device | `proxy/src/headless.cpp` already owns window placement and the device guard; a `display.mode` config key | any frame-time cost in the 40-unit scene, or a DXVK present path it cannot keep: stop |
+| Skip intro and splash as a player option | seconds off every launch | `dev.skip_intro` exists (J3); a release key | none: a key flip and a release value |
+| Shipped `dxvk.conf` release values | visibly better texture filtering, a frame limiter, vsync choice | J23 settles `dxvk.conf` defaults as `config_keys` | belongs to J23 (question 3), not a new job |
+| Render-target resolution keys | water reflection and refraction are half-size and the campaign overlay is 2400x1350 (soft at 4K); the shadow map is the only target that does not scale with the backbuffer (J8) | the same patch-site route as the shadow map size (`shadow.map_size_q34`); one `engine_sites` row and key per target | VRAM or frame time over the J23 budget at 4K: keep the stock size |
+| Camera feel: pan and zoom speed by height, height limits, free camera | the most-requested NTW mod category after UI | J43's camera route and `cam set`; J29's input hooks for the keys | no setter for the field in question through J43's route: stop |
+| Mouse confined to the window for edge scrolling | the cursor escapes to a second monitor at the screen edge | `ClipCursor` in the proxy, released on alt-tab; a key | none: a key with a release value |
+| Install option without the UI packs | most players run NTW3 or DarthMod, whose UI layouts a UI pack would override; not compatibility work (section 2 keeps that out), only packaging | J38's installer and J53's per-role packs; the inverse of J53's `--no-proxy` | none: a packaging choice in J38 |

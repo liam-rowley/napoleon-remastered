@@ -1,0 +1,16 @@
+{
+  "id": "J62",
+  "description": "Promote the job pipeline to warscape-core (backlog B35): tools/verbs/jobs.py (next, review, fix, check, view, the launch server and the --auto loop), tools/pr_policy.py, ci_notify.py, changed_inputs.py, ci_failures.py, claude_hook.py, schemas/jobs.schema.json, docs/REVIEW.md, tests/test_jobs.py and test_pr_policy.py, and gates.yml and policy.yml as reusable workflow templates; the game keeps its rows, branch kinds, D-numbers and the Claude-Session rule as wsc.toml config. Needs core B1 (game gates) or the verb contract for pr_policy. The core then consumes its own pipeline: a jobs registry in warscape-core, briefs and reviews there, the reviewer merging on green CI (D32), so core backlog rows stop waiting on a hand merge. Proof: the napoleon gates, tests and a dry autopilot tick are byte-identical before and after the move; a second consumer (a fixture game) runs jobs check. Core PR, tag, pin bump; delete the local copies as J12 did.",
+  "title": "Promote the job pipeline to warscape-core",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J52",
+    "J54",
+    "J55",
+    "J56",
+    "J57"
+  ]
+}

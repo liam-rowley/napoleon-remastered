@@ -1,0 +1,12 @@
+{
+  "id": "J64",
+  "description": "Phase 2 promotion (PLAN section 4; rule 76): move discovery/core (diffout, extracted, the pack, layout, font, Lua API, shader and exe passes, uic.py, tpl.py, cuf.py, api_inventory.py, luachunk.py, x86re.py, exe_strings.py, engine_api.py, shader_catalog.py, the asset indexer and contact-sheet builder) into warscape-core with host tests and the RE venv requirements as a documented optional extra (C2 stays for warscape/ and the gates); Napoleon's games.json, carry_over.json and every napoleon.* output stay here. After the discovery gate J11. Proof: every committed discovery output re-renders byte-identical from the moved tools (--check); gates green in both repos. Core PR, tag, pin bump; delete the local copies.",
+  "title": "Phase 2 promotion: discovery/core to warscape-core",
+  "phase": 2,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J11"
+  ]
+}
