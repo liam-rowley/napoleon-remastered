@@ -418,6 +418,90 @@ class RedPullRequests(unittest.TestCase):
         self.assertIn('python3 tools/pr_policy.py --branch job/J1 --base origin/main', jv.build_steps(row(status='queued')))
 
 
+class BranchChecks(unittest.TestCase):
+    """J54: `jobs review` and `jobs fix` read the branch head's check runs (one gh api call) and name the red and running ones."""
+    SHA = 'abc1234def5678'
+    RUNS = [{'name': 'gates', 'status': 'completed', 'conclusion': 'success', 'html_url': 'https://x/g'},
+            {'name': 'proxy', 'status': 'completed', 'conclusion': 'skipped', 'html_url': 'https://x/p'},
+            {'name': 'viewer', 'status': 'completed', 'conclusion': 'failure', 'html_url': 'https://x/v'},
+            {'name': 'harness-windows', 'status': 'in_progress', 'conclusion': None, 'html_url': 'https://x/h'},
+            {'name': 'policy', 'status': 'completed', 'conclusion': 'cancelled', 'html_url': 'https://x/c'}]
+
+    def gh(self, payload=None, rc=0, err=''):
+        calls = []
+
+        def fake(argv, **k):
+            calls.append(argv)
+            return subprocess.CompletedProcess(argv, rc, json.dumps({'total_count': len(payload or []), 'check_runs': payload or []}), err)
+        return fake, calls
+
+    def test_failed_running_and_cancelled_are_named_with_their_url(self):
+        fake, calls = self.gh(self.RUNS)
+        out = jv.branch_checks(ROOT, 'job/J60', self.SHA, False, run=fake)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(calls[0][:2], ['gh', 'api'])
+        self.assertIn(f'repos/{{owner}}/{{repo}}/commits/{self.SHA}/check-runs', calls[0][2])
+        self.assertTrue(out.startswith('CI on job/J60 at abc1234 (read docs/CI_FAILURES.md; a red required check is a blocker'))
+        self.assertIn('viewer failed (failure): https://x/v', out)
+        self.assertIn('harness-windows still running (in_progress): https://x/h', out)
+        self.assertIn('policy did not finish (cancelled): https://x/c', out)
+        self.assertNotIn('gates', out.split('\n', 1)[1])
+        self.assertNotIn('proxy', out.split('\n', 1)[1])
+
+    def test_all_green_is_one_line(self):
+        fake, _ = self.gh(self.RUNS[:2])
+        self.assertEqual(jv.branch_checks(ROOT, 'job/J60', self.SHA, False, run=fake),
+                         'CI on job/J60 at abc1234: all 2 checks passed or were skipped.')
+
+    def test_no_runs_yet(self):
+        fake, _ = self.gh([])
+        self.assertIn('no check runs yet', jv.branch_checks(ROOT, 'job/J60', self.SHA, False, run=fake))
+
+    def test_api_error_missing_gh_and_bad_json_are_one_line(self):
+        fake, _ = self.gh(rc=1, err='HTTP 404: Not Found')
+        out = jv.branch_checks(ROOT, 'job/J60', self.SHA, False, run=fake)
+        self.assertIn('could not be read: HTTP 404', out)
+        self.assertNotIn('\n', out)
+
+        def missing(argv, **k):
+            raise FileNotFoundError('gh')
+        self.assertIn('could not be read', jv.branch_checks(ROOT, 'job/J60', self.SHA, False, run=missing))
+        junk = jv.branch_checks(ROOT, 'job/J60', self.SHA, False, run=lambda a, **k: subprocess.CompletedProcess(a, 0, 'not json', ''))
+        self.assertIn('could not be read', junk)
+
+    def test_offline_and_unknown_head_make_no_call(self):
+        def boom(*a, **k):
+            raise AssertionError('gh was called')
+        self.assertIn('not read: --offline', jv.branch_checks(ROOT, 'job/J60', self.SHA, True, run=boom))
+        self.assertIn('head commit is unknown', jv.branch_checks(ROOT, 'job/J60', None, False, run=boom))
+
+    def test_review_and_fix_print_a_red_check_above_their_steps(self):
+        """run() prints the CI block, then the steps, for both actions."""
+        import contextlib
+        import io
+        import types
+        fake, _ = self.gh(self.RUNS)
+        ctx = types.SimpleNamespace(root=ROOT, config={'registries_dir': 'registries'})
+        saved = (jv.load_rows, jv.print_red_prs, jv.remote_branches, jv.branch_rows, jv.branch_checks)
+        try:
+            jv.load_rows = lambda text: [row('J60', status='review', title='T')]
+            jv.print_red_prs = lambda root, offline: []
+            jv.remote_branches = lambda root, offline: {'job/J60'}
+            for action, status, rounds in (('review', 'review', 0), ('fix', 'fix', 1)):
+                on = {'J60': jv.Branch(row('J60', status=status, title='T'), rounds, self.SHA)}
+                jv.branch_rows = lambda *a, **k: on
+                jv.branch_checks = lambda root, b, sha, offline: saved[4](root, b, sha, offline, run=fake)
+                out = io.StringIO()
+                with contextlib.redirect_stdout(out):
+                    rc = jv.run(types.SimpleNamespace(action=action, id='J60', offline=False, auto=False, serve=False), ctx)
+                self.assertEqual(rc, 0, action)
+                text = out.getvalue()
+                self.assertIn('viewer failed (failure): https://x/v', text, action)
+                self.assertLess(text.index('viewer failed'), text.index(f'J60: {action}'), action)
+        finally:
+            jv.load_rows, jv.print_red_prs, jv.remote_branches, jv.branch_rows, jv.branch_checks = saved
+
+
 def rnd(n, v, jid='J60'):
     return f'## Round {n} (2026-11-0{n}, branch job/{jid} at abc123{n})\n\nfindings\n\n**Verdict: {v}.**\n\n- blocker: x\n\n'
 
@@ -514,6 +598,20 @@ class Steps(unittest.TestCase):
         for want in ('Round 2', '## Fix round 2', 'status=review', 'Never touch review.md', 'never merge',
                      'pr_policy.py --branch job/J60'):
             self.assertIn(want, s)
+
+    def test_build_and_fix_steps_open_a_draft_pull_request_and_never_merge(self):
+        """J54: the pull request exists from review time, as a draft (policy skips drafts); only the reviewer merges."""
+        for s in (jv.build_steps(row('J60', status='queued', title='Do it')), jv.fix_steps('J60', 1, 'Do it')):
+            self.assertIn('gh pr view job/J60', s)
+            self.assertIn('gh pr create --draft --base main --head job/J60 --title "J60: Do it"', s)
+            self.assertNotIn('gh pr merge', s)
+            self.assertNotIn('gh pr ready', s)
+
+    def test_review_steps_mark_the_draft_ready_before_the_merge(self):
+        s = jv.review_steps('J60', 0)
+        self.assertLess(s.index('pr_policy.py --branch job/J60'), s.index('gh pr ready job/J60'))
+        self.assertLess(s.index('gh pr ready job/J60'), s.index('gh pr merge job/J60 --auto --squash'))
+        self.assertIn('otherwise leave the draft pull request open', s)
 
     def test_fix_launch_uses_the_row_model(self):
         self.assertEqual(jv.launch_argv('claude', 'J4', 'fix', row('J4', model='opus')),

@@ -1,5 +1,6 @@
 # purpose: CI on every push and pull request: the full warscape-core `wsc gates` set, and the proxy DLL build, host tests and wine smoke test (job proxy).
-# `proxy` and `harness-windows` run only when the branch changes their inputs (job `changes`); a skipped job counts as passed for
+# `proxy`, `viewer` and `harness-windows` run only when the branch changes their inputs and that input tree has not passed already
+# (job `changes`, J54 below); a skipped job counts as passed for
 # required checks and auto-merge (D32), so a brief or plan branch does not wait for the slow Windows runner.
 # usage: runs on GitHub Actions; locally: python3 core/wsc.py gates
 # when: automatic; require the "gates" check in branch protection for main.

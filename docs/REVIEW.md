@@ -47,13 +47,17 @@ check reads it: only `merge` lets the branch merge), and findings ranked **block
   - `merge`: `status=done review=jobs/<id>/review.md`, then merge (below).
   - `merge after fixes` or `do not merge` in round 1 or 2: `status=fix review=jobs/<id>/review.md`. A fix session answers it.
   - the same in round 3: `status=blocked blocked_by="3 review rounds without merge" review=jobs/<id>/review.md`. Liam decides.
+  - Any verdict but `merge` leaves the job's draft pull request open and a draft (never `gh pr ready`): its push-run checks stay on it.
+- Before the verdict, read the branch's CI: `wsc jobs review` prints every check on its head that failed or is still running (J54);
+  a red required check is a blocker for a `merge` verdict (`docs/CI_FAILURES.md` classes it).
 
 ## Merging (D32, `merge` verdict only)
 After the review commit is pushed, run `python3 tools/pr_policy.py --branch job/<id> --base origin/main` (it must say ok), then
-`gh pr view job/<id>` (if there is no pull request: `gh pr create --base main --head job/<id> --title "<id>: <title>"`, body = the
-review's verdict and findings), then `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
+`gh pr view job/<id>` (the builder opened it as a draft when the job reached review, J54; if there is none: `gh pr create --base main
+--head job/<id> --title "<id>: <title>"`, body = the review's verdict and findings), then `gh pr ready job/<id>` (a draft skips CI's
+`policy`; ready runs it), then `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
 `proxy`, `harness-windows`, `policy`) is green on that commit (`proxy` and `harness-windows` are skipped, which counts as passed,
-when the branch does not touch their inputs: `.github/workflows/gates.yml` job `changes`): do not wait or poll. If the merge changes a rule that other open job
+when the branch does not touch their inputs or the same input tree already passed: `.github/workflows/gates.yml` job `changes`): do not wait or poll. If the merge changes a rule that other open job
 branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply. A check that fails leaves the
 pull request open: CI comments on the pull request (`tools/ci_notify.py`) and `wsc jobs next|review|view` list it first, so the
 next session sees it; Liam decides whether it takes another round. Any other verdict is never merged. A `brief/` branch merges the
