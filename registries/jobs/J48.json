@@ -3,10 +3,11 @@
   "description": "J44 report, Deviations: when the display topology changed under a running game (the 4K primary left the display list, about 16:58 UTC 2026-10-30), the watcher's pending vdisplay_restore.json could no longer apply and refused every launch until it was moved aside by hand. The watcher should detect a restore whose display or position no longer exists, record it, and recover (restore at the new position or drop the stale record) with a host test using a failing fixture. After J18 (watcher guards).",
   "title": "Watcher: a virtual display restore whose position is gone",
   "phase": 1,
-  "status": "needs_brief",
+  "status": "queued",
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
     "J18"
-  ]
+  ],
+  "brief": "jobs/J48/brief.md"
 }
