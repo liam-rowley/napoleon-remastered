@@ -19,7 +19,8 @@ python3 -m unittest tests.test_viewer
 
 CI: `.github/workflows/gates.yml` job `viewer` runs the same `build.sh --docker all`, the tests and two renders on every push that
 touches `viewer/` (`tools/changed_inputs.py`), and keeps everything as the `viewer-wasm` artifact. Fallback when Docker is down:
-`gh run download <run id> -n viewer-wasm -D build/viewer/out`.
+`gh run download <run id> -n viewer-wasm -D build/viewer/out`. When CI skipped `viewer` because the same input tree already passed (J54), the
+run's summary names the run that built it: download from that one.
 
 ## Publishing a screen as an artifact
 

@@ -3,9 +3,13 @@
 # when: automatic on pull requests; require the "policy" check in branch protection for main.
 # not-a-verb: GitHub runs workflows by file; this one only calls tools/pr_policy.py.
 # Its own workflow so that gates.yml can run once per commit on push (J42): this one is cheap and needs the pull request's base and head.
+# Draft pull requests skip it (J54): a job's builder opens its pull request as a draft when the job reaches review, so the review sees
+# the branch's CI (the push-run checks attach to the commit and ci_notify comments on a red one) without a `policy` that must fail
+# until the review says merge. The reviewer's `gh pr ready` (a merge verdict only, docs/REVIEW.md) sends ready_for_review, which runs it.
 name: policy
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 permissions:
   contents: read
 concurrency:
@@ -14,6 +18,7 @@ concurrency:
 jobs:
   policy:
     # Every pull request must be a reviewed job, a brief, a planning change or an infrastructure change (D21, tools/pr_policy.py).
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
