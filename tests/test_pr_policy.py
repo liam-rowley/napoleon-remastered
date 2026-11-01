@@ -302,5 +302,92 @@ class Rule79(unittest.TestCase):
         self.assertTrue(any('rule 79' in e for e in errs))
 
 
+class CorePin(unittest.TestCase):
+    """J58: a core pin bump counts for rule 79 only when the core's own proxy/ or harness/ changed between the two pins."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.core, self.game = Path(self.tmp.name) / 'core_src', Path(self.tmp.name) / 'game'
+        for d in (self.core, self.game):
+            d.mkdir()
+            self.g(d, 'init', '-q', '-b', 'main'); self.g(d, 'config', 'user.email', 't@example.invalid'); self.g(d, 'config', 'user.name', 'test')
+        self.write(self.core, {'proxy/src/a.cpp': 'int a;\n', 'harness/job.sh': '#!\n', 'docs/x.md': 'x\n', 'warscape/w.py': '#\n'})
+        self.g(self.game, '-c', 'protocol.file.allow=always', 'submodule', 'add', '-q', str(self.core), 'core')
+        self.g(self.game, 'commit', '-q', '-m', 'pin core')
+        self.base_pin = self.g(self.game, 'rev-parse', 'HEAD:core')
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    @staticmethod
+    def g(d, *a):
+        return subprocess.run(['git', '-c', 'core.hooksPath=/dev/null', *a], cwd=d, capture_output=True, text=True, check=True).stdout.strip()
+
+    def write(self, repo, files):
+        for rel, text in files.items():
+            (repo / rel).parent.mkdir(parents=True, exist_ok=True)
+            (repo / rel).write_text(text, encoding='utf-8', newline='\n')
+        self.g(repo, 'add', '-A'); self.g(repo, 'commit', '-q', '-m', 'core change')
+
+    def bump(self, files):
+        """A second core commit, pinned by a new game commit; returns rule 79's errors for the pin change on an empty ledger."""
+        self.write(self.core, files)
+        self.g(self.game / 'core', '-c', 'protocol.file.allow=always', 'fetch', '-q', 'origin', 'main')
+        self.g(self.game / 'core', 'checkout', '-q', 'FETCH_HEAD')
+        self.g(self.game, 'commit', '-q', '-am', 'bump core')
+        diff = pp.core_pin_diff('HEAD~1', 'HEAD', self.game)
+        acc = {'active': True, 'ledger': '', 'build_id': 'abc', 'watcher': '1.0.1', 'branch': 'job/J9', 'exists': lambda p: True, 'core_diff': diff}
+        return diff, pp.acceptance_problems(['core'], acc)
+
+    def test_a_bump_of_docs_and_python_only_needs_no_passes(self):
+        diff, errs = self.bump({'docs/x.md': 'y\n', 'warscape/w.py': '# 2\n'})
+        self.assertEqual(sorted(diff), ['docs/x.md', 'warscape/w.py'])
+        self.assertEqual(errs, [])
+
+    def test_failing_fixture_a_bump_that_changes_the_cores_proxy_is_refused(self):
+        diff, errs = self.bump({'proxy/src/a.cpp': 'int a2;\n', 'docs/x.md': 'y\n'})
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn('changes core/proxy/src/a.cpp but', errs[0])
+        self.assertIn('0 consecutive', errs[0])
+
+    def test_failing_fixture_a_bump_that_changes_the_cores_harness_is_refused(self):
+        self.assertTrue(self.bump({'harness/job.sh': '#! 2\n'})[1])
+
+    def test_failing_fixture_a_file_moved_out_of_the_cores_proxy_is_refused(self):
+        (self.core / 'docs').joinpath('a.cpp').write_text('int a;\n', encoding='utf-8', newline='\n')
+        (self.core / 'proxy/src/a.cpp').unlink()
+        diff, errs = self.bump({})
+        self.assertIn('proxy/src/a.cpp', diff)
+        self.assertEqual(len(errs), 1, errs)
+
+    def test_exempt_paths_inside_the_core_do_not_count(self):
+        diff, errs = self.bump({'harness/runs/r/a.json': '{}\n', 'proxy/README.md': 'r\n', 'saves/esf.py': '#\n'})
+        self.assertEqual(len(diff), 3)
+        self.assertEqual(errs, [])
+
+    def test_failing_fixture_a_base_pin_missing_from_the_core_fails_closed(self):
+        missing = 'f' * 40
+        self.g(self.game, 'update-index', '--cacheinfo', f'160000,{missing},core')
+        self.g(self.game, 'commit', '-q', '-m', 'pin a commit the core checkout lacks')
+        diff = pp.core_pin_diff('HEAD', 'HEAD~1', self.game)
+        self.assertIsInstance(diff, str)
+        self.assertIn(f'cannot compare core pins ffffffffffff..{self.base_pin[:12]}', diff)
+        self.assertIn(f'git -C core fetch origin {missing}', diff)
+        acc = {'active': True, 'ledger': '', 'build_id': 'abc', 'watcher': '1.0.1', 'branch': 'job/J9', 'exists': lambda p: True, 'core_diff': diff}
+        errs = pp.acceptance_problems(['core'], acc)
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn('cannot compare core pins', errs[0])
+        self.assertTrue(pp.acceptance_problems(['core'], dict(acc, core_diff=None)))   # no diff computed counts too
+
+    def test_a_branch_that_also_changes_this_repos_proxy_is_judged_as_before(self):
+        acc = {'active': True, 'ledger': '', 'build_id': 'abc', 'watcher': '1.0.1', 'branch': 'job/J9', 'exists': lambda p: True, 'core_diff': ['docs/x.md']}
+        errs = pp.acceptance_problems(['core', 'proxy/napoleon/adapter.cpp'], acc)
+        self.assertEqual(len(errs), 1)
+        self.assertIn('changes proxy/napoleon/adapter.cpp but', errs[0])
+
+    def test_main_passes_the_merge_bases_pin_diff(self):
+        self.assertIn("'core_diff': core_pin_diff(mb) if 'core' in changed else None", POLICY.read_text(encoding='utf-8'))
+
+
 if __name__ == '__main__':
     unittest.main()
