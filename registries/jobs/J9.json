@@ -3,7 +3,7 @@
   "description": "Engine API surface per screen and game phase, exe string index, and the engine sites behind sprite (imposter), LOD and shadow settings, each in engine_sites with anchor bytes and a dated run id. Before reusing discovery/core/x86re.py, record indirect jmp tail calls as icalls (J15 review 8: walk drops them today).",
   "title": "Engine API surface and engine sites",
   "phase": 2,
-  "status": "review",
+  "status": "done",
   "model": "opus",
   "needs_pc": true,
   "depends_on": [

@@ -1,5 +1,50 @@
 # J9 review
 
+## Round 2 (2026-11-01, branch job/J9 at 4f10102)
+
+**Verdict: merge.**
+
+Reviewer session `b2eb304d-0129-4416-be7d-91133a0ea9e3` (Opus, independent check: D15; neither the builder nor the round 1 fixer). Read
+the brief, round 1, the report's `## Fix round 1` and the fix diff `16d8c4a..4f10102` (178 files, 150 of them run evidence). Ran
+`wsc gates`, `wsc jobs check` and `tools/pr_policy.py` locally. Risk-first read: the fix round's probes (`harness/runs/20261101_j9fix/probes/`),
+the first J9 code that calls engine functions rather than only enumerating them, then the generator change in `discovery/core/engine_api.py`.
+
+### What holds (checked, not taken from the report)
+- **Round 1 answered.** Blocker 1 stays fixed (`2e6a75d`). Should-fix 2: `engine_api.json` has the 19 states the fix round names (campaign
+  with an army, fleet, agent and settlement selected; six panel states; front end after the pages and after a warm reset), each traced to a
+  committed `raw/*_proxy.log`; every log the run README cites is committed. Later items 3 to 5 are answered as the round asked.
+- **Getter samples**: `discovery/napoleon/probe_safe.json` is generated and checked (`test_committed_list_current`), 45 getters (28 CampaignUI,
+  10 BattleUI, 7 FrontEnd), the same 45 as the run's `probe_safe_list.lua`; every sample in the table traces to a `lua: sample` line
+  (`j9f_campaign_crash_proxy.log` 28, `j9f_frontend_proxy.log` 7, `j9f_land_proxy.log` 17 = 10 battle + 7 front end after the reset), and
+  they agree with each other (CampaignKey `mp_eur_napoleon` with PlayerFactionId `austria` from the same launch). No personal data: `LocalPlayerName` is empty.
+- **The calling probes** are wrapped in `pcall`, use no string library call and nil-guard the address after the one crash (the crash is a
+  fact, `napoleon.campaign.region_list_no_address`, with the minidump name and the faulting RVA). One crash in the state, under the brief's two.
+- **Rule 79**: no DLL input changed in the fix round (no `proxy/`, `core/` or harness adapter file in the diff); `core/proxy/tools/build_id.py`
+  on the head = `46f52d356ce8`, the build of `harness/runs/20261101_j9acc` (20 passes). `main` has no commit the branch lacks.
+- **CI on 4f10102**: `gates` and `harness-windows` green, `proxy` skipped (no input changed). `policy` was red only because the newest verdict
+  was round 1's `merge after fixes` and the row was `review`; this round's verdict and row answer both lines.
+
+### Should-fix (fixed in this review)
+1. **`campaign_show_prestige` is not the prestige panel, and the table did not say so** (`discovery/napoleon/engine_api.json` `states`).
+   `ShowPrestige()` errored in `Huds.lua:51` (run README, fact `napoleon.campaign.panel_routes`), so that block is the surface with the technology
+   and missions panels still up: its counts are identical to `campaign_show_technologies`. J10 reads this table per state and would take it for the
+   prestige panel. Fix `618e55b`: `STATE_NOTES` in `discovery/core/engine_api.py` puts a `note` on that state's entry; table regenerated (only the
+   note changed); test `test_state_note`. See it: `python3 -c "import json;print(json.load(open('discovery/napoleon/engine_api.json'))['states']['campaign_show_prestige'])"` on 4f10102 has no note.
+
+### Later
+2. **The report's Lua count is off**: `## Fix round 1` says "2,911 Lua functions of the script environments"; the table has 3,088 names with
+   `impl: Lua` (235 on `S`, the rest on `S.<table>` and their `#index` tables, so one function can appear under several owners). Not a reviewer
+   edit (a review session must not write report.md); J10 should count from the table, not the report.
+3. **The probes that call are not named as a deviation.** The brief: probes call nothing "except names classified probe-safe and kept in a
+   committed list". `camp_select.lua`, `camp_panel.lua` and `fe_pages.lua` call state-changing engine functions (SelectAndZoomTo*, the panel
+   Show/Toggle functions, CloseAllPanels, TransitionTo) to reach the states round 1 asked for, and one of them crashed the game. They are the
+   brief's "key/click probe" by another route and the README lists every call, so nothing to undo; the report's deviations should have said it.
+4. **The fix probes live only in the run folder** ("they move there with the next DLL change"): a promise in prose. Whoever next changes
+   `proxy/napoleon` (J10 or J24 are likely) should move `camp_select.lua`, `camp_panel.lua`, `fe_pages.lua`, `getters.lua` and `vis.lua` into
+   `proxy/napoleon/lua/probes/`, and generate `probe_safe_list.lua` from `engine_api.py probe-safe --lua` with a `--check` in the tests,
+   so the list the probe loads cannot drift from `probe_safe.json`.
+5. **Round 1 items 3 to 5 stand** (the `--no-verify` trigger guard; warscape-core B35 to B39, whose pull request is still to open; weak anchors).
+
 ## Round 1 (2026-11-01, branch job/J9 at ca33a65)
 
 **Verdict: merge after fixes.**
