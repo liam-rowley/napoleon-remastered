@@ -3,11 +3,12 @@
   "description": "Every screen and popup: elements, data and its source, interactions and handlers, states and art, plus everything engine-drawn outside the layout system with a route for each (UI_PIPELINE section 2.1). Seeds ui_elements at status atlas.",
   "title": "Vanilla UI atlas",
   "phase": 2,
-  "status": "needs_brief",
+  "status": "queued",
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
     "J7",
     "J9"
-  ]
+  ],
+  "brief": "jobs/J10/brief.md"
 }
