@@ -1,0 +1,15 @@
+{
+  "id": "J43",
+  "description": "J4 hit its kill criterion: empire_battle, battle_manager, camera and controllers are unreachable from ctl lua (fact napoleon.battle.script_api_reachable). Find a route for cam, pause and speed (and the order route J28 builds on). First reproduce the pump stall once on main's DLL with dev.perf=0 (J4 review 3); then the untried routes: a .battle_script attached to a custom battle preset (J4 review 2), the UI Lua BattleUI calls (CameraZoomTo, RequestSpeed, Current_Selection_*) with camera readback, and why the battle UI pump stops 20 to 175 s after a load (is it require Scripting_Library?); if that fails, port Empire camctl (rml_mod/src/camctl.h) into the proxy with engine sites and anchor bytes. Probe land, siege, naval and the campaign camera calls. Wire the found routes into harness/core/ctl.py (adapter ctl.routes) so cam, pause and speed return checked results. Facts with run ids. Opus: reverse engineering and a DLL route.",
+  "title": "Battle camera and speed route",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J4"
+  ],
+  "brief": "jobs/J43/brief.md",
+  "report": "jobs/J43/report.md",
+  "review": "jobs/J43/review.md"
+}

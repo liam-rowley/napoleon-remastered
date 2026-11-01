@@ -1,0 +1,8 @@
+{
+  "id": "viewer.artifact.wasm",
+  "claim": "A private claude.ai Artifact serves viewer.wasm as application/wasm and the page instantiates it under the artifact's security policy: the hello-world draws with WebGL2, FreeType text, PNG art and Lua, and takes touch input; the artifact refuses .tga (not a served type), and RML, RCSS and Lua go as text/plain",
+  "state": "verified",
+  "evidence": "viewer/runs/20261031_j31/README.md",
+  "date": "2026-10-31",
+  "notes": "https://claude.ai/artifact/EoCR1JcPZH7Rnix9JoKZea versions 1-2; Liam checked on his phone 2026-10-31 (draws; scroll needed the touch fix in version 2, then all good); the published file listing gives the stored types"
+}

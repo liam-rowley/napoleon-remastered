@@ -1,0 +1,16 @@
+{
+  "id": "J13",
+  "description": "The proxy puts the game window on the virtual display and never on a real monitor (fails closed), at 1080p, 1440p and 4K once the VDD modes from J2's open question 1 exist; window position kept out of the preferences file (profiles restore it byte for byte); measured over a whole launch. Port the design of Empire's headless.cpp and display guard, not its size.",
+  "title": "Headless runs on the virtual display",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J3",
+    "J20"
+  ],
+  "brief": "jobs/J13/brief.md",
+  "report": "jobs/J13/report.md",
+  "review": "jobs/J13/review.md"
+}

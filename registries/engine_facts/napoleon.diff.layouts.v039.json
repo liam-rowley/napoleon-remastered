@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.layouts.v039",
+  "claim": "Layout Version039 = V033 plus a u32 default-state id after c_flag and a per-component animation list before the child count (name, empty string, u32 count, 48-byte keyframes); 45 of 136 V039 files round-trip with discovery/core/uic.py",
+  "state": "open",
+  "evidence": "discovery/diff/layouts.json",
+  "date": "2026-10-29",
+  "notes": "decoding stopped at the J6 kill criterion; keyframe fields partly guessed (f32 x, f32 y, size, rgba, time ms at +36, interpolation at +40)"
+}

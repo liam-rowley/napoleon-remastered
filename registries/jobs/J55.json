@@ -1,0 +1,14 @@
+{
+  "id": "J55",
+  "description": "Pipeline audit 2026-10-31, item 2. 26 of 27 job branches change registries/jobs.md and 24 change tools.md; GitHub ignores merge=union on pull-request merges (community discussion 9288), so two concurrent jobs conflict and auto-merge stalls: the branches carry 17 merge-main commits (10 after the merge verdict), each touching 6 to 18 registry files, several citing a conflicted generated view or a union merge that kept both rows, each costing a session, a hand de-duplication and a full slow-CI re-run. Needs two warscape-core changes first (file them as backlog rows and a PR, then pin the tag): (a) B4 extended: generated views are not committed (gitignored; the registries gate checks that every view renders cleanly instead of that it is current; wsc reg render writes to _scratch/ or a chosen dir); (b) x-storage: dir on a schema: rows loaded from <registries_dir>/<name>/<id>.json, one file per row, canonical form per file, so concurrent jobs never share a file (jobs rows sort as strings, so J44 and J45 are adjacent lines today). Then here: drop the committed views, README links point at wsc jobs view, the jobs registry moves to per-id files, docs and briefs stop saying merge main before the pull request. Measure: merge-main commits per job branch, 17 over 27 branches today, target 0.",
+  "title": "Registry views out of git; job rows one file per job",
+  "phase": 1,
+  "status": "review",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J56"
+  ],
+  "brief": "jobs/J55/brief.md",
+  "report": "jobs/J55/report.md"
+}

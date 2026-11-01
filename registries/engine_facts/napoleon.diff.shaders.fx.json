@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.diff.shaders.fx",
+  "claim": "Napoleon ships 136 fx\\ effect sources (Empire 141): 71 identical, 61 changed (5,698 lines differ), 4 new (lenseflare.fx, ribbon.fx, terraindecal.fx, cardcaps.txt), 9 gone; no compiled shader files in either game",
+  "state": "verified",
+  "evidence": "discovery/diff/shaders.json",
+  "date": "2026-10-29"
+}

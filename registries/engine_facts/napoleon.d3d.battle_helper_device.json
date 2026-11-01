@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.d3d.battle_helper_device",
+  "claim": "Loading a battle the engine calls Direct3DCreate9 again and creates a second, windowed device with a 1x1 back buffer on a non-game window (handle 0001000c), besides its game device",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j13pc/README.md",
+  "date": "2026-10-29",
+  "notes": "run b4k_battle_0a_helper_refused (first headless build refused it, exit 2160)"
+}

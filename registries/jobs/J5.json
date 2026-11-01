@@ -1,0 +1,15 @@
+{
+  "id": "J5",
+  "description": "Audit napoleon-remastered and warscape-core for every prose rule a machine can check or perform; turn each into a gate, schema rule, default or verb with a failing-fixture test; ledger in jobs/J5/rules.md; core-side fixes as a warscape-core PR. Sequencing, not a technical dependency: after J3 merges, so its tools, headers and registry rows are audited and J5 does not conflict with it; before the J13-J15 briefs so they are written against the new gates.",
+  "title": "Determinism audit: rules into gates",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": false,
+  "depends_on": [
+    "J3"
+  ],
+  "brief": "jobs/J5/brief.md",
+  "report": "jobs/J5/report.md",
+  "review": "jobs/J5/review.md"
+}

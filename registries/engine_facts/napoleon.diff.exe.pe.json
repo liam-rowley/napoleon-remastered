@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.diff.exe.pe",
+  "claim": "Napoleon.exe vs Empire.exe: same sections (.text .rdata .data _RDATA .rsrc .reloc), ImageBase 0x400000, LAA, ASLR, NX and relocations in both; 17,895,424 vs 16,711,680 bytes; imports d3dx9d_40.dll in place of d3dx9_40.dll, ws2_32 +12 names, tbb +1",
+  "state": "verified",
+  "evidence": "discovery/diff/exe.json",
+  "date": "2026-10-29"
+}

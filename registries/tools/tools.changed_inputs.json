@@ -1,0 +1,11 @@
+{
+  "id": "tools.changed_inputs",
+  "kind": "script",
+  "path": "tools/changed_inputs.py",
+  "purpose": "print `proxy=true|false`, `harness=true|false` and `viewer=true|false` for the files changed since a base (an unknown base means everything changed), then `proxy_tree=`, `harness_tree=`, `viewer_tree=` (a hash of the set's files at HEAD: mode, object and path, plus the set's name and SALT; empty when it cannot be read) and `tree_salt=`: CI's `changes` job writes them to $GITHUB_OUTPUT and skips a slow job whose tree hash already has a pass marker (rule 79 for CI, J54); tests/test_proxy_host.py uses the proxy set to skip the proxy host tests when nothing they build from changed",
+  "usage": "python3 tools/changed_inputs.py --base <sha or ''>   (CI: base..HEAD) | python3 tools/changed_inputs.py --local   (merge-base with origin/main, plus staged, unstaged and untracked files; the tree hashes are of HEAD); the changed files go to stderr, key=value lines to stdout",
+  "when": "automatic (CI `changes` job, the `tests` gate through tests/test_proxy_host.py); by hand to see whether a branch will run the proxy, harness-windows or viewer job, or which tree hash its pass marker carries",
+  "not_a_verb": "CI calls it before the core is checked out (the `changes` job has no submodule); a small file classifier, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

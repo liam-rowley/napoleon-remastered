@@ -1,0 +1,11 @@
+{
+  "id": "saves.napoleon.recipes.agent_into_settlement",
+  "kind": "script",
+  "path": "saves/napoleon/recipes/agent_into_settlement.py",
+  "purpose": "put an agent (gentleman, rake, assassin...) inside an own settlement: CHARACTER@7 = the residence id, @25 = True, its LOCOMOTABLE at the residence position, and its id appended to the residence's agent list @14 (pair agent-to-settlement)",
+  "usage": "python3 -I saves/napoleon/recipes/agent_into_settlement.py IN.save OUT.save --region eur_england [--agent ID] [--list]",
+  "when": "a save is needed with an agent inside a settlement (load ladder C; J4 scenarios); structural (a list grows), run on a copy. Own settlements only: a foreign one is what the pair did not show",
+  "not_a_verb": "a save recipe run on the PC against saves outside the repo",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

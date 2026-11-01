@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.hotkeys.modifiers",
+  "claim": "ALLOW_SHIFT fires for the key alone or with Shift added, not with Ctrl: the vanilla table binds ALLOW_SHIFT S, A, Q, W, C next to Ctrl+S, Ctrl+A, Ctrl+Q, Ctrl+W, Ctrl+C in the same modes. ANY (Escape, Delete, Insert, Space) is read as fires-with-every-modifier from Empire and not tested on Napoleon. Vanilla double bindings: Alt+1..4 land and naval formations (battle, disjoint by unit type) and Return deselect_all (mode all) vs campaign end_turn.",
+  "state": "open",
+  "evidence": "tests/test_hotkeys.py",
+  "date": "2026-10-29",
+  "notes": "run J21 session da502b9f: table reading only; in-game behaviour of ANY and of Shift on ALLOW_SHIFT needs a PC run"
+}

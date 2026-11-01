@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.packs.kinds",
+  "claim": "Napoleon ships 11 packs (Empire 32 vanilla); only battleterrain, boot and local_en share names; nearly all UI, db, fx, scripts and campaign data sit in data.pack, models in rigidmodels/buildings/variantmodels(2).pack, audio and voices in sound.pack",
+  "state": "verified",
+  "evidence": "discovery/diff/packs.json",
+  "date": "2026-10-29",
+  "notes": "map content by top folder, not by pack name (detail.*_packs.*.kinds)"
+}

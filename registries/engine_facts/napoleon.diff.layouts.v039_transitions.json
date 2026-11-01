@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.layouts.v039_transitions",
+  "claim": "In Version039 a state transition is longer than V033's 8 bytes (about 18 bytes each, e.g. ui\\...\\diplomacy_item_text state \"normal\"); fields not decoded; this is the next failure for the 91 V039 files that do not round-trip",
+  "state": "open",
+  "evidence": "discovery/diff/layouts.json",
+  "date": "2026-10-29",
+  "notes": "owner: the job that next needs V039 layouts (UI atlas)"
+}

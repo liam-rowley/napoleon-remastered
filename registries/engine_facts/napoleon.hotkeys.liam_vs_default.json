@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.hotkeys.liam_vs_default",
+  "claim": "Liam's AppData custom_keys.keys.xml has exactly the 108 funcs and the same key and modifier for every func as keyset fps in data.pack text\\default_keys.xml: no rebinding. The registry is seeded from the pack defaults.",
+  "state": "verified",
+  "evidence": "jobs/J21/report.md",
+  "date": "2026-10-29",
+  "notes": "run J21 session da502b9f: func-by-func comparison, 0 differences"
+}

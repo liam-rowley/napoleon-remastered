@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.assets.image_headers",
+  "claim": "Every tga, dds, png and jpg header in the index parses except 4 tgas (ui\\flags\\punjab\\flag_animation0011.tga, ui\\flags\\quebec\\flag_animation0000.tga and two rigidmodels ai_hints textures); Pillow 13 also fails to decode ui\\cinematicicons4.dds and ui\\flags\\spain\\large.dds",
+  "state": "verified",
+  "evidence": "discovery/assets/sheets.json",
+  "date": "2026-10-29",
+  "notes": "why they fail (truncated or another header) is not looked into; J36 (upscaling) should before it touches them"
+}

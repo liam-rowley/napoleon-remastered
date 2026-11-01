@@ -1,0 +1,15 @@
+{
+  "id": "J41",
+  "description": "wsc gates on the PC does not build or run the proxy's C++ host tests (proxy/tests/*.cpp: test_console, test_dev, test_guard, ...), so a change under proxy/ passes locally and fails only in CI's proxy job. J15's review commit 6316cb9 did exactly that: a comment in proxy/core/console.cpp named the game and broke test_console's no-game-in-core lint, seen only in CI (PR #50). Make the local run cover them: when proxy/ inputs changed against origin/main (the same file set as gates.yml job `changes`), build and run `proxy/tools/build.sh all` locally (the PC's `build.sh --docker` route, D31, same mingw-w64 i686 toolchain as CI), and when no toolchain is available say so loudly as a warning naming the skipped suites, never a silent pass. Wire it into the repo's `tests` gate or the pre-push hook without changing core/ (if the core needs a hook for it, file a warscape-core PR and stop). Proof: a deliberately failing proxy test fails the local run; an unchanged proxy/ skips the build quickly; the warning shows on a machine without the toolchain. Check the overlap with J22 (Windows host tests find Git Bash) first.",
+  "title": "Local gates run the proxy host tests",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J20"
+  ],
+  "brief": "jobs/J41/brief.md",
+  "report": "jobs/J41/report.md",
+  "review": "jobs/J41/review.md"
+}

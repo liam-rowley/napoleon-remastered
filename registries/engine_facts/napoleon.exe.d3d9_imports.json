@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.exe.d3d9_imports",
+  "claim": "Napoleon.exe imports exactly Direct3DCreate9, D3DPERF_BeginEvent and D3DPERF_EndEvent from d3d9.dll; the proxy exports all three (proxy/core/d3d9.def)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_exeinfo/README.md",
+  "date": "2026-10-28"
+}

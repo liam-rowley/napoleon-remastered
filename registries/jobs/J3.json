@@ -1,0 +1,16 @@
+{
+  "id": "J3",
+  "description": "Dev control channel and load time: measure each load phase first, then skip intros, autostart into a named scenario with the right map, measure cold and warm driver/pipeline cache cost and warm it only if worth it, and reset in place instead of relaunching. Targets set from the measurements.",
+  "title": "Dev control and load time",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J1",
+    "J2"
+  ],
+  "brief": "jobs/J3/brief.md",
+  "report": "jobs/J3/report.md",
+  "review": "jobs/J3/review.md"
+}

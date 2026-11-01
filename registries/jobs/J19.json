@@ -1,0 +1,13 @@
+{
+  "id": "J19",
+  "description": "Flaky harness-windows integration test (PR 20 run 40878131007 failed, the push run 40878099563 on the same commit c0a2389 passed): `hang watchdog` asserts runs\\<utc>_hang\\hang.txt as soon as the game process has exited, but Handle-Hang in harness/core/watcher.ps1 calls Kill-Game before it writes hang.txt. Fix both sides: the watcher writes hang.txt before the kill and rewrites it with the kill result after; the test waits for the `HANG handled` log line (the real completion signal) before asserting on the run folder. Proof: the test passes 10 runs in a row on the Windows runner. Check the other harness tests for the same exit-then-assert pattern.",
+  "title": "Hang watchdog test race on hang.txt",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J19/brief.md",
+  "report": "jobs/J19/report.md",
+  "review": "jobs/J19/review.md"
+}

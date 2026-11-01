@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.db.decode",
+  "claim": "306 of Napoleon's 310 db tables decode byte-exact against RPFM schema_nap.ron (Frodo45127/rpfm-schemas, MIT, pinned at 29024e92f634, 2026-10-25), 26 of them empty (25 of those have no schema definition and count as decoded only because the 5-byte header is all there is, so tables.json gives them no fields); not decoded: models_artilleries and models_naval (no schema), models_building (v8 fails at byte 5: a model descriptor, as in Empire) and unit_special_ability_types (v0, string overrun at byte 485)",
+  "state": "verified",
+  "evidence": "discovery/db/README.md",
+  "date": "2026-10-29",
+  "notes": "the schema marks keys and refs mostly on newer table versions than Napoleon ships; db.py carries 242 of them over by field name (inherited_from in discovery/db/tables.json), an inference"
+}

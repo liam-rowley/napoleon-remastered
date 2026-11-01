@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.reset.battle_warm",
+  "claim": "Warm reset from a custom battle inside one process (ExitBattle, DismissBattleResult, ClosePopup mp_postbattle): 10 in a row ok, to the front end 7.3-13.6 s (incl. an 8 s settle), back in the deployed battle 27.1-33.4 s; address space +1.5 MB per cycle (1844 -> 1859 MB), commit flat about 1.26 GB. A relaunch to the same point is 26.4 s",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc2/README.md",
+  "date": "2026-10-29",
+  "notes": "the 8 s settle avoids the mss32.dll crash seen quitting 1.2 s in (run 20261029_j3pc)"
+}

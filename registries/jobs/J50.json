@@ -1,0 +1,15 @@
+{
+  "id": "J50",
+  "description": "J36 report, Deviations and Open question 4: the four J36 packs (ui_art, icon, panel_frame, button_state; 709 MB) were installed sha-checked and uninstalled, but the game never loaded them, because the game folder had no proxy and the watcher refuses a headless launch without it. Deploy the proxy through the existing kit, install the packs, make a headless launch to campaign and to a battle, and close the open engine facts napoleon.ui_art.pack_loads (no crash, the upscaled files are the ones read, shots before and after) and napoleon.ui_art.dds_at_tga_paths (does the engine load DDS at a TGA path; if yes, J36's TGA outputs can become DDS with mips). Add the new packs to the mod_packs skip list. The J36 kill criterion 'any crash when the packed files load' is decided here.",
+  "title": "UI art packs load in game",
+  "phase": 5,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J36"
+  ],
+  "brief": "jobs/J50/brief.md",
+  "report": "jobs/J50/report.md",
+  "review": "jobs/J50/review.md"
+}

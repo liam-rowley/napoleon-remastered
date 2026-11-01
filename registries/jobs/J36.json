@@ -1,0 +1,15 @@
+{
+  "id": "J36",
+  "description": "D5 and D19: vanilla UI art ML-upscaled, then resampled to the 2.5x master size with mipmaps; method and status per asset in the assets registry; before and after contact sheets for Liam; deterministic and re-runnable, packed sha-checked. Core candidate (game-agnostic pipeline, Napoleon roles in the adapter). UI art only (D14).",
+  "title": "UI art upscaling pipeline",
+  "phase": 5,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J7"
+  ],
+  "brief": "jobs/J36/brief.md",
+  "report": "jobs/J36/report.md",
+  "review": "jobs/J36/review.md"
+}

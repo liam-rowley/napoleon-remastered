@@ -1,0 +1,17 @@
+{
+  "id": "J15",
+  "description": "Port Empire's campaign console route (empire-remastered rml_mod/src/dev_console.cpp; findings in docs/plans/STATE_CONTROL.md section 3 and orchestrator reports esfcon, dllw2, dllw3), re-found on Napoleon.exe. First try CliExecute system commands from Lua with no DLL. Static RE: the campaign command dictionary, the executor and its external handler slot; whether retail leaves it unwritten. DLL fills the slot behind the exe-identity guard, every address in engine_sites with anchor bytes, config key default off; control verb console <line> with checked results. Command table with no-op handlers marked; prove teleport_to (with its map units), transport_to_region and a save/reload after console use in game.",
+  "title": "Campaign dev console",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J1",
+    "J3",
+    "J20"
+  ],
+  "brief": "jobs/J15/brief.md",
+  "report": "jobs/J15/report.md",
+  "review": "jobs/J15/review.md"
+}

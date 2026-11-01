@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.layouts.template_records",
+  "claim": "uied.templates (loose data\\ui\\templates in both games): same container; 126 records in Napoleon, record versions v9-v33 round-trip through Empire's tpl.py as on Empire (v4 and v18 fail in both: Empire codec limits); v35 (4 records, none round-trip) and v39 (3, 1 round-trips) are new",
+  "state": "verified",
+  "evidence": "discovery/diff/layouts.json",
+  "date": "2026-10-29",
+  "notes": "template_v35 is not decoded"
+}

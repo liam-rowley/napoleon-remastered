@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.dxvk.v3_1_1_menu",
+  "claim": "Stock DXVK 3.1.1 x86 d3d9 runs Napoleon to the main menu and exits cleanly (RTX 4090, NVIDIA 617.14), no err: lines in its log",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_pctest/README.md",
+  "date": "2026-10-28"
+}

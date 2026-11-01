@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.db.index",
+  "claim": "Napoleon has 310 db table files, all in data.pack, one per table (db\\<table>_tables\\<table>); none carries a GUID marker; 288 are version 0 (no version marker), 16 version 1, 2 each version 2 and 3, 1 each version 4 and 5",
+  "state": "verified",
+  "evidence": "discovery/db/tables.json",
+  "date": "2026-10-29"
+}

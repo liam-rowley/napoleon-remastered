@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.lua.update_callbacks",
+  "claim": "Which scripts get update calls: the front end's main.advert (OnUpdate) only on the main menu; no other front-end screen pumps, and an OnUpdate injected into the front-end root is never called; the battle root gets OnUpdatePulse (not OnUpdate)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29",
+  "notes": "campaign root not run yet"
+}

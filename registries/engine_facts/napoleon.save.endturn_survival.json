@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.save.endturn_survival",
+  "claim": "Whether a structurally edited save survives one EndTurn (the AI pass): not shown. The AI turn raised a modal diplomacy request and a turn-start event; while a modal is open (or the window is minimised) no frames are drawn and the campaign Lua does not pump, so the run could not be finished unattended",
+  "state": "open",
+  "evidence": "saves/runs/20261029_j14pc/README.md",
+  "date": "2026-10-29",
+  "notes": "needs J13 (always-active window) and a popup answer (J15); load_save.sh --end-turn is ready"
+}

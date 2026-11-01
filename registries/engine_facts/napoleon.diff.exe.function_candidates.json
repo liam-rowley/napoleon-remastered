@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.exe.function_candidates",
+  "claim": "Of 2,854 named Empire functions (perf_mod annotations, static initialisers left out), 1,159 have a unique 32-byte masked signature hit in Napoleon.exe, 33 share their hit address with different Empire code (class shared), 468 have several hits, 1,190 none (RVAs in detail.signatures)",
+  "state": "open",
+  "evidence": "discovery/diff/exe.json",
+  "date": "2026-10-29",
+  "notes": "candidates for J9 naming, unverified"
+}

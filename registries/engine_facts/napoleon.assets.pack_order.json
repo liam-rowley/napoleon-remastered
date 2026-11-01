@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.assets.pack_order",
+  "claim": "No Napoleon pack header lists a dependency (pack-name list empty in all 11); header types are boot.pack 0, eight release packs 1 (battleterrain, buildings, data, local_en, rigidmodels, sound, variantmodels, variantmodels2), local_en_patch.pack 2 and media.pack 4; the load order used is type then name",
+  "state": "verified",
+  "evidence": "discovery/napoleon/games.json",
+  "date": "2026-10-29",
+  "notes": "the order between release packs never matters in vanilla: the only shadowing is local_en to local_en_patch"
+}

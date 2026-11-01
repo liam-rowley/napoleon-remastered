@@ -1,0 +1,12 @@
+{
+  "id": "J46",
+  "description": "J44 deliverable 2 gaps: land large, land 20 against 20 and naval large need the custom-battle army setup route (fact napoleon.custom_battle.armies, open: armies come from the remembered prefs); siege city (the custom siege list has 7 forts and no city: find another route or record the fact); naval_storm load time and two poses; grand campaign mid and late through ctl.py scene (J14 recipes, load_save.sh); why EnumerateBattleMaps(historic) lists no single-player NHB_ battle on the PC. Each new row measured and posed to the J44 standard, and added to the acceptance order only with a re-measured baseline.",
+  "title": "Scenario library: the rows J44 left out",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J44"
+  ]
+}

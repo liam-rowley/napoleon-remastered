@@ -1,0 +1,13 @@
+{
+  "id": "J25",
+  "description": "Spike before any cascade build (PLAN section 5, phase 3.2): can the shadow pass be isolated and drawn once per cascade with its own light matrix (proxy replay of the pass's draws, or calling the engine's pass again through a hook), with the receiving shaders replaced to pick and sample the right cascade? A two-cascade prototype in the 40-unit battle with its cost, and why blob shadows are drawn and whether cascades remove them. Kill: pass not isolable, or cost over the J23 budget: stop and report; the fallback is J24. Output: go or no-go and a design for J26.",
+  "title": "Cascaded shadows spike",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J8",
+    "J24"
+  ]
+}

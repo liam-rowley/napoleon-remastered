@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.ctl.speed",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/ctl/speed.lua",
+  "purpose": "the setter and the readback of ctl.py pause and speed: RequestSpeed(<slow|play|fwd|ffwd|pause>) in the pumping battle root",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/ctl/speed.lua 20 -- <slow|play|fwd|ffwd|pause|resume|start|read>\" in a battle; ctl.py runs it",
+  "when": "every ctl pause and speed (twice: set, then read after a measured wall-clock interval)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

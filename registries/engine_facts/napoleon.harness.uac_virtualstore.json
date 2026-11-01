@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.harness.uac_virtualstore",
+  "claim": "Napoleon.exe (32-bit, no manifest) is under UAC file virtualization: once one write of the proxy into the game folder failed (2026-10-30 14:44, the on_virtual rename of headless_status.json), Windows made copies in %LOCALAPPDATA%\\VirtualStore\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\napoleon_remastered\\ (headless_status.json, state.json) and every later write went there, silently, while the watcher read the stale real files: every launch then failed HEADLESS FAILED with the game itself fine. ctl.py Pc.launch moves the copies to <state>\\_to_delete before a launch; the proxy-side fix (a manifest without virtualization, or retrying the rename) is J16's",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

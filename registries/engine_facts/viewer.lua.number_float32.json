@@ -1,0 +1,8 @@
+{
+  "id": "viewer.lua.number_float32",
+  "claim": "The review viewer's Lua 5.1.1 (luaconf.h LUA_NUMBER float, number format %.7g, str2number through float) gives the engine's float32 results: sizeof(lua_Number)=4, math.floor(2550*0.319999992)=816 (doubles: 815), 16777217-16777216=0, string.format('%d', 2550*0.319999992)='816'",
+  "state": "verified",
+  "evidence": "viewer/runs/20261031_j31/README.md",
+  "date": "2026-10-31",
+  "notes": "viewer/core/tests/lua_numbers.mjs through the built viewer.wasm under Node: local build 20261031_j31 and CI run 41218079368"
+}

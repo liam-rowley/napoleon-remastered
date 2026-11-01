@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.lua_api.surface",
+  "claim": "Static API diff against Empire engine_api.json: CampaignUI 257 names (28 new, 8 gone), BattleUI 161 (11 new, 16 gone), FrontEnd 107 (16 new, 12 gone), component methods 210 (44 new incl. TriggerAnimation, ShaderTechniqueGet, SetZDepth), events 92 (OnDraw, OnPreDraw, OnAnimationFrameEnd new); Component.* identical; 38 shared names called with a different argument count",
+  "state": "open",
+  "evidence": "discovery/diff/lua_api.json",
+  "date": "2026-10-29",
+  "notes": "static bytecode only; whether each name is callable, and real signatures, are J9 (per-screen API surface). Empire side is engine_api.json (436 scripts), not a re-run on the Empire extract"
+}

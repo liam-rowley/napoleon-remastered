@@ -1,0 +1,12 @@
+{
+  "id": "J37",
+  "description": "D7: for everything the atlas leaves engine-drawn (unit banners, map labels and the like), port Empire's .cuf font route so engine text is crisp from 1080p to 4K and follows the UI scale; RmlUi screens keep FreeType TTFs. Shots at 1080p and 4K from fixed poses; fonts and their licences recorded for J38.",
+  "title": "Engine-drawn text and fonts",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J10"
+  ]
+}

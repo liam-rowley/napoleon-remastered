@@ -1,0 +1,11 @@
+{
+  "id": "saves.napoleon.load_save",
+  "kind": "script",
+  "path": "saves/napoleon/load_save.sh",
+  "purpose": "one load test of a save through the watcher: stage it as zz_<name>, launch, wait for the front end, autostart campaign:zz_<name>, read the turn, optionally end the turn (waiting for the next player turn) and quick save (copy kept under <state>/saves), kill; one JSON line per step",
+  "usage": "saves/napoleon/load_save.sh <owner> <save file> <zz_name> [--end-turn] [--quicksave] [--log FILE]   (game lock held by <owner>; proxy installed with dev.ctl, dev.lua_bridge, dev.state_json and dev.skip_intro on)",
+  "when": "load ladder A/B/C (J14) and any check that an edited save loads (J4 scenarios); waiting happens inside this one call",
+  "not_a_verb": "a PC sitting helper over job.sh and stage_save.py, run in Git Bash on the PC",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

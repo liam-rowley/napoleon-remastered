@@ -1,0 +1,11 @@
+{
+  "id": "tools.ci_failures",
+  "kind": "script",
+  "path": "tools/ci_failures.py",
+  "purpose": "list every failed `gates.yml` run attempt in a time window (reruns included: a rerun that passed hides its failed first attempt from `gh run list`), with the failed job and step, the first error line from its log and whether the same commit passed that job in another run (the flaky evidence), and render the committed failure table; the class and guard of each row come from CLASSES below, so a new failure is classed here, not in the generated file",
+  "usage": "python3 tools/ci_failures.py --since 2026-10-29T00:00:00Z --until <utc> [--cache <json>] [--out docs/CI_FAILURES.md]   (--cache reuses a fetch; needs `gh` signed in)",
+  "when": "by hand, when CI failures are reviewed (J42 built the first table); not part of any gate (it reads GitHub)",
+  "not_a_verb": "a one-off report generator over the GitHub API; the table it writes is the record",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

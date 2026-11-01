@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.naval_siege_load",
+  "claim": "Custom naval battle caribbean: StartBattle to scene naval 19.1-19.4 s; custom siege rti_fort_1: 20.5-20.9 s (n=3 each, autostart from the main menu, map checked)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc2/README.md",
+  "date": "2026-10-29",
+  "notes": "after a PC restart (run 20261029_j3review): naval 3.1 s, siege 5.1 s"
+}

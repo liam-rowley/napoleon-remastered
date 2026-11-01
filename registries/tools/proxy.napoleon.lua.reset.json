@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.reset",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/reset.lua",
+  "purpose": "one step of the warm reset (battle or campaign back to the front end) through the roots' own functions",
+  "usage": "run by the proxy (ctl `reset <target>`); not by hand",
+  "when": "every warm reset",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

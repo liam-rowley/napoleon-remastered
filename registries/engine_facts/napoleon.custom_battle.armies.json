@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.custom_battle.armies",
+  "claim": "Custom battle armies come from the remembered battle preferences (.sp_default); a fixed army per side (20 against 20) needs the army setup route not yet driven: sp_battle3 army_box AddUnit / SetSetup(setup, true), or FrontEnd.LoadArmySetup(path) -> ValidateArmySetup -> SetSetup (UI Lua bytecode, J44 pack reading). land_large, land_40 and naval_large wait on it",
+  "state": "open",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}
