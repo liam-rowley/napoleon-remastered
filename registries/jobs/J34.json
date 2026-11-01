@@ -1,0 +1,13 @@
+{
+  "id": "J34",
+  "description": "The chosen language as tokens and a component library written in RCSS, shown on a component board in the viewer with every state (hover, pressed, disabled, selected, focus-visible). Lint: tokens only, library classes, dp only, minimum text 14 dp, contrast; the board renders at the D19 corners (1080p x 85 %, 4K x 125 %, 21:9, 16:10) with no clipping. A library change re-renders and reports what changed. Liam plays the board and locks it.",
+  "title": "Design tokens and component library in RCSS",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J31",
+    "J33"
+  ]
+}

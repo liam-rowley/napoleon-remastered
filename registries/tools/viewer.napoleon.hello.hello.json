@@ -1,0 +1,11 @@
+{
+  "id": "viewer.napoleon.hello.hello",
+  "kind": "script",
+  "path": "viewer/napoleon/hello/hello.lua",
+  "purpose": "the J31 hello-world's view code: opens the \"hello\" data model from the fixture and handles the End turn click",
+  "usage": "loaded by viewer/napoleon/hello/hello.rml (<script src>, after stubs.lua) in the review viewer",
+  "when": "the viewer spike only; shows layout, text, input and Lua running together (jobs/J31/brief.md)",
+  "not_a_verb": "Lua loaded by an RML document in the viewer, not a command",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

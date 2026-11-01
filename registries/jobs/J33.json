@@ -1,0 +1,13 @@
+{
+  "id": "J33",
+  "description": "D8: two or three design directions in Claude Design on the same three test screens with real data from the atlas and real art from the contact sheets; exploration only, never translated into the build. Liam picks one; the choice and its rules (palette, type, ornament, density, iconography) are written down for J34. L-heavy.",
+  "title": "Napoleon design language",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J7",
+    "J10"
+  ]
+}

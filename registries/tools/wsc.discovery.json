@@ -1,0 +1,11 @@
+{
+  "id": "wsc.discovery",
+  "kind": "verb",
+  "path": "tools/verbs/discovery.py",
+  "purpose": "check discovery/diff/<area>.json (J6) and the J7 files (asset index, registry in step, refs, sheets, db tables, loc keys), render discovery/{diff,assets,db,loc}/README.md, and run the J7 passes",
+  "usage": "python3 core/wsc.py discovery check | render | assets | sheets | db | loc | all   (assets, sheets, db, loc and all read the install on the PC; all = assets, db, loc, sheets, then render)",
+  "when": "after any discovery pass (discovery/core/*.py) rewrites a result; `check` also fails when a committed README is stale (tests/test_discovery.py runs it in the tests gate)",
+  "verb": "discovery",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

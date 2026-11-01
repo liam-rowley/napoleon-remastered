@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.console_nodll",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/console_nodll.lua",
+  "purpose": "call the Lua global CliExecute with a system command (here_kitty_kitty), a campaign command (teleport_to 0 0) and an unknown name, and return each pcall result: CliExecute=<type>|<line>=<ok>,<ret1>,<ret2>|...",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/console_nodll.lua\" in a campaign, with dev.log_files=1 (the executor's fopen of a name it did not find shows in logs\\files.log)",
+  "when": "J15 deliverable 1 (no-DLL probe); again after a game update, before relying on the console route",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

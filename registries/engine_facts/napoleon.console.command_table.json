@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.command_table",
+  "claim": "The campaign dictionary has 199 commands (198 empire_campaign + enrich_faction): 168 act, 10 no_op, 21 parse_only; against Empire's 172: 27 new (add_trait, add_ancillary, toggle_immortal, recruit_general_or_admiral, ...), 0 gone, 10 changed status; the system dictionary has 68",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15re",
+  "date": "2026-10-29"
+}

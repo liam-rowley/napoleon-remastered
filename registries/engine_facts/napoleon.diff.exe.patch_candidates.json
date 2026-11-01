@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.exe.patch_candidates",
+  "claim": "Empire patch-site windows (value bytes masked) with a unique hit in Napoleon.exe (RVA): grass grid (Ultra) 0x1019ad8, shadow light sweep 0xd27696; the sprite, naval-LOD and flag-size tweaker windows match several near-identical initialisers (no unique site); 19 of 26 patch and 20 of 26 cfg sites have no hit",
+  "state": "open",
+  "evidence": "discovery/diff/exe.json",
+  "date": "2026-10-29",
+  "notes": "owner J9; sprite and LOD distances will need Napoleon-side discovery, not Empire signatures"
+}

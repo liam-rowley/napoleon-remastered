@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.save_reload",
+  "claim": "After console teleports, CampaignUI.QuickSave, a relaunch and autostart campaign:<save> (first PC run of that target), the agent is where the console put it (-290 23); the next EndTurn ran into the AI turn with no crash and stopped at an AI diplomacy modal (napoleon.campaign.modal_stops_pump)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

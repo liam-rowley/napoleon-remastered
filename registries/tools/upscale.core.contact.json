@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.contact",
+  "kind": "script",
+  "path": "upscale/core/contact.py",
+  "purpose": "draw per-role before/after sheets at one display scale and 1:1 crops of a fixed set of hard cases (thin frames, glyph-like icons, flag cloth, portraits, cursors, soft alpha edges); 'before' is the vanilla art resampled to the same size with plain Lanczos",
+  "usage": "library (upscale/core), driven by `python3 core/wsc.py upscale sheets`",
+  "when": "after a run, for Liam to judge the look (nothing here claims approval)",
+  "not_a_verb": "a library used by tools/verbs/upscale.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

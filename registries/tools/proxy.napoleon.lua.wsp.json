@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.wsp",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/wsp.lua",
+  "purpose": "the dev Lua bridge loader and pump: loads the proxy into the engine's Lua, runs a wrapped vanilla script unchanged, pumps control commands from its update callback, probes battles",
+  "usage": "loaded by the dev pack's wrapper scripts only: dofile(\"napoleon_remastered/lua/wsp.lua\").wrap(entry, ctx, getfenv(1))",
+  "when": "whenever dev.lua_bridge=1 (scene tracking from Lua, `lua` commands, autostart, reset); never edited on the PC (kit-synced)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.config.baseline_sha256",
+  "claim": "Baseline sha256 on officepc: preferences.script.txt c2202172bdcb8051156add790bb61b424f1df429e3a2706e7861621c27181cca (20736 bytes), custom_keys.keys.xml adc99cc410b653e4a58179deed6baee522a5d67a8a3723c86d55d84c24ea019c; with J1 kit 30a7b815163a installed napoleon_remastered.ini 94b59cb3bab449a205490f6fe0eaa2ae391d3ee07fc47dcb0f8ab285095f22d0; dxvk.conf absent",
+  "state": "verified",
+  "evidence": "harness/runs/20261029_pctest/README.md",
+  "date": "2026-10-29",
+  "notes": "the game rewrites preferences at exit (write_preferences_at_exit true), so this baseline changes whenever Liam changes settings in game"
+}

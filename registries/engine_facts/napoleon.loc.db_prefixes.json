@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.loc.db_prefixes",
+  "claim": "31,306 of the 35,850 loc keys start <db table>_ for one of the 310 db tables (the <table>_<field>_<row key> shape); the 4,544 that name no table are mostly ui.loc component strings (start, button, unit, message, label ...)",
+  "state": "verified",
+  "evidence": "discovery/loc/README.md",
+  "date": "2026-10-29",
+  "notes": "17,609 of the 31,306 continue with a field name of that table in the db schema (discovery/loc/summary.json)"
+}

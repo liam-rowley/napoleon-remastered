@@ -1,0 +1,12 @@
+{
+  "id": "J26",
+  "description": "Only if J25 says go: cascades built to J25's design, cascade count and split distances as config keys with release values, receiving shaders for every shadowed material (units, terrain, trees, buildings, ships), no slicing artefacts and no blob shadows across the scenario set (D12), within the J23 budget. Liam judges the look at fixed poses. If J25 says no-go, this row is closed with a dated decision.",
+  "title": "Cascaded shadows build",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J25"
+  ]
+}

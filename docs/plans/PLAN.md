@@ -34,7 +34,7 @@ agent may need to load. Most harness learnings are workarounds every agent must 
 `waitfor` ignoring its timeout, keys lost during a shader compile, autostart ignoring the map). The changes:
 
 1. **Learnings become code.** A gotcha is fixed in the tool, its default, a guard or a gate; prose is the last resort (`CLAUDE.md`).
-2. **One registry framework.** Every registry is a JSONL file + a JSON Schema + a generated readable view + a `check` that runs in
+2. **One registry framework.** Every registry is its rows (a JSONL file, or one file per row since J55) + a JSON Schema + a generated readable view + a `check` that runs in
    the gates, all behind one CLI with one `find` across every registry. Starting set:
 
    | Registry | Extra fields beyond id and description |

@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.loc.patch",
+  "claim": "local_en_patch.pack replaces both .loc files whole: localisation.loc gains 988 keys, changes 186 and drops 540 of local_en.pack's; ui.loc gains 35, changes 531 and drops 2",
+  "state": "verified",
+  "evidence": "discovery/loc/README.md",
+  "date": "2026-10-29"
+}

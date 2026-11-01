@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.exe.laa_aslr_nx",
+  "claim": "Napoleon.exe is 32-bit x86, large-address-aware, ASLR (dynamic base with a .reloc table: every static address is rebased) and NX",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_exeinfo/README.md",
+  "date": "2026-10-28"
+}

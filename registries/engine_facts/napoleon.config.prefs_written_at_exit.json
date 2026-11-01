@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.config.prefs_written_at_exit",
+  "claim": "With write_preferences_at_exit true the game rewrites preferences.script.txt when it exits; under headless it wrote x_pos 0 and y_pos 0 (its stored values), not the window position on the virtual display, so a headless run does not leak the virtual display position into the prefs (unlike Empire); the watcher restore returns the file byte for byte anyway",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j13pc/README.md",
+  "date": "2026-10-29",
+  "notes": "prefs_as_left.txt of every headless launch"
+}

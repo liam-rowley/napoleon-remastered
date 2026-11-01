@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.no_dll_reach",
+  "claim": "With no DLL, the Lua global CliExecute(line) runs system-dictionary commands (here_kitty_kitty: no file stage), but a campaign command (teleport_to 0 0) and an unknown name both fall through to the executor's file stage (CreateFileW of the bare relative name, FAILED 2): the campaign dictionary is unreachable in retail",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

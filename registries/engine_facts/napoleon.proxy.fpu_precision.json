@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.proxy.fpu_precision",
+  "claim": "On the engine thread doubles behave as 24-bit floats after device creation (D3D9 without D3DCREATE_FPU_PRESERVE): the perf recorder's frame deltas, formed from an absolute QPC time in ms (~1e8), came out as 0, 8 and 16 ms (p50 0.0 over 6354 frames). Taking the delta in integer ticks first (devcore.h PerfDeltaMs) gives p50 1.868, p99 3.464 ms on land_small at 1920x1080 (RTX 4090)",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

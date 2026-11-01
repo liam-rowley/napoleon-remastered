@@ -1,0 +1,13 @@
+{
+  "id": "J1",
+  "description": "Proxy d3d9.dll skeleton: backend loading (DXVK or system), config, UTC log, crash capture, exe-identity guard with pass-through, runtime patch engine fed by engine_sites, sha-checked install and byte-exact uninstall. No features.",
+  "title": "Proxy DLL skeleton",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [],
+  "brief": "jobs/J1/brief.md",
+  "report": "jobs/J1/report.md",
+  "review": "jobs/J1/review.md"
+}

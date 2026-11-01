@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.proxy.passthrough_vanilla",
+  "claim": "With the skeleton proxy installed (system backend, DXVK backend, forced mismatch) Napoleon reaches the main menu and exits cleanly with no in-process or WER dumps; uninstall leaves the game folder sha256-identical to vanilla (1564 files)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_pctest/README.md",
+  "date": "2026-10-28",
+  "notes": "build 690ec1a93fd3 (DLL sha256 211d8ee0246c...)"
+}

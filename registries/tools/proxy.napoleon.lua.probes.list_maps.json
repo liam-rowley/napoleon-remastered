@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.list_maps",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/list_maps.lua",
+  "purpose": "log every custom-battle map the front end offers per battle type (Key, Name, File, naval)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/list_maps.lua\" in the front end",
+  "when": "to pick or check a battle preset's map key",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

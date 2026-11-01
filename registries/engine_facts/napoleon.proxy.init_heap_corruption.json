@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.proxy.init_heap_corruption",
+  "claim": "A launch can die about 150 ms after process start with a first-chance 0xc0000374 (heap corruption) at ntdll+0xfd71f, right after the proxy init and before the first d3d9 call; the next launch is clean",
+  "state": "open",
+  "evidence": "upscale/runs/2026-10-31_j50/README.md",
+  "date": "2026-10-31",
+  "notes": "seen in J44 (harness/runs/20261030_j44pc, 14:29) and J50 (dump 20261031T164846Z-p33332_c0000374.dmp, pid 33332; ctl.py Pc.launch retried and the next launch ran); WER bucket AppCrash_Napoleon.exe_39553a96... also at 12:17 on 2026-10-31 during J45 (no UI packs). Cause unknown (proxy init or the game); a crash job for the dumps"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.pack_sync_uninstall",
+  "claim": "Four ui_art_2x5 movie packs (709 MB in all) copy into the data folder through a watcher job with sha256 checked on source, copy and manifest, and removing them leaves the game folder snapshot identical (pc_deploy.py snapshot and diff)",
+  "state": "verified",
+  "evidence": "upscale/runs/2026-10-31_first_roles.md",
+  "date": "2026-10-31",
+  "notes": "loading by the game was not tested: headless launch refused, no proxy in the game folder"
+}

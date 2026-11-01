@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.steam.installscript_vdf_mtime",
+  "claim": "installscript.vdf in the game folder had its mtime changed (content identical) during the session, probably by the vanilla launch or Steam; a byte-exact check must compare content, not mtime",
+  "state": "open",
+  "evidence": "proxy/runs/20261028_pctest/README.md",
+  "date": "2026-10-28"
+}

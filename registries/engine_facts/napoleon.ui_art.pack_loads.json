@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.pack_loads",
+  "claim": "The game starts to the main menu with the ui_art_2x5 movie packs in the data folder (entries under the ui_art_2x5 prefix, so no vanilla path is replaced)",
+  "state": "verified",
+  "evidence": "upscale/runs/2026-10-31_j50/README.md",
+  "date": "2026-10-31",
+  "notes": "run 2026-10-31_j50 stage 1 (install job J50-20261031T164812Z-1327310857, launches 16:48 to 16:54 UTC): the four J36 packs (709 MB) in data\\, headless through the watcher to a land battle, the main menu and the campaign with a shot in each, then a clean repeat launch; one launch died at init (0xc0000374 before any data pack read, fact napoleon.proxy.init_heap_corruption) and did not repeat. Proves no crash only: ui_art_2x5\\ entries replace no vanilla path"
+}

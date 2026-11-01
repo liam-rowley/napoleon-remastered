@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.script_api_reachable",
+  "claim": "empire_battle, battle_manager (after require Scripting_Library only a battle_manager table appears), camera, controllers are NOT reachable from ctl lua: the pumping battle UI environment has BattleUI (camera, speed, orders functions) but empire_battle is nil; and the battle pump stops by itself after 20-175 s in a battle, so chunks run only in a short window after the load",
+  "state": "refuted",
+  "evidence": "harness/runs/20261029_j4pc/README.md",
+  "date": "2026-10-29",
+  "notes": "probes/battle_api.lua, probes/battle_route.lua; land_small, headless 1080p. J43: the pump stop was string.find (napoleon.lua.string_find_stalls_pump), not the route; camera and speed now go through napoleon.battle.camera_route and napoleon.battle.speed_route"
+}

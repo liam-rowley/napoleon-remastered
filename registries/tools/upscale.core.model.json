@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.model",
+  "kind": "script",
+  "path": "upscale/core/model.py",
+  "purpose": "run a pinned 2x model over an RGB image in overlapping tiles; verify the model file against its pinned sha256; offer a 'lanczos' stand-in with the same interface for host tests and CPU-only machines",
+  "usage": "library (upscale/core); python3 upscale/core/model.py fetch <models.json> <dir>   (downloads the pinned files and checks sha256)",
+  "when": "batch.py needs an upscaler; setting up the PC environment (fetch)",
+  "not_a_verb": "a library used by upscale/core/batch.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

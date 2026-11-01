@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.hang.watchdog_detects_suspend",
+  "claim": "A Napoleon suspended with NtSuspendProcess is reported not_responding and shows no CPU-time progress; the watcher catches it after hang_s and writes a ~25 MB out-of-process minidump of the 32-bit game",
+  "state": "verified",
+  "evidence": "harness/runs/20261029_pctest/README.md",
+  "date": "2026-10-29",
+  "notes": "pid 24052, archive runs\\20261029T001922Z_hang on the PC"
+}

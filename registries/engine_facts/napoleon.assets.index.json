@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.assets.index",
+  "claim": "Napoleon data\\ holds 88,415 file copies: 86,995 entries in 11 PFH0 packs plus 1,420 loose files; 18 copies are shadowed, all local_en.pack entries replaced by local_en_patch.pack (16 advisor mp3s, text\\localisation.loc, text\\ui.loc); no loose file shadows a pack entry",
+  "state": "verified",
+  "evidence": "discovery/assets/summary.json",
+  "date": "2026-10-29"
+}

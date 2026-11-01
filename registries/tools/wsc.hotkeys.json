@@ -1,0 +1,11 @@
+{
+  "id": "wsc.hotkeys",
+  "kind": "verb",
+  "path": "tools/verbs/hotkeys.py",
+  "purpose": "parse the vanilla key table (data.pack text\\\\default_keys.xml, or a custom_keys.keys.xml) into `vanilla.<keyset>.<func>.<n>` hotkeys rows through the registry, and check every row for clashes (same binding in a clashing context, a bare key that fires with any modifier, an OS combo)",
+  "usage": "python3 core/wsc.py hotkeys import (--from-pack [<data dir>] | <keys.xml>) [--keyset fps] [--no-loc] [--dry-run]  |  python3 core/wsc.py hotkeys check",
+  "when": "after a game update (reseed: `hotkeys import --from-pack`, then `reg render hotkeys` and review the diff of registries/hotkeys.jsonl); before adding any mod hotkey (`hotkeys check` is also run by tests/test_hotkeys.py in the `tests` gate)",
+  "verb": "hotkeys",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

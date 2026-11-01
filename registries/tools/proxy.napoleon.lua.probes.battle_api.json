@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.battle_api",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/battle_api.lua",
+  "purpose": "report whether empire_battle / battle_manager exist in the pumping environment, and what camera:position(), battle speed and a unit controller answer",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/battle_api.lua\" in a land battle, a siege and a naval battle (and with \"-- move=1\" to also move the camera once)",
+  "when": "deliverable 1 of J4 (the route probe); rerun after a game or proxy change that touches the Lua environment",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "wsc.setup",
+  "kind": "verb",
+  "path": "tools/verbs/setup.py",
+  "purpose": "check Git Bash, python3 >= 3.12, the core submodule at the pinned tag, core.hooksPath, LF shell scripts, gh auth, Docker Desktop, the empire-remastered sibling clone, Python Playwright with Chromium, the PC watcher and the PC rules (exe vanilla, no .git in or above a game folder, nothing foreign in the Napoleon folder: J18); `--fix` applies the safe fixes (a python3.exe copy, core.hooksPath)",
+  "usage": "python3 core/wsc.py setup [--fix] [--skip <check>...]",
+  "when": "once per clone or PC, after a reboot or tool update, and whenever a gate or the watcher route fails for an environment reason",
+  "verb": "setup",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

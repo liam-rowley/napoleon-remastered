@@ -11,7 +11,7 @@ Branch kinds (the branch name decides):
               carry jobs/J<n>/report.md and jobs/J<n>/review.md whose verdict line says exactly "merge"; row J<n> must be `done`;
               no session (`Claude-Session:` commit trailer) that wrote the report may write the review (never review your own job),
               and every commit touching the report or the review must carry that trailer (fails closed; J20).
-  brief/J<n>  only jobs/J<n>/brief.md and the jobs registry (row J<n>, which must be `queued` with its brief).
+  brief/J<n>  only jobs/J<n>/brief.md and row J<n> of the jobs registry (registries/jobs/J<n>.json, which must be `queued` with its brief).
   plan/*      planning: docs, briefs, the jobs registry, README.md, CLAUDE.md. No code.
   meta/*      repo infrastructure: CI, tools/, tests/, schemas/, wsc.toml, git attributes and ignores, the core pin, registries,
               plus everything plan/* may touch. No game code (proxy/ and later feature folders).
@@ -34,10 +34,16 @@ import sys
 from fnmatch import fnmatchcase
 from pathlib import Path
 
-PLAN = ['docs/*', 'docs/**', 'jobs/*/brief.md', 'registries/jobs.jsonl', 'registries/jobs.md', 'README.md', 'CLAUDE.md']
+PLAN = ['docs/*', 'docs/**', 'jobs/*/brief.md', 'registries/jobs/*', 'README.md', 'CLAUDE.md']
 META = PLAN + ['.github/**', 'tools/*', 'tools/**', 'tests/*', 'tests/**', 'schemas/*', 'wsc.toml', '.gitattributes', '.gitignore',
                '.gitmodules', 'core', 'registries/*']
-JOBS = 'registries/jobs.jsonl'
+JOBS_DIR = 'registries/jobs'          # the jobs registry, one file per row since J55 (wsc.toml [storage] dir)
+JOBS_JSONL = 'registries/jobs.jsonl'   # the jobs registry before J55: a base or branch cut earlier still has it
+
+
+def job_file(jid):
+    """Row J<n>'s file (the core's id_to_file of a J<n> id is the id itself)."""
+    return f'{JOBS_DIR}/{jid}.json'
 
 
 def git(*args):
@@ -85,12 +91,34 @@ def dll_build_id(root=None):
 
 
 def rows(text):
+    """{id: row} of JSONL text (the jobs registry before J55)."""
     out = {}
     for line in (text or '').splitlines():
         if line.strip():
             r = json.loads(line)
             out[r['id']] = r
     return out
+
+
+def rows_at(ref):
+    """{id: row} of the jobs registry at `ref`: its per-id files (one `ls-tree` and one `cat-file --batch`), or the JSONL when the
+    ref predates J55. The rules compare these dicts, so they are the same for either layout."""
+    try:
+        names = [n for n in git('ls-tree', '-z', '--name-only', f'{ref}:{JOBS_DIR}').split('\0') if n.endswith('.json')]
+    except subprocess.CalledProcessError:
+        return rows(show(ref, JOBS_JSONL))
+    if not names:
+        return {}
+    out = subprocess.run(['git', 'cat-file', '--batch'], input=''.join(f'{ref}:{JOBS_DIR}/{n}\n' for n in names).encode(),
+                         capture_output=True, check=True).stdout
+    got, at = {}, 0
+    for _ in names:
+        nl = out.index(b'\n', at)
+        size = int(out[at:nl].split()[2])
+        r = json.loads(out[nl + 1:nl + 1 + size].decode('utf-8'))
+        got[r['id']] = r
+        at = nl + 2 + size
+    return got
 
 
 def verdict(review_text):
@@ -256,7 +284,7 @@ def check(branch, changed, base_rows, head_rows, base_file, head_file, sessions=
                             f'a job is never reviewed by the chat that built it (CLAUDE.md, Jobs)')
     elif m and m.group(1) == 'brief':
         jid = m.group(2)
-        ok = {f'jobs/{jid}/brief.md', JOBS, 'registries/jobs.md'}
+        ok = {f'jobs/{jid}/brief.md', job_file(jid)}
         extra = [p for p in changed if p not in ok]
         if extra:
             errs.append(f'a brief branch may only add jobs/{jid}/brief.md and update its row; it also changes: {", ".join(extra)}')
@@ -297,7 +325,7 @@ def main(argv=None):
     acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE), show_first(a.base, *ACC_CHECKERS)), 'ledger': show('HEAD', ACC_LEDGER),
            'build_id': build_id, 'watcher': wm.group(1) if wm else '?', 'branch': a.branch, 'exists': lambda p: show('HEAD', p) is not None,
            'core_diff': core_pin_diff(mb) if 'core' in changed else None}
-    errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
+    errs = check(a.branch, changed, rows_at(mb), rows_at('HEAD'),
                  lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions, acc)
     for e in errs:
         print(f'policy: {e}', file=sys.stderr)

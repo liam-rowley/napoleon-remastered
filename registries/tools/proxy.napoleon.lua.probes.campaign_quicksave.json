@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_quicksave",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_quicksave.lua",
+  "purpose": "call CampaignUI.QuickSave() when CampaignUI.CanSave() allows it and return year|season of the saved turn",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_quicksave.lua\" in a campaign, then stage_save.py keep <the quick save's name>",
+  "when": "load ladder B and C (re-parse the state the engine wrote) and to make base saves of other turns",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

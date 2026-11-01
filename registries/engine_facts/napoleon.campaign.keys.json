@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.campaign.keys",
+  "claim": "The main menu's grand_campaign button carries campaign_key mp_eur_napoleon (factions austria, britain, prussia, russia); episodic_campaign carries none; spain_campaign absent (SpanishCampaignEnabled false). FrontEnd.OpenMapDataFile on an unknown key is an access violation (front end stops pumping). New campaign: StartCampaign to the campaign pumping 16.7-17.3 s (n=4)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc2/README.md",
+  "date": "2026-10-29",
+  "notes": "probe: proxy/napoleon/lua/probes/campaign_keys.lua"
+}

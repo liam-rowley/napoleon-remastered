@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.dds_at_tga_paths",
+  "claim": "The engine loads a DDS file where the vanilla UI names a .tga, so upscaled TGA art could carry a DDS mip chain",
+  "state": "refuted",
+  "evidence": "upscale/runs/2026-10-31_j50/README.md",
+  "date": "2026-10-31",
+  "notes": "run 2026-10-31_j50 probe s2d: a DXT5 DDS with a full mip chain (9 levels) at ui\\frontend ui\\skins\\logo.tga in a movie pack: the logo is not drawn (blank), where a TGA at the same path in the same kind of pack is drawn; no crash; no proxy log line (the proxy has no texture hook). J36 TGA-stays-TGA stands: the UI host builds mips. Confound (J50 review round 1): logo.tga is 500x153 and the probe DXT5 was written unpadded, and D3D9 wants DXT top-level sizes in multiples of 4, so 'blank' may be the texture refused, not the path; the only 4-aligned probe (button_steam_store, 148x24) was not the file on screen. Vanilla has one unaligned DXT1 (ui\\loading_screen_pictures\\2.dds, 1921x1200). Re-probe with a 4-aligned on-screen TGA before relying on 'no'"
+}
