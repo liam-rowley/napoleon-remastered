@@ -1,0 +1,11 @@
+{
+  "id": "discovery.core.engine_api",
+  "kind": "script",
+  "path": "discovery/core/engine_api.py",
+  "purpose": "read the \"api <state> <owner> <name>:<type> ...\" lines that proxy/<game>/lua/probes/api_surface.lua logs (in the run's committed proxy logs), merge them per name (owner, kind, the states where it exists, observed type) and answer the open questions of J6's static Lua API diff (discovery/diff/lua_api.json: are its new and gone names there at runtime); writes discovery/napoleon/engine_api.json",
+  "usage": "python3 discovery/core/engine_api.py build --run harness/runs/<id> [--out discovery/napoleon/engine_api.json] [--check]",
+  "when": "after a PC run of the api_surface probe (J9; again after a game update); --check in review rebuilds the table from the committed logs",
+  "not_a_verb": "a discovery pass over committed run evidence, writing one discovery table; outside the wsc registry operations",
+  "status": "live",
+  "last_used": "2026-11-01"
+}
