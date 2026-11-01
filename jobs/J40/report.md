@@ -10,7 +10,7 @@ The PC ends with the final kit installed (as after J12's acceptance run) and `sa
 | # | state | evidence |
 |---|---|---|
 | 1 `transport_to_region` | **open, narrowed** (kill criterion's outcome three, with the next step named) | fact `napoleon.console.transport_to_region_no_move`; RE README "J40"; run raw `tr_*`, `army1-2`, `hl_*`, `et3`, `et4` |
-| 2 read-back | **verified** | fact `napoleon.console.acting_commands`; raw `rb0-rb3`, `rb8` |
+| 2 read-back | **verified** 2026-10-31, run 20261031_j40pc | fact `napoleon.console.acting_commands`; raw `rb0-rb3`, `rb8` |
 | 3 EndTurn after console use and a reload | **passes unattended** | fact `napoleon.campaign.modal_stops_pump`; raw `et2_loop.txt`, `ls_endturn*.jsonl` |
 | 4 three console fixes | **done** in warscape-core (one commit each, host tests), v0.5.0, pinned | warscape-core `7c96f82`, `824eff0`, `7b39c48`; `proxy/runs/20261101_j40final` |
 | 5 saves left as found | **equal** to the snapshot (8 files, sha1) | `raw/saves_before.sha1`, `raw/saves_end.sha1` |
