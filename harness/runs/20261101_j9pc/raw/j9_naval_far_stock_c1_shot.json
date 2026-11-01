@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "harness\\runs\\20261101_j9pc\\raw\\j9_naval_far_stock_c1.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.34,
+    "frames": 1084,
+    "scene": "naval",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 72575,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "harness\\runs\\20261101_j9pc\\raw\\j9_naval_far_stock_c1.jpg"
+  },
+  "start_utc": "2026-11-01T16:58:43.332Z",
+  "end_utc": "2026-11-01T16:58:51.474Z"
+}
