@@ -1,0 +1,24 @@
+{
+ "status": "PROPOSED",
+ "date": "2026-11-01",
+ "proposed_by": "J23 (jobs/J23/report.md); Liam agrees or changes them in chat; nothing treats them as agreed until this says AGREED",
+ "baseline": "perf/baseline.json (run 20261101_j23pc, DXVK 3.1.1, build 46f52d356ce8)",
+ "target": {"frame_rate_hz": 60, "p99_ms_max": 16.67, "va_peak_stop_mb": 3400, "note": "every cell of the baseline, with all features on, stays at or under these; the reserve is for J46's larger battles (J59 re-agrees)"},
+ "features": {
+  "shadows": {"job": "J24", "what": "shadow resolution and fit",
+   "delta": {"p50_ms": {"1920x1080": 1.0, "2560x1440": 1.0, "3840x2160": 1.0}, "p99_ms": {"1920x1080": 1.5, "2560x1440": 1.5, "3840x2160": 1.5},
+             "va_peak_mb": 50, "commit_mb": 50, "vram_mb": {"1920x1080": 512, "2560x1440": 512, "3840x2160": 512}}},
+  "cascades": {"job": "J26", "what": "shadow cascades",
+   "delta": {"p50_ms": {"1920x1080": 1.5, "2560x1440": 1.5, "3840x2160": 1.5}, "p99_ms": {"1920x1080": 2.0, "2560x1440": 2.0, "3840x2160": 2.0},
+             "va_peak_mb": 50, "commit_mb": 50, "vram_mb": {"1920x1080": 768, "2560x1440": 768, "3840x2160": 768}}},
+  "distances": {"job": "J27", "what": "imposter and LOD distances",
+   "delta": {"p50_ms": {"1920x1080": 1.0, "2560x1440": 1.0, "3840x2160": 1.0}, "p99_ms": {"1920x1080": 2.0, "2560x1440": 2.0, "3840x2160": 2.0},
+             "va_peak_mb": 600, "commit_mb": 500, "vram_mb": {"1920x1080": 1024, "2560x1440": 1024, "3840x2160": 1024}}},
+  "upscaler": {"job": "phase 3 upscaler", "what": "the upscaler pass",
+   "delta": {"p50_ms": {"1920x1080": 0.5, "2560x1440": 0.8, "3840x2160": 1.2}, "p99_ms": {"1920x1080": 0.7, "2560x1440": 1.0, "3840x2160": 1.5},
+             "va_peak_mb": 100, "commit_mb": 100, "vram_mb": {"1920x1080": 128, "2560x1440": 192, "3840x2160": 256}}},
+  "ui": {"job": "J30", "what": "RmlUi host and panels",
+   "delta": {"p50_ms": {"1920x1080": 0.3, "2560x1440": 0.3, "3840x2160": 0.3}, "p99_ms": {"1920x1080": 0.5, "2560x1440": 0.5, "3840x2160": 0.5},
+             "va_peak_mb": 150, "commit_mb": 150, "vram_mb": {"1920x1080": 128, "2560x1440": 128, "3840x2160": 128}}}
+ }
+}
