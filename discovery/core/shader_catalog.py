@@ -220,12 +220,13 @@ def prims(kind, args):
 
 def summarize(path, ctabs):
     """One capture's frame.txt -> a summary dict. `ctabs` maps a shader hash to its CTAB (for the per-shader constant values)."""
-    surf, tex, ids = {}, {}, {}
+    surf, tex, ids, counts = {}, {}, {}, Counter()
     def sid(p, kind):
         if p in ('0', None):
             return None
         if p not in ids:
-            ids[p] = f'{kind}{sum(1 for v in ids.values() if v[0] == kind) + 1}'
+            counts[kind] += 1
+            ids[p] = f'{kind}{counts[kind]}'
         return ids[p]
     header, backbuffer = '', None
     st = {'rt': [None] * 4, 'ds': None, 'vs': None, 'ps': None, 'tex': {}, 'rs': {}, 'vp': None}
@@ -436,6 +437,7 @@ def profile_variants():
             out[f'{k}={v}'] = [(n, v if n == k else d) for n, d in BASE]
     for label, (old, new) in SWAPS.items():
         out[label] = [(new if n == old else n, d) for n, d in BASE]
+    out['shadows_off'] = [m for m in BASE if m[0] not in ('ENABLE_SHADOWS', 'SOFTWARE_SHADOWS')]   # gfx_shadow_quality 0 (J8 q0 capture)
     return out
 
 
@@ -478,10 +480,20 @@ def cmd_fxmap(a):
         return [{'fx': fx, 'technique': t, 'profiles': 'base' if 'base' in ps else sorted(ps)}
                 for (fx, t), ps in sorted(found[h].items(), key=lambda x: (x[0][0], x[0][1] or '')) if t or fx not in named]
     found = {h: recs(h) for h in found}
+    files = {p.name.lower(): p for p in work.iterdir() if p.is_file()}
+    def incl(name, seen):   # every file `name` includes, transitively (case-insensitive, as the compiler on Windows)
+        p = files.get(name.lower())
+        if not p or name.lower() in seen:
+            return seen
+        seen.add(name.lower())
+        for m in re.finditer(r'^\s*#\s*include\s+"([^"]+)"', p.read_text(encoding='latin1'), re.M):
+            incl(Path(m.group(1)).name, seen)
+        return seen
+    includes = {f.name: sorted(incl(f.name, set()) - {f.name.lower()}) for f in sorted(work.glob('*.fx'))}
     out = {'compiler': 'd3dx9_40.dll (System32, 9.24.950.2656) D3DXCreateEffectCompilerFromFileW + CompileEffect, flags 0x1000',
            'profiles': {k: [f'{n}={v}' if v else n for n, v in m] for k, m in profile_variants().items()},
            'captured': len(want), 'mapped': len([h for h in want if found.get(h)]),
-           'shaders': {h: found[h] for h in sorted(found) if found[h]}, 'compile_errors': errors}
+           'shaders': {h: found[h] for h in sorted(found) if found[h]}, 'compile_errors': errors, 'includes': includes}
     (SHADERS / 'fxmap.json').write_text(json.dumps(out, indent=1) + '\n', encoding='utf-8', newline='\n')
     print(f'fxmap: {out["mapped"]} of {out["captured"]} captured shaders map to a source')
 
@@ -526,9 +538,12 @@ def catalog_doc():
     flagged = ['sprite.fx', 'variantmesh.fx', 'weighted.fx', 'vegetation_billboard.fx', 'custom_sprite.fx', 'extendedsprite.fx', 'imposter.fx',
                'rigid_imposter.fx_fragment', 'shadowmap.fx_fragment']
     by_fx = defaultdict(set)
+    inc = {k.lower(): v for k, v in fxmap.get('includes', {}).items()}
     for h, e in shaders.items():
         for r in e['fx']:
             by_fx[r['fx'].lower()].add(h)
+            for frag in inc.get(r['fx'].lower(), []):   # a fragment counts the mapped shaders whose source includes it
+                by_fx[frag].add(h)
     return {'generator': 'discovery/core/shader_catalog.py build', 'hash': 'canonical FNV-1a-64 to the walked end token (core capture.h)',
             'captures': [f'{c.parent.parent.name}/{c.stem}' for c in caps], 'count': len(shaders),
             'mapped': sum(1 for e in shaders.values() if e['fx']), 'by_class': dict(Counter(e['class'] for e in shaders.values()).most_common()),
@@ -578,6 +593,15 @@ def anatomy_tables(cat):
                               [[f'{w}x{h}', f, m, 'yes' if t else 'no', ','.join(sorted(v['tied'])), ', '.join(sorted(v['scenes']))]
                                for (w, h, f, m, t), v in sorted(inv.items(), key=lambda x: (-(x[0][0] or 0) * (x[0][1] or 0), str(x[0][2])))])
     out['classes'] = md_table(['class', 'shaders'], [[c, n] for c, n in cat['by_class'].items()])
+    # matrix, bone, instance and resolution-dependent constants per class (CTAB registers; values are in the capture summaries)
+    want = re.compile(r'matri|view|world|projection|bone|instance|animation|texel|screen|resolution|size|camera_position|light_direction', re.I)
+    regs = defaultdict(lambda: defaultdict(set))
+    for h, e in cat['shaders'].items():
+        for c in e['ctab']['constants']:
+            if c['set'] == 'c' and want.search(c['name']):
+                regs[e['class']][c['name']].add(f"{e['stage']} c{c['index']}" + (f"-c{c['index'] + c['count'] - 1}" if c['count'] > 1 else ''))
+    out['registers'] = md_table(['class', 'constant', 'registers (stage, range)'],
+                                [[k, n, ', '.join(sorted(v, key=lambda x: (x[:2], int(re.search(r'c(\d+)', x).group(1)), x)))] for k in sorted(regs) for n, v in sorted(regs[k].items())])
     out['flagged'] = md_table(['flagged source', 'captured shaders mapped'], [[f, len(v) if v else 'none captured'] for f, v in cat['flagged_sources'].items()])
     return out
 

@@ -1,0 +1,170 @@
+{
+  "verb": "cam",
+  "status": "ok",
+  "reason": "",
+  "pose": {
+    "x": -0.08,
+    "y": 59.02,
+    "z": 446.14,
+    "yaw": 135.0,
+    "pitch": -25.0
+  },
+  "kind": "land",
+  "got": {
+    "x": -0.08,
+    "y": 59.0198,
+    "z": 446.14,
+    "yaw": 135.0,
+    "pitch": -24.9999,
+    "fov": 70.0001,
+    "rms_px": 0.0002,
+    "points": 27,
+    "dist_err_m": 0.0002
+  },
+  "settle": {
+    "waited_for": "the route's settle_ms after the set",
+    "waited_s": 0.2,
+    "settled": true
+  },
+  "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+      "x": {
+        "expected": -0.08,
+        "got": -0.08,
+        "tolerance": 0.05,
+        "within": true
+      },
+      "y": {
+        "expected": 59.02,
+        "got": 59.0198,
+        "tolerance": 0.05,
+        "within": true
+      },
+      "z": {
+        "expected": 446.14,
+        "got": 446.14,
+        "tolerance": 0.05,
+        "within": true
+      },
+      "yaw": {
+        "expected": 135.0,
+        "got": 135.00000911951068,
+        "tolerance": 0.05,
+        "within": true
+      },
+      "pitch": {
+        "expected": -25.0,
+        "got": -24.999893820957222,
+        "tolerance": 0.05,
+        "within": true
+      }
+    },
+    "fit": {
+      "rms_px": 0.00023582878667793587,
+      "max_rms_px": 0.05,
+      "points": 27
+    },
+    "ok": true
+  },
+  "evidence": {
+    "set": {
+      "id": "j8-20261101T130424Z-575714427",
+      "request": "lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,135.0,-25.0",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-01T13:04:24.330Z",
+      "end_utc": "2026-11-01T13:04:24.341Z",
+      "launch_id": "20261101T130316Z-p17512",
+      "chunk": "cam_set ok",
+      "state_at_end": {
+        "launch_id": "20261101T130316Z-p17512",
+        "pid": 17512,
+        "frame": 40339,
+        "scene": "battle_deploy",
+        "scene_s": 48.2,
+        "uptime_s": 68.1,
+        "written_utc": "2026-11-01T13:04:24.341Z",
+        "last_present_utc": "2026-11-01T13:04:24.340Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1819,
+          "commit_mb": 1183
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "141"
+        }
+      },
+      "log": [
+        "2026-11-01T13:04:24.333Z [INFO ] [t28860] camera: set #4 pos (-0.080, 59.020, 446.140) yaw 135.000 pitch -25.000 -> target (64.006, 16.758, 382.054) on mode 3474b1b0"
+      ]
+    },
+    "read": {
+      "id": "j8-20261101T130425Z-297244628",
+      "request": "lua napoleon_remastered/lua/ctl/cam_read.lua 20",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-01T13:04:26.016Z",
+      "end_utc": "2026-11-01T13:04:26.026Z",
+      "launch_id": "20261101T130316Z-p17512",
+      "chunk": "cam C=-0.0800,59.0198,446.1400 S=1920,1080 P=37.655,-18.715,368.405,1164.1406,799.4333,0.990765,116.2299;37.655,-18.715,388.405,1075.9827,883.8109,0.989489,103.9230;37.655,-18.715,408.405,959.9999,994.8201,0.987811,94.2900;37.655,1.285,368.405,1181.6759,679.6557,0.989961,103.9230;37.655,1.285,388.405,1087.4374,754.4283,0.988439,89.9477;37.655,1.285,408.405,959.9998,855.5424,0.986380,78.6206;37.655,21.285,368.405,1202.5070,537.3671,0.989006,94.2900;37.655,21.285,388.405,1101.4027,596.6889,0.987158,78.6206;37.655,21.285,408.405,959.9998,679.6556,0.984574,65.3590;57.655,-18.715,368.405,1051.1379,733.1302,0.991768,124.1725;57.655,-18.715,388.405,959.9999,799.4333,0.990765,112.7360;57.655,-18.715,408.405,844.0171,883.8109,0.989489,103.9230;57.655,1.285,368.405,1058.0645,622.1173,0.991133,112.7360;57.655,1.285,388.405,959.9999,679.6557,0.989961,100.0000;57.655,1.285,408.405,832.5623,754.4283,0.988439,89.9477;57.655,21.285,368.405,1066.1302,492.8428,0.990393,103.9230;57.655,21.285,388.405,959.9999,537.3670,0.989006,89.9477;57.655,21.285,408.405,818.5969,596.6888,0.987158,78.6206;77.655,-18.715,368.405,960.0000,679.6556,0.992576,134.6410;77.655,-18.715,388.405,868.8617,733.1301,0.991768,124.1725;77.655,-18.715,408.405,755.8593,799.4332,0.990765,116.2299;77.655,1.285,368.405,960.0000,576.4704,0.992062,124.1725;77.655,1.285,388.405,861.9353,622.1173,0.991133,112.7360;77.655,1.285,408.405,738.3239,679.6556,0.989961,103.9230;77.655,21.285,368.405,960.0000,458.1934,0.991472,116.2299;77.655,21.285,388.405,853.8695,492.8428,0.990393,103.9230;77.655,21.285,408.405,717.4929,537.3670,0.989006,94.2900",
+      "state_at_end": {
+        "launch_id": "20261101T130316Z-p17512",
+        "pid": 17512,
+        "frame": 41124,
+        "scene": "battle_deploy",
+        "scene_s": 49.9,
+        "uptime_s": 69.7,
+        "written_utc": "2026-11-01T13:04:26.026Z",
+        "last_present_utc": "2026-11-01T13:04:26.024Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1819,
+          "commit_mb": 1183
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "141"
+        }
+      },
+      "log": []
+    }
+  },
+  "start_utc": "2026-11-01T13:04:23.807Z",
+  "end_utc": "2026-11-01T13:04:26.987Z"
+}

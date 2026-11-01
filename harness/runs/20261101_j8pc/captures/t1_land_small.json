@@ -2,7 +2,7 @@
  "header": "CAPTURE t1_land_small launch 20261101T114909Z-p33944 build f3e33f228416-dirty frames 1 utc 2026-11-01T11:49:41.016Z scene battle_deploy",
  "draws": 675,
  "backbuffer": {
-  "id": "rt1",
+  "id": "rt9",
   "w": 1920,
   "h": 1080,
   "fmt": "X8R8G8B8",
@@ -12,6 +12,46 @@
  },
  "surfaces": {
   "rt1": {
+   "w": 2048,
+   "h": 2048,
+   "fmt": "R16F",
+   "usage": 1,
+   "pool": 0,
+   "ms": 0,
+   "texture": true,
+   "backbuffer": false
+  },
+  "rt2": {
+   "w": 2048,
+   "h": 2048,
+   "fmt": "D24X8",
+   "usage": 2,
+   "pool": 0,
+   "ms": 0,
+   "texture": false,
+   "backbuffer": false
+  },
+  "rt3": {
+   "w": 1920,
+   "h": 1080,
+   "fmt": "A8R8G8B8",
+   "usage": 1,
+   "pool": 0,
+   "ms": 0,
+   "texture": true,
+   "backbuffer": false
+  },
+  "rt4": {
+   "w": 960,
+   "h": 540,
+   "fmt": "A8R8G8B8",
+   "usage": 1,
+   "pool": 0,
+   "ms": 0,
+   "texture": true,
+   "backbuffer": false
+  },
+  "rt5": {
    "w": 1920,
    "h": 1080,
    "fmt": "D24S8",
@@ -20,6 +60,46 @@
    "ms": 0,
    "texture": false,
    "backbuffer": false
+  },
+  "rt6": {
+   "w": 960,
+   "h": 540,
+   "fmt": "A8R8G8B8",
+   "usage": 1,
+   "pool": 0,
+   "ms": 0,
+   "texture": true,
+   "backbuffer": false
+  },
+  "rt7": {
+   "w": 1920,
+   "h": 1080,
+   "fmt": "A8R8G8B8",
+   "usage": 1,
+   "pool": 0,
+   "ms": 0,
+   "texture": true,
+   "backbuffer": false
+  },
+  "rt8": {
+   "w": 1920,
+   "h": 1080,
+   "fmt": "D24S8",
+   "usage": 2,
+   "pool": 0,
+   "ms": 0,
+   "texture": false,
+   "backbuffer": false
+  },
+  "rt9": {
+   "w": 1920,
+   "h": 1080,
+   "fmt": "X8R8G8B8",
+   "usage": 1,
+   "pool": 0,
+   "ms": 0,
+   "texture": false,
+   "backbuffer": true
   }
  },
  "passes": [
@@ -37,7 +117,7 @@
     }
    ],
    "ds": {
-    "id": "rt1",
+    "id": "rt2",
     "w": 2048,
     "h": 2048,
     "fmt": "D24X8",
@@ -84,7 +164,7 @@
    "index": 1,
    "rt": [
     {
-     "id": "rt1",
+     "id": "rt3",
      "w": 1920,
      "h": 1080,
      "fmt": "A8R8G8B8",
@@ -118,7 +198,7 @@
    "index": 2,
    "rt": [
     {
-     "id": "rt1",
+     "id": "rt4",
      "w": 960,
      "h": 540,
      "fmt": "A8R8G8B8",
@@ -128,7 +208,7 @@
     }
    ],
    "ds": {
-    "id": "rt1",
+    "id": "rt5",
     "w": 1920,
     "h": 1080,
     "fmt": "D24S8",
@@ -166,14 +246,14 @@
     "s1:rt1"
    ],
    "reads_from_pass": [
-    1
+    0
    ]
   },
   {
    "index": 3,
    "rt": [
     {
-     "id": "rt1",
+     "id": "rt6",
      "w": 960,
      "h": 540,
      "fmt": "A8R8G8B8",
@@ -183,7 +263,7 @@
     }
    ],
    "ds": {
-    "id": "rt1",
+    "id": "rt5",
     "w": 1920,
     "h": 1080,
     "fmt": "D24S8",
@@ -219,14 +299,14 @@
     "s1:rt1"
    ],
    "reads_from_pass": [
-    2
+    0
    ]
   },
   {
    "index": 4,
    "rt": [
     {
-     "id": "rt1",
+     "id": "rt7",
      "w": 1920,
      "h": 1080,
      "fmt": "A8R8G8B8",
@@ -236,7 +316,7 @@
     }
    ],
    "ds": {
-    "id": "rt1",
+    "id": "rt8",
     "w": 1920,
     "h": 1080,
     "fmt": "D24S8",
@@ -291,9 +371,12 @@
    "reads_rt": [
     "s1:rt1",
     "s2:rt1",
-    "s3:rt1"
+    "s2:rt6",
+    "s3:rt4"
    ],
    "reads_from_pass": [
+    0,
+    2,
     3
    ]
   },
@@ -301,7 +384,7 @@
    "index": 5,
    "rt": [
     {
-     "id": "rt1",
+     "id": "rt7",
      "w": 1920,
      "h": 1080,
      "fmt": "A8R8G8B8",
@@ -311,7 +394,7 @@
     }
    ],
    "ds": {
-    "id": "rt1",
+    "id": "rt8",
     "w": 1920,
     "h": 1080,
     "fmt": "D24S8",
@@ -345,7 +428,7 @@
    "index": 6,
    "rt": [
     {
-     "id": "rt1",
+     "id": "rt9",
      "w": 1920,
      "h": 1080,
      "fmt": "X8R8G8B8",
@@ -378,7 +461,7 @@
     "z00 cwf blend0 cull1": 1
    },
    "reads_rt": [
-    "s0:rt1"
+    "s0:rt7"
    ],
    "reads_from_pass": [
     5
@@ -388,7 +471,7 @@
    "index": 7,
    "rt": [
     {
-     "id": "rt1",
+     "id": "rt9",
      "w": 1920,
      "h": 1080,
      "fmt": "X8R8G8B8",
@@ -398,7 +481,7 @@
     }
    ],
    "ds": {
-    "id": "rt1",
+    "id": "rt5",
     "w": 1920,
     "h": 1080,
     "fmt": "D24S8",
