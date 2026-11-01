@@ -70,17 +70,51 @@ A `land_small` capture at 2560x1440 (`w1440_land_small`) against 1920x1080: **ev
   `linear_z_shadow_projection_texture_transform_matrix`; their pixel shaders `shadow_map_farz`, `shadow_map_inv_farz`, `shadow_map_far_fade` (5),
   `shadow_map_texture_size` and `shadow_map_texture_sampler` at s0, s1 or s2. Registers differ per shader (table below). The projection's
   w row is not (0,0,0,1): a perspective warp, not an orthographic map.
-- **Quality by view direction:** at one camera position (`y_0..y_315`, yaw in 45 degree steps, pitch -25, light direction (0, -0.54, 0.84))
-  the shadow texels per metre on the view ray at 20 m are 13.9 side-on to the sun (yaw 90) and 5.1 with the sun behind the camera (yaw 0),
-  2.5 at yaw 45; side-on the density falls with distance (13.9, 10.0, 6.4 at 20, 60, 140 m), with the sun behind it is flat (5.1, 5.1, 5.0):
-  the warp degenerates when view and light line up, and farz (250.5) does not change. Yaw 45 and 315 (same sun angle) differ 3.6x, so the
-  fit also depends on the scene (a caster crop, as on Empire). The code that computes the warp and crop is J9's to find. These poses look at
-  open ground, so their shots do not show the drop; poses with casters near the camera are J24's.
+- **Quality by view direction:** at one camera position (`y_0..y_315`, yaw in 45 degree steps, pitch -25, light direction (0, -0.54, 0.84)),
+  table "Shadow texel density" below (metric: `shader_catalog.py` `shadow_density`, sqrt|det| of the ground-plane Jacobian of map texels
+  on the screen-centre ray): side-on to the sun the density falls with distance (yaw 90: 20.9, 12.8, 6.6 texels/m at 20, 60, 140 m); with
+  the sun behind the camera it is flat and low (yaw 0: 5.2, 5.2, 5.1), and at yaw 45 lower still (3.7 at 20 m): the warp degenerates when
+  view and light line up, and farz (250.5) does not change. Yaw 45 and 315 (same sun angle) differ 2.8x at 20 m, so the fit also depends on
+  the scene (a caster crop, as on Empire). The code that computes the warp and crop is J9's to find. These poses look at open ground, so
+  their shots do not show the drop; poses with casters near the camera are J24's.
 - **Unit shadows by LOD:** close up every soldier is a skinned mesh and casts its own shadow (`variantmesh.fx`
   `variant_shadow_map_weighted_stream_instancing_sm3`, 306 draws with the camera at z 330); from the deploy pose (z 446, same line) out,
   units are imposters and cast `imposter.fx` `shadow_imposter_sm3`: the imposter's camera-angle frame on a light-facing quad, shrunk to
   0.96 and alpha-tested, a few texels at about 12 cm per texel (captures `b_near`, `b_deploy`, `b_d700`..`b_d1400`). The switch distance
   is an engine setting (J9).
+
+## Shadow texel density
+Every capture with a shadow map; the metric is `shader_catalog.py` `shadow_density` (docstring).
+<!-- gen:shadow_density -->
+| capture | view to sun (deg) | map | farz (m) | texels/m at 20 m | texels/m at 60 m | texels/m at 140 m |
+|---|---|---|---|---|---|---|
+| b_d1000 | 38.7 | 2048 | 250.5 | 8.89 | 6.81 | 4.47 |
+| b_d1400 | 36.7 | 2048 | 250.5 | 7.76 | 6.28 | 4.43 |
+| b_d700 | 42.7 | 2048 | 249.6 | 10.71 | 7.46 | 4.37 |
+| b_deploy | 57.7 | 2048 | 250.5 | 12.44 | 7.51 | 3.81 |
+| b_near | 52.7 | 2048 | 160.0 | 13.4 | 6.79 | 2.98 |
+| q1_land_small | 57.7 | 512 | 72.3 | 9.06 | 3.36 | 1.22 |
+| q2_land_small | 57.7 | 1024 | 139.1 | 10.33 | 4.99 | 2.12 |
+| q3_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
+| q4_land_small | 57.7 | 2048 | 473.3 | 6.43 | 4.7 | 2.9 |
+| r1_campaign_after_reset | 129.3 | 2048 | 170.3 | 12.91 | 6.61 | 2.93 |
+| r1_campaign_start | 129.3 | 2048 | 167.5 | 12.86 | 6.61 | 2.94 |
+| r1_hist_dresden | 127.7 | 2048 | 261.1 | 7.35 | 5.11 | 2.98 |
+| r1_hist_nile | 48.5 | 2048 | 326.8 | 11.91 | 9.0 | 5.79 |
+| r1_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
+| r1_naval_small | 19.2 | 2048 | 410.0 | 25.43 | 24.47 | 22.72 |
+| r1_siege_small | 172.3 | 2048 | 250.5 | 3.14 | 3.11 | 3.03 |
+| t1_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
+| w1440_land_small | 57.7 | 2048 | 250.5 | 12.45 | 7.51 | 3.81 |
+| y_0 | 172.3 | 2048 | 250.5 | 5.24 | 5.18 | 5.06 |
+| y_135 | 71.9 | 2048 | 250.5 | 11.98 | 8.42 | 4.98 |
+| y_180 | 57.7 | 2048 | 250.5 | 12.44 | 7.51 | 3.81 |
+| y_225 | 71.9 | 2048 | 250.5 | 8.69 | 6.11 | 3.61 |
+| y_270 | 103.2 | 2048 | 250.5 | 15.48 | 9.46 | 4.85 |
+| y_315 | 140.1 | 2048 | 250.5 | 10.08 | 8.98 | 7.31 |
+| y_45 | 140.1 | 2048 | 250.5 | 3.65 | 3.25 | 2.65 |
+| y_90 | 103.2 | 2048 | 250.5 | 20.88 | 12.76 | 6.55 |
+<!-- /gen -->
 
 ## Captures
 <!-- gen:captures -->

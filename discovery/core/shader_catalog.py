@@ -19,6 +19,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import math
 import os
 import re
 import shutil
@@ -557,6 +558,77 @@ def md_table(head, rows):
     return '| ' + ' | '.join(head) + ' |\n|' + '---|' * len(head) + '\n' + ''.join('| ' + ' | '.join(str(x) for x in r) + ' |\n' for r in rows)
 
 
+# ---- shadow texel density (J8 review 1, finding 4: the metric is owned here, never computed by hand) --------------------------
+DENSITY_M = (20, 60, 140)
+
+
+def _const(s, name):
+    """The first captured value of a constant (rows of 4 floats) from any shader of a capture summary; None when absent."""
+    for u in s['shaders'].values():
+        v = (u.get('consts') or {}).get(name)
+        if v and all(r is not None for r in v):
+            return v
+    return None
+
+
+def _inv4(m):
+    a = [list(map(float, r)) + [1.0 if i == j else 0.0 for j in range(4)] for i, r in enumerate(m)]
+    for c in range(4):
+        p = max(range(c, 4), key=lambda r: abs(a[r][c]))
+        if abs(a[p][c]) < 1e-20:
+            return None
+        a[c], a[p] = a[p], a[c]
+        f = a[c][c]
+        a[c] = [x / f for x in a[c]]
+        for r in range(4):
+            if r != c and a[r][c]:
+                g = a[r][c]
+                a[r] = [x - g * y for x, y in zip(a[r], a[c])]
+    return [r[4:] for r in a]
+
+
+def shadow_density(s):
+    """Shadow-map texels per metre on the ground along the screen-centre view ray, or None.
+    Metric: at a point P, texel(Q) = (M0.Q / M3.Q, M1.Q / M3.Q) * size / 2 with M = shadow_map_projection_matrix as uploaded (register i
+    is row i: clip_i = dot(register_i, Q)) and size = shadow_map_texture_size; J = d texel / d (x, z) on the horizontal plane at P
+    (central differences, 0.5 m); density = sqrt(|det J|) (texels per metre, area-equivalent). P = camera_position + d * ray for d in
+    DENSITY_M, the ray through the screen centre from inverse(view_projection). Also the angle between the ray and the direction to the
+    sun (-light_direction)."""
+    M, VP, C = _const(s, 'shadow_map_projection_matrix'), _const(s, 'view_projection'), _const(s, 'camera_position')
+    L, SZ = _const(s, 'light_direction'), _const(s, 'shadow_map_texture_size')
+    if not (M and VP and C and SZ) or len(M) < 4 or len(VP) < 4:
+        return None
+    inv = _inv4([r[:4] for r in VP[:4]])
+    if not inv:
+        return None
+    def unproject(z):
+        q = [sum(inv[i][k] * v for k, v in enumerate((0.0, 0.0, z, 1.0))) for i in range(4)]
+        return [q[i] / q[3] for i in range(3)]
+    a, b = unproject(0.2), unproject(0.9)
+    ray = [y - x for x, y in zip(a, b)]
+    n = sum(x * x for x in ray) ** 0.5
+    ray = [x / n for x in ray]
+    cam, size = C[0][:3], SZ[0][0]
+    def texel(q):
+        h = q + [1.0]
+        w = sum(M[3][k] * h[k] for k in range(4))
+        return [sum(M[i][k] * h[k] for k in range(4)) / w * size / 2 for i in (0, 1)]
+    out = []
+    for d in DENSITY_M:
+        p = [cam[i] + ray[i] * d for i in range(3)]
+        dx = [(u - v) for u, v in zip(texel([p[0] + 0.5, p[1], p[2]]), texel([p[0] - 0.5, p[1], p[2]]))]
+        dz = [(u - v) for u, v in zip(texel([p[0], p[1], p[2] + 0.5]), texel([p[0], p[1], p[2] - 0.5]))]
+        out.append(round(abs(dx[0] * dz[1] - dx[1] * dz[0]) ** 0.5, 2))
+    sun = None
+    if L:
+        ld = L[0][:3]
+        m = sum(x * x for x in ld) ** 0.5
+        sun = round(math.degrees(math.acos(max(-1.0, min(1.0, -sum(r * x / m for r, x in zip(ray, ld)))))), 1)
+    return {'texels_per_m': dict(zip((f'{d}m' for d in DENSITY_M), out)), 'view_to_sun_deg': sun, 'map': int(size),
+            'farz': round(_const(s, 'shadow_map_farz')[0][0], 1) if _const(s, 'shadow_map_farz') else None,
+            'ray': [round(x, 4) for x in ray]}
+
+
 def anatomy_tables(cat):
     caps = {f'{c.parent.parent.name}/{c.stem}': json.loads(c.read_text(encoding='utf-8')) for c in sorted(RUNS.glob('*/captures/*.json'))}
     cls = {h: e['class'] for h, e in cat['shaders'].items()}
@@ -602,6 +674,12 @@ def anatomy_tables(cat):
                 regs[e['class']][c['name']].add(f"{e['stage']} c{c['index']}" + (f"-c{c['index'] + c['count'] - 1}" if c['count'] > 1 else ''))
     out['registers'] = md_table(['class', 'constant', 'registers (stage, range)'],
                                 [[k, n, ', '.join(sorted(v, key=lambda x: (x[:2], int(re.search(r'c(\d+)', x).group(1)), x)))] for k in sorted(regs) for n, v in sorted(regs[k].items())])
+    rows = []
+    for k, s in caps.items():
+        d = shadow_density(s)
+        if d:
+            rows.append([k.split('/')[-1], d['view_to_sun_deg'], d['map'], d['farz']] + list(d['texels_per_m'].values()))
+    out['shadow_density'] = md_table(['capture', 'view to sun (deg)', 'map', 'farz (m)'] + [f'texels/m at {d} m' for d in DENSITY_M], rows)
     out['flagged'] = md_table(['flagged source', 'captured shaders mapped'], [[f, len(v) if v else 'none captured'] for f, v in cat['flagged_sources'].items()])
     return out
 
@@ -640,9 +718,14 @@ def main(argv=None):
     p = sub.add_parser('fxmap'); p.add_argument('--fx', default=str(ROOT / 'extract' / 'napoleon' / 'data' / 'fx')); p.add_argument('--work', default=str(ROOT / '_scratch' / 'j8_fx'))
     p = sub.add_parser('build'); p.add_argument('--check', action='store_true')
     p = sub.add_parser('hash'); p.add_argument('file')
+    p = sub.add_parser('density'); p.add_argument('captures', nargs='+', help='capture summary files (harness/runs/<run>/captures/<name>.json)')
     a = ap.parse_args(argv)
     if a.cmd == 'hash':
         h, n = shader_hash(Path(a.file).read_bytes()); print(h, n); return
+    if a.cmd == 'density':
+        for f in a.captures:
+            print(Path(f).stem, json.dumps(shadow_density(json.loads(Path(f).read_text(encoding='utf-8')))))
+        return
     {'import': cmd_import, 'fxmap': cmd_fxmap, 'build': cmd_build}[a.cmd](a)
 
 
