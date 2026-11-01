@@ -1,0 +1,19 @@
+before 1805|Winter|true|true|true|Early January 1805
+rc 0 {"status": "ok", "chunk": "end turn asked through button_end_turn at 1805 Winter"}
+poll 1 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+poll 2 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+poll 3 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+poll 4 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "asked diplomacy_panel:DeclineOffer=ok diplomacy_panel:ClosePopup=ok"}]
+poll 5 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "asked button_cancel:OnMouseLClickUp=ok"}]
+poll 6 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "asked button_close:OnMouseLClickUp=ok"}]
+poll 7 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "open all 3 routes tried, the diplomacy panel stays"}]
+poll 8 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "open all 3 routes tried, the diplomacy panel stays"}]
+poll 9 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "open all 3 routes tried, the diplomacy panel stays"}]
+poll 10 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "open all 3 routes tried, the diplomacy panel stays"}]
+poll 11 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "open all 3 routes tried, the diplomacy panel stays"}]
+poll 12 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "open all 3 routes tried, the diplomacy panel stays"}]
+poll 13 turn=[1805|Winter|false|false|false|Early January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+poll 14 turn=[1805|Winter|true|true|true|Late January 1805] modal=[rc 0 {"status": "ok", "chunk": "closed event_message:OnOk"}]
+poll 15 turn=[1805|Winter|true|true|true|Late January 1805] modal=[rc 0 {"status": "ok", "chunk": "none"}]
+NEXT TURN after poll 15: 1805|Winter|true|true|true|Early January 1805 -> 1805|Winter|true|true|true|Late January 1805
+rc 0 {"status": "ok", "chunk": "rel austria=allied,britain=nil,denmark=nil,france=at war,hessen=nil,ita_papal_states=nil,italy_kingdom=at war,mecklenburg=nil,naples=allied,netherlands=at war,oldenburg=nil,ottomans=nil,portugal=nil,prussia=nil,russia=allied,sardinia=nil,saxony=nil,sicily=allied,spain=at war,sweden=allied,swiss_confederation=at war || agent Percival Sloughter|England|-296|23|traits Assassin"}

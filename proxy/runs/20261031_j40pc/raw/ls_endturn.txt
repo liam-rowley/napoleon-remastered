@@ -1,0 +1,12 @@
+already staged C:\Users\liamr\AppData\Roaming\The Creative Assembly\Napoleon\save_games\zz_j40_console.save (same sha)
+{"step": "frontend", "rc": 0, "request": "waitfor frontend 240", "status": "ok", "scene": "frontend", "waited_s": 2.4}
+{"step": "autostart", "rc": 0, "request": "autostart campaign:zz_j40_console 420", "status": "ok", "scene": "campaign", "load_s": 3.2, "total_s": 3.2, "lua": "started campaign zz_j40_console"}
+{"step": "turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_turn.lua", "status": "ok", "chunk": "1805|Winter|true|true|true|Early January 1805"}
+{"step": "end_turn", "rc": 0, "request": "lua napoleon_remastered/lua/probes/campaign_end_turn.lua", "status": "ok", "chunk": "end turn asked through button_end_turn at 1805 Winter"}
+{"step":"modal","chunk":"asked diplomacy_panel:DeclineOffer=ok"}
+{"step":"modal","chunk":"asked button_cancel:OnMouseLClickUp=ok"}
+{"step":"modal","chunk":"asked diplomacy_panel:ClosePopup=ok"}
+{"step":"modal","chunk":"closed event_message:OnOk"}
+{"step":"next_turn","from":"1805|Winter|true|true|true|Early January 1805","to":"1805|Winter|true|true|true|Late January 1805","waited_s":118}
+{"step":"kill","rc":0}
+exit 0
