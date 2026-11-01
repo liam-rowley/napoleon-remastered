@@ -171,7 +171,7 @@ def core_pin_diff(base, head='HEAD', root=None):
     a, b = (p[:12] or '?' for p in pins)
     if not all(pins):
         return f'cannot compare core pins {a}..{b}: {base if not pins[0] else head} has no core gitlink'
-    p = run('-C', 'core', 'diff', '--name-only', pins[0], pins[1])
+    p = run('-C', 'core', 'diff', '--no-renames', '--name-only', pins[0], pins[1])   # a rename out of proxy/ lists its old path too
     if p.returncode:
         return (f'cannot compare core pins {a}..{b}: {(p.stderr.strip().splitlines() or ["git diff failed"])[-1]} '
                 f'(fetch both: git -C core fetch origin {pins[0]} {pins[1]})')

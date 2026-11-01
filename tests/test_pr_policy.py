@@ -353,6 +353,13 @@ class CorePin(unittest.TestCase):
     def test_failing_fixture_a_bump_that_changes_the_cores_harness_is_refused(self):
         self.assertTrue(self.bump({'harness/job.sh': '#! 2\n'})[1])
 
+    def test_failing_fixture_a_file_moved_out_of_the_cores_proxy_is_refused(self):
+        (self.core / 'docs').joinpath('a.cpp').write_text('int a;\n', encoding='utf-8', newline='\n')
+        (self.core / 'proxy/src/a.cpp').unlink()
+        diff, errs = self.bump({})
+        self.assertIn('proxy/src/a.cpp', diff)
+        self.assertEqual(len(errs), 1, errs)
+
     def test_exempt_paths_inside_the_core_do_not_count(self):
         diff, errs = self.bump({'harness/runs/r/a.json': '{}\n', 'proxy/README.md': 'r\n', 'saves/esf.py': '#\n'})
         self.assertEqual(len(diff), 3)
