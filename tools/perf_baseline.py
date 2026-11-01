@@ -121,7 +121,7 @@ def va_peak(proxy_va_mb, host):
 
 def metrics(cell):
     """The numbers of one measured cell, flat."""
-    p = cell.get('perf') or {}
+    p = cell.get('perf') if isinstance(cell.get('perf'), dict) else {}   # run 20261101_j23pc's first sitting wrote the plan flag here
     fm, mem, vram = p.get('frame_ms') or {}, p.get('mem') or {}, p.get('vram') or {}
     return {'p50_ms': fm.get('p50'), 'p99_ms': fm.get('p99'), 'max_ms': fm.get('max'), 'load_s': (cell.get('scene') or {}).get('load_s'),
             'va_used_mb': mem.get('va_used_mb'), 'va_peak_mb': cell.get('va_peak_mb'), 'commit_mb': mem.get('commit_mb'),
