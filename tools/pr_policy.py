@@ -20,6 +20,9 @@ Job branches after J4 (rule 79): a branch that changes proxy/ or harness/ (not t
 harness/acceptance/ledger.jsonl with 20 consecutive passes on the branch's final DLL build id and watcher version (core/harness/acceptance.py);
 a pass counts only when its line was run for this branch and names a run and an evidence file committed on the branch (J4 review 7, J44 review). It applies once the base holds the
 ledger and a baseline that the BASE's acceptance.py accepts (so a branch cannot switch the rule off for itself, J44).
+A move of the core pin counts only when the core's own proxy/ or harness/ (same exemptions) changed between the merge base's pin and the
+branch's (J58): a bump that changes only the core's Python, tests or docs needs no passes. When the two pins cannot be compared (a pin
+commit missing from the core checkout, no submodule) the pin change counts, and the error says why and how to fetch them (fail closed).
 Every branch kind: `docs/DECISIONS.md` is append only (existing rows unchanged and in order; new rows numbered D<last+1>, D<last+2>,
 with a YYYY-MM-DD date and Reversible yes or no). A reversal is a new row that names the one it replaces.
 """
@@ -154,14 +157,42 @@ def acceptance_active(ledger, baseline, checker_src):
         return False
 
 
+def rule79_path(path):
+    """A proxy/ or harness/ path that rule 79 counts, in this repo or inside the core (J58)."""
+    return path.startswith(('proxy/', 'harness/')) and not acc_exempt(path)
+
+
+def core_pin_diff(base, head='HEAD', root=None):
+    """The core's paths changed between the commits the gitlink pins at `base` and at `head` (J58), or a str saying why the pins cannot
+    be compared: rule 79 then counts the pin change, as before J58 (fail closed)."""
+    root = Path(root) if root else Path(git('rev-parse', '--show-toplevel').strip())
+    run = lambda *a: subprocess.run(['git', '-C', str(root), *a], capture_output=True, text=True)
+    pins = [run('rev-parse', '--verify', '--quiet', f'{r}:core').stdout.strip() for r in (base, head)]
+    a, b = (p[:12] or '?' for p in pins)
+    if not all(pins):
+        return f'cannot compare core pins {a}..{b}: {base if not pins[0] else head} has no core gitlink'
+    p = run('-C', 'core', 'diff', '--name-only', pins[0], pins[1])
+    if p.returncode:
+        return (f'cannot compare core pins {a}..{b}: {(p.stderr.strip().splitlines() or ["git diff failed"])[-1]} '
+                f'(fetch both: git -C core fetch origin {pins[0]} {pins[1]})')
+    return [l for l in p.stdout.splitlines() if l]
+
+
 def acceptance_problems(changed, acc):
     """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher', 'branch',
-    'exists': path -> bool on the branch}. A change to proxy/ or harness/ needs ACC_NEEDED passes in a row at the end of the ledger on this build
-    and watcher, each run for this branch and naming its run and a committed evidence file; a fail, a pass of another build or branch, or a
-    pass without evidence ends the run."""
+    'exists': path -> bool on the branch, 'core_diff': core_pin_diff() when the pin moved}. A change to proxy/ or harness/ needs ACC_NEEDED passes in a row
+    at the end of the ledger on this build and watcher, each run for this branch and naming its run and a committed evidence file; a fail, a pass of
+    another build or branch, or a pass without evidence ends the run. A pin change counts only when the core's own proxy/ or harness/ changed
+    between the two pins, or when they cannot be compared (J58)."""
     if not acc or not acc.get('active'):
         return []
-    code = [p for p in changed if (p.startswith(('proxy/', 'harness/')) or p == 'core') and not acc_exempt(p)]   # core: the pin (J12)
+    code = [p for p in changed if rule79_path(p)]
+    if 'core' in changed:   # the pin (J12): judged on the core's diff (J58)
+        diff = acc.get('core_diff')
+        if isinstance(diff, list):
+            code += [f'core/{p}' for p in diff if rule79_path(p)]
+        else:
+            code.append(f'core ({diff or "cannot compare core pins: no core diff was computed"})')
     if not code:
         return []
     exists = acc.get('exists') or (lambda p: False)
@@ -264,7 +295,8 @@ def main(argv=None):
     wsrc = show_first('HEAD', 'core/harness/watcher.ps1', 'harness/core/watcher.ps1') or ''
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
     acc = {'active': acceptance_active(show(a.base, ACC_LEDGER), show(a.base, ACC_BASELINE), show_first(a.base, *ACC_CHECKERS)), 'ledger': show('HEAD', ACC_LEDGER),
-           'build_id': build_id, 'watcher': wm.group(1) if wm else '?', 'branch': a.branch, 'exists': lambda p: show('HEAD', p) is not None}
+           'build_id': build_id, 'watcher': wm.group(1) if wm else '?', 'branch': a.branch, 'exists': lambda p: show('HEAD', p) is not None,
+           'core_diff': core_pin_diff(mb) if 'core' in changed else None}
     errs = check(a.branch, changed, rows(show(mb, JOBS)), rows(show('HEAD', JOBS)),
                  lambda p: show(a.base, p), lambda p: show('HEAD', p), sessions, acc)
     for e in errs:
