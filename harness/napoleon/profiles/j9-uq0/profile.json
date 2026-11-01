@@ -1,0 +1,5 @@
+{
+  "description": "J9 imposter page route: gfx_unit_quality 0, every other pref as the acceptance baseline has it; restored byte for byte by the watcher",
+  "requires": [],
+  "warn_missing": ["game:d3d9.dll"]
+}
