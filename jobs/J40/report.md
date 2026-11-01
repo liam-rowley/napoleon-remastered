@@ -15,6 +15,7 @@ The PC ends with the final kit installed (as after J12's acceptance run) and `sa
 | 4 three console fixes | **done** in warscape-core (one commit each, host tests), v0.5.0, pinned | warscape-core `7c96f82`, `824eff0`, `7b39c48`; `proxy/runs/20261101_j40final` |
 | 5 saves left as found | **equal** to the snapshot (8 files, sha1) | `raw/saves_before.sha1`, `raw/saves_end.sha1` |
 | 6 registries | 3 facts updated, 2 new probes and `campaign_turn` re-registered, gates pass | `registries/` |
+| rule 79 | **20 consecutive acceptance passes** on build `f3e33f228416`, watcher 1.2.0 | `harness/runs/20261101_j40acc` (+ `acc2`), `harness/acceptance/ledger.jsonl` |
 
 1. **`transport_to_region`.** It is a campaign hit, but it never moves anyone: not the spy, not a general, not to a neighbouring land
    region, not after a full EndTurn (10 tries over 3 launches). Static trace:
@@ -82,6 +83,10 @@ The PC ends with the final kit installed (as after J12's acceptance run) and `sa
 - **J4:** `load_save.sh --end-turn` and `campaign_modal_close.lua` make unattended turns possible, so J4's J14 carry-over
   (`napoleon.save.endturn_survival`) can run now.
 - **J18:** the save snapshot and restore here were manual (above); the watcher could do it per launch.
+- **Core, acceptance identity:** `ctl.py` `build_info()` reads the DLL build id from `proxy.log`, and `acceptance.py` asks before each
+  pass's launch. On a fresh install there is no log yet, so pass 1 was recorded with the kit's id (`d465747d7269`) and did not count;
+  one extra pass completed the streak (`harness/runs/20261101_j40acc/README.md`). The core should read the identity after the launch or
+  refuse the fallback.
 - **Watcher:** right after a `kill` job, its process list still names the game for a few seconds, and `pc_deploy` refuses `sync-lua`.
   Waiting for `status` to say `not_running` works; the kill job could wait for that itself.
 

@@ -42,7 +42,7 @@ The job queue (D16). One row per job; the brief, report and review live in jobs/
 | `J38` | needs_brief | Release packaging, install and support | 6 | sonnet | yes | J1, J12 |  |  |  |
 | `J39` | done | Job viewer launches Claude Code sessions | 1 | sonnet | no |  | jobs/J39/brief.md | jobs/J39/report.md | jobs/J39/review.md |
 | `J4` | done | Scenario library, control API, acceptance gate | 1 | sonnet | yes | J3, J13, J14, J20 | jobs/J4/brief.md | jobs/J4/report.md | jobs/J4/review.md |
-| `J40` | queued | Campaign console: close the open checks | 1 | opus | yes | J15, J12 | jobs/J40/brief.md |  |  |
+| `J40` | review | Campaign console: close the open checks | 1 | opus | yes | J15, J12 | jobs/J40/brief.md | jobs/J40/report.md |  |
 | `J41` | done | Local gates run the proxy host tests | 1 | sonnet | yes | J20 | jobs/J41/brief.md | jobs/J41/report.md | jobs/J41/review.md |
 | `J42` | done | CI reliability: no red check a branch did not cause | 1 | sonnet | yes | J19, J41 | jobs/J42/brief.md | jobs/J42/report.md | jobs/J42/review.md |
 | `J43` | done | Battle camera and speed route | 1 | opus | yes | J4 | jobs/J43/brief.md | jobs/J43/report.md | jobs/J43/review.md |
