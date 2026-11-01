@@ -23,7 +23,7 @@ def pins(backend='dxvk', size='1920x1080', run='r1'):
 
 
 def cell(backend='dxvk', size='1920x1080', sid='land_small', pose='deploy', n=1, p50=2.0, va=1900, load=4.0):
-    return {'backend': backend, 'size': size, 'variant': None, 'pass': n, 'scenario': sid, 'pose': pose, 'perf': n > 0, 'status': 'ok',
+    return {'backend': backend, 'size': size, 'variant': None, 'pass': n, 'scenario': sid, 'pose': pose, 'measure': n > 0, 'status': 'ok',
             'scene': {'load_s': load}, 'va_peak_mb': va + 50,
             'perf': {'frame_ms': {'p50': p50, 'p99': p50 * 2, 'max': p50 * 5}, 'mem': {'va_used_mb': va, 'commit_mb': 1200},
                      'vram': {'process_dedicated_mb': 600}},
@@ -43,7 +43,7 @@ class Matrix(unittest.TestCase):
         self.assertEqual(len(plan), 2 * 2 * (2 + 3 * 3))
         self.assertEqual([c['size'] for c in plan[:22]], ['1920x1080'] * 22)   # size outermost
         self.assertEqual({c['backend'] for c in plan[:11]}, {'dxvk'})
-        self.assertFalse(any(c['perf'] for c in plan if c['pass'] == 0))
+        self.assertFalse(any(c['measure'] for c in plan if c['pass'] == 0))
         self.assertEqual([c['pose'] for c in plan[2:5]], ['deploy', 'turned', None])
         only = pb.expand(['1920x1080'], ['dxvk'], ['land_small'], ROWS, 1, only_poses=['deploy'])
         self.assertEqual([c['pose'] for c in only], [None, 'deploy'])

@@ -88,7 +88,7 @@ def expand(sizes, backends, scenarios, rows, repeats, variants=(None,), only_pos
                     for sid in scenarios:
                         for pose in ([None] if n == 0 else poses_of(rows[sid], only_poses)):
                             plan.append({'size': size, 'backend': be, 'variant': var, 'pass': n, 'scenario': sid, 'pose': pose,
-                                         'perf': n > 0})
+                                         'measure': n > 0})
     return plan
 
 
@@ -360,13 +360,11 @@ def measure(a):
     out = ROOT / 'harness' / 'runs' / run
     cells_dir = out / 'cells'
     cells_dir.mkdir(parents=True, exist_ok=True)
-    events = []
-
     def log(msg):
         line = f'{utc()} {msg}'
-        events.append(line)
         print(line, flush=True)
-        (out / 'events.log').write_text('\n'.join(events) + '\n', encoding='utf-8')
+        with open(out / 'events.log', 'a', encoding='utf-8') as f:
+            f.write(line + '\n')
 
     work = ROOT / '_scratch' / 'perf_baseline' / run
     rig = Rig(a.owner, a.session, a.adapter, work, log)
@@ -421,7 +419,7 @@ def measure(a):
                 c['scene'] = dict(last_scene, reused=True)
             if pins is None:
                 pins = rig.pins(run)
-            if not c['perf']:
+            if not c['measure']:
                 write_cell(cells_dir, dict(c, status='ok', pins=pins), log)
                 continue
             if c['pose']:
@@ -446,7 +444,11 @@ def measure(a):
                 rig.pc.set_keys(restore)
             log(f'released; keys now {({k: rig.ini().get(k) for k in restore})}')
             run_meta['end_utc'] = utc()
-            (out / 'run.json').write_text(json.dumps(run_meta, indent=1), encoding='utf-8')
+            # a run folder can be measured in several sittings (a resume after a stop): run.json lists each, events.log appends
+            rj = out / 'run.json'
+            prev = json.loads(rj.read_text(encoding='utf-8')) if rj.exists() else {'run': run, 'sittings': []}
+            prev.setdefault('sittings', []).append(run_meta)
+            rj.write_text(json.dumps(prev, indent=1), encoding='utf-8')
     cells = [json.loads(p.read_text(encoding='utf-8')) for p in sorted(cells_dir.glob('*.json'))]
     s = summarize(cells, [run])
     (out / 'summary.json').write_text(json.dumps(s, indent=1), encoding='utf-8')
@@ -465,7 +467,7 @@ def perf_cell(rig, c, pins, secs):
 
 def deploy_end_cell(rig, block, pins, a, cells_dir, log):
     """land_small with deployment ended, the battle running at 1x: a battle in progress, not a deployment view."""
-    c = {'size': block[0], 'backend': block[1], 'variant': block[2], 'pass': 1, 'scenario': 'land_small', 'pose': 'battle1x', 'perf': True,
+    c = {'size': block[0], 'backend': block[1], 'variant': block[2], 'pass': 1, 'scenario': 'land_small', 'pose': 'battle1x', 'measure': True,
          'deploy_end': True, 'start_utc': utc()}
     r = rig.run('scene', 'land_small', '--deploy', 'end')
     c['scene'] = {k: r.get(k) for k in ('status', 'reason', 'load_s', 'path', 'check')}
