@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.render.system_backend",
+  "claim": "On the system d3d9 backend (proxy.backend=system) the headless launch never reaches on_virtual, and a visible launch reaches battle_deploy with no Present seen through the hooked device vtables (frame 0 though both devices were hooked): vtable hooks do not see the game's calls on Windows' d3d9, so no capture there and the backend comparison is not made",
+  "state": "open",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01",
+  "notes": "owner J16"
+}

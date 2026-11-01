@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.console.transport_to_region_no_move",
+  "claim": "transport_to_region <eur_key> does not move the selected character: not a spy, not a general, not to a neighbouring land region, not after a full EndTurn (10 tries over 3 launches). Static trace: the handler (0xaafa30) looks the key up among the region objects ([[campaign+8]+0xf7c]+0x620, vector +0x134; key = the region record's string at +0x190; the save's region keys are eur_*, eur_scotland among them), then 0xa83f90 builds a queued 0x148-byte transport ORDER (vtable 0x1383ef8) and hands it to the command sink 0xa61af0 — it never moves anything itself. The order's execute (slot 12, 0xc2fc20) is a route-and-cost move (0xd7c390, 0xa7c3a0) that ends silently on failure. The sister command transport_to_hlci queues the same kind of order and those orders DO run at end of turn (bogus cell indices crashed Napoleon.exe+0x9611c9 in the path code at the next EndTurn, run 20261031_j40pc et3). So the region path fails at the lookup or at the order's route check; which one needs a runtime read of 0xaa11e0's return (a core memory-peek verb or hook site kind). teleport_to with PosX/PosY (fact napoleon.console.teleport_units) is J4's placement route",
+  "state": "open",
+  "evidence": "proxy/runs/20261031_j40pc/README.md",
+  "date": "2026-10-31",
+  "notes": "run 20261031_j40pc tr_*, rb4-rb6, army1-2, hl_*, et3 (crash), et4 (no move after a turn); RE README section J40"
+}

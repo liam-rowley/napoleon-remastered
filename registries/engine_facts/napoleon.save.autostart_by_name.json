@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.save.autostart_by_name",
+  "claim": "FrontEnd.LoadCampaign(<file name without .save>) loads a save from the main menu: autostart target campaign:<name> works unchanged (load 2.7-5.0 s after the request)",
+  "state": "verified",
+  "evidence": "saves/runs/20261029_j14pc/README.md",
+  "date": "2026-10-29",
+  "notes": "6 launches; first test of the J3 target"
+}

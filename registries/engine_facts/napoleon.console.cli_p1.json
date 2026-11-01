@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.cli_p1",
+  "claim": "Retail's own CampaignCLI is unreachable (registered to a manager, never to the slot); the live campaign context is *(*0x15c4938 + 0x9fc), checked by campaign+0x28 == owner+0xf4 (the selection; its live vtable is a derived one, not 0x136a540), and a CampaignCLI built with the exe's ctor 0x9011f0 on it forwards to Execute (vtable slot 7): no detour",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

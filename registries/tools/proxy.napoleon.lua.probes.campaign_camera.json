@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_camera",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_camera.lua",
+  "purpose": "return CampaignUI.CameraTarget()'s values: a|b|c|d (the camera target, which follows a selected character only after its zoom settles)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_camera.lua\" in a campaign, at least 5 s after a SelectAndZoomToCharacter",
+  "when": "J15 teleport_to units fit (camera units against console units); any check of where the camera or a selected character is",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

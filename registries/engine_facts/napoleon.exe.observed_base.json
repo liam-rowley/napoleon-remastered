@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.exe.observed_base",
+  "claim": "Napoleon.exe loaded at 0x00610000 in all four launches with the proxy on 2026-10-28 (ASLR per boot): never assume 0x00400000",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_pctest/README.md",
+  "date": "2026-10-28"
+}

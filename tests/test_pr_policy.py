@@ -21,6 +21,17 @@ def files(**kw):
     return lambda p: kw.get(p)
 
 
+def pp_rows_at(cwd, ref):
+    """pr_policy.rows_at runs git in the current folder (as CI does, from the repo root)."""
+    import os
+    old = os.getcwd()
+    os.chdir(cwd)
+    try:
+        return pp.rows_at(ref)
+    finally:
+        os.chdir(old)
+
+
 class Policy(unittest.TestCase):
     def run_check(self, branch, changed, base_rows=None, head_rows=None, base=None, head=None):
         return pp.check(branch, changed, base_rows or {'J1': ROW, 'J2': OTHER}, head_rows or {'J1': ROW, 'J2': OTHER},
@@ -39,7 +50,7 @@ class Policy(unittest.TestCase):
 
     def test_job_branch_complete(self):
         done = dict(ROW, status='done', report='jobs/J1/report.md', review='jobs/J1/review.md')
-        errs = self.run_check('job/J1', ['proxy/a.cpp', 'registries/jobs.jsonl'], head_rows={'J1': done, 'J2': OTHER},
+        errs = self.run_check('job/J1', ['proxy/a.cpp', 'registries/jobs/J1.json'], head_rows={'J1': done, 'J2': OTHER},
                               base=files(**{'jobs/J1/brief.md': 'b'}),
                               head=files(**{'jobs/J1/report.md': 'r', 'jobs/J1/review.md': '**Verdict: merge.**'}))
         self.assertEqual(errs, [])
@@ -62,18 +73,21 @@ class Policy(unittest.TestCase):
 
     def test_brief_branch(self):
         q = {'id': 'J2', 'status': 'queued', 'brief': 'jobs/J2/brief.md'}
-        self.assertEqual(self.run_check('brief/J2', ['jobs/J2/brief.md', 'registries/jobs.jsonl', 'registries/jobs.md'],
-                                        head_rows={'J1': ROW, 'J2': q}), [])
+        self.assertEqual(self.run_check('brief/J2', ['jobs/J2/brief.md', 'registries/jobs/J2.json'], head_rows={'J1': ROW, 'J2': q}), [])
+        for other in ('registries/jobs/J3.json', 'registries/jobs.jsonl', 'registries/tools/wsc.jobs.json'):   # J55: its own row file only
+            errs = self.run_check('brief/J2', ['jobs/J2/brief.md', 'registries/jobs/J2.json', other], head_rows={'J1': ROW, 'J2': q})
+            self.assertTrue(any('may only add' in e and other in e for e in errs), other)
         errs = self.run_check('brief/J2', ['jobs/J2/brief.md', 'proxy/x.cpp'], head_rows={'J1': ROW, 'J2': q})
         self.assertTrue(any('may only add' in e for e in errs))
         errs = self.run_check('brief/J2', ['jobs/J2/brief.md'])
         self.assertTrue(any('must be `queued`' in e for e in errs))
 
     def test_plan_and_meta_scopes(self):
-        self.assertEqual(self.run_check('plan/x', ['docs/plans/PLAN.md', 'jobs/J9/brief.md', 'CLAUDE.md']), [])
+        self.assertEqual(self.run_check('plan/x', ['docs/plans/PLAN.md', 'jobs/J9/brief.md', 'registries/jobs/J9.json', 'CLAUDE.md']), [])
         self.assertTrue(self.run_check('plan/x', ['tools/a.py']))
+        self.assertTrue(self.run_check('plan/x', ['registries/tools/wsc.jobs.json']))
         self.assertEqual(self.run_check('meta/x', ['.github/workflows/gates.yml', 'tools/pr_policy.py', 'tests/t.py', 'core',
-                                                   'registries/tools.jsonl', 'docs/DECISIONS.md']), [])
+                                                   'registries/tools/wsc.jobs.json', 'registries/hotkeys.jsonl', 'docs/DECISIONS.md']), [])
         errs = self.run_check('meta/x', ['proxy/core/guard.cpp'])
         self.assertTrue(errs and 'game code goes through a job' in errs[0])
 
@@ -135,23 +149,57 @@ class PolicyOnGit(unittest.TestCase):
         self.git('add', '-A')
         self.git('commit', '-q', '-m', f'write {path}', *(['--trailer', f'Claude-Session: {trailer}'] if trailer else []))
 
-    def branch(self, report_session, review_session):
+    def write_rows(self, rows, layout, trailer=None):
+        """The jobs registry as one JSONL (before J55) or one file per row (J55)."""
+        if layout == 'jsonl':
+            self.commit('registries/jobs.jsonl', ''.join(json.dumps(r) + '\n' for r in rows), trailer)
+            return
+        for r in rows:
+            p = Path(self.d) / 'registries' / 'jobs' / f'{r["id"]}.json'
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(json.dumps(r, indent=2) + '\n', encoding='utf-8', newline='\n')
+        (Path(self.d) / 'registries' / 'jobs.jsonl').unlink(missing_ok=True)
+        self.git('add', '-A')
+        self.git('commit', '-q', '-m', 'rows', *(['--trailer', f'Claude-Session: {trailer}'] if trailer else []))
+
+    def branch(self, report_session, review_session, layout='dir'):
         self.git('checkout', '-q', '-B', 'job/J1', 'main')
         self.commit('jobs/J1/report.md', 'report', report_session)
         done = dict(ROW, status='done', report='jobs/J1/report.md', review='jobs/J1/review.md')
-        self.commit('registries/jobs.jsonl', json.dumps(done) + '\n' + json.dumps(OTHER) + '\n', review_session)
+        self.write_rows([done, OTHER], layout, review_session)
         self.commit('jobs/J1/review.md', '**Verdict: merge.**', review_session)
         return subprocess.run([sys.executable, str(POLICY), '--branch', 'job/J1', '--base', 'main'], cwd=self.d,
                               capture_output=True, text=True)
 
-    def setUp(self):
+    def setUp(self, layout='dir'):
         self.tmp = tempfile.TemporaryDirectory()
         self.d = self.tmp.name
         self.git('init', '-q', '-b', 'main')
         self.git('config', 'user.email', 't@example.invalid')
         self.git('config', 'user.name', 'test')
         self.commit('jobs/J1/brief.md', 'brief')
-        self.commit('registries/jobs.jsonl', json.dumps(ROW) + '\n' + json.dumps(OTHER) + '\n')
+        self.write_rows([ROW, OTHER], layout)
+
+    def test_rows_at_reads_either_layout_the_same(self):
+        dir_rows = pp_rows_at(self.d, 'main')
+        self.git('checkout', '-q', '-b', 'old', 'main')
+        self.write_rows([ROW, OTHER], 'jsonl')
+        self.assertEqual(pp_rows_at(self.d, 'old'), dir_rows)
+        self.assertEqual(sorted(dir_rows), ['J1', 'J2'])
+
+    def test_a_base_from_before_j55_and_a_per_id_head(self):
+        """J55's own pull request, and any branch that moves across it: base rows in the JSONL, head rows in files."""
+        self.tearDown()
+        self.setUp(layout='jsonl')
+        r = self.branch('builder-session', 'reviewer-session', layout='dir')
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.git('checkout', '-q', '-B', 'job/J1', 'main')   # touching another row is still refused across the layouts
+        self.commit('jobs/J1/report.md', 'report', 'builder-session')
+        done = dict(ROW, status='done', report='jobs/J1/report.md', review='jobs/J1/review.md')
+        self.write_rows([done, dict(OTHER, status='queued')], 'dir', 'reviewer-session')
+        self.commit('jobs/J1/review.md', '**Verdict: merge.**', 'reviewer-session')
+        r = subprocess.run([sys.executable, str(POLICY), '--branch', 'job/J1', '--base', 'main'], cwd=self.d, capture_output=True, text=True)
+        self.assertIn('only its own row; it also changes J2', r.stderr)
 
     def tearDown(self):
         self.tmp.cleanup()

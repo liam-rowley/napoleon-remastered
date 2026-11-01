@@ -1,0 +1,11 @@
+{
+  "id": "tools.ci_notify",
+  "kind": "script",
+  "path": "tools/ci_notify.py",
+  "purpose": "post one comment on the open pull request of a branch whose CI run failed, naming each failed job and its first failed step, the run URL and which docs/CI_FAILURES.md class to check first (with the local route that reproduces it); a run that already commented (a rerun of the same attempt) is not commented again, and a branch with no open pull request gets nothing",
+  "usage": "python3 tools/ci_notify.py --run-id <id> --attempt <n> --branch <head branch> [--repo owner/name] [--dry-run]   (needs `gh` with GH_TOKEN; CI's `notify` jobs in gates.yml and policy.yml run it)",
+  "when": "automatic: the last job of a failed gates.yml or policy.yml run; by hand with --dry-run to see the comment a run would get",
+  "not_a_verb": "CI calls it from a job without the core checkout; one GitHub API call sequence, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

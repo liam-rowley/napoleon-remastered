@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.harness.kill_slow_once",
+  "claim": "One watcher kill (taskkill /F /T) took 200 s (2026-10-29T08:49:17Z to 08:52:37Z), the others about 1 s; cause unknown",
+  "state": "open",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

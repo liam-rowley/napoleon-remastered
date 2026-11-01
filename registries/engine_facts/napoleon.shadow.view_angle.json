@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.shadow.view_angle",
+  "claim": "Shadow resolution collapses when view and light line up: at one land_small camera position (pitch -25, light (0, -0.54, 0.84)), shadow texels per metre on the view ray at 20/60/140 m are 13.9/10.0/6.4 side-on to the sun (yaw 90), 5.1/5.1/5.0 with the sun behind the camera (yaw 0) and 2.5/2.3/2.0 at yaw 45; farz stays 250.5; yaw 45 and 315 (same sun angle) differ 3.6x, so the fit also depends on the scene (caster crop). This is the low-quality shadows Liam sees with the sun behind the camera",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01"
+}

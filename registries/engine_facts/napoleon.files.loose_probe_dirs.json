@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.files.loose_probe_dirs",
+  "claim": "The engine looks for loose copies of pack entries under data\\, <Steam>\\steamapps\\common\\working_data\\ and <Steam>\\steamapps\\common\\data\\working_data\\ (attribute checks, file survey)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

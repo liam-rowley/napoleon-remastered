@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.dxvk.pipeline_cache",
+  "claim": "DXVK 3.1.1 writes a pipeline cache napoleon_remastered\\dxvk\\cache\\<hash>.dxvk.bin (1.9 MB after a few battles); cold vs warm: front end 6.5 / 5.7 s, battle load 18.2 / 18.2 s (n=1 each): no warm-up step worth building. NVIDIA driver cache not cleared (shared)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc2/README.md",
+  "date": "2026-10-29"
+}

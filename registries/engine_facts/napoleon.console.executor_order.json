@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.executor_order",
+  "claim": "The console executor (VA 0x1055970, from console_exec_string 0x106c370) tries per statement: system dictionary *0x1767094, tweaks (0x106c980), the bare name as a script file opened relative to the working folder (fopen, no extension), then the external-handler slot *0x17670b0 vfunc0(&name, &stream); 'help' also calls slot vfunc1",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

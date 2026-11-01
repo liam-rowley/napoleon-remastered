@@ -1,0 +1,13 @@
+{
+  "id": "J27",
+  "description": "Push the imposter (sprite) distance and the LOD distances for units, buildings, trees, ships and grass (candidate grass grid 0x1019ad8 from J6) out in steps, through the engine sites, db tables or preferences J9 found; each value a config key with a release value. Every step measured in the 40-unit battle, the largest siege and a large naval battle. Memory gate: stop at a set headroom below the 4 GB address space (proposed in the brief from J23's numbers). Liam judges pop-in from fixed poses.",
+  "title": "Imposter and LOD distances",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J9",
+    "J23"
+  ]
+}

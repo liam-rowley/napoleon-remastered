@@ -1,0 +1,13 @@
+{
+  "id": "J30",
+  "description": "Core candidate: RmlUi (pinned version) inside the proxy with a D3D9 render interface (on DXVK and system d3d9), FreeType fonts (D7), a Lua 5.1 binding with the game's number type, input routing (clicks not on RmlUi fall through to the game) and the D19 scale model (dp ratio = height / 1080 x slider, a ui.scale config key). Start from Empire's host design. A test document drawn over the front end, the campaign map and a battle, crisp at 1080p, 1440p and 4K; frame cost measured. No screens.",
+  "title": "RmlUi host in the proxy",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J12",
+    "J13"
+  ]
+}

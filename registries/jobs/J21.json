@@ -1,0 +1,13 @@
+{
+  "id": "J21",
+  "description": "Seed the hotkeys registry from the vanilla key file (custom_keys.keys.xml and the defaults in data.pack): binding, action, context, source. A repo test the tests gate runs fails on any clash between a mod binding and a vanilla or mod binding in the same context, and on OS combos (Alt+F4, Alt+Tab, Alt+Esc, Win+*). Failing-fixture tests. Needed before any mod hotkey (J15 console, J29 gestures, UI).",
+  "title": "Hotkeys registry and clash gate",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J21/brief.md",
+  "report": "jobs/J21/report.md",
+  "review": "jobs/J21/review.md"
+}

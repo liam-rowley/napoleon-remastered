@@ -1,0 +1,11 @@
+{
+  "id": "tools.claude_hook",
+  "kind": "script",
+  "path": "tools/claude_hook.py",
+  "purpose": "refuse three kinds of Bash or PowerShell call before they run: a `git commit` without `--trailer \"Claude-Session: <this session id>\"` (tools/pr_policy.py tells a job's builder from its reviewer by it), any `git` working in a protected root (both game folders, the PC state folder), and a write into a protected root outside `<state>\\\\_scratch\\\\<owner>\\\\` (redirects, cp/mv/rm/..., Copy-Item/Set-Content/...; pc_deploy.py and job.sh calls are exempt); each denial says what to run instead",
+  "usage": "wired in .claude/settings.json (PreToolUse, matcher Bash|PowerShell); reads the hook JSON on stdin; test: echo '{\"session_id\":\"s\",\"cwd\":\"/c/x\",\"tool_name\":\"Bash\",\"tool_input\":{\"command\":\"git commit -m x\"}}' | python3 tools/claude_hook.py",
+  "when": "automatic on every shell call in a Claude Code session in this repo; never run by hand except to test it",
+  "not_a_verb": "Claude Code runs it with a JSON protocol on stdin and stdout, not through the wsc CLI",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

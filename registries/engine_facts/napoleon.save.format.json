@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.save.format",
+  "claim": "Napoleon campaign saves are ESF: magic 0xABCE, u32 0, u32 timestamp, u32 name-table offset, root record at 16, nothing after the name table; the tag set is Empire's (no unknown tag in the 9 saves of saves/napoleon/saves.json)",
+  "state": "verified",
+  "evidence": "saves/runs/20261029_j14pc/README.md",
+  "date": "2026-10-29"
+}

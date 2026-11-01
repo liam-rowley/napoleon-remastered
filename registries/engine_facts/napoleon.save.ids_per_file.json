@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.save.ids_per_file",
+  "claim": "Ids in a save are handles valid in that file only: a save the engine writes after a load gives regions, characters, residences and diplomacy relationships new ids",
+  "state": "verified",
+  "evidence": "saves/runs/20261029_j14pc/README.md",
+  "date": "2026-10-29",
+  "notes": "B and C quick saves against their sources"
+}

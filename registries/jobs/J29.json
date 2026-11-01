@@ -1,0 +1,13 @@
+{
+  "id": "J29",
+  "description": "Port the gesture state machine and its host tests from empire-remastered rml_mod/src/gesture_*.h onto J28's route: Alt+drag moves the selection to the drawn line (frontage from the drag length), Alt+Ctrl+drag rotates it in place; vanilla drags untouched; a drag preview (route chosen in the brief). Bindings in the hotkeys registry with the clash gate green (Alt+F4 hazard). Host tests green, a harness walk in the 40-unit battle, and Liam signs off the feel in a real battle (phase 4 gate).",
+  "title": "Alt-drag move and Alt+Ctrl-drag rotate",
+  "phase": 4,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J21",
+    "J28"
+  ]
+}

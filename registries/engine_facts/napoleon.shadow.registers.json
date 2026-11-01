@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.shadow.registers",
+  "claim": "Casters: VS shadow_map_projection_matrix (4 rows) and linear_z_shadow_map_projection_matrix, PS shadow_map_slope_bias c0 (2.301). Receivers: VS shadow_projection_texture_transform_matrix and linear_z_shadow_projection_texture_transform_matrix; PS shadow_map_farz, shadow_map_inv_farz, shadow_map_far_fade (5.0), shadow_map_texture_size (the map size, uploaded), shadow_map_texture_sampler at s0, s1 or s2. Registers differ per shader (frame_anatomy.md registers table). farz at quality 1-4, land_small deploy pose: 72.3, 139.1, 250.5, 473.3. The projection has a non-trivial w row: a perspective warp",
+  "state": "verified",
+  "evidence": "discovery/napoleon/frame_anatomy.md",
+  "date": "2026-11-01"
+}

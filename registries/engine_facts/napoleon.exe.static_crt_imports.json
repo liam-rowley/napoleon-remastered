@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.exe.static_crt_imports",
+  "claim": "Napoleon.exe imports no CRT DLL (static CRT): CreateFileA/W, GetFileAttributesW/ExA/ExW, FindFirstFileW/ExW, FindNextFileW, FindClose and binkw32 _BinkOpen@8/_BinkClose@4 all go through its own import table, so IAT hooks see every engine file open, check, listing and movie",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

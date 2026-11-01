@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.campaign.camera_route",
+  "claim": "Campaign camera: CampaignUI.CameraPosition() and CameraTarget() return world vectors (a direct pose readback); setters offered: SetCameraTarget, SetCameraTargetInstant, SetCameraZoom, ScrollCamera, StopCamera, ZoomToRegion and more. Not usable yet: on a new mp_eur_napoleon campaign the camera keeps panning by itself for at least 10 s, and SetCameraZoom(40) returned (true, function), the stack-corruption sign",
+  "state": "open",
+  "evidence": "harness/runs/20261030_j43pc/README.md",
+  "date": "2026-10-30",
+  "notes": "ctl cam refuses the campaign; next: wait out the opening pan (StopCamera?), then SetCameraTargetInstant with a stack canary"
+}

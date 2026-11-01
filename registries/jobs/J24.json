@@ -1,0 +1,14 @@
+{
+  "id": "J24",
+  "description": "Empire's route re-found on Napoleon.exe: a larger shadow map (stepped up to 8K), the fit fix and better filtering through runtime engine sites (candidate: shadow light sweep 0xd27696 from J6), each site in engine_sites with anchor bytes, each value a config key. Every step measured against the J23 budget in the 40-unit battle and the largest siege; before and after shots at fixed poses for Liam. This is also the fallback if cascades fail (J25).",
+  "title": "Shadow map resolution and fit",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J8",
+    "J9",
+    "J23"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.window.background_render",
+  "claim": "Napoleon keeps presenting frames and pumping Lua (state.json frame counter rising, ctl answered, autostart and warm reset working) when its window was never activated and another process holds the foreground: no deactivation swallowing is needed for headless runs",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j13pc/README.md",
+  "date": "2026-10-29",
+  "notes": "13 headless launches, 0 activation messages after the SetFocus fix (proxy log)"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.pack",
+  "kind": "script",
+  "path": "upscale/core/pack.py",
+  "purpose": "build <name>.pack (PFH0, type 4) from the manifest's finished assets under an entry prefix, writing <name>.pack.building first and renaming only after an independent re-read passes; write <name>.pack.json (entries, sha256, model credits)",
+  "usage": "library (upscale/core), driven by `python3 core/wsc.py upscale pack`; python3 upscale/core/pack.py check <file.pack> <file.pack.json>",
+  "when": "after `wsc upscale verify` is clean for the roles to pack",
+  "not_a_verb": "a library used by tools/verbs/upscale.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

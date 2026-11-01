@@ -1,0 +1,18 @@
+{
+  "id": "J4",
+  "description": "Scenario library and control API: scenarios registry filled (land, siege, naval, historical, campaign saves), fixed sky and weather, camera poses by id, scene/cam/shot/order/pause/speed/reset commands with built-in settle and checked results, frame-time and memory capture, then the acceptance run passing 20 times in a row (phase 1 gate).",
+  "title": "Scenario library, control API, acceptance gate",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J3",
+    "J13",
+    "J14",
+    "J20"
+  ],
+  "brief": "jobs/J4/brief.md",
+  "report": "jobs/J4/report.md",
+  "review": "jobs/J4/review.md"
+}

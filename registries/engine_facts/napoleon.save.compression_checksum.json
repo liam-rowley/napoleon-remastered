@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.save.compression_checksum",
+  "claim": "Napoleon saves are uncompressed and carry no checksum: an unchanged rewrite is sha-equal, and edited saves (a scalar and a structural edit) load",
+  "state": "verified",
+  "evidence": "saves/runs/20261029_j14pc/README.md",
+  "date": "2026-10-29",
+  "notes": "ladder A, B, C: 6 launches"
+}

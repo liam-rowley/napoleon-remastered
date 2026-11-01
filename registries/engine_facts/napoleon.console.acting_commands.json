@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.console.acting_commands",
+  "claim": "Both act and their effect reads back through campaign_readback.lua (Lua: RetrieveFactionListForDiplomacy Relationship; the agent list entry's Traits): declare_war denmark turned Denmark from no relationship (neutral) to 'at war' and changed nothing else; add_trait C_Agent_Spy_Network 1 on the selected spy added the trait 'A Good Listener' (its level-1 name) to Assassin. Both survive a quick save and reload. declare_war spain changes nothing in the 1805 grand campaign because Britain starts at war with Spain (J15's test target)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261031_j40pc/README.md",
+  "date": "2026-10-31",
+  "notes": "run 20261031_j40pc rb1-rb3 (before/after), rb8 (after the reload)"
+}

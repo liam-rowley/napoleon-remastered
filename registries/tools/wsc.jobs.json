@@ -1,0 +1,11 @@
+{
+  "id": "wsc.jobs",
+  "kind": "verb",
+  "path": "tools/verbs/jobs.py",
+  "purpose": "Check the jobs registry against jobs/ (status invariants, file links, brief shape, review rounds), pick the next job to build, review or fix, and show the queue as a readable page.",
+  "usage": "python3 core/wsc.py jobs check | jobs next [--id J<n>] [--offline] | jobs review [--id J<n>] [--all] [--offline] | jobs fix [--id J<n>] [--all] [--offline] | jobs view [--all] [--offline] [--out PATH] [--no-open] | jobs view --serve [--port N] [--dry-run] [--no-open] [--auto [--interval SECONDS]]",
+  "when": "`next` when Liam says \"pick up the next job\" (`--id` for a named job: what a session launched from the view runs); `review` for \"review the next job\"; `fix` for a job whose review asked for changes; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser (the status page: no view is committed, J55), `view --serve` to start a job's brief, build, review or fix session from its button, `--auto` to start every ready review and fix by itself (D36).",
+  "verb": "jobs",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

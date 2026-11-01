@@ -203,7 +203,7 @@ class InputSet(unittest.TestCase):
 
     def test_docs_only_is_unchanged(self):
         self.assertFalse(self.proxy(committed=['docs/DECISIONS.md'], worktree=['jobs/J41/report.md'], untracked=['docs/new.md']))
-        self.assertFalse(self.proxy(committed=['registries/jobs.jsonl']))
+        self.assertFalse(self.proxy(committed=['registries/jobs/J41.json']))
 
     def test_pc_run_evidence_is_not_a_proxy_input(self):
         # J42 (J41 review later item 2): proxy/runs/ holds committed PC run evidence; it builds nothing

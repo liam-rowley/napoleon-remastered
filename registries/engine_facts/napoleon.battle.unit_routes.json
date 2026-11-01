@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.unit_routes",
+  "claim": "Unit routes the battle UI Lua offers (for J28, none built or called here): BattleUI.Current_Selection_* (about 60 order toggles: fire at will, melee, formations, limber, ...), CancelOrderForSelection, SelectAllInfantry/Cavalry/Artillery/Melee, SelectUnitBasedOnUnitType, UnitListForBattleIds, SquadInfoByPointer, Move_Selection_To_Rader_Location (minimap move), formation calls (Single_Line_*, Double_Line_*, Triple_Line_*, Crescent_*, Column_Infantry_Vanguard); unit cards via UIComponent. No move-to-coordinates call and no unit controller (empire_battle stays nil, Scripting_Library adds only Lua helpers)",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j43pc/README.md",
+  "date": "2026-10-30",
+  "notes": "names from pairs(BattleUI) in land_small; none called"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "J39",
+  "description": "Buttons on the `wsc jobs view` page that start a background Claude Code session for that job (Write brief on a ready needs_brief row, Implement on a ready queued row, Review on a job branch waiting for review), so it shows in `claude agents` with the job id as its name. The page is a file opened from disk and cannot start programs, so `wsc jobs view --serve` runs a small server on 127.0.0.1 with a per-run token; the page posts only (id, action), and the server checks them against the registry and the same readiness rules as `jobs next` and `jobs review`, then runs `claude --bg --name J<n>-<action> --model <row model, or the D15 default> --effort medium` in the repo root. The server writes the prompt (e.g. \"Pick up job J<n>\"), never the page. `jobs next` and `jobs review` take `--id J<n>` so the launched session works on that job and is refused when it is not ready. D15 as code: the server refuses a third running agent (counted with `claude agents --json`); no permission bypass. Without the server the buttons copy the command instead. Tests: unready job refused, bad token refused, the command built for each action, the agent cap.",
+  "title": "Job viewer launches Claude Code sessions",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J39/brief.md",
+  "report": "jobs/J39/report.md",
+  "review": "jobs/J39/review.md"
+}

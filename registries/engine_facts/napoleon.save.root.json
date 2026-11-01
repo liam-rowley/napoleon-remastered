@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.save.root",
+  "claim": "The root record is CAMPAIGN_SAVE_GAME v5 (BUILD, SAVE_GAME_HEADER, CAMPAIGN_ENV with CAMPAIGN_MODEL v10); WORLD/FACTION_ARRAY[0] is the player faction, which alone has a CAMPAIGN_PLAYER_SETUP record in front of its values",
+  "state": "verified",
+  "evidence": "saves/SAVE_FORMAT.md",
+  "date": "2026-10-29"
+}

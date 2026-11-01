@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.ctl.cam_set",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/ctl/cam_set.lua",
+  "purpose": "the setter half of ctl.py cam: parse \"x,y,z,yaw,pitch\" from the lua args and call wsp.cam_set on the engine thread (the active",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- <x>,<y>,<z>,<yaw>,<pitch>\" in a battle; ctl.py cam runs it",
+  "when": "every ctl cam; never in a scenario row or a script (poses are coordinates read back, rule 78)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

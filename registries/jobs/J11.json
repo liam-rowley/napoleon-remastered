@@ -1,0 +1,16 @@
+{
+  "id": "J11",
+  "description": "Phase 2 gate as code: every registry populated and current, and a brief check that fails any brief citing a found path instead of a registry id. Failing-fixture tests.",
+  "title": "Discovery gate",
+  "phase": 2,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J6",
+    "J7",
+    "J8",
+    "J9",
+    "J10"
+  ]
+}

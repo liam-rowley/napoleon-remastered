@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.frontend.after_custom_battle",
+  "claim": "Back from a custom battle, the front-end root's InitState opens sp_battle1 (PreviousGameType); the dev wrapper sends it on to the main menu while a warm reset runs",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

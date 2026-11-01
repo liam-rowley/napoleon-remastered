@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.campaign.quit_to_menu",
+  "claim": "The campaign root has no QuitToMainScreen; the escape menu's quit button calls Root.LuaCall('QuitToMainScreenFromEscapeMenu'). Sent right after a new campaign appeared (and again after its opening event), the campaign stayed: warm reset from the campaign is open",
+  "state": "open",
+  "evidence": "proxy/runs/20261029_j3pc2/README.md",
+  "date": "2026-10-29"
+}

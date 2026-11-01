@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.diff.packs.format",
+  "claim": "Napoleon packs use the same PFH0 format as Empire: 24-byte header (magic, pack type, flags, pack-name list size, entry count, index size), index of u32 size + NUL path; pack types 0 boot, 1 release, 2 patch, 4 movie as on Empire; proxy/tools/pack_list.py reads all 11 unchanged",
+  "state": "verified",
+  "evidence": "discovery/diff/packs.json",
+  "date": "2026-10-29"
+}

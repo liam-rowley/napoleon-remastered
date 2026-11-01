@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.ctl.cam_read",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/ctl/cam_read.lua",
+  "purpose": "read the battle camera back: trilaterate its position from the camera distances BackProjectPosition returns for four fixed",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/ctl/cam_read.lua\" in a battle; ctl.py cam runs it",
+  "when": "every ctl cam (the readback and its check) and any probe that needs the battle camera's pose",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

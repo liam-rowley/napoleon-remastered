@@ -1,0 +1,11 @@
+{
+  "id": "saves.napoleon.stage_save",
+  "kind": "script",
+  "path": "saves/napoleon/stage_save.py",
+  "purpose": "copy a save into save_games as zz_<name>.save (sha-checked, zz_ names only) so `autostart campaign:zz_<name>` can load it; move every zz_ file to <state>/_to_delete afterwards; keep read-only, sha-checked copies of saves under <state>/saves",
+  "usage": "python3 -I saves/napoleon/stage_save.py stage SRC zz_NAME | clear | list | keep SAVE_NAME [--as NAME]   [--save-dir DIR] [--state DIR]",
+  "when": "before every load-ladder or scenario launch of an edited save (stage), after the run (clear), and to take a copy of Liam's or a QuickSave's file out of save_games before reading or editing it (keep)",
+  "not_a_verb": "a PC-side file mover with its own safety rules (zz_ prefix, sha check, nothing deleted), run in Git Bash on the PC beside job.sh",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

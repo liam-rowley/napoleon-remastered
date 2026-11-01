@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.fit_code",
+  "claim": "The engine code that builds the shadow projection (the warp, its degenerate case and the caster crop; Empire: 0x10ab6a0 -> 0x106a3e0 -> 0x10607e0, warp flag [r+0x48], crop 0x108a1d0) is not located on Napoleon",
+  "state": "open",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01",
+  "notes": "owner J9"
+}

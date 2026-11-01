@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.exe.guard_candidates",
+  "claim": "Empire guard-site signatures with a unique hit in Napoleon.exe (RVA): engine free 0xbf7ef0, heap serialize setter 0xbf8890, men inside the battle bounds 0x1dae50, nav node (2d) 0x41c050, nav node at a point 0x41c080, proxy set push 0x1b04e0; 15 of 23 have no hit, 2 several",
+  "state": "open",
+  "evidence": "discovery/diff/exe.json",
+  "date": "2026-10-29",
+  "notes": "candidates, not engine sites: J9 verifies each with anchor bytes and a run id"
+}

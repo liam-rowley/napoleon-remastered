@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.battle.map_probe",
+  "claim": "While a battle loads, the engine probes loose copies of the map's preset folder (data\\battleterrain\\presets\\<folder>\\..., also under steamapps\\common\\working_data and steamapps\\common\\data\\working_data); the folder is the map's File (BattleTerrain/Presets/<folder>/) and is the proxy's map check",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

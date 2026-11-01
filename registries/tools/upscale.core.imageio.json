@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.imageio",
+  "kind": "script",
+  "path": "upscale/core/imageio.py",
+  "purpose": "decode DDS/TGA/JPG/PNG sources to RGBA uint8 with their container facts (vanilla DDS header, TGA bit depth) and write TGA and JPG outputs deterministically",
+  "usage": "library (upscale/core)",
+  "when": "batch.py loading a source or writing a non-DDS output; tests",
+  "not_a_verb": "a library used by upscale/core/batch.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.autostart.historical",
+  "claim": "The historical screens (sp_battle2_scenario, main_panel Initialise(\"historic\", prefs, <all>), SetupBattle -> sp_battle3_scenario StartBattle) start a historical battle from autostart. FrontEnd.EnumerateBattleMaps(\"historic\", false) returns 0 maps on this PC (the main menu button makes the same call: the single-player NHB_ battles are not listed, cause open), (\"historic\", true) returns 15 NHMPB_ battles; presets with all_maps=1 load NHMPB_Dresden_3v3 (terrain hb_dresden) and NHMPB_Nile_1v1 (hb_nile). A historical setup File ends in an .xml (dresden_battle.xml in folder dresden_3v3) whose terrain folder differs: the preset names terrain=. A warm reset out of a historical battle stops after closing mp_postbattle and ctl stops answering: leave it by a relaunch (ctl.py scene does)",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

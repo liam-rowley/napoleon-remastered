@@ -1,0 +1,16 @@
+{
+  "id": "J42",
+  "description": "CI keeps going red after a branch looks green locally, and merges stall (D32: a failed check leaves the pull request open). Evidence 2026-10-29: 19 of the last 100 gates.yml runs failed (job/J7 gates x5, job/J39 gates x3, job/J21 gates and policy, job/J19 harness-windows x2, job/J15 proxy x6 and harness-windows x3); PR #50 (J15) went red three times in a row, once for a real bug only CI could see (the wine smoke test still expected 0 engine sites) and twice for harness-windows timeouts on the same commit that passed in the twin run (the watcher heartbeat; the update-rollback cases at 150 s and 30 s). Do: (1) classify every failed run of the last 100 as branch bug, test that cannot run locally, flaky test or workflow problem, in a committed table with run ids; (2) every push to a pull-request branch runs the whole workflow twice (push and pull_request use different concurrency refs): run once per commit; (3) find and fix the harness-windows races with workflow_dispatch -Only/-Repeat (J19's route), never by raising a timeout alone, each fix proved by a repeat run; (4) local parity: every check CI runs has a local route an agent runs before pushing (J41 covers the proxy host tests; add the wine smoke test, for example in build.sh --docker, and the harness integration cases on the PC) or a gate warning that names what was not run; (5) a red check on an open job or brief pull request does not sit unseen: the reviewer or the next session is told, without polling (D32, D34). Proof: 20 consecutive green runs of harness-windows on main with -Repeat, and the table showing each class of failure has a guard. No core/ change: a game-agnostic gate goes to warscape-core as a PR.",
+  "title": "CI reliability: no red check a branch did not cause",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J19",
+    "J41"
+  ],
+  "brief": "jobs/J42/brief.md",
+  "report": "jobs/J42/report.md",
+  "review": "jobs/J42/review.md"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "J17",
+  "description": "After Liam merges warscape-core PR 2 and tags v0.2.0: move the core submodule and the wsc.toml pin to v0.2.0, run the gates (core_pin then checks the tag; the hooks gate warns until core.hooksPath is set) and drop the \"from the next core tag\" wording in CLAUDE.md.",
+  "title": "Core pin bump to v0.2.0",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J5"
+  ],
+  "brief": "jobs/J17/brief.md",
+  "report": "jobs/J17/report.md",
+  "review": "jobs/J17/review.md"
+}

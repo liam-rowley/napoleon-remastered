@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.dxvk.menu_display_mode",
+  "claim": "With the proxy on the DXVK backend, Napoleon's main menu ran borderless, not exclusive fullscreen (Liam's observation at the PC; DXVK reports extFullScreenExclusive available)",
+  "state": "open",
+  "evidence": "proxy/runs/20261028_pcrerun/README.md",
+  "date": "2026-10-28",
+  "notes": "run 20261028_pcrerun step d; one observation, display settings not read from preferences.script; vanilla's mode on this PC not recorded"
+}

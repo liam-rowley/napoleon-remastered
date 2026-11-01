@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.render.pass_order",
+  "claim": "With the PC prefs (no HDR, SSAO, DoF, distortion) every 3D scene draws: (naval: 17 UpdateSurface sea uploads) shadow map; a cleared full-resolution A8R8G8B8 target; half-resolution water reflection and refraction (grid.fx); the main pass (A8R8G8B8 + D24S8 at the backbuffer size); sprites inside the engine's only D3DPERF event \"Drawing sneaky sprites\"; a 6-draw composite to the backbuffer (the scene/UI boundary); UI on the backbuffer. No depth prepass. The campaign adds a 2400x1350 overlay target (1.25x the backbuffer) after the shadow map, sampled at s10",
+  "state": "verified",
+  "evidence": "discovery/napoleon/frame_anatomy.md",
+  "date": "2026-11-01"
+}

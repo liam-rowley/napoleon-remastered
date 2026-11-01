@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.config.battle_prefs",
+  "claim": "Setting up a custom battle writes %APPDATA%\\The Creative Assembly\\Napoleon\\battle_preferences\\.sp_default.battle_preferences (479 bytes here; the folder did not exist before J3's first autostart)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29",
+  "notes": "added to the adapter's config_files"
+}

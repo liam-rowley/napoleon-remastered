@@ -1,0 +1,14 @@
+{
+  "id": "J28",
+  "description": "The route that worked on Empire, re-found on Napoleon.exe: selection from the engine's card manager, live unit state (position, facing, frontage, ranks) from memory reads, move, face and formation orders through the engine's own command path. Every address in engine_sites with anchor bytes behind the exe-identity guard. Proven through the control API `order` verb with checked results (each unit ends where ordered) in a land battle and a siege. The battle-script and posted-drag routes that failed on Empire are not tried.",
+  "title": "Battle unit control route",
+  "phase": 4,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J4",
+    "J9",
+    "J44"
+  ]
+}

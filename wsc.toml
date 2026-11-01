@@ -24,3 +24,9 @@ max_kb = 30
 
 [cli]
 verb_dirs = ["tools/verbs"]   # game-specific verbs (same contract as core/warscape/verbs/): `jobs`
+
+[views]
+commit = false              # views are written to _scratch/registries/ (git-ignored), never committed (J55)
+
+[storage]
+dir = ["jobs", "tools", "engine_facts"]

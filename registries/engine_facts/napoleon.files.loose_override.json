@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.files.loose_override",
+  "claim": "Whether a loose data\\ file beats a pack entry with the same path at runtime (discovery/core/packfs.py assumes it does: loose_wins=True)",
+  "state": "open",
+  "evidence": "discovery/core/packfs.py",
+  "date": "2026-10-29",
+  "notes": "no vanilla case exists (napoleon.diff.packs.loose_files); needs a runtime probe: a loose copy of a known pack entry under data\\ and a visible check. Owner: J9 (engine API surface) unless a probe job is briefed"
+}

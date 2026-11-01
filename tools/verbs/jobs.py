@@ -2,7 +2,7 @@
 
 purpose: Check the jobs registry against jobs/ (status invariants, file links, brief shape, review rounds), pick the next job to build, review or fix, and show the queue as a readable page.
 usage: python3 core/wsc.py jobs check | jobs next [--id J<n>] [--offline] | jobs review [--id J<n>] [--all] [--offline] | jobs fix [--id J<n>] [--all] [--offline] | jobs view [--all] [--offline] [--out PATH] [--no-open] | jobs view --serve [--port N] [--dry-run] [--no-open] [--auto [--interval SECONDS]]
-when: `next` when Liam says "pick up the next job" (`--id` for a named job: what a session launched from the view runs); `review` for "review the next job"; `fix` for a job whose review asked for changes; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser instead of registries/jobs.md, `view --serve` to start a job's brief, build, review or fix session from its button, `--auto` to start every ready review and fix by itself (D36).
+when: `next` when Liam says "pick up the next job" (`--id` for a named job: what a session launched from the view runs); `review` for "review the next job"; `fix` for a job whose review asked for changes; `check` runs in the tests gate (CI) and before pushing a brief or a job row change; `view` to read the queue in a browser (the status page: no view is committed, J55), `view --serve` to start a job's brief, build, review or fix session from its button, `--auto` to start every ready review and fix by itself (D36).
 verb: jobs
 
 The rules live here as code; CLAUDE.md ("Jobs") only says which subcommand to run. `next`, `review`, `fix` and `view` read the remote
@@ -478,12 +478,20 @@ def _blobs(root, specs, run=subprocess.run):
     return got
 
 
-def branch_row_spec(ref, jid, jobs_path):
-    """Where a job branch keeps job `jid`'s row (J55 changes this one place): (`<ref>:<path>`, text -> the row or None)."""
-    return f'{ref}:{jobs_path}', lambda text: next((x for x in load_rows(text) if x.get('id') == jid), None)
+def branch_row_spec(ref, jid, reg_dir):
+    """Where a job branch keeps job `jid`'s row: [(`<ref>:<path>`, text -> the row or None)], first match wins. Since J55 the row is its
+    own file (`<reg_dir>/jobs/<id>.json`; the core's id_to_file of a J<n> id is the id); a branch cut before J55 has the JSONL."""
+    return [(f'{ref}:{reg_dir}/jobs/{jid}.json', lambda text: json.loads(text) if text else None),
+            (f'{ref}:{reg_dir}/jobs.jsonl', lambda text: next((x for x in load_rows(text) if x.get('id') == jid), None))]
 
 
-def branch_rows(root, branches, offline, jobs_path, only=None, done=(), run=subprocess.run):
+def main_rows(ctx):
+    """The jobs registry's rows in the working tree, through the core's loader (either storage)."""
+    from warscape.registry import load_all
+    return load_all(ctx)['jobs'].rows
+
+
+def branch_rows(root, branches, offline, reg_dir, only=None, done=(), run=subprocess.run):
     """{id: Branch(row on job/<id> or None, rounds in its review.md, head sha)} for each remote job branch (or just `only`), skipping
     every job in `done` (done on main: lane() and not_ready() need nothing from its branch; `only` is read even when done). One
     `git fetch` of the branches to read (unless offline; none when there is nothing to read), one `for-each-ref` for the heads and one
@@ -501,10 +509,11 @@ def branch_rows(root, branches, offline, jobs_path, only=None, done=(), run=subp
     p = run(['git', '-C', str(root), 'for-each-ref', '--format=%(refname:strip=4) %(objectname)', JOB_REFS], capture_output=True,
             text=True, timeout=300)
     heads = dict(l.split(' ', 1) for l in (p.stdout or '').splitlines() if ' ' in l) if p.returncode == 0 else {}
-    rows = {j: branch_row_spec(f'origin/job/{j}', j, jobs_path) for j in ids}
+    rows = {j: branch_row_spec(f'origin/job/{j}', j, reg_dir) for j in ids}
     reviews = {j: f'origin/job/{j}:jobs/{j}/review.md' for j in ids}
-    got = _blobs(root, [rows[j][0] for j in ids] + [reviews[j] for j in ids], run)
-    return {j: Branch(rows[j][1](got.get(rows[j][0])), round_count(got.get(reviews[j])), heads.get(j)) for j in ids}
+    got = _blobs(root, [s for j in ids for s, _ in rows[j]] + [reviews[j] for j in ids], run)
+    row = lambda j: next((parse(got[s]) for s, parse in rows[j] if got.get(s) is not None), None)
+    return {j: Branch(row(j), round_count(got.get(reviews[j])), heads.get(j)) for j in ids}
 
 
 # ------------------------------------------------------------------ launch (the view's buttons; D15 and D30)
@@ -731,7 +740,7 @@ input {{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radi
 </style></head>
 <body><main>
 <h1>Job queue</h1>
-<p class="muted">{total} jobs · generated {generated} by <code>wsc jobs view</code> from registries/jobs.jsonl, jobs/ and origin's branches. {refresh}</p>
+<p class="muted">{total} jobs · generated {generated} by <code>wsc jobs view</code> from registries/jobs/, jobs/ and origin's branches. {refresh}</p>
 <p class="head">{head}</p>
 <div class="counts">{counts}</div>
 <input id="q" type="search" placeholder="Filter by id, title or description">
@@ -1066,8 +1075,8 @@ def refuse(why):
 
 
 def run(args, ctx):
-    jobs_path = f'{ctx.config["registries_dir"]}/jobs.jsonl'
-    rows = load_rows((ctx.root / jobs_path).read_text(encoding='utf-8'))
+    reg_dir = ctx.config['registries_dir']
+    rows = main_rows(ctx)
     by = {r['id']: r for r in rows}
 
     def done_ids(rs):   # the job branches branch_rows skips; --all reads them too
@@ -1093,9 +1102,9 @@ def run(args, ctx):
 
     if args.action == 'view' and args.serve:
         def snapshot():   # fresh on every request: the working tree's rows and docs, origin's branches, each job branch's row
-            now = load_rows((ctx.root / jobs_path).read_text(encoding='utf-8'))
+            now = main_rows(ctx)
             branches = remote_branches(ctx.root, args.offline)
-            return now, read, branches, branch_rows(ctx.root, branches, args.offline, jobs_path, done=done_ids(now))
+            return now, read, branches, branch_rows(ctx.root, branches, args.offline, reg_dir, done=done_ids(now))
         srv = JobServer(snapshot, list_agents, lambda argv: start_session(argv, ctx.root), port=args.port, dry_run=args.dry_run,
                         root=ctx.root, log_path=ctx.root / '_scratch' / 'jobs_auto.log')
         print(f'jobs view: serving {srv.url}{" (dry run: nothing is started)" if args.dry_run else ""}; Ctrl+C stops it', flush=True)
@@ -1140,7 +1149,7 @@ def run(args, ctx):
         out = ctx.root / args.out
         out.parent.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
-        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path, done=done_ids(rows))
+        on_branch = branch_rows(ctx.root, branches, args.offline, reg_dir, done=done_ids(rows))
         out.write_text(render_view(rows, read, branches, stamp, on_branch, root=ctx.root), encoding='utf-8')
         print(f'jobs view: {len(rows)} jobs -> {out}')
         if not args.no_open:
@@ -1149,13 +1158,13 @@ def run(args, ctx):
 
     action = args.action   # review or fix: both read the job branch's own row
     if args.id:
-        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path, only=args.id)
+        on_branch = branch_rows(ctx.root, branches, args.offline, reg_dir, only=args.id)
         why = not_ready(action, args.id, by, branches, on_branch)
         if why:
             return refuse(why)
         jid = args.id
     else:
-        on_branch = branch_rows(ctx.root, branches, args.offline, jobs_path, done=done_ids(rows))
+        on_branch = branch_rows(ctx.root, branches, args.offline, reg_dir, done=done_ids(rows))
         jid = pick_branch(action, on_branch)
         if not jid:
             print(f'No job branch is waiting for {"review" if action == "review" else "fixes"}: ' + (', '.join(

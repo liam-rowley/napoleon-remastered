@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.launch.unattended_route",
+  "claim": "Napoleon starts unattended by running Napoleon.exe directly from the game folder (watcher launch route=exe) while the Steam client runs: the started pid stays the game's pid (no Steam relaunch), window visible, CPU progressing; steam://rungameid/34030 was not needed",
+  "state": "verified",
+  "evidence": "harness/runs/20261029_pctest/README.md",
+  "date": "2026-10-29",
+  "notes": "jobs j2agent-20261029T001435Z-847429292 and ...001509Z-1691928289; the steam route was not tried"
+}

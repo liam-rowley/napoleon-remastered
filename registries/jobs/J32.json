@@ -1,0 +1,14 @@
+{
+  "id": "J32",
+  "description": "UI_PIPELINE section 4, S3 and S4. S3: one test document rendered in the viewer and in game; any difference beyond antialiasing and filtering is explained before screen work. S4: per screen kind (panel, popup, HUD, front end), keep the vanilla screen alive but undrawn, or call the engine getters directly; stop and redesign if either needs per-screen plumbing. Opus: independent check across two renderers and DLL hooks. Output: engine_facts with run ids and a proposed decision for Liam.",
+  "title": "Viewer parity and panel-host route spikes (S3, S4)",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J10",
+    "J30",
+    "J31"
+  ]
+}

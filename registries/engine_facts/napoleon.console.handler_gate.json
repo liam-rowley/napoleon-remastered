@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.handler_gate",
+  "claim": "113 of 168 acting campaign handlers return at once unless byte campaign+0x54 is set; in a live campaign (new and loaded) it was already set, so the forwarder's set-and-restore never wrote it (gate_sets 0)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

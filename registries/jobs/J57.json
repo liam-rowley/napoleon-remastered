@@ -1,0 +1,12 @@
+{
+  "id": "J57",
+  "description": "J54 review round 1, later items 1-3 (jobs/J54/review.md), which Liam asked to build. (1) A draft pull request gets a skipped policy on each push, and a skip counts as passed. The reviewer pushes the review commit while the pull request is a draft, then runs gh pr ready and gh pr merge --auto; gh merges at once when required checks already pass (gh pr merge --help, gh 2.92.0), so if gates on the review commit has finished, the merge lands before the ready_for_review policy run registers and CI never enforces pr_policy. Build: review_steps and docs/REVIEW.md 'Merging' run gh pr ready job/<id> BEFORE pushing the review commit (commit locally, pr_policy.py on the local branch, gh pr ready, push, gh pr merge --auto), so the pushed head gets a real policy run on a non-draft pull request; policy.yml's notify job skips the ready_for_review event (the expected red policy on the pre-review head is not told); tests in tests/test_jobs.py for the order. (2) In gates.yml, proxy, viewer and harness-windows need changes; if changes fails (its diff or run step) they are skipped through needs, and branch protection reads a skip as passed. Build: each slow job's if: also runs when needs.changes.result != 'success' (keep !cancelled() and the workflow_dispatch term), so a broken changes runs everything; a test in the repo-rules or workflow tests that reads the three if: lines. (3) tests/test_pc_deploy.py Deploy calls pd.install/uninstall without assume_closed and nothing stubs the process check, so the local tests gate fails while Napoleon.exe runs on the PC (J40 passes, J52 and J54 reports). Build: Deploy.setUp patches pd's process check to report nothing running; the guard's own tests keep their explicit patches. No core change.",
+  "title": "Review merge cannot run on a skipped policy; a failed changes job runs every slow job; Deploy tests ignore the live game",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J54"
+  ]
+}

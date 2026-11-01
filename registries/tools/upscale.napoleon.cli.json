@@ -1,0 +1,11 @@
+{
+  "id": "upscale.napoleon.cli",
+  "kind": "script",
+  "path": "upscale/napoleon/cli.py",
+  "purpose": "run the game-agnostic upscale/core over the Napoleon UI art roles (registry rows, files read through the J7 PackFS) and write results to the work folder, the assets registry and the sheets",
+  "usage": "<work>\\art_build\\py\\python.exe upscale/napoleon/cli.py <plan|run|verify|sheets|pack> --work <dir> [--roles a,b] [--sample N] [--limit N] [--model NAME] [--device cuda|cpu] [--registry] ; normally started by `python3 core/wsc.py upscale <verb>`",
+  "when": "any upscale step; the host tests call the same functions with the 'lanczos' stand-in",
+  "not_a_verb": "runs inside the embeddable Python of art_build (no wsc there); `wsc upscale` is the verb that starts it",
+  "status": "live",
+  "last_used": "2026-10-31"
+}
