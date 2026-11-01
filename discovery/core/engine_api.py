@@ -41,6 +41,12 @@ UNSAFE = ('Set', 'Start', 'End', 'Exit', 'Quit', 'Save', 'Load', 'Show', 'Hide',
           'Cheat', 'Console', 'Execute', 'Run', 'Call', 'Simulate', 'Generate', 'Autoresolve', 'Auto', 'Next', 'Previous', 'Write',
           'Friend', 'Friends', 'Online', 'Editor', 'Unpause', 'Replay')
 DOC_UNSAFE = ('update', 'moves', 'invoke', 'notify', 'sets ', 'fire', 'trigger', 'start', 'open', 'close', 'kill')
+# a state whose label says more than the launch reached: the note goes into its `states` entry so a reader of the table is not misled
+# (J9 review round 2: ShowPrestige() errored, so the block labelled campaign_show_prestige is not the prestige panel)
+STATE_NOTES = {
+    'campaign_show_prestige': 'not the prestige panel: ShowPrestige() errored in Huds.lua:51 (it needs the arguments its menu button '
+                              'passes), so this is the surface with the technology and missions panels still up (run 20261101_j9fix README)',
+}
 # names the static diff caught from a non-game (build-system) script; they are not engine API
 BUILD_SYSTEM = {'buildcommands', 'project', 'solution', 'configuration', 'configurations', 'files', 'includedirs', 'links', 'kind',
                 'language', 'location', 'targetdir', 'objdir', 'defines', 'flags', 'buildoptions', 'linkoptions', 'libdirs'}
@@ -225,7 +231,7 @@ def build(runs):
     add_impl_and_samples(names, samples)
     rows = sorted(names.values(), key=lambda e: (e['owner'], e['name']))
     per_state = {s: {'names': sum(len(d) for d in o.values()), 'probe_total': totals.get(s),
-                     'owners': len(o)} for s, o in sorted(seen.items())}
+                     'owners': len(o), **({'note': STATE_NOTES[s]} if s in STATE_NOTES else {})} for s, o in sorted(seen.items())}
     return {'generator': 'discovery/core/engine_api.py', 'runs': [r.replace('\\', '/') for r in runs],
             'logs': sorted(os.path.relpath(p, REPO).replace('\\', '/') for p in logs),
             'states': per_state, 'dropped_blocks': dropped, 'j6': j6_answers(names), 'j6_arg_drift': drift, 'names': rows}

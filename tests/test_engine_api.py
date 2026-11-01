@@ -48,6 +48,17 @@ class Parse(unittest.TestCase):
             doc = engine_api.build([d])
             self.assertEqual([Path(p).name for p in doc['logs']], ['a_proxy.log'])
 
+    def test_state_note(self):
+        # a state whose launch did not reach what its label says carries a note (J9 review round 2: campaign_show_prestige)
+        with tempfile.TemporaryDirectory() as d:
+            raw = Path(d) / 'raw'
+            raw.mkdir()
+            self.write(raw, 'a_proxy.log', ['api campaign_show_prestige G CampaignUI:table', 'api campaign_show_prestige __end total=1',
+                                            'api land G BattleUI:table', 'api land __end total=1'])
+            doc = engine_api.build([d])
+            self.assertIn('not the prestige panel', doc['states']['campaign_show_prestige']['note'])
+            self.assertNotIn('note', doc['states']['land'])
+
     def test_j6_answers(self):
         with tempfile.TemporaryDirectory() as d:
             diff = Path(d) / 'lua_api.json'

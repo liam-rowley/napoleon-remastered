@@ -78,7 +78,8 @@
   "campaign_show_prestige": {
    "names": 3756,
    "probe_total": 3757,
-   "owners": 146
+   "owners": 146,
+   "note": "not the prestige panel: ShowPrestige() errored in Huds.lua:51 (it needs the arguments its menu button passes), so this is the surface with the technology and missions panels still up (run 20261101_j9fix README)"
   },
   "campaign_show_technologies": {
    "names": 3756,
