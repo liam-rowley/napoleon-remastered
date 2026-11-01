@@ -93,6 +93,7 @@ released, profile restored, snapshot diff `identical`.
 - Over about 120 tool calls, or the PC part past about 40 of them: stop, commit, report what is left.
 
 ## Open questions
+**Settled by Liam 2026-11-01 (D38):** both as written: the proxy is installed with the play packs, and the held-back files stay out.
 Settled by the conservative reading above; Liam can overrule in the review:
 1. **Proxy in the play install?** The row says proxy kit plus packs; the movie-pack override needs no proxy, but the proxy gives the log and crash dump a bug report needs, at the cost of the known rare init crash.
    This brief includes it; an `--no-proxy` switch is a small follow-up if Liam prefers vanilla plus packs.

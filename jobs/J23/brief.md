@@ -108,6 +108,7 @@ answers, the proposed budgets and the reasoning, which scenarios are not covered
 for Liam, J24, J27 and J46. Then `wsc reg set jobs J23 status=review report=jobs/J23/report.md`.
 
 ## Open questions (conservative reading taken; Liam may overrule before or during the build)
+**Settled by Liam 2026-11-01 (D38):** baseline what exists now; J59 extends the baseline to J46's rows and re-agrees the budgets. The visible-window comparison stays in the one Liam-present sitting; report cold and warm loads apart.
 - **The 40-unit battle does not exist** (J44: land large, land 20 against 20 and naval large need the army setup route, J46). J24 and J27 measure
   against it. This brief baselines what exists now and ships the tool that adds rows; it does not wait for J46 and does not build rows. Should
   J23's baseline be extended after J46 lands (a small follow-up run), and should budgets then be re-agreed against the 40-unit numbers?

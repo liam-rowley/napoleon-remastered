@@ -110,6 +110,7 @@ deleting one owned file, then `Uninstall.cmd`: snapshot diff identical, `Check` 
 - Over about 150 tool calls, or a second PC sitting needed: stop, commit, report what is left.
 
 ## Open questions (for Liam; write the conservative reading and flag it in the report)
+**Settled by Liam 2026-11-01 (D38):** 1: "Napoleon Remastered" and `0.1.0` stand. 3: the PowerShell installer with parity tests stays. 2 is still open (Liam's call): keep both "pending" and the builder warning.
 1. Name and version scheme: "Napoleon Remastered", `0.1.0`, as above.
 2. The unofficial-mod statement and the licence of our own code (Empire's draft left both pending).
 3. Does the PowerShell installer duplicating `pc_deploy.py`'s logic stay, or should a later core job give the installer a Python-free

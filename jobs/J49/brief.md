@@ -99,5 +99,6 @@ from this brief and why, open questions (include: whether Liam wants cost shown 
 Claude Code does not write to disk, is wanted). Then `wsc reg set jobs J49 status=review report=jobs/J49/report.md`.
 
 ## Open questions for Liam (the brief took the conservative reading)
+**Settled by Liam 2026-11-01 (D38):** tokens and tool calls are the headline; cost stays, labelled as an estimate. Plan and weekly-limit usage stay out.
 - Tokens and tool calls are the headline; cost is an estimate. Say so if you want the cost left out or promoted.
 - Plan or weekly-limit usage (what the Claude app shows) is not in the local files as far as I know; this job does not try to reach it.
