@@ -1,0 +1,10 @@
+{
+  "verb": "order",
+  "status": "failed",
+  "reason": "RuntimeError: step read 0x3b30c988: orders refused: 0x3b30c988: the unit is not in its army's list (not a UNIT, or torn down)",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-11-02T12:42:13.662Z",
+  "end_utc": "2026-11-02T12:44:00.744Z"
+}

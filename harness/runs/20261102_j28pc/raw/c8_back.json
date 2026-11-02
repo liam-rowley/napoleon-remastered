@@ -1,0 +1,163 @@
+{
+  "verb": "order",
+  "status": "ok",
+  "reason": "",
+  "unit": "4",
+  "ptr": "0x33cba600",
+  "kind": "land",
+  "action": "move",
+  "ordered": {
+    "x": 28.2,
+    "z": 300.0,
+    "facing": 180.0,
+    "width": 31.9
+  },
+  "run": false,
+  "before": {
+    "id": 4,
+    "ptr": "0x33cba600",
+    "x": 28.2774,
+    "y": 15.4665,
+    "z": 303.8633,
+    "facing": 179.8682,
+    "raw": 32744,
+    "men": 120,
+    "queued": 1,
+    "fx": 28.2096,
+    "fy": 15.4665,
+    "fz": 302.1271,
+    "width": 31.9,
+    "army": "0x4dd1aec8"
+  },
+  "got": {
+    "id": 4,
+    "ptr": "0x33cba600",
+    "x": 28.2987,
+    "y": 15.4642,
+    "z": 301.7931,
+    "facing": 179.8407,
+    "raw": 32739,
+    "men": 120,
+    "queued": 1,
+    "fx": 28.2,
+    "fy": 15.4444,
+    "fz": 300.0,
+    "width": 31.9,
+    "army": "0x4dd1aec8"
+  },
+  "pushed": "pushed order #8 unit 0x33cba600 to (28.200, 15.444, 300.000) facing 180.000 (raw -32768) width 31.900 run 0 queue 0 pushed 1 (was at 28.277, 15.467, 303.863 facing 179.868, queued 1)",
+  "settle": {
+    "waited_for": "centre still for 3 reads (0.02 m, 0.05 deg) every 1.0 s",
+    "waited_s": 13.01,
+    "reads": 6,
+    "moved": true,
+    "settled": true,
+    "speed": {
+      "set": false,
+      "rate": 1.0
+    }
+  },
+  "check": {
+    "compared": "the order against the unit read back at rest (front centre, facing, width; the live centre behind the front on its axis)",
+    "fields": {
+      "position_m": {
+        "expected": [
+          28.2,
+          300.0
+        ],
+        "got": [
+          28.2,
+          300.0
+        ],
+        "err": 0.0,
+        "tol": 1.0,
+        "within": true
+      },
+      "facing_deg": {
+        "expected": 180.0,
+        "got": 179.8407,
+        "err": 0.1593,
+        "tol": 1.0,
+        "within": true
+      },
+      "width_m": {
+        "expected": 31.9,
+        "got": 31.9,
+        "err": 0.0,
+        "tol": 0.5,
+        "within": true
+      },
+      "centre_lateral_m": {
+        "expected": 0,
+        "got": 0.1037,
+        "err": 0.1037,
+        "tol": 1.5,
+        "within": true
+      },
+      "centre_ahead_m": {
+        "expected": [
+          0.0,
+          30.0
+        ],
+        "got": 1.7928,
+        "err": 0.0,
+        "tol": 0.0,
+        "within": true
+      }
+    },
+    "ok": true
+  },
+  "evidence": {
+    "push": {
+      "id": "j28-20261102T122558Z-1222016980",
+      "request": "lua napoleon_remastered/lua/ctl/orders.lua 20 -- move 0x33cba600 28.2 300.0 180.0 31.9 0",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-02T12:25:58.564Z",
+      "end_utc": "2026-11-02T12:25:58.575Z",
+      "launch_id": "20261102T121845Z-p37444",
+      "chunk": "pushed order #8 unit 0x33cba600 to (28.200, 15.444, 300.000) facing 180.000 (raw -32768) width 31.900 run 0 queue 0 pushed 1 (was at 28.277, 15.467, 303.863 facing 179.868, queued 1)\nunit id=4 ptr=0x33cba600 x=28.2774 y=15.4665 z=303.8633 facing=179.8682 raw=32744 men=120 queued=1 fx=28.2096 fy=15.4665 fz=302.1271 width=31.9000 army=0x4dd1aec8\nwt=351426.84375",
+      "state_at_end": {
+        "launch_id": "20261102T121845Z-p37444",
+        "pid": 37444,
+        "frame": 199509,
+        "scene": "battle",
+        "scene_s": 29.6,
+        "uptime_s": 432.7,
+        "written_utc": "2026-11-02T12:25:58.575Z",
+        "last_present_utc": "2026-11-02T12:25:58.573Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": -1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 2,
+        "mem": {
+          "va_mb": 1835,
+          "commit_mb": 1194
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "641"
+        }
+      },
+      "log": [
+        "2026-11-02T12:25:58.567Z [INFO ] [t33968] orders: order #8 unit 0x33cba600 to (28.200, 15.444, 300.000) facing 180.000 (raw -32768) width 31.900 run 0 queue 0 pushed 1 (was at 28.277, 15.467, 303.863 facing 179.868, queued 1)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-02T12:25:56.321Z",
+  "end_utc": "2026-11-02T12:26:12.378Z"
+}

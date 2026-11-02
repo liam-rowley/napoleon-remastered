@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.unit_layout",
+  "claim": "UNIT layout read by the orders route, every offset from a checked site's stock bytes: army [UNIT+0x1ec] (unit count +0xf0, UNIT*[] +0xf4; the unit is in that list on every read), entity 0 = [UNIT+0xadc] (position block E+0x62c, world x,y,z at +0xb0, frame pointer at +0xc0: 0 on land), active entity [UNIT+0xadc+4*[UNIT+0xae8]] (queued orders [E+0x460]: 1 for an idle unit, so no rest signal), facing int16 [E0+0x64c], men alive [UNIT+0x204]. No accessor: UNIT+0x310 (3 floats) is the destination front centre and UNIT+0x324 the destination frontage (metres), both written at the push (proven by order readback: equal to the order to 0.0 m whether or not the unit gets there). The engine's is_moving (UNIT method 0x55c320) is the rest signal",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "engine_sites battle.unit_*, battle.entity_*, battle.position_xyz, battle.world_position_copy"
+}

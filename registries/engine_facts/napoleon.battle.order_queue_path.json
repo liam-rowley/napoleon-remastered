@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.order_queue_path",
+  "claim": "The command queue is [[[battle UI owner global]+0xf8]+0x28048] (engine_sites battle.ui_queue_site); the owner's cell at +0x454 holds the same battle (checked before every dispatcher command). The battle script interface global is not used (Empire's was 0 in custom battles; never needed here)",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "owner global, battle and queue pointers in proxy.log \"orders: install\" and wsp.orders_info()"
+}

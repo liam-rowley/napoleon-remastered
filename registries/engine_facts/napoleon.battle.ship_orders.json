@@ -1,0 +1,6 @@
+{
+  "id": "napoleon.battle.ship_orders",
+  "claim": "Ship orders (J60): the orders route refuses a unit whose world position has a non-zero frame pointer (ships and anything on a moving frame); naval_small was not run here. J60 needs the ship controller chain (battle.ship_controller, script table 0x1451990), whether a ship is a UNIT in an army list, and the naval order types (move, speed, sails)",
+  "state": "open",
+  "notes": "owner: J60"
+}

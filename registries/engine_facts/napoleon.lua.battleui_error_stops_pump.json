@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.lua.battleui_error_stops_pump",
+  "claim": "Calling BattleUI.SquadInfoByPointer() without its argument raised an engine Lua error (inside pcall) and the battle UI pump stopped one second later: frames kept presenting, the scene tracker said loading, every ctl lua call timed out; only a relaunch recovered. Chunks never call a BattleUI function with missing arguments",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "run b2 (raw/b2_stall.jpg, raw/b2_stall_proxy.log); one observation"
+}

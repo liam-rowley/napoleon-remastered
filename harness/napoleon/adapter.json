@@ -36,7 +36,7 @@
                  "note": "J44: one sky per season, weather and time of day, so battle lighting repeats; built only where the game packs are readable (the PC)"}],
   "foreign_locks": ["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Empire Total War\\rml_mod\\game.lock"],
   "ctl": {
-    "launch": {"size": "1920x1080", "frontend_wait_s": 180, "keys": {"dev.ctl": "1", "dev.lua_bridge": "1", "dev.state_json": "1", "dev.skip_intro": "1", "dev.camera": "1", "dev.perf": "1", "dev.timeline": "1", "dev.file_rules": "napoleon_remastered\\lua\\fixed_sky_rules.txt"},
+    "launch": {"size": "1920x1080", "frontend_wait_s": 180, "keys": {"dev.ctl": "1", "dev.lua_bridge": "1", "dev.state_json": "1", "dev.skip_intro": "1", "dev.camera": "1", "dev.orders": "1", "dev.perf": "1", "dev.timeline": "1", "dev.file_rules": "napoleon_remastered\\lua\\fixed_sky_rules.txt"},
                "note": "every ctl.py scene launch: the keys its verbs need (cam needs dev.camera, perf dev.perf), applied with pc_deploy set before a watcher launch, never by callers (J44)"},
     "settle": {"frames": 30, "quiet_ms": 2000, "timeout_s": 120, "ready_scenes": ["battle_deploy", "battle", "naval", "campaign"],
                "run": "harness/runs/20261030_j44pc", "note": "measured (J44): the settle ends ~2.7 s after the load answer and a shot then is within the 2.56/255 noise floor of one 10 s later; one value for every kind (battles and campaign settled alike); frame and scene stability, the proxy has no shader-creation hook (fact napoleon.ctl.settle_signal)"},
@@ -59,7 +59,22 @@
         "naval": {"chunk": "napoleon_remastered/lua/ctl/speed.lua", "lead_s": 0.5, "measure_s": 4, "run": "harness/runs/20261030_j43pc", "status": "reachable", "why": "RequestSpeed(\"pause\") on, ReinstatePrePauseBattleSpeed off (as the HUD), checked on the battle clock", "fact": "napoleon.battle.speed_route", "tolerance": 0.02, "min_running_rate": 0.25},
         "campaign": {"status": "unreachable", "why": "battle pause only", "fact": "napoleon.battle.speed_route"}
       },
-      "orders": {"status": "unreachable", "why": "not built here: J28 owns the command route (unit routes found: jobs/J43/report.md, fact napoleon.battle.unit_routes)", "fact": "napoleon.battle.unit_routes"}
+      "orders": {"land": {"status": "reachable", "why": "wsp.order_move (dev.orders) pushes one move/face command per unit through the engine command path (Selection ctor, AddUnit, move command ctor, queue push, dtor; ctl/orders.lua); read back from engine memory (wsp.unit_state)", "fact": "napoleon.battle.order_route", "chunk": "napoleon_remastered/lua/ctl/orders.lua",
+                 "tolerance": {"pos_m": 1.0, "facing_deg": 1.0, "width_m": 0.5, "centre_lateral_m": 1.5, "centre_ahead_m": [-1.0, 30.0], "centre_ahead_floor_m": 3.0, "centre_ahead_factor": 3.0},
+                 "commands": {"halt": {"cmd": 7, "check": "stops"}, "square": {"cmd": 34, "check": "shape"}, "square_off": {"cmd": 35, "check": "shape"},
+                              "wedge": {"cmd": 36, "check": "shape"}, "diamond": {"cmd": 38, "check": "shape"}, "loose": {"cmd": 71, "check": "shape"},
+                              "note": "the codes BattleUI.Current_Selection_Halt and _Enable_*_Formation(true/false) hand the owner's dispatcher (static RE, engine_sites battle.selection_command); only the off code of square was read"},
+                 "settle": {"poll_s": 1.0, "rest_reads": 3, "eps_m": 0.1, "eps_deg": 0.2, "min_wait_s": 3, "base_s": 60, "min_speed_mps": 0.6, "max_s": 400, "wait_speed": "ffwd", "wait_speed_over_m": 30},
+                 "run": "harness/runs/20261102_j28pc"},
+                 "siege": {"status": "reachable", "why": "wsp.order_move (dev.orders) pushes one move/face command per unit through the engine command path (Selection ctor, AddUnit, move command ctor, queue push, dtor; ctl/orders.lua); read back from engine memory (wsp.unit_state)", "fact": "napoleon.battle.order_route", "chunk": "napoleon_remastered/lua/ctl/orders.lua",
+                 "tolerance": {"pos_m": 1.0, "facing_deg": 1.0, "width_m": 0.5, "centre_lateral_m": 1.5, "centre_ahead_m": [-1.0, 30.0], "centre_ahead_floor_m": 3.0, "centre_ahead_factor": 3.0},
+                 "commands": {"halt": {"cmd": 7, "check": "stops"}, "square": {"cmd": 34, "check": "shape"}, "square_off": {"cmd": 35, "check": "shape"},
+                              "wedge": {"cmd": 36, "check": "shape"}, "diamond": {"cmd": 38, "check": "shape"}, "loose": {"cmd": 71, "check": "shape"},
+                              "note": "the codes BattleUI.Current_Selection_Halt and _Enable_*_Formation(true/false) hand the owner's dispatcher (static RE, engine_sites battle.selection_command); only the off code of square was read"},
+                 "settle": {"poll_s": 1.0, "rest_reads": 3, "eps_m": 0.1, "eps_deg": 0.2, "min_wait_s": 3, "base_s": 60, "min_speed_mps": 0.6, "max_s": 400, "wait_speed": "ffwd", "wait_speed_over_m": 30},
+                 "run": "harness/runs/20261102_j28pc"},
+                 "naval": {"status": "unreachable", "why": "ships are on a moving frame and take battle.ship_controller orders (J60 builds ship orders on this route)", "fact": "napoleon.battle.order_route"},
+                 "campaign": {"status": "unreachable", "why": "campaign armies are out of scope (J28)", "fact": "napoleon.battle.order_route"}}
     },
     "perf": {"vram_source": "nvidia-smi from a watcher job (not read by the verb yet)"}
   },

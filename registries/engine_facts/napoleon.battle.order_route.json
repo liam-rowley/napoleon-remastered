@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.order_route",
+  "claim": "Battle unit move/face orders, land and siege: one unit per command through the engine's own command path, called from the proxy on the engine thread (dev.orders, wsp.order_move): Selection ctor (0x44-byte object on our stack), AddUnit (refuses a routing or dead unit: the selection count stays 0), the ground projection terrain->Project(loc out, xz in, 0, 1, 0) with terrain = [[battle+8]+0xb4], the move command ctor (sel, loc[5] = {x, ground y, z, frame 0, 0}, int16 angle, float width, bool run, bool queue), the queue push on [battle+0x28048] (returns 1), the command dtor, the engine free of the selection's four buffers. No detour; engine_sites battle.* with config_key dev.orders. Readback at rest: the destination front centre exact (0.0 m), facing within 0.03 to 0.55 degrees, width exact, the live centre within 0.01 to 0.55 m of the ordered axis; a 9-unit line settled in 12.7 s at ffwd",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "ctl.py order (the route block in harness/napoleon/adapter.json); the general's bodyguard does not hold its facing (napoleon.battle.order_general_facing)"
+}

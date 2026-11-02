@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.ctl.orders",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/ctl/orders.lua",
+  "purpose": "the chunk ctl.py order runs: \"list\" (every unit of the player's army: the first Land unit of BattleUI.UnitListForBattleIds),",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/ctl/orders.lua 20 -- list|state <unit>|move <unit> <x> <z> <facing|-> <width|-> <run>|selection\" in a battle; ctl.py order runs it",
+  "when": "every ctl order; never in a scenario row or a script by itself (ctl.py checks each order by readback, rule 77)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

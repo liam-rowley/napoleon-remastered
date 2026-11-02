@@ -1,0 +1,135 @@
+{
+  "verb": "order",
+  "status": "failed",
+  "reason": "units 6: wedge: no effect read back",
+  "unit": "6",
+  "kind": "land",
+  "action": "wedge",
+  "units": [
+    {
+      "unit": "6",
+      "ptr": "0x3b114528",
+      "status": "failed",
+      "reason": "wedge: no effect read back",
+      "before": {
+        "id": 6,
+        "ptr": "0x3b114528",
+        "x": -45.3867,
+        "y": 15.6287,
+        "z": 303.7792,
+        "facing": 180.0165,
+        "raw": -32765,
+        "men": 120,
+        "queued": 1,
+        "moving": 0,
+        "fx": -45.4403,
+        "fy": 15.6281,
+        "fz": 302.0071,
+        "width": 43.6,
+        "army": "0x331db230"
+      },
+      "got": {
+        "id": 6,
+        "ptr": "0x3b114528",
+        "x": -45.3867,
+        "y": 15.6287,
+        "z": 303.7792,
+        "facing": 180.0165,
+        "raw": -32765,
+        "men": 120,
+        "queued": 1,
+        "moving": 0,
+        "fx": -45.4403,
+        "fy": 15.6281,
+        "fz": 302.0071,
+        "width": 43.6,
+        "army": "0x331db230"
+      },
+      "pushed": "pushed command #5 unit 0x3b114528 cmd 36 (0x24) arg 0.000 dispatched (was at -45.387, 303.779 facing 180.016, moving 0)",
+      "settle": {
+        "waited_for": "centre still for 3 reads (0.1 m, 0.2 deg) every 1.0 s",
+        "waited_s": 8.69,
+        "reads": 4,
+        "moved": false,
+        "settled": true
+      },
+      "check": {
+        "compared": "wedge (shape)",
+        "fields": {
+          "shape_change_m": {
+            "expected": ">= 0.3",
+            "got": 0.0,
+            "depth_change_m": 0.0,
+            "width_change_m": 0.0,
+            "within": false
+          }
+        },
+        "ok": false
+      }
+    }
+  ],
+  "settle": {
+    "waited_for": "every unit at rest",
+    "waited_s": 8.69,
+    "settled": true
+  },
+  "check": {
+    "compared": "wedge on 1 unit(s), each read back at rest",
+    "expected": "every unit ok",
+    "got": "0 ok",
+    "ok": false
+  },
+  "evidence": {
+    "push_6": {
+      "id": "j28-20261102T130003Z-1985027640",
+      "request": "lua napoleon_remastered/lua/ctl/orders.lua 20 -- command 0x3b114528 36 0.0",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-02T13:00:03.316Z",
+      "end_utc": "2026-11-02T13:00:03.327Z",
+      "launch_id": "20261102T125832Z-p17088",
+      "chunk": "pushed command #5 unit 0x3b114528 cmd 36 (0x24) arg 0.000 dispatched (was at -45.387, 303.779 facing 180.016, moving 0)",
+      "state_at_end": {
+        "launch_id": "20261102T125832Z-p17088",
+        "pid": 17088,
+        "frame": 43658,
+        "scene": "battle",
+        "scene_s": 71.3,
+        "uptime_s": 90.5,
+        "written_utc": "2026-11-02T13:00:03.327Z",
+        "last_present_utc": "2026-11-02T13:00:03.325Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": -1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1822,
+          "commit_mb": 1188
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "140"
+        }
+      },
+      "log": [
+        "2026-11-02T13:00:03.321Z [INFO ] [t2604] orders: command #5 unit 0x3b114528 cmd 36 (0x24) arg 0.000 dispatched (was at -45.387, 303.779 facing 180.016, moving 0)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-02T13:00:01.145Z",
+  "end_utc": "2026-11-02T13:00:12.471Z"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.selection_source",
+  "claim": "The UI's own selection is S = [[owner]+0x450]+0x20 (a Selection; loose land units: count [S+0x1c], UNIT*[] [S+0x20]). After BattleUI.SelectAllInfantry it lists exactly the 6 infantry UNIT pointers of the army list, the same pointers BattleUI.UnitListForBattleIds().Land hands out as Pointer<UNIT> userdata (the pointer is the userdata's first dword; Land lists the player's army first, then the enemy). So C++ reads S directly; the cards route was not needed",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "runs b1 to b3 (raw/b3_units_select.txt); orders build their own one-unit selection, never the UI's"
+}

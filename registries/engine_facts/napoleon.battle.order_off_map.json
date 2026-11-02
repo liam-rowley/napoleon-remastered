@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.order_off_map",
+  "claim": "A move order to a point off the map (0, 2500 in land_small) is taken and the unit walks there and leaves its army (it withdraws): its UNIT drops out of the army list during the wait",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "run f1"
+}
