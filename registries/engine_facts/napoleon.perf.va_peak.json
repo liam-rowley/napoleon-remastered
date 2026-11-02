@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.perf.va_peak",
+  "claim": "Address space (32-bit, 4096 MB) on DXVK 3.1.1: the highest process peak is hist_dresden at 2094 to 2096 MB at every size; land_small 1822 to 1823, siege_small 1886 to 1887, hist_nile 1823 to 1824, campaign_start 1750 to 1757; a scene's own value at the end of perf (va_used) is flat across 1080p, 1440p and 4K within 7 MB (land_small 1818 at all three). Render-target size costs no address space under DXVK; launch-to-launch noise of the peak about 50 MB",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j23pc/README.md",
+  "date": "2026-11-01",
+  "notes": "run 20261101_j23pc; peak = Get-Process PeakVirtualMemorySize64 (equal to the proxy's va_used when current: 1833.1 against 1833, run 20261101_j23smoke), the process peak since launch (a warm-reset scene inherits the scenes before it); 2096 MB leaves 2000 MB; perf/budgets.md proposes a 3400 MB stop line"
+}

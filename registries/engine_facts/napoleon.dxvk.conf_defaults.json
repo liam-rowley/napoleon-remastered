@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.dxvk.conf_defaults",
+  "claim": "No dxvk.conf option of DXVK 3.1.1 tried one at a time changes Napoleon measurably against the stock defaults (land_small and siege_small, deploy pose, 1080p and 4K, 3 passes each): d3d9.maxFrameLatency = 1, d3d9.presentInterval = 0, d3d9.maxAvailableMemory = 2048, dxvk.latencySleep = False all within 0.06 ms of the control p50 and 0.3 ms p99, address space and commit unchanged. Settled: no dxvk.conf is shipped (the defaults: maxFrameLatency 0, presentInterval -1, maxAvailableMemory 4096, latencySleep Auto, from the pinned d3d9_options.cpp)",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j23sweep2/README.md",
+  "date": "2026-11-02",
+  "notes": "run 20261101_j23sweep2, DXVK log Found config file + Effective configuration per cell; not config_keys rows: gen_tables renders every config_keys row into the proxy ini and tables.h (a DLL input), jobs/J23/report.md Open questions"
+}

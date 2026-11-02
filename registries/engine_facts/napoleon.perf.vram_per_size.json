@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.perf.vram_per_size",
+  "claim": "Dedicated VRAM of the game process on DXVK 3.1.1 at 1080p / 1440p / 4K: land_small 564 / 632 / 794 MB, siege_small 788 / 856 / 957, hist_dresden 824 / 892 / 1076, campaign_start 429 / 501 / 691; the most at 4K is 1076 MB of 24564. VRAM is the only memory that grows with the size",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j23pc/README.md",
+  "date": "2026-11-01",
+  "notes": "run 20261101_j23pc; source fact napoleon.perf.vram_source; launch-to-launch noise up to about 220 MB (land_small 1080p 564 in the matrix against 696 to 788 in run 20261101_j23smoke)"
+}

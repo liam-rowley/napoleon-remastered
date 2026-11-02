@@ -1,0 +1,114 @@
+2026-11-01T23:49:21Z plan: 80 cells, scenarios ['land_small', 'siege_small'], sizes 1920x1080,3840x2160, backends dxvk, variants ['none', 'latency1', 'interval0', 'availmem2048', 'latencysleep_off']; start keys {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T23:49:21Z block ('1920x1080', 'dxvk', 'none'): exit, set keys, relaunch
+2026-11-01T23:49:26Z dxvk.conf staged sha 8b2dc0b6ff5f at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-01T23:49:58Z cell dxvk-none_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:50:18Z cell dxvk-none_1920x1080_siege_small_default_p0 ok: load 5.3 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:51:05Z cell dxvk-none_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.055 p99 4.641 VA 1864/1894.4 commit 1187 vram 567.5 
+2026-11-01T23:51:53Z cell dxvk-none_1920x1080_siege_small_deploy_p1 ok: load 5.5 p50 2.215 p99 3.875 VA 1878/1893.7 commit 1244 vram 823.5 
+2026-11-01T23:52:39Z cell dxvk-none_1920x1080_land_small_deploy_p2 ok: load 4.0 p50 2.142 p99 3.683 VA 1875/1894.8 commit 1208 vram 567.5 
+2026-11-01T23:53:26Z cell dxvk-none_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.294 p99 4.101 VA 1896/1900.0 commit 1266 vram 823.5 
+2026-11-01T23:54:12Z cell dxvk-none_1920x1080_land_small_deploy_p3 ok: load 4.1 p50 2.051 p99 3.545 VA 1875/1902.2 commit 1195 vram 567.5 
+2026-11-01T23:55:00Z cell dxvk-none_1920x1080_siege_small_deploy_p3 ok: load 5.4 p50 2.221 p99 3.636 VA 1896/1902.2 commit 1251 vram 823.5 
+2026-11-01T23:55:00Z block ('1920x1080', 'dxvk', 'latency1'): exit, set keys, relaunch
+2026-11-01T23:55:03Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:55:07Z dxvk.conf staged sha 5f27aae9fe39 at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-01T23:55:29Z cell dxvk-latency1_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:55:48Z cell dxvk-latency1_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:56:35Z cell dxvk-latency1_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 1.974 p99 3.453 VA 1865/1895.5 commit 1187 vram 631.5 
+2026-11-01T23:57:23Z cell dxvk-latency1_1920x1080_siege_small_deploy_p1 ok: load 5.3 p50 2.224 p99 3.712 VA 1884/1896.0 commit 1245 vram 823.5 
+2026-11-01T23:58:09Z cell dxvk-latency1_1920x1080_land_small_deploy_p2 ok: load 4.1 p50 2.141 p99 3.689 VA 1859/1895.6 commit 1190 vram 567.5 
+2026-11-01T23:58:57Z cell dxvk-latency1_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.295 p99 3.86 VA 1881/1896.1 commit 1264 vram 823.5 
+2026-11-01T23:59:44Z cell dxvk-latency1_1920x1080_land_small_deploy_p3 ok: load 4.2 p50 2.115 p99 3.644 VA 1857/1895.3 commit 1207 vram 567.5 
+2026-11-02T00:00:33Z cell dxvk-latency1_1920x1080_siege_small_deploy_p3 ok: load 5.5 p50 2.208 p99 3.699 VA 1878/1895.1 commit 1247 vram 823.5 
+2026-11-02T00:00:33Z block ('1920x1080', 'dxvk', 'interval0'): exit, set keys, relaunch
+2026-11-02T00:00:36Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:00:40Z dxvk.conf staged sha fda891d75714 at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:01:01Z cell dxvk-interval0_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:01:22Z cell dxvk-interval0_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:02:08Z cell dxvk-interval0_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.015 p99 3.44 VA 1864/1890.6 commit 1189 vram 575.5 
+2026-11-02T00:02:54Z cell dxvk-interval0_1920x1080_siege_small_deploy_p1 ok: load 5.3 p50 2.215 p99 3.694 VA 1882/1889.9 commit 1247 vram 831.5 
+2026-11-02T00:03:41Z cell dxvk-interval0_1920x1080_land_small_deploy_p2 ok: load 4.0 p50 2.135 p99 3.6 VA 1859/1890.4 commit 1209 vram 575.5 
+2026-11-02T00:04:29Z cell dxvk-interval0_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.316 p99 3.821 VA 1880/1889.8 commit 1251 vram 831.5 
+2026-11-02T00:05:16Z cell dxvk-interval0_1920x1080_land_small_deploy_p3 ok: load 4.2 p50 2.112 p99 3.506 VA 1859/1890.2 commit 1211 vram 575.5 
+2026-11-02T00:06:04Z cell dxvk-interval0_1920x1080_siege_small_deploy_p3 ok: load 5.4 p50 2.211 p99 3.759 VA 1878/1889.9 commit 1251 vram 831.5 
+2026-11-02T00:06:04Z block ('1920x1080', 'dxvk', 'availmem2048'): exit, set keys, relaunch
+2026-11-02T00:06:08Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:06:12Z dxvk.conf staged sha 21b952f886c8 at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:06:33Z cell dxvk-availmem2048_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:06:53Z cell dxvk-availmem2048_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:07:40Z cell dxvk-availmem2048_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.025 p99 3.487 VA 1864/1894.9 commit 1204 vram 631.5 
+2026-11-02T00:08:27Z cell dxvk-availmem2048_1920x1080_siege_small_deploy_p1 ok: load 5.2 p50 2.189 p99 3.892 VA 1882/1893.9 commit 1246 vram 823.5 
+2026-11-02T00:09:14Z cell dxvk-availmem2048_1920x1080_land_small_deploy_p2 ok: load 4.1 p50 2.024 p99 3.533 VA 1859/1894.6 commit 1191 vram 567.5 
+2026-11-02T00:10:02Z cell dxvk-availmem2048_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.29 p99 3.836 VA 1881/1894.8 commit 1265 vram 823.5 
+2026-11-02T00:10:48Z cell dxvk-availmem2048_1920x1080_land_small_deploy_p3 ok: load 4.1 p50 2.103 p99 3.556 VA 1859/1894.7 commit 1211 vram 567.5 
+2026-11-02T00:11:37Z cell dxvk-availmem2048_1920x1080_siege_small_deploy_p3 ok: load 5.4 p50 2.203 p99 3.643 VA 1880/1894.4 commit 1266 vram 823.5 
+2026-11-02T00:11:37Z block ('1920x1080', 'dxvk', 'latencysleep_off'): exit, set keys, relaunch
+2026-11-02T00:11:40Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:11:43Z dxvk.conf staged sha 7cd015668dbd at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:12:05Z cell dxvk-latencysleep_off_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:12:25Z cell dxvk-latencysleep_off_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:13:11Z cell dxvk-latencysleep_off_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.044 p99 3.448 VA 1863/1894.0 commit 1190 vram 631.5 
+2026-11-02T00:13:59Z cell dxvk-latencysleep_off_1920x1080_siege_small_deploy_p1 ok: load 5.3 p50 2.192 p99 3.677 VA 1882/1894.1 commit 1251 vram 823.5 
+2026-11-02T00:14:46Z cell dxvk-latencysleep_off_1920x1080_land_small_deploy_p2 ok: load 4.1 p50 2.058 p99 3.467 VA 1858/1894.1 commit 1212 vram 567.5 
+2026-11-02T00:15:34Z cell dxvk-latencysleep_off_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.296 p99 3.801 VA 1880/1893.9 commit 1253 vram 823.5 
+2026-11-02T00:16:21Z cell dxvk-latencysleep_off_1920x1080_land_small_deploy_p3 ok: load 4.1 p50 2.106 p99 3.566 VA 1858/1894.7 commit 1195 vram 567.5 
+2026-11-02T00:17:08Z cell dxvk-latencysleep_off_1920x1080_siege_small_deploy_p3 ok: load 5.4 p50 2.201 p99 3.739 VA 1880/1894.7 commit 1252 vram 823.5 
+2026-11-02T00:17:08Z block ('3840x2160', 'dxvk', 'none'): exit, set keys, relaunch
+2026-11-02T00:17:12Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:17:15Z dxvk.conf staged sha 8b2dc0b6ff5f at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:17:55Z cell dxvk-none_3840x2160_land_small_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:18:15Z cell dxvk-none_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:19:01Z cell dxvk-none_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.847 p99 3.269 VA 1864/1894.3 commit 1193 vram 829.4 
+2026-11-02T00:19:48Z cell dxvk-none_3840x2160_siege_small_deploy_p1 ok: load 5.1 p50 1.957 p99 3.207 VA 1882/1893.8 commit 1251 vram 1085.4 
+2026-11-02T00:20:34Z cell dxvk-none_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.876 p99 3.223 VA 1859/1894.6 commit 1197 vram 829.4 
+2026-11-02T00:21:22Z cell dxvk-none_3840x2160_siege_small_deploy_p2 ok: load 5.3 p50 2.026 p99 3.398 VA 1881/1894.5 commit 1251 vram 1085.4 
+2026-11-02T00:22:09Z cell dxvk-none_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.874 p99 3.317 VA 1859/1894.3 commit 1197 vram 829.4 
+2026-11-02T00:22:56Z cell dxvk-none_3840x2160_siege_small_deploy_p3 ok: load 5.4 p50 1.975 p99 3.342 VA 1880/1894.5 commit 1253 vram 1085.4 
+2026-11-02T00:22:56Z block ('3840x2160', 'dxvk', 'latency1'): exit, set keys, relaunch
+2026-11-02T00:23:01Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:23:04Z dxvk.conf staged sha 5f27aae9fe39 at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:23:25Z cell dxvk-latency1_3840x2160_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:23:45Z cell dxvk-latency1_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:24:31Z cell dxvk-latency1_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.836 p99 3.296 VA 1865/1895.6 commit 1185 vram 815.4 
+2026-11-02T00:25:17Z cell dxvk-latency1_3840x2160_siege_small_deploy_p1 ok: load 5.1 p50 1.958 p99 3.331 VA 1884/1895.8 commit 1242 vram 1071.4 
+2026-11-02T00:26:04Z cell dxvk-latency1_3840x2160_land_small_deploy_p2 ok: load 4.0 p50 1.859 p99 3.23 VA 1859/1895.8 commit 1188 vram 814.2 
+2026-11-02T00:26:51Z cell dxvk-latency1_3840x2160_siege_small_deploy_p2 ok: load 5.4 p50 2.022 p99 3.605 VA 1881/1895.5 commit 1245 vram 1071.4 
+2026-11-02T00:27:37Z cell dxvk-latency1_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.857 p99 3.344 VA 1859/1895.7 commit 1190 vram 815.4 
+2026-11-02T00:28:25Z cell dxvk-latency1_3840x2160_siege_small_deploy_p3 ok: load 5.4 p50 1.97 p99 3.556 VA 1880/1895.8 commit 1246 vram 1071.4 
+2026-11-02T00:28:25Z block ('3840x2160', 'dxvk', 'interval0'): exit, set keys, relaunch
+2026-11-02T00:28:28Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:28:32Z dxvk.conf staged sha fda891d75714 at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:28:54Z cell dxvk-interval0_3840x2160_land_small_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:29:14Z cell dxvk-interval0_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:30:00Z cell dxvk-interval0_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.848 p99 3.276 VA 1865/1892.1 commit 1192 vram 817.4 
+2026-11-02T00:30:46Z cell dxvk-interval0_3840x2160_siege_small_deploy_p1 ok: load 5.1 p50 1.972 p99 3.446 VA 1884/1892.4 commit 1251 vram 1073.4 
+2026-11-02T00:31:32Z cell dxvk-interval0_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.87 p99 3.278 VA 1859/1891.9 commit 1196 vram 817.4 
+2026-11-02T00:32:20Z cell dxvk-interval0_3840x2160_siege_small_deploy_p2 ok: load 5.3 p50 2.037 p99 3.592 VA 1881/1892.2 commit 1254 vram 1073.4 
+2026-11-02T00:33:06Z cell dxvk-interval0_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.87 p99 3.234 VA 1859/1892.2 commit 1198 vram 817.4 
+2026-11-02T00:33:54Z cell dxvk-interval0_3840x2160_siege_small_deploy_p3 ok: load 5.5 p50 1.965 p99 3.499 VA 1880/1892.3 commit 1254 vram 1073.4 
+2026-11-02T00:33:54Z block ('3840x2160', 'dxvk', 'availmem2048'): exit, set keys, relaunch
+2026-11-02T00:33:58Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:34:02Z dxvk.conf staged sha 21b952f886c8 at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:34:24Z cell dxvk-availmem2048_3840x2160_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:34:43Z cell dxvk-availmem2048_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:35:30Z cell dxvk-availmem2048_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.831 p99 3.293 VA 1865/1891.5 commit 1187 vram 817.4 
+2026-11-02T00:36:17Z cell dxvk-availmem2048_3840x2160_siege_small_deploy_p1 ok: load 5.2 p50 1.945 p99 3.431 VA 1884/1892.1 commit 1245 vram 1073.4 
+2026-11-02T00:37:03Z cell dxvk-availmem2048_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.855 p99 3.312 VA 1860/1892.8 commit 1194 vram 817.4 
+2026-11-02T00:37:50Z cell dxvk-availmem2048_3840x2160_siege_small_deploy_p2 ok: load 5.2 p50 2.025 p99 3.361 VA 1881/1891.9 commit 1250 vram 1073.4 
+2026-11-02T00:38:36Z cell dxvk-availmem2048_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.859 p99 3.317 VA 1859/1892.3 commit 1196 vram 817.4 
+2026-11-02T00:39:23Z cell dxvk-availmem2048_3840x2160_siege_small_deploy_p3 ok: load 5.3 p50 1.948 p99 3.43 VA 1880/1891.8 commit 1251 vram 1073.4 
+2026-11-02T00:39:23Z block ('3840x2160', 'dxvk', 'latencysleep_off'): exit, set keys, relaunch
+2026-11-02T00:39:28Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-02T00:39:31Z dxvk.conf staged sha 7cd015668dbd at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:39:53Z cell dxvk-latencysleep_off_3840x2160_land_small_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:40:13Z cell dxvk-latencysleep_off_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-02T00:40:59Z cell dxvk-latencysleep_off_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.831 p99 3.285 VA 1865/1895.7 commit 1187 vram 879.4 
+2026-11-02T00:41:46Z cell dxvk-latencysleep_off_3840x2160_siege_small_deploy_p1 ok: load 5.2 p50 1.96 p99 3.415 VA 1884/1896.2 commit 1245 vram 1071.4 
+2026-11-02T00:42:32Z cell dxvk-latencysleep_off_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.881 p99 3.243 VA 1859/1896.1 commit 1193 vram 817.4 
+2026-11-02T00:43:19Z cell dxvk-latencysleep_off_3840x2160_siege_small_deploy_p2 ok: load 5.3 p50 2.048 p99 3.56 VA 1881/1896.1 commit 1252 vram 1073.4 
+2026-11-02T00:44:06Z cell dxvk-latencysleep_off_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.874 p99 3.31 VA 1859/1895.8 commit 1198 vram 816.2 
+2026-11-02T00:44:53Z cell dxvk-latencysleep_off_3840x2160_siege_small_deploy_p3 ok: load 5.4 p50 1.967 p99 3.357 VA 1880/1895.9 commit 1253 vram 1073.4 
+2026-11-02T00:44:57Z exit: exit
+2026-11-02T00:45:01Z dxvk.conf removed at C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T00:45:04Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-02T00:45:05Z summary: 20 cell keys, 0 refused cells -> C:\Users\liamr\repos\napoleon-remastered\harness\runs\20261101_j23sweep2\summary.json
