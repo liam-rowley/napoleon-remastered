@@ -4,5 +4,5 @@
   "state": "open",
   "evidence": "harness/runs/20261030_j43pc/README.md",
   "date": "2026-10-30",
-  "notes": "ctl cam refuses the campaign; next: wait out the opening pan (StopCamera?), then SetCameraTargetInstant with a stack canary"
+  "notes": "ctl cam refuses the campaign; next: wait out the opening pan (StopCamera?), then SetCameraTargetInstant with a stack canary. Owner: liam (no job yet; triage when the campaign camera is next needed)"
 }

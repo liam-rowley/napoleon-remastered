@@ -1,13 +1,14 @@
 """The discovery passes as a verb: run them (J7, on the PC), check every committed result and render their READMEs.
 
-purpose: check discovery/diff/<area>.json (J6), the J7 files (asset index, registry in step, refs, sheets, db tables, loc keys) and the J10 UI atlas (files, rows), render discovery/{diff,assets,db,loc,ui}/README.md, and run the J7 and J10 passes
-usage: python3 core/wsc.py discovery check | render | assets | sheets | db | loc | ui | all   (the passes read the install on the PC; all = assets, db, loc, sheets, ui, then render)
-when: after any discovery pass (discovery/core/*.py) rewrites a result; `check` also fails when a committed README is stale (tests/test_discovery.py runs it in the tests gate)
+purpose: check discovery/diff/<area>.json (J6), the J7 files (asset index, registry in step, refs, sheets, db tables, loc keys) and the J10 UI atlas (files, rows), run the discovery gate (J11: floors, row shapes, recomputed currency, findings), render discovery/{diff,assets,db,loc,ui,gate}/README.md, and run the J7 and J10 passes
+usage: python3 core/wsc.py discovery check | render | gate [--install] [--write] [--json OUT] | assets | sheets | db | loc | ui | all   (the passes read the install on the PC; all = assets, db, loc, sheets, ui, then render)
+when: after any discovery pass (discovery/core/*.py) rewrites a result; `check` includes the gate and also fails when a committed README is stale (tests/test_discovery.py runs it in the tests gate); `gate --install` on the PC after a game update; `gate --write` rewrites discovery/gate/summary.json
 verb: discovery
 """
 import json
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 NAME = 'discovery'
@@ -79,9 +80,10 @@ def readmes(root):
     import loc
     d = Path(root) / 'discovery'
     out = {d / 'diff' / 'README.md': render(root)}
+    import gate
     import ui_atlas
     for sub, mod, src in (('assets', assets, 'summary.json'), ('db', db, 'tables.json'), ('loc', loc, 'summary.json'),
-                          ('ui', ui_atlas, 'summary.json')):
+                          ('ui', ui_atlas, 'summary.json'), ('gate', gate, 'summary.json')):
         if (d / sub / src).exists():
             out[d / sub / 'README.md'] = mod.readme(_json(d / sub / src))
     return out
@@ -133,8 +135,61 @@ def j7_problems(root):
     return bad
 
 
+def _sub(root, *args):
+    """Problems from one sibling `wsc` command: its output lines when it exits non-zero."""
+    p = subprocess.run([sys.executable, str(Path(root) / 'core' / 'wsc.py')] + list(args), capture_output=True, text=True, cwd=root)
+    return [] if p.returncode == 0 else ([x for x in (p.stdout + p.stderr).splitlines() if x.strip() and not x.startswith('ok ')][-12:] or [f'exit {p.returncode}'])
+
+
+def _install(root):
+    """--install: the PC comparison (read-only), as a callable for gate.run_gate."""
+    import gate
+    sys.path.insert(0, str(Path(root) / 'core' / 'proxy' / 'tools'))
+    from pack_list import read_index
+    g = _json(Path(root) / 'discovery' / 'napoleon' / 'games.json')['napoleon']
+    ident = _json(Path(root) / 'proxy' / 'napoleon' / 'identity.json')
+    summary = _json(Path(root) / 'discovery' / 'assets' / 'summary.json')
+    return lambda: gate.install_problems(summary, g['root'], g['data'], ident['exe_name'], ident['sha1'], read_index)
+
+
+def brief_gaps(root):
+    """Every `## Registry gaps` bullet of every committed brief (J11)."""
+    _core(root)
+    import briefpaths
+    out = []
+    for p in sorted((Path(root) / 'jobs').glob('*/brief.md')):
+        out += briefpaths.registry_gaps(p.read_text(encoding='utf-8'))[0]
+    return out
+
+
+def gate_run(root, install=False, write=False):
+    """(lines, failures, doc) of the discovery gate; the recomputations run here, the slow sibling commands in parallel."""
+    _core(root)
+    import gate
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        subs = {'reg check (schemas, rows, every tool has a row and a file)': ex.submit(_sub, root, 'reg', 'check'), 'hotkeys check': ex.submit(_sub, root, 'hotkeys', 'check'),
+                'engine_sites table (gen_tables --check)': ex.submit(_gen_tables, root)}
+        currency = {
+            'discovery areas (J6)': lambda: _load(root)[1],
+            'READMEs current': lambda: [f'{p}: stale; run `wsc discovery render`' for p, t in readmes(root).items()
+                                         if not p.exists() or p.read_text(encoding='utf-8') != t],
+            'assets registry in step with the index (J7)': lambda: j7_problems(root),
+            'ui atlas files and rows (J10)': lambda: ui_problems(root),
+        }
+        currency.update({k: (lambda f=f: f.result()) for k, f in subs.items()})
+        return gate.run_gate(root, currency, brief_gaps(root), _install(root) if install else None, write)
+
+
+def _gen_tables(root):
+    p = subprocess.run([sys.executable, str(Path(root) / 'core' / 'proxy' / 'tools' / 'gen_tables.py'), '--check'], capture_output=True, text=True, cwd=root)
+    return [] if p.returncode == 0 else [x for x in (p.stdout + p.stderr).splitlines() if x.strip()][-12:]
+
+
 def add_arguments(p):
-    p.add_argument('action', choices=('check', 'render', 'all') + ORDER)
+    p.add_argument('action', choices=('check', 'render', 'gate', 'all') + ORDER)
+    p.add_argument('--install', action='store_true', help='gate: also compare the installed packs and exe with the index and the pinned identity (PC, read-only)')
+    p.add_argument('--write', action='store_true', help='gate: rewrite discovery/gate/summary.json first')
+    p.add_argument('--json', metavar='OUT', help='gate: also write the report to this file')
     p.add_argument('rest', nargs='*', help='passed to the pass script (for example --stage registry)')
 
 
@@ -153,12 +208,15 @@ def run(args, ctx):
             p.write_text(text, encoding='utf-8', newline='\n')
             print(f'{p}: {len(text.encode())} bytes')
         return 0
+    if args.action == 'gate':
+        lines, fails, _ = gate_run(root, args.install, args.write)
+        print('\n'.join(lines))
+        print('\n'.join(f'FAIL {f}' for f in fails) or 'discovery gate: ok')
+        if args.json:
+            Path(args.json).write_text(json.dumps({'lines': lines, 'failures': fails}, indent=1) + '\n', encoding='utf-8')
+        return 1 if fails else 0
     _, bad = _load(root)
     if not bad:
-        for p, text in readmes(root).items():
-            if not p.exists() or p.read_text(encoding='utf-8') != text:
-                bad.append(f'{p}: stale; run `wsc discovery render`')
-        bad += j7_problems(root)
-        bad += ui_problems(root)
-    print('\n'.join(bad) or 'discovery: 6 area files valid, J7 and J10 results in step, READMEs current')
+        _, bad, _ = gate_run(root)
+    print('\n'.join(bad) or 'discovery: 6 area files valid, J7 and J10 results in step, READMEs current, gate ok')
     return 1 if bad else 0

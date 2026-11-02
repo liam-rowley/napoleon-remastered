@@ -8,6 +8,52 @@
   "ui\\flags\\quebec\\flag_animation0000.tga"
  ],
  "index_rows": 88415,
+ "pack_fingerprint": {
+  "battleterrain.pack": {
+   "bytes": 2257818459,
+   "entries": 3627
+  },
+  "boot.pack": {
+   "bytes": 10414481,
+   "entries": 19
+  },
+  "buildings.pack": {
+   "bytes": 3147008752,
+   "entries": 11058
+  },
+  "data.pack": {
+   "bytes": 2853618786,
+   "entries": 19235
+  },
+  "local_en.pack": {
+   "bytes": 569570718,
+   "entries": 1852
+  },
+  "local_en_patch.pack": {
+   "bytes": 40448677,
+   "entries": 112
+  },
+  "media.pack": {
+   "bytes": 2526469916,
+   "entries": 74
+  },
+  "rigidmodels.pack": {
+   "bytes": 1414316410,
+   "entries": 4756
+  },
+  "sound.pack": {
+   "bytes": 4259750524,
+   "entries": 40635
+  },
+  "variantmodels.pack": {
+   "bytes": 3101841963,
+   "entries": 5551
+  },
+  "variantmodels2.pack": {
+   "bytes": 2192232644,
+   "entries": 76
+  }
+ },
  "pack_order": [
   "boot.pack",
   "battleterrain.pack",
