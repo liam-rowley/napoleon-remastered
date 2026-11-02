@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.placeholder_text_keys",
+  "claim": "Of 4,245 text and tooltip keys in the layouts, 3,120 are in the loc tables; the other 1,125 are UI-editor placeholder keys (<component>_<state>_Text_<hex>, e.g. row_tx_NewState_Text_28000c) whose text the engine or a script sets at runtime",
+  "state": "verified",
+  "evidence": "discovery/ui/summary.json#counts.text_keys",
+  "date": "2026-11-02",
+  "notes": "J10 static read; each is listed under unresolved (kind text_key) in discovery/ui/units.json.gz"
+}

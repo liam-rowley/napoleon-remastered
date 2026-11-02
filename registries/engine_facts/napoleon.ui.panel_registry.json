@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.panel_registry",
+  "claim": "panelmanager.luac registers 36 layout paths that panel_manager.OpenPanel opens by id (ids such as UnitInfoPopup, BuildingInfoPopup alias common ui\\unit_information and campaign ui\\building_information); 3 of them have no layout file in the game: campaign ui\\find_panel, campaign ui\\prestige, campaign ui\\technology_stealing (ShowPrestige errors for this reason and the menu arguments: J9)",
+  "state": "verified",
+  "evidence": "discovery/ui/scripts.json.gz#panelmanager.luac",
+  "date": "2026-11-02",
+  "notes": "J10 static read"
+}

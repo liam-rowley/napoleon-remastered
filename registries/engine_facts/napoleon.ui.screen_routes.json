@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.screen_routes",
+  "claim": "How vanilla screens open: front-end pages by root LuaCall(\"TransitionTo\", page) (grand campaigns with the button's campaign_key); campaign and battle panels by panel_manager.OpenPanel(id) from the root functions the menu buttons call (the panelmanager.luac registry); popups and dialogs by Component.CreateFromLayout(path, name); repeated items and cards by CreateComponentFromTemplate(name) from ui\\templates layouts or uied.templates records; the HUD and front-end root layouts with the game mode; event popups (layout_*) and battle-end screens by the engine on an event (no script names them)",
+  "state": "verified",
+  "evidence": "discovery/ui/summary.json",
+  "date": "2026-11-02",
+  "notes": "J10 static read; reach per unit and run id in discovery/ui/reach.json"
+}

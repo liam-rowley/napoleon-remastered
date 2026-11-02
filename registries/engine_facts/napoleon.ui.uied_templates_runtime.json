@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.uied_templates_runtime",
+  "claim": "The loose data\\ui\\templates\\uied.templates is a runtime template library, not only the UI editor's: compiled UI scripts create 34 of its records by name with Component.CreateComponentFromTemplate (for example diplomacy_allies_list_item, faction_flag_small, unit_ability_entry, traits_ancs_entry) that exist in no layout file; those records are ui_elements rows template.<name>",
+  "state": "verified",
+  "evidence": "discovery/ui/template.json.gz",
+  "date": "2026-11-02",
+  "notes": "J10 static read (ui_atlas.py); the creation was not watched live"
+}

@@ -656,12 +656,21 @@ def describe(at, u, ur):
     return f"Vanilla {what}. {ent}. Atlas: discovery/ui/{u['ctx']}.json.gz."
 
 
-def rows(at, units, surfaces):
+def reach_note(rr):
+    if not rr:
+        return ''
+    if rr['reach'] == 'reached':
+        return f" Live: reached in run {rr['run']} (state {rr['state']}, static-vs-live agreement {round(rr['agreement'] * 100)} %)."
+    return f" Live: static_only ({rr['reason']})."
+
+
+def rows(at, units, surfaces, reach=None):
     out, recs = [], {}
     for u in units:
         ur = unit_record(at, u, surfaces)
         recs[u['id']] = ur
-        r = dict(id=u['id'], description=describe(at, u, ur), screen=u['screen'], status='atlas')
+        rr = (reach or {}).get('units_reach', {}).get(u['id'])
+        r = dict(id=u['id'], description=describe(at, u, ur) + reach_note(rr), screen=u['screen'], status='atlas')
         vs = {}
         if u.get('surface'):
             vs['layout'] = u['surface'] if not u['surface'].startswith('uied.templates/') else 'data\\ui\\templates\\uied.templates#' + u['surface'].split('/', 1)[1]
@@ -791,8 +800,197 @@ def engine_rows(items):
     return rows
 
 
+# ---------------------------------------------------------------- art named at runtime from db keys (J10 item 6)
+KEY_ROLES = ('flag', 'unit_card', 'portrait', 'unit_info_picture', 'building_info_picture', 'building_icon', 'event_picture',
+             'technology_icon', 'achievement_icon', 'loading_screen')
+SUFFIXES = ('', '_icon', '_info', '_lvl1', '_small', '_large')
+# components whose name shows the role (weaker evidence than a script naming the folder: the engine fills these by getter)
+ROLE_COMPONENTS = {'flag': r'(?i)flag', 'unit_card': r'(?i)unitcard|unit_card|recruitmentcard|card_image', 'portrait': r'(?i)portrait',
+                   'unit_info_picture': r'(?i)unit_info|unit_pic|^picture$', 'building_info_picture': r'(?i)building_pic|building_info|^picture$',
+                   'building_icon': r'(?i)building_icon|^building$', 'event_picture': r'(?i)event_?pic', 'technology_icon': r'(?i)tech_icon|technology_icon',
+                   'achievement_icon': r'(?i)achievement', 'loading_screen': r'(?i)loading'}
+DB_ROWS = os.path.join(ROOT, 'extract', 'napoleon', 'db')
+
+
+def art_keys(at, recs):
+    """Per key-named role: the db field whose values name the role's art, the path pattern, the resolve rate and the misses, the scripts
+    that name the folder (else the engine assembles the path), and the units that draw the role. Reads the decoded rows (wsc discovery db)."""
+    reg = [json.loads(x) for x in open(ASSETS, encoding='utf-8')]
+    tables = {}
+    for fn in sorted(os.listdir(DB_ROWS)) if os.path.isdir(DB_ROWS) else []:
+        d = json.load(open(os.path.join(DB_ROWS, fn), encoding='utf-8'))
+        name = fn[:-5].split('_tables__')[-1] if '_tables__' in fn else fn[:-5]
+        for i, f in enumerate(d['fields']):
+            vals = {str(r[i]).lower() for r in d['rows'] if i < len(r) and isinstance(r[i], str) and r[i]}
+            if vals:
+                tables[(name, f)] = vals
+    out = {}
+    for role in KEY_ROLES:
+        paths = sorted(r['path'].lower() for r in reg if r['role'] == role)
+        if not paths:
+            continue
+        ids = {r['path'].lower(): r['id'] for r in reg if r['role'] == role}
+        folders = collections.Counter(os.path.dirname(p) for p in paths)
+        base = os.path.commonpath([os.path.dirname(p) for p in paths])
+        if base.count('\\') < 1:                    # too shallow (loading_screen spans ui\frontend ui\... and ui\loading_screen_pictures)
+            base = folders.most_common(1)[0][0]
+            paths = [p for p in paths if p.startswith(base + '\\')]
+        # a key names either a file stem in the role folder or a sub-folder (flags: ui\flags\<faction>\...)
+        stems = collections.defaultdict(set)
+        for p in paths:
+            rel = p[len(base) + 1:]
+            parts = rel.split('\\')
+            stems[os.path.splitext(parts[-1])[0]].add(p)
+            if len(parts) > 1:
+                stems[parts[0]].add(p)
+        best = None
+        def strip(v):                                # a value may be a path under the role folder (factions.flags_path: data\ui\flags\austria)
+            v = v.replace('/', '\\')
+            v = v[5:] if v.startswith('data\\') else v
+            return v[len(base) + 1:] if v.startswith(base + '\\') else v
+        for (t, f), vals in tables.items():
+            vals = {strip(v) for v in vals if len(v) >= 3}
+            for suf in SUFFIXES:
+                hit = {v for v in vals if v + suf in stems}
+                if len(hit) < 3 or len(hit) / len(vals) < 0.6:
+                    continue
+                covered = len({p for v in hit for p in stems[v + suf]})
+                score = (covered, len(hit) / len(vals))   # most of the role's art first, then the field whose values all resolve
+                if best is None or score > best[0]:
+                    best = (score, t, f, suf, hit, vals)
+        folder_strs = sorted({base.replace('\\', '/')} | {fo.replace('\\', '/') for fo in folders if folders[fo] > 5})
+        named_in = sorted(rel for rel, r in at.scripts.items() if any(any(fs in s.lower().replace('\\', '/') for fs in folder_strs) for s in r['strings']))
+        idset = {ids[p] for p in paths}
+        by_art = {uid for uid, ur in recs.items() if any(i in idset for c in ur['comps'] for st in c['states'] for i in st['images'])}
+        by_script = {uid for uid, ur in recs.items() if any(s in named_in for s in ur['scripts'])}
+        rx = re.compile(ROLE_COMPONENTS[role])
+        by_name = {uid for uid, ur in recs.items() if any(rx.search(c['name']) for c in ur['comps'])}
+        rec = dict(folder=base, assets=len(paths), named_in_scripts=named_in or 'none: the engine assembles the path (a getter returns it)',
+                   units=sorted(by_art | by_script | by_name),
+                   units_evidence=dict(static_art=sorted(by_art), script_names_folder=sorted(by_script), component_name=sorted(by_name - by_art - by_script)))
+        if best:
+            (n, rate), t, f, suf, hit, vals = best
+            covered = sorted({p for v in hit for p in stems[v + suf]})
+            v0 = sorted(hit)[0] + suf
+            as_file = any(os.path.splitext(os.path.basename(p))[0] == v0 for p in stems[v0])
+            exts = sorted({os.path.splitext(p)[1] for p in covered})
+            rec.update(table=t, field=f, pattern=base + ('\\{value}' + suf + '.' + '|'.join(e[1:] for e in exts) if as_file else '\\{value}\\...'),
+                       values=len(vals), resolved=len(hit), resolve_rate=round(rate, 3), assets_covered=len(covered),
+                       misses=sorted(vals - hit)[:25], asset_ids=[ids[p] for p in covered])
+        else:
+            rec.update(table=None, reason='no db field names this role\'s files (assembled from several fields or not db-driven)')
+        out[role] = rec
+    return out
+
+
+# ---------------------------------------------------------------- the live pass (J10 item 5): trees from the proxy log against the atlas
+TREE = re.compile(r'j10tree (\S+) (\d+): (.*)$')
+# units a probe cannot open (the brief: static_only is allowed and must say why), by id pattern
+STATIC_ONLY = [
+    (r'^frontend\.(mp_|multiplayer_|lobby_|host_campaign|password_entry|quickbattle|session_chat|friends_list|player_stats)', 'needs a multiplayer lobby or Steam session'),
+    (r'^(campaign|common)\.(mp_|multiplayer_|panel_dropin|waiting_for_players|friends_list)', 'needs a multiplayer campaign'),
+    (r'^campaign\.layout_', 'needs a campaign event (the event message picks the layout)'),
+    (r'^campaign\.(popup_pre_battle|popup_battle_results|settlement_captured|campaign_result|duel_challenge_received|agent_action|unit_exchange|enlist_commander|royal_family|travel_destinations|move_options|agent_options|layout_ally_attacked)', 'needs a campaign event or an order (destructive to open: it would change the campaign)'),
+    (r'^battle\.(mp_postbattle|in_battle_results_popup|sp_victory_options|deployment_end|countdown_win_timer|victory_tickets)', 'needs a battle ending or a multiplayer battle'),
+    (r'^(battle|campaign)\.esc_menu|^(battle|campaign|common)\.options', 'no proven safe route (opened by the Escape key or the escape menu; probes send no input)'),
+    (r'^common\.(dialog|dialogue|mp_dialogue|mp_message)', 'opened by a script on demand (a confirmation): no safe route'),
+]
+
+
+def parse_trees(run_dir):
+    """{label: [(path, visible, x, y, w, h, state)]} from every *_proxy.log under run_dir/raw (chunks joined in part order)."""
+    parts = collections.defaultdict(dict)
+    raw = os.path.join(run_dir, 'raw')
+    for fn in sorted(os.listdir(raw)):
+        if fn.endswith('_proxy.log'):
+            for line in open(os.path.join(raw, fn), encoding='utf-8', errors='replace'):
+                m = TREE.search(line.rstrip('\n'))
+                if m:
+                    parts[m.group(1)][int(m.group(2))] = m.group(3)
+    out = {}
+    for label, ps in parts.items():
+        text = ''.join(ps[k] for k in sorted(ps))
+        nodes = []
+        for item in text.split(';'):
+            f = item.split('|')
+            if len(f) == 5:
+                xy, wh = f[2].split(','), f[3].split(',')
+                num = lambda v: float(v) if re.match(r'^-?[\d.]+$', v) else None
+                nodes.append((f[0], f[1] == '1', num(xy[0]), num(xy[-1]), num(wh[0]), num(wh[-1]), f[4]))
+        out[label] = nodes
+    return out
+
+
+def live(at, units, surfaces, run_dir):
+    run = os.path.basename(os.path.normpath(run_dir))
+    trees = parse_trees(run_dir)
+    shots = set()
+    for fn in os.listdir(os.path.join(run_dir, 'raw')):
+        if fn.startswith('shots_'):
+            shots |= {x.strip() for x in open(os.path.join(run_dir, 'raw', fn)) if x.strip()}
+    # every live node's subtree names, by (label, path)
+    sub = {}
+    for label, nodes in trees.items():
+        for p, *_ in nodes:
+            sub.setdefault((label, p), set())
+        for p, *_ in nodes:
+            parts = p.split('/')
+            for i in range(1, len(parts)):
+                sub.setdefault((label, '/'.join(parts[:i])), set()).add(parts[-1])
+    by_name = collections.defaultdict(list)
+    for label, p in sub:
+        by_name[p.split('/')[-1]].append((label, p))
+    res, scale = {}, []
+    for u in units:
+        if u.get('widget') or not u.get('surface'):
+            continue
+        rec = surfaces[u['ctx']][u['surface'].replace('\\', '/')]
+        comps = rec.get('components', [])
+        if u.get('piece'):
+            anchor = next(c for c in comps if c['path'] == u['piece'])
+            mine = [c for c in comps if c['path'] in u['comps'] and c['path'] != anchor['path']]
+            heads = [anchor]
+        else:
+            heads = [c for c in comps if c['parent'] == 'root'] or comps[:1]
+            mine = [c for c in comps if c['path'] != 'root' and c not in heads]
+        static = {c['name'] for c in mine}
+        best = None
+        for h in heads:
+            for label, p in by_name.get(h['name'], []):
+                livenames = sub[(label, p)]
+                matched = static & livenames
+                score = len(matched) / len(static) if static else 1.0
+                if best is None or score > best[0]:
+                    best = (score, label, p, len(static), len(livenames), len(matched), h)
+        if best and (best[0] >= 0.5 or (best[3] <= 2 and best[5] == best[3])):
+            score, label, p, ns, nl, nm, h = best
+            node = next(n for n in trees[label] if n[0] == p)
+            if h['w'] and node[4]:
+                scale.append(node[4] / h['w'])
+            res[u['id']] = dict(reach='reached', run=run, state=label, live_path=p, static_components=ns, live_components=nl,
+                                matched=nm, agreement=round(score, 3), visible=node[1], shot=f'j10_{label}.jpg' if f'j10_{label}.jpg' in shots else None)
+        else:
+            why = next((w for rx, w in STATIC_ONLY if re.search(rx, u['id'])), f'not reached in run {run}: no proven safe route opened it')
+            res[u['id']] = dict(reach='static_only', reason=why, best_match=(dict(state=best[1], live_path=best[2], agreement=round(best[0], 3)) if best else None))
+    reached = [r for r in res.values() if r['reach'] == 'reached']
+    per_ctx = collections.defaultdict(lambda: [0, 0])
+    for uid, r in res.items():
+        per_ctx[uid.split('.')[0]][1] += 1
+        per_ctx[uid.split('.')[0]][0] += r['reach'] == 'reached'
+    scale.sort()
+    med = scale[len(scale) // 2] if scale else None
+    return dict(run=run, states={k: dict(nodes=len(v), visible_top=[n[0] for n in v if '/' not in n[0]],
+                                          shot=f'j10_{k}.jpg' if f'j10_{k}.jpg' in shots else None) for k, v in sorted(trees.items())},
+                reached=len(reached), units=len(res), reached_by_context={k: f'{a} of {b}' for k, (a, b) in sorted(per_ctx.items())},
+                agreement=dict(matched=sum(r['matched'] for r in reached), static=sum(r['static_components'] for r in reached),
+                               mean=round(sum(r['agreement'] for r in reached) / len(reached), 3) if reached else None),
+                width_scale=dict(median=round(med, 4) if med else None, n=len(scale),
+                                 note='live width / static width of the matched head components; 1080/960 = 1.125, 1080/1024 = 1.0547'),
+                units_reach=dict(sorted(res.items())))
+
+
 # ---------------------------------------------------------------- outputs
-def write_atlas(at, units, surfaces, recs, engine=()):
+def write_atlas(at, units, surfaces, recs, engine=(), reach=None, keyed=None):
     shas = {}
     for ctx, ss in sorted(surfaces.items()):
         shas[f'{ctx}.json.gz'] = jdump(os.path.join(OUT, f'{ctx}.json.gz'), dict(context=ctx, surfaces=ss), gz=True)
@@ -842,6 +1040,13 @@ def write_atlas(at, units, surfaces, recs, engine=()):
         unread=sorted(r['path'] for r in tpls if 'layout_unread' in r),
         scripts_unattached=sorted(set(at.scripts) - {s for u in recs.values() for s in u['scripts']}),
         engine_items=[[e['id'], e['route'], e['owner']] for e in engine],
+        reach=(f"{reach['reached']} of {reach['units']} layout and template units reached live in run {reach['run']} "
+               f"({', '.join(f'{k} {v}' for k, v in reach['reached_by_context'].items())}); static-vs-live agreement "
+               f"{reach['agreement']['matched']} of {reach['agreement']['static']} components (mean {reach['agreement']['mean']}); "
+               f"the rest static_only with the reason (`reach.json`)." if reach else None),
+        art_keys=('; '.join(f"{k} {v['table']}.{v['field']} -> {v['pattern']} ({round(v['resolve_rate'] * 100)} % of values resolve, "
+                            f"{v['assets_covered']} of {v['assets']} files)" if v.get('table') else f"{k}: no db rule ({v['reason']})"
+                            for k, v in sorted(keyed.items())) + ' (`art_keys.json`).') if keyed else None,
         units=dict(sorted(units_out.items())), sha256=dict(sorted(shas.items())))
     jdump(os.path.join(OUT, 'summary.json'), summary)
     return summary
@@ -964,23 +1169,43 @@ def write_used_by(users):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('step', nargs='?', default='all', choices=('atlas', 'rows', 'all'))
+    ap.add_argument('step', nargs='?', default='all', choices=('atlas', 'rows', 'live', 'art', 'all'))
     ap.add_argument('--games')
+    ap.add_argument('--run', help='live: the run folder whose raw/*_proxy.log hold the j10tree lines (writes discovery/ui/reach.json)')
     a = ap.parse_args(argv)
     at = Atlas(load_games(a.games))
     units, surfaces = build_units(at)
-    rs, recs = rows(at, units, surfaces)
+    reach_path = os.path.join(OUT, 'reach.json')
+    if a.step == 'live':
+        r = live(at, units, surfaces, os.path.join(ROOT, a.run) if not os.path.isabs(a.run) else a.run)
+        jdump(reach_path, r)
+        print(json.dumps({k: v for k, v in r.items() if k not in ('units_reach', 'states')}, indent=1))
+        a.step = 'all'
+    reach = json.load(open(reach_path, encoding='utf-8')) if os.path.exists(reach_path) else None
+    rs, recs = rows(at, units, surfaces, reach)
+    keys_path = os.path.join(OUT, 'art_keys.json')
+    if a.step == 'art':
+        ak = art_keys(at, recs)
+        jdump(keys_path, dict(generator='discovery/core/ui_atlas.py art', roles=ak))
+        for k, v in ak.items():
+            print(k, v.get('table'), v.get('field'), v.get('pattern'), v.get('resolve_rate'), v.get('assets_covered'), '/', v['assets'], len(v['units']), 'units')
+        a.step = 'all'
+    keyed = json.load(open(keys_path, encoding='utf-8'))['roles'] if os.path.exists(keys_path) else {}
+    extra = collections.defaultdict(set)
+    for role in keyed.values():
+        for aid in role.get('asset_ids', []):
+            extra[aid] |= set(role['units'])
     engine, bad = engine_drawn(at, surfaces)
     if bad:
         print('\n'.join(bad))
         return 1
     rs += engine_rows(engine)
     if a.step in ('atlas', 'all'):
-        s = write_atlas(at, units, surfaces, recs, engine)
+        s = write_atlas(at, units, surfaces, recs, engine, reach, keyed)
         print(json.dumps(s['counts'], indent=1))
     if a.step in ('rows', 'all'):
         write_rows(rs)
-        n = write_used_by(art_users(recs))
+        n = write_used_by(art_users(recs, extra))
         print(f'{ROWS}: {len(rs)} rows; {n} assets rows with used_by')
     return 0
 
