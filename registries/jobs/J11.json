@@ -3,7 +3,7 @@
   "description": "Phase 2 gate as code: every registry populated and current, and a brief check that fails any brief citing a found path instead of a registry id. Failing-fixture tests.",
   "title": "Discovery gate",
   "phase": 2,
-  "status": "review",
+  "status": "done",
   "model": "sonnet",
   "needs_pc": false,
   "depends_on": [
@@ -14,5 +14,6 @@
     "J10"
   ],
   "brief": "jobs/J11/brief.md",
-  "report": "jobs/J11/report.md"
+  "report": "jobs/J11/report.md",
+  "review": "jobs/J11/review.md"
 }
