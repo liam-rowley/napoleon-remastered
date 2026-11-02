@@ -11,7 +11,7 @@ pushes one order per unit and reads every unit back at rest. Proven on the PC in
 - A 9-unit line: 8 of 9 settled in 12.7 s at ffwd. The general's bodyguard does not hold its facing.
 
 Targets the engine cannot reach (cliffs, off the map) fail, and units it will not take are refused. 20 acceptance passes on the final
-build `715e9dfc0727`: run `20261102_j28acc` (result under Evidence).
+build `715e9dfc0727`: runs `20261102_j28acc` and `20261102_j28acc2`, **20 of 20** (`acceptance.py streak --build 715e9dfc0727 --watcher 1.2.0`: 20). After the run the proxy was uninstalled: the game folder is identical to the pre-install snapshot (1564 files) and the exe is vanilla.
 
 ## What was built
 - **Core (v0.8.0, warscape-core PR #15):**
@@ -60,7 +60,7 @@ Run `harness/runs/20261102_j28pc`: the README walks through steps a to i, and it
 - **h, deployment:** orders side-step or jump, never walk.
 - **i:** halt stops a walking unit; square on/off changes the shape; wedge has no effect on these units.
 
-The idle cost, the 20 passes and the uninstall are under the acceptance run `20261102_j28acc` (see Finish).
+**Acceptance (rule 79):** 20 consecutive passes on build `715e9dfc0727`, watcher 1.2.0: passes 2 to 20 of run `20261102_j28acc` and pass 1 of `20261102_j28acc2`. Pass 1 of the first run ran the same kit (`kit_20261102T132106Z_656277971b7b`) but its ledger line names `6e913ef90a70-dirty`: `acceptance.py` reads the build id before the pass's launch, from the previous launch's `proxy.log` (here a dev build from step i), so one more pass made the 20 (Open questions). Every pass ran with `dev.orders=1` and no order (idle). Worst of the 20 against the baseline limits: load 0.84 of its limit (campaign_start), shot difference 0.51 of its threshold (hist_dresden). Perf p50 is 1.88 ms against 1.868 in J8's idle check. **Uninstall:** the game folder is identical to the pre-install snapshot (1564 files), the exe is vanilla, and settings are unchanged after every pass (`settings_identical`) (`harness/runs/20261102_j28pc/raw/pc_deploy_install_20261102T145923Z.json`).
 
 ## What each deliverable found
 1. **Core PR**: built and tested. Every host test passes with Napoleon's adapter in the pinned Docker image, and the core gates are
@@ -84,7 +84,7 @@ The idle cost, the 20 passes and the uninstall are under the acceptance run `202
    - The group layouts (`Single_Line_*`, ...) are whole-army formations: out of scope (one command per unit).
 6. **The verb**: as built; rules 77 and 78 hold (no key or click; every ok carries a check), and `tests/test_ctl.py` covers it.
 7. **Scenarios**: land_small and siege_small. `land_40` is not on `main` (J46 is queued), so there was no 20 against 20 pass.
-8. **Acceptance**: `dev.orders` is in `ctl.launch.keys`, so every pass ran with the key on and idle: run `20261102_j28acc`.
+8. **Acceptance**: `dev.orders` is in `ctl.launch.keys`, so every pass ran with the key on and idle: 20 of 20 on `715e9dfc0727` (Evidence).
 9. **Facts and tools**: 16 facts: 13 verified (2026-11-02, run 20261102_j28pc), 3 open (frontage and ranks, the sound, ship orders for J60). Tool rows exist for the
    chunk and the probe; the run helpers have headers.
 
@@ -109,6 +109,7 @@ The idle cost, the 20 passes and the uninstall are under the acceptance run `202
 - Wedge had no visible effect on this map's cavalry. Is that the unit type, or does the code need an argument? Diamond, loose and
   prone were not run.
 - J60 (ships): see `napoleon.battle.ship_orders`.
+- **Core backlog candidate (for the next planner):** `core/harness/acceptance.py` `run` reads `env.identity()` before the pass launches the game, so each ledger line names the DLL of the previous launch. After a reinstall, the first pass is credited to the old build. The fix is to read the identity after the pass's launch, or match the log's launch id. It is a core harness change, which rule 79 would count, so it is not made here.
 
 ## Finish
 Pinned to `v0.8.0` (`build.sh id`: `715e9dfc0727`, the acceptance build); `wsc reg set jobs J28 status=review report=jobs/J28/report.md`; the draft pull request is open for the review.
