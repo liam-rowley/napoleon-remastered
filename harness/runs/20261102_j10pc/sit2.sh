@@ -12,8 +12,13 @@ P=C:/Users/liamr/repos/napoleon-remastered/$RUN/probes
 Q=C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes
 MC=napoleon_remastered/lua/probes/campaign_modal_close.lua
 G='C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War'
-SCR=$(bash $J scratch j10)/20261102_j10pc/a2
+SCR=$(bash $J scratch j10)/20261102_j10pc/a3
 RAW=$SCR/raw; SHOTS=$SCR/shots; mkdir -p "$RAW" "$SHOTS"
+# One driver at a time: attempt 2 ran beside a still-live attempt 1 (TaskStop ended the tee, not the script) and its unguarded calls
+# crashed the game twice. A second driver refuses to start while the first is alive; stop a driver with kill on the pid in driver.pid.
+PIDF=$(dirname "$SCR")/driver.pid
+if [ -f "$PIDF" ] && kill -0 "$(cat "$PIDF")" 2>/dev/null; then echo "driver $(cat "$PIDF") is still running: kill it first"; exit 1; fi
+echo $$ > "$PIDF"; trap 'rm -f "$PIDF"' EXIT
 restored() { for t in $(seq 1 60); do bash $J status 2>/dev/null | grep -q '"profile_active":  null' && return 0; sleep 2; done; echo "restore not seen"; }
 L() { bash $J ctl j10 "lua $1" > "$RAW/$2.txt" 2>&1; echo "$2 rc $?: $(tail -c 200 "$RAW/$2.txt" | tr -d '\n' | cut -c1-200)"; }
 T() { L "$P/tree.lua -- $1 ${2:-*}" "tree_$1"; L "$Q/vis.lua" "vis_$1"; }

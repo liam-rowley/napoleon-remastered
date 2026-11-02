@@ -1,0 +1,411 @@
+2026-11-02T08:20:13.283Z [INFO ] [t24616] launch 20261102T082013Z-p14088: Napoleon: Total War proxy d3d9.dll build 46f52d356ce8 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 14088, base 00540000)
+2026-11-02T08:20:13.283Z [INFO ] [t24616] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.autostart                      =             
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.autostart_delay_ms             = 1500        
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.camera                         = 1           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.capture                        = 0           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.capture_dir                    = C:\napoleon_remastered_pc\captures
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.console                        = 0           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.ctl                            = 1           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.file_rules                     = napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.log_files                      = 0           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.lua_bridge                     = 1           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.perf                           = 1           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.skip_intro                     = 1           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.state_json                     = 1           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   dev.timeline                       = 1           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   gfx.grass_proof                    = 0           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   gfx.shadow_proof                   = 0           
+2026-11-02T08:20:13.283Z [INFO ] [t24616] config:   gfx.shadow_sweep_proof             = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   gfx.ship_lod_proof                 = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   gfx.sprite_page_proof              = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   gfx.tree_lod_proof                 = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   gfx.unit_lod_proof                 = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   headless.display_name              = Virtual Display Driver
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   headless.enabled                   = 1           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   headless.refuse_grace_ms           = 5000        
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   headless.settle_ms                 = 500         
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   headless.size                      = 1920x1080   
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   headless.test_dll_window_ms        = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   headless.test_off_thread           = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.backend                      = dxvk        
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.enabled                      = 1           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.exe_guard                    = 1           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.log_level                    = info        
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.minidump                     = 2           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] config:   proxy.runtime_patches              = 1           
+2026-11-02T08:20:13.284Z [INFO ] [t24616] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-11-02T08:20:13.284Z [INFO ] [t24616] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-11-02T08:20:13.319Z [INFO ] [t24616] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 31 ms)
+2026-11-02T08:20:13.320Z [INFO ] [t24616] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine: image base 00540000 (file ImageBase 0x00400000, delta 0x00140000)
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   unit_lod.override_default        patch RVA 0x00015431 -> 00555431: stock (key off) cur [00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   unit_lod.imposter_distance_default patch RVA 0x000155a1 -> 005555a1: stock (key off) cur [00 00 c8 42]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   ship_lod.knot_distance_default   patch RVA 0x00015631 -> 00555631: stock (key off) cur [00 00 48 42]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   unit_lod.large_imposter_distance_default patch RVA 0x000156c1 -> 005556c1: stock (key off) cur [00 00 48 43]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   ship_lod.rope_distance_default   patch RVA 0x000159c1 -> 005559c1: stock (key off) cur [00 00 48 43]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   ship_lod.rope_distance_fadeout_default patch RVA 0x00015a11 -> 00555a11: stock (key off) cur [00 00 16 43]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.order_formation_push      hook  RVA 0x0018d780 -> 006cd780: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.order_move_push           hook  RVA 0x0018dc00 -> 006cdc00: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.order_formation_ctor      hook  RVA 0x00199320 -> 006d9320: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.order_move_ctor           hook  RVA 0x00199760 -> 006d9760: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.command_dtor              hook  RVA 0x001a95b0 -> 006e95b0: stock cur [56 8b f1 8b 46 44 85 c0]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   guard.proxy_set_push             hook  RVA 0x001b04e0 -> 006f04e0: stock cur [55 56 8b f1 8b 6e 18]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.camera_chain_read         hook  RVA 0x001ce998 -> 0070e998: stock cur [a1 8c 41 4a 01 83 c4 08 8b 80 f8 00 00 00 8b 80 b8 81 02 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   guard.men_inside_battle_bounds   hook  RVA 0x001dae50 -> 0071ae50: stock cur [55 8b ec 83 e4 f0]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.camera_mode_read          hook  RVA 0x001fb0aa -> 0073b0aa: stock cur [8b 8e 00 08 00 00 ff 74 24 0c ff 74 24 0c 8b 01 ff 90 c0 00 00 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.camera_set_target_pos     hook  RVA 0x001fb320 -> 0073b320: stock cur [83 ec 08 53 56 8b 74 24 18 8b d9 57 8b 7c 24 18]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.unit_position_get         hook  RVA 0x00216d10 -> 00756d10: stock cur [83 ec 0c 56 ff 74 24 14]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.unit_bearing_get          hook  RVA 0x00216d60 -> 00756d60: stock cur [56 ff 74 24 08 8b f1 e8 d4 39 06 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.selection_ctor            hook  RVA 0x0028f580 -> 007cf580: stock cur [c7 01 e8 b5 32 01 8b c1]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   battle.selection_add_unit        hook  RVA 0x002a0480 -> 007e0480: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   guard.nav_node_2d                hook  RVA 0x0041c050 -> 0095c050: stock cur [8b 44 24 08 85 c0]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   guard.nav_node_at_point          hook  RVA 0x0041c080 -> 0095c080: stock cur [83 ec 14 56 57]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   campaign.cli_ctor                hook  RVA 0x005011f0 -> 00a411f0: stock (key off) cur [83 ec 0c 56 8b f1 8d 4c 24 04 68 e8 1b 36 01 e8]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   campaign.cli_ctor_tail           hook  RVA 0x00501240 -> 00a41240: stock (key off) cur [8b 44 24 14 8b 00 89 46 28 8b c6 c7 06 c4 1b 36 01 5e 83 c4 0c c2 04 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   campaign.cli_execute             hook  RVA 0x00525200 -> 00a65200: stock (key off) cur [51 53 55 56 57 89 4c 24 10 e8 42 07 00 00 ff 74]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   campaign.owner_selection_wiring  hook  RVA 0x0058c6b0 -> 00acc6b0: stock (key off) cur [8d 8b f4 00 00 00 c7 01 40 a5 36 01 8d bb fc 09 00 00 8b 45 00 89 41 04 89 7c 24 38 89 48 28]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   campaign.owner_global_read       hook  RVA 0x005dfecf -> 00b1fecf: stock (key off) cur [8b 0d 38 49 5c 01 83 c4 04 8b d8 8b 89 fc 09 00 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   campaign.handler_gate_test       hook  RVA 0x006afa4b -> 00befa4b: stock (key off) cur [80 7f 54 00 74 64 83 7f 08 00 74 5e]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   guard.engine_free                hook  RVA 0x00bf7ef0 -> 01137ef0: stock cur [8b 44 24 04 83 ec 08]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   guard.heap_serialize_setter      hook  RVA 0x00bf8890 -> 01138890: stock cur [0f b6 44 24 04]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   console.handler_slot_test        hook  RVA 0x00c5612c -> 0119612c: stock (key off) cur [83 3d b0 70 76 01 00 0f 84 fe fe ff ff]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   console.handler_slot_call        hook  RVA 0x00c56143 -> 01196143: stock (key off) cur [8b 0d b0 70 76 01 8d 54 24 2c 83 c4 04 8b 01 52 8d 54 24 1c 52 8b 00 ff d0 84 c0]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   shadow.light_sweep               patch RVA 0x00d276ac -> 012676ac: stock (key off) cur [00 00 96 c2]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   shadow.far_cap_q3                patch RVA 0x00d86976 -> 012c6976: stock (key off) cur [00 00 fa 43]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   shadow.map_size_q34              patch RVA 0x00d86986 -> 012c6986: stock (key off) cur [00 08 00 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   trees.far_other                  patch RVA 0x00de14c6 -> 013214c6: stock (key off) cur [00 00 48 42]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   trees.far_q3                     patch RVA 0x00de14dc -> 013214dc: stock (key off) cur [00 00 48 43]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   trees.far_q2                     patch RVA 0x00de14f2 -> 013214f2: stock (key off) cur [00 00 16 43]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   trees.far_q1                     patch RVA 0x00de14fc -> 013214fc: stock (key off) cur [00 00 c8 42]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   sprite.page_q0                   patch RVA 0x00e400d4 -> 013800d4: stock (key off) cur [00 00 00 44]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   sprite.page_q3                   patch RVA 0x00e400e5 -> 013800e5: stock (key off) cur [00 00 80 44]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   sprite.page_q2                   patch RVA 0x00e40100 -> 01380100: stock (key off) cur [00 00 80 44]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   sprite.page_q1                   patch RVA 0x00e40113 -> 01380113: stock (key off) cur [00 00 80 44]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine: nothing to do - 45 sites: 45 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 26 hooks verified
+2026-11-02T08:20:13.696Z [INFO ] [t24616] patch_engine: 0 of 0 planned sites written
+2026-11-02T08:20:13.696Z [INFO ] [t24616] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='napoleon_remastered\lua\fixed_sky_rules.txt' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-11-02T08:20:13.696Z [INFO ] [t24616] timeline: dllmain +435 ms
+2026-11-02T08:20:13.698Z [INFO ] [t24616] console: dev.console=0
+2026-11-02T08:20:13.698Z [INFO ] [t24616] camera: dev.camera=1
+2026-11-02T08:20:13.698Z [INFO ] [t24616] redirect: 1 rules from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-02T08:20:13.698Z [INFO ] [t24616] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-11-02T08:20:13.698Z [INFO ] [t24616] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-11-02T08:20:13.698Z [INFO ] [t24616] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-11-02T08:20:13.698Z [INFO ] [t24616] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-11-02T08:20:13.698Z [INFO ] [t24616] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-11-02T08:20:13.698Z [INFO ] [t24616] redirect: rule file add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack (rules line 3)
+2026-11-02T08:20:13.698Z [INFO ] [t24616] hook: iat KERNEL32.dll!CreateFileW slot 01447170: 7634ea50 -> 6951ca00
+2026-11-02T08:20:13.698Z [INFO ] [t24616] hook: iat KERNEL32.dll!CreateFileA slot 01447188: 7634ea40 -> 6951c820
+2026-11-02T08:20:13.698Z [INFO ] [t24616] hook: iat KERNEL32.dll!GetFileAttributesW slot 0144722c: 7634ec70 -> 6951c720
+2026-11-02T08:20:13.698Z [INFO ] [t24616] hook: iat KERNEL32.dll!GetFileAttributesExW slot 0144728c: 7634ec60 -> 6951c600
+2026-11-02T08:20:13.698Z [INFO ] [t24616] hook: iat KERNEL32.dll!GetFileAttributesExA slot 0144724c: 7634ec50 -> 6951c490
+2026-11-02T08:20:13.698Z [INFO ] [t24616] hook: iat KERNEL32.dll!FindFirstFileExW slot 014470cc: 7634eb30 -> 6951c3d0
+2026-11-02T08:20:13.698Z [INFO ] [t24616] hook: iat KERNEL32.dll!FindFirstFileW slot 0144721c: 7634eb50 -> 6951c330
+2026-11-02T08:20:13.699Z [INFO ] [t24616] hook: iat KERNEL32.dll!FindNextFileW slot 01447220: 7634eba0 -> 695193d0
+2026-11-02T08:20:13.699Z [INFO ] [t24616] hook: iat KERNEL32.dll!FindClose slot 01447218: 7634ead0 -> 69517fc0
+2026-11-02T08:20:13.699Z [INFO ] [t24616] hook: iat binkw32.dll!_BinkOpen@8 slot 01447480: 1800d690 -> 6951e5b0
+2026-11-02T08:20:13.699Z [INFO ] [t24616] hook: iat binkw32.dll!_BinkClose@4 slot 01447490: 1800f850 -> 69518a00
+2026-11-02T08:20:13.700Z [INFO ] [t24616] headless: on: target 'Virtual Display Driver' at exactly 1920x1080, settle 500 ms, refuse grace 5000 ms
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!CreateWindowExW slot 014473b4: 7526e930 -> 6952a570
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!ShowWindow slot 014473b0: 7527b6a0 -> 69525420
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!SetWindowPos slot 01447310: 7527b5e0 -> 69524da0
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!MoveWindow slot 014473ac: 7527ae90 -> 69524890
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!SetWindowLongW slot 01447374: 75267570 -> 69525a70
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!ChangeDisplaySettingsW slot 01447378: 75305c30 -> 69522d80
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!MessageBoxW slot 01447328: 752ea5b0 -> 695249a0
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!DialogBoxIndirectParamW slot 0144730c: 752c11f0 -> 69522d10
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat user32.dll!SetFocus slot 0144739c: 7527b3e0 -> 69523b40
+2026-11-02T08:20:13.700Z [INFO ] [t24616] hook: iat dinput8.dll!DirectInput8Create slot 01447024: 698d6fa0 -> 69522e10
+2026-11-02T08:20:13.700Z [INFO ] [t24616] init done; the dxvk backend loads at the first d3d9 call
+2026-11-02T08:20:13.711Z [INFO ] [t26340] ctl: watching C:\napoleon_remastered_pc\ctl\ (15374 ids already used)
+2026-11-02T08:20:13.841Z [INFO ] [t26340] ctl: j10-20261102T082011Z-1928523064: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- single_player
+2026-11-02T08:20:14.544Z [INFO ] [t24616] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-11-02T08:20:14.544Z [INFO ] [t24616] redirect: add data\zz_napoleon_remastered_fixed_sky.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack; rules line 3)
+2026-11-02T08:20:14.665Z [WARN ] [t24616] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-11-02T08:20:14.665Z [INFO ] [t24616] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T08:20:14.665Z [INFO ] [t24616] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-02T08:20:14.665Z [INFO ] [t24616] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-11-02T08:20:14.667Z [INFO ] [t24616] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-02T08:20:14.667Z [INFO ] [t24616] backend: dxvk ready (Direct3DCreate9=5dc71530)
+2026-11-02T08:20:14.814Z [INFO ] [t24616] Direct3DCreate9(sdk=32) -> 0c159028 [dxvk]
+2026-11-02T08:20:14.814Z [INFO ] [t24616] headless: 2 displays (physical pixels):
+2026-11-02T08:20:14.814Z [INFO ] [t24616] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-11-02T08:20:14.814Z [INFO ] [t24616] headless:   \\.\DISPLAY11 2560,1440 1920x1080 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-11-02T08:20:14.815Z [INFO ] [t24616] headless: target 2560,1440 1920x1080 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 1920x1080); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 1920x1080@60
+2026-11-02T08:20:14.817Z [INFO ] [t24616] hook: vtable IDirect3D9::GetAdapterModeCount (headless) slot 5e30e018 [6]: 5dc71ee0 -> 695238f0
+2026-11-02T08:20:14.817Z [INFO ] [t24616] hook: vtable IDirect3D9::EnumAdapterModes (headless) slot 5e30e01c [7]: 5dc71f40 -> 69525120
+2026-11-02T08:20:14.817Z [INFO ] [t24616] hook: vtable IDirect3D9::GetAdapterDisplayMode (headless) slot 5e30e020 [8]: 5dc71a20 -> 69523760
+2026-11-02T08:20:14.817Z [INFO ] [t24616] hook: vtable IDirect3D9::GetAdapterMonitor (headless) slot 5e30e03c [15]: 5dc71da0 -> 69523560
+2026-11-02T08:20:14.817Z [INFO ] [t24616] hook: vtable IDirect3D9::CreateDevice (headless) slot 5e30e040 [16]: 5dc72980 -> 69526500
+2026-11-02T08:20:14.817Z [INFO ] [t24616] timeline: d3d_create +1556 ms
+2026-11-02T08:20:14.818Z [INFO ] [t24616] camera: install: owner global 015e418c, battle +0xf8, controller +0x281b8, mode +0x800, SetTargetAndPosition 0073b320 (slot 47); sites battle.camera_chain_read battle.camera_mode_read battle.camera_set_target_pos
+2026-11-02T08:20:14.818Z [INFO ] [t24616] hook: vtable IDirect3D9::CreateDevice slot 5e30e040 [16]: 69526500 -> 695092e0
+2026-11-02T08:20:14.818Z [INFO ] [t24616] headless: GetAdapterDisplayMode(adapter 0) -> 1920x1080@60 (the target)
+2026-11-02T08:20:14.818Z [INFO ] [t24616] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-11-02T08:20:14.818Z [INFO ] [t24616] headless: GetAdapterDisplayMode(adapter 1) -> 1920x1080@60 (the target)
+2026-11-02T08:20:14.818Z [INFO ] [t24616] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-11-02T08:20:14.898Z [INFO ] [t24616] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 121)
+2026-11-02T08:20:14.898Z [INFO ] [t24616] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-11-02T08:20:14.900Z [INFO ] [t24616] headless: window 016701c4 'Total War: NAPOLEON' class 'Napoleon' asked 1938x1127 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-11-02T08:20:14.900Z [INFO ] [t24616] headless: window 016701c4 placed at 2560,1440 1920x1080 (inside the target)
+2026-11-02T08:20:14.902Z [INFO ] [t24616] headless: SetFocus(016701c4) dropped (another process has the foreground; 1 so far)
+2026-11-02T08:20:14.902Z [INFO ] [t24616] headless: CreateDevice: back buffer 1920x1080, windowed, window 016701c4
+2026-11-02T08:20:14.944Z [INFO ] [t24616] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-11-02T08:20:14.944Z [INFO ] [t24616] hook: vtable IDirect3DDevice9::Reset (headless) slot 5e30d7f0 [16]: 5dc9b9e0 -> 69526640
+2026-11-02T08:20:14.944Z [INFO ] [t24616] hook: vtable IDirect3DDevice9::Present (headless) slot 5e30d7f4 [17]: 5dca9dd0 -> 6952bf80
+2026-11-02T08:20:14.944Z [INFO ] [t24616] timeline: device_created +1683 ms hr 0x00000000 flags 0x42
+2026-11-02T08:20:14.946Z [INFO ] [t24616] hook: vtable IDirect3DDevice9::Present slot 5e30d7f4 [17]: 6952bf80 -> 69509be0
+2026-11-02T08:20:14.969Z [INFO ] [t24616] timeline: first_present +1708 ms
+2026-11-02T08:20:14.971Z [INFO ] [t24616] headless: ON THE VIRTUAL DISPLAY: window 2560,1440 1920x1080 on \\.\DISPLAY11, first frame presented there at 1.3 s (client 1920x1080, back buffer 1920x1080)
+2026-11-02T08:20:18.181Z [INFO ] [t24616] hook: vtable IDirectInput8::CreateDevice (headless) slot 698f6270 [3]: 698d4b20 -> 69522eb0
+2026-11-02T08:20:18.181Z [INFO ] [t24616] hook: vtable IDirectInputDevice8::SetCooperativeLevel (headless) slot 698f60a0 [13]: 698dcdd0 -> 69522a40
+2026-11-02T08:20:18.181Z [INFO ] [t24616] headless: DirectInput SetCooperativeLevel(2b05bad0, window 016701c4, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-11-02T08:20:19.245Z [INFO ] [t24616] wsp_sentinel: engine dummynode = 0152d128 (sizearray 0, lsizenode 0)
+2026-11-02T08:20:19.245Z [INFO ] [t24616] luaopen_wsp: engine lua_State 05152128, global state 051ce624 (thread 24616)
+2026-11-02T08:20:19.245Z [INFO ] [t24616] timeline: lua_bridge_loaded +5984 ms
+2026-11-02T08:20:19.246Z [INFO ] [t24616] lua: wsp.lua loaded (wsp 1)
+2026-11-02T08:20:19.267Z [INFO ] [t24616] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-11-02T08:20:19.269Z [INFO ] [t24616] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-11-02T08:20:19.365Z [INFO ] [t24616] lua: wrapper: frontend pumps from OnUpdate
+2026-11-02T08:20:19.523Z [INFO ] [t24616] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 00000750 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-11-02T08:20:19.523Z [INFO ] [t24616] timeline: movie_refused +6262 ms movies\sega_logo_sting_hd.bik
+2026-11-02T08:20:19.527Z [INFO ] [t24616] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 00000750 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-11-02T08:20:19.527Z [INFO ] [t24616] timeline: movie_refused +6266 ms movies\corei7_intro.bik
+2026-11-02T08:20:19.531Z [INFO ] [t24616] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 00000750 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-11-02T08:20:19.531Z [INFO ] [t24616] timeline: movie_refused +6270 ms movies\ntw_intro.bik
+2026-11-02T08:20:19.533Z [INFO ] [t24616] timeline: movie_open +6272 ms movies\frontend2.bik
+2026-11-02T08:20:19.537Z [INFO ] [t24616] movies: BinkOpen movies\frontend2.bik [handle 00000750 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b593600
+2026-11-02T08:20:19.537Z [INFO ] [t24616] scene: intro -> frontend after 336688.0 s (uptime 5.9 s, frame 4, lua frontend)
+2026-11-02T08:20:19.540Z [INFO ] [t24616] lua: first pump from context 'frontend' (thread 24616)
+2026-11-02T08:20:19.540Z [INFO ] [t24616] timeline: frontend_first_pump +6279 ms
+2026-11-02T08:20:19.564Z [INFO ] [t24616] timeline: first_present_after_ready +6303 ms frontend
+2026-11-02T08:20:19.568Z [INFO ] [t26340] ctl: j10-20261102T082011Z-1928523064: ok
+2026-11-02T08:20:19.583Z [INFO ] [t26340] ctl: j10-20261102T082017Z-1311527996: waitfor frontend 180
+2026-11-02T08:20:19.585Z [INFO ] [t26340] ctl: j10-20261102T082017Z-1311527996: ok
+2026-11-02T08:20:20.614Z [INFO ] [t26340] ctl: j10-20261102T082020Z-313265141: autostart battle:siege_small 240
+2026-11-02T08:24:20.667Z [INFO ] [t26340] ctl: j10-20261102T082020Z-313265141: failed: no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)
+2026-11-02T08:24:20.782Z [INFO ] [t26340] ctl: j10-20261102T082316Z-631819542: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:24:50.786Z [INFO ] [t26340] ctl: j10-20261102T082316Z-631819542: timeout: no result after 30 s (last Lua pump 271.2 s ago, context frontend)
+2026-11-02T08:24:50.902Z [INFO ] [t26340] ctl: j10-20261102T082422Z-1355626318: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- siege_deploy *
+2026-11-02T08:25:20.905Z [INFO ] [t26340] ctl: j10-20261102T082422Z-1355626318: timeout: no result after 30 s (last Lua pump 301.3 s ago, context frontend)
+2026-11-02T08:25:21.021Z [INFO ] [t26340] ctl: j10-20261102T082513Z-1392028166: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:25:51.022Z [INFO ] [t26340] ctl: j10-20261102T082513Z-1392028166: timeout: no result after 30 s (last Lua pump 331.5 s ago, context frontend)
+2026-11-02T08:25:51.139Z [INFO ] [t26340] ctl: j10-20261102T082522Z-291741163: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:26:21.146Z [INFO ] [t26340] ctl: j10-20261102T082522Z-291741163: timeout: no result after 30 s (last Lua pump 361.6 s ago, context frontend)
+2026-11-02T08:26:21.263Z [INFO ] [t26340] ctl: j10-20261102T082556Z-1977620402: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_battle1
+2026-11-02T08:26:51.269Z [INFO ] [t26340] ctl: j10-20261102T082556Z-1977620402: timeout: no result after 30 s (last Lua pump 391.7 s ago, context frontend)
+2026-11-02T08:26:51.385Z [INFO ] [t26340] ctl: j10-20261102T082644Z-103645090: state
+2026-11-02T08:26:51.385Z [INFO ] [t26340] ctl: j10-20261102T082644Z-103645090: ok
+2026-11-02T08:26:52.308Z [INFO ] [t26340] ctl: j10-20261102T082652Z-288264002: autostart battle:hist_dresden 240
+2026-11-02T08:30:52.360Z [INFO ] [t26340] ctl: j10-20261102T082652Z-288264002: failed: no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)
+2026-11-02T08:30:52.475Z [INFO ] [t26340] ctl: j10-20261102T082948Z-530223411: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:31:22.477Z [INFO ] [t26340] ctl: j10-20261102T082948Z-530223411: timeout: no result after 30 s (last Lua pump 662.9 s ago, context frontend)
+2026-11-02T08:31:22.592Z [INFO ] [t26340] ctl: j10-20261102T083053Z-253041881: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- hist_deploy *
+2026-11-02T08:31:52.600Z [INFO ] [t26340] ctl: j10-20261102T083053Z-253041881: timeout: no result after 30 s (last Lua pump 693.0 s ago, context frontend)
+2026-11-02T08:31:52.715Z [INFO ] [t26340] ctl: j10-20261102T083145Z-28286149: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:32:22.721Z [INFO ] [t26340] ctl: j10-20261102T083145Z-28286149: timeout: no result after 30 s (last Lua pump 723.2 s ago, context frontend)
+2026-11-02T08:32:22.838Z [INFO ] [t26340] ctl: j10-20261102T083154Z-423031608: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:32:52.849Z [INFO ] [t26340] ctl: j10-20261102T083154Z-423031608: timeout: no result after 30 s (last Lua pump 753.3 s ago, context frontend)
+2026-11-02T08:32:52.964Z [INFO ] [t26340] ctl: j10-20261102T083227Z-2776521300: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_battle2
+2026-11-02T08:33:22.971Z [INFO ] [t26340] ctl: j10-20261102T083227Z-2776521300: timeout: no result after 30 s (last Lua pump 783.4 s ago, context frontend)
+2026-11-02T08:33:23.086Z [INFO ] [t26340] ctl: j10-20261102T083315Z-1856725742: reset frontend 240
+2026-11-02T08:33:23.086Z [INFO ] [t26340] reset: frontend -> frontend: ok (address space 1261 -> 1261 MB, commit 659 -> 659 MB)
+2026-11-02T08:33:23.086Z [INFO ] [t26340] ctl: j10-20261102T083315Z-1856725742: ok
+2026-11-02T08:33:28.985Z [INFO ] [t26340] ctl: j10-20261102T083328Z-247207071: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_battle2 sp_battle2
+2026-11-02T08:33:58.992Z [INFO ] [t26340] ctl: j10-20261102T083328Z-247207071: timeout: no result after 30 s (last Lua pump 819.4 s ago, context frontend)
+2026-11-02T08:33:59.107Z [INFO ] [t26340] ctl: j10-20261102T083333Z-1783219031: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_main *
+2026-11-02T08:34:29.111Z [INFO ] [t26340] ctl: j10-20261102T083333Z-1783219031: timeout: no result after 30 s (last Lua pump 849.5 s ago, context frontend)
+2026-11-02T08:34:29.227Z [INFO ] [t26340] ctl: j10-20261102T083400Z-289664914: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:34:59.232Z [INFO ] [t26340] ctl: j10-20261102T083400Z-289664914: timeout: no result after 30 s (last Lua pump 879.7 s ago, context frontend)
+2026-11-02T08:34:59.347Z [INFO ] [t26340] ctl: j10-20261102T083430Z-1312722507: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:35:29.355Z [INFO ] [t26340] ctl: j10-20261102T083430Z-1312722507: timeout: no result after 30 s (last Lua pump 909.8 s ago, context frontend)
+2026-11-02T08:35:29.470Z [INFO ] [t26340] ctl: j10-20261102T083522Z-1889018427: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:35:59.477Z [INFO ] [t26340] ctl: j10-20261102T083522Z-1889018427: timeout: no result after 30 s (last Lua pump 939.9 s ago, context frontend)
+2026-11-02T08:35:59.594Z [INFO ] [t26340] ctl: j10-20261102T083552Z-1231616368: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/getters.lua -- C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/probe_safe_list.lua
+2026-11-02T08:36:29.603Z [INFO ] [t26340] ctl: j10-20261102T083552Z-1231616368: timeout: no result after 30 s (last Lua pump 970.0 s ago, context frontend)
+2026-11-02T08:36:29.719Z [INFO ] [t26340] ctl: j10-20261102T083604Z-199627714: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_battle2_scenario
+2026-11-02T08:36:59.723Z [INFO ] [t26340] ctl: j10-20261102T083604Z-199627714: timeout: no result after 30 s (last Lua pump 1000.2 s ago, context frontend)
+2026-11-02T08:36:59.839Z [INFO ] [t26340] ctl: j10-20261102T083631Z-690124346: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- single_player
+2026-11-02T08:37:29.847Z [INFO ] [t26340] ctl: j10-20261102T083631Z-690124346: timeout: no result after 30 s (last Lua pump 1030.3 s ago, context frontend)
+2026-11-02T08:37:29.963Z [INFO ] [t26340] ctl: j10-20261102T083705Z-2345119557: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_battle2_scenario sp_battle2_scenario
+2026-11-02T08:37:59.969Z [INFO ] [t26340] ctl: j10-20261102T083705Z-2345119557: timeout: no result after 30 s (last Lua pump 1060.4 s ago, context frontend)
+2026-11-02T08:38:00.087Z [INFO ] [t26340] ctl: j10-20261102T083735Z-50792669: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_single_player single_player
+2026-11-02T08:38:30.098Z [INFO ] [t26340] ctl: j10-20261102T083735Z-50792669: timeout: no result after 30 s (last Lua pump 1090.5 s ago, context frontend)
+2026-11-02T08:38:30.213Z [INFO ] [t26340] ctl: j10-20261102T083801Z-144692584: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:39:00.223Z [INFO ] [t26340] ctl: j10-20261102T083801Z-144692584: timeout: no result after 30 s (last Lua pump 1120.7 s ago, context frontend)
+2026-11-02T08:39:00.340Z [INFO ] [t26340] ctl: j10-20261102T083831Z-2314225108: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:39:30.342Z [INFO ] [t26340] ctl: j10-20261102T083831Z-2314225108: timeout: no result after 30 s (last Lua pump 1150.8 s ago, context frontend)
+2026-11-02T08:39:30.458Z [INFO ] [t26340] ctl: j10-20261102T083923Z-1940525471: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:40:00.467Z [INFO ] [t26340] ctl: j10-20261102T083923Z-1940525471: timeout: no result after 30 s (last Lua pump 1180.9 s ago, context frontend)
+2026-11-02T08:40:00.584Z [INFO ] [t26340] ctl: j10-20261102T083953Z-2338328947: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:40:30.592Z [INFO ] [t26340] ctl: j10-20261102T083953Z-2338328947: timeout: no result after 30 s (last Lua pump 1211.0 s ago, context frontend)
+2026-11-02T08:40:30.709Z [INFO ] [t26340] ctl: j10-20261102T084005Z-485912989: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- napoleon_battles
+2026-11-02T08:41:00.715Z [INFO ] [t26340] ctl: j10-20261102T084005Z-485912989: timeout: no result after 30 s (last Lua pump 1241.1 s ago, context frontend)
+2026-11-02T08:41:00.832Z [INFO ] [t26340] ctl: j10-20261102T084035Z-560526768: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_battle1
+2026-11-02T08:41:30.843Z [INFO ] [t26340] ctl: j10-20261102T084035Z-560526768: timeout: no result after 30 s (last Lua pump 1271.3 s ago, context frontend)
+2026-11-02T08:41:30.958Z [INFO ] [t26340] ctl: j10-20261102T084106Z-3073012360: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_napoleon_battles napoleon_battles
+2026-11-02T08:42:00.960Z [INFO ] [t26340] ctl: j10-20261102T084106Z-3073012360: timeout: no result after 30 s (last Lua pump 1301.4 s ago, context frontend)
+2026-11-02T08:42:01.076Z [INFO ] [t26340] ctl: j10-20261102T084136Z-1645216981: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_battle1 sp_battle1
+2026-11-02T08:42:31.087Z [INFO ] [t26340] ctl: j10-20261102T084136Z-1645216981: timeout: no result after 30 s (last Lua pump 1331.5 s ago, context frontend)
+2026-11-02T08:42:31.203Z [INFO ] [t26340] ctl: j10-20261102T084202Z-1689221915: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:43:01.208Z [INFO ] [t26340] ctl: j10-20261102T084202Z-1689221915: timeout: no result after 30 s (last Lua pump 1361.6 s ago, context frontend)
+2026-11-02T08:43:01.323Z [INFO ] [t26340] ctl: j10-20261102T084232Z-2265523308: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:43:31.330Z [INFO ] [t26340] ctl: j10-20261102T084232Z-2265523308: timeout: no result after 30 s (last Lua pump 1391.8 s ago, context frontend)
+2026-11-02T08:43:31.445Z [INFO ] [t26340] ctl: j10-20261102T084324Z-17015328: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:44:01.454Z [INFO ] [t26340] ctl: j10-20261102T084324Z-17015328: timeout: no result after 30 s (last Lua pump 1421.9 s ago, context frontend)
+2026-11-02T08:44:01.569Z [INFO ] [t26340] ctl: j10-20261102T084354Z-922510421: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:44:31.575Z [INFO ] [t26340] ctl: j10-20261102T084354Z-922510421: timeout: no result after 30 s (last Lua pump 1452.0 s ago, context frontend)
+2026-11-02T08:44:31.691Z [INFO ] [t26340] ctl: j10-20261102T084406Z-2894328567: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_load_game
+2026-11-02T08:45:01.697Z [INFO ] [t26340] ctl: j10-20261102T084406Z-2894328567: timeout: no result after 30 s (last Lua pump 1482.1 s ago, context frontend)
+2026-11-02T08:45:01.812Z [INFO ] [t26340] ctl: j10-20261102T084436Z-1032932227: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_battle2
+2026-11-02T08:45:31.823Z [INFO ] [t26340] ctl: j10-20261102T084436Z-1032932227: timeout: no result after 30 s (last Lua pump 1512.3 s ago, context frontend)
+2026-11-02T08:45:31.941Z [INFO ] [t26340] ctl: j10-20261102T084507Z-319212816: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_load_game sp_load_game
+2026-11-02T08:46:01.951Z [INFO ] [t26340] ctl: j10-20261102T084507Z-319212816: timeout: no result after 30 s (last Lua pump 1542.4 s ago, context frontend)
+2026-11-02T08:46:02.067Z [INFO ] [t26340] ctl: j10-20261102T084537Z-2371831647: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_battle2 sp_battle2
+2026-11-02T08:46:32.069Z [INFO ] [t26340] ctl: j10-20261102T084537Z-2371831647: timeout: no result after 30 s (last Lua pump 1572.5 s ago, context frontend)
+2026-11-02T08:46:32.182Z [INFO ] [t26340] ctl: j10-20261102T084604Z-118227422: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:47:02.194Z [INFO ] [t26340] ctl: j10-20261102T084604Z-118227422: timeout: no result after 30 s (last Lua pump 1602.6 s ago, context frontend)
+2026-11-02T08:47:02.309Z [INFO ] [t26340] ctl: j10-20261102T084633Z-2121630447: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:47:32.315Z [INFO ] [t26340] ctl: j10-20261102T084633Z-2121630447: timeout: no result after 30 s (last Lua pump 1632.7 s ago, context frontend)
+2026-11-02T08:47:32.430Z [INFO ] [t26340] ctl: j10-20261102T084725Z-197717384: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:48:02.435Z [INFO ] [t26340] ctl: j10-20261102T084725Z-197717384: timeout: no result after 30 s (last Lua pump 1662.9 s ago, context frontend)
+2026-11-02T08:48:02.549Z [INFO ] [t26340] ctl: j10-20261102T084755Z-39332630: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:48:32.557Z [INFO ] [t26340] ctl: j10-20261102T084755Z-39332630: timeout: no result after 30 s (last Lua pump 1693.0 s ago, context frontend)
+2026-11-02T08:48:32.673Z [INFO ] [t26340] ctl: j10-20261102T084807Z-129259619: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_tutorials
+2026-11-02T08:49:02.675Z [INFO ] [t26340] ctl: j10-20261102T084807Z-129259619: timeout: no result after 30 s (last Lua pump 1723.1 s ago, context frontend)
+2026-11-02T08:49:02.791Z [INFO ] [t26340] ctl: j10-20261102T084837Z-958123307: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_battle2_scenario
+2026-11-02T08:49:32.799Z [INFO ] [t26340] ctl: j10-20261102T084837Z-958123307: timeout: no result after 30 s (last Lua pump 1753.2 s ago, context frontend)
+2026-11-02T08:49:32.915Z [INFO ] [t26340] ctl: j10-20261102T084908Z-2987915449: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_tutorials sp_tutorials
+2026-11-02T08:50:02.916Z [INFO ] [t26340] ctl: j10-20261102T084908Z-2987915449: timeout: no result after 30 s (last Lua pump 1783.3 s ago, context frontend)
+2026-11-02T08:50:03.032Z [INFO ] [t26340] ctl: j10-20261102T084939Z-2030611460: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_battle2_scenario sp_battle2_scenario
+2026-11-02T08:50:33.036Z [INFO ] [t26340] ctl: j10-20261102T084939Z-2030611460: timeout: no result after 30 s (last Lua pump 1813.5 s ago, context frontend)
+2026-11-02T08:50:33.152Z [INFO ] [t26340] ctl: j10-20261102T085004Z-652419397: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:50:41.694Z [INFO ] [t24616] headless: WM_DEVICECHANGE
+2026-11-02T08:50:41.694Z [WARN ] [t24616] headless: CLOAKED (WM_DEVICECHANGE) at 1827.977 s
+2026-11-02T08:50:41.694Z [INFO ] [t24616] headless: relocation queued (WM_DEVICECHANGE)
+2026-11-02T08:50:41.722Z [INFO ] [t24616] headless: relocated and verified on \\.\DISPLAY11 2560,1440 1920x1080 (cloaked until the layout is quiet for 500 ms)
+2026-11-02T08:50:42.204Z [INFO ] [t36044] headless: uncloaked (verified on the target, layout stable) at 1828.481 s
+2026-11-02T08:51:03.154Z [INFO ] [t26340] ctl: j10-20261102T085004Z-652419397: timeout: no result after 30 s (last Lua pump 1843.6 s ago, context frontend)
+2026-11-02T08:51:03.272Z [INFO ] [t26340] ctl: j10-20261102T085035Z-635111995: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:51:33.281Z [INFO ] [t26340] ctl: j10-20261102T085035Z-635111995: timeout: no result after 30 s (last Lua pump 1873.7 s ago, context frontend)
+2026-11-02T08:51:33.397Z [INFO ] [t26340] ctl: j10-20261102T085126Z-4416293: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:52:03.402Z [INFO ] [t26340] ctl: j10-20261102T085126Z-4416293: timeout: no result after 30 s (last Lua pump 1903.8 s ago, context frontend)
+2026-11-02T08:52:03.519Z [INFO ] [t26340] ctl: j10-20261102T085156Z-101672742: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:52:33.530Z [INFO ] [t26340] ctl: j10-20261102T085156Z-101672742: timeout: no result after 30 s (last Lua pump 1934.0 s ago, context frontend)
+2026-11-02T08:52:33.645Z [INFO ] [t26340] ctl: j10-20261102T085208Z-120710679: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_episodic_campaign
+2026-11-02T08:53:03.652Z [INFO ] [t26340] ctl: j10-20261102T085208Z-120710679: timeout: no result after 30 s (last Lua pump 1964.1 s ago, context frontend)
+2026-11-02T08:53:03.768Z [INFO ] [t26340] ctl: j10-20261102T085238Z-3037025345: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- napoleon_battles
+2026-11-02T08:53:33.776Z [INFO ] [t26340] ctl: j10-20261102T085238Z-3037025345: timeout: no result after 30 s (last Lua pump 1994.2 s ago, context frontend)
+2026-11-02T08:53:33.891Z [INFO ] [t26340] ctl: j10-20261102T085309Z-225630420: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_episodic_campaign sp_episodic_campaign
+2026-11-02T08:53:53.476Z [INFO ] [t24616] headless: WM_DEVICECHANGE
+2026-11-02T08:53:53.477Z [WARN ] [t24616] headless: CLOAKED (WM_DEVICECHANGE) at 2019.759 s
+2026-11-02T08:53:53.477Z [INFO ] [t24616] headless: relocation queued (WM_DEVICECHANGE)
+2026-11-02T08:53:53.483Z [INFO ] [t24616] headless: relocated and verified on \\.\DISPLAY11 2560,1440 1920x1080 (cloaked until the layout is quiet for 500 ms)
+2026-11-02T08:53:53.985Z [INFO ] [t36044] headless: uncloaked (verified on the target, layout stable) at 2020.259 s
+2026-11-02T08:54:03.895Z [INFO ] [t26340] ctl: j10-20261102T085309Z-225630420: timeout: no result after 30 s (last Lua pump 2024.3 s ago, context frontend)
+2026-11-02T08:54:04.010Z [INFO ] [t26340] ctl: j10-20261102T085339Z-773423640: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_napoleon_battles napoleon_battles
+2026-11-02T08:54:34.020Z [INFO ] [t26340] ctl: j10-20261102T085339Z-773423640: timeout: no result after 30 s (last Lua pump 2054.4 s ago, context frontend)
+2026-11-02T08:54:34.136Z [INFO ] [t26340] ctl: j10-20261102T085405Z-459213633: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:55:04.145Z [INFO ] [t26340] ctl: j10-20261102T085405Z-459213633: timeout: no result after 30 s (last Lua pump 2084.6 s ago, context frontend)
+2026-11-02T08:55:04.260Z [INFO ] [t26340] ctl: j10-20261102T085436Z-202436565: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:55:34.267Z [INFO ] [t26340] ctl: j10-20261102T085436Z-202436565: timeout: no result after 30 s (last Lua pump 2114.7 s ago, context frontend)
+2026-11-02T08:55:34.421Z [INFO ] [t26340] ctl: j10-20261102T085527Z-2799225511: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:56:04.432Z [INFO ] [t26340] ctl: j10-20261102T085527Z-2799225511: timeout: no result after 30 s (last Lua pump 2144.9 s ago, context frontend)
+2026-11-02T08:56:04.548Z [INFO ] [t26340] ctl: j10-20261102T085557Z-103984960: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T08:56:34.555Z [INFO ] [t26340] ctl: j10-20261102T085557Z-103984960: timeout: no result after 30 s (last Lua pump 2175.0 s ago, context frontend)
+2026-11-02T08:56:34.670Z [INFO ] [t26340] ctl: j10-20261102T085609Z-73878924: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- options
+2026-11-02T08:57:04.680Z [INFO ] [t26340] ctl: j10-20261102T085609Z-73878924: timeout: no result after 30 s (last Lua pump 2205.1 s ago, context frontend)
+2026-11-02T08:57:04.796Z [INFO ] [t26340] ctl: j10-20261102T085639Z-1598829420: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_load_game
+2026-11-02T08:57:34.807Z [INFO ] [t26340] ctl: j10-20261102T085639Z-1598829420: timeout: no result after 30 s (last Lua pump 2235.2 s ago, context frontend)
+2026-11-02T08:57:34.922Z [INFO ] [t26340] ctl: j10-20261102T085710Z-2019421798: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_options options
+2026-11-02T08:58:04.930Z [INFO ] [t26340] ctl: j10-20261102T085710Z-2019421798: timeout: no result after 30 s (last Lua pump 2265.3 s ago, context frontend)
+2026-11-02T08:58:05.045Z [INFO ] [t26340] ctl: j10-20261102T085740Z-119341822: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_load_game sp_load_game
+2026-11-02T08:58:32.315Z [INFO ] [t24616] headless: WM_DEVICECHANGE
+2026-11-02T08:58:32.315Z [WARN ] [t24616] headless: CLOAKED (WM_DEVICECHANGE) at 2298.571 s
+2026-11-02T08:58:32.315Z [INFO ] [t24616] headless: relocation queued (WM_DEVICECHANGE)
+2026-11-02T08:58:32.319Z [INFO ] [t24616] headless: relocated and verified on \\.\DISPLAY11 2560,1440 1920x1080 (cloaked until the layout is quiet for 500 ms)
+2026-11-02T08:58:32.322Z [INFO ] [t36044] headless: uncloaked (verified on the target, layout stable) at 2298.593 s
+2026-11-02T08:58:35.049Z [INFO ] [t26340] ctl: j10-20261102T085740Z-119341822: timeout: no result after 30 s (last Lua pump 2295.5 s ago, context frontend)
+2026-11-02T08:58:35.165Z [INFO ] [t26340] ctl: j10-20261102T085806Z-26859294: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:59:05.172Z [INFO ] [t26340] ctl: j10-20261102T085806Z-26859294: timeout: no result after 30 s (last Lua pump 2325.6 s ago, context frontend)
+2026-11-02T08:59:05.289Z [INFO ] [t26340] ctl: j10-20261102T085836Z-2457332070: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T08:59:35.294Z [INFO ] [t26340] ctl: j10-20261102T085836Z-2457332070: timeout: no result after 30 s (last Lua pump 2355.7 s ago, context frontend)
+2026-11-02T08:59:35.409Z [INFO ] [t26340] ctl: j10-20261102T085928Z-2355511250: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:00:05.416Z [INFO ] [t26340] ctl: j10-20261102T085928Z-2355511250: timeout: no result after 30 s (last Lua pump 2385.8 s ago, context frontend)
+2026-11-02T09:00:05.532Z [INFO ] [t26340] ctl: j10-20261102T085958Z-1685331960: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:00:17.775Z [INFO ] [t24616] headless: WM_DEVICECHANGE
+2026-11-02T09:00:17.776Z [WARN ] [t24616] headless: CLOAKED (WM_DEVICECHANGE) at 2404.040 s
+2026-11-02T09:00:17.776Z [INFO ] [t24616] headless: relocation queued (WM_DEVICECHANGE)
+2026-11-02T09:00:17.779Z [INFO ] [t24616] headless: relocated and verified on \\.\DISPLAY11 2560,1440 1920x1080 (cloaked until the layout is quiet for 500 ms)
+2026-11-02T09:00:18.273Z [INFO ] [t36044] headless: uncloaked (verified on the target, layout stable) at 2404.543 s
+2026-11-02T09:00:35.538Z [INFO ] [t26340] ctl: j10-20261102T085958Z-1685331960: timeout: no result after 30 s (last Lua pump 2416.0 s ago, context frontend)
+2026-11-02T09:00:35.655Z [INFO ] [t26340] ctl: j10-20261102T090010Z-2623731075: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- credits
+2026-11-02T09:01:05.661Z [INFO ] [t26340] ctl: j10-20261102T090010Z-2623731075: timeout: no result after 30 s (last Lua pump 2446.1 s ago, context frontend)
+2026-11-02T09:01:05.776Z [INFO ] [t26340] ctl: j10-20261102T090040Z-69391982: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_tutorials
+2026-11-02T09:01:35.781Z [INFO ] [t26340] ctl: j10-20261102T090040Z-69391982: timeout: no result after 30 s (last Lua pump 2476.2 s ago, context frontend)
+2026-11-02T09:01:35.897Z [INFO ] [t26340] ctl: j10-20261102T090111Z-2365632656: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_credits credits
+2026-11-02T09:02:05.908Z [INFO ] [t26340] ctl: j10-20261102T090111Z-2365632656: timeout: no result after 30 s (last Lua pump 2506.3 s ago, context frontend)
+2026-11-02T09:02:06.023Z [INFO ] [t26340] ctl: j10-20261102T090141Z-2486828791: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_tutorials sp_tutorials
+2026-11-02T09:02:36.031Z [INFO ] [t26340] ctl: j10-20261102T090141Z-2486828791: timeout: no result after 30 s (last Lua pump 2536.4 s ago, context frontend)
+2026-11-02T09:02:36.146Z [INFO ] [t26340] ctl: j10-20261102T090208Z-177448397: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:03:06.153Z [INFO ] [t26340] ctl: j10-20261102T090208Z-177448397: timeout: no result after 30 s (last Lua pump 2566.6 s ago, context frontend)
+2026-11-02T09:03:06.270Z [INFO ] [t26340] ctl: j10-20261102T090237Z-2387523841: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:03:36.272Z [INFO ] [t26340] ctl: j10-20261102T090237Z-2387523841: timeout: no result after 30 s (last Lua pump 2596.7 s ago, context frontend)
+2026-11-02T09:03:36.386Z [INFO ] [t26340] ctl: j10-20261102T090329Z-28550161: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:04:06.395Z [INFO ] [t26340] ctl: j10-20261102T090329Z-28550161: timeout: no result after 30 s (last Lua pump 2626.8 s ago, context frontend)
+2026-11-02T09:04:06.512Z [INFO ] [t26340] ctl: j10-20261102T090359Z-79497497: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:04:36.520Z [INFO ] [t26340] ctl: j10-20261102T090359Z-79497497: timeout: no result after 30 s (last Lua pump 2656.9 s ago, context frontend)
+2026-11-02T09:04:36.637Z [INFO ] [t26340] ctl: j10-20261102T090411Z-1514512516: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- player_stats
+2026-11-02T09:05:06.639Z [INFO ] [t26340] ctl: j10-20261102T090411Z-1514512516: timeout: no result after 30 s (last Lua pump 2687.1 s ago, context frontend)
+2026-11-02T09:05:06.754Z [INFO ] [t26340] ctl: j10-20261102T090441Z-8035823: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- sp_episodic_campaign
+2026-11-02T09:05:36.762Z [INFO ] [t26340] ctl: j10-20261102T090441Z-8035823: timeout: no result after 30 s (last Lua pump 2717.2 s ago, context frontend)
+2026-11-02T09:05:36.877Z [INFO ] [t26340] ctl: j10-20261102T090512Z-264341771: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_player_stats player_stats
+2026-11-02T09:06:06.884Z [INFO ] [t26340] ctl: j10-20261102T090512Z-264341771: timeout: no result after 30 s (last Lua pump 2747.3 s ago, context frontend)
+2026-11-02T09:06:07.000Z [INFO ] [t26340] ctl: j10-20261102T090543Z-163512543: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_sp_episodic_campaign sp_episodic_campaign
+2026-11-02T09:06:37.006Z [INFO ] [t26340] ctl: j10-20261102T090543Z-163512543: timeout: no result after 30 s (last Lua pump 2777.4 s ago, context frontend)
+2026-11-02T09:06:37.122Z [INFO ] [t26340] ctl: j10-20261102T090608Z-2719425077: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:07:07.126Z [INFO ] [t26340] ctl: j10-20261102T090608Z-2719425077: timeout: no result after 30 s (last Lua pump 2807.5 s ago, context frontend)
+2026-11-02T09:07:07.242Z [INFO ] [t26340] ctl: j10-20261102T090638Z-281610374: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:07:37.252Z [INFO ] [t26340] ctl: j10-20261102T090638Z-281610374: timeout: no result after 30 s (last Lua pump 2837.7 s ago, context frontend)
+2026-11-02T09:07:37.368Z [INFO ] [t26340] ctl: j10-20261102T090730Z-1864227015: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:08:07.373Z [INFO ] [t26340] ctl: j10-20261102T090730Z-1864227015: timeout: no result after 30 s (last Lua pump 2867.8 s ago, context frontend)
+2026-11-02T09:08:07.488Z [INFO ] [t26340] ctl: j10-20261102T090800Z-1936930812: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:08:37.495Z [INFO ] [t26340] ctl: j10-20261102T090800Z-1936930812: timeout: no result after 30 s (last Lua pump 2897.9 s ago, context frontend)
+2026-11-02T09:08:37.611Z [INFO ] [t26340] ctl: j10-20261102T090812Z-7129381: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- load_replay
+2026-11-02T09:09:07.616Z [INFO ] [t26340] ctl: j10-20261102T090812Z-7129381: timeout: no result after 30 s (last Lua pump 2928.0 s ago, context frontend)
+2026-11-02T09:09:07.733Z [INFO ] [t26340] ctl: j10-20261102T090842Z-270349673: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- options
+2026-11-02T09:09:37.739Z [INFO ] [t26340] ctl: j10-20261102T090842Z-270349673: timeout: no result after 30 s (last Lua pump 2958.1 s ago, context frontend)
+2026-11-02T09:09:37.856Z [INFO ] [t26340] ctl: j10-20261102T090913Z-229907619: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_load_replay load_replay
+2026-11-02T09:10:07.858Z [INFO ] [t26340] ctl: j10-20261102T090913Z-229907619: timeout: no result after 30 s (last Lua pump 2988.3 s ago, context frontend)
+2026-11-02T09:10:07.980Z [INFO ] [t26340] ctl: j10-20261102T090943Z-18511961: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_options options
+2026-11-02T09:10:37.990Z [INFO ] [t26340] ctl: j10-20261102T090943Z-18511961: timeout: no result after 30 s (last Lua pump 3018.4 s ago, context frontend)
+2026-11-02T09:10:38.105Z [INFO ] [t26340] ctl: j10-20261102T091009Z-238444017: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:11:08.110Z [INFO ] [t26340] ctl: j10-20261102T091009Z-238444017: timeout: no result after 30 s (last Lua pump 3048.5 s ago, context frontend)
+2026-11-02T09:11:08.227Z [INFO ] [t26340] ctl: j10-20261102T091039Z-265329628: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:11:38.233Z [INFO ] [t26340] ctl: j10-20261102T091039Z-265329628: timeout: no result after 30 s (last Lua pump 3078.6 s ago, context frontend)
+2026-11-02T09:11:38.348Z [INFO ] [t26340] ctl: j10-20261102T091130Z-3136210454: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:12:08.355Z [INFO ] [t26340] ctl: j10-20261102T091130Z-3136210454: timeout: no result after 30 s (last Lua pump 3108.8 s ago, context frontend)
+2026-11-02T09:12:08.518Z [INFO ] [t26340] ctl: j10-20261102T091201Z-279125625: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:12:38.519Z [INFO ] [t26340] ctl: j10-20261102T091201Z-279125625: timeout: no result after 30 s (last Lua pump 3138.9 s ago, context frontend)
+2026-11-02T09:12:38.635Z [INFO ] [t26340] ctl: j10-20261102T091213Z-1999422160: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- grand_campaign
+2026-11-02T09:13:08.638Z [INFO ] [t26340] ctl: j10-20261102T091213Z-1999422160: timeout: no result after 30 s (last Lua pump 3169.0 s ago, context frontend)
+2026-11-02T09:13:08.755Z [INFO ] [t26340] ctl: j10-20261102T091243Z-322826246: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- credits
+2026-11-02T09:13:38.764Z [INFO ] [t26340] ctl: j10-20261102T091243Z-322826246: timeout: no result after 30 s (last Lua pump 3199.2 s ago, context frontend)
+2026-11-02T09:13:38.880Z [INFO ] [t26340] ctl: j10-20261102T091314Z-2921914580: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_grand_campaign grand_campaign
+2026-11-02T09:14:08.882Z [INFO ] [t26340] ctl: j10-20261102T091314Z-2921914580: timeout: no result after 30 s (last Lua pump 3229.3 s ago, context frontend)
+2026-11-02T09:14:08.998Z [INFO ] [t26340] ctl: j10-20261102T091344Z-1866616179: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- fe_credits credits
+2026-11-02T09:14:39.005Z [INFO ] [t26340] ctl: j10-20261102T091344Z-1866616179: timeout: no result after 30 s (last Lua pump 3259.4 s ago, context frontend)
+2026-11-02T09:14:39.122Z [INFO ] [t26340] ctl: j10-20261102T091411Z-1529819010: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:15:09.128Z [INFO ] [t26340] ctl: j10-20261102T091411Z-1529819010: timeout: no result after 30 s (last Lua pump 3289.5 s ago, context frontend)
+2026-11-02T09:15:09.244Z [INFO ] [t26340] ctl: j10-20261102T091440Z-2563510229: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T09:15:39.254Z [INFO ] [t26340] ctl: j10-20261102T091440Z-2563510229: timeout: no result after 30 s (last Lua pump 3319.7 s ago, context frontend)
+2026-11-02T09:15:39.371Z [INFO ] [t26340] ctl: j10-20261102T091532Z-48315251: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main
+2026-11-02T09:16:09.375Z [INFO ] [t26340] ctl: j10-20261102T091532Z-48315251: timeout: no result after 30 s (last Lua pump 3349.8 s ago, context frontend)
+2026-11-02T09:16:09.491Z [INFO ] [t26340] ctl: j10-20261102T091602Z-1960220121: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/fe_page.lua -- main

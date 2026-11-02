@@ -1,0 +1,1 @@
+ctl j10-20261102T094323Z-2539732469: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j10-20261102T094323Z-2539732469.cmd.expired).
