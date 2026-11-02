@@ -27,8 +27,33 @@ local function at(s) step = s end
 
 local function root() return UIComponent(Component.Root()) end
 
+-- J46: the single-player historical battles (main menu "Napoleon's Battles", page napoleon_battles, FrontEnd.EnumerateNapoleonsBattleMaps: NHB_*):
+-- map_panel has one icon per battle named by its Key; the icon's own OnSelect is panel:SelectMap(icon address); movie_panel:SetupBattle()
+-- builds UIHistoricBattleSetup and calls FrontEnd.StartBattle (Play). Read back: the icon's state (unlock) before, no fallback if locked.
+local function napoleon_battle()
+	local want = wsp.dev_config("preset.map")
+	local r = root()
+	at("TransitionTo napoleon_battles"); r:LuaCall("TransitionTo", "napoleon_battles")
+	local pg = UIComponent(r:Find("napoleon_battles"))
+	local mapp = UIComponent(pg:Find("map_panel"))
+	at("icon " .. want)
+	local ic = mapp:Find(want, false)
+	if ic == nil then error("battle '" .. want .. "' has no icon on napoleon_battles") end
+	local icon = UIComponent(ic)
+	local st = icon:CurrentState()
+	wsp.report("autostart.napoleon_state", tostring(st))
+	if lc(st) == "inactive" or lc(st) == "locked_land_dlc" then error("battle " .. want .. " is locked (icon state " .. tostring(st) .. ")") end
+	wsp.report("autostart.map", want)
+	wsp.report("autostart.map_folder", string.lower(wsp.dev_config("preset.terrain")))
+	at("SelectMap"); pg:LuaCall("SelectMap", icon:Address())
+	local movie = UIComponent(pg:Find("movie_panel"))
+	at("SetupBattle (movie_panel)"); movie:LuaCall("SetupBattle")
+	return "started napoleon battle " .. want .. " (icon state " .. tostring(st) .. ")"
+end
+
 local function battle()
 	local btype = wsp.dev_config("preset.type"); if btype == "" then btype = "classic" end
+	if btype == "napoleon" then return napoleon_battle() end
 	local prefs = wsp.dev_config("preset.prefs"); if prefs == "" then prefs = ".sp_default" end
 	local want = lc(wsp.dev_config("preset.map"))
 	local r = root()
