@@ -194,6 +194,7 @@ PROMOTIONS = {
     'saves/core': 'J12',      # -> warscape-core saves/
     'discovery/core': None,   # phase 2 promotion, after the discovery gate J11 (no row yet)
     'upscale/core': None,     # its own promotion, after J50 and J51 (no row yet)
+    'uiscale/core': None,     # J66 stop-gap scaler; its promotion follows J67 (no row yet)
     'viewer/core': None,      # the review viewer (J31): promotion with the RmlUi host work (no row yet)
 }
 
