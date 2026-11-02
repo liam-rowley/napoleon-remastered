@@ -3,7 +3,7 @@
   "description": "D40 stop-gap, part 1: make the vanilla UI playable at 4K now by scaling it 2x with data alone, ported from empire-remastered ui_scale_mod. Rebuild the vanilla layouts (V028-V039, including V039's per-component animation keyframes) and uied.templates at 2x with Empire's edge-snapping, re-render the fonts in the slot files each context loads, resample the J36 2.5x masters to 2x textures (the engine tiles frame art at the texture's real size), and install it all with J53's play.py (`install --scale 2`) with a snapshot-identical uninstall. Proved headless at 3840x2160 on the front end, campaign HUD and battle HUD; the Lua pixel constants, 1440p factors and remaining screens are J67.",
   "title": "UI scale stop-gap: vanilla UI at 2x for 4K",
   "phase": 5,
-  "status": "review",
+  "status": "done",
   "model": "opus",
   "needs_pc": true,
   "depends_on": [
@@ -12,5 +12,6 @@
     "J53"
   ],
   "brief": "jobs/J66/brief.md",
-  "report": "jobs/J66/report.md"
+  "report": "jobs/J66/report.md",
+  "review": "jobs/J66/review.md"
 }
