@@ -1,8 +1,8 @@
 """The UI art upscaler as a verb (J36): env check, plan, run, verify, sheets and pack, started in the art_build Python.
 
 purpose: run the UI art upscale pipeline (upscale/napoleon/cli.py) in the GPU environment under C:\\napoleon_remastered_pc\\upscale\\art_build, and print that environment (GPU, torch, model sha256)
-usage: python3 core/wsc.py upscale env | plan | run | verify | sheets | pack [--roles a,b] [--sample N] [--limit N] [--model NAME] [--work DIR] [--registry]   (env setup: upscale\\pc\\setup_env.cmd)
-when: making the 2.5x master UI art (D19); `plan` and `verify` are read-only, `run` writes under the work folder, `pack` builds ui_art_2x5_<role>.pack there; nothing here writes the game folder
+usage: python3 core/wsc.py upscale env | plan | run | verify | sheets | pack [--play] [--roles a,b] [--sample N] [--limit N] [--model NAME] [--work DIR] [--registry]   (env setup: upscale\\pc\\setup_env.cmd)
+when: making the 2.5x master UI art (D19); `plan` and `verify` are read-only, `run` writes under the work folder, `pack` builds ui_art_2x5_<role>.pack there (`pack --play`: ui_art_play_<role>.pack at the vanilla paths in <work>\\packs_play, for upscale/pc/play.py); nothing here writes the game folder
 verb: upscale
 """
 import argparse
@@ -16,7 +16,7 @@ WORK = Path(r'C:\napoleon_remastered_pc\upscale')
 
 def add_arguments(p):
     p.add_argument('action', choices=('env', 'plan', 'run', 'verify', 'sheets', 'compare', 'pack'))
-    p.add_argument('rest', nargs=argparse.REMAINDER, help='passed to upscale/napoleon/cli.py (--roles, --sample, --limit, --model, --work, --registry)')
+    p.add_argument('rest', nargs=argparse.REMAINDER, help='passed to upscale/napoleon/cli.py (--roles, --sample, --limit, --model, --work, --registry, --play)')
 
 
 def run(args, ctx):

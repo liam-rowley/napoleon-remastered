@@ -1,7 +1,7 @@
 ﻿r"""Napoleon driver of the UI art upscaler (J36): plan, run, verify, sheets, pack over the assets registry, in the art_build Python.
 
 purpose: run the game-agnostic upscale/core over the Napoleon UI art roles (registry rows, files read through the J7 PackFS) and write results to the work folder, the assets registry and the sheets
-usage: <work>\art_build\py\python.exe upscale/napoleon/cli.py <plan|run|verify|sheets|pack> --work <dir> [--roles a,b] [--sample N] [--limit N] [--model NAME] [--device cuda|cpu] [--registry] ; normally started by `python3 core/wsc.py upscale <verb>`
+usage: <work>\art_build\py\python.exe upscale/napoleon/cli.py <plan|run|verify|sheets|pack> --work <dir> [--roles a,b] [--sample N] [--limit N] [--model NAME] [--device cuda|cpu] [--registry] [--play] ; normally started by `python3 core/wsc.py upscale <verb>`
 when: any upscale step; the host tests call the same functions with the 'lanczos' stand-in
 not-a-verb: runs inside the embeddable Python of art_build (no wsc there); `wsc upscale` is the verb that starts it
 
@@ -76,7 +76,8 @@ def main(argv=None):
     ap.add_argument('--models-dir')
     ap.add_argument('--games', default=os.path.join(REPO, 'discovery', 'napoleon', 'games.json'))
     ap.add_argument('--registry', action='store_true', help='write upscale_status / upscale_method into registries/assets.jsonl')
-    ap.add_argument('--out', help='pack: output folder (default <work>\\packs)')
+    ap.add_argument('--out', help='pack: output folder (default <work>\\packs, or <work>\\packs_play with --play)')
+    ap.add_argument('--play', action='store_true', help='pack: play packs (J53): entries at the vanilla paths, held-back outputs left out')
     a = ap.parse_args(argv)
 
     cfg = load_json(os.path.join(HERE, 'config.json'))
@@ -168,12 +169,38 @@ def main(argv=None):
         ver = batch.verify(work, set(roles))
         ok = {i for i, e in man['entries'].items() if e['status'] == 'done' and i not in ver['failed']}
         credits = sorted({pins[n]['credit'] for n in man.get('models', {}) if n in pins})
+        if a.play:
+            return play_packs(man, work, roles, ok, credits, cfg, a.out or os.path.join(work, cfg['play_packs_dir']))
         out = a.out or os.path.join(work, 'packs')
         for r in roles:
             ents = pack.plan(man, work, {r}, cfg['pack_prefix'], ok)
             if ents:
                 pack.build(cfg['pack_name'].format(role=r), ents, work, out, credits)
         return 0
+
+
+def vanilla_paths(registry=REGISTRY):
+    """every path of the assets registry (the vanilla files a play pack may replace)"""
+    return {json.loads(ln)['path'] for ln in open(registry, encoding='utf-8') if ln.strip()}
+
+
+def play_packs(man, work, roles, ok, credits, cfg, out, registry=REGISTRY, log=print):
+    """J53: one <play_pack_name>.pack per role at the vanilla paths, held-back outputs listed in its .pack.json. Returns 0, or 1 on a refused entry."""
+    import pack
+    vanilla = vanilla_paths(registry)
+    for r in roles:
+        try:
+            ents, held = pack.play_plan(man, work, {r}, vanilla, ok)
+        except ValueError as e:
+            log('%s: refused: %s' % (r, e))
+            return 1
+        name = cfg['play_pack_name'].format(role=r)
+        if not ents:
+            log('%s: nothing to pack (%d held back)' % (name, len(held)))
+            continue
+        m = pack.build(name, ents, work, out, credits, extra={'prefix': '', 'role': r, 'held_back': held}, log=log)
+        log('%s: %d held back' % (name, len(m.get('held_back', []))))
+    return 0
 
 
 def _packfs(games):

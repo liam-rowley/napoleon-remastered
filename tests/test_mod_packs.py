@@ -26,7 +26,15 @@ class ModPacks(unittest.TestCase):
         self.cfg = load('upscale/napoleon/config.json')
 
     def role_packs(self):
-        return [self.cfg['pack_name'].format(role=r) + '.pack' for r in self.cfg['roles']]
+        """the ui_art_2x5 role packs and the J53 play packs (vanilla paths) for every role in the config"""
+        return [self.cfg[k].format(role=r) + '.pack' for k in ('pack_name', 'play_pack_name') for r in self.cfg['roles']]
+
+    def test_play_packs_are_listed_and_sort_after_media(self):
+        """a play pack must be named so that, among the movie packs, it comes after media.pack (type, then name: J53)"""
+        names = [self.cfg['play_pack_name'].format(role=r) + '.pack' for r in self.cfg['roles']]
+        self.assertEqual(len(set(names)), len(self.cfg['roles']))
+        self.assertTrue(all(n.lower() > 'media.pack' for n in names))
+        self.assertTrue(set(names) <= set(self.games['napoleon']['mod_packs']))
 
     def test_every_upscaler_pack_is_skipped(self):
         skip = set(self.games['napoleon'].get('mod_packs', ()))
