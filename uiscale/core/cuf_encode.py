@@ -301,6 +301,31 @@ def _scale_glyph(g, r):
     return Glyph(max(-127, min(127, round(g.top * r))), min(255, round(g.adv * r)), w, h, im.tobytes())
 
 
+def _hb_pairs(face_path, em, axis_values, cps):
+    """{(gl, gr): 26.6 advance of gl before gr, kerning applied} by HarfBuzz (empire cuf_encode.pair_kerning), or None without uharfbuzz.
+    cps: {glyph index: codepoint} of the rendered glyphs in the pair span."""
+    try:
+        import uharfbuzz as hb
+    except ImportError:
+        return None
+    font = hb.Font(hb.Face(hb.Blob.from_file_path(face_path), 0))
+    font.scale = (int(round(em * 64)),) * 2
+    if axis_values:
+        font.set_variations(axis_values)
+    feats = {'kern': True, 'liga': False, 'clig': False, 'calt': False, 'dlig': False}
+    res = {}
+    for gl, l in cps.items():
+        for gr, r in cps.items():
+            buf = hb.Buffer()
+            buf.add_codepoints([l, r])
+            buf.guess_segment_properties()
+            hb.shape(font, buf, feats)
+            pos = buf.glyph_positions
+            if len(pos) == 2:
+                res[(gl, gr)] = pos[0].x_advance + pos[1].x_offset - pos[0].x_offset
+    return res
+
+
 def encode(face_path, vanilla_cuf_bytes, em, wght, keep_header=True, set_h2=None, hinting='light', adv_mode='origin',
            tracking=0):
     """Re-render one vanilla .cuf from `face_path` at `em` px (variable axis wght = `wght`, None for a static face).
@@ -349,17 +374,22 @@ def encode(face_path, vanilla_cuf_bytes, em, wght, keep_header=True, set_h2=None
             out.glyphs.append(_scale_glyph(tg, fb_ratio))
             lefts[gi] = 0
 
-    # pair table: step = round(kerned advance) - left(L) + left(R); kerned advance in 26.6 = linear advance + GPOS
-    with open(face_path, 'rb') as fh:
-        gpos = Gpos(fh.read(), axis_values)
-    sc = em * 64 / face.units_per_EM
+    # pair table: step = round(kerned advance) - left(L) + left(R). Kerned advance in 26.6 comes from HarfBuzz shaping the pair
+    # (Empire's route, D42); without uharfbuzz, from FreeType's linear advance + the GPOS reader above.
     N, base = len(tpl.pairs), tpl.pair_base
     span = range(base, base + N)
+    hbk = _hb_pairs(face_path, em, axis_values, {gi: inv[gi] for gi in span if gi in gids})
+    if hbk is None:
+        with open(face_path, 'rb') as fh:
+            gpos = Gpos(fh.read(), axis_values)
+    sc = em * 64 / face.units_per_EM
     out.pairs = []
     for gl in span:
         row = bytearray(N)
         for j, gr in enumerate(span):
-            if gl in gids and gr in gids:
+            if gl in gids and gr in gids and hbk is not None and (gl, gr) in hbk:
+                d26 = hbk[(gl, gr)]
+            elif gl in gids and gr in gids and hbk is None:
                 xa, xp1, xp2 = gpos.pair(gids[gl], gids[gr])
                 d26 = round(lin26s[gl] + xa * sc) + round(xp2 * sc) - round(xp1 * sc)
             elif gl in adv26s:

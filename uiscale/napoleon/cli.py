@@ -187,7 +187,10 @@ def build_art(cfg, fs, refs, f, work, upscale_work, limit=0, jobs=0, log=print):
 # -------------------------------------------------------------------------------------------------------------- fonts
 def build_fonts(cfg, fs, names, work, f, log=print):
     import cuf_encode
-    face = os.path.join(REPO, cfg['font_face'])
+    face = next((p for p in (os.path.join(REPO, f) for f in cfg['font_faces']) if os.path.isfile(p)), None)
+    if not face:
+        raise SystemExit(f'uiscale: no Lora face at any of {cfg["font_faces"]}: vendor it at uiscale/fonts/Lora-Variable.ttf (D42)')
+    log(f'font face: {face}')
     out = cuf_encode.render_set(sorted(names), lambda n: fs.read('font\\' + n), face)
     sub = f'fonts_{tag_of(f)}x'
     entries, notes = [], {}

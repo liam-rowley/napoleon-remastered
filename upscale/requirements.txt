@@ -2,6 +2,8 @@
 # torch comes from the PyTorch index, not PyPI (the PyPI Windows wheel is CPU-only): upscale/pc/setup_env.cmd installs it.
 # freetype-py (its wheel bundles FreeType 2.13.2) is for uiscale/core/cuf_encode.py, the 2x Lora fonts.
 freetype-py==2.5.1
+# uharfbuzz is the pair kerning of the same fonts (D42); without it cuf_encode falls back to its own GPOS reader.
+uharfbuzz==0.56.4
 numpy==2.5.2
 pillow==12.3.0
 spandrel==0.4.2

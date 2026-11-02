@@ -13,6 +13,6 @@
  "art_roles_note": "J36 roles resampled from the 2.5x masters; loading_screen stays 1x (engine-drawn, J67) and cursor is left vanilla (Empire). Textures a vanilla layout or template names with no master are Lanczos 2x from vanilla.",
  "art_keep_vanilla": ["1x1", "1px_", "fe_1x1", "progressbar_beige", "ui\\loading_screen\\", "ui\\cursors\\", "ui\\frontend ui\\loadingscreen\\"],
  "art_keep_vanilla_note": "path substrings (lower case) never scaled: engine pixel-UV helpers, the 1-px progress fill (the engine multiplies progress by its width), loading screens and cursors (J67)",
- "font_face": "C:/Users/liamr/repos/empire-remastered/ui_scale_mod/font_src/Lora-Variable.ttf",
- "font_face_note": "J66: read in place from the empire-remastered clone (read-only evidence) until the face is vendored at uiscale/fonts/Lora-Variable.ttf (the copy was refused by the permission system; OFL text is in uiscale/fonts/OFL.txt)"
+ "font_faces": ["uiscale/fonts/Lora-Variable.ttf", "C:/Users/liamr/repos/empire-remastered/ui_scale_mod/font_src/Lora-Variable.ttf"],
+ "font_faces_note": "the first that exists: the vendored face (D42; OFL text in uiscale/fonts/OFL.txt), else the empire-remastered clone read in place (the same file) until it is vendored"
 }

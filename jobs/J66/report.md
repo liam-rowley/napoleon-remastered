@@ -39,7 +39,7 @@ One uninstall command leaves the game folder snapshot-identical. A headless 4K r
 Run report: `uiscale/runs/2026-11-02_j66/README.md` (shots in `raw/`).
 - **Build:**
   - `ui_scale_2x.pack`: `bd351fa39ae9`, 9539 entries, 1.81 GB;
-  - fonts: `f699ca5db25b`;
+  - fonts: `f699ca5db25b` in the run (GPOS kerning); rebuilt with HarfBuzz after D42 as `5f510b27afa3`;
   - templates: `4797e415b6ea`.
 - **PC, lock `J66`, 16:38-16:55 UTC:**
   - start snapshot identical to the last known one (`post_uninstall_20261102T161306Z`);
@@ -84,15 +84,13 @@ python3 upscale/pc/play.py uninstall       # must end "identical"
 ## Deviations from the brief and why
 - **Template route.** No DLL change was needed. Route 2 is the proxy's existing `dev.file_rules` (a config key that redirects both the attribute check and the open), so rule 79 does not apply. Route 1 was launched once (a pack entry at `ui\templates\uied.templates`, no redirect). Its shot matched route 2's, but no template-built element was on screen, so route 1 is undecided. Route 2 ships because the log proves it is read.
 - **Font probe.** I did not probe which sizes each context loads by swapping candidates. The scaler keeps to Empire's proven slots. The shots show no tiny fallback in the front end, campaign or battle.
-- **Lora face not vendored.** The permission system refused the copy from empire-remastered into `uiscale/fonts/`, and I did not work around it. `config.json` `font_face` reads the face in place from the empire-remastered clone. The OFL text is already in `uiscale/fonts/OFL.txt`.
-- **No HarfBuzz.** Installing `uharfbuzz` was refused, so kerning uses a small GPOS reader. Against Empire's shipped 2x fonts, the regular glyphs are byte-identical, but about 0.5-1 % of pair-table entries differ by ±1 px. Empire's bold used another em.
+- **Lora face (D42: vendor it).** The copy from empire-remastered is refused by the project deny rule `Edit(~/repos/empire-remastered/**)`, which matches the copy's source path. I did not edit the settings. `config.json` `font_faces` takes `uiscale/fonts/Lora-Variable.ttf` first and falls back to the same file in the empire-remastered clone, so the build works either way. The OFL text is in `uiscale/fonts/OFL.txt`.
+- **HarfBuzz (D42: yes).** The first session's `uharfbuzz` install was refused; after Liam's answer it is installed (0.56.4) and drives the pair kerning. With it, `ingame_24` and `frontend_38` are byte-identical to Empire's in-game-proven 2x fonts (glyphs, header and all 122,500 pair entries). The GPOS reader stays as the fallback when uharfbuzz is missing. The fonts pack is now `5f510b27afa3`; it was not launched again, because only the pair steps changed (by ±1 px).
 - **Shots are not full size.** They are 1280 px wide: `shot.sh` caps committed evidence at that width. The game ran at 3840x2160 (adapter `ctl.launch.size`).
 - **Campaign shots are limited.** Settlement panel, unit-card row and tooltip were not shot: there is no click or hover verb (`ctl.py` rule 78), and the warm reset from the campaign stalls (the known `napoleon.campaign.quit_to_menu`).
 - **Art scope.** All J36 roles except `loading_screen` and `cursor` are in the pack (1.8 GB). Including the cards, portraits and flags keeps them sharp in the 2x slots.
 
 ## Open questions
-1. **Vendoring the face.** Can `Lora-Variable.ttf` be vendored at `uiscale/fonts/` (OFL allows it)? Until then the build depends on the empire-remastered clone.
-2. **HarfBuzz.** Allow `uharfbuzz` in art_build for exact Empire kerning, or keep the GPOS reader?
-3. **Fonts.** Keep the Lora re-render, or use Napoleon's own font art (brief question 1)?
-4. **Release.** Does the stop-gap ship in 0.1.0 (brief question 2)?
-5. **Radar group.** Its position is not data-driven at 2x. J67 should find the Lua constant or engine docking behind it.
+Questions 1-4 are settled by Liam (D42): vendor the face, use uharfbuzz, keep Lora, ship in 0.1.0.
+1. **Vendored face.** `uiscale/fonts/Lora-Variable.ttf` lands once Liam copies it in (the deny rule above). Until then the fallback path is used.
+2. **Radar group.** Its position is not data-driven at 2x. J67 should find the Lua constant or engine docking behind it.

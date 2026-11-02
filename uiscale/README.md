@@ -25,7 +25,7 @@ A re-run is byte-identical: the art is cached by input sha256, and the pack is k
   - **Fonts:** onto the slot files each context loads (Empire: `Ingame 24` Normal/Bold, `Frontend 24`, `Frontend 38`; the front end takes the nearest vanilla-named size).
   - **Templates:** each embedded TGA is scaled with its image defs (nearest neighbour at 2x). The pre-v27 text records in `UPGRADE_TO_33` are rewritten as v33. `Cursor`, `slider`, `InputWindow` and `BattleEditor` pass through unchanged.
 - `core/art.py`: the J36 2.5x masters resampled to exactly 2x. RGB is Lanczos in linear light, after dilation under alpha 0. Alpha keeps its kind (binary stays binary). The output keeps the vanilla container; DDS gets a full mip chain. With no master, it falls back to Lanczos from vanilla.
-- `core/cuf_encode.py`: Lora re-render of a vanilla `.cuf` (freetype-py 2.5.1, GPOS kerning, the vanilla header kept, so line pitch = h2 + 2). Empire's recipe: wght 500 at em = 23/24 h2, bold 700 fitted to 99 % of the vanilla width, `frontend_24` spaced h2 = 28.
+- `core/cuf_encode.py`: Lora re-render of a vanilla `.cuf` (freetype-py 2.5.1, HarfBuzz pair kerning with a GPOS-reader fallback (D42), the vanilla header kept, so line pitch = h2 + 2). Empire's recipe: wght 500 at em = 23/24 h2, bold 700 fitted to 99 % of the vanilla width, `frontend_24` spaced h2 = 28.
 - `napoleon/cli.py`, `napoleon/config.json`: paths, the art roles, the never-scaled helpers (`1x1*`, `1px_*`, `fe_1x1*`, `progressbar_beige`, loading screens, cursors) and the font face.
 - Tests: `tests/test_uiscale.py` (scaler), `tests/test_uiscale_fonts.py` (encoder), `tests/test_play.py` (install `--scale 2`), `tests/test_mod_packs.py`.
 
@@ -36,4 +36,4 @@ A re-run is byte-identical: the art is cached by input sha256, and the pack is k
 - **Engine-drawn text:** map and unit labels, the version string, the loading quote.
 - **Front-end "New content" box:** clipped.
 - **Unchecked in game:** tooltips, the campaign settlement panel and unit-card row (run 2026-11-02_j66).
-- **Font face:** read from the empire-remastered clone (`config.json` `font_face`) until `uiscale/fonts/Lora-Variable.ttf` is vendored (the OFL text is already in `uiscale/fonts/`).
+- **Font face (D42):** `uiscale/fonts/Lora-Variable.ttf` when vendored, else the same file in the empire-remastered clone (`config.json` `font_faces`).
