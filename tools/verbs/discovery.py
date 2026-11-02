@@ -1,7 +1,7 @@
 """The discovery passes as a verb: run them (J7, on the PC), check every committed result and render their READMEs.
 
-purpose: check discovery/diff/<area>.json (J6) and the J7 files (asset index, registry in step, refs, sheets, db tables, loc keys), render discovery/{diff,assets,db,loc}/README.md, and run the J7 passes
-usage: python3 core/wsc.py discovery check | render | assets | sheets | db | loc | all   (assets, sheets, db, loc and all read the install on the PC; all = assets, db, loc, sheets, then render)
+purpose: check discovery/diff/<area>.json (J6), the J7 files (asset index, registry in step, refs, sheets, db tables, loc keys) and the J10 UI atlas (files, rows), render discovery/{diff,assets,db,loc,ui}/README.md, and run the J7 and J10 passes
+usage: python3 core/wsc.py discovery check | render | assets | sheets | db | loc | ui | all   (the passes read the install on the PC; all = assets, db, loc, sheets, ui, then render)
 when: after any discovery pass (discovery/core/*.py) rewrites a result; `check` also fails when a committed README is stale (tests/test_discovery.py runs it in the tests gate)
 verb: discovery
 """
@@ -15,8 +15,8 @@ HELP = 'discovery passes: check and render the J6 diff and the J7 asset, db and 
 
 AREAS = ('packs', 'layouts', 'fonts', 'lua_api', 'shaders', 'exe')
 CELL = 90
-PASSES = {'assets': ['assets.py'], 'db': ['db.py'], 'loc': ['loc.py'], 'sheets': ['sheets.py']}
-ORDER = ('assets', 'db', 'loc', 'sheets')
+PASSES = {'assets': ['assets.py'], 'db': ['db.py'], 'loc': ['loc.py'], 'sheets': ['sheets.py'], 'ui': ['ui_atlas.py']}
+ORDER = ('assets', 'db', 'loc', 'sheets', 'ui')
 
 
 def _core(root):
@@ -79,10 +79,22 @@ def readmes(root):
     import loc
     d = Path(root) / 'discovery'
     out = {d / 'diff' / 'README.md': render(root)}
-    for sub, mod, src in (('assets', assets, 'summary.json'), ('db', db, 'tables.json'), ('loc', loc, 'summary.json')):
+    import ui_atlas
+    for sub, mod, src in (('assets', assets, 'summary.json'), ('db', db, 'tables.json'), ('loc', loc, 'summary.json'),
+                          ('ui', ui_atlas, 'summary.json')):
         if (d / sub / src).exists():
             out[d / sub / 'README.md'] = mod.readme(_json(d / sub / src))
     return out
+
+
+def ui_problems(root):
+    """The J10 atlas: files as summary.json records them (sha256 of the JSON), deterministic gzip, rows and units in step."""
+    _core(root)
+    import ui_atlas
+    d = Path(root) / 'discovery' / 'ui'
+    if not (d / 'summary.json').exists():
+        return []
+    return ui_atlas.problems(str(d), str(Path(root) / 'registries' / 'ui_elements.jsonl'))
 
 
 def j7_problems(root):
@@ -147,5 +159,6 @@ def run(args, ctx):
             if not p.exists() or p.read_text(encoding='utf-8') != text:
                 bad.append(f'{p}: stale; run `wsc discovery render`')
         bad += j7_problems(root)
-    print('\n'.join(bad) or 'discovery: 6 area files valid, J7 results in step, READMEs current')
+        bad += ui_problems(root)
+    print('\n'.join(bad) or 'discovery: 6 area files valid, J7 and J10 results in step, READMEs current')
     return 1 if bad else 0
