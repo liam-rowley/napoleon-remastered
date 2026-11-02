@@ -43,7 +43,7 @@ block or run in the background inside one call; never poll with repeated calls.
 ## Target facts
 What is known (all static or from J28's runs; every one is checked again here and recorded as an `engine_facts` row with date and run id
 before anything relies on it). Napoleon.exe sha1 `9aebcd2172f2878d781b079f7feb45b0e12e0250`, ASLR on, 32-bit.
-- **The shared chain** (J28, verified): owner global -> battle at +0xf8 -> command queue at +0x28048 (`battle.ui_queue_site`); the UI's own
+- **The shared chain** (J28, verified 2026-11-02, run 20261102_j28pc): owner global -> battle at +0xf8 -> command queue at +0x28048 (`battle.ui_queue_site`); the UI's own
   selection `S = [[owner]+0x450]+0x20`; the owner's "current selection" dispatcher `battle.selection_command` (this = owner+0x454) with
   codes read from the BattleUI functions; the army list at army+0xf0 (count) and +0xf4; orders build their own one-unit `Selection` and
   never touch the UI's. Present, the window procedure and the Lua pump run on one thread (fact `napoleon.battle.order_threads`).
