@@ -3,7 +3,7 @@
   "description": "Across the scenario library at 1080p, 1440p and 4K: frame time p50 and p99, load time, address space, commit and VRAM, for system d3d9 (proxy pass-through) against the pinned DXVK. Settle DXVK's display mode (fact napoleon.dxvk.menu_display_mode) and its dxvk.conf defaults as config_keys. Output: a committed baseline file every later phase 3 job reports against, and proposed per-feature frame-time and memory budgets for Liam to agree.",
   "title": "Performance baseline: system d3d9 against DXVK",
   "phase": 3,
-  "status": "review",
+  "status": "done",
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
@@ -12,5 +12,6 @@
     "J44"
   ],
   "brief": "jobs/J23/brief.md",
-  "report": "jobs/J23/report.md"
+  "report": "jobs/J23/report.md",
+  "review": "jobs/J23/review.md"
 }
