@@ -14,7 +14,7 @@ import struct
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'proxy', 'tools'))
+sys.path.insert(0, os.path.join(HERE, '..', '..', 'core', 'proxy', 'tools'))   # pack_list moved to the core in J12
 from pack_list import read_header, read_index  # noqa: E402
 
 LOOSE = 'loose'
