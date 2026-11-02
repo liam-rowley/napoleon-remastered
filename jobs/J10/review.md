@@ -1,3 +1,16 @@
+## Round 2 (2026-11-02, branch job/J10 at 74f7837)
+
+**Verdict: merge.**
+
+Fresh reviewer session (Opus; neither the builder nor the round 1 reviewer or fixer). Checked the three open items of round 1 against the branch, not the report:
+- **3 (template rows list screens):** `registries/ui_elements.jsonl` `template.buildingframe` now reads "Used by: construction.luac (a script shared by the whole context)". The report names the 34 template rows with no static opener and why; that is an acceptable, stated limit. `Ids.test_template_users` passes.
+- **4 (known static_only wins over a name match):** `frontend.password_entry` is `static_only` with "needs a multiplayer lobby or Steam session". `Live.test_known_reason_beats_a_name_match` passes.
+- **5 (hyphen):** no `load-save` id remains in any registry; `Ids.test_unit_id_has_no_hyphen` passes.
+- `python3 -m unittest tests.test_discovery_ui tests.test_discovery`: 29 tests OK. `wsc jobs check`: ok. `tools/pr_policy.py` refuses only for the verdict and the row, which this round sets.
+- PR #123's failed `policy` check was that same pair of lines (round 1 said "merge after fixes").
+
+Later items from round 1 stay as listed there (getters.lua guard, one-driver-per-lock, `used_by` check in `discovery check`, `db:` fields, rows without `data_fields`, click-opened units). No other open pull request depends on a rule this merge changes.
+
 ## Round 1 (2026-11-02, branch job/J10 at 83a466b)
 
 **Verdict: merge after fixes.**
