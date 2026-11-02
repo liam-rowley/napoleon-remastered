@@ -1,0 +1,20 @@
+{
+ "size": "1920x1080",
+ "backend": "system",
+ "variant": null,
+ "pass": 0,
+ "scenario": "siege_small",
+ "pose": null,
+ "perf": false,
+ "start_utc": "2026-11-01T21:39:48Z",
+ "scene": {
+  "status": "failed",
+  "reason": "RuntimeError: ctl state failed (exit 124): is the game running with dev.ctl=1?",
+  "load_s": null,
+  "path": null,
+  "settle": {}
+ },
+ "status": "failed",
+ "reason": "RuntimeError: ctl state failed (exit 124): is the game running with dev.ctl=1?",
+ "pins": {}
+}

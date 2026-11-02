@@ -1,8 +1,8 @@
 {
   "id": "napoleon.render.system_backend",
-  "claim": "On the system d3d9 backend (proxy.backend=system, dev.capture=1) the headless launch never reaches on_virtual, and a visible launch reaches battle_deploy with frame 0: no Present reached the dev Present hook, already at the front end with the first device and after the second device (both hooked, identical originals; raw/sys_proxy.log). Cause not established: no control launch with dev.capture=0 on that backend; no capture there, so the backend comparison is not made",
+  "claim": "On the system d3d9 backend (proxy.backend=system) the headless launch never reaches on_virtual, and a visible launch reaches battle_deploy with frame 0: no Present reached the dev Present hook, already at the front end with the first device and after the second device (both hooked, identical originals; J8 raw/sys_proxy.log). Not dev.capture: J23 launched it three times headless with dev.capture unset (the ctl launch keys: dev.perf on) and got the same 'no on_virtual status ... (last: target_ok)' each time, the log ending at frontend_first_pump with frame 0. Cause not established; until it is, no frame time or memory number exists for the system backend (J23 baseline is DXVK only)",
   "state": "open",
-  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "evidence": "harness/runs/20261101_j23pc/README.md",
   "date": "2026-11-01",
-  "notes": "owner J16"
+  "notes": "owner J16; J8 run 20261101_j8pc (dev.capture=1, headless and visible), J23 run 20261101_j23pc cells system_1920x1080_*_p0 (dev.capture unset, headless x3, 2026-11-01 21:36 to 21:52 UTC)"
 }

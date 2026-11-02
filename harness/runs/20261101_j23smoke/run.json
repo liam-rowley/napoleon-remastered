@@ -1,0 +1,22 @@
+{
+ "run": "20261101_j23smoke",
+ "start_utc": "2026-11-01T21:00:03Z",
+ "plan_cells": 7,
+ "scenarios": [
+  "land_small"
+ ],
+ "blocks": [
+  {
+   "size": "1920x1080",
+   "backend": "dxvk",
+   "variant": null,
+   "start_utc": "2026-11-01T21:00:04Z",
+   "end_utc": "2026-11-01T21:04:16Z"
+  }
+ ],
+ "restore_keys": {
+  "proxy.backend": "dxvk",
+  "proxy.dxvk_path": "napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+ },
+ "end_utc": "2026-11-01T21:04:21Z"
+}

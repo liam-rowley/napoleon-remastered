@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.perf.load_times",
+  "claim": "Scene load (ctl scene load_s) on DXVK 3.1.1, median of 3 warm loads, the same at every size within 0.2 s: campaign_start 2.6 s, naval_storm 3.5, land_small 3.5 to 3.6, naval_small 3.6 to 3.7, hist_nile 4.2, siege_small 5.1 to 5.4, hist_dresden 7.1 to 7.3. The first load after a fresh launch (cold) is within 0.2 s of the warm median in every scene; the first DXVK launch after the kit install (empty pipeline cache) loaded land_small in 3.6 s against 3.9 to 4.0 later",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j23pc/README.md",
+  "date": "2026-11-01",
+  "notes": "runs 20261101_j23pc and 20261101_j23smoke; confirms napoleon.dxvk.pipeline_cache (no warm-up step worth building); naval_storm's load is measured for the first time; no system-backend load exists (napoleon.render.system_backend)"
+}

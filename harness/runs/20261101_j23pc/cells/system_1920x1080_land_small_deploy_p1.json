@@ -1,0 +1,12 @@
+{
+ "size": "1920x1080",
+ "backend": "system",
+ "variant": null,
+ "pass": 1,
+ "scenario": "land_small",
+ "pose": "deploy",
+ "perf": true,
+ "status": "failed",
+ "reason": "block skipped: two launch failures in a row",
+ "pins": {}
+}

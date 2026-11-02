@@ -4,5 +4,5 @@
   "state": "open",
   "evidence": "proxy/runs/20261028_pcrerun/README.md",
   "date": "2026-10-28",
-  "notes": "run 20261028_pcrerun step d; one observation, display settings not read from preferences.script; vanilla's mode on this PC not recorded"
+  "notes": "run 20261028_pcrerun step d; one observation, display settings not read from preferences.script; vanilla's mode on this PC not recorded. J23 (2026-11-01, source of the pinned v3.1.1, no PC run): a D3D9 fullscreen request (Windowed=FALSE) goes through D3D9SwapChainEx::EnterFullscreenMode = ChangeDisplayMode (ChangeDisplaySettingsExW to the requested mode) then wsi::enterFullscreenMode (strips WS_OVERLAPPEDWINDOW, SetWindowPos HWND_TOPMOST to the monitor rect); Vulkan exclusive fullscreen only with dxvk.allowFse=True (default False). Expected answer: borderless topmost window plus a real display-mode change when the requested size differs from the desktop. Open until Liam's sitting (jobs/J23/report.md Open questions: the exact step)"
 }

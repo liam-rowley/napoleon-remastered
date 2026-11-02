@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.perf.resolution_scaling",
+  "claim": "On DXVK 3.1.1 (RTX 4090, headless) frame time does not rise with resolution: p50 at 1080p / 1440p / 4K is land_small 1.894 / 1.817 / 1.806 ms, siege_small 2.27 / 2.024 / 2.007, hist_dresden 4.47 / 4.193 / 3.991, campaign_start 1.989 / 1.99 / 1.967 (medians of 3, spreads under 0.14 ms). The frame is bound by the CPU side (engine work, draw calls), not by pixels: a feature that adds draw calls or engine work costs frame time, pixel work on this GPU is close to free",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j23pc/README.md",
+  "date": "2026-11-01",
+  "notes": "run 20261101_j23pc, build 46f52d356ce8, 39 cell keys in perf/baseline.json; frames uncapped (gfx_vsync false, DXVK presentInterval default); the slight fall with size is not explained (order: 1080p ran first)"
+}

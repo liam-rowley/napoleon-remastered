@@ -1,0 +1,91 @@
+{
+ "run": "20261101_j23sweep",
+ "sittings": [
+  {
+   "run": "20261101_j23sweep",
+   "start_utc": "2026-11-01T22:51:32Z",
+   "plan_cells": 80,
+   "scenarios": [
+    "land_small",
+    "siege_small"
+   ],
+   "blocks": [
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": "none",
+     "start_utc": "2026-11-01T22:51:33Z",
+     "end_utc": "2026-11-01T22:57:05Z"
+    },
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": "latency1",
+     "start_utc": "2026-11-01T22:57:05Z",
+     "end_utc": "2026-11-01T23:02:35Z"
+    },
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": "interval0",
+     "start_utc": "2026-11-01T23:02:35Z",
+     "end_utc": "2026-11-01T23:08:03Z"
+    },
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": "availmem2048",
+     "start_utc": "2026-11-01T23:08:03Z",
+     "end_utc": "2026-11-01T23:13:31Z"
+    },
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": "latencysleep_off",
+     "start_utc": "2026-11-01T23:13:31Z",
+     "end_utc": "2026-11-01T23:18:58Z"
+    },
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": "none",
+     "start_utc": "2026-11-01T23:18:58Z",
+     "end_utc": "2026-11-01T23:24:33Z"
+    },
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": "latency1",
+     "start_utc": "2026-11-01T23:24:33Z",
+     "end_utc": "2026-11-01T23:29:59Z"
+    },
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": "interval0",
+     "start_utc": "2026-11-01T23:29:59Z",
+     "end_utc": "2026-11-01T23:35:27Z"
+    },
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": "availmem2048",
+     "start_utc": "2026-11-01T23:35:27Z",
+     "end_utc": "2026-11-01T23:40:52Z"
+    },
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": "latencysleep_off",
+     "start_utc": "2026-11-01T23:40:52Z",
+     "end_utc": "2026-11-01T23:46:18Z"
+    }
+   ],
+   "restore_keys": {
+    "proxy.backend": "dxvk",
+    "proxy.dxvk_path": "napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "end_utc": "2026-11-01T23:46:25Z"
+  }
+ ]
+}
