@@ -1,6 +1,6 @@
 -- ctl/orders.lua - dev (J28): the battle unit control route's Lua half: list the player's army, read one unit, push one move order
 -- purpose: the chunk ctl.py order runs: "list" (every unit of the player's army: the first Land unit of BattleUI.UnitListForBattleIds),
---          "state <unit>" (one unit), "move <unit> <x> <z> <facing|-> <width|-> <run 0|1>" (wsp.order_move: the engine's own command
+--          "state <unit>[,<unit>...]" (one line per unit), "move <unit> <x> <z> <facing|-> <width|-> <run 0|1>" (wsp.order_move: the engine's own command
 --          path, one unit per command), "selection" (the UI's own selection S); <unit> = the unit's number in the player's army (1-based,
 --          the army list order: stable across launches of a scenario) or a 0x... pointer
 -- usage: job.sh ctl <owner> "lua napoleon_remastered/lua/ctl/orders.lua 20 -- list|state <unit>|move <unit> <x> <z> <facing|-> <width|-> <run>|selection" in a battle; ctl.py order runs it
@@ -22,8 +22,8 @@ local ok, lists = pcall(B.UnitListForBattleIds)
 local seed = ok and type(lists) == "table" and type(lists.Land) == "table" and lists.Land[1] or nil
 local function line(u)
 	if u.why then return "unit ptr=" .. tostring(u.ptr) .. " why=" .. string.gsub(u.why, "%s", "_") end
-	return string.format("unit id=%d ptr=%s x=%.4f y=%.4f z=%.4f facing=%.4f raw=%d men=%d queued=%d fx=%s fy=%s fz=%s width=%s army=%s",
-		u.id, u.ptr, u.x, u.y, u.z, u.facing, u.facing_raw, u.men, u.queued, string.format("%.4f", u.front_x or 0/0),
+	return string.format("unit id=%d ptr=%s x=%.4f y=%.4f z=%.4f facing=%.4f raw=%d men=%d queued=%d moving=%d fx=%s fy=%s fz=%s width=%s army=%s",
+		u.id, u.ptr, u.x, u.y, u.z, u.facing, u.facing_raw, u.men, u.queued, u.moving or -1, string.format("%.4f", u.front_x or 0/0),
 		string.format("%.4f", u.front_y or 0/0), string.format("%.4f", u.front_z or 0/0), string.format("%.4f", u.width or 0/0), u.army)
 end
 local list, why = wsp.unit_list(seed)
@@ -37,10 +37,14 @@ elseif verb == "selection" then
 	local s, w = wsp.selection()
 	if not s then return "orders refused: " .. tostring(w) end
 	return "selection groups=" .. tostring(s.groups) .. " units=" .. table.concat(s.units, ",")
-elseif verb == "state" then
-	local u, w = wsp.unit_state(ref(a[2] or ""))
-	if not u then return "orders refused: " .. tostring(w) end
-	return line(u)
+elseif verb == "state" then   -- one unit, or a comma list (one line each, in order): a settle round is one call
+	local out = {}
+	string.gsub(a[2] or "", "[^,]+", function(r)
+		local u, w = wsp.unit_state(ref(r))
+		out[#out + 1] = u and line(u) or ("orders refused: " .. r .. ": " .. tostring(w))
+	end)
+	if #out == 0 then return "orders refused: state <unit>[,<unit>...]" end
+	return table.concat(out, "\n")
 elseif verb == "move" then
 	if #a < 7 then return "orders refused: move <unit> <x> <z> <facing|-> <width|-> <run>" end
 	local x, z = tonumber(a[3]), tonumber(a[4])

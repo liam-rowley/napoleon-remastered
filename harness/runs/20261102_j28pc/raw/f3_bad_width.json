@@ -1,0 +1,10 @@
+{
+  "verb": "order",
+  "status": "refused",
+  "reason": "unit 4: width must be in (0.5, 1000] metres",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-11-02T12:44:37.446Z",
+  "end_utc": "2026-11-02T12:44:40.125Z"
+}

@@ -14,5 +14,6 @@ for p in sys.argv[1:]:
     f = (d.get('check') or {}).get('fields', {})
     errs = ' '.join(f"{k}={v['got']}(err {v['err']}{'' if v['within'] else ' OUT'})" for k, v in f.items())
     b, g, st = d.get('before') or {}, d.get('got') or {}, d.get('settle') or {}
+    b, g = (b if isinstance(b, dict) else {}), (g if isinstance(g, dict) else {})
     print(f"{d['status']} {d.get('reason', '')} | {errs} | settle {st.get('waited_s')} s moved={st.get('moved')} | centre "
           f"({b.get('x')}, {b.get('z')}) -> ({g.get('x')}, {g.get('z')}) facing {b.get('facing')} -> {g.get('facing')}")
