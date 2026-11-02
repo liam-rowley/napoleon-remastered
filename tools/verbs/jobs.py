@@ -62,16 +62,28 @@ BLOCKED_BY_ROUNDS = f'{MAX_ROUNDS} review rounds without merge'
 LEGACY_REVIEWS = frozenset({'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J13', 'J14', 'J15', 'J17', 'J18', 'J19', 'J20', 'J21', 'J36',
                             'J39', 'J41', 'J42', 'J43', 'J44', 'J51'})
 
+# Briefs on main when J11 cut its branch (c674fb1, 52 briefs); LATE_LEGACY: briefs that merged before J11 did (J24, J37). All were written before the
+# found-path rule (J5 ledger row 80, discovery/core/briefpaths.py) and are exempt from that rule only; their shape rules still apply. Frozen: a new brief is checked.
+LEGACY_BRIEFS = frozenset({'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10', 'J11', 'J12', 'J13', 'J14', 'J15', 'J16',
+                            'J17', 'J18', 'J19', 'J20', 'J21', 'J22', 'J23', 'J27', 'J28', 'J30', 'J31', 'J33', 'J36', 'J38', 'J39', 'J40',
+                            'J41', 'J42', 'J43', 'J44', 'J45', 'J46', 'J48', 'J49', 'J50', 'J51', 'J52', 'J53', 'J54', 'J55', 'J56', 'J57',
+                            'J58', 'J60', 'J65', 'J66'})
+LATE_LEGACY = frozenset({'J24', 'J37'})
+
 
 def num(jid):
     return int(jid[1:]) if re.fullmatch(r'J\d+', jid or '') else 10 ** 9
 
 
 # ------------------------------------------------------------------ check
-def brief_problems(jid, row, text):
+def brief_problems(jid, row, text, known=None):
     """Shape every brief must have (D15 and the J1 template): Model line agreeing with the row (a reason when Opus), a call budget,
-    kill criteria, and a Finish section that ends with the status=review command."""
+    kill criteria, and a Finish section that ends with the status=review command. With `known` (briefpaths.load_known) a brief not in
+    LEGACY_BRIEFS also passes the found-path rule (row 80): game-side paths only as registry ids."""
     errs = []
+    if known is not None and jid not in LEGACY_BRIEFS | LATE_LEGACY:
+        import briefpaths
+        errs += [f'found path: {e}' for e in briefpaths.found_path_problems(text, known)]
     if not re.search(rf'^# {jid}:', text, re.M):
         errs.append(f'first heading is not "# {jid}: <title>"')
     m = re.search(r'^Model:\s*(\w+)(.*)$', text, re.M)
@@ -206,7 +218,7 @@ def promotion_problems(rows, tracked_dirs, table=None):
     return errs
 
 
-def problems(rows, read, folders=()):
+def problems(rows, read, folders=(), known=None):
     """Errors for the queue. `rows`: the jobs rows; `read(path)`: file text or None; `folders`: job ids that have a jobs/<id>/ folder."""
     errs, by = [], {r['id']: r for r in rows}
     for jid in sorted(by, key=num):
@@ -226,7 +238,7 @@ def problems(rows, read, folders=()):
             errs.append(f'{jid}: has a brief but is still needs_brief (set status=queued brief=jobs/{jid}/brief.md)')
         brief = read(f'jobs/{jid}/brief.md')
         if brief is not None:
-            errs += [f'{jid}: brief: {e}' for e in brief_problems(jid, r, brief)]
+            errs += [f'{jid}: brief: {e}' for e in brief_problems(jid, r, brief, known)]
         report = read(f'jobs/{jid}/report.md')
         if report is not None:
             errs += [f'{jid}: report: {e}' for e in report_problems(jid, report)]
@@ -1042,7 +1054,11 @@ def brief_steps(r, root, lead='needs a brief (nothing queued is ready)'):
             f'then wsc reg set jobs {r["id"]} status=queued brief=jobs/{r["id"]}/brief.md, push, then queue the merge on green CI (D33): '
             f'python3 tools/pr_policy.py --branch brief/{r["id"]} --base origin/main (must say ok), '
             f'gh pr create --base main --head brief/{r["id"]} --title "brief: {r["id"]} {r["title"]}", '
-            f'gh pr merge brief/{r["id"]} --auto --squash; do not wait or poll.'
+            f'gh pr merge brief/{r["id"]} --auto --squash; do not wait or poll.\n'
+            'How a brief cites (row 80, J11): game-side things by registry id (python3 core/wsc.py find <words>), never a path you searched for. '
+            '`wsc jobs check` refuses the extract store, pack-form paths (backslashes), any path under a game folder that is not an assets or ui_elements id, '
+            'and a layout or script path a ui_elements unit holds (cite the unit id). A thing with no row goes under `## Registry gaps` as '
+            '`- path: <path>; owner: <job id or liam>; reason: <why no row>`; a quotation is marked `Quoted, not a citation:`.'
             + ''.join(f'\nThe brief must cover {o}' for o in owed))
 
 
@@ -1088,11 +1104,14 @@ def run(args, ctx):
 
     if args.action == 'check':
         folders = [d.name for d in (ctx.root / 'jobs').iterdir() if d.is_dir()] if (ctx.root / 'jobs').is_dir() else []
-        errs = problems(rows, read, folders)
+        sys.path.insert(0, str(ctx.root / 'discovery' / 'core'))
+        import briefpaths   # the found-path rule (row 80): discovery/core/briefpaths.py
+        errs = problems(rows, read, folders, briefpaths.load_known(ctx.root))
+        gaps = sum(len(briefpaths.registry_gaps(read(f'jobs/{r["id"]}/brief.md') or '')[0]) for r in rows)
         errs += promotion_problems(rows, {str(Path(f).parent.as_posix()) for f in ctx.files()})
         for e in errs:
             print(f'jobs: {e}', file=sys.stderr)
-        print(f'jobs check: {len(rows)} rows, {"%d problems" % len(errs) if errs else "ok"}')
+        print(f'jobs check: {len(rows)} rows, {"%d problems" % len(errs) if errs else "ok"}, {gaps} registry gaps in briefs')
         return 1 if errs else 0
 
     if args.auto and not (args.action == 'view' and args.serve):

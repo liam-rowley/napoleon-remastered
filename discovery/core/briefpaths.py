@@ -2,7 +2,7 @@
 
 purpose: flag game-side paths in a job brief (the extract store, pack-form paths, paths under a game folder that are not a registry id, layout and script paths a ui_elements unit holds) and parse a brief's `## Registry gaps` section
 usage: from briefpaths import found_path_problems, load_known, registry_gaps   (called by tools/verbs/jobs.py brief_problems, so `python3 core/wsc.py jobs check` runs it)
-when: before pushing a brief (jobs check), and in the tests gate (CI); the four flagged shapes and the escape hatch are listed in docs/plans/UI_PIPELINE.md "How a brief cites"
+when: before pushing a brief (jobs check), and in the tests gate (CI); the four flagged shapes and the escape hatch are listed in tools/verbs/jobs.py brief_steps ("How a brief cites"), which every brief writer is shown
 not-a-verb: a library; the verb is `wsc jobs check`
 
 Pure functions of `text` and a `Known` (game folders, assets ids, ui_elements ids and their layout and script paths, the repo's tracked files), so

@@ -89,6 +89,11 @@ def readmes(root):
     return out
 
 
+def readme_problems(root):
+    """The committed READMEs that are not what their results render to."""
+    return [f'{p}: stale; run `wsc discovery render`' for p, t in readmes(root).items() if not p.exists() or p.read_text(encoding='utf-8') != t]
+
+
 def ui_problems(root):
     """The J10 atlas: files as summary.json records them (sha256 of the JSON), deterministic gzip, rows and units in step."""
     _core(root)
@@ -171,8 +176,7 @@ def gate_run(root, install=False, write=False):
                 'engine_sites table (gen_tables --check)': ex.submit(_gen_tables, root)}
         currency = {
             'discovery areas (J6)': lambda: _load(root)[1],
-            'READMEs current': lambda: [f'{p}: stale; run `wsc discovery render`' for p, t in readmes(root).items()
-                                         if not p.exists() or p.read_text(encoding='utf-8') != t],
+            'READMEs current': lambda: readme_problems(root),
             'assets registry in step with the index (J7)': lambda: j7_problems(root),
             'ui atlas files and rows (J10)': lambda: ui_problems(root),
         }
