@@ -1,0 +1,255 @@
+{
+  "pre_snapshot": "snapshots\\pre_install_20261102T075815Z.json",
+  "backups": [],
+  "history": [
+    {
+      "utc": "20261102T075815Z",
+      "action": "install started",
+      "kit_id": "kit_20261101T205936Z_f08b12c3806a"
+    },
+    {
+      "utc": "20261102T075815Z",
+      "action": "install",
+      "kit_id": "kit_20261101T205936Z_f08b12c3806a"
+    },
+    {
+      "utc": "20261102T075815Z",
+      "action": "install exe check",
+      "exe_sha1": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+      "exe_verdict": "vanilla"
+    },
+    {
+      "utc": "20261102T105953Z",
+      "action": "uninstall",
+      "identical": true,
+      "diffs": []
+    },
+    {
+      "utc": "20261102T105953Z",
+      "action": "uninstall exe check",
+      "exe_sha1": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+      "exe_verdict": "vanilla"
+    }
+  ],
+  "kit_id": "kit_20261101T205936Z_f08b12c3806a",
+  "build_id": "f08b12c3806a",
+  "installed_utc": "20261102T075815Z",
+  "files": [
+    {
+      "path": "d3d9.dll",
+      "sha256": "c8b836c0d17c28d782de4e814dcb480ea60a9d6f68359985167c8db84bfb0d61",
+      "size": 927232
+    },
+    {
+      "path": "napoleon_remastered.ini",
+      "sha256": "538d7b02e5ee5573c5bfa18bb82b9753d744b01edd0e5f2da938d37d012739b7",
+      "size": 8217
+    },
+    {
+      "path": "napoleon_remastered/dxvk/d3d9_dxvk.dll",
+      "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+      "size": 7856142
+    },
+    {
+      "path": "napoleon_remastered/LICENSE.dxvk.txt",
+      "sha256": "a5cb1a6ded7d2d7e92d550ba28edd21be2d1d4044662b399887351023e30ce64",
+      "size": 1074
+    },
+    {
+      "path": "napoleon_remastered/packs/zz_napoleon_remastered_dev.pack",
+      "sha256": "d15febf06229844bda10dc1a8391be1d0de02a703ab6474da7bc7d13beb96a12",
+      "size": 2114
+    },
+    {
+      "path": "napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack",
+      "sha256": "e23ad1a7b064275d1db33394b64c966360573649a2106ae744d48507a00a79ac",
+      "size": 228354
+    },
+    {
+      "path": "napoleon_remastered/lua/autostart.lua",
+      "sha256": "21060f473582e9c317cd85f74fb8bb2aab3ef6b5b4d2e13b8d06ed9db08564cb",
+      "size": 12226
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/hist_dresden.txt",
+      "sha256": "1546010326e45867c2a1a91095010b6829feac1084e4748e4c76b9fe09e79070",
+      "size": 230
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/hist_nile.txt",
+      "sha256": "8a50bb077f7660f44dd813733e98a8efada0c495b6846834bec5c2fe487d29db",
+      "size": 223
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/land_small.txt",
+      "sha256": "6bb8831c3f4eb39c6fb5fde21b52ba1c29cbc163b2ca982f758c58c0670d8e65",
+      "size": 414
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/naval_small.txt",
+      "sha256": "fa51622b6f65e4e1504eb29e4bde3a50ff80275add07928b3714530ce616b4b8",
+      "size": 143
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/naval_storm.txt",
+      "sha256": "8653bfed2a5bc261dc54aba75bc0e6ac704d95e375bf9a07fa83f0d30b1c5e77",
+      "size": 204
+    },
+    {
+      "path": "napoleon_remastered/lua/battles/siege_small.txt",
+      "sha256": "a01e7b2fde94f40d6d3db543f79a98967cb7c1d424d1e9f819295be427b8dfe8",
+      "size": 137
+    },
+    {
+      "path": "napoleon_remastered/lua/ctl/cam_read.lua",
+      "sha256": "a49288f5096c64c4291ca444045fcc6f42ec52c50b73ecfe8313c543acfa3009",
+      "size": 3155
+    },
+    {
+      "path": "napoleon_remastered/lua/ctl/cam_set.lua",
+      "sha256": "65c22ff60084de7de95ca5d896ee89646b30e091989f237bcfd131c352a8c15a",
+      "size": 1284
+    },
+    {
+      "path": "napoleon_remastered/lua/ctl/speed.lua",
+      "sha256": "410b036348a029cc36bf57bf8f9d19e094e8c3af25215c0cef35394b5fa488ae",
+      "size": 2445
+    },
+    {
+      "path": "napoleon_remastered/lua/fixed_sky_rules.txt",
+      "sha256": "a9fd75c66b5f267d60aa2346c566b37d505325ec3af4cd1eb914fecb4abd57cc",
+      "size": 384
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/api_surface.lua",
+      "sha256": "57f0951654cfee0690c777746c1d9660375c34c23a86ec09454f480eb15c98b4",
+      "size": 3660
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/battle_api.lua",
+      "sha256": "eca63248c89d12c97b0bc9fc8fe1079d719f654fcb819912915c052928755f87",
+      "size": 2935
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/battle_route.lua",
+      "sha256": "7ec1d1b25da37e8f1804ca2785472aa935d7207536632eb649ef2f962b503dd1",
+      "size": 1843
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/battleui_names.lua",
+      "sha256": "b9deb8016159029e7881ed1561ab6cfb343deb4e623d2676903f69c2a0e0f53d",
+      "size": 1033
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_camera.lua",
+      "sha256": "d52c6f51e04391ae537e62d8b547b319042b54e50af6419147e7aced48b19c14",
+      "size": 782
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_end_turn.lua",
+      "sha256": "314508b453a1f96c3b45b33a3fbd16fa3521e12b5b5efc75773d9576101d7c2c",
+      "size": 1276
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_keys.lua",
+      "sha256": "ffde399d29fc10e696175421c34df324e6018c6ebc59bd3d51a56ec103d2102f",
+      "size": 1451
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_modal_close.lua",
+      "sha256": "13c08b4d11071242f6b60fc3b48d5545ab87dbfa38a3fe3e611d2c245cbaed16",
+      "size": 3453
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_quicksave.lua",
+      "sha256": "8b685f74cc5c14a1e2238ed5cccd0d0dba4bc105b97a7843a237a84eb4235610",
+      "size": 844
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_readback.lua",
+      "sha256": "23bf700673c9adaf006a2ad0a6756a6fb3575e42abe16830231c54a3313226c9",
+      "size": 1767
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_select.lua",
+      "sha256": "ae0e9dc8e9fdbd6f4b065df6430217349eb3d1ebe63b2c44950a7acad1fe65da",
+      "size": 1421
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/campaign_turn.lua",
+      "sha256": "df2ea0a76cb42e801c02f6bd8ee7f3affa1bd6ebe6343812fdf4e07930a73791",
+      "size": 1570
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/console_nodll.lua",
+      "sha256": "33400ccb59a8d088326667fac070faadf5f51b3fda153f2ef2678ea23ffe46f2",
+      "size": 1084
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/echo_args.lua",
+      "sha256": "1950a6014fc6fcd19ee5c2a82bb947289408dd7ec8d31e10f273bcd6abb83d8e",
+      "size": 510
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/env_dump.lua",
+      "sha256": "9676b54e666df8cdb2eb8f5299aea25855212d3af894e686dc8e8e573c4edd76",
+      "size": 1137
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/list_maps.lua",
+      "sha256": "f66dfa9507da4a527248063c627d8c363d6f3985639518e0650cd9e1908d1c23",
+      "size": 1147
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/require_sl.lua",
+      "sha256": "0c3a7f6d5ce6c15efd28d24a04a633d1d705d2e33602e9295e2caf9f32dfcdc0",
+      "size": 911
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/ui_tree.lua",
+      "sha256": "095f5915aa536790856db38726d496251b666a1796d1335f82c4b38acdaf605e",
+      "size": 1381
+    },
+    {
+      "path": "napoleon_remastered/lua/probes/weather_options.lua",
+      "sha256": "4ce94d8cd5d8b6744d653180c4e08819b3a81888894a2359a6312356ce3433d3",
+      "size": 1622
+    },
+    {
+      "path": "napoleon_remastered/lua/reset.lua",
+      "sha256": "606af215e8b4cd660317eb552195229d193522374635bc39bd231baa60890524",
+      "size": 2754
+    },
+    {
+      "path": "napoleon_remastered/lua/wsp.lua",
+      "sha256": "a7f0e851d6ac6c6a3327103b73c1d4e09786988a6343cfdff24fcda3cb8190ab",
+      "size": 6544
+    }
+  ],
+  "owned": [
+    "d3d9.dll",
+    "napoleon_remastered.ini",
+    "napoleon_remastered/"
+  ],
+  "mod_dir": "napoleon_remastered",
+  "exe_name": "Napoleon.exe",
+  "config_file": "napoleon_remastered.ini",
+  "other_exes": [
+    "Empire.exe"
+  ],
+  "exe_identity": {
+    "sha1": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+    "exe_name": "Napoleon.exe"
+  },
+  "game_config_files": [
+    "napoleon_remastered.ini",
+    "dxvk.conf"
+  ],
+  "packs": {
+    "fixed_sky": {
+      "present": true,
+      "path": "napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack",
+      "sha256": "e23ad1a7b064275d1db33394b64c966360573649a2106ae744d48507a00a79ac"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.frontend_credits_stops_pump",
+  "claim": "Entering the front-end credits page (root LuaCall TransitionTo \"credits\") stops the front-end Lua pump: no later ctl Lua call returns, and only a relaunch leaves it; the other 12 pages entered the same way return to main in the same call (run 20261102_j10pc)",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j10pc/README.md",
+  "date": "2026-11-02",
+  "notes": "only the main menu pumps Lua in the front end (J9), so a page is read inside the call that enters it"
+}

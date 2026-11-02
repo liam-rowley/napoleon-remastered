@@ -97,9 +97,9 @@ Every row whose verdict is not `same`; the `same` rows are counted per area. Ful
 | layouts | layout Version025 | 1 (1 round-trip) | - | gone |  | detail.*_layouts |
 | layouts | layout Version027 | 1 (1 round-trip) | - | gone |  | detail.*_layouts |
 | layouts | layout Version031 | 1 (1 round-trip) | - | gone |  | detail.*_layouts |
-| layouts | layout Version039 | - | 136 (45 round-trip) | adapter | V033 plus a u32 default-state id after c_flag (uic.py state_ref) and a per-component anim… | detail.*_layouts |
-| layouts | uied.templates record v35 | - | 4 (0 round-trip) | new | not decoded (kill criterion): napoleon.diff.layouts.template_v35 | detail.*_templates |
-| layouts | uied.templates record v39 | - | 3 (1 round-trip) | new | same component codec as layout V039 | detail.*_templates |
+| layouts | layout Version039 | - | 136 (136 round-trip) | new | V033 plus a u32 default-state id after c_flag (uic.py state_ref), a per-component animati… | detail.*_layouts |
+| layouts | uied.templates record v35 | - | 4 (4 round-trip) | new | V033 plus the V039 animations and transitions, no state_ref (J10: napoleon.diff.layouts.t… | detail.*_templates |
+| layouts | uied.templates record v39 | - | 3 (3 round-trip) | new | same component codec as layout V039 | detail.*_templates |
 | fonts | font file font\editor_13.cuf | - | yes | new |  | detail.*_files |
 | fonts | font name Frontend 12, Normal | 2 | - | gone | layout references (count) | detail.name_map |
 | fonts | font name Ingame 10, Bold | - | 6 | new | layout references (count) | detail.name_map |

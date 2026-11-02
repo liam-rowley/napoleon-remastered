@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.v039_layout_bases",
+  "claim": "Vanilla layout roots are 1280x960 (90 layouts), 1280x1024 (49) and 1600x960 (35): the root size varies per layout, so the base the engine scales from is not read from the root alone (measured live: napoleon.ui.layout_base)",
+  "state": "verified",
+  "evidence": "discovery/ui/summary.json#layout_bases",
+  "date": "2026-11-02",
+  "notes": "J10 static read"
+}
