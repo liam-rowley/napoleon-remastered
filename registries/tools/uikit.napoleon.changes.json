@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.changes",
+  "kind": "script",
+  "path": "uikit/napoleon/changes.py",
+  "purpose": "render the component board and every viewer/napoleon screen with \"library\": true at the four D19 corners, compare rgba_sha256 with uikit/napoleon/baseline.json, print what changed; flag a locked screen as \"changed since lock",
+  "usage": "python3 uikit/napoleon/changes.py [--accept [--allow-locked]] [--json] [--wasm DIR] [--screens NAME ...]   (exit 1 when anything changed, or a locked screen changed without --accept --allow-locked)",
+  "when": "after any change to uikit/napoleon (tokens, src, fonts) or to a library screen, before the pull request; --accept rewrites the baseline once the change is intended; Liam's LOCK.json (uikit/napoleon/LOCK.json, {\"locked\": [\"board\"]}) is never written here",
+  "not_a_verb": "a renderer round trip with a browser and a baseline file, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

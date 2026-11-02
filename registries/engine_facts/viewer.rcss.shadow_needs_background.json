@@ -1,0 +1,8 @@
+{
+  "id": "viewer.rcss.shadow_needs_background",
+  "claim": "In the viewer an outer box-shadow on an element with no background colour paints the element's own box black; a blurred outer box-shadow and an outer box-shadow with an alpha colour composite against black (a black halo around the blur, a darkened alpha shadow). The library therefore uses only hard-edged outer shadows with opaque colours on elements that have a background (the plate's ring shadows, the tooltip), keeps inset shadows (with alpha or not) and lint rule 6 refuses blur and outer alpha shadows. Open: whether J30's D3D9 render interface behaves the same (it ports the same RmlUi layer code); J32's parity check and J35 should try a blurred shadow before the rule is relaxed",
+  "state": "verified",
+  "evidence": "uikit/napoleon/runs/20261102_j34/README.md",
+  "date": "2026-11-02",
+  "notes": "spike probes q_a to q_e; LANGUAGE.md's 0 12 36 black 45 percent drop shadow on the plate is replaced by a hard 6 dp offset in an opaque colour (README: recipe differences)"
+}
