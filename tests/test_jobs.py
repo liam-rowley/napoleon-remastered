@@ -607,11 +607,17 @@ class Steps(unittest.TestCase):
             self.assertNotIn('gh pr merge', s)
             self.assertNotIn('gh pr ready', s)
 
-    def test_review_steps_mark_the_draft_ready_before_the_merge(self):
+    def test_review_steps_mark_the_pull_request_ready_before_the_push(self):
+        """J57: ready before the review commit is pushed, so the pushed head gets a real policy run (a draft's is skipped = passed)."""
         s = jv.review_steps('J60', 0)
-        self.assertLess(s.index('pr_policy.py --branch job/J60'), s.index('gh pr ready job/J60'))
-        self.assertLess(s.index('gh pr ready job/J60'), s.index('gh pr merge job/J60 --auto --squash'))
-        self.assertIn('otherwise leave the draft pull request open', s)
+        merge_part, other = s.split('otherwise push', 1)
+        order = ['pr_policy.py --branch job/J60', 'gh pr view job/J60', 'gh pr ready job/J60', 'git push', 'gh pr merge job/J60 --auto --squash']
+        at = [merge_part.index(x) for x in order]
+        self.assertEqual(at, sorted(at))
+        self.assertEqual(len(set(at)), len(at))
+        self.assertIn('do not push yet', merge_part)
+        self.assertIn('leave the draft pull request open (never gh pr ready)', other)
+        self.assertNotIn('gh pr ready', other.split('(never gh pr ready)')[1])
 
     def test_fix_launch_uses_the_row_model(self):
         self.assertEqual(jv.launch_argv('claude', 'J4', 'fix', row('J4', model='opus')),

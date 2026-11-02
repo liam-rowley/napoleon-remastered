@@ -2,6 +2,8 @@
 # `proxy`, `viewer` and `harness-windows` run only when the branch changes their inputs and that input tree has not passed already
 # (job `changes`, J54 below); a skipped job counts as passed for
 # required checks and auto-merge (D32), so a brief or plan branch does not wait for the slow Windows runner.
+# J57: a failed `changes` job must not skip them (a skip counts as passed): each slow job's `if:` starts with `!cancelled()` (no implicit success()) and
+# runs whenever `needs.changes.result != 'success'`; its pass-marker steps still see an empty tree output and save nothing.
 # usage: runs on GitHub Actions; locally: python3 core/wsc.py gates
 # when: automatic; require the "gates" check in branch protection for main.
 # not-a-verb: GitHub runs workflows by file; this one only calls `wsc gates`.
@@ -145,7 +147,7 @@ jobs:
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.
   proxy:
     needs: changes
-    if: github.event_name != 'workflow_dispatch' && needs.changes.outputs.proxy == 'true'
+    if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' && (needs.changes.result != 'success' || needs.changes.outputs.proxy == 'true') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -189,7 +191,7 @@ jobs:
   # (tests/test_viewer.py). viewer.js, viewer.wasm, their sha256 and the renders are kept as a workflow artifact (J31).
   viewer:
     needs: changes
-    if: github.event_name != 'workflow_dispatch' && needs.changes.outputs.viewer == 'true'
+    if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' && (needs.changes.result != 'success' || needs.changes.outputs.viewer == 'true') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -235,7 +237,7 @@ jobs:
   harness-windows:
     needs: changes
     # a workflow_dispatch run exists only to run this job (J19 -Only/-Repeat), whatever the branch changed
-    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.harness == 'true'
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.changes.result != 'success' || needs.changes.outputs.harness == 'true') }}
     runs-on: windows-latest
     timeout-minutes: 25
     env:

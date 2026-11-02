@@ -52,10 +52,16 @@ check reads it: only `merge` lets the branch merge), and findings ranked **block
   a red required check is a blocker for a `merge` verdict (`docs/CI_FAILURES.md` classes it).
 
 ## Merging (D32, `merge` verdict only)
-After the review commit is pushed, run `python3 tools/pr_policy.py --branch job/<id> --base origin/main` (it must say ok), then
-`gh pr view job/<id>` (the builder opened it as a draft when the job reached review, J54; if there is none: `gh pr create --base main
---head job/<id> --title "<id>: <title>"`, body = the review's verdict and findings), then `gh pr ready job/<id>` (a draft skips CI's
-`policy`; ready runs it), then `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
+Commit the review and the row **locally, do not push yet**, then in this order (J57):
+1. `python3 tools/pr_policy.py --branch job/<id> --base origin/main` on the local branch (it must say ok);
+2. `gh pr view job/<id>` (the builder opened it as a draft when the job reached review, J54; if there is none: `gh pr create --draft
+   --base main --head job/<id> --title "<id>: <title>"`, body = the review's verdict and findings);
+3. `gh pr ready job/<id>`: a draft skips CI's `policy` and a skipped check counts as passed, so the pull request is marked ready
+   **before** the push; the pushed head then gets a real `policy` run (`synchronize` on a non-draft pull request) and auto-merge cannot
+   land on a skipped one. The `ready_for_review` run on the old head has no merge verdict and is red by design: the push usually cancels
+   it, and `policy.yml`'s `notify` does not comment on it (a red `policy` on an old head does not block the merge);
+4. `git push`;
+5. `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
 `proxy`, `harness-windows`, `policy`) is green on that commit (`proxy` and `harness-windows` are skipped, which counts as passed,
 when the branch does not touch their inputs or the same input tree already passed: `.github/workflows/gates.yml` job `changes`): do not wait or poll. If the merge changes a rule that other open job
 branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply. A check that fails leaves the

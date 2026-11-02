@@ -6,6 +6,9 @@
 # Draft pull requests skip it (J54): a job's builder opens its pull request as a draft when the job reaches review, so the review sees
 # the branch's CI (the push-run checks attach to the commit and ci_notify comments on a red one) without a `policy` that must fail
 # until the review says merge. The reviewer's `gh pr ready` (a merge verdict only, docs/REVIEW.md) sends ready_for_review, which runs it.
+# J57: the reviewer marks the pull request ready BEFORE pushing the review commit (a skipped policy counts as passed, and `gh pr merge --auto`
+# merges at once when the checks have passed), so the pushed head gets a real `policy` run. The ready_for_review run on the old head has no
+# merge verdict and is red by design: the push cancels it (concurrency below), and `notify` stays silent for it.
 name: policy
 on:
   pull_request:
@@ -39,7 +42,7 @@ jobs:
       - run: python tools/pr_policy.py --branch "${{ github.head_ref }}" --base "origin/${{ github.base_ref }}"
   notify:
     needs: [policy]
-    if: failure()
+    if: failure() && github.event.action != 'ready_for_review'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
