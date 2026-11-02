@@ -943,15 +943,19 @@ def art_keys(at, recs):
 TREE = re.compile(r'j10tree (\S+) (\d+): (.*)$')
 # units a probe cannot open (the brief: static_only is allowed and must say why), by id pattern
 STATIC_ONLY = [
-    (r'^frontend\.(mp_|multiplayer_|lobby_|host_campaign|password_entry|quickbattle|session_chat|friends_list|player_stats)', 'needs a multiplayer lobby or Steam session'),
+    (r'^frontend\.(mp_|multiplayer_|lobby_|host_campaign|password_entry|quickbattle|session_chat|friends_list)', 'needs a multiplayer lobby or Steam session'),
     (r'^(campaign|common)\.(mp_|multiplayer_|panel_dropin|waiting_for_players|friends_list)', 'needs a multiplayer campaign'),
     (r'^campaign\.layout_', 'needs a campaign event (the event message picks the layout)'),
     (r'^campaign\.(popup_pre_battle|popup_battle_results|settlement_captured|campaign_result|duel_challenge_received|agent_action|unit_exchange|enlist_commander|royal_family|travel_destinations|move_options|agent_options|layout_ally_attacked)', 'needs a campaign event or an order (destructive to open: it would change the campaign)'),
-    (r'^battle\.(mp_postbattle|in_battle_results_popup|sp_victory_options|deployment_end|countdown_win_timer|victory_tickets)', 'needs a battle ending or a multiplayer battle'),
+    (r'^battle\.(mp_postbattle|in_battle_results_popup|sp_victory_options|countdown_win_timer|victory_tickets)', 'needs a battle ending or a multiplayer battle'),
     (r'^(battle|campaign)\.esc_menu|^(battle|campaign|common)\.options', 'no proven safe route (opened by the Escape key or the escape menu; probes send no input)'),
     (r'^common\.(dialog|dialogue|mp_dialogue|mp_message)', 'opened by a script on demand (a confirmation): no safe route'),
     (r'^frontend\.credits', 'entering the credits page stops the front-end Lua pump (run 20261102_j10pc), so no probe can read it'),
 ]
+
+
+class StaticOnlyConflict(Exception):
+    """A STATIC_ONLY pattern matches a unit whose own head the live run found under its own name (J65): the pattern is too broad."""
 
 
 def _tree_lines(path):
@@ -1035,12 +1039,7 @@ def live(at, units, surfaces, run_dir):
             heads = [c for c in comps if c['parent'] == 'root'] or comps[:1]
             mine = [c for c in comps if c['path'] != 'root' and c not in heads]
         static = {c['name'] for c in mine}
-        known = next((w for rx, w in STATIC_ONLY if re.search(rx, u['id'])), None)
-        if known:
-            # a unit with a known reason (a multiplayer lobby, an event) is never matched by names: another page can hold the same
-            # component names (the options page holds password_entry's), and the reason is the true one
-            res[u['id']] = dict(reach='static_only', reason=known, best_match=None)
-            continue
+        known = next(((rx, w) for rx, w in STATIC_ONLY if re.search(rx, u['id'])), None)
         best = None
         for h in heads:
             cands = by_name.get(h['name'], [])
@@ -1055,6 +1054,16 @@ def live(at, units, surfaces, run_dir):
                 score = len(matched) / len(static) if static else 1.0
                 if best is None or score > best[0]:
                     best = (score, label, p, len(static), len(livenames), len(matched), h)
+        if known:
+            # a unit with a known reason (a multiplayer lobby, an event) is never matched by names: another page can hold the same
+            # component names (the options page holds password_entry's), and the reason is the true one. The guard (J65): when the
+            # unit's own head is found under its own name as a top-level live node at agreement 0.75 or more, the run reached it and
+            # the pattern is wrong, so the step fails (a nested match is another page's node and is no conflict)
+            if best and best[0] >= 0.75 and best[6]['name'] == best[2].split('/')[-1] and '/' not in best[2]:
+                raise StaticOnlyConflict(f"STATIC_ONLY pattern {known[0]!r} ({known[1]}) matches {u['id']}, but run {run} reached it: "
+                                         f"live path {best[2]} in state {best[1]}, agreement {best[0]:.3f}. Narrow the pattern.")
+            res[u['id']] = dict(reach='static_only', reason=known[1], best_match=None)
+            continue
         if best and best[3] < 3 and not (u.get('piece') and best[6]['name'] == best[2].split('/')[-1]):
             # a generic head name (Banner, CharacterAttribute) with one or two parts below it says nothing: too small to tell from a tree
             # (a HUD piece found by its own anchor, cards_panel, is named specifically enough)
