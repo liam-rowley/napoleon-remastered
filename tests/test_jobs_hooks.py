@@ -76,7 +76,7 @@ class PcState(unittest.TestCase):
             (state / 'watcher' / 'watcher.alive').write_text('x')
             (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_1', 'build_id': 'abc'}))
             (repo / 'harness' / 'acceptance' / 'ledger.jsonl').write_text(json.dumps({'pass': 3, 'result': 'pass', 'build_id': 'abc', 'watcher': '1.0.1', 'utc': 'u', 'run': 'r'}) + '\n')
-            pc = hk.pc_state(repo)
+            pc = hk.pc_state(repo, projects_dir=d / 'no-claude-projects')
             self.assertIn('owner=j44', pc['lock'])
             self.assertEqual((pc['watcher'], pc['kit'], pc['last_acceptance']['pass'], pc['last_acceptance']['result']), ('1.0.1', 'kit_1', 3, 'pass'))
             self.assertTrue(pc['usage'])

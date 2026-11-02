@@ -1,6 +1,6 @@
 """Napoleon's rules for the job pipeline: the hook module warscape-core's `wsc jobs` and `wsc policy` load (`wsc.toml` [jobs] hooks; napoleon J62).
 
-purpose: the game-specific half of the job pipeline, as the five hook names of warscape/hooks.py: the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58) and the PC line of the status page (rule 75, J44)
+purpose: the game-specific half of the job pipeline, as the five hook names of warscape/hooks.py: the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)
 usage: not run by hand: `python3 core/wsc.py jobs check|view` and `python3 core/wsc.py policy --branch <branch>` call it; `python3 -m unittest tests.test_jobs_hooks` tests it
 when: automatic, through wsc.toml [jobs] hooks; edit it when one of those rules changes (rules 76 and 79 in docs/plans/PLAN.md section 4, the J5 ledger)
 not-a-verb: a hook module the core's jobs and policy verbs import; it has no command line of its own
@@ -81,10 +81,70 @@ def queue_problems(ctx, rows, files):
 
 
 # ------------------------------------------------------------------ rule 75 (J44): the PC's state on the status page
-USAGE_SOURCE = 'none yet: no tool on the PC can read Claude usage numbers; handed to a meta row (jobs/J44/report.md, rule 75)'
+USAGE_NOTE = ('tokens and tool calls from Claude Code\'s own transcripts, cost is Claude Code\'s estimate not a bill; '
+              'plan and weekly-limit usage is not on disk: read it in the Claude app (Settings, Usage)')
 
 
-def pc_state(root, read_json=None):
+def _usage_reader():
+    here = str(Path(__file__).resolve().parent)
+    if here not in sys.path:
+        sys.path.insert(0, here)
+    import usage_reader
+    return usage_reader
+
+
+def usage_state(root, projects_dir=None, now=None):
+    """The usage half of rule 75 (J49): {'source': one line, 'error': text or None, 'week': {...}, 'jobs': [per-job rows], 'unattributed': {...}}.
+    Fails soft: a missing folder or an odd file only changes the text."""
+    ur = _usage_reader()
+    root = Path(root)
+    u = ur.usage_by_session(projects_dir, cache_path=ur.cache_file(root), now=now)
+    if u['error']:
+        return {'source': f'{u["error"]}; {USAGE_NOTE}', 'error': u['error'], 'week': None, 'jobs': [], 'unattributed': None}
+    rows = []
+    for p in sorted((root / 'registries' / 'jobs').glob('*.json')):
+        try:
+            rows.append(json.loads(p.read_text(encoding='utf-8')))
+        except (OSError, ValueError):
+            pass
+    since = ur.week_start(now)
+    r = ur.usage_by_job(rows, u['sessions'], ur.branch_trailers(root, {x['id'] for x in rows}), since)
+    out = []
+    for jid, j in sorted(r['jobs'].items(), key=lambda kv: int(kv[0][1:]) if kv[0][1:].isdigit() else 0):
+        try:
+            budget = ur.budget_from_brief((root / 'jobs' / jid / 'brief.md').read_text(encoding='utf-8'))
+        except OSError:
+            budget = None
+        out.append({'id': jid, 'sessions': j['sessions'], 'routes': j['routes'], 'calls': j['calls'], 'budget': budget, 'cost': j['cost'],
+                    'wall_s': j['wall_s'], 'models': ur.model_line(j['models']), 'last': (j['last'] or '')[:10]})
+    wk, un = r['week'], r['unattributed']
+    wtok = sum(sum(v) for v in wk['models'].values())
+    src = (f'{u["source"]}, {u["files"]} files read {u["read_at"]}, {u["skipped"]} lines skipped; last 7 days: {wk["sessions"]} sessions, {wk["calls"]} tool calls, '
+           f'{ur.tok(wtok)} tokens ({ur.model_line(wk["models"])}); {USAGE_NOTE}')
+    return {'source': src, 'error': None, 'week': wk, 'jobs': out,
+            'unattributed': {'sessions': un['sessions'], 'calls': un['calls'], 'cost': un['cost'], 'models': ur.model_line(un['models'])}}
+
+
+def usage_html(us):
+    """The per-job table of a usage_state (a closed <details>): calls actual / budget, tokens by model, the cost estimate."""
+    import html
+    if not us or not us.get('jobs'):
+        return ''
+    e = html.escape
+    rows = []
+    for j in us['jobs']:
+        wall = '' if j['wall_s'] is None else f'{j["wall_s"] / 3600:.1f} h span'
+        bud = f' / {j["budget"]}' if j['budget'] else ''
+        rows.append(f'<tr><td><a href="#{e(j["id"])}">{e(j["id"])}</a></td><td>{j["sessions"]}</td><td>{j["calls"]}{bud}</td><td>{e(j["models"])}</td>'
+                    f'<td>~${j["cost"]:.2f} (estimate)</td><td>{e(wall)}</td><td>{e(j["last"])}</td></tr>')
+    un = us['unattributed']
+    tail = (f'<p class="muted">Unattributed (no Claude-Session trailer on a job or brief branch, no job branch, no J&lt;n&gt;- name): {un["sessions"]} sessions, '
+            f'{un["calls"]} tool calls, ~${un["cost"]:.2f} (estimate).</p>') if un else ''
+    return ('<details class="doc"><summary>Claude usage per job</summary><table><tr><th>job</th><th>sessions</th><th>tool calls / brief budget</th>'
+            '<th>tokens by model</th><th>cost</th><th>wall</th><th>last</th></tr>' + ''.join(rows) + '</table>' + tail + '</details>')
+
+
+def pc_state(root, read_json=None, projects_dir=None):
     """The PC's state for the view, or None off the PC (no adapter state_dir). Lock holder, watcher version and heartbeat age, the installed
     kit and DLL build, the last acceptance pass (the ledger on this checkout) and the usage source."""
     import time as _time
@@ -115,12 +175,16 @@ def pc_state(root, read_json=None):
         pass
     alive = w / 'watcher.alive'
     age = int(_time.time() - alive.stat().st_mtime) if alive.exists() else None
+    try:
+        us = usage_state(root, projects_dir)
+    except Exception as ex:   # the usage half must never break the view
+        us = {'source': f'unavailable ({ex.__class__.__name__}); {USAGE_NOTE}', 'jobs': [], 'unattributed': None}
     ledger = [l for l in (text(root / 'harness' / 'acceptance' / 'ledger.jsonl') or '').splitlines() if l.strip()]
     last = json.loads(ledger[-1]) if ledger else None
     return {'lock': lock or 'free', 'watcher': st.get('version'), 'heartbeat_age_s': age,
             'game': (st.get('game_state') or {}).get('state'), 'kit': inst.get('kit_id') or 'not installed', 'build': inst.get('build_id'),
             'last_acceptance': ({k: last.get(k) for k in ('pass', 'result', 'build_id', 'watcher', 'utc', 'run')} if last else None),
-            'usage': USAGE_SOURCE}
+            'usage': us['source'], 'usage_detail': us}
 
 
 def pc_block(pc):
@@ -132,7 +196,7 @@ def pc_block(pc):
     acc = (f"pass {la['pass']} {la['result']} on build {la['build_id']}, watcher {la['watcher']} ({la['utc']}, {la['run']})" if la else 'none in the ledger')
     hb = 'no heartbeat' if pc['heartbeat_age_s'] is None else f"heartbeat {pc['heartbeat_age_s']} s ago"
     return (f'<p class="muted">PC: lock <code>{e(pc["lock"])}</code> · watcher {e(str(pc["watcher"]))} ({e(hb)}, game {e(str(pc["game"]))}) · '
-            f'kit <code>{e(pc["kit"])}</code> · last acceptance: {e(acc)} · usage source: {e(pc["usage"])}</p>')
+            f'kit <code>{e(pc["kit"])}</code> · last acceptance: {e(acc)} · usage source: {e(pc["usage"])}</p>' + usage_html(pc.get('usage_detail')))
 
 
 def view_panel(ctx):
