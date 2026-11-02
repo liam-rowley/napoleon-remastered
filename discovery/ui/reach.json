@@ -1,15 +1,15 @@
 {
  "agreement": {
-  "matched": 1597,
-  "mean": 0.992,
-  "static": 1610
+  "matched": 1549,
+  "mean": 0.995,
+  "static": 1556
  },
- "reached": 44,
+ "reached": 42,
  "reached_by_context": {
-  "battle": "7 of 32",
+  "battle": "6 of 32",
   "campaign": "11 of 56",
   "common": "2 of 18",
-  "frontend": "15 of 40",
+  "frontend": "14 of 40",
   "template": "9 of 74"
  },
  "run": "20261102_j10pc",
@@ -348,23 +348,12 @@
    "reason": "needs a battle ending or a multiplayer battle"
   },
   "battle.deployment_end": {
-   "agreement": 1.0,
-   "live_components": 15,
-   "live_path": "finish_deployment",
-   "matched": 15,
-   "reach": "reached",
-   "run": "20261102_j10pc",
-   "shot": "j10_hist_deploy.jpg",
-   "state": "hist_deploy",
-   "static_components": 15,
-   "visible": true
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a battle ending or a multiplayer battle"
   },
   "battle.esc_menu_battle": {
-   "best_match": {
-    "agreement": 0.067,
-    "live_path": "diplomacy_panel/bg_title_frame",
-    "state": "camp_diplomacy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
@@ -422,11 +411,7 @@
    "visible": true
   },
   "battle.in_battle_results_popup": {
-   "best_match": {
-    "agreement": 0.55,
-    "live_path": "missions",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a battle ending or a multiplayer battle"
   },
@@ -516,11 +501,7 @@
    "reason": "its best live match (naval_deploy veneer_DY/orders) is battle.naval_battle_orders's"
   },
   "battle.mp_postbattle": {
-   "best_match": {
-    "agreement": 0.375,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a battle ending or a multiplayer battle"
   },
@@ -542,11 +523,7 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "battle.options_game": {
-   "best_match": {
-    "agreement": 0.625,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
@@ -560,11 +537,7 @@
    "reason": "fewer than 3 components: a tree match by name is no evidence"
   },
   "battle.sp_victory_options": {
-   "best_match": {
-    "agreement": 0.3,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a battle ending or a multiplayer battle"
   },
@@ -584,20 +557,12 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "campaign.agent_action": {
-   "best_match": {
-    "agreement": 0.611,
-    "live_path": "missions",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
   "campaign.agent_options": {
-   "best_match": {
-    "agreement": 0.222,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
@@ -632,11 +597,7 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "campaign.campaign_result": {
-   "best_match": {
-    "agreement": 0.3,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
@@ -683,29 +644,17 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "campaign.duel_challenge_received": {
-   "best_match": {
-    "agreement": 0.2,
-    "live_path": "entity_lists",
-    "state": "camp_lists"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
   "campaign.enlist_commander": {
-   "best_match": {
-    "agreement": 0.378,
-    "live_path": "missions",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
   "campaign.enlist_commander_entry": {
-   "best_match": {
-    "agreement": 0.154,
-    "live_path": "building_browser/background/sortable_list/list_clip/list_box/building_browser_entry1",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
@@ -722,11 +671,7 @@
    "visible": true
   },
   "campaign.esc_menu_campaign": {
-   "best_match": {
-    "agreement": 0.059,
-    "live_path": "diplomacy_panel/bg_title_frame",
-    "state": "camp_diplomacy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
@@ -754,11 +699,7 @@
    "reason": "fewer than 3 components: a tree match by name is no evidence"
   },
   "campaign.friends_list": {
-   "best_match": {
-    "agreement": 0.259,
-    "live_path": "player_stats/main_panel/friends_list",
-    "state": "fe_player_stats"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer campaign"
   },
@@ -828,177 +769,101 @@
    "visible": false
   },
   "campaign.layout_agent_recruited": {
-   "best_match": {
-    "agreement": 0.357,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_ally_attacked": {
-   "best_match": {
-    "agreement": 0.28,
-    "live_path": "diplomacy_panel",
-    "state": "camp_diplomacy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_assassination": {
-   "best_match": {
-    "agreement": 0.278,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_attrition_list": {
-   "best_match": {
-    "agreement": 0.5,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_blockade": {
-   "best_match": {
-    "agreement": 0.263,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_build_list": {
-   "best_match": {
-    "agreement": 0.7,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_building_constructed": {
-   "best_match": {
-    "agreement": 0.312,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_capital_lost": {
-   "best_match": {
-    "agreement": 0.385,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_election_results": {
-   "best_match": {
-    "agreement": 0.583,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_marriage": {
-   "best_match": {
-    "agreement": 0.312,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_revolution": {
-   "best_match": {
-    "agreement": 0.333,
-    "live_path": "diplomacy_panel",
-    "state": "camp_diplomacy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_riots": {
-   "best_match": {
-    "agreement": 0.333,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_sabotage": {
-   "best_match": {
-    "agreement": 0.278,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_standard": {
-   "best_match": {
-    "agreement": 0.417,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_tech_advances_list": {
-   "best_match": {
-    "agreement": 0.636,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_technology_advances": {
-   "best_match": {
-    "agreement": 0.357,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_traits_anc_list": {
-   "best_match": {
-    "agreement": 0.364,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_unit_recruited": {
-   "best_match": {
-    "agreement": 0.294,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
   "campaign.layout_unit_routs": {
-   "best_match": {
-    "agreement": 0.417,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event (the event message picks the layout)"
   },
-  "campaign.load-save_game": {
+  "campaign.load_save_game": {
    "best_match": {
     "agreement": 0.512,
     "live_path": "sp_load_game/main_panel",
@@ -1008,11 +873,7 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "campaign.move_options": {
-   "best_match": {
-    "agreement": 0.308,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
@@ -1029,29 +890,17 @@
    "visible": true
   },
   "campaign.options_game": {
-   "best_match": {
-    "agreement": 0.414,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
   "campaign.popup_battle_results": {
-   "best_match": {
-    "agreement": 0.116,
-    "live_path": "missions",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
   "campaign.popup_pre_battle": {
-   "best_match": {
-    "agreement": 0.073,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
@@ -1065,20 +914,12 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "campaign.royal_family": {
-   "best_match": {
-    "agreement": 0.25,
-    "live_path": "technology",
-    "state": "camp_technologies"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
   "campaign.settlement_captured": {
-   "best_match": {
-    "agreement": 0.125,
-    "live_path": "missions",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
@@ -1095,20 +936,12 @@
    "visible": true
   },
   "campaign.travel_destinations": {
-   "best_match": {
-    "agreement": 0.312,
-    "live_path": "diplomacy_panel",
-    "state": "camp_diplomacy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
   "campaign.unit_exchange": {
-   "best_match": {
-    "agreement": 0.3,
-    "live_path": "diplomacy_panel",
-    "state": "camp_diplomacy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
   },
@@ -1125,29 +958,17 @@
    "visible": true
   },
   "common.dialog_ok": {
-   "best_match": {
-    "agreement": 0.429,
-    "live_path": "diplomacy_panel",
-    "state": "camp_diplomacy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "opened by a script on demand (a confirmation): no safe route"
   },
   "common.dialog_yes_no": {
-   "best_match": {
-    "agreement": 0.25,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "opened by a script on demand (a confirmation): no safe route"
   },
   "common.dialogue_box": {
-   "best_match": {
-    "agreement": 0.579,
-    "live_path": "missions",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "opened by a script on demand (a confirmation): no safe route"
   },
@@ -1164,11 +985,7 @@
    "visible": true
   },
   "common.mp_dialogue_box": {
-   "best_match": {
-    "agreement": 0.579,
-    "live_path": "missions",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer campaign"
   },
@@ -1178,74 +995,42 @@
    "reason": "needs a multiplayer campaign"
   },
   "common.multiplayer_chat": {
-   "best_match": {
-    "agreement": 0.467,
-    "live_path": "missions/tab_group/tab_missions/missions_body",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer campaign"
   },
   "common.multiplayer_player_list": {
-   "best_match": {
-    "agreement": 0.368,
-    "live_path": "missions/tab_group/tab_missions/missions_body",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer campaign"
   },
   "common.options_audio": {
-   "best_match": {
-    "agreement": 0.845,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_options options) is frontend.options's"
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
   "common.options_controls": {
-   "best_match": {
-    "agreement": 0.754,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_options options) is frontend.options's"
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
   "common.options_gamma": {
-   "best_match": {
-    "agreement": 0.786,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_options options) is frontend.options's"
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
   "common.options_graphics": {
-   "best_match": {
-    "agreement": 0.731,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
   "common.options_ui": {
-   "best_match": {
-    "agreement": 0.714,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
   },
   "common.panel_dropin_requester": {
-   "best_match": {
-    "agreement": 0.2,
-    "live_path": "building_browser",
-    "state": "camp_buildings"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer campaign"
   },
@@ -1264,20 +1049,12 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "common.waiting_for_players": {
-   "best_match": {
-    "agreement": 0.667,
-    "live_path": "finish_deployment/deployment_end_mp",
-    "state": "hist_deploy"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer campaign"
   },
   "frontend.credits": {
-   "best_match": {
-    "agreement": 0.0,
-    "live_path": "main/options_expanded/options/credits",
-    "state": "fe_main"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "entering the credits page stops the front-end Lua pump (run 20261102_j10pc), so no probe can read it"
   },
@@ -1347,13 +1124,9 @@
    "visible": true
   },
   "frontend.host_campaign_popup": {
-   "best_match": {
-    "agreement": 0.75,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_options options) is frontend.options's"
+   "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.load_replay": {
    "agreement": 0.977,
@@ -1394,83 +1167,47 @@
    "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
   },
   "frontend.mp_battle1": {
-   "best_match": {
-    "agreement": 0.867,
-    "live_path": "sp_battle1",
-    "state": "fe_sp_battle1"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_sp_battle1 sp_battle1) is frontend.sp_battle1's"
+   "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.mp_battle2": {
-   "best_match": {
-    "agreement": 0.786,
-    "live_path": "sp_battle2",
-    "state": "fe_sp_battle2"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_sp_battle2 sp_battle2) is frontend.sp_battle2's"
+   "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.mp_battle2_scenario": {
-   "best_match": {
-    "agreement": 0.85,
-    "live_path": "sp_battle2_scenario",
-    "state": "fe_sp_battle2_scenario"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_sp_battle2_scenario sp_battle2_scenario) is frontend.sp_battle2_scenario's"
+   "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.mp_battle3": {
-   "best_match": {
-    "agreement": 0.3,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.mp_battle3_scenario": {
-   "best_match": {
-    "agreement": 0.453,
-    "live_path": "sp_battle2_scenario",
-    "state": "fe_sp_battle2_scenario"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.mp_grand_campaign": {
-   "best_match": {
-    "agreement": 0.394,
-    "live_path": "grand_campaign",
-    "state": "fe_grand_campaign"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.mp_load_game": {
-   "best_match": {
-    "agreement": 0.889,
-    "live_path": "sp_load_game",
-    "state": "fe_sp_load_game"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_sp_load_game sp_load_game) is frontend.sp_load_game's"
+   "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.multiplayer_lan": {
-   "best_match": {
-    "agreement": 0.403,
-    "live_path": "sp_battle2",
-    "state": "fe_sp_battle2"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.multiplayer_online": {
-   "best_match": {
-    "agreement": 0.31,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer lobby or Steam session"
   },
@@ -1499,32 +1236,17 @@
    "visible": true
   },
   "frontend.password_entry": {
-   "best_match": {
-    "agreement": 0.833,
-    "live_path": "options",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
-   "reason": "its best live match (fe_options options) is frontend.options's"
+   "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.player_stats": {
-   "agreement": 0.846,
-   "live_components": 77,
-   "live_path": "player_stats",
-   "matched": 33,
-   "reach": "reached",
-   "run": "20261102_j10pc",
-   "shot": "j10_fe_player_stats.jpg",
-   "state": "fe_player_stats",
-   "static_components": 39,
-   "visible": true
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.quickbattle_popup": {
-   "best_match": {
-    "agreement": 0.2,
-    "live_path": "options/keyboard_conflict",
-    "state": "fe_options"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer lobby or Steam session"
   },
@@ -1541,11 +1263,7 @@
    "visible": true
   },
   "frontend.session_chat": {
-   "best_match": {
-    "agreement": 0.562,
-    "live_path": "load_replay/main_panel/list_panel",
-    "state": "fe_load_replay"
-   },
+   "best_match": null,
    "reach": "static_only",
    "reason": "needs a multiplayer lobby or Steam session"
   },
@@ -2273,7 +1991,7 @@
  },
  "width_scale": {
   "median": 1.0,
-  "n": 44,
+  "n": 42,
   "note": "live width / static width of the matched head components; 1080/960 = 1.125, 1080/1024 = 1.0547"
  }
 }
