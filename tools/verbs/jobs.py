@@ -13,7 +13,7 @@ skips it), so a red check is told to the next session instead of waiting to be n
 chosen branch's head commit's check runs (one `gh api` call) and name every check that failed or is still running, with its URL, above
 the steps; `--offline`, a missing `gh` or an API error print one line instead (J54). The builder opens the pull request as a draft when
 the job reaches review (`build_steps`, `fix_steps`), so the branch's CI is on it from then on; CI's `policy` skips drafts and the
-reviewer's `gh pr ready` runs it (a merge verdict only: `review_steps`, docs/REVIEW.md). `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
+reviewer's `gh pr ready`, run before the review commit is pushed so the pushed head gets a real `policy` run, starts it (a merge verdict only, J57: `review_steps`, docs/REVIEW.md). `view` writes one self-contained HTML page (default `_scratch/jobs.html`, ignored by git) from the working tree and opens it.
 Its cards carry a button for each action not_ready() allows (Write brief, Implement, Review, Fix). On the written page a button copies the
 `claude --bg` command; `view --serve` serves the page on 127.0.0.1 and the button posts (id, action) to the server, which checks a
 per-run token, Origin, Host, content type, readiness against fresh branches and no live session of the same name (`claude agents --json`, fail closed; no count cap: D34),
@@ -1049,9 +1049,11 @@ def brief_steps(r, root, lead='needs a brief (nothing queued is ready)'):
 
 def review_steps(jid, done_rounds=0):
     n = done_rounds + 1
-    after = (f'then set the row: merge -> status=done review=jobs/{jid}/review.md, push, and queue the merge (docs/REVIEW.md "Merging": '
-             f'python3 tools/pr_policy.py --branch job/{jid} --base origin/main says ok, then gh pr ready job/{jid}, then '
-             f'gh pr merge job/{jid} --auto --squash); otherwise leave the draft pull request open and set '
+    after = (f'then set the row and commit the review and the row (do not push yet): merge -> status=done review=jobs/{jid}/review.md, then '
+             f'in this order (docs/REVIEW.md "Merging"): python3 tools/pr_policy.py --branch job/{jid} --base origin/main says ok, '
+             f'gh pr view job/{jid} (gh pr create --draft --base main --head job/{jid} if there is none), gh pr ready job/{jid}, '
+             f'git push, gh pr merge job/{jid} --auto --squash (ready before the push, so the pushed head gets a real policy run: J57); '
+             f'otherwise push, leave the draft pull request open (never gh pr ready) and set '
              + (f'status=fix review=jobs/{jid}/review.md (a fix session answers it, then round {n + 1})' if n < MAX_ROUNDS else
                 f'status=blocked blocked_by="{BLOCKED_BY_ROUNDS}" review=jobs/{jid}/review.md (round {MAX_ROUNDS} is the last: Liam decides)'))
     return (f'{jid}: review branch job/{jid} (git checkout job/{jid}) following docs/REVIEW.md. You must not have built it or fixed it: '
