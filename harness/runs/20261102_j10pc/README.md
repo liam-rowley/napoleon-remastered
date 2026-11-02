@@ -2,7 +2,8 @@
 
 PC, watcher 1.2.0, 2026-11-02 07:58 to 10:59 UTC, game lock `j10`, session `1bbe2745-8ed4-4d4c-9684-e1adf6bab382`, the installed 20-pass
 build (kit `kit_20261101T205936Z_f08b12c3806a`, DLL 46f52d356ce8), headless at 1920x1080. Uninstalled at the end: the game folder is
-identical to the pre-install snapshot (1564 files) and the exe is vanilla. Probes run from `probes/` by absolute path through the proxy's
+identical to the pre-install snapshot (1564 files) and the exe is vanilla (`raw/pc_deploy_install_20261102T105953Z.json`, pc_deploy's
+install record: `uninstall` `identical: true`, `diffs: []`). Probes run from `probes/` by absolute path through the proxy's
 `lua` verb (`proxy/napoleon` is a DLL input), and J9's `getters.lua`, `vis.lua`, `camp_select.lua` and `camp_panel.lua` run from
 `harness/runs/20261101_j9fix/probes/`. Shots: `shots.json` (state, PC file, sha256, the units each shows) and three of them in `shots/`.
 What the atlas made of it: `discovery/ui/reach.json` (`python3 discovery/core/ui_atlas.py live --run harness/runs/20261102_j10pc`).
