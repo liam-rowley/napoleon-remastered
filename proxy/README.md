@@ -161,6 +161,11 @@ All `[dev]` keys default off with release value off (`registries/config_keys.jso
 | `autostart <target> [t]` | `scene`, `lua`, `load_s`, `total_s`; battles: `map`, `map_folder_loaded`, `map_folder_selected`, `preset_map` (WRONG MAP fails) |
 | `reset <target> [t]` | `steps`, `from`, `to_frontend_s`, `total_s`, `mem_before/frontend/after`, `autostart {...}` |
 | `console <line>\|status\|on\|off` | line: `path` (system, tweak, campaign, unknown, refused), `command`, `args`, `forwarded`, `hits`, `chunk`; status/on/off: `gate`, `slot`, `campaign`, `cli`, `forwards`, `hits`, `refusals`, `gate_offset`, `gate_sets` (J15, below) |
+| `ui show\|hide\|reload <doc>` | `document`, `visible` (refused with `ui.enabled=0`; J30, section below) |
+| `ui scale <percent>` | `scale`, `clamped`, `dp_ratio` |
+| `ui click <x> <y> [button] [down\|up\|move]`, `ui wheel <x> <y> <n>` | `delta` (per event type: [to RmlUi, to the engine]) and `ui` (the state below) |
+| `ui dump <name> [x y w h]` | `dump`: `file` (PNG under `ui.dump_dir`), rect, `backbuffer`, `dp_ratio`, `scale` |
+| `ui state [s]` | `ui`: life, backend, device, back buffer, scale, dp ratio, threads, Lua, documents, `counters`, `hovered`, `scrolled`, `route_state`, `routing`, `input_paths`, `cost_ms` (update, render, hook p50/p99/max over the window) |
 | `exit` | written, then the process exits |
 
 Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: type, map key, prefs), `campaign:continue`,
@@ -168,6 +173,12 @@ Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: typ
 campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknown key is an engine AV, so autostart refuses it.
 Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
 Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
+
+## RmlUi host (J30)
+RmlUi 6.3 in the proxy (core `docs/PROXY_UI.md`: device, frame, shaders, input routing, Lua, build). Off in release (`ui.enabled=0`:
+nothing hooked or allocated); keys `ui.*` in `[ui]` of the ini. Napoleon's side: the UI folder `napoleon_remastered\ui` (fonts from
+`viewer/napoleon/fonts`, documents from `viewer/napoleon/hosttest` and `hello`, installed by `pc_deploy.py kit` from the harness adapter's
+`kit_ui`), the test document `viewer/napoleon/hosttest` and its checks `tools/ui_hosttest.py`. Evidence and numbers: `proxy/runs/20261102_j30pc/`.
 
 ## Fixed sky (J44)
 

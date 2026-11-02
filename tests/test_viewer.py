@@ -45,6 +45,20 @@ class Pins(unittest.TestCase):
         viewer = load('fetch_sources', ROOT / 'viewer' / 'core' / 'fetch_sources.py')
         self.assertEqual(viewer.LUACONF, proxy.PATCHES['luaconf.h'])
 
+    def test_host_compat_header_and_fetcher_match_the_viewer(self):
+        # J30: the in-game RmlUi host carries a copy of the viewer's Lua 5.2 compat header and of its fetcher's luaconf.h edits
+        # (core/proxy/src/ui_lua51_compat.h, core/proxy/tools/fetch_ui.py) until viewer/core is promoted; they must not drift
+        core_h = ROOT / 'core' / 'proxy' / 'src' / 'ui_lua51_compat.h'
+        if not core_h.exists():
+            self.skipTest('the pinned core has no RmlUi host yet (before the J30 core pin)')
+        self.assertEqual(core_h.read_bytes(), (ROOT / 'viewer' / 'core' / 'src' / 'lua51_compat.h').read_bytes())
+        host = load('fetch_ui', ROOT / 'core' / 'proxy' / 'tools' / 'fetch_ui.py')
+        viewer = load('fetch_sources', ROOT / 'viewer' / 'core' / 'fetch_sources.py')
+        self.assertEqual(host.LUACONF, viewer.LUACONF)
+        pins = json.loads((ROOT / 'viewer' / 'pins.json').read_text())
+        for k in ('rmlui', 'freetype', 'lua', 'stb_image', 'stb_image_write'):
+            self.assertIn(k, pins)
+
     def test_every_pin_is_exact(self):
         pins = json.loads((ROOT / 'viewer' / 'pins.json').read_text())
         for k in ('rmlui', 'freetype'):
