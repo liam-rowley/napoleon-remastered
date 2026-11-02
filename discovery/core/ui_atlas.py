@@ -894,19 +894,38 @@ STATIC_ONLY = [
     (r'^battle\.(mp_postbattle|in_battle_results_popup|sp_victory_options|deployment_end|countdown_win_timer|victory_tickets)', 'needs a battle ending or a multiplayer battle'),
     (r'^(battle|campaign)\.esc_menu|^(battle|campaign|common)\.options', 'no proven safe route (opened by the Escape key or the escape menu; probes send no input)'),
     (r'^common\.(dialog|dialogue|mp_dialogue|mp_message)', 'opened by a script on demand (a confirmation): no safe route'),
+    (r'^frontend\.credits', 'entering the credits page stops the front-end Lua pump (run 20261102_j10pc), so no probe can read it'),
 ]
 
 
+def _tree_lines(path):
+    """The log lines of one raw file: a *_proxy.log line by line, or a job.sh ctl result (*.txt, JSON) by its "log" list, which holds the
+    lines the call logged. The proxy log is rewritten on every launch, so a sitting that relaunches keeps only its last launch there."""
+    with open(path, encoding='utf-8', errors='replace') as fh:
+        text = fh.read()
+    if path.endswith('_proxy.log'):
+        return text.splitlines()
+    try:
+        d = json.loads(text)
+    except ValueError:
+        return []
+    return [str(x) for x in d.get('log', [])] if isinstance(d, dict) else []
+
+
 def parse_trees(run_dir):
-    """{label: [(path, visible, x, y, w, h, state)]} from every *_proxy.log under run_dir/raw (chunks joined in part order)."""
-    parts = collections.defaultdict(dict)
+    """{label: [(path, visible, x, y, w, h, state)]} from run_dir/raw: every *_proxy.log, then every ctl result *.txt (chunks joined in
+    part order). A label in a later file (logs first, then results, each in name order) replaces the whole label of an earlier one: a
+    re-run sitting supersedes it, its parts never mix."""
+    parts = {}
     raw = os.path.join(run_dir, 'raw')
-    for fn in sorted(os.listdir(raw)):
-        if fn.endswith('_proxy.log'):
-            for line in open(os.path.join(raw, fn), encoding='utf-8', errors='replace'):
-                m = TREE.search(line.rstrip('\n'))
-                if m:
-                    parts[m.group(1)][int(m.group(2))] = m.group(3)
+    names = sorted(os.listdir(raw))
+    for fn in [n for n in names if n.endswith('_proxy.log')] + [n for n in names if n.endswith('.txt')]:
+        mine = collections.defaultdict(dict)
+        for line in _tree_lines(os.path.join(raw, fn)):
+            m = TREE.search(line.rstrip('\n'))
+            if m:
+                mine[m.group(1)][int(m.group(2))] = m.group(3)
+        parts.update(mine)
     out = {}
     for label, ps in parts.items():
         text = ''.join(ps[k] for k in sorted(ps))
@@ -927,7 +946,8 @@ def live(at, units, surfaces, run_dir):
     shots = set()
     for fn in os.listdir(os.path.join(run_dir, 'raw')):
         if fn.startswith('shots_'):
-            shots |= {x.strip() for x in open(os.path.join(run_dir, 'raw', fn)) if x.strip()}
+            with open(os.path.join(run_dir, 'raw', fn), encoding='utf-8') as fh:
+                shots |= {x.strip() for x in fh if x.strip()}
     # every live node's subtree names, by (label, path)
     sub = {}
     for label, nodes in trees.items():
@@ -947,8 +967,13 @@ def live(at, units, surfaces, run_dir):
         rec = surfaces[u['ctx']][u['surface'].replace('\\', '/')]
         comps = rec.get('components', [])
         if u.get('piece'):
-            anchor = next(c for c in comps if c['path'] == u['piece'])
-            mine = [c for c in comps if c['path'] in u['comps'] and c['path'] != anchor['path']]
+            # the anchor is the component the piece is named by, else its shallowest one (the frame piece is what the others left)
+            own = [c for c in comps if c['path'] in u['comps']]
+            anchor = next((c for c in own if c['path'] == u['piece']), None) or min(own, key=lambda c: (c['path'].count('/'), c['path']), default=None)
+            if anchor is None:
+                res[u['id']] = dict(reach='static_only', reason='the piece has no components of its own', best_match=None)
+                continue
+            mine = [c for c in own if c['path'] != anchor['path']]
             heads = [anchor]
         else:
             heads = [c for c in comps if c['parent'] == 'root'] or comps[:1]
@@ -956,22 +981,48 @@ def live(at, units, surfaces, run_dir):
         static = {c['name'] for c in mine}
         best = None
         for h in heads:
-            for label, p in by_name.get(h['name'], []):
+            cands = by_name.get(h['name'], [])
+            if not cands:
+                # attached under another name: the engine loads land_battle_orders into the HUD's "orders" placeholder, which keeps
+                # the placeholder's name (run 20261102_j10pc), so the head is found as the live parent of its children
+                kids = {c['name'] for c in comps if c['parent'] == h['path']}
+                cands = sorted({(label, p.rsplit('/', 1)[0]) for k in kids for label, p in by_name.get(k, []) if '/' in p})
+            for label, p in cands:
                 livenames = sub[(label, p)]
                 matched = static & livenames
                 score = len(matched) / len(static) if static else 1.0
                 if best is None or score > best[0]:
                     best = (score, label, p, len(static), len(livenames), len(matched), h)
-        if best and (best[0] >= 0.5 or (best[3] <= 2 and best[5] == best[3])):
+        if best and best[3] < 3 and not (u.get('piece') and best[6]['name'] == best[2].split('/')[-1]):
+            # a generic head name (Banner, CharacterAttribute) with one or two parts below it says nothing: too small to tell from a tree
+            # (a HUD piece found by its own anchor, cards_panel, is named specifically enough)
+            res[u['id']] = dict(reach='static_only', reason='fewer than 3 components: a tree match by name is no evidence',
+                                best_match=dict(state=best[1], live_path=best[2], agreement=round(best[0], 3)))
+        elif best and best[0] >= 0.75:
             score, label, p, ns, nl, nm, h = best
             node = next(n for n in trees[label] if n[0] == p)
-            if h['w'] and node[4]:
-                scale.append(node[4] / h['w'])
             res[u['id']] = dict(reach='reached', run=run, state=label, live_path=p, static_components=ns, live_components=nl,
-                                matched=nm, agreement=round(score, 3), visible=node[1], shot=f'j10_{label}.jpg' if f'j10_{label}.jpg' in shots else None)
+                                matched=nm, agreement=round(score, 3), visible=node[1], shot=f'j10_{label}.jpg' if f'j10_{label}.jpg' in shots else None,
+                                _scale=(node[4] / h['w'] if h['w'] and node[4] else None), _named=h['name'] == p.split('/')[-1])
         else:
             why = next((w for rx, w in STATIC_ONLY if re.search(rx, u['id'])), f'not reached in run {run}: no proven safe route opened it')
             res[u['id']] = dict(reach='static_only', reason=why, best_match=(dict(state=best[1], live_path=best[2], agreement=round(best[0], 3)) if best else None))
+    # one live node explains one unit: the mp_ front-end pages are copies of the sp_ ones and the options tabs sit inside the options page,
+    # so the best match (agreement, matched count, the head named as the node) keeps the node and the others are static_only
+    claims = collections.defaultdict(list)
+    for uid, r in res.items():
+        if r['reach'] == 'reached':
+            claims[(r['state'], r['live_path'])].append(uid)
+    for (label, p), uids in claims.items():
+        uids.sort(key=lambda x: (-res[x]['agreement'], -res[x]['matched'], not res[x]['_named'], x))
+        for uid in uids[1:]:
+            r = res[uid]
+            res[uid] = dict(reach='static_only', reason=f'its best live match ({label} {p}) is {uids[0]}\'s', best_match=dict(state=label, live_path=p, agreement=r['agreement']))
+    for r in res.values():
+        if r['reach'] == 'reached':
+            if r['_scale']:
+                scale.append(r['_scale'])
+            del r['_scale'], r['_named']
     reached = [r for r in res.values() if r['reach'] == 'reached']
     per_ctx = collections.defaultdict(lambda: [0, 0])
     for uid, r in res.items():

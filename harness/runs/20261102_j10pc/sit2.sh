@@ -44,4 +44,15 @@ for pair in lists:ToggleEntityLists gov:ShowGovernmentPopup diplomacy:ToggleDipl
   L "$Q/camp_panel.lua -- close" "close_$sc"; sleep 3
 done
 finish sit2
+# The fleet: Austria has no navy at the start, so the coalition campaign as Britain through the proxy's autostart verb from the front end
+# (campaign_britain_1805 has no autostart target; J9 fix round attempt 4, harness/runs/20261101_j9fix/fix4.sh).
+echo "== fleet $(date -u +%H:%M:%SZ)"
+bash $J lock j10 1bbe2745-8ed4-4d4c-9684-e1adf6bab382 "J10 live pass: fleet" > /dev/null 2>&1
+C scene land_small; C reset; sleep 5
+bash $J ctl j10 "autostart campaign:new:mp_eur_napoleon:britain" > "$RAW/autostart_britain.txt" 2>&1; echo "autostart rc $?"
+bash $J ctl j10 "waitfor campaign" > "$RAW/waitfor_britain.txt" 2>&1; echo "waitfor rc $?"; sleep 8
+for t in 1 2 3; do L "$MC" modal_close_britain_$t; sleep 4; done
+L "$Q/camp_select.lua -- fleet" select_fleet; sleep 6
+T camp_fleet; S camp_fleet
+finish sit2b
 echo "== done $(date -u +%H:%M:%SZ)"

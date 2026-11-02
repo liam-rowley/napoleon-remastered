@@ -164,5 +164,61 @@ class Check(unittest.TestCase):
             self.assertTrue(any('ids differ' in b for b in bad))
 
 
+class Live(unittest.TestCase):
+    """The live pass: trees from proxy logs and ctl results, and the rules that decide reached (run 20261102_j10pc)."""
+    @staticmethod
+    def _tree(label, nodes, parts=1):
+        items = [f'{p}|1|0,0|{w},10|NewState' for p, w in nodes]
+        size = -(-len(items) // parts)
+        chunks = [';'.join(items[i:i + size]) + ';' for i in range(0, len(items), size)]
+        chunks[-1] += 'END flags=0'
+        return [f'[INFO ] lua: j10tree {label} {i + 1}: {c}' for i, c in enumerate(chunks)]
+
+    @staticmethod
+    def _surface(head, kids, w=100):
+        comps = [dict(path='root', parent=None, name='root', w=None), dict(path=f'root/{head}', parent='root', name=head, w=w)]
+        comps += [dict(path=f'root/{head}/{k}', parent=f'root/{head}', name=k, w=10) for k in kids]
+        return dict(components=comps)
+
+    def _run(self, d):
+        raw = os.path.join(d, 'raw')
+        os.makedirs(raw)
+        with open(os.path.join(raw, 'a_proxy.log'), 'w', encoding='utf-8') as fh:   # a stale sitting: three parts, wrong tree
+            fh.write('\n'.join(self._tree('battle1', [('old', 5), ('old/x', 5), ('old/y', 5)], parts=3)) + '\n')
+        with open(os.path.join(raw, 'b_proxy.log'), 'w', encoding='utf-8') as fh:   # the re-run: one part
+            fh.write('\n'.join(self._tree('battle1', [('hud', 200), ('hud/orders', 100), ('hud/orders/a', 10), ('hud/orders/b', 10),
+                                                      ('hud/orders/c', 10), ('Banner', 5)])) + '\n')
+        with open(os.path.join(raw, 'page_sp.txt'), 'w', encoding='utf-8') as fh:   # a ctl result: the tree is in its "log" list
+            json.dump(dict(status='ok', chunk='sp|true|true', log=self._tree('fe_sp', [('page', 100), ('page/x', 10), ('page/y', 10), ('page/z', 10)])), fh)
+        with open(os.path.join(raw, 'shots_s.txt'), 'w', encoding='utf-8') as fh:   # not JSON: ignored by the tree reader
+            fh.write('j10_fe_sp.jpg\n')
+        return d
+
+    def test_trees_from_logs_and_results(self):
+        with tempfile.TemporaryDirectory() as d:
+            t = ui_atlas.parse_trees(self._run(d))
+            self.assertEqual([n[0] for n in t['battle1']], ['hud', 'hud/orders', 'hud/orders/a', 'hud/orders/b', 'hud/orders/c', 'Banner'])
+            self.assertEqual([n[0] for n in t['fe_sp']], ['page', 'page/x', 'page/y', 'page/z'])
+
+    def test_reach_rules(self):
+        surfaces = {'battle': {'ui/orders': self._surface('orders_bar', ['a', 'b', 'c']),
+                               'ui/tiny': self._surface('Banner', [])},
+                    'frontend': {'ui/sp': self._surface('page', ['x', 'y', 'z']),
+                                 'ui/mp': self._surface('page', ['x', 'y', 'z', 'q'])}}
+        units = [dict(id='battle.orders', ctx='battle', surface='ui/orders'), dict(id='battle.tiny', ctx='battle', surface='ui/tiny'),
+                 dict(id='frontend.sp', ctx='frontend', surface='ui/sp'), dict(id='frontend.mp', ctx='frontend', surface='ui/mp')]
+        with tempfile.TemporaryDirectory() as d:
+            r = ui_atlas.live(None, units, surfaces, self._run(d))['units_reach']
+        # attached under the placeholder's name: found as the live parent of its children
+        self.assertEqual((r['battle.orders']['reach'], r['battle.orders']['live_path']), ('reached', 'hud/orders'))
+        # the copy matches the same node less well and loses it
+        self.assertEqual((r['frontend.sp']['reach'], r['frontend.sp']['shot']), ('reached', 'j10_fe_sp.jpg'))
+        self.assertEqual(r['frontend.mp']['reach'], 'static_only')
+        self.assertIn("frontend.sp's", r['frontend.mp']['reason'])
+        # a head name alone is no evidence
+        self.assertEqual(r['battle.tiny']['reach'], 'static_only')
+        self.assertIn('fewer than 3', r['battle.tiny']['reason'])
+
+
 if __name__ == '__main__':
     unittest.main()
