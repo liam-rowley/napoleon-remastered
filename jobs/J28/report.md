@@ -2,7 +2,7 @@
 
 Branch `job/J28`, 2026-11-02. The proxy reads live unit state and the UI's own selection from engine memory and gives units move/face
 orders through the engine's own command path, plus halt and formation toggles through the UI's own selection dispatcher, behind
-`dev.orders`. All of it lives in the core (warscape-core PR #15, 0.8.0, waiting for Liam's merge and tag: see Finish). `ctl.py order`
+`dev.orders`. All of it lives in the core (warscape-core PR #15, merged and tagged `v0.8.0` by Liam, pinned here). `ctl.py order`
 pushes one order per unit and reads every unit back at rest. Proven on the PC in `land_small` and `siege_small`
 (run `harness/runs/20261102_j28pc`):
 - Front centre: exact.
@@ -14,7 +14,7 @@ Targets the engine cannot reach (cliffs, off the map) fail, and units it will no
 build `715e9dfc0727`: run `20261102_j28acc` (result under Evidence).
 
 ## What was built
-- **Core (warscape-core PR #15, branch `j28-orders`, 0.8.0):**
+- **Core (v0.8.0, warscape-core PR #15):**
   - `proxy/src/orders.h` (pure: the `OrdersAdapter`, `ReadUnit` against any memory reader, the int16 angle conversion, `CheckMove`,
     `ResolveMove`, `UnitOrderable`, `CheckArrival`, `AtRest`).
   - `proxy/src/orders.cpp` (the driver: install from the sites, `OrdersUnit/Army/Selection/Move/Command/Post/Peek/Info`; engine
@@ -35,7 +35,7 @@ build `715e9dfc0727`: run `20261102_j28acc` (result under Evidence).
   - Harness: the `ctl.routes.orders` block in `harness/napoleon/adapter.json` (land and siege reachable; tolerance, settle with
     `wait_speed` ffwd, the command codes), and `dev.orders` in `ctl.launch.keys`.
   - Tests, docs and facts: 9 `tests/test_ctl.py` fixtures, `proxy/README.md` "Battle unit orders (J28)", and 16 `engine_facts` rows.
-  - The core gitlink sits at the PR head until the tag.
+  - The pin bump v0.7.0 -> v0.8.0.
 
 **C++ entry points for J29** (`dev.h`, contract in warscape-core `docs/PROXY_ORDERS.md`):
 - `OrdersMove(unit, MoveArgs{x, z, facing, width, run, queue}, info, why)` runs on the engine thread only.
@@ -66,7 +66,7 @@ The idle cost, the 20 passes and the uninstall are under the acceptance run `202
 1. **Core PR**: built and tested. Every host test passes with Napoleon's adapter in the pinned Docker image, and the core gates are
    green. The null-game build is left to the core's CI: it would not run from this Windows clone (the Docker mount of a relative game
    root).
-2. **Sites and keys**: all promoted, keyed and verified on the PC. J9's suggested `battle.ui_owner_setter` was not needed: the queue
+2. **Sites and keys**: all promoted, keyed and verified on the PC (2026-11-02, run 20261102_j28pc). J9's suggested `battle.ui_owner_setter` was not needed: the queue
    site carries the owner global.
 3. **State and selection** (`napoleon.battle.unit_layout`, `selection_source`, `unit_ids`): every UNIT and entity offset is proven by
    a site's stock bytes. Front centre (UNIT+0x310) and width (+0x324) are proven by readback, and turn out to be the **destination**
@@ -85,7 +85,7 @@ The idle cost, the 20 passes and the uninstall are under the acceptance run `202
 6. **The verb**: as built; rules 77 and 78 hold (no key or click; every ok carries a check), and `tests/test_ctl.py` covers it.
 7. **Scenarios**: land_small and siege_small. `land_40` is not on `main` (J46 is queued), so there was no 20 against 20 pass.
 8. **Acceptance**: `dev.orders` is in `ctl.launch.keys`, so every pass ran with the key on and idle: run `20261102_j28acc`.
-9. **Facts and tools**: 16 facts: 13 verified, 3 open (frontage and ranks, the sound, ship orders for J60). Tool rows exist for the
+9. **Facts and tools**: 16 facts: 13 verified (2026-11-02, run 20261102_j28pc), 3 open (frontage and ranks, the sound, ship orders for J60). Tool rows exist for the
    chunk and the probe; the run helpers have headers.
 
 ## Deviations
@@ -99,12 +99,11 @@ The idle cost, the 20 passes and the uninstall are under the acceptance run `202
 - **Unit ids are army list positions**, pinned to the pointer per call; a lost unit renumbers the rest. A stable cross-launch id beyond
   the list order was not needed.
 - **The sound observation was not made** (headless, no audio): left open for J29.
-- **The core gitlink is committed at the PR head** before the tag, so the acceptance DLL comes from committed content (no `-dirty`).
-  `job/J28` therefore fails `core_pin` until the pin moves to `v0.8.0`.
+- **How the core PR waited on Liam:** the acceptance run started before the tag, with the core gitlink committed at the PR head so the
+  DLL came from committed content (no `-dirty`). Liam merged and tagged `v0.8.0` while it ran; the tag's tree equals the PR head
+  (empty diff), so the pin bump changed no file and the build id stayed `715e9dfc0727`.
 
 ## Open questions
-- **Liam: merge and tag warscape-core PR #15 as `v0.8.0`**, then J28's pin bump (one commit) makes `core_pin` green. A squash merge
-  keeps `proxy/src` and `proxy/tools` byte-identical, so the acceptance build id holds.
 - The general's bodyguard does not hold an ordered facing. Should J29 treat the general's unit as facing-free?
 - Ranks or files: no field found. Is it worth a follow-up (diff the UNIT block around a width change), or is derived depth enough for J29?
 - Wedge had no visible effect on this map's cavalry. Is that the unit type, or does the code need an argument? Diamond, loose and
@@ -112,5 +111,4 @@ The idle cost, the 20 passes and the uninstall are under the acceptance run `202
 - J60 (ships): see `napoleon.battle.ship_orders`.
 
 ## Finish
-Status stays as is until the core tag: once `v0.8.0` exists, bump the pin (`wsc.toml` and the gitlink), rerun `build.sh id` (expect
-`715e9dfc0727`), then `wsc reg set jobs J28 status=review report=jobs/J28/report.md` and mark the draft pull request ready for review.
+Pinned to `v0.8.0` (`build.sh id`: `715e9dfc0727`, the acceptance build); `wsc reg set jobs J28 status=review report=jobs/J28/report.md`; the draft pull request is open for the review.
