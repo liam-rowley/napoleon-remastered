@@ -27,6 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 WEB = ROOT / 'viewer' / 'core' / 'web'
 FONTS = ROOT / 'viewer' / 'napoleon' / 'fonts'
+FONT_DIRS = [FONTS, ROOT / 'uikit' / 'napoleon' / 'fonts']   # a screen's font list may name either (J34)
 CHROMIUM_ARGS = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-driver-bug-workarounds',
                  '--force-color-profile=srgb']
 
@@ -49,7 +50,10 @@ def stage(screen_dir, site, wasm_dir):
     for f in manifest['files']:
         shutil.copy2(screen_dir / f, site / 'screen' / f)
     for f in manifest['fonts']:
-        shutil.copy2(FONTS / f, site / 'fonts' / f)
+        src = next((d / f for d in FONT_DIRS if (d / f).exists()), None)
+        if src is None:
+            sys.exit(f'render: font {f} is in none of {[str(d) for d in FONT_DIRS]}')
+        shutil.copy2(src, site / 'fonts' / f)
     return manifest
 
 

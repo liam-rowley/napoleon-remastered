@@ -11,6 +11,7 @@
 #include <emscripten/html5.h>
 #include <GLES3/gl3.h>
 #include <cstdio>
+#include <cstring>
 #include <string>
 #include <vector>
 #include "RmlUi_Renderer_GL3.h"
@@ -169,6 +170,25 @@ EMSCRIPTEN_KEEPALIVE void viewer_mouse_up(int button, int mods) { g_context->Pro
 EMSCRIPTEN_KEEPALIVE void viewer_mouse_wheel(float dy, int mods) { g_context->ProcessMouseWheel(Rml::Vector2f(0.f, dy), mods); }
 EMSCRIPTEN_KEEPALIVE void viewer_mouse_leave() { g_context->ProcessMouseLeave(); }
 
+// Keyboard: a named key (Tab, Enter, Space, Escape, Up, Down, Left, Right, Home, End) goes down or up; mods as the mouse calls. Tab moves
+// the focus between tab-index elements and sets :focus-visible (J34). Returns 1 if the name is known.
+EMSCRIPTEN_KEEPALIVE int viewer_key(const char* name, int down, int mods) {
+	static const struct { const char* n; Rml::Input::KeyIdentifier k; } keys[] = {
+		{"Tab", Rml::Input::KI_TAB}, {"Enter", Rml::Input::KI_RETURN}, {"Space", Rml::Input::KI_SPACE}, {"Escape", Rml::Input::KI_ESCAPE},
+		{"Up", Rml::Input::KI_UP}, {"Down", Rml::Input::KI_DOWN}, {"Left", Rml::Input::KI_LEFT}, {"Right", Rml::Input::KI_RIGHT},
+		{"Home", Rml::Input::KI_HOME}, {"End", Rml::Input::KI_END}};
+	for (const auto& e : keys) {
+		if (std::strcmp(e.n, name) == 0) {
+			if (down)
+				g_context->ProcessKeyDown(e.k, mods);
+			else
+				g_context->ProcessKeyUp(e.k, mods);
+			return 1;
+		}
+	}
+	return 0;
+}
+
 // Touch drag: scroll the nearest scrollable element under (x, y) by dy backbuffer pixels (a phone has no wheel). Returns 1 if it moved.
 EMSCRIPTEN_KEEPALIVE int viewer_scroll_at(int x, int y, float dy) {
 	for (Rml::Element* e = g_context->GetElementAtPoint(Rml::Vector2f((float)x, (float)y)); e; e = e->GetParentNode()) {
@@ -226,6 +246,90 @@ EMSCRIPTEN_KEEPALIVE const char* viewer_element_json(const char* id) {
 	std::snprintf(head, sizeof head, "{\"x\":%g,\"y\":%g,\"w\":%g,\"h\":%g,\"scroll_top\":%g,\"hover\":%s,\"active\":%s,\"rml\":\"", b[0], b[1],
 		b[2], b[3], e->GetScrollTop(), e->IsPseudoClassSet("hover") ? "true" : "false", e->IsPseudoClassSet("active") ? "true" : "false");
 	g_result = head + esc + "\"}";
+	return g_result.c_str();
+}
+
+namespace {
+
+bool Clips(Rml::Element* e) {
+	const auto& c = e->GetComputedValues();
+	return c.overflow_x() != Rml::Style::Overflow::Visible || c.overflow_y() != Rml::Style::Overflow::Visible;
+}
+
+std::string Describe(Rml::Element* e) {
+	std::string s = e->GetTagName();
+	if (!e->GetId().empty())
+		s += "#" + e->GetId();
+	std::string cls = e->GetClassNames();
+	for (char& c : cls)
+		if (c == ' ')
+			c = '.';
+	if (!cls.empty())
+		s += "." + cls;
+	for (char& c : s)
+		if (c == '"' || c == '\\')
+			c = '\'';
+	return s;
+}
+
+void CheckOverflow(Rml::Element* e, Rml::Element* parent, bool clipped, std::string& out, int& count) {
+	const float tol = 1.0f;   // sub-pixel layout at dp ratios like 0.85
+	if (!e->IsVisible())
+		return;
+	const std::string tag = e->GetTagName();
+	if (tag.compare(0, 6, "scroll") == 0 || tag.compare(0, 6, "slider") == 0 || tag[0] == '#')
+		return;
+	const Rml::Vector2f at = e->GetAbsoluteOffset(Rml::BoxArea::Border), size = e->GetBox().GetSize(Rml::BoxArea::Border);
+	const Rml::ComputedValues& cv = e->GetComputedValues();
+	const bool floating = cv.position() == Rml::Style::Position::Absolute || cv.position() == Rml::Style::Position::Fixed;
+	auto add = [&](const char* kind, const char* detail) {
+		char buf[512];
+		std::snprintf(buf, sizeof buf, "%s{\"kind\":\"%s\",\"element\":\"%s\",\"box\":[%g,%g,%g,%g],\"detail\":\"%s\"}", count ? "," : "", kind,
+			Describe(e).c_str(), at.x, at.y, size.x, size.y, detail);
+		out += buf;
+		count++;
+	};
+	if (size.x > 0 && size.y > 0) {
+		if (!clipped && (at.x < -tol || at.y < -tol || at.x + size.x > g_width + tol || at.y + size.y > g_height + tol))
+			add("outside_viewport", "border box leaves the viewport");
+		if (parent && !floating) {
+			const Rml::Vector2f pat = parent->GetAbsoluteOffset(Rml::BoxArea::Content), psz = parent->GetBox().GetSize(Rml::BoxArea::Content);
+			if (!Clips(parent) && psz.x > 0 && psz.y > 0 &&
+				(at.x < pat.x - tol || at.y < pat.y - tol || at.x + size.x > pat.x + psz.x + tol || at.y + size.y > pat.y + psz.y + tol)) {
+				char d[160];
+				std::snprintf(d, sizeof d, "outside parent content box %g,%g %gx%g", pat.x, pat.y, psz.x, psz.y);
+				add("outside_parent", d);
+			}
+		}
+		const auto& c = cv;
+		if (c.overflow_x() == Rml::Style::Overflow::Visible && e->GetScrollWidth() > e->GetClientWidth() + tol && e->GetNumChildren() > 0) {
+			char d[96];
+			std::snprintf(d, sizeof d, "content %g wide in a %g box", e->GetScrollWidth(), e->GetClientWidth());
+			add("text_wider_than_box", d);
+		}
+		if (c.overflow_y() == Rml::Style::Overflow::Visible && e->GetScrollHeight() > e->GetClientHeight() + tol && e->GetNumChildren() > 0 &&
+			c.height().type != Rml::Style::Height::Auto) {
+			char d[96];
+			std::snprintf(d, sizeof d, "content %g high in a %g box", e->GetScrollHeight(), e->GetClientHeight());
+			add("content_taller_than_box", d);
+		}
+	}
+	const bool child_clipped = clipped || Clips(e);
+	for (int i = 0; i < e->GetNumChildren(); i++)
+		CheckOverflow(e->GetChild(i), e, child_clipped, out, count);
+}
+
+}  // namespace
+
+// Layout problems of the shown document found by the renderer (J34 corner gate), as a JSON array: border boxes outside the viewport or
+// outside a non-clipping parent's content box (absolute and fixed elements are checked against the viewport only), and content wider or
+// taller than its own box. Elements inside a clipping ancestor (overflow other than visible) are exempt from the viewport check.
+EMSCRIPTEN_KEEPALIVE const char* viewer_overflow_json() {
+	std::string out = "[";
+	int count = 0;
+	if (g_document)
+		CheckOverflow(g_document, nullptr, false, out, count);
+	g_result = out + "]";
 	return g_result.c_str();
 }
 

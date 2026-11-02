@@ -36,7 +36,10 @@
     const screen = JSON.parse(new TextDecoder().decode(await fetchBytes('screen/screen.json')));
     m.FS.mkdirTree('/screen');
     m.FS.mkdirTree('/fonts');
-    for (const f of screen.files) m.FS.writeFile('/screen/' + f, await fetchBytes('screen/' + f));
+    for (const f of screen.files) {   // a file may sit in a sub-folder (library screens stage uikit/ beside the document)
+      if (f.includes('/')) m.FS.mkdirTree('/screen/' + f.slice(0, f.lastIndexOf('/')));
+      m.FS.writeFile('/screen/' + f, await fetchBytes('screen/' + f));
+    }
     for (const f of screen.fonts) m.FS.writeFile('/fonts/' + f, await fetchBytes('fonts/' + f));
     log(`${screen.files.length} screen files and ${screen.fonts.length} font(s) loaded`);
 
@@ -97,7 +100,7 @@
     });
     canvas.addEventListener('pointerdown', (e) => {
       const [x, y] = toPx(e);
-      if (e.pointerType !== 'touch') return down(e.button, mods(e));
+      if (e.pointerType !== 'touch') { canvas.focus({ preventScroll: true }); return down(e.button, mods(e)); }
       Object.assign(touch, { id: e.pointerId, x, y, lastY: y, moved: false });
       canvas.setPointerCapture(e.pointerId);
     });
@@ -111,6 +114,16 @@
     canvas.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') m.ccall('viewer_mouse_leave', null, [], []); });
     canvas.addEventListener('wheel', (e) => { e.preventDefault(); m.ccall('viewer_mouse_wheel', null, ['number', 'number'], [Math.sign(e.deltaY), mods(e)]); }, { passive: false });
     canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+    // Keyboard: Tab moves the focus (and sets :focus-visible), Enter, Space, Escape and the arrows reach the document (J34)
+    const KEYS = { Tab: 'Tab', Enter: 'Enter', ' ': 'Space', Escape: 'Escape', ArrowUp: 'Up', ArrowDown: 'Down', ArrowLeft: 'Left',
+      ArrowRight: 'Right', Home: 'Home', End: 'End' };
+    const key = (name, isDown, md) => m.ccall('viewer_key', 'number', ['string', 'number', 'number'], [name, isDown ? 1 : 0, md]);
+    canvas.tabIndex = 0;
+    canvas.addEventListener('keydown', (e) => {
+      const name = KEYS[e.key];
+      if (name && key(name, true, mods(e))) e.preventDefault();
+    });
+    canvas.addEventListener('keyup', (e) => { const name = KEYS[e.key]; if (name && key(name, false, mods(e))) e.preventDefault(); });
 
     // The scale picker (plain inputs: size and slider, or an explicit ratio)
     const picker = document.getElementById('picker');
@@ -134,6 +147,8 @@
       mouseUp: (b) => m.ccall('viewer_mouse_up', null, ['number', 'number'], [b, 0]),
       scrollAt,
       wheel: (dy) => m.ccall('viewer_mouse_wheel', null, ['number', 'number'], [dy, 0]),
+      key,
+      overflow: () => JSON.parse(m.ccall('viewer_overflow_json', 'string', [], [])),
       element: (id) => JSON.parse(m.ccall('viewer_element_json', 'string', ['string'], [id])),
       lua: (code) => m.ccall('viewer_lua_eval', 'string', ['string'], [code]) };
     frame();
