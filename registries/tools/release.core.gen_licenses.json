@@ -1,0 +1,11 @@
+{
+  "id": "release.core.gen_licenses",
+  "kind": "script",
+  "path": "release/core/gen_licenses.py",
+  "purpose": "render LICENSES.txt (every shipped third-party component with its licence, copyright line, source URL, date checked and text; not-yet-shipped components listed apart) from release/napoleon/licenses.json, and fail a shipped component with no entry or an entry marked shipped with no component",
+  "usage": "python3 release/core/gen_licenses.py [--data release/napoleon/licenses.json] [--components release/napoleon/components.json] [--out FILE] [--check]",
+  "when": "build_release.py calls it for every release; the licence gate (tests/test_release.py) calls its checks; run it by hand after editing licenses.json to see the text",
+  "not_a_verb": "a release-builder helper (release/core), not a registry operation; a core candidate with the rest of release/core (rule 76)",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

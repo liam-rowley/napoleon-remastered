@@ -1,0 +1,40 @@
+{
+ "_note": "One row per release component. A later feature job adds its row (and its licence entries) instead of new packaging work. Every installed file is owned by exactly one component; the builder fails on a file no component owns. source kinds: dll (the CI-built proxy), dxvk_dll, dxvk_license (pinned by core/proxy/tools/fetch_dxvk.py), player_ini (generated from registries/config_keys.jsonl), repo:<path>, text:<key> (from this row's texts), external:<name>:<file> (a build output outside the repo, sha256-checked against <file>.json).",
+ "components": [
+  {
+   "id": "proxy",
+   "title": "Proxy DLL, DXVK and player settings",
+   "optional": false,
+   "licences": ["dxvk"],
+   "files": [
+    {"target": "d3d9.dll", "source": "dll"},
+    {"target": "napoleon_remastered.ini", "source": "player_ini", "config": true},
+    {"target": "napoleon_remastered/dxvk/d3d9_dxvk.dll", "source": "dxvk_dll"},
+    {"target": "napoleon_remastered/LICENSE.dxvk.txt", "source": "dxvk_license"}
+   ],
+   "extras": [
+    {"path": "tools/Enable crash dumps.cmd", "source": "repo:core/proxy/tools/wer/Enable crash dumps.cmd"},
+    {"path": "tools/Disable crash dumps.cmd", "source": "repo:core/proxy/tools/wer/Disable crash dumps.cmd"},
+    {"path": "tools/wer_localdumps.ps1", "source": "repo:core/proxy/tools/wer/wer_localdumps.ps1"}
+   ]
+  },
+  {
+   "id": "ui_scale_2x",
+   "title": "UI scale stop-gap: the vanilla UI at 2x for 3840x2160 (J66, D40, D42)",
+   "optional": false,
+   "requires": ["proxy"],
+   "licences": ["lora_font", "model_hfa2k_compact", "model_nomos_esrgan"],
+   "ini_set": {"dev.file_rules": "napoleon_remastered\\ui\\ui_scale_2x.rules"},
+   "texts": {
+    "rules": "# UI scale stop-gap 2x (J66): the loose templates the engine opens come from the scaled file (proxy file rule, config only)\nredirect data\\ui\\templates\\uied.templates -> napoleon_remastered\\ui\\uied.templates.ui_scale_2x\n"
+   },
+   "files": [
+    {"target": "data/ui_scale_2x.pack", "source": "external:uiscale:ui_scale_2x.pack"},
+    {"target": "data/ui_scale_2x_fonts.pack", "source": "external:uiscale:ui_scale_2x_fonts.pack"},
+    {"target": "napoleon_remastered/ui/uied.templates.ui_scale_2x", "source": "external:uiscale:uied.templates.ui_scale_2x"},
+    {"target": "napoleon_remastered/ui/ui_scale_2x.rules", "source": "text:rules"}
+   ]
+  }
+ ],
+ "external": {"uiscale": "C:\\napoleon_remastered_pc\\uiscale\\work"}
+}

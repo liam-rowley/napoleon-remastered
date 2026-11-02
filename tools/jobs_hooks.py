@@ -52,6 +52,7 @@ PROMOTIONS = {
     'upscale/core': None,     # its own promotion, after J50 and J51 (no row yet)
     'uiscale/core': None,     # J66 stop-gap scaler; its promotion follows J67 (no row yet)
     'viewer/core': None,      # the review viewer (J31): promotion with the RmlUi host work (no row yet)
+    'release/core': None,     # the release builder, installer scripts and support bundle (J38): a core job when a second game ships (no row yet)
 }
 
 
