@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.play_packs_load",
+  "claim": "The J53 play packs (2.5x UI art of 11 roles at the vanilla paths, 2.28 GB, 9170 entries) load in the front end, campaign and a land battle with no crash, no blank art and no element drawn at the wrong size",
+  "state": "verified",
+  "evidence": "upscale/runs/2026-11-02_j53/README.md",
+  "date": "2026-11-02",
+  "notes": "run 2026-11-02_j53, headless 1920x1080 at UI scale 1, proxy build 715e9dfc0727: the proxy indexed 86995 vanilla + 9170 play entries (and 3484 for the default four alone); land_small loaded in 3.9 s (3.8 s with the default four) against J50's 4.2 s; no dump, WER report or hang. Not loaded: loading_screen and event_picture (not in the smoke set), the 28 held-back loading_screen outputs. Shots checked by eye only: unit cards, portraits, unit flags, campaign flags, settlement icons and HUD frames sit at the vanilla size, which also says no UI code sizes these elements from the texture's pixel size"
+}

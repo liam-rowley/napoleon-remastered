@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "upscale\\runs\\2026-11-02_j53\\raw\\a_land.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.54,
+    "frames": 959,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 109778,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "upscale\\runs\\2026-11-02_j53\\raw\\a_land.jpg"
+  },
+  "start_utc": "2026-11-02T15:42:37.421Z",
+  "end_utc": "2026-11-02T15:42:45.250Z"
+}

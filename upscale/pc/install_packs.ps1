@@ -2,7 +2,7 @@
 #
 # purpose: copy .pack files into <game>\data\ with sha256 checked on the source, against its <pack>.json manifest (when there is one) and on the copy, refusing to overwrite any file and copying nothing until every source checks (a failed copy moves this call's copies to -Trash); uninstall moves them to a _to_delete folder (nothing is deleted)
 # usage: called from a watcher ps1 job (the lock owner's): & <this> -Mode install -Game <dir> -Packs <src.pack>,... -Trash <dir> | -Mode uninstall -Game <dir> -Names <x.pack>,... -Trash <dir>; prints one JSON object, exit 0 ok, 1 failed, 2 refused
-# when: before a load test of ui_art_2x5_*.pack or a scratch probe pack (J50); never by hand into the game folder
+# when: before a load test of ui_art_2x5_*.pack or a scratch probe pack (J50), and for Liam's play install through upscale/pc/play.py (J53); never by hand into the game folder
 # not-a-verb: a PC-side script run by the watcher (the agent shell may not write into the game folder), not a registry operation
 #
 # Refuses while Napoleon.exe or Empire.exe runs, and refuses a pack name that is not <letters, digits, _ -.>.pack. The uninstall check

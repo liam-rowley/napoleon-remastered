@@ -6,6 +6,9 @@
  "run": {"device": "cuda", "precision": "fp16", "tile": 256, "overlap": 16},
  "pack_prefix": "ui_art_2x5\\",
  "pack_name": "ui_art_2x5_{role}",
+ "play_pack_name": "ui_art_play_{role}",
+ "play_packs_dir": "packs_play",
+ "play_note": "J53: a play pack holds a role's outputs at the vanilla paths (wsc upscale pack --play), installed by upscale/pc/play.py; its default roles are first_roles, and loading_screen and event_picture are never in that default",
  "first_roles": ["ui_art", "icon", "panel_frame", "button_state"],
  "roles": {
   "ui_art":            {"model": "nomos_esrgan_2x"},
