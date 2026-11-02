@@ -1,0 +1,29 @@
+{
+ "file": "uied.templates.ui_scale_2x",
+ "factor": 2.0,
+ "vanilla_sha256": "9e96b9def5e431cceb0b6c717ef224ae934fb20476d7015eca9d1fb2961c1f85",
+ "sha256": "4797e415b6ea589272e6ae6b400709f70c42de6d6ed2f6a9da1b411e3cbe1fb8",
+ "bytes": 39135014,
+ "scaled": 122,
+ "passed": [
+  "InputWindow (v4)",
+  "BattleEditor (v4)",
+  "Cursor (v18)",
+  "slider (v22)"
+ ],
+ "upgraded_to_v33": [
+  "minister_effect_cartouche",
+  "minister_details",
+  "turns",
+  "numerical_input",
+  "diplomacy_allies_list_item",
+  "sortable_list",
+  "character_info_list_entry"
+ ],
+ "fonts": {
+  "Ingame 24, Normal": 1509,
+  "Ingame 24, Bold": 111,
+  "Frontend 24, Normal": 12,
+  "Frontend 38, Normal": 23
+ }
+}

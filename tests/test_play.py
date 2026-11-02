@@ -143,6 +143,54 @@ class Play(unittest.TestCase):
         self.assertEqual(self.run_play('install'), 2)
         self.assertIn('MISMATCH', self.out.getvalue())
 
+    # ---- J66: install --scale 2 (the scale packs, the templates redirect, the UI cache) ----
+    def scale_build(self, templates=b'scaled templates', tsha=None):
+        w = os.path.join(self.tmp, 'uiscale_work')
+        for name in ('ui_scale_2x', 'ui_scale_2x_fonts'):
+            body = ('PFH0 ' + name).encode()
+            self.write(os.path.join(w, name + '.pack'), body)
+            self.write(os.path.join(w, name + '.pack.json'), json.dumps({'sha256': sha(body), 'bytes': len(body), 'entries': 1, 'held_back': []}).encode())
+        t = os.path.join(w, 'uied.templates.ui_scale_2x')
+        self.write(t, templates)
+        self.write(t + '.json', json.dumps({'sha256': tsha or sha(templates)}).encode())
+        self.write(os.path.join(w, 'ui_scale_2x.rules'), f'redirect data\\ui\\templates\\uied.templates -> {t}\n'.encode())
+        return w, t
+
+    def test_scale_install_then_uninstall_is_identical(self):
+        w, t = self.scale_build()
+        cache = os.path.join(self.tmp, 'appdata_ui_cache')
+        self.write(os.path.join(cache, 'components.napoleon_ui_cache'), b'stale 1x cache')
+        with mock.patch.object(play, 'UI_CACHE', play.Path(cache)):
+            self.assertEqual(self.run_play('install', '--scale', '2', '--uiscale-work', w), 0, self.out.getvalue())
+            self.assertEqual(self.data(), ['data.pack', 'ui_scale_2x.pack', 'ui_scale_2x_fonts.pack'])
+            with open(os.path.join(self.game, INI), encoding='utf-8') as f:
+                ini = f.read()
+            self.assertIn('skip_intro=1', ini)
+            self.assertIn('file_rules=' + os.path.join(w, 'ui_scale_2x.rules'), ini)
+            self.assertEqual(os.listdir(cache), [])                          # moved aside, never deleted
+            rec = play.load(play.record_path(self.state))
+            self.assertEqual(rec['scale']['ui_cache_moved_install'], ['components.napoleon_ui_cache'])
+            self.assertEqual(self.run_play('status'), 0, self.out.getvalue())
+            self.assertIn('UI scale 2x, templates ok', self.out.getvalue())
+            self.write(os.path.join(cache, 'components.napoleon_ui_cache'), b'2x cache written by the session')
+            self.assertEqual(self.run_play('uninstall'), 0, self.out.getvalue())
+            self.assertEqual(os.listdir(cache), [])
+        self.assertEqual(play.pc_deploy.diff_snapshots(self.start, play.pc_deploy.snapshot(self.game)), [])
+        self.assertIn('identical', self.out.getvalue())
+
+    def test_scale_refuses_roles_a_missing_build_and_a_bad_templates_sha(self):
+        self.assertEqual(self.run_play('install', '--scale', '2', '--uiscale-work', os.path.join(self.tmp, 'nothing')), 2)
+        self.assertIn('wsc.py uiscale build', self.out.getvalue())
+        w, _ = self.scale_build(tsha='0' * 64)
+        self.assertEqual(self.run_play('install', '--scale', '2', '--uiscale-work', w), 2)
+        self.assertIn('sha256 is not', self.out.getvalue())
+        w, _ = self.scale_build()
+        self.assertEqual(self.run_play('install', '--scale', '2', '--uiscale-work', w, '--roles', 'icon'), 2)
+        self.assertEqual(self.run_play('install', '--scale', '1.5', '--uiscale-work', w), 2)
+        self.assertIn('J67', self.out.getvalue())
+        self.assertEqual(play.pc_deploy.diff_snapshots(self.start, play.pc_deploy.snapshot(self.game)), [])
+        self.assertFalse(os.path.exists(play.record_path(self.state)))
+
     def test_an_agent_lock_is_refused(self):
         self.write(os.path.join(self.state, 'watcher', 'game.lock'), b'owner=J99 session=x purpose=test\n')
         with mock.patch.object(play.pc_deploy, 'running_check', return_value=''):   # no live watcher heartbeat in the fake state

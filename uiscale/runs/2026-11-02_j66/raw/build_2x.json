@@ -1,0 +1,23 @@
+{
+ "factor": 2.0,
+ "packs": {
+  "fonts": {
+   "pack": "ui_scale_2x_fonts.pack",
+   "sha256": "f699ca5db25b9cb972345184d58bae73590e5dfbbc561ccd1deac7a4109eaf63",
+   "bytes": 1772071,
+   "entries": 5
+  },
+  "pack": {
+   "pack": "ui_scale_2x.pack",
+   "sha256": "bd351fa39ae9a26c3cc82de0b7d0b6597c9c64bcc7fb69c1a0a883c51ee30ae3",
+   "bytes": 1809329196,
+   "entries": 9539
+  }
+ },
+ "templates": {
+  "file": "uied.templates.ui_scale_2x",
+  "sha256": "4797e415b6ea589272e6ae6b400709f70c42de6d6ed2f6a9da1b411e3cbe1fb8",
+  "bytes": 39135014
+ },
+ "rules": "ui_scale_2x.rules"
+}
