@@ -1,15 +1,15 @@
 {
  "agreement": {
-  "matched": 1549,
-  "mean": 0.995,
-  "static": 1556
+  "matched": 1597,
+  "mean": 0.992,
+  "static": 1610
  },
- "reached": 42,
+ "reached": 44,
  "reached_by_context": {
-  "battle": "6 of 32",
+  "battle": "7 of 32",
   "campaign": "11 of 56",
   "common": "2 of 18",
-  "frontend": "14 of 40",
+  "frontend": "15 of 40",
   "template": "9 of 74"
  },
  "run": "20261102_j10pc",
@@ -348,9 +348,16 @@
    "reason": "needs a battle ending or a multiplayer battle"
   },
   "battle.deployment_end": {
-   "best_match": null,
-   "reach": "static_only",
-   "reason": "needs a battle ending or a multiplayer battle"
+   "agreement": 1.0,
+   "live_components": 15,
+   "live_path": "finish_deployment",
+   "matched": 15,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_hist_deploy.jpg",
+   "state": "hist_deploy",
+   "static_components": 15,
+   "visible": true
   },
   "battle.esc_menu_battle": {
    "best_match": null,
@@ -1241,9 +1248,16 @@
    "reason": "needs a multiplayer lobby or Steam session"
   },
   "frontend.player_stats": {
-   "best_match": null,
-   "reach": "static_only",
-   "reason": "needs a multiplayer lobby or Steam session"
+   "agreement": 0.846,
+   "live_components": 77,
+   "live_path": "player_stats",
+   "matched": 33,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_player_stats.jpg",
+   "state": "fe_player_stats",
+   "static_components": 39,
+   "visible": true
   },
   "frontend.quickbattle_popup": {
    "best_match": null,
@@ -1991,7 +2005,7 @@
  },
  "width_scale": {
   "median": 1.0,
-  "n": 42,
+  "n": 44,
   "note": "live width / static width of the matched head components; 1080/960 = 1.125, 1080/1024 = 1.0547"
  }
 }
