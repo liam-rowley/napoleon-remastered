@@ -243,9 +243,12 @@ EMSCRIPTEN_KEEPALIVE const char* viewer_element_json(const char* id) {
 			esc += c;
 	}
 	char head[256];
-	std::snprintf(head, sizeof head, "{\"x\":%g,\"y\":%g,\"w\":%g,\"h\":%g,\"scroll_top\":%g,\"hover\":%s,\"active\":%s,\"rml\":\"", b[0], b[1],
-		b[2], b[3], e->GetScrollTop(), e->IsPseudoClassSet("hover") ? "true" : "false", e->IsPseudoClassSet("active") ? "true" : "false");
-	g_result = head + esc + "\"}";
+	std::snprintf(head, sizeof head,
+		"{\"x\":%g,\"y\":%g,\"w\":%g,\"h\":%g,\"scroll_top\":%g,\"hover\":%s,\"active\":%s,\"focus\":%s,\"focus_visible\":%s,\"rml\":\"", b[0], b[1], b[2],
+		b[3], e->GetScrollTop(), e->IsPseudoClassSet("hover") ? "true" : "false", e->IsPseudoClassSet("active") ? "true" : "false",
+		e->IsPseudoClassSet("focus") ? "true" : "false", e->IsPseudoClassSet("focus-visible") ? "true" : "false");
+	std::string cls = e->GetClassNames();   // J34: the board's tests read classes (is-selected, fac-france) and the focus state
+	g_result = head + esc + "\",\"class\":\"" + cls + "\"}";
 	return g_result.c_str();
 }
 
