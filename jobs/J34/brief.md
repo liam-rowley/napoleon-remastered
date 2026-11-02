@@ -130,7 +130,7 @@ one background call for the wasm build and the renders, never repeated polling.
 1. Spike (about 30 calls): in the built viewer, probe on a scratch screen the RCSS the library relies on: `var()`, `image-color`,
    box-shadow outer and inset, `repeating-linear-gradient`, `:focus-visible`, `transform: translateY`, `text-shadow`, a variable-weight
    font, scrollbar part styling, `display: none` toggling. Source check first: the pinned RmlUi sources come from `viewer/core/fetch_sources.py`.
-   Record the answers as `engine_facts` rows (verified with date and run, or open with owner). This settles the token route and the recipes.
+   Record the answers as `engine_facts` rows (each with its date and run id, or open with an owner). This settles the token route and the recipes.
 2. `tokens.json`, `faction_tokens`, contrast helper and their tests; fonts vendored with their pins.
 3. `build.py`, `src/base.rcss`, the library components, the viewer mechanism, the board.
 4. `lint.py`, the corner gate, `changes.py`, baseline; registry rows and headers for every tool (tools gate), tests in `tests/`.
