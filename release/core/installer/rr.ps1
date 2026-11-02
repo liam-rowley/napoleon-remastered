@@ -351,7 +351,7 @@ function Do-Check([string]$game, [string]$state) {
         [void]$lines.Add('install: not installed by this tool (no install record)')
         foreach ($o in $owned) {
             $rel = ([string]$o).TrimEnd('/')
-            if (Test-Path -LiteralPath (Join-Path $game $rel.Replace('/', '\'))) { [void]$lines.Add("FOREIGN $rel is present but nothing installed it"); $bad++ }
+            if (Test-Path -LiteralPath (Join-Path $game $rel.Replace('/', '\'))) { [void]$lines.Add("note: $rel is present but not from this installer (an install backs it up and the uninstall puts it back)") }
         }
         return @{ Code = [int]($bad -gt 0); Lines = $lines }
     }
