@@ -191,6 +191,18 @@ are what `core/harness/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.b
 Engine Lua never calls `string.find`, `string.sub` or `gmatch`: one call stops the battle pump (fact `napoleon.lua.string_find_stalls_pump`,
 `tests/test_repo_rules.py`).
 
+## Battle unit orders (J28)
+
+`dev.orders` (default and release value off) is the core's battle unit control route (contract: warscape-core `docs/PROXY_ORDERS.md`):
+`wsp.unit_state/unit_list/selection/order_move/order_command/peek/orders_info` read live unit state and the UI's own selection from
+engine memory and push one move/face order per unit through the engine's own command path, or a dispatcher command (halt, formation
+toggles), on the engine thread. Napoleon's `OrdersAdapter` is in `napoleon/adapter.cpp`, every operand in an engine_sites row keyed
+`dev.orders` (`battle.ui_queue_site`, `battle.selection_*`, `battle.unit_*`, `battle.order_move_*`, `battle.ground_*`, ...). The chunk
+`napoleon/lua/ctl/orders.lua` is what `core/harness/ctl.py order` runs; its route block (tolerance, settle, the command codes) is
+`harness/napoleon/adapter.json` `ctl.routes.orders`. Facts: `napoleon.battle.order_route` and the other `napoleon.battle.order_*`,
+`unit_layout`, `bearing_convention`, `selection_source`, `unit_ids`; PC run `harness/runs/20261102_j28pc`. Never call a BattleUI
+function with missing arguments from a chunk: the engine's Lua error stops the battle pump (fact `napoleon.lua.battleui_error_stops_pump`).
+
 ## Frame capture (J8)
 
 `dev.capture=1` (default and release off) hooks 36 `IDirect3DDevice9` vtable slots at `CreateDevice` (`core/capture.cpp`; pure parts and the hash in

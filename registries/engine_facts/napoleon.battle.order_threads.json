@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.order_threads",
+  "claim": "In a battle the Lua pump (wrapped OnUpdate), IDirect3DDevice9::Present and the game window's procedure all run on one thread (34860, 4712, 33968 in three launches): a gesture layer may call OrdersMove from its Present tick; OrdersPost queues for the next pump from any other thread",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "proxy.log \"orders: threads\" lines"
+}

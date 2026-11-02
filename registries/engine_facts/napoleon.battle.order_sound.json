@@ -1,0 +1,6 @@
+{
+  "id": "napoleon.battle.order_sound",
+  "claim": "Whether many move commands in the same millisecond play the confirmation sound many times (Empire: each route (c) command played the click twice) was not observed: the runs are headless with no audio capture. Open for J29 (the order-sound gate)",
+  "state": "open",
+  "notes": "owner: J29"
+}

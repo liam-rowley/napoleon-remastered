@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.order_deployment",
+  "claim": "In the deployment phase (land_small before the start call) a move order does not walk the unit: a 20 m move side-stepped it 1.6 m; a 90 degree turn order turned it at once with the centre jumping about 6.5 m. J29 keeps deployment orders inert",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "runs h2, h3"
+}
