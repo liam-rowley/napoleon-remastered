@@ -1,7 +1,7 @@
 """Gate: the proxy's C++ host tests (proxy/tests/test_*.cpp) run in the local `wsc gates` too, not only in CI's `proxy` job (J41: J15's
 review commit 6316cb9 broke test_console's lint and only CI saw it). Runs in `wsc gates` (tests gate; not `--fast`, so not pre-push).
 
-Routes, in order: proxy inputs (tools/changed_inputs.py) unchanged against the merge base with origin/main -> skip in about a second;
+Routes, in order: proxy inputs (wsc.toml [ci] inputs) unchanged against the merge base with origin/main -> skip in about a second;
 in CI -> skip (the `proxy` job runs them); native mingw-w64 and g++ on PATH -> `proxy/tools/build.sh all`; Docker answering ->
 `build.sh --docker all` (~1 min); else no toolchain -> a skip naming the suites not run (core 0.4.0's tests gate shows it as a warn,
 J41; it failed until that tag was pinned, J12). build.sh always
@@ -28,7 +28,8 @@ def _load(name, rel):
     return mod
 
 
-ci = _load('changed_inputs', 'tools/changed_inputs.py')
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from ci_inputs import ci  # noqa: E402  (the input sets are wsc.toml [ci] since J62)
 sv = _load('setup_verb', 'tools/verbs/setup.py')
 BUILD_TIMEOUT_S = 540   # under the tests gate's 600 s; `--docker all` measured about 93 s with apt (jobs/J41/report.md), 57 s (J42)
 SMOKE_TIMEOUT_S = 300   # `--docker smoke` measured 70 s on the PC with apt and wine (jobs/J42/report.md)
@@ -221,7 +222,7 @@ class InputSet(unittest.TestCase):
         for f in ('tests/test_job_sh.py', 'tests/test_claude_hook.py', 'tests/test_setup.py', 'tests/test_proxy_host.py',
                   'tools/verbs/setup.py', 'tools/claude_hook.py', '.claude/settings.json'):
             self.assertEqual(ci.classify([f]), {'proxy': False, 'harness': True, 'viewer': False}, f)
-        self.assertEqual(ci.classify(['tests/test_jobs.py', 'tools/verbs/jobs.py']), {'proxy': False, 'harness': False, 'viewer': False})
+        self.assertEqual(ci.classify(['tests/test_jobs_hooks.py', 'tools/jobs_hooks.py']), {'proxy': False, 'harness': False, 'viewer': False})
 
     def test_viewer_set(self):
         # J31: viewer/ and its test build the viewer; viewer/runs/ is committed evidence

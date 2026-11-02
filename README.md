@@ -15,7 +15,7 @@ folder are generated from it or deployed from it, never edited.
 | `docs/plans/PLAN.md` | Goals, scope, phases and gates. |
 | `docs/plans/UI_PIPELINE.md` | How a UI screen goes from concept to proven in game. |
 | `registries/jobs/`, `jobs/` | The job queue (one file per job row) and each job's brief, report and review. Status page: `python3 core/wsc.py jobs view` (no view is committed, J55). Say "pick up the next job", or start a chosen job from its button in `python3 core/wsc.py jobs view --serve`. |
-| `docs/REVIEW.md` | How every job branch is reviewed before merge. |
+| `docs/REVIEW.md` | What this game adds to the core's review procedure (`core/docs/REVIEW.md`): check names, rule 79, the Empire-repeats step. |
 | `wsc.toml`, `registries/` | What this repo declares to the core CLI, and the registries themselves: `jobs`, `tools` and `engine_facts` one file per row, the rest JSONL (search with `python3 core/wsc.py find <words>`; readable views: `python3 core/wsc.py reg render`, written to `_scratch/registries/`). |
 | `core/` | warscape-core as a submodule, pinned at a tag. Never edited here. |
 

@@ -22,9 +22,10 @@ import discovery  # noqa: E402
 import gate  # noqa: E402
 import tsvgz  # noqa: E402
 
-_spec = importlib.util.spec_from_file_location('jobs_verb_gate', ROOT / 'tools' / 'verbs' / 'jobs.py')
-jv = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(jv)
+sys.path.insert(0, str(ROOT / 'core'))
+from warscape import jobq  # noqa: E402  (the brief shape rules are warscape-core's since J62; the found-path hook is tools/jobs_hooks.py)
+
+LEGACY_BRIEFS = frozenset(json.loads((ROOT / 'jobs' / 'legacy.json').read_text(encoding='utf-8'))['brief_hooks'])   # exempt from the brief hooks only
 
 BS = chr(92)
 EXE = 'ab' * 20
@@ -353,7 +354,9 @@ Then `wsc reg set jobs J77 status=review report=jobs/J77/report.md`.
 
 class BriefRule(unittest.TestCase):
     def errs(self, jid, text, known=KNOWN):
-        return jv.brief_problems(jid, {'model': 'sonnet'}, text, known)
+        """What `wsc jobs check` reports for a brief: the hook's found-path rule (not for a legacy id), then the core's shape rules."""
+        found = [f'found path: {e}' for e in bp.found_path_problems(text, known)] if known is not None and jid not in LEGACY_BRIEFS else []
+        return found + jobq.brief_problems(jid, {'model': 'sonnet'}, text)
 
     def test_a_clean_new_brief_passes(self):
         self.assertEqual(self.errs('J77', SHAPE + '\nCite `battle.deploy`.\n'), [])
@@ -375,8 +378,7 @@ class BriefRule(unittest.TestCase):
         if out.returncode != 0:
             self.skipTest('J11 base commit not in this clone')
         on_main = {p.split('/')[1] for p in out.stdout.split() if p.endswith('/brief.md')}
-        self.assertEqual(on_main, set(jv.LEGACY_BRIEFS))
-        self.assertFalse(set(jv.LATE_LEGACY) & set(jv.LEGACY_BRIEFS))
+        self.assertEqual(on_main | {'J24', 'J37'}, set(LEGACY_BRIEFS))   # J24 and J37 merged before J11 did
 
 
 class ThisRepo(unittest.TestCase):
@@ -390,7 +392,7 @@ class ThisRepo(unittest.TestCase):
         known = bp.load_known(ROOT)
         bad = []
         for p in sorted((ROOT / 'jobs').glob('*/brief.md')):
-            if p.parent.name not in jv.LEGACY_BRIEFS | jv.LATE_LEGACY:
+            if p.parent.name not in LEGACY_BRIEFS:
                 bad += [f'{p.parent.name}: {e}' for e in bp.found_path_problems(p.read_text(encoding='utf-8'), known)]
         self.assertEqual(bad, [])
 
