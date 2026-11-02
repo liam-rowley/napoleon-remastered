@@ -1,0 +1,141 @@
+{
+  "verb": "order",
+  "status": "ok",
+  "reason": "",
+  "unit": "4",
+  "kind": "land",
+  "action": "move",
+  "ordered": {
+    "x": 28.2,
+    "z": 292.0,
+    "facing": 180.0,
+    "width": 31.9
+  },
+  "run": false,
+  "before": {
+    "id": 4,
+    "ptr": "0x33d694c8",
+    "x": 28.2259,
+    "y": 15.4665,
+    "z": 303.8771,
+    "facing": 179.8297,
+    "raw": 32737,
+    "men": 120,
+    "queued": 1,
+    "fx": 28.2096,
+    "fy": 15.4665,
+    "fz": 302.1271,
+    "width": 31.9,
+    "army": "0x37831c48"
+  },
+  "got": {
+    "id": 4,
+    "ptr": "0x33d694c8",
+    "x": 28.2193,
+    "y": 15.4238,
+    "z": 293.7964,
+    "facing": 180.0824,
+    "raw": -32753,
+    "men": 120,
+    "queued": 1,
+    "fx": 28.2,
+    "fy": 15.4421,
+    "fz": 292.0,
+    "width": 31.9,
+    "army": "0x37831c48"
+  },
+  "pushed": "pushed order #1 unit 0x33d694c8 to (28.200, 15.442, 292.000) facing 180.000 (raw -32768) width 31.900 run 0 queue 0 pushed 1 (was at 28.226, 15.467, 303.877 facing 179.830, queued 1)",
+  "settle": {
+    "waited_for": "centre still for 3 reads (0.02 m, 0.05 deg) every 1.0 s",
+    "waited_s": 18.43,
+    "reads": 8,
+    "moved": true,
+    "settled": true
+  },
+  "check": {
+    "compared": "the order against the unit read back at rest (front centre, facing, width)",
+    "fields": {
+      "position_m": {
+        "expected": [
+          28.2,
+          292.0
+        ],
+        "got": [
+          28.2,
+          292.0
+        ],
+        "err": 0.0,
+        "tol": 1.0,
+        "within": true
+      },
+      "facing_deg": {
+        "expected": 180.0,
+        "got": 180.0824,
+        "err": 0.0824,
+        "tol": 1.0,
+        "within": true
+      },
+      "width_m": {
+        "expected": 31.9,
+        "got": 31.9,
+        "err": 0.0,
+        "tol": 0.5,
+        "within": true
+      }
+    },
+    "ok": true
+  },
+  "evidence": {
+    "push": {
+      "id": "j28-20261102T121919Z-1051228095",
+      "request": "lua napoleon_remastered/lua/ctl/orders.lua 20 -- move 4 28.2 292.0 180.0 31.9 0",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-02T12:19:19.814Z",
+      "end_utc": "2026-11-02T12:19:19.826Z",
+      "launch_id": "20261102T121845Z-p37444",
+      "chunk": "pushed order #1 unit 0x33d694c8 to (28.200, 15.442, 292.000) facing 180.000 (raw -32768) width 31.900 run 0 queue 0 pushed 1 (was at 28.226, 15.467, 303.877 facing 179.830, queued 1)\nunit id=4 ptr=0x33d694c8 x=28.2259 y=15.4665 z=303.8771 facing=179.8297 raw=32737 men=120 queued=1 fx=28.2096 fy=15.4665 fz=302.1271 width=31.9000 army=0x37831c48\nwt=351028.09375",
+      "state_at_end": {
+        "launch_id": "20261102T121845Z-p37444",
+        "pid": 37444,
+        "frame": 17698,
+        "scene": "battle",
+        "scene_s": 15.8,
+        "uptime_s": 33.9,
+        "written_utc": "2026-11-02T12:19:19.826Z",
+        "last_present_utc": "2026-11-02T12:19:19.825Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": -1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1828,
+          "commit_mb": 1205
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "157"
+        }
+      },
+      "log": [
+        "2026-11-02T12:19:19.817Z [INFO ] [t33968] orders: order #1 unit 0x33d694c8 to (28.200, 15.442, 292.000) facing 180.000 (raw -32768) width 31.900 run 0 queue 0 pushed 1 (was at 28.226, 15.467, 303.877 facing 179.830, queued 1)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-02T12:19:17.541Z",
+  "end_utc": "2026-11-02T12:19:39.017Z"
+}

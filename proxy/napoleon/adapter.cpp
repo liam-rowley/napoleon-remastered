@@ -34,12 +34,32 @@ const CameraAdapter kCamera = {
     "battle.camera_mode_read", 2,            // mov ecx, [esi + 0x800]  (the controller's active mode)
     "battle.camera_set_target_pos", 47,      // vtable slot 0xbc: SetTargetAndPosition(target*, pos*)
     100.0f };                                // target 100 m along the forward vector (any distance gives the same view)
+// The battle unit control route (J28, static RE in harness/runs/20261101_j9pc/j28_candidates.md, PC runs in harness/runs/20261102_j28pc):
+// every operand is inside the named engine_sites row's stock bytes (proxy/tests/test_orders.cpp in the core checks each against the
+// generated table). Front centre and width have no engine accessor: UNIT+0x310 / +0x324 are proven by order readback (J28 run).
+const OrdersAdapter kOrders = {
+    "battle.ui_queue_site", 1, 9, 15,          // mov eax, [owner global]; push ecx; push esp; mov eax, [eax + 0xf8]; mov esi, [eax + 0x28048]
+    "battle.selection_dispatch", 16, 28,       // mov eax, [ecx + 0x450] (holder); ...; add eax, 0x20 (the UI selection S)
+    "battle.selection_add_unit", 30, 8, 0xc,   // lea ecx, [edi + 0x14] (loose units); vector count +8, data +0xc
+    "battle.unit_entity_index", 2, 18,         // cmp [ecx + 0xae8], 0; ...; mov ecx, [ecx + eax*4 + 0xadc]
+    "battle.entity_has_order", 2,              // cmp [ecx + 0x460], 0
+    "battle.unit_position_get", 8, 14,         // mov ecx, [eax + 0xadc]; lea ecx, [ecx + 0x62c]
+    "battle.position_xyz", 2,                  // lea eax, [ecx + 0xb0]
+    "battle.world_position_copy", 2,           // mov eax, [ecx + 0x10]  (frame)
+    "battle.unit_bearing_get", 19,             // movsx eax, word [eax + 0x64c]
+    "battle.unit_men_get", 5,                  // push [ecx + 0x204]
+    "battle.unit_army_list", 7, 13, 23,        // mov eax, [ecx + 0x1ec]; mov edx, [eax + 0xf0]; ...; mov eax, [eax + 0xf4]
+    0x310, 0x324,                              // front centre, width (readback-proven)
+    "battle.selection_ctor", "battle.order_move_ctor", "battle.order_move_push", "battle.command_dtor", "guard.engine_free",
+    0x44, 0x74, { 0x10, 0x20, 0x30, 0x40 },    // Selection and move command sizes; the selection's four vector data pointers
+    "battle.ground_chain", 25, 28,             // mov eax, [eax + 8]; mov ecx, [eax + 0xb4]
+    "battle.ground_project" };
 const DevAdapter kDev = { kIntroMovies, kFrontendMovies, kLuaRules, "napoleon_remastered\\lua\\", "data\\battleterrain\\presets\\", "data\\*.pack" };
 }
 
 const GameAdapter& Adapter() {
     static const GameAdapter a = { gen::kGameName, gen::kConfigFile, gen::kModDir, gen::kInstanceMutex, gen::kIdentity,
-                                   gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole, &kCamera };
+                                   gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole, &kCamera, &kOrders };
     return a;
 }
 
