@@ -205,7 +205,11 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install -q playwright==1.64.1 && python -m playwright install --with-deps chromium
-      - run: python -m unittest tests.test_viewer -v
+      - run: python -m unittest tests.test_viewer tests.test_uikit -v
+      # J34: the library's lint, the four-corner gate on the board and the changes report against uikit/napoleon/baseline.json
+      - run: python uikit/napoleon/lint.py
+      - run: python uikit/napoleon/gate.py --out build/viewer/out/uikit_gate
+      - run: python uikit/napoleon/changes.py
       - name: renders kept with the build (1080p x 1.0, 4K x 125 % = dp ratio 2.5)
         run: |
           python viewer/core/render.py --size 1920x1080 --dp-ratio 1.0 --out build/viewer/out/hello_1080p_r1.png | tee -a build/viewer/out/renders.txt

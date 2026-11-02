@@ -29,6 +29,10 @@ and build skills (about 120 KB of instructions). The causes, and the change for 
    with real data; never translated, only chosen from. The choice is then expressed as **tokens and a component library written in
    RCSS** and shown in the viewer with every state (hover, pressed, disabled, selected, focus-visible). Liam plays the component board
    and locks it.
+   - **Result (2026-11-02, J34):** built. `uikit/napoleon/` holds `tokens.json`, the `$token` build, the library sources and `dist/`, fonts pinned by sha256, `lint.py`, the
+     four-corner `gate.py` and `changes.py` (`README.md` is the screen author's contract); the board is `viewer/napoleon/board/`. Faction tint = CSS custom properties on the
+     body (RmlUi 6.3 supports `var()`), one class per faction from a sheet made at install time; the on-colour rule's hole (4.38:1) is closed by a fill adjustment. Evidence:
+     `uikit/napoleon/runs/20261102_j34/`, `engine_facts` `viewer.rcss.*`, `jobs/J34/report.md`.
 3. **Panel host** (core RmlUi host plus the Napoleon adapter). One contract for every screen: open and close triggers (the vanilla
    entry points), keeping the vanilla screen's logic alive but never drawn versus calling getters directly (decided by the spike,
    per screen kind), the data feed (diffed updates, never full rebuilds: Empire's battle HUD received 10 updates a second with about
@@ -59,7 +63,7 @@ Statuses in the `ui_elements` registry; the review page's titles are generated f
 |---|---|---|
 | `atlas` | the vanilla inventory exists | screen present in the atlas with elements, data and interactions |
 | `contract` | **data contract:** model schema with a source per field (getter, db or loc); fixtures captured from the live game (normal cases plus edges: empty lists, longest names, maximum values, negatives); every vanilla interaction marked kept, changed or dropped, with a reason; states; engine questions answered by probe | every field sourced and present in a fixture; every interaction classified; no `open` item in `engine_facts` for this screen |
-| `design` | optional free concept sketch (only for genuinely new layouts; never translated), then RML and RCSS assembled from library components, bound to the contract's model, with the view logic in Lua | lint (tokens only, library classes or the screen's prefix, `dp` only, minimum text size, contrast); every fixture renders at slider 1.0, 1.5 and 2.0 with no overflow or clipping (detected by the renderer, not by eye); every kept or changed interaction bound |
+| `design` | optional free concept sketch (only for genuinely new layouts; never translated), then RML and RCSS assembled from library components, bound to the contract's model, with the view logic in Lua | lint (tokens only, library classes or the screen's prefix, `dp` only, minimum text size, contrast); every fixture renders at the four D19 corners (1080p x 85 %, 4K x 125 %, 21:9, 16:10) with no overflow or clipping (detected by the renderer, not by eye); every kept or changed interaction bound |
 | `locked` | Liam plays it in the viewer and locks it | **Liam** |
 | `built` | the Lua feeder maps the contract to engine getters and actions; host tests against the stubs; deterministic pack; sha-checked install | host tests green; pack sha recorded; installed sha matches |
 | `verified` | the harness opens the screen in game, takes a shot **and captures the live model data at the same moment**; the viewer renders that same data; the images are diffed; every interaction in the contract is walked | diff under the calibrated threshold; interaction walk passes; log clean; frame cost within the UI budget; checker is not the builder |
