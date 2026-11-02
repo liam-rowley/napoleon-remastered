@@ -1,0 +1,12 @@
+{
+  "id": "J69",
+  "description": "Liam, 2026-11-02, after J34 built the component board (uikit/napoleon, viewer/napoleon/board): \"We will need to come back to the component board and spend a lot of time refining the style but we can defer it for now.\" A Liam-present series of sittings on the J34 board: refine the D43 Engraved Plate tokens and components (palette, type, ornament, density, shadows, faction tint, sprites) until Liam locks the board (uikit/napoleon/LOCK.json). Deferred by Liam: brief it only when he asks.",
+  "title": "Component board style refinement with Liam",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J34"
+  ]
+}
