@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 r"""Install the upscaled UI art for a play test (proxy kit + play packs) with one command, and take it all out again with one (J53).
 
-purpose: Liam's play-test install of the 2.5x UI art: refuse unsafe states, snapshot the game folder, install the proxy kit (pc_deploy) with dev.skip_intro=1 and the chosen ui_art_play_<role>.pack files (install_packs.ps1, sha-checked), and undo it all back to a snapshot-identical game folder
-usage: python3 upscale/pc/play.py install [--roles a,b | --all] [--kit ID|DIR] [--intro] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR]   (Git Bash on the PC, from the repo checkout)
-when: before Liam sits down to play with the upscaled art (build the packs first: python3 core/wsc.py upscale pack --play --roles ...), and after, to put the game folder back; never while an agent job holds the game lock
+purpose: Liam's play-test install of the 2.5x UI art, or (J66, --scale 2) of the whole vanilla UI at 2x for 4K: refuse unsafe states, snapshot the game folder, install the proxy kit (pc_deploy) with dev.skip_intro=1 and the chosen packs (install_packs.ps1, sha-checked; with --scale also dev.file_rules pointing the loose uied.templates at the scaled copy in the state folder, and the UI cache moved aside), and undo it all back to a snapshot-identical game folder
+usage: python3 upscale/pc/play.py install [--roles a,b | --all | --scale 2] [--kit ID|DIR] [--intro] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR] [--uiscale-work DIR]   (Git Bash on the PC, from the repo checkout)
+when: before Liam sits down to play with the upscaled art (build the packs first: python3 core/wsc.py upscale pack --play --roles ..., or for --scale 2: python3 core/wsc.py uiscale build), and after, to put the game folder back; never while an agent job holds the game lock
 not-a-verb: a PC-side wrapper for Liam's own shell that composes pc_deploy.py and install_packs.ps1 (both stay the only writers of the game folder); agents use watcher jobs instead
 
 Order matters on the way out: the packs leave data\ first, then `pc_deploy uninstall` (it compares the folder with the snapshot it took
@@ -29,6 +29,8 @@ CONFIG = REPO / 'upscale' / 'napoleon' / 'config.json'
 GAMES = REPO / 'discovery' / 'napoleon' / 'games.json'
 DEFAULT_STATE = Path(r'C:\napoleon_remastered_pc')
 INSTALL_PS1 = HERE / 'install_packs.ps1'
+UISCALE = REPO / 'uiscale' / 'napoleon' / 'config.json'
+UI_CACHE = Path(os.environ.get('APPDATA', r'C:\Users\Default\AppData\Roaming')) / 'The Creative Assembly' / 'Napoleon' / 'ui_cache'
 NEVER_DEFAULT = ('loading_screen', 'event_picture')   # 42 % of the extra bytes (J53 brief): only by name or --all
 
 
@@ -115,6 +117,45 @@ def pack_files(cfg, packs_dir, roles, all_roles):
     return out
 
 
+def scale_files(work, factor):
+    """J66: [(name, pack, manifest)] of the scale packs, plus (templates file, rules file) for `factor`; every file sha-checked here"""
+    cfg = load(UISCALE)
+    if factor not in cfg['factors']:
+        raise Refused(f'--scale {factor:g}: built factors are {cfg["factors"]} (1.25x and 1.5x are J67)')
+    tag = ('%g' % factor).replace('.', '')
+    work = Path(work)
+    out = []
+    for key in ('pack_name', 'fonts_pack_name'):
+        p = work / (cfg[key].format(tag=tag) + '.pack')
+        m = Path(str(p) + '.json')
+        if not p.is_file() or not m.is_file():
+            raise Refused(f'no {p.name} (and .pack.json) in {work}: build it with python3 core/wsc.py uiscale build --factor {factor:g}')
+        out.append((key, p, load(m)))
+    t = work / cfg['templates_name'].format(tag=tag)
+    r = work / cfg['rules_name'].format(tag=tag)
+    tm = Path(str(t) + '.json')
+    if not (t.is_file() and tm.is_file() and r.is_file()):
+        raise Refused(f'no scaled templates ({t.name}, .json) or rules file ({r.name}) in {work}: python3 core/wsc.py uiscale build --factor {factor:g}')
+    if pc_deploy.sha256_file(t) != load(tm)['sha256']:
+        raise Refused(f"{t.name} sha256 is not its .json's: rebuild (wsc uiscale build)")
+    if str(t).lower() not in r.read_text(encoding='utf-8').lower():
+        raise Refused(f'{r.name} does not redirect to {t}: rebuild (wsc uiscale build --work {work})')
+    return out, t, r
+
+
+def move_ui_cache(trash, label):
+    """move every file in the engine's UI cache (AppData, never the game folder) to <trash>/<label>; returns the names moved"""
+    if not UI_CACHE.is_dir():
+        return []
+    moved = []
+    for f in sorted(UI_CACHE.iterdir()):
+        dst = Path(trash) / label / f.name
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(f), str(dst))
+        moved.append(f.name)
+    return moved
+
+
 def pick_kit(state, kit):
     """the kit folder: --kit as a folder or an id under <state>/kits, else the newest sent proxy kit there"""
     kits = Path(state) / 'kits'
@@ -151,7 +192,7 @@ def run_ps1(args):
     return r.returncode, out
 
 
-def install(game, state, packs_dir, roles=None, all_roles=False, kit=None, intro=False):
+def install(game, state, packs_dir, roles=None, all_roles=False, kit=None, intro=False, scale=None, uiscale_work=None):
     cfg = load(CONFIG)
     game, state = Path(game), Path(state)
     if record_path(state).exists():
@@ -162,8 +203,12 @@ def install(game, state, packs_dir, roles=None, all_roles=False, kit=None, intro
                       f'(python3 core/proxy/tools/pc_deploy.py uninstall --game "{game}" --state "{state}")')
     ident = identity()
     common_refusals(game, state, ident)
-    chosen = pick_roles(cfg, roles, all_roles)
-    packs = pack_files(cfg, packs_dir, chosen, all_roles)
+    if scale:
+        if roles or all_roles:
+            raise Refused('--scale installs the scale packs, which carry their own 2x art: no --roles or --all with it')
+        packs, tfile, rules = scale_files(uiscale_work or (state / 'uiscale' / 'work'), scale)
+    else:
+        packs = pack_files(cfg, packs_dir, pick_roles(cfg, roles, all_roles), all_roles)
     # every pack check before the first change (install_packs.ps1 checks again while copying), so a refusal leaves the folder as it was
     there = [p.name for _, p, _ in packs if (game / 'data' / p.name).exists()]
     if there:
@@ -183,21 +228,30 @@ def install(game, state, packs_dir, roles=None, all_roles=False, kit=None, intro
            'trash': str(state / '_to_delete' / f'play_{stamp}'), 'skip_intro': not intro,
            'packs': [{'role': r, 'name': p.name, 'sha256': m['sha256'], 'bytes': m['bytes'], 'entries': m['entries'],
                       'held_back': len(m.get('held_back', []))} for r, p, m in packs]}
+    if scale:
+        rec['scale'] = {'factor': scale, 'templates': str(tfile), 'templates_sha256': pc_deploy.sha256_file(tfile), 'rules': str(rules),
+                        'ui_cache': str(UI_CACHE), 'ui_cache_moved_install': [], 'ui_cache_moved_uninstall': []}
     save_record(state, rec)
     try:
         pc_deploy.install(k, game, state)
-        if not intro:
-            pc_deploy.set_keys(game, ['dev.skip_intro=1'], None, state)
+        keys = ([] if intro else ['dev.skip_intro=1']) + ([f'dev.file_rules={rules}'] if scale else [])
+        if keys:
+            pc_deploy.set_keys(game, keys, None, state)
     except SystemExit as e:
         raise Refused(f'proxy install failed ({e}); the record is kept: python3 upscale/pc/play.py uninstall puts the folder back')
     code, res = run_ps1(['-Mode', 'install', '-Game', str(game), '-Packs', [str(p) for _, p, _ in packs], '-Trash', rec['trash']])
     if code != 0:
         raise Refused(f"pack install {res.get('status')}: {res.get('reason')}; python3 upscale/pc/play.py uninstall puts the folder back")
+    if scale:
+        rec['scale']['ui_cache_moved_install'] = move_ui_cache(rec['trash'], 'ui_cache_install')
     rec['status'] = 'installed'
     rec['installed_utc'] = pc_deploy.utc_stamp()
     save_record(state, rec)
     mb = sum(p['bytes'] for p in rec['packs']) / 1e6
     print(f"play: installed kit {k.name} and {len(packs)} play pack(s), {mb:.0f} MB: {', '.join(r for r, _, _ in packs)}")
+    if scale:
+        print(f"play: UI at {scale:g}x: dev.file_rules={rules} (the loose uied.templates comes from {tfile}); "
+              f"UI cache files moved aside: {len(rec['scale']['ui_cache_moved_install'])}")
     print(f"play: logs {game / ident['mod_dir'] / 'logs'}, crash dumps {game / ident['mod_dir'] / 'dumps'}")
     print('play: launch the game from Steam as usual; afterwards (or at anything odd): python3 upscale/pc/play.py uninstall')
     return 0
@@ -222,6 +276,9 @@ def uninstall(game, state):
     if code != 0:
         raise Refused(f"pack uninstall {res.get('status')}: {res.get('reason')} (nothing else changed; run uninstall again)")
     print(f"play: {len(names)} pack name(s) moved to {rec['trash']}")
+    if rec.get('scale'):
+        rec['scale']['ui_cache_moved_uninstall'] = move_ui_cache(rec['trash'], 'ui_cache_uninstall')
+        print(f"play: UI cache files written at {rec['scale']['factor']:g}x moved aside: {len(rec['scale']['ui_cache_moved_uninstall'])}")
     if (state / pc_deploy.STATE_FILE).exists():
         if not pc_deploy.uninstall(game, state):
             print('play: pc_deploy uninstall did not end identical to its own snapshot (above)')
@@ -249,8 +306,14 @@ def status(game, state):
         print('  ' + line)
         return 0 if ok else 1
     rec = load(rp)
+    bad_t = False
+    if rec.get('scale'):
+        sc = rec['scale']
+        t = Path(sc['templates'])
+        bad_t = not (t.is_file() and pc_deploy.sha256_file(t) == sc['templates_sha256'])
+        print(f"play: UI scale {sc['factor']:g}x, templates {'BAD' if bad_t else 'ok '} {t}, rules {sc['rules']}")
     print(f"play: {rec['status']} (kit {rec['kit']}, since {rec.get('installed_utc') or rec['stamp']}, dev.skip_intro={1 if rec.get('skip_intro') else 'vanilla'})")
-    bad = ok is not True
+    bad = ok is not True or bad_t
     for p in rec['packs']:
         f = game / 'data' / p['name']
         good = f.is_file() and pc_deploy.sha256_file(f) == p['sha256']
@@ -288,13 +351,15 @@ def main(argv=None):
     ap.add_argument('--game', default=load(GAMES)['napoleon']['root'])
     ap.add_argument('--state', default=str(DEFAULT_STATE))
     ap.add_argument('--packs', help=r'play pack folder (default <state>\upscale\work\<play_packs_dir>)')
+    ap.add_argument('--scale', type=float, help='install: the vanilla UI at this factor (J66: 2) instead of the 2.5x role packs')
+    ap.add_argument('--uiscale-work', help=r'install --scale: the uiscale build folder (default <state>\uiscale\work)')
     a = ap.parse_args(argv)
     packs = a.packs or str(Path(a.state) / 'upscale' / 'work' / load(CONFIG)['play_packs_dir'])
     try:
         if a.action == 'install':
             if a.roles and a.all:
                 raise Refused('--roles or --all, not both')
-            return install(a.game, a.state, packs, a.roles, a.all, a.kit, a.intro)
+            return install(a.game, a.state, packs, a.roles, a.all, a.kit, a.intro, a.scale, a.uiscale_work)
         if a.action == 'uninstall':
             return uninstall(a.game, a.state)
         return status(a.game, a.state)

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.font_slots_2x",
+  "claim": "The four Empire 2x slot fonts (ingame_24, ingame_b_24, frontend_24, frontend_38) and ingame_18, re-rendered as Lora and shipped in a movie pack, draw at full size in the front end, the campaign and a land battle: no tiny fallback text in the shots of the scaled layouts",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-02_j66/README.md",
+  "date": "2026-11-02",
+  "notes": "run 2026-11-02_j66, ui_scale_2x_fonts.pack f699ca5db25b9cb9; checked by eye on the advisor panels, HUD labels, unit-card counts and the front-end buttons. Not probed: which other sizes each context loads (Empire: Ingame 18 and Frontend 32 fail outside the front end); the scaler keeps to the Empire-proven slots"
+}

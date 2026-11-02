@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.scale_2x_packs",
+  "claim": "The J66 2x set (ui_scale_2x.pack: 174 layouts + 9365 UI textures at 2x, ui_scale_2x_fonts.pack, uied.templates via file_rules) loads at 3840x2160 with no crash, dump or WER report; front end, campaign HUD and battle HUD (unit cards, buttons, advisor, frames) draw at 2x. Stays 1x: engine-drawn text (map and unit labels, the build string), the loading screen, the cursor, 34 pixel-helper textures; misplaced or clipped: the battle radar group, the front-end New content box",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-02_j66/README.md",
+  "date": "2026-11-02",
+  "notes": "run 2026-11-02_j66: land_small loaded in 3.8 s (J53: 3.9 s), campaign_start in 3.0 s; 96540 pack entries indexed (86995 vanilla + 9539 + 5 + 1 probe). The warm reset from the campaign stalled in loading (the known napoleon.campaign.quit_to_menu), killed through the watcher. Tooltips, settlement panel and unit-card rows in the campaign were not on screen (no click verb): unchecked"
+}
