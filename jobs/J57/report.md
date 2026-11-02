@@ -49,7 +49,8 @@ reviewer now marks the pull request ready before pushing the review commit, so t
 
 ## Gates
 - `python3 core/wsc.py gates` (full, 2026-11-02, on the PC): 532 tests pass once the row is set (18 skipped: numpy/Pillow, capstone and the viewer wasm are not installed); `wsc jobs check`: 67 rows, ok.
-- `python3 tools/pr_policy.py --branch job/J57 --base origin/main`: ok before the pull request was opened.
+- `python3 tools/pr_policy.py --branch job/J57 --base origin/main` (2026-11-02): refuses only on the reviewer's part (no
+  `review.md`, row not `done`), as expected before review; nothing else.
 
 ## Deviations
 - The problem-3 test swaps only `pc_deploy`'s own `os` for a stand-in with `name='nt'`, not the global `os.name`: the global patch
