@@ -128,8 +128,8 @@ class Rule79(unittest.TestCase):
         weak = self.CHECKER.replace('def baseline_problems(b):', 'def baseline_problems(b):\n    return ["always"]\n\ndef _old(b):')
         self.assertFalse(hk.acceptance_active('', b, weak))           # a weakened checker would say inactive...
         self.assertTrue(hk.acceptance_active('', b, self.CHECKER))    # ...but main() passes the base's text, which says active
-        src = (ROOT / 'tools' / 'pr_policy.py').read_text(encoding='utf-8')
-        self.assertIn('show_first(a.base, *ACC_CHECKERS)', src)   # the base's checker, in either layout (J12)
+        src = (ROOT / 'tools' / 'jobs_hooks.py').read_text(encoding='utf-8')
+        self.assertIn('show_first(root, base, *ACC_CHECKERS)', src)   # the base's checker, in either layout (J12)
         self.assertNotIn("spec_from_file_location('acceptance'", src)
 
     def test_failing_fixture_another_branchs_passes_do_not_count(self):
@@ -138,7 +138,7 @@ class Rule79(unittest.TestCase):
         self.assertEqual(len(errs), 1)
         self.assertIn('another branch', errs[0])
         self.assertTrue(hk.acceptance_problems(['harness/core/ctl.py'], self.acc(self.led(20, branch=None))))
-        self.assertIn("'branch': a.branch", (ROOT / 'tools' / 'pr_policy.py').read_text(encoding='utf-8'))
+        self.assertIn("'branch': facts['branch']", (ROOT / 'tools' / 'jobs_hooks.py').read_text(encoding='utf-8'))
 
     def test_exemptions_match_segments_not_substrings(self):
         self.assertFalse(hk.acc_exempt('proxy/core/README.md.bak'))
