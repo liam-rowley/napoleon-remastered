@@ -1,0 +1,8 @@
+{
+  "id": "viewer.rcss.faction_route",
+  "claim": "Faction tint route chosen: the four faction tokens are CSS custom properties on the document body (route 1 of the J34 brief). The library sets the default record (accent_fill, white); a generated sheet body.fac-<name> { --fac; --on-fac; --fac-hover; --fac-pressed } (tokens.faction_sheet, build.py faction-sheet) selects a faction by one class on the body, and :hover and :active rules read var(--fac-hover) and var(--fac-pressed). It is plain RCSS in the viewer and for J30 (RmlUi 6.3 either way), no host-side colour maths beyond writing the sheet or one class, and no per-frame cost: a class change restyles once",
+  "state": "verified",
+  "evidence": "uikit/napoleon/runs/20261102_j34/README.md",
+  "date": "2026-11-02",
+  "notes": "board faction picker (tests/test_uikit.py test_faction_picker_changes_the_tint_live); J30's host must run the same RmlUi 6.3 and load the sheet after the library: unverified in game until J35"
+}

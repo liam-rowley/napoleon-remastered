@@ -34,9 +34,15 @@
     log(`wasm instantiated in ${Math.round(performance.now() - t0)} ms`);
 
     const screen = JSON.parse(new TextDecoder().decode(await fetchBytes('screen/screen.json')));
+    document.title = screen.title;   // the page names the screen it shows
+    const h1 = document.getElementById('screen_title');
+    if (h1) h1.textContent = screen.title;
     m.FS.mkdirTree('/screen');
     m.FS.mkdirTree('/fonts');
-    for (const f of screen.files) m.FS.writeFile('/screen/' + f, await fetchBytes('screen/' + f));
+    for (const f of screen.files) {   // a file may sit in a sub-folder (library screens stage uikit/ beside the document)
+      if (f.includes('/')) m.FS.mkdirTree('/screen/' + f.slice(0, f.lastIndexOf('/')));
+      m.FS.writeFile('/screen/' + f, await fetchBytes('screen/' + f));
+    }
     for (const f of screen.fonts) m.FS.writeFile('/fonts/' + f, await fetchBytes('fonts/' + f));
     log(`${screen.files.length} screen files and ${screen.fonts.length} font(s) loaded`);
 
@@ -50,8 +56,11 @@
     if (headless) m.ccall('viewer_set_time', null, ['number'], [0]);
     for (const f of screen.fonts)
       if (!m.ccall('viewer_load_font', 'number', ['string', 'number'], ['/fonts/' + f, 1])) throw new Error('font failed: ' + f);
+    const tDoc = performance.now();
     if (!m.ccall('viewer_load_document', 'number', ['string'], ['/screen/' + screen.document]))
       throw new Error('document failed: ' + screen.document);
+    const docMs = performance.now() - tDoc;   // RML + RCSS parse, style and first layout of the document (J34 report)
+    window.viewerTimings = { wasm_ms: Math.round(performance.now() - t0 - docMs), document_ms: Math.round(docMs * 10) / 10 };
     log(`${screen.title}: ${w}x${h}, dp ratio ${ratioFor(h, slider, explicit).toFixed(4)}`);
 
     const frame = () => m.ccall('viewer_frame', null, [], []);
@@ -97,7 +106,7 @@
     });
     canvas.addEventListener('pointerdown', (e) => {
       const [x, y] = toPx(e);
-      if (e.pointerType !== 'touch') return down(e.button, mods(e));
+      if (e.pointerType !== 'touch') { canvas.focus({ preventScroll: true }); return down(e.button, mods(e)); }
       Object.assign(touch, { id: e.pointerId, x, y, lastY: y, moved: false });
       canvas.setPointerCapture(e.pointerId);
     });
@@ -111,6 +120,16 @@
     canvas.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') m.ccall('viewer_mouse_leave', null, [], []); });
     canvas.addEventListener('wheel', (e) => { e.preventDefault(); m.ccall('viewer_mouse_wheel', null, ['number', 'number'], [Math.sign(e.deltaY), mods(e)]); }, { passive: false });
     canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+    // Keyboard: Tab moves the focus (and sets :focus-visible), Enter, Space, Escape and the arrows reach the document (J34)
+    const KEYS = { Tab: 'Tab', Enter: 'Enter', ' ': 'Space', Escape: 'Escape', ArrowUp: 'Up', ArrowDown: 'Down', ArrowLeft: 'Left',
+      ArrowRight: 'Right', Home: 'Home', End: 'End' };
+    const key = (name, isDown, md) => m.ccall('viewer_key', 'number', ['string', 'number', 'number'], [name, isDown ? 1 : 0, md]);
+    canvas.tabIndex = 0;
+    canvas.addEventListener('keydown', (e) => {
+      const name = KEYS[e.key];
+      if (name && key(name, true, mods(e))) e.preventDefault();
+    });
+    canvas.addEventListener('keyup', (e) => { const name = KEYS[e.key]; if (name && key(name, false, mods(e))) e.preventDefault(); });
 
     // The scale picker (plain inputs: size and slider, or an explicit ratio)
     const picker = document.getElementById('picker');
@@ -134,6 +153,8 @@
       mouseUp: (b) => m.ccall('viewer_mouse_up', null, ['number', 'number'], [b, 0]),
       scrollAt,
       wheel: (dy) => m.ccall('viewer_mouse_wheel', null, ['number', 'number'], [dy, 0]),
+      key,
+      overflow: () => JSON.parse(m.ccall('viewer_overflow_json', 'string', [], [])),
       element: (id) => JSON.parse(m.ccall('viewer_element_json', 'string', ['string'], [id])),
       lua: (code) => m.ccall('viewer_lua_eval', 'string', ['string'], [code]) };
     frame();

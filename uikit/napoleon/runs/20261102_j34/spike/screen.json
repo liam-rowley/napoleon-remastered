@@ -1,0 +1,6 @@
+{
+  "title": "J34 spike",
+  "document": "spike.rml",
+  "files": ["spike.rml", "spike.rcss", "emblem.png"],
+  "fonts": ["LibreBaskerville-Regular.ttf", "LibreBaskerville-Bold.ttf", "PublicSans-Regular.ttf", "PublicSans-SemiBold.ttf"]
+}
