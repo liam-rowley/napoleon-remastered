@@ -19,7 +19,7 @@
   starting `Napoleon.exe` yourself: the watcher holds the game lock, the hang watchdog and the profile restore.
 - One-time setup and its check: run `python3 core/wsc.py setup` (`--fix` for the safe fixes); every line says how to fix a failure.
 - Every commit carries a `Claude-Session: <session id>` trailer: the `.claude/settings.json` hook refuses a `git commit` without it
-  and names the flag, and `tools/pr_policy.py` refuses a job whose report or review has a commit without one.
+  and names the flag, and `python3 core/wsc.py policy` refuses a job whose report or review has a commit without one.
 
 ## The core (`core/`, warscape-core pinned at a tag)
 - Clone with `git clone --recurse-submodules` (or `git submodule update --init` after a plain clone); set the hook once per clone:
@@ -36,7 +36,7 @@
 ## Jobs (D16, D21): what Liam means by "pick up the next job" and "review the next job"
 - The queue is the `jobs` registry (`registries/jobs/J<n>.json`, one file per job; status page: `python3 core/wsc.py jobs view`). Each job has a folder
   `jobs/<id>/` with `brief.md` (the full prompt), then `report.md` and `review.md`. A job in progress is a remote branch `job/<id>`.
-  `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (`tools/verbs/jobs.py`).
+  `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (the core's `jobs` verb: `core/warscape/jobq.py`, configured by `wsc.toml` `[jobs]` and `tools/jobs_hooks.py`).
 - **"Pick up the next job":** `git pull`, then `python3 core/wsc.py jobs next`. It names the job and its steps, or the brief to write
   (on `brief/<id>`, then queue its merge on green CI: D33), or what every open job is waiting for. Say which job you took.
 - **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it. A `merge` verdict
@@ -45,7 +45,7 @@
 - Never mark your own job `done`, and never review a job you built (CI's `policy` check refuses a review written by a session that
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
-  the docstring of `tools/pr_policy.py`, which CI's `policy` check runs (run it locally before opening a pull request). Work Liam asks
+  the docstring of `core/warscape/policy.py`, which `python3 core/wsc.py policy` (CI's `policy` check) runs (run it locally before opening a pull request). Work Liam asks
   for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself.
 - **Rule 79 and history edits (J45):** the DLL build id is a hash of the DLL inputs' content (`core/proxy/tools/build_id.py`), so a reword,
   rebase or merge of `main` after the 20-pass run keeps the passes when it leaves those inputs unchanged; when `main` brings in a

@@ -107,13 +107,13 @@ the gate says so: it sets the machine's time zone and kills `Fake*.exe`. The CI 
 Python that runs `job.sh` or `shot.sh` (`ctl.py`, `acceptance.py`, the host tests) takes bash from `tools/verbs/setup.py` `git_bash()`,
 never a bare `bash`, which on Windows can be the WSL launcher (J6, J22; `tests/test_repo_rules.py` fails on a new one). On Windows a
 test that finds no Git Bash skips with the reason. `harness-windows` also runs those Python tests on the runner (`tests.test_job_sh`,
-`test_pc_deploy`, `test_claude_hook`, `test_setup`, `test_proxy_host.GitBash`); their inputs are in `tools/changed_inputs.py`.
+`test_pc_deploy`, `test_claude_hook`, `test_setup`, `test_proxy_host.GitBash`); their inputs are in `wsc.toml` `[ci] inputs`.
 
 ## Control API and acceptance (J4, J43, J44)
 `core/harness/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`
 when needed, moving UAC VirtualStore copies of the mod folder aside first (fact `napoleon.harness.uac_virtualstore`). `core/harness/acceptance.py
 measure --run <id>` writes `harness/acceptance/baseline.json` from two passes; `run --passes 20 --run <id>` takes the lock per pass, compares with
-the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/pr_policy.py`). The ledger's `build_id` is the DLL inputs' content hash
+the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/jobs_hooks.py`). The ledger's `build_id` is the DLL inputs' content hash
 (`core/proxy/tools/build_id.py`, J45; lines before J45 carry the old commit-hash ids as a record).
 
 ## Open questions
