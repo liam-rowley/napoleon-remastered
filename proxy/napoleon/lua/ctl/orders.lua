@@ -1,7 +1,8 @@
 -- ctl/orders.lua - dev (J28): the battle unit control route's Lua half: list the player's army, read one unit, push one move order
 -- purpose: the chunk ctl.py order runs: "list" (every unit of the player's army: the first Land unit of BattleUI.UnitListForBattleIds),
 --          "state <unit>[,<unit>...]" (one line per unit), "move <unit> <x> <z> <facing|-> <width|-> <run 0|1>" (wsp.order_move: the engine's own command
---          path, one unit per command), "selection" (the UI's own selection S); <unit> = the unit's number in the player's army (1-based,
+--          path, one unit per command), "selection" (the UI's own selection S), "command <unit> <cmd> [arg]" (wsp.order_command:
+--          halt, formation toggles; the codes are the route's commands in the harness adapter); <unit> = the unit's number in the player's army (1-based,
 --          the army list order: stable across launches of a scenario) or a 0x... pointer
 -- usage: job.sh ctl <owner> "lua napoleon_remastered/lua/ctl/orders.lua 20 -- list|state <unit>|move <unit> <x> <z> <facing|-> <width|-> <run>|selection" in a battle; ctl.py order runs it
 -- when: every ctl order; never in a scenario row or a script by itself (ctl.py checks each order by readback, rule 77)
@@ -56,5 +57,11 @@ elseif verb == "move" then
 	if not okm then return "orders refused: " .. tostring(info) end
 	local u = wsp.unit_state(ref(a[2]))
 	return "pushed " .. string.gsub(tostring(info), "\n", " ") .. "\n" .. (u and line(u) or "unit unreadable after the push") .. "\nwt=" .. tostring(t0)
+elseif verb == "command" then   -- command <unit> <cmd> [arg]: the owner's dispatcher with a one-unit selection (codes: the route's commands)
+	local c = tonumber(a[3] or "")
+	if not c then return "orders refused: command <unit> <cmd> [arg]" end
+	local okc, info = wsp.order_command(ref(a[2] or ""), c, tonumber(a[4] or "0") or 0)
+	if not okc then return "orders refused: " .. tostring(info) end
+	return "pushed " .. tostring(info)
 end
-return "orders refused: unknown verb " .. verb .. " (list, selection, state, move)"
+return "orders refused: unknown verb " .. verb .. " (list, selection, state, move, command)"

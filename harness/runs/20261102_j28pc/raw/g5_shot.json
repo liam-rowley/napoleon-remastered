@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "C:\\Users\\liamr\\repos\\napoleon-remastered\\harness\\runs\\20261102_j28pc\\raw\\g5_siege_after.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.61,
+    "frames": 666,
+    "scene": "battle",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 123302,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "C:\\Users\\liamr\\repos\\napoleon-remastered\\harness\\runs\\20261102_j28pc\\raw\\g5_siege_after.jpg"
+  },
+  "start_utc": "2026-11-02T12:48:49.727Z",
+  "end_utc": "2026-11-02T12:48:58.456Z"
+}

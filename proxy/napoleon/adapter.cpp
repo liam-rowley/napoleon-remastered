@@ -53,7 +53,9 @@ const OrdersAdapter kOrders = {
     "battle.selection_ctor", "battle.order_move_ctor", "battle.order_move_push", "battle.command_dtor", "guard.engine_free",
     0x44, 0x74, { 0x10, 0x20, 0x30, 0x40 },    // Selection and move command sizes; the selection's four vector data pointers
     "battle.ground_chain", 25, 28,             // mov eax, [eax + 8]; mov ecx, [eax + 0xb4]
-    "battle.ground_project" };
+    "battle.ground_project",
+    "battle.selection_dispatch_b", 12,         // add ecx, 0x454  (the dispatcher's this: a cell holding the battle)
+    "battle.selection_command" };              // dispatcher(sel*, cmd, float, flag): halt, formation toggles (codes in ctl/orders.lua's route)
 const DevAdapter kDev = { kIntroMovies, kFrontendMovies, kLuaRules, "napoleon_remastered\\lua\\", "data\\battleterrain\\presets\\", "data\\*.pack" };
 }
 
