@@ -1,0 +1,6 @@
+# Fixed sky (J44, proxy/tools/build_fixed_sky_pack.py): lists the cut battles-to-sky junction pack in data\ virtually (dev.file_rules).
+# The launch keys of ctl.py (harness/napoleon/adapter.json ctl.launch.keys) point dev.file_rules here; nothing is written into data\.
+add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack
+
+# J66 UI scale 2x: the loose templates the engine opens (attribute check and CreateFileA) come from the scaled file
+redirect data\ui\templates\uied.templates -> C:\napoleon_remastered_pc\uiscale\work\uied.templates.ui_scale_2x

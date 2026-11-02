@@ -166,8 +166,6 @@ class Templates(unittest.TestCase):
         w.u32(1)
         w.s('ui\\templates\\skins\\corner.tga')
         w.raw(tga(8, 8))
-        tpl.w_textures  # (the record-level texture list is written above: count 1)
-        # child components carry their own (empty) texture lists in records
         doc = {'textures': [], 'root': root}
         for _, c in uic.walk(root):
             c['textures'] = []
