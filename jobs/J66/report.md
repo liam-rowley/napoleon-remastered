@@ -92,5 +92,5 @@ python3 upscale/pc/play.py uninstall       # must end "identical"
 
 ## Open questions
 Questions 1-4 are settled by Liam (D42): vendor the face, use uharfbuzz, keep Lora, ship in 0.1.0.
-1. **Vendored face.** `uiscale/fonts/Lora-Variable.ttf` lands once Liam copies it in (the deny rule above). Until then the fallback path is used.
+1. **Vendored face:** backlog row J68 (PR #129, needs_brief). Until it lands, the build reads the same file from the empire-remastered clone.
 2. **Radar group.** Its position is not data-driven at 2x. J67 should find the Lua constant or engine docking behind it.
