@@ -2,7 +2,7 @@
 """Vanilla UI atlas (J10): every layout, template and compiled UI script read statically, then one ui_elements row per pipeline unit.
 
 purpose: write the static UI atlas (discovery/ui/<context>.json.gz, scripts.json.gz, summary.json) from the layouts, uied.templates records and compiled UI scripts, and generate the ui_elements rows (status atlas) from it
-usage: python3 discovery/core/ui_atlas.py [atlas|rows|all] [--games discovery/napoleon/games.json]   (or `wsc discovery ui`; needs the extract: discovery/README.md)
+usage: python3 discovery/core/ui_atlas.py [atlas|rows|live|art|all] [--games discovery/napoleon/games.json] [--run harness/runs/<run id>]   (or `wsc discovery ui`; needs the extract: discovery/README.md)
 when: J10; re-run after a codec change, a game update or a change to the unit plan (UNITS, PIECES); the contract stage of every screen reads the atlas file named in the row's vanilla_source
 not-a-verb: reads extracted game files; `wsc discovery ui` runs it and `wsc discovery check` checks its results
 
@@ -1245,7 +1245,8 @@ def main(argv=None):
     reach = json.load(open(reach_path, encoding='utf-8')) if os.path.exists(reach_path) else None
     rs, recs = rows(at, units, surfaces, reach)
     keys_path = os.path.join(OUT, 'art_keys.json')
-    if a.step == 'art':
+    if a.step in ('art', 'all'):
+        # `all` (what `wsc discovery ui` runs) rewrites the art rules too, so a re-run checks them like every other file
         ak = art_keys(at, recs)
         jdump(keys_path, dict(generator='discovery/core/ui_atlas.py art', roles=ak))
         for k, v in ak.items():
