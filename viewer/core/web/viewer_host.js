@@ -34,6 +34,9 @@
     log(`wasm instantiated in ${Math.round(performance.now() - t0)} ms`);
 
     const screen = JSON.parse(new TextDecoder().decode(await fetchBytes('screen/screen.json')));
+    document.title = screen.title;   // the page names the screen it shows
+    const h1 = document.getElementById('screen_title');
+    if (h1) h1.textContent = screen.title;
     m.FS.mkdirTree('/screen');
     m.FS.mkdirTree('/fonts');
     for (const f of screen.files) {   // a file may sit in a sub-folder (library screens stage uikit/ beside the document)
