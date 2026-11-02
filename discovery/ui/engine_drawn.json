@@ -1,0 +1,350 @@
+{
+ "generator": "discovery/core/ui_atlas.py (ENGINE)",
+ "items": [
+  {
+   "checked": [
+    "call:BattleUI.Move_Selection_To_Rader_Location",
+    "call:BattleUI.ResizeMinimap",
+    "call:BattleUI.ToggleMinimisedRadar",
+    "exe:CustomSprites/land_radar_pip_inf",
+    "exe:CustomSprites/naval_radar_sea",
+    "exe:CustomSprites/radar_camera",
+    "exe:RADAR_GENERATOR::generate_radar_texture",
+    "exe:RC_BATTLE_RADAR",
+    "layout:battle ui/layout#radar"
+   ],
+   "cost": "host: expose the radar render target and its rect; input: forward clicks and drags on the element to BattleUI (Move_Selection_To_Rader_Location, ResizeMinimap)",
+   "data": [
+    "call:BattleUI.ResizeMinimap",
+    "call:BattleUI.ToggleMinimisedRadar"
+   ],
+   "evidence": [
+    "exe:RADAR_GENERATOR::generate_radar_texture",
+    "exe:RC_BATTLE_RADAR",
+    "exe:CustomSprites/land_radar_pip_inf",
+    "exe:CustomSprites/naval_radar_sea",
+    "exe:CustomSprites/radar_camera",
+    "layout:battle ui/layout#radar",
+    "call:BattleUI.Move_Selection_To_Rader_Location"
+   ],
+   "id": "engine.battle_radar",
+   "interactions": [
+    "radar OnUpdatePulse -> Lua Update_Radar (battle ui/layout_scripts/battle_hud_radar.luac)",
+    "radar click -> BattleUI.Move_Selection_To_Rader_Location",
+    "button_enlarge / button_decrease -> BattleUI.ResizeMinimap"
+   ],
+   "name": "Battle radar picture (land and naval)",
+   "owner": "J35 (panel host), then the battle HUD job",
+   "route": "render_target",
+   "why": "the engine generates the terrain texture (RADAR_GENERATOR) and draws unit pips as sprites each frame; an RmlUi rebuild would need every unit position at 10 Hz plus the terrain image, so show the engine texture in an RmlUi element and keep the frame and buttons in RmlUi"
+  },
+  {
+   "checked": [
+    "call:CampaignUI.AttachRadarView",
+    "call:CampaignUI.UpdateRadarView",
+    "call:CampaignUI.UpdateRadarView",
+    "exe:In: Theatre id, Out: Table containing paths to map, overlay and radar images",
+    "exe:SetRadarTheatreAndPosition",
+    "layout:campaign ui/layout#radar"
+   ],
+   "cost": "host: the attached view as a texture in an RmlUi element; theatre buttons and arrows stay RmlUi (campaign.hud.radar, campaign.hud.theatres)",
+   "data": [
+    "call:CampaignUI.UpdateRadarView"
+   ],
+   "evidence": [
+    "call:CampaignUI.AttachRadarView",
+    "call:CampaignUI.UpdateRadarView",
+    "exe:SetRadarTheatreAndPosition",
+    "exe:In: Theatre id, Out: Table containing paths to map, overlay and radar images",
+    "layout:campaign ui/layout#radar"
+   ],
+   "id": "engine.campaign_radar",
+   "interactions": [
+    "theatre buttons -> SetRadarTheatreAndPosition (exe)",
+    "radar arrows L/R"
+   ],
+   "name": "Campaign minimap (theatre radar view)",
+   "owner": "J35 (panel host), then the campaign HUD job",
+   "route": "render_target",
+   "why": "CampaignUI.AttachRadarView attaches an engine view to the radar component and UpdateRadarView refreshes it; the picture is the engine's"
+  },
+  {
+   "checked": [
+    "anatomy:Drawing sneaky sprites",
+    "exe:BannerPosition",
+    "layout:battle ui/battle_hud_flags#flag_L_DY",
+    "layout:battle ui/lb_unit_id#LB_unit_ID",
+    "layout:battle ui/nb_unit_id#NB_unit_ID"
+   ],
+   "cost": "none for the host; art upscaled through the layouts' assets; text, if any, through the .cuf route (D7, J37)",
+   "data": [],
+   "evidence": [
+    "exe:BannerPosition",
+    "layout:battle ui/lb_unit_id#LB_unit_ID",
+    "layout:battle ui/nb_unit_id#NB_unit_ID",
+    "layout:battle ui/battle_hud_flags#flag_L_DY",
+    "anatomy:Drawing sneaky sprites"
+   ],
+   "id": "engine.battle_unit_banners",
+   "interactions": [
+    "click a banner selects the unit (engine)"
+   ],
+   "name": "Battle unit banners and flags over units",
+   "owner": "J37 (engine-drawn text and fonts)",
+   "route": "engine_drawn",
+   "why": "placed in 3D by the engine each frame (BannerPosition) from the lb_unit_id / nb_unit_id / battle_hud_flags layouts; Empire kept them native"
+  },
+  {
+   "checked": [
+    "anatomy:campaignflag",
+    "anatomy:strengthbar",
+    "call:CampaignUI.ShouldShowLabelBottomRow",
+    "call:CampaignUI.ToggleFlagDisplay",
+    "call:CampaignUI.ToggleLabels",
+    "layout:campaign ui/city_info_bar#city_info_bar",
+    "layout:campaign ui/faction_hud_flags#faction_hud_flags"
+   ],
+   "cost": "art through the layouts' assets; label text through the .cuf route (J37)",
+   "data": [
+    "call:CampaignUI.ShouldShowLabelBottomRow"
+   ],
+   "evidence": [
+    "call:CampaignUI.ToggleLabels",
+    "call:CampaignUI.ToggleFlagDisplay",
+    "layout:campaign ui/city_info_bar#city_info_bar",
+    "layout:campaign ui/faction_hud_flags#faction_hud_flags",
+    "anatomy:campaignflag",
+    "anatomy:strengthbar"
+   ],
+   "id": "engine.campaign_map_labels",
+   "interactions": [
+    "CampaignUI.ToggleLabels, CampaignUI.ToggleFlagDisplay (menu buttons)"
+   ],
+   "name": "Campaign map labels, settlement info bars, faction flags and army strength bars",
+   "owner": "J37 (engine-drawn text and fonts)",
+   "route": "engine_drawn",
+   "why": "3D-anchored on the campaign map (city_info_bar, faction_hud_flags layouts; campaignflag and strengthbar shaders in the frame)"
+  },
+  {
+   "checked": [
+    "anatomy:campaignoverlay",
+    "anatomy:supertexturetile",
+    "exe:Campaign Marker Display"
+   ],
+   "cost": "none",
+   "data": [],
+   "evidence": [
+    "anatomy:campaignoverlay",
+    "anatomy:supertexturetile",
+    "exe:Campaign Marker Display"
+   ],
+   "id": "engine.campaign_map",
+   "interactions": [
+    "map clicks select and order (engine)"
+   ],
+   "name": "The campaign map itself",
+   "owner": "none (world rendering)",
+   "route": "engine_drawn",
+   "why": "the world render (terrain, overlays, trees), not UI; listed so no screen claims it"
+  },
+  {
+   "checked": [
+    "exe:Indicators/ship_group_path_marker_diffuse",
+    "exe:MARKER_MANAGER",
+    "exe:Show the selection markers under the units"
+   ],
+   "cost": "art upscale only",
+   "data": [],
+   "evidence": [
+    "exe:Show the selection markers under the units",
+    "exe:MARKER_MANAGER",
+    "exe:Indicators/ship_group_path_marker_diffuse"
+   ],
+   "id": "engine.selection_and_order_markers",
+   "interactions": [
+    "none: display only"
+   ],
+   "name": "Selection markers, move and attack markers, path markers",
+   "owner": "none (world rendering)",
+   "route": "engine_drawn",
+   "why": "3D world decals drawn by the marker manager under units and on paths"
+  },
+  {
+   "checked": [
+    "layout:uied.templates/box_selection#box_selection"
+   ],
+   "cost": "an RmlUi element the host sizes from the drag rectangle",
+   "data": [],
+   "evidence": [
+    "layout:uied.templates/box_selection#box_selection"
+   ],
+   "id": "engine.selection_box",
+   "interactions": [
+    "mouse drag (engine)"
+   ],
+   "name": "Drag selection box",
+   "owner": "the battle HUD job",
+   "route": "rml",
+   "why": "already a UI template (uied.templates box_selection, created by a script), so it is a layout component, not engine drawing"
+  },
+  {
+   "checked": [
+    "exe:%s.cur",
+    "exe:LoadCursorFromFileA",
+    "exe:WARSCAPE_SETCURSOR",
+    "role:cursor"
+   ],
+   "cost": "upscaled cursor files at the OS cursor sizes",
+   "data": [],
+   "evidence": [
+    "exe:%s.cur",
+    "exe:LoadCursorFromFileA",
+    "exe:WARSCAPE_SETCURSOR",
+    "role:cursor"
+   ],
+   "id": "engine.cursors",
+   "interactions": [
+    "none: display only"
+   ],
+   "name": "Mouse cursors (179 cursor assets)",
+   "owner": "a later art job",
+   "route": "engine_drawn",
+   "why": "Windows cursors loaded from .cur/.ani files (LoadCursorFromFileA); RmlUi does not draw them"
+  },
+  {
+   "checked": [
+    "call:CampaignUI.AttachMovieToComponent",
+    "call:FrontEnd.MoviePlaying",
+    "call:FrontEnd.PlayMovieInComponent",
+    "exe:Frontend2.bik",
+    "exe:NTW_Intro.bik",
+    "layout:campaign ui/event_movie_panel#movie_window",
+    "layout:frontend ui/layout#movie_bg"
+   ],
+   "cost": "host: the movie surface as a texture in an RmlUi element, or leave the engine drawing into the element rect",
+   "data": [
+    "call:FrontEnd.MoviePlaying"
+   ],
+   "evidence": [
+    "exe:NTW_Intro.bik",
+    "exe:Frontend2.bik",
+    "call:FrontEnd.PlayMovieInComponent",
+    "call:CampaignUI.AttachMovieToComponent",
+    "layout:campaign ui/event_movie_panel#movie_window",
+    "layout:frontend ui/layout#movie_bg"
+   ],
+   "id": "engine.movies",
+   "interactions": [
+    "click or key dismisses (MovieDismissed)"
+   ],
+   "name": "Movies (intro, front-end background, event movies, historical battle intros)",
+   "owner": "J35 (panel host)",
+   "route": "render_target",
+   "why": "Bink movies the engine plays into a component (PlayMovieInComponent, AttachMovieToComponent); the frame around them is layout"
+  },
+  {
+   "checked": [
+    "exe:Display subtitles during movies"
+   ],
+   "cost": "text through the .cuf route",
+   "data": [],
+   "evidence": [
+    "exe:Display subtitles during movies"
+   ],
+   "id": "engine.subtitles",
+   "interactions": [
+    "none: display only"
+   ],
+   "name": "Movie subtitles",
+   "owner": "J37 (engine-drawn text and fonts)",
+   "route": "engine_drawn",
+   "why": "drawn with the movie when the subtitle option is on"
+  },
+  {
+   "checked": [
+    "exe:RC_LOADING_SCREEN",
+    "exe:UI/FrontEnd UI/LoadingScreen/loading_screen_heading.tga",
+    "role:loading_screen"
+   ],
+   "cost": "art upscaled (loading_screen role); tips text through the .cuf route",
+   "data": [],
+   "evidence": [
+    "exe:RC_LOADING_SCREEN",
+    "exe:UI/FrontEnd UI/LoadingScreen/loading_screen_heading.tga",
+    "role:loading_screen"
+   ],
+   "id": "engine.loading_screen",
+   "interactions": [
+    "none: display only"
+   ],
+   "name": "Loading screens",
+   "owner": "J37 (text), a later art job",
+   "route": "engine_drawn",
+   "why": "drawn while the Lua UI does not pump (RC_LOADING_SCREEN); no layout"
+  },
+  {
+   "checked": [
+    "call:BattleUI.Stop_Rotating_Rendering",
+    "exe:CPREVIEW_LIST_ITEM_HANDLER"
+   ],
+   "cost": "host: the preview render target as a texture in an RmlUi element; rotate buttons stay RmlUi",
+   "data": [],
+   "evidence": [
+    "call:BattleUI.Stop_Rotating_Rendering",
+    "exe:CPREVIEW_LIST_ITEM_HANDLER"
+   ],
+   "id": "engine.unit_3d_preview",
+   "interactions": [
+    "Rotate_Left / Rotate_Right hold -> engine rotation"
+   ],
+   "name": "3D unit and building previews (rotating model in information panels)",
+   "owner": "J35 (panel host)",
+   "route": "render_target",
+   "why": "the engine renders the model (Stop_Rotating_Rendering; Rotate_Left/Right handlers in the unit information layout)"
+  },
+  {
+   "checked": [
+    "layout:battle ui/esc_menu_battle#esc_menu_battle",
+    "layout:campaign ui/esc_menu_campaign#esc_menu_campaign"
+   ],
+   "cost": "none",
+   "data": [],
+   "evidence": [
+    "layout:battle ui/esc_menu_battle#esc_menu_battle",
+    "layout:campaign ui/esc_menu_campaign#esc_menu_campaign"
+   ],
+   "id": "engine.escape_menu_background",
+   "interactions": [
+    "none: display only"
+   ],
+   "name": "Escape menu background",
+   "owner": "the escape menu contract",
+   "route": "engine_drawn",
+   "why": "the esc_menu layouts have no background component: the paused 3D view shows through; a dim layer is a design choice (rml)"
+  },
+  {
+   "checked": [
+    "exe:RegisterTooltipObject",
+    "exe:SetTooltipText",
+    "layout:battle ui/special_tooltip#special_tooltip",
+    "layout:templates/tooltip#Tooltip"
+   ],
+   "cost": "host: hover events and the anchor rect, so RmlUi places its own tooltip",
+   "data": [],
+   "evidence": [
+    "exe:RegisterTooltipObject",
+    "exe:SetTooltipText",
+    "layout:templates/tooltip#Tooltip",
+    "layout:battle ui/special_tooltip#special_tooltip"
+   ],
+   "id": "engine.tooltips",
+   "interactions": [
+    "hover (engine timing)"
+   ],
+   "name": "Tooltips (engine-placed tooltip components)",
+   "owner": "J35 (panel host)",
+   "route": "rml",
+   "why": "layout-based (templates tooltip, special_tooltip, unitcard_tooltip...) but created and placed by the engine on hover (RegisterTooltipObject)"
+  }
+ ]
+}

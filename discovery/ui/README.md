@@ -18,7 +18,7 @@ Re-run: `python3 core/wsc.py discovery ui` on the PC (needs the extract, `discov
 | uied.templates records read | 124 of 126 (unread: uied.templates/BattleEditor, uied.templates/InputWindow) |
 | compiled scripts walked | 497 of 497 |
 | components | 8245 |
-| units (rows) | 248 (battle 32, campaign 56, common 18, frontend 40, template 102) |
+| units (rows) | 262 (battle 32, campaign 56, common 18, engine 14, frontend 40, template 102) |
 | text keys in the loc tables | 3120 of 4245 |
 | art uses resolved to `assets` ids | 21432 of 22583 (1018 UI-editor paths) |
 | data fields sourced | 3062 |
@@ -29,3 +29,22 @@ Re-run: `python3 core/wsc.py discovery ui` on the PC (needs the extract, `discov
 | 9-slice frame groups | 13 |
 
 Layout bases (root size): 1280x1024 49, 1280x960 90, 1600x960 35.
+
+## Engine-drawn items (`engine_drawn.json`, rows `engine.*`; routes are proposals, D39)
+
+| Item | Route | Owner |
+|---|---|---|
+| `engine.battle_radar` | render_target | J35 (panel host), then the battle HUD job |
+| `engine.campaign_radar` | render_target | J35 (panel host), then the campaign HUD job |
+| `engine.battle_unit_banners` | engine_drawn | J37 (engine-drawn text and fonts) |
+| `engine.campaign_map_labels` | engine_drawn | J37 (engine-drawn text and fonts) |
+| `engine.campaign_map` | engine_drawn | none (world rendering) |
+| `engine.selection_and_order_markers` | engine_drawn | none (world rendering) |
+| `engine.selection_box` | rml | the battle HUD job |
+| `engine.cursors` | engine_drawn | a later art job |
+| `engine.movies` | render_target | J35 (panel host) |
+| `engine.subtitles` | engine_drawn | J37 (engine-drawn text and fonts) |
+| `engine.loading_screen` | engine_drawn | J37 (text), a later art job |
+| `engine.unit_3d_preview` | render_target | J35 (panel host) |
+| `engine.escape_menu_background` | engine_drawn | the escape menu contract |
+| `engine.tooltips` | rml | J35 (panel host) |

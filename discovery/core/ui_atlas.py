@@ -677,8 +677,122 @@ def rows(at, units, surfaces):
     return sorted(out, key=lambda r: r['id']), recs
 
 
+# ---------------------------------------------------------------- engine-drawn items (not layout components)
+# Each evidence item is checked by engine_drawn(): exe:<string> (exe_strings.tsv.gz), call:<Owner.Fn> (a script calls it),
+# layout:<surface>#<component name>, anatomy:<text> (frame_anatomy.md), role:<asset role> (registries/assets.jsonl).
+# Routes are proposals (D39: the default for J35 and J37, reviewed when J35 is briefed). `observed` run ids are added by the live pass.
+ENGINE = [
+    dict(id='engine.battle_radar', name='Battle radar picture (land and naval)', route='render_target',
+         why='the engine generates the terrain texture (RADAR_GENERATOR) and draws unit pips as sprites each frame; an RmlUi rebuild would need '
+             'every unit position at 10 Hz plus the terrain image, so show the engine texture in an RmlUi element and keep the frame and buttons in RmlUi',
+         cost='host: expose the radar render target and its rect; input: forward clicks and drags on the element to BattleUI (Move_Selection_To_Rader_Location, ResizeMinimap)',
+         owner='J35 (panel host), then the battle HUD job', data=['call:BattleUI.ResizeMinimap', 'call:BattleUI.ToggleMinimisedRadar'],
+         interactions=['radar OnUpdatePulse -> Lua Update_Radar (battle ui/layout_scripts/battle_hud_radar.luac)',
+                       'radar click -> BattleUI.Move_Selection_To_Rader_Location', 'button_enlarge / button_decrease -> BattleUI.ResizeMinimap'],
+         evidence=['exe:RADAR_GENERATOR::generate_radar_texture', 'exe:RC_BATTLE_RADAR', 'exe:CustomSprites/land_radar_pip_inf',
+                   'exe:CustomSprites/naval_radar_sea', 'exe:CustomSprites/radar_camera', 'layout:battle ui/layout#radar',
+                   'call:BattleUI.Move_Selection_To_Rader_Location']),
+    dict(id='engine.campaign_radar', name='Campaign minimap (theatre radar view)', route='render_target',
+         why='CampaignUI.AttachRadarView attaches an engine view to the radar component and UpdateRadarView refreshes it; the picture is the engine\'s',
+         cost='host: the attached view as a texture in an RmlUi element; theatre buttons and arrows stay RmlUi (campaign.hud.radar, campaign.hud.theatres)',
+         owner='J35 (panel host), then the campaign HUD job', data=['call:CampaignUI.UpdateRadarView'],
+         interactions=['theatre buttons -> SetRadarTheatreAndPosition (exe)', 'radar arrows L/R'],
+         evidence=['call:CampaignUI.AttachRadarView', 'call:CampaignUI.UpdateRadarView', 'exe:SetRadarTheatreAndPosition',
+                   'exe:In: Theatre id, Out: Table containing paths to map, overlay and radar images', 'layout:campaign ui/layout#radar']),
+    dict(id='engine.battle_unit_banners', name='Battle unit banners and flags over units', route='engine_drawn',
+         why='placed in 3D by the engine each frame (BannerPosition) from the lb_unit_id / nb_unit_id / battle_hud_flags layouts; Empire kept them native',
+         cost='none for the host; art upscaled through the layouts\' assets; text, if any, through the .cuf route (D7, J37)',
+         owner='J37 (engine-drawn text and fonts)', data=[], interactions=['click a banner selects the unit (engine)'],
+         evidence=['exe:BannerPosition', 'layout:battle ui/lb_unit_id#LB_unit_ID', 'layout:battle ui/nb_unit_id#NB_unit_ID',
+                   'layout:battle ui/battle_hud_flags#flag_L_DY', 'anatomy:Drawing sneaky sprites']),
+    dict(id='engine.campaign_map_labels', name='Campaign map labels, settlement info bars, faction flags and army strength bars', route='engine_drawn',
+         why='3D-anchored on the campaign map (city_info_bar, faction_hud_flags layouts; campaignflag and strengthbar shaders in the frame)',
+         cost='art through the layouts\' assets; label text through the .cuf route (J37)', owner='J37 (engine-drawn text and fonts)',
+         data=['call:CampaignUI.ShouldShowLabelBottomRow'], interactions=['CampaignUI.ToggleLabels, CampaignUI.ToggleFlagDisplay (menu buttons)'],
+         evidence=['call:CampaignUI.ToggleLabels', 'call:CampaignUI.ToggleFlagDisplay', 'layout:campaign ui/city_info_bar#city_info_bar',
+                   'layout:campaign ui/faction_hud_flags#faction_hud_flags', 'anatomy:campaignflag', 'anatomy:strengthbar']),
+    dict(id='engine.campaign_map', name='The campaign map itself', route='engine_drawn',
+         why='the world render (terrain, overlays, trees), not UI; listed so no screen claims it', cost='none', owner='none (world rendering)',
+         data=[], interactions=['map clicks select and order (engine)'],
+         evidence=['anatomy:campaignoverlay', 'anatomy:supertexturetile', 'exe:Campaign Marker Display']),
+    dict(id='engine.selection_and_order_markers', name='Selection markers, move and attack markers, path markers', route='engine_drawn',
+         why='3D world decals drawn by the marker manager under units and on paths', cost='art upscale only', owner='none (world rendering)',
+         data=[], interactions=['none: display only'],
+         evidence=['exe:Show the selection markers under the units', 'exe:MARKER_MANAGER', 'exe:Indicators/ship_group_path_marker_diffuse']),
+    dict(id='engine.selection_box', name='Drag selection box', route='rml',
+         why='already a UI template (uied.templates box_selection, created by a script), so it is a layout component, not engine drawing',
+         cost='an RmlUi element the host sizes from the drag rectangle', owner='the battle HUD job', data=[], interactions=['mouse drag (engine)'],
+         evidence=['layout:uied.templates/box_selection#box_selection']),
+    dict(id='engine.cursors', name='Mouse cursors (179 cursor assets)', route='engine_drawn',
+         why='Windows cursors loaded from .cur/.ani files (LoadCursorFromFileA); RmlUi does not draw them', cost='upscaled cursor files at the OS cursor sizes',
+         owner='a later art job', data=[], interactions=['none: display only'],
+         evidence=['exe:%s.cur', 'exe:LoadCursorFromFileA', 'exe:WARSCAPE_SETCURSOR', 'role:cursor']),
+    dict(id='engine.movies', name='Movies (intro, front-end background, event movies, historical battle intros)', route='render_target',
+         why='Bink movies the engine plays into a component (PlayMovieInComponent, AttachMovieToComponent); the frame around them is layout',
+         cost='host: the movie surface as a texture in an RmlUi element, or leave the engine drawing into the element rect', owner='J35 (panel host)',
+         data=['call:FrontEnd.MoviePlaying'], interactions=['click or key dismisses (MovieDismissed)'],
+         evidence=['exe:NTW_Intro.bik', 'exe:Frontend2.bik', 'call:FrontEnd.PlayMovieInComponent', 'call:CampaignUI.AttachMovieToComponent',
+                   'layout:campaign ui/event_movie_panel#movie_window', 'layout:frontend ui/layout#movie_bg']),
+    dict(id='engine.subtitles', name='Movie subtitles', route='engine_drawn', why='drawn with the movie when the subtitle option is on',
+         cost='text through the .cuf route', owner='J37 (engine-drawn text and fonts)', data=[], interactions=['none: display only'],
+         evidence=['exe:Display subtitles during movies']),
+    dict(id='engine.loading_screen', name='Loading screens', route='engine_drawn',
+         why='drawn while the Lua UI does not pump (RC_LOADING_SCREEN); no layout', cost='art upscaled (loading_screen role); tips text through the .cuf route',
+         owner='J37 (text), a later art job', data=[], interactions=['none: display only'],
+         evidence=['exe:RC_LOADING_SCREEN', 'exe:UI/FrontEnd UI/LoadingScreen/loading_screen_heading.tga', 'role:loading_screen']),
+    dict(id='engine.unit_3d_preview', name='3D unit and building previews (rotating model in information panels)', route='render_target',
+         why='the engine renders the model (Stop_Rotating_Rendering; Rotate_Left/Right handlers in the unit information layout)',
+         cost='host: the preview render target as a texture in an RmlUi element; rotate buttons stay RmlUi', owner='J35 (panel host)',
+         data=[], interactions=['Rotate_Left / Rotate_Right hold -> engine rotation'],
+         evidence=['call:BattleUI.Stop_Rotating_Rendering', 'exe:CPREVIEW_LIST_ITEM_HANDLER']),
+    dict(id='engine.escape_menu_background', name='Escape menu background', route='engine_drawn',
+         why='the esc_menu layouts have no background component: the paused 3D view shows through; a dim layer is a design choice (rml)',
+         cost='none', owner='the escape menu contract', data=[], interactions=['none: display only'],
+         evidence=['layout:battle ui/esc_menu_battle#esc_menu_battle', 'layout:campaign ui/esc_menu_campaign#esc_menu_campaign']),
+    dict(id='engine.tooltips', name='Tooltips (engine-placed tooltip components)', route='rml',
+         why='layout-based (templates tooltip, special_tooltip, unitcard_tooltip...) but created and placed by the engine on hover (RegisterTooltipObject)',
+         cost='host: hover events and the anchor rect, so RmlUi places its own tooltip', owner='J35 (panel host)',
+         data=[], interactions=['hover (engine timing)'],
+         evidence=['exe:RegisterTooltipObject', 'exe:SetTooltipText', 'layout:templates/tooltip#Tooltip', 'layout:battle ui/special_tooltip#special_tooltip']),
+]
+
+
+def engine_drawn(at, surfaces):
+    """Check every evidence item of ENGINE; returns (items with `checked`, [problems])."""
+    exe_p = os.path.join(ROOT, 'discovery', 'napoleon', 'exe_strings.tsv.gz')
+    exe = {r[-1] for r in tsv_read(exe_p)[1]} if os.path.exists(exe_p) else set()
+    anatomy = open(os.path.join(ROOT, 'discovery', 'napoleon', 'frame_anatomy.md'), encoding='utf-8').read()
+    calls = {n for r in at.scripts.values() for n in r['calls']}
+    roles = {json.loads(x)['role'] for x in open(ASSETS, encoding='utf-8')}
+    names = {f"{rel}#{c['name']}".lower() for ss in surfaces.values() for rel, r in ss.items() for c in r.get('components', [])}
+    out, bad = [], []
+    for e in ENGINE:
+        ok = []
+        for ev in e['evidence'] + e['data']:
+            kind, val = ev.split(':', 1)
+            hit = {'exe': lambda v: v in exe, 'call': lambda v: v in calls, 'anatomy': lambda v: v in anatomy,
+                   'role': lambda v: v in roles, 'layout': lambda v: v.lower() in names}[kind](val)
+            (ok if hit else bad).append(ev if hit else f"{e['id']}: evidence not found: {ev}")
+        out.append(dict(e, checked=sorted(ok)))
+    return out, bad
+
+
+def engine_rows(items):
+    rows = []
+    for e in items:
+        desc = (f"route: {e['route']}. {e['name']}: {e['why']}. Cost: {e['cost']}. Owner: {e['owner']}. "
+                f"Evidence (read): {', '.join(e['evidence'])}. Detail: discovery/ui/engine_drawn.json.")
+        r = dict(id=e['id'], description=desc, screen=e['id'], status='atlas')
+        df = [dict(name=d.split(':', 1)[1], source='getter:' + d.split(':', 1)[1]) for d in e['data'] if d.startswith('call:')]
+        if df:
+            r['data_fields'] = df
+        r['interactions'] = [dict(name=x) for x in e['interactions']]
+        rows.append(r)
+    return rows
+
+
 # ---------------------------------------------------------------- outputs
-def write_atlas(at, units, surfaces, recs):
+def write_atlas(at, units, surfaces, recs, engine=()):
     shas = {}
     for ctx, ss in sorted(surfaces.items()):
         shas[f'{ctx}.json.gz'] = jdump(os.path.join(OUT, f'{ctx}.json.gz'), dict(context=ctx, surfaces=ss), gz=True)
@@ -691,7 +805,11 @@ def write_atlas(at, units, surfaces, recs):
                                   hotkeys=hotkeys_for(at, ur['scripts']))
         detail[u['id']] = dict(scripts=ur['scripts'], unresolved=f['unresolved'], not_in_state=f['not_in_state'], not_in_api=f['not_in_api'],
                                engine_calls=f['calls'], interactions=ur['interactions'])
+    for e in engine:
+        units_out[e['id']] = dict(screen=e['id'], surface=None, piece=None, route=e['route'], complexity=None, hotkeys=[])
     shas['units.json.gz'] = jdump(os.path.join(OUT, 'units.json.gz'), dict(units=detail), gz=True)
+    if engine:
+        jdump(os.path.join(OUT, 'engine_drawn.json'), dict(generator='discovery/core/ui_atlas.py (ENGINE)', items=list(engine)))
     lay = [r for ss in surfaces.values() for r in ss.values() if r['kind'] == 'layout']
     tpls = [r for r in surfaces['template'].values() if r['kind'] == 'uied_template']
     comps = [c for ss in surfaces.values() for r in ss.values() for c in r.get('components', [])]
@@ -703,8 +821,9 @@ def write_atlas(at, units, surfaces, recs):
         generator='discovery/core/ui_atlas.py',
         counts=dict(layouts=len(lay), layouts_read=sum(1 for r in lay if r.get('components')), uied_records=len(tpls),
                     uied_records_read=sum(1 for r in tpls if 'components' in r), scripts=len(at.scripts) + len(at.script_fails),
-                    scripts_walked=len(at.scripts), components=len(comps), units=len(units),
-                    units_by_context=dict(sorted(collections.Counter(u['ctx'] for u in units).items())),
+                    scripts_walked=len(at.scripts), components=len(comps), units=len(units) + len(engine),
+                    units_by_context=dict(sorted((collections.Counter(u['ctx'] for u in units) + collections.Counter(engine=len(engine))).items())),
+                    engine_drawn=len(engine), engine_routes=dict(sorted(collections.Counter(e['route'] for e in engine).items())),
                     text_keys=len(keys), text_keys_resolved=sum(1 for k in keys if k in at.loc),
                     art_uses=len(imgs), art_resolved=sum(1 for i in imgs if ':' not in i),
                     data_fields_sourced=fields, data_fields_unresolved=sum(len(recs[u]['facts']['unresolved']) for u in recs),
@@ -722,6 +841,7 @@ def write_atlas(at, units, surfaces, recs):
         panels=at.panels, panels_without_layout=sorted(k for k, v in at.panels.items() if v and v.replace('/', '\\') not in at.layouts),
         unread=sorted(r['path'] for r in tpls if 'layout_unread' in r),
         scripts_unattached=sorted(set(at.scripts) - {s for u in recs.values() for s in u['scripts']}),
+        engine_items=[[e['id'], e['route'], e['owner']] for e in engine],
         units=dict(sorted(units_out.items())), sha256=dict(sorted(shas.items())))
     jdump(os.path.join(OUT, 'summary.json'), summary)
     return summary
@@ -797,7 +917,10 @@ def readme(s):
         f"| script names components give that the game does not ship | {len(c['scripts_missing'])} |",
         f"| 9-slice frame groups | {c['frame_groups']} |", '',
         'Layout bases (root size): ' + ', '.join(f'{k} {v}' for k, v in s['layout_bases'].items()) + '.']
-    for k in ('engine_drawn', 'reach', 'art_keys'):
+    if s.get('engine_items'):
+        lines += ['', '## Engine-drawn items (`engine_drawn.json`, rows `engine.*`; routes are proposals, D39)', '',
+                  '| Item | Route | Owner |', '|---|---|---|'] + [f'| `{i}` | {r} | {o} |' for i, r, o in s['engine_items']]
+    for k in ('reach', 'art_keys'):
         if s.get(k):
             lines += ['', f"{k.replace('_', ' ').capitalize()}: {s[k]}"]
     return '\n'.join(lines) + '\n'
@@ -809,6 +932,36 @@ def write_rows(rs):
             f.write(json.dumps({k: r[k] for k in ORDER if k in r}, ensure_ascii=False) + '\n')
 
 
+def art_users(recs, extra=None):
+    """assets id -> sorted ui_elements ids that draw it (layout art per unit; `extra` adds the key-named art of art_keys.json)."""
+    out = collections.defaultdict(set)
+    for uid, ur in recs.items():
+        for c in ur['comps']:
+            for st in c['states']:
+                for i in st['images']:
+                    if ':' not in i:
+                        out[i].add(uid)
+    for aid, uids in (extra or {}).items():
+        out[aid] |= set(uids)
+    return {k: sorted(v) for k, v in out.items()}
+
+
+def write_used_by(users):
+    """Set used_by on the assets registry (J7 keeps it on a re-run, assets.py KEEP); rows keep the schema's key order."""
+    import assets
+    schema = json.load(open(os.path.join(ROOT, 'core', 'schemas', 'assets.schema.json'), encoding='utf-8'))
+    order = list(schema['properties'])
+    rows = assets.read_registry(ASSETS)
+    n = 0
+    for r in rows:
+        r.pop('used_by', None)
+        if r['id'] in users:
+            r['used_by'] = users[r['id']]
+            n += 1
+    assets.write_registry([{k: r[k] for k in order if k in r} for r in rows], ASSETS)
+    return n
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('step', nargs='?', default='all', choices=('atlas', 'rows', 'all'))
@@ -817,12 +970,18 @@ def main(argv=None):
     at = Atlas(load_games(a.games))
     units, surfaces = build_units(at)
     rs, recs = rows(at, units, surfaces)
+    engine, bad = engine_drawn(at, surfaces)
+    if bad:
+        print('\n'.join(bad))
+        return 1
+    rs += engine_rows(engine)
     if a.step in ('atlas', 'all'):
-        s = write_atlas(at, units, surfaces, recs)
+        s = write_atlas(at, units, surfaces, recs, engine)
         print(json.dumps(s['counts'], indent=1))
     if a.step in ('rows', 'all'):
         write_rows(rs)
-        print(f'{ROWS}: {len(rs)} rows')
+        n = write_used_by(art_users(recs))
+        print(f'{ROWS}: {len(rs)} rows; {n} assets rows with used_by')
     return 0
 
 

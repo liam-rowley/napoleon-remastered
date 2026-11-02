@@ -22,6 +22,12 @@
   "data_fields_sourced": 3062,
   "data_fields_unresolved": 3711,
   "engine_command_handlers": 113,
+  "engine_drawn": 14,
+  "engine_routes": {
+   "engine_drawn": 8,
+   "render_target": 4,
+   "rml": 2
+  },
   "frame_groups": 13,
   "getters_not_in_state": [
    "BattleUI.CameraZoomTo",
@@ -148,11 +154,12 @@
   "text_keys_resolved": 3120,
   "uied_records": 126,
   "uied_records_read": 124,
-  "units": 248,
+  "units": 262,
   "units_by_context": {
    "battle": 32,
    "campaign": 56,
    "common": 18,
+   "engine": 14,
    "frontend": 40,
    "template": 102
   },
@@ -163,6 +170,78 @@
    "upvalue": 915
   }
  },
+ "engine_items": [
+  [
+   "engine.battle_radar",
+   "render_target",
+   "J35 (panel host), then the battle HUD job"
+  ],
+  [
+   "engine.campaign_radar",
+   "render_target",
+   "J35 (panel host), then the campaign HUD job"
+  ],
+  [
+   "engine.battle_unit_banners",
+   "engine_drawn",
+   "J37 (engine-drawn text and fonts)"
+  ],
+  [
+   "engine.campaign_map_labels",
+   "engine_drawn",
+   "J37 (engine-drawn text and fonts)"
+  ],
+  [
+   "engine.campaign_map",
+   "engine_drawn",
+   "none (world rendering)"
+  ],
+  [
+   "engine.selection_and_order_markers",
+   "engine_drawn",
+   "none (world rendering)"
+  ],
+  [
+   "engine.selection_box",
+   "rml",
+   "the battle HUD job"
+  ],
+  [
+   "engine.cursors",
+   "engine_drawn",
+   "a later art job"
+  ],
+  [
+   "engine.movies",
+   "render_target",
+   "J35 (panel host)"
+  ],
+  [
+   "engine.subtitles",
+   "engine_drawn",
+   "J37 (engine-drawn text and fonts)"
+  ],
+  [
+   "engine.loading_screen",
+   "engine_drawn",
+   "J37 (text), a later art job"
+  ],
+  [
+   "engine.unit_3d_preview",
+   "render_target",
+   "J35 (panel host)"
+  ],
+  [
+   "engine.escape_menu_background",
+   "engine_drawn",
+   "the escape menu contract"
+  ],
+  [
+   "engine.tooltips",
+   "rml",
+   "J35 (panel host)"
+  ]
+ ],
  "generator": "discovery/core/ui_atlas.py",
  "layout_bases": {
   "1280x1024": 49,
@@ -2190,6 +2269,118 @@
    "piece": null,
    "screen": "common.waiting_for_players",
    "surface": "common ui\\waiting_for_players"
+  },
+  "engine.battle_radar": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.battle_radar",
+   "surface": null
+  },
+  "engine.battle_unit_banners": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.battle_unit_banners",
+   "surface": null
+  },
+  "engine.campaign_map": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.campaign_map",
+   "surface": null
+  },
+  "engine.campaign_map_labels": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.campaign_map_labels",
+   "surface": null
+  },
+  "engine.campaign_radar": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.campaign_radar",
+   "surface": null
+  },
+  "engine.cursors": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.cursors",
+   "surface": null
+  },
+  "engine.escape_menu_background": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.escape_menu_background",
+   "surface": null
+  },
+  "engine.loading_screen": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.loading_screen",
+   "surface": null
+  },
+  "engine.movies": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.movies",
+   "surface": null
+  },
+  "engine.selection_and_order_markers": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.selection_and_order_markers",
+   "surface": null
+  },
+  "engine.selection_box": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "rml",
+   "screen": "engine.selection_box",
+   "surface": null
+  },
+  "engine.subtitles": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.subtitles",
+   "surface": null
+  },
+  "engine.tooltips": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "rml",
+   "screen": "engine.tooltips",
+   "surface": null
+  },
+  "engine.unit_3d_preview": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.unit_3d_preview",
+   "surface": null
   },
   "frontend.credits": {
    "complexity": {
