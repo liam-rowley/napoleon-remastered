@@ -1,0 +1,13 @@
+{
+  "id": "J65",
+  "description": "J10 follow-up: two STATIC_ONLY patterns in discovery/core/ui_atlas.py (deployment_end, player_stats) override live evidence from run 20261102_j10pc since J10's fix round, so reach.json says 42 reached instead of 44. Narrow them, add a guard that fails when a pattern overrides a unit's own named live match, regenerate.",
+  "title": "J10 reach fix: two live-reached units marked static_only",
+  "phase": 2,
+  "status": "queued",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J10"
+  ],
+  "brief": "jobs/J65/brief.md"
+}
