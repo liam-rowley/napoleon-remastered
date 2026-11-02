@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.gate",
+  "kind": "script",
+  "path": "uikit/napoleon/gate.py",
+  "purpose": "stage a screen with the built viewer, render it at 1080p x 85 %, 4K x 125 %, 21:9 and 16:10, and report every element box outside the viewport or its parent, and every text wider than its box (viewer_overflow_json); also gives the PNG and rgba_sha256 per corner",
+  "usage": "python3 uikit/napoleon/gate.py [screen dir ...] [--out DIR] [--json] [--wasm build/viewer/out]   (default: the component board; exit 1 on any finding)",
+  "when": "before every library or screen change is proposed and in CI's viewer job (needs the viewer build and Playwright); changes.py reuses render_corners",
+  "not_a_verb": "a renderer round trip with a browser, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

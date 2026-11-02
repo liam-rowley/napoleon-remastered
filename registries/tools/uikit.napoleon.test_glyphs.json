@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.test_glyphs",
+  "kind": "script",
+  "path": "uikit/napoleon/test_glyphs.py",
+  "purpose": "write viewer/napoleon/board/test_plus.png, test_chevron.png and test_ring.png (60 px, near-black on transparent, 2 dp stroke on a 24 dp grid at 2.5x) with plain Python",
+  "usage": "python3 uikit/napoleon/test_glyphs.py [--out DIR] [--check]   (--check regenerates and compares with the committed files)",
+  "when": "only to regenerate the board's test glyphs; they are named test_* and no real screen uses them (D14: no new art in J34)",
+  "not_a_verb": "a one-off generator for three fixtures, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

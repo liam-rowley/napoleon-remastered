@@ -271,7 +271,7 @@
 	font-family: "Public Sans";
 	font-weight: 400;
 	font-size: 15dp;
-	line-height: 21dp;
+	line-height: 29dp;
 	tab-index: auto;
 	cursor: pointer;
 }
