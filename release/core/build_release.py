@@ -493,6 +493,7 @@ def main():
     ap.add_argument('--out', default=str(ROOT / 'build' / 'release'))
     ap.add_argument('--dll', default=str(ROOT / 'build' / 'proxy' / 'napoleon' / 'd3d9.dll'))
     ap.add_argument('--external', action='append', default=[], metavar='NAME=DIR')
+    ap.add_argument('--dxvk-dir', help='a folder with d3d9_dxvk.dll and LICENSE.dxvk.txt already checked against the pin (default: fetch_dxvk.py downloads the pinned release)')
     ap.add_argument('--no-zip', action='store_true')
     ap.add_argument('--allow-dirty', action='store_true')
     ap.add_argument('--check', metavar='FOLDER')
@@ -501,7 +502,15 @@ def main():
         bad = check_folder(a.check)
         print('\n'.join(['build_release --check: PROBLEMS'] + ['  ' + b for b in bad]) if bad else f'build_release --check: {a.check} ok')
         return 1 if bad else 0
-    build(a.out, a.dll, dict(x.split('=', 1) for x in a.external), a.no_zip, a.allow_dirty)
+    dxvk = None
+    if a.dxvk_dir:
+        sys.path.insert(0, str(ROOT / 'core' / 'proxy' / 'tools'))
+        import fetch_dxvk
+        d, lic = Path(a.dxvk_dir) / 'd3d9_dxvk.dll', Path(a.dxvk_dir) / 'LICENSE.dxvk.txt'
+        if sha256_file(d) != fetch_dxvk.PIN['d3d9_sha256'] or sha256_file(lic) != fetch_dxvk.PIN['license_sha256']:
+            raise SystemExit(f'build_release: {a.dxvk_dir} does not match the DXVK pin in fetch_dxvk.py: refusing an unpinned DXVK')
+        dxvk = (d, lic)
+    build(a.out, a.dll, dict(x.split('=', 1) for x in a.external), a.no_zip, a.allow_dirty, dxvk=dxvk)
     return 0
 
 

@@ -87,7 +87,7 @@ def render(data, root=ROOT):
         for e in later:
             L += [f"  {e['name']}  --  {e['licence']}", f"    Copyright: {e['copyright']}", f"    Source   : {e['source_url']}  (checked {e['checked']})"]
         L += ['']
-    return '\r\n'.join(L) + '\r\n'
+    return '\n'.join(L).replace('\r\n', '\n').replace('\n', '\r\n') + '\r\n'
 
 
 def main():

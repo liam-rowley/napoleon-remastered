@@ -26,8 +26,36 @@ function Say([string]$m) { Write-Host $m }
 function Stamp { return [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 function Fail([string]$m, [int]$code = 2) { Write-Host ("rr: " + $m); exit $code }
 function Read-Json([string]$p) { return $script:Ser.DeserializeObject([IO.File]::ReadAllText($p, $script:Utf8)) }
-function Write-Json([string]$p, $o) { [IO.File]::WriteAllText($p, ($script:Ser.Serialize($o)), $script:Utf8) }
-function Has($d, [string]$k) { return ($d -is [System.Collections.IDictionary]) -and $d.Contains($k) }
+function To-Plain($o) {   # unwrap PSObjects (function output wraps) so the serializer sees only dictionaries, lists and scalars
+    if ($null -eq $o) { return $null }
+    $o = $o.PSObject.BaseObject
+    if ($o -is [string] -or $o -is [ValueType]) { return $o }
+    if ($o -is [System.Collections.IDictionary]) {
+        $d = New-Object 'System.Collections.Generic.Dictionary[string,object]'
+        foreach ($k in @($o.Keys)) {
+            $v = To-Plain $o[$k]
+            if ($null -ne $v) { $v = $v.PSObject.BaseObject }
+            $d[[string]$k] = $v
+        }
+        return $d
+    }
+    if ($o -is [System.Collections.IEnumerable]) {
+        $l = New-Object 'System.Collections.Generic.List[object]'
+        foreach ($x in $o) {
+            $v = To-Plain $x
+            if ($null -ne $v) { $v = $v.PSObject.BaseObject }
+            $l.Add($v)
+        }
+        return , $l
+    }
+    return [string]$o
+}
+function Write-Json([string]$p, $o) {
+    $plain = To-Plain $o
+    if ($null -ne $plain) { $plain = $plain.PSObject.BaseObject }
+    [IO.File]::WriteAllText($p, ($script:Ser.Serialize($plain)), $script:Utf8)
+}
+function Has($d, [string]$k) { if ($d -is [System.Collections.IDictionary]) { return ([System.Collections.IDictionary]$d).Contains($k) }; return $false }
 
 function Hash-File([string]$p, [string]$alg = 'SHA256') {
     $h = [System.Security.Cryptography.HashAlgorithm]::Create($alg)
@@ -410,6 +438,7 @@ function Redact-Text([string]$t, [string]$user, [string]$machine, [string]$prof)
         if ($p) {
             $t = [regex]::Replace($t, [regex]::Escape($p), '%USERPROFILE%', 'IgnoreCase')
             $t = [regex]::Replace($t, [regex]::Escape($p.Replace('\', '/')), '%USERPROFILE%', 'IgnoreCase')
+            $t = [regex]::Replace($t, [regex]::Escape($p.Replace('\', '\\')), '%USERPROFILE%', 'IgnoreCase')   # inside a JSON string (install.json)
         }
     }
     if ($user) { $t = [regex]::Replace($t, '(?<![A-Za-z0-9_])' + [regex]::Escape($user) + '(?![A-Za-z0-9_])', '<user>', 'IgnoreCase') }
