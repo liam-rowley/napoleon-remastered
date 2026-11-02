@@ -1,0 +1,91 @@
+{
+ "_note": "Source of LICENSES.txt (release/core/gen_licenses.py). Not legal advice. shipped=false rows describe components that arrive with their own job; a gate fails a shipped component with no row and a shipped row with no component.",
+ "statement": "pending",
+ "own_code_licence": "pending",
+ "entries": [
+  {
+   "id": "dxvk",
+   "name": "DXVK 3.1.1 (d3d9.dll, shipped as d3d9_dxvk.dll)",
+   "licence": "zlib/libpng",
+   "shipped": true,
+   "copyright": "Copyright (c) 2017 Philip Rebohle; (c) 2019 Joshua Ashton; (c) 2019 Robin Kertels; (c) 2023 Jeffrey Ellison",
+   "source_url": "https://github.com/doitsujin/dxvk/blob/v3.1.1/LICENSE",
+   "checked": "2026-10-28",
+   "checked_how": "text is the LICENSE of the pinned release: its sha256 is the one pinned in core/proxy/tools/fetch_dxvk.py (a test checks it)",
+   "text_sha256": "a5cb1a6ded7d2d7e92d550ba28edd21be2d1d4044662b399887351023e30ce64",
+   "text": "                  Copyright (c) 2017 Philip Rebohle\n                  Copyright (c) 2019 Joshua Ashton\n                  Copyright (c) 2019 Robin Kertels\n                  Copyright (c) 2023 Jeffrey Ellison\n\n                          zlib/libpng license\n\nThis software is provided 'as-is', without any express or implied\nwarranty. In no event will the authors be held liable for any damages\narising from the use of this software.\n\nPermission is granted to anyone to use this software for any purpose,\nincluding commercial applications, and to alter it and redistribute it\nfreely, subject to the following restrictions:\n\n– The origin of this software must not be misrepresented; you must not\n  claim that you wrote the original software. If you use this software\n  in a product, an acknowledgment in the product documentation would be\n  appreciated but is not required.\n\n– Altered source versions must be plainly marked as such, and must not\n  be misrepresented as being the original software.\n\n– This notice may not be removed or altered from any source distribution.\n"
+  },
+  {
+   "id": "lora_font",
+   "name": "Lora (the Lora-based .cuf slot fonts of ui_scale_2x_fonts.pack)",
+   "licence": "SIL Open Font License 1.1",
+   "shipped": true,
+   "copyright": "Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic), with Reserved Font Name \"Lora\"",
+   "source_url": "https://github.com/cyrealtype/Lora-Cyrillic",
+   "checked": "2026-11-02",
+   "checked_how": "text is uiscale/fonts/OFL.txt in this repo (vendored with the face by J66, D42)",
+   "text_file": "uiscale/fonts/OFL.txt"
+  },
+  {
+   "id": "model_hfa2k_compact",
+   "name": "2xHFA2kCompact (upscaling model whose output is in the UI art)",
+   "licence": "CC BY 4.0",
+   "shipped": true,
+   "copyright": "2xHFA2kCompact by Philip Hofmann (Phhofm), CC BY 4.0, https://github.com/Phhofm/models",
+   "source_url": "https://github.com/Phhofm/models/releases/tag/2xHFA2kCompact",
+   "checked": "2026-11-02",
+   "checked_how": "release page read 2026-11-02 (J36 read it 2026-10-30): 'License: CC BY 4.0', 'Author: Philip Hofmann'; the licence text is not reproduced here, see https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+   "id": "model_nomos_esrgan",
+   "name": "2xNomosUni_esrgan_multijpg (upscaling model whose output is in the UI art)",
+   "licence": "CC BY 4.0",
+   "shipped": true,
+   "copyright": "2xNomosUni_esrgan_multijpg by Philip Hofmann (Phhofm), CC BY 4.0, https://github.com/Phhofm/models",
+   "source_url": "https://github.com/Phhofm/models/releases/tag/2xNomosUni_esrgan_multijpg",
+   "checked": "2026-11-02",
+   "checked_how": "release page read 2026-11-02 (J36 read it 2026-10-30): 'License: CC BY 4.0', 'Author: Philip Hofmann'; the licence text is not reproduced here, see https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+   "id": "rmlui",
+   "name": "RmlUi 6.3",
+   "licence": "MIT",
+   "shipped": false,
+   "copyright": "Copyright (c) 2008-2014 CodePoint Ltd, Shift Technology Ltd, and contributors; Copyright (c) 2019-2026 The RmlUi Team, and contributors",
+   "source_url": "https://github.com/mikke89/RmlUi/blob/6.3/LICENSE.txt",
+   "checked": "2026-11-02",
+   "checked_how": "tag 6.3 LICENSE.txt fetched 2026-11-02; copyright lines match Empire's draft"
+  },
+  {
+   "id": "freetype",
+   "name": "FreeType 2.13.3",
+   "licence": "FreeType Project Licence (FTL)",
+   "shipped": false,
+   "copyright": "Copyright 1996-2002, 2006 by David Turner, Robert Wilhelm, and Werner Lemberg",
+   "credit_line": "Portions of this software are copyright (c) 2024 The FreeType Project (www.freetype.org).  All rights reserved.",
+   "source_url": "https://github.com/freetype/freetype/blob/VER-2-13-3/docs/FTL.TXT",
+   "checked": "2026-11-02",
+   "checked_how": "FTL.TXT at VER-2-13-3 fetched 2026-11-02 (dated 2006-Jan-27; the credit line is required when it ships in a binary; the year follows freetype.h 1996-2024)"
+  },
+  {
+   "id": "lua",
+   "name": "Lua 5.1",
+   "licence": "MIT",
+   "shipped": false,
+   "copyright": "Copyright (c) 1994-2026 Lua.org, PUC-Rio.",
+   "source_url": "https://www.lua.org/license.html",
+   "checked": "2026-11-02",
+   "checked_how": "lua.org/license.html fetched 2026-11-02 (MIT for Lua 5.0 and later; the page gives the site-wide copyright line, not a 5.1-specific one)"
+  },
+  {
+   "id": "ui_fonts_ofl",
+   "name": "RmlUi screen font families (J37 records which)",
+   "licence": "SIL Open Font License 1.1 (expected)",
+   "shipped": false,
+   "copyright": "pending J37",
+   "source_url": "https://openfontlicense.org",
+   "checked": "2026-11-02",
+   "checked_how": "not checked: J37 has not chosen the families"
+  }
+ ]
+}
