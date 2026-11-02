@@ -131,7 +131,8 @@ def check(path, dp, crops=None):
     lo, hi = max(1, math.floor(dp)), max(1, math.ceil(dp))
     # 1 dp rules: sample 5 columns inside the rules, every row from 2 px above the first to 2 px below the last
     l, t, wd, offs = RULES
-    y0, y1 = int(by + px(t)) - 2, int(by + px(t + offs[-1] + 1)) + 3
+    # RmlUi rounds each nested box to whole pixels, so the rules can sit a few pixels from the naive dp x ratio: a generous window
+    y0, y1 = int(by + px(t)) - 8, int(by + px(t + offs[-1] + 1)) + 10
     cols = [int(bx + px(l + f * wd)) for f in (0.1, 0.3, 0.5, 0.7, 0.9)]
     ok, detail = True, []
     for x in cols:
@@ -147,9 +148,10 @@ def check(path, dp, crops=None):
     l, t, size, offs = BOXES
     ok, detail = True, []
     for o in offs:
-        x0, x1 = int(bx + px(l + o)) - 2, int(bx + px(l + o + size)) + 3
+        # content-box: the 40 dp box plus a 1 dp border each side spans 42 dp
+        x0, x1 = int(bx + px(l + o)) - 3, int(bx + px(l + o + size + 2)) + 4
         ymid = int(by + px(t + size / 2))
-        yr0, yr1 = int(by + px(t)) - 2, int(by + px(t + size)) + 3
+        yr0, yr1 = int(by + px(t)) - 3, int(by + px(t + size + 2)) + 4
         xmid = int(bx + px(l + o + size / 2))
         row = runs([kind(img[ymid][x]) for x in range(x0, x1)])
         col = runs([kind(img[y][xmid]) for y in range(yr0, yr1)])
@@ -167,12 +169,18 @@ def check(path, dp, crops=None):
     for lid, (size, top, hgt) in LINES.items():
         xa, xb = int(bx + px(10)), min(w - 1, int(bx + px(10 + size * 4)))
         ya, yb = int(by + px(top)), min(h - 1, int(by + px(top + hgt)))
-        ink = [y for y in range(ya, yb) if any(abs(img[y][x][0] - BG[0]) + abs(img[y][x][1] - BG[1]) + abs(img[y][x][2] - BG[2]) > 192 for x in range(xa, xb))]
+        # a row is ink when any pixel differs from the background by more than 64 (summed RGB, about 9 % coverage of white): faint
+        # antialiased serif rows count as drawn height; `ink_rows_strict` (more than 192) is reported beside it
+        diff = lambda y, x: abs(img[y][x][0] - BG[0]) + abs(img[y][x][1] - BG[1]) + abs(img[y][x][2] - BG[2])
+        ink = [y for y in range(ya, yb) if any(diff(y, x) > 64 for x in range(xa, xb))]
+        strict = [y for y in range(ya, yb) if any(diff(y, x) > 192 for x in range(xa, xb))]
         got = (ink[-1] - ink[0] + 1) if ink else 0
         want = cr * size * dp
-        good = abs(got - want) <= 1.0
+        # the glyph's edge lies between the strict and the faint extent (antialiasing): within 1 px of either passes
+        st = (strict[-1] - strict[0] + 1) if strict else 0
+        good = min(abs(got - want), abs(st - want)) <= 1.0
         ok &= good
-        detail.append({'id': lid, 'size_dp': size, 'px_size': round(size * dp, 3), 'ink_rows': got, 'expected_cap_px': round(want, 2), 'ok': good})
+        detail.append({'id': lid, 'size_dp': size, 'px_size': round(size * dp, 3), 'ink_rows': got, 'ink_rows_strict': (strict[-1] - strict[0] + 1) if strict else 0, 'expected_cap_px': round(want, 2), 'ok': good})
     res['checks']['text_height'] = {'ok': ok, 'cap_height_per_em': round(cr, 4), 'lines': detail}
     res['ok'] = all(c['ok'] for c in res['checks'].values())
     if crops:

@@ -21,6 +21,7 @@ ROOT = HERE.parents[2]
 GAME = r'C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War'
 DUMPS = Path(r'C:\napoleon_remastered_pc\ui_dumps')
 DOC = 'hosttest/hosttest.rml'
+ONLY = set()   # --only battle,...: run just these scenes (cells)
 SCENES = [('frontend', None), ('campaign', 'campaign_start'), ('battle', 'land_small')]
 
 
@@ -65,11 +66,17 @@ class Run:
     def launch(self, size, **keys):
         self.pc.exit()
         self.keys(**keys)
+        self.size, self.launch_keys, self.last = size, keys, None
         return self.pc.launch(size)
 
     def goto(self, scene):
         if scene is None:
             return {'status': 'ok'}
+        if getattr(self, 'last', None) == 'campaign_start':
+            # a campaign has no warm reset (fact napoleon.campaign.quit_to_menu): ctl.py would relaunch at its default size, so relaunch
+            # here at this cell's size and keys first (the first cells run lost its 1440p battle to that, 19:00 UTC)
+            self.launch(self.size, **self.launch_keys)
+        self.last = scene
         return self.ctlpy('scene', scene)
 
     def ui(self, line, wait=60):
@@ -114,6 +121,8 @@ class Run:
         run('press_engine', f'click {ex} {ey} left down')
         run('release_over_doc', f'click {tx} {ty} left up')
         run('wheel_list', f'wheel {lx} {ly} 2')
+        time.sleep(1)   # RmlUi scrolls smoothly over the next frames
+        steps['wheel_list']['scrolled_after_1s'] = self.state().get('scrolled')
         run('wheel_target', f'wheel {tx} {ty} 2')
         run('wheel_game', f'wheel {ex} {ey} 1')
         d = lambda n, ev: (steps[n].get('delta') or {}).get(ev, [0, 0])
@@ -121,7 +130,7 @@ class Run:
             'click_target_to_rml': d('click_target', 'down') == [1, 0] and d('click_target', 'up') == [1, 0] and steps['click_target']['counter'] == c0 + 1,
             'click_elsewhere_to_engine': d('click_elsewhere', 'down') == [0, 1] and d('click_elsewhere', 'up') == [0, 1] and steps['click_elsewhere']['counter'] == c0 + 1,
             'engine_press_stays_engine': d('press_engine', 'down') == [0, 1] and d('release_over_doc', 'up') == [0, 1] and steps['release_over_doc']['counter'] == c0 + 1,
-            'wheel_list_to_rml': d('wheel_list', 'wheel') == [1, 0] and bool(steps['wheel_list'].get('scrolled')),
+            'wheel_list_to_rml': d('wheel_list', 'wheel') == [1, 0] and bool(steps['wheel_list'].get('scrolled_after_1s')),
             'wheel_target_to_engine': d('wheel_target', 'wheel') == [0, 1],
             'wheel_game_to_engine': d('wheel_game', 'wheel') == [0, 1],
         }
@@ -147,7 +156,7 @@ def cells(r, sizes):
     for size in sizes:
         W, H = map(int, size.split('x'))
         log('launch', size=size, res=r.launch(size, ui_enabled=1, ui_show=DOC, ui_scale=100))
-        for tag, scene in SCENES:
+        for tag, scene in [s for s in SCENES if not ONLY or s[0] in ONLY]:
             g = r.goto(scene)
             log('scene', size=size, scene=tag, status=g.get('status'), reason=g.get('reason'))
             ok, _ = r.ui(f'show {DOC}')
@@ -187,13 +196,27 @@ def perf(r, sizes, backend='dxvk', runs=3, secs=10):
                         ui_cost=(ui.get('cost_ms') if isinstance(ui, dict) else None), draws=(ui.get('draws_last_frame') if isinstance(ui, dict) else None))
 
 
+def battle(r, size, keyspec):
+    """One launch with the given ui keys, then land_small: does the battle load? (the hang bisection, results.jsonl `battle`)"""
+    keys = dict(kv.split('=', 1) for kv in keyspec.split(',')) if keyspec else {}
+    keys = {k.replace('.', '_', 1): v for k, v in keys.items()}
+    log('launch', size=size, keys=keys, res=r.launch(size, **keys))
+    t0 = time.time()
+    g = r.goto('land_small')
+    st = r.state(2) if keys.get('ui_enabled') == '1' else {}
+    log('battle', size=size, keys=keys, status=g.get('status'), reason=g.get('reason'), load_s=round(time.time() - t0, 1), ui=st)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('phase', choices=['smoke', 'cells', 'perf', 'sys'])
+    ap.add_argument('phase', choices=['smoke', 'cells', 'perf', 'sys', 'battle'])
+    ap.add_argument('--keys', default='', help='battle: ui keys as k=v,k=v')
+    ap.add_argument('--only', default='', help='cells: only these scenes (frontend,campaign,battle)')
     ap.add_argument('--sizes', default='1920x1080,2560x1440,3840x2160')
     ap.add_argument('--owner', default='j30')
     ap.add_argument('--core', default=str(ROOT / 'core'))
     a = ap.parse_args()
+    ONLY.update(x for x in a.only.split(',') if x)
     r = Run(a.owner, a.core)
     sizes = a.sizes.split(',')
     try:
@@ -201,6 +224,8 @@ def main():
             smoke(r, sizes[0])
         elif a.phase == 'cells':
             cells(r, sizes)
+        elif a.phase == 'battle':
+            battle(r, sizes[0], a.keys)
         elif a.phase == 'perf':
             perf(r, sizes)
         else:
