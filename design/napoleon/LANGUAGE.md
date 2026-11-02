@@ -100,7 +100,7 @@ Each component has the states: normal, hover, pressed, disabled, selected, focus
 | Progress bar | 12 dp track `panel` with 1 dp `control_border`; fill hatched; segment variant: 6 squares 12 x 10 | fill `fac` (neutral bar), `positive`, `negative` (semantic bars) |
 | Card frame | frame recipe, 12 padding; top edge 4 dp `fac` | none |
 | Divider | double 1 dp rule | none |
-| Number badge | 22 dp high, 1 dp `control_border`, radius 0, fill `fac`, text `on_fac` 14 dp 700 | negative count uses `negative` fill with dark text |
+| Number badge | 22 dp high, 1 dp `control_border`, radius 0, fill `fac`, text `on_fac` 14 dp 700 | negative count uses `negative` fill with white text (7.47:1; dark text would be 2.57:1) |
 
 Contract notes for J34: derived tokens (`hover`, `pressed`, `fac_hover`, `fac_pressed`) are values, computed once per faction by the host and passed to RCSS as variables, because RCSS has no `color-mix`. The faction tokens belong in the panel host (J35) as one per-screen record.
 
