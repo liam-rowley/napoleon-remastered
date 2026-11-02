@@ -24,6 +24,12 @@ No game was launched and the game folder was not written. Everything below ran o
 refusals (non-vanilla exe, damaged release, game running), Check/Repair (missing, changed, foreign, edited settings kept), game update (exit 3, nothing changed),
 support bundle redaction (user, machine, profile path, Steam id, SID: none left; no dump without `-IncludeDumps`; no save).
 
+## Full-size rehearsal on a synthetic game folder
+The real release folder (1.8 GB of packs, only `exe_identity.json` and its manifest hash swapped for a fake exe's) installed into
+`C:\napoleon_remastered_pc\_scratch\j38\rehearsal\game` (a fake `Napoleon.exe`, a stray `napoleon_remastered.ini`): `install` 6 s, `check` clean 2 s,
+`uninstall` exit 0 "identical to the pre-install snapshot", `pc_deploy.diff_snapshots` empty, the stray ini restored. `Check.cmd` (the double-click entry point) runs
+the same on the real game folder (read-only, clean). The rehearsal folder stays in the scratch area (nothing is deleted on the PC).
+
 ## Scratch pin DLL (PC test step c, second half)
 Not built: `build.sh --docker dll --adapter <scratch>` validates the adapter's identity against the `engine_sites` rows, which are pinned to the real exe sha1, and refuses
 a scratch adapter with another pin (the log names every site). A scratch pin therefore needs the registry changed too. Only the forced mismatch path
