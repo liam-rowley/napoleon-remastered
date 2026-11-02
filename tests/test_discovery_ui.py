@@ -219,6 +219,32 @@ class Live(unittest.TestCase):
         self.assertEqual(r['battle.tiny']['reach'], 'static_only')
         self.assertIn('fewer than 3', r['battle.tiny']['reason'])
 
+    def test_known_reason_beats_a_name_match(self):
+        # frontend.password_entry has the same parts as the page 'page' below, but needs a multiplayer lobby: its reason is not the page's
+        surfaces = {'frontend': {'ui/sp': self._surface('page', ['x', 'y', 'z']), 'ui/pw': self._surface('page', ['x', 'y', 'z'])}}
+        units = [dict(id='frontend.password_entry', ctx='frontend', surface='ui/pw')]
+        with tempfile.TemporaryDirectory() as d:
+            r = ui_atlas.live(None, units, surfaces, self._run(d))['units_reach']['frontend.password_entry']
+        self.assertEqual(r['reach'], 'static_only')
+        self.assertIn('multiplayer lobby', r['reason'])
+
+
+class Ids(unittest.TestCase):
+    def test_unit_id_has_no_hyphen(self):
+        self.assertEqual(ui_atlas.unit_id('campaign', 'load-save_game'), 'campaign.load_save_game')
+        self.assertEqual(ui_atlas.unit_id('campaign', 'Two Words'), 'campaign.two_words')
+
+    def test_template_users(self):
+        rec = dict(kind='layout', scripts_attached=['campaign ui/a_scripts/a.luac'], scripts_folder=[],
+                   templates_used=['script:Widget', 'layout:templates/frame'], opened_by=[])
+        tpl = dict(kind='uied_template', opened_by=['CreateComponentFromTemplate("BuildingFrame") in campaign ui/a_scripts/a.luac Fn'])
+        surfaces = {'campaign': {'campaign ui/a': rec}, 'template': {'uied.templates/BuildingFrame': tpl}}
+        units = [dict(id='campaign.a', screen='campaign.a', ctx='campaign', surface='campaign ui/a')]
+        u = ui_atlas.template_users(units, surfaces)
+        self.assertEqual(u['template.widget'], ['campaign.a'])
+        self.assertEqual(u['template.frame'], ['campaign.a'])
+        self.assertEqual(u['template.buildingframe'], ['campaign.a'])
+
 
 if __name__ == '__main__':
     unittest.main()

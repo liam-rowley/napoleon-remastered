@@ -521,7 +521,7 @@ def frame_groups(comps):
 
 # ---------------------------------------------------------------- units
 def unit_id(ctx, name):
-    return f"{ctx}.{name.lower().replace(' ', '_')}"
+    return f"{ctx}.{name.lower().replace(' ', '_').replace('-', '_')}"
 
 
 def build_units(at):
@@ -646,7 +646,7 @@ def complexity(ur, reached=None):
                 templates=len((ur['rec'] or {}).get('templates_used', [])), reached=reached)
 
 
-def describe(at, u, ur):
+def describe(at, u, ur, users=()):
     rec = ur['rec'] or {}
     if u.get('widget'):
         return (f"Shared widget: the template.{u['widget']} script, attached to components in {len(u['used_in'])} layouts "
@@ -655,6 +655,8 @@ def describe(at, u, ur):
     what = f"{u['surface']} ({kind}" + (f", piece {u['piece']}" if u.get('piece') else '') + ')'
     opened = rec.get('opened_by') or []
     ent = f"Opened by {opened[0]}" + (f' and {len(opened) - 1} more' if len(opened) > 1 else '') if opened else 'Opener not found statically (engine-created or a parent layout)'
+    if users:
+        ent += f". Used by: {', '.join(users[:8])}" + (f' and {len(users) - 8} more' if len(users) > 8 else '')
     return f"Vanilla {what}. {ent}. Atlas: discovery/ui/{u['ctx']}.json.gz."
 
 
@@ -666,13 +668,65 @@ def reach_note(rr):
     return f" Live: static_only ({rr['reason']})."
 
 
+def template_users(units, surfaces):
+    """template unit id -> the screens that use it: the screens whose templates_used names it (script:, template:, layout:), and the screens
+    that own the script that creates it (opened_by names the script: CreateComponentFromTemplate in construction.luac)."""
+    screens = collections.defaultdict(set)              # surface path ('/') -> screen ids
+    for u in units:
+        if u.get('surface') and u['ctx'] != 'template':
+            screens[u['surface'].replace('\\', '/')].add(u['screen'])
+    owner = collections.defaultdict(set)                # script rel -> screen ids
+    users = collections.defaultdict(set)
+    for ctx, ss in surfaces.items():
+        for rel, rec in ss.items():
+            if rec.get('kind') != 'layout' or rel not in screens:
+                continue
+            for x in rec.get('scripts_attached', []) + rec.get('scripts_folder', []):
+                owner[x].update(screens[rel])
+            for t in rec.get('templates_used', []):
+                kind, _, name = t.partition(':')
+                name = posixpath.splitext(posixpath.basename(name))[0] if kind == 'layout' else name
+                users[unit_id('template', name)].update(screens[rel])
+    by_surface = {k.lower(): v for k, v in screens.items()}
+
+    def script_screens(rel):
+        """the screens a script belongs to: the folder of a layout's scripts, a layout's own script (layout.root.luac, x.x.luac),
+        or the screens that use the template the script is attached to (templates/template.<name>.luac)"""
+        if owner.get(rel):
+            return set(owner[rel]), None
+        d, _, base = rel.rpartition('/')
+        g = d[:-len('_scripts')] if d.endswith('_scripts') else f"{d}/{base.split('.')[0]}"
+        if g.lower() in by_surface:
+            return set(by_surface[g.lower()]), None
+        if d == 'templates' and base.startswith('template.'):
+            return set(users.get(unit_id('template', base[len('template.'):-len('.luac')]), ())), None
+        return set(), rel
+
+    loose = collections.defaultdict(set)                # template unit id -> context-wide scripts that create it
+    for _ in range(3):                                  # a template created by a template's script resolves on the next pass
+        for ss in surfaces.values():
+            for rel, rec in ss.items():
+                for how in rec.get('opened_by', []):
+                    m = re.match(r'CreateComponentFromTemplate\("([^"]+)"\) in (.+?\.luac) ', how)
+                    named = re.match(r'named as a string in (.+?\.luac) ', how)      # weaker evidence, still the script's screens
+                    if m or named:
+                        uid = unit_id('template', m.group(1) if m else rel.split('/')[-1])
+                        got, none = script_screens((m or named).group(2 if m else 1))
+                        users[uid].update(got)
+                        if none:
+                            loose[uid].add(none)
+    return {k: sorted(users[k]) + [f"{x} (a script shared by the whole context)" for x in sorted(loose.get(k, ()))]
+            for k in set(users) | set(loose)}
+
+
 def rows(at, units, surfaces, reach=None):
     out, recs = [], {}
+    tusers = template_users(units, surfaces)
     for u in units:
         ur = unit_record(at, u, surfaces)
         recs[u['id']] = ur
         rr = (reach or {}).get('units_reach', {}).get(u['id'])
-        r = dict(id=u['id'], description=describe(at, u, ur) + reach_note(rr), screen=u['screen'], status='atlas')
+        r = dict(id=u['id'], description=describe(at, u, ur, tusers.get(u['id'], ())) + reach_note(rr), screen=u['screen'], status='atlas')
         vs = {}
         if u.get('surface'):
             vs['layout'] = u['surface'] if not u['surface'].startswith('uied.templates/') else 'data\\ui\\templates\\uied.templates#' + u['surface'].split('/', 1)[1]
@@ -981,6 +1035,12 @@ def live(at, units, surfaces, run_dir):
             heads = [c for c in comps if c['parent'] == 'root'] or comps[:1]
             mine = [c for c in comps if c['path'] != 'root' and c not in heads]
         static = {c['name'] for c in mine}
+        known = next((w for rx, w in STATIC_ONLY if re.search(rx, u['id'])), None)
+        if known:
+            # a unit with a known reason (a multiplayer lobby, an event) is never matched by names: another page can hold the same
+            # component names (the options page holds password_entry's), and the reason is the true one
+            res[u['id']] = dict(reach='static_only', reason=known, best_match=None)
+            continue
         best = None
         for h in heads:
             cands = by_name.get(h['name'], [])
@@ -1007,7 +1067,7 @@ def live(at, units, surfaces, run_dir):
                                 matched=nm, agreement=round(score, 3), visible=node[1], shot=f'j10_{label}.jpg' if f'j10_{label}.jpg' in shots else None,
                                 _scale=(node[4] / h['w'] if h['w'] and node[4] else None), _named=h['name'] == p.split('/')[-1])
         else:
-            why = next((w for rx, w in STATIC_ONLY if re.search(rx, u['id'])), f'not reached in run {run}: no proven safe route opened it')
+            why = f'not reached in run {run}: no proven safe route opened it'
             res[u['id']] = dict(reach='static_only', reason=why, best_match=(dict(state=best[1], live_path=best[2], agreement=round(best[0], 3)) if best else None))
     # one live node explains one unit: the mp_ front-end pages are copies of the sp_ ones and the options tabs sit inside the options page,
     # so the best match (agreement, matched count, the head named as the node) keeps the node and the others are static_only
