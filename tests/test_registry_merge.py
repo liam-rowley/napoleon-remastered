@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TOOLS = ('tools/pr_policy.py', 'tools/changed_inputs.py')
+TOOLS = ('tools/jobs_hooks.py', 'tools/claude_hook.py')
 
 
 class TwoJobsMerge(unittest.TestCase):
@@ -24,7 +24,7 @@ class TwoJobsMerge(unittest.TestCase):
         for f in ('wsc.toml', '.gitattributes', '.gitignore', *TOOLS):
             (self.d / f).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / f, self.d / f)
-        for d in ('schemas', 'registries'):
+        for d in ('registries',):   # schemas/ held only the jobs schema until J62
             shutil.copytree(ROOT / d, self.d / d)
         self.git('init', '-q', '-b', 'main')
         self.git('add', '-A')
@@ -61,7 +61,7 @@ class TwoJobsMerge(unittest.TestCase):
         self.job('J902', TOOLS[1])
         changed = self.git('diff', '--name-only', 'main', 'job/J902').stdout.split()
         self.assertEqual(sorted(p for p in changed if p.startswith('registries/')), ['registries/jobs/J902.json', 'registries/tools/'
-                         + next(f.name for f in (self.d / 'registries' / 'tools').glob('*.json') if 'changed_inputs' in f.read_text(encoding='utf-8'))])
+                         + next(f.name for f in (self.d / 'registries' / 'tools').glob('*.json') if 'claude_hook' in f.read_text(encoding='utf-8'))])
         for p in changed:
             self.assertIn('merge: unspecified', self.git('check-attr', 'merge', '--', p).stdout, p)   # not merge=union
         self.git('checkout', '-q', 'job/J901')

@@ -1,0 +1,170 @@
+/* The component board's own layout (prefix bd-). Authoring format: $token names; colours and lengths come from uikit/napoleon/tokens.json. */
+body {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $bg_deep;
+}
+#bd-scroll {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	padding: $bd_pad_y $bd_pad_x;
+	overflow-x: visible;
+	overflow-y: auto;
+}
+.bd-note {
+	color: $text_dim;
+	margin-bottom: $section_gap;
+}
+.bd-sec {
+	margin-bottom: $bd_sec;
+	background-color: $panel;
+	border: $hairline $line;
+	padding: $gap $panel_padding $panel_padding $panel_padding;
+}
+.bd-grid {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+}
+.bd-cell {
+	margin: 0 $section_gap $section_gap 0;
+}
+.bd-cap {
+	color: $text_dim;
+	font-family: $type.label.family;
+	font-weight: $type.label.weight;
+	font-size: $type.label.size;
+	line-height: $type.label.line;
+	margin-top: $gap_s;
+}
+.bd-paper {
+	background-color: $panel;
+	border: $hairline $line;
+	padding: $gap;
+}
+.bd-onraised {
+	background-color: $panel_raised;
+	padding: $gap;
+}
+.bd-w-panel {
+	width: $region_panel_width;
+}
+.bd-w-card {
+	width: $bd_w_card;
+}
+.bd-w-rows {
+	width: $bd_w_rows;
+}
+.bd-w-wide {
+	width: $bd_w_wide;
+}
+.bd-faction-readout {
+	margin-top: $gap;
+	color: $text_dim;
+}
+.bd-chip {
+	display: inline-block;
+	background-color: $fac;
+	border: $hairline $control_border;
+	padding: $gap_s $gap;
+	margin-right: $gap;
+}
+.bd-glyph-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.bd-glyph-row .icon {
+	margin-right: $gap;
+}
+.bd-sw {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: $bd_sw_w;
+	margin: 0 $section_gap $gap_s 0;
+}
+.bd-sw-chip {
+	width: $bd_chip_w;
+	height: $control_inner;
+	border: $hairline $control_border;
+	margin-right: $gap;
+}
+.bd-pair {
+	display: flex;
+	flex-direction: row;
+	width: $bd_w_wide;
+	border-bottom: $hairline $line;
+}
+.bd-pair-name {
+	width: $bd_pair_name;
+}
+.bd-pair-ratio {
+	width: $bd_pair_ratio;
+	text-align: right;
+	font-family: $type.numeral.family;
+	font-size: $type.numeral.size;
+	line-height: $type.numeral.line;
+}
+.bd-pair-what {
+	flex: 1 1 0;
+	margin-left: $gap;
+	color: $text_dim;
+}
+.bd-tip-host {
+	display: inline-block;
+	position: relative;
+}
+.bd-tip-pos {
+	position: absolute;
+	left: 0;
+	top: $bd_tip_top;
+	z-index: 5;
+}
+.bd-scrollbox {
+	height: $bd_scrollbox;
+	overflow-y: auto;
+	border: $hairline $control_border;
+	background-color: $panel;
+}
+.bd-tall {
+	height: $bd_tall;
+	padding: $gap;
+}
+.bd-stress {
+	width: $region_panel_width;
+}
+.bd-slot-glyph {
+	display: block;
+	width: $icon_l;
+	height: $icon_l;
+	margin: $bd_glyph_pad;
+	image-color: $text;
+}
+.bd-mt {
+	margin-top: $section_gap;
+}
+.bd-mt-gap {
+	margin-top: $gap;
+}
+.bd-mr {
+	margin-right: $gap;
+}
+.bd-divider-m {
+	margin: $gap 0;
+}
+.bd-man-glyph {
+	display: block;
+	margin: $bd_man_pad;
+}
+.bd-preview {
+	width: $bd_preview_w;
+	height: $bd_preview_h;
+}

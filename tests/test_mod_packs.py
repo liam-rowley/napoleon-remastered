@@ -41,6 +41,15 @@ class ModPacks(unittest.TestCase):
         missing = [p for p in self.role_packs() if p not in skip]
         self.assertEqual(missing, [], 'add these to discovery/napoleon/games.json napoleon.mod_packs')
 
+    def test_scale_packs_are_listed_and_sort_after_media(self):
+        """J66: every ui_scale_<f>x pack and its fonts pack for each configured factor, after media.pack among the movie packs"""
+        sc = load('uiscale/napoleon/config.json')
+        tags = [('%g' % f).replace('.', '') for f in sc['factors']]
+        names = [sc[k].format(tag=t) + '.pack' for k in ('pack_name', 'fonts_pack_name') for t in tags]
+        self.assertTrue(all(n.lower() > 'media.pack' for n in names))
+        missing = [n for n in names if n not in self.games['napoleon']['mod_packs']]
+        self.assertEqual(missing, [], 'add these to discovery/napoleon/games.json napoleon.mod_packs')
+
     def test_packfs_leaves_a_mod_pack_out(self):
         with tempfile.TemporaryDirectory() as d:
             data = os.path.join(d, 'data')

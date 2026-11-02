@@ -1,0 +1,12 @@
+{
+  "id": "J68",
+  "description": "D42 backlog: vendor the Lora face at uiscale/fonts/Lora-Variable.ttf (copy of empire-remastered ui_scale_mod/font_src/Lora-Variable.ttf, same sha256; SIL OFL text already in uiscale/fonts/OFL.txt). The J66 session could not copy it: the project deny rule Edit(~/repos/empire-remastered/**) in .claude/settings.json matches the source path of a cp. Liam copies the file (or the rule is narrowed so a read of empire-remastered is allowed), then commit it; uiscale/napoleon/config.json font_faces already prefers the vendored path and falls back to the clone, so a rebuild must give the same fonts pack sha256 (5f510b27afa3...).",
+  "title": "Vendor the Lora font face for the UI scale fonts",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J66"
+  ]
+}

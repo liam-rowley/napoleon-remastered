@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.lint",
+  "kind": "script",
+  "path": "uikit/napoleon/lint.py",
+  "purpose": "check a screen folder (screen.json, RML, RCSS, Lua) or the library sources for tokens only, library classes, dp only, text size 14 dp, contrast, perf and layout rules, and unknown $tokens",
+  "usage": "python3 uikit/napoleon/lint.py [screen dir | --library ...] [--json] [--factions PATH|none]   (exit 1 on any finding; default: the library sources and the board)",
+  "when": "before a screen or library change is proposed and in the tests / CI's viewer job; the real 77-faction contrast check reads the git-ignored extract when present and prints counts only",
+  "not_a_verb": "a file linter for one folder tree, run by the tests and CI, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

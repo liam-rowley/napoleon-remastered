@@ -4,6 +4,7 @@ import importlib.util
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 import time
 import unittest
@@ -16,8 +17,41 @@ pd = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pd)
 
 
+class TasklistSaysRunning:
+    """The lowest layer reports the game running (J57): pd sees os.name == 'nt' and `tasklist` printing Napoleon.exe, whatever the host.
+    Only pd's own `os` name is swapped (a stand-in that forwards everything else), so pathlib and the rest of the host are untouched."""
+    CSV = '"System","4","Services","0","144 K"\n"Napoleon.exe","1234","Console","1","900,000 K"\n'
+
+    class _Nt:
+        name = 'nt'
+        def __getattr__(self, attr):
+            return getattr(os, attr)
+
+    def __enter__(self):
+        real_run = subprocess.run
+        def run(cmd, *a, **kw):
+            if cmd and cmd[0] == 'tasklist':
+                return subprocess.CompletedProcess(cmd, 0, stdout=self.CSV, stderr='')
+            return real_run(cmd, *a, **kw)
+        self.patches = [mock.patch.object(pd, 'os', self._Nt()), mock.patch.object(pd.subprocess, 'run', run)]
+        for p in self.patches:
+            p.start()
+        return self
+
+    def __exit__(self, *exc):
+        for p in reversed(self.patches):
+            p.stop()
+
+
 class Deploy(unittest.TestCase):
     def setUp(self):
+        # J57: install/uninstall ask require_closed -> running_check -> windows_images -> `tasklist` about the REAL Napoleon.exe, so the
+        # tests failed on the PC whenever the game ran. The process list reports nothing running; require_closed and running_check stay
+        # real (test_the_guard_still_refuses_a_running_game_without_this_patch, test_running_check).
+        self.real_windows_images = pd.windows_images
+        patch = mock.patch.object(pd, 'windows_images', lambda: set())
+        patch.start()
+        self.addCleanup(patch.stop)
         self.tmp = tempfile.TemporaryDirectory()
         t = Path(self.tmp.name)
         self.game, self.state, self.kits, self.src = t / 'game', t / 'state', t / 'kits', t / 'src'
@@ -272,6 +306,19 @@ class Deploy(unittest.TestCase):
         self.assertEqual(pd.running_check(self.game, 'napoleon_remastered', 'Napoleon.exe', images=lambda: {'explorer.exe'}), '')
         self.assertEqual(pd.running_check(self.game, 'napoleon_remastered', 'Napoleon.exe', images=lambda: {'napoleon.exe'}),
                          'tasklist: Napoleon.exe is running')
+
+    def test_install_ignores_a_running_game_with_the_setup_patch_in_force(self):
+        """J57: the real game being open (simulated at the lowest layer) cannot fail the Deploy tests."""
+        with TasklistSaysRunning():
+            pd.install(self.kit, self.game, self.state)
+            self.assertEqual(pd.status(self.game, self.state), 0)
+            pd.uninstall(self.game, self.state)
+
+    def test_the_guard_still_refuses_a_running_game_without_this_patch(self):
+        with mock.patch.object(pd, 'windows_images', self.real_windows_images), TasklistSaysRunning():
+            with self.assertRaisesRegex(SystemExit, r'refusing: tasklist: Napoleon\.exe is running'):
+                pd.install(self.kit, self.game, self.state)
+        self.assertFalse((self.game / 'd3d9.dll').exists())   # refused before anything was installed
 
     def test_edit_ini(self):
         t = '; c\r\n[proxy]\r\n; d\r\nbackend=dxvk\r\nenabled=1\r\n'

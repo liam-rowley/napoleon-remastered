@@ -1,0 +1,11 @@
+{
+  "id": "uiscale.core.cuf_encode",
+  "kind": "script",
+  "path": "uiscale/core/cuf_encode.py",
+  "purpose": "re-render a vanilla .cuf from a TrueType face (FreeType glyphs, GPOS pair kerning) keeping its glyph order and header, plus the Lora 2x set recipe",
+  "usage": "library: encode(face, vanilla_bytes, em, wght) -> bytes; render_set(names, reader) -> {name: (bytes, note)}   |   python uiscale/core/cuf_encode.py OUT_DIR ingame_24.cuf ... [--compare PNG] [--face TTF] [--game napoleon]",
+  "when": "building the 2x UI fonts (J66: crisp text for the 2x-scaled layouts); runs in the art_build Python (freetype-py, upscale/requirements.txt)",
+  "not_a_verb": "a build library and its one-shot CLI for the uiscale pipeline, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-02"
+}
