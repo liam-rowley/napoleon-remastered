@@ -1,6 +1,6 @@
 """Host tests of the 2x font builder (J66, uiscale/core/cuf_encode.py): a synthetic vanilla .cuf, no game needed.
 
-They need freetype-py (upscale/requirements.txt) and the vendored face uiscale/fonts/Lora-Variable.ttf, and are skipped
+They need freetype-py (upscale/requirements.txt) and the Lora face the build uses (the first of uiscale/napoleon/config.json font_faces), and are skipped
 where either is missing (the CI gate image has no freetype-py: run them with the art_build Python on the PC).
 """
 import os
@@ -19,7 +19,11 @@ except ImportError:
     HAVE_FT = False
 if HAVE_FT:
     import cuf_encode
-FACE = os.path.join(ROOT, 'uiscale', 'fonts', 'Lora-Variable.ttf')
+import json  # noqa: E402
+# the face the build uses (uiscale/napoleon/cli.py): the first of config.json font_faces that exists, so the tests run wherever a build can
+with open(os.path.join(ROOT, 'uiscale', 'napoleon', 'config.json'), encoding='utf-8') as _f:
+    _FACES = [os.path.join(ROOT, p) for p in json.load(_f)['font_faces']]
+FACE = next((p for p in _FACES if os.path.isfile(p)), _FACES[0])
 HEADER = [21, 16, 24, -1, 1, 18, -5, 7, 1, 24, 29]       # vanilla ingame_24.cuf
 
 
@@ -40,7 +44,7 @@ def synthetic_vanilla():
     return c.serialise()
 
 
-@unittest.skipUnless(HAVE_FT and os.path.isfile(FACE), 'freetype-py or uiscale/fonts/Lora-Variable.ttf missing (upscale/requirements.txt)')
+@unittest.skipUnless(HAVE_FT and os.path.isfile(FACE), 'freetype-py or the Lora face (uiscale/napoleon/config.json font_faces) missing (upscale/requirements.txt)')
 class EncodeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
