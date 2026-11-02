@@ -1,0 +1,8 @@
+{
+  "title": "RmlUi host test (J30)",
+  "document": "hosttest.rml",
+  "files": ["hosttest.rml", "hosttest.rcss", "art_master.png"],
+  "fonts": ["IMFeENrm28P.ttf"],
+  "probe": {"button": "click_target", "counter": "click_count", "list": "list", "lua": "lua_line", "art": "art"},
+  "in_game_only": "the in-game host's test (J30): static RML, the click counter is C++ (data-host-counter); checks: tools/ui_hosttest.py"
+}
