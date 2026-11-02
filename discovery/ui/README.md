@@ -21,7 +21,7 @@ Re-run: `python3 core/wsc.py discovery ui` on the PC (needs the extract, `discov
 | units (rows) | 262 (battle 32, campaign 56, common 18, engine 14, frontend 40, template 102) |
 | text keys in the loc tables | 3120 of 4245 |
 | art uses resolved to `assets` ids | 21432 of 22583 (1018 UI-editor paths) |
-| data fields sourced | 3062 |
+| data fields sourced | 3066 |
 | fields unresolved (reason in summary.json) | 3711 (dynamic_text 58, parameter 1798, text_key 940, upvalue 915) |
 | interactions | 2073 |
 | handlers not found / in unshipped scripts / engine commands | 50 / 21 / 113 |
@@ -48,5 +48,7 @@ Layout bases (root size): 1280x1024 49, 1280x960 90, 1600x960 35.
 | `engine.unit_3d_preview` | render_target | J35 (panel host) |
 | `engine.escape_menu_background` | engine_drawn | the escape menu contract |
 | `engine.tooltips` | rml | J35 (panel host) |
+
+Reach: 44 of 220 layout and template units reached live in run 20261102_j10pc (battle 7 of 32, campaign 11 of 56, common 2 of 18, frontend 15 of 40, template 9 of 74); static-vs-live agreement 1597 of 1610 components (mean 0.992); the rest static_only with the reason (`reach.json`).
 
 Art keys: achievement_icon achievements.key -> ui\achievements\{value}.tga (96 % of values resolve, 73 of 73 files); building_icon building_culture_variants.icon -> ui\buildings\icons\{value}.tga (100 % of values resolve, 133 of 657 files); building_info_picture building_culture_variants.icon -> ui\buildings\info\{value}.tga (100 % of values resolve, 133 of 671 files); event_picture cultures.fallback_ui_culture -> ui\eventpics\{value}\... (100 % of values resolve, 229 of 229 files); flag factions.flags_path -> ui\flags\{value}\... (100 % of values resolve, 1260 of 2260 files); loading_screen: no db rule (no db field names this role's files (assembled from several fields or not db-driven)); portrait ancillary_types.type -> ui\portraits\{value}.tga (100 % of values resolve, 49 of 1375 files); technology_icon technologies.icon_name -> ui\campaign ui\technologies\{value}.tga (100 % of values resolve, 67 of 69 files); unit_card uniforms.uniform_name -> ui\units\icons\{value}_icon.tga (95 % of values resolve, 1064 of 1105 files); unit_info_picture uniforms.uniform_name -> ui\units\info\{value}_info.tga (95 % of values resolve, 1064 of 1101 files) (`art_keys.json`).

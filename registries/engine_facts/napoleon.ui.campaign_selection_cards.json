@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.campaign_selection_cards",
+  "claim": "Selecting a settlement on the campaign map opens no panel: the HUD card strip (veneer_DY/frame/hud_center/review_DY) shows the region's construction cards (ConstructionCardGroup: Building1 selected, its Building1_Upgrade1 card, empty slots), and an army or fleet fills the same strip with unit cards (run 20261102_j10pc, Innsbruck, Tyrol and the Britain fleet)",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j10pc/README.md",
+  "date": "2026-11-02",
+  "notes": "the region details and building information panels were not opened: the probes send no clicks"
+}

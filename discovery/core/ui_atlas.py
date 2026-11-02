@@ -45,8 +45,8 @@ NAMES = {'battle ui\\layout': 'hud', 'campaign ui\\layout': 'hud', 'frontend ui\
 PIECES = {
     'battle ui\\layout': [('radar', 'root/veneer_DY/radar_group'), ('balance_of_power', 'root/veneer_DY/kill_ratio_PH'),
                           ('timer', 'root/veneer_DY/stopwatch'), ('card_strip', 'root/veneer_DY/cards_panel'), ('frame', 'root')],
-    'battle ui\\minimised_hud': [('radar', 'root/veneer_DY/panel/frame/radar_group'), ('balance_of_power', 'root/veneer_DY/panel/frame/kill_ratio_PH'),
-                                 ('timer', 'root/veneer_DY/panel/frame/stopwatch'), ('card_strip', 'root/veneer_DY/panel/frame/review_DY'), ('frame', 'root')],
+    'battle ui\\minimised_hud': [('radar', 'root/veneer_DY/radar_group'), ('balance_of_power', 'root/veneer_DY/kill_ratio_PH'),
+                                 ('timer', 'root/veneer_DY/stopwatch'), ('card_strip', 'root/veneer_DY/review_DY'), ('frame', 'root')],
     'campaign ui\\layout': [('radar', 'root/veneer_DY/frame/hud_left/radar'),
                             ('theatres', 'root/veneer_DY/frame/hud_left/world_theatres_ButtonGroup'),
                             ('card_strip', 'root/veneer_DY/frame/hud_center'), ('orders', 'root/veneer_DY/frame/hud_right'), ('frame', 'root')],
@@ -539,6 +539,8 @@ def build_units(at):
             taken = set()
             for piece, prefix in PIECES[rel]:
                 cs = [c for c in rec['components'] if (c['path'] == prefix or c['path'].startswith(prefix + '/')) and c['path'] not in taken]
+                if not cs:
+                    raise ValueError(f'PIECES: {rel} piece {piece} names {prefix}, which is no component of the layout')
                 taken |= {c['path'] for c in cs}
                 units.append(dict(id=f'{sid}.{piece}', screen=sid, ctx=ctx, surface=rel, comps={c['path'] for c in cs}, piece=prefix))
         else:
@@ -1050,7 +1052,9 @@ def write_atlas(at, units, surfaces, recs, engine=(), reach=None, keyed=None):
     for u in units:
         ur = recs[u['id']]
         f = ur['facts']
-        units_out[u['id']] = dict(screen=u['screen'], surface=u.get('surface'), piece=u.get('piece'), complexity=complexity(ur),
+        rr = ((reach or {}).get('units_reach') or {}).get(u['id'])   # widgets have no reach: None
+        units_out[u['id']] = dict(screen=u['screen'], surface=u.get('surface'), piece=u.get('piece'),
+                                  complexity=complexity(ur, rr['reach'] == 'reached' if rr else None),
                                   hotkeys=hotkeys_for(at, ur['scripts']))
         detail[u['id']] = dict(scripts=ur['scripts'], unresolved=f['unresolved'], not_in_state=f['not_in_state'], not_in_api=f['not_in_api'],
                                engine_calls=f['calls'], interactions=ur['interactions'])
@@ -1227,6 +1231,12 @@ def main(argv=None):
     at = Atlas(load_games(a.games))
     units, surfaces = build_units(at)
     reach_path = os.path.join(OUT, 'reach.json')
+    if a.step == 'all' and not a.run and os.path.exists(reach_path):
+        # the live pass follows the atlas: re-match the committed run against the units just built (a stale reach.json kept
+        # units static_only after the atlas changed)
+        with open(reach_path, encoding='utf-8') as fh:
+            a.run = 'harness/runs/' + json.load(fh)['run']
+        a.step = 'live'
     if a.step == 'live':
         r = live(at, units, surfaces, os.path.join(ROOT, a.run) if not os.path.isabs(a.run) else a.run)
         jdump(reach_path, r)

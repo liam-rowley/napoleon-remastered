@@ -1,0 +1,17 @@
+j10_camp_agent.jpg
+j10_camp_army.jpg
+j10_camp_buildings.jpg
+j10_camp_diplomacy.jpg
+j10_camp_gov.jpg
+j10_camp_hud.jpg
+j10_camp_lists.jpg
+j10_camp_missions.jpg
+j10_camp_popup.jpg
+j10_camp_settlement.jpg
+j10_camp_technologies.jpg
+j10_hist_deploy.jpg
+j10_land_deploy.jpg
+j10_land_running.jpg
+j10_naval_deploy.jpg
+j10_naval_running.jpg
+j10_siege_deploy.jpg

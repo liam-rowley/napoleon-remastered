@@ -1,0 +1,2 @@
+shot: C:\napoleon_remastered_pc\_scratch\j10\20261102_j10pc\a3fe2\shots\j10_fe_grand_campaign.jpg 1280 x 720 (from 1920 x 1080 at 3839,2160)
+[job j10-20261102T105135Z-1102532659: ok exit=0]

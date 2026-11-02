@@ -89,7 +89,7 @@ def compare(el, nl, et, nt):
     for v in sorted(set(te) | set(tn)):
         e, n = te.get(v), tn.get(v)
         verdict = 'gone' if not n else 'new' if not e else 'same' if n['fail'] == e['fail'] else 'adapter'
-        note = {35: 'V033 plus the V039 animations and transitions, no state_ref (J10: napoleon.diff.layouts.template_v35)',
+        note = {35: 'V033 plus the V039 animations and transitions, no state_ref (J10: napoleon.diff.layouts.template_records)',
                 39: 'same component codec as layout V039', 18: 'v17 with 3 header bytes before the inline script (J10)',
                 4: 'UI-editor records (InputWindow, BattleEditor), not game screens; header not decoded (J10: layout_unread)'}.get(v, '')
         if e and n and e['fail'] and n['fail'] == e['fail']:

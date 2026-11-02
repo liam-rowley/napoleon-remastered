@@ -3586,7 +3586,7 @@
    "verdict": "same"
   },
   {
-   "adapter": "V033 plus the V039 animations and transitions, no state_ref (J10: napoleon.diff.layouts.template_v35)",
+   "adapter": "V033 plus the V039 animations and transitions, no state_ref (J10: napoleon.diff.layouts.template_records)",
    "empire": "-",
    "evidence": "detail.*_templates",
    "item": "uied.templates record v35",
