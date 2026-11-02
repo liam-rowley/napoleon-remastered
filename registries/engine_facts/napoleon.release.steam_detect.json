@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.release.steam_detect",
+  "claim": "The player installer (release/core/installer/rr.ps1) finds the game folder on this PC with no argument, through Steam's registry key and libraryfolders.vdf (C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War), and its read-only Check reports the exe as the vanilla build",
+  "state": "verified",
+  "evidence": "release/runs/2026-11-02_j38host/README.md",
+  "date": "2026-11-02",
+  "notes": "run 2026-11-02_j38host; Steam is the only supported install (D13), a non-Steam copy needs -GamePath"
+}
