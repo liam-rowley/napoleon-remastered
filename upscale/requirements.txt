@@ -1,5 +1,7 @@
 # Python packages of the upscale tools. The host tests need numpy and Pillow only; the GPU path adds torch and spandrel.
 # torch comes from the PyTorch index, not PyPI (the PyPI Windows wheel is CPU-only): upscale/pc/setup_env.cmd installs it.
+# freetype-py (its wheel bundles FreeType 2.13.2) is for uiscale/core/cuf_encode.py, the 2x Lora fonts.
+freetype-py==2.5.1
 numpy==2.5.2
 pillow==12.3.0
 spandrel==0.4.2
