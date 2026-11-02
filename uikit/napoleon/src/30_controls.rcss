@@ -1,0 +1,136 @@
+/* Button, tab and tab group, checkbox, round order button, ability slot, manoeuvre button. Frame recipe: 1 dp ink border plus two inset rings
+   (the gap ring takes the control's fill, held in --fill so hover, pressed, selected and the focus ring never restate the frame).
+   Every pseudo-class rule has a twin class (.is-hover, .is-pressed, .is-selected, .is-disabled, .is-focus) so the board can show all
+   states at once and a screen can drive state from its model. LANGUAGE.md sections 4 and 7. */
+.btn, .tab, .check, .order-btn, .ability-slot, .manoeuvre-btn {
+	border: $hairline $control_border;
+	border-radius: $radius;
+	--fill: $panel_raised;
+	background-color: var(--fill);
+	box-shadow: inset 0 0 0 $inset_outer var(--fill), inset 0 0 0 $inset_inner $control_border;
+	color: $text;
+	tab-index: auto;
+	cursor: pointer;
+}
+.btn:hover, .tab:hover, .check:hover, .order-btn:hover, .ability-slot:hover, .manoeuvre-btn:hover,
+.btn.is-hover, .tab.is-hover, .check.is-hover, .order-btn.is-hover, .ability-slot.is-hover, .manoeuvre-btn.is-hover {
+	--fill: $hover;
+}
+.btn:active, .tab:active, .check:active, .order-btn:active, .ability-slot:active, .manoeuvre-btn:active,
+.btn.is-pressed, .tab.is-pressed, .check.is-pressed, .order-btn.is-pressed, .ability-slot.is-pressed, .manoeuvre-btn.is-pressed {
+	--fill: $pressed;
+}
+.btn:active, .btn.is-pressed, .order-btn:active, .order-btn.is-pressed, .ability-slot:active, .ability-slot.is-pressed,
+.manoeuvre-btn:active, .manoeuvre-btn.is-pressed {
+	transform: translateY($hairline);
+}
+.btn:focus-visible, .tab:focus-visible, .check:focus-visible, .order-btn:focus-visible, .ability-slot:focus-visible, .manoeuvre-btn:focus-visible,
+.btn.is-focus, .tab.is-focus, .check.is-focus, .order-btn.is-focus, .ability-slot.is-focus, .manoeuvre-btn.is-focus {
+	box-shadow: 0 0 0 $focus_width $focus_ring, inset 0 0 0 $inset_outer var(--fill), inset 0 0 0 $inset_inner $control_border;
+}
+.btn.is-disabled, .tab.is-disabled, .check.is-disabled, .order-btn.is-disabled, .ability-slot.is-disabled, .manoeuvre-btn.is-disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+/* Button: 36 dp, label style; primary and toggled take the faction fill */
+.btn {
+	display: inline-block;
+	height: $control_height;
+	padding: $btn_pad_y $btn_pad_x;
+	font-family: $type.label.family;
+	font-weight: $type.label.weight;
+	font-size: $type.label.size;
+	line-height: $type.label.line;
+	text-align: center;
+}
+.btn-primary, .btn.is-selected {
+	--fill: $fac;
+	color: $on_fac;
+}
+.btn-primary:hover, .btn-primary.is-hover, .btn.is-selected:hover, .btn.is-selected.is-hover {
+	--fill: $fac_hover;
+}
+.btn-primary:active, .btn-primary.is-pressed, .btn.is-selected:active, .btn.is-selected.is-pressed {
+	--fill: $fac_pressed;
+}
+
+/* Tab: 36 dp, no bottom border, sits on the tab group's rule; selected takes the faction fill */
+.tab-group {
+	display: flex;
+	flex-direction: row;
+	border-bottom: $hairline $control_border;
+}
+.tab {
+	display: inline-block;
+	height: $control_height;
+	padding: $btn_pad_y $tab_pad_x;
+	margin-right: $gap_s;
+	border-bottom-width: 0;
+	color: $text_dim;
+	font-family: $type.label.family;
+	font-weight: $type.label.weight;
+	font-size: $type.label.size;
+	line-height: $type.label.line;
+	text-align: center;
+}
+.tab.is-selected {
+	--fill: $fac;
+	color: $on_fac;
+}
+.tab.is-selected:hover, .tab.is-selected.is-hover {
+	--fill: $fac_hover;
+}
+.tab.is-selected:active, .tab.is-selected.is-pressed {
+	--fill: $fac_pressed;
+}
+.tab:hover, .tab.is-hover, .tab:active, .tab.is-pressed {
+	color: $text;
+}
+.tab.is-selected:hover, .tab.is-selected.is-hover, .tab.is-selected:active, .tab.is-selected.is-pressed {
+	color: $on_fac;
+}
+
+/* Checkbox: 22 dp frame; checked draws the faction-filled mark */
+.check {
+	display: inline-block;
+	width: $checkbox;
+	height: $checkbox;
+	--fill: $panel;
+}
+.check-mark {
+	display: none;
+	width: $check_mark;
+	height: $check_mark;
+	margin: $check_pad;
+	background-color: $fac;
+	border: $hairline $control_border;
+}
+.check.is-checked .check-mark {
+	display: block;
+}
+
+/* Round order button (56 dp), ability slot (56 dp), manoeuvre button (44 dp): frame and art slot, the art comes from the screen */
+.order-btn {
+	display: inline-block;
+	width: $order_button;
+	height: $order_button;
+	border-radius: $order_radius;
+}
+.ability-slot {
+	display: inline-block;
+	width: $ability_slot;
+	height: $ability_slot;
+}
+.manoeuvre-btn {
+	display: inline-block;
+	width: $manoeuvre_button;
+	height: $manoeuvre_button;
+}
+.slot-art {
+	width: 100%;
+	height: 100%;
+}
+.order-btn.is-selected, .ability-slot.is-selected, .manoeuvre-btn.is-selected {
+	box-shadow: 0 0 0 $focus_width $fac, 0 0 0 $ring_inner $control_border, inset 0 0 0 $inset_outer var(--fill), inset 0 0 0 $inset_inner $control_border;
+}

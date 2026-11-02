@@ -53,8 +53,11 @@
     if (headless) m.ccall('viewer_set_time', null, ['number'], [0]);
     for (const f of screen.fonts)
       if (!m.ccall('viewer_load_font', 'number', ['string', 'number'], ['/fonts/' + f, 1])) throw new Error('font failed: ' + f);
+    const tDoc = performance.now();
     if (!m.ccall('viewer_load_document', 'number', ['string'], ['/screen/' + screen.document]))
       throw new Error('document failed: ' + screen.document);
+    const docMs = performance.now() - tDoc;   // RML + RCSS parse, style and first layout of the document (J34 report)
+    window.viewerTimings = { wasm_ms: Math.round(performance.now() - t0 - docMs), document_ms: Math.round(docMs * 10) / 10 };
     log(`${screen.title}: ${w}x${h}, dp ratio ${ratioFor(h, slider, explicit).toFixed(4)}`);
 
     const frame = () => m.ccall('viewer_frame', null, [], []);

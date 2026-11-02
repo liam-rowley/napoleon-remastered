@@ -251,10 +251,8 @@ EMSCRIPTEN_KEEPALIVE const char* viewer_element_json(const char* id) {
 
 namespace {
 
-bool Clips(Rml::Element* e) {
-	const auto& c = e->GetComputedValues();
-	return c.overflow_x() != Rml::Style::Overflow::Visible || c.overflow_y() != Rml::Style::Overflow::Visible;
-}
+bool ClipsX(Rml::Element* e) { return e->GetComputedValues().overflow_x() != Rml::Style::Overflow::Visible; }
+bool ClipsY(Rml::Element* e) { return e->GetComputedValues().overflow_y() != Rml::Style::Overflow::Visible; }
 
 std::string Describe(Rml::Element* e) {
 	std::string s = e->GetTagName();
@@ -272,7 +270,7 @@ std::string Describe(Rml::Element* e) {
 	return s;
 }
 
-void CheckOverflow(Rml::Element* e, Rml::Element* parent, bool clipped, std::string& out, int& count) {
+void CheckOverflow(Rml::Element* e, Rml::Element* parent, bool clip_x, bool clip_y, std::string& out, int& count) {
 	const float tol = 1.0f;   // sub-pixel layout at dp ratios like 0.85
 	if (!e->IsVisible())
 		return;
@@ -290,12 +288,13 @@ void CheckOverflow(Rml::Element* e, Rml::Element* parent, bool clipped, std::str
 		count++;
 	};
 	if (size.x > 0 && size.y > 0) {
-		if (!clipped && (at.x < -tol || at.y < -tol || at.x + size.x > g_width + tol || at.y + size.y > g_height + tol))
+		if ((!clip_x && (at.x < -tol || at.x + size.x > g_width + tol)) || (!clip_y && (at.y < -tol || at.y + size.y > g_height + tol)))
 			add("outside_viewport", "border box leaves the viewport");
 		if (parent && !floating) {
 			const Rml::Vector2f pat = parent->GetAbsoluteOffset(Rml::BoxArea::Content), psz = parent->GetBox().GetSize(Rml::BoxArea::Content);
-			if (!Clips(parent) && psz.x > 0 && psz.y > 0 &&
-				(at.x < pat.x - tol || at.y < pat.y - tol || at.x + size.x > pat.x + psz.x + tol || at.y + size.y > pat.y + psz.y + tol)) {
+			if (psz.x > 0 && psz.y > 0 &&
+				((!ClipsX(parent) && (at.x < pat.x - tol || at.x + size.x > pat.x + psz.x + tol)) ||
+					(!ClipsY(parent) && (at.y < pat.y - tol || at.y + size.y > pat.y + psz.y + tol)))) {
 				char d[160];
 				std::snprintf(d, sizeof d, "outside parent content box %g,%g %gx%g", pat.x, pat.y, psz.x, psz.y);
 				add("outside_parent", d);
@@ -314,21 +313,20 @@ void CheckOverflow(Rml::Element* e, Rml::Element* parent, bool clipped, std::str
 			add("content_taller_than_box", d);
 		}
 	}
-	const bool child_clipped = clipped || Clips(e);
 	for (int i = 0; i < e->GetNumChildren(); i++)
-		CheckOverflow(e->GetChild(i), e, child_clipped, out, count);
+		CheckOverflow(e->GetChild(i), e, clip_x || ClipsX(e), clip_y || ClipsY(e), out, count);
 }
 
 }  // namespace
 
 // Layout problems of the shown document found by the renderer (J34 corner gate), as a JSON array: border boxes outside the viewport or
 // outside a non-clipping parent's content box (absolute and fixed elements are checked against the viewport only), and content wider or
-// taller than its own box. Elements inside a clipping ancestor (overflow other than visible) are exempt from the viewport check.
+// taller than its own box. Per axis, an ancestor that scrolls or clips (overflow other than visible) exempts what is inside it on that axis.
 EMSCRIPTEN_KEEPALIVE const char* viewer_overflow_json() {
 	std::string out = "[";
 	int count = 0;
 	if (g_document)
-		CheckOverflow(g_document, nullptr, false, out, count);
+		CheckOverflow(g_document, nullptr, false, false, out, count);
 	g_result = out + "]";
 	return g_result.c_str();
 }

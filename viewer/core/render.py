@@ -16,6 +16,7 @@ import base64
 import functools
 import hashlib
 import http.server
+import importlib.util
 import json
 import shutil
 import struct
@@ -27,6 +28,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 WEB = ROOT / 'viewer' / 'core' / 'web'
 FONTS = ROOT / 'viewer' / 'napoleon' / 'fonts'
+UIKIT = ROOT / 'uikit' / 'napoleon'
+UIKIT_FILES = ('base.rcss', 'library.rcss', 'factions_synthetic.rcss')   # staged as screen/uikit/ for screens with "library": true
 FONT_DIRS = [FONTS, ROOT / 'uikit' / 'napoleon' / 'fonts']   # a screen's font list may name either (J34)
 CHROMIUM_ARGS = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-driver-bug-workarounds',
                  '--force-color-profile=srgb']
@@ -46,9 +49,26 @@ def stage(screen_dir, site, wasm_dir):
         if not (wasm_dir / f).exists():
             sys.exit(f'render: no {wasm_dir / f}: run viewer/core/build.sh --docker build (or download the CI artifact)')
         shutil.copy2(wasm_dir / f, site / f)
-    shutil.copy2(screen_dir / 'screen.json', site / 'screen' / 'screen.json')
+    files = list(manifest['files'])
+    expand = None
+    if manifest.get('library'):   # J34: a library screen's RCSS is authored with $tokens (expanded here, as the host install does) and uikit/ is staged beside it
+        spec = importlib.util.spec_from_file_location('uikit_build', UIKIT / 'build.py')
+        ub = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(ub)
+        expand = ub.expand_file
+        (site / 'screen' / 'uikit').mkdir()
+        for n in UIKIT_FILES:
+            shutil.copy2(UIKIT / 'dist' / n, site / 'screen' / 'uikit' / n)
+            files.append('uikit/' + n)
     for f in manifest['files']:
-        shutil.copy2(screen_dir / f, site / 'screen' / f)
+        dst = site / 'screen' / f
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        if expand and f.endswith('.rcss'):
+            dst.write_text(expand(screen_dir / f, None, manifest.get('lengths')), encoding='utf-8', newline='\n')
+        else:
+            shutil.copy2(screen_dir / f, dst)
+    # the host reads the staged manifest: the same list plus the library files
+    (site / 'screen' / 'screen.json').write_text(json.dumps({**manifest, 'files': files}, indent=1), encoding='utf-8')
     for f in manifest['fonts']:
         src = next((d / f for d in FONT_DIRS if (d / f).exists()), None)
         if src is None:

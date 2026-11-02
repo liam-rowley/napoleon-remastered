@@ -1,0 +1,200 @@
+/* List row, tooltip, progress bars, card frame, number badge, icon, flag and frame slots, scrollbars. LANGUAGE.md sections 4 to 7. */
+
+/* List row: 30 dp, 1 dp rule below, even rows hatched (.list-hatch parent or .is-hatch on the row); faction fill when selected */
+.list-row {
+	height: $row;
+	padding: 0 $gap;
+	border-bottom: $hairline $line;
+	--fill: $panel;
+	background-color: var(--fill);
+	color: $text;
+	font-family: $type.body.family;
+	font-weight: $type.body.weight;
+	font-size: $type.body.size;
+	line-height: $type.body.line;
+	tab-index: auto;
+	cursor: pointer;
+}
+.list-hatch .list-row:nth-child(even), .list-row.is-hatch {
+	decorator: repeating-linear-gradient(135deg, $hatch_row 0, $hatch_row $hairline, transparent $hairline, transparent $gap_s);
+}
+.list-row:hover, .list-row.is-hover {
+	--fill: $hover;
+}
+.list-row:active, .list-row.is-pressed {
+	--fill: $pressed;
+}
+.list-row.is-selected {
+	--fill: $fac;
+	color: $on_fac;
+	decorator: none;
+}
+.list-row.is-selected:hover, .list-row.is-selected.is-hover {
+	--fill: $fac_hover;
+}
+.list-row.is-selected:active, .list-row.is-selected.is-pressed {
+	--fill: $fac_pressed;
+}
+.list-row:focus-visible, .list-row.is-focus {
+	box-shadow: inset 0 0 0 $focus_width $focus_ring;
+}
+.list-row.is-disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+/* Tooltip: frame on panel_raised, max 340 dp; hidden is display none (never opacity 0), shown by .is-shown. The panel host places it. */
+.tooltip {
+	display: none;
+	max-width: $tooltip_max;
+	padding: $tooltip_pad_y $tooltip_pad_x;
+	border: $hairline $control_border;
+	border-radius: $radius;
+	background-color: $panel_raised;
+	box-shadow: inset 0 0 0 $inset_outer $panel_raised, inset 0 0 0 $inset_inner $control_border, 0 $gap_s 0 0 $shadow;
+	color: $text;
+	font-family: $type.tip_body.family;
+	font-weight: $type.tip_body.weight;
+	font-size: $type.tip_body.size;
+	line-height: $type.tip_body.line;
+}
+.tooltip.is-shown {
+	display: inline-block;
+}
+.tooltip-title {
+	font-family: $type.tip_title.family;
+	font-weight: $type.tip_title.weight;
+	font-size: $type.tip_title.size;
+	line-height: $type.tip_title.line;
+}
+
+/* Progress bar: 12 dp track, hatched fill in the faction colour (semantic bars take positive, negative, warning) */
+.bar {
+	height: $bar_height;
+	background-color: $panel;
+	border: $hairline $control_border;
+}
+.bar-fill {
+	height: 100%;
+	background-color: $fac;
+	decorator: repeating-linear-gradient(135deg, $hatch_bar 0, $hatch_bar $hairline, transparent $hairline, transparent $gap_s);
+}
+.bar-fill.is-positive, .seg-cell.is-on.is-positive { background-color: $positive; }
+.bar-fill.is-negative, .seg-cell.is-on.is-negative { background-color: $negative; }
+.bar-fill.is-warning, .seg-cell.is-on.is-warning { background-color: $warning; }
+.seg {
+	display: flex;
+	flex-direction: row;
+}
+.seg-cell {
+	width: $seg_w;
+	height: $seg_h;
+	margin-right: $gap_s;
+	border: $hairline $control_border;
+	background-color: $panel;
+}
+.seg-cell.is-on {
+	background-color: $fac;
+}
+
+/* Card frame: frame recipe, faction edge on top (.card-top is the first child), content in .card-body */
+.card {
+	border: $hairline $control_border;
+	border-radius: $radius;
+	background-color: $panel;
+	box-shadow: inset 0 0 0 $inset_outer $panel, inset 0 0 0 $inset_inner $control_border;
+}
+.card-top {
+	height: $card_top_edge;
+	background-color: $fac;
+	border-bottom: $hairline $control_border;
+}
+.card-body {
+	padding: $card_padding;
+}
+
+/* Number badge: 22 dp high, faction fill; a negative count is negative with white text */
+.badge {
+	display: inline-block;
+	height: $badge_height;
+	min-width: $badge_height;
+	padding: 0 $badge_pad;
+	border: $hairline $control_border;
+	background-color: $fac;
+	color: $on_fac;
+	font-family: $type.label.family;
+	font-weight: $type.label.weight;
+	font-size: $type.label.size;
+	line-height: $badge_inner;
+	text-align: center;
+}
+.badge.is-negative {
+	background-color: $negative;
+	color: $on_faction_light;
+}
+
+/* Icon: a tinted glyph slot at 16, 20, 24 and 28 dp (the art is a near-black PNG, image-color tints it) */
+.icon {
+	display: inline-block;
+	image-color: $text;
+}
+.icon-s { width: $icon_s; height: $icon_s; }
+.icon-m { width: $icon_m; height: $icon_m; }
+.icon-l { width: $icon_l; height: $icon_l; }
+.icon-xl { width: $icon_xl; height: $icon_xl; }
+.icon-on-fac { image-color: $on_fac; }
+.icon-dim { image-color: $text_dim; }
+.icon.is-disabled { opacity: 0.5; }
+
+/* Slots: the flag frame and a plain frame for engine render targets (the 3D unit preview); art or the engine fills them */
+.flag-slot {
+	display: inline-block;
+	width: $flag_w;
+	height: $flag_h;
+	border: $hairline $control_border;
+	background-color: $panel_raised;
+}
+.frame-slot {
+	border: $hairline $control_border;
+	background-color: $panel_raised;
+	box-shadow: inset 0 0 0 $inset_outer $panel_raised, inset 0 0 0 $inset_inner $control_border;
+	decorator: repeating-linear-gradient(135deg, $hatch_row 0, $hatch_row $hairline, transparent $hairline, transparent $gap_s);
+}
+
+/* Scrollbars */
+scrollbarvertical, scrollbarhorizontal {
+	background-color: $panel_raised;
+}
+scrollbarvertical {
+	width: $scrollbar;
+	border-left: $hairline $line;
+}
+scrollbarhorizontal {
+	height: $scrollbar;
+	border-top: $hairline $line;
+}
+scrollbarvertical slidertrack, scrollbarhorizontal slidertrack {
+	background-color: transparent;
+}
+scrollbarvertical sliderbar {
+	width: $scrollbar;
+	min-height: $scroll_min;
+}
+scrollbarhorizontal sliderbar {
+	height: $scrollbar;
+	min-width: $scroll_min;
+}
+scrollbarvertical sliderbar, scrollbarhorizontal sliderbar {
+	background-color: $text_dim;
+	border: $hairline $panel_raised;
+}
+scrollbarvertical sliderbar:hover, scrollbarhorizontal sliderbar:hover {
+	background-color: $text;
+}
+scrollbarvertical sliderbar:active, scrollbarhorizontal sliderbar:active {
+	background-color: $control_border;
+}
+scrollbarvertical sliderarrowdec, scrollbarvertical sliderarrowinc, scrollbarhorizontal sliderarrowdec, scrollbarhorizontal sliderarrowinc {
+	width: 0;
+	height: 0;
+}

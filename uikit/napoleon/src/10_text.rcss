@@ -1,0 +1,55 @@
+/* Text styles (LANGUAGE.md section 3) and text colours, plus the few layout helpers every screen needs. */
+.t-title {
+	font-family: $type.title.family;
+	font-weight: $type.title.weight;
+	font-size: $type.title.size;
+	line-height: $type.title.line;
+}
+.t-section {
+	font-family: $type.section_head.family;
+	font-weight: $type.section_head.weight;
+	font-size: $type.section_head.size;
+	line-height: $type.section_head.line;
+}
+.t-body {
+	font-family: $type.body.family;
+	font-weight: $type.body.weight;
+	font-size: $type.body.size;
+	line-height: $type.body.line;
+}
+.t-label {
+	font-family: $type.label.family;
+	font-weight: $type.label.weight;
+	font-size: $type.label.size;
+	line-height: $type.label.line;
+}
+.t-desc {
+	font-family: $type.description.family;
+	font-weight: $type.description.weight;
+	font-size: $type.description.size;
+	line-height: $type.description.line;
+}
+.t-numeral {
+	font-family: $type.numeral.family;
+	font-weight: $type.numeral.weight;
+	font-size: $type.numeral.size;
+	line-height: $type.numeral.line;
+	text-align: right;
+}
+.t-big {
+	font-family: $type.big_numeral.family;
+	font-weight: $type.big_numeral.weight;
+	font-size: $type.big_numeral.size;
+	line-height: $type.big_numeral.line;
+}
+.c-text { color: $text; }
+.c-dim { color: $text_dim; }
+.c-accent { color: $accent_text; }
+.c-pos { color: $positive; }
+.c-neg { color: $negative; }
+.c-warn { color: $warning; }
+
+.flex-row { display: flex; flex-direction: row; }
+.flex-col { display: flex; flex-direction: column; }
+.grow { flex: 1 1 0; }
+.is-hidden { display: none; }
