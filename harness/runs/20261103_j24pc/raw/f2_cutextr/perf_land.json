@@ -1,0 +1,110 @@
+{
+  "verb": "perf",
+  "status": "ok",
+  "reason": "",
+  "frame_ms": {
+    "p50": 2.085,
+    "p99": 5.234,
+    "max": 18.774,
+    "mean": 2.3
+  },
+  "frames": 4347,
+  "mem": {
+    "va_used_mb": 1867,
+    "va_total_mb": 4096,
+    "va_free_mb": 2229,
+    "commit_mb": 1240,
+    "working_set_mb": 994,
+    "peak_working_set_mb": 1011
+  },
+  "vram": {
+    "source": "Windows counter \\GPU Process Memory(pid_<pid>_*)\\Dedicated Usage (per process) + nvidia-smi memory.used (device)",
+    "process_dedicated_mb": 563.6,
+    "device_used_mb": 2242.0,
+    "device_total_mb": 24564.0
+  },
+  "build": "e876198be89a",
+  "kit": "kit_20261103T035945Z_354011cb0fc6",
+  "backend": "dxvk",
+  "size": "1920x1080",
+  "settle": {},
+  "check": {
+    "compared": "frames recorded and a positive median",
+    "expected": "frames > 0, p50 > 0",
+    "got": {
+      "frames": 4347,
+      "p50": 2.085
+    },
+    "ok": true,
+    "vram": {
+      "expected": "the game process has dedicated GPU memory",
+      "got": 563.6
+    }
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j24-20261103T043055Z-65837952",
+      "request": "perf 10",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-03T04:30:55.326Z",
+      "end_utc": "2026-11-03T04:31:05.328Z",
+      "launch_id": "20261103T042725Z-p35244",
+      "seconds": 10,
+      "frames": 4347,
+      "frame_ms": {
+        "p50": 2.085,
+        "p99": 5.234,
+        "max": 18.774,
+        "mean": 2.3
+      },
+      "mem": {
+        "va_used_mb": 1867,
+        "va_total_mb": 4096,
+        "va_free_mb": 2229,
+        "commit_mb": 1240,
+        "working_set_mb": 994,
+        "peak_working_set_mb": 1011
+      },
+      "state_at_end": {
+        "launch_id": "20261103T042725Z-p35244",
+        "pid": 35244,
+        "frame": 101251,
+        "scene": "battle_deploy",
+        "scene_s": 204.1,
+        "uptime_s": 218.9,
+        "written_utc": "2026-11-03T04:31:05.328Z",
+        "last_present_utc": "2026-11-03T04:31:05.327Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1867,
+          "commit_mb": 1240
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "157"
+        }
+      },
+      "log": []
+    }
+  },
+  "start_utc": "2026-11-03T04:30:53.554Z",
+  "end_utc": "2026-11-03T04:31:09.079Z"
+}

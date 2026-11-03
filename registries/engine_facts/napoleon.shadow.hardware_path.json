@@ -1,8 +1,8 @@
 {
   "id": "napoleon.shadow.hardware_path",
-  "claim": "The NVIDIA hardware shadow path (gfx_hardware_shadows true: NVIDIA_HARDWARE_SHADOWS, a depth-texture map with hardware PCF) was not captured: the PC prefs file holds gfx_hardware_shadows twice (lines 24 and 37), the watcher prefs overlay replaces only the first, and a land_small capture under profile j8-hwshadow drew the same 83 shaders and the same 2048 R16F map as the software path (capture hw_land_small), so the game reads the later line. Whether the hardware path changes the map format, size or registers is open",
-  "state": "open",
-  "evidence": "harness/runs/20261101_j8pc/README.md",
-  "date": "2026-11-01",
-  "notes": "owner J24; needs a watcher overlay that sets every occurrence of a key (core)"
+  "claim": "Captured by forcing it (key gfx.shadow_hw_force: rows shadow.hw_force_setup 0x11869ab je -> no-op and shadow.hw_force_define 0x11a7e7c je -> no-op, so the caps decide; run 20261103_j24pc, capture j24_f_hw2_y_*, 2026-11-03): under DXVK the NVIDIA branch is taken: the shadow pass draws into a 2048 A8R8G8B8 dummy colour target with a 2048 D24X8 depth TEXTURE (sampled by the receivers, hardware compare), clears z only (flags 2), 48 caster draws; 27 shaders differ from the software path (none in the catalogue; their NVIDIA_HARDWARE_SHADOWS mapping is not run). The preference itself (gfx_hardware_shadows, options +0x69d09) is read only at 0x11869a4 and 0x11a7e75; the prefs file holds the key twice and the watcher overlay sets the first (core backlog B30), so the two-site key is the route. shader_catalog.py shadow_density does not read the hardware receivers' registers (it returns nothing for these captures).",
+  "state": "verified",
+  "evidence": "harness/runs/20261103_j24pc/README.md",
+  "date": "2026-11-03",
+  "notes": "owner J24; kernel and look of the hardware path: J26"
 }

@@ -1,0 +1,11 @@
+{
+  "id": "tools.acceptance_summary",
+  "kind": "script",
+  "path": "tools/acceptance_summary.py",
+  "purpose": "print one line per acceptance pass (harness/runs/<id>/pass_*.json): passed, build id, failed steps, and every shot_match diff against its threshold, so a 20-pass run's margins and a flake's step read at a glance",
+  "usage": "acceptance_summary.py RUN_ID [RUN_ID ...]   (run ids under harness/runs/, or run folder paths)",
+  "when": "after `core/harness/acceptance.py run`, to see which step a failed pass broke on and how close the shots are to their thresholds (`acceptance.py streak` gives only the count)",
+  "not_a_verb": "a read-only report over committed run files; core/harness/acceptance.py is the core's and is not changed from a game repo",
+  "status": "live",
+  "last_used": "2026-11-03"
+}

@@ -1,0 +1,94 @@
+{
+ "pass": 17,
+ "start_utc": "2026-11-03T11:14:33Z",
+ "end_utc": "2026-11-03T11:19:00Z",
+ "build_id": "75739186b92e",
+ "watcher": "1.2.0",
+ "kit": "kit_20261103T063744Z_6bab276b0030",
+ "passed": false,
+ "steps": {
+  "exe_sha1": {
+   "ok": true,
+   "compared": "the game exe sha1 against the pin (rule 28)",
+   "expected": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+   "got": "9aebcd2172f2878d781b079f7feb45b0e12e0250"
+  },
+  "hist_dresden:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 7.3,
+   "got_s": 7.3,
+   "limit_s": 18.25,
+   "path": {
+    "launch": null,
+    "via": "autostart"
+   }
+  },
+  "hist_dresden:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 675.7,
+      "got": 675.7,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 59.7,
+      "got": 59.6999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": 529.2,
+      "got": 529.2,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -137.37,
+      "got": -137.37003415822983,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -20.36,
+      "got": -20.359877195645666,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0003479681712048266,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_dresden:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 98448,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261103_j24acc2\\pass_17\\hist_dresden_deploy.jpg"
+  },
+  "hist_dresden:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 3.823,
+   "threshold": 7.8
+  },
+  "hist_nile:scene": {
+   "ok": false,
+   "reason": "RuntimeError: step launch: exit 1: 31820 (child process of PID 19796) has been terminated.\nkilled: Napoleon 31820\n\n[watcher] failed: HEADLESS FAILED: no on_virtual status for pid 31820 within 180 s (last: (no status yet)); the game was killed (fail closed)\n[job j24-20261103T111548Z-190223457: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 31820 within 180 s (last: (no status yet)); the game was killed (fail closed)]\n"
+  }
+ }
+}

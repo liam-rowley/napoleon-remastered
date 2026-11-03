@@ -1,0 +1,485 @@
+2026-11-03T03:51:12.878Z [INFO ] [t6384] launch 20261103T035112Z-p2120: Napoleon: Total War proxy d3d9.dll build 679422b9443a loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 2120, base 00760000)
+2026-11-03T03:51:12.878Z [INFO ] [t6384] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.autostart                      =             
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.autostart_delay_ms             = 1500        
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.camera                         = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.capture                        = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.capture_dir                    = C:\napoleon_remastered_pc\captures
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.console                        = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.ctl                            = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.file_rules                     = napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.log_files                      = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.lua_bridge                     = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.orders                         = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.perf                           = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.skip_intro                     = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.state_json                     = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   dev.timeline                       = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.grass_proof                    = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.shadow_crop_keep               = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.shadow_extrusion               = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.shadow_far_cap                 = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.shadow_fit_ortho               = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.shadow_height_cutoff           = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.shadow_hw_force                = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.shadow_map_large               = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.ship_lod_proof                 = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.sprite_page_proof              = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.tree_lod_proof                 = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   gfx.unit_lod_proof                 = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   headless.display_name              = Virtual Display Driver
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   headless.enabled                   = 1           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   headless.refuse_grace_ms           = 5000        
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   headless.settle_ms                 = 500         
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   headless.size                      = 1920x1080   
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   headless.test_dll_window_ms        = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   headless.test_off_thread           = 0           
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   proxy.backend                      = dxvk        
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-11-03T03:51:12.878Z [INFO ] [t6384] config:   proxy.enabled                      = 1           
+2026-11-03T03:51:12.879Z [INFO ] [t6384] config:   proxy.exe_guard                    = 1           
+2026-11-03T03:51:12.879Z [INFO ] [t6384] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-11-03T03:51:12.879Z [INFO ] [t6384] config:   proxy.log_level                    = info        
+2026-11-03T03:51:12.879Z [INFO ] [t6384] config:   proxy.minidump                     = 2           
+2026-11-03T03:51:12.879Z [INFO ] [t6384] config:   proxy.runtime_patches              = 1           
+2026-11-03T03:51:12.879Z [INFO ] [t6384] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-11-03T03:51:12.879Z [INFO ] [t6384] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-11-03T03:51:12.914Z [INFO ] [t6384] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 31 ms)
+2026-11-03T03:51:12.914Z [INFO ] [t6384] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine: image base 00760000 (file ImageBase 0x00400000, delta 0x00360000)
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   unit_lod.override_default        patch RVA 0x00015431 -> 00775431: stock (key off) cur [00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   unit_lod.imposter_distance_default patch RVA 0x000155a1 -> 007755a1: stock (key off) cur [00 00 c8 42]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   ship_lod.knot_distance_default   patch RVA 0x00015631 -> 00775631: stock (key off) cur [00 00 48 42]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   unit_lod.large_imposter_distance_default patch RVA 0x000156c1 -> 007756c1: stock (key off) cur [00 00 48 43]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   ship_lod.rope_distance_default   patch RVA 0x000159c1 -> 007759c1: stock (key off) cur [00 00 48 43]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   ship_lod.rope_distance_fadeout_default patch RVA 0x00015a11 -> 00775a11: stock (key off) cur [00 00 16 43]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.position_xyz              hook  RVA 0x0013fbe0 -> 0089fbe0: stock cur [8d 81 b0 00 00 00 c3]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.entity_has_order          hook  RVA 0x0015c2e0 -> 008bc2e0: stock cur [83 b9 60 04 00 00 00 75 03 32 c0 c3 8b 81 60 04]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.unit_entity_index         hook  RVA 0x0015c320 -> 008bc320: stock cur [83 b9 e8 0a 00 00 00 74 17 8b 81 e8 0a 00 00 8b 8c 81 dc 0a 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.order_formation_push      hook  RVA 0x0018d780 -> 008ed780: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.order_move_push           hook  RVA 0x0018dc00 -> 008edc00: stock cur [83 ec 10 53 56 51 54 8b f1 e8 c2 03 00 00 83 c4]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.order_formation_ctor      hook  RVA 0x00199320 -> 008f9320: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.order_move_ctor           hook  RVA 0x00199760 -> 008f9760: stock cur [56 8b 74 24 08 57 8b f9 8d 46 04 50 8d 4f 08 c7 07 4c b6 32 01 c7 47 04 e8 b5 32 01 e8 af b6 eb]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.command_dtor              hook  RVA 0x001a95b0 -> 009095b0: stock cur [56 8b f1 8b 46 44 85 c0 74 09 50 e8 30 e9 a4 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.selection_dispatch        hook  RVA 0x001ae8a0 -> 0090e8a0: stock cur [0f b6 81 2b 04 00 00 f3 0f 10 44 24 08 50 8b 81 50 04 00 00 51 f3 0f 11 04 24 83 c0 20]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.selection_dispatch_b      hook  RVA 0x001ae8d0 -> 0090e8d0: stock cur [ff 74 24 08 8b 81 50 04 00 00 81 c1 54 04 00 00 ff 74 24 08 83 c0 20 50 e8 e3 00 03]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   guard.proxy_set_push             hook  RVA 0x001b04e0 -> 009104e0: stock cur [55 56 8b f1 8b 6e 18]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.camera_chain_read         hook  RVA 0x001ce998 -> 0092e998: stock cur [a1 8c 41 4a 01 83 c4 08 8b 80 f8 00 00 00 8b 80 b8 81 02 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.ui_queue_site             hook  RVA 0x001d0520 -> 00930520: stock cur [a1 8c 41 4a 01 51 54 8b 80 f8 00 00 00 8b b0 48 80 02 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   guard.men_inside_battle_bounds   hook  RVA 0x001dae50 -> 0093ae50: stock cur [55 8b ec 83 e4 f0]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.selection_command         hook  RVA 0x001ddd00 -> 0093dd00: stock cur [83 ec 64 53 8b d9 56 8b 03 8b 88 e4 81 02 00 85]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.camera_mode_read          hook  RVA 0x001fb0aa -> 0095b0aa: stock cur [8b 8e 00 08 00 00 ff 74 24 0c ff 74 24 0c 8b 01 ff 90 c0 00 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.camera_set_target_pos     hook  RVA 0x001fb320 -> 0095b320: stock cur [83 ec 08 53 56 8b 74 24 18 8b d9 57 8b 7c 24 18]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.unit_army_list            hook  RVA 0x00216c04 -> 00976c04: stock cur [8b 4e 04 33 f6 8b 81 ec 01 00 00 8b 90 f0 00 00 00 85 d2 74 52 8b 80 f4 00 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.unit_position_get         hook  RVA 0x00216d1f -> 00976d1f: stock cur [8b 46 04 83 c4 04 8b 88 dc 0a 00 00 8d 89 2c 06 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.unit_bearing_get          hook  RVA 0x00216d6c -> 00976d6c: stock cur [8b 46 04 83 c4 04 0f 57 c0 8b 80 dc 0a 00 00 5e 0f bf 80 4c 06 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.unit_men_get              hook  RVA 0x00216f5a -> 00976f5a: stock cur [8b 4e 04 ff b1 04 02 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.ground_chain              hook  RVA 0x00245851 -> 009a5851: stock cur [a1 54 01 4d 01 f3 0f 10 44 24 18 6a 00 6a 01 8b 80 04 04 00 00 6a 00 8b 40 08 8b 88 b4 00 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.selection_ctor            hook  RVA 0x0028f580 -> 009ef580: stock cur [c7 01 e8 b5 32 01 8b c1]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.selection_add_unit        hook  RVA 0x002a0480 -> 00a00480: stock cur [56 8b 74 24 08 57 8b f9 8b ce e8 b1 bf eb ff 84 c0 74 11 8d 44 24 0c 89 74 24 0c 50 8d 4f 14 e8]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.ground_project            hook  RVA 0x003fcff0 -> 00b5cff0: stock cur [83 ec 28 56 8b 74 24 30 57 8b f9 8b ce e8 8e de]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   battle.world_position_copy       hook  RVA 0x0040e9d0 -> 00b6e9d0: stock cur [8b 41 10 85 c0 74 13 51]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   guard.nav_node_2d                hook  RVA 0x0041c050 -> 00b7c050: stock cur [8b 44 24 08 85 c0]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   guard.nav_node_at_point          hook  RVA 0x0041c080 -> 00b7c080: stock cur [83 ec 14 56 57]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   campaign.cli_ctor                hook  RVA 0x005011f0 -> 00c611f0: stock (key off) cur [83 ec 0c 56 8b f1 8d 4c 24 04 68 e8 1b 36 01 e8]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   campaign.cli_ctor_tail           hook  RVA 0x00501240 -> 00c61240: stock (key off) cur [8b 44 24 14 8b 00 89 46 28 8b c6 c7 06 c4 1b 36 01 5e 83 c4 0c c2 04 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   campaign.cli_execute             hook  RVA 0x00525200 -> 00c85200: stock (key off) cur [51 53 55 56 57 89 4c 24 10 e8 42 07 00 00 ff 74]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   campaign.owner_selection_wiring  hook  RVA 0x0058c6b0 -> 00cec6b0: stock (key off) cur [8d 8b f4 00 00 00 c7 01 40 a5 36 01 8d bb fc 09 00 00 8b 45 00 89 41 04 89 7c 24 38 89 48 28]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   campaign.owner_global_read       hook  RVA 0x005dfecf -> 00d3fecf: stock (key off) cur [8b 0d 38 49 5c 01 83 c4 04 8b d8 8b 89 fc 09 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   campaign.handler_gate_test       hook  RVA 0x006afa4b -> 00e0fa4b: stock (key off) cur [80 7f 54 00 74 64 83 7f 08 00 74 5e]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   guard.engine_free                hook  RVA 0x00bf7ef0 -> 01357ef0: stock cur [8b 44 24 04 83 ec 08]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   guard.heap_serialize_setter      hook  RVA 0x00bf8890 -> 01358890: stock cur [0f b6 44 24 04]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   console.handler_slot_test        hook  RVA 0x00c5612c -> 013b612c: stock (key off) cur [83 3d b0 70 76 01 00 0f 84 fe fe ff ff]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   console.handler_slot_call        hook  RVA 0x00c56143 -> 013b6143: stock (key off) cur [8b 0d b0 70 76 01 8d 54 24 2c 83 c4 04 8b 01 52 8d 54 24 1c 52 8b 00 ff d0 84 c0]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   shadow.fit_warp_ortho            patch RVA 0x00d27625 -> 01487625: stock (key off) cur [01 00 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   shadow.fit_crop_keep             patch RVA 0x00d27633 -> 01487633: stock (key off) cur [01 01 01 01]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   shadow.fit_height_cutoff         patch RVA 0x00d276a2 -> 014876a2: stock (key off) cur [00 00 c8 42]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   shadow.light_sweep               patch RVA 0x00d276ac -> 014876ac: stock (key off) cur [00 00 96 c2]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   shadow.far_cap_q3                patch RVA 0x00d86976 -> 014e6976: stock (key off) cur [00 00 fa 43]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   shadow.map_size_q34              patch RVA 0x00d86986 -> 014e6986: stock cur [00 08 00 00]
+2026-11-03T03:51:13.438Z [INFO ] [t6384] patch_engine:   shadow.hw_force_setup            patch RVA 0x00d869ad -> 014e69ad: stock (key off) cur [b6 00 00 00]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   shadow.hw_force_define           patch RVA 0x00da7e7d -> 01507e7d: stock (key off) cur [26]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   trees.far_other                  patch RVA 0x00de14c6 -> 015414c6: stock (key off) cur [00 00 48 42]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   trees.far_q3                     patch RVA 0x00de14dc -> 015414dc: stock (key off) cur [00 00 48 43]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   trees.far_q2                     patch RVA 0x00de14f2 -> 015414f2: stock (key off) cur [00 00 16 43]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   trees.far_q1                     patch RVA 0x00de14fc -> 015414fc: stock (key off) cur [00 00 c8 42]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   sprite.page_q0                   patch RVA 0x00e400d4 -> 015a00d4: stock (key off) cur [00 00 00 44]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   sprite.page_q3                   patch RVA 0x00e400e5 -> 015a00e5: stock (key off) cur [00 00 80 44]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   sprite.page_q2                   patch RVA 0x00e40100 -> 015a0100: stock (key off) cur [00 00 80 44]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   sprite.page_q1                   patch RVA 0x00e40113 -> 015a0113: stock (key off) cur [00 00 80 44]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01779ad8: stock (key off) cur [05 00 00 00]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01779ae4: stock (key off) cur [05 00 00 00]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine: apply - 62 sites: 62 ok, 0 bad, 1 to write (1 bytes), 0 already patched, 38 hooks verified
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine: wrote shadow.map_size_q34 at 014e6986: [00 08 00 00] -> [00 20 00 00]
+2026-11-03T03:51:13.439Z [INFO ] [t6384] patch_engine: 1 of 1 planned sites written
+2026-11-03T03:51:13.439Z [INFO ] [t6384] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='napoleon_remastered\lua\fixed_sky_rules.txt' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-11-03T03:51:13.439Z [INFO ] [t6384] timeline: dllmain +585 ms
+2026-11-03T03:51:13.440Z [INFO ] [t6384] console: dev.console=0
+2026-11-03T03:51:13.440Z [INFO ] [t6384] camera: dev.camera=1
+2026-11-03T03:51:13.440Z [INFO ] [t6384] orders: dev.orders=1
+2026-11-03T03:51:13.440Z [INFO ] [t6384] redirect: 1 rules from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-03T03:51:13.440Z [INFO ] [t6384] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-11-03T03:51:13.440Z [INFO ] [t6384] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-11-03T03:51:13.440Z [INFO ] [t6384] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-11-03T03:51:13.440Z [INFO ] [t6384] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-11-03T03:51:13.440Z [INFO ] [t6384] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-11-03T03:51:13.440Z [INFO ] [t6384] redirect: rule file add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack (rules line 3)
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!CreateFileW slot 01667170: 7634ea50 -> 6950ca40
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!CreateFileA slot 01667188: 7634ea40 -> 6950c860
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!GetFileAttributesW slot 0166722c: 7634ec70 -> 6950c760
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!GetFileAttributesExW slot 0166728c: 7634ec60 -> 6950c640
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!GetFileAttributesExA slot 0166724c: 7634ec50 -> 6950c4d0
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!FindFirstFileExW slot 016670cc: 7634eb30 -> 6950c410
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!FindFirstFileW slot 0166721c: 7634eb50 -> 6950c370
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!FindNextFileW slot 01667220: 7634eba0 -> 69509410
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat KERNEL32.dll!FindClose slot 01667218: 7634ead0 -> 69508000
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat binkw32.dll!_BinkOpen@8 slot 01667480: 1800d690 -> 6950e5f0
+2026-11-03T03:51:13.441Z [INFO ] [t6384] hook: iat binkw32.dll!_BinkClose@4 slot 01667490: 1800f850 -> 69508a40
+2026-11-03T03:51:13.442Z [INFO ] [t6384] headless: on: target 'Virtual Display Driver' at exactly 1920x1080, settle 500 ms, refuse grace 5000 ms
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!CreateWindowExW slot 016673b4: 7526e930 -> 6951a5b0
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!ShowWindow slot 016673b0: 7527b6a0 -> 69515460
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!SetWindowPos slot 01667310: 7527b5e0 -> 69514de0
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!MoveWindow slot 016673ac: 7527ae90 -> 695148d0
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!SetWindowLongW slot 01667374: 75267570 -> 69515ab0
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!ChangeDisplaySettingsW slot 01667378: 75305c30 -> 69512dc0
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!MessageBoxW slot 01667328: 752ea5b0 -> 695149e0
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!DialogBoxIndirectParamW slot 0166730c: 752c11f0 -> 69512d50
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat user32.dll!SetFocus slot 0166739c: 7527b3e0 -> 69513b80
+2026-11-03T03:51:13.442Z [INFO ] [t6384] hook: iat dinput8.dll!DirectInput8Create slot 01667024: 698d6fa0 -> 69512e50
+2026-11-03T03:51:13.442Z [INFO ] [t6384] init done; the dxvk backend loads at the first d3d9 call
+2026-11-03T03:51:13.451Z [INFO ] [t10664] ctl: watching C:\napoleon_remastered_pc\ctl\ (21715 ids already used)
+2026-11-03T03:51:14.297Z [INFO ] [t6384] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-11-03T03:51:14.298Z [INFO ] [t6384] redirect: add data\zz_napoleon_remastered_fixed_sky.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack; rules line 3)
+2026-11-03T03:51:14.385Z [WARN ] [t6384] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-11-03T03:51:14.386Z [INFO ] [t6384] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-03T03:51:14.386Z [INFO ] [t6384] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-03T03:51:14.386Z [INFO ] [t6384] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-11-03T03:51:14.387Z [INFO ] [t6384] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-03T03:51:14.387Z [INFO ] [t6384] backend: dxvk ready (Direct3DCreate9=5db81530)
+2026-11-03T03:51:14.517Z [INFO ] [t6384] Direct3DCreate9(sdk=32) -> 0c4fec90 [dxvk]
+2026-11-03T03:51:14.518Z [INFO ] [t6384] headless: 2 displays (physical pixels):
+2026-11-03T03:51:14.518Z [INFO ] [t6384] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-11-03T03:51:14.518Z [INFO ] [t6384] headless:   \\.\DISPLAY11 2560,1440 1920x1080 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-11-03T03:51:14.518Z [INFO ] [t6384] headless: target 2560,1440 1920x1080 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 1920x1080); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 1920x1080@60
+2026-11-03T03:51:14.520Z [INFO ] [t6384] hook: vtable IDirect3D9::GetAdapterModeCount (headless) slot 5e21e018 [6]: 5db81ee0 -> 69513930
+2026-11-03T03:51:14.520Z [INFO ] [t6384] hook: vtable IDirect3D9::EnumAdapterModes (headless) slot 5e21e01c [7]: 5db81f40 -> 69515160
+2026-11-03T03:51:14.520Z [INFO ] [t6384] hook: vtable IDirect3D9::GetAdapterDisplayMode (headless) slot 5e21e020 [8]: 5db81a20 -> 695137a0
+2026-11-03T03:51:14.520Z [INFO ] [t6384] hook: vtable IDirect3D9::GetAdapterMonitor (headless) slot 5e21e03c [15]: 5db81da0 -> 695135a0
+2026-11-03T03:51:14.520Z [INFO ] [t6384] hook: vtable IDirect3D9::CreateDevice (headless) slot 5e21e040 [16]: 5db82980 -> 69516540
+2026-11-03T03:51:14.520Z [INFO ] [t6384] timeline: d3d_create +1666 ms
+2026-11-03T03:51:14.521Z [INFO ] [t6384] camera: install: owner global 0180418c, battle +0xf8, controller +0x281b8, mode +0x800, SetTargetAndPosition 0095b320 (slot 47); sites battle.camera_chain_read battle.camera_mode_read battle.camera_set_target_pos
+2026-11-03T03:51:14.521Z [INFO ] [t6384] orders: install: owner global 0180418c, battle +0xf8, queue +0x28048, ui selection [owner+0x450]+0x20, selection vector +0x14; UNIT: entities +0xadc, active +0xae8, army +0x1ec (count +0xf0, list +0xf4), men +0x204; entity: block +0x62c xyz +0xb0 frame +0x10, facing +0x64c, orders +0x460; front +0x310 width +0x324 (readback-proven); ground [[battle+0x8]+0xb4]; calls sel 009ef580 add 00a00480 move 008f9760 push 008edc00 dtor 009095b0 free 01357ef0 ground 00b5cff0
+2026-11-03T03:51:14.521Z [INFO ] [t6384] hook: vtable IDirect3D9::CreateDevice slot 5e21e040 [16]: 69516540 -> 694f92f0
+2026-11-03T03:51:14.521Z [INFO ] [t6384] headless: GetAdapterDisplayMode(adapter 0) -> 1920x1080@60 (the target)
+2026-11-03T03:51:14.521Z [INFO ] [t6384] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-11-03T03:51:14.521Z [INFO ] [t6384] headless: GetAdapterDisplayMode(adapter 1) -> 1920x1080@60 (the target)
+2026-11-03T03:51:14.521Z [INFO ] [t6384] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-11-03T03:51:14.615Z [INFO ] [t6384] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 121)
+2026-11-03T03:51:14.615Z [INFO ] [t6384] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-11-03T03:51:14.617Z [INFO ] [t6384] headless: window 01df07a8 'Total War: NAPOLEON' class 'Napoleon' asked 1938x1127 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-11-03T03:51:14.617Z [INFO ] [t6384] headless: window 01df07a8 placed at 2560,1440 1920x1080 (inside the target)
+2026-11-03T03:51:14.618Z [INFO ] [t6384] headless: SetFocus(01df07a8) dropped (another process has the foreground; 1 so far)
+2026-11-03T03:51:14.618Z [INFO ] [t6384] headless: CreateDevice: back buffer 1920x1080, windowed, window 01df07a8
+2026-11-03T03:51:14.670Z [INFO ] [t6384] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-11-03T03:51:14.670Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::Reset (headless) slot 5e21d7f0 [16]: 5dbab9e0 -> 69516680
+2026-11-03T03:51:14.670Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::Present (headless) slot 5e21d7f4 [17]: 5dbb9dd0 -> 6951bfc0
+2026-11-03T03:51:14.670Z [INFO ] [t6384] timeline: device_created +1816 ms hr 0x00000000 flags 0x42
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::Present slot 5e21d7f4 [17]: 6951bfc0 -> 694f9be0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::UpdateSurface slot 5e21d828 [30]: 5dbb2400 -> 694e8110
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::UpdateTexture slot 5e21d82c [31]: 5dbb2880 -> 694ea070
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::GetRenderTargetData slot 5e21d830 [32]: 5db9c7f0 -> 694e7f40
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::StretchRect slot 5e21d838 [34]: 5db9b520 -> 694e87a0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::ColorFill slot 5e21d83c [35]: 5db9ce60 -> 694e7d60
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetRenderTarget slot 5e21d844 [37]: 5dba5130 -> 694e7cc0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetDepthStencilSurface slot 5e21d84c [39]: 5db99800 -> 694e7b10
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::BeginScene slot 5e21d854 [41]: 5db8aeb0 -> 694e6c70
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::EndScene slot 5e21d858 [42]: 5dba3da0 -> 694e6bb0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::Clear slot 5e21d85c [43]: 5dba0c30 -> 694e8a40
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetTransform slot 5e21d860 [44]: 5db915e0 -> 694e7240
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetViewport slot 5e21d86c [47]: 5db90060 -> 694e5a50
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetRenderState slot 5e21d894 [57]: 5dbaa750 -> 694e4eb0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::BeginStateBlock slot 5e21d8a0 [60]: 5db8fae0 -> 694e6d30
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::EndStateBlock slot 5e21d8a4 [61]: 5db92aa0 -> 694e6f30
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetTexture slot 5e21d8b4 [65]: 5db95490 -> 694e9fd0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetTextureStageState slot 5e21d8bc [67]: 5db91100 -> 694e5240
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetSamplerState slot 5e21d8c4 [69]: 5db954e0 -> 694e5170
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetScissorRect slot 5e21d8dc [75]: 5db8f530 -> 694e6040
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::DrawPrimitive slot 5e21d8f4 [81]: 5dbb44c0 -> 694e8300
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::DrawIndexedPrimitive slot 5e21d8f8 [82]: 5dbb4810 -> 694e8de0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::DrawPrimitiveUP slot 5e21d8fc [83]: 5dbb4b90 -> 694e8540
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::DrawIndexedPrimitiveUP slot 5e21d900 [84]: 5dbb4f40 -> 694e9220
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetVertexDeclaration slot 5e21d90c [87]: 5dba7490 -> 694e6b20
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetFVF slot 5e21d914 [89]: 5dbafc20 -> 694e6df0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetVertexShader slot 5e21d920 [92]: 5dba7720 -> 694eb770
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetVertexShaderConstantF slot 5e21d928 [94]: 5dbb6dd0 -> 694e5d60
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetVertexShaderConstantI slot 5e21d930 [96]: 5dbb69c0 -> 694e6340
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetVertexShaderConstantB slot 5e21d938 [98]: 5db92fe0 -> 694e6650
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetStreamSource slot 5e21d940 [100]: 5db99ea0 -> 694e5520
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetStreamSourceFreq slot 5e21d948 [102]: 5db8fd10 -> 694e7080
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetIndices slot 5e21d950 [104]: 5dba0200 -> 694e56b0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetPixelShader slot 5e21d95c [107]: 5dba7060 -> 694eb6d0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetPixelShaderConstantF slot 5e21d964 [109]: 5dbb7f40 -> 694e5cb0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetPixelShaderConstantI slot 5e21d96c [111]: 5dbb7250 -> 694e6290
+2026-11-03T03:51:14.672Z [INFO ] [t6384] hook: vtable IDirect3DDevice9::SetPixelShaderConstantB slot 5e21d974 [113]: 5dba7990 -> 694e65a0
+2026-11-03T03:51:14.672Z [INFO ] [t6384] capture: 36 of 36 device slots hooked (dev.capture=1, dir 'C:\napoleon_remastered_pc\captures\')
+2026-11-03T03:51:14.695Z [INFO ] [t6384] timeline: first_present +1841 ms
+2026-11-03T03:51:14.696Z [INFO ] [t6384] orders: threads: Present 6384, the game window's procedure 6384, the Lua pump 0 (0 = no pump yet)
+2026-11-03T03:51:14.697Z [INFO ] [t6384] headless: ON THE VIRTUAL DISPLAY: window 2560,1440 1920x1080 on \\.\DISPLAY11, first frame presented there at 1.3 s (client 1920x1080, back buffer 1920x1080)
+2026-11-03T03:51:16.579Z [INFO ] [t10664] ctl: j24-20261103T035116Z-180466931: waitfor frontend 180
+2026-11-03T03:51:17.929Z [INFO ] [t6384] hook: vtable IDirectInput8::CreateDevice (headless) slot 698f6270 [3]: 698d4b20 -> 69512ef0
+2026-11-03T03:51:17.929Z [INFO ] [t6384] hook: vtable IDirectInputDevice8::SetCooperativeLevel (headless) slot 698f60a0 [13]: 698dcdd0 -> 69512a80
+2026-11-03T03:51:17.929Z [INFO ] [t6384] headless: DirectInput SetCooperativeLevel(2b1fea98, window 01df07a8, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-11-03T03:51:19.048Z [INFO ] [t6384] wsp_sentinel: engine dummynode = 0174d128 (sizearray 0, lsizenode 0)
+2026-11-03T03:51:19.048Z [INFO ] [t6384] luaopen_wsp: engine lua_State 057b2128, global state 0582e624 (thread 6384)
+2026-11-03T03:51:19.048Z [INFO ] [t6384] timeline: lua_bridge_loaded +6194 ms
+2026-11-03T03:51:19.049Z [INFO ] [t6384] lua: wsp.lua loaded (wsp 1)
+2026-11-03T03:51:19.069Z [INFO ] [t6384] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-11-03T03:51:19.071Z [INFO ] [t6384] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-11-03T03:51:19.171Z [INFO ] [t6384] lua: wrapper: frontend pumps from OnUpdate
+2026-11-03T03:51:19.296Z [INFO ] [t6384] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 00000780 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-11-03T03:51:19.296Z [INFO ] [t6384] timeline: movie_refused +6442 ms movies\sega_logo_sting_hd.bik
+2026-11-03T03:51:19.300Z [INFO ] [t6384] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 00000780 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-11-03T03:51:19.300Z [INFO ] [t6384] timeline: movie_refused +6446 ms movies\corei7_intro.bik
+2026-11-03T03:51:19.302Z [INFO ] [t6384] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 00000780 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-11-03T03:51:19.302Z [INFO ] [t6384] timeline: movie_refused +6448 ms movies\ntw_intro.bik
+2026-11-03T03:51:19.306Z [INFO ] [t6384] timeline: movie_open +6452 ms movies\frontend2.bik
+2026-11-03T03:51:19.307Z [INFO ] [t6384] movies: BinkOpen movies\frontend2.bik [handle 00000780 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b6ab1c0
+2026-11-03T03:51:19.308Z [INFO ] [t6384] scene: intro -> frontend after 406946.8 s (uptime 5.9 s, frame 4, lua frontend)
+2026-11-03T03:51:19.312Z [INFO ] [t6384] lua: first pump from context 'frontend' (thread 6384)
+2026-11-03T03:51:19.312Z [INFO ] [t6384] timeline: frontend_first_pump +6458 ms
+2026-11-03T03:51:19.314Z [INFO ] [t6384] orders: engine thread (the Lua pump) is 6384
+2026-11-03T03:51:19.314Z [INFO ] [t6384] timeline: first_present_after_ready +6460 ms frontend
+2026-11-03T03:51:19.355Z [INFO ] [t10664] ctl: j24-20261103T035116Z-180466931: ok
+2026-11-03T03:51:21.073Z [INFO ] [t10664] ctl: j24-20261103T035120Z-113511543: state
+2026-11-03T03:51:21.074Z [INFO ] [t10664] ctl: j24-20261103T035120Z-113511543: ok
+2026-11-03T03:51:22.770Z [INFO ] [t10664] ctl: j24-20261103T035122Z-82016010: autostart battle:land_small 240
+2026-11-03T03:51:22.770Z [INFO ] [t10664] timeline: autostart_issued +9916 ms battle:land_small
+2026-11-03T03:51:22.902Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-11-03T03:51:22.902Z [INFO ] [t6384] lua report: battle.map_folder_ms = 
+2026-11-03T03:51:22.904Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_sunken_crater
+2026-11-03T03:51:22.907Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_siberian_plateau
+2026-11-03T03:51:22.909Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_mountain
+2026-11-03T03:51:22.911Z [INFO ] [t6384] lua report: battle.map_folder = welly_map_a
+2026-11-03T03:51:22.914Z [INFO ] [t6384] lua report: battle.map_folder = welly_map_c
+2026-11-03T03:51:22.916Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_prussian_hills
+2026-11-03T03:51:22.919Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_italian_grassland
+2026-11-03T03:51:22.921Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_homestead
+2026-11-03T03:51:22.925Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-03T03:51:22.927Z [INFO ] [t6384] lua report: autostart.map = NAP_MP_Grassy_Flatlands
+2026-11-03T03:51:22.927Z [INFO ] [t6384] lua report: autostart.map_folder = nap_mp_grassy_flatlands
+2026-11-03T03:51:22.927Z [INFO ] [t6384] lua report: autostart.weather = dry/Dry
+2026-11-03T03:51:22.927Z [INFO ] [t6384] lua report: autostart.time_of_day = 2
+2026-11-03T03:51:23.098Z [INFO ] [t6384] movies: BinkClose movies\frontend2.bik
+2026-11-03T03:51:23.098Z [INFO ] [t6384] timeline: movie_close +10244 ms movies\frontend2.bik
+2026-11-03T03:51:23.106Z [INFO ] [t10664] autostart: lua ok: started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2
+2026-11-03T03:51:23.106Z [INFO ] [t10664] scene: frontend -> loading after 3.8 s (uptime 9.7 s, frame 11749, lua frontend)
+2026-11-03T03:51:23.251Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-03T03:51:23.251Z [INFO ] [t6384] lua report: battle.map_folder_ms = 141
+2026-11-03T03:51:23.254Z [INFO ] [t6384] Direct3DCreate9(sdk=32) -> 2e0e85c0 [dxvk]
+2026-11-03T03:51:23.254Z [INFO ] [t6384] headless: CreateDevice: back buffer 1x1, windowed, window 0001000c
+2026-11-03T03:51:23.254Z [INFO ] [t6384] headless: CreateDevice: a helper device (back buffer 1x1): allowed, it shows nothing
+2026-11-03T03:51:23.299Z [INFO ] [t6384] headless: CreateDevice(adapter 0, flags 0x22) -> 0x00000000
+2026-11-03T03:51:23.299Z [INFO ] [t6384] capture: 36 of 36 device slots hooked (dev.capture=1, dir 'C:\napoleon_remastered_pc\captures\')
+2026-11-03T03:51:24.910Z [INFO ] [t6384] luaopen_wsp: engine lua_State 3e084860, global state 3e074e64 (thread 6384) (again)
+2026-11-03T03:51:24.910Z [INFO ] [t6384] lua: wsp.lua loaded (wsp 1)
+2026-11-03T03:51:24.918Z [INFO ] [t6384] lua: wrapper: battle pumps from OnUpdate
+2026-11-03T03:51:24.918Z [INFO ] [t6384] lua: wrapper: battle pumps from OnUpdatePulse
+2026-11-03T03:51:26.737Z [INFO ] [t6384] lua: first pump from context 'battle' (thread 6384)
+2026-11-03T03:51:26.737Z [INFO ] [t6384] scene: loading -> battle after 3.6 s (uptime 13.3 s, frame 12151, lua battle)
+2026-11-03T03:51:26.740Z [INFO ] [t6384] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-11-03T03:51:26.740Z [INFO ] [t6384] scene: battle probe naval=0 deploy_panel=0
+2026-11-03T03:51:26.768Z [INFO ] [t6384] timeline: first_present_after_ready +13914 ms battle
+2026-11-03T03:51:26.790Z [INFO ] [t6384] scene: battle probe naval=0 deploy_panel=1
+2026-11-03T03:51:26.790Z [INFO ] [t6384] scene: battle -> battle_deploy after 0.1 s (uptime 13.4 s, frame 12156, lua battle)
+2026-11-03T03:51:26.792Z [INFO ] [t6384] timeline: first_present_after_ready +13938 ms battle_deploy
+2026-11-03T03:51:27.751Z [INFO ] [t10664] ctl: j24-20261103T035122Z-82016010: ok
+2026-11-03T03:51:30.368Z [INFO ] [t10664] ctl: j24-20261103T035130Z-70421317: state
+2026-11-03T03:51:30.368Z [INFO ] [t10664] ctl: j24-20261103T035130Z-70421317: ok
+2026-11-03T03:51:32.992Z [INFO ] [t10664] ctl: j24-20261103T035132Z-2709512064: state
+2026-11-03T03:51:32.992Z [INFO ] [t10664] ctl: j24-20261103T035132Z-2709512064: ok
+2026-11-03T03:51:37.603Z [INFO ] [t10664] ctl: j24-20261103T035137Z-1469429844: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,0.0,-25.0
+2026-11-03T03:51:37.608Z [INFO ] [t6384] camera: set #1 pos (-0.080, 59.020, 446.140) yaw 0.000 pitch -25.000 -> target (-0.080, 16.758, 536.771) on mode 3d5864b0
+2026-11-03T03:51:37.614Z [INFO ] [t10664] ctl: j24-20261103T035137Z-1469429844: ok
+2026-11-03T03:51:39.587Z [INFO ] [t10664] ctl: j24-20261103T035139Z-2175224353: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:51:39.598Z [INFO ] [t10664] ctl: j24-20261103T035139Z-2175224353: ok
+2026-11-03T03:51:43.087Z [INFO ] [t10664] ctl: j24-20261103T035142Z-3143428545: capture j24_f_8k_y_0 1
+2026-11-03T03:51:43.098Z [INFO ] [t10664] ctl: j24-20261103T035142Z-3143428545: ok
+2026-11-03T03:51:46.315Z [INFO ] [t10664] ctl: j24-20261103T035146Z-23719466: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,45.0,-25.0
+2026-11-03T03:51:46.318Z [INFO ] [t6384] camera: set #2 pos (-0.080, 59.020, 446.140) yaw 45.000 pitch -25.000 -> target (64.006, 16.758, 510.226) on mode 3d5864b0
+2026-11-03T03:51:46.327Z [INFO ] [t10664] ctl: j24-20261103T035146Z-23719466: ok
+2026-11-03T03:51:47.932Z [INFO ] [t10664] ctl: j24-20261103T035147Z-1372624447: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:51:47.944Z [INFO ] [t10664] ctl: j24-20261103T035147Z-1372624447: ok
+2026-11-03T03:51:51.554Z [INFO ] [t10664] ctl: j24-20261103T035151Z-2293210204: capture j24_f_8k_y_45 1
+2026-11-03T03:51:51.560Z [INFO ] [t10664] ctl: j24-20261103T035151Z-2293210204: ok
+2026-11-03T03:51:54.792Z [INFO ] [t10664] ctl: j24-20261103T035154Z-38257269: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,90.0,-25.0
+2026-11-03T03:51:54.795Z [INFO ] [t6384] camera: set #3 pos (-0.080, 59.020, 446.140) yaw 90.000 pitch -25.000 -> target (90.551, 16.758, 446.140) on mode 3d5864b0
+2026-11-03T03:51:54.803Z [INFO ] [t10664] ctl: j24-20261103T035154Z-38257269: ok
+2026-11-03T03:51:56.413Z [INFO ] [t10664] ctl: j24-20261103T035156Z-86222140: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:51:56.424Z [INFO ] [t10664] ctl: j24-20261103T035156Z-86222140: ok
+2026-11-03T03:51:59.427Z [INFO ] [t10664] ctl: j24-20261103T035159Z-1674711554: capture j24_f_8k_y_90 1
+2026-11-03T03:51:59.436Z [INFO ] [t10664] ctl: j24-20261103T035159Z-1674711554: ok
+2026-11-03T03:52:01.825Z [INFO ] [t10664] ctl: j24-20261103T035201Z-3014013585: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,135.0,-25.0
+2026-11-03T03:52:01.828Z [INFO ] [t6384] camera: set #4 pos (-0.080, 59.020, 446.140) yaw 135.000 pitch -25.000 -> target (64.006, 16.758, 382.054) on mode 3d5864b0
+2026-11-03T03:52:01.836Z [INFO ] [t10664] ctl: j24-20261103T035201Z-3014013585: ok
+2026-11-03T03:52:03.703Z [INFO ] [t10664] ctl: j24-20261103T035203Z-2016615971: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:52:03.715Z [INFO ] [t10664] ctl: j24-20261103T035203Z-2016615971: ok
+2026-11-03T03:52:07.591Z [INFO ] [t10664] ctl: j24-20261103T035207Z-265112116: capture j24_f_8k_y_135 1
+2026-11-03T03:52:07.605Z [INFO ] [t10664] ctl: j24-20261103T035207Z-265112116: ok
+2026-11-03T03:52:09.976Z [INFO ] [t10664] ctl: j24-20261103T035209Z-3186114677: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,180.0,-25.0
+2026-11-03T03:52:09.979Z [INFO ] [t6384] camera: set #5 pos (-0.080, 59.020, 446.140) yaw 180.000 pitch -25.000 -> target (-0.080, 16.758, 355.509) on mode 3d5864b0
+2026-11-03T03:52:09.986Z [INFO ] [t10664] ctl: j24-20261103T035209Z-3186114677: ok
+2026-11-03T03:52:12.716Z [INFO ] [t10664] ctl: j24-20261103T035212Z-2290125655: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:52:12.727Z [INFO ] [t10664] ctl: j24-20261103T035212Z-2290125655: ok
+2026-11-03T03:52:15.841Z [INFO ] [t10664] ctl: j24-20261103T035215Z-1185221427: capture j24_f_8k_y_180 1
+2026-11-03T03:52:15.856Z [INFO ] [t10664] ctl: j24-20261103T035215Z-1185221427: ok
+2026-11-03T03:52:18.716Z [INFO ] [t10664] ctl: j24-20261103T035218Z-1916715191: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,225.0,-25.0
+2026-11-03T03:52:18.720Z [INFO ] [t6384] camera: set #6 pos (-0.080, 59.020, 446.140) yaw 225.000 pitch -25.000 -> target (-64.166, 16.758, 382.054) on mode 3d5864b0
+2026-11-03T03:52:18.728Z [INFO ] [t10664] ctl: j24-20261103T035218Z-1916715191: ok
+2026-11-03T03:52:20.721Z [INFO ] [t10664] ctl: j24-20261103T035220Z-2432516018: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:52:20.733Z [INFO ] [t10664] ctl: j24-20261103T035220Z-2432516018: ok
+2026-11-03T03:52:24.345Z [INFO ] [t10664] ctl: j24-20261103T035224Z-2538224027: capture j24_f_8k_y_225 1
+2026-11-03T03:52:24.362Z [INFO ] [t10664] ctl: j24-20261103T035224Z-2538224027: ok
+2026-11-03T03:52:27.587Z [INFO ] [t10664] ctl: j24-20261103T035227Z-3120529364: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,270.0,-25.0
+2026-11-03T03:52:27.593Z [INFO ] [t6384] camera: set #7 pos (-0.080, 59.020, 446.140) yaw 270.000 pitch -25.000 -> target (-90.711, 16.758, 446.140) on mode 3d5864b0
+2026-11-03T03:52:27.598Z [INFO ] [t10664] ctl: j24-20261103T035227Z-3120529364: ok
+2026-11-03T03:52:28.970Z [INFO ] [t10664] ctl: j24-20261103T035228Z-1179315632: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:52:28.981Z [INFO ] [t10664] ctl: j24-20261103T035228Z-1179315632: ok
+2026-11-03T03:52:32.708Z [INFO ] [t10664] ctl: j24-20261103T035232Z-2942621045: capture j24_f_8k_y_270 1
+2026-11-03T03:52:32.720Z [INFO ] [t10664] ctl: j24-20261103T035232Z-2942621045: ok
+2026-11-03T03:52:35.459Z [INFO ] [t10664] ctl: j24-20261103T035235Z-1516830644: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,315.0,-25.0
+2026-11-03T03:52:35.464Z [INFO ] [t6384] camera: set #8 pos (-0.080, 59.020, 446.140) yaw 315.000 pitch -25.000 -> target (-64.166, 16.758, 510.226) on mode 3d5864b0
+2026-11-03T03:52:35.470Z [INFO ] [t10664] ctl: j24-20261103T035235Z-1516830644: ok
+2026-11-03T03:52:37.226Z [INFO ] [t10664] ctl: j24-20261103T035237Z-208764856: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:52:37.237Z [INFO ] [t10664] ctl: j24-20261103T035237Z-208764856: ok
+2026-11-03T03:52:40.846Z [INFO ] [t10664] ctl: j24-20261103T035240Z-2734630807: capture j24_f_8k_y_315 1
+2026-11-03T03:52:40.854Z [INFO ] [t10664] ctl: j24-20261103T035240Z-2734630807: ok
+2026-11-03T03:52:44.196Z [INFO ] [t10664] ctl: j24-20261103T035244Z-41614008: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,18.2,285.0,0.0,-12.0
+2026-11-03T03:52:44.198Z [INFO ] [t6384] camera: set #9 pos (-0.080, 18.200, 285.000) yaw 0.000 pitch -12.000 -> target (-0.080, -2.591, 382.815) on mode 3d5864b0
+2026-11-03T03:52:44.207Z [INFO ] [t10664] ctl: j24-20261103T035244Z-41614008: ok
+2026-11-03T03:52:45.937Z [INFO ] [t10664] ctl: j24-20261103T035245Z-1516823381: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:52:45.948Z [INFO ] [t10664] ctl: j24-20261103T035245Z-1516823381: ok
+2026-11-03T03:52:49.406Z [INFO ] [t10664] ctl: j24-20261103T035249Z-2958930318: capture j24_f_8k_p1 1
+2026-11-03T03:52:49.508Z [INFO ] [t10664] ctl: j24-20261103T035249Z-2958930318: ok
+2026-11-03T03:52:51.991Z [INFO ] [t10664] ctl: j24-20261103T035251Z-1181427463: state
+2026-11-03T03:52:51.991Z [INFO ] [t10664] ctl: j24-20261103T035251Z-1181427463: ok
+2026-11-03T03:52:54.465Z [INFO ] [t10664] ctl: j24-20261103T035254Z-2896610291: state
+2026-11-03T03:52:54.465Z [INFO ] [t10664] ctl: j24-20261103T035254Z-2896610291: ok
+2026-11-03T03:53:02.532Z [INFO ] [t10664] ctl: j24-20261103T035302Z-1747013343: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,18.2,300.0,90.0,-10.0
+2026-11-03T03:53:02.536Z [INFO ] [t6384] camera: set #10 pos (-0.080, 18.200, 300.000) yaw 90.000 pitch -10.000 -> target (98.401, 0.835, 300.000) on mode 3d5864b0
+2026-11-03T03:53:02.543Z [INFO ] [t10664] ctl: j24-20261103T035302Z-1747013343: ok
+2026-11-03T03:53:04.160Z [INFO ] [t10664] ctl: j24-20261103T035304Z-4054167: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:53:04.172Z [INFO ] [t10664] ctl: j24-20261103T035304Z-4054167: ok
+2026-11-03T03:53:07.674Z [INFO ] [t10664] ctl: j24-20261103T035307Z-241047824: capture j24_f_8k_p2 1
+2026-11-03T03:53:07.754Z [INFO ] [t10664] ctl: j24-20261103T035307Z-241047824: ok
+2026-11-03T03:53:11.494Z [INFO ] [t10664] ctl: j24-20261103T035310Z-273775577: state
+2026-11-03T03:53:11.494Z [INFO ] [t10664] ctl: j24-20261103T035310Z-273775577: ok
+2026-11-03T03:53:13.370Z [INFO ] [t10664] ctl: j24-20261103T035313Z-49223165: state
+2026-11-03T03:53:13.370Z [INFO ] [t10664] ctl: j24-20261103T035313Z-49223165: ok
+2026-11-03T03:53:22.088Z [INFO ] [t10664] ctl: j24-20261103T035322Z-1096118838: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,18.2,285.0,45.0,-12.0
+2026-11-03T03:53:22.090Z [INFO ] [t6384] camera: set #11 pos (-0.080, 18.200, 285.000) yaw 45.000 pitch -12.000 -> target (69.085, -2.591, 354.165) on mode 3d5864b0
+2026-11-03T03:53:22.098Z [INFO ] [t10664] ctl: j24-20261103T035322Z-1096118838: ok
+2026-11-03T03:53:23.958Z [INFO ] [t10664] ctl: j24-20261103T035323Z-937825571: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:53:23.970Z [INFO ] [t10664] ctl: j24-20261103T035323Z-937825571: ok
+2026-11-03T03:53:27.572Z [INFO ] [t10664] ctl: j24-20261103T035327Z-275644066: capture j24_f_8k_p3 1
+2026-11-03T03:53:27.669Z [INFO ] [t10664] ctl: j24-20261103T035327Z-275644066: ok
+2026-11-03T03:53:30.900Z [INFO ] [t10664] ctl: j24-20261103T035330Z-2232522002: state
+2026-11-03T03:53:30.900Z [INFO ] [t10664] ctl: j24-20261103T035330Z-2232522002: ok
+2026-11-03T03:53:32.771Z [INFO ] [t10664] ctl: j24-20261103T035332Z-2091626124: state
+2026-11-03T03:53:32.772Z [INFO ] [t10664] ctl: j24-20261103T035332Z-2091626124: ok
+2026-11-03T03:53:42.065Z [INFO ] [t10664] ctl: j24-20261103T035341Z-813231153: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,18.2,340.0,180.0,-12.0
+2026-11-03T03:53:42.083Z [INFO ] [t6384] camera: set #12 pos (-0.080, 18.200, 340.000) yaw 180.000 pitch -12.000 -> target (-0.080, -2.591, 242.185) on mode 3d5864b0
+2026-11-03T03:53:42.087Z [INFO ] [t10664] ctl: j24-20261103T035341Z-813231153: ok
+2026-11-03T03:53:43.957Z [INFO ] [t10664] ctl: j24-20261103T035343Z-2620417184: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:53:43.968Z [INFO ] [t10664] ctl: j24-20261103T035343Z-2620417184: ok
+2026-11-03T03:53:47.466Z [INFO ] [t10664] ctl: j24-20261103T035347Z-3191217556: capture j24_f_8k_p4 1
+2026-11-03T03:53:47.610Z [INFO ] [t10664] ctl: j24-20261103T035347Z-3191217556: ok
+2026-11-03T03:53:50.725Z [INFO ] [t10664] ctl: j24-20261103T035350Z-326165488: state
+2026-11-03T03:53:50.725Z [INFO ] [t10664] ctl: j24-20261103T035350Z-326165488: ok
+2026-11-03T03:53:52.590Z [INFO ] [t10664] ctl: j24-20261103T035352Z-303296272: state
+2026-11-03T03:53:52.590Z [INFO ] [t10664] ctl: j24-20261103T035352Z-303296272: ok
+2026-11-03T03:54:00.188Z [INFO ] [t10664] ctl: j24-20261103T035400Z-123732523: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,180.0,-25.0
+2026-11-03T03:54:00.191Z [INFO ] [t6384] camera: set #13 pos (-0.080, 59.020, 446.140) yaw 180.000 pitch -25.000 -> target (-0.080, 16.758, 355.509) on mode 3d5864b0
+2026-11-03T03:54:00.199Z [INFO ] [t10664] ctl: j24-20261103T035400Z-123732523: ok
+2026-11-03T03:54:01.581Z [INFO ] [t10664] ctl: j24-20261103T035401Z-469523354: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:54:01.593Z [INFO ] [t10664] ctl: j24-20261103T035401Z-469523354: ok
+2026-11-03T03:54:04.951Z [INFO ] [t10664] ctl: j24-20261103T035404Z-784211899: capture j24_f_8k_p5 1
+2026-11-03T03:54:04.966Z [INFO ] [t10664] ctl: j24-20261103T035404Z-784211899: ok
+2026-11-03T03:54:07.706Z [INFO ] [t10664] ctl: j24-20261103T035407Z-300883989: state
+2026-11-03T03:54:07.706Z [INFO ] [t10664] ctl: j24-20261103T035407Z-300883989: ok
+2026-11-03T03:54:09.948Z [INFO ] [t10664] ctl: j24-20261103T035409Z-2956830232: state
+2026-11-03T03:54:09.949Z [INFO ] [t10664] ctl: j24-20261103T035409Z-2956830232: ok
+2026-11-03T03:54:18.074Z [INFO ] [t10664] ctl: j24-20261103T035418Z-130207804: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.31,525.65,180.0,-20.0
+2026-11-03T03:54:18.079Z [INFO ] [t6384] camera: set #14 pos (-0.080, 59.310, 525.650) yaw 180.000 pitch -20.000 -> target (-0.080, 25.108, 431.681) on mode 3d5864b0
+2026-11-03T03:54:18.085Z [INFO ] [t10664] ctl: j24-20261103T035418Z-130207804: ok
+2026-11-03T03:54:20.101Z [INFO ] [t10664] ctl: j24-20261103T035419Z-18849402: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-03T03:54:20.112Z [INFO ] [t10664] ctl: j24-20261103T035419Z-18849402: ok
+2026-11-03T03:54:23.851Z [INFO ] [t10664] ctl: j24-20261103T035423Z-2817419647: capture j24_f_8k_p6 1
+2026-11-03T03:54:23.871Z [INFO ] [t10664] ctl: j24-20261103T035423Z-2817419647: ok
+2026-11-03T03:54:26.118Z [INFO ] [t10664] ctl: j24-20261103T035425Z-2893127657: state
+2026-11-03T03:54:26.118Z [INFO ] [t10664] ctl: j24-20261103T035425Z-2893127657: ok
+2026-11-03T03:54:28.368Z [INFO ] [t10664] ctl: j24-20261103T035428Z-2439311958: state
+2026-11-03T03:54:28.368Z [INFO ] [t10664] ctl: j24-20261103T035428Z-2439311958: ok
+2026-11-03T03:54:35.626Z [INFO ] [t10664] ctl: j24-20261103T035435Z-3165812635: perf 10
+2026-11-03T03:54:45.628Z [INFO ] [t10664] ctl: j24-20261103T035435Z-3165812635: ok
+2026-11-03T03:54:51.991Z [INFO ] [t10664] ctl: j24-20261103T035451Z-1813181: state
+2026-11-03T03:54:51.991Z [INFO ] [t10664] ctl: j24-20261103T035451Z-1813181: ok
+2026-11-03T03:54:53.621Z [INFO ] [t10664] ctl: j24-20261103T035453Z-44876314: reset battle:siege_small 240
+2026-11-03T03:54:53.621Z [INFO ] [t6384] scene: battle_deploy -> loading after 206.8 s (uptime 220.2 s, frame 104550, lua battle)
+2026-11-03T03:54:53.663Z [INFO ] [t10664] reset: step 1: battle: ExitBattle
+2026-11-03T03:54:53.672Z [INFO ] [t6384] scene: battle probe naval=0 deploy_panel=-1
+2026-11-03T03:54:54.284Z [INFO ] [t10664] reset: step 2: battle: summary dismissed (DismissBattleResult)
+2026-11-03T03:54:54.801Z [INFO ] [t10664] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)
+2026-11-03T03:54:55.058Z [INFO ] [t6384] luaopen_wsp: engine lua_State 3e084cc0, global state 3e0744fc (thread 6384) (again)
+2026-11-03T03:54:55.058Z [INFO ] [t6384] lua: wsp.lua loaded (wsp 1)
+2026-11-03T03:54:55.061Z [INFO ] [t6384] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-11-03T03:54:55.155Z [INFO ] [t6384] lua: wrapper: frontend pumps from OnUpdate
+2026-11-03T03:54:55.308Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-11-03T03:54:55.308Z [INFO ] [t6384] lua report: battle.map_folder_ms = 212203
+2026-11-03T03:54:55.309Z [INFO ] [t6384] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-03T03:54:55.467Z [INFO ] [t6384] lua: wrapper: frontend pumps from OnUpdate
+2026-11-03T03:54:55.471Z [INFO ] [t6384] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok
+2026-11-03T03:54:55.534Z [INFO ] [t6384] timeline: movie_open +222680 ms movies\frontend2.bik
+2026-11-03T03:54:55.536Z [INFO ] [t6384] movies: BinkOpen movies\frontend2.bik [handle 00000780 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 4e19ed40
+2026-11-03T03:54:55.536Z [INFO ] [t6384] scene: loading -> frontend after 1.9 s (uptime 222.1 s, frame 105124, lua frontend)
+2026-11-03T03:54:55.543Z [INFO ] [t6384] timeline: first_present_after_ready +222689 ms frontend
+2026-11-03T03:55:00.309Z [INFO ] [t10664] timeline: autostart_issued +227455 ms battle:siege_small
+2026-11-03T03:55:00.318Z [INFO ] [t6384] lua report: battle.map_folder = rti_fort_3
+2026-11-03T03:55:00.318Z [INFO ] [t6384] lua report: battle.map_folder_ms = 217219
+2026-11-03T03:55:00.322Z [INFO ] [t6384] lua report: battle.map_folder = ottoman_great_fortress
+2026-11-03T03:55:00.324Z [INFO ] [t6384] lua report: battle.map_folder = ottoman_artillery_fort
+2026-11-03T03:55:00.326Z [INFO ] [t6384] lua report: battle.map_folder = rti_fort_9
+2026-11-03T03:55:00.329Z [INFO ] [t6384] lua report: battle.map_folder = rti_fort_2
+2026-11-03T03:55:00.331Z [INFO ] [t6384] lua report: battle.map_folder = rti_fort_1
+2026-11-03T03:55:00.333Z [INFO ] [t6384] lua report: autostart.map = rti_fort_1
+2026-11-03T03:55:00.333Z [INFO ] [t6384] lua report: autostart.map_folder = rti_fort_1
+2026-11-03T03:55:00.352Z [INFO ] [t10664] autostart: lua ok: started battle rti_fort_1 (siege, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2
+2026-11-03T03:55:00.352Z [INFO ] [t10664] scene: frontend -> loading after 4.8 s (uptime 226.9 s, frame 116151, lua frontend)
+2026-11-03T03:55:00.353Z [INFO ] [t6384] movies: BinkClose movies\frontend2.bik
+2026-11-03T03:55:00.353Z [INFO ] [t6384] timeline: movie_close +227499 ms movies\frontend2.bik
+2026-11-03T03:55:00.970Z [INFO ] [t6384] lua report: battle.map_folder = rti_fort_1
+2026-11-03T03:55:00.970Z [INFO ] [t6384] lua report: battle.map_folder_ms = 610
+2026-11-03T03:55:03.690Z [INFO ] [t6384] luaopen_wsp: engine lua_State 3e0ad360, global state 3e0743a4 (thread 6384) (again)
+2026-11-03T03:55:03.690Z [INFO ] [t6384] lua: wsp.lua loaded (wsp 1)
+2026-11-03T03:55:03.697Z [INFO ] [t6384] lua: wrapper: battle pumps from OnUpdate
+2026-11-03T03:55:03.697Z [INFO ] [t6384] lua: wrapper: battle pumps from OnUpdatePulse
+2026-11-03T03:55:05.582Z [INFO ] [t6384] scene: loading -> battle after 5.2 s (uptime 232.1 s, frame 116588, lua battle)
+2026-11-03T03:55:05.583Z [INFO ] [t6384] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-11-03T03:55:05.583Z [INFO ] [t6384] scene: battle probe naval=0 deploy_panel=0
+2026-11-03T03:55:05.620Z [INFO ] [t6384] timeline: first_present_after_ready +232766 ms battle
+2026-11-03T03:55:05.646Z [INFO ] [t6384] scene: battle probe naval=0 deploy_panel=1
+2026-11-03T03:55:05.646Z [INFO ] [t6384] scene: battle -> battle_deploy after 0.1 s (uptime 232.2 s, frame 116592, lua battle)
+2026-11-03T03:55:05.650Z [INFO ] [t6384] timeline: first_present_after_ready +232796 ms battle_deploy
+2026-11-03T03:55:06.618Z [INFO ] [t10664] reset: battle_deploy -> battle: ok (address space 1866 -> 1886 MB, commit 1237 -> 1264 MB)
+2026-11-03T03:55:06.618Z [INFO ] [t10664] ctl: j24-20261103T035453Z-44876314: ok
+2026-11-03T03:55:07.739Z [INFO ] [t10664] ctl: j24-20261103T035507Z-291116503: state
+2026-11-03T03:55:07.739Z [INFO ] [t10664] ctl: j24-20261103T035507Z-291116503: ok
+2026-11-03T03:55:09.888Z [INFO ] [t10664] ctl: j24-20261103T035509Z-3144926039: state
+2026-11-03T03:55:09.888Z [INFO ] [t10664] ctl: j24-20261103T035509Z-3144926039: ok
+2026-11-03T03:55:13.880Z [INFO ] [t10664] ctl: j24-20261103T035513Z-91699417: capture j24_f_8k_s1 1
+2026-11-03T03:55:13.899Z [INFO ] [t10664] ctl: j24-20261103T035513Z-91699417: ok
+2026-11-03T03:55:16.273Z [INFO ] [t10664] ctl: j24-20261103T035516Z-226516115: state
+2026-11-03T03:55:16.273Z [INFO ] [t10664] ctl: j24-20261103T035516Z-226516115: ok
+2026-11-03T03:55:19.270Z [INFO ] [t10664] ctl: j24-20261103T035519Z-1914515833: state
+2026-11-03T03:55:19.270Z [INFO ] [t10664] ctl: j24-20261103T035519Z-1914515833: ok
