@@ -1,0 +1,11 @@
+{
+  "id": "uiscale.core.licences",
+  "kind": "script",
+  "path": "uiscale/core/licences.py",
+  "purpose": "read the licence facts of a TrueType face from its own name table (family, version, copyright, licence, licence URL, reserved font names) and check a font_licences.json: every row has every field, the pinned sha256 of the TTF (when the face is present) and of the licence text match the files",
+  "usage": "python3 uiscale/core/licences.py read <face.ttf>   |   python3 uiscale/core/licences.py check [--data uiscale/napoleon/font_licences.json]   (also `python3 core/wsc.py uiscale licences [--check]`)",
+  "when": "before a release build (J38's LICENSES.txt generator reads the json), after a face or licence change; the tests gate runs the check through tests/test_uiscale_engine_text.py",
+  "not_a_verb": "a small library and CLI behind `wsc uiscale licences`, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-03"
+}

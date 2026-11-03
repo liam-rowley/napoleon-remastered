@@ -1,0 +1,32 @@
+{
+ "note": "Licence record of the font components in the UI scale fonts packs (J37, for J38's LICENSES.txt generator). Read from the face's own name table and from the licence file (python3 uiscale/core/licences.py read <ttf>), not from Empire's notes. Checked by python3 uiscale/core/licences.py check. Not legal advice: it records what the files say, for a human to check.",
+ "fonts": [
+  {
+   "component": "Lora (variable, wght 400-700), the face every re-rendered .cuf in ui_scale_<f>x_fonts.pack is drawn from",
+   "family": "Lora",
+   "version": "Version 3.008",
+   "licence": "SIL Open Font License, Version 1.1",
+   "spdx": "OFL-1.1",
+   "copyright": "Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic), with Reserved Font Name \"Lora\".",
+   "reserved_font_name": "Lora",
+   "rfn_meaning": "OFL section 3: a Modified Version may not use the Reserved Font Name as its primary font name. The .cuf files are bitmaps rendered from Lora and carry no font name (the CUF0 header has none), and no pack entry or file is named Lora; the release may say 'rendered from Lora' as attribution, with the OFL text alongside.",
+   "source_url": "https://github.com/cyrealtype/Lora-Cyrillic",
+   "source_url_note": "the upstream project named in the face's copyright string; the exact download URL of the pinned file is J68's (vendoring, blocked on Liam), and is not fetched here",
+   "face_file": "uiscale/fonts/Lora-Variable.ttf",
+   "face_sha256": "822a6621ccbe8d97d20ac88c1c41f5615c9c2c202eaa75f272cd452aac6475a7",
+   "face_bytes": 212196,
+   "face_sha256_note": "sha256 of the file the J66 build reads today (config.json font_faces, the empire-remastered clone copy, read in place); the vendored copy (J68) must match it",
+   "licence_file": "uiscale/fonts/OFL.txt",
+   "licence_sha256": "76462b764a6cba759d0f1e065b9cbd5e29d5a73231d67335348d8a1881faca8e",
+   "date_checked": "2026-11-03",
+   "shipped": "rendered output only: the .cuf files in ui_scale_<f>x_fonts.pack; the TTF itself is not in any pack (fetched or vendored for the build); OFL.txt ships with the release"
+  }
+ ],
+ "build_tools": [
+  {"component": "FreeType 2.13.2 (through freetype-py 2.5.1)", "licence": "FreeType License or GPL-2.0", "spdx": "FTL OR GPL-2.0-or-later",
+   "shipped": "no: used at build time to rasterise the glyphs; only its output ships"},
+  {"component": "HarfBuzz (through uharfbuzz 0.56.4, D42)", "licence": "MIT (Old MIT)", "spdx": "MIT-Modern-Variant",
+   "shipped": "no: used at build time for pair kerning; only its output ships"}
+ ],
+ "never_shipped": "The Creative Assembly's vanilla .cuf fonts (font\\*.cuf in the game's packs): never committed and never in a pack; the slot check (uiscale check-fonts) refuses a pack file byte-identical to one."
+}

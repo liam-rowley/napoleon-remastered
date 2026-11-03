@@ -1,0 +1,11 @@
+{
+  "id": "uiscale.napoleon.engine_text",
+  "kind": "script",
+  "path": "uiscale/napoleon/engine_text.py",
+  "purpose": "generate uiscale/napoleon/engine_text.json from the UI atlas (discovery/ui/engine_drawn.json and the per-context surfaces), the font model and engine-text rows (uiscale/napoleon/font_slots.json) and the scaler's slot rule; each item gets the vanilla font file and the file at each factor, and a state: covered_by_j66, built_here, vanilla_left (with a reason), art_not_text or open",
+  "usage": "python3 uiscale/napoleon/engine_text.py [--check] [--out uiscale/napoleon/engine_text.json]   (also `python3 core/wsc.py uiscale engine-text [--check]`)",
+  "when": "after a change to the atlas, font_slots.json or the scaler's slot rule; the tests gate runs --check (re-runs are byte-identical)",
+  "not_a_verb": "a generator behind `wsc uiscale engine-text` (tools/verbs/uiscale.py), not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-03"
+}

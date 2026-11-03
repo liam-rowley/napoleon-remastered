@@ -1,0 +1,239 @@
+{
+ "factors": [
+  "2"
+ ],
+ "generator": "uiscale/napoleon/engine_text.py",
+ "items": [
+  {
+   "context": "battle",
+   "id": "banner.land",
+   "opened_by": [
+    "Component.CreateFromLayout(\"ui\\battle ui\\lb_unit_id\") in battle ui/3d_component_manager.luac AddLandID"
+   ],
+   "reason": "no text-bearing state: the layout draws art only (its art is scaled with the layouts)",
+   "row": "engine.battle_unit_banners",
+   "source": "layout battle ui/lb_unit_id",
+   "state": "art_not_text",
+   "text_states": 0
+  },
+  {
+   "context": "battle",
+   "id": "banner.naval",
+   "opened_by": [
+    "Component.CreateFromLayout(\"ui\\battle ui\\nb_unit_id\") in battle ui/3d_component_manager.luac AddNavalID"
+   ],
+   "reason": "no text-bearing state: the layout draws art only (its art is scaled with the layouts)",
+   "row": "engine.battle_unit_banners",
+   "source": "layout battle ui/nb_unit_id",
+   "state": "art_not_text",
+   "text_states": 0
+  },
+  {
+   "context": "battle",
+   "id": "banner.hud_flags",
+   "opened_by": [],
+   "reason": "no text-bearing state: the layout draws art only (its art is scaled with the layouts)",
+   "row": "engine.battle_unit_banners",
+   "source": "layout battle ui/battle_hud_flags",
+   "state": "art_not_text",
+   "text_states": 0
+  },
+  {
+   "context": "campaign",
+   "fonts": {
+    "Ingame 12, Normal": {
+     "at": {
+      "2": {
+       "file": "ingame_24.cuf",
+       "name": "Ingame 24, Normal"
+      }
+     },
+     "vanilla_file": "ingame_12.cuf"
+    }
+   },
+   "id": "campaign.city_info_bar",
+   "opened_by": [
+    "Component.CreateFromLayout(\"data/ui/Campaign UI/city_info_bar\") in labels.luac UpdateEntityLabels"
+   ],
+   "reason": "a scaled layout: its text states take the scaler's slot at the factor (J66 fonts pack)",
+   "row": "engine.campaign_map_labels",
+   "source": "layout campaign ui/city_info_bar",
+   "state": "covered_by_j66",
+   "text_components": [
+    "root/city_info_bar/info_bar/info_bar_holder/text_gold",
+    "root/city_info_bar/info_bar/info_bar_holder/text_pop_growth",
+    "root/city_info_bar/name_bar"
+   ],
+   "text_states": 3
+  },
+  {
+   "context": "campaign",
+   "id": "campaign.faction_hud_flags",
+   "opened_by": [
+    "named as a string in campaign ui/layout_scripts/campaign_hud.luac (static, not a call)"
+   ],
+   "reason": "no text-bearing state: the layout draws art only (its art is scaled with the layouts)",
+   "row": "engine.campaign_map_labels",
+   "source": "layout campaign ui/faction_hud_flags",
+   "state": "art_not_text",
+   "text_states": 0
+  },
+  {
+   "at": {
+    "2": {
+     "frontend_22.cuf": "render"
+    }
+   },
+   "files": [
+    "frontend_22.cuf"
+   ],
+   "id": "engine.ribbon_text",
+   "note": "candidate: map region and sea names drawn along ribbons; which text it is, is a PC question",
+   "proof": "pc",
+   "reason": "rendered at the install factor into the file the exe opens",
+   "row": "engine.campaign_map_labels",
+   "source": "exe 0x1215a20 GetFont(\"Frontend\", 22) for the ribbon.fx renderer",
+   "state": "built_here"
+  },
+  {
+   "at": {
+    "2": {
+     "frontend_22.cuf": "render"
+    }
+   },
+   "files": [
+    "frontend_22.cuf"
+   ],
+   "id": "engine.overlay_text_style",
+   "note": "candidate: the front-end version string and other engine overlay text",
+   "proof": "pc",
+   "reason": "rendered at the install factor into the file the exe opens",
+   "row": null,
+   "source": "exe 0xdae510 GetFont(\"Frontend\", 22): a text style built in the MVC Create UIs step",
+   "state": "built_here"
+  },
+  {
+   "at": {
+    "2": {
+     "frontend_10.cuf": "render",
+     "frontend_12.cuf": "render",
+     "frontend_14.cuf": "render",
+     "frontend_16.cuf": "render",
+     "frontend_18.cuf": "render",
+     "frontend_20.cuf": "render"
+    }
+   },
+   "files": [
+    "frontend_20.cuf",
+    "frontend_18.cuf",
+    "frontend_16.cuf",
+    "frontend_14.cuf",
+    "frontend_12.cuf",
+    "frontend_10.cuf"
+   ],
+   "id": "engine.loading_screen.quote",
+   "note": "no scenario in the library shows a loading screen to the shot verbs; proved by the file survey (which file the loop keeps)",
+   "proof": "static_only",
+   "reason": "rendered at the install factor into the file the exe opens",
+   "row": "engine.loading_screen",
+   "source": "exe 0x110d859 fit loop: the first file whose text fits the box",
+   "state": "built_here"
+  },
+  {
+   "id": "engine.loading_screen.heading",
+   "reason": "text drawn as art: the loading-screen art role (J36, J53), not fonts",
+   "row": "engine.loading_screen",
+   "source": "art ui/frontend ui/loadingscreen/loading_screen_heading.tga",
+   "state": "art_not_text"
+  },
+  {
+   "id": "engine.subtitles",
+   "proof": "static_only",
+   "reason": "no GetFont site with a subtitle string: the font is most likely a list slot by id; needs the file survey with a movie and subtitles on",
+   "row": "engine.subtitles",
+   "source": "unknown",
+   "state": "open"
+  },
+  {
+   "id": "engine.credits",
+   "proof": "static_only",
+   "reason": "text/credits.xml string fontsize attribute (data); reaches GetFont with the 6..32 rule if traced; credits stop the front-end pump, so no shot",
+   "row": null,
+   "source": "unknown",
+   "state": "open"
+  },
+  {
+   "files": [
+    "console_12.cuf",
+    "ingame_16.cuf",
+    "editor_12.cuf"
+   ],
+   "id": "engine.dev_text",
+   "note": "developer text, not player UI",
+   "proof": "static_only",
+   "reason": "developer text (console, render statistics, editor): not player UI",
+   "row": null,
+   "source": "exe 0xe33450 console, 0x1197430 render statistics, 0x117fb10 editor gadgets",
+   "state": "vanilla_left"
+  }
+ ],
+ "model": "uiscale/runs/2026-11-03_j37_static/README.md",
+ "plans": {
+  "2": {
+   "alias": {
+    "frontend_32.cuf": {
+     "items": [
+      "layouts naming Frontend 38, Normal"
+     ],
+     "of": "frontend_38.cuf"
+    }
+   },
+   "render": {
+    "frontend_10.cuf": {
+     "factor": 2.0,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_12.cuf": {
+     "factor": 2.0,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_14.cuf": {
+     "factor": 2.0,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_16.cuf": {
+     "factor": 2.0,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_18.cuf": {
+     "factor": 2.0,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_20.cuf": {
+     "factor": 2.0,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_22.cuf": {
+     "factor": 2.0,
+     "items": [
+      "engine.overlay_text_style",
+      "engine.ribbon_text"
+     ]
+    }
+   },
+   "skipped": {}
+  }
+ }
+}
