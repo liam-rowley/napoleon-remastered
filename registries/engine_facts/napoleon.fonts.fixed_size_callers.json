@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.fixed_size_callers",
+  "claim": "Outside the 19-name preload, the exe asks GetFont for fixed sizes at five sites: Frontend 22 twice (a text style built in the MVC Create UIs step, 0xdae510; the ribbon.fx text renderer, 0x1215a20), the dev console (console 12, frontend 12 and 16), the render-statistics overlay (ingame 16) and the editor gadgets (editor 12)",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-03_j37_static/README.md",
+  "date": "2026-11-03",
+  "notes": "static RE (run 2026-11-03_j37_static), a scan of every [reg+0x220] load next to a family-string push; which on-screen text each Frontend 22 site draws (version string, map region names) is a PC question"
+}
