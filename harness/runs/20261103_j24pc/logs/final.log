@@ -1,0 +1,27 @@
+pc_deploy send: kit_20261103T063744Z_6bab276b0030 -> C:\napoleon_remastered_pc\kits\kit_20261103T063744Z_6bab276b0030 (49 files, sha256 checked)
+pc_deploy install: kit kit_20261103T063744Z_6bab276b0030 installed (build 6bab276b0030)
+== idle 06:38:44Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 shadow_near_scale=0 
+acceptance: launch keys applied before pass 1: dev.camera, dev.ctl, dev.file_rules, dev.lua_bridge, dev.orders, dev.perf, dev.skip_intro, dev.state_json, dev.timeline
+acceptance pass 1: pass (harness/runs/20261103_j24idle/pass_01.json)
+== acceptance 06:46:41Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+shadow_crop_keep=0 shadow_extrusion=1 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=1 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+acceptance pass 6: pass (harness/runs/20261103_j24acc/pass_06.json)
+acceptance pass 7: pass (harness/runs/20261103_j24acc/pass_07.json)
+acceptance pass 8: pass (harness/runs/20261103_j24acc/pass_08.json)
+acceptance pass 9: pass (harness/runs/20261103_j24acc/pass_09.json)
+acceptance pass 10: FAIL (harness/runs/20261103_j24acc/pass_10.json)
+acceptance: stopped at the first failure: hist_nile:scene: {'ok': False, 'reason': 'RuntimeError: step launch: exit 1: [launch job j24-20261103T080401Z-2544030747 owner=j24 headless 1920x1080]\nrunning: Napoleon.exe pid 35768\nheadless status: starting DllMain\n\n[watcher] failed: HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)\n[job j24-20261103T080401Z-2544030747: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]\n'}
+== perf control 08:04:11Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 shadow_near_scale=0 
+2026-11-03T08:35:25Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-03T08:35:25Z summary: 18 cell keys, 0 refused cells -> C:\Users\liamr\AppData\Local\Temp\claude\C--Users-liamr-repos\7463a92f-8bda-4a7f-a9ae-7f4b6fbe7a80\scratchpad\nap-J24\harness\runs\20261103_j24rel_ctl\summary.json
+== perf release 08:35:25Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+shadow_crop_keep=0 shadow_extrusion=1 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=1 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+2026-11-03T09:07:00Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-03T09:07:00Z summary: 18 cell keys, 0 refused cells -> C:\Users\liamr\AppData\Local\Temp\claude\C--Users-liamr-repos\7463a92f-8bda-4a7f-a9ae-7f4b6fbe7a80\scratchpad\nap-J24\harness\runs\20261103_j24rel\summary.json
+== final end 09:07:00Z
