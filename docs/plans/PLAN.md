@@ -185,10 +185,11 @@ OFL, …); versioned releases with generated release notes.
 4. **J30 brief** (2026-11-01): amend it before it starts so the RmlUi render interface sits behind a backend seam (core backlog
    B36), the cheapest point to buy the D3D11 option Shogun 2 needs; or leave J30 as briefed and pay for the seam later.
 5. The section 7 candidates: each needs a dated decision with its own kill criterion (D14), or a dated no.
-6. **Moonshots** (2026-11-02, `docs/plans/MOONSHOTS_2026-11-01.md`). Four drafted decision lines wait in the record's "Roadmap
-   integration": D47 (the AI track, gym first), D48 (unattended AI runs as watcher jobs with a daily lock budget and a crash-rate kill),
-   D49 (narrowing section 2's lighting exclusion to a bounded post track with a GPU budget per pass), D50 (ray tracing stays out pending
-   J71; J71 answered no: fact `napoleon.vulkan.rt_32bit` refuted 2026-11-03, driver 617.14, run `harness/runs/20261103_j71pc`). Sign, edit or decline each; the AI track is the one the record recommends first, and its substrate rows (seven, Opus-heavy)
+6. **Moonshots** (2026-11-02, `docs/plans/MOONSHOTS_2026-11-01.md`). Three drafted decision lines wait in the record's "Roadmap
+   integration" (its D47-D49 placeholders; each takes the next free number when signed): the AI track, gym first; unattended AI runs as
+   watcher jobs with a daily lock budget and a crash-rate kill; narrowing section 2's lighting exclusion to a bounded post track with a GPU
+   budget per pass. The record's fourth draft (its D50, ray tracing) is signed as **D47** (2026-11-03): J71 answered no (fact
+   `napoleon.vulkan.rt_32bit` refuted, driver 617.14, run `harness/runs/20261103_j71pc`), so ray tracing is deferred indefinitely. Sign, edit or decline each; the AI track is the one the record recommends first, and its substrate rows (seven, Opus-heavy)
    are the next `plan/` branch once D47 exists. Two things the decisions need settled first: a `phase` for out-of-D1 work (the jobs
    schema allows 1-6 today; the record proposes 7), and whether the lighting track gets its own `perf/budgets.md` line against J23's
    proposed 2.5 ms reserve.
@@ -210,7 +211,7 @@ jobs on machinery that exists; the kill criterion is the proposal for its decisi
 
 **Moonshots** (research record `docs/plans/MOONSHOTS_2026-11-01.md`: evidence, prior art, costs, and for each a drafted decision line
 and job rows in build order). Larger than one or two jobs each; the record's "Roadmap integration" section is what a decision would
-sign. The two measurements that change no scope are queued: J71 and J72.
+sign. The two measurements that change no scope: J71 (done 2026-11-03: no, D47) and J72 (the effects diff).
 
 | Candidate | Verdict in the record | Mechanism (exists) | Gate or kill criterion |
 |---|---|---|---|
