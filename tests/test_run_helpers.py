@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+HAVE_PIL = importlib.util.find_spec('PIL') is not None
 
 
 def load(name):
@@ -32,6 +33,7 @@ class ShotSheet(unittest.TestCase):
         self.assertEqual((x0, y0, x1 - x0), (640, 540, 640))
         self.assertAlmostEqual((x1 - x0) / (y1 - y0), sheet.W / sheet.H, places=2)
 
+    @unittest.skipUnless(HAVE_PIL, 'Pillow is not installed here (CI runners have none; shot_sheet.py imports it only to draw)')
     def test_build_marks_missing_cells(self):
         from PIL import Image
         with tempfile.TemporaryDirectory() as t:
