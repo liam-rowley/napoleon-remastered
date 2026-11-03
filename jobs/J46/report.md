@@ -27,7 +27,7 @@ report file, so the parent writes it. Same Claude-Session as the build.
   the profile's unlock state: on this PC only NHB_Lodi is unlocked, NHB_Friedland and NHB_Waterloo_Well are `locked_land_dlc`, the other nine are
   `inactive`. Cheap enough, so `autostart.lua` got `type=napoleon` (SelectMap on the icon, then `movie_panel:SetupBattle`, which calls
   `FrontEnd.StartBattle`; a locked icon is refused) and the row `hist_lodi` (terrain hb_lodi). Austerlitz and Trafalgar single-player stay
-  unreachable until the profile unlocks them. Fact `napoleon.autostart.historical` rewritten (verified).
+  unreachable until the profile unlocks them. Fact `napoleon.autostart.historical` rewritten (verified 2026-11-02, run 20261102_j46pc).
 - **naval_storm** (deliverable 4): load 3.5 s, poses stored, deterministic (diff 4.5 against threshold 9.0), in the acceptance order.
 - **Campaign mid and late**: not built. Fact `napoleon.campaign.end_turn_time`: one end turn from the J14 base took 127 s (about 40 s more for
   launch and load). A third of the campaign is hours, past the 90 minute limit. Rows wait for two saves from a real playthrough.
