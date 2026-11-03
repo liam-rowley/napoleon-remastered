@@ -79,7 +79,10 @@ class PlayerIni(unittest.TestCase):
     def test_lists_only_player_keys(self):
         ini = br.player_ini(KEYS, REL, IDENT)
         names = [l.split('=')[0] for l in ini.splitlines() if '=' in l and not l.startswith(';')]
-        self.assertEqual(names, ['backend', 'dxvk_path', 'enabled', 'log_level', 'minidump', 'runtime_patches'])
+        self.assertEqual(names, ['shadow_extrusion', 'shadow_height_cutoff', 'shadow_map_large',
+                                 'backend', 'dxvk_path', 'enabled', 'log_level', 'minidump', 'runtime_patches'])
+        self.assertIn('[gfx]', ini)
+        self.assertNotIn('shadow_focus=', ini)                                         # a gfx key not in keep_ids stays omitted
         for omitted in ('exe_guard', 'capture_dir', 'autostart', 'enabled=0'):
             self.assertNotIn(omitted + '=', ini.replace('enabled=1', ''))
         self.assertIn('minidump=2', ini)
@@ -121,6 +124,7 @@ class ReleaseValues(unittest.TestCase):
         self.assertTrue(with_('proxy.exe_guard_force_mismatch', release_value=1))     # forced mismatch on
         self.assertTrue(with_('proxy.minidump', release_value=1))
         self.assertTrue(with_('dev.ctl', default=True))                               # omitted key whose DLL default differs from the release value
+        self.assertTrue(with_('gfx.shadow_focus', release_value=True))                # the same for a gfx key not in keep_ids (J24)
         self.assertEqual(with_('proxy.log_level', release_value='info'), [])
 
     def test_every_dev_key_is_off_or_inert(self):
