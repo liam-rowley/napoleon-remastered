@@ -2,6 +2,10 @@
 // identity.json and the registries: generated/tables.h) and the dev side's game specifics (J3, below).
 #include "generated/tables.h"
 #include "generated/console_table.h"
+#include "gesture_rules.h"   // J29: the gesture layer's Napoleon rules (pure; host-tested by tests/cpp/test_gesture_napoleon.cpp)
+#ifdef _WIN32
+#include "dev.h"             // the DLL build: the core's drivers (the core's host tests include this file natively, without them)
+#endif
 
 namespace wsp {
 namespace {
@@ -56,13 +60,43 @@ const OrdersAdapter kOrders = {
     "battle.ground_project",
     "battle.selection_dispatch_b", 12,         // add ecx, 0x454  (the dispatcher's this: a cell holding the battle)
     "battle.selection_command" };              // dispatcher(sel*, cmd, float, flag): halt, formation toggles (codes in ctl/orders.lua's route)
+// The gesture layer (J29 over warscape-core W6, docs/PROXY_GESTURES.md): Napoleon's rules are gesture_rules.h; here they meet the
+// drivers. Only the DLL build (mingw, _WIN32) wires them: the core's host tests compile this file natively (#include "adapter.cpp"),
+// where OrdersSelection and the other drivers do not exist, so there the game has no GestureAdapter (nullptr, the core's "none").
+#ifdef _WIN32
+GestureScene GestScene(std::string& why) { return nap::SceneOf(DevSceneNow(), why); }
+bool GestCamera(GestureCam& c, std::string& why) {   // the mode's own pose: napoleon.battle.camera_route
+    float p[3] = {}, t[3] = {};
+    if (!CameraRead(nap::kCamPosOff, nap::kCamTargetOff, p, t, why)) return false;
+    for (int i = 0; i < 3; ++i) { c.pos[i] = p[i]; c.target[i] = t[i]; }
+    c.fovYDeg = nap::kFovYDeg;
+    return true;
+}
+bool GestGround(double x, double z, double& y) {   // the projector the move order uses (engine or Present thread: one thread here)
+    float fy = 0; std::string why;
+    if (!OrdersGroundAt((float)x, (float)z, fy, why)) return false;
+    y = fy; return true;
+}
+bool GestSelection(std::vector<GestureUnitIn>& units, std::string& why) {
+    return nap::Selection([](std::vector<uint32_t>& loose, int& groups, std::string& w) { return OrdersSelection(loose, groups, w); },
+                          [](uint32_t unit, UnitState& s, std::string& w) { return OrdersUnit(unit, s, w); }, units, why);
+}
+int GestCommit(const GestureOrderOut* o, size_t n, std::string& why) {   // Present = the engine thread (napoleon.battle.order_threads)
+    return nap::Commit(o, n, [](uint32_t unit, const MoveArgs& a, std::string& info, std::string& w) { return OrdersMove(unit, a, info, w); }, why);
+}
+const GestureAdapter kGesture = { GestScene, GestCamera, GestGround, GestSelection, nap::Placeable, GestCommit, nap::kDragPx, nap::kShortDragM,
+                                  nap::kMoveMods, nap::kRotateMods, nap::kPivotFwdM, nap::kRotGain, nap::kRotSign };
+const GestureAdapter* const kGesturePtr = &kGesture;
+#else
+const GestureAdapter* const kGesturePtr = nullptr;
+#endif
 const DevAdapter kDev = { kIntroMovies, kFrontendMovies, kLuaRules, "napoleon_remastered\\lua\\", "data\\battleterrain\\presets\\", "data\\*.pack" };
 }
 
 const GameAdapter& Adapter() {
     static const GameAdapter a = { gen::kGameName, gen::kConfigFile, gen::kModDir, gen::kInstanceMutex, gen::kIdentity,
                                    gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole, &kCamera, &kOrders,
-                                   nullptr };   // W6 gesture: J29 step 2
+                                   kGesturePtr };
     return a;
 }
 

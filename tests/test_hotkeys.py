@@ -96,6 +96,14 @@ class ClashRules(unittest.TestCase):
         self.assertEqual(problems([a, b], known_clash=[('a', 'b', 'r')]), [])
         self.assertIn('stale', problems([a, row('b', 'L', 'campaign')], known_clash=[('a', 'b', 'r')])[0])
 
+    def test_mouse_bindings(self):   # J29
+        self.assertTrue(hk.is_mouse('Alt+LeftDrag'))
+        self.assertTrue(hk.is_mouse('ctrl+alt+leftdrag'))
+        self.assertFalse(hk.is_mouse('Alt+Left'))
+        self.assertFalse(hk.os_combo('Alt+LeftDrag'))
+        self.assertEqual(hk.find_problems(via_folder([row('a', 'Alt+LeftDrag', 'battle_land'), row('b', 'Alt+F', 'battle_land')])), [])
+        self.assertTrue(hk.find_problems(via_folder([row('a', 'Alt+LeftDrag', 'battle_land'), row('b', 'Alt+LeftDrag', 'battle')])))
+
     def test_free_keys_skip_clashes_f4_and_os_combos(self):
         free = hk.free_keys([row('v', 'K', 'battle'), wild('e', 'Escape', 'ANY', 'global')], contexts=('battle', 'campaign'))
         self.assertNotIn('K', free['battle'])
@@ -203,6 +211,30 @@ class RealRegistry(unittest.TestCase):
     def test_vanilla_alt_rows_are_listed_for_the_gesture(self):
         alt = sorted(r['binding'] for r in self.rows if r['source'] == 'vanilla' and hk.split(r['binding'])[0] == ['Alt'])
         self.assertEqual(alt, sorted(['Alt+S', 'Alt+M'] + [f'Alt+{n}' for n in range(1, 10)] + [f'Alt+{n}' for n in range(1, 5)]))
+
+    def test_gesture_rows_are_alt_mouse_bindings_and_no_os_combo(self):   # J29 deliverable 5: the Alt+F4 guard of phase 4
+        rows = {r['id']: r for r in self.rows}
+        self.assertEqual(rows['mod.gesture.move']['binding'], 'Alt+LeftDrag')
+        self.assertEqual(rows['mod.gesture.rotate']['binding'], 'Ctrl+Alt+LeftDrag')
+        for rid in ('mod.gesture.move', 'mod.gesture.rotate'):
+            r = rows[rid]
+            self.assertEqual((r['context'], r['source']), ('battle_land', 'mod'))
+            self.assertTrue(hk.is_mouse(r['binding']), rid)
+            mods, key = hk.split(r['binding'])
+            self.assertIn('Alt', mods)
+            self.assertNotEqual(key, 'F4')
+            self.assertFalse(hk.os_combo(r['binding']), rid)
+            self.assertNotIn(key.lower(), {b.split('+')[-1].lower() for b in hk.OS_COMBOS})
+
+    def test_gesture_rows_match_the_adapter_modifier_sets(self):   # the bindings are data in proxy/napoleon/gesture_rules.h
+        src = (ROOT / 'proxy' / 'napoleon' / 'gesture_rules.h').read_text(encoding='utf-8')
+        self.assertIn('const unsigned kMoveMods = kModAlt;', src)
+        self.assertIn('const unsigned kRotateMods = kModAlt | kModCtrl;', src)
+        bits = {'Alt': 'kModAlt', 'Ctrl': 'kModCtrl', 'Shift': 'kModShift'}
+        rows = {r['id']: r for r in self.rows}
+        self.assertEqual(' | '.join(bits[m] for m in sorted(hk.split(rows['mod.gesture.rotate']['binding'])[0], key=['Alt', 'Ctrl', 'Shift'].index)),
+                         'kModAlt | kModCtrl')
+        self.assertEqual([bits[m] for m in hk.split(rows['mod.gesture.move']['binding'])[0]], ['kModAlt'])
 
     def test_mod_rows_obey_the_rules(self):
         for r in self.rows:

@@ -52,6 +52,9 @@ SPELL = re.compile(r'^([A-Z0-9]|F([1-9]|1[0-9]|2[0-4])|[A-Z][A-Za-z0-9]+)$')
 # OS-level combos, key names normalised (Esc -> Escape): a binding in this set, or a `Win` modifier, always fails
 OS_COMBOS = {'Alt+F4', 'Alt+Tab', 'Alt+Escape', 'Ctrl+Alt+Delete', 'Ctrl+Shift+Escape'}
 KEY_ALIAS = {'Esc': 'Escape', 'Del': 'Delete', 'Ins': 'Insert', 'Enter': 'Return'}
+# Mouse gestures as binding keys (J29): a mod row may bind a modifier set to a mouse action; the keyboard never sees it, so it cannot be an
+# OS key combo, but it can still clash with another row of the same binding. split() capitalises, so they are compared case-folded.
+MOUSE_KEYS = {'LeftDrag', 'RightDrag', 'MiddleDrag', 'LeftClick', 'RightClick', 'MiddleClick'}
 WIN_RAW = re.compile(r'^(L|R)?(WIN|WINDOWS|LWINDOWS|RWINDOWS|APPS)$', re.I)
 
 
@@ -133,6 +136,11 @@ def split(binding):
     key = KEY_ALIAS.get(parts[-1], parts[-1])
     mods = sorted(set(parts[:-1]), key=lambda m: (ORDER.index(m) if m in ORDER else len(ORDER), m))
     return mods, key
+
+
+def is_mouse(binding):
+    """True when the binding's key is a mouse action (MOUSE_KEYS), e.g. Alt+LeftDrag."""
+    return split(binding)[1].lower() in {k.lower() for k in MOUSE_KEYS}
 
 
 def os_combo(binding):
