@@ -14,7 +14,7 @@ from pathlib import Path
 NAME = 'discovery'
 HELP = 'discovery passes: check and render the J6 diff and the J7 asset, db and loc results; run the J7 passes on the PC'
 
-AREAS = ('packs', 'layouts', 'fonts', 'lua_api', 'shaders', 'exe')
+AREAS = ('packs', 'layouts', 'fonts', 'lua_api', 'shaders', 'exe', 'effects')
 CELL = 90
 PASSES = {'assets': ['assets.py'], 'db': ['db.py'], 'loc': ['loc.py'], 'sheets': ['sheets.py'], 'ui': ['ui_atlas.py']}
 ORDER = ('assets', 'db', 'loc', 'sheets', 'ui')
@@ -222,5 +222,5 @@ def run(args, ctx):
     _, bad = _load(root)
     if not bad:
         _, bad, _ = gate_run(root)
-    print('\n'.join(bad) or 'discovery: 6 area files valid, J7 and J10 results in step, READMEs current, gate ok')
+    print('\n'.join(bad) or 'discovery: 7 area files valid, J7 and J10 results in step, READMEs current, gate ok')
     return 1 if bad else 0

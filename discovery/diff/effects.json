@@ -16802,7 +16802,7 @@
  },
  "rows": [
   {
-   "adapter": "keys same 101, changed 0, new 3, gone 0",
+   "adapter": "keys 101/0/3/0 (same/changed/new/gone)",
    "empire": "v0, 101 rows",
    "evidence": "detail.db",
    "item": "db particle_effects",
@@ -16810,7 +16810,7 @@
    "verdict": "adapter"
   },
   {
-   "adapter": "keys same 5, changed 0, new 0, gone 0",
+   "adapter": "keys 5/0/0/0 (same/changed/new/gone)",
    "empire": "v0, 5 rows",
    "evidence": "detail.db",
    "item": "db projectile_trails",
@@ -16818,7 +16818,7 @@
    "verdict": "same"
   },
   {
-   "adapter": "keys same 11, changed 24, new 0, gone 1; fields new explosion_particle_effect_on_ground, gone -",
+   "adapter": "keys 11/24/0/1 (same/changed/new/gone); fields +1 -0",
    "empire": "v0, 36 rows",
    "evidence": "detail.db",
    "item": "db projectiles_explosions",
@@ -16826,35 +16826,35 @@
    "verdict": "adapter"
   },
   {
-   "adapter": "per-name verdicts and changed attribute names in detail.definitions",
+   "adapter": "changed only by added attributes: 0 infos, 8 groups",
    "empire": "7 infos, 9 groups",
    "evidence": "detail.definitions",
    "item": "effects campaignmap.xml",
-   "napoleon": "infos same 0, changed 7 (0 only add attributes), new 12, gone 0; groups same 0, changed 9 (8 only add attributes), new 7, gone 0",
+   "napoleon": "infos 0/7/12/0, groups 0/9/7/0 (same/changed/new/gone)",
    "verdict": "adapter"
   },
   {
-   "adapter": "names in detail.format",
+   "adapter": "new tag: EFFECT_GROUP_AMBIENT_SETTINGS; names in detail.format",
    "empire": "EFFECTS_MANAGER XML",
    "evidence": "detail.format",
    "item": "effects definition format",
-   "napoleon": "new tags: EFFECT_GROUP_AMBIENT_SETTINGS; 16 new attribute names; gone: 0 tags, 0 attribute names",
+   "napoleon": "1 new tag, 16 new attribute names; 0 gone",
    "verdict": "new"
   },
   {
-   "adapter": "per-name verdicts and changed attribute names in detail.definitions",
+   "adapter": "changed only by added attributes: 15 infos, 114 groups",
    "empire": "229 infos, 132 groups",
    "evidence": "detail.definitions",
    "item": "effects landbattle.xml",
-   "napoleon": "infos same 0, changed 226 (15 only add attributes), new 57, gone 3; groups same 0, changed 132 (114 only add attributes), new 20, gone 0",
+   "napoleon": "infos 0/226/57/3, groups 0/132/20/0 (same/changed/new/gone)",
    "verdict": "adapter"
   },
   {
-   "adapter": "Empire.exe has no string for a name it lacks; whether it ignores the attribute is a runtime question",
-   "empire": "new names: 0 of 20; controls 118 of 118",
+   "adapter": "Napoleon-only tag, attribute, fx and file names; Empire runtime acceptance open",
+   "empire": "0 of 20 (controls 118 of 118)",
    "evidence": "detail.exe_names",
    "item": "effects names in the exes",
-   "napoleon": "new names: 20 of 20",
+   "napoleon": "20 of 20",
    "verdict": "new"
   },
   {
@@ -16862,15 +16862,15 @@
    "empire": "133 infos, 57 groups",
    "evidence": "detail.definitions",
    "item": "effects navalbattle.xml",
-   "napoleon": "infos same 133, changed 0, new 0, gone 0; groups same 57, changed 0, new 0, gone 0",
+   "napoleon": "infos 133/0/0/0, groups 57/0/0/0 (same/changed/new/gone)",
    "verdict": "same"
   },
   {
-   "adapter": "29 Napoleon infos reference one; 9 more are absent in both games",
+   "adapter": "used by 29 Napoleon infos; 9 more absent in both games",
    "empire": "-",
    "evidence": "detail.references",
    "item": "effects references Empire lacks",
-   "napoleon": "12 of 50: ambient_leaves.dds, emp_billowing_smoke.dds, emp_billowing_smoke_normal.dds, emp_black_burn_diffuse.dds, emp_dirt_burst_static_diffuse.dds, emp_dirty_smoke_diffuse.dds, emp_heathaze_distort_normal.dds, emp_ribbon_smoke_diffuse.dds, emp_ribbon_spark_diffuse.dds, grass_blades_diffuse.dds, grass_seed_diffuse.dds, ribbon.fx",
+   "napoleon": "12 of 50: 11 textures, ribbon.fx",
    "verdict": "new"
   },
   {
@@ -16878,7 +16878,7 @@
    "empire": "-",
    "evidence": "detail.smoke",
    "item": "effects smoke subset (db-linked)",
-   "napoleon": "26 particle_effects keys, 26 join an XML name",
+   "napoleon": "26 keys, 26 join an XML name, 9 need an asset Empire lacks",
    "verdict": "adapter"
   },
   {
@@ -16890,11 +16890,11 @@
    "verdict": "adapter"
   },
   {
-   "adapter": "plain text: a \"version 1.0\" line, // comments, then one record per line of 2 whitespace-separated fields",
+   "adapter": "plain text, header \"version 1.0\"",
    "empire": "-",
    "evidence": "detail.text_files",
    "item": "effects unit_dust_parameters.txt",
-   "napoleon": "version 1.0, 15 records",
+   "napoleon": "15 records",
    "verdict": "new"
   }
  ],

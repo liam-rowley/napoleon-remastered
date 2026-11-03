@@ -487,47 +487,50 @@ def build(games, shader_files, refs_by_table):
 
 
 def _cnt(c):
-    s = f"same {c['identical']}, changed {c['changed']}"
-    if c['changed']:
-        s += f" ({c['changed_add_only']} only add attributes)"
-    return s + f", new {c['new']}, gone {c['gone']}"
+    return f"{c['identical']}/{c['changed']}/{c['new']}/{c['gone']}"
 
 
 def make_rows(files, defs, texts, refs, lacking, fmt, exe_sum, db, primary, how):
     rows = []
     for p, d in defs.items():
         st = files[p]['status']
+        note = ''
         if 'infos' in d:
-            n = f"infos {_cnt(d['info_counts'])}; groups {_cnt(d['group_counts'])}"
+            n = f"infos {_cnt(d['info_counts'])}, groups {_cnt(d['group_counts'])} (same/changed/new/gone)"
             e = f"{d['empire']['tags'].get(INFO, 0)} infos, {d['empire']['tags'].get(GROUP, 0)} groups"
+            if st != 'identical':
+                note = (f"changed only by added attributes: {d['info_counts']['changed_add_only']} infos, "
+                        f"{d['group_counts']['changed_add_only']} groups")
         else:
             n, e = ('-', 'yes') if st == 'gone' else ('new file', '-')
-        rows.append(row(f'effects {os.path.basename(p)}', e, n, VERDICT[st],
-                        '' if st == 'identical' else 'per-name verdicts and changed attribute names in detail.definitions', 'detail.definitions'))
+        rows.append(row(f'effects {os.path.basename(p)}', e, n, VERDICT[st], note, 'detail.definitions'))
     for p, t in texts.items():
         st = files[p]['status']
         n = t.get('napoleon', {})
         rows.append(row(f'effects {os.path.basename(p)}', '-' if 'empire' not in t else 'yes',
-                        f"{n.get('header', '')}, {n.get('records', 0)} records" if n else '-', VERDICT[st], n.get('format', ''), 'detail.text_files'))
+                        f"{n.get('records', 0)} records" if n else '-', VERDICT[st],
+                        f"plain text, header \"{n.get('header', '')}\"" if n else '', 'detail.text_files'))
     tc = collections.Counter(f['status'] for p, f in files.items() if kind(p) in ('dds', 'tga'))
     rows.append(row('effects textures', f"{tc['identical'] + tc['changed'] + tc['gone']} files",
                     f"same {tc['identical']}, changed {tc['changed']}, new {tc['new']}, gone {tc['gone']}",
                     'adapter' if tc['changed'] or tc['new'] or tc['gone'] else 'same', 'new textures ship in a pack', 'detail.files'))
     rows.append(row('effects definition format', 'EFFECTS_MANAGER XML',
-                    f"new tags: {', '.join(fmt['tags_new']) or '-'}; {len(fmt['attr_names_new_to_empire'])} new attribute names; "
-                    f"gone: {len(fmt['tags_gone'])} tags, {len(fmt['attr_names_gone'])} attribute names",
-                    'new' if fmt['tags_new'] or fmt['attr_names_new_to_empire'] else 'same', 'names in detail.format', 'detail.format'))
+                    f"{len(fmt['tags_new'])} new tag, {len(fmt['attr_names_new_to_empire'])} new attribute names; "
+                    f"{len(fmt['tags_gone']) + len(fmt['attr_names_gone'])} gone",
+                    'new' if fmt['tags_new'] or fmt['attr_names_new_to_empire'] else 'same',
+                    'new tag: ' + (', '.join(fmt['tags_new']) or '-') + '; names in detail.format', 'detail.format'))
     miss = sorted(r for r, v in refs.items() if v['empire'] in ('missing', 'unknown'))
     both = sum(1 for v in refs.values() if v['empire'] == 'absent_in_both')
     n_inf = sum(len(v) for v in lacking.values())
-    rows.append(row('effects references Empire lacks', '-', f"{len(miss)} of {len(refs)}: {', '.join(os.path.basename(m) for m in miss)}"
-                    if miss else f'0 of {len(refs)}', 'new' if miss else 'same',
-                    f'{n_inf} Napoleon infos reference one; {both} more are absent in both games', 'detail.references'))
-    rows.append(row('effects names in the exes', f"new names: {exe_sum['probe_in_empire']} of {exe_sum['probe_names']}; "
-                    f"controls {exe_sum['control_in_empire']} of {exe_sum['control_names']}",
-                    f"new names: {exe_sum['probe_in_napoleon']} of {exe_sum['probe_names']}",
+    fxm = [os.path.basename(m) for m in miss if m.endswith(('.fx', '.fx_fragment'))]
+    rows.append(row('effects references Empire lacks', '-', f"{len(miss)} of {len(refs)}: {len(miss) - len(fxm)} textures"
+                    + (', ' + ', '.join(fxm) if fxm else ''), 'new' if miss else 'same',
+                    f'used by {n_inf} Napoleon infos; {both} more absent in both games', 'detail.references'))
+    rows.append(row('effects names in the exes', f"{exe_sum['probe_in_empire']} of {exe_sum['probe_names']} "
+                    f"(controls {exe_sum['control_in_empire']} of {exe_sum['control_names']})",
+                    f"{exe_sum['probe_in_napoleon']} of {exe_sum['probe_names']}",
                     'new' if exe_sum['probe_in_empire'] < exe_sum['probe_names'] else 'same',
-                    'Empire.exe has no string for a name it lacks; whether it ignores the attribute is a runtime question', 'detail.exe_names'))
+                    'Napoleon-only tag, attribute, fx and file names; Empire runtime acceptance open', 'detail.exe_names'))
     for t in TABLES:
         d = db[t]
         side = lambda g: (f"v{d[g]['files'][0]['version']}, {d[g]['rows']} rows" if d[g].get('decoded') else
@@ -537,12 +540,13 @@ def make_rows(files, defs, texts, refs, lacking, fmt, exe_sum, db, primary, how)
             rows.append(row(f'db {t}', side('empire'), side('napoleon'), 'adapter', k['not_compared'], 'detail.db'))
             continue
         same = not (k['changed'] or k['new'] or k['gone'] or k['fields_new'] or k['fields_gone'])
-        note = f"keys same {len(k['identical'])}, changed {len(k['changed'])}, new {len(k['new'])}, gone {len(k['gone'])}"
+        note = f"keys {len(k['identical'])}/{len(k['changed'])}/{len(k['new'])}/{len(k['gone'])} (same/changed/new/gone)"
         if k['fields_new'] or k['fields_gone']:
-            note += f"; fields new {', '.join(k['fields_new']) or '-'}, gone {', '.join(k['fields_gone']) or '-'}"
+            note += f"; fields +{len(k['fields_new'])} -{len(k['fields_gone'])}"
         rows.append(row(f'db {t}', side('empire'), side('napoleon'), 'same' if same else 'adapter', note, 'detail.db'))
     ok = sum(1 for v in primary.values() if v['definitions'])
-    rows.append(row('effects smoke subset (db-linked)', '-', f"{len(primary)} particle_effects keys, {ok} join an XML name",
+    lack = sum(1 for v in primary.values() if v['definitions'] and v['definitions'][0]['lacking_in_empire'])
+    rows.append(row('effects smoke subset (db-linked)', '-', f"{len(primary)} keys, {ok} join an XML name, {lack} need an asset Empire lacks",
                     'adapter', '; '.join(f'{k}: {v}' for k, v in sorted(how.items())), 'detail.smoke'))
     return rows
 
@@ -588,7 +592,10 @@ def main(argv=None):
     rows, detail = build(*load_inputs(a.games))
     text = dumps('effects', rows, detail)
     if a.check:
-        old = open(a.out, encoding='utf-8').read() if os.path.exists(a.out) else ''
+        old = ''
+        if os.path.exists(a.out):
+            with open(a.out, encoding='utf-8') as f:
+                old = f.read()
         same = old == text
         print(f'effects --check: {"ok" if same else "DIFFERS"} - {len(rows)} rows, {len(detail["files"])} effects paths')
         return 0 if same else 1
