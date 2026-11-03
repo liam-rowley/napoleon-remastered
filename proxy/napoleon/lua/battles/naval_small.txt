@@ -4,3 +4,4 @@ map=caribbean
 prefs=.sp_default
 weather=0
 time_of_day=0
+army=0

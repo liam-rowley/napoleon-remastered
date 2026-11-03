@@ -1,0 +1,11 @@
+{
+  "id": "release.core.installer.rr",
+  "kind": "script",
+  "path": "release/core/installer/rr.ps1",
+  "purpose": "the player-side installer of a release folder (no Python, Git or repo needed): install, uninstall (byte-exact against the pre-install snapshot), repair, check and a redacted support bundle, all refusing while the game runs and on a non-vanilla exe",
+  "usage": "powershell -NoProfile -ExecutionPolicy Bypass -File rr.ps1 install|uninstall|repair|check|support [-GamePath <game folder>] [-StateDir <folder>] [-AssumeClosed] [-IncludeDumps]   (the .cmd files in the release folder call it)",
+  "when": "it is the release folder's own engine (release/core/build_release.py copies it to installer\\rr.ps1 and writes the Install, Uninstall, Repair, Check and Support .cmd entry points); behaviour parity with core/proxy/tools/pc_deploy.py is the contract (tests/test_release_installer.py compares them)",
+  "not_a_verb": "runs on the player's PC from the release folder, outside the repo and the wsc CLI",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

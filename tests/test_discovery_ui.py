@@ -221,12 +221,40 @@ class Live(unittest.TestCase):
 
     def test_known_reason_beats_a_name_match(self):
         # frontend.password_entry has the same parts as the page 'page' below, but needs a multiplayer lobby: its reason is not the page's
-        surfaces = {'frontend': {'ui/sp': self._surface('page', ['x', 'y', 'z']), 'ui/pw': self._surface('page', ['x', 'y', 'z'])}}
+        surfaces = {'frontend': {'ui/sp': self._surface('page', ['x', 'y', 'z']), 'ui/pw': self._surface('password_entry', ['x', 'y', 'z'])}}
         units = [dict(id='frontend.password_entry', ctx='frontend', surface='ui/pw')]
         with tempfile.TemporaryDirectory() as d:
             r = ui_atlas.live(None, units, surfaces, self._run(d))['units_reach']['frontend.password_entry']
         self.assertEqual(r['reach'], 'static_only')
         self.assertIn('multiplayer lobby', r['reason'])
+
+    def _run_nodes(self, d, label, nodes):
+        raw = os.path.join(d, 'raw')
+        os.makedirs(raw)
+        with open(os.path.join(raw, 'a_proxy.log'), 'w', encoding='utf-8') as fh:
+            fh.write('\n'.join(self._tree(label, nodes)) + '\n')
+        return d
+
+    def test_guard_fails_on_a_pattern_that_overrides_live_evidence(self):
+        # the head is found under its own name as a top-level node at agreement 1.0, yet a STATIC_ONLY pattern matches it
+        surfaces = {'frontend': {'ui/ps': self._surface('password_entry', ['x', 'y', 'z'])}}
+        units = [dict(id='frontend.password_entry', ctx='frontend', surface='ui/ps')]
+        with tempfile.TemporaryDirectory() as d:
+            run = self._run_nodes(d, 'fe_x', [('password_entry', 100), ('password_entry/x', 10), ('password_entry/y', 10), ('password_entry/z', 10)])
+            with self.assertRaises(ui_atlas.StaticOnlyConflict) as cm:
+                ui_atlas.live(None, units, surfaces, run)
+        for part in ('frontend.password_entry', 'live path password_entry', 'multiplayer lobby'):
+            self.assertIn(part, str(cm.exception))
+
+    def test_guard_allows_a_match_inside_another_pages_node(self):
+        # the parts sit inside the options page: the head is named, but nested, so the pattern still wins
+        surfaces = {'frontend': {'ui/ps': self._surface('password_entry', ['x', 'y', 'z'])}}
+        units = [dict(id='frontend.password_entry', ctx='frontend', surface='ui/ps')]
+        with tempfile.TemporaryDirectory() as d:
+            run = self._run_nodes(d, 'fe_x', [('options', 200), ('options/password_entry', 100), ('options/password_entry/x', 10),
+                                              ('options/password_entry/y', 10), ('options/password_entry/z', 10)])
+            r = ui_atlas.live(None, units, surfaces, run)['units_reach']['frontend.password_entry']
+        self.assertEqual((r['reach'], r['reason']), ('static_only', 'needs a multiplayer lobby or Steam session'))
 
 
 class Ids(unittest.TestCase):

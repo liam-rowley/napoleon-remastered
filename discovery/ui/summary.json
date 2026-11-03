@@ -291,7 +291,7 @@
  "panels_without_layout": [
   "Prestige"
  ],
- "reach": "42 of 220 layout and template units reached live in run 20261102_j10pc (battle 6 of 32, campaign 11 of 56, common 2 of 18, frontend 14 of 40, template 9 of 74); static-vs-live agreement 1549 of 1556 components (mean 0.995); the rest static_only with the reason (`reach.json`).",
+ "reach": "44 of 220 layout and template units reached live in run 20261102_j10pc (battle 7 of 32, campaign 11 of 56, common 2 of 18, frontend 15 of 40, template 9 of 74); static-vs-live agreement 1597 of 1610 components (mean 0.992); the rest static_only with the reason (`reach.json`).",
  "scripts_unattached": [
   "agents.luac",
   "army.luac",
@@ -551,7 +551,7 @@
     "components": 20,
     "getters": 0,
     "interactions": 2,
-    "reached": false,
+    "reached": true,
     "scripts": 4,
     "states": 28,
     "templates": 1,
@@ -2815,7 +2815,7 @@
     "components": 64,
     "getters": 0,
     "interactions": 11,
-    "reached": false,
+    "reached": true,
     "scripts": 5,
     "states": 84,
     "templates": 5,

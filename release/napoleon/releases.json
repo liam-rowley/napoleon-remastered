@@ -1,0 +1,4 @@
+{
+ "_note": "Releases that were built and handed out, newest last. Added by hand when Liam publishes (never by the builder): version, date, jobs done at that release. The builder takes the done jobs since the last entry for the notes and refuses a version that is not higher.",
+ "releases": []
+}
