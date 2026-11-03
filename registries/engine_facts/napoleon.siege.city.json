@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.siege.city",
+  "claim": "There is no city siege map reachable from the front end on this PC. FrontEnd.EnumerateBattleMaps lists for \"siege\" (false and true alike) 7 forts only: rti_fort_9 Lorraine, western_artillery_fort Prussian Stone Fort, ottoman_artillery_fort, ottoman_great_fortress, rti_fort_2 Conde sur l'Escaut, rti_fort_1 El Arish, rti_fort_3 Retranchement. The types \"classic\" (16 maps, 25 with true: the extra nine are NMPB_ historical-map copies and Tabuk Mesa), \"naval\" (3), \"historic\" (0 / 15 NHMPB_), and the names \"historical\", \"settlement\", \"land\", \"city\" (0 each) have no map flagged IsSiege other than the 7 forts, and EnumerateNapoleonsBattleMaps (12 NHB_ field/naval battles) has none. A settlement battle needs a campaign (pre-battle popup of a besieged settlement), which the harness cannot stage without a played campaign save: no siege_city row. The siege_small fort remains the only siege scenario",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j46pc/raw/maps_matrix.json",
+  "date": "2026-11-02"
+}

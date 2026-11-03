@@ -12,6 +12,8 @@
 --                            SetupBattle (-> sp_battle3 with Preferences()), sp_battle3 StartBattle; a preset of type=historic uses
 --                            the historical screens the same way (sp_battle1 HistoricBattle: sp_battle2_scenario, main_panel
 --                            Initialise("historic", ...), SetupBattle -> sp_battle3_scenario, its StartBattle; J44), map = the battle key
+--                            (J46) preset army=<n>: the army size option (0-based; land 0/1/2 = 9/15/20 units, naval 3/7/10 ships), set through
+--                            SetPerBattlePrefs{army_size} and read back; sp_battle3 then fills both sides with the 'balanced' preset of that size
 --   campaign:continue        FrontEnd.ContinueCampaign() (main menu Continue Campaign)
 --   campaign:<save>          FrontEnd.LoadCampaign(<save>)
 --   campaign:new:<c>:<f>     TransitionTo("grand_campaign", nil, <c>) (= main menu), faction <f>, the page's StartCampaign();
@@ -25,8 +27,33 @@ local function at(s) step = s end
 
 local function root() return UIComponent(Component.Root()) end
 
+-- J46: the single-player historical battles (main menu "Napoleon's Battles", page napoleon_battles, FrontEnd.EnumerateNapoleonsBattleMaps: NHB_*):
+-- map_panel has one icon per battle named by its Key; the icon's own OnSelect is panel:SelectMap(icon address); movie_panel:SetupBattle()
+-- builds UIHistoricBattleSetup and calls FrontEnd.StartBattle (Play). Read back: the icon's state (unlock) before, no fallback if locked.
+local function napoleon_battle()
+	local want = wsp.dev_config("preset.map")
+	local r = root()
+	at("TransitionTo napoleon_battles"); r:LuaCall("TransitionTo", "napoleon_battles")
+	local pg = UIComponent(r:Find("napoleon_battles"))
+	local mapp = UIComponent(pg:Find("map_panel"))
+	at("icon " .. want)
+	local ic = mapp:Find(want, false)
+	if ic == nil then error("battle '" .. want .. "' has no icon on napoleon_battles") end
+	local icon = UIComponent(ic)
+	local st = icon:CurrentState()
+	wsp.report("autostart.napoleon_state", tostring(st))
+	if lc(st) == "inactive" or lc(st) == "locked_land_dlc" then error("battle " .. want .. " is locked (icon state " .. tostring(st) .. ")") end
+	wsp.report("autostart.map", want)
+	wsp.report("autostart.map_folder", string.lower(wsp.dev_config("preset.terrain")))
+	at("SelectMap"); pg:LuaCall("SelectMap", icon:Address())
+	local movie = UIComponent(pg:Find("movie_panel"))
+	at("SetupBattle (movie_panel)"); movie:LuaCall("SetupBattle")
+	return "started napoleon battle " .. want .. " (icon state " .. tostring(st) .. ")"
+end
+
 local function battle()
 	local btype = wsp.dev_config("preset.type"); if btype == "" then btype = "classic" end
+	if btype == "napoleon" then return napoleon_battle() end
 	local prefs = wsp.dev_config("preset.prefs"); if prefs == "" then prefs = ".sp_default" end
 	local want = lc(wsp.dev_config("preset.map"))
 	local r = root()
@@ -76,8 +103,10 @@ local function battle()
 	-- weather and time of day (J44): NotifyItemSelected refilled dropdown_weather / dropdown_time_of_day for this map
 	-- (SetValidWeatherAndDayTypes), so pin them after it, through the page's own SetPerBattlePrefs (SelectOption per dropdown)
 	local wantW, wantT = wsp.dev_config("preset.weather"), wsp.dev_config("preset.time_of_day")
-	if wantW ~= "" or wantT ~= "" then
+	local wantA = wsp.dev_config("preset.army")   -- J46: the army size option (dropdown_army_size, 0-based), pinned so the armies never depend on the remembered prefs
+	if wantW ~= "" or wantT ~= "" or wantA ~= "" then
 		local t = {}
+		if wantA ~= "" then t.army_size = tonumber(wantA) end
 		if wantW ~= "" then t.weather = tonumber(wantW) end
 		if wantT ~= "" then t.time_of_day = tonumber(wantT) end
 		at("SetPerBattlePrefs weather=" .. wantW .. " time_of_day=" .. wantT); mp:LuaCall("SetPerBattlePrefs", t)
@@ -90,6 +119,10 @@ local function battle()
 		wsp.report("autostart.weather", tostring(pr.weather) .. "/" .. tostring(pr.weather_string))
 		wsp.report("autostart.time_of_day", tostring(pr.time_of_day))
 	end
+	if wantA ~= "" and type(pr) == "table" then
+		if tostring(pr.army_size) ~= tostring(tonumber(wantA)) then error("army_size option " .. wantA .. " did not take (page says " .. tostring(pr.army_size) .. ")") end
+		wsp.report("autostart.army_size", tostring(pr.army_size) .. "/" .. tostring(pr.allowed_funds))
+	end
 	at("SetupBattle"); mp:LuaCall("SetupBattle")
 	local s3c = r:Find(page3, false)
 	if s3c == nil then error(page3 .. " did not open") end
@@ -97,6 +130,34 @@ local function battle()
 	at("StartBattle")
 	local okb = s3:Find("button_start", false) or s3:Find("button_ok", false)
 	local state = okb and UIComponent(okb):CurrentState() or "?"
+	-- J46: read the armies back from sp_battle3's own army boxes (one per player; TotalUnits counts the cards): the player's and the AI's
+	if wantA ~= "" then
+		local counts = {}
+		pcall(function()
+			local lc2 = s3:Find("army_box", false)
+			local k = 0
+			while lc2 ~= nil and k < 4 do
+				counts[#counts + 1] = tostring(UIComponent(lc2):LuaCall("TotalUnits"))
+				k = k + 1
+				lc2 = nil
+			end
+		end)
+		wsp.report("autostart.army_units", table.concat(counts, ","))
+		-- every side: sp_battle3 main_panel TeamSetups() returns each team's players' full details; count the Units / Ships lists found
+		local sides = {}
+		pcall(function()
+			local function walk(t, depth)
+				if type(t) ~= "table" or depth > 4 then return end
+				if type(t.Units) == "table" or type(t.Ships) == "table" then
+					sides[#sides + 1] = tostring(type(t.Units) == "table" and #t.Units or 0) .. "u" .. tostring(type(t.Ships) == "table" and #t.Ships or 0) .. "s"
+					return
+				end
+				for _, v in pairs(t) do walk(v, depth + 1) end
+			end
+			walk(UIComponent(s3:Find("main_panel")):LuaCall("TeamSetups"), 0)
+		end)
+		wsp.report("autostart.army_sides", table.concat(sides, ","))
+	end
 	local start = s3:GlobalExists("StartBattle")
 	if type(start) ~= "function" then error(page3 .. " has no StartBattle") end
 	if state == "inactive" then error("the start button is inactive (no armies? state " .. tostring(state) .. ")") end

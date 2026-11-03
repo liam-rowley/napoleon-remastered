@@ -1,0 +1,7 @@
+# land_40 - 20 units against 20 on an open map (J46): army size option 2 (14000 funds, the balanced preset: 20 units, the screen cap).
+type=classic
+map=NAP_MP_Grassy_Flatlands
+prefs=.sp_default
+weather=0
+time_of_day=1
+army=2

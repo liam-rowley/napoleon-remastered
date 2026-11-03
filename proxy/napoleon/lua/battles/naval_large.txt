@@ -1,0 +1,7 @@
+# naval_large - a custom naval battle at the army cap (J46): caribbean, army size option 2 (24000 funds, the balanced preset: 10 ships a side).
+type=naval
+map=caribbean
+prefs=.sp_default
+weather=0
+time_of_day=0
+army=2

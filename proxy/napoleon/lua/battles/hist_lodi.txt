@@ -1,0 +1,4 @@
+# hist_lodi - the single-player historical battle Lodi (J46): main menu Napoleon's Battles (NHB_ key, the only battle unlocked on this PC profile), not the custom-battle screens.
+type=napoleon
+map=NHB_Lodi
+terrain=hb_lodi

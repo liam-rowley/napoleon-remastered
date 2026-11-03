@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BATTLES = ROOT / 'proxy' / 'napoleon' / 'lua' / 'battles'
 TYPE = {'land': 'classic', 'siege': 'siege', 'naval': 'naval', 'historical': 'historic'}
+HISTORICAL_TYPES = ('historic', 'napoleon')   # J46: 'napoleon' = the single-player Napoleon's Battles screen (NHB_ keys)
 
 
 def rows():
@@ -39,10 +40,12 @@ class Agree(unittest.TestCase):
             with self.subTest(r['id']):
                 self.assertTrue((BATTLES / f"{r['id']}.txt").exists(), 'a battle row needs its preset')
                 p = preset(r['id'])
-                self.assertEqual(p.get('type'), TYPE[r['kind']])
+                self.assertIn(p.get('type'), HISTORICAL_TYPES if r['kind'] == 'historical' else (TYPE[r['kind']],))
                 self.assertEqual(p.get('map'), r['map'])
                 self.assertEqual(p.get('weather'), option(r.get('weather')), 'weather option index')
                 self.assertEqual(p.get('time_of_day'), option(r.get('time_of_day')), 'time-of-day option index')
+                m = re.search(r'army size option (\d+)', r.get('description', ''))
+                self.assertEqual(p.get('army'), m.group(1) if m else None, 'army size option (J46): the description names it when the preset pins it')
                 self.assertRegex(r['launch'], rf"^ctl\.py scene {re.escape(r['id'])}( --deploy end)?$")
 
     def test_no_preset_without_a_row(self):
