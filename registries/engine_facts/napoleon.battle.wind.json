@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.wind",
+  "claim": "Wind: W = [[[SHIP+0x1e0]+8]+0xd8]; prevailing wind vector (x, z) floats W+0x48/W+0x4c (0x611460 adds local gusts from W+0x20/+0x24 at a point); each tick the ship stores the wind-relative angle int16 at SHIP+0x5a8 and raises BattleShipSailingIntoWind when |angle| > 30037 (165 degrees)",
+  "state": "open",
+  "evidence": "harness/runs/20261103_j60re/README.md",
+  "date": "2026-11-03",
+  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far; sites battle.ship_wind_chain, wind_vector_get, ship_wind_angle"
+}

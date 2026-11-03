@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.ship_layout",
+  "claim": "A ship is a SHIP object (0x2120 bytes, ctor 0x691c10, vtable 0x1338780), not a UNIT: position x,y,z = SHIP+0x54 (vtable slot 0 lea eax,[ecx+0x54]); orientation 3x3 at SHIP+0x504, heading = atan2([+0x50c], [+0x524]) as the engine bearing getter computes it; sail level float +0x1b88 (> 0.5 full 8, > 0.25 half 4, > 0 battle 2, else stationary 1); orderable when bytes +0x20dd and +0x20de are 0, [+0x1c58] != 2 and not routing; surrendered [+0x1f00] == 4; hull damage mean of +0x1d80..+0x1d8c; sail damage +0x1d90",
+  "state": "open",
+  "evidence": "harness/runs/20261103_j60re/README.md",
+  "date": "2026-11-03",
+  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far; sites battle.ship_vtable_store, ship_position_slot, ship_bearing_get, ship_sail_get, ship_orderable, ship_surrendered_get"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.ship_tables",
+  "claim": "Napoleon.exe compiles in the battle-script ship tables: battle.ship (0x1451520, 11 getters: name, type, position, bearing, ship_in_range, hull_damage, sail_damage, deploy_reinforcement, is_routing, is_surrendered, number_of_men_alive) and battle.ship_controller (0x1451990, 35 methods incl. goto_location(_q), rotate(_q), halt, set_sail, move_forward; no speed method: speed is the sail setting)",
+  "state": "verified",
+  "evidence": "harness/runs/20261103_j60re/README.md",
+  "date": "2026-11-03",
+  "notes": "static: the tables are bytes of the stock exe (dumped with re/j60re.py regs); reachable from script is a separate question (napoleon.battle.script_api_reachable)"
+}

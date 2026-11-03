@@ -1,6 +1,8 @@
 {
   "id": "napoleon.battle.ship_orders",
-  "claim": "Ship orders (J60): the orders route refuses a unit whose world position has a non-zero frame pointer (ships and anything on a moving frame); naval_small was not run here. J60 needs the ship controller chain (battle.ship_controller, script table 0x1451990), whether a ship is a UNIT in an army list, and the naval order types (move, speed, sails)",
+  "claim": "Ship orders (J60): the static route is located (napoleon.battle.ship_layout, ship_list, ship_frame, ship_order_route, ship_facing, ship_sails, ship_speed, wind; run harness/runs/20261103_j60re). The land route still refuses a unit on a moving frame; ships go through their own entry points. Not yet proven on the PC",
   "state": "open",
-  "notes": "owner: J60"
+  "evidence": "harness/runs/20261103_j60re/README.md",
+  "date": "2026-11-03",
+  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far"
 }

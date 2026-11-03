@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.ship_speed",
+  "claim": "No live ship speed or moving field found statically (no getter in battle.ship, BattleShip or BattleUI; the 0x5cd26f Speed is a record value [x+0x1b30] * 1.9417 knots); the route derives speed from two position reads",
+  "state": "open",
+  "evidence": "harness/runs/20261103_j60re/README.md",
+  "date": "2026-11-03",
+  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far; a PC memory diff of SHIP while sailing would find it"
+}
