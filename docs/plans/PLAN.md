@@ -106,8 +106,8 @@ and workflows) moved to the core in J62 (v0.9.0; napoleon keeps its rules in `ws
   and without Napoleon's `particle.fx`, which must also compile under Empire's `d3dx9`. The fallback is weaker than this bullet says:
   Empire's own battle smoke draw was never identified (empire-remastered `LEARNINGS_ENGINE.md`, 2026-10-28: no catalogued pixel shader
   draws the musket smoke or dust, so it is drawn by fixed function or a path the proxy does not see), and Liam's 2026-10-22 decision
-  kept particles and smoke vanilla for Empire's v1. Recommendation, not a decision: the backport stays an Empire restart-list candidate,
-  its first probe the stripped-file volley.
+  kept particles and smoke vanilla for Empire's v1. Decided (D48): the backport stays an Empire restart-list candidate, its first
+  probe the stripped-file volley.
 - Shogun 2 needs core work before an adapter: its players run the DX11 renderer and the proxy is `d3d9.dll` with
   `IDirect3DDevice9` hooks (core backlog B36, a renderer seam, to be designed when J30 builds the RmlUi render interface); the pack
   reader is PFH0 only (B37, Shogun 2 is PFH2 and PFH3); the ESF tools read ABCA and ABCE only (B38, Shogun 2 saves are ABCF); whether
