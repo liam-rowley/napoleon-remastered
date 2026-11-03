@@ -1,5 +1,49 @@
 # J24 review
 
+## Round 2 (2026-11-03, branch job/J24 at 17fdabe)
+
+**Verdict: merge.**
+
+Both round 1 should-fix items are answered in `## Fix round 1`, and I checked each against its evidence. CI's `gates` check was red on 17fdabe
+because of the new test file. I fixed that on the branch (below). No DLL input changed: `build_id.py` still gives 75739186b92e, so the 20 passes
+still count (rule 79), and the policy hook does not complain about them.
+
+### What I checked
+- **Machines.**
+  - CI run 41662162027 (`gates`) failed on 17fdabe: `test_run_helpers.ShotSheet.test_build_marks_missing_cells` raised `ModuleNotFoundError: No module named 'PIL'`.
+    The CI runner has no Pillow, and the PC does, so the fixer's local gates passed.
+  - After my fix (192170c), local `wsc gates`: 12 ok, 2 warn, 0 failed (425 s). The warnings are the hook path in a fresh worktree and 40 skipped host tests (573 passed).
+  - `wsc policy --branch job/J24 --base origin/main` before the verdict refused only for the verdict and the row.
+  - `proxy` and `harness-windows` were skipped, which counts as passed: no input of theirs changed.
+- **Should-fix 1 (deliverable 7).** warscape-core pull request #30 (`plan/backlog-numeric-keys-nile-flake`, open) touches only `docs/BACKLOG.md`.
+  It adds B59 (numeric patch values from config keys) and B60 (the hist_nile headless relaunch flake). The report links it. The brief allows a
+  backlog row or a draft PR, and a `plan/` branch waits for Liam, so this is done.
+- **Should-fix 2 (tool rows).** `tools/shot_sheet.py`, `tools/shadow_density.py`, `tools/acceptance_summary.py` and the `ladder` verb on
+  `tools/perf_baseline.py` have headers, registry rows and host tests. I re-checked the fix round's two equivalence claims:
+  - `shadow_density.py --run 20261103_j24pc --no-import` over the 20 settings in `density.tsv` rewrites it byte for byte (`git status` clean).
+  - `perf_baseline.py ladder --control ..._j24ladder_ctl --run ..._j24ladder_4k --run ..._j24ladder_8k` gives the same medians as
+    `harness/runs/20261103_j24pc/ladder_table.md`. Only the row labels differ: the full run names and the backend prefix.
+  - The run-folder copies are deleted, and the README points at the tools.
+
+### Findings
+
+**Fixed by the reviewer**
+- **Blocker: red `gates` on CI** (`tests/test_run_helpers.py:36`). The sheet test imported Pillow without a guard. To see it fail, run the
+  file without Pillow installed: CI run 41662162027. Commit 192170c skips that one test where Pillow is missing, the way `test_x86re` skips
+  without capstone. I checked the skip with Pillow hidden: 9 tests, 1 skipped. The other 8 tests do not need Pillow.
+
+**Later**
+- A test that imports a package CI does not install fails only on CI. This is the second CI-only class in `docs/CI_FAILURES.md` (after the
+  J7 zlib bytes). A host check in the `tests` gate could list the non-stdlib imports in `tests/` that are neither guarded nor installed by
+  `gates.yml`. That belongs to the core's test runner, so it goes to warscape-core `docs/BACKLOG.md` when its owner next files rows.
+- The `tools.shot_sheet` row's `purpose` ends `marked "missing` without the closing quote, but the header line has it (`tools/shot_sheet.py:4`).
+  The header-to-row extraction seems to strip a trailing quote. It is cosmetic.
+- The fix round says "10 tests", but `tests/test_run_helpers.py` has 9.
+- Round 1's later items still stand: the cut-off line question is Liam's, and J59 should re-measure the 4K p50 drift.
+
+### Merge note
+No rule that other open job branches must meet changes with this branch.
+
 ## Round 1 (2026-11-03, branch job/J24 at 77a40e7)
 
 **Verdict: merge after fixes.**
