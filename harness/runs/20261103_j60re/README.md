@@ -76,7 +76,11 @@ owner global) and run the command dtor 0x5a95b0.
 
 ## 4. Sites
 
-18 `engine_sites` rows (`j60rows.py`, all `kind: hook`, keyed `dev.orders`, no `verified` yet): `battle.ship_vtable_store`,
+18 candidate `engine_sites` rows in `re/candidate_sites.jsonl` (`j60rows.py`, all `kind: hook`, keyed `dev.orders`). They are **not in
+the registry**: its gate requires `verified {date, run}` on every row, and they have no PC run yet; the PC slot adds them with its run
+(`wsc reg add engine_sites --json <row>` per line, then `gen_tables.py`). With the core ship half and no rows, the ship half refuses to
+install ("site ... not accepted") and the land route is unaffected. The core host tests passed against Napoleon's adapter with the rows
+in place (182 checks, the pinned image, 2026-11-03). Rows: `battle.ship_vtable_store`,
 `ship_position_slot`, `ship_bearing_get`, `ship_fleet_list`, `ship_sail_get`, `ship_orderable`, `ship_surrendered_get`,
 `selection_add_ship`, `ship_move_ctor`, `ship_move_push`, `ship_location`, `order_rotate_ctor`, `order_rotate_push`,
 `order_halt_ctor`, `order_halt_push`, `ship_wind_chain`, `wind_vector_get`, `ship_wind_angle`. Every stock window is unique in the

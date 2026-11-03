@@ -1,8 +1,8 @@
 {
   "id": "napoleon.battle.ship_sails",
-  "claim": "Sail values 1 stationary, 2 battle sail, 4 half sail, 8 full sail (script table 0x1451968; \"\" = 0). set_sail builds the generic one-int ctor 0x5992c0 but its command type [0x14a5fac] is pushed inline only (no out-of-line push function), so the route orders sails through the move ctor sail argument; readback = SHIP+0x1b88 mapped as the engine getter 0x6d8be0 does",
-  "state": "open",
+  "claim": "In the stock exe code: sail values 1 stationary, 2 battle sail, 4 half sail, 8 full sail (script table 0x1451968; \"\" = 0). set_sail builds the generic one-int ctor 0x5992c0 but its command type [0x14a5fac] is pushed inline only (no out-of-line push function), so the route orders sails through the move ctor sail argument; readback = SHIP+0x1b88 mapped as the engine getter 0x6d8be0 does",
+  "state": "verified",
   "evidence": "harness/runs/20261103_j60re/README.md",
   "date": "2026-11-03",
-  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far"
+  "notes": "static (stock exe sha1 9aebcd21..., disassembly with re/j60re.py); the runtime meaning is open in napoleon.battle.ship_orders (owner: J60 PC slot)"
 }

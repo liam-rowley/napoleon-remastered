@@ -1,8 +1,8 @@
 {
   "id": "napoleon.battle.ship_list",
-  "claim": "Ships have their own army list: army = [SHIP+0x43c]; ship count [army+0x108], SHIP*[] [army+0x10c] (capacity +0x104); battle.army.ships and battle.ships.count read it. J28 decode (army+0xf0/+0xf4, UNIT) does not apply to ships",
-  "state": "open",
+  "claim": "In the stock exe code: ships have their own army list: army = [SHIP+0x43c]; ship count [army+0x108], SHIP*[] [army+0x10c] (capacity +0x104); battle.army.ships and battle.ships.count read it. J28 decode (army+0xf0/+0xf4, UNIT) does not apply to ships",
+  "state": "verified",
   "evidence": "harness/runs/20261103_j60re/README.md",
   "date": "2026-11-03",
-  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far; site battle.ship_fleet_list"
+  "notes": "static (stock exe sha1 9aebcd21..., disassembly with re/j60re.py); the runtime meaning is open in napoleon.battle.ship_orders (owner: J60 PC slot)"
 }

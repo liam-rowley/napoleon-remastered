@@ -1,8 +1,8 @@
 {
   "id": "napoleon.battle.ship_facing",
-  "claim": "Ship facing is a separate rotate command: ctor 0x599810 (Selection*, int16 angle = degrees * 65536/360, bool flag, bool queue; ret 0x10) + push 0x58dc60; the dispatcher codes 0..3 build it with (-a, 0), (+a, 0), (+a, 1), (-a, 1). Open: absolute or relative angle, the flag, the heading sign convention against napoleon.battle.bearing_convention",
-  "state": "open",
+  "claim": "In the stock exe code: ship facing is a separate rotate command: ctor 0x599810 (Selection*, int16 angle = degrees * 65536/360, bool flag, bool queue; ret 0x10) + push 0x58dc60; the dispatcher codes 0..3 build it with (-a, 0), (+a, 0), (+a, 1), (-a, 1). Open: absolute or relative angle, the flag, the heading sign convention against napoleon.battle.bearing_convention",
+  "state": "verified",
   "evidence": "harness/runs/20261103_j60re/README.md",
   "date": "2026-11-03",
-  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far; sites battle.order_rotate_ctor, order_rotate_push"
+  "notes": "static (stock exe sha1 9aebcd21..., disassembly with re/j60re.py); the runtime meaning is open in napoleon.battle.ship_orders (owner: J60 PC slot); sites battle.order_rotate_ctor, order_rotate_push"
 }

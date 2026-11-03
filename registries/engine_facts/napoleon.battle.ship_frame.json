@@ -1,8 +1,8 @@
 {
   "id": "napoleon.battle.ship_frame",
-  "claim": "A ship has no frame pointer: its position is SHIP+0x54 itself; the script goto builds the target with 0x7fd730 = location (x, 0, z) (sea level, no terrain projection), so order x z needs no y. Open: that SHIP+0x54 shares the land units world frame",
-  "state": "open",
+  "claim": "In the stock exe code: a ship has no frame pointer: its position is SHIP+0x54 itself; the script goto builds the target with 0x7fd730 = location (x, 0, z) (sea level, no terrain projection), so order x z needs no y. Open: that SHIP+0x54 shares the land units world frame",
+  "state": "verified",
   "evidence": "harness/runs/20261103_j60re/README.md",
   "date": "2026-11-03",
-  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far; site battle.ship_location"
+  "notes": "static (stock exe sha1 9aebcd21..., disassembly with re/j60re.py); the runtime meaning is open in napoleon.battle.ship_orders (owner: J60 PC slot)"
 }

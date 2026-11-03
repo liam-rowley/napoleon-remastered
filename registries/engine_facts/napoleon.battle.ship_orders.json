@@ -1,8 +1,8 @@
 {
   "id": "napoleon.battle.ship_orders",
-  "claim": "Ship orders (J60): the static route is located (napoleon.battle.ship_layout, ship_list, ship_frame, ship_order_route, ship_facing, ship_sails, ship_speed, wind; run harness/runs/20261103_j60re). The land route still refuses a unit on a moving frame; ships go through their own entry points. Not yet proven on the PC",
+  "claim": "Ship orders (J60): the static route is located (napoleon.battle.ship_layout, ship_list, ship_frame, ship_order_route, ship_facing, ship_sails, ship_speed, wind; run harness/runs/20261103_j60re); its 18 candidate sites (re/candidate_sites.jsonl) are not in the registry until the PC verifies them. Open on the PC: the heading sign and zero of atan2(m02, m22), whether SHIP+0x54 shares the land frame and y = 0 targets are taken, the rotate flag (absolute or relative), what a move does at its target, the move mode, sails in practice, a live speed field, the UI list key for ships. The land route still refuses a unit on a moving frame",
   "state": "open",
   "evidence": "harness/runs/20261103_j60re/README.md",
   "date": "2026-11-03",
-  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far"
+  "notes": "owner: J60 (PC slot: harness/runs/20261103_j60re/PC_PLAN.md)"
 }

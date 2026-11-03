@@ -1,8 +1,8 @@
 {
   "id": "napoleon.battle.ship_order_route",
-  "claim": "Ship move = Selection ctor 0x68f580 + AddShip 0x69ffb0 (ship vector sel+0x34, count +0x3c) + ship move ctor 0x599510 (Selection*, loc[5]*, int sail, int mode, bool queue; ret 0x14) + queue push 0x58db40 on [battle+0x28048] + command dtor 0x5a95b0: the script goto_location 0x6454c0 and the UI ship move handler 0x5df4c0 do exactly this. The move has no heading argument; it carries the sail setting (script default 4 half sail; UI 4); mode 0 (script), 0/2/5 (UI). Halt = ctor 0x599140 + push 0x58dae0 (the dispatcher code 7 command)",
-  "state": "open",
+  "claim": "In the stock exe code: ship move = Selection ctor 0x68f580 + AddShip 0x69ffb0 (ship vector sel+0x34, count +0x3c) + ship move ctor 0x599510 (Selection*, loc[5]*, int sail, int mode, bool queue; ret 0x14) + queue push 0x58db40 on [battle+0x28048] + command dtor 0x5a95b0: the script goto_location 0x6454c0 and the UI ship move handler 0x5df4c0 do exactly this. The move has no heading argument; it carries the sail setting (script default 4 half sail; UI 4); mode 0 (script), 0/2/5 (UI). Halt = ctor 0x599140 + push 0x58dae0 (the dispatcher code 7 command)",
+  "state": "verified",
   "evidence": "harness/runs/20261103_j60re/README.md",
   "date": "2026-11-03",
-  "notes": "owner: J60 (PC slot, harness/runs/20261103_j60re/PC_PLAN.md); static RE only so far; sites battle.selection_add_ship, ship_move_ctor, ship_move_push, order_halt_ctor, order_halt_push"
+  "notes": "static (stock exe sha1 9aebcd21..., disassembly with re/j60re.py); the runtime meaning is open in napoleon.battle.ship_orders (owner: J60 PC slot); sites battle.selection_add_ship, ship_move_ctor, ship_move_push, order_halt_ctor, order_halt_push"
 }
