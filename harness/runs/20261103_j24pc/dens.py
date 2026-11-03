@@ -18,7 +18,8 @@ args = [a for a in sys.argv[1:] if a != '--no-import']
 for tag in args:
     names = [f'j24_{tag}_y_{y}' for y in YAWS] + [f'j24_{tag}_{p}' for p in POSES]
     if '--no-import' not in sys.argv:
-        names_new = [n for n in names if not (HERE / 'captures' / f'{n}.json').exists()]
+        names_new = [n for n in names if not (HERE / 'captures' / f'{n}.json').exists()
+                     and (Path(r'C:\napoleon_remastered_pc\captures') / n).is_dir()]   # a shots-only launch has no yaw captures
         if names_new:
             subprocess.run([sys.executable, 'discovery/core/shader_catalog.py', 'import', '--run', RUN, '--captures',
                             r'C:\napoleon_remastered_pc\captures', '--name', *names_new], cwd=REPO, capture_output=True)
@@ -39,6 +40,7 @@ for line in lines:
     except ValueError:
         pass
 tsv = ['capture\tmap\tfarz\tview_to_sun\t20m\t60m\t140m']
+dens = {n: d for n, d in dens.items() if d}   # None: no software shadow registers (the forced hardware path)
 for n, d in sorted(dens.items()):
     t = d['texels_per_m']
     tsv.append(f"{n}\t{d['map']}\t{d['farz']}\t{d['view_to_sun_deg']}\t{t['20m']}\t{t['60m']}\t{t['140m']}")

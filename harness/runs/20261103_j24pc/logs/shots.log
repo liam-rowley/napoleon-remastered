@@ -1,0 +1,37 @@
+== f3_stock keys:  (shots) 06:15:26Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 shadow_near_scale=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 10 key off of 10
+== f3_stock done 06:19:04Z
+== f3_8k keys: gfx.shadow_map_large=1 (shots) 06:19:05Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 9 key off of 11
+== f3_8k done 06:22:46Z
+== f3_rel keys: gfx.shadow_map_large=1 gfx.shadow_height_cutoff=1 gfx.shadow_extrusion=1 (both) 06:22:46Z
+ini: shadow_crop_keep=0 shadow_extrusion=1 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=1 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 13
+== f3_rel done 06:27:25Z
+pc_deploy install: kit kit_20261103T032438Z_ab5896f8453d installed (build ab5896f8453d)
+== f3_4k keys: gfx.shadow_map_large=1 (shots) 06:27:25Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 9
+== f3_4k done 06:30:57Z
+== f3_4k_rel keys: gfx.shadow_map_large=1 gfx.shadow_height_cutoff=1 gfx.shadow_extrusion=1 (shots) 06:30:57Z
+ini: shadow_crop_keep=0 shadow_extrusion=1 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=1 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 5 key off of 11
+== f3_4k_rel done 06:34:30Z
+== shots end 06:34:30Z
