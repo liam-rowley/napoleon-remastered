@@ -144,17 +144,44 @@ class Play(unittest.TestCase):
         self.assertIn('MISMATCH', self.out.getvalue())
 
     # ---- J66: install --scale 2 (the scale packs, the templates redirect, the UI cache) ----
-    def scale_build(self, templates=b'scaled templates', tsha=None):
+    def scale_build(self, templates=b'scaled templates', tsha=None, tag='2'):
         w = os.path.join(self.tmp, 'uiscale_work')
-        for name in ('ui_scale_2x', 'ui_scale_2x_fonts'):
+        for name in (f'ui_scale_{tag}x', f'ui_scale_{tag}x_fonts'):
             body = ('PFH0 ' + name).encode()
             self.write(os.path.join(w, name + '.pack'), body)
             self.write(os.path.join(w, name + '.pack.json'), json.dumps({'sha256': sha(body), 'bytes': len(body), 'entries': 1, 'held_back': []}).encode())
-        t = os.path.join(w, 'uied.templates.ui_scale_2x')
+        t = os.path.join(w, f'uied.templates.ui_scale_{tag}x')
         self.write(t, templates)
         self.write(t + '.json', json.dumps({'sha256': tsha or sha(templates)}).encode())
-        self.write(os.path.join(w, 'ui_scale_2x.rules'), f'redirect data\\ui\\templates\\uied.templates -> {t}\n'.encode())
+        self.write(os.path.join(w, f'ui_scale_{tag}x.rules'), f'redirect data\\ui\\templates\\uied.templates -> {t}\n'.encode())
         return w, t
+
+    def test_scale_install_at_1_25_then_uninstall_is_identical(self):
+        self.one_1440p_factor('1.25', '125')
+
+    def test_scale_install_at_1_5_then_uninstall_is_identical(self):
+        self.one_1440p_factor('1.5', '15')
+
+    def one_1440p_factor(self, factor, tag):
+        """J67: 1.25 and 1.5 install their own packs and rules, a second scale install is refused, and uninstall ends identical"""
+        w, t = self.scale_build(tag=tag)
+        cache = os.path.join(self.tmp, 'appdata_ui_cache_' + tag)
+        os.makedirs(cache, exist_ok=True)
+        with mock.patch.object(play, 'UI_CACHE', play.Path(cache)):
+            self.assertEqual(self.run_play('install', '--scale', factor, '--uiscale-work', w), 0, self.out.getvalue())
+            self.assertEqual(self.data(), ['data.pack', f'ui_scale_{tag}x.pack', f'ui_scale_{tag}x_fonts.pack'])
+            with open(os.path.join(self.game, INI), encoding='utf-8') as f:
+                self.assertIn('file_rules=' + os.path.join(w, f'ui_scale_{tag}x.rules'), f.read())
+            self.assertEqual(self.run_play('install', '--scale', '2', '--uiscale-work', w), 2)      # one factor at a time
+            self.assertIn('already in', self.out.getvalue())
+            self.assertEqual(self.run_play('uninstall'), 0, self.out.getvalue())
+            self.assertIn('identical', self.out.getvalue())
+            self.assertEqual(self.data(), ['data.pack'])
+
+    def test_an_unbuilt_factor_is_refused(self):
+        w, _ = self.scale_build()
+        self.assertEqual(self.run_play('install', '--scale', '3', '--uiscale-work', w), 2)
+        self.assertIn('built factors are', self.out.getvalue())
 
     def test_scale_install_then_uninstall_is_identical(self):
         w, t = self.scale_build()
@@ -186,8 +213,8 @@ class Play(unittest.TestCase):
         self.assertIn('sha256 is not', self.out.getvalue())
         w, _ = self.scale_build()
         self.assertEqual(self.run_play('install', '--scale', '2', '--uiscale-work', w, '--roles', 'icon'), 2)
-        self.assertEqual(self.run_play('install', '--scale', '1.5', '--uiscale-work', w), 2)
-        self.assertIn('J67', self.out.getvalue())
+        self.assertEqual(self.run_play('install', '--scale', '1.5', '--uiscale-work', w), 2)     # built factor, no 1.5x build here
+        self.assertIn('uiscale build --factor 1.5', self.out.getvalue())
         self.assertEqual(play.pc_deploy.diff_snapshots(self.start, play.pc_deploy.snapshot(self.game)), [])
         self.assertFalse(os.path.exists(play.record_path(self.state)))
 

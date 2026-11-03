@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 r"""Install the upscaled UI art for a play test (proxy kit + play packs) with one command, and take it all out again with one (J53).
 
-purpose: Liam's play-test install of the 2.5x UI art, or (J66, --scale 2) of the whole vanilla UI at 2x for 4K: refuse unsafe states, snapshot the game folder, install the proxy kit (pc_deploy) with dev.skip_intro=1 and the chosen packs (install_packs.ps1, sha-checked; with --scale also dev.file_rules pointing the loose uied.templates at the scaled copy in the state folder, and the UI cache moved aside), and undo it all back to a snapshot-identical game folder
-usage: python3 upscale/pc/play.py install [--roles a,b | --all | --scale 2] [--kit ID|DIR] [--intro] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR] [--uiscale-work DIR]   (Git Bash on the PC, from the repo checkout)
-when: before Liam sits down to play with the upscaled art (build the packs first: python3 core/wsc.py upscale pack --play --roles ..., or for --scale 2: python3 core/wsc.py uiscale build), and after, to put the game folder back; never while an agent job holds the game lock
+purpose: Liam's play-test install of the 2.5x UI art, or (J66, J67: --scale 2|1.5|1.25) of the whole vanilla UI at a factor (2 for 3840x2160, 1.25 or 1.5 for 2560x1440): refuse unsafe states, snapshot the game folder, install the proxy kit (pc_deploy) with dev.skip_intro=1 and the chosen packs (install_packs.ps1, sha-checked; with --scale also dev.file_rules pointing the loose uied.templates at the scaled copy in the state folder, and the UI cache moved aside), and undo it all back to a snapshot-identical game folder
+usage: python3 upscale/pc/play.py install [--roles a,b | --all | --scale 2|1.5|1.25] [--kit ID|DIR] [--intro] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR] [--uiscale-work DIR]   (Git Bash on the PC, from the repo checkout)
+when: before Liam sits down to play with the upscaled art (build the packs first: python3 core/wsc.py upscale pack --play --roles ..., or for --scale F: python3 core/wsc.py uiscale build --factor F), and after, to put the game folder back; never while an agent job holds the game lock
 not-a-verb: a PC-side wrapper for Liam's own shell that composes pc_deploy.py and install_packs.ps1 (both stay the only writers of the game folder); agents use watcher jobs instead
 
 Order matters on the way out: the packs leave data\ first, then `pc_deploy uninstall` (it compares the folder with the snapshot it took
@@ -118,10 +118,10 @@ def pack_files(cfg, packs_dir, roles, all_roles):
 
 
 def scale_files(work, factor):
-    """J66: [(name, pack, manifest)] of the scale packs, plus (templates file, rules file) for `factor`; every file sha-checked here"""
+    """J66, J67: [(name, pack, manifest)] of the scale packs, plus (templates file, rules file) for `factor`; every file sha-checked here"""
     cfg = load(UISCALE)
     if factor not in cfg['factors']:
-        raise Refused(f'--scale {factor:g}: built factors are {cfg["factors"]} (1.25x and 1.5x are J67)')
+        raise Refused(f'--scale {factor:g}: built factors are {cfg["factors"]} (3840x2160: 2; 2560x1440: 1.25 or 1.5)')
     tag = ('%g' % factor).replace('.', '')
     work = Path(work)
     out = []
@@ -351,7 +351,7 @@ def main(argv=None):
     ap.add_argument('--game', default=load(GAMES)['napoleon']['root'])
     ap.add_argument('--state', default=str(DEFAULT_STATE))
     ap.add_argument('--packs', help=r'play pack folder (default <state>\upscale\work\<play_packs_dir>)')
-    ap.add_argument('--scale', type=float, help='install: the vanilla UI at this factor (J66: 2) instead of the 2.5x role packs')
+    ap.add_argument('--scale', type=float, help='install: the vanilla UI at this factor (2 for 3840x2160; 1.25 or 1.5 for 2560x1440; one at a time) instead of the 2.5x role packs')
     ap.add_argument('--uiscale-work', help=r'install --scale: the uiscale build folder (default <state>\uiscale\work)')
     a = ap.parse_args(argv)
     packs = a.packs or str(Path(a.state) / 'upscale' / 'work' / load(CONFIG)['play_packs_dir'])
