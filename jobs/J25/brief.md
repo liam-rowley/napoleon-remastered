@@ -285,6 +285,6 @@ J27 and the core). The core items go to the orchestrator to file in warscape-cor
 - **J24's release values are not agreed yet** (8192 + height cutoff + extrusion). The cost arms run with them on. If Liam picks 4096 or 8192
   alone, the cost difference is in VRAM only (J24: no frame cost at any size).
 - **The spike branch in warscape-core** stays local and unpushed. The orchestrator or Liam decides whether to push it as a draft.
-
-## Registry gaps
-- path: fx/shadowmap.fx_fragment; owner: J25; reason: the shadow sampling fragment that every software receiver includes (J8 counts 117 mapped shaders) is named in the shader catalogue but has no assets row; the receiver swap compiles a modified copy of it
+- **`fx/shadowmap.fx_fragment` has no assets row.** It is the shadow sampling fragment that every software receiver includes (J8 counts 117
+  mapped shaders), named in the shader catalogue. The receiver swap compiles a modified copy of it, so the builder adds its assets row on the job
+  branch as part of the receiver work. It is not listed as a registry gap here, because the discovery ratchet refuses a new gap.
