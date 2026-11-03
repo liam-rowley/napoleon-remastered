@@ -89,6 +89,13 @@ image with Napoleon's section layout at three load bases.
 Adding a site: `python3 core/wsc.py reg add engine_sites ...` (with `exe=sha1:<pin>`), `python3 core/proxy/tools/gen_tables.py`, rebuild,
 then a PC run that logs `patch_engine: apply` and the site `stock`, and set `verified`.
 
+**Shadow sites (J24, run `harness/runs/20261103_j24pc`).** Eleven `shadow.*` rows, each behind one boolean `gfx.shadow_*` key that writes one
+fixed value: map edge 8192 (`gfx.shadow_map_large`), far clip at quality 3 1000 m, extrusion -150 m, height cutoff 200 m, and the
+measurement keys (orthographic fit, crop keep, trapezoid focus and near scale, the forced hardware path); defaults off, release values
+in `registries/config_keys.jsonl`. Rows may not share an RVA (the generator and the engine refuse the overlap whatever the keys), so
+stepping a value means one build per value until the core has a numeric key. Routes, stock values and measured effects:
+`discovery/napoleon/engine_sites_routes.md`.
+
 ## Config, log, crash capture
 
 - **Config**: `napoleon_remastered.ini` next to the exe; `[proxy] backend=dxvk` is registry id `proxy.backend`. Every key is a row of
