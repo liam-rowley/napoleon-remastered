@@ -73,7 +73,7 @@
                               "note": "the codes BattleUI.Current_Selection_Halt and _Enable_*_Formation(true/false) hand the owner's dispatcher (static RE, engine_sites battle.selection_command); only the off code of square was read"},
                  "settle": {"poll_s": 1.0, "rest_reads": 3, "eps_m": 0.1, "eps_deg": 0.2, "min_wait_s": 3, "base_s": 60, "min_speed_mps": 0.6, "max_s": 400, "wait_speed": "ffwd", "wait_speed_over_m": 30},
                  "run": "harness/runs/20261102_j28pc"},
-                 "naval": {"status": "unreachable", "why": "ships are on a moving frame and take battle.ship_controller orders (J60 builds ship orders on this route)", "fact": "napoleon.battle.order_route"},
+                 "naval": {"status": "unreachable", "why": "J60: the ship route is located statically (harness/runs/20261103_j60re) and its chunk is ctl/ships.lua; it needs the core ship half (not yet tagged) and its PC proof before it is reachable", "fact": "napoleon.battle.ship_orders"},
                  "campaign": {"status": "unreachable", "why": "campaign armies are out of scope (J28)", "fact": "napoleon.battle.order_route"}}
     },
     "perf": {"vram_source": "nvidia-smi from a watcher job (not read by the verb yet)"}

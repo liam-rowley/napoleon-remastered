@@ -56,12 +56,43 @@ const OrdersAdapter kOrders = {
     "battle.ground_project",
     "battle.selection_dispatch_b", 12,         // add ecx, 0x454  (the dispatcher's this: a cell holding the battle)
     "battle.selection_command" };              // dispatcher(sel*, cmd, float, flag): halt, formation toggles (codes in ctl/orders.lua's route)
+#if __has_include("ships.h")   // the core's ship route (J60, warscape-core after v0.14.0); with an older core pin ships stay off
+// The battle ship control route (J60, static RE in harness/runs/20261103_j60re): every operand is inside the named engine_sites row's
+// stock bytes (proxy/tests/test_ships.cpp in the core checks each against the generated table). Nothing here is PC-verified yet.
+const ShipsAdapter kShips = {
+    "battle.ship_vtable_store", 2,             // mov [edi], <SHIP vtable>  (relocated)
+    "battle.ship_position_slot", 2,            // vtable slot 0: lea eax, [ecx + 0x54]; ret
+    "battle.ship_bearing_get", 21, 27,         // fld [eax + 0x50c] (m02); fld [eax + 0x524] (m22); fpatan
+    "battle.ship_fleet_list", 7, 13, 23,       // mov eax, [ecx + 0x43c]; mov edx, [eax + 0x108]; ...; mov eax, [eax + 0x10c]
+    "battle.ship_sail_get", 4,                 // movss xmm0, [ecx + 0x1b88]
+    "battle.ship_orderable", 2, 11, 20, 24,    // cmp byte [ecx + 0x20dd], 0; cmp byte [ecx + 0x20de], 0; cmp [ecx + 0x1c58], 2
+    "battle.ship_surrendered_get", 5, 9,       // cmp dword [ecx + 0x1f00], 4
+    "battle.ship_wind_chain", 2, 15, 22,       // mov eax, [ebx + 0x1e0]; ...; mov ecx, [eax + 8]; ...; mov ecx, [ecx + 0xd8]
+    "battle.wind_vector_get", 19, 27,          // mov eax, [ebx + 0x48]; ...; mov eax, [ebx + 0x4c]
+    "battle.ship_wind_angle", 11,              // mov word [ebx + 0x5a8], ax
+    "battle.selection_add_ship", 30,           // lea ecx, [edi + 0x34] (the ship vector)
+    "battle.ship_location", "battle.ship_move_ctor", "battle.ship_move_push", "battle.order_rotate_ctor", "battle.order_rotate_push",
+    "battle.order_halt_ctor", "battle.order_halt_push",
+    0x6c,                                      // the ship move command: its last field is the queue byte at +0x68
+    4, 0,                                      // the script goto's default sail (4, "half sail") and mode (0)
+    { 1, 2, 4, 8 },                            // stationary, battle sail, half sail, full sail (script table 0x1451968)
+    { 0.5f, 0.25f, 0.0f } };                   // 0x6e05f0: full above 0.5, half above 0.25, battle above 0
+#endif
 const DevAdapter kDev = { kIntroMovies, kFrontendMovies, kLuaRules, "napoleon_remastered\\lua\\", "data\\battleterrain\\presets\\", "data\\*.pack" };
 }
 
 const GameAdapter& Adapter() {
-    static const GameAdapter a = { gen::kGameName, gen::kConfigFile, gen::kModDir, gen::kInstanceMutex, gen::kIdentity,
-                                   gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole, &kCamera, &kOrders };
+    // field by field, value-initialised first: a core that adds a field (W6 gesture, J60 ships) builds with it left null until set here
+    static const GameAdapter a = [] {
+        GameAdapter g{};
+        g.gameName = gen::kGameName; g.configFile = gen::kConfigFile; g.modDir = gen::kModDir; g.instanceMutex = gen::kInstanceMutex;
+        g.identity = gen::kIdentity; g.sites = gen::kSites; g.nSites = gen::kSiteCount; g.keys = gen::kKeys; g.nKeys = gen::kKeyCount;
+        g.dev = &kDev; g.console = &kConsole; g.camera = &kCamera; g.orders = &kOrders;
+#if __has_include("ships.h")
+        g.ships = &kShips;
+#endif
+        return g;
+    }();
     return a;
 }
 

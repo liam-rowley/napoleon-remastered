@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.ctl.ships",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/ctl/ships.lua",
+  "purpose": "the chunk ctl.py order runs in a naval battle, in the land chunk's protocol (ctl/orders.lua) so the verb reads ships as units:",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/ctl/ships.lua 20 -- list|state <ship>|move <ship> <x> <z> <heading|-> - 0 [sail]|face ..|halt <ship>|selection\" in a naval battle",
+  "when": "ctl order in a naval scene (the route block's naval entry names this chunk) and the J60 PC probes; never in a scenario row by itself",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-03"
+}
