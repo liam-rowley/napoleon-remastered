@@ -217,7 +217,7 @@ class InputSet(unittest.TestCase):
 
     def test_harness_set(self):
         self.assertEqual(ci.classify(['core']), {'proxy': True, 'harness': True, 'viewer': False})   # the pin: the proxy and harness live there (J12)
-        self.assertEqual(ci.classify(['harness/core/job.sh']), {'proxy': False, 'harness': True, 'viewer': False})
+        self.assertEqual(ci.classify(['harness/napoleon/adapter.json']), {'proxy': False, 'harness': True, 'viewer': False})
         # J22: the Windows step of harness-windows runs the Python tests that run bash
         for f in ('tests/test_job_sh.py', 'tests/test_claude_hook.py', 'tests/test_setup.py', 'tests/test_proxy_host.py',
                   'tools/verbs/setup.py', 'tools/claude_hook.py', '.claude/settings.json'):
