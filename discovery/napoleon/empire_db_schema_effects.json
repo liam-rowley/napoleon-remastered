@@ -1,0 +1,2140 @@
+{
+ "note": "Trimmed by discovery/core/effects.py --trim-schema from empire-remastered rml_mod/tools/db/schema_emp.json (RPFM schema_emp.ron converted there): only the tables the effects pass reads, every version, unchanged.",
+ "source": {
+  "file": "empire-remastered/rml_mod/tools/db/schema_emp.json",
+  "file_sha256": "631d972a61d7fe07f9d6a7ad10d9d5ffe178ff94394659c6a4560531afd61fb9",
+  "line": "Frodo45127/rpfm-schemas schema_emp.ron @ a5c59c8 (2026-10-15)"
+ },
+ "tables": {
+  "particle_effects_tables": [
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU16"
+     }
+    ],
+    "version": 0
+   }
+  ],
+  "projectile_trails_tables": [
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "type",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "width",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "duration",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "min_aparent_width_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "colour_r",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "colour_g",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "colour_b",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "opacity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "fadeout_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "distortion_cross_fade_start_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "distortion_cross_fade_range",
+      "type": "F32"
+     }
+    ],
+    "version": 0
+   }
+  ],
+  "projectiles_explosions_tables": [
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonator_type",
+      "ref": "projectiles_detonator_types_enum.detonator_type",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_type",
+      "ref": "projectiles_detonation_types_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_duration",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_speed",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "shrapnel",
+      "ref": "projectile_shrapnels.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "fuse_distance_from_target",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect_on_ground",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_audio",
+      "ref": "audio_explosions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "contact_phase_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "ignition_amount",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "is_magical",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage_ap",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "camera_shake",
+      "ref": "battle_camera_shake_parameters.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_force",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "fuse_fixed_time",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "affects_allies",
+      "type": "Boolean"
+     }
+    ],
+    "version": 18
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonator_type",
+      "ref": "projectiles_detonator_types_enum.detonator_type",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_type",
+      "ref": "projectiles_detonation_types_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_duration",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_speed",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "shrapnel_type",
+      "ref": "projectile_shrapnels.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "sharpnel_amount",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "distance_from_target",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect_on_ground",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_audio",
+      "ref": "audio_explosions.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "contact_phase_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "ignition_amount",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "is_magical",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage_ap",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "camera_shake",
+      "ref": "battle_camera_shake_parameters.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_force",
+      "type": "F32"
+     }
+    ],
+    "version": 15
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonator_type",
+      "ref": "projectiles_detonator_types_enum.detonator_type",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_type",
+      "ref": "projectiles_detonation_types_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_duration",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_speed",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "projectile_name",
+      "ref": "projectiles.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_amount",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "distance_from_target",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "error_margin",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect_on_ground",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_audio",
+      "ref": "audio_explosions.key",
+      "type": "StringU8"
+     }
+    ],
+    "version": 6
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonator_type",
+      "ref": "projectiles_detonator_types_enum.detonator_type",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_type",
+      "ref": "projectiles_detonation_types_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "detonation_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_duration",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_speed",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "projectile_name",
+      "ref": "projectiles.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_amount",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "distance_from_target",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "error_margin",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect_on_ground",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_audio",
+      "ref": "audio_explosions.key",
+      "type": "StringU8"
+     }
+    ],
+    "version": 3
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "detonator_type",
+      "ref": "projectiles_detonator_types_enum.detonator_type",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "detonation_type",
+      "ref": "projectiles_detonation_types_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "detonation_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_duration",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_speed",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "particle_type",
+      "ref": "projectiles.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "particle_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "distance_from_target",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "error_margin",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect_on_ground",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     }
+    ],
+    "version": 1
+   },
+   {
+    "fields": [
+     {
+      "key": false,
+      "name": "key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "detonator_type",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "detonation_type",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "detonation_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_duration",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_speed",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "detonation_damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "particle_type",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "particle_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "explosion_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "distance_from_target",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "error_margin",
+      "type": "F32"
+     }
+    ],
+    "version": 0
+   }
+  ],
+  "projectiles_tables": [
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "category",
+      "ref": "projectile_category_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "shot_type",
+      "ref": "projectile_shot_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_type",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "spin_type",
+      "ref": "projectiles_spin_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "trajectory_sight",
+      "ref": "projectile_trajectory_sight_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "effective_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "minimum_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "max_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "muzzle_velocity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "marksmanship_bonus",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "spread",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "ap_damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "can_bounce",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "high_air_resistance",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "collision_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "base_reload_time",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_area",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_infantry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_cavalry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_large",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "projectile_display",
+      "ref": "projectile_displays.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "overhead_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_audio",
+      "ref": "audio_projectiles.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "shockwave_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "can_damage_buildings",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "contact_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "is_grapple",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "gravity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "burst_size",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "burst_shot_delay",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "mass",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "homing_params",
+      "ref": "projectile_homing_params.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "first_person_params",
+      "ref": "projectile_first_person_params.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "ignition_amount",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "is_magical",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "can_target_airborne",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "fixed_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "projectile_penetration",
+      "ref": "projectile_penetration_junctions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "expiry_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "is_beam_launch_burst",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "expire_on_impact",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "can_roll",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "trail_always_on",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "shots_per_volley",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "fired_by_mount",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "lock_on_multiple_fire_pos",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "prefer_central_targets",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "can_damage_vehicles",
+      "type": "Boolean"
+     }
+    ],
+    "version": 44
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "category",
+      "ref": "projectile_category_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "shot_type",
+      "ref": "projectile_shot_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_type",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "spin_type",
+      "ref": "projectiles_spin_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "trajectory_sight",
+      "ref": "projectile_trajectory_sight_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "effective_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "minimum_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "max_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "muzzle_velocity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "marksmanship_bonus",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "spread",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "ap_damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "can_bounce",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "high_air_resistance",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "collision_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "base_reload_time",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_area",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_infantry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_cavalry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_large",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "projectile_display",
+      "ref": "projectile_displays.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "overhead_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_audio",
+      "ref": "audio_projectiles.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "shockwave_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "can_damage_buildings",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "contact_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "is_grapple",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "gravity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "burst_size",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "burst_shot_delay",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "mass",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "homing_params",
+      "ref": "projectile_homing_params.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "first_person_params",
+      "ref": "projectile_first_person_params.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "ignition_amount",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "is_magical",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "can_target_airborne",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "fixed_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "projectile_penetration",
+      "ref": "projectile_penetration_junctions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "expiry_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "is_beam_launch_burst",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "expire_on_impact",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "can_roll",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "trail_always_on",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "shots_per_volley",
+      "type": "I32"
+     }
+    ],
+    "version": 39
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "category",
+      "ref": "projectile_category_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "shot_type",
+      "ref": "projectile_shot_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_type",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "spin_type",
+      "ref": "projectiles_spin_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "trajectory_sight",
+      "ref": "projectile_trajectory_sight_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "effective_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "minimum_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "max_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "muzzle_velocity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "marksmanship_bonus",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "spread",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "ap_damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "penetration",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "incendiary",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "can_bounce",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "high_air_resistance",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "collision_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "base_reload_time",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "below_waterline_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_area",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_infantry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_cavalry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_elephant",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "projectile_display",
+      "ref": "projectile_displays.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "overhead_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_audio",
+      "ref": "audio_projectiles.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "shockwave_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "can_damage_buildings",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "contact_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "is_grapple",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "burst_size",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "burst_shot_delay",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "explosion_spread",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "fire_damage",
+      "type": "F32"
+     }
+    ],
+    "version": 25
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "category",
+      "ref": "projectile_category_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "shot_type",
+      "ref": "projectile_shot_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "explosion_type",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "spin_type",
+      "ref": "projectiles_spin_type_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "trajectory_sight",
+      "ref": "projectile_trajectory_sight_enum.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "effective_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "minimum_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "max_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "muzzle_velocity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "marksmanship_bonus",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "spread",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "ap_damage",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "penetration",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "incendiary",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "can_bounce",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "high_air_resistance",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "collision_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "base_reload_time",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "below_waterline_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_area",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_infantry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_cavalry",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "bonus_v_elephant",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "projectile_display",
+      "ref": "projectile_displays.key",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "overhead_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "projectile_audio",
+      "ref": "audio_projectiles.key",
+      "type": "StringU8"
+     },
+     {
+      "key": false,
+      "name": "shockwave_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "can_damage_buildings",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "contact_stat_effect",
+      "ref": "special_ability_phases.id",
+      "type": "OptionalStringU8"
+     },
+     {
+      "key": false,
+      "name": "is_grapple",
+      "type": "Boolean"
+     }
+    ],
+    "version": 20
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "category",
+      "ref": "projectile_category_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "shot_type",
+      "ref": "projectile_shot_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "missile_type",
+      "ref": "projectiles_missile_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "missile_model",
+      "ref": "warscape_rigid.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "explosion_type",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "trail",
+      "ref": "projectile_trails.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "spin_type",
+      "ref": "projectiles_spin_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "projectile_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "in_flight_transition",
+      "ref": "projectile_inflight_transition_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "trajectory_sight",
+      "ref": "projectile_trajectory_sight_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "effective_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "minimum_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "max_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "muzzle_velocity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "marksmanship_bonus",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "spread",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "penetration",
+      "ref": "projectile_penetration_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "incendiary",
+      "ref": "projectile_incendiary_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "blast_effect",
+      "ref": "projectile_blast_effect_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "can_bounce",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "high_air_resistance",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "collision_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "base_reload_time",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "base_misfire_chance",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "weather_effect",
+      "ref": "projectile_weather_effect_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "sail_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "below_waterline_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "launch_audio",
+      "ref": "weapon_fire_audio_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "hit_audio",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "launch_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "projectile_trail_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "impact",
+      "ref": "projectile_impacts.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "gun_type",
+      "ref": "projectile_gun_types_enum.gun_type",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "first_person_launch_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "calibration_distance",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "calibration_area",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "can_penetrate_fort_wall",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "gravity",
+      "type": "F32"
+     }
+    ],
+    "version": 5
+   },
+   {
+    "fields": [
+     {
+      "key": true,
+      "name": "key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "category",
+      "ref": "projectile_category_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "shot_type",
+      "ref": "projectile_shot_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "missile_type",
+      "ref": "projectiles_missile_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "missile_model",
+      "ref": "warscape_rigid.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "explosion_type",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "trail",
+      "ref": "projectile_trails.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "spin_type",
+      "ref": "projectiles_spin_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "projectile_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "in_flight_transition",
+      "ref": "projectile_inflight_transition_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "trajectory_sight",
+      "ref": "projectile_trajectory_sight_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "effective_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "minimum_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "max_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "muzzle_velocity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "marksmanship_bonus",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "spread",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "penetration",
+      "ref": "projectile_penetration_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "incendiary",
+      "ref": "projectile_incendiary_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "blast_effect",
+      "ref": "projectile_blast_effect_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "high_air_resistance",
+      "type": "I16"
+     },
+     {
+      "key": false,
+      "name": "collision_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "base_reload_time",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "base_misfire_chance",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "weather_effect",
+      "ref": "projectile_weather_effect_enum.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "sail_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "below_waterline_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "launch_audio",
+      "ref": "weapon_fire_audio_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "hit_audio",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "launch_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "projectile_trail_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "impact",
+      "ref": "projectile_impacts.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "gun_type",
+      "ref": "projectile_gun_types_enum.gun_type",
+      "type": "OptionalStringU16"
+     }
+    ],
+    "version": 1
+   },
+   {
+    "fields": [
+     {
+      "key": false,
+      "name": "key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "category",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "shot_type",
+      "ref": "projectile_shot_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "missile_type",
+      "ref": "projectiles_missile_type_enum.key",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "missile_model",
+      "ref": "warscape_rigid.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "explosion_type",
+      "ref": "projectiles_explosions.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "trail",
+      "ref": "projectile_trails.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "spin_type",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "projectile_number",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "in_flight_transition",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "trajectory_sight",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "effective_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "minimum_range",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "max_elevation",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "muzzle_velocity",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "marksmanship_bonus",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "spread",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "damage",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "penetration",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "incendiary",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "blast_effect",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "can_bounce",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "high_air_resistance",
+      "type": "Boolean"
+     },
+     {
+      "key": false,
+      "name": "collision_radius",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "base_reload_time",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "base_misfire_chance",
+      "type": "I32"
+     },
+     {
+      "key": false,
+      "name": "weather_effect",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "sail_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "below_waterline_damage_modifier",
+      "type": "F32"
+     },
+     {
+      "key": false,
+      "name": "launch_audio",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "hit_audio",
+      "type": "StringU16"
+     },
+     {
+      "key": false,
+      "name": "launch_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "projectile_trail_particle_effect",
+      "ref": "particle_effects.key",
+      "type": "OptionalStringU16"
+     },
+     {
+      "key": false,
+      "name": "impact",
+      "ref": "projectile_impacts.key",
+      "type": "OptionalStringU16"
+     }
+    ],
+    "version": 0
+   }
+  ]
+ }
+}

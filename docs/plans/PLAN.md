@@ -90,6 +90,24 @@ and workflows) moved to the core in J62 (v0.9.0; napoleon keeps its rules in `ws
   restart list, candidates: Napoleon's smoke and particle effects backported as a pack (gated on J72's `effects` diff; first proof is
   one volley captured with the J8 frame-capture tool on Empire), with the proxy re-rendering smoke from Empire's own sprite draws
   (section 7, lighting track) as the fallback if the effect format does not carry over.
+
+  Backport feasibility (J72, 2026-11-03; facts `napoleon.diff.effects` and `napoleon.diff.effects.empire_exe_names`, evidence
+  `discovery/diff/effects.json`). What carries over unchanged: the whole naval definition file (byte-identical), 68 of 70 shared
+  effects textures, `projectile_trails`, and 101 of Napoleon's 104 `particle_effects` keys. Napoleon's land smoke is not Empire's
+  smoke with extras: every gunpowder effect the projectile and explosion rows name (26 keys, all `SCRIPTED_EFFECT_GROUP` names in
+  `landbattle.xml`) is changed or new, none of their entry definitions is identical, and 192 of the 226 shared land definitions carry
+  real value changes. The format is the same XML plus one tag and 16 attribute names (ribbons, radial blur, ambient spawning,
+  quality level) that every Napoleon land definition writes; Empire.exe holds none of those 20 names in any encoding, so its parser
+  has no name for them. The assets Empire lacks (11 textures and `ribbon.fx`) can ship in a pack and only the 9 explosion groups use
+  them; the musket, rifle, pistol and gun-fire groups need no asset Empire lacks, though they name `particle.fx`, which Napoleon changed. So the
+  backport's first proof, one volley captured with the J8 frame-capture tool on Empire, has two variants to try and stays an Empire
+  restart step (D11): Napoleon's `landbattle.xml` as shipped (does Empire ignore unknown attributes or reject the file?) and the same
+  file with the new tag and attributes stripped (Napoleon's values on Empire's vocabulary, losing ribbons and radial blur), each with
+  and without Napoleon's `particle.fx`, which must also compile under Empire's `d3dx9`. The fallback is weaker than this bullet says:
+  Empire's own battle smoke draw was never identified (empire-remastered `LEARNINGS_ENGINE.md`, 2026-10-28: no catalogued pixel shader
+  draws the musket smoke or dust, so it is drawn by fixed function or a path the proxy does not see), and Liam's 2026-10-22 decision
+  kept particles and smoke vanilla for Empire's v1. Decided (D48): the backport stays an Empire restart-list candidate, its first
+  probe the stripped-file volley.
 - Shogun 2 needs core work before an adapter: its players run the DX11 renderer and the proxy is `d3d9.dll` with
   `IDirect3DDevice9` hooks (core backlog B36, a renderer seam, to be designed when J30 builds the RmlUi render interface); the pack
   reader is PFH0 only (B37, Shogun 2 is PFH2 and PFH3); the ESF tools read ABCA and ABCE only (B38, Shogun 2 saves are ABCF); whether
@@ -185,10 +203,11 @@ OFL, …); versioned releases with generated release notes.
 4. **J30 brief** (2026-11-01): amend it before it starts so the RmlUi render interface sits behind a backend seam (core backlog
    B36), the cheapest point to buy the D3D11 option Shogun 2 needs; or leave J30 as briefed and pay for the seam later.
 5. The section 7 candidates: each needs a dated decision with its own kill criterion (D14), or a dated no.
-6. **Moonshots** (2026-11-02, `docs/plans/MOONSHOTS_2026-11-01.md`). Four drafted decision lines wait in the record's "Roadmap
-   integration": D47 (the AI track, gym first), D48 (unattended AI runs as watcher jobs with a daily lock budget and a crash-rate kill),
-   D49 (narrowing section 2's lighting exclusion to a bounded post track with a GPU budget per pass), D50 (ray tracing stays out pending
-   J71). Sign, edit or decline each; the AI track is the one the record recommends first, and its substrate rows (seven, Opus-heavy)
+6. **Moonshots** (2026-11-02, `docs/plans/MOONSHOTS_2026-11-01.md`). Three drafted decision lines wait in the record's "Roadmap
+   integration" (its D47-D49 placeholders; each takes the next free number when signed): the AI track, gym first; unattended AI runs as
+   watcher jobs with a daily lock budget and a crash-rate kill; narrowing section 2's lighting exclusion to a bounded post track with a GPU
+   budget per pass. The record's fourth draft (its D50, ray tracing) is signed as **D47** (2026-11-03): J71 answered no (fact
+   `napoleon.vulkan.rt_32bit` refuted, driver 617.14, run `harness/runs/20261103_j71pc`), so ray tracing is deferred indefinitely. Sign, edit or decline each; the AI track is the one the record recommends first, and its substrate rows (seven, Opus-heavy)
    are the next `plan/` branch once D47 exists. Two things the decisions need settled first: a `phase` for out-of-D1 work (the jobs
    schema allows 1-6 today; the record proposes 7), and whether the lighting track gets its own `perf/budgets.md` line against J23's
    proposed 2.5 ms reserve.
@@ -210,11 +229,11 @@ jobs on machinery that exists; the kill criterion is the proposal for its decisi
 
 **Moonshots** (research record `docs/plans/MOONSHOTS_2026-11-01.md`: evidence, prior art, costs, and for each a drafted decision line
 and job rows in build order). Larger than one or two jobs each; the record's "Roadmap integration" section is what a decision would
-sign. The two measurements that change no scope are queued: J71 and J72.
+sign. The two measurements that change no scope: J71 (done 2026-11-03: no, D47) and J72 (the effects diff).
 
 | Candidate | Verdict in the record | Mechanism (exists) | Gate or kill criterion |
 |---|---|---|---|
 | **External battle AI** (gym substrate on J28 → parametrised hierarchical scripted AI playing the player's side against the vanilla AI → evolutionary tuning → behaviour cloning + RL only if the gates pass) | go, staged (drafted D47, D48; ~15 rows) | the order chain and UNIT layout J9 located and checks every start; J28's `order` verb; `ctl` scene/speed/pause/reset; the vanilla AI's plan vote and tactic auction are hard-coded literals with no db table (DenseCow RE), so an external AI is the only route to "better than vanilla" | scripted AI ≥ 80 % vs vanilla Normal at equal stats over 50-episode batteries on 3 maps; RL only if a clock hook lifts the measured 4.0x cap to ≥ 20x, ≥ 2,000 episodes a day, and replays are deterministic enough for stable batteries |
 | **Lighting and post at the composite plus froxel gunpowder smoke** seeded from the engine's `particle.fx` draws | spike first (drafted D49; ~9 rows); reverses section 2's "lighting or shader remaster beyond what the shadow work needs" | the six-draw composite J8 located; fx sources compiled at runtime, overridden through the dev pack the fixed sky proved; published froxel and GTAO costs fit 2.5-4.5 ms added at 4K on the 4090 | composite pass-through at ≤ +0.3 ms p50 and depth readable as a texture, else stop; needs its own line in `perf/budgets.md` (J23's proposal keeps 2.5 ms p99 in reserve at 4K, less than this track spends) |
-| **Ray-traced shadows and AO** through DXVK's D3D9 Vulkan interop | defer, one probe queued (J71; drafted D50) | `ID3D9VkInteropDevice` (DXVK 2.0+) gives the device and queue; nothing exports buffers, and stock DXVK never enables the RT extensions (a ~50-line patch against the "never a fork" pin) | **blocked before it starts** unless J71 shows the 32-bit NVIDIA ICD exposes `VK_KHR_ray_query`; the fallback is the 64-bit bridge section 2 excludes, so the expected answer is a dated no |
-| **Napoleon smoke backported to Empire** | undetermined, one diff queued (J72); belongs to the Empire restart list (section 4) | same fx layout and PFH0 packs; `particle.fx` differs by 76 lines, `particle_volumetric.fx_fragment` by 456, `ribbon.fx` is new; the 94 vs 74 `effects` entries were never diffed per file | J72's diff shows a format Empire's exe rejects, or the fx fail to compile under Empire's `d3dx9` |
+| **Ray-traced shadows and AO** through DXVK's D3D9 Vulkan interop | defer, one probe queued (J71; drafted D50) | `ID3D9VkInteropDevice` (DXVK 2.0+) gives the device and queue; nothing exports buffers, and stock DXVK never enables the RT extensions (a ~50-line patch against the "never a fork" pin) | **blocked before it starts** unless J71 shows the 32-bit NVIDIA ICD exposes `VK_KHR_ray_query`; the fallback is the 64-bit bridge section 2 excludes, so the expected answer is a dated no; J71 measured it: no (fact `napoleon.vulkan.rt_32bit` refuted 2026-11-03, driver 617.14, run `harness/runs/20261103_j71pc`: none of the RT extensions in the 32-bit list, all in the 64-bit one) |
+| **Napoleon smoke backported to Empire** | undetermined; diffed (J72), belongs to the Empire restart list (section 4) | same fx layout and PFH0 packs; `particle.fx` differs by 76 lines, `particle_volumetric.fx_fragment` by 456, `ribbon.fx` is new; the `effects` entries are diffed per file in `napoleon.diff.effects`: same XML plus one tag and 16 attribute names Empire.exe has no string for, every gunpowder group changed or new, 11 textures and `ribbon.fx` to ship | J72's diff shows a format Empire's exe rejects, or the fx fail to compile under Empire's `d3dx9` |
