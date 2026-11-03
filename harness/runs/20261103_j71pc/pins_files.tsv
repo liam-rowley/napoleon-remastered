@@ -1,0 +1,5 @@
+path	bytes	sha256	pe_machine
+C:/Windows/SysWOW64/vulkaninfo.exe	2626608	dd963d5a5da3da40e7f2327e6ccb8e02eb6a12ed13c977b1d8fb991068ddb730	0x14c (i386, 32-bit)
+C:/Windows/SysWOW64/vulkan-1.dll	1542192	2fb9c7742624733bc743a36a6424197f35ddbe6cb54b2fa3b1c794da8ee3e04d	0x14c (i386, 32-bit)
+C:/Windows/System32/vulkaninfo.exe	3082800	c1ed6b230e4c3096684c20a4ed02da588b3609fdaf3ba1a275bf3e6b8d74238a	0x8664 (AMD64, 64-bit)
+C:/Windows/System32/vulkan-1.dll	1730096	12195bbe9f2d8c27606772f72dae564bb7a7ddb9669d169e1676c3edc1c61f3e	0x8664 (AMD64, 64-bit)
