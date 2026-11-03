@@ -166,3 +166,28 @@ Poses are in the run README. The yaw 270 readback is outside tolerance in every 
 - `ctl cam` heights are clamped to 2.5 to 44.6 m above terrain. In land_small, yaw 0 faces +z with the sun behind the camera.
 - After a fresh install, plan for 21 passes: pass 1 is labelled with the kit id (B26/B31) and the streak does not count it.
 - A multi-hour watcher run spends many tool calls on wait loops; keep each wait under 10 minutes and do not send them in parallel.
+
+## Fix round 1
+Session 963de37b-2e19-46f2-8bba-0fa876ba7709, 2026-11-03, against "## Round 1" of `review.md`. No DLL input changed: the build id stays
+75739186b92e and the 20 passes still count (rule 79).
+
+- **Should-fix 1, deliverable 7 (core filing): done.** warscape-core pull request
+  [#30](https://github.com/liam-rowley/warscape-core/pull/30) (`plan/backlog-numeric-keys-nile-flake`, commit 8363b7c) adds two rows to
+  `docs/BACKLOG.md`: **B59** numeric patch values from config keys (`value_key`, the spec from Open questions, for J24's size, cutoff and
+  extrusion and J27's distances) and **B60** the hist_nile headless relaunch flake (evidence: runs `20261103_j24acc` pass 10 and
+  `20261103_j24acc2` pass 17, both "no on_virtual status ... within 180 s"). B54 to B56 are taken on the open W4 branch, so the rows are
+  B59 and B60. A `plan/` branch: Liam merges it. B26, B30, B31 and B41 already existed and are not refiled.
+- **Should-fix 2, tool rows for the reusable helpers: done** (commit 559cb4b). The helpers leave the run folder with headers, options in
+  place of the J24 paths, registry rows and host tests (`tests/test_run_helpers.py`, 10 tests):
+  - `sheet.py` -> `tools/shot_sheet.py` (`--shots DIR --out --title --poses [--crop] TAG[:LABEL]...`);
+  - `dens.py` -> `tools/shadow_density.py` (`--run --prefix --yaws --poses [--no-import] TAG...`);
+  - `accsum.py` -> `tools/acceptance_summary.py` (per pass: result, build, failed steps, shot diffs against thresholds);
+  - `ladder_table.py` -> a `ladder` verb on `tools/perf_baseline.py` (extend, not a near-duplicate; `--control DIR --run DIR...`, reads a
+    run's `summary.json` or summarizes its cells).
+  - Checked on the J24 runs: `shadow_density.py --run 20261103_j24pc --no-import` rewrites `density.tsv` byte for byte, and
+    `perf_baseline.py ladder` gives the same medians and deltas as `ladder_table.md`. The run README points at the tools. The one-off
+    drivers (`fit.sh`, `fitsweep*.sh`, `ladder.sh`, `shots.sh`, `final*.sh`) and `summ.py` stay as run evidence.
+- **Fixed by the reviewer** (routes doc row count): nothing left to do.
+- **Later, left:** the prose learnings (`shader_catalog.py import` on a missing capture, the `density` path limit, a watcher guard against
+  editing a running `.sh`) belong to the owner of `discovery/core`, which W4 is moving into the core; `shadow_density.py` already reads paths
+  in chunks of 40. The cut-off line question stays Liam's (Open questions), and the 4K p50 drift is for J59.
