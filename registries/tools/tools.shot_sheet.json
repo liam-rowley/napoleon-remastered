@@ -1,0 +1,11 @@
+{
+  "id": "tools.shot_sheet",
+  "kind": "script",
+  "path": "tools/shot_sheet.py",
+  "purpose": "build one labelled JPEG contact sheet from ctl shot files, rows = poses, columns = settings (each setting a folder of shots), optionally a full-resolution crop of the near-camera region; a missing shot is a grey cell marked \"missing",
+  "usage": "shot_sheet.py --shots DIR --out OUT.jpg --title T --poses p1,p2,... [--crop] TAG[:LABEL] [TAG[:LABEL] ...]   (shots are DIR/<TAG>/*_<pose>.jpg|png)",
+  "when": "a before/after or ladder sitting of a graphics job (J24 shadows; J25, J26, J27 next) needs side-by-side shots per pose",
+  "not_a_verb": "a run helper over shot files on disk, no registry or game state",
+  "status": "live",
+  "last_used": "2026-11-03"
+}

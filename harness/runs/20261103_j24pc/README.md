@@ -18,8 +18,10 @@ Every launch's `raw/<tag>/proxy.log` lists the 64 sites: all `stock` with the ke
 - `fit.sh <tag> "<keys>" [yaw|shots|both]`: one launch: land_small, the J8 yaw sweep (camera (-0.08, 59.02, 446.14), pitch -25, yaw
   0..315 in 45 degree steps; a capture per yaw), the six shot poses (capture + shot each), then siege_small at its deploy pose (s1).
 - `fitsweep.sh`, `fitsweep2.sh`, `fitsweep3.sh`: the fit sittings; `ladder.sh`: the perf ladder; `shots.sh`: the before/after sitting;
-  `final.sh`: the final build's idle check, acceptance and release perf. Helpers: `summ.py` (a launch's summary), `dens.py` (import +
-  density table, `density.tsv`), `sheet.py` (contact sheets), `ladder_table.py` (`ladder_table.md`).
+  `final.sh`: the final build's idle check, acceptance and release perf. Helper: `summ.py` (a launch's summary). The reusable
+  helpers are registered tools since review round 1: `tools/shadow_density.py --run 20261103_j24pc <tags>` (import + density table,
+  `density.tsv`), `tools/shot_sheet.py --shots harness/runs/20261103_j24pc/raw` (contact sheets), `tools/perf_baseline.py ladder`
+  (`ladder_table.md`) and `tools/acceptance_summary.py` (per-pass results of the acceptance runs).
 
 ## Shot poses (`ctl.py cam` x y z yaw pitch; land_small, the same before and after)
 | pose | camera | what it shows |
@@ -43,5 +45,5 @@ the engine clamps to 18.2 (2.5 m above terrain), hence 18.2 from then on. `explo
 - No hang, no WER dump.
 
 ## Results
-Fit (texels per metre at 20 m, `dens.py`; the full table is `density.tsv`), the map-size ladder (`ladder_table.md`), the shots
+Fit (texels per metre at 20 m, `tools/shadow_density.py`; the full table is `density.tsv`), the map-size ladder (`ladder_table.md`), the shots
 (`sheets/`), acceptance and release perf: `jobs/J24/report.md`.
