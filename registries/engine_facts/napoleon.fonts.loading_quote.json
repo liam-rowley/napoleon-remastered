@@ -4,5 +4,5 @@
   "state": "open",
   "evidence": "uiscale/runs/2026-11-03_j37_static/README.md",
   "date": "2026-11-03",
-  "notes": "static RE (run 2026-11-03_j37_static, loop 0x110d859); open: whether the box is sized in screen pixels or canvas units, and which file is kept at 1080p and 4K (PC file survey)"
+  "notes": "static RE (run 2026-11-03_j37_static, loop 0x110d859); open: whether the box is sized in screen pixels or canvas units, and which file is kept at 1080p and 4K (J37's PC slot, file survey)"
 }

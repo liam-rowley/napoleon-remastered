@@ -127,7 +127,10 @@ class Check(unittest.TestCase):
         self.assertTrue(any('byte-identical to the vanilla' in p for p in probs))
 
     def test_vanilla_shas_cover_every_shipped_font(self):
-        import cli
+        import importlib.util   # by path: other test modules put a different cli.py on sys.path first
+        spec = importlib.util.spec_from_file_location('uiscale_napoleon_cli', os.path.join(ROOT, 'uiscale', 'napoleon', 'cli.py'))
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
         shas = cli.vanilla_font_shas()
         files = load('discovery/diff/fonts.json')['detail']['napoleon_files']
         self.assertEqual(len(files), 74)   # napoleon.diff.fonts.cuf
