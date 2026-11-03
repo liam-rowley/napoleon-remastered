@@ -86,4 +86,10 @@ backend, not the UI. `proxy.backend` was set back to `dxvk` afterwards.
   lock release restored the mod ini to it, undoing the `pc_deploy set` back to release values made while the lock was still held
   (watcher.log 15:47:41 UTC). Keys set to release values again with no lock held, then the run below.
 - The 20-pass run on this build with the J30 keys at their release values (`ui.enabled=0`, `ui.show=` empty, `ui.scale=100`):
-  `harness/runs/20261103_j30acc2/` (ledger lines with `branch job/J30`). Uninstall and the folder comparison are in the job report.
+  `harness/runs/20261103_j30acc2/` (ledger lines with `branch job/J30`): passes 1-16 passed, pass 17 failed at `campaign_start:scene`:
+  the headless launch and its one retry both ended `HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting
+  DllMain)`, minidumps `20261103T182311Z-p20684_c0000374.dmp` and `20261103T182324Z-p41828_c0000005.dmp` (in the game folder's
+  `napoleon_remastered\dumps`, moved to `_to_delete` by the uninstall). Streak on `af34b0c1f7d1`: 16, not 20. The same start-up exit
+  happened and was retried 10 times in passes 1-16 (3 times in J46's 20 passes on `7631068c014b`); J24's build `75739186b92e` (no RmlUi
+  host) shows the same early exits at 4-9 an hour in `watcher.log` the same morning, so it is the PC's launch flake and not the host,
+  which is off at these keys (`ui.enabled=0`: `UiInit` returns after reading the key). Stopped there: two broken runs (job instruction).
