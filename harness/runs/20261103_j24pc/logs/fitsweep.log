@@ -1,0 +1,62 @@
+== f_stock keys:  (both) 03:22:40Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 8 key off of 8
+== f_stock done 03:27:24Z
+== f_crop keys: gfx.shadow_crop_keep=1 (both) 03:27:24Z
+ini: shadow_crop_keep=1 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 9
+== f_crop done 03:32:06Z
+== f_ortho keys: gfx.shadow_fit_ortho=1 (both) 03:32:06Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=1 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 9
+== f_ortho done 03:36:50Z
+== f_cutoff keys: gfx.shadow_height_cutoff=1 (both) 03:36:50Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=1 shadow_hw_force=0 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 9
+== f_cutoff done 03:41:32Z
+== f_extr keys: gfx.shadow_extrusion=1 (both) 03:41:33Z
+ini: shadow_crop_keep=0 shadow_extrusion=1 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 9
+== f_extr done 03:46:13Z
+== f_far keys: gfx.shadow_far_cap=1 (both) 03:46:13Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=1 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 9
+== f_far done 03:50:54Z
+== f_8k keys: gfx.shadow_map_large=1 (both) 03:50:54Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=1 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 7 key off of 9
+== f_8k done 03:55:30Z
+== f_8k_crop keys: gfx.shadow_map_large=1 gfx.shadow_crop_keep=1 (both) 03:55:30Z
+ini: shadow_crop_keep=1 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=1 
+scene land rc 0
+harness/runs/20261103_j24pc/fit.sh: line 25: syntax error near unexpected token `done'
+harness/runs/20261103_j24pc/fit.sh: line 25: ` y_$y; done'
+== f_hw keys: gfx.shadow_hw_force=1 (both) 03:57:19Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=1 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 6 key off of 10
+== f_hw done 04:04:50Z
+== sweep end 04:04:50Z

@@ -1,0 +1,10 @@
+{
+  "id": "J71",
+  "description": "One measurement, no scope change (docs/plans/MOONSHOTS_2026-11-01.md, feature 3): does the 32-bit NVIDIA Vulkan ICD on the project PC expose VK_KHR_ray_query, VK_KHR_acceleration_structure and VK_KHR_deferred_host_operations? Run C:\\Windows\\SysWOW64\\vulkaninfo.exe and System32\\vulkaninfo.exe on the 4090 with the current driver (or a ten-line 32-bit vkEnumerateDeviceExtensionProperties probe) and file engine fact napoleon.vulkan.rt_32bit (state verified or refuted, driver version, both lists as evidence under a run folder). Two independent reports (2019; ao-vk issue 22, 2026-10-29) say the 32-bit Windows ICD exposes none, which would make in-process ray tracing inside Napoleon.exe impossible on Windows regardless of DXVK; the fact decides whether the record's D50 is ever written. No code, no game launch: the probe runs outside the game and the watcher.",
+  "title": "32-bit Vulkan ray-tracing extensions probe (fact napoleon.vulkan.rt_32bit)",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": []
+}

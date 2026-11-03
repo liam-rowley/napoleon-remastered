@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.kernel",
+  "claim": "The stock receivers filter the software shadow map with one fetch4 per pixel: four point taps on a 2x2 texel block (+1 texel in x, -1 texel in v) weighted bilinearly by frac(uv x shadow_map_texture_size) (pcf_filter), so the filter footprint is one texel: about 8 cm at 12 texels/m. USE_MULTI_TAP (the 4x4-tap, 9-weight path in shadowmap.fx_fragment) is not defined: the receivers map byte for byte with shader_catalog.py's BASE defines, which do not have it (J8, run 20261101_j8pc). The kernel is in texels, so a larger map shrinks the penumbra in metres in proportion (8192: about 2 cm at 48 texels/m); shadow_map_kernel_scale (1.0) is declared but not read by this path. The NVIDIA path uses one tex2Dproj on the depth texture (hardware 2x2 PCF): the same footprint.",
+  "state": "verified",
+  "evidence": "harness/runs/20261103_j24pc/README.md",
+  "date": "2026-11-03",
+  "notes": "owner J24; softer filtering needs a receiver shader change (J26)"
+}

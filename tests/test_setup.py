@@ -62,6 +62,40 @@ class Setup(unittest.TestCase):
         self.assertIn('no Git Bash', detail)
         self.assertIn('Git for Windows', fix)
 
+    def test_watcher_check_runs_the_core_job_sh(self):
+        # J70: the check ran harness/core/job.sh (the pre-J12 path), so bash exited 127 with the watcher up. The fake _run answers
+        # like job.sh status only for an existing script; the real job.sh never runs, so CI needs no watcher.
+        calls = []
+
+        def fake_run(cmd, cwd=None, timeout=60):
+            calls.append(cmd)
+            if Path(cmd[1]).is_file() and cmd[2:] == ['status']:
+                return 0, '{"state": "idle"}'
+            return 127, f'{cmd[1]}: No such file or directory'
+
+        with mock.patch.object(sv, 'git_bash', lambda: 'stub-bash'), mock.patch.object(sv, '_run', fake_run):
+            ok, detail, fix = sv.check_watcher(ROOT, False)
+        self.assertTrue(ok, detail)
+        self.assertEqual(len(calls), 1)
+        want = ROOT / 'core' / 'harness' / 'job.sh'
+        self.assertTrue(want.is_file(), want)
+        self.assertEqual(Path(calls[0][1]).resolve(), want.resolve())
+
+    def test_watcher_check_with_job_sh_missing_names_the_path_and_runs_no_bash(self):
+        # J70: a root without core/harness/job.sh (submodule not initialised) is its own failure, found before bash runs.
+        def fake_run(cmd, cwd=None, timeout=60):
+            if any(str(c).replace('\\', '/').endswith('job.sh') for c in cmd):
+                self.fail(f'bash ran a missing job.sh: {cmd}')
+            return 0, ''
+
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(sv, 'git_bash', lambda: 'stub-bash'), \
+                mock.patch.object(sv, '_run', fake_run):
+            ok, detail, fix = sv.check_watcher(Path(d), False)
+        self.assertFalse(ok)
+        self.assertIn('core/harness/job.sh', detail)
+        self.assertIn('missing', detail)
+        self.assertIn('submodule', fix)
+
     def test_cr_files(self):
         with tempfile.TemporaryDirectory() as t:
             (Path(t) / 'a.sh').write_bytes(b'echo hi\n')

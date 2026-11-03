@@ -1,0 +1,94 @@
+{
+ "pass": 10,
+ "start_utc": "2026-11-03T08:02:50Z",
+ "end_utc": "2026-11-03T08:04:11Z",
+ "build_id": "75739186b92e",
+ "watcher": "1.2.0",
+ "kit": "kit_20261103T063744Z_6bab276b0030",
+ "passed": false,
+ "steps": {
+  "exe_sha1": {
+   "ok": true,
+   "compared": "the game exe sha1 against the pin (rule 28)",
+   "expected": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+   "got": "9aebcd2172f2878d781b079f7feb45b0e12e0250"
+  },
+  "hist_dresden:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 7.3,
+   "got_s": 7.4,
+   "limit_s": 18.25,
+   "path": {
+    "launch": null,
+    "via": "autostart"
+   }
+  },
+  "hist_dresden:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 675.7,
+      "got": 675.7,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 59.7,
+      "got": 59.6999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": 529.2,
+      "got": 529.2,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -137.37,
+      "got": -137.37003415822983,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -20.36,
+      "got": -20.359877195645666,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0003479681712048266,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_dresden:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 98061,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261103_j24acc\\pass_10\\hist_dresden_deploy.jpg"
+  },
+  "hist_dresden:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 4.146,
+   "threshold": 7.8
+  },
+  "hist_nile:scene": {
+   "ok": false,
+   "reason": "RuntimeError: step launch: exit 1: [launch job j24-20261103T080401Z-2544030747 owner=j24 headless 1920x1080]\nrunning: Napoleon.exe pid 35768\nheadless status: starting DllMain\n\n[watcher] failed: HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)\n[job j24-20261103T080401Z-2544030747: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]\n"
+  }
+ }
+}

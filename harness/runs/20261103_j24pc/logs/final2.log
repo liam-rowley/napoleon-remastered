@@ -1,0 +1,10 @@
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+shadow_crop_keep=0 shadow_extrusion=1 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=1 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+== acceptance2 09:07:08Z
+acceptance pass 13: pass (harness/runs/20261103_j24acc2/pass_13.json)
+acceptance pass 14: pass (harness/runs/20261103_j24acc2/pass_14.json)
+acceptance pass 15: pass (harness/runs/20261103_j24acc2/pass_15.json)
+acceptance pass 16: pass (harness/runs/20261103_j24acc2/pass_16.json)
+acceptance pass 17: FAIL (harness/runs/20261103_j24acc2/pass_17.json)
+acceptance: stopped at the first failure: hist_nile:scene: {'ok': False, 'reason': 'RuntimeError: step launch: exit 1: 31820 (child process of PID 19796) has been terminated.\nkilled: Napoleon 31820\n\n[watcher] failed: HEADLESS FAILED: no on_virtual status for pid 31820 within 180 s (last: (no status yet)); the game was killed (fail closed)\n[job j24-20261103T111548Z-190223457: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 31820 within 180 s (last: (no status yet)); the game was killed (fail closed)]\n'}
+== final2 end 11:19:00Z

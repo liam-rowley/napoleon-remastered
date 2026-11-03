@@ -1,0 +1,158 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "siege_small",
+  "kind": "siege",
+  "target": "battle:siege_small",
+  "load_s": 5.4,
+  "path": {
+    "launch": null,
+    "via": "reset"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.91,
+    "frames": 836,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "rti_fort_1",
+      "deployment": "running"
+    },
+    "got": {
+      "map": "rti_fort_1",
+      "scene": "battle_deploy"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j24-20261103T062208Z-27110100",
+      "request": "reset battle:siege_small 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-03T06:22:08.944Z",
+      "end_utc": "2026-11-03T06:22:22.084Z",
+      "launch_id": "20261103T061931Z-p40552",
+      "steps": "battle: ExitBattle; battle: summary dismissed (DismissBattleResult); battle: post-battle screen closed (ClosePopup mp_postbattle)",
+      "from": "battle_deploy",
+      "to_frontend_s": 6.7,
+      "total_s": 13.1,
+      "mem_before": {
+        "va_mb": 1866,
+        "commit_mb": 1235
+      },
+      "mem_frontend": {
+        "va_mb": 1698,
+        "commit_mb": 952
+      },
+      "mem_after": {
+        "va_mb": 1887,
+        "commit_mb": 1266
+      },
+      "autostart": {
+        "scene": "battle_deploy",
+        "lua": "started battle rti_fort_1 (siege, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+        "load_s": 5.4,
+        "total_s": 6.5,
+        "map": "rti_fort_1",
+        "map_folder_loaded": "rti_fort_1",
+        "map_folder_loaded_after_request_ms": 641,
+        "map_folder_selected": "rti_fort_1",
+        "preset_map": "rti_fort_1"
+      },
+      "state_at_end": {
+        "launch_id": "20261103T061931Z-p40552",
+        "pid": 40552,
+        "frame": 84807,
+        "scene": "battle_deploy",
+        "scene_s": 1.0,
+        "uptime_s": 169.8,
+        "written_utc": "2026-11-03T06:22:22.084Z",
+        "last_present_utc": "2026-11-03T06:22:22.081Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 2,
+        "mem": {
+          "va_mb": 1887,
+          "commit_mb": 1266
+        },
+        "reports": {
+          "autostart.map": "rti_fort_1",
+          "autostart.map_folder": "rti_fort_1",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "rti_fort_1",
+          "battle.map_folder_ms": "641"
+        }
+      },
+      "log": [
+        "2026-11-03T06:22:08.946Z [INFO ] [t27828] scene: battle_deploy -> loading after 142.3 s (uptime 156.7 s, frame 72424, lua battle)",
+        "2026-11-03T06:22:08.986Z [INFO ] [t35080] reset: step 1: battle: ExitBattle",
+        "2026-11-03T06:22:08.999Z [INFO ] [t27828] scene: battle probe naval=0 deploy_panel=-1",
+        "2026-11-03T06:22:09.606Z [INFO ] [t35080] reset: step 2: battle: summary dismissed (DismissBattleResult)",
+        "2026-11-03T06:22:10.123Z [INFO ] [t35080] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)",
+        "2026-11-03T06:22:10.357Z [INFO ] [t27828] luaopen_wsp: engine lua_State 3dd94fc0, global state 053465f4 (thread 27828) (again)",
+        "2026-11-03T06:22:10.357Z [INFO ] [t27828] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-03T06:22:10.360Z [INFO ] [t27828] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)",
+        "2026-11-03T06:22:10.455Z [INFO ] [t27828] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-03T06:22:10.613Z [INFO ] [t27828] lua report: battle.map_folder = nap_mp_syrian_ridge",
+        "2026-11-03T06:22:10.613Z [INFO ] [t27828] lua report: battle.map_folder_ms = 147781",
+        "2026-11-03T06:22:10.616Z [INFO ] [t27828] lua report: battle.map_folder = nap_mp_grassy_flatlands",
+        "2026-11-03T06:22:10.616Z [INFO ] [t27828] lua report: battle.map_folder_ms = 147797",
+        "2026-11-03T06:22:10.788Z [INFO ] [t27828] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-03T06:22:10.792Z [INFO ] [t27828] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok",
+        "2026-11-03T06:22:10.860Z [INFO ] [t27828] timeline: movie_open +159176 ms movies\\frontend2.bik",
+        "2026-11-03T06:22:10.864Z [INFO ] [t27828] movies: BinkOpen movies\\frontend2.bik [handle 000007c4 = \\\\?\\C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\data\\media.pack @ 353827505, flags 0x804400] -> 3ab40040",
+        "2026-11-03T06:22:10.864Z [INFO ] [t27828] scene: loading -> frontend after 1.9 s (uptime 158.6 s, frame 72983, lua frontend)",
+        "2026-11-03T06:22:10.873Z [INFO ] [t27828] timeline: first_present_after_ready +159189 ms frontend",
+        "2026-11-03T06:22:15.634Z [INFO ] [t35080] timeline: autostart_issued +163950 ms battle:siege_small",
+        "2026-11-03T06:22:15.643Z [INFO ] [t27828] lua report: battle.map_folder = rti_fort_3",
+        "2026-11-03T06:22:15.643Z [INFO ] [t27828] lua report: battle.map_folder_ms = 152813",
+        "2026-11-03T06:22:15.646Z [INFO ] [t27828] lua report: battle.map_folder = ottoman_great_fortress",
+        "2026-11-03T06:22:15.646Z [INFO ] [t27828] lua report: battle.map_folder_ms = 152828",
+        "2026-11-03T06:22:15.649Z [INFO ] [t27828] lua report: battle.map_folder = ottoman_artillery_fort",
+        "2026-11-03T06:22:15.651Z [INFO ] [t27828] lua report: battle.map_folder = rti_fort_9",
+        "2026-11-03T06:22:15.653Z [INFO ] [t27828] lua report: battle.map_folder = rti_fort_2",
+        "2026-11-03T06:22:15.656Z [INFO ] [t27828] lua report: battle.map_folder = rti_fort_1",
+        "2026-11-03T06:22:15.658Z [INFO ] [t27828] lua report: autostart.map = rti_fort_1",
+        "2026-11-03T06:22:15.658Z [INFO ] [t27828] lua report: autostart.map_folder = rti_fort_1",
+        "2026-11-03T06:22:15.678Z [INFO ] [t35080] autostart: lua ok: started battle rti_fort_1 (siege, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+        "2026-11-03T06:22:15.678Z [INFO ] [t35080] scene: frontend -> loading after 4.8 s (uptime 163.4 s, frame 83936, lua frontend)",
+        "2026-11-03T06:22:15.679Z [INFO ] [t27828] movies: BinkClose movies\\frontend2.bik",
+        "2026-11-03T06:22:15.679Z [INFO ] [t27828] timeline: movie_close +163995 ms movies\\frontend2.bik",
+        "2026-11-03T06:22:16.317Z [INFO ] [t27828] lua report: battle.map_folder = rti_fort_1",
+        "2026-11-03T06:22:16.317Z [INFO ] [t27828] lua report: battle.map_folder_ms = 641",
+        "2026-11-03T06:22:19.108Z [INFO ] [t27828] luaopen_wsp: engine lua_State 44df6b00, global state 053ccf64 (thread 27828) (again)",
+        "2026-11-03T06:22:19.109Z [INFO ] [t27828] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-03T06:22:19.116Z [INFO ] [t27828] lua: wrapper: battle pumps from OnUpdate",
+        "2026-11-03T06:22:19.116Z [INFO ] [t27828] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-11-03T06:22:21.046Z [INFO ] [t27828] scene: loading -> battle after 5.4 s (uptime 168.8 s, frame 84374, lua battle)",
+        "2026-11-03T06:22:21.047Z [INFO ] [t27828] lua: battle details: FlagPath=data\\ui\\flags\\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false",
+        "2026-11-03T06:22:21.048Z [INFO ] [t27828] scene: battle probe naval=0 deploy_panel=0",
+        "2026-11-03T06:22:21.077Z [INFO ] [t27828] timeline: first_present_after_ready +169393 ms battle",
+        "2026-11-03T06:22:21.100Z [INFO ] [t27828] scene: battle probe naval=0 deploy_panel=1",
+        "2026-11-03T06:22:21.100Z [INFO ] [t27828] scene: battle -> battle_deploy after 0.1 s (uptime 168.8 s, frame 84379, lua battle)",
+        "2026-11-03T06:22:21.103Z [INFO ] [t27828] timeline: first_present_after_ready +169419 ms battle_deploy",
+        "2026-11-03T06:22:22.084Z [INFO ] [t35080] reset: battle_deploy -> battle: ok (address space 1866 -> 1887 MB, commit 1235 -> 1266 MB)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-03T06:22:05.723Z",
+  "end_utc": "2026-11-03T06:22:27.283Z"
+}

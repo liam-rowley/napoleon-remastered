@@ -1,0 +1,12 @@
+{
+  "id": "J72",
+  "description": "One measurement, no scope change (docs/plans/MOONSHOTS_2026-11-01.md, the Empire smoke aside): J6's diff counted the effects pack kind (94 entries in Napoleon's data.pack against 74 in Empire's main and patch packs) with no per-file diff. Extend discovery/core's diff passes to list the effects kind by name, size and identical/changed/new/gone between the two games, add the particle_effects, projectiles_explosions and projectile_trails db rows to the db comparison, note the effect file format where it is decodable (header, versions) and whether Napoleon's smoke definitions reference fx or textures Empire lacks (particle.fx 76-line diff, particle_volumetric.fx_fragment 456, ribbon.fx new: discovery/diff/shaders.json). Output: discovery/diff/effects.json with a --check, a fact napoleon.diff.effects, and a one-paragraph feasibility note for the Empire restart list in PLAN section 4. empire-remastered and the Empire install are read-only evidence (D30); nothing is written into either game folder and no game is launched.",
+  "title": "Effects per-file diff: Napoleon smoke and particle definitions against Empire",
+  "phase": 2,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J6"
+  ]
+}

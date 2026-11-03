@@ -2,8 +2,8 @@
 """Performance baseline (J23): what Napoleon costs today, per backend x size x scenario x pose, through the existing ctl verbs.
 
 purpose: drive core/harness/ctl.py (scene, cam, perf) over a matrix of backend (proxy.backend dxvk|system), headless size, scenario, pose and repeat, one JSON per cell with the pins a number belongs to; summarize the cells into the baseline file; check a baseline; compare a later run against it and flag budget breaches
-usage: perf_baseline.py measure --run RUN [--owner O] [--session S] [--backends dxvk,system] [--sizes 1920x1080,2560x1440,3840x2160] [--scenarios a,b] [--poses deploy] [--repeats 3] [--perf-s 20] [--deploy-end-s 60] [--dxvk-variants FILE] | summarize --run DIR [--out F] | check [--baseline F] | compare --run DIR [--baseline F] [--budgets F] [--feature NAME] | table [--baseline F | --run DIR]
-when: J23 measured perf/baseline.json with it; every later phase 3 job (J24 shadows, J26 cascades, J27 distances, J59 the J46 rows) re-runs `measure` on its build and reports `compare` against the committed baseline
+usage: perf_baseline.py measure --run RUN [--owner O] [--session S] [--backends dxvk,system] [--sizes 1920x1080,2560x1440,3840x2160] [--scenarios a,b] [--poses deploy] [--repeats 3] [--perf-s 20] [--deploy-end-s 60] [--dxvk-variants FILE] | summarize --run DIR [--out F] | check [--baseline F] | compare --run DIR [--baseline F] [--budgets F] [--feature NAME] | table [--baseline F | --run DIR] | ladder --control DIR --run DIR [--run DIR ...]
+when: J23 measured perf/baseline.json with it; every later phase 3 job (J24 shadows, J26 cascades, J27 distances, J59 the J46 rows) re-runs `measure` on its build and reports `compare` against the committed baseline; `ladder` tabulates a same-sitting ladder (J24 map sizes) against its control
 not-a-verb: orchestrates PC sessions through core/harness/ctl.py and job.sh (a tools/ driver so it adds no harness/ file, rule 79); a warscape-core candidate once a second game has a baseline
 
 Cells. The size is the outer loop (one temporary copy of the harness adapter per size, `ctl.launch.size` changed, passed as `--adapter`: the
@@ -587,6 +587,42 @@ def cmd_table(a):
     return 0
 
 
+LADDER = ('p50_ms', 'p99_ms', 'load_s', 'va_used_mb', 'va_peak_mb', 'commit_mb', 'vram_mb')
+
+
+def ladder(control, runs):
+    """A same-sitting ladder as one Markdown table: medians per run and cell key, each run after the control with its delta against it
+    (ms and s to 2 places, MB whole). `control` and `runs` are (name, summary) pairs; the control's own rows come first, without deltas."""
+    cname, ctl = control
+    out = ['| run | cell | ' + ' | '.join(LADDER) + ' |', '|---|---|' + '---|' * len(LADDER)]
+    for name, s in [control] + list(runs):
+        for key in sorted(s['cells']):
+            c, b = s['cells'][key], ctl['cells'].get(key) or {}
+            vals = []
+            for m in LADDER:
+                v, w = (c.get(m) or {}).get('median'), (b.get(m) or {}).get('median')
+                if v is None:
+                    vals.append('-')
+                elif name == cname or w is None:
+                    vals.append(f'{v:g}')
+                else:
+                    vals.append(f'{v:g} ({v - w:+.2f})' if m.endswith(('_ms', '_s')) else f'{v:g} ({v - w:+.0f})')
+            out.append(f'| {name} | {key} | ' + ' | '.join(vals) + ' |')
+    return '\n'.join(out)
+
+
+def run_summary(run_dir):
+    """A run folder's summary.json when it has one, else its cells summarized now."""
+    d = Path(run_dir)
+    f = d / 'summary.json'
+    return json.loads(f.read_text(encoding='utf-8')) if f.exists() else summarize(read_cells(d), [d.name])
+
+
+def cmd_ladder(a):
+    print(ladder((Path(a.control).name, run_summary(a.control)), [(Path(r).name, run_summary(r)) for r in a.run]))
+    return 0
+
+
 def cmd_check(a):
     b = json.loads(Path(a.baseline).read_text(encoding='utf-8'))
     bad = baseline_problems(b)
@@ -641,8 +677,11 @@ def main(argv=None):
     k.add_argument('--baseline', default=str(BASELINE))
     k.add_argument('--budgets', default=str(BUDGETS))
     k.add_argument('--feature')
+    ld = sub.add_parser('ladder')
+    ld.add_argument('--control', required=True, help='the same-sitting control run folder')
+    ld.add_argument('--run', required=True, action='append')
     a = ap.parse_args(argv)
-    return {'measure': measure, 'summarize': cmd_summarize, 'check': cmd_check, 'compare': cmd_compare, 'table': cmd_table}[a.cmd](a)
+    return {'measure': measure, 'summarize': cmd_summarize, 'check': cmd_check, 'compare': cmd_compare, 'table': cmd_table, 'ladder': cmd_ladder}[a.cmd](a)
 
 
 if __name__ == '__main__':

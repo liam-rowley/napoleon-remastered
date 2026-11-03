@@ -1,0 +1,2 @@
+pc_deploy set: napoleon_remastered.ini: dev.capture=1, dev.capture_dir=C:\napoleon_remastered_pc\captures, gfx.shadow_map_large=0, gfx.shadow_far_cap=0, gfx.shadow_extrusion=0, gfx.shadow_crop_keep=0, gfx.shadow_fit_ortho=0, gfx.shadow_height_cutoff=0, gfx.shadow_hw_force=1
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity

@@ -70,12 +70,52 @@ def bare_bash_problems(name, text):
     return out
 
 
+# J70: J12 moved proxy/core, harness/core and saves/core into the core, yet `wsc setup` kept running the old harness/core/job.sh (exit
+# 127 with the watcher up). The moved folders are the tools/jobs_hooks.py PROMOTIONS keys whose job is J12; a tool naming one, as a
+# slash path or a 'harness' / 'core' join, fails. jobs_hooks.py is the one exempt file: it names the old folders on purpose (rule 76,
+# and fallbacks for a base before J12).
+MOVED_GLOBS = ('tools/*.py', 'tools/**/*.py', 'tools/*.sh', 'tools/**/*.sh')
+MOVED_ALLOWED = {
+    'tools/jobs_hooks.py': 'PROMOTIONS (rule 76: the moved folder must stay gone) and the pre-J12 fallbacks for an older base',
+}
+
+
+def moved_folders():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('jobs_hooks_for_rules', ROOT / 'tools' / 'jobs_hooks.py')
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return sorted(k for k, job in m.PROMOTIONS.items() if job == 'J12')
+
+
+def moved_path_problems(name, text, folders):
+    pats = []
+    for f in folders:
+        a, b = f.split('/')
+        pats.append(re.compile(rf'(?<![\w.-]){re.escape(a)}[/\\]{re.escape(b)}\b'))
+        pats.append(re.compile(rf'''['"]{re.escape(a)}['"]\s*/\s*['"]{re.escape(b)}['"]'''))
+    out = []
+    for n, line in enumerate(text.splitlines(), 1):
+        if any(p.search(line) for p in pats):
+            out.append(f'{name}:{n}: a folder J12 moved into the core (use core/<area>/...): {line.strip()[:100]}')
+    return out
+
+
 class Fixtures(unittest.TestCase):
+    def test_moved_paths(self):
+        folders = ['harness/core', 'proxy/core', 'saves/core']
+        for bad in ("run([bash, str(root / 'harness' / 'core' / 'job.sh')])", "p = 'harness/core/ctl.py'", 'x = "proxy/core/console.cpp"',
+                    "ROOT / \"saves\" / \"core\"", "# see harness/core/campose.py"):
+            self.assertEqual(len(moved_path_problems('f.py', bad, folders)), 1, bad)
+        for ok in ("core_path(root, 'harness', 'job.sh')", "'core/harness/job.sh'", "ROOT / 'core' / 'proxy' / 'tools'",
+                   "'uiscale/core'", "'harness/napoleon/adapter.json'"):
+            self.assertEqual(moved_path_problems('f.py', ok, folders), [], ok)
+
     def test_bare_bash(self):
         for bad in ("subprocess.run(['bash', str(JOB)])", 'cmd = ["bash", "-c", x]', "p = Popen(['/usr/bin/bash'])",
                     "subprocess.run('bash -c true', shell=True)", "os.system(f'bash {x}')"):
             self.assertEqual(len(bare_bash_problems('f.py', bad)), 1, bad)
-        for ok in ("subprocess.run([BASH, str(JOB)])", "shutil.which('bash')", "which_of('bash')", "x = 'bash harness/core/job.sh'",
+        for ok in ("subprocess.run([BASH, str(JOB)])", "shutil.which('bash')", "which_of('bash')", "x = 'bash core/harness/job.sh'",
                    "subprocess.run(['bashful'])", "run([bash, 'x'])  # not ['bash', ...]"):
             self.assertEqual(bare_bash_problems('f.py', ok), [], ok)
 
@@ -138,6 +178,16 @@ class ThisRepo(unittest.TestCase):
                 errs += bare_bash_problems(p, (ROOT / p).read_text(encoding='utf-8', errors='replace'))
         self.assertEqual(errs, [])
         self.assertTrue(all(BARE_BASH_ALLOWED.values()), 'every allow-list entry names its reason')
+
+    def test_no_pre_j12_core_paths_in_tools(self):
+        folders = moved_folders()
+        self.assertEqual(folders, ['harness/core', 'proxy/core', 'saves/core'])
+        errs = []
+        for p in sorted(set(tracked(*MOVED_GLOBS))):
+            if p not in MOVED_ALLOWED:
+                errs += moved_path_problems(p, (ROOT / p).read_text(encoding='utf-8', errors='replace'), folders)
+        self.assertEqual(errs, [])
+        self.assertTrue(all(MOVED_ALLOWED.values()), 'every allow-list entry names its reason')
 
     def test_no_binaries_committed(self):
         self.assertEqual(tracked('*.dll', '*.exe', '*.pdb', '*.dmp'), [])

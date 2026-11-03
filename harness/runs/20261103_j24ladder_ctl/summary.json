@@ -1,0 +1,974 @@
+{
+ "schema": 1,
+ "date": "2026-11-03",
+ "cells": {
+  "dxvk|1920x1080|hist_dresden|deploy": {
+   "p50_ms": {
+    "median": 4.768,
+    "spread": 0.072,
+    "spread_pct": 1.5,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 9.649,
+    "spread": 0.097,
+    "spread_pct": 1.0,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 23.897,
+    "spread": 0.986,
+    "spread_pct": 4.1,
+    "n": 2
+   },
+   "load_s": {
+    "median": 7.75,
+    "spread": 0.1,
+    "spread_pct": 1.3,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 2076.5,
+    "spread": 1,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 2108.1,
+    "spread": 30.2,
+    "spread_pct": 1.4,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1449.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 895.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "cold_load_s": 7.9,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_hist_dresden_deploy_p1",
+    "dxvk_1920x1080_hist_dresden_deploy_p2"
+   ]
+  },
+  "dxvk|1920x1080|hist_dresden|turned": {
+   "p50_ms": {
+    "median": 4.485,
+    "spread": 0.052,
+    "spread_pct": 1.2,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 8.451,
+    "spread": 0.345,
+    "spread_pct": 4.1,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 22.291,
+    "spread": 1.249,
+    "spread_pct": 5.6,
+    "n": 2
+   },
+   "load_s": {
+    "median": 7.75,
+    "spread": 0.1,
+    "spread_pct": 1.3,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 2077.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 2108.6,
+    "spread": 31.2,
+    "spread_pct": 1.5,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1449.5,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 895.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "cold_load_s": 7.9,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_hist_dresden_turned_p1",
+    "dxvk_1920x1080_hist_dresden_turned_p2"
+   ]
+  },
+  "dxvk|1920x1080|land_small|battle1x|battle": {
+   "p50_ms": {
+    "median": 2.395,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "p99_ms": {
+    "median": 5.941,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "max_ms": {
+    "median": 105.535,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "load_s": {
+    "median": 3.8,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_used_mb": {
+    "median": 1838,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_peak_mb": {
+    "median": 1838.1,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "commit_mb": {
+    "median": 1184,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "vram_mb": {
+    "median": 571.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "cold_load_s": 3.7,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_land_small_battle1x_p1"
+   ]
+  },
+  "dxvk|1920x1080|land_small|deploy": {
+   "p50_ms": {
+    "median": 2.153,
+    "spread": 0.034,
+    "spread_pct": 1.6,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 5.74,
+    "spread": 1.378,
+    "spread_pct": 24.0,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 86.621,
+    "spread": 106.961,
+    "spread_pct": 123.5,
+    "n": 2
+   },
+   "load_s": {
+    "median": 3.75,
+    "spread": 0.1,
+    "spread_pct": 2.7,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1817.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1821.6,
+    "spread": 0.2,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1179.0,
+    "spread": 2,
+    "spread_pct": 0.2,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 571.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "cold_load_s": 3.7,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_land_small_deploy_p1",
+    "dxvk_1920x1080_land_small_deploy_p2"
+   ]
+  },
+  "dxvk|1920x1080|land_small|turned": {
+   "p50_ms": {
+    "median": 2.123,
+    "spread": 0.028,
+    "spread_pct": 1.3,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 5.529,
+    "spread": 1.093,
+    "spread_pct": 19.8,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 26.383,
+    "spread": 14.894,
+    "spread_pct": 56.5,
+    "n": 2
+   },
+   "load_s": {
+    "median": 3.75,
+    "spread": 0.1,
+    "spread_pct": 2.7,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1813.5,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1821.85,
+    "spread": 0.7,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1179.0,
+    "spread": 2,
+    "spread_pct": 0.2,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 571.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "cold_load_s": 3.7,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_land_small_turned_p1",
+    "dxvk_1920x1080_land_small_turned_p2"
+   ]
+  },
+  "dxvk|1920x1080|siege_small|deploy": {
+   "p50_ms": {
+    "median": 2.324,
+    "spread": 0.012,
+    "spread_pct": 0.5,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 5.261,
+    "spread": 0.154,
+    "spread_pct": 2.9,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 27.934,
+    "spread": 17.147,
+    "spread_pct": 61.4,
+    "n": 2
+   },
+   "load_s": {
+    "median": 5.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1887.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1890.85,
+    "spread": 0.1,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1257.0,
+    "spread": 18,
+    "spread_pct": 1.4,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 795.55,
+    "spread": 0.1,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "cold_load_s": 5.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_siege_small_deploy_p1",
+    "dxvk_1920x1080_siege_small_deploy_p2"
+   ]
+  },
+  "dxvk|1920x1080|siege_small|turned": {
+   "p50_ms": {
+    "median": 2.128,
+    "spread": 0.004,
+    "spread_pct": 0.2,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 5.01,
+    "spread": 0.018,
+    "spread_pct": 0.4,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 27.911,
+    "spread": 10.934,
+    "spread_pct": 39.2,
+    "n": 2
+   },
+   "load_s": {
+    "median": 5.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1879.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1890.55,
+    "spread": 0.1,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1247.5,
+    "spread": 3,
+    "spread_pct": 0.2,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 795.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "cold_load_s": 5.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_siege_small_turned_p1",
+    "dxvk_1920x1080_siege_small_turned_p2"
+   ]
+  },
+  "dxvk|3840x2160|hist_dresden|deploy": {
+   "p50_ms": {
+    "median": 4.144,
+    "spread": 0.077,
+    "spread_pct": 1.9,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 9.32,
+    "spread": 1.826,
+    "spread_pct": 19.6,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 31.265,
+    "spread": 3.766,
+    "spread_pct": 12.0,
+    "n": 2
+   },
+   "load_s": {
+    "median": 7.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 2084.0,
+    "spread": 16,
+    "spread_pct": 0.8,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 2091.5,
+    "spread": 1.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1458.5,
+    "spread": 33,
+    "spread_pct": 2.3,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 1083.6,
+    "spread": 8.0,
+    "spread_pct": 0.7,
+    "n": 2
+   },
+   "cold_load_s": 7.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_hist_dresden_deploy_p1",
+    "dxvk_3840x2160_hist_dresden_deploy_p2"
+   ]
+  },
+  "dxvk|3840x2160|hist_dresden|turned": {
+   "p50_ms": {
+    "median": 3.922,
+    "spread": 0.014,
+    "spread_pct": 0.4,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 7.865,
+    "spread": 0.51,
+    "spread_pct": 6.5,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 27.753,
+    "spread": 13.542,
+    "spread_pct": 48.8,
+    "n": 2
+   },
+   "load_s": {
+    "median": 7.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 2084.0,
+    "spread": 16,
+    "spread_pct": 0.8,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 2091.5,
+    "spread": 1.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1450.0,
+    "spread": 16,
+    "spread_pct": 1.1,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 1083.6,
+    "spread": 8.0,
+    "spread_pct": 0.7,
+    "n": 2
+   },
+   "cold_load_s": 7.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_hist_dresden_turned_p1",
+    "dxvk_3840x2160_hist_dresden_turned_p2"
+   ]
+  },
+  "dxvk|3840x2160|land_small|battle1x|battle": {
+   "p50_ms": {
+    "median": 2.065,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "p99_ms": {
+    "median": 5.46,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "max_ms": {
+    "median": 25.935,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "load_s": {
+    "median": 3.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_used_mb": {
+    "median": 1837,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_peak_mb": {
+    "median": 1843.2,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "commit_mb": {
+    "median": 1181,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "vram_mb": {
+    "median": 818.3,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_land_small_battle1x_p1"
+   ]
+  },
+  "dxvk|3840x2160|land_small|deploy": {
+   "p50_ms": {
+    "median": 1.889,
+    "spread": 0.013,
+    "spread_pct": 0.7,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 4.726,
+    "spread": 0.103,
+    "spread_pct": 2.2,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 26.983,
+    "spread": 17.5,
+    "spread_pct": 64.9,
+    "n": 2
+   },
+   "load_s": {
+    "median": 3.75,
+    "spread": 0.1,
+    "spread_pct": 2.7,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1817.5,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1822.25,
+    "spread": 1.1,
+    "spread_pct": 0.1,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1173.5,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 810.3,
+    "spread": 16.0,
+    "spread_pct": 2.0,
+    "n": 2
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_land_small_deploy_p1",
+    "dxvk_3840x2160_land_small_deploy_p2"
+   ]
+  },
+  "dxvk|3840x2160|land_small|turned": {
+   "p50_ms": {
+    "median": 1.854,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 4.588,
+    "spread": 0.373,
+    "spread_pct": 8.1,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 18.924,
+    "spread": 0.613,
+    "spread_pct": 3.2,
+    "n": 2
+   },
+   "load_s": {
+    "median": 3.75,
+    "spread": 0.1,
+    "spread_pct": 2.7,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1814.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1822.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1174.0,
+    "spread": 8,
+    "spread_pct": 0.7,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 810.3,
+    "spread": 16.0,
+    "spread_pct": 2.0,
+    "n": 2
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_land_small_turned_p1",
+    "dxvk_3840x2160_land_small_turned_p2"
+   ]
+  },
+  "dxvk|3840x2160|siege_small|deploy": {
+   "p50_ms": {
+    "median": 2.067,
+    "spread": 0.009,
+    "spread_pct": 0.4,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 5.0,
+    "spread": 0.257,
+    "spread_pct": 5.1,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 18.83,
+    "spread": 0.346,
+    "spread_pct": 1.8,
+    "n": 2
+   },
+   "load_s": {
+    "median": 5.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1887.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1890.95,
+    "spread": 0.1,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1243.0,
+    "spread": 6,
+    "spread_pct": 0.5,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 1003.4,
+    "spread": 80.0,
+    "spread_pct": 8.0,
+    "n": 2
+   },
+   "cold_load_s": 5.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_siege_small_deploy_p1",
+    "dxvk_3840x2160_siege_small_deploy_p2"
+   ]
+  },
+  "dxvk|3840x2160|siege_small|turned": {
+   "p50_ms": {
+    "median": 1.929,
+    "spread": 0.005,
+    "spread_pct": 0.3,
+    "n": 2
+   },
+   "p99_ms": {
+    "median": 4.666,
+    "spread": 0.084,
+    "spread_pct": 1.8,
+    "n": 2
+   },
+   "max_ms": {
+    "median": 26.027,
+    "spread": 12.354,
+    "spread_pct": 47.5,
+    "n": 2
+   },
+   "load_s": {
+    "median": 5.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_used_mb": {
+    "median": 1879.0,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "va_peak_mb": {
+    "median": 1890.65,
+    "spread": 0.1,
+    "spread_pct": 0.0,
+    "n": 2
+   },
+   "commit_mb": {
+    "median": 1241.0,
+    "spread": 6,
+    "spread_pct": 0.5,
+    "n": 2
+   },
+   "vram_mb": {
+    "median": 1003.4,
+    "spread": 80.0,
+    "spread_pct": 8.0,
+    "n": 2
+   },
+   "cold_load_s": 5.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_siege_small_turned_p1",
+    "dxvk_3840x2160_siege_small_turned_p2"
+   ]
+  }
+ },
+ "dxvk_over_system": {},
+ "blocks": {
+  "dxvk|1920x1080": {
+   "build": "e876198be89a",
+   "kit": "kit_20261103T035945Z_354011cb0fc6",
+   "watcher": "1.2.0",
+   "backend": "dxvk",
+   "size": "1920x1080",
+   "dxvk": {
+    "version": "3.1.1",
+    "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "pinned_sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "driver": "617.14",
+   "dxvk_conf_sha256": "absent",
+   "prefs_gfx": {
+    "x_res": "1920",
+    "y_res": "1080",
+    "gfx_first_run": "false",
+    "gfx_video_memory": "0",
+    "gfx_fullscreen": "false",
+    "gfx_vsync": "false",
+    "gfx_hdr": "false",
+    "gfx_low_quality_shaders": "false",
+    "gfx_shadermodel": "1",
+    "gfx_aa": "0",
+    "gfx_texture_filtering": "1",
+    "gfx_texture_quality": "2",
+    "gfx_volumetric_effect": "false",
+    "gfx_ssao": "false",
+    "gfx_distortion": "false",
+    "gfx_depth_of_field": "false",
+    "gfx_hardware_shadows": "false",
+    "gfx_sky_quality": "2",
+    "gfx_unit_quality": "2",
+    "gfx_ship_quality": "2",
+    "gfx_building_quality": "2",
+    "gfx_water_quality": "2",
+    "gfx_unit_scale": "2",
+    "gfx_shadow_quality": "3",
+    "gfx_tree_quality": "2",
+    "gfx_grass_quality": "3",
+    "gfx_terrain_quality": "0",
+    "gfx_gamma_setting": "2",
+    "gfx_brightness_setting": "1.2",
+    "gfx_disable_terrain_ao_gpu": "false",
+    "gfx_screenshot_folder": "./screenshots",
+    "gfx_fixed_env_map": "",
+    "gfx_effects_quality": "2",
+    "gfx_vignette": "true",
+    "gfx_picture_in_picture": "true",
+    "gfx_frame_rate": "60"
+   },
+   "frame_cap": {
+    "gfx_vsync": "false",
+    "gfx_frame_rate": "60",
+    "d3d9.presentInterval": "default",
+    "d3d9.maxFrameRate": "default",
+    "dxvk.maxFrameRate": "default",
+    "present": "headless: windowed borderless on the virtual display"
+   },
+   "date": "2026-11-03",
+   "runs": [
+    "20261103_j24ladder_ctl"
+   ]
+  },
+  "dxvk|3840x2160": {
+   "build": "e876198be89a",
+   "kit": "kit_20261103T035945Z_354011cb0fc6",
+   "watcher": "1.2.0",
+   "backend": "dxvk",
+   "size": "3840x2160",
+   "dxvk": {
+    "version": "3.1.1",
+    "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "pinned_sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "driver": "617.14",
+   "dxvk_conf_sha256": "absent",
+   "prefs_gfx": {
+    "x_res": "3840",
+    "y_res": "2160",
+    "gfx_first_run": "false",
+    "gfx_video_memory": "0",
+    "gfx_fullscreen": "false",
+    "gfx_vsync": "false",
+    "gfx_hdr": "false",
+    "gfx_low_quality_shaders": "false",
+    "gfx_shadermodel": "1",
+    "gfx_aa": "0",
+    "gfx_texture_filtering": "1",
+    "gfx_texture_quality": "2",
+    "gfx_volumetric_effect": "false",
+    "gfx_ssao": "false",
+    "gfx_distortion": "false",
+    "gfx_depth_of_field": "false",
+    "gfx_hardware_shadows": "false",
+    "gfx_sky_quality": "2",
+    "gfx_unit_quality": "2",
+    "gfx_ship_quality": "2",
+    "gfx_building_quality": "2",
+    "gfx_water_quality": "2",
+    "gfx_unit_scale": "2",
+    "gfx_shadow_quality": "3",
+    "gfx_tree_quality": "2",
+    "gfx_grass_quality": "3",
+    "gfx_terrain_quality": "0",
+    "gfx_gamma_setting": "2",
+    "gfx_brightness_setting": "1.2",
+    "gfx_disable_terrain_ao_gpu": "false",
+    "gfx_screenshot_folder": "./screenshots",
+    "gfx_fixed_env_map": "",
+    "gfx_effects_quality": "2",
+    "gfx_vignette": "true",
+    "gfx_picture_in_picture": "true",
+    "gfx_frame_rate": "60"
+   },
+   "frame_cap": {
+    "gfx_vsync": "false",
+    "gfx_frame_rate": "60",
+    "d3d9.presentInterval": "default",
+    "d3d9.maxFrameRate": "default",
+    "dxvk.maxFrameRate": "default",
+    "present": "headless: windowed borderless on the virtual display"
+   },
+   "date": "2026-11-03",
+   "runs": [
+    "20261103_j24ladder_ctl"
+   ]
+  }
+ },
+ "refused": [],
+ "scenarios": [
+  "hist_dresden",
+  "land_small",
+  "siege_small"
+ ],
+ "not_covered": [
+  {
+   "what": "campaign_britain_1805",
+   "why": "not a ctl scene row (stage_save.py stage C:\\napoleon_remastered_pc\\saves\\j14_taxe)"
+  },
+  {
+   "what": "campaign_britain_1805_rake_wales",
+   "why": "not a ctl scene row (agent_into_settlement.py C:\\napoleon_remastered_pc\\saves\\j14)"
+  },
+  {
+   "what": "campaign_britain_1805_tax44",
+   "why": "not a ctl scene row (tax_rates.py C:\\napoleon_remastered_pc\\saves\\j14_taxes-chang)"
+  },
+  {
+   "what": "campaign_start",
+   "why": "in the library, not measured in these runs"
+  },
+  {
+   "what": "hist_nile",
+   "why": "in the library, not measured in these runs"
+  },
+  {
+   "what": "naval_small",
+   "why": "in the library, not measured in these runs"
+  },
+  {
+   "what": "naval_storm",
+   "why": "in the library, not measured in these runs"
+  },
+  {
+   "what": "land_40 (20 against 20), land_large, naval_large, siege_city",
+   "why": "no scenario rows: the custom-battle army setup route is J46; J59 measures them with this tool"
+  }
+ ],
+ "conditions": {
+  "present": "headless: the game runs windowed borderless on the virtual display at the cell size (the harness's only mode, J13); no cell is a real-monitor or fullscreen number",
+  "guard_thread": "the headless guard thread takes the Present lock while it enumerates monitors (every 25th poll; J13 review Later 4): it is in every frame time",
+  "pc_use": "Liam may have been using the PC during a run: the run README gives the time windows",
+  "va_peak_mb": "the process peak since its launch (Get-Process PeakVirtualMemorySize64, equal to the proxy's 32-bit value when current): a scene loaded by a warm reset inherits the peak of the scenes before it in the same process; va_used_mb is the scene's own value at the end of perf",
+  "repeats": "pass 0 after each fresh launch per backend x size is a warm-up (its loads are cold_load_s); medians and spreads over passes 1..n",
+  "battle": "a key ending |battle is land_small with deployment ended and the battle running at 1x (ctl scene --deploy end, speed 1)"
+ },
+ "runs": [
+  "20261103_j24ladder_ctl"
+ ]
+}

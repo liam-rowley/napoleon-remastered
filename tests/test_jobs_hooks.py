@@ -134,10 +134,10 @@ class Rule79(unittest.TestCase):
 
     def test_failing_fixture_another_branchs_passes_do_not_count(self):
         # J44 review: harness/ is not in the build id, so a harness-only branch on main's build would inherit the last merged branch's 20
-        errs = hk.acceptance_problems(['harness/core/ctl.py'], self.acc(self.led(20, branch='job/J8')))
+        errs = hk.acceptance_problems(['harness/napoleon/adapter.json'], self.acc(self.led(20, branch='job/J8')))
         self.assertEqual(len(errs), 1)
         self.assertIn('another branch', errs[0])
-        self.assertTrue(hk.acceptance_problems(['harness/core/ctl.py'], self.acc(self.led(20, branch=None))))
+        self.assertTrue(hk.acceptance_problems(['harness/napoleon/adapter.json'], self.acc(self.led(20, branch=None))))
         self.assertIn("'branch': facts['branch']", (ROOT / 'tools' / 'jobs_hooks.py').read_text(encoding='utf-8'))
 
     def test_exemptions_match_segments_not_substrings(self):
@@ -151,7 +151,7 @@ class Rule79(unittest.TestCase):
         self.assertIn('19 consecutive', errs[0])
 
     def test_20_passes_on_this_build_pass(self):
-        self.assertEqual(hk.acceptance_problems(['harness/core/job.sh'], self.acc(self.led(20))), [])
+        self.assertEqual(hk.acceptance_problems(['harness/napoleon/adapter.json'], self.acc(self.led(20))), [])
 
     def test_a_fail_resets_the_count(self):
         self.assertTrue(hk.acceptance_problems(['proxy/core/dev.cpp'], self.acc(self.led(25, fail_at=10))))   # 15 after the fail

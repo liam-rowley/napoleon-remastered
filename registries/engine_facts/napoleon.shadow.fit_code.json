@@ -1,8 +1,8 @@
 {
   "id": "napoleon.shadow.fit_code",
-  "claim": "Narrowed by J9: the shadow renderer constructor is 0x1127580 (caller 0x11aa183), Empire's 0x103f160 with its first fields shifted by +0x14: light sweep [+0x9c] -75 (row shadow.light_sweep: -400 gathers more casters, 48 -> 53 caster draws), max range [+0x7c] 400, min range [+0x84] 50, height factor [+0x98] 100, crop flags [+0x64..0x67] 01 01 01 01; the tunables are named in a debug property table at 0x1468a50 (shadow_near_clip ... trapezoid_* ... depth_bias); the per-frame fit functions (Empire 0x10ab6a0 -> 0x106a3e0 -> 0x10607e0, crop 0x108a1d0) are not located (no writer of the Empire farz offset +0x14, no J6 signature match)",
-  "state": "open",
-  "evidence": "discovery/napoleon/engine_sites_routes.md",
-  "date": "2026-11-01",
-  "notes": "owner J24"
+  "claim": "The per-frame shadow fit on Napoleon.exe (static, run 20261103_j24pc, every byte checked against sha1 9aebcd21): the renderer's vtable slot 21 0x119ab50 is the update (light position = light direction x [+0x9c] at 0x119abf2; farz [+0x82c] = [+0x7c] far clip when the camera height h >= [+0x98], else |h/[+0x98]| x ([+0x7c] - [+0x84]) + [+0x84] at 0x119ad76..0x119adac; the ground/sky plane clip of the frustum behind [+0x65] at 0x119ae3d); 0x11552a0 transforms the 8 corners of the truncated frustum by the light view and stores the light-space AABB (called at 0x119aff3); slot 22 0x114b440 is the shadow pass: [+0x5c] shadow_map_mode picks the orthographic builder 0x1150390 (0) or the trapezoidal builder 0x1152530 (1, stock) at 0x114b473; both add [+0x9c] to the AABB zmin for the near plane and, when [+0x67] focus_on_visible is set, call the crop 0x1176b10, whose w <= 0 branch resets the rect to the full [-1,1] when [+0x66] is set (0x1176ca9). The setup 0x11868f0 runs on the same object: its per-quality stores to [+0x7c] are the far clip.",
+  "state": "verified",
+  "evidence": "harness/runs/20261103_j24pc/README.md",
+  "date": "2026-11-03",
+  "notes": "owner J24; Empire 0x10ab6a0 / 0x106a3e0 / 0x10607e0 / 0x108a1d0 are the same steps"
 }

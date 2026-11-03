@@ -99,6 +99,8 @@ def key_text(v):
 # ---- config keys and the player ini (pure) ------------------------------------------------------------------------------------------
 def omitted(key, rel):
     pi = rel['player_ini']
+    if key['id'] in pi.get('keep_ids', []):
+        return False
     return key['id'] in pi['omit_ids'] or any(key['id'].startswith(p) for p in pi['omit_prefixes'])
 
 
