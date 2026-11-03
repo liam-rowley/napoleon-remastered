@@ -37,7 +37,7 @@ check passes all 45 rows). Strings: `python3 discovery/core/exe_strings.py find 
 - Every proof row writes fixed `patch_bytes` (one non-stock value). J24 and J27 own the stepping and any proxy feature that writes a
   configured number; the encoding column says what it writes. J24 (run `harness/runs/20261103_j24pc`, 2026-11-03): rows that share an
   RVA are refused by both `gen_tables.py` and the patch engine (overlap, whatever their keys), so a ladder of values is one build per
-  value; the shadow rows ship one fixed value each behind a boolean key, and a configured number waits for the core's numeric key. All 45 rows pass the proxy's start-up check on the final build.
+  value; the shadow rows ship one fixed value each behind a boolean key, and a configured number waits for the core's numeric key. All 64 rows pass the proxy's start-up check ("64 sites: 64 ok, 0 bad" in every J24 launch's `raw/<tag>/proxy.log`, run `harness/runs/20261103_j24pc`, 2026-11-03).
 - A tweaker default patched in its CRT initialiser takes effect because the proxy patches in DllMain, before the exe's CRT runs the
   static initialisers (d3d9.dll is a static import). A tweaker can also be changed at run time by name through the console executor's
   tweak stage (`console_exec_string` 0x106c370 -> tweaks 0x106c980, `proxy/runs/20261029_j15re/README.md`): a route without an exe write
