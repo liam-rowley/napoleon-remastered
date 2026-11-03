@@ -1,19 +1,23 @@
 # J30 report draft (not yet `jobs/J30/report.md`)
 
-The orchestrator wrote this from the finishing agent's hand-back on 2026-11-03. It becomes `jobs/J30/report.md` once rule 79 is met. Until then,
-the job is not done: the streak on build `af34b0c1f7d1` is 0.
+The orchestrator wrote this from the finishing agent's hand-back on 2026-11-03, and the second finishing session (Claude-Session a3c823fa)
+updated it the same evening. It becomes `jobs/J30/report.md` once rule 79 is met. Until then, the job is not done. The final build is
+`cb34c06baf42`, and its streak is 0 (see "Rule 79").
 
 ## Next step
-- **Merge main.** `origin/main` now has J24, J70 and the J25 brief. J24 changes DLL inputs (`proxy/napoleon/generated/tables.h`, the shipped ini,
-  `config_keys`, `engine_sites`), so a streak on `af34b0c1f7d1` would not be on the build that merges.
-  - Keep the core at `v0.10.0` (main pins v0.9.0).
-  - `git merge-tree` shows two conflicts: keep both sides of `harness/acceptance/ledger.jsonl`, and regenerate `generated/tables.h` with `gen_tables`.
-- **Build and install fresh.**
-- **Check the installed ini, with no lock held.** Every `ui.*` key must be at its release value; see "Worth remembering".
-- **Run the passes:** `acceptance.py run --passes 21 --branch job/J30`. The 21st makes up for pass 1, which a fresh install labels with the kit id
-  (core B26/B31).
-- **Liam decides which keys this run uses:** release values (`ui.enabled=0`, as run so far), or the brief's deliverable 7 (host enabled and idle,
-  no document shown).
+- **Done (session a3c823fa):**
+  - Merged origin/main (6ee33bd: J24, J70, the J25 brief, plan 290ac86). Conflicts: the ledger and `release.json` keep both sides (J24's
+    `keep_ids` and J30's `ui.` omit prefix); `generated/tables.h` was regenerated.
+  - Rebuilt: `build.sh --docker all` green, `repro` identical. The core stays at `v0.10.0` (see "Deviations").
+  - Three idle-host acceptance runs (`ui.enabled=1`, no document), each stopped by a scene load time just over its limit (see "Rule 79").
+- **To do:**
+  - Re-run `acceptance.py run --passes 20 --branch job/J30` on build `cb34c06baf42` when the PC is quiet. This build's pass 1 already
+    carries the right build id; the kit-label case is only for a fresh install.
+  - Before that run:
+    - Install the kit (`pc_deploy.py kit`, then `install`).
+    - With no lock held, run `pc_deploy.py set ui.enabled=1`.
+    - Check that `[ui] show=` is empty.
+    - Stop the stray J46 busy loop (Open questions).
 
 ## What was built
 - **Core (warscape-core W2, v0.10.0):** see `core/jobs/W2/report.md` and `core/docs/PROXY_UI.md`.
@@ -56,19 +60,63 @@ the job is not done: the streak on build `af34b0c1f7d1` is 0.
   - `harness/runs/20261103_j30acc2`: 16 passes, then pass 17 failed at `campaign_start`. The launch and its retry both exited at DllMain, with
     minidumps c0000374 and c0000005 (`napoleon.proxy.init_heap_corruption`).
   - The streak is 0.
+- **Final build `cb34c06baf42`** (after the main merge, core still `v0.10.0`):
+  - 4,225,536 B, sha256 `b9c2bc2b7c381f501ecb5ee97b7885e66c6070c015c82e3080c72e2ed6903ac0`.
+  - `build.sh --docker all`: 198 s, host tests green (`test_ui_core` 212, `test_ui_rml` 25). `repro`: identical.
+  - Kit `kit_20261103T195609Z_6ee33bd89704`.
+  - The host code is the same as on `af34b0c1f7d1`. The difference is main's J24 inputs (tables, ini), so the b) to e) evidence above still
+    describes the host.
+- **Rule 79 on `cb34c06baf42`** (idle host per deliverable 7: `ui.enabled=1`, `ui.show` empty; the log shows `ui: enabled` and the window subclassed):
+  - `harness/runs/20261103_j30acc3`:
+    - 2 passes (pass 1 carries the fresh-install kit label `6ee33bd89704`).
+    - Pass 3 failed at `hist_lodi:load` (16.0 s; baseline 5.9 s, limit 14.75 s).
+  - `harness/runs/20261103_j30acc4`:
+    - 3 passes; then pass 4 failed at `naval_storm:load` (9.3 s, limit 9.0 s).
+    - Pass 3 had `hist_lodi` at 13.9 s.
+  - `harness/runs/20261103_j30acc5`:
+    - 1 pass, with every load raised (`hist_lodi` 9.3 s, `land_40` 8.9 s).
+    - Pass 2 failed at `siege_small:load` (14.3 s, limit 14.0 s).
+  - **Each failure is one scene's load, in a different scene each time.** Every shot, camera, perf and settings check passed.
+  - **The host is not the likely cause:**
+    - The host draws nothing on a load screen, and its idle hook costs 0.000 ms p50 (run 20261103_j30pc).
+    - Host-free builds on this PC hit the same outliers. J24's `75739186b92e` reached `hist_lodi` 14.5 s (j24acc2 pass 3). J30's own
+      host-off run j30acc2 drifted to 8.0, 9.2, 10.2 and 11.9 s in passes 14 to 17.
+  - **The PC was loaded throughout the runs:**
+    - About 2 GB of RAM available out of 31.8 GB; commit 49.9 of 55.9 GB.
+    - 31 `claude` processes (9.5 GB private); the WSL and Docker VMs (about 9 GB private).
+    - A stray Git Bash busy loop (below).
+  - Streak: 0. Stopped after three runs in a row on the same cause (the orchestrator's stop rule).
 - **PC end state:**
   - The uninstall is identical to the snapshot (1565 files).
   - Exe sha1 `9aebcd21...`; prefs sha256 `83b9b32b...`.
   - `job.sh status` shows no lock (the orchestrator re-checked).
 
 ## Deviations from the brief and why
-- **The acceptance runs use release values, not the brief's idle host.** That was the orchestrator's instruction. The frame-cost cells cover the
-  idle host.
+- **The acceptance runs j30acc and j30acc2 used release values, not the brief's idle host.** That was the orchestrator's instruction. The
+  runs on the final build (j30acc3 to j30acc5) use the brief's idle host (deliverable 7).
+- **The core stays at `v0.10.0`.** The orchestrator asked for the latest tag that works without another job's Napoleon half:
+  - **v0.15.0 (W4 discovery) is out.** It makes the game verb `tools/verbs/discovery.py` a load error, and deleting that verb is J64's half.
+  - **v0.14.0 (W5) is out.** It ships watcher 1.3.0. Rule 79 compares against the pinned `watcher.ps1`, so a watcher redeploy on the shared
+    PC would be needed (J48's half).
+  - **v0.13.0 and v0.13.1 (W6 gestures) are out.** They were tried: `wsc gates` fails `build.sh --docker smoke` step 6
+    (`'gesture: on: drag 6 px' not in the log`). That smoke step needs the game to have a `GestureAdapter` and a `controls.gestures` key,
+    which is J29's half. Apart from that, the one change v0.13.x needs is a trailing `nullptr` in the `GameAdapter` initialiser (`-Wextra -Werror`).
 - **The system d3d9 backend is not measured,** because of the headless failure (J61).
 - **`release.json` leaves out `ui.*`.** That became necessary once J38 merged. The `ui.*` keys' defaults equal their release values.
 - **The evidence comes in two stages.** The first PC run used a pre-review W2 commit, so the checks were re-run in full on the tagged core.
 
 ## Open questions
+- **PC load during acceptance:**
+  - Scene load times on this PC have heavy tails when it is busy. Three 20-pass runs on the idle host were stopped by single-scene load
+    outliers 2 % to 9 % over their limits.
+  - A stray Git Bash loop is spinning on the PC: pid 28292, started 2026-11-02 23:31 by the J46 session (claude pid 38400).
+    - The loop is `until pgrep -f "acceptance.py measure" && sleep 15 || false; do :; done`. With no measure running, pgrep fails, so the
+      sleep never runs and the loop forks pgrep forever (about 49,000 CPU-seconds so far).
+    - Stopping it was refused (auto mode, "interfere with workloads"); Liam or the J46 session should stop it.
+  - **Warscape-core backlog items:**
+    - The acceptance load limits could allow for PC contention, or the runner could re-measure one outlier load once.
+    - `build.sh smoke` step 6 should accept a game without a `GestureAdapter` (it is inert by contract), so a game can move past v0.13.0
+      before its gesture half lands.
 - **Start-up flake:** `napoleon.proxy.init_heap_corruption` hit 12 launches in 17 passes, against 3 retries in J46's 20. It needs a fix, or a wider
   acceptance retry.
 - **Scale edges:** 1 dp hairlines at dp below 1, and 14 dp text at dp 2.5. The crispness verdict is Liam's, from `crops/`.
