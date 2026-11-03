@@ -80,5 +80,10 @@ killed the game (fail closed), exactly as on 2026-11-02. The failure is with the
 backend, not the UI. `proxy.backend` was set back to `dxvk` afterwards.
 
 ## f) acceptance and restore
-The 20-pass run on this build is `harness/runs/20261103_j30acc/` (ledger lines with `branch job/J30`), with the J30 keys at their
-release values (`ui.enabled=0`, `ui.show=` empty, `ui.scale=100`). Uninstall and the folder comparison are in the job report.
+- `harness/runs/20261103_j30acc/` (1 pass, **setup error, not the host**): pass 1 failed `hist_dresden:shot_match` (14.47 against 7.8)
+  because the test document was on screen. `run.py` sets the `ui.*` keys with `pc_deploy set` before its first launch, the watcher's
+  headless snapshot of that launch (`20261103T145114Z_j30`) therefore held `ui.enabled=1`, `ui.show=hosttest/hosttest.rml`, and the
+  lock release restored the mod ini to it, undoing the `pc_deploy set` back to release values made while the lock was still held
+  (watcher.log 15:47:41 UTC). Keys set to release values again with no lock held, then the run below.
+- The 20-pass run on this build with the J30 keys at their release values (`ui.enabled=0`, `ui.show=` empty, `ui.scale=100`):
+  `harness/runs/20261103_j30acc2/` (ledger lines with `branch job/J30`). Uninstall and the folder comparison are in the job report.
