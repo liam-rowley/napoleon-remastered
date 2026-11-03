@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.diff.effects.empire_exe_names",
+  "claim": "Empire.exe contains none of the 20 Napoleon-only effect names (the new tag, the 16 new attribute names, ribbon.fx, unit_dust_parameters and unit_dust_parameters.txt) as ASCII or UTF-16LE, while Napoleon.exe contains all 20 (attribute names and the tag as UTF-16LE, ribbon.fx and the dust file name as ASCII); the method finds all 118 tag and attribute names both games' definitions share in both exes (controls). Empire's parser therefore has no name for them; whether it ignores an unknown attribute or tag or rejects the file is open (an Empire launch, D11)",
+  "state": "verified",
+  "evidence": "discovery/diff/effects.json",
+  "date": "2026-11-03"
+}
