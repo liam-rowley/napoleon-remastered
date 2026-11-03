@@ -78,8 +78,8 @@ Rule: a game repo never patches the core in place; it files a change against the
 Promotion: core candidates are built in this repo under a `*/core/` folder next to their adapter, and move to the core once their
 interface has settled, in one promotion job per phase that depends on that phase's gate (phase 1: J12, after the J4 acceptance gate).
 Jobs that build heavily on a candidate depend on its promotion job, so their briefs cite core paths from the start.
-Promotion rows (2026-11-01): phase 1 was J12; the job pipeline itself (`tools/verbs/jobs.py`, `tools/pr_policy.py`, the CI notifier
-and workflows) is still game-side and moves in J62; `discovery/core` in J64 (after the discovery gate J11); `upscale/core` and
+Promotion rows (2026-11-01): phase 1 was J12; the job pipeline itself (the `jobs` verb, the pull-request policy, the CI notifier
+and workflows) moved to the core in J62 (v0.9.0; napoleon keeps its rules in `wsc.toml` and `tools/jobs_hooks.py`); `discovery/core` in J64 (after the discovery gate J11); `upscale/core` and
 `viewer/core` in J63 (after S3 parity, J32). The RmlUi host and panel host (J30, J35) are core candidates from their briefs.
 
 **Next games** (planning chat 2026-11-01, Liam's intent: back-port the core into Empire and start that game fresh; Shogun 2 later).
@@ -87,7 +87,7 @@ and workflows) is still game-side and moves in J62; `discovery/core` in J64 (aft
   `empire-remastered` `exe_patches.json` (J6: 23 of 23 guard sites and 33 of 52 patch anchors still hold), a `DevAdapter`, and the
   committed discovery and upscale tools re-run. It starts only after J62 (the pipeline in the core) and after J30 and J35 are
   promoted, so Empire's UI, the part that stalled it, is built once on the shared host; D11 (one game at a time) stands. Empire
-  restart list, candidates: Napoleon's smoke and particle effects backported as a pack (gated on J66's `effects` diff; first proof is
+  restart list, candidates: Napoleon's smoke and particle effects backported as a pack (gated on J72's `effects` diff; first proof is
   one volley captured with the J8 frame-capture tool on Empire), with the proxy re-rendering smoke from Empire's own sprite draws
   (section 7, lighting track) as the fallback if the effect format does not carry over.
 - Shogun 2 needs core work before an adapter: its players run the DX11 renderer and the proxy is `d3d9.dll` with
@@ -186,10 +186,10 @@ OFL, …); versioned releases with generated release notes.
    B36), the cheapest point to buy the D3D11 option Shogun 2 needs; or leave J30 as briefed and pay for the seam later.
 5. The section 7 candidates: each needs a dated decision with its own kill criterion (D14), or a dated no.
 6. **Moonshots** (2026-11-02, `docs/plans/MOONSHOTS_2026-11-01.md`). Four drafted decision lines wait in the record's "Roadmap
-   integration": D40 (the AI track, gym first), D41 (unattended AI runs as watcher jobs with a daily lock budget and a crash-rate kill),
-   D42 (narrowing section 2's lighting exclusion to a bounded post track with a GPU budget per pass), D43 (ray tracing stays out pending
-   J65). Sign, edit or decline each; the AI track is the one the record recommends first, and its substrate rows (seven, Opus-heavy)
-   are the next `plan/` branch once D40 exists. Two things the decisions need settled first: a `phase` for out-of-D1 work (the jobs
+   integration": D47 (the AI track, gym first), D48 (unattended AI runs as watcher jobs with a daily lock budget and a crash-rate kill),
+   D49 (narrowing section 2's lighting exclusion to a bounded post track with a GPU budget per pass), D50 (ray tracing stays out pending
+   J71). Sign, edit or decline each; the AI track is the one the record recommends first, and its substrate rows (seven, Opus-heavy)
+   are the next `plan/` branch once D47 exists. Two things the decisions need settled first: a `phase` for out-of-D1 work (the jobs
    schema allows 1-6 today; the record proposes 7), and whether the lighting track gets its own `perf/budgets.md` line against J23's
    proposed 2.5 ms reserve.
 
@@ -210,11 +210,11 @@ jobs on machinery that exists; the kill criterion is the proposal for its decisi
 
 **Moonshots** (research record `docs/plans/MOONSHOTS_2026-11-01.md`: evidence, prior art, costs, and for each a drafted decision line
 and job rows in build order). Larger than one or two jobs each; the record's "Roadmap integration" section is what a decision would
-sign. The two measurements that change no scope are queued: J65 and J66.
+sign. The two measurements that change no scope are queued: J71 and J72.
 
 | Candidate | Verdict in the record | Mechanism (exists) | Gate or kill criterion |
 |---|---|---|---|
-| **External battle AI** (gym substrate on J28 → parametrised hierarchical scripted AI playing the player's side against the vanilla AI → evolutionary tuning → behaviour cloning + RL only if the gates pass) | go, staged (drafted D40, D41; ~15 rows) | the order chain and UNIT layout J9 located and checks every start; J28's `order` verb; `ctl` scene/speed/pause/reset; the vanilla AI's plan vote and tactic auction are hard-coded literals with no db table (DenseCow RE), so an external AI is the only route to "better than vanilla" | scripted AI ≥ 80 % vs vanilla Normal at equal stats over 50-episode batteries on 3 maps; RL only if a clock hook lifts the measured 4.0x cap to ≥ 20x, ≥ 2,000 episodes a day, and replays are deterministic enough for stable batteries |
-| **Lighting and post at the composite plus froxel gunpowder smoke** seeded from the engine's `particle.fx` draws | spike first (drafted D42; ~9 rows); reverses section 2's "lighting or shader remaster beyond what the shadow work needs" | the six-draw composite J8 located; fx sources compiled at runtime, overridden through the dev pack the fixed sky proved; published froxel and GTAO costs fit 2.5-4.5 ms added at 4K on the 4090 | composite pass-through at ≤ +0.3 ms p50 and depth readable as a texture, else stop; needs its own line in `perf/budgets.md` (J23's proposal keeps 2.5 ms p99 in reserve at 4K, less than this track spends) |
-| **Ray-traced shadows and AO** through DXVK's D3D9 Vulkan interop | defer, one probe queued (J65; drafted D43) | `ID3D9VkInteropDevice` (DXVK 2.0+) gives the device and queue; nothing exports buffers, and stock DXVK never enables the RT extensions (a ~50-line patch against the "never a fork" pin) | **blocked before it starts** unless J65 shows the 32-bit NVIDIA ICD exposes `VK_KHR_ray_query`; the fallback is the 64-bit bridge section 2 excludes, so the expected answer is a dated no |
-| **Napoleon smoke backported to Empire** | undetermined, one diff queued (J66); belongs to the Empire restart list (section 4) | same fx layout and PFH0 packs; `particle.fx` differs by 76 lines, `particle_volumetric.fx_fragment` by 456, `ribbon.fx` is new; the 94 vs 74 `effects` entries were never diffed per file | J66's diff shows a format Empire's exe rejects, or the fx fail to compile under Empire's `d3dx9` |
+| **External battle AI** (gym substrate on J28 → parametrised hierarchical scripted AI playing the player's side against the vanilla AI → evolutionary tuning → behaviour cloning + RL only if the gates pass) | go, staged (drafted D47, D48; ~15 rows) | the order chain and UNIT layout J9 located and checks every start; J28's `order` verb; `ctl` scene/speed/pause/reset; the vanilla AI's plan vote and tactic auction are hard-coded literals with no db table (DenseCow RE), so an external AI is the only route to "better than vanilla" | scripted AI ≥ 80 % vs vanilla Normal at equal stats over 50-episode batteries on 3 maps; RL only if a clock hook lifts the measured 4.0x cap to ≥ 20x, ≥ 2,000 episodes a day, and replays are deterministic enough for stable batteries |
+| **Lighting and post at the composite plus froxel gunpowder smoke** seeded from the engine's `particle.fx` draws | spike first (drafted D49; ~9 rows); reverses section 2's "lighting or shader remaster beyond what the shadow work needs" | the six-draw composite J8 located; fx sources compiled at runtime, overridden through the dev pack the fixed sky proved; published froxel and GTAO costs fit 2.5-4.5 ms added at 4K on the 4090 | composite pass-through at ≤ +0.3 ms p50 and depth readable as a texture, else stop; needs its own line in `perf/budgets.md` (J23's proposal keeps 2.5 ms p99 in reserve at 4K, less than this track spends) |
+| **Ray-traced shadows and AO** through DXVK's D3D9 Vulkan interop | defer, one probe queued (J71; drafted D50) | `ID3D9VkInteropDevice` (DXVK 2.0+) gives the device and queue; nothing exports buffers, and stock DXVK never enables the RT extensions (a ~50-line patch against the "never a fork" pin) | **blocked before it starts** unless J71 shows the 32-bit NVIDIA ICD exposes `VK_KHR_ray_query`; the fallback is the 64-bit bridge section 2 excludes, so the expected answer is a dated no |
+| **Napoleon smoke backported to Empire** | undetermined, one diff queued (J72); belongs to the Empire restart list (section 4) | same fx layout and PFH0 packs; `particle.fx` differs by 76 lines, `particle_volumetric.fx_fragment` by 456, `ribbon.fx` is new; the 94 vs 74 `effects` entries were never diffed per file | J72's diff shows a format Empire's exe rejects, or the fx fail to compile under Empire's `d3dx9` |

@@ -2,9 +2,9 @@
 
 **Dated record** (planning chat, 2026-11-01 to 2026-11-02; Claude research agents, five source files, read-only against both repos).
 **Status: proposal.** Nothing here is in scope (D14) until Liam signs a decision: the decision lines in "Roadmap integration" are drafts
-with placeholder numbers (D40-D43 after D39) and the job rows carry placeholder ids (`J-AI-n`, `J-LT-n`, `J-RT-n`, `J-EMP-1`) and a
-proposed phase 7 the jobs schema does not admit yet (`phase` max 6). Queued from this record so far: J65 (the 32-bit ray-tracing probe)
-and J66 (the Napoleon-to-Empire `effects` diff), both measurements that change no scope; everything else waits in `PLAN.md` section 7.
+with placeholder numbers (D47-D50, the next free after D46 when this merged; re-check before signing) and the job rows carry placeholder ids (`J-AI-n`, `J-LT-n`, `J-RT-n`, `J-EMP-1`) and a
+proposed phase 7 the jobs schema does not admit yet (`phase` max 6). Queued from this record so far: J71 (the 32-bit ray-tracing probe)
+and J72 (the Napoleon-to-Empire `effects` diff), both measurements that change no scope; everything else waits in `PLAN.md` section 7.
 Repo facts cited as `(repo: path)` were read from `main` at 2ce3455 and the J23 merge (9ccaf8c); web sources are linked inline and were
 not re-verified by the record's author. Where the five source notes disagreed or flagged inference, the text says so.
 
@@ -81,8 +81,8 @@ Conventions: decision numbers are placeholders after D39 (the latest line the no
 
 **(b) Proposed decision lines**
 
-- `D40 (date, Liam): External battle AI is in scope as a gym-first track: gym substrate on J28 (unit-state read, fixed-army episode reset, battle-end signal, clock-hook spike, determinism measure) → a parametrised hierarchical scripted AI playing the player's side against the vanilla AI → evolutionary tuning → behaviour cloning + RL only if the substrate gates pass (≥20x battle speed, ≥2,000 episodes/day, 50-episode batteries stable). Why: the order chain and UNIT layout are located and checked at every start, the harness already loads, speeds and resets battles, prior art shows scripted AI beats shipped AI at hobby scale while RL needs throughput the engine does not have at 4x. Kill: the scripted AI does not reach ≥80% vs vanilla Normal at equal stats over 50-episode batteries on 3 maps within its job budget, or the clock-hook spike fails and evolutionary tuning at 4x shows no measurable gain. Reversible: yes (the AI lives in a repo folder and `[dev]` keys; no engine change beyond J28's).`
-- `D41 (date, Liam): Unattended AI runs (tuning, training, evaluation batteries) are watcher jobs with a daily game-lock budget Liam sets per run, a crash-rate kill (stop when >5% of episodes crash or hang), checkpointing every N episodes, and no agent polling (D15). Why: one game instance, one lock, D11; a run measured in days must not block D1 jobs or burn calls waiting. Kill: a run that blocks a D1 job's acceptance pass twice is stopped and rescheduled. Reversible: yes.`
+- `D47 (date, Liam): External battle AI is in scope as a gym-first track: gym substrate on J28 (unit-state read, fixed-army episode reset, battle-end signal, clock-hook spike, determinism measure) → a parametrised hierarchical scripted AI playing the player's side against the vanilla AI → evolutionary tuning → behaviour cloning + RL only if the substrate gates pass (≥20x battle speed, ≥2,000 episodes/day, 50-episode batteries stable). Why: the order chain and UNIT layout are located and checked at every start, the harness already loads, speeds and resets battles, prior art shows scripted AI beats shipped AI at hobby scale while RL needs throughput the engine does not have at 4x. Kill: the scripted AI does not reach ≥80% vs vanilla Normal at equal stats over 50-episode batteries on 3 maps within its job budget, or the clock-hook spike fails and evolutionary tuning at 4x shows no measurable gain. Reversible: yes (the AI lives in a repo folder and `[dev]` keys; no engine change beyond J28's).`
+- `D48 (date, Liam): Unattended AI runs (tuning, training, evaluation batteries) are watcher jobs with a daily game-lock budget Liam sets per run, a crash-rate kill (stop when >5% of episodes crash or hang), checkpointing every N episodes, and no agent polling (D15). Why: one game instance, one lock, D11; a run measured in days must not block D1 jobs or burn calls waiting. Kill: a run that blocks a D1 job's acceptance pass twice is stopped and rescheduled. Reversible: yes.`
 
 **(c) Proposed job rows, in build order**
 
@@ -100,7 +100,7 @@ Conventions: decision numbers are placeholders after D39 (the latest line the no
 | J-AI-9 | Hierarchical scripted AI v1 (plan vote, influence-map line placement, reserve, cavalry charge/withdraw and square triggers, battery handling, 10-50 named parameters, personalities as parameter sets), player's side vs vanilla | 7 | sonnet | yes | J-AI-8 | <80% vs vanilla Easy after two fix rounds |
 | J-AI-10 | Evaluation battery tool: scenarios × {Easy, Normal, Hard, Very Hard} × 50 episodes; win rate, casualty ratio, time to decision, Elo/TrueSkill vs vanilla and vs the scripted baseline | 7 | sonnet | yes | J-AI-9 | battle-difficulty setting not reachable from the preset route → batteries at Normal only |
 | J-AI-11 | Scripted AI v2 to the bar: ≥80% vs Normal at equal stats and ≥60% vs Hard with bonuses on 3+ maps | 7 | sonnet | yes | J-AI-10 | bar not met after the brief's budget → stop the track at "better than vanilla Easy/Normal" and file what was learned |
-| J-AI-12 | Evolutionary tuning: CMA-ES over the named parameters, 4-8 randomised battles per individual, unattended under D41 | 7 | sonnet | yes | J-AI-11, D41 | no gain over hand-tuned after a 16×15 run (~1,000-2,000 battles) |
+| J-AI-12 | Evolutionary tuning: CMA-ES over the named parameters, 4-8 randomised battles per individual, unattended under D48 | 7 | sonnet | yes | J-AI-11, D48 | no gain over hand-tuned after a 16×15 run (~1,000-2,000 battles) |
 | J-AI-13 (conditional on G1) | Behaviour cloning: entity-attention policy from J-AI-11/12 trajectories plus vanilla-AI (state, order) pairs logged at the queue push site | 7 | sonnet (ML, Python) | yes | G1 pass, J-AI-12 | BC policy >20 points below its teacher's win rate on the J-AI-10 battery |
 | J-AI-14 (conditional on G1) | PPO fine-tune with shaped reward and sampled vanilla difficulty; frozen-checkpoint self-play later | 7 | sonnet | yes | J-AI-13 | no improvement over BC after 10^6 decision steps |
 | J-AI-15 (optional) | Alliance-AI mute: guarded skip of one alliance's AI update (DenseCow 0x005832C0 → 0x00583380 → 0x007B25A0, anchor-checked) as a D2 feature detour; enables the external AI as the enemy | 7 | opus (RE, detour) | yes | J-AI-6, J-AI-11 | site not anchor-checkable on Liam's exe, or the detour crashes twice |
@@ -109,10 +109,10 @@ Conventions: decision numbers are placeholders after D39 (the latest line the no
 
 - **J28 brief:** keep "do not retry the battle-script route or posted drags" unchanged; the evidence (refuted fact, Attila-AI's non-durable `take_control`, deployment-phase freezes, one-timer limit) supports it and the direct chain is the replay-safe route. Add two observations to J28's report, not deliverables: whether `[0x14d0154]` is 0 in custom battles and whether a pushed order for a non-player UNIT is accepted (J-AI-6 then owns the systematic probe). Note in the brief that `wsp.unit_state` is the seed of J-AI-2's dump, so its field layout should be the one J-AI-2 extends. J28's "engine calls only, no detours" stays for J28; J-AI-15 is where a D2 feature detour first appears, under its own decision.
 - **J46 brief (`land_40`):** add randomisation of army lists, deployment zones, weather/tod index and battle difficulty to the fixed-army route, with the open-loop warning from SMACv2 as the reason; J-AI-3 depends on it.
-- **J60 (naval orders):** unchanged; naval and siege AIs are deferred as separate tasks in D40's scope note.
+- **J60 (naval orders):** unchanged; naval and siege AIs are deferred as separate tasks in D47's scope note.
 - **Core backlog B25 (`peek` verb):** promote; J-AI-2 is its first consumer.
-- **D15/D34 usage:** D41 above is the new line; the existing "waiting and polling belong to the harness" rule is what makes multi-day runs possible.
-- **PLAN section 7 candidate table:** add the AI track as a row with D40's kill criterion so it is visible before D40 is signed.
+- **D15/D34 usage:** D48 above is the new line; the existing "waiting and polling belong to the harness" rule is what makes multi-day runs possible.
+- **PLAN section 7 candidate table:** add the AI track as a row with D47's kill criterion so it is visible before D47 is signed.
 
 ### Feature 2: modern lighting/post at the composite plus volumetric gunpowder smoke
 
@@ -120,7 +120,7 @@ Conventions: decision numbers are placeholders after D39 (the latest line the no
 
 **(b) Proposed decision line**
 
-- `D42 (date, Liam): PLAN §2's exclusion "lighting or shader remaster beyond what the shadow work needs" is narrowed to admit a bounded post track: a proxy composite at the pass-6 point (tonemap/colour, GTAO-class AO), a G-buffer (normal, material id, velocity) added to the shipped fx sources via the dev pack, and froxel gunpowder smoke seeded from the engine's own particle.fx draws, re-lit sprites kept for detail. Budget: ≤4 ms added GPU time at 4K on the 4090 measured per pass by J23's instrument; DXVK backend first, system d3d9 only once J61 presents through the hook; no screen-space multi-bounce GI, no PBR, no upscalers (those §2 lines stand). Why: the composite is a located six-draw hook, the dev-pack fx route is proven by the fixed sky, and published froxel/GTAO costs fit the budget. Kill: the composite spike cannot pass through at ≤+0.3 ms p50 or depth cannot be read as a texture by either route; or the first AO+smoke build exceeds 6 ms added at 4K after one optimisation round. Reversible: yes (dev pack + `[dev]`/release keys off restore the vanilla frame).`
+- `D49 (date, Liam): PLAN §2's exclusion "lighting or shader remaster beyond what the shadow work needs" is narrowed to admit a bounded post track: a proxy composite at the pass-6 point (tonemap/colour, GTAO-class AO), a G-buffer (normal, material id, velocity) added to the shipped fx sources via the dev pack, and froxel gunpowder smoke seeded from the engine's own particle.fx draws, re-lit sprites kept for detail. Budget: ≤4 ms added GPU time at 4K on the 4090 measured per pass by J23's instrument; DXVK backend first, system d3d9 only once J61 presents through the hook; no screen-space multi-bounce GI, no PBR, no upscalers (those §2 lines stand). Why: the composite is a located six-draw hook, the dev-pack fx route is proven by the fixed sky, and published froxel/GTAO costs fit the budget. Kill: the composite spike cannot pass through at ≤+0.3 ms p50 or depth cannot be read as a texture by either route; or the first AO+smoke build exceeds 6 ms added at 4K after one optimisation round. Reversible: yes (dev pack + `[dev]`/release keys off restore the vanilla frame).`
 
 **(c) Proposed job rows, in build order**
 
@@ -138,12 +138,12 @@ Conventions: decision numbers are placeholders after D39 (the latest line the no
 
 **(d) What it changes for the existing plan**
 
-- **J30 / B36 renderer seam:** J-LT-3 must be built behind the same `IDirect3DDevice9` seam J30's RmlUi render interface introduces; brief J30 to leave the seam shaped for a second consumer (an extra pass at a `SetRenderTarget` boundary, not only overlay geometry at Present). Decide in D42 whether the composite is DXVK-only until J61.
-- **J23 (performance baseline):** add J-LT-2's per-pass GPU timing as a deliverable or dependency; without it D42's budget gate cannot be enforced. J23's dxvk.conf keys should include `d3d9.deviceLocalConstantBuffers` and the shader-cache path, since every fx variant adds first-run compile time under DXVK 3.x.
+- **J30 / B36 renderer seam:** J-LT-3 must be built behind the same `IDirect3DDevice9` seam J30's RmlUi render interface introduces; brief J30 to leave the seam shaped for a second consumer (an extra pass at a `SetRenderTarget` boundary, not only overlay geometry at Present). Decide in D49 whether the composite is DXVK-only until J61.
+- **J23 (performance baseline):** add J-LT-2's per-pass GPU timing as a deliverable or dependency; without it D49's budget gate cannot be enforced. J23's dxvk.conf keys should include `d3d9.deviceLocalConstantBuffers` and the shader-cache path, since every fx variant adds first-run compile time under DXVK 3.x.
 - **J24 / J25 (shadows):** J25's "proxy replay of the pass's draws, or calling the engine's pass again through a hook" is the same mechanism J-LT-4(b) and any depth prepass need; sequence J-LT-4 after J24 and share the hook.
-- **J61 (system backend):** the composite pass is untestable on system d3d9 until J61 makes Present reach the hook; D42 names DXVK first for this reason.
+- **J61 (system backend):** the composite pass is untestable on system d3d9 until J61 makes Present reach the hook; D49 names DXVK first for this reason.
 - **J8 / capture format:** commit `DECL`/stride and `FREQ` for particle draws (J-LT-1) so the seed data lives in the repo, not `_scratch`.
-- **PLAN section 2:** the lighting line is narrowed by D42; "PBR or texture remaster beyond UI art" and "upscalers" stand.
+- **PLAN section 2:** the lighting line is narrowed by D49; "PBR or texture remaster beyond UI art" and "upscalers" stand.
 
 ### Feature 3: ray-traced shadows and AO through DXVK's Vulkan interop
 
@@ -151,7 +151,7 @@ Conventions: decision numbers are placeholders after D39 (the latest line the no
 
 **(b) Proposed decision line**
 
-- `D43 (date, Liam): Ray-traced shadows/AO stay out of scope pending one measurement: whether the 32-bit NVIDIA Vulkan ICD on the project PC exposes VK_KHR_ray_query and VK_KHR_acceleration_structure (SysWOW64 vulkaninfo vs System32, driver version filed). If present, a follow-on decision may admit an in-process route on a patched DXVK (zlib, altered-version marking, sha-pinned diff; no NRD, in-house denoiser), built on the lighting track's depth-as-texture and fx edits. If absent, the feature is deferred indefinitely and the §2 "64-bit bridge" exclusion stands. Why: two independent reports (2019, 2026-10-29) and NVIDIA's own Remix design say 32-bit processes get no RT; everything else is downstream of that. Kill: probe negative. Reversible: yes.`
+- `D50 (date, Liam): Ray-traced shadows/AO stay out of scope pending one measurement: whether the 32-bit NVIDIA Vulkan ICD on the project PC exposes VK_KHR_ray_query and VK_KHR_acceleration_structure (SysWOW64 vulkaninfo vs System32, driver version filed). If present, a follow-on decision may admit an in-process route on a patched DXVK (zlib, altered-version marking, sha-pinned diff; no NRD, in-house denoiser), built on the lighting track's depth-as-texture and fx edits. If absent, the feature is deferred indefinitely and the §2 "64-bit bridge" exclusion stands. Why: two independent reports (2019, 2026-10-29) and NVIDIA's own Remix design say 32-bit processes get no RT; everything else is downstream of that. Kill: probe negative. Reversible: yes.`
 
 **(c) Proposed job rows, in build order**
 
@@ -164,9 +164,9 @@ Conventions: decision numbers are placeholders after D39 (the latest line the no
 
 **(d) What it changes for the existing plan**
 
-- **`fetch_dxvk.py` "Never a fork" and the 3.1.1 pin:** untouched unless J-RT-0 passes; D43 names the reversal conditions (zlib marking, sha-pinned diff) in advance.
+- **`fetch_dxvk.py` "Never a fork" and the 3.1.1 pin:** untouched unless J-RT-0 passes; D50 names the reversal conditions (zlib marking, sha-pinned diff) in advance.
 - **J61 / B36:** a patched DXVK is a third backend flavour behind the seam; brief B36 so a backend can carry its own DLL pin.
-- **PLAN section 2:** the "64-bit bridge" exclusion is confirmed by this analysis rather than reversed; the lighting line is handled by D42, not D43.
+- **PLAN section 2:** the "64-bit bridge" exclusion is confirmed by this analysis rather than reversed; the lighting line is handled by D49, not D50.
 - **D13 (NVIDIA only):** consistent; RT would be NVIDIA-only in any case.
 - **J-LT-4 / J-LT-5 become prerequisites** of any RT work (depth before the main pass, fx edit to consume the mask); no RT job is queued before them.
 

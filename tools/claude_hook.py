@@ -2,7 +2,7 @@
 """Claude Code PreToolUse hook: the shell-call rules of this repo: the commit trailer (D21, J20), no git in a game folder and no writes
 into the PC's protected folders outside `_scratch\\<owner>\\` (J18).
 
-purpose: refuse three kinds of Bash or PowerShell call before they run: a `git commit` without `--trailer "Claude-Session: <this session id>"` (tools/pr_policy.py tells a job's builder from its reviewer by it), any `git` working in a protected root (both game folders, the PC state folder), and a write into a protected root outside `<state>\\_scratch\\<owner>\\` (redirects, cp/mv/rm/..., Copy-Item/Set-Content/...; pc_deploy.py and job.sh calls are exempt); each denial says what to run instead
+purpose: refuse three kinds of Bash or PowerShell call before they run: a `git commit` without `--trailer "Claude-Session: <this session id>"` (`wsc policy` tells a job's builder from its reviewer by it; the rule is warscape-core's warscape/trailer.py), any `git` working in a protected root (both game folders, the PC state folder), and a write into a protected root outside `<state>\\_scratch\\<owner>\\` (redirects, cp/mv/rm/..., Copy-Item/Set-Content/...; pc_deploy.py and job.sh calls are exempt); each denial says what to run instead
 usage: wired in .claude/settings.json (PreToolUse, matcher Bash|PowerShell); reads the hook JSON on stdin; test: echo '{"session_id":"s","cwd":"/c/x","tool_name":"Bash","tool_input":{"command":"git commit -m x"}}' | python3 tools/claude_hook.py
 when: automatic on every shell call in a Claude Code session in this repo; never run by hand except to test it
 not-a-verb: Claude Code runs it with a JSON protocol on stdin and stdout, not through the wsc CLI
@@ -15,7 +15,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-COMMIT = re.compile(r'''(?<![\w./-])git(?:\.exe)?(?:\s+-[cC]\s+(?:"[^"]*"|'[^']*'|\S+))*\s+commit(?![\w-])''')
+sys.path.insert(0, str(ROOT / 'core'))   # the trailer rule is the core's (J62); with no core checkout the hook skips it and CI's policy check still refuses
+try:
+    from warscape.trailer import commit_lacks_trailer
+except ImportError:
+    def commit_lacks_trailer(cmd, session_id, trailer='Claude-Session'):
+        return False
 GIT = re.compile(r'''(?<![\w./$-])git(?:\.exe)?(?![\w.-])''')
 SEP = re.compile(r'&&|\|\||[;\n|]|(?<!>)&(?!>)')   # 2>&1 and &> stay inside their command
 SCRATCH_OWNER = re.compile(r'^[a-z0-9][a-z0-9_-]{0,31}$')
@@ -178,9 +183,9 @@ def decide(event, roots=None):
     cmd = str((event.get('tool_input') or {}).get('command', ''))
     sid = str(event.get('session_id') or '').strip()
     # only the --trailer flag counts: a `Claude-Session:` line in a -m body is a trailer only in the message's last paragraph, and J44's 19
-    # commits put it one paragraph above `Co-Authored-By:`, so git (and tools/pr_policy.py) read no session at all
-    if COMMIT.search(cmd) and sid and not re.search(r'--trailer[\s=]+["\']?Claude-Session:\s*' + re.escape(sid) + r'(?![\w-])', cmd):
-        return (f'Every commit in this repo names its Claude Code session (tools/pr_policy.py refuses a job whose report or review was '
+    # commits put it one paragraph above `Co-Authored-By:`, so git (and `wsc policy`) read no session at all
+    if commit_lacks_trailer(cmd, sid):
+        return (f'Every commit in this repo names its Claude Code session (`wsc policy` refuses a job whose report or review was '
                 f'committed without one). Run the same command again with this flag after `git commit`: '
                 f'--trailer "Claude-Session: {sid}"')
     if roots is None:
@@ -203,7 +208,7 @@ def decide(event, roots=None):
 
 def main():
     # Never exit non-zero: exit 2 from a PreToolUse hook blocks the tool call, so a hook bug would block every shell call (J20 review).
-    # A commit this hook fails to catch is still refused by tools/pr_policy.py in CI.
+    # A commit this hook fails to catch is still refused by `wsc policy` in CI.
     try:
         event = json.load(sys.stdin)
         why = decide(event) if isinstance(event, dict) else None

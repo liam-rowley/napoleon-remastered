@@ -37,7 +37,7 @@ core/proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 in
 `smoke` runs the built DLL under wine: `build.sh --docker smoke` (after `--docker all`; the same container plus CI's wine packages,
 about 70 s, J42) or `build.sh smoke` on Linux with wine. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`. When CI skipped `proxy` because the same input tree
 already passed (J54), the run's summary names the run that built it: download from that one.
-CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` and `smoke` when the branch changes its inputs (`tools/changed_inputs.py`) and
+CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` and `smoke` when the branch changes its inputs (`wsc.toml` `[ci] inputs`) and
 keeps the DLL as an artifact; the `gates` job runs `tests/test_proxy_tables.py` (generated tables current) and `tests/test_pc_deploy.py`.
 
 **Local gates run the host tests too** (J41): `python3 core/wsc.py gates` (the `tests` gate, not `--fast`) runs
@@ -190,6 +190,18 @@ The chunks `napoleon/lua/ctl/cam_set.lua`, `cam_read.lua` (readback through `Bat
 are what `core/harness/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.battle.camera_route`, `napoleon.battle.speed_route`.
 Engine Lua never calls `string.find`, `string.sub` or `gmatch`: one call stops the battle pump (fact `napoleon.lua.string_find_stalls_pump`,
 `tests/test_repo_rules.py`).
+
+## Battle unit orders (J28)
+
+`dev.orders` (default and release value off) is the core's battle unit control route (contract: warscape-core `docs/PROXY_ORDERS.md`):
+`wsp.unit_state/unit_list/selection/order_move/order_command/peek/orders_info` read live unit state and the UI's own selection from
+engine memory and push one move/face order per unit through the engine's own command path, or a dispatcher command (halt, formation
+toggles), on the engine thread. Napoleon's `OrdersAdapter` is in `napoleon/adapter.cpp`, every operand in an engine_sites row keyed
+`dev.orders` (`battle.ui_queue_site`, `battle.selection_*`, `battle.unit_*`, `battle.order_move_*`, `battle.ground_*`, ...). The chunk
+`napoleon/lua/ctl/orders.lua` is what `core/harness/ctl.py order` runs; its route block (tolerance, settle, the command codes) is
+`harness/napoleon/adapter.json` `ctl.routes.orders`. Facts: `napoleon.battle.order_route` and the other `napoleon.battle.order_*`,
+`unit_layout`, `bearing_convention`, `selection_source`, `unit_ids`; PC run `harness/runs/20261102_j28pc`. Never call a BattleUI
+function with missing arguments from a chunk: the engine's Lua error stops the battle pump (fact `napoleon.lua.battleui_error_stops_pump`).
 
 ## Frame capture (J8)
 

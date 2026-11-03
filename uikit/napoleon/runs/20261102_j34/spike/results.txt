@@ -1,0 +1,29 @@
+p_var [10, 20, 100, 40] centre #ff0000 corner #ff0000 outside #ffffff
+p_var_rt [120, 20, 100, 40] centre #00ff00 corner #00ff00 outside #ffffff
+p_var_cls [230, 20, 100, 40] centre #ff00ff corner #ff00ff outside #ffffff
+p_var_hover [340, 20, 100, 40] centre #00ffff corner #00ffff outside #ffffff
+p_var_fb [450, 20, 100, 40] centre #123456 corner #123456 outside #ffffff
+p_img [10, 80, 40, 40] centre #3c0028 corner #ffffff outside #ffffff
+p_shadow [70, 106.6, 100, 40] centre #ffffff corner #ffffff outside #ff0000
+p_inset [180, 106.6, 100, 40] centre #00ff00 corner #ff0000 outside #ffffff
+p_rep [290, 106.6, 100, 40] centre #7f7f7f corner #ffffff outside #ffffff
+p_focus [400, 106.6, 100, 40] centre #00ff00 corner #00ff00 outside #ffffff
+p_focus_only [510, 106.6, 100, 40] centre #cccccc corner #cccccc outside #ffffff
+p_tr [10, 186.1, 100, 40] centre #9a9a9a corner #ffffff outside #ffffff
+p_ts [120, 186.1, 100, 40] centre #ffffff corner #ffffff outside #ffffff
+p_none [0, 0, 0, 0] centre #ffffff corner #ffffff outside #ffffff
+p_trans [230, 186.1, 100, 40] centre #808080 corner #808080 outside #ffffff
+p_serif [340, 150, 400, 56] centre #ffffff corner #ffffff outside #ffffff
+p_serifb [10, 220, 400, 56] centre #ffffff corner #cccccc outside #ffffff
+p_sans [410, 237, 250, 36] centre #ffffff corner #ffffff outside #ffffff
+p_sansb [660, 237, 250, 36] centre #ffffff corner #ffffff outside #ffffff
+p_scroll [10, 290, 100, 40] centre #dddddd corner #dddddd outside #ffffff
+p_dev [110, 316.6, 450, 40] centre #00ff00 corner #00ff00 outside #ffffff
+q_a [10, 370, 100, 40] centre #000000 corner #000000 outside #ffffff
+q_b [120, 370, 100, 40] centre #ffffff corner #9f9f9f outside #ffffff
+q_c [230, 370, 100, 40] centre #ffffff corner #ffffff outside #000000
+q_d [340, 370, 100, 40] centre #ffffff corner #ffffff outside #000000
+q_e [450, 370, 100, 40] centre #ffffff corner #ffffff outside #ffffff
+hover True focus_visible_after_tab True
+console log: [rml warning] Syntax error parsing property declaration 'text-shadow: 2dp 2dp #ff0000;' in /screen/spike.rcss: 22.
+console warning: [.WebGL-0x7b2c0041f600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels

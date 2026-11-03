@@ -1,0 +1,75 @@
+{
+ "assets_summary_sha256": "2f392dc8477814b7639d648bc8fb4fe080ee7bc56555139bb8c7221ac49de0f0",
+ "gaps": [
+  {
+   "count": 3711,
+   "gap": "data fields with no source (parameter, upvalue, text key, dynamic text)",
+   "owner": "the panel jobs (J35 and the build jobs read them per screen)",
+   "registry": "ui_elements"
+  },
+  {
+   "count": 106,
+   "gap": "scripts named by a layout but not shipped in the packs",
+   "owner": "the panel jobs (J10 recorded them per unit)",
+   "registry": "ui_elements"
+  },
+  {
+   "count": 10272,
+   "gap": "rows no file names as a string (db-key driven art)",
+   "owner": "the panel jobs (J10 art_keys.json maps the db-driven roles)",
+   "registry": "assets"
+  }
+ ],
+ "index": {
+  "built": "2026-10-29",
+  "rows": 88415,
+  "sha256": "03b857fe823f7f25d2512293377c2c90d90271ac94acbb1e7fc14044683bf6f9"
+ },
+ "pack_fingerprint": {
+  "battleterrain.pack": {
+   "bytes": 2257818459,
+   "entries": 3627
+  },
+  "boot.pack": {
+   "bytes": 10414481,
+   "entries": 19
+  },
+  "buildings.pack": {
+   "bytes": 3147008752,
+   "entries": 11058
+  },
+  "data.pack": {
+   "bytes": 2853618786,
+   "entries": 19235
+  },
+  "local_en.pack": {
+   "bytes": 569570718,
+   "entries": 1852
+  },
+  "local_en_patch.pack": {
+   "bytes": 40448677,
+   "entries": 112
+  },
+  "media.pack": {
+   "bytes": 2526469916,
+   "entries": 74
+  },
+  "rigidmodels.pack": {
+   "bytes": 1414316410,
+   "entries": 4756
+  },
+  "sound.pack": {
+   "bytes": 4259750524,
+   "entries": 40635
+  },
+  "variantmodels.pack": {
+   "bytes": 3101841963,
+   "entries": 5551
+  },
+  "variantmodels2.pack": {
+   "bytes": 2192232644,
+   "entries": 76
+  }
+ },
+ "schema": 1
+}

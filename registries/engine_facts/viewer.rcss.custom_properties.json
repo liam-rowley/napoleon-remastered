@@ -1,0 +1,8 @@
+{
+  "id": "viewer.rcss.custom_properties",
+  "claim": "RmlUi 6.3 in the viewer supports CSS custom properties: var(--x) and var(--x, fallback) in plain properties and shorthands including box-shadow lists, resolved at compute time; a custom property can be set on the body from Lua with element.style['--x'] = value (element:SetProperty is nil in the Lua binding), a class on the body can override it, and a :hover rule that uses var() follows the current value",
+  "state": "verified",
+  "evidence": "uikit/napoleon/runs/20261102_j34/README.md",
+  "date": "2026-11-02",
+  "notes": "spike probes p_var, p_var_rt, p_var_cls, p_var_hover, p_var_fb in uikit/napoleon/runs/20261102_j34/spike/results.txt; the library uses var() for the faction tokens (--fac, --on-fac, --fac-hover, --fac-pressed) and for --fill"
+}

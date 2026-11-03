@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.unshipped_scripts",
+  "claim": "Vanilla layout components name 106 component scripts the game does not ship as compiled .luac (template.button_standard.lua, globe.lua, the land_hud_* formation buttons and others); 21 event handlers point into them, so those components have no Lua behaviour",
+  "state": "verified",
+  "evidence": "discovery/ui/summary.json#counts.scripts_missing",
+  "date": "2026-11-02",
+  "notes": "J10 static read: no pack and no loose file holds them; what the engine does with a missing script (ignore, log) is not probed"
+}

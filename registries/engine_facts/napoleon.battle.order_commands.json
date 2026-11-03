@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.order_commands",
+  "claim": "The owner's \"current selection\" dispatcher (engine_sites battle.selection_command; this = owner+0x454) takes our own one-unit selection: cmd 7 (Halt) stopped a walking unit short of its destination (moving 1 -> 0); cmd 0x22/0x23 (Square on/off) changed the unit's depth by 1.38 m and back. Wedge (0x24) had no effect on infantry or on land_small's cavalry unit. Codes read from the BattleUI functions: Diamond 0x26, Loose 0x47, Prone 0x49, Walks 0x12, Runs 0x13 (not run). The move ctor's run flag works: the same 25 m took 33.7 s walking and 20.3 s running",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "runs e1, e2, i2 to i6; the 7-argument move-type ctor 0x5996b0 stays untraced"
+}

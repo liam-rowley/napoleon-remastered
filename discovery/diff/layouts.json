@@ -825,7 +825,7 @@
     },
     "Cursor": {
      "bytes": 31112,
-     "roundtrip": "fail: UnicodeDecodeError",
+     "roundtrip": "ok",
      "textures": 7,
      "version": 18
     },
@@ -1560,7 +1560,7 @@
   "napoleon_layouts": {
    "ui\\battle ui\\battle_deployables_panel": {
     "bytes": 18908,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "568297ec5eb276b4bf102b6fb10af95fcdf3447e3bc8e0d9800e845251c4b577",
     "version": 39
    },
@@ -1590,13 +1590,13 @@
    },
    "ui\\battle ui\\deployment_end": {
     "bytes": 10291,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "b421d89f5b9a950a002ed12f2ce68433c699e5c117d1793f169ebaaec455fe7d",
     "version": 39
    },
    "ui\\battle ui\\esc_menu_battle": {
     "bytes": 29535,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "faa8bfd92b734fd5d1fb693125da2961f3db809530d51618796ba17822e01acd",
     "version": 39
    },
@@ -1614,49 +1614,49 @@
    },
    "ui\\battle ui\\land_battle_orders": {
     "bytes": 86266,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "8f7e892aa10b772ee2ad3e6d04e270cf6224d2c57c5125bf1063537d9f9431e2",
     "version": 39
    },
    "ui\\battle ui\\layout": {
     "bytes": 29067,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "e1315a2b412ae54c88929dd01e22fc201ed1688752fb0dcd81171a9610d6b3a6",
     "version": 39
    },
    "ui\\battle ui\\lb_unit_id": {
     "bytes": 20322,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "62a0b1509b74009392b1ac63eea790b07a6d84793b3164d9b1406e585e9f7d7c",
     "version": 39
    },
    "ui\\battle ui\\minimised_hud": {
     "bytes": 25643,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "ed1499316f872b115ce7524a9e56c2bc0539e5f45d7065d468a220ce73bcbd68",
     "version": 39
    },
    "ui\\battle ui\\minimised_lb_orders": {
     "bytes": 77381,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "31cbf1f5fb0f16ffbe8e565f0a4cf2c919a0fbfacdd5707299989e0f6fc4c470",
     "version": 39
    },
    "ui\\battle ui\\minimised_nb_orders": {
     "bytes": 72097,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "6f2f144cb93abe7b7ab2f3bbbe68e96e9522abbe447bb0fbbd1cab4ad17e32da",
     "version": 39
    },
    "ui\\battle ui\\mp_postbattle": {
     "bytes": 53601,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "e600861b8294b17a601f4b9225c015fbc2cdbeaab6d124c0f153062782b5d02e",
     "version": 39
    },
    "ui\\battle ui\\naval_battle_orders": {
     "bytes": 71275,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "5340b7245f6b630c5135d681dadcb0f1461743ce4a0629cca486a2f1aac60a51",
     "version": 39
    },
@@ -1680,7 +1680,7 @@
    },
    "ui\\battle ui\\sp_victory_options": {
     "bytes": 13552,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "26ca4cf40afdd1c5921fd21d86ca39d78e7487fd9bfdad52ce4275bd158bfeb0",
     "version": 39
    },
@@ -1704,13 +1704,13 @@
    },
    "ui\\campaign ui\\agent_action": {
     "bytes": 17514,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "aaefd9c99e27f8e647ce181ec1e06c1e82714f88833f8dd9cb924fce5cb15f5f",
     "version": 39
    },
    "ui\\campaign ui\\agent_options": {
     "bytes": 51481,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "a37569fa2fac2b82df4692487483045d5e5d3b86ee8f353e9bc29628f5f69df6",
     "version": 39
    },
@@ -1734,13 +1734,13 @@
    },
    "ui\\campaign ui\\campaign_result": {
     "bytes": 13163,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "e545fac46173619a1c81129baa71422a908760205b867d5cf7bb98450fac5624",
     "version": 39
    },
    "ui\\campaign ui\\character_information": {
     "bytes": 30063,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "6f3e70d351c87eacb31b1e5054d85b244d26eb8a3796c5c80fdf4b168de26d83",
     "version": 39
    },
@@ -1752,25 +1752,25 @@
    },
    "ui\\campaign ui\\diplomacy_panel": {
     "bytes": 304745,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "3c81709a20d58da03ad3057bd6066e4edfe2bdf237652854fb4eb4ce6146adcc",
     "version": 39
    },
    "ui\\campaign ui\\diplomatic_relations": {
     "bytes": 62817,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "7036b9a7b811c826751bf4eda8a925a54d6e5a8c9a504020e77f65a0300fb5e8",
     "version": 39
    },
    "ui\\campaign ui\\duel challenge received": {
     "bytes": 40972,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "d80d256a5b2b64f81c961f82f038d3e7bde373fed5fb1a97f77b3ee7c33ac73a",
     "version": 39
    },
    "ui\\campaign ui\\enlist_commander": {
     "bytes": 39775,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "58299c2269f6385f77b4d0f4b56ffa48336925ea629413675d18ecedb7814a19",
     "version": 39
    },
@@ -1782,13 +1782,13 @@
    },
    "ui\\campaign ui\\entity_lists": {
     "bytes": 92618,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "a565f089cb31117284c6cf7ca8236d8e8da6f1aa5010b5a858eaa3b6649afa5c",
     "version": 39
    },
    "ui\\campaign ui\\esc_menu_campaign": {
     "bytes": 36245,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "cb9421e1bcfd525a3ceb43276bb798448e5577fe780b4d994ac29a677ee4079a",
     "version": 39
    },
@@ -1812,19 +1812,19 @@
    },
    "ui\\campaign ui\\friends_list": {
     "bytes": 22132,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "822f487300a1cf786e37eb2095e1323b17df06c8343b845fa1a4fb8191b1b400",
     "version": 39
    },
    "ui\\campaign ui\\government_screens": {
     "bytes": 244562,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "dd0546a0aec9f47cbaed85e5665347ca9970b3a96973fb1b2b1cc23eceac98fe",
     "version": 39
    },
    "ui\\campaign ui\\layout": {
     "bytes": 132180,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "73ef5ccd79b26a0985700ce146aa67a39e88df96872f8be13744be87fd94b212",
     "version": 39
    },
@@ -1836,7 +1836,7 @@
    },
    "ui\\campaign ui\\layout_ally_attacked": {
     "bytes": 28514,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "96ba493d39ac755913ef9fc1998a3337ff50584720c0bda94aa0fca2d81b7e17",
     "version": 39
    },
@@ -1848,7 +1848,7 @@
    },
    "ui\\campaign ui\\layout_attrition_list": {
     "bytes": 9823,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "60b63d52564d12676af124a7fb1e5f6e11cf73ec7344c13a0379555abd3472ae",
     "version": 39
    },
@@ -1890,7 +1890,7 @@
    },
    "ui\\campaign ui\\layout_revolution": {
     "bytes": 17070,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "d2e198d9063640e30b188821b76fe73d22b299ed22a093b2583c0abf79d03145",
     "version": 39
    },
@@ -1926,7 +1926,7 @@
    },
    "ui\\campaign ui\\layout_traits_anc_list": {
     "bytes": 12680,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "8533dd42382f4c6f6e90bcd32c6f780cdfc81b0bd253fe33cd3f815d75c48ac4",
     "version": 39
    },
@@ -1944,43 +1944,43 @@
    },
    "ui\\campaign ui\\load-save_game": {
     "bytes": 35467,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "56b74fae263663bf4324f2c1f7a325d48908fff624f8b1605ed81d3d57f68e81",
     "version": 39
    },
    "ui\\campaign ui\\move_options": {
     "bytes": 22752,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "72ff7893aab389c44a29f218eb3e1116bde1ac7ca9f477fdf564335dada2ea48",
     "version": 39
    },
    "ui\\campaign ui\\objectives_screens": {
     "bytes": 59032,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "11c5014481155a806b33665e9c28f61519abe3e49d1f166382034785f164a9a9",
     "version": 39
    },
    "ui\\campaign ui\\options_game": {
     "bytes": 45160,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "0d0c3d16716a18ab195d3a57c845e1049470f27289875b83f026902fb317a8cf",
     "version": 39
    },
    "ui\\campaign ui\\popup_battle_results": {
     "bytes": 85624,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "4ecdfcea1f06efc4df89605b5c138c5d438ad8e28699fc6c9678e89a9ece26f4",
     "version": 39
    },
    "ui\\campaign ui\\popup_pre_battle": {
     "bytes": 93054,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "0fa0b23212c96610522286fc37563985e2027df9ffb917b412e3f6ce7f36d64e",
     "version": 39
    },
    "ui\\campaign ui\\region_details": {
     "bytes": 75572,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "4d9d99f8bbae896f1306338f694ebe2c3f062bb9003547708180c2701217a348",
     "version": 39
    },
@@ -1992,13 +1992,13 @@
    },
    "ui\\campaign ui\\settlement_captured": {
     "bytes": 52887,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "ad2a238b72c0d3adff7bdc163c3cc6f2b97b76094e7bb7f50275f626d2b14846",
     "version": 39
    },
    "ui\\campaign ui\\technology": {
     "bytes": 46731,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "e9036335538437b75aad29af49ac3b959cd4b578a165c86756525858454810f7",
     "version": 39
    },
@@ -2010,13 +2010,13 @@
    },
    "ui\\campaign ui\\unit_exchange": {
     "bytes": 30776,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "6f26e480a280d0d5141df2b84a2f813d295b07467b00df592d6f33bcf8500719",
     "version": 39
    },
    "ui\\common ui\\advice_interface": {
     "bytes": 18768,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "385c1e7b74f1ba5939796c39cb55fc4a0b251e86c18b3a0f8b3ad173a9b0d909",
     "version": 39
    },
@@ -2040,7 +2040,7 @@
    },
    "ui\\common ui\\menu_bar": {
     "bytes": 40065,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "334968b5e568ad7ddc07871d3adc12b303e40bf5353a6f9ae8fcaf530f6b4f50",
     "version": 39
    },
@@ -2058,25 +2058,25 @@
    },
    "ui\\common ui\\multiplayer_chat": {
     "bytes": 16715,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "0447eb3373929b747b57998c8b352e589e088b02b2d32cee42783329aeeebe33",
     "version": 39
    },
    "ui\\common ui\\multiplayer_player_list": {
     "bytes": 17954,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "0f6fbed5b3ca6a8fac0569718e907ae537681163d25feeeffc015e5e64c79dc1",
     "version": 39
    },
    "ui\\common ui\\options_audio": {
     "bytes": 110025,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "34065975668f6d1a744363a3b124aa16670da51108e95af38c392439c3ffa06b",
     "version": 39
    },
    "ui\\common ui\\options_controls": {
     "bytes": 72810,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "684696465e93bee43a914cc4fedea294637afaae71606513d69f4f05408ee76e",
     "version": 39
    },
@@ -2088,19 +2088,19 @@
    },
    "ui\\common ui\\options_graphics": {
     "bytes": 119330,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "e8e76d5a8702878536a967dc9a49dab215039ac33c4817335b2f0fcb6a702b56",
     "version": 39
    },
    "ui\\common ui\\options_ui": {
     "bytes": 58820,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "9a71ab49425a4841ff0cec6fddd242f065d5b5e4c13788b7eb06c045573fc30c",
     "version": 39
    },
    "ui\\common ui\\panel_dropin_requester": {
     "bytes": 10845,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "fb798b2dfc6c54e5e178e1fcfaef25b647a6a2b5219f0c793df015f4f1718751",
     "version": 39
    },
@@ -2112,7 +2112,7 @@
    },
    "ui\\common ui\\unit_information": {
     "bytes": 137309,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "8a979b5f818fd2e3a5d37acf77c137d9b00ffbfec8b3c511aa22306432cd7cab",
     "version": 39
    },
@@ -2160,13 +2160,13 @@
    },
    "ui\\frontend ui\\file_requester": {
     "bytes": 19333,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "ed925e4d8e3d0b717905e3b533c1e3f6c8be8ec3e14458181fd4f67e8664c826",
     "version": 39
    },
    "ui\\frontend ui\\grand_campaign": {
     "bytes": 88175,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "0d19e0f411a580314270262b6f0bcd001543c381581329e7e255af53ad6be6d9",
     "version": 39
    },
@@ -2190,19 +2190,19 @@
    },
    "ui\\frontend ui\\lobby_chat": {
     "bytes": 39722,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "102ca088a198705a8aa52580767658da8ac1304f46b65d62077da549ea619837",
     "version": 39
    },
    "ui\\frontend ui\\main": {
     "bytes": 87407,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "75b114dce4d5bb845279518e1cc9c8ec0977b16a9b1b44e53c425a22636ad15c",
     "version": 39
    },
    "ui\\frontend ui\\message_box": {
     "bytes": 9420,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "fb47ab8917c4871b67255af7597e5244d2f4824ba72c2b0e00179f4def93ccfc",
     "version": 39
    },
@@ -2214,7 +2214,7 @@
    },
    "ui\\frontend ui\\mp_battle2": {
     "bytes": 107734,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "59af9ef86ed118678fcc2e158051388dc569d0258ca67ea9ab909c4cdd1864e2",
     "version": 39
    },
@@ -2226,49 +2226,49 @@
    },
    "ui\\frontend ui\\mp_battle3": {
     "bytes": 132929,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "5b9359c10f9bbc5d8eb8e032bfeff3bb4e00fbba737bc2274d653e4134e2e847",
     "version": 39
    },
    "ui\\frontend ui\\mp_battle3_scenario": {
     "bytes": 94217,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "787bafdb76a1460d5f2323cb8a2e5fa97403c6821658f2f563e42f9832ef5edb",
     "version": 39
    },
    "ui\\frontend ui\\mp_grand_campaign": {
     "bytes": 135037,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "bcf739bb274e786a130d03a59bbad9662c0879bfb8b06101f1ebf2d351e7a17e",
     "version": 39
    },
    "ui\\frontend ui\\mp_load_game": {
     "bytes": 30837,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "63e224b9d0adb8aff4c0993221947b6e2b7e3aa6f376a81443a7560a736a89c6",
     "version": 39
    },
    "ui\\frontend ui\\multiplayer_lan": {
     "bytes": 128737,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "31d80840061f1a9ba9ac506b5e52045c3dd5bae019c13adb63c317e4ac65d4a7",
     "version": 39
    },
    "ui\\frontend ui\\multiplayer_online": {
     "bytes": 160874,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "528dde0f024e645dedde9c14e2e54b40afd137cd53807571368eb3cb16fb2b1b",
     "version": 39
    },
    "ui\\frontend ui\\napoleon_battles": {
     "bytes": 82164,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "fb8bb8edb66e11131a14eb1c6ee3d9da7821a4fe2d2b3ef1beaa0a265fd2ece9",
     "version": 39
    },
    "ui\\frontend ui\\options": {
     "bytes": 429771,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "7677c8279f21dc4ea216a95e3111c76ca9ecdd801f024c8adde94c9de9b7e1e1",
     "version": 39
    },
@@ -2280,19 +2280,19 @@
    },
    "ui\\frontend ui\\player_stats": {
     "bytes": 33217,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "ec4422d8736f6b1b4a1c93a90c365fa3bef0c72ec12261155e37fb9f242ec4d9",
     "version": 39
    },
    "ui\\frontend ui\\quickbattle_popup": {
     "bytes": 11225,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "377058c69f138275bdc56cc9bc54a6279845b1a805033841ce8be97415c50560",
     "version": 39
    },
    "ui\\frontend ui\\session_chat": {
     "bytes": 14810,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "9948c6c9f167786088c8d101b1801ad4d6ab3f3487da03a5d39bd5534dce8d7e",
     "version": 39
    },
@@ -2304,13 +2304,13 @@
    },
    "ui\\frontend ui\\sp_battle1": {
     "bytes": 28347,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "560522b32f1c39448f77cc93c08422cb3b8da24c2a3326c2bfbf1d7b078d9711",
     "version": 39
    },
    "ui\\frontend ui\\sp_battle2": {
     "bytes": 77372,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "917784404cd3eebfe85a4b417037c28d9780e71648ab5e3ac96389a5b954e827",
     "version": 39
    },
@@ -2322,49 +2322,49 @@
    },
    "ui\\frontend ui\\sp_battle3": {
     "bytes": 106910,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "6d6f341a7cd79986082d6166fd7f771eb00c6a663d685ac7477da9068fe80f60",
     "version": 39
    },
    "ui\\frontend ui\\sp_battle3_scenario": {
     "bytes": 34703,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "c6eb84c1bbbef71dfbca3ab10702bf079c003a41f739cfb422e5eeba40babda7",
     "version": 39
    },
    "ui\\frontend ui\\sp_episodic_campaign": {
     "bytes": 42624,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "3e2c896087bb2745ee877928d377dc32e088de35b7717e8fce025c6c872b4704",
     "version": 39
    },
    "ui\\frontend ui\\sp_load_game": {
     "bytes": 30757,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "c86e2e87e4b29d8b648f90ee862f34fde5c6c1d34b5dc293f184fb1ffe4d1816",
     "version": 39
    },
    "ui\\frontend ui\\sp_tutorials": {
     "bytes": 24570,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "88672b4d576b064396e56f9df8f8c04b1cb852a8c587fb1068c15bd8f74288c7",
     "version": 39
    },
    "ui\\frontend ui\\spain_grand_campaign": {
     "bytes": 91443,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "ca59d5707e26c3a835469e410c226c63a2d5b6a10b11b399d813fbc21193a7e6",
     "version": 39
    },
    "ui\\frontend ui\\spain_main": {
     "bytes": 90189,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "de3e07bca80ab5133002f52c5983a20f0d911c76eeef5b15ec41ddd60bbd67a1",
     "version": 39
    },
    "ui\\templates\\assassination_entry": {
     "bytes": 9842,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "dd8f6937d1bf06fd9a3dd4d60a01e374f59c927f328d8811e98711bf03f4a204",
     "version": 39
    },
@@ -2376,7 +2376,7 @@
    },
    "ui\\templates\\battleunitcard": {
     "bytes": 22810,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "cf99739dbdb10ef4b90b7b01a040eda69d4008a40fa4c7e6183bd8282388dcbb",
     "version": 39
    },
@@ -2406,7 +2406,7 @@
    },
    "ui\\templates\\buildingframe": {
     "bytes": 15982,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "b5300649377a87ef1d3a4fdcf0581065519f3c2fd0773dafd27f029909e0d0a5",
     "version": 39
    },
@@ -2418,19 +2418,19 @@
    },
    "ui\\templates\\campaigncharactercard": {
     "bytes": 7705,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "df1a86cf3a07275ee2d381be745defc5f19f126003c3b2abb0a5abf5b65cdf0c",
     "version": 39
    },
    "ui\\templates\\campaignunitcard": {
     "bytes": 20773,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "12a0ec33a4d54ed79c0eb7c5a0f80855d08053d7fda56ec35a95ad1de08c041c",
     "version": 39
    },
    "ui\\templates\\character_duel_info_pane": {
     "bytes": 11745,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "0b2e5dd541ccc538143f12828fcd58259f5e2bdef04363968f9d6c69bdc83bea",
     "version": 39
    },
@@ -2448,19 +2448,19 @@
    },
    "ui\\templates\\diplomacy_button": {
     "bytes": 18243,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "48dcb082d1f8976951d94a970cab9615148dccf555ae530f61b6642cd3967e82",
     "version": 39
    },
    "ui\\templates\\diplomacy_item_regions": {
     "bytes": 4703,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "c6b9de667817a2384026c1ce5c6911fa4bc913f17fb43047dc6d98b526198bda",
     "version": 39
    },
    "ui\\templates\\diplomacy_item_text": {
     "bytes": 2961,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "af4a8a2d06b037e16caebf65b4c5d7b8fa54d878cf1b4dc22712c952137389ee",
     "version": 39
    },
@@ -2478,7 +2478,7 @@
    },
    "ui\\templates\\messageicon": {
     "bytes": 4091,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "ab151f20f4b05c473c857a08b41ab09305c0beeeec0ff2a94a432fe7a4ec9c07",
     "version": 39
    },
@@ -2490,7 +2490,7 @@
    },
    "ui\\templates\\mission_active_entry": {
     "bytes": 6409,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "fe2c74cefc71b024719a1b5aa1f292445530b995be25c083f0ee245aedf17209",
     "version": 39
    },
@@ -2514,25 +2514,25 @@
    },
    "ui\\templates\\recruitmentcard": {
     "bytes": 10878,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "be60f80e776130ebb4691923f997d635aa4f304c49e26793a67ae8158c420f75",
     "version": 39
    },
    "ui\\templates\\region_list_item": {
     "bytes": 4073,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "64d31bbcc5b05a0319f0f12a78ee4abd84a80fe311ccc08643c07b02b57e9317",
     "version": 39
    },
    "ui\\templates\\row_template_region": {
     "bytes": 7494,
-    "roundtrip": "fail: error",
+    "roundtrip": "ok",
     "sha256": "25e9df929c3823b8f6097a07454ffda472b99a39fef05763a2e87a7343063353",
     "version": 39
    },
    "ui\\templates\\sabotage_entry": {
     "bytes": 9886,
-    "roundtrip": "fail: AssertionError",
+    "roundtrip": "ok",
     "sha256": "eafef710dce18ef4d8f32509b2a548bb346e1009424b60042f079ff422f3cd60",
     "version": 39
    },
@@ -2598,7 +2598,7 @@
    },
    "ui\\templates\\university": {
     "bytes": 8438,
-    "roundtrip": "fail: UnicodeDecodeError",
+    "roundtrip": "ok",
     "sha256": "97b61385d981fd4ad2fd24744abe18229e6cb2cc5c9ab6edbe71bbd87bdc90c6",
     "version": 39
    }
@@ -2622,7 +2622,7 @@
     },
     "BattleUnitCard": {
      "bytes": 231785,
-     "roundtrip": "fail: error",
+     "roundtrip": "ok",
      "textures": 5,
      "version": 39
     },
@@ -2652,13 +2652,13 @@
     },
     "CampaignUnitCard": {
      "bytes": 273079,
-     "roundtrip": "fail: error",
+     "roundtrip": "ok",
      "textures": 3,
      "version": 39
     },
     "Cursor": {
      "bytes": 31112,
-     "roundtrip": "fail: UnicodeDecodeError",
+     "roundtrip": "ok",
      "textures": 7,
      "version": 18
     },
@@ -2718,7 +2718,7 @@
     },
     "ReviewPanelTab": {
      "bytes": 30707,
-     "roundtrip": "fail: error",
+     "roundtrip": "ok",
      "textures": 2,
      "version": 35
     },
@@ -2802,13 +2802,13 @@
     },
     "attrition_entry": {
      "bytes": 76881,
-     "roundtrip": "fail: error",
+     "roundtrip": "ok",
      "textures": 0,
      "version": 35
     },
     "attrition_general_entry": {
      "bytes": 76899,
-     "roundtrip": "fail: error",
+     "roundtrip": "ok",
      "textures": 0,
      "version": 35
     },
@@ -2964,7 +2964,7 @@
     },
     "diplomacy_button": {
      "bytes": 107611,
-     "roundtrip": "fail: error",
+     "roundtrip": "ok",
      "textures": 6,
      "version": 35
     },
@@ -3434,12 +3434,12 @@
    "verdict": "same"
   },
   {
-   "adapter": "V033 plus a u32 default-state id after c_flag (uic.py state_ref) and a per-component animation list before the child count (name, empty str, u32 n, 48-byte keyframes: f32 x, f32 y, size, rgba, u32 time ms at +36, u32 interpolation at +40); state transitions are longer than V033 (about 18 bytes each, not decoded: napoleon.diff.layouts.v039_transitions)",
+   "adapter": "V033 plus a u32 default-state id after c_flag (uic.py state_ref), a per-component animation list before the child count (name, empty str, u32 n, 48-byte keyframes: f32 x, f32 y, size, rgba, u32 time ms at +36, u32 interpolation at +40, u32 state-change flag at +44 adding u32, str, str: the state switched to) and state transitions of u32 kind, u32 target state id, str (event or function name), 8 bytes (J10: napoleon.diff.layouts.v039_transitions)",
    "empire": "-",
    "evidence": "detail.*_layouts",
    "item": "layout Version039",
-   "napoleon": "136 (45 round-trip)",
-   "verdict": "adapter"
+   "napoleon": "136 (136 round-trip)",
+   "verdict": "new"
   },
   {
    "adapter": "tpl.split unchanged",
@@ -3482,11 +3482,11 @@
    "verdict": "same"
   },
   {
-   "adapter": "fails in Empire too (Empire codec limit, not a Napoleon change)",
-   "empire": "1 (0 round-trip)",
+   "adapter": "v17 with 3 header bytes before the inline script (J10)",
+   "empire": "1 (1 round-trip)",
    "evidence": "detail.*_templates",
    "item": "uied.templates record v18",
-   "napoleon": "1 (0 round-trip)",
+   "napoleon": "1 (1 round-trip)",
    "verdict": "same"
   },
   {
@@ -3586,11 +3586,11 @@
    "verdict": "same"
   },
   {
-   "adapter": "not decoded (kill criterion): napoleon.diff.layouts.template_v35",
+   "adapter": "V033 plus the V039 animations and transitions, no state_ref (J10: napoleon.diff.layouts.template_records)",
    "empire": "-",
    "evidence": "detail.*_templates",
    "item": "uied.templates record v35",
-   "napoleon": "4 (0 round-trip)",
+   "napoleon": "4 (4 round-trip)",
    "verdict": "new"
   },
   {
@@ -3598,7 +3598,7 @@
    "empire": "-",
    "evidence": "detail.*_templates",
    "item": "uied.templates record v39",
-   "napoleon": "3 (1 round-trip)",
+   "napoleon": "3 (3 round-trip)",
    "verdict": "new"
   },
   {

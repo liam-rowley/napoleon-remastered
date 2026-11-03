@@ -1,0 +1,307 @@
+2026-11-02T10:57:48.462Z [INFO ] [t36880] launch 20261102T105748Z-p37696: Napoleon: Total War proxy d3d9.dll build 46f52d356ce8 loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 37696, base 00540000)
+2026-11-02T10:57:48.462Z [INFO ] [t36880] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.autostart                      =             
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.autostart_delay_ms             = 1500        
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.camera                         = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.capture                        = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.capture_dir                    = C:\napoleon_remastered_pc\captures
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.console                        = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.ctl                            = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.file_rules                     = napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.log_files                      = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.lua_bridge                     = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.perf                           = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.skip_intro                     = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.state_json                     = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   dev.timeline                       = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   gfx.grass_proof                    = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   gfx.shadow_proof                   = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   gfx.shadow_sweep_proof             = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   gfx.ship_lod_proof                 = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   gfx.sprite_page_proof              = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   gfx.tree_lod_proof                 = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   gfx.unit_lod_proof                 = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   headless.display_name              = Virtual Display Driver
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   headless.enabled                   = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   headless.refuse_grace_ms           = 5000        
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   headless.settle_ms                 = 500         
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   headless.size                      = 1920x1080   
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   headless.test_dll_window_ms        = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   headless.test_off_thread           = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.backend                      = dxvk        
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.enabled                      = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.exe_guard                    = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.log_level                    = info        
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.minidump                     = 2           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] config:   proxy.runtime_patches              = 1           
+2026-11-02T10:57:48.462Z [INFO ] [t36880] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-11-02T10:57:48.462Z [INFO ] [t36880] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-11-02T10:57:48.498Z [INFO ] [t36880] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 47 ms)
+2026-11-02T10:57:48.499Z [INFO ] [t36880] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine: image base 00540000 (file ImageBase 0x00400000, delta 0x00140000)
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   unit_lod.override_default        patch RVA 0x00015431 -> 00555431: stock (key off) cur [00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   unit_lod.imposter_distance_default patch RVA 0x000155a1 -> 005555a1: stock (key off) cur [00 00 c8 42]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   ship_lod.knot_distance_default   patch RVA 0x00015631 -> 00555631: stock (key off) cur [00 00 48 42]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   unit_lod.large_imposter_distance_default patch RVA 0x000156c1 -> 005556c1: stock (key off) cur [00 00 48 43]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   ship_lod.rope_distance_default   patch RVA 0x000159c1 -> 005559c1: stock (key off) cur [00 00 48 43]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   ship_lod.rope_distance_fadeout_default patch RVA 0x00015a11 -> 00555a11: stock (key off) cur [00 00 16 43]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.order_formation_push      hook  RVA 0x0018d780 -> 006cd780: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.order_move_push           hook  RVA 0x0018dc00 -> 006cdc00: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.order_formation_ctor      hook  RVA 0x00199320 -> 006d9320: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.order_move_ctor           hook  RVA 0x00199760 -> 006d9760: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.command_dtor              hook  RVA 0x001a95b0 -> 006e95b0: stock cur [56 8b f1 8b 46 44 85 c0]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   guard.proxy_set_push             hook  RVA 0x001b04e0 -> 006f04e0: stock cur [55 56 8b f1 8b 6e 18]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.camera_chain_read         hook  RVA 0x001ce998 -> 0070e998: stock cur [a1 8c 41 4a 01 83 c4 08 8b 80 f8 00 00 00 8b 80 b8 81 02 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   guard.men_inside_battle_bounds   hook  RVA 0x001dae50 -> 0071ae50: stock cur [55 8b ec 83 e4 f0]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.camera_mode_read          hook  RVA 0x001fb0aa -> 0073b0aa: stock cur [8b 8e 00 08 00 00 ff 74 24 0c ff 74 24 0c 8b 01 ff 90 c0 00 00 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.camera_set_target_pos     hook  RVA 0x001fb320 -> 0073b320: stock cur [83 ec 08 53 56 8b 74 24 18 8b d9 57 8b 7c 24 18]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.unit_position_get         hook  RVA 0x00216d10 -> 00756d10: stock cur [83 ec 0c 56 ff 74 24 14]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.unit_bearing_get          hook  RVA 0x00216d60 -> 00756d60: stock cur [56 ff 74 24 08 8b f1 e8 d4 39 06 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.selection_ctor            hook  RVA 0x0028f580 -> 007cf580: stock cur [c7 01 e8 b5 32 01 8b c1]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   battle.selection_add_unit        hook  RVA 0x002a0480 -> 007e0480: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   guard.nav_node_2d                hook  RVA 0x0041c050 -> 0095c050: stock cur [8b 44 24 08 85 c0]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   guard.nav_node_at_point          hook  RVA 0x0041c080 -> 0095c080: stock cur [83 ec 14 56 57]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   campaign.cli_ctor                hook  RVA 0x005011f0 -> 00a411f0: stock (key off) cur [83 ec 0c 56 8b f1 8d 4c 24 04 68 e8 1b 36 01 e8]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   campaign.cli_ctor_tail           hook  RVA 0x00501240 -> 00a41240: stock (key off) cur [8b 44 24 14 8b 00 89 46 28 8b c6 c7 06 c4 1b 36 01 5e 83 c4 0c c2 04 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   campaign.cli_execute             hook  RVA 0x00525200 -> 00a65200: stock (key off) cur [51 53 55 56 57 89 4c 24 10 e8 42 07 00 00 ff 74]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   campaign.owner_selection_wiring  hook  RVA 0x0058c6b0 -> 00acc6b0: stock (key off) cur [8d 8b f4 00 00 00 c7 01 40 a5 36 01 8d bb fc 09 00 00 8b 45 00 89 41 04 89 7c 24 38 89 48 28]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   campaign.owner_global_read       hook  RVA 0x005dfecf -> 00b1fecf: stock (key off) cur [8b 0d 38 49 5c 01 83 c4 04 8b d8 8b 89 fc 09 00 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   campaign.handler_gate_test       hook  RVA 0x006afa4b -> 00befa4b: stock (key off) cur [80 7f 54 00 74 64 83 7f 08 00 74 5e]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   guard.engine_free                hook  RVA 0x00bf7ef0 -> 01137ef0: stock cur [8b 44 24 04 83 ec 08]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   guard.heap_serialize_setter      hook  RVA 0x00bf8890 -> 01138890: stock cur [0f b6 44 24 04]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   console.handler_slot_test        hook  RVA 0x00c5612c -> 0119612c: stock (key off) cur [83 3d b0 70 76 01 00 0f 84 fe fe ff ff]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   console.handler_slot_call        hook  RVA 0x00c56143 -> 01196143: stock (key off) cur [8b 0d b0 70 76 01 8d 54 24 2c 83 c4 04 8b 01 52 8d 54 24 1c 52 8b 00 ff d0 84 c0]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   shadow.light_sweep               patch RVA 0x00d276ac -> 012676ac: stock (key off) cur [00 00 96 c2]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   shadow.far_cap_q3                patch RVA 0x00d86976 -> 012c6976: stock (key off) cur [00 00 fa 43]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   shadow.map_size_q34              patch RVA 0x00d86986 -> 012c6986: stock (key off) cur [00 08 00 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   trees.far_other                  patch RVA 0x00de14c6 -> 013214c6: stock (key off) cur [00 00 48 42]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   trees.far_q3                     patch RVA 0x00de14dc -> 013214dc: stock (key off) cur [00 00 48 43]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   trees.far_q2                     patch RVA 0x00de14f2 -> 013214f2: stock (key off) cur [00 00 16 43]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   trees.far_q1                     patch RVA 0x00de14fc -> 013214fc: stock (key off) cur [00 00 c8 42]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   sprite.page_q0                   patch RVA 0x00e400d4 -> 013800d4: stock (key off) cur [00 00 00 44]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   sprite.page_q3                   patch RVA 0x00e400e5 -> 013800e5: stock (key off) cur [00 00 80 44]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   sprite.page_q2                   patch RVA 0x00e40100 -> 01380100: stock (key off) cur [00 00 80 44]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   sprite.page_q1                   patch RVA 0x00e40113 -> 01380113: stock (key off) cur [00 00 80 44]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine: nothing to do - 45 sites: 45 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 26 hooks verified
+2026-11-02T10:57:48.874Z [INFO ] [t36880] patch_engine: 0 of 0 planned sites written
+2026-11-02T10:57:48.874Z [INFO ] [t36880] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='napoleon_remastered\lua\fixed_sky_rules.txt' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-11-02T10:57:48.874Z [INFO ] [t36880] timeline: dllmain +434 ms
+2026-11-02T10:57:48.876Z [INFO ] [t36880] console: dev.console=0
+2026-11-02T10:57:48.876Z [INFO ] [t36880] camera: dev.camera=1
+2026-11-02T10:57:48.876Z [INFO ] [t36880] redirect: 1 rules from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-02T10:57:48.876Z [INFO ] [t36880] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-11-02T10:57:48.876Z [INFO ] [t36880] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-11-02T10:57:48.876Z [INFO ] [t36880] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-11-02T10:57:48.876Z [INFO ] [t36880] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-11-02T10:57:48.876Z [INFO ] [t36880] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-11-02T10:57:48.876Z [INFO ] [t36880] redirect: rule file add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack (rules line 3)
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!CreateFileW slot 01447170: 7634ea50 -> 6951ca00
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!CreateFileA slot 01447188: 7634ea40 -> 6951c820
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!GetFileAttributesW slot 0144722c: 7634ec70 -> 6951c720
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!GetFileAttributesExW slot 0144728c: 7634ec60 -> 6951c600
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!GetFileAttributesExA slot 0144724c: 7634ec50 -> 6951c490
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!FindFirstFileExW slot 014470cc: 7634eb30 -> 6951c3d0
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!FindFirstFileW slot 0144721c: 7634eb50 -> 6951c330
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!FindNextFileW slot 01447220: 7634eba0 -> 695193d0
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat KERNEL32.dll!FindClose slot 01447218: 7634ead0 -> 69517fc0
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat binkw32.dll!_BinkOpen@8 slot 01447480: 1800d690 -> 6951e5b0
+2026-11-02T10:57:48.876Z [INFO ] [t36880] hook: iat binkw32.dll!_BinkClose@4 slot 01447490: 1800f850 -> 69518a00
+2026-11-02T10:57:48.878Z [INFO ] [t36880] headless: on: target 'Virtual Display Driver' at exactly 1920x1080, settle 500 ms, refuse grace 5000 ms
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!CreateWindowExW slot 014473b4: 7526e930 -> 6952a570
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!ShowWindow slot 014473b0: 7527b6a0 -> 69525420
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!SetWindowPos slot 01447310: 7527b5e0 -> 69524da0
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!MoveWindow slot 014473ac: 7527ae90 -> 69524890
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!SetWindowLongW slot 01447374: 75267570 -> 69525a70
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!ChangeDisplaySettingsW slot 01447378: 75305c30 -> 69522d80
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!MessageBoxW slot 01447328: 752ea5b0 -> 695249a0
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!DialogBoxIndirectParamW slot 0144730c: 752c11f0 -> 69522d10
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat user32.dll!SetFocus slot 0144739c: 7527b3e0 -> 69523b40
+2026-11-02T10:57:48.878Z [INFO ] [t36880] hook: iat dinput8.dll!DirectInput8Create slot 01447024: 698d6fa0 -> 69522e10
+2026-11-02T10:57:48.878Z [INFO ] [t36880] init done; the dxvk backend loads at the first d3d9 call
+2026-11-02T10:57:48.886Z [INFO ] [t32256] ctl: watching C:\napoleon_remastered_pc\ctl\ (15904 ids already used)
+2026-11-02T10:57:49.710Z [INFO ] [t36880] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-11-02T10:57:49.710Z [INFO ] [t36880] redirect: add data\zz_napoleon_remastered_fixed_sky.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack; rules line 3)
+2026-11-02T10:57:49.802Z [WARN ] [t36880] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-11-02T10:57:49.802Z [INFO ] [t36880] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-02T10:57:49.802Z [INFO ] [t36880] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-02T10:57:49.802Z [INFO ] [t36880] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-11-02T10:57:49.805Z [INFO ] [t36880] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-02T10:57:49.805Z [INFO ] [t36880] backend: dxvk ready (Direct3DCreate9=5db81530)
+2026-11-02T10:57:49.939Z [INFO ] [t36880] Direct3DCreate9(sdk=32) -> 0c1223c0 [dxvk]
+2026-11-02T10:57:49.939Z [INFO ] [t36880] headless: 3 displays (physical pixels):
+2026-11-02T10:57:49.939Z [INFO ] [t36880] headless:   \\.\DISPLAY2 -2560,327 2560x1440 adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-11-02T10:57:49.939Z [INFO ] [t36880] headless:   \\.\DISPLAY11 3839,2160 1920x1080 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-11-02T10:57:49.939Z [INFO ] [t36880] headless:   \\.\DISPLAY1 0,0 3840x2160 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Generic PnP Monitor' dpi=144
+2026-11-02T10:57:49.940Z [INFO ] [t36880] headless: target 3839,2160 1920x1080 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 1920x1080); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 1920x1080@60
+2026-11-02T10:57:49.941Z [INFO ] [t36880] hook: vtable IDirect3D9::GetAdapterModeCount (headless) slot 5e21e018 [6]: 5db81ee0 -> 695238f0
+2026-11-02T10:57:49.941Z [INFO ] [t36880] hook: vtable IDirect3D9::EnumAdapterModes (headless) slot 5e21e01c [7]: 5db81f40 -> 69525120
+2026-11-02T10:57:49.941Z [INFO ] [t36880] hook: vtable IDirect3D9::GetAdapterDisplayMode (headless) slot 5e21e020 [8]: 5db81a20 -> 69523760
+2026-11-02T10:57:49.941Z [INFO ] [t36880] hook: vtable IDirect3D9::GetAdapterMonitor (headless) slot 5e21e03c [15]: 5db81da0 -> 69523560
+2026-11-02T10:57:49.941Z [INFO ] [t36880] hook: vtable IDirect3D9::CreateDevice (headless) slot 5e21e040 [16]: 5db82980 -> 69526500
+2026-11-02T10:57:49.941Z [INFO ] [t36880] timeline: d3d_create +1501 ms
+2026-11-02T10:57:49.942Z [INFO ] [t36880] camera: install: owner global 015e418c, battle +0xf8, controller +0x281b8, mode +0x800, SetTargetAndPosition 0073b320 (slot 47); sites battle.camera_chain_read battle.camera_mode_read battle.camera_set_target_pos
+2026-11-02T10:57:49.942Z [INFO ] [t36880] hook: vtable IDirect3D9::CreateDevice slot 5e21e040 [16]: 69526500 -> 695092e0
+2026-11-02T10:57:49.942Z [INFO ] [t36880] headless: GetAdapterDisplayMode(adapter 0) -> 1920x1080@60 (the target)
+2026-11-02T10:57:49.942Z [INFO ] [t36880] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-11-02T10:57:49.942Z [INFO ] [t36880] headless: GetAdapterDisplayMode(adapter 1) -> 1920x1080@60 (the target)
+2026-11-02T10:57:49.942Z [INFO ] [t36880] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-11-02T10:57:49.942Z [INFO ] [t36880] headless: GetAdapterDisplayMode(adapter 2) -> 1920x1080@60 (the target)
+2026-11-02T10:57:49.942Z [INFO ] [t36880] headless: GetAdapterMonitor(adapter 2) -> the target \\.\DISPLAY11
+2026-11-02T10:57:50.027Z [INFO ] [t36880] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 116)
+2026-11-02T10:57:50.027Z [INFO ] [t36880] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-11-02T10:57:50.029Z [INFO ] [t36880] headless: window 02220426 'Total War: NAPOLEON' class 'Napoleon' asked 1942x1136 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-11-02T10:57:50.029Z [INFO ] [t36880] headless: window 02220426 placed at 3839,2160 1920x1080 (inside the target)
+2026-11-02T10:57:50.030Z [INFO ] [t36880] headless: SetFocus(02220426) dropped (another process has the foreground; 1 so far)
+2026-11-02T10:57:50.030Z [INFO ] [t36880] headless: CreateDevice: back buffer 1920x1080, windowed, window 02220426
+2026-11-02T10:57:50.078Z [INFO ] [t36880] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-11-02T10:57:50.078Z [INFO ] [t36880] hook: vtable IDirect3DDevice9::Reset (headless) slot 5e21d7f0 [16]: 5dbab9e0 -> 69526640
+2026-11-02T10:57:50.078Z [INFO ] [t36880] hook: vtable IDirect3DDevice9::Present (headless) slot 5e21d7f4 [17]: 5dbb9dd0 -> 6952bf80
+2026-11-02T10:57:50.078Z [INFO ] [t36880] timeline: device_created +1638 ms hr 0x00000000 flags 0x42
+2026-11-02T10:57:50.079Z [INFO ] [t36880] hook: vtable IDirect3DDevice9::Present slot 5e21d7f4 [17]: 6952bf80 -> 69509be0
+2026-11-02T10:57:50.112Z [INFO ] [t36880] timeline: first_present +1672 ms
+2026-11-02T10:57:50.115Z [INFO ] [t36880] headless: ON THE VIRTUAL DISPLAY: window 3839,2160 1920x1080 on \\.\DISPLAY11, first frame presented there at 1.2 s (client 1920x1080, back buffer 1920x1080)
+2026-11-02T10:57:53.263Z [INFO ] [t36880] hook: vtable IDirectInput8::CreateDevice (headless) slot 698f6270 [3]: 698d4b20 -> 69522eb0
+2026-11-02T10:57:53.264Z [INFO ] [t36880] hook: vtable IDirectInputDevice8::SetCooperativeLevel (headless) slot 698f60a0 [13]: 698dcdd0 -> 69522a40
+2026-11-02T10:57:53.264Z [INFO ] [t36880] headless: DirectInput SetCooperativeLevel(2b0e46a0, window 02220426, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-11-02T10:57:54.321Z [INFO ] [t36880] wsp_sentinel: engine dummynode = 0152d128 (sizearray 0, lsizenode 0)
+2026-11-02T10:57:54.321Z [INFO ] [t36880] luaopen_wsp: engine lua_State 054a2128, global state 0551e624 (thread 36880)
+2026-11-02T10:57:54.321Z [INFO ] [t36880] timeline: lua_bridge_loaded +5881 ms
+2026-11-02T10:57:54.323Z [INFO ] [t36880] lua: wsp.lua loaded (wsp 1)
+2026-11-02T10:57:54.345Z [INFO ] [t36880] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-11-02T10:57:54.348Z [INFO ] [t36880] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-11-02T10:57:54.457Z [INFO ] [t36880] lua: wrapper: frontend pumps from OnUpdate
+2026-11-02T10:57:54.621Z [INFO ] [t36880] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 00000770 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-11-02T10:57:54.621Z [INFO ] [t36880] timeline: movie_refused +6181 ms movies\sega_logo_sting_hd.bik
+2026-11-02T10:57:54.625Z [INFO ] [t36880] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 00000770 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-11-02T10:57:54.625Z [INFO ] [t36880] timeline: movie_refused +6185 ms movies\corei7_intro.bik
+2026-11-02T10:57:54.628Z [INFO ] [t36880] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 00000770 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-11-02T10:57:54.628Z [INFO ] [t36880] timeline: movie_refused +6188 ms movies\ntw_intro.bik
+2026-11-02T10:57:54.630Z [INFO ] [t36880] timeline: movie_open +6190 ms movies\frontend2.bik
+2026-11-02T10:57:54.635Z [INFO ] [t36880] movies: BinkOpen movies\frontend2.bik [handle 00000770 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b6067a0
+2026-11-02T10:57:54.635Z [INFO ] [t36880] scene: intro -> frontend after 346143.0 s (uptime 5.8 s, frame 4, lua frontend)
+2026-11-02T10:57:54.638Z [INFO ] [t36880] lua: first pump from context 'frontend' (thread 36880)
+2026-11-02T10:57:54.638Z [INFO ] [t36880] timeline: frontend_first_pump +6198 ms
+2026-11-02T10:57:54.640Z [INFO ] [t36880] timeline: first_present_after_ready +6200 ms frontend
+2026-11-02T10:57:58.413Z [INFO ] [t32256] ctl: j10-20261102T105758Z-702920949: waitfor frontend 180
+2026-11-02T10:57:58.413Z [INFO ] [t32256] ctl: j10-20261102T105758Z-702920949: ok
+2026-11-02T10:58:00.015Z [INFO ] [t32256] ctl: j10-20261102T105759Z-1341723393: state
+2026-11-02T10:58:00.015Z [INFO ] [t32256] ctl: j10-20261102T105759Z-1341723393: ok
+2026-11-02T10:58:01.163Z [INFO ] [t32256] ctl: j10-20261102T105801Z-263311086: autostart battle:land_small 240
+2026-11-02T10:58:01.163Z [INFO ] [t32256] timeline: autostart_issued +12723 ms battle:land_small
+2026-11-02T10:58:01.293Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-11-02T10:58:01.293Z [INFO ] [t36880] lua report: battle.map_folder_ms = 
+2026-11-02T10:58:01.296Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_sunken_crater
+2026-11-02T10:58:01.299Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_siberian_plateau
+2026-11-02T10:58:01.301Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_mountain
+2026-11-02T10:58:01.304Z [INFO ] [t36880] lua report: battle.map_folder = welly_map_a
+2026-11-02T10:58:01.306Z [INFO ] [t36880] lua report: battle.map_folder = welly_map_c
+2026-11-02T10:58:01.308Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_prussian_hills
+2026-11-02T10:58:01.311Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_italian_grassland
+2026-11-02T10:58:01.313Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_homestead
+2026-11-02T10:58:01.328Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-02T10:58:01.329Z [INFO ] [t36880] lua report: autostart.map = NAP_MP_Grassy_Flatlands
+2026-11-02T10:58:01.329Z [INFO ] [t36880] lua report: autostart.map_folder = nap_mp_grassy_flatlands
+2026-11-02T10:58:01.329Z [INFO ] [t36880] lua report: autostart.weather = dry/Dry
+2026-11-02T10:58:01.329Z [INFO ] [t36880] lua report: autostart.time_of_day = 2
+2026-11-02T10:58:01.499Z [INFO ] [t36880] movies: BinkClose movies\frontend2.bik
+2026-11-02T10:58:01.501Z [INFO ] [t36880] timeline: movie_close +13061 ms movies\frontend2.bik
+2026-11-02T10:58:01.509Z [INFO ] [t32256] autostart: lua ok: started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2
+2026-11-02T10:58:01.509Z [INFO ] [t32256] scene: frontend -> loading after 6.9 s (uptime 12.6 s, frame 24380, lua frontend)
+2026-11-02T10:58:01.652Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-02T10:58:01.652Z [INFO ] [t36880] lua report: battle.map_folder_ms = 156
+2026-11-02T10:58:01.654Z [INFO ] [t36880] Direct3DCreate9(sdk=32) -> 32f40870 [dxvk]
+2026-11-02T10:58:01.654Z [INFO ] [t36880] headless: CreateDevice: back buffer 1x1, windowed, window 0001000c
+2026-11-02T10:58:01.654Z [INFO ] [t36880] headless: CreateDevice: a helper device (back buffer 1x1): allowed, it shows nothing
+2026-11-02T10:58:01.706Z [INFO ] [t36880] headless: CreateDevice(adapter 0, flags 0x22) -> 0x00000000
+2026-11-02T10:58:03.367Z [INFO ] [t36880] luaopen_wsp: engine lua_State 0552ac40, global state 0552e314 (thread 36880) (again)
+2026-11-02T10:58:03.367Z [INFO ] [t36880] lua: wsp.lua loaded (wsp 1)
+2026-11-02T10:58:03.375Z [INFO ] [t36880] lua: wrapper: battle pumps from OnUpdate
+2026-11-02T10:58:03.375Z [INFO ] [t36880] lua: wrapper: battle pumps from OnUpdatePulse
+2026-11-02T10:58:05.194Z [INFO ] [t36880] lua: first pump from context 'battle' (thread 36880)
+2026-11-02T10:58:05.194Z [INFO ] [t36880] scene: loading -> battle after 3.7 s (uptime 16.3 s, frame 24782, lua battle)
+2026-11-02T10:58:05.196Z [INFO ] [t36880] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-11-02T10:58:05.196Z [INFO ] [t36880] scene: battle probe naval=0 deploy_panel=0
+2026-11-02T10:58:05.223Z [INFO ] [t36880] timeline: first_present_after_ready +16783 ms battle
+2026-11-02T10:58:05.253Z [INFO ] [t36880] scene: battle probe naval=0 deploy_panel=1
+2026-11-02T10:58:05.253Z [INFO ] [t36880] scene: battle -> battle_deploy after 0.0 s (uptime 16.4 s, frame 24787, lua battle)
+2026-11-02T10:58:05.256Z [INFO ] [t36880] timeline: first_present_after_ready +16816 ms battle_deploy
+2026-11-02T10:58:06.203Z [INFO ] [t32256] ctl: j10-20261102T105801Z-263311086: ok
+2026-11-02T10:58:09.007Z [INFO ] [t32256] ctl: j10-20261102T105808Z-2534627864: state
+2026-11-02T10:58:09.007Z [INFO ] [t32256] ctl: j10-20261102T105808Z-2534627864: ok
+2026-11-02T10:58:10.648Z [INFO ] [t32256] ctl: j10-20261102T105810Z-940831682: state
+2026-11-02T10:58:10.648Z [INFO ] [t32256] ctl: j10-20261102T105810Z-940831682: ok
+2026-11-02T10:58:13.340Z [INFO ] [t32256] ctl: j10-20261102T105813Z-1257017670: reset frontend 240
+2026-11-02T10:58:13.341Z [INFO ] [t36880] scene: battle_deploy -> loading after 8.1 s (uptime 24.5 s, frame 28657, lua battle)
+2026-11-02T10:58:13.381Z [INFO ] [t36880] scene: battle probe naval=0 deploy_panel=-1
+2026-11-02T10:58:13.382Z [INFO ] [t32256] reset: step 1: battle: ExitBattle
+2026-11-02T10:58:14.004Z [INFO ] [t32256] reset: step 2: battle: summary dismissed (DismissBattleResult)
+2026-11-02T10:58:14.522Z [INFO ] [t32256] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)
+2026-11-02T10:58:14.723Z [INFO ] [t36880] luaopen_wsp: engine lua_State 0552a850, global state 0552ec7c (thread 36880) (again)
+2026-11-02T10:58:14.723Z [INFO ] [t36880] lua: wsp.lua loaded (wsp 1)
+2026-11-02T10:58:14.726Z [INFO ] [t36880] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-11-02T10:58:14.823Z [INFO ] [t36880] lua: wrapper: frontend pumps from OnUpdate
+2026-11-02T10:58:14.982Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-11-02T10:58:14.982Z [INFO ] [t36880] lua report: battle.map_folder_ms = 13484
+2026-11-02T10:58:14.984Z [INFO ] [t36880] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-02T10:58:15.155Z [INFO ] [t36880] lua: wrapper: frontend pumps from OnUpdate
+2026-11-02T10:58:15.158Z [INFO ] [t36880] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok
+2026-11-02T10:58:15.225Z [INFO ] [t36880] timeline: movie_open +26785 ms movies\frontend2.bik
+2026-11-02T10:58:15.229Z [INFO ] [t36880] movies: BinkOpen movies\frontend2.bik [handle 00000770 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 34ea2040
+2026-11-02T10:58:15.229Z [INFO ] [t36880] scene: loading -> frontend after 1.9 s (uptime 26.4 s, frame 29208, lua frontend)
+2026-11-02T10:58:15.236Z [INFO ] [t36880] timeline: first_present_after_ready +26796 ms frontend
+2026-11-02T10:58:20.036Z [INFO ] [t32256] reset: battle_deploy -> frontend: ok (address space 1817 -> 1702 MB, commit 1198 -> 953 MB)
+2026-11-02T10:58:20.036Z [INFO ] [t32256] ctl: j10-20261102T105813Z-1257017670: ok
+2026-11-02T10:58:26.749Z [INFO ] [t32256] ctl: j10-20261102T105826Z-880929611: autostart campaign:new:mp_eur_napoleon:britain
+2026-11-02T10:58:26.750Z [INFO ] [t32256] timeline: autostart_issued +38310 ms campaign:mp_eur_napoleon:britain
+2026-11-02T10:58:26.754Z [INFO ] [t36880] lua report: autostart.campaign = mp_eur_napoleon
+2026-11-02T10:58:26.907Z [INFO ] [t36880] lua report: autostart.faction = britain
+2026-11-02T10:58:26.911Z [INFO ] [t36880] movies: BinkClose movies\frontend2.bik
+2026-11-02T10:58:26.911Z [INFO ] [t36880] timeline: movie_close +38471 ms movies\frontend2.bik
+2026-11-02T10:58:26.918Z [INFO ] [t32256] autostart: lua ok: started new campaign mp_eur_napoleon as britain
+2026-11-02T10:58:26.918Z [INFO ] [t32256] scene: frontend -> loading after 11.7 s (uptime 38.0 s, frame 55715, lua frontend)
+2026-11-02T10:58:29.403Z [INFO ] [t36880] luaopen_wsp: engine lua_State 054cbe38, global state 0552e064 (thread 36880) (again)
+2026-11-02T10:58:29.403Z [INFO ] [t36880] lua: wsp.lua loaded (wsp 1)
+2026-11-02T10:58:29.411Z [INFO ] [t36880] lua: wrapper: campaign pumps from OnUpdatePulse
+2026-11-02T10:58:30.226Z [INFO ] [t36880] lua: first pump from context 'campaign' (thread 36880)
+2026-11-02T10:58:30.226Z [INFO ] [t36880] scene: loading -> campaign after 3.3 s (uptime 41.4 s, frame 56096, lua campaign)
+2026-11-02T10:58:30.251Z [INFO ] [t36880] timeline: first_present_after_ready +41811 ms campaign
+2026-11-02T10:58:30.254Z [INFO ] [t32256] ctl: j10-20261102T105826Z-880929611: ok
+2026-11-02T10:58:32.232Z [INFO ] [t32256] ctl: j10-20261102T105832Z-2999825122: waitfor campaign
+2026-11-02T10:58:32.233Z [INFO ] [t32256] ctl: j10-20261102T105832Z-2999825122: ok
+2026-11-02T10:58:42.528Z [INFO ] [t32256] ctl: j10-20261102T105842Z-1086825052: lua napoleon_remastered/lua/probes/campaign_modal_close.lua
+2026-11-02T10:58:42.539Z [INFO ] [t32256] ctl: j10-20261102T105842Z-1086825052: ok
+2026-11-02T10:58:48.310Z [INFO ] [t32256] ctl: j10-20261102T105848Z-171517166: lua napoleon_remastered/lua/probes/campaign_modal_close.lua
+2026-11-02T10:58:48.321Z [INFO ] [t32256] ctl: j10-20261102T105848Z-171517166: ok
+2026-11-02T10:58:54.320Z [INFO ] [t32256] ctl: j10-20261102T105854Z-736321233: lua napoleon_remastered/lua/probes/campaign_modal_close.lua
+2026-11-02T10:58:54.331Z [INFO ] [t32256] ctl: j10-20261102T105854Z-736321233: ok
+2026-11-02T10:59:00.321Z [INFO ] [t32256] ctl: j10-20261102T105900Z-1425010964: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/camp_select.lua -- fleet
+2026-11-02T10:59:00.385Z [INFO ] [t32256] ctl: j10-20261102T105900Z-1425010964: ok
+2026-11-02T10:59:08.315Z [INFO ] [t32256] ctl: j10-20261102T105908Z-1425922250: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261102_j10pc/probes/tree.lua -- camp_fleet *
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 1: label2|1|1583,999|266,52|NewState;label2/info_bar|0|1585,1027|266,24|NewState;label2/info_bar/info_bar_holder|1|1585,1027|266,24|NewState;label2/info_bar/info_bar_holder/pip_gold|1|1593,1031|16,15|NewState;label2/info_bar/info_bar_holder/text_gold|1|1622,1029|80,20|NewState;label2/info_bar/info_bar_holder/income_arrow|1|1609,1030|11,18|increase_medium;label2/info_bar/info_bar_holder/pip_pop_growth|1|1700,1029|19,20|NewState;label2/info_bar/info_bar_holder/text_pop_growth|1|1730,1029|40,20|NewState;label2/info_bar/info_bar_holder/pop_growth_arrow|1|1717,1030|11,18|increase_medium;label2/info_bar/info_bar_holder/icon_upper_class|1|1803,1029|20,20|neutral;label2/info_bar/info_bar_holder/icon_lower_class|1|1824,1029|20,20|neutral;label2/info_bar/info_bar_holder/pip_religion|1|1770,1029|20,20|rel_nonconformist;label2/info_bar/info_bar_holder/religion_arrow|0|1787,1030|11,18|increase_medium;label2/fill|1|1585,1000|162,24|NewState;label2/name_bar|1|1585,1000|162,24|NewState;label2/capital_icon|1|1593,1002|15,20|NewState;veneer_DY|1|-1,718|1280,241|NewState;veneer_DY/frame|1|-1,718|1280,241|NewState;veneer_DY/frame/hud_left|1|-1,719|269,240|NewState;veneer_DY/frame/hud_left/radar|1|7,741|245,210|NewState;veneer_DY/frame/hud_left/radar/back_fill|1|-10,740|274,217|NewState;veneer_DY/frame/hud_left/radar/Blank|1|7,785|245,121|NewState;veneer_DY/frame/hud_left/radar/Blank/map|1|7,785|245,121|NewState;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 2: veneer_DY/frame/hud_left/radar/Blank/map/map_overlay|1|7,785|245,121|NewState;veneer_DY/frame/hud_left/radar/world_map|0|-2,743|266,207|NewState;veneer_DY/frame/hud_left/radar/radar_mask|1|2,737|254,219|NewState;veneer_DY/frame/hud_left/radar_banner|0|42,729|182,41|NewState;veneer_DY/frame/hud_left/world_theatres_ButtonGroup|0|-6,775|279,179|NewState;veneer_DY/frame/hud_left/world_theatres_ButtonGroup/south_america|1|81,885|22,22|selected;veneer_DY/frame/hud_left/world_theatres_ButtonGroup/west_africa|1|122,864|22,22|normal;veneer_DY/frame/hud_left/world_theatres_ButtonGroup/east_africa|1|161,871|22,22|normal;veneer_DY/frame/hud_left/world_theatres_ButtonGroup/east_indies|1|229,865|22,22|normal;veneer_DY/frame/hud_left/world_theatres_ButtonGroup/america|1|32,815|57,56|normal;veneer_DY/frame/hud_left/world_theatres_ButtonGroup/europe|1|112,805|73,50|normal;veneer_DY/frame/hud_left/world_theatres_ButtonGroup/india|1|185,839|29,32|normal;veneer_DY/frame/hud_left/radar arrow L|0|32,936|25,25|normal;veneer_DY/frame/hud_left/radar arrow R|0|211,935|25,29|normal;veneer_DY/frame/hud_left/zoom_holder|1|-1,912|261,44|NewState;veneer_DY/frame/hud_left/zoom+|1|145,919|32,32|unselected;veneer_DY/frame/hud_left/zoom-|1|83,919|32,32|inactive;veneer_DY/frame/hud_left/globe|0|228,912|38,47|normal;veneer_DY/frame/hud_center|1|265,706|748,253|NewState;veneer_DY/frame/hud_center/selector arrow L|1|461,712|32,29|normal;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 3: veneer_DY/frame/hud_center/selector arrow R|1|787,712|32,29|normal;veneer_DY/frame/hud_center/button_public-order lowest|1|493,711|295,32|inactive;veneer_DY/frame/hud_center/selector|1|501,716|281,21|normal;veneer_DY/frame/hud_center/review_DY|1|310,772|660,176|NewState;veneer_DY/frame/hud_center/review_DY/TabGroup|1|283,744|640,30|NewState;veneer_DY/frame/hud_center/review_DY/TabGroup/navy_tab|1|283,744|128,30|Selected;veneer_DY/frame/hud_center/review_DY/TabGroup/navy_tab/ReviewPanelTabTitle|1|289,750|115,16|Selected;veneer_DY/frame/hud_center/review_DY/buttons_army|0|948,773|47,174|NewState;veneer_DY/frame/hud_center/review_DY/buttons_army/vline|0|942,773|4,174|NewState;veneer_DY/frame/hud_center/review_DY/buttons_army/army_replenish|0|954,774|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_army/army_disband|0|954,861|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_army/army_promote|0|954,774|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_army/army_embark|0|954,904|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_navy|1|948,766|41,186|NewState;veneer_DY/frame/hud_center/review_DY/buttons_navy/vline|1|942,773|4,174|NewState;veneer_DY/frame/hud_center/review_DY/buttons_navy/navy_repair|1|954,775|40,40|inactive;veneer_DY/frame/hud_center/review_DY/buttons_navy/navy_scupper|0|954,818|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_navy/navy_demote|0|954,861|40,40|normal;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 4: veneer_DY/frame/hud_center/review_DY/buttons_navy/navy_promote|1|954,819|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_navy/navy_embark|0|954,904|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents|0|948,773|47,174|NewState;veneer_DY/frame/hud_center/review_DY/buttons_agents/vline|0|942,773|4,174|NewState;veneer_DY/frame/hud_center/review_DY/buttons_agents/gentleman_research|0|954,774|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/gentleman_duel|0|954,816|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/gentleman_steal_tech|0|954,880|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/rogue_assassinate|0|954,777|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/rogue_sabotage|0|954,829|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/missionary_mission|0|954,777|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/agent_embark|0|954,904|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/rogue_sabotage_army|0|954,881|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_agents/rogue_harass_army|0|954,881|40,40|normal;veneer_DY/frame/hud_center/review_DY/buttons_build|0|946,773|47,174|NewState;veneer_DY/frame/hud_center/review_DY/buttons_build/vline|0|938,773|4,174|NewState;veneer_DY/frame/hud_center/review_DY/buttons_build/build_repair|0|945,777|50,50|normal;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 5: veneer_DY/frame/hud_center/review_DY/buttons_build/build_demolish|0|945,829|50,50|normal;veneer_DY/frame/hud_center/review_DY/buttons_build/build_upgrade_altchain|0|945,881|50,50|unselected;veneer_DY/frame/hud_center/review_DY/buttons_recruit|0|277,771|726,176|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/marble_bar|0|280,782|718,85|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/marble_bar|0|280,869|718,85|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/options_tx|0|285,791|100,30|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_tx|0|285,879|100,30|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_0|0|390,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_1|0|451,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_2|0|512,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_3|0|573,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_4|0|634,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_5|0|695,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_6|0|756,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_7|0|817,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_8|0|878,873|56,72|NewState;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 6: veneer_DY/frame/hud_center/review_DY/buttons_recruit/queue_9|0|939,873|56,72|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege|0|277,772|726,176|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/options_tx|0|285,783|100,30|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/constructed_tx|0|284,855|100,30|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_tx|0|285,893|100,30|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/bar_top|0|278,775|724,8|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/bar_top2|0|279,886|724,8|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/bar_bottom|0|278,852|724,2|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/build_hammers|0|936,778|27,26|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/build_points|0|966,784|40,18|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_0|0|437,892|52,52|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_1|0|496,892|52,52|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_2|0|556,892|52,52|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_3|0|616,892|52,52|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_4|0|676,892|52,52|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_5|0|736,892|52,52|NewState;veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_6|0|796,892|52,52|NewState;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 7: veneer_DY/frame/hud_center/review_DY/buttons_siege/queue_7|0|856,892|52,52|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow|1|277,772|724,176|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/AgentCardGroup|1|277,772|724,176|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup|1|277,772|724,176|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117|1|277,772|66,88|Default;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/frame_red|0|277,772|66,88|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/Flags|0|239,759|140,115|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/OuterRing|0|271,767|78,99|default;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/Ammunition|0|329,823|12,37|1;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/Ammunition/AmmoBar|0|332,826|4,27|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/Ammunition/AmmoBar/Ammo|0|332,826|4,27|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/Experience|1|329,775|10,27|0;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/Turns|1|277,772|28,32|0;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/replenish|0|277,775|20,19|NewState;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 8: veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/replenish_background|1|289,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/auto_replenish|0|289,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/auto_replenish/clip_mask|1|289,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/auto_replenish/clip_mask/bar_regain|1|289,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/auto_replenish/clip_mask/bar_men|1|289,844|43,16|slow;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/LandBanner|0|293,844|34,16|1;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/replenish_icon|1|327,844|16,16|medium;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/BannerNaval|1|293,844|34,16|1;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/BannerNaval/Banner|1|299,846|21,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage|1|318,834|26,26|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/HullDamageL|1|319,847|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/HullDamageL/HullDamageBarL|1|319,847|13,13|NewState;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 9: veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/HullDamageR|1|331,847|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/HullDamageR/HullDamageBarR|1|331,847|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/SailDamageL|1|319,834|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/SailDamageL/SailDamageBarL|1|319,834|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/SailDamageR|1|331,834|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/ShipDamage/SailDamageR/SailDamageBarR|1|331,834|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/CharacterAttribute|1|277,829|32,32|secondary_sea_command;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/CharacterAttribute/Level|1|281,773|12,67|0;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/icon_prize|0|277,841|19,19|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117/icon_scupper|0|283,791|52,51|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118|1|343,772|66,88|Default;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/frame_red|0|343,772|66,88|NewState;
+2026-11-02T10:59:08.317Z [INFO ] [t36880] lua: j10tree camp_fleet 10: veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/Flags|0|305,759|140,115|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/OuterRing|0|337,767|78,99|default;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/Ammunition|0|395,823|12,37|1;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/Ammunition/AmmoBar|0|398,826|4,27|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/Ammunition/AmmoBar/Ammo|0|398,826|4,27|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/Experience|1|395,775|10,27|0;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/Turns|1|343,772|28,32|0;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/replenish|0|343,775|20,19|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/replenish_background|1|355,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/auto_replenish|0|355,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/auto_replenish/clip_mask|1|355,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/auto_replenish/clip_mask/bar_regain|1|355,844|43,16|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/auto_replenish/clip_mask/bar_men|1|355,844|43,16|slow;
+2026-11-02T10:59:08.318Z [INFO ] [t36880] lua: j10tree camp_fleet 11: veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/LandBanner|0|359,844|34,16|1;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/replenish_icon|1|393,844|16,16|medium;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/BannerNaval|1|359,844|34,16|1;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/BannerNaval/Banner|1|365,846|21,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage|1|384,834|26,26|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/HullDamageL|1|385,847|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/HullDamageL/HullDamageBarL|1|385,847|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/HullDamageR|1|397,847|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/HullDamageR/HullDamageBarR|1|397,847|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/SailDamageL|1|385,834|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/SailDamageL/SailDamageBarL|1|385,834|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/SailDamageR|1|397,834|13,13|NewState;
+2026-11-02T10:59:08.318Z [INFO ] [t36880] lua: j10tree camp_fleet 12: veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/ShipDamage/SailDamageR/SailDamageBarR|1|397,834|13,13|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/CharacterAttribute|0|343,829|32,32|attribute;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/CharacterAttribute/Level|1|347,773|12,67|0;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/icon_prize|0|343,841|19,19|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit118/icon_scupper|0|349,791|52,51|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/ConstructionCardGroup|1|277,772|724,176|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/RecruitmentCardGroup|1|277,772|724,176|NewState;veneer_DY/frame/hud_center/review_DY/CardGroupWindow/SiegeEquipmentCardGroup|1|277,772|724,176|NewState;veneer_DY/frame/hud_right|1|1010,719|269,240|NewState;veneer_DY/frame/hud_right/orders layout|1|990,751|310,209|NewState;veneer_DY/frame/hud_right/orders layout/banners|1|1173,741|97,151|NewState;veneer_DY/frame/hud_right/orders layout/banners/date|1|1179,815|88,57|GrandCampaign;veneer_DY/frame/hud_right/orders layout/banners/funds|1|1182,762|84,15|NewState;veneer_DY/frame/hud_right/orders layout/button_diplomacy|1|1029,813|67,67|Unselected;veneer_DY/frame/hud_right/orders layout/button_tech|1|1101,813|67,67|Unselected;
+2026-11-02T10:59:08.318Z [INFO ] [t36880] lua: j10tree camp_fleet 13: veneer_DY/frame/hud_right/orders layout/build_browser|1|1030,882|67,67|Unselected;veneer_DY/frame/hud_right/orders layout/button_lists|1|1101,882|67,67|Unselected;veneer_DY/frame/hud_right/orders layout/button_end_turn|1|1188,875|73,71|Unselected;veneer_DY/frame/hud_right/orders layout/button_end_turn/end_turn_timer|0|1196,934|64,25|NewState;veneer_DY/frame/hud_right/orders layout/button_missions|1|1102,743|67,67|Unselected;veneer_DY/frame/hud_right/orders layout/faction_hud_flags|1|189,896|40,79|NewState;veneer_DY/frame/hud_right/orders layout/faction_hud_flags/flag_L_DY|1|30,896|40,79|NewState;veneer_DY/frame/hud_right/orders layout/button_government|1|1030,744|67,67|Unselected;veneer_DY/frame/hud_right/orders layout/season_icon|1|1178,780|90,36|winter;menu_bar|1|0,0|234,37|NewState;menu_bar/button_menu|1|2,2|68,28|unselected;menu_bar/button_menu/button_txt|1|2,2|68,28|unselected;menu_bar/button_toggle_advisor_display|1|76,2|31,28|selected_hover;menu_bar/button_toggle_chat_display|0|76,2|31,28|selected;menu_bar/button_toggle_player_list_display|0|112,2|31,28|selected;menu_bar/advice_text_setting_button|1|113,2|31,28|selected;menu_bar/advice_audio_setting_button|1|148,2|31,28|selected;menu_bar/button_voice_setting|0|148,2|31,28|active;advice_interface|1|5,37|385,208|NewState;advice_interface/advice_text_panel|1|47,46|366,200|NewState;advice_interface/advice_text_panel/hr|1|53,80|356,3|NewState;
+2026-11-02T10:59:08.318Z [INFO ] [t36880] lua: j10tree camp_fleet 14: advice_interface/advice_text_panel/Textview|1|51,83|357,122|NewState;advice_interface/advice_text_panel/Textview/vslider|1|391,95|4,103|NewState;advice_interface/advice_text_panel/Textview/vslider/top|1|388,95|10,10|NewState;advice_interface/advice_text_panel/Textview/vslider/bottom|1|388,188|10,10|NewState;advice_interface/advice_text_panel/Textview/vslider/handle|1|382,95|21,22|NewState;advice_interface/advice_text_panel/Textview/Text|1|95,83|283,294|NewState;advice_interface/advice_text_panel/button_previous|1|193,211|32,25|normal;advice_interface/advice_text_panel/button_next|1|242,211|32,25|normal;advice_interface/advice_text_panel/Title|1|98,52|277,28|NewState;advice_interface/advice_text_panel/zoom_to_advice_button|1|372,205|35,35|inactive;advice_interface/sidebar|1|10,37|147,118|NewState;advice_interface/sidebar/floral_deco|1|13,133|36,36|NewState;advice_interface/sidebar/advisor_portrait_parent|1|9,38|82,113|NewState;advice_interface/sidebar/advisor_portrait_parent/default_portraits|0|9,38|82,113|Default;advice_interface/sidebar/advisor_portrait_parent/default_portraits/button_advisor_land_battle|0|9,38|82,113|unselected;advice_interface/sidebar/advisor_portrait_parent/default_portraits/button_advisor_strat|1|9,38|82,113|unselected;advice_interface/sidebar/advisor_portrait_parent/advisor_portrait|1|9,38|82,113|unselected;advice_interface/sidebar/frame|1|7,38|86,116|NewState;
+2026-11-02T10:59:08.318Z [INFO ] [t36880] lua: j10tree camp_fleet 15: advice_interface/checkbox_dismiss_thread|0|54,212|22,22|normal;advice_interface/minimise_button|1|378,52|31,28|normal;END flags=0
+2026-11-02T10:59:08.326Z [INFO ] [t32256] ctl: j10-20261102T105908Z-1425922250: ok
+2026-11-02T10:59:10.529Z [INFO ] [t32256] ctl: j10-20261102T105910Z-1282827363: lua C:/Users/liamr/repos/napoleon-remastered/harness/runs/20261101_j9fix/probes/vis.lua
+2026-11-02T10:59:10.540Z [INFO ] [t32256] ctl: j10-20261102T105910Z-1282827363: ok
+2026-11-02T10:59:12.864Z [INFO ] [t32256] ctl: j10-20261102T105912Z-317923078: state
+2026-11-02T10:59:12.864Z [INFO ] [t32256] ctl: j10-20261102T105912Z-317923078: ok
+2026-11-02T10:59:14.725Z [INFO ] [t32256] ctl: j10-20261102T105914Z-1416715009: state
+2026-11-02T10:59:14.725Z [INFO ] [t32256] ctl: j10-20261102T105914Z-1416715009: ok

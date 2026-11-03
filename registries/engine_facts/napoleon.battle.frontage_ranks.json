@@ -1,0 +1,6 @@
+{
+  "id": "napoleon.battle.frontage_ranks",
+  "claim": "Frontage: UNIT+0x324 is the frontage the last order set (31.9 m for a 120-man line by default, 43.6 for another, 40.6 for 60 light infantry). Ranks: no field found; the depth is read as twice the centre-to-front distance along the facing: 1.75 m at 31.9 m width, 0.88 m at 50 m, 5.3 m at 20 m for 120 men (derived, not read). Open: a ranks or files field (diff the UNIT block before and after a width change), and the file spacing",
+  "state": "open",
+  "notes": "owner: J29 or a follow-up (J28 report, open questions)"
+}

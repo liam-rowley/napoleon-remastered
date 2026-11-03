@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.army_options",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/army_options.lua",
+  "purpose": "in the front end, open sp_battle2 for a battle type, read dropdown_army_size (option count and each option's ArmyFundsForSize),",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/army_options.lua 30 -- <type> <faction>\" in the front end (type: classic|naval|siege)",
+  "when": "before a preset pins army.size (J46 army route); rerun after a game update",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

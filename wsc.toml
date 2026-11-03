@@ -11,10 +11,10 @@ engine_sites = "core:engine_sites"
 config_keys = "core:config_keys"
 hotkeys = "core:hotkeys"
 engine_facts = "core:engine_facts"
-jobs = "schemas/jobs.schema.json"          # the job queue (D16); repo-local schema
+jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
 
 [core]
-version = "v0.7.0"
+version = "v0.9.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
@@ -23,10 +23,79 @@ exempt = ["tests/**", "**/runs/**"]
 max_kb = 30
 
 [cli]
-verb_dirs = ["tools/verbs"]   # game-specific verbs (same contract as core/warscape/verbs/): `jobs`
+verb_dirs = ["tools/verbs"]   # game-specific verbs (same contract as core/warscape/verbs/); the `jobs` verb is the core's since J62
 
 [views]
 commit = false              # views are written to _scratch/registries/ (git-ignored), never committed (J55)
 
 [storage]
 dir = ["jobs", "tools", "engine_facts"]
+
+# ---- the job pipeline (napoleon J62): the core runs it, this file configures it, tools/jobs_hooks.py holds the game-specific rules
+[jobs]
+id_prefix = "J"
+dir = "jobs"
+models = ["sonnet", "opus"]
+legacy = "jobs/legacy.json"            # frozen id sets exempt from the round rules and the brief hooks (D36, J11)
+hooks = ["tools/jobs_hooks.py"]        # found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75)
+ledgers = "jobs/*/rules.md"            # J5 audit ledgers: their `CL` rows name the job whose brief must cover them
+
+[jobs.text]
+wsc = "python3 core/wsc.py"
+plan_doc = "docs/plans/PLAN.md"
+review_doc = "docs/REVIEW.md"
+ci_failures_doc = "docs/CI_FAILURES.md"
+owner = "Liam"
+rules_ref = "CLAUDE.md, Jobs"
+trailer_hint = 'the .claude/settings.json hook adds it; by hand: git commit --trailer "Claude-Session: <session id>"'
+plan_summary = "docs, briefs, the jobs registry, README.md and CLAUDE.md"
+ref_models = "D15"
+ref_rounds = "D36"
+ref_merge = "D32"
+ref_brief_merge = "D33"
+ref_ready = "J57"
+brief_model = "jobs/J1/brief.md"
+brief_notes = '''How a brief cites (row 80, J11): game-side things by registry id (python3 core/wsc.py find <words>), never a path you searched for. `wsc jobs check` refuses the extract store, pack-form paths (backslashes), any path under a game folder that is not an assets or ui_elements id, and a layout or script path a ui_elements unit holds (cite the unit id). A thing with no row goes under `## Registry gaps` as `- path: <path>; owner: <job id or liam>; reason: <why no row>`; a quotation is marked `Quoted, not a citation:`.'''
+
+[policy]
+decisions = "docs/DECISIONS.md"
+decision_prefix = "D"
+session_trailer = "Claude-Session"
+plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md"]
+meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
+        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules", "core", "registries/*"]
+
+[ci]
+salt = "1"                              # bump to invalidate every CI pass marker (J54)
+core = "core"
+token_secret = "WARSCAPE_CORE_TOKEN"    # the core is public (D29); keep the secret in the checkout steps (D20)
+workflows = ["gates.yml", "policy.yml"]
+notice = "A failed check leaves this pull request open (D32); fix it on the branch and push."
+footer = "Classes and their guards: `docs/CI_FAILURES.md`."
+policy_extra_steps = '''      # rule 79 compares the core pins at the merge base and the head (J58). fetch-depth 0 already clones the core in full (no --depth on
+      # the submodule update), so the base pin is there whenever a core branch or tag reaches it; this fetch makes sure of it. A pin that
+      # still cannot be fetched is left to the policy hook, which counts the pin change and says why (fail closed).
+      - run: |
+          pin=$(git rev-parse "$(git merge-base "origin/${{ github.base_ref }}" HEAD):core")
+          git -C core cat-file -e "$pin^{commit}" 2>/dev/null || git -C core fetch --no-tags origin "$pin" || echo "could not fetch core pin $pin"'''
+
+[ci.artifacts]
+proxy = "proxy-d3d9-napoleon"
+viewer = "viewer-wasm"
+
+# proxy: proxy/, the core pin (the proxy sources and tools live in core/ since J12) and the two registries gen_tables.py reads; harness: harness/, the core
+# pin and the Python tests that run bash on Windows (J22) with the finder in setup.py and the hook they run; viewer: viewer/, uikit/ (the design library, J34) and their tests (J31).
+# A workflow change runs all three. proxy/runs/ and viewer/runs/ are committed run evidence, not build inputs (J42).
+[ci.inputs]
+proxy = '^\.github/workflows/|^proxy/(?!runs/)|^core$|^registries/(engine_sites|config_keys)\.jsonl$'
+harness = '^\.github/workflows/|^harness/|^core$|^tests/test_(job_sh|pc_deploy|claude_hook|setup|proxy_host)\.py$|^tools/verbs/setup\.py$|^tools/claude_hook\.py$|^\.claude/settings\.json$'
+viewer = '^\.github/workflows/|^viewer/(?!runs/)|^uikit/(?!napoleon/runs/)|^tests/test_(viewer|uikit)\.py$'
+
+[ci.hints]
+gates = "branch bug first: `python3 core/wsc.py gates` runs the same checks locally"
+policy = "branch bug: `python3 core/wsc.py policy --branch <branch> --base origin/main` says what the branch may not change"
+"proxy~wine|smoke" = "CI-only test unless `core/proxy/tools/build.sh --docker smoke` ran (the `tests` gate runs it when proxy inputs change)"
+proxy = "branch bug first: `core/proxy/tools/build.sh --docker all` (the `tests` gate runs it when proxy inputs change)"
+harness-windows = "flaky only if the same commit passed elsewhere: rerun the case with `gh workflow run gates.yml --ref <branch> -f only='<case>' -f repeat=20`; otherwise branch bug (`tests/test_harness_host.py` runs the host tests on the PC)"
+changes = "workflow: the input-set step failed (`python3 core/wsc.py ci inputs`)"
+"*" = "see docs/CI_FAILURES.md"

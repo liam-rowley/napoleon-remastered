@@ -1,0 +1,11 @@
+{
+  "id": "uiscale.napoleon.cli",
+  "kind": "script",
+  "path": "uiscale/napoleon/cli.py",
+  "purpose": "write ui_scale_<f>x.pack (layouts + art), ui_scale_<f>x_fonts.pack, uied.templates.ui_scale_<f>x and the proxy rules file that redirects the loose templates to it, each with a .json (entries, sha256, held back, method), into <work> (C:\\napoleon_remastered_pc\\uiscale\\work)",
+  "usage": "python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [--no-fonts] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]",
+  "when": "before `python3 upscale/pc/play.py install --scale 2` (Liam's 4K play test) and before a J66/J67 PC run; re-running reuses the art cache and gives byte-identical packs",
+  "not_a_verb": "the build behind tools/verbs/uiscale.py (runs in the art_build Python: numpy, Pillow, freetype-py)",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

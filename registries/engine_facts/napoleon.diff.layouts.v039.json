@@ -1,8 +1,8 @@
 {
   "id": "napoleon.diff.layouts.v039",
-  "claim": "Layout Version039 = V033 plus a u32 default-state id after c_flag and a per-component animation list before the child count (name, empty string, u32 count, 48-byte keyframes); 45 of 136 V039 files round-trip with discovery/core/uic.py",
-  "state": "open",
+  "claim": "Layout Version039 = V033 plus a u32 default-state id after c_flag, a per-component animation list before the child count (name, empty string, u32 count, keyframes) and 18-byte state transitions (napoleon.diff.layouts.v039_transitions); all 136 V039 files round-trip byte for byte with discovery/core/uic.py",
+  "state": "verified",
   "evidence": "discovery/diff/layouts.json",
-  "date": "2026-10-29",
-  "notes": "decoding stopped at the J6 kill criterion; keyframe fields partly guessed (f32 x, f32 y, size, rgba, time ms at +36, interpolation at +40)"
+  "date": "2026-11-02",
+  "notes": "J10 finished the decode. Keyframe: 48 bytes (f32 x, f32 y, i32 w, i32 h, u32 rgba, ..., u32 time ms at +36, u32 interpolation at +40, u32 state-change flag at +44); when the flag is set a u32 (uninitialised), a string and a string follow, the second naming the state the frame switches to (battle ui\\lb_unit_id OnCreate cycles 000 to 012). Field meanings other than time and the state name are from one layout each, not probed."
 }

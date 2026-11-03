@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.order_general_facing",
+  "claim": "The general's bodyguard (unit 1 of land_small, 18 men) goes to the ordered front centre but does not hold the ordered facing: 4.5, 6.7 and 7.3 degrees off at rest in three army-line orders, every other unit within 0.55",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "runs d3, d4"
+}

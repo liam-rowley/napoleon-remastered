@@ -1,12 +1,17 @@
 {
   "id": "J66",
-  "description": "One measurement, no scope change (docs/plans/MOONSHOTS_2026-11-01.md, the Empire smoke aside): J6's diff counted the effects pack kind (94 entries in Napoleon's data.pack against 74 in Empire's main and patch packs) with no per-file diff. Extend discovery/core's diff passes to list the effects kind by name, size and identical/changed/new/gone between the two games, add the particle_effects, projectiles_explosions and projectile_trails db rows to the db comparison, note the effect file format where it is decodable (header, versions) and whether Napoleon's smoke definitions reference fx or textures Empire lacks (particle.fx 76-line diff, particle_volumetric.fx_fragment 456, ribbon.fx new: discovery/diff/shaders.json). Output: discovery/diff/effects.json with a --check, a fact napoleon.diff.effects, and a one-paragraph feasibility note for the Empire restart list in PLAN section 4. empire-remastered and the Empire install are read-only evidence (D30); nothing is written into either game folder and no game is launched.",
-  "title": "Effects per-file diff: Napoleon smoke and particle definitions against Empire",
-  "phase": 2,
-  "status": "needs_brief",
-  "model": "sonnet",
+  "description": "D40 stop-gap, part 1: make the vanilla UI playable at 4K now by scaling it 2x with data alone, ported from empire-remastered ui_scale_mod. Rebuild the vanilla layouts (V028-V039, including V039's per-component animation keyframes) and uied.templates at 2x with Empire's edge-snapping, re-render the fonts in the slot files each context loads, resample the J36 2.5x masters to 2x textures (the engine tiles frame art at the texture's real size), and install it all with J53's play.py (`install --scale 2`) with a snapshot-identical uninstall. Proved headless at 3840x2160 on the front end, campaign HUD and battle HUD; the Lua pixel constants, 1440p factors and remaining screens are J67.",
+  "title": "UI scale stop-gap: vanilla UI at 2x for 4K",
+  "phase": 5,
+  "status": "done",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
-    "J6"
-  ]
+    "J6",
+    "J10",
+    "J53"
+  ],
+  "brief": "jobs/J66/brief.md",
+  "report": "jobs/J66/report.md",
+  "review": "jobs/J66/review.md"
 }

@@ -1,0 +1,11 @@
+{
+  "id": "tools.jobs_hooks",
+  "kind": "script",
+  "path": "tools/jobs_hooks.py",
+  "purpose": "the game-specific half of the job pipeline, as the five hook names of warscape/hooks.py: the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)",
+  "usage": "not run by hand: `python3 core/wsc.py jobs check|view` and `python3 core/wsc.py policy --branch <branch>` call it; `python3 -m unittest tests.test_jobs_hooks` tests it",
+  "when": "automatic, through wsc.toml [jobs] hooks; edit it when one of those rules changes (rules 76 and 79 in docs/plans/PLAN.md section 4, the J5 ledger)",
+  "not_a_verb": "a hook module the core's jobs and policy verbs import; it has no command line of its own",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

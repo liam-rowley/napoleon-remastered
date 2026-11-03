@@ -1,0 +1,237 @@
+<rml>
+<head>
+	<title>Napoleon component board (J34)</title>
+	<link type="text/rcss" href="uikit/base.rcss"/>
+	<link type="text/rcss" href="uikit/library.rcss"/>
+	<link type="text/rcss" href="uikit/factions_synthetic.rcss"/>
+	<link type="text/rcss" href="board.rcss"/>
+	<script src="board_data.lua"></script>
+	<script src="board.lua"></script>
+</head>
+<body id="root" data-model="board">
+<div id="bd-scroll">
+	<div class="t-title">Napoleon component board</div>
+	<div class="t-body bd-note">Engraved Plate with full faction tint (D43). Every state of every component is drawn beside a live one: hover, press, click, Tab and the faction picker work. Test text only; nothing here is a screen.</div>
+
+	<div class="bd-sec" id="sec-faction">
+		<div class="section-head">Faction tint</div>
+		<div class="bd-grid">
+			<div class="btn bd-cell" data-for="f : factions" data-attr-id="f.id" data-class-is-selected="f.id == cur" onclick="Board.Faction(element)">{{f.label}}</div>
+		</div>
+		<div class="t-body bd-faction-readout">Showing {{cur_label}}: fill {{cur_fac}}, on-colour {{cur_on}}, ratio {{cur_ratio}} to 1. {{cur_note}}</div>
+	</div>
+
+	<div class="bd-sec" id="sec-plate">
+		<div class="section-head">Panel plate: header band, tabs, rows, bar, stat rows</div>
+		<div class="bd-w-panel">
+			<div class="panel" id="plate">
+				<div class="panel-head flex-row">
+					<div class="t-title grow">Region of Lombardy</div>
+					<div class="badge">12</div>
+				</div>
+				<div class="panel-body">
+					<div class="tab-group">
+						<div class="tab is-selected" onclick="Board.Tab(element)">Overview</div>
+						<div class="tab" onclick="Board.Tab(element)">Buildings</div>
+						<div class="tab" onclick="Board.Tab(element)">Garrison</div>
+						<div class="tab is-disabled">Trade</div>
+					</div>
+					<div class="list-hatch bd-mt">
+						<div class="list-row is-selected" onclick="Board.Row(element)">Imperial barracks</div>
+						<div class="list-row" onclick="Board.Row(element)">Provincial market</div>
+						<div class="list-row" onclick="Board.Row(element)">Cathedral of Saint Ambrose</div>
+						<div class="list-row" onclick="Board.Row(element)">Silk workshops</div>
+						<div class="list-row is-disabled">Harbour (not available)</div>
+					</div>
+					<div class="bar bd-mt"><div class="bar-fill" style="width: 62%;"></div></div>
+					<div class="stat-row"><div class="stat-label">Public order</div><div class="stat-gap"></div><div class="stat-val">62</div></div>
+					<div class="stat-row"><div class="stat-label">Tax rate</div><div class="stat-gap is-ruled"></div><div class="stat-val">32%</div></div>
+					<div class="stat-row"><div class="stat-label">Population</div><div class="stat-gap"></div><div class="stat-val">48,200</div></div>
+					<div class="flex-row bd-mt">
+						<div class="btn btn-primary bd-mr" onclick="Board.Toggle(element)">Recruit</div>
+						<div class="btn" onclick="Board.Toggle(element)">Close</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-buttons">
+		<div class="section-head">Button: neutral, primary, toggled</div>
+		<div class="bd-grid">
+			<div class="bd-cell"><div class="btn">Normal</div><div class="bd-cap">normal</div></div>
+			<div class="bd-cell"><div class="btn is-hover">Hover</div><div class="bd-cap">hover</div></div>
+			<div class="bd-cell"><div class="btn is-pressed">Pressed</div><div class="bd-cap">pressed</div></div>
+			<div class="bd-cell"><div class="btn is-disabled">Disabled</div><div class="bd-cap">disabled</div></div>
+			<div class="bd-cell"><div class="btn is-selected">Toggled</div><div class="bd-cap">selected</div></div>
+			<div class="bd-cell"><div class="btn is-focus">Focus</div><div class="bd-cap">focus-visible</div></div>
+			<div class="bd-cell"><div class="btn" id="live-btn" onclick="Board.Toggle(element)">Live toggle</div><div class="bd-cap">live (click, Tab)</div></div>
+		</div>
+		<div class="bd-grid">
+			<div class="bd-cell"><div class="btn btn-primary">Normal</div><div class="bd-cap">primary</div></div>
+			<div class="bd-cell"><div class="btn btn-primary is-hover">Hover</div><div class="bd-cap">hover</div></div>
+			<div class="bd-cell"><div class="btn btn-primary is-pressed">Pressed</div><div class="bd-cap">pressed</div></div>
+			<div class="bd-cell"><div class="btn btn-primary is-disabled">Disabled</div><div class="bd-cap">disabled</div></div>
+			<div class="bd-cell"><div class="btn btn-primary is-focus">Focus</div><div class="bd-cap">focus-visible</div></div>
+			<div class="bd-cell"><div class="btn btn-primary">Live primary</div><div class="bd-cap">live</div></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-tabs">
+		<div class="section-head">Tab and tab group</div>
+		<div class="bd-grid">
+			<div class="bd-cell"><div class="tab-group"><div class="tab">Normal</div></div><div class="bd-cap">normal</div></div>
+			<div class="bd-cell"><div class="tab-group"><div class="tab is-hover">Hover</div></div><div class="bd-cap">hover</div></div>
+			<div class="bd-cell"><div class="tab-group"><div class="tab is-pressed">Pressed</div></div><div class="bd-cap">pressed</div></div>
+			<div class="bd-cell"><div class="tab-group"><div class="tab is-disabled">Disabled</div></div><div class="bd-cap">disabled</div></div>
+			<div class="bd-cell"><div class="tab-group"><div class="tab is-selected">Selected</div></div><div class="bd-cap">selected</div></div>
+			<div class="bd-cell"><div class="tab-group"><div class="tab is-focus">Focus</div></div><div class="bd-cap">focus-visible</div></div>
+			<div class="bd-cell"><div class="tab-group"><div class="tab is-selected" onclick="Board.Tab(element)">Live one</div><div class="tab" onclick="Board.Tab(element)">Live two</div><div class="tab" onclick="Board.Tab(element)">Live three</div></div><div class="bd-cap">live group</div></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-rows">
+		<div class="section-head">List row: plain, hatched, states, live list with scrollbar</div>
+		<div class="bd-grid">
+			<div class="bd-cell bd-w-rows"><div class="list-row">Plain row</div><div class="bd-cap">normal</div></div>
+			<div class="bd-cell bd-w-rows"><div class="list-row is-hatch">Hatched row (even)</div><div class="bd-cap">hatched</div></div>
+			<div class="bd-cell bd-w-rows"><div class="list-row is-hover">Hover row</div><div class="bd-cap">hover</div></div>
+			<div class="bd-cell bd-w-rows"><div class="list-row is-pressed">Pressed row</div><div class="bd-cap">pressed</div></div>
+			<div class="bd-cell bd-w-rows"><div class="list-row is-selected">Selected row</div><div class="bd-cap">selected</div></div>
+			<div class="bd-cell bd-w-rows"><div class="list-row is-disabled">Disabled row</div><div class="bd-cap">disabled</div></div>
+			<div class="bd-cell bd-w-rows"><div class="list-row is-focus">Focus row (inset ring)</div><div class="bd-cap">focus-visible</div></div>
+			<div class="bd-cell bd-w-rows">
+				<div class="bd-scrollbox list-hatch" id="live-list">
+					<div class="list-row" onclick="Board.Row(element)">Live row one</div>
+					<div class="list-row" onclick="Board.Row(element)">Live row two</div>
+					<div class="list-row" onclick="Board.Row(element)">Live row three</div>
+					<div class="list-row" onclick="Board.Row(element)">Live row four</div>
+					<div class="list-row" onclick="Board.Row(element)">Live row five</div>
+					<div class="list-row" onclick="Board.Row(element)">Live row six</div>
+					<div class="list-row" onclick="Board.Row(element)">Live row seven</div>
+				</div>
+				<div class="bd-cap">live, scrolls (wheel)</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-tooltip">
+		<div class="section-head">Tooltip</div>
+		<div class="bd-grid">
+			<div class="bd-cell">
+				<div class="tooltip is-shown"><div class="tooltip-title">Heavy cavalry</div>Cuirassiers charge hard but tire quickly. Body text stays Public Sans at 14 dp.</div>
+				<div class="bd-cap">shown</div>
+			</div>
+			<div class="bd-cell">
+				<div class="bd-tip-host" onmouseover="Board.Tip(element, true)" onmouseout="Board.Tip(element, false)">
+					<div class="btn" id="tip-target">Hover for a tooltip</div>
+					<div class="tooltip bd-tip-pos" id="tip"><div class="tooltip-title">Live tooltip</div>Hidden is display none, shown is a class.</div>
+				</div>
+				<div class="bd-cap">live (hidden: display none)</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-bars">
+		<div class="section-head">Progress bar: plain, segmented, semantic</div>
+		<div class="bd-grid">
+			<div class="bd-cell bd-w-card"><div class="bar"><div class="bar-fill" style="width: 0%;"></div></div><div class="bd-cap">empty</div></div>
+			<div class="bd-cell bd-w-card"><div class="bar"><div class="bar-fill" style="width: 35%;"></div></div><div class="bd-cap">35 percent, faction</div></div>
+			<div class="bd-cell bd-w-card"><div class="bar"><div class="bar-fill" style="width: 100%;"></div></div><div class="bd-cap">full</div></div>
+			<div class="bd-cell bd-w-card"><div class="bar"><div class="bar-fill is-positive" style="width: 70%;"></div></div><div class="bd-cap">positive</div></div>
+			<div class="bd-cell bd-w-card"><div class="bar"><div class="bar-fill is-negative" style="width: 45%;"></div></div><div class="bd-cap">negative</div></div>
+			<div class="bd-cell bd-w-card"><div class="bar"><div class="bar-fill is-warning" style="width: 55%;"></div></div><div class="bd-cap">warning</div></div>
+			<div class="bd-cell"><div class="seg"><div class="seg-cell is-on"></div><div class="seg-cell is-on"></div><div class="seg-cell is-on"></div><div class="seg-cell"></div><div class="seg-cell"></div><div class="seg-cell"></div></div><div class="bd-cap">segmented 3 of 6</div></div>
+			<div class="bd-cell"><div class="seg"><div class="seg-cell is-on is-positive"></div><div class="seg-cell is-on is-positive"></div><div class="seg-cell is-on is-positive"></div><div class="seg-cell is-on is-positive"></div><div class="seg-cell is-on is-positive"></div><div class="seg-cell is-on is-positive"></div></div><div class="bd-cap">segmented, positive</div></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-card">
+		<div class="section-head">Card frame, divider, number badge, checkbox</div>
+		<div class="bd-grid">
+			<div class="bd-cell bd-w-card"><div class="card"><div class="card-top"></div><div class="card-body"><div class="t-label">Old Guard</div><div class="divider bd-divider-m"></div><div class="t-body">Card frame: faction edge on top, double rule inside.</div></div></div><div class="bd-cap">card, divider</div></div>
+			<div class="bd-cell"><div class="badge">3</div> <div class="badge">128</div> <div class="badge is-negative">-4</div><div class="bd-cap">badge: count, wide, negative</div></div>
+			<div class="bd-cell"><div class="check"><div class="check-mark"></div></div><div class="bd-cap">normal</div></div>
+			<div class="bd-cell"><div class="check is-hover"><div class="check-mark"></div></div><div class="bd-cap">hover</div></div>
+			<div class="bd-cell"><div class="check is-pressed"><div class="check-mark"></div></div><div class="bd-cap">pressed</div></div>
+			<div class="bd-cell"><div class="check is-checked"><div class="check-mark"></div></div><div class="bd-cap">checked</div></div>
+			<div class="bd-cell"><div class="check is-disabled"><div class="check-mark"></div></div><div class="bd-cap">disabled</div></div>
+			<div class="bd-cell"><div class="check is-focus"><div class="check-mark"></div></div><div class="bd-cap">focus-visible</div></div>
+			<div class="bd-cell"><div class="check" onclick="Board.Check(element)"><div class="check-mark"></div></div><div class="bd-cap">live</div></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-slots">
+		<div class="section-head">Round order button, ability slot, manoeuvre button, flag and frame slots</div>
+		<div class="bd-grid">
+			<div class="bd-cell"><div class="order-btn"><img class="bd-slot-glyph" src="test_ring.png"/></div><div class="bd-cap">order: normal</div></div>
+			<div class="bd-cell"><div class="order-btn is-hover"><img class="bd-slot-glyph" src="test_ring.png"/></div><div class="bd-cap">hover</div></div>
+			<div class="bd-cell"><div class="order-btn is-pressed"><img class="bd-slot-glyph" src="test_ring.png"/></div><div class="bd-cap">pressed</div></div>
+			<div class="bd-cell"><div class="order-btn is-selected"><img class="bd-slot-glyph" src="test_ring.png"/></div><div class="bd-cap">selected</div></div>
+			<div class="bd-cell"><div class="order-btn is-disabled"><img class="bd-slot-glyph" src="test_ring.png"/></div><div class="bd-cap">disabled</div></div>
+			<div class="bd-cell"><div class="order-btn is-focus"><img class="bd-slot-glyph" src="test_ring.png"/></div><div class="bd-cap">focus-visible</div></div>
+			<div class="bd-cell"><div class="order-btn" onclick="Board.Toggle(element)"><img class="bd-slot-glyph" src="test_ring.png"/></div><div class="bd-cap">live</div></div>
+		</div>
+		<div class="bd-grid">
+			<div class="bd-cell"><div class="ability-slot"><img class="bd-slot-glyph" src="test_plus.png"/></div><div class="bd-cap">ability: normal</div></div>
+			<div class="bd-cell"><div class="ability-slot is-hover"><img class="bd-slot-glyph" src="test_plus.png"/></div><div class="bd-cap">hover</div></div>
+			<div class="bd-cell"><div class="ability-slot is-pressed"><img class="bd-slot-glyph" src="test_plus.png"/></div><div class="bd-cap">pressed</div></div>
+			<div class="bd-cell"><div class="ability-slot is-selected"><img class="bd-slot-glyph" src="test_plus.png"/></div><div class="bd-cap">selected</div></div>
+			<div class="bd-cell"><div class="ability-slot is-disabled"><img class="bd-slot-glyph" src="test_plus.png"/></div><div class="bd-cap">disabled</div></div>
+			<div class="bd-cell"><div class="ability-slot is-focus"><img class="bd-slot-glyph" src="test_plus.png"/></div><div class="bd-cap">focus-visible</div></div>
+			<div class="bd-cell"><div class="manoeuvre-btn"><img class="icon icon-m bd-man-glyph" src="test_chevron.png"/></div><div class="bd-cap">manoeuvre: normal</div></div>
+			<div class="bd-cell"><div class="manoeuvre-btn is-selected"><img class="icon icon-m bd-man-glyph" src="test_chevron.png"/></div><div class="bd-cap">selected</div></div>
+			<div class="bd-cell"><div class="flag-slot"></div><div class="bd-cap">flag slot</div></div>
+			<div class="bd-cell"><div class="frame-slot bd-preview"></div><div class="bd-cap">frame slot (3D preview)</div></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-icons">
+		<div class="section-head">Icon: tinted glyph at 16, 20, 24, 28 dp</div>
+		<div class="bd-grid">
+			<div class="bd-cell"><div class="bd-glyph-row"><img class="icon icon-s" src="test_plus.png"/><img class="icon icon-m" src="test_plus.png"/><img class="icon icon-l" src="test_plus.png"/><img class="icon icon-xl" src="test_plus.png"/></div><div class="bd-cap">text</div></div>
+			<div class="bd-cell"><div class="bd-glyph-row bd-chip"><img class="icon icon-on-fac icon-s" src="test_chevron.png"/><img class="icon icon-on-fac icon-m" src="test_chevron.png"/><img class="icon icon-on-fac icon-l" src="test_chevron.png"/><img class="icon icon-on-fac icon-xl" src="test_chevron.png"/></div><div class="bd-cap">on_fac (on the faction fill)</div></div>
+			<div class="bd-cell"><div class="bd-glyph-row"><img class="icon icon-dim icon-s" src="test_ring.png"/><img class="icon icon-dim icon-m" src="test_ring.png"/><img class="icon icon-dim icon-l" src="test_ring.png"/><img class="icon icon-dim icon-xl" src="test_ring.png"/></div><div class="bd-cap">text_dim</div></div>
+			<div class="bd-cell"><div class="bd-glyph-row"><img class="icon icon-l is-disabled" src="test_plus.png"/><img class="icon icon-l icon-dim is-disabled" src="test_ring.png"/></div><div class="bd-cap">disabled (50 percent)</div></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-text">
+		<div class="section-head">Text styles</div>
+		<div class="bd-w-wide">
+			<div class="t-title">Title 21 over 28: Region of Lombardy</div>
+			<div class="t-section">Section head 17 over 22: Garrison</div>
+			<div class="t-body">Body 15 over 21: The viceroy asks for more troops before the spring campaign.</div>
+			<div class="t-label">Label 14 over 18: Public order</div>
+			<div class="t-desc">Description 14 over 21: A fertile plain between the Alps and the Apennines.</div>
+			<div class="t-numeral">Numeral 14 over 20: 48,200</div>
+			<div class="t-big">Big numeral 28: 32%</div>
+			<div class="t-body"><span class="c-dim bd-mr">dim</span> <span class="c-accent bd-mr">accent</span> <span class="c-pos bd-mr">positive</span> <span class="c-neg bd-mr">negative</span> <span class="c-warn">warning</span></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-tokens">
+		<div class="section-head">Colour tokens and their contrast pairs (generated from tokens.json)</div>
+		<div class="bd-grid">
+			<div class="bd-sw" data-for="sw : swatches"><div class="bd-sw-chip" data-style-background-color="sw.hex"></div><div class="t-label">{{sw.name}} {{sw.hex}}</div></div>
+		</div>
+		<div class="bd-mt">
+			<div class="bd-pair" data-for="p : pairs"><div class="bd-pair-name t-label">{{p.fg}} on {{p.bg}}</div><div class="bd-pair-ratio" data-class-c-neg="!p.ok">{{p.ratio}}</div><div class="bd-pair-what t-label">min {{p.min}}: {{p.what}}</div></div>
+		</div>
+	</div>
+
+	<div class="bd-sec" id="sec-stress">
+		<div class="section-head">Long-label stress strip</div>
+		<div class="bd-stress">
+			<div class="tab-group"><div class="tab is-selected">Provincial administration and taxation</div><div class="tab">Garrison</div></div>
+			<div class="list-hatch">
+				<div class="list-row">Imperial Guard Grenadiers of the Old Guard Heavy Cavalry Reserve Corps</div>
+				<div class="list-row">Corps of the Army of Italy under the personal command of the Emperor</div>
+			</div>
+			<div class="stat-row"><div class="stat-label">Maximum recruitable levies from the surrounding provinces</div><div class="stat-gap"></div><div class="stat-val">1,284,500</div></div>
+			<div class="flex-row bd-mt-gap"><div class="btn btn-primary">Recruit the Imperial Guard Grenadiers now</div></div>
+		</div>
+	</div>
+</div>
+</body>
+</rml>

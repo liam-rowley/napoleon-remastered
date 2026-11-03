@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.visible_not_inherited",
+  "claim": "UIComponent Visible() is the component's own flag, not inherited: a hidden parent keeps children that report visible (the orders bar's formations panel and ability buttons with no unit selected: their children report visible, nothing is drawn; run 20261102_j10pc land_running)",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j10pc/README.md",
+  "date": "2026-11-02",
+  "notes": "a live visible set is the components whose every ancestor is visible"
+}

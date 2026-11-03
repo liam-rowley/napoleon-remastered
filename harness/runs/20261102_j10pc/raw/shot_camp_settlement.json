@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "C:\\napoleon_remastered_pc\\_scratch\\j10\\20261102_j10pc\\a3\\shots\\j10_camp_settlement.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.54,
+    "frames": 1897,
+    "scene": "campaign",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 121950,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "C:\\napoleon_remastered_pc\\_scratch\\j10\\20261102_j10pc\\a3\\shots\\j10_camp_settlement.jpg"
+  },
+  "start_utc": "2026-11-02T10:54:50.987Z",
+  "end_utc": "2026-11-02T10:54:58.579Z"
+}

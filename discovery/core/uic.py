@@ -1,10 +1,10 @@
 """
 Parser / serialiser for Warscape UI layout files (Empire "Version025"-"Version033", Napoleon adds "Version039").
 
-purpose: parse and re-serialise UI layout files byte for byte (Empire V009-V033; Napoleon V039 partly: state_ref, animations)
+purpose: parse and re-serialise UI layout files byte for byte (Empire V009-V033; Napoleon V039 and the uied.templates v18 and v35 records)
 usage: import uic; doc = uic.parse(bytes, name); uic.serialise(doc) == bytes   |   python3 discovery/core/uic.py <folder>  (round-trip report)
-when: any reading or editing of a layout (J6 layouts pass; later the UI atlas and scale work); extend SPEC when a version's field is decoded
-not-a-verb: a binary codec library, ported from empire-remastered ui_scale_mod/tools/uic.py (J6: V039 spec, state_ref, r_anim/w_anim)
+when: any reading or editing of a layout (J6 layouts pass, J10 UI atlas, later the scale work); extend SPEC when a version's field is decoded
+not-a-verb: a binary codec library, ported from empire-remastered ui_scale_mod/tools/uic.py (J6: V039 state_ref, animations; J10: V039 transitions and keyframe state changes)
 
 Design: every byte is accounted for. Fields we understand get names; fields we don't are
 kept as raw bytes with a fixed width. Serialising a parsed tree must reproduce the input
@@ -27,8 +27,11 @@ SPEC = {
     33: dict(flags=7, c_flag=1, i_b=1, f_raw=15, s_raw=16, iu_tail=21, e_a=1, z_a=1),
     32: dict(flags=7, c_flag=0, i_b=1, f_raw=15, s_raw=16, iu_tail=21, e_a=1, z_a=1),
     # Napoleon (J6): V033 plus a u32 default-state id after c_flag and an animation list before the child count
-    39: dict(flags=7, c_flag=1, i_b=1, f_raw=15, s_raw=16, iu_tail=21, e_a=1, z_a=1, state_ref=1, anims=1),
+    39: dict(flags=7, c_flag=1, i_b=1, f_raw=15, s_raw=16, iu_tail=21, e_a=1, z_a=1, state_ref=1, anims=1, trans18=1),
+    # uied.templates record v35 (J10): V033 plus V039's animation list and 18-byte transitions, no state_ref
+    35: dict(flags=7, c_flag=1, i_b=1, f_raw=15, s_raw=16, iu_tail=21, e_a=1, z_a=1, anims=1, trans18=1),
     # legacy template-only versions (hdr_v16: [pre_inline raw][inline s][default_state s][u32 c_c]; no shader string)
+    18: dict(flags=7, hdr_v16=1, pre_inline=3, c_flag=0, i_a=0, i_b=0, f_raw=10, shader=0, s_raw=8, iu_tail=3, x_ab=1, trans=1, e_a=1, z_a=1, pre_font=1),  # J10: v17 with 3 pre bytes (uied.templates Cursor)
     17: dict(flags=7, hdr_v16=1, pre_inline=2, c_flag=0, i_a=0, i_b=0, f_raw=10, shader=0, s_raw=8, iu_tail=3, x_ab=1, trans=1, e_a=1, z_a=1, pre_font=1),
     10: dict(flags=7, hdr_v16=1, pre_inline=3, c_c16=1, c_flag=0, i_a=0, i_b=0, legacy_state=56, iu_tail=0, e_a=0, events=2, z_a=1),
     9:  dict(flags=7, hdr_v16=1, pre_inline=3, c_c16=1, c_flag=0, i_a=0, i_b=0, legacy_state=56, iu_tail=0, e_a=0, events=2, z_a=1),
@@ -102,8 +105,13 @@ def r_state(r, ver):
     st['s_raw'] = r.raw(spec(ver)['s_raw']); st['s_str1'] = r.s(); st['on_leave'] = r.s()
     n = r.u32(); st['uses'] = [r_imageuse(r, ver) for _ in range(n)]
     st['x_a'] = r.i32() if spec(ver).get('x_ab',1) else 0; st['x_b'] = r.i32() if spec(ver).get('x_ab',1) else 0
-    n = r.u32() if spec(ver).get('trans',1) else 0; st['transitions'] = [(r.u32(), r.u32()) for _ in range(n)]
+    n = r.u32() if spec(ver).get('trans',1) else 0
+    st['transitions'] = [r_trans(r) if spec(ver).get('trans18') else (r.u32(), r.u32()) for _ in range(n)]
     CTX.pop(); return st
+# V039 (J10): u32 kind, u32 target state id, a string (an event or function name such as DisableAdviceAudio, mostly empty),
+# 8 bytes (zero in vanilla): 18 bytes when the string is empty
+def r_trans(r): return (r.u32(), r.u32(), r.s(), r.raw(8))
+def w_trans(w, t): w.u32(t[0]); w.u32(t[1]); w.s(t[2]); w.raw(t[3])
 def w_state(w, st, ver):
     w.u32(st['id']); w.s(st['name']); w.i32(st['w']); w.i32(st['h'])
     if spec(ver).get('legacy_state'):
@@ -127,15 +135,26 @@ def w_state(w, st, ver):
     for u in st['uses']: w_imageuse(w, u)
     if spec(ver).get('x_ab',1): w.i32(st['x_a']); w.i32(st['x_b'])
     if spec(ver).get('trans',1): w.u32(len(st['transitions']))
-    for a, b in st['transitions']: w.u32(a); w.u32(b)
+    for t in st['transitions']:
+        if spec(ver).get('trans18'): w_trans(w, t)
+        else: w.u32(t[0]); w.u32(t[1])
 
 # ---------------------------------------------------------------- animation (V039, Napoleon: OnCreate etc.)
 KEYFRAME = 48   # f32 x, f32 y, i32 w, i32 h, u32 rgba, ..., u32 time_ms at +36, u32 interpolation at +40 (J6, partly decoded)
+# J10: u32 at +44 is a state-change flag; when set the frame goes on with u32 (uninitialised in vanilla), str, str (the state
+# name the frame switches to: battle ui\lb_unit_id OnCreate cycles 000..012). A frame is bytes, or (bytes, u32, str, str).
+def r_frame(r):
+    k = r.raw(KEYFRAME)
+    return (k, r.u32(), r.s(), r.s()) if struct.unpack_from('<I', k, 44)[0] else k
+def w_frame(w, k):
+    if isinstance(k, bytes): w.raw(k); return
+    w.raw(k[0]); w.u32(k[1]); w.s(k[2]); w.s(k[3])
+def frame_bytes(k): return k if isinstance(k, bytes) else k[0]
 def r_anim(r):
-    a = dict(name=r.s(), s2=r.s()); n = r.u32(); a['frames'] = [r.raw(KEYFRAME) for _ in range(n)]; return a
+    a = dict(name=r.s(), s2=r.s()); n = r.u32(); a['frames'] = [r_frame(r) for _ in range(n)]; return a
 def w_anim(w, a):
     w.s(a['name']); w.s(a['s2']); w.u32(len(a['frames']))
-    for k in a['frames']: w.raw(k)
+    for k in a['frames']: w_frame(w, k)
 
 # ---------------------------------------------------------------- component
 def r_component(r, ver):

@@ -1,0 +1,4808 @@
+{
+ "art_keys": "achievement_icon achievements.key -> ui\\achievements\\{value}.tga (96 % of values resolve, 73 of 73 files); building_icon building_culture_variants.icon -> ui\\buildings\\icons\\{value}.tga (100 % of values resolve, 133 of 657 files); building_info_picture building_culture_variants.icon -> ui\\buildings\\info\\{value}.tga (100 % of values resolve, 133 of 671 files); event_picture cultures.fallback_ui_culture -> ui\\eventpics\\{value}\\... (100 % of values resolve, 229 of 229 files); flag factions.flags_path -> ui\\flags\\{value}\\... (100 % of values resolve, 1260 of 2260 files); loading_screen: no db rule (no db field names this role's files (assembled from several fields or not db-driven)); portrait ancillary_types.type -> ui\\portraits\\{value}.tga (100 % of values resolve, 49 of 1375 files); technology_icon technologies.icon_name -> ui\\campaign ui\\technologies\\{value}.tga (100 % of values resolve, 67 of 69 files); unit_card uniforms.uniform_name -> ui\\units\\icons\\{value}_icon.tga (95 % of values resolve, 1064 of 1105 files); unit_info_picture uniforms.uniform_name -> ui\\units\\info\\{value}_info.tga (95 % of values resolve, 1064 of 1101 files) (`art_keys.json`).",
+ "counts": {
+  "art_editor_paths": 1018,
+  "art_resolved": 21432,
+  "art_uses": 22583,
+  "calls_not_in_api": [
+   "BattleUI.Current_Selection_Start_Firing_At_Will",
+   "BattleUI.Current_Selection_Stop_Firing_At_Will",
+   "BattleUI.Shot_Standard",
+   "CampaignUI.ExecuteCaptives",
+   "CampaignUI.HideBattleDetails",
+   "CampaignUI.ImprisonCaptives",
+   "CampaignUI.PreBattlePlayerSurrenderDecision",
+   "FrontEnd.IsModifier",
+   "FrontEnd.ModifierHeld",
+   "FrontEnd.StartDefaultCampaign",
+   "FrontEnd.StartDefaultFortBattle",
+   "FrontEnd.StartDefaultLandBattle",
+   "FrontEnd.StartDefaultSeaBattle"
+  ],
+  "components": 8245,
+  "data_fields_sourced": 3066,
+  "data_fields_unresolved": 3711,
+  "engine_command_handlers": 113,
+  "engine_drawn": 14,
+  "engine_routes": {
+   "engine_drawn": 8,
+   "render_target": 4,
+   "rml": 2
+  },
+  "frame_groups": 13,
+  "getters_not_in_state": [
+   "BattleUI.CameraZoomTo",
+   "CampaignUI.CharactersRelationshipToPlayersFaction",
+   "CampaignUI.LocalisationString",
+   "CampaignUI.ZoomToCharacter"
+  ],
+  "handlers_in_missing_scripts": 21,
+  "handlers_not_found": 50,
+  "interactions": 2073,
+  "layouts": 174,
+  "layouts_read": 174,
+  "scripts": 497,
+  "scripts_missing": [
+   "../naval_battle_orders_scripts/naval_hud_movements.lua",
+   "advice_panel_buttons.lua",
+   "building_demolish.lua",
+   "globe.lua",
+   "land_hud_column_infantry_vanguard.lua",
+   "land_hud_double_line_screened.lua",
+   "land_hud_double_line_standard.lua",
+   "land_hud_single_line_cavalry_left_flank.lua",
+   "land_hud_single_line_cavalry_right_flank.lua",
+   "land_hud_single_line_standard.lua",
+   "land_hud_triple_line_grand_battery.lua",
+   "land_hud_triple_line_integrated_artillery.lua",
+   "land_hud_triple_line_standard.lua",
+   "lobby_chat_buttons.lua",
+   "naval_hud_group_formations_panel_crescent_attack.lua",
+   "naval_hud_group_formations_panel_crescent_envelop.lua",
+   "naval_hud_group_formations_panel_line_abreast.lua",
+   "naval_hud_group_formations_panel_line_astern.lua",
+   "naval_hud_repair.lua",
+   "no script!",
+   "null",
+   "t",
+   "template.Ammo.lua",
+   "template.AmmoBar.lua",
+   "template.Ammunition.lua",
+   "template.Banner.lua",
+   "template.Chance of Success.lua",
+   "template.CharacterAttribute.lua",
+   "template.Experience.lua",
+   "template.ExtraAbility.lua",
+   "template.HullDamage.lua",
+   "template.HullDamageBar.lua",
+   "template.Level.lua",
+   "template.NewCharacterCard.lua",
+   "template.SailDamage.lua",
+   "template.SailDamageBar.lua",
+   "template.ShipDamage.lua",
+   "template.StatusIcon.lua",
+   "template.Turns.lua",
+   "template._paper_pane2.lua",
+   "template._title_frame.lua",
+   "template.assassination_entry.lua",
+   "template.background_title.lua",
+   "template.bg-paper_pane.lua",
+   "template.box_selection.lua",
+   "template.building.lua",
+   "template.building_cost.lua",
+   "template.button_advice.lua",
+   "template.button_standard.lua",
+   "template.chance.lua",
+   "template.character_info_abilities_entry.lua",
+   "template.character_trait_entry.lua",
+   "template.coins.lua",
+   "template.constructing_animation.lua",
+   "template.copy of payments.lua",
+   "template.cost.lua",
+   "template.defendant_subheader.lua",
+   "template.dialogue_box.lua",
+   "template.diplomacy_button.lua",
+   "template.diplomatic_relations_row.lua",
+   "template.dy_icon.lua",
+   "template.dy_location.lua",
+   "template.dy_name.lua",
+   "template.dy_title.lua",
+   "template.emblem.lua",
+   "template.extra_ability.lua",
+   "template.file_requester_entry.lua",
+   "template.flags.lua",
+   "template.float_panel.lua",
+   "template.general_purpose_pixel.lua",
+   "template.gilt_corner_TL.lua",
+   "template.head_tx.lua",
+   "template.headers.lua",
+   "template.hline.lua",
+   "template.icon_frame.lua",
+   "template.keys.lua",
+   "template.list_clip.lua",
+   "template.loading_circle.lua",
+   "template.name_dy.lua",
+   "template.ornament.lua",
+   "template.outer_ring.lua",
+   "template.pip_group.lua",
+   "template.pointer.lua",
+   "template.ranking_bar.lua",
+   "template.recruitment_cost.lua",
+   "template.recruitments_list_box.lua",
+   "template.region_dy.lua",
+   "template.region_list_item.lua",
+   "template.religion_icon.lua",
+   "template.remaining_tx.lua",
+   "template.req_item.lua",
+   "template.selected_highlight.lua",
+   "template.shooting.lua",
+   "template.string.lua",
+   "template.subheader_L.lua",
+   "template.subheader_R.lua",
+   "template.swordfighting.lua",
+   "template.tab_agents.lua",
+   "template.tab_units.lua",
+   "template.turns.lua",
+   "template.turns_center.lua",
+   "template.turns_corner.lua",
+   "template.unit_list_icon.lua",
+   "template.upgradable.lua",
+   "template.upgrade-box.lua",
+   "template.vline.lua"
+  ],
+  "scripts_walked": 497,
+  "text_keys": 4245,
+  "text_keys_resolved": 3120,
+  "uied_records": 126,
+  "uied_records_read": 124,
+  "units": 262,
+  "units_by_context": {
+   "battle": 32,
+   "campaign": 56,
+   "common": 18,
+   "engine": 14,
+   "frontend": 40,
+   "template": 102
+  },
+  "unresolved_by_reason": {
+   "dynamic_text": 58,
+   "parameter": 1798,
+   "text_key": 940,
+   "upvalue": 915
+  }
+ },
+ "engine_items": [
+  [
+   "engine.battle_radar",
+   "render_target",
+   "J35 (panel host), then the battle HUD job"
+  ],
+  [
+   "engine.campaign_radar",
+   "render_target",
+   "J35 (panel host), then the campaign HUD job"
+  ],
+  [
+   "engine.battle_unit_banners",
+   "engine_drawn",
+   "J37 (engine-drawn text and fonts)"
+  ],
+  [
+   "engine.campaign_map_labels",
+   "engine_drawn",
+   "J37 (engine-drawn text and fonts)"
+  ],
+  [
+   "engine.campaign_map",
+   "engine_drawn",
+   "none (world rendering)"
+  ],
+  [
+   "engine.selection_and_order_markers",
+   "engine_drawn",
+   "none (world rendering)"
+  ],
+  [
+   "engine.selection_box",
+   "rml",
+   "the battle HUD job"
+  ],
+  [
+   "engine.cursors",
+   "engine_drawn",
+   "a later art job"
+  ],
+  [
+   "engine.movies",
+   "render_target",
+   "J35 (panel host)"
+  ],
+  [
+   "engine.subtitles",
+   "engine_drawn",
+   "J37 (engine-drawn text and fonts)"
+  ],
+  [
+   "engine.loading_screen",
+   "engine_drawn",
+   "J37 (text), a later art job"
+  ],
+  [
+   "engine.unit_3d_preview",
+   "render_target",
+   "J35 (panel host)"
+  ],
+  [
+   "engine.escape_menu_background",
+   "engine_drawn",
+   "the escape menu contract"
+  ],
+  [
+   "engine.tooltips",
+   "rml",
+   "J35 (panel host)"
+  ]
+ ],
+ "generator": "discovery/core/ui_atlas.py",
+ "layout_bases": {
+  "1280x1024": 49,
+  "1280x960": 90,
+  "1600x960": 35
+ },
+ "panels": {
+  "BuildingInfoPopup": "campaign ui/building_information",
+  "CharacterInfoPopup": "campaign ui/character_information",
+  "CharacterInfoUnitInfoPopup": null,
+  "Prestige": "campaign ui/prestige",
+  "SP_victory_options": "battle ui/sp_victory_options",
+  "UnitInfoCharacterInfoPopup": null,
+  "UnitInfoPopup": "common ui/unit_information",
+  "^g_battle_summary_popup_name": null,
+  "agent_action": "campaign ui/agent_action",
+  "agent_options": "campaign ui/agent_options",
+  "building_browser": "campaign ui/building_browser",
+  "campaign_result": "campaign ui/campaign_result",
+  "dialogue_box": "common ui/dialogue_box",
+  "diplomacy_panel": "campaign ui/diplomacy_panel",
+  "diplomatic_relations": "campaign ui/diplomatic_relations",
+  "duel_recieved": null,
+  "enlist_commander": "campaign ui/enlist_commander",
+  "entity_lists": "campaign ui/entity_lists",
+  "esc_menu_battle": "battle ui/esc_menu_battle",
+  "esc_menu_campaign": "campaign ui/esc_menu_campaign",
+  "event_message": "campaign ui/event_message",
+  "event_movie_panel": "campaign ui/event_movie_panel",
+  "finish_deployment": null,
+  "government_screens": "campaign ui/government_screens",
+  "load-save_game": "campaign ui/load-save_game",
+  "missions": null,
+  "move_options": "campaign ui/move_options",
+  "popup_battle_results": "campaign ui/popup_battle_results",
+  "popup_pre_battle": "campaign ui/popup_pre_battle",
+  "region_info": null,
+  "royal_family": "campaign ui/royal_family",
+  "settlement_captured": "campaign ui/settlement_captured",
+  "surrender_dialogue_box": null,
+  "technology": "campaign ui/technology",
+  "travel_destinations": "campaign ui/travel_destinations",
+  "unit_exchange": "campaign ui/unit_exchange",
+  "waiting_for_players": "common ui/waiting_for_players"
+ },
+ "panels_without_layout": [
+  "Prestige"
+ ],
+ "reach": "44 of 220 layout and template units reached live in run 20261102_j10pc (battle 7 of 32, campaign 11 of 56, common 2 of 18, frontend 15 of 40, template 9 of 74); static-vs-live agreement 1597 of 1610 components (mean 0.992); the rest static_only with the reason (`reach.json`).",
+ "scripts_unattached": [
+  "agents.luac",
+  "army.luac",
+  "battle ui/3d_component_manager.luac",
+  "battle ui/battle_escape_menu_scripts/battle_escape_menu.luac",
+  "battle ui/battle_escape_menu_scripts/quit_battle_button.luac",
+  "battle ui/battle_escape_menu_scripts/return_to_battle_button.luac",
+  "battle ui/battle_hud_visibility_manager.luac",
+  "battle ui/battleeditor.luac",
+  "battle ui/button_group.luac",
+  "battle ui/button_halt.luac",
+  "battle ui/button_movespeed.luac",
+  "battle ui/combat_ratio.luac",
+  "battle ui/esc_menu_battle.esc_menu_battle.luac",
+  "battle ui/ffwd.luac",
+  "battle ui/fwd.luac",
+  "battle ui/group_formations_panel.luac",
+  "battle ui/hud_rotate.luac",
+  "battle ui/layout_scripts/battle_hud_killometer.luac",
+  "battle ui/layout_scripts/battle_hud_zoom_in.luac",
+  "battle ui/layout_scripts/battle_hud_zoom_out.luac",
+  "battle ui/lb_unit_id.luac",
+  "battle ui/mp_speed_voting.luac",
+  "battle ui/nav_wind_pointer.luac",
+  "battle ui/nb_unit_id.luac",
+  "battle ui/options_game.luac",
+  "battle ui/pause.luac",
+  "battle ui/pausebutton.luac",
+  "battle ui/play.luac",
+  "battle ui/root.luac",
+  "battle ui/slow_mo.luac",
+  "campaign ui/agent_action.luac",
+  "campaign ui/agent_options.luac",
+  "campaign ui/campaign_escape_menu_scripts/menu_back_to_campaign_button.luac",
+  "campaign ui/campaign_escape_menu_scripts/menu_load_game_button.luac",
+  "campaign ui/campaign_escape_menu_scripts/menu_quit_to_main_screen_button.luac",
+  "campaign ui/campaign_escape_menu_scripts/menu_quit_to_windows_button.luac",
+  "campaign ui/campaign_escape_menu_scripts/menu_save_game_button.luac",
+  "campaign ui/challenge_to_duel_scripts/challenge_to_duel.luac",
+  "campaign ui/esc_menu_campaign.esc_menu_campaign.luac",
+  "campaign ui/layout.agent_embark.luac",
+  "campaign ui/layout.army_disband.luac",
+  "campaign ui/layout.army_embark.luac",
+  "campaign ui/layout.army_fort.luac",
+  "campaign ui/layout.army_promote.luac",
+  "campaign ui/layout.army_replenish.luac",
+  "campaign ui/layout.build_browser.luac",
+  "campaign ui/layout.build_demolish.luac",
+  "campaign ui/layout.build_repair.luac",
+  "campaign ui/layout.build_upgrade_altchain.luac",
+  "campaign ui/layout.button_diplomacy.luac",
+  "campaign ui/layout.button_end_turn.luac",
+  "campaign ui/layout.button_government.luac",
+  "campaign ui/layout.gentleman_duel.luac",
+  "campaign ui/layout.gentleman_steal_tech.luac",
+  "campaign ui/layout.navy_demote.luac",
+  "campaign ui/layout.navy_embark.luac",
+  "campaign ui/layout.navy_promote.luac",
+  "campaign ui/layout.navy_repair.luac",
+  "campaign ui/layout.navy_scupper.luac",
+  "campaign ui/layout.rogue_assassinate.luac",
+  "campaign ui/layout.rogue_sabotage.luac",
+  "campaign ui/layout.root.luac",
+  "campaign ui/layout.selector arrow l.luac",
+  "campaign ui/layout.selector arrow r.luac",
+  "campaign ui/load-save_game.load-save_game.luac",
+  "campaign ui/missions_scripts/missions.luac",
+  "campaign ui/options_game.luac",
+  "campaign ui/prestige_scripts/bar_graph_window.luac",
+  "campaign ui/prestige_scripts/line_graph_window.luac",
+  "campaign ui/prestige_scripts/major_nations_bar.luac",
+  "campaign ui/prestige_scripts/prestige.luac",
+  "campaign ui/theatre_map_selector.luac",
+  "campaign ui/travel_destinations.luac",
+  "common ui/draggable_panel.luac",
+  "common ui/fading_panel.luac",
+  "common ui/mp_dialogue_box.luac",
+  "common ui/mp_message_box.luac",
+  "common ui/options_graphics.luac",
+  "common ui/panel_dropin_requester.luac",
+  "common ui/waiting_for_players.luac",
+  "construction.luac",
+  "coreutils.luac",
+  "file_requesters.luac",
+  "frontend ui/common/mp_common.luac",
+  "frontend ui/common/unit_setup_card.luac",
+  "frontend ui/credits.luac",
+  "frontend ui/demo_movies.luac",
+  "frontend ui/file_requester.file_requester.luac",
+  "frontend ui/lan_scripts/main_panel.luac",
+  "frontend ui/load_replay.luac",
+  "frontend ui/message_box.luac",
+  "frontend ui/mp_battle1.main_panel.luac",
+  "frontend ui/mp_battle1.mp_battle1.luac",
+  "frontend ui/mp_battle3.luac",
+  "frontend ui/mp_battle3.main_panel.luac",
+  "frontend ui/mp_battle3_scenario.luac",
+  "frontend ui/mp_load_game.mp_load_game.luac",
+  "frontend ui/password_entry.password_entry.luac",
+  "frontend ui/player_stats.luac",
+  "frontend ui/quickbattle_popup.luac",
+  "frontend ui/single_player.single_player.luac",
+  "frontend ui/sp_battle1.main_panel.luac",
+  "frontend ui/sp_battle1.sp_battle1.luac",
+  "frontend ui/sp_battle3.sp_battle3.luac",
+  "frontend ui/sp_battle3_scenario.luac",
+  "frontend ui/sp_episodic_campaign.sp_episodic_campaign.luac",
+  "frontend ui/sp_load_game.sp_load_game.luac",
+  "horizontal_mousewheel_script.luac",
+  "huds.luac",
+  "keyconflictmanager.luac",
+  "labels.luac",
+  "optionsmanager.luac",
+  "panelmanager.luac",
+  "recruitment.luac",
+  "siegeequipment.luac",
+  "technology_common.luac",
+  "technology_researching.luac",
+  "technology_stealing.luac",
+  "templates/cards.luac",
+  "templates/character_trait_entry.luac",
+  "templates/message_handler.luac",
+  "templates/template.advice_mouse_events.luac",
+  "templates/template.b2.luac",
+  "templates/template.b3.luac",
+  "templates/template.battle_escape_menu.luac",
+  "templates/template.battleeditor.luac",
+  "templates/template.building_browser_entry_icon.luac",
+  "templates/template.building_browser_node.luac",
+  "templates/template.button_duel.luac",
+  "templates/template.campaign_escape_menu.luac",
+  "templates/template.campaignagentcard.luac",
+  "templates/template.charactercard.luac",
+  "templates/template.city_info_bar.luac",
+  "templates/template.cursor.luac",
+  "templates/template.duel challenge received.luac",
+  "templates/template.duellist_panel.luac",
+  "templates/template.inputwindow.luac",
+  "templates/template.keyboard_conflict.luac",
+  "templates/template.message_dialog.luac",
+  "templates/template.minister_details.luac",
+  "templates/template.minister_effect_cartouche.luac",
+  "templates/template.pausebutton.luac",
+  "templates/template.quit_battle_button.luac",
+  "templates/template.return_to_battle_button.luac",
+  "templates/template.slider_left.luac",
+  "templates/template.slider_right.luac",
+  "templates/template.start_duel_button.luac",
+  "templates/template.tab2.luac",
+  "templates/template.tech_stealing_entry.luac",
+  "templates/template.tech_stealing_icon.luac",
+  "templates/template.text.luac",
+  "templates/template.unitcard.luac",
+  "theatre_map.luac",
+  "ui_premake5.luac",
+  "utilities.luac",
+  "vertical_mousewheel_script.luac"
+ ],
+ "sha256": {
+  "battle.json.gz": "f1d0e1401826654dd0187f82ba4625dc916056f3855de594e7bf6ed33e12fab6",
+  "campaign.json.gz": "ea0f62cae098cd0d4c26498dd5f27b87fec52a3f50c5caa4d62a9bfacc45d41f",
+  "common.json.gz": "041b3b4e576ce65327119a95ad63d0c60ba1c1d1a4f9bfe1607c4b5eab08b0fc",
+  "frontend.json.gz": "87991b9714ef07d67e57e1f9f9675a1a30bfcbb544db9f4f2572b47ae9d1f026",
+  "scripts.json.gz": "6713b88bc375232c7b2093517d89bc5ed21cb2806b7ba69710e8cf5144e672d0",
+  "template.json.gz": "bb2267a3cad27c00917fb9467dbad1b64371cad97cc704b3e9384fdb383a6382",
+  "units.json.gz": "691286edf450ab2d6dd25f22e5c1057ac9bca61cffe89d56099adbe20ad36400"
+ },
+ "units": {
+  "battle.battle_deployables_panel": {
+   "complexity": {
+    "art": 42,
+    "components": 9,
+    "getters": 0,
+    "interactions": 5,
+    "reached": false,
+    "scripts": 6,
+    "states": 49,
+    "templates": 0,
+    "text_keys": 7
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.battle_deployables_panel",
+   "surface": "battle ui\\battle_deployables_panel"
+  },
+  "battle.battle_hud_flags": {
+   "complexity": {
+    "art": 2,
+    "components": 3,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 3,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.battle_hud_flags",
+   "surface": "battle ui\\battle_hud_flags"
+  },
+  "battle.building_tooltip": {
+   "complexity": {
+    "art": 9,
+    "components": 25,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 26,
+    "templates": 0,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.building_tooltip",
+   "surface": "battle ui\\building_tooltip"
+  },
+  "battle.combat_ratio": {
+   "complexity": {
+    "art": 3,
+    "components": 8,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 8,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.combat_ratio",
+   "surface": "battle ui\\combat_ratio"
+  },
+  "battle.countdown_win_timer": {
+   "complexity": {
+    "art": 15,
+    "components": 4,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 2,
+    "states": 15,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.countdown_win_timer",
+   "surface": "battle ui\\countdown_win_timer"
+  },
+  "battle.deployment_end": {
+   "complexity": {
+    "art": 15,
+    "components": 20,
+    "getters": 0,
+    "interactions": 2,
+    "reached": true,
+    "scripts": 4,
+    "states": 28,
+    "templates": 1,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.deployment_end",
+   "surface": "battle ui\\deployment_end"
+  },
+  "battle.esc_menu_battle": {
+   "complexity": {
+    "art": 28,
+    "components": 26,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 0,
+    "states": 66,
+    "templates": 0,
+    "text_keys": 11
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.esc_menu_battle",
+   "surface": "battle ui\\esc_menu_battle"
+  },
+  "battle.hud.balance_of_power": {
+   "complexity": {
+    "art": 3,
+    "components": 4,
+    "getters": 1,
+    "interactions": 0,
+    "reached": true,
+    "scripts": 1,
+    "states": 4,
+    "templates": 7,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/kill_ratio_PH",
+   "screen": "battle.hud",
+   "surface": "battle ui\\layout"
+  },
+  "battle.hud.card_strip": {
+   "complexity": {
+    "art": 2,
+    "components": 3,
+    "getters": 2,
+    "interactions": 1,
+    "reached": true,
+    "scripts": 1,
+    "states": 3,
+    "templates": 7,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/cards_panel",
+   "screen": "battle.hud",
+   "surface": "battle ui\\layout"
+  },
+  "battle.hud.frame": {
+   "complexity": {
+    "art": 0,
+    "components": 2,
+    "getters": 3,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 2,
+    "templates": 7,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": "root",
+   "screen": "battle.hud",
+   "surface": "battle ui\\layout"
+  },
+  "battle.hud.radar": {
+   "complexity": {
+    "art": 18,
+    "components": 5,
+    "getters": 1,
+    "interactions": 2,
+    "reached": true,
+    "scripts": 3,
+    "states": 23,
+    "templates": 7,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/radar_group",
+   "screen": "battle.hud",
+   "surface": "battle ui\\layout"
+  },
+  "battle.hud.timer": {
+   "complexity": {
+    "art": 18,
+    "components": 26,
+    "getters": 2,
+    "interactions": 7,
+    "reached": true,
+    "scripts": 1,
+    "states": 47,
+    "templates": 7,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/stopwatch",
+   "screen": "battle.hud",
+   "surface": "battle ui\\layout"
+  },
+  "battle.in_battle_results_popup": {
+   "complexity": {
+    "art": 27,
+    "components": 22,
+    "getters": 2,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 35,
+    "templates": 0,
+    "text_keys": 9
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.in_battle_results_popup",
+   "surface": "battle ui\\in_battle_results_popup"
+  },
+  "battle.inspire_bling": {
+   "complexity": {
+    "art": 1,
+    "components": 3,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 3,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.inspire_bling",
+   "surface": "battle ui\\inspire_bling"
+  },
+  "battle.land_battle_orders": {
+   "complexity": {
+    "art": 127,
+    "components": 52,
+    "getters": 1,
+    "interactions": 29,
+    "reached": true,
+    "scripts": 26,
+    "states": 202,
+    "templates": 0,
+    "text_keys": 27
+   },
+   "hotkeys": [
+    "vanilla.fps.battle_land_increase_file.0",
+    "vanilla.fps.battle_land_increase_rank.0",
+    "vanilla.fps.battle_land_step_backwards.0",
+    "vanilla.fps.battle_land_step_forward.0"
+   ],
+   "piece": null,
+   "screen": "battle.land_battle_orders",
+   "surface": "battle ui\\land_battle_orders"
+  },
+  "battle.lb_unit_id": {
+   "complexity": {
+    "art": 54,
+    "components": 24,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 0,
+    "states": 75,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.lb_unit_id",
+   "surface": "battle ui\\lb_unit_id"
+  },
+  "battle.minimised_hud.balance_of_power": {
+   "complexity": {
+    "art": 2,
+    "components": 4,
+    "getters": 1,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 4,
+    "templates": 7,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/kill_ratio_PH",
+   "screen": "battle.minimised_hud",
+   "surface": "battle ui\\minimised_hud"
+  },
+  "battle.minimised_hud.card_strip": {
+   "complexity": {
+    "art": 0,
+    "components": 3,
+    "getters": 2,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 3,
+    "templates": 7,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/review_DY",
+   "screen": "battle.minimised_hud",
+   "surface": "battle ui\\minimised_hud"
+  },
+  "battle.minimised_hud.frame": {
+   "complexity": {
+    "art": 4,
+    "components": 4,
+    "getters": 3,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 4,
+    "templates": 7,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": "root",
+   "screen": "battle.minimised_hud",
+   "surface": "battle ui\\minimised_hud"
+  },
+  "battle.minimised_hud.radar": {
+   "complexity": {
+    "art": 14,
+    "components": 5,
+    "getters": 1,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 3,
+    "states": 14,
+    "templates": 7,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/radar_group",
+   "screen": "battle.minimised_hud",
+   "surface": "battle ui\\minimised_hud"
+  },
+  "battle.minimised_hud.timer": {
+   "complexity": {
+    "art": 18,
+    "components": 25,
+    "getters": 2,
+    "interactions": 6,
+    "reached": false,
+    "scripts": 1,
+    "states": 46,
+    "templates": 7,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/stopwatch",
+   "screen": "battle.minimised_hud",
+   "surface": "battle ui\\minimised_hud"
+  },
+  "battle.minimised_lb_orders": {
+   "complexity": {
+    "art": 129,
+    "components": 54,
+    "getters": 1,
+    "interactions": 29,
+    "reached": false,
+    "scripts": 14,
+    "states": 204,
+    "templates": 0,
+    "text_keys": 22
+   },
+   "hotkeys": [
+    "vanilla.fps.battle_land_increase_file.0",
+    "vanilla.fps.battle_land_increase_rank.0",
+    "vanilla.fps.battle_land_step_backwards.0",
+    "vanilla.fps.battle_land_step_forward.0"
+   ],
+   "piece": null,
+   "screen": "battle.minimised_lb_orders",
+   "surface": "battle ui\\minimised_lb_orders"
+  },
+  "battle.minimised_nb_orders": {
+   "complexity": {
+    "art": 135,
+    "components": 57,
+    "getters": 1,
+    "interactions": 29,
+    "reached": false,
+    "scripts": 17,
+    "states": 189,
+    "templates": 0,
+    "text_keys": 28
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.minimised_nb_orders",
+   "surface": "battle ui\\minimised_nb_orders"
+  },
+  "battle.mp_postbattle": {
+   "complexity": {
+    "art": 71,
+    "components": 80,
+    "getters": 4,
+    "interactions": 22,
+    "reached": false,
+    "scripts": 17,
+    "states": 137,
+    "templates": 14,
+    "text_keys": 30
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.mp_postbattle",
+   "surface": "battle ui\\mp_postbattle"
+  },
+  "battle.naval_battle_orders": {
+   "complexity": {
+    "art": 133,
+    "components": 55,
+    "getters": 1,
+    "interactions": 29,
+    "reached": true,
+    "scripts": 26,
+    "states": 187,
+    "templates": 0,
+    "text_keys": 28
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.naval_battle_orders",
+   "surface": "battle ui\\naval_battle_orders"
+  },
+  "battle.nb_unit_id": {
+   "complexity": {
+    "art": 16,
+    "components": 16,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 34,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.nb_unit_id",
+   "surface": "battle ui\\nb_unit_id"
+  },
+  "battle.options_game": {
+   "complexity": {
+    "art": 55,
+    "components": 18,
+    "getters": 0,
+    "interactions": 6,
+    "reached": false,
+    "scripts": 1,
+    "states": 37,
+    "templates": 1,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.options_game",
+   "surface": "battle ui\\options_game"
+  },
+  "battle.pip_frame": {
+   "complexity": {
+    "art": 3,
+    "components": 4,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 0,
+    "states": 4,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.pip_frame",
+   "surface": "battle ui\\pip_frame"
+  },
+  "battle.sp_victory_options": {
+   "complexity": {
+    "art": 32,
+    "components": 13,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 21,
+    "templates": 0,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.sp_victory_options",
+   "surface": "battle ui\\sp_victory_options"
+  },
+  "battle.special_tooltip": {
+   "complexity": {
+    "art": 13,
+    "components": 37,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 38,
+    "templates": 0,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.special_tooltip",
+   "surface": "battle ui\\special_tooltip"
+  },
+  "battle.victory_tickets_panel": {
+   "complexity": {
+    "art": 4,
+    "components": 22,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 2,
+    "states": 22,
+    "templates": 0,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.victory_tickets_panel",
+   "surface": "battle ui\\victory_tickets_panel"
+  },
+  "battle.xp_bling": {
+   "complexity": {
+    "art": 9,
+    "components": 3,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 11,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "battle.xp_bling",
+   "surface": "battle ui\\xp_bling"
+  },
+  "campaign.agent_action": {
+   "complexity": {
+    "art": 44,
+    "components": 20,
+    "getters": 0,
+    "interactions": 6,
+    "reached": false,
+    "scripts": 7,
+    "states": 29,
+    "templates": 7,
+    "text_keys": 9
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.agent_action",
+   "surface": "campaign ui\\agent_action"
+  },
+  "campaign.agent_options": {
+   "complexity": {
+    "art": 39,
+    "components": 30,
+    "getters": 0,
+    "interactions": 9,
+    "reached": false,
+    "scripts": 0,
+    "states": 75,
+    "templates": 0,
+    "text_keys": 22
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.agent_options",
+   "surface": "campaign ui\\agent_options"
+  },
+  "campaign.building_browser": {
+   "complexity": {
+    "art": 50,
+    "components": 34,
+    "getters": 2,
+    "interactions": 15,
+    "reached": true,
+    "scripts": 9,
+    "states": 67,
+    "templates": 9,
+    "text_keys": 25
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.building_browser",
+   "surface": "campaign ui\\building_browser"
+  },
+  "campaign.building_information": {
+   "complexity": {
+    "art": 49,
+    "components": 34,
+    "getters": 1,
+    "interactions": 11,
+    "reached": false,
+    "scripts": 5,
+    "states": 46,
+    "templates": 8,
+    "text_keys": 7
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.building_information",
+   "surface": "campaign ui\\building_information"
+  },
+  "campaign.button_timer": {
+   "complexity": {
+    "art": 4,
+    "components": 5,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 0,
+    "states": 6,
+    "templates": 0,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.button_timer",
+   "surface": "campaign ui\\button_timer"
+  },
+  "campaign.campaign_result": {
+   "complexity": {
+    "art": 32,
+    "components": 12,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 20,
+    "templates": 0,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.campaign_result",
+   "surface": "campaign ui\\campaign_result"
+  },
+  "campaign.character_information": {
+   "complexity": {
+    "art": 53,
+    "components": 41,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 3,
+    "states": 63,
+    "templates": 2,
+    "text_keys": 15
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.character_information",
+   "surface": "campaign ui\\character_information"
+  },
+  "campaign.city_info_bar": {
+   "complexity": {
+    "art": 35,
+    "components": 17,
+    "getters": 0,
+    "interactions": 0,
+    "reached": true,
+    "scripts": 0,
+    "states": 46,
+    "templates": 0,
+    "text_keys": 11
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.city_info_bar",
+   "surface": "campaign ui\\city_info_bar"
+  },
+  "campaign.diplomacy_panel": {
+   "complexity": {
+    "art": 121,
+    "components": 351,
+    "getters": 8,
+    "interactions": 70,
+    "reached": true,
+    "scripts": 11,
+    "states": 689,
+    "templates": 15,
+    "text_keys": 151
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.diplomacy_panel",
+   "surface": "campaign ui\\diplomacy_panel"
+  },
+  "campaign.diplomatic_relations": {
+   "complexity": {
+    "art": 98,
+    "components": 92,
+    "getters": 5,
+    "interactions": 23,
+    "reached": false,
+    "scripts": 10,
+    "states": 144,
+    "templates": 9,
+    "text_keys": 26
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.diplomatic_relations",
+   "surface": "campaign ui\\diplomatic_relations"
+  },
+  "campaign.duel_challenge_received": {
+   "complexity": {
+    "art": 76,
+    "components": 35,
+    "getters": 0,
+    "interactions": 17,
+    "reached": false,
+    "scripts": 4,
+    "states": 104,
+    "templates": 3,
+    "text_keys": 18
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.duel_challenge_received",
+   "surface": "campaign ui\\duel challenge received"
+  },
+  "campaign.enlist_commander": {
+   "complexity": {
+    "art": 59,
+    "components": 47,
+    "getters": 2,
+    "interactions": 8,
+    "reached": false,
+    "scripts": 7,
+    "states": 80,
+    "templates": 4,
+    "text_keys": 19
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.enlist_commander",
+   "surface": "campaign ui\\enlist_commander"
+  },
+  "campaign.enlist_commander_entry": {
+   "complexity": {
+    "art": 12,
+    "components": 16,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 30,
+    "templates": 1,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.enlist_commander_entry",
+   "surface": "campaign ui\\enlist_commander_scripts\\enlist_commander_entry"
+  },
+  "campaign.entity_lists": {
+   "complexity": {
+    "art": 47,
+    "components": 101,
+    "getters": 4,
+    "interactions": 32,
+    "reached": true,
+    "scripts": 7,
+    "states": 172,
+    "templates": 10,
+    "text_keys": 37
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.entity_lists",
+   "surface": "campaign ui\\entity_lists"
+  },
+  "campaign.esc_menu_campaign": {
+   "complexity": {
+    "art": 28,
+    "components": 31,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 0,
+    "states": 83,
+    "templates": 0,
+    "text_keys": 14
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.esc_menu_campaign",
+   "surface": "campaign ui\\esc_menu_campaign"
+  },
+  "campaign.event_message": {
+   "complexity": {
+    "art": 22,
+    "components": 14,
+    "getters": 1,
+    "interactions": 7,
+    "reached": false,
+    "scripts": 1,
+    "states": 42,
+    "templates": 9,
+    "text_keys": 8
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.event_message",
+   "surface": "campaign ui\\event_message"
+  },
+  "campaign.event_movie_panel": {
+   "complexity": {
+    "art": 26,
+    "components": 11,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 14,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.event_movie_panel",
+   "surface": "campaign ui\\event_movie_panel"
+  },
+  "campaign.faction_hud_flags": {
+   "complexity": {
+    "art": 2,
+    "components": 3,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 3,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.faction_hud_flags",
+   "surface": "campaign ui\\faction_hud_flags"
+  },
+  "campaign.friends_list": {
+   "complexity": {
+    "art": 49,
+    "components": 31,
+    "getters": 0,
+    "interactions": 12,
+    "reached": false,
+    "scripts": 9,
+    "states": 58,
+    "templates": 7,
+    "text_keys": 8
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.friends_list",
+   "surface": "campaign ui\\friends_list"
+  },
+  "campaign.government_screens": {
+   "complexity": {
+    "art": 144,
+    "components": 369,
+    "getters": 10,
+    "interactions": 40,
+    "reached": true,
+    "scripts": 8,
+    "states": 491,
+    "templates": 9,
+    "text_keys": 182
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.government_screens",
+   "surface": "campaign ui\\government_screens"
+  },
+  "campaign.hud.card_strip": {
+   "complexity": {
+    "art": 112,
+    "components": 75,
+    "getters": 0,
+    "interactions": 29,
+    "reached": true,
+    "scripts": 3,
+    "states": 183,
+    "templates": 2,
+    "text_keys": 32
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/frame/hud_center",
+   "screen": "campaign.hud",
+   "surface": "campaign ui\\layout"
+  },
+  "campaign.hud.frame": {
+   "complexity": {
+    "art": 19,
+    "components": 11,
+    "getters": 1,
+    "interactions": 9,
+    "reached": false,
+    "scripts": 2,
+    "states": 30,
+    "templates": 2,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": "root",
+   "screen": "campaign.hud",
+   "surface": "campaign ui\\layout"
+  },
+  "campaign.hud.orders": {
+   "complexity": {
+    "art": 38,
+    "components": 16,
+    "getters": 0,
+    "interactions": 9,
+    "reached": true,
+    "scripts": 0,
+    "states": 48,
+    "templates": 2,
+    "text_keys": 10
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/frame/hud_right",
+   "screen": "campaign.hud",
+   "surface": "campaign ui\\layout"
+  },
+  "campaign.hud.radar": {
+   "complexity": {
+    "art": 3,
+    "components": 7,
+    "getters": 2,
+    "interactions": 6,
+    "reached": true,
+    "scripts": 3,
+    "states": 7,
+    "templates": 2,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/frame/hud_left/radar",
+   "screen": "campaign.hud",
+   "surface": "campaign ui\\layout"
+  },
+  "campaign.hud.theatres": {
+   "complexity": {
+    "art": 5,
+    "components": 8,
+    "getters": 0,
+    "interactions": 7,
+    "reached": true,
+    "scripts": 2,
+    "states": 43,
+    "templates": 2,
+    "text_keys": 7
+   },
+   "hotkeys": [],
+   "piece": "root/veneer_DY/frame/hud_left/world_theatres_ButtonGroup",
+   "screen": "campaign.hud",
+   "surface": "campaign ui\\layout"
+  },
+  "campaign.layout_agent_recruited": {
+   "complexity": {
+    "art": 29,
+    "components": 16,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 16,
+    "templates": 3,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_agent_recruited",
+   "surface": "campaign ui\\layout_agent_recruited"
+  },
+  "campaign.layout_ally_attacked": {
+   "complexity": {
+    "art": 43,
+    "components": 37,
+    "getters": 0,
+    "interactions": 8,
+    "reached": false,
+    "scripts": 4,
+    "states": 52,
+    "templates": 4,
+    "text_keys": 12
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_ally_attacked",
+   "surface": "campaign ui\\layout_ally_attacked"
+  },
+  "campaign.layout_assassination": {
+   "complexity": {
+    "art": 29,
+    "components": 20,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 20,
+    "templates": 3,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_assassination",
+   "surface": "campaign ui\\layout_assassination"
+  },
+  "campaign.layout_attrition_list": {
+   "complexity": {
+    "art": 26,
+    "components": 18,
+    "getters": 0,
+    "interactions": 8,
+    "reached": false,
+    "scripts": 6,
+    "states": 22,
+    "templates": 6,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_attrition_list",
+   "surface": "campaign ui\\layout_attrition_list"
+  },
+  "campaign.layout_blockade": {
+   "complexity": {
+    "art": 29,
+    "components": 21,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 21,
+    "templates": 3,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_blockade",
+   "surface": "campaign ui\\layout_blockade"
+  },
+  "campaign.layout_build_list": {
+   "complexity": {
+    "art": 19,
+    "components": 12,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 4,
+    "states": 13,
+    "templates": 4,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_build_list",
+   "surface": "campaign ui\\layout_build_list"
+  },
+  "campaign.layout_building_constructed": {
+   "complexity": {
+    "art": 29,
+    "components": 18,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 18,
+    "templates": 3,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_building_constructed",
+   "surface": "campaign ui\\layout_building_constructed"
+  },
+  "campaign.layout_capital_lost": {
+   "complexity": {
+    "art": 28,
+    "components": 15,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 1,
+    "states": 16,
+    "templates": 1,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_capital_lost",
+   "surface": "campaign ui\\layout_capital_lost"
+  },
+  "campaign.layout_election_results": {
+   "complexity": {
+    "art": 29,
+    "components": 14,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 4,
+    "states": 14,
+    "templates": 4,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_election_results",
+   "surface": "campaign ui\\layout_election_results"
+  },
+  "campaign.layout_marriage": {
+   "complexity": {
+    "art": 39,
+    "components": 18,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 18,
+    "templates": 3,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_marriage",
+   "surface": "campaign ui\\layout_marriage"
+  },
+  "campaign.layout_revolution": {
+   "complexity": {
+    "art": 40,
+    "components": 21,
+    "getters": 0,
+    "interactions": 8,
+    "reached": false,
+    "scripts": 4,
+    "states": 29,
+    "templates": 3,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_revolution",
+   "surface": "campaign ui\\layout_revolution"
+  },
+  "campaign.layout_riots": {
+   "complexity": {
+    "art": 28,
+    "components": 17,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 1,
+    "states": 17,
+    "templates": 1,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_riots",
+   "surface": "campaign ui\\layout_riots"
+  },
+  "campaign.layout_sabotage": {
+   "complexity": {
+    "art": 29,
+    "components": 20,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 20,
+    "templates": 3,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_sabotage",
+   "surface": "campaign ui\\layout_sabotage"
+  },
+  "campaign.layout_standard": {
+   "complexity": {
+    "art": 28,
+    "components": 14,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 1,
+    "states": 14,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_standard",
+   "surface": "campaign ui\\layout_standard"
+  },
+  "campaign.layout_tech_advances_list": {
+   "complexity": {
+    "art": 28,
+    "components": 13,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 4,
+    "states": 13,
+    "templates": 4,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_tech_advances_list",
+   "surface": "campaign ui\\layout_tech_advances_list"
+  },
+  "campaign.layout_technology_advances": {
+   "complexity": {
+    "art": 28,
+    "components": 16,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 1,
+    "states": 16,
+    "templates": 1,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_technology_advances",
+   "surface": "campaign ui\\layout_technology_advances"
+  },
+  "campaign.layout_traits_anc_list": {
+   "complexity": {
+    "art": 27,
+    "components": 25,
+    "getters": 0,
+    "interactions": 9,
+    "reached": false,
+    "scripts": 4,
+    "states": 32,
+    "templates": 4,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_traits_anc_list",
+   "surface": "campaign ui\\layout_traits_anc_list"
+  },
+  "campaign.layout_unit_recruited": {
+   "complexity": {
+    "art": 30,
+    "components": 19,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 19,
+    "templates": 3,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_unit_recruited",
+   "surface": "campaign ui\\layout_unit_recruited"
+  },
+  "campaign.layout_unit_routs": {
+   "complexity": {
+    "art": 29,
+    "components": 14,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 3,
+    "states": 14,
+    "templates": 3,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.layout_unit_routs",
+   "surface": "campaign ui\\layout_unit_routs"
+  },
+  "campaign.load_save_game": {
+   "complexity": {
+    "art": 80,
+    "components": 57,
+    "getters": 0,
+    "interactions": 19,
+    "reached": false,
+    "scripts": 8,
+    "states": 85,
+    "templates": 8,
+    "text_keys": 22
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.load_save_game",
+   "surface": "campaign ui\\load-save_game"
+  },
+  "campaign.move_options": {
+   "complexity": {
+    "art": 37,
+    "components": 17,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 35,
+    "templates": 0,
+    "text_keys": 10
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.move_options",
+   "surface": "campaign ui\\move_options"
+  },
+  "campaign.objectives_screens": {
+   "complexity": {
+    "art": 72,
+    "components": 117,
+    "getters": 7,
+    "interactions": 21,
+    "reached": true,
+    "scripts": 11,
+    "states": 138,
+    "templates": 12,
+    "text_keys": 32
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.objectives_screens",
+   "surface": "campaign ui\\objectives_screens"
+  },
+  "campaign.options_game": {
+   "complexity": {
+    "art": 65,
+    "components": 48,
+    "getters": 0,
+    "interactions": 15,
+    "reached": false,
+    "scripts": 5,
+    "states": 118,
+    "templates": 5,
+    "text_keys": 16
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.options_game",
+   "surface": "campaign ui\\options_game"
+  },
+  "campaign.popup_battle_results": {
+   "complexity": {
+    "art": 93,
+    "components": 116,
+    "getters": 2,
+    "interactions": 24,
+    "reached": false,
+    "scripts": 28,
+    "states": 231,
+    "templates": 8,
+    "text_keys": 48
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.popup_battle_results",
+   "surface": "campaign ui\\popup_battle_results"
+  },
+  "campaign.popup_pre_battle": {
+   "complexity": {
+    "art": 117,
+    "components": 128,
+    "getters": 2,
+    "interactions": 18,
+    "reached": false,
+    "scripts": 21,
+    "states": 221,
+    "templates": 3,
+    "text_keys": 65
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.popup_pre_battle",
+   "surface": "campaign ui\\popup_pre_battle"
+  },
+  "campaign.region_details": {
+   "complexity": {
+    "art": 73,
+    "components": 94,
+    "getters": 1,
+    "interactions": 10,
+    "reached": false,
+    "scripts": 5,
+    "states": 136,
+    "templates": 4,
+    "text_keys": 60
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.region_details",
+   "surface": "campaign ui\\region_details"
+  },
+  "campaign.royal_family": {
+   "complexity": {
+    "art": 30,
+    "components": 32,
+    "getters": 1,
+    "interactions": 9,
+    "reached": false,
+    "scripts": 3,
+    "states": 43,
+    "templates": 3,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.royal_family",
+   "surface": "campaign ui\\royal_family"
+  },
+  "campaign.settlement_captured": {
+   "complexity": {
+    "art": 61,
+    "components": 64,
+    "getters": 1,
+    "interactions": 6,
+    "reached": false,
+    "scripts": 2,
+    "states": 90,
+    "templates": 1,
+    "text_keys": 22
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.settlement_captured",
+   "surface": "campaign ui\\settlement_captured"
+  },
+  "campaign.technology": {
+   "complexity": {
+    "art": 44,
+    "components": 92,
+    "getters": 0,
+    "interactions": 8,
+    "reached": true,
+    "scripts": 5,
+    "states": 114,
+    "templates": 4,
+    "text_keys": 29
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.technology",
+   "surface": "campaign ui\\technology"
+  },
+  "campaign.travel_destinations": {
+   "complexity": {
+    "art": 54,
+    "components": 18,
+    "getters": 0,
+    "interactions": 10,
+    "reached": false,
+    "scripts": 0,
+    "states": 86,
+    "templates": 0,
+    "text_keys": 14
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.travel_destinations",
+   "surface": "campaign ui\\travel_destinations"
+  },
+  "campaign.unit_exchange": {
+   "complexity": {
+    "art": 51,
+    "components": 40,
+    "getters": 2,
+    "interactions": 13,
+    "reached": false,
+    "scripts": 3,
+    "states": 68,
+    "templates": 1,
+    "text_keys": 9
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "campaign.unit_exchange",
+   "surface": "campaign ui\\unit_exchange"
+  },
+  "common.advice_interface": {
+   "complexity": {
+    "art": 32,
+    "components": 24,
+    "getters": 0,
+    "interactions": 12,
+    "reached": true,
+    "scripts": 8,
+    "states": 57,
+    "templates": 3,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.advice_interface",
+   "surface": "common ui\\advice_interface"
+  },
+  "common.dialog_ok": {
+   "complexity": {
+    "art": 27,
+    "components": 9,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 0,
+    "states": 13,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.dialog_ok",
+   "surface": "common ui\\dialog_ok"
+  },
+  "common.dialog_yes_no": {
+   "complexity": {
+    "art": 32,
+    "components": 10,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 0,
+    "states": 18,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.dialog_yes_no",
+   "surface": "common ui\\dialog_yes_no"
+  },
+  "common.dialogue_box": {
+   "complexity": {
+    "art": 24,
+    "components": 22,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 0,
+    "states": 34,
+    "templates": 0,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.dialogue_box",
+   "surface": "common ui\\dialogue_box"
+  },
+  "common.menu_bar": {
+   "complexity": {
+    "art": 53,
+    "components": 10,
+    "getters": 0,
+    "interactions": 1,
+    "reached": true,
+    "scripts": 9,
+    "states": 68,
+    "templates": 1,
+    "text_keys": 14
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.menu_bar",
+   "surface": "common ui\\menu_bar"
+  },
+  "common.mp_dialogue_box": {
+   "complexity": {
+    "art": 24,
+    "components": 22,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 34,
+    "templates": 1,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.mp_dialogue_box",
+   "surface": "common ui\\mp_dialogue_box"
+  },
+  "common.mp_message_box": {
+   "complexity": {
+    "art": 9,
+    "components": 4,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 0,
+    "states": 4,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.mp_message_box",
+   "surface": "common ui\\mp_message_box"
+  },
+  "common.multiplayer_chat": {
+   "complexity": {
+    "art": 35,
+    "components": 17,
+    "getters": 0,
+    "interactions": 8,
+    "reached": false,
+    "scripts": 9,
+    "states": 34,
+    "templates": 5,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.multiplayer_chat",
+   "surface": "common ui\\multiplayer_chat"
+  },
+  "common.multiplayer_player_list": {
+   "complexity": {
+    "art": 35,
+    "components": 24,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 10,
+    "states": 54,
+    "templates": 4,
+    "text_keys": 8
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.multiplayer_player_list",
+   "surface": "common ui\\multiplayer_player_list"
+  },
+  "common.options_audio": {
+   "complexity": {
+    "art": 81,
+    "components": 129,
+    "getters": 0,
+    "interactions": 31,
+    "reached": false,
+    "scripts": 11,
+    "states": 281,
+    "templates": 7,
+    "text_keys": 36
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.options_audio",
+   "surface": "common ui\\options_audio"
+  },
+  "common.options_controls": {
+   "complexity": {
+    "art": 73,
+    "components": 99,
+    "getters": 0,
+    "interactions": 25,
+    "reached": false,
+    "scripts": 11,
+    "states": 184,
+    "templates": 10,
+    "text_keys": 24
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.options_controls",
+   "surface": "common ui\\options_controls"
+  },
+  "common.options_gamma": {
+   "complexity": {
+    "art": 47,
+    "components": 22,
+    "getters": 0,
+    "interactions": 5,
+    "reached": false,
+    "scripts": 3,
+    "states": 38,
+    "templates": 2,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.options_gamma",
+   "surface": "common ui\\options_gamma"
+  },
+  "common.options_graphics": {
+   "complexity": {
+    "art": 76,
+    "components": 135,
+    "getters": 1,
+    "interactions": 45,
+    "reached": false,
+    "scripts": 9,
+    "states": 301,
+    "templates": 7,
+    "text_keys": 45
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.options_graphics",
+   "surface": "common ui\\options_graphics"
+  },
+  "common.options_ui": {
+   "complexity": {
+    "art": 60,
+    "components": 67,
+    "getters": 0,
+    "interactions": 18,
+    "reached": false,
+    "scripts": 3,
+    "states": 146,
+    "templates": 2,
+    "text_keys": 18
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.options_ui",
+   "surface": "common ui\\options_ui"
+  },
+  "common.panel_dropin_requester": {
+   "complexity": {
+    "art": 21,
+    "components": 19,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 32,
+    "templates": 0,
+    "text_keys": 8
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.panel_dropin_requester",
+   "surface": "common ui\\panel_dropin_requester"
+  },
+  "common.paused_panel": {
+   "complexity": {
+    "art": 14,
+    "components": 7,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 7,
+    "templates": 0,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.paused_panel",
+   "surface": "common ui\\paused_panel"
+  },
+  "common.unit_information": {
+   "complexity": {
+    "art": 87,
+    "components": 138,
+    "getters": 2,
+    "interactions": 14,
+    "reached": false,
+    "scripts": 12,
+    "states": 354,
+    "templates": 12,
+    "text_keys": 61
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.unit_information",
+   "surface": "common ui\\unit_information"
+  },
+  "common.waiting_for_players": {
+   "complexity": {
+    "art": 7,
+    "components": 8,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 0,
+    "states": 9,
+    "templates": 0,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "common.waiting_for_players",
+   "surface": "common ui\\waiting_for_players"
+  },
+  "engine.battle_radar": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.battle_radar",
+   "surface": null
+  },
+  "engine.battle_unit_banners": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.battle_unit_banners",
+   "surface": null
+  },
+  "engine.campaign_map": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.campaign_map",
+   "surface": null
+  },
+  "engine.campaign_map_labels": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.campaign_map_labels",
+   "surface": null
+  },
+  "engine.campaign_radar": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.campaign_radar",
+   "surface": null
+  },
+  "engine.cursors": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.cursors",
+   "surface": null
+  },
+  "engine.escape_menu_background": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.escape_menu_background",
+   "surface": null
+  },
+  "engine.loading_screen": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.loading_screen",
+   "surface": null
+  },
+  "engine.movies": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.movies",
+   "surface": null
+  },
+  "engine.selection_and_order_markers": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.selection_and_order_markers",
+   "surface": null
+  },
+  "engine.selection_box": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "rml",
+   "screen": "engine.selection_box",
+   "surface": null
+  },
+  "engine.subtitles": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "engine_drawn",
+   "screen": "engine.subtitles",
+   "surface": null
+  },
+  "engine.tooltips": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "rml",
+   "screen": "engine.tooltips",
+   "surface": null
+  },
+  "engine.unit_3d_preview": {
+   "complexity": null,
+   "hotkeys": [],
+   "piece": null,
+   "route": "render_target",
+   "screen": "engine.unit_3d_preview",
+   "surface": null
+  },
+  "frontend.credits": {
+   "complexity": {
+    "art": 14,
+    "components": 10,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 14,
+    "templates": 1,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.credits",
+   "surface": "frontend ui\\credits"
+  },
+  "frontend.demo_movies": {
+   "complexity": {
+    "art": 0,
+    "components": 2,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 2,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.demo_movies",
+   "surface": "frontend ui\\demo_movies"
+  },
+  "frontend.demo_sp_tutorials": {
+   "complexity": {
+    "art": 32,
+    "components": 24,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 32,
+    "templates": 1,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.demo_sp_tutorials",
+   "surface": "frontend ui\\demo_sp_tutorials"
+  },
+  "frontend.faction_selection_big": {
+   "complexity": {
+    "art": 16,
+    "components": 13,
+    "getters": 0,
+    "interactions": 18,
+    "reached": false,
+    "scripts": 1,
+    "states": 64,
+    "templates": 0,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.faction_selection_big",
+   "surface": "frontend ui\\faction_selection_big"
+  },
+  "frontend.faction_selection_historical": {
+   "complexity": {
+    "art": 2,
+    "components": 11,
+    "getters": 0,
+    "interactions": 8,
+    "reached": true,
+    "scripts": 1,
+    "states": 43,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.faction_selection_historical",
+   "surface": "frontend ui\\faction_selection_historical"
+  },
+  "frontend.faction_selection_small": {
+   "complexity": {
+    "art": 10,
+    "components": 15,
+    "getters": 0,
+    "interactions": 18,
+    "reached": false,
+    "scripts": 1,
+    "states": 55,
+    "templates": 0,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.faction_selection_small",
+   "surface": "frontend ui\\faction_selection_small"
+  },
+  "frontend.file_requester": {
+   "complexity": {
+    "art": 38,
+    "components": 25,
+    "getters": 0,
+    "interactions": 14,
+    "reached": false,
+    "scripts": 7,
+    "states": 52,
+    "templates": 7,
+    "text_keys": 11
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.file_requester",
+   "surface": "frontend ui\\file_requester"
+  },
+  "frontend.grand_campaign": {
+   "complexity": {
+    "art": 100,
+    "components": 108,
+    "getters": 6,
+    "interactions": 35,
+    "reached": true,
+    "scripts": 15,
+    "states": 222,
+    "templates": 11,
+    "text_keys": 42
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.grand_campaign",
+   "surface": "frontend ui\\grand_campaign"
+  },
+  "frontend.host_campaign_popup": {
+   "complexity": {
+    "art": 39,
+    "components": 19,
+    "getters": 0,
+    "interactions": 9,
+    "reached": false,
+    "scripts": 2,
+    "states": 34,
+    "templates": 2,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.host_campaign_popup",
+   "surface": "frontend ui\\host_campaign_popup"
+  },
+  "frontend.load_replay": {
+   "complexity": {
+    "art": 44,
+    "components": 50,
+    "getters": 0,
+    "interactions": 11,
+    "reached": true,
+    "scripts": 7,
+    "states": 69,
+    "templates": 6,
+    "text_keys": 9
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.load_replay",
+   "surface": "frontend ui\\load_replay"
+  },
+  "frontend.lobby_chat": {
+   "complexity": {
+    "art": 64,
+    "components": 61,
+    "getters": 0,
+    "interactions": 15,
+    "reached": false,
+    "scripts": 20,
+    "states": 104,
+    "templates": 8,
+    "text_keys": 14
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.lobby_chat",
+   "surface": "frontend ui\\lobby_chat"
+  },
+  "frontend.main": {
+   "complexity": {
+    "art": 30,
+    "components": 72,
+    "getters": 0,
+    "interactions": 29,
+    "reached": true,
+    "scripts": 2,
+    "states": 194,
+    "templates": 1,
+    "text_keys": 22
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.main",
+   "surface": "frontend ui\\main"
+  },
+  "frontend.message_box": {
+   "complexity": {
+    "art": 15,
+    "components": 11,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 0,
+    "states": 24,
+    "templates": 0,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.message_box",
+   "surface": "frontend ui\\message_box"
+  },
+  "frontend.mp_battle1": {
+   "complexity": {
+    "art": 24,
+    "components": 20,
+    "getters": 0,
+    "interactions": 9,
+    "reached": false,
+    "scripts": 1,
+    "states": 40,
+    "templates": 1,
+    "text_keys": 14
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.mp_battle1",
+   "surface": "frontend ui\\mp_battle1"
+  },
+  "frontend.mp_battle2": {
+   "complexity": {
+    "art": 70,
+    "components": 140,
+    "getters": 0,
+    "interactions": 45,
+    "reached": false,
+    "scripts": 10,
+    "states": 237,
+    "templates": 10,
+    "text_keys": 32
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.mp_battle2",
+   "surface": "frontend ui\\mp_battle2"
+  },
+  "frontend.mp_battle2_scenario": {
+   "complexity": {
+    "art": 70,
+    "components": 99,
+    "getters": 2,
+    "interactions": 28,
+    "reached": false,
+    "scripts": 14,
+    "states": 154,
+    "templates": 11,
+    "text_keys": 31
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.mp_battle2_scenario",
+   "surface": "frontend ui\\mp_battle2_scenario"
+  },
+  "frontend.mp_battle3": {
+   "complexity": {
+    "art": 168,
+    "components": 141,
+    "getters": 7,
+    "interactions": 52,
+    "reached": false,
+    "scripts": 17,
+    "states": 391,
+    "templates": 9,
+    "text_keys": 42
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.mp_battle3",
+   "surface": "frontend ui\\mp_battle3"
+  },
+  "frontend.mp_battle3_scenario": {
+   "complexity": {
+    "art": 139,
+    "components": 108,
+    "getters": 3,
+    "interactions": 50,
+    "reached": false,
+    "scripts": 16,
+    "states": 276,
+    "templates": 9,
+    "text_keys": 23
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.mp_battle3_scenario",
+   "surface": "frontend ui\\mp_battle3_scenario"
+  },
+  "frontend.mp_grand_campaign": {
+   "complexity": {
+    "art": 107,
+    "components": 200,
+    "getters": 8,
+    "interactions": 53,
+    "reached": false,
+    "scripts": 21,
+    "states": 352,
+    "templates": 13,
+    "text_keys": 61
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.mp_grand_campaign",
+   "surface": "frontend ui\\mp_grand_campaign"
+  },
+  "frontend.mp_load_game": {
+   "complexity": {
+    "art": 48,
+    "components": 52,
+    "getters": 0,
+    "interactions": 17,
+    "reached": false,
+    "scripts": 7,
+    "states": 79,
+    "templates": 7,
+    "text_keys": 19
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.mp_load_game",
+   "surface": "frontend ui\\mp_load_game"
+  },
+  "frontend.multiplayer_lan": {
+   "complexity": {
+    "art": 102,
+    "components": 130,
+    "getters": 6,
+    "interactions": 48,
+    "reached": false,
+    "scripts": 18,
+    "states": 284,
+    "templates": 15,
+    "text_keys": 68
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.multiplayer_lan",
+   "surface": "frontend ui\\multiplayer_lan"
+  },
+  "frontend.multiplayer_online": {
+   "complexity": {
+    "art": 109,
+    "components": 155,
+    "getters": 6,
+    "interactions": 57,
+    "reached": false,
+    "scripts": 20,
+    "states": 370,
+    "templates": 18,
+    "text_keys": 83
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.multiplayer_online",
+   "surface": "frontend ui\\multiplayer_online"
+  },
+  "frontend.napoleon_battles": {
+   "complexity": {
+    "art": 53,
+    "components": 61,
+    "getters": 3,
+    "interactions": 5,
+    "reached": true,
+    "scripts": 7,
+    "states": 236,
+    "templates": 3,
+    "text_keys": 22
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.napoleon_battles",
+   "surface": "frontend ui\\napoleon_battles"
+  },
+  "frontend.options": {
+   "complexity": {
+    "art": 125,
+    "components": 522,
+    "getters": 2,
+    "interactions": 156,
+    "reached": true,
+    "scripts": 26,
+    "states": 1086,
+    "templates": 15,
+    "text_keys": 144
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.options",
+   "surface": "frontend ui\\options"
+  },
+  "frontend.password_entry": {
+   "complexity": {
+    "art": 20,
+    "components": 8,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 1,
+    "states": 16,
+    "templates": 1,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.password_entry",
+   "surface": "frontend ui\\password_entry"
+  },
+  "frontend.player_stats": {
+   "complexity": {
+    "art": 34,
+    "components": 64,
+    "getters": 0,
+    "interactions": 11,
+    "reached": true,
+    "scripts": 5,
+    "states": 84,
+    "templates": 5,
+    "text_keys": 8
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.player_stats",
+   "surface": "frontend ui\\player_stats"
+  },
+  "frontend.quickbattle_popup": {
+   "complexity": {
+    "art": 21,
+    "components": 17,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 0,
+    "states": 28,
+    "templates": 0,
+    "text_keys": 8
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.quickbattle_popup",
+   "surface": "frontend ui\\quickbattle_popup"
+  },
+  "frontend.root_layout": {
+   "complexity": {
+    "art": 2,
+    "components": 6,
+    "getters": 3,
+    "interactions": 2,
+    "reached": true,
+    "scripts": 1,
+    "states": 6,
+    "templates": 5,
+    "text_keys": 2
+   },
+   "hotkeys": [
+    "vanilla.fps.voice_chat.0"
+   ],
+   "piece": null,
+   "screen": "frontend.root_layout",
+   "surface": "frontend ui\\layout"
+  },
+  "frontend.session_chat": {
+   "complexity": {
+    "art": 27,
+    "components": 20,
+    "getters": 0,
+    "interactions": 8,
+    "reached": false,
+    "scripts": 8,
+    "states": 34,
+    "templates": 6,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.session_chat",
+   "surface": "frontend ui\\session_chat"
+  },
+  "frontend.single_player": {
+   "complexity": {
+    "art": 16,
+    "components": 18,
+    "getters": 0,
+    "interactions": 6,
+    "reached": true,
+    "scripts": 1,
+    "states": 42,
+    "templates": 1,
+    "text_keys": 4
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.single_player",
+   "surface": "frontend ui\\single_player"
+  },
+  "frontend.sp_battle1": {
+   "complexity": {
+    "art": 25,
+    "components": 23,
+    "getters": 0,
+    "interactions": 11,
+    "reached": true,
+    "scripts": 2,
+    "states": 47,
+    "templates": 2,
+    "text_keys": 14
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_battle1",
+   "surface": "frontend ui\\sp_battle1"
+  },
+  "frontend.sp_battle2": {
+   "complexity": {
+    "art": 58,
+    "components": 101,
+    "getters": 0,
+    "interactions": 33,
+    "reached": true,
+    "scripts": 8,
+    "states": 169,
+    "templates": 8,
+    "text_keys": 22
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_battle2",
+   "surface": "frontend ui\\sp_battle2"
+  },
+  "frontend.sp_battle2_scenario": {
+   "complexity": {
+    "art": 60,
+    "components": 71,
+    "getters": 8,
+    "interactions": 18,
+    "reached": true,
+    "scripts": 12,
+    "states": 104,
+    "templates": 9,
+    "text_keys": 24
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_battle2_scenario",
+   "surface": "frontend ui\\sp_battle2_scenario"
+  },
+  "frontend.sp_battle3": {
+   "complexity": {
+    "art": 136,
+    "components": 110,
+    "getters": 9,
+    "interactions": 38,
+    "reached": false,
+    "scripts": 12,
+    "states": 325,
+    "templates": 3,
+    "text_keys": 35
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_battle3",
+   "surface": "frontend ui\\sp_battle3"
+  },
+  "frontend.sp_battle3_scenario": {
+   "complexity": {
+    "art": 59,
+    "components": 31,
+    "getters": 3,
+    "interactions": 17,
+    "reached": false,
+    "scripts": 5,
+    "states": 106,
+    "templates": 1,
+    "text_keys": 7
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_battle3_scenario",
+   "surface": "frontend ui\\sp_battle3_scenario"
+  },
+  "frontend.sp_episodic_campaign": {
+   "complexity": {
+    "art": 53,
+    "components": 53,
+    "getters": 0,
+    "interactions": 14,
+    "reached": true,
+    "scripts": 8,
+    "states": 105,
+    "templates": 8,
+    "text_keys": 18
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_episodic_campaign",
+   "surface": "frontend ui\\sp_episodic_campaign"
+  },
+  "frontend.sp_load_game": {
+   "complexity": {
+    "art": 51,
+    "components": 50,
+    "getters": 0,
+    "interactions": 17,
+    "reached": true,
+    "scripts": 8,
+    "states": 78,
+    "templates": 8,
+    "text_keys": 18
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_load_game",
+   "surface": "frontend ui\\sp_load_game"
+  },
+  "frontend.sp_tutorials": {
+   "complexity": {
+    "art": 35,
+    "components": 35,
+    "getters": 0,
+    "interactions": 4,
+    "reached": true,
+    "scripts": 1,
+    "states": 51,
+    "templates": 1,
+    "text_keys": 9
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.sp_tutorials",
+   "surface": "frontend ui\\sp_tutorials"
+  },
+  "frontend.spain_grand_campaign": {
+   "complexity": {
+    "art": 104,
+    "components": 106,
+    "getters": 6,
+    "interactions": 37,
+    "reached": false,
+    "scripts": 14,
+    "states": 232,
+    "templates": 11,
+    "text_keys": 42
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.spain_grand_campaign",
+   "surface": "frontend ui\\spain_grand_campaign"
+  },
+  "frontend.spain_main": {
+   "complexity": {
+    "art": 30,
+    "components": 74,
+    "getters": 2,
+    "interactions": 30,
+    "reached": false,
+    "scripts": 3,
+    "states": 200,
+    "templates": 1,
+    "text_keys": 26
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "frontend.spain_main",
+   "surface": "frontend ui\\spain_main"
+  },
+  "template.ai_turns": {
+   "complexity": {
+    "art": 15,
+    "components": 8,
+    "getters": 1,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 19,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.ai_turns",
+   "surface": "uied.templates/ai_turns"
+  },
+  "template.armedcitizenrycard": {
+   "complexity": {
+    "art": 4,
+    "components": 2,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 7,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.armedcitizenrycard",
+   "surface": "uied.templates/ArmedCitizenryCard"
+  },
+  "template.assassination_entry": {
+   "complexity": {
+    "art": 20,
+    "components": 15,
+    "getters": 0,
+    "interactions": 8,
+    "reached": false,
+    "scripts": 1,
+    "states": 32,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.assassination_entry",
+   "surface": "templates\\assassination_entry"
+  },
+  "template.attrition_entry": {
+   "complexity": {
+    "art": 5,
+    "components": 6,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 2,
+    "states": 10,
+    "templates": 2,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.attrition_entry",
+   "surface": "uied.templates/attrition_entry"
+  },
+  "template.battle_prep_row_entry": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 1,
+    "interactions": 2,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.battle_prep_row_entry",
+   "surface": null
+  },
+  "template.battle_results_team_entry": {
+   "complexity": {
+    "art": 11,
+    "components": 21,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 26,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.battle_results_team_entry",
+   "surface": "templates\\battle_results_team_entry"
+  },
+  "template.battle_setup_row_example": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 2,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.battle_setup_row_example",
+   "surface": null
+  },
+  "template.battleunitcard": {
+   "complexity": {
+    "art": 66,
+    "components": 27,
+    "getters": 0,
+    "interactions": 7,
+    "reached": true,
+    "scripts": 1,
+    "states": 82,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.battleunitcard",
+   "surface": "templates\\battleunitcard"
+  },
+  "template.bottom": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 3,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.bottom",
+   "surface": null
+  },
+  "template.box_selection": {
+   "complexity": {
+    "art": 2,
+    "components": 1,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 1,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.box_selection",
+   "surface": "uied.templates/box_selection"
+  },
+  "template.building_browser_entry": {
+   "complexity": {
+    "art": 11,
+    "components": 12,
+    "getters": 1,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 29,
+    "templates": 1,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.building_browser_entry",
+   "surface": "uied.templates/building_browser_entry"
+  },
+  "template.building_constructed_entry": {
+   "complexity": {
+    "art": 3,
+    "components": 12,
+    "getters": 1,
+    "interactions": 2,
+    "reached": true,
+    "scripts": 1,
+    "states": 22,
+    "templates": 1,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.building_constructed_entry",
+   "surface": "uied.templates/building_constructed_entry"
+  },
+  "template.building_info_build_entry": {
+   "complexity": {
+    "art": 2,
+    "components": 10,
+    "getters": 0,
+    "interactions": 6,
+    "reached": false,
+    "scripts": 2,
+    "states": 16,
+    "templates": 2,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.building_info_build_entry",
+   "surface": "templates\\building_info_build_entry"
+  },
+  "template.building_info_generic_entry": {
+   "complexity": {
+    "art": 0,
+    "components": 4,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 4,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.building_info_generic_entry",
+   "surface": "templates\\building_info_generic_entry"
+  },
+  "template.building_info_recruitment_effects": {
+   "complexity": {
+    "art": 15,
+    "components": 28,
+    "getters": 0,
+    "interactions": 24,
+    "reached": false,
+    "scripts": 2,
+    "states": 101,
+    "templates": 2,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.building_info_recruitment_effects",
+   "surface": "templates\\building_info_recruitment_effects"
+  },
+  "template.building_info_tech_entry": {
+   "complexity": {
+    "art": 1,
+    "components": 9,
+    "getters": 0,
+    "interactions": 5,
+    "reached": false,
+    "scripts": 2,
+    "states": 9,
+    "templates": 2,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.building_info_tech_entry",
+   "surface": "templates\\building_info_tech_entry"
+  },
+  "template.buildingframe": {
+   "complexity": {
+    "art": 32,
+    "components": 18,
+    "getters": 1,
+    "interactions": 9,
+    "reached": true,
+    "scripts": 1,
+    "states": 48,
+    "templates": 1,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.buildingframe",
+   "surface": "templates\\buildingframe"
+  },
+  "template.button_close": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 1,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.button_close",
+   "surface": null
+  },
+  "template.button_toggle": {
+   "complexity": {
+    "art": 3,
+    "components": 1,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 8,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.button_toggle",
+   "surface": "uied.templates/button_toggle"
+  },
+  "template.buttongroup": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.buttongroup",
+   "surface": null
+  },
+  "template.campaign_map_icon": {
+   "complexity": {
+    "art": 1,
+    "components": 1,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 1,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.campaign_map_icon",
+   "surface": "uied.templates/campaign_map_icon"
+  },
+  "template.campaign_map_tooltip": {
+   "complexity": {
+    "art": 10,
+    "components": 5,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 5,
+    "templates": 2,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.campaign_map_tooltip",
+   "surface": "templates\\campaign_map_tooltip"
+  },
+  "template.campaign_save_game": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 2,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.campaign_save_game",
+   "surface": null
+  },
+  "template.campaigncharactercard": {
+   "complexity": {
+    "art": 20,
+    "components": 7,
+    "getters": 0,
+    "interactions": 5,
+    "reached": false,
+    "scripts": 1,
+    "states": 26,
+    "templates": 1,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.campaigncharactercard",
+   "surface": "templates\\campaigncharactercard"
+  },
+  "template.campaignunitcard": {
+   "complexity": {
+    "art": 42,
+    "components": 33,
+    "getters": 2,
+    "interactions": 7,
+    "reached": true,
+    "scripts": 1,
+    "states": 67,
+    "templates": 1,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.campaignunitcard",
+   "surface": "templates\\campaignunitcard"
+  },
+  "template.character_duel_info_pane": {
+   "complexity": {
+    "art": 15,
+    "components": 13,
+    "getters": 1,
+    "interactions": 6,
+    "reached": false,
+    "scripts": 2,
+    "states": 24,
+    "templates": 2,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.character_duel_info_pane",
+   "surface": "templates\\character_duel_info_pane"
+  },
+  "template.character_trait_entry": {
+   "complexity": {
+    "art": 1,
+    "components": 4,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 4,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.character_trait_entry",
+   "surface": "templates\\character_trait_entry"
+  },
+  "template.checkbox": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.checkbox",
+   "surface": null
+  },
+  "template.construction_item_tooltip": {
+   "complexity": {
+    "art": 14,
+    "components": 29,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 38,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.construction_item_tooltip",
+   "surface": "templates\\construction_item_tooltip"
+  },
+  "template.diplomacy_allies_list_item": {
+   "complexity": {
+    "art": 1,
+    "components": 3,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 3,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.diplomacy_allies_list_item",
+   "surface": "uied.templates/diplomacy_allies_list_item"
+  },
+  "template.diplomacy_button": {
+   "complexity": {
+    "art": 6,
+    "components": 3,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 0,
+    "states": 25,
+    "templates": 0,
+    "text_keys": 36
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.diplomacy_button",
+   "surface": "templates\\diplomacy_button"
+  },
+  "template.diplomacy_item_regions": {
+   "complexity": {
+    "art": 6,
+    "components": 5,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 1,
+    "states": 13,
+    "templates": 1,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.diplomacy_item_regions",
+   "surface": "templates\\diplomacy_item_regions"
+  },
+  "template.diplomacy_item_text": {
+   "complexity": {
+    "art": 4,
+    "components": 3,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 7,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.diplomacy_item_text",
+   "surface": "templates\\diplomacy_item_text"
+  },
+  "template.diplomacy_region_tooltip": {
+   "complexity": {
+    "art": 25,
+    "components": 11,
+    "getters": 0,
+    "interactions": 1,
+    "reached": true,
+    "scripts": 1,
+    "states": 29,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.diplomacy_region_tooltip",
+   "surface": "templates\\diplomacy_region_tooltip"
+  },
+  "template.dropdown_menu": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 3,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.dropdown_menu",
+   "surface": null
+  },
+  "template.election_results_entry": {
+   "complexity": {
+    "art": 18,
+    "components": 11,
+    "getters": 0,
+    "interactions": 5,
+    "reached": false,
+    "scripts": 2,
+    "states": 57,
+    "templates": 2,
+    "text_keys": 45
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.election_results_entry",
+   "surface": "uied.templates/election_results_entry"
+  },
+  "template.faction_flag_small": {
+   "complexity": {
+    "art": 1,
+    "components": 1,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 1,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.faction_flag_small",
+   "surface": "uied.templates/faction_flag_small"
+  },
+  "template.familytreecard": {
+   "complexity": {
+    "art": 17,
+    "components": 8,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 20,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.familytreecard",
+   "surface": "uied.templates/FamilyTreeCard"
+  },
+  "template.fe_button_standard": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.fe_button_standard",
+   "surface": null
+  },
+  "template.general_purpose_pixel": {
+   "complexity": {
+    "art": 0,
+    "components": 1,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 1,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.general_purpose_pixel",
+   "surface": "uied.templates/general_purpose_pixel"
+  },
+  "template.gentleman": {
+   "complexity": {
+    "art": 18,
+    "components": 8,
+    "getters": 1,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 3,
+    "states": 23,
+    "templates": 3,
+    "text_keys": 13
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.gentleman",
+   "surface": "templates\\gentleman"
+  },
+  "template.heading": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 1,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.heading",
+   "surface": null
+  },
+  "template.list": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 3,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.list",
+   "surface": null
+  },
+  "template.list_header": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.list_header",
+   "surface": null
+  },
+  "template.listview": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.listview",
+   "surface": null
+  },
+  "template.map_image": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 1,
+    "interactions": 7,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.map_image",
+   "surface": null
+  },
+  "template.messageicon": {
+   "complexity": {
+    "art": 4,
+    "components": 10,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 2,
+    "states": 13,
+    "templates": 2,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.messageicon",
+   "surface": "templates\\messageicon"
+  },
+  "template.minister_effect_cartouche": {
+   "complexity": {
+    "art": 1,
+    "components": 4,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 4,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.minister_effect_cartouche",
+   "surface": "uied.templates/minister_effect_cartouche"
+  },
+  "template.minister_tooltip": {
+   "complexity": {
+    "art": 22,
+    "components": 10,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 52,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.minister_tooltip",
+   "surface": "templates\\minister_tooltip"
+  },
+  "template.mission_active_entry": {
+   "complexity": {
+    "art": 8,
+    "components": 15,
+    "getters": 0,
+    "interactions": 0,
+    "reached": true,
+    "scripts": 1,
+    "states": 19,
+    "templates": 1,
+    "text_keys": 6
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.mission_active_entry",
+   "surface": "templates\\mission_active_entry"
+  },
+  "template.mission_history_entry": {
+   "complexity": {
+    "art": 1,
+    "components": 6,
+    "getters": 1,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 6,
+    "templates": 1,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.mission_history_entry",
+   "surface": "uied.templates/mission_history_entry"
+  },
+  "template.mp_game_info": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 1,
+    "interactions": 2,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.mp_game_info",
+   "surface": null
+  },
+  "template.mp_postbattle_entry": {
+   "complexity": {
+    "art": 15,
+    "components": 13,
+    "getters": 1,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 31,
+    "templates": 1,
+    "text_keys": 21
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.mp_postbattle_entry",
+   "surface": "templates\\mp_postbattle_entry"
+  },
+  "template.numerical_input": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.numerical_input",
+   "surface": null
+  },
+  "template.post_battle_entry": {
+   "complexity": {
+    "art": 12,
+    "components": 11,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 29,
+    "templates": 1,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.post_battle_entry",
+   "surface": "uied.templates/post_battle_entry"
+  },
+  "template.prebattle_portrait_tab": {
+   "complexity": {
+    "art": 4,
+    "components": 4,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 5,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.prebattle_portrait_tab",
+   "surface": "templates\\prebattle_portrait_tab"
+  },
+  "template.public_order_icon": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.public_order_icon",
+   "surface": null
+  },
+  "template.ranking_bar": {
+   "complexity": {
+    "art": 1,
+    "components": 6,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 6,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.ranking_bar",
+   "surface": "uied.templates/ranking_bar"
+  },
+  "template.recruitment_effects_tooltip": {
+   "complexity": {
+    "art": 10,
+    "components": 13,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 15,
+    "templates": 1,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.recruitment_effects_tooltip",
+   "surface": "templates\\recruitment_effects_tooltip"
+  },
+  "template.recruitmentcard": {
+   "complexity": {
+    "art": 34,
+    "components": 9,
+    "getters": 1,
+    "interactions": 5,
+    "reached": false,
+    "scripts": 1,
+    "states": 39,
+    "templates": 1,
+    "text_keys": 10
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.recruitmentcard",
+   "surface": "templates\\recruitmentcard"
+  },
+  "template.region_info_pip": {
+   "complexity": {
+    "art": 1,
+    "components": 1,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 1,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.region_info_pip",
+   "surface": "uied.templates/region_info_pip"
+  },
+  "template.region_list_item": {
+   "complexity": {
+    "art": 5,
+    "components": 3,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 11,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.region_list_item",
+   "surface": "templates\\region_list_item"
+  },
+  "template.religion_icon": {
+   "complexity": {
+    "art": 1,
+    "components": 1,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 1,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.religion_icon",
+   "surface": "uied.templates/religion_icon"
+  },
+  "template.reviewpaneltab": {
+   "complexity": {
+    "art": 2,
+    "components": 2,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 2,
+    "states": 5,
+    "templates": 2,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.reviewpaneltab",
+   "surface": "uied.templates/ReviewPanelTab"
+  },
+  "template.row_entry_keyboard_shortcut": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 4,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.row_entry_keyboard_shortcut",
+   "surface": null
+  },
+  "template.row_template_agent": {
+   "complexity": {
+    "art": 4,
+    "components": 5,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 8,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.row_template_agent",
+   "surface": "uied.templates/row_template_agent"
+  },
+  "template.row_template_army": {
+   "complexity": {
+    "art": 4,
+    "components": 6,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 9,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.row_template_army",
+   "surface": "uied.templates/row_template_army"
+  },
+  "template.row_template_naval": {
+   "complexity": {
+    "art": 4,
+    "components": 6,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 9,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.row_template_naval",
+   "surface": "uied.templates/row_template_naval"
+  },
+  "template.row_template_region": {
+   "complexity": {
+    "art": 13,
+    "components": 14,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 2,
+    "states": 25,
+    "templates": 2,
+    "text_keys": 2
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.row_template_region",
+   "surface": "templates\\row_template_region"
+  },
+  "template.sabotage_entry": {
+   "complexity": {
+    "art": 7,
+    "components": 15,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 26,
+    "templates": 1,
+    "text_keys": 5
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.sabotage_entry",
+   "surface": "templates\\sabotage_entry"
+  },
+  "template.siege_equipment_counter": {
+   "complexity": {
+    "art": 1,
+    "components": 1,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 1,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.siege_equipment_counter",
+   "surface": "uied.templates/siege_equipment_counter"
+  },
+  "template.siegeequipmentcard": {
+   "complexity": {
+    "art": 9,
+    "components": 4,
+    "getters": 0,
+    "interactions": 3,
+    "reached": false,
+    "scripts": 1,
+    "states": 12,
+    "templates": 1,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.siegeequipmentcard",
+   "surface": "uied.templates/SiegeEquipmentCard"
+  },
+  "template.skill_pip": {
+   "complexity": {
+    "art": 1,
+    "components": 1,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 1,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.skill_pip",
+   "surface": "uied.templates/skill_pip"
+  },
+  "template.slider": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.slider",
+   "surface": null
+  },
+  "template.slider_handle": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.slider_handle",
+   "surface": null
+  },
+  "template.sortable_list": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.sortable_list",
+   "surface": null
+  },
+  "template.string": {
+   "complexity": {
+    "art": 0,
+    "components": 1,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 1,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.string",
+   "surface": "uied.templates/string"
+  },
+  "template.tab": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 1,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tab",
+   "surface": null
+  },
+  "template.tabgroup": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tabgroup",
+   "surface": null
+  },
+  "template.tax_breakdown_tooltip": {
+   "complexity": {
+    "art": 8,
+    "components": 17,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 0,
+    "states": 17,
+    "templates": 0,
+    "text_keys": 7
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tax_breakdown_tooltip",
+   "surface": "templates\\tax_breakdown_tooltip"
+  },
+  "template.tech_advances_entry": {
+   "complexity": {
+    "art": 1,
+    "components": 10,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 10,
+    "templates": 2,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tech_advances_entry",
+   "surface": "uied.templates/tech_advances_entry"
+  },
+  "template.tech_entry": {
+   "complexity": {
+    "art": 2,
+    "components": 11,
+    "getters": 0,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 2,
+    "states": 11,
+    "templates": 4,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tech_entry",
+   "surface": "uied.templates/tech_entry"
+  },
+  "template.tech_icon": {
+   "complexity": {
+    "art": 9,
+    "components": 3,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 1,
+    "states": 12,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tech_icon",
+   "surface": "templates\\tech_icon"
+  },
+  "template.tech_stealing_icon": {
+   "complexity": {
+    "art": 5,
+    "components": 2,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 0,
+    "states": 8,
+    "templates": 0,
+    "text_keys": 1
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tech_stealing_icon",
+   "surface": "uied.templates/tech_stealing_icon"
+  },
+  "template.tech_tooltip": {
+   "complexity": {
+    "art": 8,
+    "components": 14,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 14,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tech_tooltip",
+   "surface": "templates\\tech_tooltip"
+  },
+  "template.tech_tooltip2": {
+   "complexity": {
+    "art": 14,
+    "components": 26,
+    "getters": 1,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 30,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tech_tooltip2",
+   "surface": "templates\\tech_tooltip2"
+  },
+  "template.techtreeitem_tooltip": {
+   "complexity": {
+    "art": 18,
+    "components": 37,
+    "getters": 2,
+    "interactions": 2,
+    "reached": false,
+    "scripts": 1,
+    "states": 55,
+    "templates": 1,
+    "text_keys": 11
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.techtreeitem_tooltip",
+   "surface": "templates\\techtreeitem_tooltip"
+  },
+  "template.text_input": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 4,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.text_input",
+   "surface": null
+  },
+  "template.textview": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.textview",
+   "surface": null
+  },
+  "template.tooltip": {
+   "complexity": {
+    "art": 8,
+    "components": 10,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 10,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.tooltip",
+   "surface": "templates\\tooltip"
+  },
+  "template.top": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 3,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.top",
+   "surface": null
+  },
+  "template.trade_route_row": {
+   "complexity": {
+    "art": 1,
+    "components": 5,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 0,
+    "states": 5,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.trade_route_row",
+   "surface": "uied.templates/trade_route_row"
+  },
+  "template.traderouteentry": {
+   "complexity": {
+    "art": 5,
+    "components": 6,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 12,
+    "templates": 1,
+    "text_keys": 13
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.traderouteentry",
+   "surface": "templates\\traderouteentry"
+  },
+  "template.traits_ancs_entry": {
+   "complexity": {
+    "art": 6,
+    "components": 8,
+    "getters": 0,
+    "interactions": 4,
+    "reached": false,
+    "scripts": 2,
+    "states": 12,
+    "templates": 2,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.traits_ancs_entry",
+   "surface": "uied.templates/traits_ancs_entry"
+  },
+  "template.unit_ability_entry": {
+   "complexity": {
+    "art": 1,
+    "components": 2,
+    "getters": 0,
+    "interactions": 0,
+    "reached": false,
+    "scripts": 1,
+    "states": 2,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.unit_ability_entry",
+   "surface": "uied.templates/unit_ability_entry"
+  },
+  "template.unit_trained_entry": {
+   "complexity": {
+    "art": 2,
+    "components": 7,
+    "getters": 1,
+    "interactions": 6,
+    "reached": false,
+    "scripts": 1,
+    "states": 10,
+    "templates": 1,
+    "text_keys": 3
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.unit_trained_entry",
+   "surface": "uied.templates/unit_trained_entry"
+  },
+  "template.unitcard_tooltip": {
+   "complexity": {
+    "art": 10,
+    "components": 28,
+    "getters": 0,
+    "interactions": 1,
+    "reached": false,
+    "scripts": 1,
+    "states": 41,
+    "templates": 1,
+    "text_keys": 14
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.unitcard_tooltip",
+   "surface": "templates\\unitcard_tooltip"
+  },
+  "template.unitgroupframe": {
+   "complexity": {
+    "art": 7,
+    "components": 11,
+    "getters": 0,
+    "interactions": 0,
+    "reached": true,
+    "scripts": 1,
+    "states": 40,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.unitgroupframe",
+   "surface": "templates\\unitgroupframe"
+  },
+  "template.unitgrouptab": {
+   "complexity": {
+    "art": 12,
+    "components": 12,
+    "getters": 0,
+    "interactions": 2,
+    "reached": true,
+    "scripts": 1,
+    "states": 13,
+    "templates": 1,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.unitgrouptab",
+   "surface": "templates\\unitgrouptab"
+  },
+  "template.university": {
+   "complexity": {
+    "art": 11,
+    "components": 10,
+    "getters": 1,
+    "interactions": 3,
+    "reached": true,
+    "scripts": 3,
+    "states": 25,
+    "templates": 3,
+    "text_keys": 9
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.university",
+   "surface": "templates\\university"
+  },
+  "template.vslider": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.vslider",
+   "surface": null
+  },
+  "template.vslider_handle": {
+   "complexity": {
+    "art": 0,
+    "components": 0,
+    "getters": 0,
+    "interactions": 0,
+    "reached": null,
+    "scripts": 1,
+    "states": 0,
+    "templates": 0,
+    "text_keys": 0
+   },
+   "hotkeys": [],
+   "piece": null,
+   "screen": "template.vslider_handle",
+   "surface": null
+  }
+ },
+ "unread": [
+  "uied.templates/BattleEditor",
+  "uied.templates/InputWindow"
+ ]
+}

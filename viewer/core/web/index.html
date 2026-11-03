@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Viewer Spike J31</title>
+<title>Review Viewer</title>
 <style>
   :root { --bg: #f4f1ea; --fg: #1f1d1a; --muted: #6b665c; --line: #d8d2c4; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #16181c; --fg: #e8e4da; --muted: #9a958a; --line: #2c3038; } }
@@ -18,8 +18,8 @@
 </style>
 </head>
 <body>
-<h1>Review viewer spike (J31): hello world</h1>
-<p class="note">RmlUi 6.3 + FreeType + Lua 5.1.1 (float32) in WebAssembly. Test screen only: not a design.</p>
+<h1 id="screen_title">Review viewer</h1>
+<p class="note">RmlUi 6.3 + FreeType + Lua 5.1.1 (float32) in WebAssembly. Hover, click and press Tab inside the picture; the pickers change the size and the scale (D19: dp ratio = height / 1080 x slider).</p>
 <form id="picker" onsubmit="return false">
   <label>width <input id="pk_w" type="number" min="320" max="7680"></label>
   <label>height <input id="pk_h" type="number" min="240" max="4320"></label>

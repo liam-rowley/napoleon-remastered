@@ -1,0 +1,12 @@
+{
+ "_doc": "rgba_sha256 of each library screen at the four D19 corners; rewritten by uikit/napoleon/changes.py --accept",
+ "wasm_sha256": "2bdc8a112021772a4e4ad08004bb3e096707f9fcbff95625073f217f478b0f78",
+ "screens": {
+  "board": {
+   "1080p_85": "590db96cd44cf0a886c85a476c8f7c515f2d84c7719370e309e7c98f866f9b27",
+   "4k_125": "b46f4d36ecb8bcb9381a7a64799e5c7d3987ad593c116665250dcf6a44870dac",
+   "21x9_100": "1d04e19f61fce24ae658b907a7e695cd21814fbd400ccd72c81a2ffb0dad1d69",
+   "16x10_100": "c4970549db45036b99608395d003f55d15aa7ffdf9dadb2d42f424a3d0957869"
+  }
+ }
+}

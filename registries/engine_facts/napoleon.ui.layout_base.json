@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.layout_base",
+  "claim": "At 1920x1080 the vanilla UI is not scaled: a layout is a 1280x960 canvas drawn at 1:1 pixels and docked to the screen (the battle HUD bottom-centred: canvas + (320, 120); front-end pages centred: canvas + (320, 60); the radar to the top-right corner), and UIComponent Position and Dimensions report canvas units, equal to the layout file's x, y, w, h (live width over layout width: median 1.0 over the 44 units reached in run 20261102_j10pc)",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j10pc/README.md",
+  "date": "2026-11-02",
+  "notes": "measured on the shots of land_running, fe_sp_battle2 and camp_settlement; other resolutions not tried"
+}
