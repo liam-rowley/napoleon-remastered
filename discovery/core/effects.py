@@ -355,6 +355,7 @@ def build(games, shader_files, refs_by_table):
                 vocab[g] |= {a for v in d[g]['attrs'].values() for a in v}
     fmt_all['attr_names_new_to_empire'] = sorted(vocab['napoleon'] - vocab['empire'])
     fmt_all['attr_names_gone'] = sorted(vocab['empire'] - vocab['napoleon'])
+    new_names = set(fmt_all['attr_names_new_to_empire'])
 
     # references
     def has(g):
@@ -452,6 +453,12 @@ def build(games, shader_files, refs_by_table):
                         h['entry_infos'] = dict(sorted(collections.Counter(
                             idiff.get(e, {}).get('status', 'no such info') + ('_add_only' if idiff.get(e, {}).get('add_only') else '')
                             for e in ents).items()))
+                        flats = [d[nm]] + [infos[g][p].get(e, {}) for e in ents]
+                    else:
+                        flats = [d[nm]]
+                    h['new_attr_names_used'] = sorted({k.rsplit('.', 1)[-1] for f in flats for k in f} & new_names)
+                    h['new_tags_used'] = sorted({t for f in flats for k in f for t in re.split(r'[/.]', re.sub(r'\[\d+\]', '', k))}
+                                                & set(fmt_all['tags_new']))
                     hits.append(h)
         return hits
     primary = {k: {'from': sorted(v), 'particle_effects': pe_status.get(k, 'not a particle_effects key'),

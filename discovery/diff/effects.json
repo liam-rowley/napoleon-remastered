@@ -14818,6 +14818,27 @@
         "ribbon.fx"
        ],
        "name": "AirExplosion_lrg",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "new"
       }
@@ -14843,6 +14864,27 @@
         "ribbon.fx"
        ],
        "name": "AirExplosion_med",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "new"
       }
@@ -14868,6 +14910,27 @@
         "ribbon.fx"
        ],
        "name": "AirExplosion_sml",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "new"
       }
@@ -14890,6 +14953,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "CannonFire",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -14901,6 +14985,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "CannonFire",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -14928,6 +15014,27 @@
         "ribbon.fx"
        ],
        "name": "Cannon_Groundimpact_explosive",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -14950,6 +15057,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "LandGunFire",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -14972,6 +15100,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "LandGunFire_canister",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -14994,6 +15143,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "LandGunFire_howitzer",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -15016,6 +15186,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "LandGunFire_large",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -15038,6 +15229,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "LandGunFire_mortar",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15050,6 +15262,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "LandGunFire_mortar",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15072,6 +15286,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "LandGunFire_small",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -15094,6 +15329,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "MusketFire",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15105,6 +15361,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "MusketFire",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15133,6 +15391,27 @@
         "ribbon.fx"
        ],
        "name": "ShipExplosion",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15144,6 +15423,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "ShipExplosion",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15165,6 +15446,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "carcass_fragment_trail",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -15186,6 +15488,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "carcass_trail",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15195,6 +15518,21 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "carcass_trail",
+       "new_attr_names_used": [
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end"
+       ],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_INFO",
        "verdict": "changed"
       }
@@ -15216,6 +15554,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "congreve_rocket",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15227,6 +15586,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "congreve_rocket",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15253,6 +15614,27 @@
         "ribbon.fx"
        ],
        "name": "explode_cone",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15264,6 +15646,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "explode_cone",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15288,6 +15672,27 @@
         "effects\\textures\\emp_billowing_smoke.dds"
        ],
        "name": "explode_grenade",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15300,6 +15705,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "explode_grenade",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15325,6 +15732,27 @@
         "ribbon.fx"
        ],
        "name": "explode_quicklime_med",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -15350,6 +15778,27 @@
         "ribbon.fx"
        ],
        "name": "fougasse_default",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -15371,6 +15820,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "pistolFire",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15382,6 +15852,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "pistolFire",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15403,6 +15875,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "quicklime_fragment_trail",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       }
@@ -15424,6 +15917,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "quicklime_trail",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15433,6 +15947,21 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "quicklime_trail",
+       "new_attr_names_used": [
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end"
+       ],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_INFO",
        "verdict": "changed"
       }
@@ -15454,6 +15983,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "rifleFire",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15465,6 +16015,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "rifleFire",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15486,6 +16038,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "ship_explosion_fragment_trail",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15497,6 +16070,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "ship_explosion_fragment_trail",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "identical"
       }
@@ -15518,6 +16093,27 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "shrapnel_trail",
+       "new_attr_names_used": [
+        "cell_count",
+        "cell_size",
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end",
+        "spawn_interval",
+        "wind_offset"
+       ],
+       "new_tags_used": [
+        "EFFECT_GROUP_AMBIENT_SETTINGS"
+       ],
        "tag": "SCRIPTED_EFFECT_GROUP",
        "verdict": "changed"
       },
@@ -15527,6 +16123,21 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "shrapnel_trail",
+       "new_attr_names_used": [
+        "fadeout_ribbon_range_life_unary",
+        "quality_level",
+        "radial_blur_max_distance",
+        "radial_blur_min_distance",
+        "radial_blur_strength",
+        "ribbon_life_range",
+        "ribbon_scrolling1",
+        "ribbon_scrolling2",
+        "ribbon_segment_rate",
+        "ribbon_tiling1",
+        "ribbon_tiling2",
+        "secondary_scale_ribbon_life_unary_range_end"
+       ],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_INFO",
        "verdict": "changed"
       },
@@ -15535,6 +16146,8 @@
        "how": "exact",
        "lacking_in_empire": [],
        "name": "shrapnel_trail",
+       "new_attr_names_used": [],
+       "new_tags_used": [],
        "tag": "SCRIPTED_EFFECT_INFO",
        "verdict": "identical"
       }
