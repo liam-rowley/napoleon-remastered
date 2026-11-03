@@ -1,0 +1,120 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "hist_lodi",
+  "kind": "historical",
+  "target": "battle:hist_lodi",
+  "load_s": 5.9,
+  "path": {
+    "launch": null,
+    "via": "autostart"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 4.09,
+    "frames": 520,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "NHB_Lodi",
+      "deployment": "running"
+    },
+    "got": {
+      "map": "NHB_Lodi",
+      "scene": "battle_deploy"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j46-20261102T225837Z-182161320",
+      "request": "autostart battle:hist_lodi 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-02T22:58:37.367Z",
+      "end_utc": "2026-11-02T22:58:44.252Z",
+      "launch_id": "20261102T224944Z-p34796",
+      "scene": "battle_deploy",
+      "lua": "started napoleon battle NHB_Lodi (icon state unlocked_land)",
+      "load_s": 5.9,
+      "total_s": 6.9,
+      "map": "NHB_Lodi",
+      "map_folder_loaded": "hb_lodi",
+      "map_folder_loaded_after_request_ms": 109,
+      "map_folder_selected": "hb_lodi",
+      "preset_map": "NHB_Lodi",
+      "state_at_end": {
+        "launch_id": "20261102T224944Z-p34796",
+        "pid": 34796,
+        "frame": 523888,
+        "scene": "battle_deploy",
+        "scene_s": 1.0,
+        "uptime_s": 538.8,
+        "written_utc": "2026-11-02T22:58:44.252Z",
+        "last_present_utc": "2026-11-02T22:58:44.251Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 11,
+        "mem": {
+          "va_mb": 2011,
+          "commit_mb": 1397
+        },
+        "reports": {
+          "autostart.army_sides": "0u3s,0u3s",
+          "autostart.army_size": "0/5000",
+          "autostart.army_units": "3",
+          "autostart.map": "NHB_Lodi",
+          "autostart.map_folder": "hb_lodi",
+          "autostart.napoleon_state": "unlocked_land",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "torrential_rain/Rain storm",
+          "battle.map_folder": "hb_lodi",
+          "battle.map_folder_ms": "109"
+        }
+      },
+      "log": [
+        "2026-11-02T22:58:37.367Z [INFO ] [t40648] timeline: autostart_issued +532445 ms battle:hist_lodi",
+        "2026-11-02T22:58:37.379Z [INFO ] [t34072] lua report: autostart.map = NHB_Lodi",
+        "2026-11-02T22:58:37.379Z [INFO ] [t34072] lua report: autostart.map_folder = hb_lodi",
+        "2026-11-02T22:58:37.379Z [INFO ] [t34072] movies: BinkClose movies\\frontend2.bik",
+        "2026-11-02T22:58:37.379Z [INFO ] [t34072] timeline: movie_close +532457 ms movies\\frontend2.bik",
+        "2026-11-02T22:58:37.381Z [INFO ] [t34072] timeline: movie_open +532459 ms movies\\nhb_se_01_lodi.bik",
+        "2026-11-02T22:58:37.382Z [INFO ] [t34072] movies: BinkOpen movies\\nhb_se_01_lodi.bik [handle 000007ac = \\\\?\\C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\data\\media.pack @ 1739787829, flags 0x804400] -> 5008e040",
+        "2026-11-02T22:58:37.390Z [INFO ] [t40648] autostart: lua ok: started napoleon battle NHB_Lodi (icon state unlocked_land)",
+        "2026-11-02T22:58:37.390Z [INFO ] [t40648] scene: frontend -> loading after 22.4 s (uptime 531.9 s, frame 523200, lua frontend)",
+        "2026-11-02T22:58:37.391Z [INFO ] [t34072] movies: BinkClose movies\\nhb_se_01_lodi.bik",
+        "2026-11-02T22:58:37.391Z [INFO ] [t34072] timeline: movie_close +532469 ms movies\\nhb_se_01_lodi.bik",
+        "2026-11-02T22:58:37.506Z [INFO ] [t34072] lua report: battle.map_folder = hb_lodi",
+        "2026-11-02T22:58:37.506Z [INFO ] [t34072] lua report: battle.map_folder_ms = 109",
+        "2026-11-02T22:58:40.869Z [INFO ] [t34072] luaopen_wsp: engine lua_State 3dc3e2d0, global state 3e1dd0cc (thread 34072) (again)",
+        "2026-11-02T22:58:40.869Z [INFO ] [t34072] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-02T22:58:40.876Z [INFO ] [t34072] lua: wrapper: battle pumps from OnUpdate",
+        "2026-11-02T22:58:40.876Z [INFO ] [t34072] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-11-02T22:58:43.238Z [INFO ] [t34072] scene: loading -> battle after 5.8 s (uptime 537.7 s, frame 523664, lua battle)",
+        "2026-11-02T22:58:43.238Z [INFO ] [t34072] lua: battle details: FlagPath=data\\ui\\flags\\france_republic, TotalTime=1800, Faction=France, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false",
+        "2026-11-02T22:58:43.238Z [INFO ] [t34072] scene: battle probe naval=0 deploy_panel=0",
+        "2026-11-02T22:58:43.267Z [INFO ] [t34072] timeline: first_present_after_ready +538345 ms battle",
+        "2026-11-02T22:58:43.294Z [INFO ] [t34072] scene: battle probe naval=0 deploy_panel=1",
+        "2026-11-02T22:58:43.294Z [INFO ] [t34072] scene: battle -> battle_deploy after 0.1 s (uptime 537.8 s, frame 523669, lua battle)",
+        "2026-11-02T22:58:43.299Z [INFO ] [t34072] timeline: first_present_after_ready +538377 ms battle_deploy"
+      ]
+    }
+  },
+  "start_utc": "2026-11-02T22:58:34.855Z",
+  "end_utc": "2026-11-02T22:58:49.534Z"
+}
