@@ -176,7 +176,7 @@ class PcRules(unittest.TestCase):
                   rf'grep -r x "{STATE}/watcher" > /tmp/out.txt', rf'Get-Content "{NAP}\dxvk.conf"', rf'Copy-Item "{NAP}\dxvk.conf" C:\tmp\x',
                   rf'mkdir -p "{STATE}/_scratch/j18/a"', rf'echo x > {STATE}/_scratch/j18/x.txt', rf'cp a.txt "C:\napoleon_remastered_pc\_scratch\j18"',
                   f'python3 proxy/tools/pc_deploy.py install --kit k --game "{NAP}" --state {STATE}',
-                  f'bash harness/core/job.sh j18 - <<< "launch owner=j18" > {STATE}/x.log', f'bash harness/core/job.sh scratch j18',
+                  f'bash core/harness/job.sh j18 - <<< "launch owner=j18" > {STATE}/x.log', f'bash core/harness/job.sh scratch j18',
                   f'ls "{NAP}" 2>&1 | head', f'cmd > /dev/null 2>&1', 'echo $X > "$OUT"', 'git commit -m "a > b" --trailer "Claude-Session: abc-123"',
                   f'cd "{NAP}" && ls && cat dxvk.conf', 'mkdir -p build/x && cp a build/x'):
             self.assertIsNone(pc(c), c)

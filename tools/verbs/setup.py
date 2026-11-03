@@ -84,6 +84,15 @@ def pinned_version(toml_text):
     return m.group(1) if m else None
 
 
+JOB_SH = ('harness', 'job.sh')   # the watcher's front end inside the core (J12 moved it there)
+
+
+def core_path(root, *parts):
+    """`<root>/core/<parts>`: the one place this verb spells where the warscape-core submodule is. J12 moved the watcher kit, the
+    proxy tools and the ESF tools into the core; J70 found the watcher check still running job.sh at its pre-J12 place (exit 127)."""
+    return Path(root).joinpath('core', *parts)
+
+
 def main_clone(git_common_dir):
     """The main checkout folder from `git rev-parse --git-common-dir` (a worktree's common dir is the main clone's .git)."""
     return Path(git_common_dir).resolve().parent
@@ -135,7 +144,7 @@ def check_python3(root, fix):
 
 def check_core_pin(root, fix):
     want = pinned_version((root / 'wsc.toml').read_text(encoding='utf-8'))
-    rc, out = _run(['git', 'describe', '--tags', '--exact-match'], cwd=root / 'core')
+    rc, out = _run(['git', 'describe', '--tags', '--exact-match'], cwd=core_path(root))
     return rc == 0 and out == want, f'core at {out if rc == 0 else "no tag (" + out[:60] + ")"}, wsc.toml pins {want}', \
         'git submodule update --init (and check core/ has no local edits)'
 
@@ -158,7 +167,7 @@ def check_hooks_path(root, fix):
 def check_lf_scripts(root, fix):
     rc, out = _run(['git', 'ls-files', '*.sh', '*.py'], cwd=root)
     bad = cr_files(root, [p for p in out.splitlines() if p and (root / p).is_file()]) if rc == 0 else ['git ls-files failed']
-    _, attr = _run(['git', 'check-attr', 'eol', '--', 'core/harness/job.sh'], cwd=root)
+    _, attr = _run(['git', 'check-attr', 'eol', '--', core_path(root, *JOB_SH).relative_to(root).as_posix()], cwd=root)
     _, crlf = _run(['git', 'config', '--get', 'core.autocrlf'], cwd=root)
     return not bad, f'{len(out.splitlines())} scripts, {len(bad)} with CR ({", ".join(bad[:3])}); {attr.split(": ")[-1] or "?"} attribute, core.autocrlf={crlf or "unset"}', \
         'the .gitattributes eol=lf rules must be in the checkout: git rm --cached -r . && git reset --hard (only with no local changes)'
@@ -199,7 +208,10 @@ def check_watcher(root, fix):
     bash = git_bash()
     if bash is None:
         return False, 'no Git Bash to run job.sh with', 'install Git for Windows (the git_bash check says what was looked for)'
-    rc, out = _run([bash, str(root / 'harness' / 'core' / 'job.sh'), 'status'], timeout=30)
+    job = core_path(root, *JOB_SH)
+    if not job.is_file():
+        return False, f'{job.relative_to(root).as_posix()} missing', 'git submodule update --init (the core carries the watcher kit since J12)'
+    rc, out = _run([bash, str(job), 'status'], timeout=30)
     tail = out.splitlines()[-1][:120] if out else ''
     return rc == 0, f'job.sh status exit {rc}: {tail}', 'the watcher runs as a logon task: after a reboot wait for it, or double-click <state>\\watcher\\src\\watch.cmd (harness/README.md)'
 
@@ -207,7 +219,7 @@ def check_watcher(root, fix):
 def load_pc_deploy(root):
     """core/proxy/tools/pc_deploy.py as a module: the one owner of the PC-rule damage checks (it also travels in every kit, stdlib only)."""
     import importlib.util
-    spec = importlib.util.spec_from_file_location('pc_deploy', root / 'core' / 'proxy' / 'tools' / 'pc_deploy.py')
+    spec = importlib.util.spec_from_file_location('pc_deploy', core_path(root, 'proxy', 'tools', 'pc_deploy.py'))
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
     return m

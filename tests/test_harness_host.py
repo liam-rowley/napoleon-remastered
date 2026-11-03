@@ -85,11 +85,11 @@ def never(*_):
 
 
 class Route(unittest.TestCase):
-    def route(self, env=None, files=('harness/core/watcher.ps1',), which=which_of('powershell.exe')):
+    def route(self, env=None, files=('harness/napoleon/adapter.json',), which=which_of('powershell.exe')):
         return choose_route(env or {}, 'abcdef1234567890', None if files is None else list(files), which)
 
     def test_unchanged_skips_without_probing(self):
-        self.assertEqual(self.route(files=['proxy/core/console.cpp'], which=never),
+        self.assertEqual(self.route(files=['proxy/napoleon/lua/ctl/cam_read.lua'], which=never),
                          ('skip', 'harness inputs unchanged against abcdef123456'))
 
     def test_ci_skips(self):
