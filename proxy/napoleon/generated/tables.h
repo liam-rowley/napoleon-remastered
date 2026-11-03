@@ -11,7 +11,7 @@ static const wchar_t* const kModDir = L"napoleon_remastered";
 static const wchar_t* const kInstanceMutex = L"napoleon_remastered_proxy_instance";
 static const Identity kIdentity = { "Napoleon.exe", "9aebcd2172f2878d781b079f7feb45b0e12e0250", 0x645e917fu, 0x014eb000u };
 
-static const size_t kSiteCount = 62;
+static const size_t kSiteCount = 64;
 static const SiteDef kSites[kSiteCount + 1] = {   // id, kind, rva, anchorLen, anchor, len, stock, patch, configKey
     { "unit_lod.override_default", kPatch, 0x1542du, 4, { 0xc6, 0x44, 0x24, 0x1b }, 1, { 0x00 }, { 0x01 }, "gfx.unit_lod_proof" },
     { "unit_lod.imposter_distance_default", kPatch, 0x1559du, 4, { 0xc7, 0x44, 0x24, 0x18 }, 4, { 0x00, 0x00, 0xc8, 0x42 }, { 0x00, 0x00, 0x7a, 0x44 }, "gfx.unit_lod_proof" },
@@ -61,6 +61,8 @@ static const SiteDef kSites[kSiteCount + 1] = {   // id, kind, rva, anchorLen, a
     { "shadow.fit_crop_keep", kPatch, 0xd27630u, 3, { 0xc7, 0x47, 0x64 }, 4, { 0x01, 0x01, 0x01, 0x01 }, { 0x01, 0x01, 0x00, 0x01 }, "gfx.shadow_crop_keep" },
     { "shadow.fit_height_cutoff", kPatch, 0xd2769cu, 6, { 0xc7, 0x87, 0x98, 0x00, 0x00, 0x00 }, 4, { 0x00, 0x00, 0xc8, 0x42 }, { 0x00, 0x00, 0x48, 0x43 }, "gfx.shadow_height_cutoff" },
     { "shadow.light_sweep", kPatch, 0xd276a6u, 6, { 0xc7, 0x87, 0x9c, 0x00, 0x00, 0x00 }, 4, { 0x00, 0x00, 0x96, 0xc2 }, { 0x00, 0x00, 0x16, 0xc3 }, "gfx.shadow_extrusion" },
+    { "shadow.fit_focus", kPatch, 0xd27700u, 6, { 0xc7, 0x87, 0xc0, 0x00, 0x00, 0x00 }, 4, { 0x33, 0x33, 0x33, 0x3f }, { 0x9a, 0x99, 0x99, 0x3e }, "gfx.shadow_focus" },
+    { "shadow.fit_near_scale", kPatch, 0xd27746u, 6, { 0xc7, 0x87, 0xdc, 0x00, 0x00, 0x00 }, 4, { 0x00, 0x00, 0x80, 0x3f }, { 0x00, 0x00, 0x00, 0x3f }, "gfx.shadow_near_scale" },
     { "shadow.far_cap_q3", kPatch, 0xd86973u, 3, { 0xc7, 0x46, 0x7c }, 4, { 0x00, 0x00, 0xfa, 0x43 }, { 0x00, 0x00, 0x7a, 0x44 }, "gfx.shadow_far_cap" },
     { "shadow.map_size_q34", kPatch, 0xd86983u, 3, { 0xb2, 0x01, 0xbb }, 4, { 0x00, 0x08, 0x00, 0x00 }, { 0x00, 0x20, 0x00, 0x00 }, "gfx.shadow_map_large" },
     { "shadow.hw_force_setup", kPatch, 0xd869a4u, 9, { 0x80, 0xb8, 0x09, 0x9d, 0x06, 0x00, 0x00, 0x0f, 0x84 }, 4, { 0xb6, 0x00, 0x00, 0x00 }, { 0x00, 0x00, 0x00, 0x00 }, "gfx.shadow_hw_force" },
@@ -78,7 +80,7 @@ static const SiteDef kSites[kSiteCount + 1] = {   // id, kind, rva, anchorLen, a
     { nullptr, 0, 0, 0, { 0 }, 0, { 0 }, { 0 }, nullptr }   // sentinel (keeps the array non-empty)
 };
 
-static const size_t kKeyCount = 43;
+static const size_t kKeyCount = 45;
 static const KeySpec kKeys[kKeyCount + 1] = {
     { "dev.autostart", kStr, "" },
     { "dev.autostart_delay_ms", kInt, "1500" },
@@ -101,9 +103,11 @@ static const KeySpec kKeys[kKeyCount + 1] = {
     { "gfx.shadow_extrusion", kBool, "0" },
     { "gfx.shadow_far_cap", kBool, "0" },
     { "gfx.shadow_fit_ortho", kBool, "0" },
+    { "gfx.shadow_focus", kBool, "0" },
     { "gfx.shadow_height_cutoff", kBool, "0" },
     { "gfx.shadow_hw_force", kBool, "0" },
     { "gfx.shadow_map_large", kBool, "0" },
+    { "gfx.shadow_near_scale", kBool, "0" },
     { "gfx.ship_lod_proof", kBool, "0" },
     { "gfx.sprite_page_proof", kBool, "0" },
     { "gfx.tree_lod_proof", kBool, "0" },
