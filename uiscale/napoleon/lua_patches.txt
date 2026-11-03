@@ -74,8 +74,6 @@ ui/frontend_ui/main.advert.luac | main#0:5[60],main#0:7[148],main#0:8[16],main#0
 ui/frontend_ui/sp_battle3_scripts/team_list.luac | main#5:11[38]
 # ui/huds.luac: 2 uses; LT with a pixel value, a pixel value, stored with a pixel value
 ui/huds.luac | main#0:10[1280]
-# ui/labels.luac: 2 uses; CreateComponentFromTemplate, MoveTo, SUB with a pixel value
-ui/labels.luac | main#2:26[10]
 # ui/recruitment.luac: 8 uses; ADD with a pixel value, CreateComponentFromTemplate, MoveTo, SUB with a pixel value, ScalePosition
 ui/recruitment.luac | main:34[76],main#11:27[4],main#11:28[46],main#12:2[68],main#5:24[80]
 # ui/siegeequipment.luac: 3 uses; ADD with a pixel value, CreateComponentFromTemplate, MoveTo, SUB with a pixel value

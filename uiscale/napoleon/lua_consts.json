@@ -3,8 +3,8 @@
 "scripts": 497,
 "scripts_with_rows": 145,
 "counts": {
-"leave": 754,
-"scale": 260
+"leave": 756,
+"scale": 258
 },
 "script_sha256": {
 "ui/agents.luac": "567ab3b2b17614b9b4c88d7f9c1ee8fd2b7d5e48d38f300a1645b34f79c59cd4",
@@ -9473,9 +9473,9 @@
 "instr": "SUB R13 R13 #10",
 "role": "offset",
 "call": "SUB with a pixel value; arg 2 of MoveTo",
-"by": "rule",
-"class": "scale",
-"reason": "a pixel offset",
+"by": "exclude_scripts",
+"class": "leave",
+"reason": "J37 owns the map and unit labels (engine-drawn text, brief J67 'Scope against J37'): left vanilla here",
 "k_uses": 2
 },
 {
@@ -9487,9 +9487,9 @@
 "instr": "SUB R17 R17 #10",
 "role": "offset",
 "call": "SUB with a pixel value; arg 5 of CreateComponentFromTemplate",
-"by": "rule",
-"class": "scale",
-"reason": "a pixel offset",
+"by": "exclude_scripts",
+"class": "leave",
+"reason": "J37 owns the map and unit labels (engine-drawn text, brief J67 'Scope against J37'): left vanilla here",
 "k_uses": 2
 },
 {

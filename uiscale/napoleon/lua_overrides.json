@@ -1,5 +1,6 @@
 {
  "note": "Hand classes for the rows of lua_consts.json that the rules in uiscale/core/lua_consts.py get wrong or cannot decide (J67). Keyed by script id, function, constant index and, when only one use of the constant is meant, its vanilla pc. Every entry has a reason; checked against the script listing (python3 discovery/core/luachunk.py list <file> <func>) and Empire's ui_scale_mod/lua/patches.txt.",
+ "exclude_scripts": {"ui/labels.luac": "J37 owns the map and unit labels (engine-drawn text, brief J67 'Scope against J37'): left vanilla here"},
  "overrides": [
   {"script": "ui/templates/template.map_image.luac", "func": "main#3", "k": 1, "class": "scale", "reason": "Resizer: draw size = texture pixels x zoom x 2; the theatre-map and radar textures are not in the scaled art, so the x2 carries the UI factor (Empire main#3:K1; the campaign minimap content filled a quarter of its 2x frame, J66 review finding 2)"},
   {"script": "ui/templates/template.map_image.luac", "func": "main#23", "k": 3, "pc": 38, "class": "scale", "reason": "FindRegion: cursor x back to texture pixels divides by zoom x 2; must change with the draw size or hover and click pick the wrong region (Empire main#23@38); K3 is shared with the centring /2 at pc 15 and 20, which stay"},

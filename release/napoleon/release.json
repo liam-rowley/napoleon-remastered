@@ -40,7 +40,7 @@
  "known_limits": [
   "Multiplayer is untested: whether the added packs or the proxy change multiplayer matching has not been checked with two machines.",
   "Steam is the only supported install, on NVIDIA graphics cards (D13), in English (D14), on the unmodified Steam build of Napoleon.exe. After a game update the remaster switches itself off until a build for that exe exists.",
-  "The UI scale stop-gap is one fixed factor, 2x, for 3840x2160. Other resolutions are not scaled yet, and engine-drawn text, the loading screen, cursors and the battle radar position stay at 1x (J67).",
+  "The UI scale stop-gap ships one fixed factor, 2x, for 3840x2160. Other resolutions are not scaled in this release (1.25x and 1.5x for 2560x1440 are built and host-tested, not shipped), and engine-drawn text, the loading screen and cursors stay at 1x. The Lua pixel fixes (battle radar position, campaign minimap, tooltips, grids: J67) are not yet proven in game, and tooltips and map hover were never seen headless.",
   "Changing the resolution inside the game from 2560x1440 to 3840x2160 can crash the game (engine fact napoleon.crash.res_switch_stack_overflow): set the resolution before you start.",
   "The installer never changes Napoleon.exe. It only adds files; Uninstall.cmd moves them away and checks the game folder against the snapshot taken before the install."
  ]
