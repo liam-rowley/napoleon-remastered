@@ -1,11 +1,11 @@
 // adapter.cpp - Napoleon's adapter for the proxy core: identity pin, engine sites, config keys and names (generated from
 // identity.json and the registries: generated/tables.h) and the dev side's game specifics (J3, below).
+#ifdef _WIN32
+#include "dev.h"             // the DLL build: the core's drivers (the core's host tests include this file natively, without them);
+#endif                       // first, as in the core's own sources: runtime.h defines NOMINMAX before any standard header does
 #include "generated/tables.h"
 #include "generated/console_table.h"
 #include "gesture_rules.h"   // J29: the gesture layer's Napoleon rules (pure; host-tested by tests/cpp/test_gesture_napoleon.cpp)
-#ifdef _WIN32
-#include "dev.h"             // the DLL build: the core's drivers (the core's host tests include this file natively, without them)
-#endif
 
 namespace wsp {
 namespace {

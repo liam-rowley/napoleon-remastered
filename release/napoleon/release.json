@@ -16,9 +16,9 @@
   "napoleon_remastered/EXE_MISMATCH.txt"
  ],
  "player_ini": {
-  "_note": "The player's ini lists only the keys a player may change. It omits the dev, headless and proof keys and the exe-guard keys; the gate (tests/test_release.py) proves every omitted key's DLL default equals its release value, so omitting is safe. A component's ini_set keys are added (the UI scale stop-gap sets dev.file_rules until a DLL job gives it a player key). keep_ids are listed although an omit prefix matches: the J24 shadow keys a player may turn off (their release value differs from the DLL default, so they must be listed).",
+  "_note": "The player's ini lists only the keys a player may change. It omits the dev, headless and proof keys and the exe-guard keys; the gate (tests/test_release.py) proves every omitted key's DLL default equals its release value, so omitting is safe. A component's ini_set keys are added (the UI scale stop-gap sets dev.file_rules until a DLL job gives it a player key). controls.gestures (J29) is omitted while the gesture layer needs dev.orders, which the player ini does not ship (D46): J38 lists it when it ships gestures. keep_ids are listed although an omit prefix matches: the J24 shadow keys a player may turn off (their release value differs from the DLL default, so they must be listed).",
   "omit_prefixes": ["dev.", "headless.", "gfx."],
-  "omit_ids": ["proxy.exe_guard", "proxy.exe_guard_force_mismatch"],
+  "omit_ids": ["proxy.exe_guard", "proxy.exe_guard_force_mismatch", "controls.gestures"],
   "keep_ids": ["gfx.shadow_extrusion", "gfx.shadow_height_cutoff", "gfx.shadow_map_large"]
  },
  "release_values": {
