@@ -1,0 +1,128 @@
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamOverlayVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamFossilizeVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_optimus" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_present" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_AMD_switchable_graphics" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamOverlayVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamFossilizeVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_optimus" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_present" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_AMD_switchable_graphics" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamOverlayVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamFossilizeVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ExplicitLayers
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: opening device ROOT\DISPLAY\0000
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 2 - DISPLAY\MTT1337\1&28A6823A&0&UID256
+[Vulkan Loader] DEBUG | LAYER:  windows_get_device_registry_files: GUID for 2 is not SoftwareComponent skipping
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: opening device PCI\VEN_1002&DEV_13C0&SUBSYS_D0001458&REV_CB\4&16012499&0&0041
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 4 - SWD\DRIVERENUM\AMDFDANS&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 5 - SWD\DRIVERENUM\AMDOCL&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 6 - SWD\DRIVERENUM\AMDUWP&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 7 - SWD\DRIVERENUM\AMDWIN&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: opening device PCI\VEN_10DE&DEV_2684&SUBSYS_40BF1458&REV_A1\4&d0bdf66&0&0009
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 9 - DISPLAY\DEL41DB\5&1CA07395&0&UID4352
+[Vulkan Loader] DEBUG | LAYER:  windows_get_device_registry_files: GUID for 9 is not SoftwareComponent skipping
+[Vulkan Loader] LAYER:          windows_get_device_registry_files: found no registry files
+[Vulkan Loader] LAYER:          Found no registry files in HKEY_CURRENT_USER\SOFTWARE\Khronos\Vulkan\ExplicitLayers
+[Vulkan Loader] WARNING | LAYER: windows_read_data_files_in_registry: Registry lookup failed to get layer manifest files.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_NV_optimus" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_NV_present" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_AMD_switchable_graphics" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_VALVE_steam_overlay" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_VALVE_steam_fossilize" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamOverlayVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamFossilizeVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_optimus" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_present" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_AMD_switchable_graphics" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] DRIVER:         Checking for Driver Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found no registry files in HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nv-vk32.json, version 1.0.1
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\nvoglv32.dll
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amd-vulkan32.json, version 1.0.0
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\amdvlk32.dll
+[Vulkan Loader] DRIVER:         Checking for Driver Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found no registry files in HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nv-vk32.json, version 1.0.1
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\nvoglv32.dll
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amd-vulkan32.json, version 1.0.0
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\amdvlk32.dll
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamOverlayVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamFossilizeVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_optimus" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_NV_present" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Implicit layer "VK_LAYER_AMD_switchable_graphics" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamOverlayVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] INFO | LAYER:   Located json file "C:\Program Files (x86)\Steam\SteamFossilizeVulkanLayer.json" from registry "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers"
+[Vulkan Loader] LAYER:          Checking for Layer Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ExplicitLayers
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: opening device ROOT\DISPLAY\0000
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 2 - DISPLAY\MTT1337\1&28A6823A&0&UID256
+[Vulkan Loader] DEBUG | LAYER:  windows_get_device_registry_files: GUID for 2 is not SoftwareComponent skipping
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: opening device PCI\VEN_1002&DEV_13C0&SUBSYS_D0001458&REV_CB\4&16012499&0&0041
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 4 - SWD\DRIVERENUM\AMDFDANS&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 5 - SWD\DRIVERENUM\AMDOCL&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 6 - SWD\DRIVERENUM\AMDUWP&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 7 - SWD\DRIVERENUM\AMDWIN&5&34128C9C&0
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: opening device PCI\VEN_10DE&DEV_2684&SUBSYS_40BF1458&REV_A1\4&d0bdf66&0&0009
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | LAYER:   windows_get_device_registry_files: Opening child device 9 - DISPLAY\DEL41DB\5&1CA07395&0&UID4352
+[Vulkan Loader] DEBUG | LAYER:  windows_get_device_registry_files: GUID for 9 is not SoftwareComponent skipping
+[Vulkan Loader] LAYER:          windows_get_device_registry_files: found no registry files
+[Vulkan Loader] LAYER:          Found no registry files in HKEY_CURRENT_USER\SOFTWARE\Khronos\Vulkan\ExplicitLayers
+WARNING: [Loader Message] Code 0 : windows_read_data_files_in_registry: Registry lookup failed to get layer manifest files.
+[Vulkan Loader] WARNING | LAYER: windows_read_data_files_in_registry: Registry lookup failed to get layer manifest files.
+WARNING: [Loader Message] Code 0 : Layer "VK_LAYER_NV_optimus" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_NV_optimus" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+WARNING: [Loader Message] Code 0 : Layer "VK_LAYER_NV_present" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_NV_present" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+WARNING: [Loader Message] Code 0 : Layer "VK_LAYER_AMD_switchable_graphics" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_AMD_switchable_graphics" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+WARNING: [Loader Message] Code 0 : Layer "VK_LAYER_VALVE_steam_overlay" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_VALVE_steam_overlay" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+WARNING: [Loader Message] Code 0 : Layer "VK_LAYER_VALVE_steam_fossilize" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] WARNING | LAYER: Layer "VK_LAYER_VALVE_steam_fossilize" forced disabled because name matches filter of env var 'VK_LOADER_LAYERS_DISABLE'.
+[Vulkan Loader] DRIVER:         Checking for Driver Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found no registry files in HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nv-vk32.json, version 1.0.1
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\nvoglv32.dll
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amd-vulkan32.json, version 1.0.0
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\amdvlk32.dll
+[Vulkan Loader] LAYER:          vkCreateInstance layer callstack setup to:
+[Vulkan Loader] LAYER:             <Application>
+[Vulkan Loader] LAYER:               ||
+[Vulkan Loader] LAYER:             <Loader>
+[Vulkan Loader] LAYER:               ||
+[Vulkan Loader] LAYER:             <Drivers>
+[Vulkan Loader] DRIVER:         vkCreateDevice layer callstack setup to:
+[Vulkan Loader] DRIVER:            <Application>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Loader>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Device>
+[Vulkan Loader] DRIVER:                Using "NVIDIA GeForce RTX 4090" with driver: "C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nvoglv32.dll"
+[Vulkan Loader] DRIVER:         vkCreateDevice layer callstack setup to:
+[Vulkan Loader] DRIVER:            <Application>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Loader>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Device>
+[Vulkan Loader] DRIVER:                Using "AMD Radeon(TM) Graphics" with driver: "C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amdvlk32.dll"

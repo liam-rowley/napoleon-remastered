@@ -1,0 +1,83 @@
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] DRIVER:         Checking for Driver Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found no registry files in HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nv-vk32.json, version 1.0.1
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\nvoglv32.dll
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amd-vulkan32.json, version 1.0.0
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\amdvlk32.dll
+[Vulkan Loader] DRIVER:         Checking for Driver Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found no registry files in HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nv-vk32.json, version 1.0.1
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\nvoglv32.dll
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amd-vulkan32.json, version 1.0.0
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\amdvlk32.dll
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(1) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(3) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(4) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(5) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(6) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(7) Does not contain a value for "VulkanExplicitLayersWow"
+[Vulkan Loader] INFO | DRIVER:  windows_get_device_registry_entry: Device ID(8) Does not contain a value for "VulkanExplicitLayersWow"
+WARNING: [Loader Message] Code 0 : windows_read_data_files_in_registry: Registry lookup failed to get layer manifest files.
+[Vulkan Loader] DRIVER:         Checking for Driver Manifest files in Registry at HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found no registry files in HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nv-vk32.json, version 1.0.1
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\nvoglv32.dll
+[Vulkan Loader] DRIVER:         Found ICD manifest file C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amd-vulkan32.json, version 1.0.0
+[Vulkan Loader] DEBUG | DRIVER: Searching for ICD drivers named .\amdvlk32.dll
+WARNING: [Loader Message] Code 0 : Layer VK_LAYER_AMD_switchable_graphics uses API version 1.3 which is older than the application specified API version of 1.4. May cause issues.
+[Vulkan Loader] DRIVER:         vkCreateDevice layer callstack setup to:
+[Vulkan Loader] DRIVER:            <Application>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Loader>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Device>
+[Vulkan Loader] DRIVER:                Using "NVIDIA GeForce RTX 4090" with driver: "C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_da865124972e1f80\nvoglv32.dll"
+[Vulkan Loader] DRIVER:         vkCreateDevice layer callstack setup to:
+[Vulkan Loader] DRIVER:            <Application>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Loader>
+[Vulkan Loader] DRIVER:              ||
+[Vulkan Loader] DRIVER:            <Device>
+[Vulkan Loader] DRIVER:                Using "AMD Radeon(TM) Graphics" with driver: "C:\WINDOWS\System32\DriverStore\FileRepository\u0412061.inf_amd64_4ce7fc623a9bd594\B411279\amdvlk32.dll"
