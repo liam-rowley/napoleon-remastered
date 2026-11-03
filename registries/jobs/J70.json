@@ -3,8 +3,9 @@
   "description": "wsc setup reports a running watcher as FAIL: tools/verbs/setup.py check_watcher (line 202) runs the pre-J12 path harness/core/job.sh, which J12 moved to core/harness/job.sh, so bash exits 127 (seen 2026-11-02 22:40 UTC with the watcher up, heartbeat current). Point it at core/harness/job.sh (through core/proxy/tools/layout.py or the same helper the other checks use, not a second hard-coded path), add a host test that fails on a path that does not exist, and grep tools/ and harness/napoleon for other pre-J12 harness/core paths.",
   "title": "wsc setup: the watcher check runs the pre-J12 job.sh path",
   "phase": 1,
-  "status": "needs_brief",
+  "status": "queued",
   "model": "sonnet",
   "needs_pc": false,
-  "depends_on": []
+  "depends_on": [],
+  "brief": "jobs/J70/brief.md"
 }
