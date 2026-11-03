@@ -1,0 +1,36 @@
+{
+ "run": "20261103_j24ladder_4k",
+ "sittings": [
+  {
+   "run": "20261103_j24ladder_4k",
+   "start_utc": "2026-11-03T05:51:09Z",
+   "plan_cells": 30,
+   "scenarios": [
+    "land_small",
+    "siege_small",
+    "hist_dresden"
+   ],
+   "blocks": [
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": null,
+     "start_utc": "2026-11-03T05:51:10Z",
+     "end_utc": "2026-11-03T06:01:12Z"
+    },
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": null,
+     "start_utc": "2026-11-03T06:03:04Z",
+     "end_utc": "2026-11-03T06:13:18Z"
+    }
+   ],
+   "restore_keys": {
+    "proxy.backend": "dxvk",
+    "proxy.dxvk_path": "napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "end_utc": "2026-11-03T06:15:16Z"
+  }
+ ]
+}

@@ -6,3 +6,28 @@ sites: 8 key off of 12
 == f_hw2 done 04:38:38Z
 == control 04:38:38Z
 pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+2026-11-03T05:02:46Z exit: exit
+2026-11-03T05:02:47Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-03T05:02:47Z summary: 14 cell keys, 0 refused cells -> C:\Users\liamr\AppData\Local\Temp\claude\C--Users-liamr-repos\7463a92f-8bda-4a7f-a9ae-7f4b6fbe7a80\scratchpad\nap-J24\harness\runs\20261103_j24ladder_ctl\summary.json
+== 8192 q3 05:02:47Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+2026-11-03T05:26:43Z exit: exit
+2026-11-03T05:26:47Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-03T05:26:47Z summary: 14 cell keys, 0 refused cells -> C:\Users\liamr\AppData\Local\Temp\claude\C--Users-liamr-repos\7463a92f-8bda-4a7f-a9ae-7f4b6fbe7a80\scratchpad\nap-J24\harness\runs\20261103_j24ladder_8k\summary.json
+== 8192 q4 05:26:47Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j24-20261103T052650Z-550811367: ok exit=0]
+2026-11-03T05:51:03Z exit: exit
+2026-11-03T05:51:05Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-03T05:51:06Z summary: 14 cell keys, 0 refused cells -> C:\Users\liamr\AppData\Local\Temp\claude\C--Users-liamr-repos\7463a92f-8bda-4a7f-a9ae-7f4b6fbe7a80\scratchpad\nap-J24\harness\runs\20261103_j24ladder_8k_q4\summary.json
+== 4096 q3 05:51:06Z
+pc_deploy send: kit_20261103T032438Z_ab5896f8453d -> C:\napoleon_remastered_pc\kits\kit_20261103T032438Z_ab5896f8453d (43 files, sha256 checked)
+pc_deploy install: kit kit_20261103T032438Z_ab5896f8453d installed (build ab5896f8453d)
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+2026-11-03T06:15:13Z exit: exit
+2026-11-03T06:15:16Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-03T06:15:16Z summary: 14 cell keys, 0 refused cells -> C:\Users\liamr\AppData\Local\Temp\claude\C--Users-liamr-repos\7463a92f-8bda-4a7f-a9ae-7f4b6fbe7a80\scratchpad\nap-J24\harness\runs\20261103_j24ladder_4k\summary.json
+== back to kit_20261103T035945Z_354011cb0fc6 06:15:16Z
+pc_deploy install: kit kit_20261103T035945Z_354011cb0fc6 installed (build 354011cb0fc6)
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+== ladder end 06:15:17Z
