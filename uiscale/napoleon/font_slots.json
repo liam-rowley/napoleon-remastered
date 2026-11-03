@@ -1,0 +1,98 @@
+{
+ "note": "Slot fonts per factor (J67; J37 adds an 'engine_text' key beside 'layouts' and does not change these rows). 'layouts': the .cuf slot files the scaled layouts and templates name (scale.py font_slot picks the slot as at 2x at every factor) and the size each is rendered at: render_scale x the slot file's own vanilla size (em = vanilla h2 x 23/24 x render_scale, h2 = px(vanilla h2 x render_scale)), so text named 'Ingame 12' renders at 12 x factor. At 2.0 the scale is 1 and the pack is byte-identical to J66's (5f510b27afa3). bold: drawn at wght 700 fitted to the vanilla width (cuf_encode.recipe); spaced_h2: the long-form line pitch slot (frontend_24, h2 28 at 2x). Read by uiscale/napoleon/cli.py build_fonts; the check verb reports a layout font with no row.",
+ "layouts": [
+  {
+   "factor": 1.25,
+   "slot": "frontend_24.cuf",
+   "render_scale": 0.625,
+   "bold": false,
+   "spaced_h2": 18
+  },
+  {
+   "factor": 1.25,
+   "slot": "frontend_38.cuf",
+   "render_scale": 0.625,
+   "bold": false
+  },
+  {
+   "factor": 1.25,
+   "slot": "ingame_18.cuf",
+   "render_scale": 0.625,
+   "bold": false
+  },
+  {
+   "factor": 1.25,
+   "slot": "ingame_24.cuf",
+   "render_scale": 0.625,
+   "bold": false
+  },
+  {
+   "factor": 1.25,
+   "slot": "ingame_b_24.cuf",
+   "render_scale": 0.625,
+   "bold": true
+  },
+  {
+   "factor": 1.5,
+   "slot": "frontend_24.cuf",
+   "render_scale": 0.75,
+   "bold": false,
+   "spaced_h2": 21
+  },
+  {
+   "factor": 1.5,
+   "slot": "frontend_38.cuf",
+   "render_scale": 0.75,
+   "bold": false
+  },
+  {
+   "factor": 1.5,
+   "slot": "ingame_18.cuf",
+   "render_scale": 0.75,
+   "bold": false
+  },
+  {
+   "factor": 1.5,
+   "slot": "ingame_24.cuf",
+   "render_scale": 0.75,
+   "bold": false
+  },
+  {
+   "factor": 1.5,
+   "slot": "ingame_b_24.cuf",
+   "render_scale": 0.75,
+   "bold": true
+  },
+  {
+   "factor": 2.0,
+   "slot": "frontend_24.cuf",
+   "render_scale": 1.0,
+   "bold": false,
+   "spaced_h2": 28
+  },
+  {
+   "factor": 2.0,
+   "slot": "frontend_38.cuf",
+   "render_scale": 1.0,
+   "bold": false
+  },
+  {
+   "factor": 2.0,
+   "slot": "ingame_18.cuf",
+   "render_scale": 1.0,
+   "bold": false
+  },
+  {
+   "factor": 2.0,
+   "slot": "ingame_24.cuf",
+   "render_scale": 1.0,
+   "bold": false
+  },
+  {
+   "factor": 2.0,
+   "slot": "ingame_b_24.cuf",
+   "render_scale": 1.0,
+   "bold": true
+  }
+ ]
+}

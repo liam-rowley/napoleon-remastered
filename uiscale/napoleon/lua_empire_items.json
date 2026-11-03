@@ -1,0 +1,660 @@
+{
+ "note": "Empire's Lua pixel patches (empire-remastered main b67a4f4d, ui_scale_mod/lua/patches.txt), each with the vanilla value or instruction it changes in Empire's own script (ui_scale_mod/lua/all). A snapshot, so lua-consts needs no Empire clone: uiscale lua-consts matches each against Napoleon's rows by script and value (lua_consts.json 'empire'). Empire's numbers are 2x results; Napoleon's list states vanilla pixels.",
+ "source": "empire-remastered b67a4f4d ui_scale_mod/lua/patches.txt",
+ "items": [
+  {
+   "script": "ui/construction.luac",
+   "item": "main#20:0",
+   "value": 96.0,
+   "empire_vanilla": "K=96.0"
+  },
+  {
+   "script": "ui/construction.luac",
+   "item": "main#20:1",
+   "value": 12.0,
+   "empire_vanilla": "K=12.0"
+  },
+  {
+   "script": "ui/construction.luac",
+   "item": "main#20:2",
+   "value": 6.0,
+   "empire_vanilla": "K=6.0"
+  },
+  {
+   "script": "ui/construction.luac",
+   "item": "main#19:0",
+   "value": 104.0,
+   "empire_vanilla": "K=104.0"
+  },
+  {
+   "script": "ui/construction.luac",
+   "item": "main#19:18",
+   "value": 84.0,
+   "empire_vanilla": "K=84.0"
+  },
+  {
+   "script": "ui/recruitment.luac",
+   "item": "main:34",
+   "value": 76.0,
+   "empire_vanilla": "K=76.0"
+  },
+  {
+   "script": "ui/recruitment.luac",
+   "item": "main#11:2",
+   "value": 68.0,
+   "empire_vanilla": "K=68.0"
+  },
+  {
+   "script": "ui/campaign_ui/government_screens_scripts/government_screens.luac",
+   "item": "main#1:96",
+   "value": 97.0,
+   "empire_vanilla": "K=97.0"
+  },
+  {
+   "script": "ui/campaign_ui/government_screens_scripts/government_screens.luac",
+   "item": "main#1:97",
+   "value": -5.0,
+   "empire_vanilla": "K=-5.0"
+  },
+  {
+   "script": "ui/campaign_ui/government_screens_scripts/government_screens.luac",
+   "item": "main#1@190[CALL R7 3 1]+GETGLOBAL R10 'CampaignUI'; GETTABLE",
+   "value": null,
+   "empire_vanilla": "CALL R7 3 1"
+  },
+  {
+   "script": "ui/campaign_ui/government_screens_scripts/government_screens.luac",
+   "item": "main#1@549[CALL R12 3 1]+GETGLOBAL R15 'CampaignUI'; GETTABL",
+   "value": null,
+   "empire_vanilla": "CALL R12 3 1"
+  },
+  {
+   "script": "ui/campaign_ui/region_details_scripts/region_details.luac",
+   "item": "main#7:22",
+   "value": 20.0,
+   "empire_vanilla": "K=20.0"
+  },
+  {
+   "script": "ui/campaign_ui/region_details_scripts/template.pip_group.luac",
+   "item": "main#0:32",
+   "value": 26.0,
+   "empire_vanilla": "K=26.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main:17=28",
+   "value": 8.0,
+   "empire_vanilla": "K=8.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main:19",
+   "value": 34.0,
+   "empire_vanilla": "K=34.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:26",
+   "value": 24.0,
+   "empire_vanilla": "K=24.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:27",
+   "value": 16.0,
+   "empire_vanilla": "K=16.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:30",
+   "value": 300.0,
+   "empire_vanilla": "K=300.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:31",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:33",
+   "value": 27.0,
+   "empire_vanilla": "K=27.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:34",
+   "value": 22.0,
+   "empire_vanilla": "K=22.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:36",
+   "value": 12.0,
+   "empire_vanilla": "K=12.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:50",
+   "value": 261.0,
+   "empire_vanilla": "K=261.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:53",
+   "value": 48.0,
+   "empire_vanilla": "K=48.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1:55",
+   "value": 52.0,
+   "empire_vanilla": "K=52.0"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1@250[MOVE R21 R16]=ADD R21 R16 #28",
+   "value": null,
+   "empire_vanilla": "MOVE R21 R16"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1@267[MOVE R24 R20]+SUB R23 R23 #18",
+   "value": null,
+   "empire_vanilla": "MOVE R24 R20"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1@173[LOADK R28 #4]=LOADK R28 #28",
+   "value": 4.0,
+   "empire_vanilla": "LOADK R28 #4"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1@203[SUB R27 R16 #8]=SUB R27 R16 #28",
+   "value": 8.0,
+   "empire_vanilla": "SUB R27 R16 #8"
+  },
+  {
+   "script": "ui/templates/template.campaign_map_tooltip.luac",
+   "item": "main#1@226[SUB R29 R29 #104]=SUB R29 R29 #96",
+   "value": 52.0,
+   "empire_vanilla": "SUB R29 R29 #52"
+  },
+  {
+   "script": "ui/templates/template.city_info_bar.luac",
+   "item": "main#5:9",
+   "value": 20.0,
+   "empire_vanilla": "K=20.0"
+  },
+  {
+   "script": "ui/templates/template.city_info_bar.luac",
+   "item": "main#6:7",
+   "value": 20.0,
+   "empire_vanilla": "K=20.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#23:25",
+   "value": 110.0,
+   "empire_vanilla": "K=110.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#23:26",
+   "value": 24.0,
+   "empire_vanilla": "K=24.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#8:3",
+   "value": 103.0,
+   "empire_vanilla": "K=103.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#8:12",
+   "value": -3.0,
+   "empire_vanilla": "K=-3.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#8:16",
+   "value": 257.0,
+   "empire_vanilla": "K=257.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#8:19",
+   "value": 154.0,
+   "empire_vanilla": "K=154.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#8:24",
+   "value": 3.0,
+   "empire_vanilla": "K=3.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#35:13",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/campaign_ui/diplomacy_panel_scripts/diplomacy_panel.luac",
+   "item": "main#35:27",
+   "value": 5.0,
+   "empire_vanilla": "K=5.0"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main#3:1",
+   "value": 2.0,
+   "empire_vanilla": "K=2.0"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main#23@38[MUL R13 R13 #2]=MUL R13 R13 #4",
+   "value": 2.0,
+   "empire_vanilla": "MUL R13 R13 #2"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main#23@50[MUL R14 R14 #2]=MUL R14 R14 #4",
+   "value": 2.0,
+   "empire_vanilla": "MUL R14 R14 #2"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main@1[SETTABLE R0 'full' #1]=SETTABLE R0 'full' #0.25",
+   "value": 1.0,
+   "empire_vanilla": "SETTABLE R0 'full' #1"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main@2[SETTABLE R0 'half' #0.5]=SETTABLE R0 'half' #0.125",
+   "value": 0.5,
+   "empire_vanilla": "SETTABLE R0 'half' #0.5"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main@3[SETTABLE R0 'quarter' #0.30000001192092896]=SETTABLE ",
+   "value": 0.30000001192092896,
+   "empire_vanilla": "SETTABLE R0 'quarter' #0.300000011920928"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main#12:2=0.075",
+   "value": 0.30000001192092896,
+   "empire_vanilla": "K=0.30000001192092896"
+  },
+  {
+   "script": "ui/templates/template.map_image.luac",
+   "item": "main#13:2=0.25",
+   "value": 1.0,
+   "empire_vanilla": "K=1.0"
+  },
+  {
+   "script": "ui/templates/message_handler.luac",
+   "item": "main:8",
+   "value": 64.0,
+   "empire_vanilla": "K=64.0"
+  },
+  {
+   "script": "ui/templates/template.messagedropdown.luac",
+   "item": "main:7",
+   "value": 40.0,
+   "empire_vanilla": "K=40.0"
+  },
+  {
+   "script": "ui/templates/template.messagedropdown.luac",
+   "item": "main#1:4",
+   "value": 40.0,
+   "empire_vanilla": "K=40.0"
+  },
+  {
+   "script": "ui/templates/template.messagedropdown.luac",
+   "item": "main#1:5",
+   "value": 255.0,
+   "empire_vanilla": "K=255.0"
+  },
+  {
+   "script": "ui/templates/template.messagedropdown.luac",
+   "item": "main#2:1",
+   "value": 40.0,
+   "empire_vanilla": "K=40.0"
+  },
+  {
+   "script": "ui/templates/template.messagedropdown.luac",
+   "item": "main#2:2",
+   "value": 255.0,
+   "empire_vanilla": "K=255.0"
+  },
+  {
+   "script": "ui/battle_ui/root.luac",
+   "item": "main#75:7",
+   "value": 38.0,
+   "empire_vanilla": "K=38.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_battle_results_scripts/card_display.luac",
+   "item": "main#6:2",
+   "value": 66.0,
+   "empire_vanilla": "K=66.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_battle_results_scripts/card_display.luac",
+   "item": "main#6:3",
+   "value": 88.0,
+   "empire_vanilla": "K=88.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_battle_results_scripts/popup_battle_results.luac",
+   "item": "main#7:11",
+   "value": 48.0,
+   "empire_vanilla": "K=48.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/units_window.luac",
+   "item": "main#0:9",
+   "value": 60.0,
+   "empire_vanilla": "K=60.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/units_window.luac",
+   "item": "main#0:10",
+   "value": 80.0,
+   "empire_vanilla": "K=80.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/units_window.luac",
+   "item": "main#1:1",
+   "value": 60.0,
+   "empire_vanilla": "K=60.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/units_window.luac",
+   "item": "main#1:2",
+   "value": 80.0,
+   "empire_vanilla": "K=80.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/reinforcements_window.luac",
+   "item": "main#2:14",
+   "value": 60.0,
+   "empire_vanilla": "K=60.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/reinforcements_window.luac",
+   "item": "main#2:15",
+   "value": 80.0,
+   "empire_vanilla": "K=80.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/reinforcements_window.luac",
+   "item": "main#5:1",
+   "value": 60.0,
+   "empire_vanilla": "K=60.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/reinforcements_window.luac",
+   "item": "main#5:2",
+   "value": 80.0,
+   "empire_vanilla": "K=80.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/popup_pre_battle.luac",
+   "item": "main#13:1",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/popup_pre_battle.luac",
+   "item": "main#13:2",
+   "value": 180.0,
+   "empire_vanilla": "K=180.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/popup_pre_battle.luac",
+   "item": "main#13:3",
+   "value": 53.0,
+   "empire_vanilla": "K=53.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/popup_pre_battle.luac",
+   "item": "main#13:4",
+   "value": 70.0,
+   "empire_vanilla": "K=70.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/popup_pre_battle.luac",
+   "item": "main#13:7",
+   "value": 120.0,
+   "empire_vanilla": "K=120.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/popup_pre_battle.luac",
+   "item": "main#13:8",
+   "value": 58.0,
+   "empire_vanilla": "K=58.0"
+  },
+  {
+   "script": "ui/campaign_ui/popup_pre_battle_scripts/popup_pre_battle.luac",
+   "item": "main#29:7",
+   "value": 8.0,
+   "empire_vanilla": "K=8.0"
+  },
+  {
+   "script": "ui/campaign_ui/event_message_scripts/event_message.luac",
+   "item": "main#15:11",
+   "value": 234.0,
+   "empire_vanilla": "K=234.0"
+  },
+  {
+   "script": "ui/campaign_ui/event_message_scripts/event_message.luac",
+   "item": "main#15:12",
+   "value": 8.0,
+   "empire_vanilla": "K=8.0"
+  },
+  {
+   "script": "ui/campaign_ui/event_message_scripts/event_message.luac",
+   "item": "main#15:14",
+   "value": 168.0,
+   "empire_vanilla": "K=168.0"
+  },
+  {
+   "script": "ui/campaign_ui/event_message_scripts/event_message.luac",
+   "item": "main#15:15",
+   "value": 36.0,
+   "empire_vanilla": "K=36.0"
+  },
+  {
+   "script": "ui/campaign_ui/event_message_scripts/event_message.luac",
+   "item": "main#5:28",
+   "value": 22.0,
+   "empire_vanilla": "K=22.0"
+  },
+  {
+   "script": "ui/templates/template.tech_advances_entry.luac",
+   "item": "main#0:16",
+   "value": -4.0,
+   "empire_vanilla": "K=-4.0"
+  },
+  {
+   "script": "ui/templates/template.tech_advances_entry.luac",
+   "item": "main#0:17",
+   "value": -2.0,
+   "empire_vanilla": "K=-2.0"
+  },
+  {
+   "script": "ui/battle_ui/mp_postbattle_scripts/mp_postbattle.luac",
+   "item": "main#8:4",
+   "value": 56.0,
+   "empire_vanilla": "K=56.0"
+  },
+  {
+   "script": "ui/battle_ui/mp_postbattle_scripts/mp_postbattle.luac",
+   "item": "main#9:10",
+   "value": 56.0,
+   "empire_vanilla": "K=56.0"
+  },
+  {
+   "script": "ui/templates/template.tooltip.luac",
+   "item": "main#1:4",
+   "value": 16.0,
+   "empire_vanilla": "K=16.0"
+  },
+  {
+   "script": "ui/templates/template.tooltip.luac",
+   "item": "main#0:2=900",
+   "value": 200.0,
+   "empire_vanilla": "K=200.0"
+  },
+  {
+   "script": "ui/campaign_ui/character_information_scripts/character_information.luac",
+   "item": "main#3:43",
+   "value": 41.0,
+   "empire_vanilla": "K=41.0"
+  },
+  {
+   "script": "ui/templates/template.minister_details.luac",
+   "item": "main#0:18",
+   "value": -3.0,
+   "empire_vanilla": "K=-3.0"
+  },
+  {
+   "script": "ui/templates/template.minister_details.luac",
+   "item": "main#0:24",
+   "value": 35.0,
+   "empire_vanilla": "K=35.0"
+  },
+  {
+   "script": "ui/agents.luac",
+   "item": "main#1:0",
+   "value": 4.0,
+   "empire_vanilla": "K=4.0"
+  },
+  {
+   "script": "ui/agents.luac",
+   "item": "main#1:1",
+   "value": 52.0,
+   "empire_vanilla": "K=52.0"
+  },
+  {
+   "script": "ui/agents.luac",
+   "item": "main#1:2",
+   "value": -1.0,
+   "empire_vanilla": "K=-1.0"
+  },
+  {
+   "script": "ui/campaign_ui/royal_family_scripts/royal_family.luac",
+   "item": "main#1:13",
+   "value": 279.0,
+   "empire_vanilla": "K=279.0"
+  },
+  {
+   "script": "ui/templates/template.techtreeitem_tooltip.luac",
+   "item": "main:14=24",
+   "value": 8.0,
+   "empire_vanilla": "K=8.0"
+  },
+  {
+   "script": "ui/templates/template.techtreeitem_tooltip.luac",
+   "item": "main#1:14",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/templates/template.techtreeitem_tooltip.luac",
+   "item": "main#4:12",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/templates/template.techtreeitem_tooltip.luac",
+   "item": "main#6:17",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/templates/template.techtreeitem_tooltip.luac",
+   "item": "main#6:19",
+   "value": 300.0,
+   "empire_vanilla": "K=300.0"
+  },
+  {
+   "script": "ui/templates/template.techtreeitem_tooltip.luac",
+   "item": "main#8:44",
+   "value": 300.0,
+   "empire_vanilla": "K=300.0"
+  },
+  {
+   "script": "ui/templates/template.tech_tooltip2.luac",
+   "item": "main#0:26=18",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/templates/template.tech_tooltip2.luac",
+   "item": "main#1:49=18",
+   "value": 15.0,
+   "empire_vanilla": "K=15.0"
+  },
+  {
+   "script": "ui/templates/template.recruitment_effects_tooltip.luac",
+   "item": "main:9=24",
+   "value": 8.0,
+   "empire_vanilla": "K=8.0"
+  },
+  {
+   "script": "ui/templates/template.construction_item_tooltip.luac",
+   "item": "main#1:42",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/templates/template.construction_item_tooltip.luac",
+   "item": "main#1:48",
+   "value": 16.0,
+   "empire_vanilla": "K=16.0"
+  },
+  {
+   "script": "ui/templates/template.minister_tooltip.luac",
+   "item": "main#0:22=18",
+   "value": 10.0,
+   "empire_vanilla": "K=10.0"
+  },
+  {
+   "script": "ui/templates/template.unitcard_tooltip.luac",
+   "item": "main#6@18[ADD R8 R9 #15]=ADD R8 R9 #30",
+   "value": 15.0,
+   "empire_vanilla": "ADD R8 R9 #15"
+  },
+  {
+   "script": "ui/templates/template.unitcard_tooltip.luac",
+   "item": "main#6@23[ADD R11 R11 #15]=ADD R11 R11 #28",
+   "value": 15.0,
+   "empire_vanilla": "ADD R11 R11 #15"
+  },
+  {
+   "script": "ui/templates/template.unitcard_tooltip.luac",
+   "item": "main#6@29[ADD R11 R6 #15]=ADD R11 R6 #28",
+   "value": 15.0,
+   "empire_vanilla": "ADD R11 R6 #15"
+  },
+  {
+   "script": "ui/templates/template.unitcard_tooltip.luac",
+   "item": "main#6@67[SUB R15 R9 #12]=SUB R15 R9 #24",
+   "value": 12.0,
+   "empire_vanilla": "SUB R15 R9 #12"
+  },
+  {
+   "script": "ui/templates/template.unitcard_tooltip.luac",
+   "item": "main#6@82[SUB R17 R17 #5]=SUB R17 R17 #14",
+   "value": 5.0,
+   "empire_vanilla": "SUB R17 R17 #5"
+  }
+ ]
+}
