@@ -14,7 +14,7 @@ engine_facts = "core:engine_facts"
 jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
 
 [core]
-version = "v0.9.0"
+version = "v0.13.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
@@ -87,7 +87,7 @@ viewer = "viewer-wasm"
 # pin and the Python tests that run bash on Windows (J22) with the finder in setup.py and the hook they run; viewer: viewer/, uikit/ (the design library, J34) and their tests (J31).
 # A workflow change runs all three. proxy/runs/ and viewer/runs/ are committed run evidence, not build inputs (J42).
 [ci.inputs]
-proxy = '^\.github/workflows/|^proxy/(?!runs/)|^core$|^registries/(engine_sites|config_keys)\.jsonl$'
+proxy = '^\.github/workflows/|^proxy/(?!runs/)|^core$|^registries/(engine_sites|config_keys)\.jsonl$|^viewer/pins\.json$|^tests/cpp/|^tests/test_gesture_adapter\.py$'
 harness = '^\.github/workflows/|^harness/|^core$|^tests/test_(job_sh|pc_deploy|claude_hook|setup|proxy_host)\.py$|^tools/verbs/setup\.py$|^tools/claude_hook\.py$|^\.claude/settings\.json$'
 viewer = '^\.github/workflows/|^viewer/(?!runs/)|^uikit/(?!napoleon/runs/)|^tests/test_(viewer|uikit)\.py$'
 

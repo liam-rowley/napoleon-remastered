@@ -61,7 +61,8 @@ const DevAdapter kDev = { kIntroMovies, kFrontendMovies, kLuaRules, "napoleon_re
 
 const GameAdapter& Adapter() {
     static const GameAdapter a = { gen::kGameName, gen::kConfigFile, gen::kModDir, gen::kInstanceMutex, gen::kIdentity,
-                                   gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole, &kCamera, &kOrders };
+                                   gen::kSites, gen::kSiteCount, gen::kKeys, gen::kKeyCount, &kDev, &kConsole, &kCamera, &kOrders,
+                                   nullptr };   // W6 gesture: J29 step 2
     return a;
 }
 
