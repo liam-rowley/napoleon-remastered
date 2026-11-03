@@ -52,3 +52,11 @@ ini: shadow_crop_keep=1 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 s
 scene land rc 0
 harness/runs/20261103_j24pc/fit.sh: line 25: syntax error near unexpected token `done'
 harness/runs/20261103_j24pc/fit.sh: line 25: ` y_$y; done'
+== f_hw keys: gfx.shadow_hw_force=1 (both) 03:57:19Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_height_cutoff=0 shadow_hw_force=1 shadow_map_large=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 6 key off of 10
+== f_hw done 04:04:50Z
+== sweep end 04:04:50Z

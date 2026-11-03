@@ -18,7 +18,11 @@ $J lock $O 7463a92f-8bda-4a7f-a9ae-7f4b6fbe7a80 "J24 fit $TAG" >/dev/null 2>&1
 [ -n "${PROFILE:-}" ] && { echo "profile $PROFILE" | $J $O - 120 2>&1 | tail -1; }
 ctl() { python3 core/harness/ctl.py --owner $O --out $OUT "$@"; }
 cap() { $J touch >/dev/null 2>&1; $J ctl $O "capture j24_${TAG}_$1 1" > $OUT/$1_capture.txt 2>&1 || echo "capture $1 failed: $(tail -c 200 $OUT/$1_capture.txt)"; }
-ctl scene land_small > $OUT/scene_land.json 2>&1; echo "scene land rc $?"
+ctl scene land_small > $OUT/scene_land.json 2>&1; rc=$?; echo "scene land rc $rc"
+if [ $rc -ne 0 ]; then   # no scene: stop this launch here (a failed launch must not burn 170 s per capture)
+  echo kill | $J $O - 120 > /dev/null 2>&1; cp "$G/napoleon_remastered/logs/proxy.log" $OUT/proxy.log 2>/dev/null; $J unlock $O >/dev/null 2>&1
+  echo "== $TAG FAILED (scene) $(date -u +%H:%M:%SZ)"; exit 1
+fi
 if [ "$WHAT" != shots ]; then
   for y in 0 45 90 135 180 225 270 315; do ctl cam -0.08 59.02 446.14 $y -25 > $OUT/y_${y}_cam.json 2>&1; cap y_$y; done
 fi

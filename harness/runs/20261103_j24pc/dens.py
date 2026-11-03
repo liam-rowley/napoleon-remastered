@@ -26,10 +26,13 @@ for tag in args:
 rows = {}
 for f in sorted((HERE / 'captures').glob('j24_*.json')):
     rows[f.stem] = f
-out = subprocess.run([sys.executable, 'discovery/core/shader_catalog.py', 'density', *[str(p) for p in rows.values()]], cwd=REPO,
-                     capture_output=True, text=True).stdout
+lines = []
+paths = [str(p.relative_to(REPO)) for p in rows.values()]
+for i in range(0, len(paths), 40):   # the Windows command line limit
+    lines += subprocess.run([sys.executable, 'discovery/core/shader_catalog.py', 'density', *paths[i:i + 40]], cwd=REPO,
+                            capture_output=True, text=True).stdout.splitlines()
 dens = {}
-for line in out.splitlines():
+for line in lines:
     name, _, js = line.partition(' ')
     try:
         dens[name] = json.loads(js)
