@@ -122,7 +122,27 @@ That red run also ran the workflow's `notify` job, so Liam may have had a failur
 
 ### Gates and policy
 
-GATES_AND_POLICY
+`python3 core/wsc.py gates` at the report commit, after merging `origin/main` (`7a662c5`):
+
+```
+gates: 13 ok, 1 warn, 0 failed in 504.4 s (J80-build)
+WARN tests             721 host tests passed (tests); 33 skipped  (500.0 s)
+```
+
+The one warning is the skip count: the skips listed in the log are tests needing numpy and Pillow, capstone or a local viewer build. The render tests that skip here ran on the PC with `VIEWER_OUT` and in CI's `viewer` job. `wsc jobs check`: `100 rows, ok, 0 registry gaps in briefs`.
+
+**`wsc policy` does not pass yet, and cannot before review.** It exits 1 with the rule's first real refusal, which is also demonstration (c), and two lines every job shows until its review:
+
+```
+policy: ui baseline: uikit/napoleon/baseline.json changed: jobs/J80/review.md has no acceptance line; the reviewer adds "Baseline accepted: 1db5e3979caf53745da431b473c0fcdca8385121" (the blob of uikit/napoleon/baseline.json at HEAD)
+policy: jobs/J80/review.md is missing or has no "Verdict:" line: every job is reviewed before merge (docs/REVIEW.md)
+policy: row J80 must be `done` on the branch (the reviewer sets it with a merge verdict)
+policy: job/J80: REFUSED (23 files changed)
+```
+
+The brief expected only the first line; the other two are the core's standing rules for an unreviewed job. All three clear only through the reviewer, so nothing here was done to silence them.
+
+CI on `cdfa0e8` (run 41929887320): `changes`, `gates`, `harness-windows` and `viewer` passed; `viewer` rendered with the baseline PNGs in place. `proxy` was cancelled at its 15-minute limit, stuck in `apt-get` before any build step, so it says nothing about this branch. The same inputs passed `proxy` in run 41931300229. The reviewer should read the head commit's run.
 
 ## Deviations from the brief and why
 
@@ -146,6 +166,6 @@ GATES_AND_POLICY
 3. **`min_on_ratio_all_77` (draft 4.75) against `min_ratio` (4.5).** The draft records a measured worst case and `tokens.json` holds the rule (J34 report, "The fixed on-colour case"). They are different facts rather than a changed value, so I recommend leaving them. Listed in `DRAFT_CHANGED` as the brief asks.
 4. **Eleven lengths trace to no line in LANGUAGE.md:** `btn_pad_x`, `btn_pad_y`, `tab_pad_x`, `gap_s`, `badge_pad`, `check_mark`, `check_pad`, `flag_w`, `flag_h`, `scrollbar`, `scroll_min`. They are J34 choices, marked as such in `TOKENS_ADDED`. The brief calls an untraceable name a finding: does Liam want them added to the language?
 5. **`channel_tolerance` 1 lets a uniform one-level shift pass.** A token moved by one level across a whole screen is `within tolerance`: listed, not failing. With a measured floor of zero, 0 would catch it and would fail on any future rasteriser wobble. I followed "just above the floor". Changing it is a baseline change.
-6. **The `tests` gate is close to its 600 s limit.** One `wsc gates` run timed out at 600 s while I ran renders beside it; a quiet full run took 520 s, of which `test_proxy_host_tests` took 275 s. The J80 tests add seconds. This is not caused by J80, but the margin is thin.
+6. **The `tests` gate is close to its 600 s limit.** One `wsc gates` run timed out at 600 s while I ran renders beside it; quiet runs took 500 s and 520 s, and `test_proxy_host_tests` alone took 275 s of the second. The J80 tests add seconds. This is not caused by J80, but the margin is thin.
 7. **The brief's own two questions:** I proceeded on both recommendations (commit the measured floor; keep `--accept --allow-locked`, add nothing).
 8. **Core candidates:** `pixeldiff.py` is game-agnostic, and the baseline rule could move to the core's gate framework as a warscape-core item.
