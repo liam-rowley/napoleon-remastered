@@ -373,10 +373,18 @@ class BriefRule(unittest.TestCase):
     def test_shape_rules_still_apply_to_legacy_briefs(self):
         self.assertTrue(self.errs('J10', '# J10: x\n'))
 
+    # sha256 of '\n'.join(ids): the frozen set, checked in every clone, a depth-1 one included (J73)
+    FROZEN_SHA256 = '059f0a5b218cb562aa7ed5fc4a3df45d57add323e312f8c8c98c502aab321a05'
+
+    def test_the_legacy_set_still_hashes_to_its_constant(self):
+        import hashlib
+        ids = json.loads((ROOT / 'jobs' / 'legacy.json').read_text(encoding='utf-8'))['brief_hooks']
+        self.assertEqual(hashlib.sha256('\n'.join(ids).encode()).hexdigest(), self.FROZEN_SHA256)
+
     def test_the_legacy_set_is_every_brief_on_main_at_j11s_base(self):
         out = subprocess.run(['git', '-C', str(ROOT), 'ls-tree', '-r', '--name-only', 'c674fb1', 'jobs'], capture_output=True, text=True)
         if out.returncode != 0:
-            self.skipTest('J11 base commit not in this clone')
+            self.skipTest('J11 base commit not in this clone (the constant half above still runs)')
         on_main = {p.split('/')[1] for p in out.stdout.split() if p.endswith('/brief.md')}
         self.assertEqual(on_main | {'J24', 'J37'}, set(LEGACY_BRIEFS))   # J24 and J37 merged before J11 did
 
