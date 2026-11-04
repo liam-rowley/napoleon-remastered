@@ -233,6 +233,18 @@ class Installer(unittest.TestCase):
         self.assertEqual(self.rr('uninstall', g)[0], 0)
         self.assertEqual((g / 'd3d9.dll').read_bytes(), foreign)
 
+    def test_missing_backup_after_a_completed_install_never_takes_our_file(self):
+        """Review round 2: the 5.2 'finish the move' must not back up our own installed file as the original when the backup was deleted."""
+        g = make_game(self.tmp)
+        self.assertEqual(self.rr('install', g)[0], 0)
+        ours = (g / 'd3d9.dll').read_bytes()
+        shutil.rmtree(self.state / 'backup')
+        code, out = self.rr('install', g)
+        self.assertEqual(code, 0, out)
+        self.assertIn('is missing and the d3d9.dll here is ours', out)
+        backup = self.state / 'backup'
+        self.assertFalse(backup.exists() and any(p.read_bytes() == ours for p in backup.rglob('d3d9.dll')), 'our DLL was backed up as the original')
+
     def test_clean_does_not_follow_a_junction_out_of_to_delete(self):
         """Review 5.3: a junction inside _to_delete is removed as a link; the folder it points at (a temp folder here) keeps its files."""
         g = make_game(self.tmp)

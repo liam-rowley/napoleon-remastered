@@ -334,6 +334,8 @@ function Do-Install([string]$game, [string]$state) {
             foreach ($x in $rec['backups']) { if ([string]$x['path'] -eq $rel) { $bk = Join-Path $state ([string]$x['backup']) } }
             if ($bk -and (Test-Path -LiteralPath $bk)) { continue }
             # recorded but never moved (the run stopped between the record and the move): the original is still here; finish the move now
+            # but never "finish" it with our own file: after a completed install whose backup the player deleted, that would make ours the original
+            if ($bk -and $touched -and (Is-Ours $game $rel $rec)) { Say "rr install: WARNING: the backup of $o recorded at $bk is missing and the $o here is ours; it is not backed up again, so the uninstall cannot restore the original"; continue }
             if ($bk) { Move-Out $p $bk; Say "rr install: backed up the existing $o to $bk (finishing an earlier run)"; continue }
         }
         if ($touched -and (Is-Ours $game $rel $rec)) { continue }
