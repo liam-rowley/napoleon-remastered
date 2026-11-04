@@ -1,0 +1,12 @@
+{
+  "id": "J90",
+  "description": "Later sweep 2026-11-04 (docs/audits/LATER_TRIAGE_2026-11-04.md, job J82, audit R4). Built to the brief's defaults for its open questions (open for Liam). Carries 20 passes (a DLL input, console_table.h). Opus: crash bisecting. (1) transport_to_hlci with a bad cell index crashes the next EndTurn (Napoleon.exe+0x9611c9, run proxy/runs/20261031_j40pc launch 7; see it: console transport_to_hlci 0, then EndTurn): refuse it the way the adapter refuses the no-ops, with a status in discovery/core/console_cmds.py and a regenerated console_table.h, before any scenario uses the console unattended. (2) One Lua call among the five diplomacy getters stops the pump (J40 report, Deviations), not bisected: bisect the five before any probe uses them. Bullets: J40 review Later 1, 6. Why now: an Empire repeat (a trap held only by prose) and it blocks unattended scenes.",
+  "title": "Console guard for transport_to_hlci and the diplomacy getter pump stall",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J78"
+  ]
+}

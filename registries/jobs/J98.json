@@ -1,0 +1,13 @@
+{
+  "id": "J98",
+  "description": "Later sweep 2026-11-04 (docs/audits/LATER_TRIAGE_2026-11-04.md, job J82, audit R4). Built to the brief's defaults for its open questions (open for Liam). From the 2026-11-03 audit (Empire harness learnings dropped: a start-up soak; empire-remastered docs/learnings/LEARNINGS_HARNESS.md lines 94 and 96, read-only, source verified). Empire's start-up c0000374 is environment-bursty (0 of 60 vanilla with one display topology, about 6 of 7 with another), so one clean launch proves nothing; the soak launches to the front end and kills (dev.skip_intro, about 21 s a launch) many times and records the display topology. Build it as a ctl/acceptance verb on the watcher (launch, front end, kill, N times, topology logged per launch, win probe EXIT_CODE as the exited signal) and run it once on J78's DLL; record whether fact napoleon.proxy.init_heap_corruption still reproduces under W33. Carries 20 passes (harness input). Bullets: none (Empire learning 3 of 3, record only). Why now: J78 changes when the dev threads start, which is exactly what the soak guards.",
+  "title": "Start-up soak after every DLL change (Empire learning)",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J78",
+    "J85"
+  ]
+}

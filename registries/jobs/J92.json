@@ -1,0 +1,12 @@
+{
+  "id": "J92",
+  "description": "Later sweep 2026-11-04 (docs/audits/LATER_TRIAGE_2026-11-04.md, job J82, audit R4). Built to the brief's defaults for its open questions (open for Liam). Carries 20 passes when harness/napoleon/adapter.json changes. (1) ctl.routes.orders: land and siege repeat the same tolerance, commands and settle blocks verbatim; share one block or add a check that they match (J28 Later 3). (2) wedge always reports failed on this map's units and diamond and loose were never run: J29 must not offer them (J28 Later 4). (3) Re-run g2's exact order the next time siege_small is up, so a PC run shows the moved field alone catching a unit (J28 Later 2). (4) cam needs dev.camera=1 and siege falls back to the land route with no scenario row: confirm ctl scene sets both or refuse up front (J43 Later 1, 2). (5) Port memdump.ps1/memwrite.ps1 reads as a watcher job type if J60 needs them (J43 Later 4). (6) Scenario rows missing from J44: land large, land 20 v 20, naval large, siege city, campaign mid and late (J44 Later 3). Bullets: J28 review Later 2, 3, 4; J43 review Later 1, 2, 4; J44 review Later 3. Why now: J29 and J60 build on this route.",
+  "title": "Orders route follow-ups: shared blocks, wedge, g2 re-run, scene camera, scenario gaps",
+  "phase": 4,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J29"
+  ]
+}
