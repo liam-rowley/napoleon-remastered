@@ -1,21 +1,24 @@
 """Check that this clone and the PC are ready for local Claude Code work (D30), with a one-line fix for each failure.
 
-purpose: check Git Bash, python3 >= 3.12, the core submodule at the pinned tag, core.hooksPath, LF shell scripts, gh auth, Docker Desktop, the empire-remastered sibling clone, Python Playwright with Chromium, the PC watcher and the PC rules (exe vanilla, no .git in or above a game folder, nothing foreign in the Napoleon folder: J18); `--fix` applies the safe fixes (a python3.exe copy, core.hooksPath)
+purpose: check Git Bash, python3 >= 3.12, the core submodule at the pinned tag, core.hooksPath, LF shell scripts, gh auth, Docker Desktop, the empire-remastered sibling clone, Python Playwright with Chromium, Pillow for the acceptance script (a warning), the PC watcher (its game state and heartbeat age) and the PC rules (exe vanilla, no .git in or above a game folder, nothing foreign in the Napoleon folder: J18); `--fix` applies the safe fixes (a python3.exe copy, core.hooksPath)
 usage: python3 core/wsc.py setup [--fix] [--skip <check>...]
 when: once per clone or PC, after a reboot or tool update, and whenever a gate or the watcher route fails for an environment reason
 verb: setup
 """
+import json
 import os
 import re
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 NAME = 'setup'
 HELP = 'check this clone and the PC for local Claude Code work (D30); --fix for the safe fixes'
 MIN_PY = (3, 12)
-CHECKS = ('git_bash', 'python3', 'core_pin', 'hooks_path', 'lf_scripts', 'gh_auth', 'docker', 'empire_clone', 'playwright', 'watcher', 'pc_rules')
+CHECKS = ('git_bash', 'python3', 'core_pin', 'hooks_path', 'lf_scripts', 'gh_auth', 'docker', 'empire_clone', 'playwright', 'pillow', 'watcher',
+          'pc_rules')
 
 
 # ---- pure helpers (host tests: tests/test_setup.py) ------------------------------------------------------------------------------
@@ -55,8 +58,9 @@ def git_bash(nt=os.name == 'nt', which=shutil.which, git_exec_path=None, isfile=
     i = p.lower().find('/mingw')
     if i > 0:
         roots.append(p[:i])
-    roots += [f'{os.environ[v]}/Git' for v in ('ProgramFiles', 'ProgramW6432', 'LOCALAPPDATA') if os.environ.get(v)]
-    roots.append(f'{os.environ.get("LOCALAPPDATA", "")}/Programs/Git')
+    roots += [f'{os.environ[v]}/Git' for v in ('ProgramFiles', 'ProgramW6432') if os.environ.get(v)]
+    if os.environ.get('LOCALAPPDATA'):   # the per-user install; %LOCALAPPDATA%\Git itself is not an install folder (J41, J94)
+        roots.append(f'{os.environ["LOCALAPPDATA"]}/Programs/Git')
     for r in roots:
         for sub in ('bin/bash.exe', 'usr/bin/bash.exe'):   # bin/bash.exe sets up the MSYS PATH itself
             c = f'{r}/{sub}'.replace('/', '\\')
@@ -91,6 +95,36 @@ def core_path(root, *parts):
     """`<root>/core/<parts>`: the one place this verb spells where the warscape-core submodule is. J12 moved the watcher kit, the
     proxy tools and the ESF tools into the core; J70 found the watcher check still running job.sh at its pre-J12 place (exit 127)."""
     return Path(root).joinpath('core', *parts)
+
+
+def watcher_detail(rc, out, now=None):
+    """The watcher check's detail from `job.sh status` (exit code, output): the watcher.status JSON read for its game state and heartbeat
+    age, plus the line after the JSON on a failing exit; the first output line when no JSON parses (J70: the last line was a stray `}`)."""
+    text = out or ''
+    i = text.find('{')
+    try:
+        st, end = json.JSONDecoder().raw_decode(text[i:]) if i >= 0 else (None, 0)
+        hb = datetime.fromisoformat(st['heartbeat_utc'].replace('Z', '+00:00'))
+        age = int(((now or datetime.now(timezone.utc)) - hb).total_seconds())
+        state = (st.get('game_state') or {}).get('state', '?')
+        detail = f'watcher {st.get("version", "?")}, game {state}, heartbeat {age}s old, queue {st.get("queue_length", 0)}'
+        if st.get('lock'):
+            detail += f', lock held by {st["lock"].get("owner", "?")}'
+        rest = next((l.strip() for l in text[i + end:].splitlines() if l.strip()), '')
+        if rc != 0 and rest:
+            detail += f'; {rest[:160]}'
+    except (ValueError, KeyError, TypeError, AttributeError):
+        detail = next((l.strip() for l in text.splitlines() if l.strip()), '')[:120]
+    return f'job.sh status exit {rc}: {detail}'
+
+
+def pillow_result(rc, out, interpreter='python3'):
+    """(ok, detail, fix) for the pillow check from `<interpreter> -c 'import PIL ...'`: core/harness/acceptance.py compares shots with
+    Pillow and runs under python3 on PATH (J45). A missing Pillow is a warning, not a failure (the acceptance preflight also stops on it)."""
+    if rc == 0 and out:
+        return True, f'Pillow {out.splitlines()[-1].strip()[:100]}', ''
+    return True, (f'warn: {interpreter} cannot import PIL ({(out or "no output").splitlines()[-1][:80]}); the acceptance script needs it. '
+                  f'fix: {interpreter} -m pip install pillow'), f'{interpreter} -m pip install pillow'
 
 
 def main_clone(git_common_dir):
@@ -204,6 +238,11 @@ def check_playwright(root, fix):
     return ok, out.splitlines()[-1][:120] if out else 'no output', 'python3 -m pip install playwright && python3 -m playwright install chromium'
 
 
+def check_pillow(root, fix):
+    rc, out = _run(['python3', '-c', 'import sys, PIL; print(PIL.__version__, "for", sys.executable)'], timeout=60)
+    return pillow_result(rc, out)
+
+
 def check_watcher(root, fix):
     bash = git_bash()
     if bash is None:
@@ -212,8 +251,7 @@ def check_watcher(root, fix):
     if not job.is_file():
         return False, f'{job.relative_to(root).as_posix()} missing', 'git submodule update --init (the core carries the watcher kit since J12)'
     rc, out = _run([bash, str(job), 'status'], timeout=30)
-    tail = out.splitlines()[-1][:120] if out else ''
-    return rc == 0, f'job.sh status exit {rc}: {tail}', 'the watcher runs as a logon task: after a reboot wait for it, or double-click <state>\\watcher\\src\\watch.cmd (harness/README.md)'
+    return rc == 0, watcher_detail(rc, out), 'the watcher runs as a logon task: after a reboot wait for it, or double-click <state>\\watcher\\src\\watch.cmd (harness/README.md)'
 
 
 def load_pc_deploy(root):

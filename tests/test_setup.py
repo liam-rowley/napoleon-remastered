@@ -96,6 +96,61 @@ class Setup(unittest.TestCase):
         self.assertIn('missing', detail)
         self.assertIn('submodule', fix)
 
+    STATUS = ('{\n  "version": "1.9",\n  "heartbeat_utc": "2026-11-04T10:00:00Z",\n  "queue_length": 0,\n'
+              '  "game_state": {\n    "state": "not_running",\n    "pid": null\n  },\n  "lock": null\n}\n')
+
+    def test_watcher_detail_reads_the_status_json(self):
+        # J70 Later 1: the ok line was the JSON's last line, a stray `}`; it now shows the game state and the heartbeat age
+        from datetime import datetime, timezone
+        now = datetime(2026, 11, 4, 10, 0, 7, tzinfo=timezone.utc)
+        d = sv.watcher_detail(0, self.STATUS, now=now)
+        self.assertEqual(d, 'job.sh status exit 0: watcher 1.9, game not_running, heartbeat 7s old, queue 0')
+        locked = self.STATUS.replace('"lock": null', '"lock": {"owner": "J75", "age_s": 3}')
+        self.assertIn('lock held by J75', sv.watcher_detail(0, locked, now=now))
+        late = sv.watcher_detail(1, self.STATUS + 'watcher heartbeat is 300s old: the watcher is not running\n', now=now)
+        self.assertTrue(late.startswith('job.sh status exit 1: watcher 1.9') and late.endswith('the watcher is not running'), late)
+        # no JSON, or JSON without a heartbeat: the first output line
+        self.assertEqual(sv.watcher_detail(1, 'no watcher.alive in X: the watcher has never run here\n'),
+                         'job.sh status exit 1: no watcher.alive in X: the watcher has never run here')
+        self.assertEqual(sv.watcher_detail(0, '{\n  "state": "idle"\n}\n'), 'job.sh status exit 0: {')
+        self.assertEqual(sv.watcher_detail(0, ''), 'job.sh status exit 0: ')
+
+    def test_watcher_check_failing_exit_keeps_its_fix(self):
+        with mock.patch.object(sv, 'git_bash', lambda: 'stub-bash'), \
+                mock.patch.object(sv, '_run', lambda cmd, cwd=None, timeout=60: (1, self.STATUS + 'heartbeat is 300s old\n')):
+            ok, detail, fix = sv.check_watcher(ROOT, False)
+        self.assertFalse(ok)
+        self.assertNotEqual(detail.split(': ', 1)[1], '}')
+        self.assertIn('game not_running', detail)
+        self.assertIn('watch.cmd', fix)
+
+    def test_git_bash_roots_skip_localappdata_git(self):
+        # J41 Later 4: %LOCALAPPDATA%\Git is not an install folder; %LOCALAPPDATA%\Programs\Git is the per-user one
+        env = {'ProgramFiles': r'C:\PF', 'ProgramW6432': r'C:\PF64', 'LOCALAPPDATA': r'C:\Users\x\AppData\Local'}
+        probed = []
+        with mock.patch.dict(sv.os.environ, env, clear=True):
+            self.assertIsNone(sv.git_bash(nt=True, which=lambda _: None, git_exec_path='', isfile=lambda p: probed.append(p) or False))
+        roots = sorted({p.rsplit('\\bin\\', 1)[0].removesuffix('\\usr') for p in probed})
+        self.assertEqual(roots, [r'C:\PF64\Git', r'C:\PF\Git', r'C:\Users\x\AppData\Local\Programs\Git'])
+        want = r'C:\Users\x\AppData\Local\Programs\Git\bin\bash.exe'
+        with mock.patch.dict(sv.os.environ, env, clear=True):
+            self.assertEqual(sv.git_bash(nt=True, which=lambda _: None, git_exec_path='', isfile=lambda p: p == want), want)
+        with mock.patch.dict(sv.os.environ, {}, clear=True):   # no LOCALAPPDATA: no root under the drive root
+            probed.clear()
+            sv.git_bash(nt=True, which=lambda _: None, git_exec_path='', isfile=lambda p: probed.append(p) or False)
+            self.assertEqual(probed, [])
+
+    def test_pillow_result_warns_never_fails(self):
+        ok, detail, fix = sv.pillow_result(0, '12.0.0 for C:\\Python313\\python.exe')
+        self.assertTrue(ok)
+        self.assertEqual(detail, 'Pillow 12.0.0 for C:\\Python313\\python.exe')
+        ok, detail, fix = sv.pillow_result(1, "Traceback ...\nModuleNotFoundError: No module named 'PIL'")
+        self.assertTrue(ok)
+        self.assertTrue(detail.startswith('warn: python3 cannot import PIL'), detail)
+        self.assertIn('pip install pillow', detail)
+        self.assertIn('pip install pillow', fix)
+        self.assertIn('pillow', sv.CHECKS)
+
     def test_cr_files(self):
         with tempfile.TemporaryDirectory() as t:
             (Path(t) / 'a.sh').write_bytes(b'echo hi\n')
