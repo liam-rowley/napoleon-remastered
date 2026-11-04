@@ -36,4 +36,4 @@ A re-run is byte-identical: the art is cached by input sha256, and the pack is k
 - **Engine-drawn text:** map and unit labels, the version string, the loading quote.
 - **Front-end "New content" box:** clipped.
 - **Unchecked in game:** tooltips, the campaign settlement panel and unit-card row (run 2026-11-02_j66).
-- **Font face (D42):** `uiscale/fonts/Lora-Variable.ttf` when vendored, else the same file in the empire-remastered clone (`config.json` `font_faces`).
+- **Font face (D42):** vendored at `uiscale/fonts/Lora-Variable.ttf` (J68; SIL OFL text beside it). The same file in the empire-remastered clone is only a fallback (`config.json` `font_faces`).
