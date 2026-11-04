@@ -99,13 +99,13 @@ class Reader(unittest.TestCase):
         (repo / 'jobs' / 'J7').mkdir(parents=True)
         (repo / 'jobs' / 'J7' / 'brief.md').write_text('Budget about 50 tool calls.')
         write(self.proj / 'a.jsonl', asst('m1', '2026-11-01T10:00:00Z', branch='job/J7', tools=3), json.dumps({'type': 'agent-name', 'agentName': 'J7-build'}))
-        us = hk.usage_state(repo, self.d / 'projects')
+        us = hk.usage_state(repo, self.d / 'projects', rows=[{'id': 'J7'}])
         self.assertEqual(us['jobs'][0]['budget'], 50)
         html = hk.usage_html(us) + us['source']
         self.assertIn('3 / 50', html)
         self.assertIn('estimate', html)
         self.assertNotIn(SECRET, html)
-        gone = hk.usage_state(repo, self.d / 'nope')
+        gone = hk.usage_state(repo, self.d / 'nope', rows=[{'id': 'J7'}])
         self.assertIn('does not exist', gone['source'])
         self.assertEqual(hk.usage_html(gone), '')
 
