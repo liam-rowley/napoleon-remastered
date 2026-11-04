@@ -12,7 +12,8 @@ Rules (empire-remastered origin/ui/multiscale ui_scale_mod/docs/multiscale.md se
 - image defs with a path are the texture repeat period: they take tex_size = ceil(t * f) (the engine tiles at the texture's real size,
   so the art pack ships real f x textures); blank defs (containers, solid fills) stay.
 - the image-use tail (9-slice stretch flags at bytes 7/8) is never touched.
-- fonts: the engine loads a fixed set of font files per context; a name maps to a slot of that context (SLOTS), chosen as at 2x.
+- fonts: the engine loads a fixed set of font files per context; a name maps to a slot of that context (SLOTS), chosen as at 2x; then the
+  long-form pass (J79, Empire's): only TextView 'Text' children keep the spaced Frontend 24, every other user of it takes Ingame 24.
 - templates: an embedded TGA is upscaled together with the image defs that describe it, never apart (a def changed alone crashed
   Empire's campaign). Records in SKIP_TEMPLATES and the undecodable v4 records pass through byte for byte.
 """
@@ -71,6 +72,52 @@ def font_slot(name, context):
     avail = FRONTEND_LOADED['Ingame_b' if (fam == 'Ingame' and style == 'Bold') else fam]
     best = min(avail, key=lambda s: (abs(s - want), -s))   # nearest, larger on a tie
     return f'{fam} {best}, {style}'
+
+
+# Long-form text gets the spaced font (Empire ui_scale_mod/tools/scale.py LONGFORM, ported by J79, audit G9). Line pitch is a property of
+# the .cuf (h2 + 2) and every fixed-height text box is sized to n x the vanilla pitch, so the spaced slot (cuf_encode.SPACED_H2,
+# frontend_24 pitch 30) would shrink text in a fixed box. Long descriptive text lives in TextView widgets whose 'Text' child resizes to
+# its rendered text and scrolls, so only those Text components keep LONGFORM_FONT; every other user of it moves to LONGFORM_DISPLACED
+# (the same glyphs, vanilla spacing). Frontend 38 and Bold TextViews keep their size and weight.
+LONGFORM = True
+LONGFORM_FONT = 'Frontend 24, Normal'
+LONGFORM_DISPLACED = 'Ingame 24, Normal'
+LONGFORM_ELIGIBLE = {'Ingame 24, Normal', 'Frontend 24, Normal'}   # same glyphs as LONGFORM_FONT: spacing is the only change
+
+
+def is_textview(c):
+    """a TextView widget: template 'TextView' or the script template.textview.lua (Empire scale.is_textview)"""
+    return c.get('template') == 'TextView' or (c.get('script') or '').lower() == 'template.textview.lua'
+
+
+def longform_pass(root, stats=None):
+    """after the font slots are chosen: the 'Text' children of a TextView take LONGFORM_FONT (from an eligible font), every other
+    LONGFORM_FONT user takes LONGFORM_DISPLACED (Empire scale.longform_pass); stats['fonts'] counts are moved with each change"""
+    fam = LONGFORM_FONT.split(',')[0] + ','
+
+    def fix(c, longform):
+        for st in c['states']:
+            old = st.get('font') or ''
+            if longform and old in LONGFORM_ELIGIBLE:
+                new = LONGFORM_FONT
+            elif not longform and old.startswith(fam):
+                new = LONGFORM_DISPLACED
+            else:
+                continue
+            st['font'] = new
+            if stats is not None and new != old:
+                f = stats.setdefault('fonts', {})
+                f[old] = f.get(old, 0) - 1
+                f[new] = f.get(new, 0) + 1
+                stats.setdefault('longform', {}).setdefault(f'{old} -> {new}', 0)
+                stats['longform'][f'{old} -> {new}'] += 1
+
+    def rec(c, in_tv):
+        for ch in c['children']:
+            fix(ch, in_tv and ch['name'] == 'Text')
+            rec(ch, is_textview(ch))
+    fix(root, False)
+    rec(root, is_textview(root))
 
 
 def font_file(name):
@@ -149,6 +196,8 @@ def scale_layout(doc, f, context, scale_root=True, stats=None):
     if not scale_root:
         for st, (w, h) in zip(root['states'], keep):
             st['w'], st['h'] = w, h
+    if LONGFORM:
+        longform_pass(root, stats)   # after the slots, as Empire's scale_doc
     return doc
 
 
@@ -261,6 +310,8 @@ def scale_record(r, f, stats=None):
         t['tga'] = upscale_tga(t['tga'], f)
     rec_names = {t['path'] for t in doc['textures']}
     _scale_embedded(doc['root'], f, rec_names)
+    if LONGFORM:
+        longform_pass(doc['root'], stats)   # each template record on its own, as Empire's scale_templates.py
     return ver, tpl.serialise_record(doc, ver)
 
 
