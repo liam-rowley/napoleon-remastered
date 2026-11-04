@@ -3,12 +3,13 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) H3. tools/jobs_hooks.py:257-336 checks that evidence exists, not that it is genuine: 20 copies of one ledger line pass, and acc_exempt exempts all of harness/acceptance/, so a branch that edits only baseline.json (thresholds, deterministic: false) needs no passes. Exempt only ledger.jsonl; require each counted line's evidence file to be unique and to agree with the line (run, pass, build id, result); refuse a ledger diff that is not append-only; once the pinned core writes them (core W9), require the shot, kit, DLL and watcher shas on new lines. After J73 (the same file).",
   "title": "Rule 79 evidence: one exemption, unique evidence, append-only ledger, shas",
   "phase": 1,
-  "status": "review",
+  "status": "done",
   "model": "sonnet",
   "needs_pc": false,
   "depends_on": [
     "J73"
   ],
   "brief": "jobs/J75/brief.md",
-  "report": "jobs/J75/report.md"
+  "report": "jobs/J75/report.md",
+  "review": "jobs/J75/review.md"
 }
