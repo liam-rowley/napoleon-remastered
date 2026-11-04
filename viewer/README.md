@@ -22,6 +22,21 @@ touches `viewer/` (`wsc.toml` `[ci] inputs`), and keeps everything as the `viewe
 `gh run download <run id> -n viewer-wasm -D build/viewer/out`. When CI skipped `viewer` because the same input tree already passed (J54), the
 run's summary names the run that built it: download from that one.
 
+## Housekeeping
+
+`build.sh --docker` keeps each checkout's CMake tree in its own Docker volume `napoleon-viewer-cmake-<12 hex of the checkout path's sha256>`,
+labelled `napoleon.viewer.checkout=<path>` (J97). Worktrees come and go; their volumes stay until pruned:
+
+```sh
+viewer/core/build.sh --prune --dry-run   # prints keep / would remove for every napoleon-viewer-cmake volume, removes nothing
+viewer/core/build.sh --prune             # removes the ones it named; a volume in use is skipped
+```
+
+It keeps a labelled volume whose checkout folder still exists, and an unlabelled one (made before J97) whose name is the hash of this checkout
+or of a worktree in `git worktree list` that exists on disk; it removes the rest and the old shared `napoleon-viewer-cmake`. Volumes are build
+caches: a removed one is rebuilt by the next `--docker build`. It names no other volume and runs no bulk prune. If it cannot remove the old
+shared volume: `docker volume rm napoleon-viewer-cmake`. Pruning is explicit only, never part of a build.
+
 ## Publishing a screen as an artifact
 
 Art must be a web image type (PNG or JPEG: the artifact refuses `.tga`); RML, RCSS and Lua go with `contentType: text/plain`;

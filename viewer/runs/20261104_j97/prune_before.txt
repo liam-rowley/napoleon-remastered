@@ -1,0 +1,9 @@
+# docker volume ls (napoleon-viewer-cmake), before, 2026-11-04T18:13:33Z
+napoleon-viewer-cmake
+napoleon-viewer-cmake-b42762329245
+
+# build.sh --prune --dry-run
+would remove napoleon-viewer-cmake: the old shared volume (one volume per checkout since the J31 review)
+keep napoleon-viewer-cmake-b42762329245: unlabelled, the hash of a live checkout
+build.sh --prune --dry-run: kept 1, would remove 1, skipped 0
+rc=0
