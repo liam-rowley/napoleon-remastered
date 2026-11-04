@@ -2,7 +2,7 @@
 
 ## Round 1 (2026-11-04, branch `job/J94` at a65ff3e)
 
-**Verdict: fix.** One blocker: the new `BARE_BASH` rule flags a file that merged to `main` after the builder's last full run, so the `tests` gate is red on this branch.
+**Verdict: merge after fixes.** One blocker: the new `BARE_BASH` rule flags a file that merged to `main` after the builder's last full run, so the `tests` gate is red on this branch.
 
 Reviewer: a fresh session that built none of the branch. Checked against `jobs/J94/brief.md` and `jobs/J94/report.md`.
 
