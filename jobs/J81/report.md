@@ -116,3 +116,19 @@ rr: _to_delete holds 5.8 KB in 1 folders: run Clean.cmd to free it
    5. Files the player added are counted as the update's.
 
    5.1 and 5.2 are reviewer fixes for this branch; 5.3 can delete outside `_to_delete` and should be fixed here too; 5.4 and 5.5 may need a decision.
+
+## Fix round 1
+Commit 0409780 (one commit for the three installer fixes, each with its own test in `tests/test_release_installer.py`).
+
+- **5.1 Re-run backs up our own mod folder as foreign (fixed).** `Is-Ours` now treats a `runtime_globs` match as ours for a single file as well as inside a folder,
+  and a file inside our own mod folder that no manifest lists (a leftover `.tmp`) no longer makes the whole folder foreign (a listed file with a different sha still does).
+  Test: `test_rerun_keeps_our_mod_folder_with_a_stray_tmp_and_runtime_files`; fails on the old code, passes now.
+- **5.2 Unfinished backup lets Clean delete the original (fixed).** A recorded backup is skipped only when the backup file exists; when it is missing and the source is
+  still at the game path, the install finishes the move to the recorded backup path. Test: `test_unfinished_backup_is_finished_not_deleted` (clean afterwards, uninstall
+  restores the original); fails on the old code, passes now.
+- **5.3 Clean may follow junctions (fixed, defensively).** `Do-Clean` now removes any reparse point as a link without descending (`Remove-Links`), and deletes a stamp
+  folder that is itself a junction as a link. Test: `test_clean_does_not_follow_a_junction_out_of_to_delete` (temp folders only, sentinel file outside). It passes on the
+  old code too on this machine (Windows 11, PowerShell 5.1), so it guards the behaviour but does not reproduce the reviewer's failure here; the fix is kept for older builds.
+- **5.4, 5.5, open questions 1-4:** left as the reviewer set them (decisions for Liam, defaults built); nothing changed.
+
+Checks: `tests.test_release_installer` + `tests.test_release` 73 OK locally.
