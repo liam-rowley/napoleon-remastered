@@ -1,0 +1,36 @@
+{
+ "note": "Floors, ratchet and the pinned index for `wsc discovery gate` (J11). Hand-edited and reviewed like code: a floor or a ratchet number moves only in a commit that says why; `index` moves only with a discovery pass re-run on the PC.",
+ "index": {
+  "built": "2026-10-29",
+  "rows": 88415,
+  "sha256": "03b857fe823f7f25d2512293377c2c90d90271ac94acbb1e7fc14044683bf6f9"
+ },
+ "floors": {
+  "assets": 12000,
+  "config_keys": 36,
+  "engine_facts": 180,
+  "engine_sites": 55,
+  "hotkeys": 120,
+  "jobs": 60,
+  "scenarios": 10,
+  "tools": 90,
+  "ui_elements": 250
+ },
+ "ui_context_floors": {
+  "battle": 30,
+  "campaign": 54,
+  "common": 17,
+  "engine": 13,
+  "frontend": 38,
+  "template": 95
+ },
+ "config_key_owners": ["proxy"],
+ "ratchet": {
+  "assets.unreferenced": 10272,
+  "briefs.registry_gaps": 0,
+  "engine_facts.loose_override_open": 1,
+  "engine_facts.open": 23,
+  "ui_elements.data_fields_unresolved": 3711,
+  "ui_elements.scripts_missing": 106
+ }
+}

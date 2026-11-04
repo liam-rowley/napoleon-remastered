@@ -1,0 +1,11 @@
+{
+  "id": "saves.napoleon.recipes._common",
+  "kind": "script",
+  "path": "saves/napoleon/recipes/_common.py",
+  "purpose": "library for the recipes in saves/napoleon/recipes/ (each one: python3 -I <recipe>.py IN OUT [options])",
+  "usage": "from _common import SaveEdit, report   (imported by the recipes; not run on its own)",
+  "when": "writing a new Napoleon save recipe",
+  "not_a_verb": "a library imported by the recipes, which run on the PC against saves outside the repo",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

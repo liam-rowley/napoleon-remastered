@@ -1,0 +1,42 @@
+/* J30 host test: every length in dp (D19), absolute positions so the checks in tools/ui_hosttest.py know each probe's box. */
+body, div, span, img { display: block; }
+span { display: inline; }
+body {
+	font-family: "IM FELL English";
+	font-size: 16dp;
+	color: #ffffff;
+	background-color: #101820;
+	position: absolute;
+	left: 40dp;
+	top: 40dp;
+	width: 560dp;
+	height: 640dp;
+}
+.line { position: absolute; left: 10dp; white-space: nowrap; color: #ffffff; }
+.s14 { top: 10dp; height: 30dp; font-size: 14dp; }
+.s20 { top: 40dp; height: 35dp; font-size: 20dp; }
+.s28 { top: 75dp; height: 45dp; font-size: 28dp; }
+.s40 { top: 120dp; height: 60dp; font-size: 40dp; }
+#rules { position: absolute; left: 10dp; top: 190dp; width: 260dp; height: 30dp; }
+.rule { position: absolute; left: 0dp; width: 260dp; height: 1dp; background-color: #ffffff; }
+#boxes { position: absolute; left: 290dp; top: 190dp; width: 150dp; height: 40dp; }
+.box { position: absolute; top: 0dp; width: 40dp; height: 40dp; border: 1dp #ffffff; background-color: #101820; }
+#art { position: absolute; left: 10dp; top: 250dp; width: 64dp; height: 64dp; }
+.button {
+	position: absolute; left: 100dp; top: 250dp; width: 180dp; height: 44dp; line-height: 44dp;
+	text-align: center; font-size: 22dp; color: #101820; background-color: #c8a050;
+}
+.button:hover { background-color: #e0bc6a; }
+.button:active { background-color: #8a7040; color: #f0d890; }
+#click_line { position: absolute; left: 300dp; top: 260dp; font-size: 20dp; }
+#lua_line { position: absolute; left: 10dp; top: 330dp; font-size: 16dp; color: #a8b8c8; }
+#list {
+	position: absolute; left: 10dp; top: 360dp; width: 300dp; height: 200dp;
+	overflow-y: auto; background-color: #121924;
+}
+.item { height: 28dp; line-height: 28dp; padding: 0dp 8dp; color: #e8dcc0; }
+.item:hover { background-color: #2a3446; }
+scrollbarvertical { width: 12dp; }
+scrollbarvertical slidertrack { background-color: #0c1018; }
+scrollbarvertical sliderbar { background-color: #8a7040; min-height: 24dp; }
+#title { position: absolute; left: 10dp; top: 580dp; font-size: 20dp; color: #f0d890; }

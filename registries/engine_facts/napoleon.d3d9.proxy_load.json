@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.d3d9.proxy_load",
+  "claim": "Napoleon.exe loads d3d9.dll from its own folder (a proxy there is used); it calls Direct3DCreate9(sdk=32) once, about 1.1 s after the proxy DllMain, on the thread that ran DllMain",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_pctest/README.md",
+  "date": "2026-10-28"
+}

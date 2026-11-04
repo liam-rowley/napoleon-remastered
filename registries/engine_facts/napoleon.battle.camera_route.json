@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.camera_route",
+  "claim": "Battle camera, land, siege and naval: set with the active camera mode's own SetTargetAndPosition(target, pos) (mode = *(*(*(*global + 0xf8) + 0x281b8) + 0x800), vtable slot 0xbc; engine_sites battle.camera_*), called from wsp.cam_set on the engine thread; read back in Lua from BattleUI.BackProjectPosition(x, y, z, 0) -> screen x, screen y, depth, distance from the camera (trilateration of 4 distances gives the position; a pinhole fit of 27 points gives yaw, pitch and a 70.0 degree vertical fov to 0.001 px). Exact to 1e-4 m and degrees, works while paused. Clamps: pitch [-45, 45] degrees; height above terrain [2.5, 44.556] m on land and siege, [15, 150] m above the sea in naval_small. BattleUI.CameraZoomTo(x, y, z, facing) only moves the look point (facing and height ignored); the mode stores position (+8), target (+0x14), height above terrain (+0x150, canonical), angles as 16-bit binary angles",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j43pc/README.md",
+  "date": "2026-10-30",
+  "notes": "the readback works at sea, unlike Empire's shader capture; campaign not covered (napoleon.campaign.camera_route)"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.format_route",
+  "claim": "Shadow map format chosen in 0x11868f0 (static): software path R32F (engine format 9) when quality 4 and caps byte +0x711, else R16F (8, caps +0x710), else 0xe; hardware path (gfx_hardware_shadows, options +0x69d09): NV depth format 0x17 (caps +0x707) or ATI 0x16 (+0x706), colour target NULL 0x13 (caps +0x71b) or a dummy 2/4/5; caps object *[0x182ef6c], vendor at +0x9e4; the receivers' define follows (0x11a7e60: NVIDIA_HARDWARE_SHADOWS / ATI_HARDWARE_SHADOWS / SOFTWARE_SHADOWS): no separate receiving switch",
+  "state": "open",
+  "evidence": "discovery/napoleon/engine_sites_routes.md",
+  "date": "2026-11-01",
+  "notes": "owner J24; the hardware path at run time is napoleon.shadow.hardware_path"
+}

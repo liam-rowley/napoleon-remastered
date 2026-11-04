@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.d3d9.create_per_battle",
+  "claim": "Napoleon calls Direct3DCreate9 again when a battle loads (a second IDirect3D9 on the same thread); the device vtable hook stays valid",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.diff.layouts.versions",
+  "claim": "Napoleon UI layouts: 174 files, Version028 1, 029 2, 030 1, 032 5, 033 29, 039 136; every file round-trips byte for byte through discovery/core/uic.py (V028-V033 with Empire's codec unchanged, V039 decoded by J6 and J10)",
+  "state": "verified",
+  "evidence": "discovery/diff/layouts.json",
+  "date": "2026-11-02"
+}

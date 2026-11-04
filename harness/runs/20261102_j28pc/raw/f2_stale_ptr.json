@@ -1,0 +1,10 @@
+{
+  "verb": "order",
+  "status": "refused",
+  "reason": "unit 0x33d694c8: orders refused: 0x33d694c8: the unit's army is not readable",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-11-02T12:44:34.214Z",
+  "end_utc": "2026-11-02T12:44:35.866Z"
+}

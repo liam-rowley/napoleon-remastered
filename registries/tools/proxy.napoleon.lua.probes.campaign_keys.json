@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_keys",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_keys.lua",
+  "purpose": "log and return the campaign_key property of every single-player campaign button (grand, episodic, spain) and whether",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_keys.lua\" on the main menu",
+  "when": "to pick or check the <campaign> of an autostart target campaign:new:<campaign>:<faction>",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

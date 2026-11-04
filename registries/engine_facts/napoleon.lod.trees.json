@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.lod.trees",
+  "claim": "Tree far distance: the tree display init 0x11e1220 switches on gfx_tree_quality (options +0x69d1c) and overwrites tweaker tree_far_distance through its setter 0x5aa4a0: quality 1 100, 2 150, 3 200, other (0 and 4) 50 m, so the tweaker default 200 never survives; rows trees.* at 600 m add 3D trees at every case (land_small deploy: branch/frond draws 5/5 -> 8/9 at quality 1, 6/6 -> 9/10 at 2, 3 and 4); tree_near_distance 30 is a plain tweaker (initialiser immediate RVA 0x42ae1), not registered",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01"
+}

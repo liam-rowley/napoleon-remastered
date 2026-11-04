@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.shadow.map",
+  "claim": "gfx_shadow_quality 0: no shadow pass; 1: 512 R16F + 512 D24X8; 2: 1024 R16F; 3: 2048 R16F; 4: 2048 R32F (land_small deploy: 36, 44, 48, 54 caster draws; frame p50 1.76, 2.04, 2.26, 2.18, 2.35 ms on the RTX 4090). Path SOFTWARE_SHADOWS (gfx_hardware_shadows false): linear depth in a colour target, filtered in the pixel shader; the receivers reproduce only with SOFTWARE_SHADOWS",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01"
+}

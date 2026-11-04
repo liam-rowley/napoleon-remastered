@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.upscale_deterministic",
+  "claim": "The UI art upscale (nomos_esrgan_2x and hfa2k_compact_2x, fp16, tile 256, overlap 16, cudnn deterministic) gives byte-identical outputs on two runs over a fixed 208-asset sample (207 of 207 sha256 equal, 68 to 70 s each) on the RTX 4090 with torch 2.14.1+cu130",
+  "state": "verified",
+  "evidence": "upscale/runs/2026-10-31_first_roles.md",
+  "date": "2026-10-31",
+  "notes": "same GPU and driver only; a driver or torch change needs the check again"
+}

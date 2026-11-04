@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.exe.no_drm_stub",
+  "claim": "Napoleon.exe carries no SteamStub signs (no .bind section, entry point inside .text): its code is readable as on disk when the proxy DllMain runs",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_exeinfo/README.md",
+  "date": "2026-10-28",
+  "notes": "static evidence only; the in-memory check is the patch engine anchor test once sites exist"
+}

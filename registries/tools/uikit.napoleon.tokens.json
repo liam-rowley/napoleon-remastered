@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.tokens",
+  "kind": "script",
+  "path": "uikit/napoleon/tokens.py",
+  "purpose": "load uikit/napoleon/tokens.json, derive hover/pressed and the other computed colours, expand $token references in RCSS, compute the four faction tokens (with the on-colour fix) and WCAG contrast",
+  "usage": "python3 uikit/napoleon/tokens.py [pairs | faction R G B | names]   (import it from build.py, lint.py and the tests: faction_tokens, contrast, expand, load_tokens)",
+  "when": "any time a colour, a ratio or a faction record is needed; the host-side faction sheet at install time (J35, J53) calls faction_sheet; game-agnostic maths, a core candidate (J34 report)",
+  "not_a_verb": "pure functions plus a tiny CLI for looking at the numbers, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

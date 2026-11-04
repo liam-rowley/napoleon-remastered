@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "harness\\runs\\20261101_j8pc\\raw\\blob_d1000.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.15,
+    "frames": 818,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 93613,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "harness\\runs\\20261101_j8pc\\raw\\blob_d1000.jpg"
+  },
+  "start_utc": "2026-11-01T12:32:08.743Z",
+  "end_utc": "2026-11-01T12:32:16.402Z"
+}

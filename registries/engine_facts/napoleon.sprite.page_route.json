@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.sprite.page_route",
+  "claim": "The unit imposter atlas (the stage-2 texture of imposter.fx draws: one-level dynamic DXT1) is twice the cell edge that 0x1240010 picks from gfx_texture_quality (options +0x69d00): quality 0 cell 512 (atlas 1024), 1 / 2 / 3 cell 1024 (atlas 2048), a budget loop steps the case down when the cost is over budget; gfx_unit_quality 0 and 3 change nothing; with the rows sprite.page_q* at 2048 the atlas is 4096 at every texture quality, with no measurable load time (4.0 s against 4.2 s)",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "the 512 / 1024 A8R8G8B8 texture at stage 0 of most draws is the environment cube (follows texture quality 3), not the imposter page"
+}

@@ -105,11 +105,13 @@ def classify(im, handler, prof):
     other = calls - parse - prints
     if w['tail']:
         other |= {t for _, t in w['tail']}
-    other_icalls = [at for at in w['icalls'] if not selection_call(im, at, prof)]
+    other_icalls = [at for at in w['icalls'] + w['itail'] if not selection_call(im, at, prof)]   # an indirect tail jmp acts like an icall
     if not other and not other_icalls:
         if calls & prints:
             return 'prints_only', 'only formats output (the retail console shows none)'
         return 'parse_only', 'only reads its arguments or the selection'
+    if not other:
+        return 'acts', f'{len(other_icalls)} indirect calls or tail jumps (virtual or through a global)'
     return 'acts', f'calls {len(other)} engine functions'
 
 

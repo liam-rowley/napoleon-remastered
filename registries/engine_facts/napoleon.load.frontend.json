@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.load.frontend",
+  "claim": "Main menu pumps 6.99 s (6.85-7.39) after process creation with the start-up movies refused, 131.36 s (130.70-131.70) with them (n=5 each); Direct3DCreate9 at 1.1 s, device at 1.8 s, the Lua bridge at 6.7-7.2 s",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc2/README.md",
+  "date": "2026-10-29"
+}

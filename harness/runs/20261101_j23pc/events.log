@@ -1,0 +1,163 @@
+2026-11-01T21:04:59Z plan: 258 cells, scenarios ['land_small', 'siege_small', 'naval_small', 'naval_storm', 'hist_dresden', 'hist_nile', 'campaign_start'], sizes 1920x1080,2560x1440,3840x2160, backends dxvk,system, variants []; start keys {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T21:04:59Z block ('1920x1080', 'dxvk', None): exit, set keys, relaunch
+2026-11-01T21:05:31Z cell dxvk_1920x1080_land_small_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:05:51Z cell dxvk_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:06:10Z cell dxvk_1920x1080_naval_small_default_p0 ok: load 3.7 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:06:28Z cell dxvk_1920x1080_naval_storm_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:06:50Z cell dxvk_1920x1080_hist_dresden_default_p0 ok: load 7.3 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:07:17Z cell dxvk_1920x1080_hist_nile_default_p0 ok: load 4.3 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:07:38Z cell dxvk_1920x1080_campaign_start_default_p0 ok: load 2.8 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:08:30Z cell dxvk_1920x1080_land_small_deploy_p1 ok: load 3.6 p50 1.894 p99 3.871 VA 1819/1823.7 commit 1180 vram 563.6 
+2026-11-01T21:08:58Z cell dxvk_1920x1080_land_small_turned_p1 ok: load 3.6 p50 1.871 p99 4.606 VA 1814/1822.5 commit 1179 vram 563.6 
+2026-11-01T21:09:46Z cell dxvk_1920x1080_siege_small_deploy_p1 ok: load 5.3 p50 2.286 p99 4.228 VA 1887/1887.0 commit 1243 vram 787.5 
+2026-11-01T21:10:14Z cell dxvk_1920x1080_siege_small_turned_p1 ok: load 5.3 p50 2.058 p99 3.928 VA 1878/1886.9 commit 1241 vram 787.5 
+2026-11-01T21:11:01Z cell dxvk_1920x1080_naval_small_deploy_p1 ok: load 3.7 p50 1.689 p99 3.289 VA 1761/1887.6 commit 1086 vram 604.5 
+2026-11-01T21:11:29Z cell dxvk_1920x1080_naval_small_turned_p1 ok: load 3.7 p50 1.379 p99 2.809 VA 1759/1887.3 commit 1086 vram 604.5 
+2026-11-01T21:12:12Z cell dxvk_1920x1080_naval_storm_default_p1 ok: load 3.5 p50 1.645 p99 3.045 VA 1759/1887.2 commit 1086 vram 604.5 
+2026-11-01T21:13:03Z cell dxvk_1920x1080_hist_dresden_deploy_p1 ok: load 7.3 p50 4.573 p99 7.027 VA 2080/2096.0 commit 1452 vram 887.7 
+2026-11-01T21:13:33Z cell dxvk_1920x1080_hist_dresden_turned_p1 ok: load 7.3 p50 4.298 p99 6.609 VA 2080/2096.0 commit 1452 vram 887.7 
+2026-11-01T21:14:26Z cell dxvk_1920x1080_hist_nile_deploy_p1 ok: load 4.2 p50 3.552 p99 5.956 VA 1821/1823.3 commit 1152 vram 456.0 
+2026-11-01T21:14:56Z cell dxvk_1920x1080_hist_nile_turned_p1 ok: load 4.2 p50 3.325 p99 6.299 VA 1815/1823.3 commit 1153 vram 456.0 
+2026-11-01T21:15:42Z cell dxvk_1920x1080_campaign_start_default_p1 ok: load 2.6 p50 2.024 p99 2.866 VA 1756/1757.2 commit 1157 vram 428.8 
+2026-11-01T21:16:35Z cell dxvk_1920x1080_land_small_deploy_p2 ok: load 3.6 p50 1.966 p99 3.341 VA 1818/1822.7 commit 1178 vram 563.6 
+2026-11-01T21:17:03Z cell dxvk_1920x1080_land_small_turned_p2 ok: load 3.6 p50 1.856 p99 3.134 VA 1814/1822.5 commit 1177 vram 563.6 
+2026-11-01T21:17:50Z cell dxvk_1920x1080_siege_small_deploy_p2 ok: load 5.2 p50 2.27 p99 3.815 VA 1887/1887.0 commit 1243 vram 787.5 
+2026-11-01T21:18:18Z cell dxvk_1920x1080_siege_small_turned_p2 ok: load 5.2 p50 2.057 p99 3.448 VA 1878/1886.9 commit 1241 vram 787.5 
+2026-11-01T21:19:04Z cell dxvk_1920x1080_naval_small_deploy_p2 ok: load 3.7 p50 1.689 p99 3.11 VA 1760/1886.4 commit 1087 vram 604.5 
+2026-11-01T21:19:33Z cell dxvk_1920x1080_naval_small_turned_p2 ok: load 3.7 p50 1.387 p99 2.752 VA 1759/1887.1 commit 1087 vram 604.5 
+2026-11-01T21:20:15Z cell dxvk_1920x1080_naval_storm_default_p2 ok: load 3.5 p50 1.649 p99 3.186 VA 1759/1887.2 commit 1087 vram 540.5 
+2026-11-01T21:21:06Z cell dxvk_1920x1080_hist_dresden_deploy_p2 ok: load 7.3 p50 4.464 p99 6.483 VA 2078/2094.0 commit 1467 vram 823.7 
+2026-11-01T21:21:35Z cell dxvk_1920x1080_hist_dresden_turned_p2 ok: load 7.3 p50 4.258 p99 6.452 VA 2078/2094.0 commit 1450 vram 823.7 
+2026-11-01T21:22:37Z cell dxvk_1920x1080_hist_nile_deploy_p2 ok: load 4.2 p50 3.518 p99 6.06 VA 1821/1823.3 commit 1152 vram 456.0 
+2026-11-01T21:23:07Z cell dxvk_1920x1080_hist_nile_turned_p2 ok: load 4.2 p50 3.261 p99 6.165 VA 1815/1823.3 commit 1152 vram 456.0 
+2026-11-01T21:23:51Z cell dxvk_1920x1080_campaign_start_default_p2 ok: load 2.7 p50 1.988 p99 2.814 VA 1748/1749.3 commit 1157 vram 428.7 
+2026-11-01T21:24:42Z cell dxvk_1920x1080_land_small_deploy_p3 ok: load 3.6 p50 1.857 p99 3.202 VA 1818/1822.7 commit 1183 vram 563.6 
+2026-11-01T21:25:10Z cell dxvk_1920x1080_land_small_turned_p3 ok: load 3.6 p50 1.826 p99 3.162 VA 1813/1821.5 commit 1182 vram 563.6 
+2026-11-01T21:25:58Z cell dxvk_1920x1080_siege_small_deploy_p3 ok: load 5.2 p50 2.251 p99 3.637 VA 1887/1890.8 commit 1263 vram 787.6 
+2026-11-01T21:26:25Z cell dxvk_1920x1080_siege_small_turned_p3 ok: load 5.2 p50 2.036 p99 3.315 VA 1878/1890.8 commit 1246 vram 787.5 
+2026-11-01T21:27:12Z cell dxvk_1920x1080_naval_small_deploy_p3 ok: load 3.7 p50 1.682 p99 3.174 VA 1760/1890.1 commit 1093 vram 604.5 
+2026-11-01T21:27:40Z cell dxvk_1920x1080_naval_small_turned_p3 ok: load 3.7 p50 1.38 p99 2.757 VA 1759/1890.8 commit 1092 vram 604.5 
+2026-11-01T21:28:24Z cell dxvk_1920x1080_naval_storm_default_p3 ok: load 3.5 p50 1.649 p99 3.193 VA 1759/1890.9 commit 1093 vram 540.5 
+2026-11-01T21:29:15Z cell dxvk_1920x1080_hist_dresden_deploy_p3 ok: load 7.3 p50 4.47 p99 6.701 VA 2078/2095.9 commit 1472 vram 823.7 
+2026-11-01T21:29:44Z cell dxvk_1920x1080_hist_dresden_turned_p3 ok: load 7.3 p50 4.253 p99 6.47 VA 2078/2095.9 commit 1456 vram 823.7 
+2026-11-01T21:30:39Z cell dxvk_1920x1080_hist_nile_deploy_p3 ok: load 4.2 p50 3.518 p99 6.129 VA 1822/1823.6 commit 1153 vram 456.0 
+2026-11-01T21:31:09Z cell dxvk_1920x1080_hist_nile_turned_p3 ok: load 4.2 p50 3.24 p99 5.962 VA 1816/1823.7 commit 1153 vram 456.0 
+2026-11-01T21:31:55Z cell dxvk_1920x1080_campaign_start_default_p3 ok: load 2.6 p50 1.989 p99 2.751 VA 1767/1768.3 commit 1176 vram 428.7 
+2026-11-01T21:33:36Z cell dxvk_1920x1080_land_small_battle1x_p1 ok: load 3.6 p50 2.336 p99 3.843 VA 1838/1843.5 commit 1193 vram 563.6 
+2026-11-01T21:33:36Z block ('1920x1080', 'system', None): exit, set keys, relaunch
+2026-11-01T21:33:41Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T21:39:48Z cell system_1920x1080_land_small_default_p0 failed: load None p50 None p99 None VA None/None commit None vram None RuntimeError: step launch: exit 1: apoleon 35092
+
+[watcher] failed: HEADLESS FAILED: no on_virtual status for pid 35092 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)
+[job claude-j23-20261101T213645Z-326358260: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 35092 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]
+
+2026-11-01T21:40:09Z cell system_1920x1080_siege_small_default_p0 failed: load None p50 None p99 None VA None/None commit None vram None RuntimeError: ctl state failed (exit 124): is the game running with dev.ctl=1?
+2026-11-01T21:46:17Z cell system_1920x1080_naval_small_default_p0 failed: load None p50 None p99 None VA None/None commit None vram None RuntimeError: step launch: exit 1: poleon 39680
+
+[watcher] failed: HEADLESS FAILED: no on_virtual status for pid 39680 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)
+[job claude-j23-20261101T214313Z-2372321557: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 39680 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]
+
+2026-11-01T21:52:25Z cell system_1920x1080_naval_storm_default_p0 failed: load None p50 None p99 None VA None/None commit None vram None RuntimeError: step launch: exit 1:  Napoleon 6372
+
+[watcher] failed: HEADLESS FAILED: no on_virtual status for pid 6372 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)
+[job claude-j23-20261101T214922Z-3268528865: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 6372 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]
+
+2026-11-01T21:52:25Z cell system_1920x1080_hist_dresden_default_p0 failed: load None p50 None p99 None VA None/None commit None vram None block skipped: two launch failures in a row
+2026-11-01T21:52:25Z cell system_1920x1080_hist_nile_default_p0 failed: load None p50 None p99 None VA None/None commit None vram None block skipped: two launch failures in a row
+2026-11-01T21:52:25Z cell system_1920x1080_campaign_start_default_p0 failed: load None p50 None p99 None VA None/None commit None vram None block skipped: two launch failures in a row
+2026-11-01T21:52:25Z RUN STOPPED: AttributeError: 'bool' object has no attribute 'get'
+2026-11-01T21:52:28Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T21:54:34Z plan: 86 cells, scenarios ['land_small', 'siege_small', 'naval_small', 'naval_storm', 'hist_dresden', 'hist_nile', 'campaign_start'], sizes 2560x1440,3840x2160, backends dxvk, variants []; start keys {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T21:54:34Z block ('2560x1440', 'dxvk', None): exit, set keys, relaunch
+2026-11-01T21:55:07Z cell dxvk_2560x1440_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:55:27Z cell dxvk_2560x1440_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:55:46Z cell dxvk_2560x1440_naval_small_default_p0 ok: load 3.8 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:56:04Z cell dxvk_2560x1440_naval_storm_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:56:27Z cell dxvk_2560x1440_hist_dresden_default_p0 ok: load 7.3 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:56:51Z cell dxvk_2560x1440_hist_nile_default_p0 ok: load 4.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:57:14Z cell dxvk_2560x1440_campaign_start_default_p0 ok: load 2.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:58:04Z cell dxvk_2560x1440_land_small_deploy_p1 ok: load 3.5 p50 1.817 p99 3.203 VA 1818/1822.8 commit 1179 vram 631.9 
+2026-11-01T21:58:32Z cell dxvk_2560x1440_land_small_turned_p1 ok: load 3.5 p50 1.795 p99 3.057 VA 1813/1821.5 commit 1179 vram 631.9 
+2026-11-01T21:59:19Z cell dxvk_2560x1440_siege_small_deploy_p1 ok: load 5.2 p50 2.024 p99 3.633 VA 1883/1883.0 commit 1245 vram 855.9 
+2026-11-01T21:59:46Z cell dxvk_2560x1440_siege_small_turned_p1 ok: load 5.2 p50 1.869 p99 3.317 VA 1874/1882.9 commit 1243 vram 855.9 
+2026-11-01T22:00:33Z cell dxvk_2560x1440_naval_small_deploy_p1 ok: load 3.6 p50 1.402 p99 2.887 VA 1756/1882.7 commit 1090 vram 672.9 
+2026-11-01T22:01:00Z cell dxvk_2560x1440_naval_small_turned_p1 ok: load 3.6 p50 1.063 p99 2.519 VA 1755/1883.3 commit 1090 vram 672.9 
+2026-11-01T22:01:43Z cell dxvk_2560x1440_naval_storm_default_p1 ok: load 3.4 p50 1.373 p99 2.841 VA 1755/1883.2 commit 1109 vram 672.9 
+2026-11-01T22:02:34Z cell dxvk_2560x1440_hist_dresden_deploy_p1 ok: load 7.1 p50 4.193 p99 6.649 VA 2076/2092.0 commit 1457 vram 956.1 
+2026-11-01T22:03:03Z cell dxvk_2560x1440_hist_dresden_turned_p1 ok: load 7.1 p50 3.892 p99 6.129 VA 2076/2092.0 commit 1457 vram 956.1 
+2026-11-01T22:03:57Z cell dxvk_2560x1440_hist_nile_deploy_p1 ok: load 4.1 p50 2.766 p99 5.175 VA 1821/1822.6 commit 1155 vram 524.3 
+2026-11-01T22:04:26Z cell dxvk_2560x1440_hist_nile_turned_p1 ok: load 4.1 p50 2.576 p99 5.115 VA 1815/1822.6 commit 1155 vram 524.3 
+2026-11-01T22:05:13Z cell dxvk_2560x1440_campaign_start_default_p1 ok: load 2.6 p50 1.989 p99 2.798 VA 1750/1751.3 commit 1155 vram 501.1 
+2026-11-01T22:06:04Z cell dxvk_2560x1440_land_small_deploy_p2 ok: load 3.5 p50 1.809 p99 3.223 VA 1817/1821.7 commit 1178 vram 631.9 
+2026-11-01T22:06:32Z cell dxvk_2560x1440_land_small_turned_p2 ok: load 3.5 p50 1.786 p99 3.092 VA 1812/1820.5 commit 1177 vram 631.9 
+2026-11-01T22:07:20Z cell dxvk_2560x1440_siege_small_deploy_p2 ok: load 5.2 p50 2.014 p99 3.489 VA 1886/1886.0 commit 1242 vram 855.9 
+2026-11-01T22:07:48Z cell dxvk_2560x1440_siege_small_turned_p2 ok: load 5.2 p50 1.863 p99 3.313 VA 1878/1885.7 commit 1241 vram 855.9 
+2026-11-01T22:08:33Z cell dxvk_2560x1440_naval_small_deploy_p2 ok: load 3.6 p50 1.409 p99 2.862 VA 1760/1885.2 commit 1089 vram 608.9 
+2026-11-01T22:09:01Z cell dxvk_2560x1440_naval_small_turned_p2 ok: load 3.6 p50 1.066 p99 2.502 VA 1759/1885.8 commit 1088 vram 608.9 
+2026-11-01T22:09:43Z cell dxvk_2560x1440_naval_storm_default_p2 ok: load 3.5 p50 1.365 p99 2.887 VA 1759/1885.8 commit 1105 vram 608.9 
+2026-11-01T22:10:34Z cell dxvk_2560x1440_hist_dresden_deploy_p2 ok: load 7.2 p50 4.154 p99 6.378 VA 2079/2095.0 commit 1454 vram 892.1 
+2026-11-01T22:11:03Z cell dxvk_2560x1440_hist_dresden_turned_p2 ok: load 7.2 p50 3.828 p99 6.217 VA 2079/2095.0 commit 1454 vram 892.1 
+2026-11-01T22:11:54Z cell dxvk_2560x1440_hist_nile_deploy_p2 ok: load 4.2 p50 2.782 p99 5.484 VA 1822/1823.6 commit 1151 vram 524.3 
+2026-11-01T22:12:23Z cell dxvk_2560x1440_hist_nile_turned_p2 ok: load 4.2 p50 2.583 p99 5.142 VA 1816/1823.7 commit 1151 vram 524.3 
+2026-11-01T22:13:09Z cell dxvk_2560x1440_campaign_start_default_p2 ok: load 2.6 p50 1.99 p99 2.857 VA 1756/1757.3 commit 1159 vram 501.1 
+2026-11-01T22:13:59Z cell dxvk_2560x1440_land_small_deploy_p3 ok: load 3.5 p50 1.829 p99 3.223 VA 1818/1822.7 commit 1178 vram 631.9 
+2026-11-01T22:14:27Z cell dxvk_2560x1440_land_small_turned_p3 ok: load 3.5 p50 1.805 p99 3.096 VA 1813/1821.4 commit 1178 vram 631.9 
+2026-11-01T22:15:14Z cell dxvk_2560x1440_siege_small_deploy_p3 ok: load 5.2 p50 2.037 p99 3.599 VA 1887/1890.7 commit 1245 vram 855.9 
+2026-11-01T22:15:42Z cell dxvk_2560x1440_siege_small_turned_p3 ok: load 5.2 p50 1.877 p99 3.228 VA 1878/1890.7 commit 1243 vram 855.9 
+2026-11-01T22:16:28Z cell dxvk_2560x1440_naval_small_deploy_p3 ok: load 3.6 p50 1.422 p99 2.852 VA 1761/1891.2 commit 1092 vram 608.9 
+2026-11-01T22:16:55Z cell dxvk_2560x1440_naval_small_turned_p3 ok: load 3.6 p50 1.082 p99 2.526 VA 1759/1890.8 commit 1091 vram 608.9 
+2026-11-01T22:17:38Z cell dxvk_2560x1440_naval_storm_default_p3 ok: load 3.5 p50 1.397 p99 2.931 VA 1759/1891.0 commit 1092 vram 608.9 
+2026-11-01T22:18:29Z cell dxvk_2560x1440_hist_dresden_deploy_p3 ok: load 7.3 p50 4.206 p99 6.459 VA 2079/2095.0 commit 1470 vram 892.1 
+2026-11-01T22:18:58Z cell dxvk_2560x1440_hist_dresden_turned_p3 ok: load 7.3 p50 3.964 p99 6.137 VA 2079/2095.0 commit 1454 vram 892.1 
+2026-11-01T22:19:53Z cell dxvk_2560x1440_hist_nile_deploy_p3 ok: load 4.2 p50 2.773 p99 5.337 VA 1823/1825.2 commit 1156 vram 524.3 
+2026-11-01T22:20:21Z cell dxvk_2560x1440_hist_nile_turned_p3 ok: load 4.2 p50 2.578 p99 5.234 VA 1816/1824.2 commit 1156 vram 524.3 
+2026-11-01T22:21:05Z cell dxvk_2560x1440_campaign_start_default_p3 ok: load 2.7 p50 1.992 p99 2.862 VA 1748/1749.3 commit 1155 vram 501.1 
+2026-11-01T22:22:45Z cell dxvk_2560x1440_land_small_battle1x_p1 ok: load 3.5 p50 2.008 p99 3.527 VA 1837/1844.1 commit 1189 vram 631.9 
+2026-11-01T22:22:45Z block ('3840x2160', 'dxvk', None): exit, set keys, relaunch
+2026-11-01T22:22:48Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T22:23:20Z cell dxvk_3840x2160_land_small_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:23:39Z cell dxvk_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:23:57Z cell dxvk_3840x2160_naval_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:24:15Z cell dxvk_3840x2160_naval_storm_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:24:37Z cell dxvk_3840x2160_hist_dresden_default_p0 ok: load 7.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:25:01Z cell dxvk_3840x2160_hist_nile_default_p0 ok: load 4.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:25:23Z cell dxvk_3840x2160_campaign_start_default_p0 ok: load 2.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:26:14Z cell dxvk_3840x2160_land_small_deploy_p1 ok: load 3.5 p50 1.806 p99 3.128 VA 1817/1821.6 commit 1178 vram 794.3 
+2026-11-01T22:26:42Z cell dxvk_3840x2160_land_small_turned_p1 ok: load 3.5 p50 1.773 p99 3.146 VA 1812/1820.4 commit 1177 vram 794.3 
+2026-11-01T22:27:29Z cell dxvk_3840x2160_siege_small_deploy_p1 ok: load 5.1 p50 2.002 p99 3.431 VA 1886/1886.0 commit 1246 vram 957.4 
+2026-11-01T22:27:56Z cell dxvk_3840x2160_siege_small_turned_p1 ok: load 5.1 p50 1.856 p99 3.269 VA 1878/1885.7 commit 1244 vram 957.4 
+2026-11-01T22:28:42Z cell dxvk_3840x2160_naval_small_deploy_p1 ok: load 3.6 p50 1.357 p99 2.843 VA 1761/1886.0 commit 1093 vram 802.4 
+2026-11-01T22:29:09Z cell dxvk_3840x2160_naval_small_turned_p1 ok: load 3.6 p50 1.045 p99 2.485 VA 1759/1885.7 commit 1093 vram 802.4 
+2026-11-01T22:29:51Z cell dxvk_3840x2160_naval_storm_default_p1 ok: load 3.4 p50 1.336 p99 2.77 VA 1759/1885.7 commit 1094 vram 794.4 
+2026-11-01T22:30:41Z cell dxvk_3840x2160_hist_dresden_deploy_p1 ok: load 7.1 p50 3.991 p99 6.208 VA 2077/2093.0 commit 1459 vram 1077.6 
+2026-11-01T22:31:10Z cell dxvk_3840x2160_hist_dresden_turned_p1 ok: load 7.1 p50 3.786 p99 6.084 VA 2077/2093.0 commit 1459 vram 1077.6 
+2026-11-01T22:32:04Z cell dxvk_3840x2160_hist_nile_deploy_p1 ok: load 4.2 p50 2.74 p99 5.245 VA 1822/1823.6 commit 1152 vram 704.7 
+2026-11-01T22:32:33Z cell dxvk_3840x2160_hist_nile_turned_p1 ok: load 4.2 p50 2.572 p99 5.156 VA 1816/1823.6 commit 1153 vram 704.7 
+2026-11-01T22:33:19Z cell dxvk_3840x2160_campaign_start_default_p1 ok: load 2.6 p50 1.965 p99 2.799 VA 1749/1750.3 commit 1161 vram 690.7 
+2026-11-01T22:34:10Z cell dxvk_3840x2160_land_small_deploy_p2 ok: load 3.5 p50 1.81 p99 3.234 VA 1819/1823.7 commit 1175 vram 810.3 
+2026-11-01T22:34:38Z cell dxvk_3840x2160_land_small_turned_p2 ok: load 3.5 p50 1.772 p99 3.044 VA 1814/1822.4 commit 1175 vram 810.3 
+2026-11-01T22:35:24Z cell dxvk_3840x2160_siege_small_deploy_p2 ok: load 5.1 p50 2.007 p99 3.312 VA 1887/1887.0 commit 1243 vram 1037.4 
+2026-11-01T22:35:52Z cell dxvk_3840x2160_siege_small_turned_p2 ok: load 5.1 p50 1.847 p99 3.218 VA 1878/1886.9 commit 1240 vram 1037.4 
+2026-11-01T22:36:38Z cell dxvk_3840x2160_naval_small_deploy_p2 ok: load 3.7 p50 1.358 p99 2.838 VA 1761/1887.3 commit 1088 vram 790.4 
+2026-11-01T22:37:05Z cell dxvk_3840x2160_naval_small_turned_p2 ok: load 3.7 p50 1.045 p99 2.448 VA 1759/1886.9 commit 1087 vram 790.4 
+2026-11-01T22:37:48Z cell dxvk_3840x2160_naval_storm_default_p2 ok: load 3.5 p50 1.346 p99 2.848 VA 1759/1886.9 commit 1105 vram 790.4 
+2026-11-01T22:38:39Z cell dxvk_3840x2160_hist_dresden_deploy_p2 ok: load 7.0 p50 4.002 p99 6.131 VA 2079/2095.0 commit 1455 vram 1073.6 
+2026-11-01T22:39:08Z cell dxvk_3840x2160_hist_dresden_turned_p2 ok: load 7.0 p50 3.787 p99 5.988 VA 2079/2095.0 commit 1455 vram 1073.6 
+2026-11-01T22:40:03Z cell dxvk_3840x2160_hist_nile_deploy_p2 ok: load 4.2 p50 2.718 p99 5.323 VA 1822/1823.6 commit 1155 vram 704.7 
+2026-11-01T22:40:32Z cell dxvk_3840x2160_hist_nile_turned_p2 ok: load 4.2 p50 2.551 p99 5.04 VA 1816/1823.7 commit 1155 vram 704.7 
+2026-11-01T22:41:17Z cell dxvk_3840x2160_campaign_start_default_p2 ok: load 2.7 p50 1.967 p99 2.718 VA 1749/1750.3 commit 1156 vram 691.2 
+2026-11-01T22:42:09Z cell dxvk_3840x2160_land_small_deploy_p3 ok: load 3.6 p50 1.802 p99 3.171 VA 1818/1822.6 commit 1184 vram 794.3 
+2026-11-01T22:42:36Z cell dxvk_3840x2160_land_small_turned_p3 ok: load 3.6 p50 1.773 p99 3.075 VA 1813/1821.3 commit 1183 vram 794.3 
+2026-11-01T22:43:23Z cell dxvk_3840x2160_siege_small_deploy_p3 ok: load 5.1 p50 2.014 p99 3.414 VA 1887/1891.0 commit 1246 vram 955.4 
+2026-11-01T22:43:51Z cell dxvk_3840x2160_siege_small_turned_p3 ok: load 5.1 p50 1.847 p99 3.201 VA 1878/1890.9 commit 1245 vram 955.4 
+2026-11-01T22:44:38Z cell dxvk_3840x2160_naval_small_deploy_p3 ok: load 3.6 p50 1.389 p99 3.329 VA 1760/1890.3 commit 1091 vram 800.4 
+2026-11-01T22:45:06Z cell dxvk_3840x2160_naval_small_turned_p3 ok: load 3.6 p50 1.055 p99 2.526 VA 1759/1891.0 commit 1090 vram 800.4 
+2026-11-01T22:45:48Z cell dxvk_3840x2160_naval_storm_default_p3 ok: load 3.5 p50 1.337 p99 2.901 VA 1759/1890.9 commit 1105 vram 792.4 
+2026-11-01T22:46:39Z cell dxvk_3840x2160_hist_dresden_deploy_p3 ok: load 7.2 p50 3.978 p99 5.997 VA 2079/2095.0 commit 1453 vram 1075.6 
+2026-11-01T22:47:08Z cell dxvk_3840x2160_hist_dresden_turned_p3 ok: load 7.2 p50 3.763 p99 5.754 VA 2079/2095.0 commit 1453 vram 1075.6 
+2026-11-01T22:48:02Z cell dxvk_3840x2160_hist_nile_deploy_p3 ok: load 4.2 p50 2.762 p99 5.448 VA 1822/1824.2 commit 1151 vram 704.7 
+2026-11-01T22:48:31Z cell dxvk_3840x2160_hist_nile_turned_p3 ok: load 4.2 p50 2.574 p99 5.212 VA 1816/1824.2 commit 1152 vram 704.7 
+2026-11-01T22:49:18Z cell dxvk_3840x2160_campaign_start_default_p3 ok: load 2.6 p50 2.0 p99 2.945 VA 1750/1751.3 commit 1156 vram 691.2 
+2026-11-01T22:50:58Z cell dxvk_3840x2160_land_small_battle1x_p1 ok: load 3.5 p50 1.998 p99 3.592 VA 1823/1828.8 commit 1187 vram 810.3 
+2026-11-01T22:51:02Z exit: exit
+2026-11-01T22:51:05Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}

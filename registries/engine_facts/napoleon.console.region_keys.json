@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.region_keys",
+  "claim": "Region keys are the db regions table keys with the campaign prefix (eur_scotland, eur_normandie; 159 rows); RetrieveFactionRegionList is not needed",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

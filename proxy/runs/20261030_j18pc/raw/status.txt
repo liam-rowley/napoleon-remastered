@@ -1,0 +1,41 @@
+pc_deploy status: kit kit_20261030T235230Z_d5ee0a5997e6 build d5ee0a5997e6 installed 20261030T235252Z
+  ok  d3d9.dll
+  ok  napoleon_remastered.ini
+  ok  napoleon_remastered/dxvk/d3d9_dxvk.dll
+  ok  napoleon_remastered/LICENSE.dxvk.txt
+  ok  napoleon_remastered/packs/zz_napoleon_remastered_dev.pack
+  ok  napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack
+  ok  napoleon_remastered/lua/autostart.lua
+  ok  napoleon_remastered/lua/battles/hist_dresden.txt
+  ok  napoleon_remastered/lua/battles/hist_nile.txt
+  ok  napoleon_remastered/lua/battles/land_small.txt
+  ok  napoleon_remastered/lua/battles/naval_small.txt
+  ok  napoleon_remastered/lua/battles/naval_storm.txt
+  ok  napoleon_remastered/lua/battles/siege_small.txt
+  ok  napoleon_remastered/lua/ctl/cam_read.lua
+  ok  napoleon_remastered/lua/ctl/cam_set.lua
+  ok  napoleon_remastered/lua/ctl/speed.lua
+  ok  napoleon_remastered/lua/fixed_sky_rules.txt
+  ok  napoleon_remastered/lua/probes/battle_api.lua
+  ok  napoleon_remastered/lua/probes/battle_route.lua
+  ok  napoleon_remastered/lua/probes/battleui_names.lua
+  ok  napoleon_remastered/lua/probes/campaign_camera.lua
+  ok  napoleon_remastered/lua/probes/campaign_end_turn.lua
+  ok  napoleon_remastered/lua/probes/campaign_keys.lua
+  ok  napoleon_remastered/lua/probes/campaign_quicksave.lua
+  ok  napoleon_remastered/lua/probes/campaign_select.lua
+  ok  napoleon_remastered/lua/probes/campaign_turn.lua
+  ok  napoleon_remastered/lua/probes/console_nodll.lua
+  ok  napoleon_remastered/lua/probes/echo_args.lua
+  ok  napoleon_remastered/lua/probes/env_dump.lua
+  ok  napoleon_remastered/lua/probes/list_maps.lua
+  ok  napoleon_remastered/lua/probes/require_sl.lua
+  ok  napoleon_remastered/lua/probes/ui_tree.lua
+  ok  napoleon_remastered/lua/probes/weather_options.lua
+  ok  napoleon_remastered/lua/reset.lua
+  ok  napoleon_remastered/lua/wsp.lua
+  dumps: 0
+  notice: none
+  exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+  git: ok, no .git in the game folder or its parents
+  foreign: 0 file(s) added or changed outside the install and the config files

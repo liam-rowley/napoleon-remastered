@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.movie_pack_overrides",
+  "claim": "A movie-type (4) pack in data\\ with an entry at a vanilla UI art path (TGA) replaces the data.pack file on screen in the front end, the campaign map and a land battle",
+  "state": "verified",
+  "evidence": "upscale/runs/2026-10-31_j50/README.md",
+  "date": "2026-10-31",
+  "notes": "marker packs zz_j50_marker, zz_j50_marker2 and zz_j50_marker3 (solid-colour TGA at vanilla size, own alpha): campaign end-turn button green, front-end logo and Steam button magenta, the whole battle HUD (ui\\battle ui\\skins) cyan. Same precedence as the proxy virtual pack (napoleon.packs.dev_pack_precedence). Not every guessed file is on screen: simple_button_center_up and ui\\battle ui\\buttons\\* changed nothing visible"
+}

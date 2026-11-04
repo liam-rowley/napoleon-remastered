@@ -1,7 +1,7 @@
 """Gate: the harness host tests (harness/tests/Run-HostTests.ps1) run in the local `wsc gates` too, not only in CI's `harness-windows` job
 (J42: a harness change looked green locally and went red only in CI). Runs in `wsc gates` (tests gate; not `--fast`, so not pre-push).
 
-Routes, in order: harness inputs (tools/changed_inputs.py) unchanged against the merge base with origin/main -> skip in about a second;
+Routes, in order: harness inputs (wsc.toml [ci] inputs) unchanged against the merge base with origin/main -> skip in about a second;
 in CI -> skip (the `harness-windows` job runs them); WSP_HARNESS_TESTS=skip -> skip with a warning; Windows PowerShell 5.1
 (`powershell.exe`, the PowerShell the PC and CI run) found -> `Run-HostTests.ps1 -Suite unit` (about 20 s); else FAIL with the fix.
 The integration suite is CI-only, warned: it sets the machine's time zone while it runs, kills processes named Fake*.exe
@@ -17,9 +17,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-_spec = importlib.util.spec_from_file_location('changed_inputs', ROOT / 'tools/changed_inputs.py')
-ci = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(ci)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from ci_inputs import ci  # noqa: E402  (the input sets are wsc.toml [ci] since J62)
 RUN_TIMEOUT_S = 240   # the unit suite measured about 20 s on the PC (jobs/J42/report.md)
 INTEGRATION_WARNING = ('harness integration cases NOT RUN here (CI-only, warned): they set the time zone and kill Fake*.exe; '
                        "CI's `harness-windows` job runs them (one case: gh workflow run gates.yml --ref <branch> -f only='<case>')")
@@ -49,7 +48,7 @@ def choose_route(env, base, files, which=shutil.which):
     ps = find_powershell(which)
     if not ps:
         return 'fail', no_powershell_message()
-    return 'run', [ps, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(ROOT / 'harness/tests/Run-HostTests.ps1'), '-Suite', 'unit']
+    return 'run', [ps, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(ROOT / 'core/harness/tests/Run-HostTests.ps1'), '-Suite', 'unit']
 
 
 class HarnessHostTests(unittest.TestCase):
@@ -86,11 +85,11 @@ def never(*_):
 
 
 class Route(unittest.TestCase):
-    def route(self, env=None, files=('harness/core/watcher.ps1',), which=which_of('powershell.exe')):
+    def route(self, env=None, files=('harness/napoleon/adapter.json',), which=which_of('powershell.exe')):
         return choose_route(env or {}, 'abcdef1234567890', None if files is None else list(files), which)
 
     def test_unchanged_skips_without_probing(self):
-        self.assertEqual(self.route(files=['proxy/core/console.cpp'], which=never),
+        self.assertEqual(self.route(files=['proxy/napoleon/lua/ctl/cam_read.lua'], which=never),
                          ('skip', 'harness inputs unchanged against abcdef123456'))
 
     def test_ci_skips(self):

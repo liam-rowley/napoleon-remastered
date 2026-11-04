@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.save.location",
+  "claim": "Campaign saves live in %APPDATA%\\The Creative Assembly\\Napoleon\\save_games\\ as <name>.save (not .napoleon_save)",
+  "state": "verified",
+  "evidence": "saves/napoleon/saves.json",
+  "date": "2026-10-29"
+}

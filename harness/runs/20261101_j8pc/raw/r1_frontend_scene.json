@@ -1,0 +1,12 @@
+{
+  "verb": "reset",
+  "status": "failed",
+  "reason": "step reset frontend: no result",
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "ctl": null
+  },
+  "start_utc": "2026-11-01T12:03:18.906Z",
+  "end_utc": "2026-11-01T12:07:39.510Z"
+}

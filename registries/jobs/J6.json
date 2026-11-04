@@ -1,0 +1,15 @@
+{
+  "id": "J6",
+  "description": "Diff Napoleon against Empire: pack format, layout and template versions, fonts, Lua API, shader set, exe. Lists what carries over through an adapter and what is new; findings go to engine_facts with evidence. One committed tool per pass, fixed output format.",
+  "title": "Empire to Napoleon diff",
+  "phase": 2,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J2"
+  ],
+  "brief": "jobs/J6/brief.md",
+  "report": "jobs/J6/report.md",
+  "review": "jobs/J6/review.md"
+}

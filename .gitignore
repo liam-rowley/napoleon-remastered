@@ -10,6 +10,7 @@ __pycache__/
 # run evidence (PC logs) is committed: proxy/runs/<run>/
 !proxy/runs/**/*.log
 !harness/runs/**/*.log
+!viewer/runs/**/*.log
 *.dmp
 *.bak
 *.orig
@@ -26,3 +27,6 @@ __pycache__/
 *.exe
 *.pdb
 *.dmp
+
+# tools/perf_baseline.py writes summary.json into every run folder it fills (J82); the seven already tracked (J24 evidence) stay tracked
+harness/runs/*/summary.json

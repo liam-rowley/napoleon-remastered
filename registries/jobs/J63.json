@@ -1,0 +1,14 @@
+{
+  "id": "J63",
+  "description": "Promote upscale/core (J36, J50, J51) and viewer/core (J31) to warscape-core with host tests, the Napoleon roles, models.json and pins staying in the adapters (rule 76: PROMOTIONS in tools/verbs/jobs.py names this row). The viewer moves only once S3 parity (J32) holds, so the core's renderer serves both review and gates as UI_PIPELINE section 2.4 says. Proof: the J51 verify pass and the J31 wasm build are byte-identical before and after the move (same sha256 outputs, same viewer.wasm); gates green in both repos. Core PR, tag, pin bump; delete the local copies.",
+  "title": "Promote upscale/core and viewer/core to warscape-core",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J50",
+    "J51",
+    "J32"
+  ]
+}

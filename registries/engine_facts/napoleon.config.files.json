@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.config.files",
+  "claim": "The settings files Napoleon and the mod read: %APPDATA%\\The Creative Assembly\\Napoleon\\scripts\\preferences.script.txt and custom_keys.keys.xml, plus the mod's napoleon_remastered.ini and dxvk.conf in the game folder (present only while installed); no separate battle preferences file and no user.script.txt exist on this PC",
+  "state": "verified",
+  "evidence": "harness/runs/20261029_pctest/README.md",
+  "date": "2026-10-29",
+  "notes": "inventory of the AppData folder and the game folder root on officepc, 2026-10-28; the adapter table is harness/napoleon/adapter.json config_files"
+}

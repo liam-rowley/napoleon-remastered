@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.battle.weather_options",
+  "claim": "FrontEnd.BattleWeatherAndTimeOfDayOptionsString(<map key>) returns two tables of {Data, Value}: weather Dry (dry), Light rain, Heavy rain, Rain storm (torrential_rain); time of day Morning (0), Afternoon (2), Evening (3) on NAP_MP_Grassy_Flatlands and rti_fort_1, Afternoon and Evening only on caribbean. No random option. sp_battle2 main_panel SetPerBattlePrefs({weather=i, time_of_day=j}) selects by 0-based option index (weather 0 = Dry, time_of_day 1 = Afternoon on land), read back from main_panel Preferences(); autostart preset keys weather= and time_of_day=",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.proxy.dxvk_config_dir",
+  "claim": "The proxy points DXVK_CONFIG_FILE, DXVK_LOG_PATH and DXVK_SHADER_CACHE_PATH at <game>\\napoleon_remastered\\dxvk\\ whatever proxy.dxvk_path names (core/proxy/src/backend.cpp lines 68 to 73, logged as backend: DXVK_CONFIG_FILE=...): with proxy.dxvk_path at a DLL elsewhere DXVK still reads <mod>\\dxvk\\dxvk.conf. Two copies say otherwise: the config_keys row proxy.dxvk_path (\"redirected next to it\") and the harness adapter's config_files dxvk_conf (<game>\\dxvk.conf, which DXVK never reads, so a profile cannot set a DXVK option)",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j23sweep2/README.md",
+  "date": "2026-11-01",
+  "notes": "run 20261101_j23sweep (confs beside a copied DLL: DXVK logged no Found config file in any of 10 blocks) against run 20261101_j23sweep2 (conf at <mod>\\dxvk\\dxvk.conf: found); the row and the adapter are DLL and harness inputs (rule 79), so J23 does not change them: jobs/J23/report.md Open questions"
+}

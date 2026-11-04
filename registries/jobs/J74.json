@@ -1,0 +1,13 @@
+{
+  "id": "J74",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) G1, G2, G3, G4, H9. G1: the shipped 'Enable crash dumps.cmd' (core proxy/tools/wer, :7) calls wer_localdumps.ps1 -Mode enable without -ExeName or -DumpFolder, so the script searches upward for wsc.toml and throws outside the repo, and Install.cmd offers it to every player (rr.ps1:522-524): the release builder writes the arguments from identity.json, and a check_folder rule runs every shipped script from a copy of the release folder outside the repo. G2: value_problems runs before the components' ini_set keys are merged (build_release.py:331 vs 347-350), so a component can ship any dev key on (dev.file_rules does): run it with ini_set applied and an explicit allowed_dev_keys list in release.json (dev.file_rules, citing D46, until core W33's player key arrives). G4: dll_problem is a substring match (build_release.py:196-203): a delimited marker, refuse -dirty and an empty id, and require 20 pass lines in harness/acceptance/ledger.jsonl for the id. G3 and H9: tests.test_release_installer, test_play and test_install_packs never run in CI (ci/gates.yml.in:164, the harness-windows module list): add them, and ^release/ to wsc.toml [ci.inputs] harness. The template is this repo's (meta glob ci/**), not the core's.",
+  "title": "Release fixes before 0.1.0: crash-dump tool, ini_set gate, DLL marker, installer tests in CI",
+  "phase": 6,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J74/brief.md",
+  "report": "jobs/J74/report.md",
+  "review": "jobs/J74/review.md"
+}

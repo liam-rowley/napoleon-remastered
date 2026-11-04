@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.diff.fonts.cuf",
+  "claim": "Napoleon fonts are CUF0 like Empire's: 74 files, all round-trip through cuf.py; the 73 that share a name with Empire's are byte-identical; font\\editor_13.cuf is new; layout font names map to files by Empire's rule (<Family> N, Bold -> <family>_b_N.cuf) with none unmapped",
+  "state": "verified",
+  "evidence": "discovery/diff/fonts.json",
+  "date": "2026-10-29"
+}

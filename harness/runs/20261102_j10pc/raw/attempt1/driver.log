@@ -1,0 +1,99 @@
+== sitting 1 07:58:28Z
+ctl scene land_small rc 0
+tree_land_deploy rc 0: yment/deployment_end_mp/time_remaining_parent/dy_time_remaining|1|535,210|102,22|NewState;finish_deployment/deployment_end_mp/time_remaining_parent/time_units|1|641,211|88,22|NewState;END flags=17"]}
+vis_land_deploy rc 0: start.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []}
+shot land_deploy rc 0
+getters_land rc 124: ctl j10-20261102T075915Z-2621322868: no result after 170s, but the proxy took the request: its result will still land in /c/napoleon_remastered_pc/ctl/j10-20261102T075915Z-2621322868.done
+ctl scene land_small --deploy end rc 2
+tree_land_running rc 124: 0-20261102T080212Z-1105622218: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j10-20261102T080212Z-1105622218.cmd.expired).
+vis_land_running rc 0: thread 34756)", "2026-11-02T08:05:13.141Z [INFO ] [t34756] timeline: frontend_first_pump +6302 ms", "2026-11-02T08:05:13.143Z [INFO ] [t34756] timeline: first_present_after_ready +6304 ms frontend"]}
+shot land_running rc 0
+ctl scene naval_small rc 0
+tree_naval_deploy rc 0: oyment/deployment_end_mp/time_remaining_parent/dy_time_remaining|1|535,210|102,22|NewState;finish_deployment/deployment_end_mp/time_remaining_parent/time_units|1|641,211|88,22|NewState;END flags=6"]}
+vis_naval_deploy rc 0: art.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "579"}}, "log": []}
+shot naval_deploy rc 0
+getters_naval rc 3: al War\\napoleon_remastered\\dumps\\20261102T080506Z-p39796_c0000005.dmp", "2026-11-02T08:06:37.232Z [INFO ] [t37152] scene: battle -> loading after 18.3 s (uptime 90.0 s, frame 50720, lua battle)"]}
+ctl scene naval_small --deploy end rc 2
+tree_naval_running rc 124: 0-20261102T080659Z-1569517851: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j10-20261102T080659Z-1569517851.cmd.expired).
+vis_naval_running rc 0: thread 39148)", "2026-11-02T08:12:38.480Z [INFO ] [t39148] timeline: frontend_first_pump +6290 ms", "2026-11-02T08:12:38.483Z [INFO ] [t39148] timeline: first_present_after_ready +6293 ms frontend"]}
+shot naval_running rc 0
+ctl scene siege_small rc 0
+tree_siege_deploy rc 0: yment/deployment_end_mp/time_remaining_parent/dy_time_remaining|1|535,210|102,22|NewState;finish_deployment/deployment_end_mp/time_remaining_parent/time_units|1|641,211|88,22|NewState;END flags=17"]}
+vis_siege_deploy rc 0: .map": "rti_fort_1", "autostart.map_folder": "rti_fort_1", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "rti_fort_1", "battle.map_folder_ms": "531"}}, "log": []}
+shot siege_deploy rc 0
+ctl scene hist_dresden rc 0
+tree_hist_deploy rc 0: yment/deployment_end_mp/time_remaining_parent/dy_time_remaining|1|535,210|102,22|NewState;finish_deployment/deployment_end_mp/time_remaining_parent/time_units|1|641,211|88,22|NewState;END flags=82"]}
+vis_hist_deploy rc 0: HMPB_Dresden_3v3", "autostart.map_folder": "hb_dresden", "autostart.time_of_day": "nil", "autostart.weather": "nil/nil", "battle.map_folder": "hb_dresden", "battle.map_folder_ms": "438"}}, "log": []}
+shot hist_deploy rc 0
+== front end 08:14:16Z
+ctl reset rc 1
+tree_fe_main rc 0: : "nil", "autostart.weather": "nil/nil", "battle.map_folder": "hb_dresden", "battle.map_folder_ms": "438"}}, "log": ["2026-11-02T08:19:19.838Z [INFO ] [t39148] lua: j10tree fe_main 1: END flags=82"]}
+vis_fe_main rc 0: HMPB_Dresden_3v3", "autostart.map_folder": "hb_dresden", "autostart.time_of_day": "nil", "autostart.weather": "nil/nil", "battle.map_folder": "hb_dresden", "battle.map_folder_ms": "438"}}, "log": []}
+shot fe_main rc 0
+getters_frontend rc 3:  War\\napoleon_remastered\\dumps\\20261102T081232Z-p27716_c0000005.dmp", "2026-11-02T08:19:52.582Z [INFO ] [t35372] scene: battle -> loading after 32.9 s (uptime 439.9 s, frame 123077, lua battle)"]}
+page_single_player rc 0: thread 24616)", "2026-11-02T08:20:19.540Z [INFO ] [t24616] timeline: frontend_first_pump +6279 ms", "2026-11-02T08:20:19.564Z [INFO ] [t24616] timeline: first_present_after_ready +6303 ms frontend"]}
+tree_fe_single_player rc 124: 0-20261102T082025Z-1219330083: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j10-20261102T082025Z-1219330083.cmd.expired).
+vis_fe_single_player rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 661}, "reports": {}}, "log": []}
+shot fe_single_player rc 1
+back_single_player rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1263, "commit_mb": 661}, "reports": {}}, "log": []}
+page_sp_battle1 rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1263, "commit_mb": 661}, "reports": {}}, "log": []}
+tree_fe_sp_battle1 rc 124: 0-20261102T082657Z-1049114316: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j10-20261102T082657Z-1049114316.cmd.expired).
+vis_fe_sp_battle1 rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1262, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_sp_battle1 rc 1
+back_sp_battle1 rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_sp_battle2 rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_sp_battle2 rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_sp_battle2 rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_sp_battle2 rc 1
+back_sp_battle2 rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1259, "commit_mb": 659}, "reports": {}}, "log": []}
+page_sp_battle2_scenario rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_sp_battle2_scenario rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_sp_battle2_scenario rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_sp_battle2_scenario rc 1
+back_sp_battle2_scenario rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_napoleon_battles rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_napoleon_battles rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_napoleon_battles rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_napoleon_battles rc 1
+back_napoleon_battles rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_sp_load_game rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1259, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_sp_load_game rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_sp_load_game rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_sp_load_game rc 1
+back_sp_load_game rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_sp_tutorials rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_sp_tutorials rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_sp_tutorials rc 3: \DISPLAY11 2560,1440 1920x1080 (cloaked until the layout is quiet for 500 ms)", "2026-11-02T08:50:42.204Z [INFO ] [t36044] headless: uncloaked (verified on the target, layout stable) at 1828.481 s"]}
+shot fe_sp_tutorials rc 1
+back_sp_tutorials rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_sp_episodic_campaign rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_sp_episodic_campaign rc 3: \DISPLAY11 2560,1440 1920x1080 (cloaked until the layout is quiet for 500 ms)", "2026-11-02T08:53:53.985Z [INFO ] [t36044] headless: uncloaked (verified on the target, layout stable) at 2020.259 s"]}
+vis_fe_sp_episodic_campaign rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_sp_episodic_campaign rc 1
+back_sp_episodic_campaign rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_options rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_options rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_options rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_options rc 1
+back_options rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_credits rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_credits rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_credits rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_credits rc 1
+back_credits rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_player_stats rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_player_stats rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_player_stats rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_player_stats rc 1
+back_player_stats rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_load_replay rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_load_replay rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_load_replay rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_load_replay rc 1
+back_load_replay rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+page_grand_campaign rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+tree_fe_grand_campaign rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+vis_fe_grand_campaign rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+shot fe_grand_campaign rc 1
+back_grand_campaign rc 3:  {"naval": -1, "deploy_panel": -1, "age_s": -1.0}, "load_target": "", "autostart": "off", "movies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1261, "commit_mb": 659}, "reports": {}}, "log": []}
+== done 09:17:12Z

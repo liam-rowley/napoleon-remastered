@@ -1,0 +1,135 @@
+{
+  "verb": "order",
+  "status": "ok",
+  "reason": "",
+  "unit": "4",
+  "kind": "land",
+  "action": "square_off",
+  "units": [
+    {
+      "unit": "4",
+      "ptr": "0x377ef950",
+      "status": "ok",
+      "reason": "",
+      "before": {
+        "id": 4,
+        "ptr": "0x377ef950",
+        "x": 29.0664,
+        "y": 15.5019,
+        "z": 308.4832,
+        "facing": 250.5103,
+        "raw": -19932,
+        "men": 120,
+        "queued": 6357095,
+        "moving": 0,
+        "fx": 28.1835,
+        "fy": 15.4621,
+        "fz": 301.597,
+        "width": 31.9,
+        "army": "0x331db230"
+      },
+      "got": {
+        "id": 4,
+        "ptr": "0x377ef950",
+        "x": 28.1187,
+        "y": 15.4665,
+        "z": 303.3422,
+        "facing": 179.8407,
+        "raw": 32739,
+        "men": 120,
+        "queued": 1,
+        "moving": 0,
+        "fx": 28.1835,
+        "fy": 15.4621,
+        "fz": 301.597,
+        "width": 31.9,
+        "army": "0x331db230"
+      },
+      "pushed": "pushed command #4 unit 0x377ef950 cmd 35 (0x23) arg 0.000 dispatched (was at 29.066, 308.483 facing 250.510, moving 0)",
+      "settle": {
+        "waited_for": "centre still for 3 reads (0.1 m, 0.2 deg) every 1.0 s",
+        "waited_s": 13.52,
+        "reads": 6,
+        "moved": true,
+        "settled": true
+      },
+      "check": {
+        "compared": "square_off (shape)",
+        "fields": {
+          "shape_change_m": {
+            "expected": ">= 0.3",
+            "got": 1.3844,
+            "depth_change_m": 1.3844,
+            "width_change_m": 0.0,
+            "within": true
+          }
+        },
+        "ok": true
+      }
+    }
+  ],
+  "settle": {
+    "waited_for": "every unit at rest",
+    "waited_s": 13.52,
+    "settled": true
+  },
+  "check": {
+    "compared": "square_off on 1 unit(s), each read back at rest",
+    "expected": "every unit ok",
+    "got": "1 ok",
+    "ok": true
+  },
+  "evidence": {
+    "push_4": {
+      "id": "j28-20261102T125945Z-1362231785",
+      "request": "lua napoleon_remastered/lua/ctl/orders.lua 20 -- command 0x377ef950 35 0.0",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-02T12:59:45.293Z",
+      "end_utc": "2026-11-02T12:59:45.305Z",
+      "launch_id": "20261102T125832Z-p17088",
+      "chunk": "pushed command #4 unit 0x377ef950 cmd 35 (0x23) arg 0.000 dispatched (was at 29.066, 308.483 facing 250.510, moving 0)",
+      "state_at_end": {
+        "launch_id": "20261102T125832Z-p17088",
+        "pid": 17088,
+        "frame": 35935,
+        "scene": "battle",
+        "scene_s": 53.3,
+        "uptime_s": 72.4,
+        "written_utc": "2026-11-02T12:59:45.305Z",
+        "last_present_utc": "2026-11-02T12:59:45.304Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": -0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": -1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1821,
+          "commit_mb": 1186
+        },
+        "reports": {
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "140"
+        }
+      },
+      "log": [
+        "2026-11-02T12:59:45.298Z [INFO ] [t2604] orders: command #4 unit 0x377ef950 cmd 35 (0x23) arg 0.000 dispatched (was at 29.066, 308.483 facing 250.510, moving 0)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-02T12:59:43.297Z",
+  "end_utc": "2026-11-02T12:59:59.554Z"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.canvas_docks_scaled",
+  "claim": "At 3840x2160 with every layout root scaled 2x (1280x960 -> 2560x1920), the engine docks the scaled canvas as it docks the vanilla one at 1080p: the campaign and battle HUDs sit bottom-centred and the front-end pages centred at 2x size; so the root size is what the engine docks (scale_root stays on). The battle radar and the Start Battle box do not reach the top-right corner",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-02_j66/README.md",
+  "date": "2026-11-02",
+  "notes": "run 2026-11-02_j66 shots r2_campaign, r2_land, r2_frontend (1280-wide copies of 3840x2160 frames): campaign HUD x 220..1065 of 1280, battle HUD 210..1070; the radar group sits about 1290 px (4K) left of the right edge, so its placement comes from something other than the layout data (Lua or engine docking; J67)"
+}

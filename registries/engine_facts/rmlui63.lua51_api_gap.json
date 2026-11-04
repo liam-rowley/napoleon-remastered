@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.lua51_api_gap",
+  "claim": "RmlUi 6.3's Lua bindings do not compile against Lua 5.1: they call luaL_setfuncs, lua_tointegerx, luaL_testudata, luaL_traceback and LUA_OK, which its own 5.1 shim (Include/RmlUi/Lua/Utilities.h) does not provide; viewer/core/src/lua51_compat.h supplies them force-included, RmlUi unpatched",
+  "state": "verified",
+  "evidence": "viewer/runs/20261031_j31/README.md",
+  "date": "2026-10-31",
+  "notes": "build logs 20261031_j31 (first two Docker builds failed on these names; Empire built with Lua bindings off, so it never met this)"
+}

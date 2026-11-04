@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.window.setfocus_activates",
+  "claim": "At start-up (about 1.1 s, before CreateDevice) the engine calls SetFocus on its main window, which activates it (WM_ACTIVATEAPP 1, WM_ACTIVATE WA_ACTIVE, WM_SETFOCUS) even with WS_EX_NOACTIVATE; under headless the proxy drops SetFocus while another process has the foreground",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j13pc/README.md",
+  "date": "2026-10-29",
+  "notes": "run b4k_0_before_focus_fix vs b4k_1"
+}

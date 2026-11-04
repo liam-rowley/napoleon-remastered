@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.shadow.view_angle",
+  "claim": "Shadow resolution collapses when view and light line up: at one land_small camera position (pitch -25, light (0, -0.54, 0.84)) the shadow texel density on the screen-centre ray (shader_catalog.py shadow_density: sqrt|det| of the ground-plane Jacobian of map texels) at 20/60/140 m is 20.9/12.8/6.6 texels per metre side-on to the sun (yaw 90), 5.2/5.2/5.1 with the sun behind the camera (yaw 0) and 3.7/3.3/2.7 at yaw 45; farz stays 250.5; yaw 45 and 315 (same sun angle) differ 2.8x at 20 m, so the fit also depends on the scene (caster crop). This is the low-quality shadows Liam sees with the sun behind the camera; table in discovery/napoleon/frame_anatomy.md (Shadow texel density)",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01"
+}

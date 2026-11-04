@@ -1,0 +1,20 @@
+{
+ "size": "1920x1080",
+ "backend": "system",
+ "variant": null,
+ "pass": 0,
+ "scenario": "naval_storm",
+ "pose": null,
+ "perf": false,
+ "start_utc": "2026-11-01T21:46:17Z",
+ "scene": {
+  "status": "failed",
+  "reason": "RuntimeError: step launch: exit 1:  Napoleon 6372\n\n[watcher] failed: HEADLESS FAILED: no on_virtual status for pid 6372 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)\n[job claude-j23-20261101T214922Z-3268528865: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 6372 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]\n",
+  "load_s": null,
+  "path": null,
+  "settle": {}
+ },
+ "status": "failed",
+ "reason": "RuntimeError: step launch: exit 1:  Napoleon 6372\n\n[watcher] failed: HEADLESS FAILED: no on_virtual status for pid 6372 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)\n[job claude-j23-20261101T214922Z-3268528865: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 6372 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]\n",
+ "pins": {}
+}

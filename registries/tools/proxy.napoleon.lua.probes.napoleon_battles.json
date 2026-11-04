@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.napoleon_battles",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/napoleon_battles.lua",
+  "purpose": "show why a single-player historical battle can or cannot be started from the front end on this PC",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/napoleon_battles.lua 30\" in the front end",
+  "when": "J46 historical cause; rerun after a profile or DLC change",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

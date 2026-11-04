@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.campaign.modal_stops_pump",
+  "claim": "In the campaign, an AI diplomacy proposal (diplomacy_panel, during the AI turn) and a turn-start event (event_message) wait on the player. With a visible, unfocused window they stop frames and the campaign Lua update (run 20261029_j14pc). In a headless launch the Lua pump keeps running behind them, and campaign_modal_close.lua clears them from Lua: diplomacy_panel:LuaCall('DeclineOffer'), then ClosePopup on a later frame (ClosePopup in the same frame leaves the panel up); event_message:LuaCall('OnOk'). load_save.sh --end-turn then passes unattended (Early -> Late January 1805 in 103-118 s)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261031_j40pc/README.md",
+  "date": "2026-10-31",
+  "notes": "J40 runs 20261031_j40pc et2, ls_endturn, ls_endturn2; J14 frame freeze 16:44:54-16:46:33 was a visible window"
+}

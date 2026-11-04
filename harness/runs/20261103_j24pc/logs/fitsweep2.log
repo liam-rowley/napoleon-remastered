@@ -1,0 +1,15 @@
+pc_deploy send: kit_20261103T035945Z_354011cb0fc6 -> C:\napoleon_remastered_pc\kits\kit_20261103T035945Z_354011cb0fc6 (43 files, sha256 checked)
+pc_deploy install: kit kit_20261103T035945Z_354011cb0fc6 installed (build 354011cb0fc6)
+== f2_stock keys:  (both) 04:04:58Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 shadow_near_scale=0 
+scene land rc 0
+scene siege rc 0
+kill rc 0
+sites: 10 key off of 10
+== f2_stock done 04:09:50Z
+== f2_focus keys: gfx.shadow_focus=1 (both) 04:09:50Z
+ini: shadow_crop_keep=0 shadow_extrusion=0 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=1 shadow_height_cutoff=0 shadow_hw_force=0 shadow_map_large=0 shadow_near_scale=0 
+scene land rc 1
+capture y_0 failed: 4-20261103T041055Z-2499411338: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j24-20261103T041055Z-2499411338.cmd.expired).
+capture y_45 failed: 4-20261103T041409Z-1205913831: no result after 170s: is the game running with dev.ctl=1 and dev.ctl_dir=/c/napoleon_remastered_pc/ctl? Request withdrawn (j24-20261103T041409Z-1205913831.cmd.expired).
+== sweep2 end 04:36:35Z

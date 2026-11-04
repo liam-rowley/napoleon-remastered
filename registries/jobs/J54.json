@@ -1,0 +1,13 @@
+{
+  "id": "J54",
+  "description": "Pipeline audit 2026-10-31, items 1 and 3. (1) The changes job diffs against the merge base with main, so once a branch touches an input set every later push (report, review round, reg set, run evidence) re-runs harness-windows (6m02s), proxy (2m05s) and viewer (2m44s; run 41221636093). Replaying tools/changed_inputs.py over the 27 job branches (275 first-parent commits): harness-windows 119 of 206 runs, proxy 163 of 234 and viewer 72 of 93 are commits whose inputs are byte-identical to the parent commit (for example J22 review round 2: 5m50s for a review.md push). Build: rule 79 for CI: changed_inputs.py also prints a tree hash per input set (git rev-parse HEAD:<path> over the set, hashed together); each slow job ends by writing a marker to actions/cache keyed by that hash; changes restores the marker and skips the job when one exists (a skipped job already counts as passed, D32); tests that a review.md-only push skips and an input change runs. (2) red_prs and tools/ci_notify.py key on open pull requests, but the pull request is created by the reviewer at merge time, so reviews start blind: J12 round 1 and J50 both say no pull request existed yet, and J12 gave merge while the last five branch runs were red (41247714835: gates, proxy, viewer), costing a further Opus session for two CI-fix commits. Build: build_steps and fix_steps end with gh pr create for the job branch when status=review is set (then the notifier and listing cover it), and jobs review also reads the branch head check runs (gh api repos/{owner}/{repo}/commits/{sha}/check-runs) and names a red or running check in its steps; tests with fakes.",
+  "title": "CI skips a slow job whose input tree is unchanged; reviews see branch CI",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J54/brief.md",
+  "report": "jobs/J54/report.md",
+  "review": "jobs/J54/review.md"
+}

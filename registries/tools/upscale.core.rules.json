@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.rules",
+  "kind": "script",
+  "path": "upscale/core/rules.py",
+  "purpose": "decide an asset's target size (2.5x the vanilla pixels, integer-rounded) and whether to skip it, and map the tool's status words onto the assets registry fields",
+  "usage": "library (upscale/core); python3 -c \"import sys; sys.path.insert(0,'upscale/core'); import rules; print(rules.target_size(64, 48))",
+  "when": "planning a run (wsc upscale plan) or testing the size rule",
+  "not_a_verb": "a library used by upscale/core/batch.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

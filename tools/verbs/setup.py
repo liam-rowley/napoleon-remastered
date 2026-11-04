@@ -1,6 +1,6 @@
 """Check that this clone and the PC are ready for local Claude Code work (D30), with a one-line fix for each failure.
 
-purpose: check Git Bash, python3 >= 3.12, the core submodule at the pinned tag, core.hooksPath, LF shell scripts, gh auth, Docker Desktop, the empire-remastered sibling clone, Python Playwright with Chromium and the PC watcher; `--fix` applies the safe fixes (a python3.exe copy, core.hooksPath)
+purpose: check Git Bash, python3 >= 3.12, the core submodule at the pinned tag, core.hooksPath, LF shell scripts, gh auth, Docker Desktop, the empire-remastered sibling clone, Python Playwright with Chromium, the PC watcher and the PC rules (exe vanilla, no .git in or above a game folder, nothing foreign in the Napoleon folder: J18); `--fix` applies the safe fixes (a python3.exe copy, core.hooksPath)
 usage: python3 core/wsc.py setup [--fix] [--skip <check>...]
 when: once per clone or PC, after a reboot or tool update, and whenever a gate or the watcher route fails for an environment reason
 verb: setup
@@ -15,7 +15,7 @@ from pathlib import Path
 NAME = 'setup'
 HELP = 'check this clone and the PC for local Claude Code work (D30); --fix for the safe fixes'
 MIN_PY = (3, 12)
-CHECKS = ('git_bash', 'python3', 'core_pin', 'hooks_path', 'lf_scripts', 'gh_auth', 'docker', 'empire_clone', 'playwright', 'watcher')
+CHECKS = ('git_bash', 'python3', 'core_pin', 'hooks_path', 'lf_scripts', 'gh_auth', 'docker', 'empire_clone', 'playwright', 'watcher', 'pc_rules')
 
 
 # ---- pure helpers (host tests: tests/test_setup.py) ------------------------------------------------------------------------------
@@ -65,6 +65,15 @@ def git_bash(nt=os.name == 'nt', which=shutil.which, git_exec_path=None, isfile=
     return None
 
 
+def bash_for_tests(nt=os.name == 'nt', find=None):
+    """(bash, None) or (None, reason) for a host test that runs a shell script (J22). On Windows git_bash() or a skip reason, never the
+    WSL `bash` on PATH; off Windows git_bash() or plain 'bash', so a missing bash fails as before instead of skipping."""
+    b = (find or git_bash)(nt=nt)
+    if b or not nt:
+        return b or 'bash', None
+    return None, 'no Git Bash found (`python3 core/wsc.py setup` says what was looked for); the WSL bash on PATH is never used'
+
+
 def cr_files(root, paths):
     """The paths (relative) whose working-tree bytes contain a CR: a CRLF shell script fails in bash (`$'\\r': command not found`)."""
     return [p for p in paths if b'\r' in (Path(root) / p).read_bytes()]
@@ -73,6 +82,15 @@ def cr_files(root, paths):
 def pinned_version(toml_text):
     m = re.search(r'^\s*version\s*=\s*"([^"]+)"', re.split(r'^\[core\]\s*$', toml_text, flags=re.M)[-1], re.M)
     return m.group(1) if m else None
+
+
+JOB_SH = ('harness', 'job.sh')   # the watcher's front end inside the core (J12 moved it there)
+
+
+def core_path(root, *parts):
+    """`<root>/core/<parts>`: the one place this verb spells where the warscape-core submodule is. J12 moved the watcher kit, the
+    proxy tools and the ESF tools into the core; J70 found the watcher check still running job.sh at its pre-J12 place (exit 127)."""
+    return Path(root).joinpath('core', *parts)
 
 
 def main_clone(git_common_dir):
@@ -89,14 +107,22 @@ def _run(cmd, cwd=None, timeout=60):
         return 127, str(e)
 
 
+def bash_check(on_path, explicit, msystem, nt=os.name == 'nt'):
+    """(ok, detail, fix) for the git_bash check from the bash on PATH, the explicit git_bash() path and $MSYSTEM (J22). It fails only
+    when git_bash() finds none: the repo's tools and tests run that one. On Windows a PATH bash that is not Git's (the WSL launcher), or
+    a session not started from Git Bash, is a warning line: the tools still work, a bare `bash` typed in the session does not."""
+    if not nt:
+        return explicit is not None, f'bash at {explicit}', 'install bash'
+    k = bash_kind(on_path, nt=True)
+    detail = f'bash on PATH: {on_path} ({k}); MSYSTEM={msystem or "unset"}; repo tools use: {explicit}'
+    if explicit and not (k == 'git' and msystem):
+        detail += ('\n     warn: this session is not a Git Bash one: start Claude Code from Git Bash, or put C:\\Program Files\\Git\\usr\\bin '
+                   'before WindowsApps and System32 on PATH')
+    return explicit is not None, detail, 'install Git for Windows (it brings Git Bash), then start Claude Code from Git Bash'
+
+
 def check_git_bash(root, fix):
-    b = shutil.which('bash')
-    k = bash_kind(b)
-    if os.name != 'nt':
-        return k is not None, f'bash at {b}', 'install bash'
-    ok = k == 'git' and bool(os.environ.get('MSYSTEM'))
-    return ok, f'bash on PATH: {b} ({k}); MSYSTEM={os.environ.get("MSYSTEM", "unset")}', \
-        'start Claude Code from Git Bash (Git for Windows), so `bash` is Git\'s and not C:\\Windows\\System32\\bash.exe (WSL)'
+    return bash_check(shutil.which('bash'), git_bash(), os.environ.get('MSYSTEM'))
 
 
 def check_python3(root, fix):
@@ -118,7 +144,7 @@ def check_python3(root, fix):
 
 def check_core_pin(root, fix):
     want = pinned_version((root / 'wsc.toml').read_text(encoding='utf-8'))
-    rc, out = _run(['git', 'describe', '--tags', '--exact-match'], cwd=root / 'core')
+    rc, out = _run(['git', 'describe', '--tags', '--exact-match'], cwd=core_path(root))
     return rc == 0 and out == want, f'core at {out if rc == 0 else "no tag (" + out[:60] + ")"}, wsc.toml pins {want}', \
         'git submodule update --init (and check core/ has no local edits)'
 
@@ -141,7 +167,7 @@ def check_hooks_path(root, fix):
 def check_lf_scripts(root, fix):
     rc, out = _run(['git', 'ls-files', '*.sh', '*.py'], cwd=root)
     bad = cr_files(root, [p for p in out.splitlines() if p and (root / p).is_file()]) if rc == 0 else ['git ls-files failed']
-    _, attr = _run(['git', 'check-attr', 'eol', '--', 'harness/core/job.sh'], cwd=root)
+    _, attr = _run(['git', 'check-attr', 'eol', '--', core_path(root, *JOB_SH).relative_to(root).as_posix()], cwd=root)
     _, crlf = _run(['git', 'config', '--get', 'core.autocrlf'], cwd=root)
     return not bad, f'{len(out.splitlines())} scripts, {len(bad)} with CR ({", ".join(bad[:3])}); {attr.split(": ")[-1] or "?"} attribute, core.autocrlf={crlf or "unset"}', \
         'the .gitattributes eol=lf rules must be in the checkout: git rm --cached -r . && git reset --hard (only with no local changes)'
@@ -179,9 +205,48 @@ def check_playwright(root, fix):
 
 
 def check_watcher(root, fix):
-    rc, out = _run(['bash', str(root / 'harness' / 'core' / 'job.sh'), 'status'], timeout=30)
+    bash = git_bash()
+    if bash is None:
+        return False, 'no Git Bash to run job.sh with', 'install Git for Windows (the git_bash check says what was looked for)'
+    job = core_path(root, *JOB_SH)
+    if not job.is_file():
+        return False, f'{job.relative_to(root).as_posix()} missing', 'git submodule update --init (the core carries the watcher kit since J12)'
+    rc, out = _run([bash, str(job), 'status'], timeout=30)
     tail = out.splitlines()[-1][:120] if out else ''
     return rc == 0, f'job.sh status exit {rc}: {tail}', 'the watcher runs as a logon task: after a reboot wait for it, or double-click <state>\\watcher\\src\\watch.cmd (harness/README.md)'
+
+
+def load_pc_deploy(root):
+    """core/proxy/tools/pc_deploy.py as a module: the one owner of the PC-rule damage checks (it also travels in every kit, stdlib only)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('pc_deploy', core_path(root, 'proxy', 'tools', 'pc_deploy.py'))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def pc_rules_result(pd, game, state, other_games, ident):
+    """(ok, detail) for the pc_rules check; None when the game or state folder is absent (CI, another host): the check is skipped."""
+    if not Path(game).is_dir() or not Path(state).is_dir():
+        return None
+    fails, lines = pd.pc_rules(game, state, ident)
+    for g in other_games:
+        gits = pd.git_dirs(g) if Path(g).is_dir() else []
+        lines.append(f'git ({Path(g).name}): ' + ('FAIL ' + ', '.join(gits) if gits else 'ok, no .git in that game folder or its parents'))
+        fails += bool(gits)
+    return fails == 0, '; '.join(l.splitlines()[0] for l in lines)
+
+
+def check_pc_rules(root, fix):
+    pd = load_pc_deploy(root)
+    import json
+    ad = json.loads((root / 'harness' / 'napoleon' / 'adapter.json').read_text(encoding='utf-8'))
+    games = json.loads((root / 'discovery' / 'napoleon' / 'games.json').read_text(encoding='utf-8'))
+    r = pc_rules_result(pd, ad['game_dir'], ad['state_dir'], [games['empire']['root']], pd.default_identity())
+    if r is None:
+        return True, f'skipped: no game folder ({ad["game_dir"]}) or state folder ({ad["state_dir"]}) on this host', ''
+    return r[0], r[1], ('python3 core/proxy/tools/pc_deploy.py status --game <game_dir> --state <state_dir> lists each failure; '
+                        'an exe mismatch or a .git there is for Liam to decide (nothing is fixed here, --fix included)')
 
 
 def add_arguments(p):

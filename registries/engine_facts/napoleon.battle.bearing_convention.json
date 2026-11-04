@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.bearing_convention",
+  "claim": "A unit bearing is the int16 binary angle at [E0+0x64c] (65536 = 360 degrees; the bearing getter returns degrees in [0, 360)): 0 = +z, 90 = +x, clockwise seen from above, the same convention as the camera yaw (atan2(fx, fz)). Ordered 90, 270, 0 and 180: the front centre lies along (sin b, cos b) from the centre every time",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "runs c2 to c4"
+}

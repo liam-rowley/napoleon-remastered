@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.lod.mast",
+  "claim": "Tweaker MAST_LOD_DISTANCE (250 m, initialiser immediate RVA 0x15711, read by the ship draw 0x782210) showed no effect at 1000 m: navalship and navalsail draws and primitives are identical with and without it at the naval_small deploy pose and 400 / 800 m behind it; ropes and knots (the other ship tweakers) change; no row",
+  "state": "open",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "owner J27: a pose with masts between 250 and 1000 m and a damaged ship (the reader may serve broken masts)"
+}

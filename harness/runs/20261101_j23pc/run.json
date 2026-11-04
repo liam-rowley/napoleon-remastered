@@ -1,0 +1,75 @@
+{
+ "run": "20261101_j23pc",
+ "sittings": [
+  {
+   "run": "20261101_j23pc",
+   "start_utc": "2026-11-01T21:04:59Z",
+   "plan_cells": 258,
+   "scenarios": [
+    "land_small",
+    "siege_small",
+    "naval_small",
+    "naval_storm",
+    "hist_dresden",
+    "hist_nile",
+    "campaign_start"
+   ],
+   "blocks": [
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": null,
+     "start_utc": "2026-11-01T21:04:59Z",
+     "end_utc": "2026-11-01T21:31:55Z"
+    },
+    {
+     "size": "1920x1080",
+     "backend": "system",
+     "variant": null,
+     "start_utc": "2026-11-01T21:33:36Z"
+    }
+   ],
+   "restore_keys": {
+    "proxy.backend": "dxvk",
+    "proxy.dxvk_path": "napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "stopped": "AttributeError: 'bool' object has no attribute 'get'",
+   "end_utc": "2026-11-01T21:52:28Z"
+  },
+  {
+   "run": "20261101_j23pc",
+   "start_utc": "2026-11-01T21:54:34Z",
+   "plan_cells": 86,
+   "scenarios": [
+    "land_small",
+    "siege_small",
+    "naval_small",
+    "naval_storm",
+    "hist_dresden",
+    "hist_nile",
+    "campaign_start"
+   ],
+   "blocks": [
+    {
+     "size": "2560x1440",
+     "backend": "dxvk",
+     "variant": null,
+     "start_utc": "2026-11-01T21:54:34Z",
+     "end_utc": "2026-11-01T22:21:05Z"
+    },
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": null,
+     "start_utc": "2026-11-01T22:22:45Z",
+     "end_utc": "2026-11-01T22:49:18Z"
+    }
+   ],
+   "restore_keys": {
+    "proxy.backend": "dxvk",
+    "proxy.dxvk_path": "napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "end_utc": "2026-11-01T22:51:05Z"
+  }
+ ]
+}

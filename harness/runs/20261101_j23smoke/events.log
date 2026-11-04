@@ -1,0 +1,12 @@
+2026-11-01T21:00:03Z plan: 7 cells, scenarios ['land_small'], sizes 1920x1080, backends dxvk, variants []; start keys {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T21:00:04Z block ('1920x1080', 'dxvk', None): exit, set keys, relaunch
+2026-11-01T21:00:35Z cell dxvk_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T21:01:21Z cell dxvk_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 1.923 p99 3.462 VA 1833/1871.5 commit 1200 vram 787.5 
+2026-11-01T21:01:49Z cell dxvk_1920x1080_land_small_turned_p1 ok: load 3.9 p50 1.872 p99 3.235 VA 1833/1871.5 commit 1184 vram 787.5 
+2026-11-01T21:02:35Z cell dxvk_1920x1080_land_small_deploy_p2 ok: load 4.0 p50 1.951 p99 3.304 VA 1828/1871.2 commit 1202 vram 779.5 
+2026-11-01T21:03:03Z cell dxvk_1920x1080_land_small_turned_p2 ok: load 4.0 p50 1.956 p99 3.423 VA 1828/1871.2 commit 1186 vram 779.5 
+2026-11-01T21:03:49Z cell dxvk_1920x1080_land_small_deploy_p3 ok: load 4.0 p50 2.047 p99 3.461 VA 1829/1872.4 commit 1204 vram 695.5 
+2026-11-01T21:04:16Z cell dxvk_1920x1080_land_small_turned_p3 ok: load 4.0 p50 2.081 p99 3.55 VA 1828/1871.4 commit 1188 vram 695.5 
+2026-11-01T21:04:19Z exit: exit
+2026-11-01T21:04:21Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T21:04:21Z summary: 2 cell keys, 0 refused cells -> C:\Users\liamr\repos\napoleon-remastered\harness\runs\20261101_j23smoke\summary.json

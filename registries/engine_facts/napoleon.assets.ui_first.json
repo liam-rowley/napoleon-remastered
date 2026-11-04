@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.assets.ui_first",
+  "claim": "The UI-first asset set is 12,295 effective files: everything under ui\\ (pack and loose), the .cuf fonts and font\\*.fc, and the art outside ui\\ that layouts, scripts or db files name (historic-battle screenshots, campaign map, lookup and radar tgas); 1 is unclassified (ui\\eventpics\\note.txt)",
+  "state": "verified",
+  "evidence": "discovery/assets/README.md",
+  "date": "2026-10-29"
+}

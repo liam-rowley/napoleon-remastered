@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.lua.string_find_stalls_pump",
+  "claim": "One string.find in the battle UI Lua (the engine replaces string.find and string.sub with its own C functions; a plain (\"camera\"):find(\"me\", 1, true) returned nil, nil) stops the battle pump about a second later: OnUpdatePulse is never called again while the battle keeps rendering (pump_age_s grows, the scene tracker says loading). This was the J4 stall: battleui_names.lua (gmatch + find) and battle_route.lua (find) used it. Without it the battle pump ran 13 min in deployment and 11 min in a running battle on main DLL 91715512ec85 with dev.perf=0; require \"Scripting_Library\", pairs(BattleUI) and string.lower do not stop it",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j43pc/README.md",
+  "date": "2026-10-30",
+  "notes": "tests/test_repo_rules.py refuses find/sub/gmatch in proxy/*.lua (comments excluded); empire-remastered PANEL_GUIDE gotcha 20 is the same engine behaviour"
+}

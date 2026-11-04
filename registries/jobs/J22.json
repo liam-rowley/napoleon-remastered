@@ -1,0 +1,13 @@
+{
+  "id": "J22",
+  "description": "From J6's report: on a Windows host test_job_sh and one test_pc_deploy test fail because `bash` on PATH is the WSL launcher, not Git Bash. The tests (and any tool that shells out to bash) find Git Bash explicitly or skip with a reason; wsc setup reports which bash it found. Proof: tests green on the PC and on the harness-windows runner.",
+  "title": "Windows host tests find Git Bash",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J22/brief.md",
+  "report": "jobs/J22/report.md",
+  "review": "jobs/J22/review.md"
+}

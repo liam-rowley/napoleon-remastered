@@ -1,0 +1,277 @@
+{
+ "generator": "discovery/core/engine_api.py probe-safe",
+ "source": "discovery/napoleon/lua_cfuncs.json",
+ "rule": "C bindings of CampaignUI, BattleUI, FrontEnd with static_args 0 and static_args_min 0, name starting with one of Get Is Has Can Current Player Num Number Count Total Max Min Local Screen Retrieve Faction Battle Campaign Turn Season Year Date Game Version Selected Camera, containing none of Set Start End Exit Quit Save Load Show Hide Toggle Trigger Send Open Close Cancel Accept Decline Kick Join Host Create Delete Destroy Play Stop Pause Request Issue Order Select Enable Disable Clear Reset Restart Continue Notify Inform Move Zoom Attach Steam MP Multiplayer Chat Voice Invite Swap Add Remove Dismiss Abort Apply Build Recruit Disband Merge Promote Fire Appoint Release Lock Unlock Debug Cheat Console Execute Run Call Simulate Generate Autoresolve Auto Next Previous Write Friend Friends Online Editor Unpause Replay (as a camel-case word), no underscore (order commands such as Current_Selection_Halt), doc without update / moves / invoke / notify / sets  / fire / trigger / start / open / close / kill",
+ "getters": [
+  {
+   "table": "BattleUI",
+   "name": "BattleDetails",
+   "va": "0x5ce0e0",
+   "doc": "Get some details about the battle.  For the time being this is whether it is a naval battle, and the players faction det"
+  },
+  {
+   "table": "BattleUI",
+   "name": "HasEnteredDeployment",
+   "va": "0x5d0cd0",
+   "doc": "Returns true if we're in deployment (not default deployment) mode"
+  },
+  {
+   "table": "BattleUI",
+   "name": "IsAudioPlaying",
+   "va": "0x791110",
+   "doc": "repeat the curently played advice"
+  },
+  {
+   "table": "BattleUI",
+   "name": "IsConflict",
+   "va": "0x5d0e70",
+   "doc": "Returns true if we're in conflict mode"
+  },
+  {
+   "table": "BattleUI",
+   "name": "IsDeploymentOrConflict",
+   "va": "0x5d0eb0",
+   "doc": "Returns true if we're in conflict mode"
+  },
+  {
+   "table": "BattleUI",
+   "name": "IsMinimisedHUD",
+   "va": "0x5d0f20",
+   "doc": "If it's minimised HUD"
+  },
+  {
+   "table": "BattleUI",
+   "name": "IsSpectator",
+   "va": "0x5d1040",
+   "doc": "If it's a spectator"
+  },
+  {
+   "table": "BattleUI",
+   "name": "IsTutorial",
+   "va": "0x5d10a0",
+   "doc": "Out: true if we are running a tutorial battle"
+  },
+  {
+   "table": "BattleUI",
+   "name": "RetrieveGameCore",
+   "va": "0x5d3110",
+   "doc": "Out: Returns pointers to the game core so that a UIPrefsInterface object can be initialised"
+  },
+  {
+   "table": "BattleUI",
+   "name": "ScreenSize",
+   "va": "0x5d3280",
+   "doc": "Retrieve the current width and height of the screen"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CameraManager",
+   "va": "0x9dfe10",
+   "doc": "Out: Pointer to the camera manager"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CameraPosition",
+   "va": "0x9dfe50",
+   "doc": "Out: x,y,z of current camera position"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CameraTarget",
+   "va": "0x9dfec0",
+   "doc": "Out: x, y, z of current cameras target, y (height) is the zoom level"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CameraView",
+   "va": "0x9dffd0",
+   "doc": "Out: Bounding box of camera current view"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CampaignIsEpisodic",
+   "va": "0x9e0570",
+   "doc": "Out: Returns true if the current played cmapign is an episodic"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CampaignKey",
+   "va": "0x9e05e0",
+   "doc": "Out: Return the database key for the current campaign"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CampaignModel",
+   "va": "0x9e0640",
+   "doc": "Out: Pointer to the campaign model"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CanSackMinister",
+   "va": "0x9e0d10",
+   "doc": ""
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CurrentFactionIsHuman",
+   "va": "0x9e1d90",
+   "doc": "Returns whether the faction whose turn it is is controlled by a human or not"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CurrentGameOptions",
+   "va": "0x9e1dd0",
+   "doc": "Out: Table of options as set in the players setup"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CurrentSeasonString",
+   "va": "0x9e1f70",
+   "doc": "Returns the current season name in string!"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CurrentTurn",
+   "va": "0x9e1fe0",
+   "doc": "Out: Reports the current turn number"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "CurrentYear",
+   "va": "0x9e2010",
+   "doc": "Returns the current year for the grand campaign or the turn number for episodics"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "GetCurrentGameInfo",
+   "va": "0x9e4bb0",
+   "doc": "Out: Details about the current state of the game for the save game dialog"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "IsAudioPlaying",
+   "va": "0x9ec4b0",
+   "doc": "repeat the curently played advice"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "IsPlayersTurn",
+   "va": "0x9ec8d0",
+   "doc": "Returns a boolean to say whether or not it is currently the human players turn"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayerFactionId",
+   "va": "0x9eeb50",
+   "doc": "Retrieve the db key of the players faction (can be passed to GetFactionDetails etc"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayerFactionIsTribal",
+   "va": "0x9eebb0",
+   "doc": ""
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayerInControl",
+   "va": "0x9eeca0",
+   "doc": "In: nothing. Out: bool if player is in control."
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayerPlayingAsRevolutionaries",
+   "va": "0x9eed40",
+   "doc": "Out:  True if the player sided with the revolutionaries after a revolution"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayerSelected",
+   "va": "0x9eeda0",
+   "doc": "In: none, Out: true if player action caused the last object selected event"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayersCulture",
+   "va": "0x9eef10",
+   "doc": "Out: string (players culture database key"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayersFaction",
+   "va": "0x9eef70",
+   "doc": "Passes the players facition ptr to lua"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "PlayersFactionKey",
+   "va": "0x9eefb0",
+   "doc": "Passes the players facition key to lua"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "RetrieveFactionListForDiplomacy",
+   "va": "0x9f2ea0",
+   "doc": "Builds a table with a few details about each faction in the game"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "RetrieveGameCore",
+   "va": "0x9f4190",
+   "doc": "Out: Returns pointers to the game core so that a UIPrefsInterface object can be initialised"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "RetrieveVisibleEnitityDetails",
+   "va": "0x9f4520",
+   "doc": "Returns the details of all the campaign map entities (settlements, characters etc), that are currently visible in the ca"
+  },
+  {
+   "table": "CampaignUI",
+   "name": "ScreenSize",
+   "va": "0x9f4b90",
+   "doc": "Retrieve the current width and height of the screen"
+  },
+  {
+   "table": "FrontEnd",
+   "name": "BattleTypesFilterString",
+   "va": "0x46a730",
+   "doc": "Out: Enumerate supported battle types in a form suited for a dropdown list"
+  },
+  {
+   "table": "FrontEnd",
+   "name": "CampaignSavesExist",
+   "va": "0x46ce60",
+   "doc": "Out: Flag to indicate whether any campaign save games exist on disk"
+  },
+  {
+   "table": "FrontEnd",
+   "name": "GameVersion",
+   "va": "0x46f940",
+   "doc": "Out: Current game version number"
+  },
+  {
+   "table": "FrontEnd",
+   "name": "GetWaterlooBattleDetails",
+   "va": "0x4706f0",
+   "doc": "OUt: title, description, specification and unlock status of the waterloo battle"
+  },
+  {
+   "table": "FrontEnd",
+   "name": "LocalPlayerName",
+   "va": "0x471570",
+   "doc": "Out: Retrieve the name of the player"
+  },
+  {
+   "table": "FrontEnd",
+   "name": "RetrieveGameCore",
+   "va": "0x477c90",
+   "doc": "Out: Returns pointers to the game core so that a UIPrefsInterface object can be initialised"
+  },
+  {
+   "table": "FrontEnd",
+   "name": "ScreenSize",
+   "va": "0x478250",
+   "doc": "Retrieve the current width and height of the screen"
+  }
+ ]
+}

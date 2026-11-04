@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.dxvk.wndproc_cycle",
+  "claim": "The in-game resolution change crash (J16) is a window-proc cycle on the main thread: opengl32!wglWndProc and DXVK 3.1.1 D3D9WindowProc each hold the other as their previous proc (8-frame cycle, 1060 repeats, 1 MB stack gone, then the AV in ntdll under Steam overlay's UnhandledExceptionFilter hook); DXVK's ResetWindowProc does not unhook when a foreign proc is above its own, and HookWindowProc then saves that proc. Entered from the game's PeekMessageW, no proxy frame on the stack",
+  "state": "verified",
+  "evidence": "proxy/runs/20261030_j16dumps/README.md",
+  "date": "2026-10-30",
+  "notes": "WER dumps 11252 and 4556 (2026-10-29), read with proxy/tools/dump_read.py; DXVK v3.1.1 source; upstream master unchanged"
+}

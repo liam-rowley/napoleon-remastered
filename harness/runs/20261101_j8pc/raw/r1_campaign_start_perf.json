@@ -1,0 +1,106 @@
+{
+  "verb": "perf",
+  "status": "ok",
+  "reason": "",
+  "frame_ms": {
+    "p50": 1.951,
+    "p99": 2.895,
+    "max": 15.466,
+    "mean": 1.998
+  },
+  "frames": 5004,
+  "mem": {
+    "va_used_mb": 1769,
+    "va_total_mb": 4096,
+    "va_free_mb": 2327,
+    "commit_mb": 1178,
+    "working_set_mb": 942,
+    "peak_working_set_mb": 960
+  },
+  "vram": {
+    "source": "Windows counter \\GPU Process Memory(pid_<pid>_*)\\Dedicated Usage (per process) + nvidia-smi memory.used (device)",
+    "process_dedicated_mb": 540.8,
+    "device_used_mb": 2172.0,
+    "device_total_mb": 24564.0
+  },
+  "build": "f3e33f228416-dirty",
+  "kit": "kit_20261101T114832Z_60c6d5d6bbd0",
+  "backend": "dxvk",
+  "size": "1920x1080",
+  "settle": {},
+  "check": {
+    "compared": "frames recorded and a positive median",
+    "expected": "frames > 0, p50 > 0",
+    "got": {
+      "frames": 5004,
+      "p50": 1.951
+    },
+    "ok": true,
+    "vram": {
+      "expected": "the game process has dedicated GPU memory",
+      "got": 540.8
+    }
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j8-20261101T120304Z-78910821",
+      "request": "perf 10",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-01T12:03:05.034Z",
+      "end_utc": "2026-11-01T12:03:15.036Z",
+      "launch_id": "20261101T120248Z-p12280",
+      "seconds": 10,
+      "frames": 5004,
+      "frame_ms": {
+        "p50": 1.951,
+        "p99": 2.895,
+        "max": 15.466,
+        "mean": 1.998
+      },
+      "mem": {
+        "va_used_mb": 1769,
+        "va_total_mb": 4096,
+        "va_free_mb": 2327,
+        "commit_mb": 1178,
+        "working_set_mb": 942,
+        "peak_working_set_mb": 960
+      },
+      "state_at_end": {
+        "launch_id": "20261101T120248Z-p12280",
+        "pid": 12280,
+        "frame": 11643,
+        "scene": "campaign",
+        "scene_s": 16.9,
+        "uptime_s": 26.4,
+        "written_utc": "2026-11-01T12:03:15.036Z",
+        "last_present_utc": "2026-11-01T12:03:15.034Z",
+        "lua": {
+          "loaded": true,
+          "context": "campaign",
+          "pump_age_s": -0.0
+        },
+        "battle": {
+          "naval": -1,
+          "deploy_panel": -1,
+          "age_s": -1.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1769,
+          "commit_mb": 1178
+        },
+        "reports": {
+          "autostart.campaign": "mp_eur_napoleon",
+          "autostart.faction": "austria"
+        }
+      },
+      "log": []
+    }
+  },
+  "start_utc": "2026-11-01T12:03:04.605Z",
+  "end_utc": "2026-11-01T12:03:17.579Z"
+}

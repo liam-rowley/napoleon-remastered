@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.campaign.panel_routes",
+  "claim": "The campaign panel hotkeys (show_lists, show_gov, show_diplomacy, show_missions, show_technologies in default_keys.xml) are handled by the engine, not by Lua: the campaign root's OnShortcut(name, down) handles voice chat, move speed, escape menu, saves, labels, selection and flags only, and no UI script holds the show_* strings; from Lua the panels open through the root functions their menu buttons call, each a closure over the root's PanelManager: ToggleEntityLists (entity_lists), ShowGovernmentPopup (government_screens), ToggleDiplomacyPopup (diplomacy_panel), ShowMissionsPopup (missions), ShowTechnologies (technology), ShowBuildingBrowser (building_browser), all seen on screen in run 20261101_j9fix; ShowPrestige() errors in Huds.lua:51 without its arguments; PanelManager.CloseAllPanels left the missions panel up",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9fix/README.md",
+  "date": "2026-11-01",
+  "notes": "the campaign-start Mission Issued popup (event_message) can arrive seconds after the campaign loads: close it (campaign_modal_close.lua) after it shows, not right after the scene"
+}

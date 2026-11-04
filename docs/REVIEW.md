@@ -1,52 +1,23 @@
-# Reviewing a job branch
+# Reviewing a job branch: napoleon's addendum
 
-Every job branch gets an independent review before it merges; with a `merge` verdict the reviewer merges it on green CI (D32). The reviewer is a fresh chat that did not build the branch
-(Opus is allowed: D15 names independent checks). It starts cold from this file, the job prompt and the job's report.
+The procedure is warscape-core's, owned by `core/docs/REVIEW.md` (J62 moved it there with the job pipeline): setup, the rounds (D36), the steps, the
+output format, the row after a verdict and the merge order (ready before the push: J57). Read that first, then this page, which only adds what is
+this game's. Every `wsc ...` below is `python3 core/wsc.py ...`; the job steps (`wsc jobs next|review|fix`) print the exact commands.
 
-## Starting a review
-Liam says "review the next job" (or "review J<n>"). `python3 core/wsc.py jobs review` names the branch. You must not have built it:
-CI's `policy` check refuses a review written by a session that also wrote the report. The job's own brief is
-`jobs/<id>/brief.md` on that branch: it is what you check the work against, so nothing needs pasting.
-
-## Setup
-A **new** Claude Code session (never the one that built the branch), in the napoleon-remastered folder: `git fetch`, check out the
-job branch, `git submodule update --init`. Follow `CLAUDE.md`. Read, in this order: `jobs/<id>/brief.md`, `jobs/<id>/report.md`, `docs/DECISIONS.md`, then
-`git diff --stat main...HEAD`. You did not build this branch: do not trust its report. Budget about 60 tool calls.
-
-## Steps
-1. **Run the machines first.** `python3 core/wsc.py gates` and `python3 tools/pr_policy.py --branch job/<id> --base origin/main`
-   (CI's `policy` check, run locally), plus any build or host tests the branch adds. Note failures, and any red check `wsc jobs review`
-   lists for the pull request (`docs/CI_FAILURES.md` classes them). Do not spend calls re-checking anything a gate covers.
-2. **Claims against evidence.** Every claim in the report needs evidence you can open: a run report, a log, test output, a
-   registry row with a date and run id. A claim with no evidence is a finding, however plausible.
-3. **The brief.** Every deliverable present, every stated decision followed, kill criteria respected, nothing outside scope (D14).
-   A deviation is fine only if the report names it and says why.
-4. **Risk-first reading.** Pick the code where a mistake costs most (anything touching engine memory, the PC, install or
-   uninstall, persistent data), say what you picked and why, and read it in depth. Skim the rest.
-5. **Empire repeats.** Anything left as prose (a timing, a trap, a rule) that could be a default, a guard or a gate is a finding.
-
-## Output
-A verdict line, exactly `**Verdict: merge.**`, `**Verdict: merge after fixes.**` or `**Verdict: do not merge.**` (CI's `policy`
-check reads it: only `merge` lets the branch merge), and findings ranked **blocker**, **should-fix**, **later**, each with
-`file:line`, what fails, and how to see it fail.
-
-- Fix small should-fix items yourself on the branch: one commit each, with a test where the code allows, listed in the review.
-- Leave blockers and larger items as findings for the job chat.
-- **Later** items for the core go to warscape-core `docs/BACKLOG.md` through a warscape-core PR; for this repo, into the review.
-- Write the review as `jobs/<id>/review.md` on the branch, dated at the top (`wsc jobs check` checks the date and the verdict line). With a `merge` verdict, set the row to
-  `status=done review=jobs/<id>/review.md` (`CLAUDE.md` Jobs); otherwise leave it at `review` and say what must change.
-
-## Merging (D32, `merge` verdict only)
-After the review commit is pushed, run `python3 tools/pr_policy.py --branch job/<id> --base origin/main` (it must say ok), then
-`gh pr view job/<id>` (if there is no pull request: `gh pr create --base main --head job/<id> --title "<id>: <title>"`, body = the
-review's verdict and findings), then `gh pr merge job/<id> --auto --squash`. GitHub merges only when every required check (`gates`,
-`proxy`, `harness-windows`, `policy`) is green on that commit (`proxy` and `harness-windows` are skipped, which counts as passed,
-when the branch does not touch their inputs: `.github/workflows/gates.yml` job `changes`): do not wait or poll. If the merge changes a rule that other open job
-branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply. A check that fails leaves the
-pull request open: CI comments on the pull request (`tools/ci_notify.py`) and `wsc jobs next|review|view` list it first, so the
-next session sees it; the next review round decides. Any other verdict is never merged. A `brief/` branch merges the
-same way without a review (D33); `plan/` and `meta/` branches still wait for Liam.
-
-## Keeping this file useful
-When a review finds something a gate could have caught, the fix is a new gate (in warscape-core if it is game-agnostic), not a
-longer checklist here.
+## What this repo adds
+- **Who reviews.** A fresh chat that did not build the branch; Opus is allowed (D15 names independent checks). The own-review rule reads the
+  `Claude-Session` commit trailer (`wsc.toml` `[policy] session_trailer`); the hook in `.claude/settings.json` adds the flag check to every commit.
+- **The machines (step 1).** `python3 core/wsc.py gates` and `python3 core/wsc.py policy --branch job/<id> --base origin/main` (the `policy` check CI runs).
+  The required checks on `main` are `gates`, `proxy`, `harness-windows` and `policy`; `proxy` and `harness-windows` are skipped, which counts as passed,
+  when the branch does not touch their inputs or the same input tree already passed (`wsc.toml` `[ci] inputs`, `.github/workflows/gates.yml` job `changes`).
+  A red required check is a blocker for a `merge` verdict (`docs/CI_FAILURES.md` classes the failures).
+- **Rule 79 (J4, J44, J45, J58).** A branch that changes `proxy/` or `harness/`, or moves the core pin so that the core's own `proxy/` or `harness/` changes,
+  must carry 20 consecutive acceptance passes on its final DLL build id and watcher version (`harness/acceptance/ledger.jsonl`, `tools/jobs_hooks.py`
+  `policy_problems`). Check that the passes name a run and an evidence file committed on the branch; a reword, rebase or merge of `main` that leaves the DLL
+  inputs unchanged keeps them. Rule 79 runs for every branch kind (J73), so a `meta/` or `brief/` branch meets it too. A core pin bump is therefore a `job/`
+  branch, never `meta/` or `plan/` (`core` is in neither glob list), and meets rule 79 whenever the core's own `proxy/` or `harness/` changed between the
+  two pins; a registry edit outside `registries/jobs/*` is a `job/` branch as well.
+- **Empire repeats (step 5).** Anything left as prose that Empire's history shows biting twice (a timing, a trap, a wrong default) and that could be a
+  default, a guard or a gate is a finding. A *later* item for the core goes to warscape-core `docs/BACKLOG.md` through a warscape-core pull request.
+- **Merging.** Liam merges and tags warscape-core; a job branch is merged by its reviewer on green CI (D32); `plan/` and `meta/` branches by Liam.
+  If a merge changes a rule that other open job branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply.

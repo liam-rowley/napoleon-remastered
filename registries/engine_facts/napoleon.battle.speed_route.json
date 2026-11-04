@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.speed_route",
+  "claim": "Battle speed and pause from the battle root's own RequestSpeed(slow|play|fwd|ffwd|pause) (BattleUI.Slow/Play/Fwd/Ffwd/Pause and the HUD) and ReinstatePrePauseBattleSpeed (pause off), measured on BattleUI.ElapsedBattleTime (0.1 s steps) against BattleUI.WindowsTime: pause 0.0, slow 0.42 to 0.45 (not 0.5), play 1.0, fwd 2.0, ffwd 4.0, land, siege and naval; BattleUI.TickPeriod names the speed. The battle clock runs only after deployment ends (BattleUI.InformOfDeploymentFinished, as the start button)",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j43pc/README.md",
+  "date": "2026-10-30",
+  "notes": "ctl.py pause/speed; DeploymentFinishYesStart alone does not end deployment"
+}

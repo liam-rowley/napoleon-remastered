@@ -1,0 +1,11 @@
+{
+  "id": "saves.napoleon.save_map",
+  "kind": "script",
+  "path": "saves/napoleon/save_map.py",
+  "purpose": "list a Napoleon save's factions, characters (type, position, residence), forces, settlement residences (agents inside) and governorship taxes, resolve an id, and find own field characters near foreign ones",
+  "usage": "python3 -I saves/napoleon/save_map.py SAVE [factions|characters|forces|settlements|taxes|near|all] [--faction KEY] [--radius R] [--json]   (id lookups: core/saves/esf_map.py SAVE id ID)",
+  "when": "before writing or running a recipe (which agent, which residence id, which theatre), and to read back a value after a QuickSave (load ladder B); field meanings in saves/SAVE_FORMAT.md",
+  "not_a_verb": "reads saves on the PC that are never in the repo; a library for the recipes as well as a CLI",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

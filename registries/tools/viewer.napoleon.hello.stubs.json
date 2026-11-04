@@ -1,0 +1,11 @@
+{
+  "id": "viewer.napoleon.hello.stubs",
+  "kind": "script",
+  "path": "viewer/napoleon/hello/stubs.lua",
+  "purpose": "the J31 hello-world's stubbed engine: one fixture (the data model's source) and one engine call",
+  "usage": "loaded by viewer/napoleon/hello/hello.rml (<script src>) in the review viewer; not run in game",
+  "when": "the viewer spike only; real screens get stubs generated from their captured fixtures (UI_PIPELINE section 2.4)",
+  "not_a_verb": "Lua loaded by an RML document in the viewer, not a command",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

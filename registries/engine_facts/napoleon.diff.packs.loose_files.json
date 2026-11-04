@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.packs.loose_files",
+  "claim": "Napoleon's loose data\\ holds 1,420 files (UI cursors and tga art, uied.templates, campaign_maps, campaigns, two *_scripted.lua) and none of them has the path of a pack entry: they are loose-only, not overrides",
+  "state": "verified",
+  "evidence": "discovery/diff/packs.json",
+  "date": "2026-10-29",
+  "notes": "whether a loose copy beats a pack entry at runtime is napoleon.files.loose_probe_dirs; no shadowing case exists in vanilla"
+}

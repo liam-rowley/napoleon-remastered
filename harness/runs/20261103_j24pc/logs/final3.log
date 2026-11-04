@@ -1,0 +1,10 @@
+pc_deploy install: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+pc_deploy install: kit kit_20261103T063744Z_6bab276b0030 installed (build 6bab276b0030)
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+shadow_crop_keep=0 shadow_extrusion=1 shadow_far_cap=0 shadow_fit_ortho=0 shadow_focus=0 shadow_height_cutoff=1 shadow_hw_force=0 shadow_map_large=1 shadow_near_scale=0 
+== 20261103_j24acc3 11:42:22Z
+acceptance pass 18: pass (harness/runs/20261103_j24acc3/pass_18.json)
+acceptance pass 19: pass (harness/runs/20261103_j24acc3/pass_19.json)
+acceptance pass 20: pass (harness/runs/20261103_j24acc3/pass_20.json)
+== 20261103_j24acc3 complete
+== final3 end 14:25:39Z

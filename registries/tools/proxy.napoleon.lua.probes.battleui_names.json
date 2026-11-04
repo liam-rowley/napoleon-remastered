@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.battleui_names",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/battleui_names.lua",
+  "purpose": "list BattleUI functions about the camera, speed, pause, orders and positions",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/battleui_names.lua -- camera,speed,pause,move,position\" in a battle",
+  "when": "J4 route probe; any search for a BattleUI call",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

@@ -1,0 +1,49 @@
+{
+    "version":  "1.1.0",
+    "pid":  6540,
+    "ps_version":  "5.1.26100.9711",
+    "root":  "C:\\napoleon_remastered_pc\\watcher",
+    "game":  "napoleon",
+    "started_utc":  "2026-10-30T23:51:38Z",
+    "uptime_s":  42,
+    "heartbeat_utc":  "2026-10-30T23:52:21Z",
+    "queue_length":  0,
+    "queue":  [
+
+              ],
+    "current_job":  {
+                        "id":  "j18-20261030T235220Z-22021893",
+                        "type":  "status",
+                        "owner":  null,
+                        "started_utc":  "2026-10-30T23:52:21Z",
+                        "running_s":  0
+                    },
+    "game_state":  {
+                       "state":  "not_running",
+                       "image":  "Napoleon.exe",
+                       "pid":  null,
+                       "window":  null,
+                       "cpu_idle_s":  null,
+                       "log_idle_s":  null,
+                       "watchdog_armed":  false,
+                       "hang_s":  120
+                   },
+    "processes":  [
+
+                  ],
+    "lock":  null,
+    "foreign_lock":  null,
+    "zombie":  false,
+    "needs_reboot":  false,
+    "zombie_detail":  null,
+    "profile_active":  null,
+    "last_hang":  null,
+    "exe":  {
+                "sha1":  "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+                "ok":  true,
+                "checked_utc":  "2026-10-30T23:52:21Z",
+                "expected":  "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+                "detail":  "Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in exe_identity.json"
+            }
+}
+[job j18-20261030T235220Z-22021893: ok exit=0]

@@ -1,0 +1,10 @@
+{
+  "verb": "scene",
+  "status": "refused",
+  "reason": "campaign scenario campaign_britain_1805 names no autostart target at the start of its save field (campaign:new:<c>:<f> or campaign:<save>)",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-11-01T19:37:01.972Z",
+  "end_utc": "2026-11-01T19:37:01.972Z"
+}

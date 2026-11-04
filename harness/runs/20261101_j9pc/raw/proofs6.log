@@ -1,0 +1,72 @@
+== mixa_stock land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   17:04:04Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T170406Z-324626913: ok exit=0]
+scene rc 0 ok  load 3.3
+capture mixa_stock_a rc 0: ": {"va_mb": 1805, "commit_mb": 1164}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "141"}}, "log": []} 
+shot rc 0
+perf rc 0 None 46f52d356ce8
+kill rc 0
+2026-11-01T17:04:20.123Z [INFO ] [t40628] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T17:04:20.123Z [INFO ] [t40628] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T17:04:20.123Z [INFO ] [t40628] patch_engine: nothing to do - 45 sites: 45 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 26 hooks verified
+2026-11-01T17:04:20.123Z [INFO ] [t40628] patch_engine: 0 of 0 planned sites written
+== mixa_on land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=1 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=1 gfx.tree_lod_proof=1 gfx.shadow_sweep_proof=0   17:05:13Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T170522Z-78975047: ok exit=0]
+scene rc 0 ok  load 3.6
+capture mixa_on_a rc 0: ": {"va_mb": 1917, "commit_mb": 1280}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "140"}}, "log": []} 
+shot rc 0
+perf rc 0 None 46f52d356ce8
+kill rc 0
+2026-11-01T17:05:41.411Z [INFO ] [t8052] patch_engine: wrote sprite.page_q1 at 01380113: [00 00 80 44] -> [00 00 00 45]
+2026-11-01T17:05:41.411Z [INFO ] [t8052] patch_engine: wrote grass.grid_q3 at 01559ad8: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T17:05:41.411Z [INFO ] [t8052] patch_engine: wrote grass.grid_q4 at 01559ae4: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T17:05:41.411Z [INFO ] [t8052] patch_engine: 10 of 10 planned sites written
+== mixb_stock land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   17:06:36Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T170646Z-34873441: ok exit=0]
+scene rc 0 ok  load 3.4
+capture mixb_stock_a rc 0: ": {"va_mb": 1804, "commit_mb": 1181}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+perf rc 0 None 46f52d356ce8
+kill rc 0
+2026-11-01T17:07:04.837Z [INFO ] [t7212] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T17:07:04.837Z [INFO ] [t7212] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T17:07:04.837Z [INFO ] [t7212] patch_engine: nothing to do - 45 sites: 45 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 26 hooks verified
+2026-11-01T17:07:04.837Z [INFO ] [t7212] patch_engine: 0 of 0 planned sites written
+== mixb_on land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=1 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=1 gfx.tree_lod_proof=1 gfx.shadow_sweep_proof=0   17:07:58Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T170808Z-1964732487: ok exit=0]
+scene rc 0 ok  load 3.6
+capture mixb_on_a rc 0: ": {"va_mb": 1902, "commit_mb": 1272}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "141"}}, "log": []} 
+shot rc 0
+perf rc 0 None 46f52d356ce8
+kill rc 0
+2026-11-01T17:08:28.199Z [INFO ] [t15240] patch_engine: wrote sprite.page_q1 at 01380113: [00 00 80 44] -> [00 00 00 45]
+2026-11-01T17:08:28.199Z [INFO ] [t15240] patch_engine: wrote grass.grid_q3 at 01559ad8: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T17:08:28.199Z [INFO ] [t15240] patch_engine: wrote grass.grid_q4 at 01559ae4: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T17:08:28.199Z [INFO ] [t15240] patch_engine: 10 of 10 planned sites written
+== mixc_stock land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   17:09:20Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T170929Z-3103323707: ok exit=0]
+scene rc 0 ok  load 4.2
+capture mixc_stock_a rc 0: ": {"va_mb": 1882, "commit_mb": 1241}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []} 
+shot rc 0
+perf rc 0 None 46f52d356ce8
+kill rc 0
+2026-11-01T17:09:48.390Z [INFO ] [t2292] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T17:09:48.390Z [INFO ] [t2292] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T17:09:48.390Z [INFO ] [t2292] patch_engine: nothing to do - 45 sites: 45 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 26 hooks verified
+2026-11-01T17:09:48.390Z [INFO ] [t2292] patch_engine: 0 of 0 planned sites written
+== mixc_on land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=1 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=1 gfx.tree_lod_proof=1 gfx.shadow_sweep_proof=0   17:10:41Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+[job j9-20261101T171051Z-2619417896: ok exit=0]
+scene rc 0 ok  load 4.7
+capture mixc_on_a rc 0: ": {"va_mb": 2025, "commit_mb": 1381}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "157"}}, "log": []} 
+shot rc 0
+perf rc 0 None 46f52d356ce8
+kill rc 0
+2026-11-01T17:11:10.050Z [INFO ] [t19836] patch_engine: wrote sprite.page_q1 at 01380113: [00 00 80 44] -> [00 00 00 45]
+2026-11-01T17:11:10.050Z [INFO ] [t19836] patch_engine: wrote grass.grid_q3 at 01559ad8: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T17:11:10.050Z [INFO ] [t19836] patch_engine: wrote grass.grid_q4 at 01559ae4: [05 00 00 00] -> [09 00 00 00]
+2026-11-01T17:11:10.050Z [INFO ] [t19836] patch_engine: 10 of 10 planned sites written

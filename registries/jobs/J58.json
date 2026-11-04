@@ -1,0 +1,13 @@
+{
+  "id": "J58",
+  "description": "Found by J55 (jobs/J55/report.md, open question 1); Liam chose this over running 20 PC passes for J55 (2026-11-01). tools/pr_policy.py acceptance_problems counts any change to the core gitlink as DLL or harness code (since J12), so every pin bump needs 20 acceptance passes on the PC, even one that changes only the core's Python, tests and docs. J55 bumps v0.5.0 to v0.6.0: core/proxy/, core/harness/ and core/saves/ are byte-identical between the tags and the DLL build id is unchanged (f3e33f228416), yet the branch is refused. Build: a core pin change counts for rule 79 only when the submodule diff between the base's pin and the head's pin touches the DLL inputs or the harness (proxy/, harness/; read the list from core/proxy/tools/build_id.py and the watcher's files rather than restating it); a branch that also changes proxy/ or harness/ in this repo is judged as today; the base's rule still decides (a branch cannot exempt itself: the check that decides must not be one the branch can edit, see acceptance_active and J44). Tests in tests/test_pr_policy.py on a fixture repo with a submodule: a docs-only pin bump passes with no passes, a pin bump that changes core/proxy/src or core/harness is refused without 20, a missing or unreadable pin fails closed. J55 (draft PR 100) merges after this; keep J55's one-file-per-row layout in mind (its pr_policy reads registries/jobs/J<n>.json).",
+  "title": "Rule 79: a core pin bump that leaves the DLL and harness unchanged needs no acceptance run",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J58/brief.md",
+  "report": "jobs/J58/report.md",
+  "review": "jobs/J58/review.md"
+}

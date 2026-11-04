@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.echo_args",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/echo_args.lua",
+  "purpose": "check that `lua <file> -- <args>` reaches the chunk through wsp.dev_config(\"lua_args\")",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/echo_args.lua -- a=1",
+  "when": "after a change to the lua verb or the bridge",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

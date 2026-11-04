@@ -1,0 +1,4 @@
+usage: ctl.py [-h] [--owner OWNER] [--adapter ADAPTER] [--registry REGISTRY]
+              [--out OUT] [--no-pc]
+              verb [args ...]
+ctl.py: error: unrecognized arguments: --deploy end

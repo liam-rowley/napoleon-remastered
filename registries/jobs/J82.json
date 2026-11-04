@@ -1,0 +1,13 @@
+{
+  "id": "J82",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) R4, R11 (generated doc), the PC-clone row. 135 'Later' bullets in jobs/*/review.md have no tracker, and several were overtaken. Triage each into a needs_brief row (on a plan/ branch), a core BACKLOG line (through a warscape-core pull request) or 'dropped: <reason>' in one dated record under docs/audits/, so none is left only in a review. Named by the audit: the J38 release sitting (row J83); test_ctl_without_an_ini, explained away in five jobs and never filed (fix it or file it here); the J9 probes and J46's dead loop (proxy/napoleon/lua, DLL inputs, so they ride J78's run). Also the Empire harness learnings the audit found dropped (%~dp0 in watcher jobs, PowerShell alias shadowing, a start-up soak). Housekeeping: git-ignore harness/runs/*/summary.json (written by tools/perf_baseline.py:503); tools/ci_failures.py:28 stops naming the deleted tools/pr_policy.py, and docs/CI_FAILURES.md is regenerated. Once core W32's later registry reaches napoleon, the triaged items move into it.",
+  "title": "Review Later sweep and housekeeping",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J82/brief.md",
+  "report": "jobs/J82/report.md",
+  "review": "jobs/J82/review.md"
+}

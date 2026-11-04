@@ -1,0 +1,8 @@
+{
+  "id": "viewer.rcss.library_recipes",
+  "claim": "RmlUi 6.3 in the viewer draws what the library uses: image-color tint on img, outer and inset box-shadow rings (two rings make the double rule), repeating-linear-gradient decorators (hatching, dotted gap), transform: translateY, opacity, display: none (box is zero-sized), flex and flex-wrap, scrollbar part styling (scrollbarvertical slidertrack, sliderbar, hover and active), :hover, :active and :focus-visible; :focus-visible needs tab-index: auto on the element and a Tab key press (the viewer now forwards Tab, Enter, Space, Escape, arrows) and a click does not set it",
+  "state": "verified",
+  "evidence": "uikit/napoleon/runs/20261102_j34/README.md",
+  "date": "2026-11-02",
+  "notes": "spike results.txt and spike.png; static TTFs register by their own family and weight (Libre Baskerville regular and bold, Public Sans 400 and 600 as weight=600) and font-weight selects them"
+}

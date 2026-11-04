@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.packs.dev_pack_precedence",
+  "claim": "A virtual movie-type (4) pack data\\zz_napoleon_remastered_dev.pack, listed by the proxy's FindFirstFileW hook and served from napoleon_remastered\\packs\\, is loaded and its ui\\*.luac entries (plain Lua source) win over data.pack's",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

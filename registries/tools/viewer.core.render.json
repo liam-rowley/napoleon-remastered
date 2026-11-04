@@ -1,0 +1,11 @@
+{
+  "id": "viewer.core.render",
+  "kind": "script",
+  "path": "viewer/core/render.py",
+  "purpose": "stage a screen with the built viewer into a site folder, and render it to a PNG in headless Chromium (Python Playwright) at a size and dp ratio",
+  "usage": "python3 viewer/core/render.py <screen dir or its .rml> --size 1920x1080 --dp-ratio 1.0 --out x.png [--wasm build/viewer/out] [--json] | --stage-only <site dir>",
+  "when": "every gate render and every review page publish (--stage-only builds the folder the artifact is published from); needs `viewer/core/build.sh` output and Playwright (wsc setup check_playwright)",
+  "not_a_verb": "a renderer with a browser round trip; tests/test_viewer.py and the review publish call it",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

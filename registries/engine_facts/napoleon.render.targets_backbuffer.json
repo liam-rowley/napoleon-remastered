@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.render.targets_backbuffer",
+  "claim": "Every render target but the shadow map scales with the backbuffer: at 2560x1440 the 1920x1080 targets are 2560x1440 and the 960x540 reflection and refraction targets 1280x720; the shadow map stays at its quality size. No target is MSAA with gfx_aa 0",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01"
+}

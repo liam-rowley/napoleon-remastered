@@ -1,0 +1,52 @@
+{
+ "id": "j8-20261101T143500Z-251359828",
+ "request": "capture f1_frontend 1",
+ "status": "ok",
+ "reason": "",
+ "start_utc": "2026-11-01T14:35:00.619Z",
+ "end_utc": "2026-11-01T14:35:00.626Z",
+ "launch_id": "20261101T143440Z-p34740",
+ "dir": "C:\\napoleon_remastered_pc\\captures\\f1_frontend\\",
+ "file": "C:\\napoleon_remastered_pc\\captures\\f1_frontend\\frame.txt",
+ "shader_dir": "C:\\napoleon_remastered_pc\\captures\\shaders\\",
+ "frames": 1,
+ "bytes": 21093,
+ "lines": 1408,
+ "draws": 33,
+ "shaders": 16,
+ "shaders_new": 1,
+ "shaders_unwalked": 0,
+ "shaders_size_differs": 0,
+ "record_s": 0.012,
+ "wait_s": 0.005,
+ "state_at_end": {
+  "launch_id": "20261101T143440Z-p34740",
+  "pid": 34740,
+  "frame": 56243,
+  "scene": "frontend",
+  "scene_s": 14.3,
+  "uptime_s": 20.1,
+  "written_utc": "2026-11-01T14:35:00.626Z",
+  "last_present_utc": "2026-11-01T14:35:00.626Z",
+  "lua": {
+   "loaded": true,
+   "context": "frontend",
+   "pump_age_s": 0.0
+  },
+  "battle": {
+   "naval": -1,
+   "deploy_panel": -1,
+   "age_s": -1.0
+  },
+  "load_target": "",
+  "autostart": "off",
+  "movies_refused": 3,
+  "movies_opened": 1,
+  "mem": {
+   "va_mb": 1272,
+   "commit_mb": 682
+  },
+  "reports": {}
+ },
+ "log": []
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.dxvk.mode_list_primary",
+  "claim": "Through stock DXVK 3.1.1 the engine sees 116 X8R8G8B8 modes on adapter 0 (the primary monitor list); under headless the proxy answers the 6 modes of the virtual display instead and the engine creates its device at the virtual display size",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j13pc/README.md",
+  "date": "2026-10-29",
+  "notes": "proxy log line GetAdapterModeCount ... (the backend said 116)"
+}

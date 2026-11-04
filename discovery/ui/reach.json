@@ -1,0 +1,2011 @@
+{
+ "agreement": {
+  "matched": 1597,
+  "mean": 0.992,
+  "static": 1610
+ },
+ "reached": 44,
+ "reached_by_context": {
+  "battle": "7 of 32",
+  "campaign": "11 of 56",
+  "common": "2 of 18",
+  "frontend": "15 of 40",
+  "template": "9 of 74"
+ },
+ "run": "20261102_j10pc",
+ "states": {
+  "camp_agent": {
+   "nodes": 152,
+   "shot": "j10_camp_agent.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_army": {
+   "nodes": 333,
+   "shot": "j10_camp_army.jpg",
+   "visible_top": [
+    "label7",
+    "label7",
+    "veneer_DY",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_buildings": {
+   "nodes": 542,
+   "shot": "j10_camp_buildings.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "building_browser",
+    "missions",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_diplomacy": {
+   "nodes": 622,
+   "shot": "j10_camp_diplomacy.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "menu_bar",
+    "diplomacy_panel",
+    "advice_interface"
+   ]
+  },
+  "camp_fleet": {
+   "nodes": 229,
+   "shot": "j10_camp_fleet.jpg",
+   "visible_top": [
+    "label2",
+    "veneer_DY",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_gov": {
+   "nodes": 642,
+   "shot": "j10_camp_gov.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "government_screens",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_hud": {
+   "nodes": 147,
+   "shot": "j10_camp_hud.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_lists": {
+   "nodes": 696,
+   "shot": "j10_camp_lists.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "entity_lists",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_missions": {
+   "nodes": 449,
+   "shot": "j10_camp_missions.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "missions",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_popup": {
+   "nodes": 451,
+   "shot": "j10_camp_popup.jpg",
+   "visible_top": [
+    "label13",
+    "label5",
+    "label12",
+    "label12",
+    "label10",
+    "label10",
+    "label13",
+    "label10",
+    "label3",
+    "label10",
+    "label8",
+    "label1",
+    "label8",
+    "label7",
+    "label8",
+    "label2",
+    "label2",
+    "label8",
+    "label6",
+    "veneer_DY",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_settlement": {
+   "nodes": 256,
+   "shot": "j10_camp_settlement.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "camp_technologies": {
+   "nodes": 810,
+   "shot": "j10_camp_technologies.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "technology",
+    "missions",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "fe_grand_campaign": {
+   "nodes": 113,
+   "shot": "j10_fe_grand_campaign.jpg",
+   "visible_top": [
+    "grand_campaign"
+   ]
+  },
+  "fe_load_replay": {
+   "nodes": 46,
+   "shot": "j10_fe_load_replay.jpg",
+   "visible_top": [
+    "load_replay"
+   ]
+  },
+  "fe_main": {
+   "nodes": 76,
+   "shot": "j10_fe_main.jpg",
+   "visible_top": [
+    "layout",
+    "main"
+   ]
+  },
+  "fe_napoleon_battles": {
+   "nodes": 60,
+   "shot": "j10_fe_napoleon_battles.jpg",
+   "visible_top": [
+    "napoleon_battles"
+   ]
+  },
+  "fe_options": {
+   "nodes": 957,
+   "shot": "j10_fe_options.jpg",
+   "visible_top": [
+    "options"
+   ]
+  },
+  "fe_player_stats": {
+   "nodes": 180,
+   "shot": "j10_fe_player_stats.jpg",
+   "visible_top": [
+    "player_stats"
+   ]
+  },
+  "fe_single_player": {
+   "nodes": 17,
+   "shot": "j10_fe_single_player.jpg",
+   "visible_top": [
+    "single_player"
+   ]
+  },
+  "fe_sp_battle1": {
+   "nodes": 22,
+   "shot": "j10_fe_sp_battle1.jpg",
+   "visible_top": [
+    "sp_battle1"
+   ]
+  },
+  "fe_sp_battle2": {
+   "nodes": 100,
+   "shot": "j10_fe_sp_battle2.jpg",
+   "visible_top": [
+    "sp_battle2"
+   ]
+  },
+  "fe_sp_battle2_scenario": {
+   "nodes": 70,
+   "shot": "j10_fe_sp_battle2_scenario.jpg",
+   "visible_top": [
+    "sp_battle2_scenario"
+   ]
+  },
+  "fe_sp_episodic_campaign": {
+   "nodes": 52,
+   "shot": "j10_fe_sp_episodic_campaign.jpg",
+   "visible_top": [
+    "sp_episodic_campaign"
+   ]
+  },
+  "fe_sp_load_game": {
+   "nodes": 77,
+   "shot": "j10_fe_sp_load_game.jpg",
+   "visible_top": [
+    "sp_load_game"
+   ]
+  },
+  "fe_sp_tutorials": {
+   "nodes": 34,
+   "shot": "j10_fe_sp_tutorials.jpg",
+   "visible_top": [
+    "sp_tutorials"
+   ]
+  },
+  "hist_deploy": {
+   "nodes": 739,
+   "shot": "j10_hist_deploy.jpg",
+   "visible_top": [
+    "radar_group",
+    "veneer_DY",
+    "menu_bar",
+    "finish_deployment"
+   ]
+  },
+  "land_deploy": {
+   "nodes": 684,
+   "shot": "j10_land_deploy.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "radar_group",
+    "menu_bar",
+    "advice_interface",
+    "finish_deployment"
+   ]
+  },
+  "land_running": {
+   "nodes": 665,
+   "shot": "j10_land_running.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "radar_group",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "naval_deploy": {
+   "nodes": 532,
+   "shot": "j10_naval_deploy.jpg",
+   "visible_top": [
+    "radar_group",
+    "veneer_DY",
+    "menu_bar",
+    "advice_interface",
+    "finish_deployment"
+   ]
+  },
+  "naval_running": {
+   "nodes": 513,
+   "shot": "j10_naval_running.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "radar_group",
+    "menu_bar",
+    "advice_interface"
+   ]
+  },
+  "siege_deploy": {
+   "nodes": 684,
+   "shot": "j10_siege_deploy.jpg",
+   "visible_top": [
+    "veneer_DY",
+    "radar_group",
+    "menu_bar",
+    "advice_interface",
+    "finish_deployment"
+   ]
+  }
+ },
+ "units": 220,
+ "units_reach": {
+  "battle.battle_deployables_panel": {
+   "best_match": {
+    "agreement": 0.143,
+    "live_path": "advice_interface/advice_text_panel",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.battle_hud_flags": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/frame/hud_right/orders layout/faction_hud_flags",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "battle.building_tooltip": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.combat_ratio": {
+   "best_match": {
+    "agreement": 0.167,
+    "live_path": "advice_interface/sidebar",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.countdown_win_timer": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a battle ending or a multiplayer battle"
+  },
+  "battle.deployment_end": {
+   "agreement": 1.0,
+   "live_components": 15,
+   "live_path": "finish_deployment",
+   "matched": 15,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_hist_deploy.jpg",
+   "state": "hist_deploy",
+   "static_components": 15,
+   "visible": true
+  },
+  "battle.esc_menu_battle": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "battle.hud.balance_of_power": {
+   "agreement": 1.0,
+   "live_components": 3,
+   "live_path": "veneer_DY/kill_ratio_PH",
+   "matched": 3,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_land_deploy.jpg",
+   "state": "land_deploy",
+   "static_components": 3,
+   "visible": true
+  },
+  "battle.hud.card_strip": {
+   "agreement": 1.0,
+   "live_components": 84,
+   "live_path": "veneer_DY/cards_panel",
+   "matched": 2,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_land_deploy.jpg",
+   "state": "land_deploy",
+   "static_components": 2,
+   "visible": true
+  },
+  "battle.hud.frame": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.hud.radar": {
+   "agreement": 1.0,
+   "live_components": 4,
+   "live_path": "radar_group",
+   "matched": 4,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_land_deploy.jpg",
+   "state": "land_deploy",
+   "static_components": 4,
+   "visible": true
+  },
+  "battle.hud.timer": {
+   "agreement": 1.0,
+   "live_components": 21,
+   "live_path": "veneer_DY/stopwatch",
+   "matched": 21,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_land_deploy.jpg",
+   "state": "land_deploy",
+   "static_components": 21,
+   "visible": true
+  },
+  "battle.in_battle_results_popup": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a battle ending or a multiplayer battle"
+  },
+  "battle.inspire_bling": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.land_battle_orders": {
+   "agreement": 1.0,
+   "live_components": 41,
+   "live_path": "veneer_DY/orders",
+   "matched": 41,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_hist_deploy.jpg",
+   "state": "hist_deploy",
+   "static_components": 41,
+   "visible": true
+  },
+  "battle.lb_unit_id": {
+   "best_match": {
+    "agreement": 0.133,
+    "live_path": "veneer_DY/cards_panel/review_DY/1",
+    "state": "hist_deploy"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.minimised_hud.balance_of_power": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/kill_ratio_PH",
+    "state": "land_deploy"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (land_deploy veneer_DY/kill_ratio_PH) is battle.hud.balance_of_power's"
+  },
+  "battle.minimised_hud.card_strip": {
+   "best_match": {
+    "agreement": 0.0,
+    "live_path": "veneer_DY/cards_panel/review_DY",
+    "state": "land_deploy"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.minimised_hud.frame": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.minimised_hud.radar": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "radar_group",
+    "state": "land_deploy"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (land_deploy radar_group) is battle.hud.radar's"
+  },
+  "battle.minimised_hud.timer": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/stopwatch",
+    "state": "land_deploy"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (land_deploy veneer_DY/stopwatch) is battle.hud.timer's"
+  },
+  "battle.minimised_lb_orders": {
+   "best_match": {
+    "agreement": 0.932,
+    "live_path": "veneer_DY/orders",
+    "state": "hist_deploy"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (hist_deploy veneer_DY/orders) is battle.land_battle_orders's"
+  },
+  "battle.minimised_nb_orders": {
+   "best_match": {
+    "agreement": 0.925,
+    "live_path": "veneer_DY/orders",
+    "state": "naval_deploy"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (naval_deploy veneer_DY/orders) is battle.naval_battle_orders's"
+  },
+  "battle.mp_postbattle": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a battle ending or a multiplayer battle"
+  },
+  "battle.naval_battle_orders": {
+   "agreement": 1.0,
+   "live_components": 51,
+   "live_path": "veneer_DY/orders",
+   "matched": 51,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_naval_deploy.jpg",
+   "state": "naval_deploy",
+   "static_components": 51,
+   "visible": true
+  },
+  "battle.nb_unit_id": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.options_game": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "battle.pip_frame": {
+   "best_match": {
+    "agreement": 0.5,
+    "live_path": "advice_interface/sidebar",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "battle.sp_victory_options": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a battle ending or a multiplayer battle"
+  },
+  "battle.special_tooltip": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "battle.victory_tickets_panel": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a battle ending or a multiplayer battle"
+  },
+  "battle.xp_bling": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.agent_action": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.agent_options": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.building_browser": {
+   "agreement": 1.0,
+   "live_components": 45,
+   "live_path": "building_browser",
+   "matched": 29,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_buildings.jpg",
+   "state": "camp_buildings",
+   "static_components": 29,
+   "visible": true
+  },
+  "campaign.building_information": {
+   "best_match": {
+    "agreement": 0.333,
+    "live_path": "building_browser",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.button_timer": {
+   "best_match": {
+    "agreement": 0.333,
+    "live_path": "options/main_panel/TabGroup",
+    "state": "fe_options"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.campaign_result": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.character_information": {
+   "best_match": {
+    "agreement": 0.182,
+    "live_path": "building_browser",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.city_info_bar": {
+   "agreement": 1.0,
+   "live_components": 15,
+   "live_path": "label7",
+   "matched": 15,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_army.jpg",
+   "state": "camp_army",
+   "static_components": 15,
+   "visible": true
+  },
+  "campaign.diplomacy_panel": {
+   "agreement": 1.0,
+   "live_components": 185,
+   "live_path": "diplomacy_panel",
+   "matched": 182,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_diplomacy.jpg",
+   "state": "camp_diplomacy",
+   "static_components": 182,
+   "visible": true
+  },
+  "campaign.diplomatic_relations": {
+   "best_match": {
+    "agreement": 0.429,
+    "live_path": "missions",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.duel_challenge_received": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.enlist_commander": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.enlist_commander_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.entity_lists": {
+   "agreement": 1.0,
+   "live_components": 84,
+   "live_path": "entity_lists",
+   "matched": 36,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_lists.jpg",
+   "state": "camp_lists",
+   "static_components": 36,
+   "visible": true
+  },
+  "campaign.esc_menu_campaign": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "campaign.event_message": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.event_movie_panel": {
+   "best_match": {
+    "agreement": 0.222,
+    "live_path": "building_browser",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.faction_hud_flags": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/frame/hud_right/orders layout/faction_hud_flags",
+    "state": "camp_popup"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "campaign.friends_list": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer campaign"
+  },
+  "campaign.government_screens": {
+   "agreement": 1.0,
+   "live_components": 209,
+   "live_path": "government_screens",
+   "matched": 205,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_gov.jpg",
+   "state": "camp_gov",
+   "static_components": 205,
+   "visible": true
+  },
+  "campaign.hud.card_strip": {
+   "agreement": 0.983,
+   "live_components": 59,
+   "live_path": "veneer_DY/frame/hud_center",
+   "matched": 59,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_popup.jpg",
+   "state": "camp_popup",
+   "static_components": 60,
+   "visible": true
+  },
+  "campaign.hud.frame": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.hud.orders": {
+   "agreement": 1.0,
+   "live_components": 15,
+   "live_path": "veneer_DY/frame/hud_right",
+   "matched": 15,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_popup.jpg",
+   "state": "camp_popup",
+   "static_components": 15,
+   "visible": true
+  },
+  "campaign.hud.radar": {
+   "agreement": 1.0,
+   "live_components": 6,
+   "live_path": "veneer_DY/frame/hud_left/radar",
+   "matched": 6,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_popup.jpg",
+   "state": "camp_popup",
+   "static_components": 6,
+   "visible": true
+  },
+  "campaign.hud.theatres": {
+   "agreement": 1.0,
+   "live_components": 7,
+   "live_path": "veneer_DY/frame/hud_left/world_theatres_ButtonGroup",
+   "matched": 7,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_popup.jpg",
+   "state": "camp_popup",
+   "static_components": 7,
+   "visible": false
+  },
+  "campaign.layout_agent_recruited": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_ally_attacked": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_assassination": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_attrition_list": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_blockade": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_build_list": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_building_constructed": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_capital_lost": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_election_results": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_marriage": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_revolution": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_riots": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_sabotage": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_standard": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_tech_advances_list": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_technology_advances": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_traits_anc_list": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_unit_recruited": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.layout_unit_routs": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event (the event message picks the layout)"
+  },
+  "campaign.load_save_game": {
+   "best_match": {
+    "agreement": 0.512,
+    "live_path": "sp_load_game/main_panel",
+    "state": "fe_sp_load_game"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.move_options": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.objectives_screens": {
+   "agreement": 0.987,
+   "live_components": 112,
+   "live_path": "missions",
+   "matched": 77,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_buildings.jpg",
+   "state": "camp_buildings",
+   "static_components": 78,
+   "visible": true
+  },
+  "campaign.options_game": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "campaign.popup_battle_results": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.popup_pre_battle": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.region_details": {
+   "best_match": {
+    "agreement": 0.235,
+    "live_path": "missions",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "campaign.royal_family": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.settlement_captured": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.technology": {
+   "agreement": 1.0,
+   "live_components": 89,
+   "live_path": "technology",
+   "matched": 48,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_technologies.jpg",
+   "state": "camp_technologies",
+   "static_components": 48,
+   "visible": true
+  },
+  "campaign.travel_destinations": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "campaign.unit_exchange": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a campaign event or an order (destructive to open: it would change the campaign)"
+  },
+  "common.advice_interface": {
+   "agreement": 1.0,
+   "live_components": 22,
+   "live_path": "advice_interface",
+   "matched": 22,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_land_deploy.jpg",
+   "state": "land_deploy",
+   "static_components": 22,
+   "visible": true
+  },
+  "common.dialog_ok": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "opened by a script on demand (a confirmation): no safe route"
+  },
+  "common.dialog_yes_no": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "opened by a script on demand (a confirmation): no safe route"
+  },
+  "common.dialogue_box": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "opened by a script on demand (a confirmation): no safe route"
+  },
+  "common.menu_bar": {
+   "agreement": 1.0,
+   "live_components": 8,
+   "live_path": "menu_bar",
+   "matched": 8,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_land_deploy.jpg",
+   "state": "land_deploy",
+   "static_components": 8,
+   "visible": true
+  },
+  "common.mp_dialogue_box": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer campaign"
+  },
+  "common.mp_message_box": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer campaign"
+  },
+  "common.multiplayer_chat": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer campaign"
+  },
+  "common.multiplayer_player_list": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer campaign"
+  },
+  "common.options_audio": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "common.options_controls": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "common.options_gamma": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "common.options_graphics": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "common.options_ui": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "no proven safe route (opened by the Escape key or the escape menu; probes send no input)"
+  },
+  "common.panel_dropin_requester": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer campaign"
+  },
+  "common.paused_panel": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "common.unit_information": {
+   "best_match": {
+    "agreement": 0.222,
+    "live_path": "missions",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "common.waiting_for_players": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer campaign"
+  },
+  "frontend.credits": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "entering the credits page stops the front-end Lua pump (run 20261102_j10pc), so no probe can read it"
+  },
+  "frontend.demo_movies": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "frontend.demo_sp_tutorials": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "sp_tutorials",
+    "state": "fe_sp_tutorials"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (fe_sp_tutorials sp_tutorials) is frontend.sp_tutorials's"
+  },
+  "frontend.faction_selection_big": {
+   "best_match": {
+    "agreement": 0.727,
+    "live_path": "sp_battle2_scenario/main_panel/center_panel/factions",
+    "state": "fe_sp_battle2_scenario"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "frontend.faction_selection_historical": {
+   "agreement": 1.0,
+   "live_components": 9,
+   "live_path": "sp_battle2_scenario/main_panel/center_panel/factions",
+   "matched": 9,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_sp_battle2_scenario.jpg",
+   "state": "fe_sp_battle2_scenario",
+   "static_components": 9,
+   "visible": true
+  },
+  "frontend.faction_selection_small": {
+   "best_match": {
+    "agreement": 0.615,
+    "live_path": "sp_battle2_scenario/main_panel/center_panel/factions",
+    "state": "fe_sp_battle2_scenario"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "frontend.file_requester": {
+   "best_match": {
+    "agreement": 0.619,
+    "live_path": "options",
+    "state": "fe_options"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "frontend.grand_campaign": {
+   "agreement": 1.0,
+   "live_components": 90,
+   "live_path": "grand_campaign",
+   "matched": 84,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_grand_campaign.jpg",
+   "state": "fe_grand_campaign",
+   "static_components": 84,
+   "visible": true
+  },
+  "frontend.host_campaign_popup": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.load_replay": {
+   "agreement": 0.977,
+   "live_components": 42,
+   "live_path": "load_replay",
+   "matched": 42,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_load_replay.jpg",
+   "state": "fe_load_replay",
+   "static_components": 43,
+   "visible": true
+  },
+  "frontend.lobby_chat": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.main": {
+   "agreement": 1.0,
+   "live_components": 31,
+   "live_path": "main",
+   "matched": 31,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_main.jpg",
+   "state": "fe_main",
+   "static_components": 31,
+   "visible": true
+  },
+  "frontend.message_box": {
+   "best_match": {
+    "agreement": 0.333,
+    "live_path": "options/brightness_gamma",
+    "state": "fe_options"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "frontend.mp_battle1": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.mp_battle2": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.mp_battle2_scenario": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.mp_battle3": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.mp_battle3_scenario": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.mp_grand_campaign": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.mp_load_game": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.multiplayer_lan": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.multiplayer_online": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.napoleon_battles": {
+   "agreement": 1.0,
+   "live_components": 42,
+   "live_path": "napoleon_battles",
+   "matched": 42,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_napoleon_battles.jpg",
+   "state": "fe_napoleon_battles",
+   "static_components": 42,
+   "visible": true
+  },
+  "frontend.options": {
+   "agreement": 0.988,
+   "live_components": 208,
+   "live_path": "options",
+   "matched": 167,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_options.jpg",
+   "state": "fe_options",
+   "static_components": 169,
+   "visible": true
+  },
+  "frontend.password_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.player_stats": {
+   "agreement": 0.846,
+   "live_components": 77,
+   "live_path": "player_stats",
+   "matched": 33,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_player_stats.jpg",
+   "state": "fe_player_stats",
+   "static_components": 39,
+   "visible": true
+  },
+  "frontend.quickbattle_popup": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.root_layout": {
+   "agreement": 1.0,
+   "live_components": 4,
+   "live_path": "layout",
+   "matched": 4,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_main.jpg",
+   "state": "fe_main",
+   "static_components": 4,
+   "visible": true
+  },
+  "frontend.session_chat": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "needs a multiplayer lobby or Steam session"
+  },
+  "frontend.single_player": {
+   "agreement": 1.0,
+   "live_components": 11,
+   "live_path": "single_player",
+   "matched": 11,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_single_player.jpg",
+   "state": "fe_single_player",
+   "static_components": 11,
+   "visible": true
+  },
+  "frontend.sp_battle1": {
+   "agreement": 1.0,
+   "live_components": 17,
+   "live_path": "sp_battle1",
+   "matched": 17,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_sp_battle1.jpg",
+   "state": "fe_sp_battle1",
+   "static_components": 17,
+   "visible": true
+  },
+  "frontend.sp_battle2": {
+   "agreement": 1.0,
+   "live_components": 44,
+   "live_path": "sp_battle2",
+   "matched": 44,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_sp_battle2.jpg",
+   "state": "fe_sp_battle2",
+   "static_components": 44,
+   "visible": true
+  },
+  "frontend.sp_battle2_scenario": {
+   "agreement": 1.0,
+   "live_components": 52,
+   "live_path": "sp_battle2_scenario",
+   "matched": 52,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_sp_battle2_scenario.jpg",
+   "state": "fe_sp_battle2_scenario",
+   "static_components": 52,
+   "visible": true
+  },
+  "frontend.sp_battle3": {
+   "best_match": {
+    "agreement": 0.246,
+    "live_path": "options",
+    "state": "fe_options"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "frontend.sp_battle3_scenario": {
+   "best_match": {
+    "agreement": 0.536,
+    "live_path": "sp_battle2_scenario",
+    "state": "fe_sp_battle2_scenario"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "frontend.sp_episodic_campaign": {
+   "agreement": 1.0,
+   "live_components": 36,
+   "live_path": "sp_episodic_campaign",
+   "matched": 36,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_sp_episodic_campaign.jpg",
+   "state": "fe_sp_episodic_campaign",
+   "static_components": 36,
+   "visible": true
+  },
+  "frontend.sp_load_game": {
+   "agreement": 0.971,
+   "live_components": 42,
+   "live_path": "sp_load_game",
+   "matched": 34,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_sp_load_game.jpg",
+   "state": "fe_sp_load_game",
+   "static_components": 35,
+   "visible": true
+  },
+  "frontend.sp_tutorials": {
+   "agreement": 1.0,
+   "live_components": 18,
+   "live_path": "sp_tutorials",
+   "matched": 18,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_fe_sp_tutorials.jpg",
+   "state": "fe_sp_tutorials",
+   "static_components": 18,
+   "visible": true
+  },
+  "frontend.spain_grand_campaign": {
+   "best_match": {
+    "agreement": 0.951,
+    "live_path": "grand_campaign",
+    "state": "fe_grand_campaign"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (fe_grand_campaign grand_campaign) is frontend.grand_campaign's"
+  },
+  "frontend.spain_main": {
+   "best_match": {
+    "agreement": 0.969,
+    "live_path": "main",
+    "state": "fe_main"
+   },
+   "reach": "static_only",
+   "reason": "its best live match (fe_main main) is frontend.main's"
+  },
+  "template.ai_turns": {
+   "best_match": {
+    "agreement": 0.0,
+    "live_path": "sp_battle2_scenario/main_panel/center_panel/factions/flag_1",
+    "state": "fe_sp_battle2_scenario"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.armedcitizenrycard": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/cards_panel/review_DY/1/Banner",
+    "state": "land_deploy"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.assassination_entry": {
+   "best_match": {
+    "agreement": 0.308,
+    "live_path": "grand_campaign/main_panel/cartouche",
+    "state": "fe_grand_campaign"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.attrition_entry": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "government_screens/tab_group/tab_ministers/ministers/cabinet_panel_back/hline",
+    "state": "camp_gov"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.battle_results_team_entry": {
+   "best_match": {
+    "agreement": 0.133,
+    "live_path": "diplomacy_panel/subpanel_group/technology/tech_demand/listview/list_clip/list_box/example_row",
+    "state": "camp_diplomacy"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.battleunitcard": {
+   "agreement": 1.0,
+   "live_components": 25,
+   "live_path": "veneer_DY/cards_panel/review_DY/1",
+   "matched": 25,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_hist_deploy.jpg",
+   "state": "hist_deploy",
+   "static_components": 25,
+   "visible": true
+  },
+  "template.box_selection": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.building_browser_entry": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "building_browser/background/sortable_list/list_clip/list_box/building_browser_entry1/dy_icon",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.building_constructed_entry": {
+   "agreement": 1.0,
+   "live_components": 11,
+   "live_path": "building_browser/background/sortable_list/list_clip/list_box/building_browser_entry1",
+   "matched": 7,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_buildings.jpg",
+   "state": "camp_buildings",
+   "static_components": 7,
+   "visible": true
+  },
+  "template.building_info_build_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.building_info_generic_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.building_info_recruitment_effects": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.building_info_tech_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.buildingframe": {
+   "agreement": 1.0,
+   "live_components": 16,
+   "live_path": "veneer_DY/frame/hud_center/review_DY/CardGroupWindow/ConstructionCardGroup/Building1",
+   "matched": 16,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_army.jpg",
+   "state": "camp_army",
+   "static_components": 16,
+   "visible": true
+  },
+  "template.button_toggle": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.campaign_map_icon": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.campaign_map_tooltip": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.campaigncharactercard": {
+   "best_match": {
+    "agreement": 0.6,
+    "live_path": "missions/tab_group/tab_victory_conditions/victory_body/map_panel/card_window",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.campaignunitcard": {
+   "agreement": 1.0,
+   "live_components": 31,
+   "live_path": "veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117",
+   "matched": 31,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_fleet.jpg",
+   "state": "camp_fleet",
+   "static_components": 31,
+   "visible": true
+  },
+  "template.character_duel_info_pane": {
+   "best_match": {
+    "agreement": 0.182,
+    "live_path": "diplomacy_panel/faction_right",
+    "state": "camp_diplomacy"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.character_trait_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.construction_item_tooltip": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.diplomacy_allies_list_item": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.diplomacy_button": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "diplomacy_panel/faction_left/menu_1/diplomacy_button",
+    "state": "camp_diplomacy"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.diplomacy_item_regions": {
+   "best_match": {
+    "agreement": 0.333,
+    "live_path": "sp_load_game/main_panel/list_panel",
+    "state": "fe_sp_load_game"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.diplomacy_item_text": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "sp_load_game/main_panel/list_panel",
+    "state": "fe_sp_load_game"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.diplomacy_region_tooltip": {
+   "agreement": 0.889,
+   "live_components": 11,
+   "live_path": "label7/info_bar",
+   "matched": 8,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_army.jpg",
+   "state": "camp_army",
+   "static_components": 9,
+   "visible": false
+  },
+  "template.election_results_entry": {
+   "best_match": {
+    "agreement": 0.5,
+    "live_path": "government_screens/tab_group/tab_taxes/taxes/administration/effects",
+    "state": "camp_gov"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.faction_flag_small": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.familytreecard": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/cards_panel/review_DY/1/CharacterAttribute",
+    "state": "land_deploy"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.general_purpose_pixel": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.gentleman": {
+   "best_match": {
+    "agreement": 0.167,
+    "live_path": "diplomacy_panel/subpanel_group/technology/tech_demand/listview/list_clip/list_box/example_row",
+    "state": "camp_diplomacy"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.messageicon": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.minister_effect_cartouche": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.minister_tooltip": {
+   "best_match": {
+    "agreement": 0.125,
+    "live_path": "advice_interface/sidebar",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.mission_active_entry": {
+   "agreement": 1.0,
+   "live_components": 13,
+   "live_path": "missions/tab_group/tab_missions/missions_body/listview/list_clip/list_box/mission_active_entry1",
+   "matched": 13,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_buildings.jpg",
+   "state": "camp_buildings",
+   "static_components": 13,
+   "visible": true
+  },
+  "template.mission_history_entry": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "missions/tab_group/tab_missions/missions_body/listview/list_clip/list_box/mission_active_entry1/row_bgpane/dy_action_dy/target_dy",
+    "state": "camp_missions"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.mp_postbattle_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.post_battle_entry": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "government_screens/tab_group/tab_ministers/ministers/cabinet_panel_back/hline",
+    "state": "camp_gov"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.prebattle_portrait_tab": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.ranking_bar": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "missions/tab_group/tab_prestige/prestige_body/bar_graph_window/bar/bar1_mil",
+    "state": "camp_missions"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.recruitment_effects_tooltip": {
+   "best_match": {
+    "agreement": 0.125,
+    "live_path": "missions/tab_group/tab_missions/missions_body/listview/list_clip/list_box/mission_active_entry1/row_bgpane/turns_tx",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.recruitmentcard": {
+   "best_match": {
+    "agreement": 0.571,
+    "live_path": "veneer_DY/frame/hud_center/review_DY/CardGroupWindow/UnitCardGroup/unit117",
+    "state": "camp_fleet"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.region_info_pip": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.region_list_item": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "diplomacy_panel/subpanel_group/regions/ok_regions/region_list_item",
+    "state": "camp_diplomacy"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.religion_icon": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "government_screens/tab_group/tab_national_summary/national_summary/ns_details/tx_state-religion/religion_icon",
+    "state": "camp_gov"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.reviewpaneltab": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/frame/hud_center/review_DY/TabGroup/army_tab/ReviewPanelTabTitle",
+    "state": "camp_army"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.row_template_agent": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "entity_lists/tabgroup/armies/armies_table/list_clip/list_box/item11/mp",
+    "state": "camp_lists"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.row_template_army": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "entity_lists/tabgroup/armies/armies_table/list_clip/list_box/item11/mp",
+    "state": "camp_lists"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.row_template_naval": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "entity_lists/tabgroup/armies/armies_table/list_clip/list_box/item11/mp",
+    "state": "camp_lists"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.row_template_region": {
+   "best_match": {
+    "agreement": 0.083,
+    "live_path": "entity_lists/tabgroup/armies/armies_table/list_clip/list_box/item1",
+    "state": "camp_lists"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.sabotage_entry": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.siege_equipment_counter": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.siegeequipmentcard": {
+   "best_match": {
+    "agreement": 0.0,
+    "live_path": "entity_lists/tabgroup/armies/armies_table/list_clip/list_box/item11/card/Turns",
+    "state": "camp_lists"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.skill_pip": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.string": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.tax_breakdown_tooltip": {
+   "best_match": {
+    "agreement": 0.067,
+    "live_path": "advice_interface/advice_text_panel",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.tech_advances_entry": {
+   "best_match": {
+    "agreement": 0.0,
+    "live_path": "government_screens/tab_group/tab_ministers/ministers/cabinet_panel_back/hline",
+    "state": "camp_gov"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.tech_entry": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "veneer_DY/frame/hud_center/review_DY/CardGroupWindow/ConstructionCardGroup/Building1_Upgrade1/building",
+    "state": "camp_army"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.tech_icon": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "missions/tab_group/tab_missions/missions_body/listview/list_clip/list_box/mission_active_entry1/row_bgpane/turns_tx",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.tech_stealing_icon": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "entity_lists/tabgroup/armies/armies_table/list_clip/list_box/item11/card/Turns",
+    "state": "camp_lists"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.tech_tooltip": {
+   "best_match": {
+    "agreement": 0.1,
+    "live_path": "advice_interface/sidebar",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.tech_tooltip2": {
+   "best_match": {
+    "agreement": 0.053,
+    "live_path": "missions/tab_group/tab_missions/missions_body/listview/list_clip/list_box/mission_active_entry1/row_bgpane/turns_tx",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.techtreeitem_tooltip": {
+   "best_match": {
+    "agreement": 0.348,
+    "live_path": "building_browser/background/sortable_list/list_clip/list_box/building_browser_entry1",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.tooltip": {
+   "best_match": null,
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.trade_route_row": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "player_stats/main_panel/stats_panel/listview/list_clip/list_box/statistic1/value",
+    "state": "fe_player_stats"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.traderouteentry": {
+   "best_match": {
+    "agreement": 0.25,
+    "live_path": "player_stats/main_panel/stats_panel/listview/list_clip/list_box/statistic1",
+    "state": "fe_player_stats"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.traits_ancs_entry": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "government_screens/tab_group/tab_ministers/ministers/cabinet_panel_back/hline",
+    "state": "camp_gov"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.unit_ability_entry": {
+   "best_match": {
+    "agreement": 1.0,
+    "live_path": "building_browser/background/sortable_list/list_clip/list_box/building_browser_entry1/Level Pip 1",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.unit_trained_entry": {
+   "best_match": {
+    "agreement": 0.0,
+    "live_path": "building_browser/background/sortable_list/list_clip/list_box/building_browser_entry1/dy_name",
+    "state": "camp_buildings"
+   },
+   "reach": "static_only",
+   "reason": "fewer than 3 components: a tree match by name is no evidence"
+  },
+  "template.unitcard_tooltip": {
+   "best_match": {
+    "agreement": 0.043,
+    "live_path": "advice_interface/sidebar",
+    "state": "camp_agent"
+   },
+   "reach": "static_only",
+   "reason": "not reached in run 20261102_j10pc: no proven safe route opened it"
+  },
+  "template.unitgroupframe": {
+   "agreement": 1.0,
+   "live_components": 9,
+   "live_path": "veneer_DY/cards_panel/review_DY/UnitGroupFrame1",
+   "matched": 9,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_hist_deploy.jpg",
+   "state": "hist_deploy",
+   "static_components": 9,
+   "visible": false
+  },
+  "template.unitgrouptab": {
+   "agreement": 1.0,
+   "live_components": 10,
+   "live_path": "veneer_DY/cards_panel/tab_group/UnitGroupTab1",
+   "matched": 10,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_hist_deploy.jpg",
+   "state": "hist_deploy",
+   "static_components": 10,
+   "visible": false
+  },
+  "template.university": {
+   "agreement": 1.0,
+   "live_components": 8,
+   "live_path": "technology/entities_title/entities_pane/entities_clip/entity1",
+   "matched": 8,
+   "reach": "reached",
+   "run": "20261102_j10pc",
+   "shot": "j10_camp_technologies.jpg",
+   "state": "camp_technologies",
+   "static_components": 8,
+   "visible": true
+  }
+ },
+ "width_scale": {
+  "median": 1.0,
+  "n": 44,
+  "note": "live width / static width of the matched head components; 1080/960 = 1.125, 1080/1024 = 1.0547"
+ }
+}

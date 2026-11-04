@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.perf.vram_source",
+  "claim": "VRAM per process is read host side, read-only: the Windows performance counter \\GPU Process Memory(pid_<pid>_*)\\Dedicated Usage (land_small 1920x1080: 563 to 580 MB); nvidia-smi gives the device total (its per-process used_memory is N/A under WDDM). ctl.py perf returns both",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

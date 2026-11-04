@@ -1,0 +1,11 @@
+{
+  "id": "release.core.build_release",
+  "kind": "script",
+  "path": "release/core/build_release.py",
+  "purpose": "build the player release folder (payload per component, manifest.json with every file's target, size and sha256, the installer scripts and .cmd entry points, README.txt, generated LICENSES.txt and RELEASE_NOTES.txt) and its zip from a clean checkout; --check verifies a built folder against its manifest; refuses a dirty tree, a component ini_set that turns a dev, proof or test key on (unless release.json allowed_dev_keys names it with a decision), a DLL whose embedded build id is not this tree's clean id (build_id.py, whole-token match) or is not backed by the ledger's 20 acceptance passes (--allow-dirty skips only that count), or an unpinned DXVK",
+  "usage": "python3 release/core/build_release.py [--out build/release] [--dll build/proxy/napoleon/d3d9.dll] [--external uiscale=DIR] [--no-zip] [--allow-dirty] | --check <release folder>",
+  "when": "to make a release (one command, then Install.cmd on a PC); --check on a built or unzipped folder before it goes anywhere; it builds files only, publishing is Liam's call and never done by it",
+  "not_a_verb": "a release-builder script (release/core is a core candidate, rule 76); game facts are in release/napoleon (components.json, release.json, licenses.json, VERSION), not here",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

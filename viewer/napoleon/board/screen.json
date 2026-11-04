@@ -1,0 +1,14 @@
+{
+  "title": "Napoleon component board (J34)",
+  "document": "board.rml",
+  "library": true,
+  "prefix": "bd-",
+  "files": ["board.rml", "board.rcss", "board_data.lua", "board.lua", "test_plus.png", "test_chevron.png", "test_ring.png"],
+  "fonts": ["LibreBaskerville-Regular.ttf", "LibreBaskerville-Bold.ttf", "PublicSans-Regular.ttf", "PublicSans-SemiBold.ttf"],
+  "lengths": {
+    "bd_pad_y": 24, "bd_pad_x": 28, "bd_sec": 28, "bd_w_card": 320, "bd_w_rows": 360, "bd_w_wide": 640, "bd_sw_w": 300, "bd_chip_w": 56,
+    "bd_pair_name": 340, "bd_pair_ratio": 100, "bd_tip_top": 44, "bd_scrollbox": 120, "bd_tall": 300, "bd_glyph_pad": 15, "bd_man_pad": 11,
+    "bd_preview_w": 160, "bd_preview_h": 100
+  },
+  "probe": {"title": "plate", "tabs": "sec-tabs", "faction": "sec-faction"}
+}

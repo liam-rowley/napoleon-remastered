@@ -1,0 +1,16 @@
+{
+  "id": "J18",
+  "description": "Guards in job.sh and the watcher for the PC rules still in prose (J5 ledger rows 28, 31, 32): refuse git in the game folder, keep agent experiments under _scratch\\<owner>\\, check the Napoleon.exe sha after every install or sync. Host tests with failing fixtures.",
+  "title": "PC-side rule guards",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J2",
+    "J20"
+  ],
+  "brief": "jobs/J18/brief.md",
+  "report": "jobs/J18/report.md",
+  "review": "jobs/J18/review.md"
+}

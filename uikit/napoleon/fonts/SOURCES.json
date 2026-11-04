@@ -1,0 +1,54 @@
+{
+ "_doc": "J34: the static TTFs the library uses (D7: RmlUi reads static TTFs through FreeType; no variable fonts, no fonttools). Each pinned by sha256 with its source and OFL text; J38 collects these into LICENSES.txt.",
+ "libre_baskerville": {
+  "upstream": "https://github.com/impallari/Libre-Baskerville",
+  "commit": "9852edf75ece3af500a5ec61245f94788c3d4633"
+ },
+ "public_sans": {
+  "upstream": "https://github.com/uswds/public-sans",
+  "release": "v2.001",
+  "release_zip_sha256": "88cacdf7cd03b31af8f1f83e1f51e0eb5a6052565a6c014c90c385f1ff2d13a5"
+ },
+ "files": [
+  {
+   "file": "LibreBaskerville-Regular.ttf",
+   "family": "Libre Baskerville",
+   "weight": 400,
+   "sha256": "df9fddf43dbd7de435c316b86a52b3d6b3ad2f6fb2ed3f6fd8bdc1835f30eec1",
+   "size": 156008,
+   "source": "https://raw.githubusercontent.com/impallari/Libre-Baskerville/9852edf75ece3af500a5ec61245f94788c3d4633/fonts/ttf/LibreBaskerville-Regular.ttf",
+   "licence": "SIL OFL 1.1",
+   "licence_file": "OFL-LibreBaskerville.txt"
+  },
+  {
+   "file": "LibreBaskerville-Bold.ttf",
+   "family": "Libre Baskerville",
+   "weight": 700,
+   "sha256": "62e23c5e6bf1e68fc0ef4ddeeab894ac21c808027f6cb6730cda2055a159ae03",
+   "size": 154332,
+   "source": "https://raw.githubusercontent.com/impallari/Libre-Baskerville/9852edf75ece3af500a5ec61245f94788c3d4633/fonts/ttf/LibreBaskerville-Bold.ttf",
+   "licence": "SIL OFL 1.1",
+   "licence_file": "OFL-LibreBaskerville.txt"
+  },
+  {
+   "file": "PublicSans-Regular.ttf",
+   "family": "Public Sans",
+   "weight": 400,
+   "sha256": "b577e9bc9887284e90aae5ad0699689ce36b5cd96207efbec68f77f8aed88379",
+   "size": 84836,
+   "source": "https://github.com/uswds/public-sans/releases/download/v2.001/public-sans-v2.001.zip#fonts/ttf/PublicSans-Regular.ttf",
+   "licence": "SIL OFL 1.1",
+   "licence_file": "OFL-PublicSans.txt"
+  },
+  {
+   "file": "PublicSans-SemiBold.ttf",
+   "family": "Public Sans",
+   "weight": 600,
+   "sha256": "9f537d607dc78450841dc31c401e3c4ba7a0ba7217e8b34c1be684a983806399",
+   "size": 84412,
+   "source": "https://github.com/uswds/public-sans/releases/download/v2.001/public-sans-v2.001.zip#fonts/ttf/PublicSans-SemiBold.ttf",
+   "licence": "SIL OFL 1.1",
+   "licence_file": "OFL-PublicSans.txt"
+  }
+ ]
+}

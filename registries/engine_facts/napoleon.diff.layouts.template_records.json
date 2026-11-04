@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.layouts.template_records",
+  "claim": "uied.templates (loose data\\ui\\templates in both games): same container; 126 records in Napoleon; 124 round-trip byte for byte through tpl.py and uic.py (v9-v39; v18 and v35 decoded by J10); the 2 v4 records (InputWindow, BattleEditor: UI-editor templates, identical in Empire) do not",
+  "state": "verified",
+  "evidence": "discovery/diff/layouts.json",
+  "date": "2026-11-02",
+  "notes": "v35 = V033 plus the V039 animations and transitions without state_ref; v18 = v17 with 3 header bytes before the inline script; v4 header not decoded (layout_unread)"
+}

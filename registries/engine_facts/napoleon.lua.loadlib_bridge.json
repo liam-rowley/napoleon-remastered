@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.lua.loadlib_bridge",
+  "claim": "The engine's Lua is 5.1 (1994-2006 string) with a 4-byte float lua_Number; package.loadlib is reachable from front-end, campaign and battle UI scripts; the proxy's Lua 5.1.1 core (fetch_lua.py patches) runs on the engine's state with the engine's dummynode from wsp_sentinel({}) (one dummynode for the front-end and battle states)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29"
+}

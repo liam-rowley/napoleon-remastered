@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_readback",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_readback.lua",
+  "purpose": "return the player's diplomatic relationship with every faction (CampaignUI.RetrieveFactionListForDiplomacy: Key=Relationship) and the player's first agent's name, location, position and traits (RetrieveFactionAgentsList entry .Traits[].Name): rel <key>=<relationship>,... || agent <name>|<location>|<PosX>|<PosY>|traits <a>,<b>",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_readback.lua\" in a campaign, before and after a console line (declare_war <faction>, add_trait <trait> 1, transport_to_region <eur_key>); compare the two results",
+  "when": "J40 read-back of console commands (fact napoleon.console.acting_commands); J4 scenario checks of diplomacy and agent placement",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

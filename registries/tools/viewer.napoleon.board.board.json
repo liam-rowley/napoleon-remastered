@@ -1,0 +1,11 @@
+{
+  "id": "viewer.napoleon.board.board",
+  "kind": "script",
+  "path": "viewer/napoleon/board/board.lua",
+  "purpose": "the component board's view code: the data model for the swatches and the faction picker, and the click handlers that make the live components work",
+  "usage": "loaded by viewer/napoleon/board/board.rml after board_data.lua in the review viewer; handlers are called from onclick attributes",
+  "when": "part of the J34 component board; no engine calls and no game data (the faction tint is body classes from uikit/napoleon/dist/factions_synthetic.rcss)",
+  "not_a_verb": "Lua loaded by an RML document in the viewer, not a command",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.crash.toplevel_filter_replaced",
+  "claim": "After the proxy's DllMain, something else replaces the process's top-level unhandled-exception filter: CSERHelper.dll+0x12571 by the first Direct3DCreate9, Napoleon.exe+0xe6f074 by process detach; the proxy's minidump mode 1 therefore never dumps an unhandled crash on this PC (mode 2 and WER LocalDumps still do)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_pcrerun/README.md",
+  "date": "2026-10-28",
+  "notes": "run 20261028_pcrerun steps b (system) and d (dxvk), both launches; which component ships CSERHelper.dll is not established"
+}

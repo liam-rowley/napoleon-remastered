@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.battle_route",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/battle_route.lua",
+  "purpose": "try the routes to the battle script objects from the UI environment: globals, require of the game's Scripting_Library, other tables",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/battle_route.lua\" in a battle",
+  "when": "deliverable 1 of J4 (route probe)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "viewer.core.build",
+  "kind": "script",
+  "path": "viewer/core/build.sh",
+  "purpose": "build the review viewer (RmlUi + FreeType + float Lua 5.1.1) to build/viewer/out/viewer.js + viewer.wasm and run its Node tests",
+  "usage": "viewer/core/build.sh [--docker] [build|test|all]   (--docker: inside the emsdk image pinned in viewer/pins.json, the PC route (D30, D31); default all; prints the sha256 of both outputs)",
+  "when": "after any change under viewer/core/ or viewer/pins.json; on the PC always with --docker (no Emscripten on the PC); CI's viewer job runs `--docker all`",
+  "not_a_verb": "a build script with a container round trip, like core/proxy/tools/build.sh; not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

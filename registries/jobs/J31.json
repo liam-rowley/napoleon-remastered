@@ -1,0 +1,13 @@
+{
+  "id": "J31",
+  "description": "UI_PIPELINE section 4, S1 and S2: RmlUi (the version J30 pins), FreeType and Lua 5.1 (float32 numbers, matching the game) built to WebAssembly in GitHub Actions or Docker (D31), never Emscripten on the PC; a hello-world screen running interactively in a review artifact (fallback GitHub Pages); the same build in headless Chromium (Playwright) renders PNGs for gates. Kill criteria as in UI_PIPELINE. Core candidate. Can start now: no PC, no dependency.",
+  "title": "Review viewer build and hosting spikes (S1, S2)",
+  "phase": 5,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J31/brief.md",
+  "report": "jobs/J31/report.md",
+  "review": "jobs/J31/review.md"
+}

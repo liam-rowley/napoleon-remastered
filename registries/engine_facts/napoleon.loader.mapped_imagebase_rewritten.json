@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.loader.mapped_imagebase_rewritten",
+  "claim": "The Windows loader rewrites OptionalHeader.ImageBase in Napoleon.exe's MAPPED header to the actual load base; the preferred base 0x00400000 survives only in the file, so a rebase delta must come from the file header",
+  "state": "verified",
+  "evidence": "proxy/runs/20261028_pctest/README.md",
+  "date": "2026-10-28",
+  "notes": "seen as 'preferred 0x00610000, delta 0' in build 690ec1a logs; fixed in 526e1c9 (pe.h LoadDelta); confirmed on the PC with build 30a7b815163a, run 20261028_pcrerun step b: 'file ImageBase 0x00400000, delta 0x00210000' at base 0x00610000"
+}

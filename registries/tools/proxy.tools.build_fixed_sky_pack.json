@@ -1,0 +1,11 @@
+{
+  "id": "proxy.tools.build_fixed_sky_pack",
+  "kind": "script",
+  "path": "proxy/tools/build_fixed_sky_pack.py",
+  "purpose": "make a battle's lighting the same on every launch: the engine picks a battle's sky at random among its junction rows that match the",
+  "usage": "python3 proxy/tools/build_fixed_sky_pack.py [--games discovery/napoleon/games.json] [--out FILE] [--list]",
+  "when": "pc_deploy.py kit runs it when the game's packs are readable (on the PC); the launch keys switch it on through dev.file_rules",
+  "not_a_verb": "writes a game-format binary from the game's own tables; pc_deploy.py calls it",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

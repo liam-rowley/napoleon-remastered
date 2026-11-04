@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.save.edited_load",
+  "claim": "Edited saves load and the engine keeps the edit when it writes the save again: taxes [4,4,25,25] and an agent placed in a settlement (both ends of the link) read back from QuickSave and autosave",
+  "state": "verified",
+  "evidence": "saves/runs/20261029_j14pc/README.md",
+  "date": "2026-10-29",
+  "notes": "ladder B and C"
+}

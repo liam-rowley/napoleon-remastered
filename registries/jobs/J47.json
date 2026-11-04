@@ -1,0 +1,12 @@
+{
+  "id": "J47",
+  "description": "J44 fact napoleon.harness.uac_virtualstore: after one failed rename under Program Files the 32-bit game's headless_status.json and state.json writes fall into %LOCALAPPDATA%\\VirtualStore and the watcher reads stale files (11 minutes of HEADLESS FAILED on 2026-10-30). ctl.py now moves the copies aside before a launch; remove the cause in the proxy (manifest without virtualization, or a retried rename), then drop or keep the ctl.py guard with a reason. Also the one heap corruption 10 ms after init seen in run 20261030_j44pc (dump in its README). After J16, which owns the headless code. Opus: DLL and a crash dump.",
+  "title": "Headless status writes escape UAC virtualization",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J16"
+  ]
+}

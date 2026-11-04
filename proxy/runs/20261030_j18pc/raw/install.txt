@@ -1,0 +1,38 @@
+pc_deploy install: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+pc_deploy install: d3d9.dll sha256 59dc202c013c ok
+pc_deploy install: napoleon_remastered.ini sha256 c38817628625 ok
+pc_deploy install: napoleon_remastered/dxvk/d3d9_dxvk.dll sha256 265888c31ca7 ok
+pc_deploy install: napoleon_remastered/LICENSE.dxvk.txt sha256 a5cb1a6ded7d ok
+pc_deploy install: napoleon_remastered/packs/zz_napoleon_remastered_dev.pack sha256 d15febf06229 ok
+pc_deploy install: napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack sha256 e23ad1a7b064 ok
+pc_deploy install: napoleon_remastered/lua/autostart.lua sha256 21060f473582 ok
+pc_deploy install: napoleon_remastered/lua/battles/hist_dresden.txt sha256 1546010326e4 ok
+pc_deploy install: napoleon_remastered/lua/battles/hist_nile.txt sha256 8a50bb077f76 ok
+pc_deploy install: napoleon_remastered/lua/battles/land_small.txt sha256 6bb8831c3f4e ok
+pc_deploy install: napoleon_remastered/lua/battles/naval_small.txt sha256 fa51622b6f65 ok
+pc_deploy install: napoleon_remastered/lua/battles/naval_storm.txt sha256 8653bfed2a5b ok
+pc_deploy install: napoleon_remastered/lua/battles/siege_small.txt sha256 a01e7b2fde94 ok
+pc_deploy install: napoleon_remastered/lua/ctl/cam_read.lua sha256 a49288f5096c ok
+pc_deploy install: napoleon_remastered/lua/ctl/cam_set.lua sha256 65c22ff60084 ok
+pc_deploy install: napoleon_remastered/lua/ctl/speed.lua sha256 410b036348a0 ok
+pc_deploy install: napoleon_remastered/lua/fixed_sky_rules.txt sha256 a9fd75c66b5f ok
+pc_deploy install: napoleon_remastered/lua/probes/battle_api.lua sha256 eca63248c89d ok
+pc_deploy install: napoleon_remastered/lua/probes/battle_route.lua sha256 7ec1d1b25da3 ok
+pc_deploy install: napoleon_remastered/lua/probes/battleui_names.lua sha256 b9deb8016159 ok
+pc_deploy install: napoleon_remastered/lua/probes/campaign_camera.lua sha256 d52c6f51e043 ok
+pc_deploy install: napoleon_remastered/lua/probes/campaign_end_turn.lua sha256 314508b453a1 ok
+pc_deploy install: napoleon_remastered/lua/probes/campaign_keys.lua sha256 ffde399d29fc ok
+pc_deploy install: napoleon_remastered/lua/probes/campaign_quicksave.lua sha256 8b685f74cc5c ok
+pc_deploy install: napoleon_remastered/lua/probes/campaign_select.lua sha256 ae0e9dc8e9fd ok
+pc_deploy install: napoleon_remastered/lua/probes/campaign_turn.lua sha256 2599828f6cea ok
+pc_deploy install: napoleon_remastered/lua/probes/console_nodll.lua sha256 33400ccb59a8 ok
+pc_deploy install: napoleon_remastered/lua/probes/echo_args.lua sha256 1950a6014fc6 ok
+pc_deploy install: napoleon_remastered/lua/probes/env_dump.lua sha256 9676b54e666d ok
+pc_deploy install: napoleon_remastered/lua/probes/list_maps.lua sha256 f66dfa9507da ok
+pc_deploy install: napoleon_remastered/lua/probes/require_sl.lua sha256 0c3a7f6d5ce6 ok
+pc_deploy install: napoleon_remastered/lua/probes/ui_tree.lua sha256 095f5915aa53 ok
+pc_deploy install: napoleon_remastered/lua/probes/weather_options.lua sha256 4ce94d8cd5d8 ok
+pc_deploy install: napoleon_remastered/lua/reset.lua sha256 606af215e8b4 ok
+pc_deploy install: napoleon_remastered/lua/wsp.lua sha256 a7f0e851d6ac ok
+pc_deploy install: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+pc_deploy install: kit kit_20261030T235230Z_d5ee0a5997e6 installed (build d5ee0a5997e6)

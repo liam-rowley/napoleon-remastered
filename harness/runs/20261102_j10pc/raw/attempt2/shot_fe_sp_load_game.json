@@ -1,0 +1,10 @@
+{
+  "verb": "shot",
+  "status": "failed",
+  "reason": "RuntimeError: ctl state failed (exit 124): is the game running with dev.ctl=1?",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-11-02T08:59:36.695Z",
+  "end_utc": "2026-11-02T08:59:57.066Z"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "J44",
+  "description": "The rest of J4 on the J43 camera route: run scene, shot, reset, perf and state on the PC and measure the settle values; the scenario library (land small, large, 20 against 20; siege fort and city; naval small, large, storm; historical land and naval; grand campaign start, mid and late; the existing rows) with load times and two poses each; fixed sky and weather from data and the determinism proofs per kind; perf on the PC with VRAM; wire acceptance.py to the PC, commit the measured baseline and pass 20 in a row (phase 1 gate, rule 79); rule 75 (wsc jobs view shows the PC state: lock holder, watcher version, installed kit, last acceptance pass; and names a usage source); ledger lines carry the run id and evidence path and rule 79 checks the run folder exists (J4 review 7) and rule 28 through J18 guard if landed; J14 carry-over if J40 has answered the diplomacy modal.",
+  "title": "Scenario library and the 20-pass acceptance gate",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J4",
+    "J43"
+  ],
+  "brief": "jobs/J44/brief.md",
+  "report": "jobs/J44/report.md",
+  "review": "jobs/J44/review.md"
+}

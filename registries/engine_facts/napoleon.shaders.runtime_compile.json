@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.shaders.runtime_compile",
+  "claim": "Napoleon compiles its fx sources at runtime with D3DX (it imports D3dx9d_40.dll, the debug build); every captured shader's CTAB names \"Microsoft (R) HLSL Shader Compiler 9.24.950.2656\" (ps_2_0, ps_3_0, vs_2_0, vs_3_0) with CTAB flags 0x20001000; compiling the shipped fx with d3dx9_40.dll of that version (D3DXCreateEffectCompilerFromFileW + CompileEffect, flags 0x1000) reproduces them byte for byte",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.hotkeys.key_file_format",
+  "claim": "Napoleon keeps its key table in data.pack text\\default_keys.xml (<shortcuts version=32>, keysets fps and total_war with identical funcs, 108 funcs per keyset, 128 keys; modes in a <mappings> block, voice_chat unmapped). The AppData custom_keys.keys.xml is the same table (version 32, keyset fps only) with a <mapping mode component> inside each func and the modifier written out. Modifier values: NONE (absent in the default file), CTRL, ALT, SHIFT, ALLOW_SHIFT, ANY. Mouse bindings are not in either file.",
+  "state": "verified",
+  "evidence": "tools/verbs/hotkeys.py",
+  "date": "2026-10-29",
+  "notes": "run J21 session da502b9f; reseed with wsc hotkeys import --from-pack after a game update"
+}

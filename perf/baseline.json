@@ -1,0 +1,2621 @@
+{
+ "schema": 1,
+ "date": "2026-11-01",
+ "cells": {
+  "dxvk|1920x1080|campaign_start|default": {
+   "p50_ms": {
+    "median": 1.989,
+    "spread": 0.036,
+    "spread_pct": 1.8,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.814,
+    "spread": 0.115,
+    "spread_pct": 4.1,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 11.25,
+    "spread": 12.417,
+    "spread_pct": 110.4,
+    "n": 3
+   },
+   "load_s": {
+    "median": 2.6,
+    "spread": 0.1,
+    "spread_pct": 3.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1756,
+    "spread": 19,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1757.2,
+    "spread": 19.0,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1157,
+    "spread": 19,
+    "spread_pct": 1.6,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 428.7,
+    "spread": 0.1,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 2.8,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_campaign_start_default_p1",
+    "dxvk_1920x1080_campaign_start_default_p2",
+    "dxvk_1920x1080_campaign_start_default_p3"
+   ]
+  },
+  "dxvk|1920x1080|hist_dresden|deploy": {
+   "p50_ms": {
+    "median": 4.47,
+    "spread": 0.109,
+    "spread_pct": 2.4,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 6.701,
+    "spread": 0.544,
+    "spread_pct": 8.1,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 24.317,
+    "spread": 14.954,
+    "spread_pct": 61.5,
+    "n": 3
+   },
+   "load_s": {
+    "median": 7.3,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 2078,
+    "spread": 2,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 2095.9,
+    "spread": 2.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1467,
+    "spread": 20,
+    "spread_pct": 1.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 823.7,
+    "spread": 64.0,
+    "spread_pct": 7.8,
+    "n": 3
+   },
+   "cold_load_s": 7.3,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_hist_dresden_deploy_p1",
+    "dxvk_1920x1080_hist_dresden_deploy_p2",
+    "dxvk_1920x1080_hist_dresden_deploy_p3"
+   ]
+  },
+  "dxvk|1920x1080|hist_dresden|turned": {
+   "p50_ms": {
+    "median": 4.258,
+    "spread": 0.045,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 6.47,
+    "spread": 0.157,
+    "spread_pct": 2.4,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 19.698,
+    "spread": 12.114,
+    "spread_pct": 61.5,
+    "n": 3
+   },
+   "load_s": {
+    "median": 7.3,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 2078,
+    "spread": 2,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 2095.9,
+    "spread": 2.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1452,
+    "spread": 6,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 823.7,
+    "spread": 64.0,
+    "spread_pct": 7.8,
+    "n": 3
+   },
+   "cold_load_s": 7.3,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_hist_dresden_turned_p1",
+    "dxvk_1920x1080_hist_dresden_turned_p2",
+    "dxvk_1920x1080_hist_dresden_turned_p3"
+   ]
+  },
+  "dxvk|1920x1080|hist_nile|deploy": {
+   "p50_ms": {
+    "median": 3.518,
+    "spread": 0.034,
+    "spread_pct": 1.0,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 6.06,
+    "spread": 0.173,
+    "spread_pct": 2.9,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 25.011,
+    "spread": 7.662,
+    "spread_pct": 30.6,
+    "n": 3
+   },
+   "load_s": {
+    "median": 4.2,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1821,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1823.3,
+    "spread": 0.3,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1152,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 456.0,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 4.3,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_hist_nile_deploy_p1",
+    "dxvk_1920x1080_hist_nile_deploy_p2",
+    "dxvk_1920x1080_hist_nile_deploy_p3"
+   ]
+  },
+  "dxvk|1920x1080|hist_nile|turned": {
+   "p50_ms": {
+    "median": 3.261,
+    "spread": 0.085,
+    "spread_pct": 2.6,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 6.165,
+    "spread": 0.337,
+    "spread_pct": 5.5,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 19.962,
+    "spread": 10.513,
+    "spread_pct": 52.7,
+    "n": 3
+   },
+   "load_s": {
+    "median": 4.2,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1815,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1823.3,
+    "spread": 0.4,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1153,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 456.0,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 4.3,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_hist_nile_turned_p1",
+    "dxvk_1920x1080_hist_nile_turned_p2",
+    "dxvk_1920x1080_hist_nile_turned_p3"
+   ]
+  },
+  "dxvk|1920x1080|land_small|battle1x|battle": {
+   "p50_ms": {
+    "median": 2.336,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "p99_ms": {
+    "median": 3.843,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "max_ms": {
+    "median": 19.058,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "load_s": {
+    "median": 3.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_used_mb": {
+    "median": 1838,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_peak_mb": {
+    "median": 1843.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "commit_mb": {
+    "median": 1193,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "vram_mb": {
+    "median": 563.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_land_small_battle1x_p1"
+   ]
+  },
+  "dxvk|1920x1080|land_small|deploy": {
+   "p50_ms": {
+    "median": 1.894,
+    "spread": 0.109,
+    "spread_pct": 5.8,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.341,
+    "spread": 0.669,
+    "spread_pct": 20.0,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 16.664,
+    "spread": 3.371,
+    "spread_pct": 20.2,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1818,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1822.7,
+    "spread": 1.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1180,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 563.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_land_small_deploy_p1",
+    "dxvk_1920x1080_land_small_deploy_p2",
+    "dxvk_1920x1080_land_small_deploy_p3"
+   ]
+  },
+  "dxvk|1920x1080|land_small|turned": {
+   "p50_ms": {
+    "median": 1.856,
+    "spread": 0.045,
+    "spread_pct": 2.4,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.162,
+    "spread": 1.472,
+    "spread_pct": 46.6,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 19.508,
+    "spread": 0.409,
+    "spread_pct": 2.1,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1814,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1822.5,
+    "spread": 1.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1179,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 563.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_land_small_turned_p1",
+    "dxvk_1920x1080_land_small_turned_p2",
+    "dxvk_1920x1080_land_small_turned_p3"
+   ]
+  },
+  "dxvk|1920x1080|naval_small|deploy": {
+   "p50_ms": {
+    "median": 1.689,
+    "spread": 0.007,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.174,
+    "spread": 0.179,
+    "spread_pct": 5.6,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 18.843,
+    "spread": 8.147,
+    "spread_pct": 43.2,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1760,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1887.6,
+    "spread": 3.7,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1087,
+    "spread": 7,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 604.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 3.7,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_naval_small_deploy_p1",
+    "dxvk_1920x1080_naval_small_deploy_p2",
+    "dxvk_1920x1080_naval_small_deploy_p3"
+   ]
+  },
+  "dxvk|1920x1080|naval_small|turned": {
+   "p50_ms": {
+    "median": 1.38,
+    "spread": 0.008,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.757,
+    "spread": 0.057,
+    "spread_pct": 2.1,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.75,
+    "spread": 14.436,
+    "spread_pct": 81.3,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1759,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1887.3,
+    "spread": 3.7,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1087,
+    "spread": 6,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 604.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 3.7,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_naval_small_turned_p1",
+    "dxvk_1920x1080_naval_small_turned_p2",
+    "dxvk_1920x1080_naval_small_turned_p3"
+   ]
+  },
+  "dxvk|1920x1080|naval_storm|default": {
+   "p50_ms": {
+    "median": 1.649,
+    "spread": 0.004,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.186,
+    "spread": 0.148,
+    "spread_pct": 4.6,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.836,
+    "spread": 1.289,
+    "spread_pct": 7.2,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1759,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1887.2,
+    "spread": 3.7,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1087,
+    "spread": 7,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 540.5,
+    "spread": 64.0,
+    "spread_pct": 11.8,
+    "n": 3
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_naval_storm_default_p1",
+    "dxvk_1920x1080_naval_storm_default_p2",
+    "dxvk_1920x1080_naval_storm_default_p3"
+   ]
+  },
+  "dxvk|1920x1080|siege_small|deploy": {
+   "p50_ms": {
+    "median": 2.27,
+    "spread": 0.035,
+    "spread_pct": 1.5,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.815,
+    "spread": 0.591,
+    "spread_pct": 15.5,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 18.678,
+    "spread": 4.691,
+    "spread_pct": 25.1,
+    "n": 3
+   },
+   "load_s": {
+    "median": 5.2,
+    "spread": 0.1,
+    "spread_pct": 1.9,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1887,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1887.0,
+    "spread": 3.8,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1243,
+    "spread": 20,
+    "spread_pct": 1.6,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 787.5,
+    "spread": 0.1,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 5.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_siege_small_deploy_p1",
+    "dxvk_1920x1080_siege_small_deploy_p2",
+    "dxvk_1920x1080_siege_small_deploy_p3"
+   ]
+  },
+  "dxvk|1920x1080|siege_small|turned": {
+   "p50_ms": {
+    "median": 2.057,
+    "spread": 0.022,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.448,
+    "spread": 0.613,
+    "spread_pct": 17.8,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 9.734,
+    "spread": 9.057,
+    "spread_pct": 93.0,
+    "n": 3
+   },
+   "load_s": {
+    "median": 5.2,
+    "spread": 0.1,
+    "spread_pct": 1.9,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1878,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1886.9,
+    "spread": 3.9,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1241,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 787.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 5.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_1920x1080_siege_small_turned_p1",
+    "dxvk_1920x1080_siege_small_turned_p2",
+    "dxvk_1920x1080_siege_small_turned_p3"
+   ]
+  },
+  "dxvk|2560x1440|campaign_start|default": {
+   "p50_ms": {
+    "median": 1.99,
+    "spread": 0.003,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.857,
+    "spread": 0.064,
+    "spread_pct": 2.2,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.802,
+    "spread": 18.676,
+    "spread_pct": 104.9,
+    "n": 3
+   },
+   "load_s": {
+    "median": 2.6,
+    "spread": 0.1,
+    "spread_pct": 3.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1750,
+    "spread": 8,
+    "spread_pct": 0.5,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1751.3,
+    "spread": 8.0,
+    "spread_pct": 0.5,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1155,
+    "spread": 4,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 501.1,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 2.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_campaign_start_default_p1",
+    "dxvk_2560x1440_campaign_start_default_p2",
+    "dxvk_2560x1440_campaign_start_default_p3"
+   ]
+  },
+  "dxvk|2560x1440|hist_dresden|deploy": {
+   "p50_ms": {
+    "median": 4.193,
+    "spread": 0.052,
+    "spread_pct": 1.2,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 6.459,
+    "spread": 0.271,
+    "spread_pct": 4.2,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 16.494,
+    "spread": 16.169,
+    "spread_pct": 98.0,
+    "n": 3
+   },
+   "load_s": {
+    "median": 7.2,
+    "spread": 0.2,
+    "spread_pct": 2.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 2079,
+    "spread": 3,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 2095.0,
+    "spread": 3.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1457,
+    "spread": 16,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 892.1,
+    "spread": 64.0,
+    "spread_pct": 7.2,
+    "n": 3
+   },
+   "cold_load_s": 7.3,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_hist_dresden_deploy_p1",
+    "dxvk_2560x1440_hist_dresden_deploy_p2",
+    "dxvk_2560x1440_hist_dresden_deploy_p3"
+   ]
+  },
+  "dxvk|2560x1440|hist_dresden|turned": {
+   "p50_ms": {
+    "median": 3.892,
+    "spread": 0.136,
+    "spread_pct": 3.5,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 6.137,
+    "spread": 0.088,
+    "spread_pct": 1.4,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 12.505,
+    "spread": 6.948,
+    "spread_pct": 55.6,
+    "n": 3
+   },
+   "load_s": {
+    "median": 7.2,
+    "spread": 0.2,
+    "spread_pct": 2.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 2079,
+    "spread": 3,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 2095.0,
+    "spread": 3.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1454,
+    "spread": 3,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 892.1,
+    "spread": 64.0,
+    "spread_pct": 7.2,
+    "n": 3
+   },
+   "cold_load_s": 7.3,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_hist_dresden_turned_p1",
+    "dxvk_2560x1440_hist_dresden_turned_p2",
+    "dxvk_2560x1440_hist_dresden_turned_p3"
+   ]
+  },
+  "dxvk|2560x1440|hist_nile|deploy": {
+   "p50_ms": {
+    "median": 2.773,
+    "spread": 0.016,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 5.337,
+    "spread": 0.309,
+    "spread_pct": 5.8,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 19.549,
+    "spread": 0.962,
+    "spread_pct": 4.9,
+    "n": 3
+   },
+   "load_s": {
+    "median": 4.2,
+    "spread": 0.1,
+    "spread_pct": 2.4,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1822,
+    "spread": 2,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1823.6,
+    "spread": 2.6,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1155,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 524.3,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 4.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_hist_nile_deploy_p1",
+    "dxvk_2560x1440_hist_nile_deploy_p2",
+    "dxvk_2560x1440_hist_nile_deploy_p3"
+   ]
+  },
+  "dxvk|2560x1440|hist_nile|turned": {
+   "p50_ms": {
+    "median": 2.578,
+    "spread": 0.007,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 5.142,
+    "spread": 0.119,
+    "spread_pct": 2.3,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 19.371,
+    "spread": 5.206,
+    "spread_pct": 26.9,
+    "n": 3
+   },
+   "load_s": {
+    "median": 4.2,
+    "spread": 0.1,
+    "spread_pct": 2.4,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1816,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1823.7,
+    "spread": 1.6,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1155,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 524.3,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 4.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_hist_nile_turned_p1",
+    "dxvk_2560x1440_hist_nile_turned_p2",
+    "dxvk_2560x1440_hist_nile_turned_p3"
+   ]
+  },
+  "dxvk|2560x1440|land_small|battle1x|battle": {
+   "p50_ms": {
+    "median": 2.008,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "p99_ms": {
+    "median": 3.527,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "max_ms": {
+    "median": 21.736,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_used_mb": {
+    "median": 1837,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_peak_mb": {
+    "median": 1844.1,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "commit_mb": {
+    "median": 1189,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "vram_mb": {
+    "median": 631.9,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_land_small_battle1x_p1"
+   ]
+  },
+  "dxvk|2560x1440|land_small|deploy": {
+   "p50_ms": {
+    "median": 1.817,
+    "spread": 0.02,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.223,
+    "spread": 0.02,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 18.468,
+    "spread": 3.64,
+    "spread_pct": 19.7,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1818,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1822.7,
+    "spread": 1.1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1178,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 631.9,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_land_small_deploy_p1",
+    "dxvk_2560x1440_land_small_deploy_p2",
+    "dxvk_2560x1440_land_small_deploy_p3"
+   ]
+  },
+  "dxvk|2560x1440|land_small|turned": {
+   "p50_ms": {
+    "median": 1.795,
+    "spread": 0.019,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.092,
+    "spread": 0.039,
+    "spread_pct": 1.3,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.033,
+    "spread": 2.997,
+    "spread_pct": 17.6,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1813,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1821.4,
+    "spread": 1.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1178,
+    "spread": 2,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 631.9,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_land_small_turned_p1",
+    "dxvk_2560x1440_land_small_turned_p2",
+    "dxvk_2560x1440_land_small_turned_p3"
+   ]
+  },
+  "dxvk|2560x1440|naval_small|deploy": {
+   "p50_ms": {
+    "median": 1.409,
+    "spread": 0.02,
+    "spread_pct": 1.4,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.862,
+    "spread": 0.035,
+    "spread_pct": 1.2,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.604,
+    "spread": 0.319,
+    "spread_pct": 1.8,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1760,
+    "spread": 5,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1885.2,
+    "spread": 8.5,
+    "spread_pct": 0.5,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1090,
+    "spread": 3,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 608.9,
+    "spread": 64.0,
+    "spread_pct": 10.5,
+    "n": 3
+   },
+   "cold_load_s": 3.8,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_naval_small_deploy_p1",
+    "dxvk_2560x1440_naval_small_deploy_p2",
+    "dxvk_2560x1440_naval_small_deploy_p3"
+   ]
+  },
+  "dxvk|2560x1440|naval_small|turned": {
+   "p50_ms": {
+    "median": 1.066,
+    "spread": 0.019,
+    "spread_pct": 1.8,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.519,
+    "spread": 0.024,
+    "spread_pct": 1.0,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.584,
+    "spread": 8.134,
+    "spread_pct": 46.3,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.6,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1759,
+    "spread": 4,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1885.8,
+    "spread": 7.5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1090,
+    "spread": 3,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 608.9,
+    "spread": 64.0,
+    "spread_pct": 10.5,
+    "n": 3
+   },
+   "cold_load_s": 3.8,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_naval_small_turned_p1",
+    "dxvk_2560x1440_naval_small_turned_p2",
+    "dxvk_2560x1440_naval_small_turned_p3"
+   ]
+  },
+  "dxvk|2560x1440|naval_storm|default": {
+   "p50_ms": {
+    "median": 1.373,
+    "spread": 0.032,
+    "spread_pct": 2.3,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.887,
+    "spread": 0.09,
+    "spread_pct": 3.1,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 16.457,
+    "spread": 17.701,
+    "spread_pct": 107.6,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.1,
+    "spread_pct": 2.9,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1759,
+    "spread": 4,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1885.8,
+    "spread": 7.8,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1105,
+    "spread": 17,
+    "spread_pct": 1.5,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 608.9,
+    "spread": 64.0,
+    "spread_pct": 10.5,
+    "n": 3
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_naval_storm_default_p1",
+    "dxvk_2560x1440_naval_storm_default_p2",
+    "dxvk_2560x1440_naval_storm_default_p3"
+   ]
+  },
+  "dxvk|2560x1440|siege_small|deploy": {
+   "p50_ms": {
+    "median": 2.024,
+    "spread": 0.023,
+    "spread_pct": 1.1,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.599,
+    "spread": 0.144,
+    "spread_pct": 4.0,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 18.39,
+    "spread": 7.51,
+    "spread_pct": 40.8,
+    "n": 3
+   },
+   "load_s": {
+    "median": 5.2,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1886,
+    "spread": 4,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1886.0,
+    "spread": 7.7,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1245,
+    "spread": 3,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 855.9,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 5.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_siege_small_deploy_p1",
+    "dxvk_2560x1440_siege_small_deploy_p2",
+    "dxvk_2560x1440_siege_small_deploy_p3"
+   ]
+  },
+  "dxvk|2560x1440|siege_small|turned": {
+   "p50_ms": {
+    "median": 1.869,
+    "spread": 0.014,
+    "spread_pct": 0.7,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.313,
+    "spread": 0.089,
+    "spread_pct": 2.7,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 15.954,
+    "spread": 1.302,
+    "spread_pct": 8.2,
+    "n": 3
+   },
+   "load_s": {
+    "median": 5.2,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1878,
+    "spread": 4,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1885.7,
+    "spread": 7.8,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1243,
+    "spread": 2,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 855.9,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 5.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_2560x1440_siege_small_turned_p1",
+    "dxvk_2560x1440_siege_small_turned_p2",
+    "dxvk_2560x1440_siege_small_turned_p3"
+   ]
+  },
+  "dxvk|3840x2160|campaign_start|default": {
+   "p50_ms": {
+    "median": 1.967,
+    "spread": 0.035,
+    "spread_pct": 1.8,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.799,
+    "spread": 0.227,
+    "spread_pct": 8.1,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 8.08,
+    "spread": 55.826,
+    "spread_pct": 690.9,
+    "n": 3
+   },
+   "load_s": {
+    "median": 2.6,
+    "spread": 0.1,
+    "spread_pct": 3.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1749,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1750.3,
+    "spread": 1.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1156,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 691.2,
+    "spread": 0.5,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "cold_load_s": 2.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_campaign_start_default_p1",
+    "dxvk_3840x2160_campaign_start_default_p2",
+    "dxvk_3840x2160_campaign_start_default_p3"
+   ]
+  },
+  "dxvk|3840x2160|hist_dresden|deploy": {
+   "p50_ms": {
+    "median": 3.991,
+    "spread": 0.024,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 6.131,
+    "spread": 0.211,
+    "spread_pct": 3.4,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 11.728,
+    "spread": 2.781,
+    "spread_pct": 23.7,
+    "n": 3
+   },
+   "load_s": {
+    "median": 7.1,
+    "spread": 0.2,
+    "spread_pct": 2.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 2079,
+    "spread": 2,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 2095.0,
+    "spread": 2.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1455,
+    "spread": 6,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 1075.6,
+    "spread": 4.0,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "cold_load_s": 7.1,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_hist_dresden_deploy_p1",
+    "dxvk_3840x2160_hist_dresden_deploy_p2",
+    "dxvk_3840x2160_hist_dresden_deploy_p3"
+   ]
+  },
+  "dxvk|3840x2160|hist_dresden|turned": {
+   "p50_ms": {
+    "median": 3.786,
+    "spread": 0.024,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 5.988,
+    "spread": 0.33,
+    "spread_pct": 5.5,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 18.841,
+    "spread": 5.112,
+    "spread_pct": 27.1,
+    "n": 3
+   },
+   "load_s": {
+    "median": 7.1,
+    "spread": 0.2,
+    "spread_pct": 2.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 2079,
+    "spread": 2,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 2095.0,
+    "spread": 2.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1455,
+    "spread": 6,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 1075.6,
+    "spread": 4.0,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "cold_load_s": 7.1,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_hist_dresden_turned_p1",
+    "dxvk_3840x2160_hist_dresden_turned_p2",
+    "dxvk_3840x2160_hist_dresden_turned_p3"
+   ]
+  },
+  "dxvk|3840x2160|hist_nile|deploy": {
+   "p50_ms": {
+    "median": 2.74,
+    "spread": 0.044,
+    "spread_pct": 1.6,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 5.323,
+    "spread": 0.203,
+    "spread_pct": 3.8,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 32.517,
+    "spread": 33.982,
+    "spread_pct": 104.5,
+    "n": 3
+   },
+   "load_s": {
+    "median": 4.2,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1822,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1823.6,
+    "spread": 0.6,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1152,
+    "spread": 4,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 704.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 4.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_hist_nile_deploy_p1",
+    "dxvk_3840x2160_hist_nile_deploy_p2",
+    "dxvk_3840x2160_hist_nile_deploy_p3"
+   ]
+  },
+  "dxvk|3840x2160|hist_nile|turned": {
+   "p50_ms": {
+    "median": 2.572,
+    "spread": 0.023,
+    "spread_pct": 0.9,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 5.156,
+    "spread": 0.172,
+    "spread_pct": 3.3,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 19.383,
+    "spread": 7.168,
+    "spread_pct": 37.0,
+    "n": 3
+   },
+   "load_s": {
+    "median": 4.2,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1816,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1823.7,
+    "spread": 0.6,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1153,
+    "spread": 3,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 704.7,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "cold_load_s": 4.2,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_hist_nile_turned_p1",
+    "dxvk_3840x2160_hist_nile_turned_p2",
+    "dxvk_3840x2160_hist_nile_turned_p3"
+   ]
+  },
+  "dxvk|3840x2160|land_small|battle1x|battle": {
+   "p50_ms": {
+    "median": 1.998,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "p99_ms": {
+    "median": 3.592,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "max_ms": {
+    "median": 18.338,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_used_mb": {
+    "median": 1823,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "va_peak_mb": {
+    "median": 1828.8,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "commit_mb": {
+    "median": 1187,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "vram_mb": {
+    "median": 810.3,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 1
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_land_small_battle1x_p1"
+   ]
+  },
+  "dxvk|3840x2160|land_small|deploy": {
+   "p50_ms": {
+    "median": 1.806,
+    "spread": 0.008,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.171,
+    "spread": 0.106,
+    "spread_pct": 3.3,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 15.85,
+    "spread": 12.528,
+    "spread_pct": 79.0,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.1,
+    "spread_pct": 2.9,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1818,
+    "spread": 2,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1822.6,
+    "spread": 2.1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1178,
+    "spread": 9,
+    "spread_pct": 0.8,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 794.3,
+    "spread": 16.0,
+    "spread_pct": 2.0,
+    "n": 3
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_land_small_deploy_p1",
+    "dxvk_3840x2160_land_small_deploy_p2",
+    "dxvk_3840x2160_land_small_deploy_p3"
+   ]
+  },
+  "dxvk|3840x2160|land_small|turned": {
+   "p50_ms": {
+    "median": 1.773,
+    "spread": 0.001,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.075,
+    "spread": 0.102,
+    "spread_pct": 3.3,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.848,
+    "spread": 14.347,
+    "spread_pct": 80.4,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.1,
+    "spread_pct": 2.9,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1813,
+    "spread": 2,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1821.3,
+    "spread": 2.0,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1177,
+    "spread": 8,
+    "spread_pct": 0.7,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 794.3,
+    "spread": 16.0,
+    "spread_pct": 2.0,
+    "n": 3
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_land_small_turned_p1",
+    "dxvk_3840x2160_land_small_turned_p2",
+    "dxvk_3840x2160_land_small_turned_p3"
+   ]
+  },
+  "dxvk|3840x2160|naval_small|deploy": {
+   "p50_ms": {
+    "median": 1.358,
+    "spread": 0.032,
+    "spread_pct": 2.4,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.843,
+    "spread": 0.491,
+    "spread_pct": 17.3,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 17.765,
+    "spread": 1.697,
+    "spread_pct": 9.6,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.6,
+    "spread": 0.1,
+    "spread_pct": 2.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1761,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1887.3,
+    "spread": 4.3,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1091,
+    "spread": 5,
+    "spread_pct": 0.5,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 800.4,
+    "spread": 12.0,
+    "spread_pct": 1.5,
+    "n": 3
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_naval_small_deploy_p1",
+    "dxvk_3840x2160_naval_small_deploy_p2",
+    "dxvk_3840x2160_naval_small_deploy_p3"
+   ]
+  },
+  "dxvk|3840x2160|naval_small|turned": {
+   "p50_ms": {
+    "median": 1.045,
+    "spread": 0.01,
+    "spread_pct": 1.0,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.485,
+    "spread": 0.078,
+    "spread_pct": 3.1,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 15.258,
+    "spread": 4.922,
+    "spread_pct": 32.3,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.6,
+    "spread": 0.1,
+    "spread_pct": 2.8,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1759,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1886.9,
+    "spread": 5.3,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1090,
+    "spread": 6,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 800.4,
+    "spread": 12.0,
+    "spread_pct": 1.5,
+    "n": 3
+   },
+   "cold_load_s": 3.6,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_naval_small_turned_p1",
+    "dxvk_3840x2160_naval_small_turned_p2",
+    "dxvk_3840x2160_naval_small_turned_p3"
+   ]
+  },
+  "dxvk|3840x2160|naval_storm|default": {
+   "p50_ms": {
+    "median": 1.337,
+    "spread": 0.01,
+    "spread_pct": 0.7,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 2.848,
+    "spread": 0.131,
+    "spread_pct": 4.6,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 15.106,
+    "spread": 21.914,
+    "spread_pct": 145.1,
+    "n": 3
+   },
+   "load_s": {
+    "median": 3.5,
+    "spread": 0.1,
+    "spread_pct": 2.9,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1759,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1886.9,
+    "spread": 5.2,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1105,
+    "spread": 11,
+    "spread_pct": 1.0,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 792.4,
+    "spread": 4.0,
+    "spread_pct": 0.5,
+    "n": 3
+   },
+   "cold_load_s": 3.5,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_naval_storm_default_p1",
+    "dxvk_3840x2160_naval_storm_default_p2",
+    "dxvk_3840x2160_naval_storm_default_p3"
+   ]
+  },
+  "dxvk|3840x2160|siege_small|deploy": {
+   "p50_ms": {
+    "median": 2.007,
+    "spread": 0.012,
+    "spread_pct": 0.6,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.414,
+    "spread": 0.119,
+    "spread_pct": 3.5,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 18.196,
+    "spread": 10.096,
+    "spread_pct": 55.5,
+    "n": 3
+   },
+   "load_s": {
+    "median": 5.1,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1887,
+    "spread": 1,
+    "spread_pct": 0.1,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1887.0,
+    "spread": 5.0,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1246,
+    "spread": 3,
+    "spread_pct": 0.2,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 957.4,
+    "spread": 82.0,
+    "spread_pct": 8.6,
+    "n": 3
+   },
+   "cold_load_s": 5.1,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_siege_small_deploy_p1",
+    "dxvk_3840x2160_siege_small_deploy_p2",
+    "dxvk_3840x2160_siege_small_deploy_p3"
+   ]
+  },
+  "dxvk|3840x2160|siege_small|turned": {
+   "p50_ms": {
+    "median": 1.847,
+    "spread": 0.009,
+    "spread_pct": 0.5,
+    "n": 3
+   },
+   "p99_ms": {
+    "median": 3.218,
+    "spread": 0.068,
+    "spread_pct": 2.1,
+    "n": 3
+   },
+   "max_ms": {
+    "median": 10.924,
+    "spread": 8.298,
+    "spread_pct": 76.0,
+    "n": 3
+   },
+   "load_s": {
+    "median": 5.1,
+    "spread": 0.0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_used_mb": {
+    "median": 1878,
+    "spread": 0,
+    "spread_pct": 0.0,
+    "n": 3
+   },
+   "va_peak_mb": {
+    "median": 1886.9,
+    "spread": 5.2,
+    "spread_pct": 0.3,
+    "n": 3
+   },
+   "commit_mb": {
+    "median": 1244,
+    "spread": 5,
+    "spread_pct": 0.4,
+    "n": 3
+   },
+   "vram_mb": {
+    "median": 957.4,
+    "spread": 82.0,
+    "spread_pct": 8.6,
+    "n": 3
+   },
+   "cold_load_s": 5.1,
+   "noisy": false,
+   "cells": [
+    "dxvk_3840x2160_siege_small_turned_p1",
+    "dxvk_3840x2160_siege_small_turned_p2",
+    "dxvk_3840x2160_siege_small_turned_p3"
+   ]
+  }
+ },
+ "dxvk_over_system": {},
+ "blocks": {
+  "dxvk|1920x1080": {
+   "build": "46f52d356ce8",
+   "kit": "kit_20261101T205936Z_f08b12c3806a",
+   "watcher": "1.2.0",
+   "backend": "dxvk",
+   "size": "1920x1080",
+   "dxvk": {
+    "version": "3.1.1",
+    "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "pinned_sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "driver": "617.14",
+   "dxvk_conf_sha256": "absent",
+   "prefs_gfx": {
+    "x_res": "1920",
+    "y_res": "1080",
+    "gfx_first_run": "false",
+    "gfx_video_memory": "0",
+    "gfx_fullscreen": "false",
+    "gfx_vsync": "false",
+    "gfx_hdr": "false",
+    "gfx_low_quality_shaders": "false",
+    "gfx_shadermodel": "1",
+    "gfx_aa": "0",
+    "gfx_texture_filtering": "1",
+    "gfx_texture_quality": "2",
+    "gfx_volumetric_effect": "false",
+    "gfx_ssao": "false",
+    "gfx_distortion": "false",
+    "gfx_depth_of_field": "false",
+    "gfx_hardware_shadows": "false",
+    "gfx_sky_quality": "2",
+    "gfx_unit_quality": "2",
+    "gfx_ship_quality": "2",
+    "gfx_building_quality": "2",
+    "gfx_water_quality": "2",
+    "gfx_unit_scale": "2",
+    "gfx_shadow_quality": "3",
+    "gfx_tree_quality": "2",
+    "gfx_grass_quality": "3",
+    "gfx_terrain_quality": "0",
+    "gfx_gamma_setting": "2",
+    "gfx_brightness_setting": "1.2",
+    "gfx_disable_terrain_ao_gpu": "false",
+    "gfx_screenshot_folder": "./screenshots",
+    "gfx_fixed_env_map": "",
+    "gfx_effects_quality": "2",
+    "gfx_vignette": "true",
+    "gfx_picture_in_picture": "true",
+    "gfx_frame_rate": "60"
+   },
+   "frame_cap": {
+    "gfx_vsync": "false",
+    "gfx_frame_rate": "60",
+    "d3d9.presentInterval": "default",
+    "d3d9.maxFrameRate": "default",
+    "dxvk.maxFrameRate": "default",
+    "present": "headless: windowed borderless on the virtual display"
+   },
+   "date": "2026-11-01",
+   "runs": [
+    "20261101_j23pc"
+   ]
+  },
+  "dxvk|2560x1440": {
+   "build": "46f52d356ce8",
+   "kit": "kit_20261101T205936Z_f08b12c3806a",
+   "watcher": "1.2.0",
+   "backend": "dxvk",
+   "size": "2560x1440",
+   "dxvk": {
+    "version": "3.1.1",
+    "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "pinned_sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "driver": "617.14",
+   "dxvk_conf_sha256": "absent",
+   "prefs_gfx": {
+    "x_res": "2560",
+    "y_res": "1440",
+    "gfx_first_run": "false",
+    "gfx_video_memory": "0",
+    "gfx_fullscreen": "false",
+    "gfx_vsync": "false",
+    "gfx_hdr": "false",
+    "gfx_low_quality_shaders": "false",
+    "gfx_shadermodel": "1",
+    "gfx_aa": "0",
+    "gfx_texture_filtering": "1",
+    "gfx_texture_quality": "2",
+    "gfx_volumetric_effect": "false",
+    "gfx_ssao": "false",
+    "gfx_distortion": "false",
+    "gfx_depth_of_field": "false",
+    "gfx_hardware_shadows": "false",
+    "gfx_sky_quality": "2",
+    "gfx_unit_quality": "2",
+    "gfx_ship_quality": "2",
+    "gfx_building_quality": "2",
+    "gfx_water_quality": "2",
+    "gfx_unit_scale": "2",
+    "gfx_shadow_quality": "3",
+    "gfx_tree_quality": "2",
+    "gfx_grass_quality": "3",
+    "gfx_terrain_quality": "0",
+    "gfx_gamma_setting": "2",
+    "gfx_brightness_setting": "1.2",
+    "gfx_disable_terrain_ao_gpu": "false",
+    "gfx_screenshot_folder": "./screenshots",
+    "gfx_fixed_env_map": "",
+    "gfx_effects_quality": "2",
+    "gfx_vignette": "true",
+    "gfx_picture_in_picture": "true",
+    "gfx_frame_rate": "60"
+   },
+   "frame_cap": {
+    "gfx_vsync": "false",
+    "gfx_frame_rate": "60",
+    "d3d9.presentInterval": "default",
+    "d3d9.maxFrameRate": "default",
+    "dxvk.maxFrameRate": "default",
+    "present": "headless: windowed borderless on the virtual display"
+   },
+   "date": "2026-11-01",
+   "runs": [
+    "20261101_j23pc"
+   ]
+  },
+  "dxvk|3840x2160": {
+   "build": "46f52d356ce8",
+   "kit": "kit_20261101T205936Z_f08b12c3806a",
+   "watcher": "1.2.0",
+   "backend": "dxvk",
+   "size": "3840x2160",
+   "dxvk": {
+    "version": "3.1.1",
+    "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "pinned_sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+    "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "driver": "617.14",
+   "dxvk_conf_sha256": "absent",
+   "prefs_gfx": {
+    "x_res": "3840",
+    "y_res": "2160",
+    "gfx_first_run": "false",
+    "gfx_video_memory": "0",
+    "gfx_fullscreen": "false",
+    "gfx_vsync": "false",
+    "gfx_hdr": "false",
+    "gfx_low_quality_shaders": "false",
+    "gfx_shadermodel": "1",
+    "gfx_aa": "0",
+    "gfx_texture_filtering": "1",
+    "gfx_texture_quality": "2",
+    "gfx_volumetric_effect": "false",
+    "gfx_ssao": "false",
+    "gfx_distortion": "false",
+    "gfx_depth_of_field": "false",
+    "gfx_hardware_shadows": "false",
+    "gfx_sky_quality": "2",
+    "gfx_unit_quality": "2",
+    "gfx_ship_quality": "2",
+    "gfx_building_quality": "2",
+    "gfx_water_quality": "2",
+    "gfx_unit_scale": "2",
+    "gfx_shadow_quality": "3",
+    "gfx_tree_quality": "2",
+    "gfx_grass_quality": "3",
+    "gfx_terrain_quality": "0",
+    "gfx_gamma_setting": "2",
+    "gfx_brightness_setting": "1.2",
+    "gfx_disable_terrain_ao_gpu": "false",
+    "gfx_screenshot_folder": "./screenshots",
+    "gfx_fixed_env_map": "",
+    "gfx_effects_quality": "2",
+    "gfx_vignette": "true",
+    "gfx_picture_in_picture": "true",
+    "gfx_frame_rate": "60"
+   },
+   "frame_cap": {
+    "gfx_vsync": "false",
+    "gfx_frame_rate": "60",
+    "d3d9.presentInterval": "default",
+    "d3d9.maxFrameRate": "default",
+    "dxvk.maxFrameRate": "default",
+    "present": "headless: windowed borderless on the virtual display"
+   },
+   "date": "2026-11-01",
+   "runs": [
+    "20261101_j23pc"
+   ]
+  }
+ },
+ "refused": [
+  {
+   "cell": "system_1920x1080_campaign_start_default_p0",
+   "problems": [
+    "status failed: block skipped: two launch failures in a row",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing"
+   ]
+  },
+  {
+   "cell": "system_1920x1080_hist_dresden_default_p0",
+   "problems": [
+    "status failed: block skipped: two launch failures in a row",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing"
+   ]
+  },
+  {
+   "cell": "system_1920x1080_hist_nile_default_p0",
+   "problems": [
+    "status failed: block skipped: two launch failures in a row",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing"
+   ]
+  },
+  {
+   "cell": "system_1920x1080_land_small_default_p0",
+   "problems": [
+    "status failed: last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)\n[job claude-j23-20261101T213645Z-326358260: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 35092 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing"
+   ]
+  },
+  {
+   "cell": "system_1920x1080_land_small_deploy_p1",
+   "problems": [
+    "status failed: block skipped: two launch failures in a row",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing",
+    "no frame times"
+   ]
+  },
+  {
+   "cell": "system_1920x1080_naval_small_default_p0",
+   "problems": [
+    "status failed: ast: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)\n[job claude-j23-20261101T214313Z-2372321557: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 39680 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing"
+   ]
+  },
+  {
+   "cell": "system_1920x1080_naval_storm_default_p0",
+   "problems": [
+    "status failed: last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)\n[job claude-j23-20261101T214922Z-3268528865: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 6372 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing"
+   ]
+  },
+  {
+   "cell": "system_1920x1080_siege_small_default_p0",
+   "problems": [
+    "status failed: RuntimeError: ctl state failed (exit 124): is the game running with dev.ctl=1?",
+    "pin build missing",
+    "pin kit missing",
+    "pin watcher missing",
+    "pin backend missing",
+    "pin size missing",
+    "pin dxvk missing",
+    "pin gpu missing",
+    "pin driver missing",
+    "pin dxvk_conf_sha256 missing",
+    "pin prefs_gfx missing",
+    "pin frame_cap missing",
+    "pin date missing",
+    "pin run missing"
+   ]
+  }
+ ],
+ "scenarios": [
+  "campaign_start",
+  "hist_dresden",
+  "hist_nile",
+  "land_small",
+  "naval_small",
+  "naval_storm",
+  "siege_small"
+ ],
+ "not_covered": [
+  {
+   "what": "backend system (every size; tried: system|1920x1080)",
+   "why": "status failed: last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)\n[job claude-j23-20261101T213645Z-326358260: failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 35092 within 180 s (last: target_ok target resolved at Direct3DCreate9); the game was killed (fail closed)]"
+  },
+  {
+   "what": "campaign_britain_1805",
+   "why": "not a ctl scene row (stage_save.py stage C:\\napoleon_remastered_pc\\saves\\j14_taxe)"
+  },
+  {
+   "what": "campaign_britain_1805_rake_wales",
+   "why": "not a ctl scene row (agent_into_settlement.py C:\\napoleon_remastered_pc\\saves\\j14)"
+  },
+  {
+   "what": "campaign_britain_1805_tax44",
+   "why": "not a ctl scene row (tax_rates.py C:\\napoleon_remastered_pc\\saves\\j14_taxes-chang)"
+  },
+  {
+   "what": "land_40 (20 against 20), land_large, naval_large, siege_city",
+   "why": "no scenario rows: the custom-battle army setup route is J46; J59 measures them with this tool"
+  }
+ ],
+ "conditions": {
+  "present": "headless: the game runs windowed borderless on the virtual display at the cell size (the harness's only mode, J13); no cell is a real-monitor or fullscreen number",
+  "guard_thread": "the headless guard thread takes the Present lock while it enumerates monitors (every 25th poll; J13 review Later 4): it is in every frame time",
+  "pc_use": "Liam may have been using the PC during a run: the run README gives the time windows",
+  "va_peak_mb": "the process peak since its launch (Get-Process PeakVirtualMemorySize64, equal to the proxy's 32-bit value when current): a scene loaded by a warm reset inherits the peak of the scenes before it in the same process; va_used_mb is the scene's own value at the end of perf",
+  "repeats": "pass 0 after each fresh launch per backend x size is a warm-up (its loads are cold_load_s); medians and spreads over passes 1..n",
+  "battle": "a key ending |battle is land_small with deployment ended and the battle running at 1x (ctl scene --deploy end, speed 1)"
+ },
+ "runs": [
+  "20261101_j23pc"
+ ]
+}

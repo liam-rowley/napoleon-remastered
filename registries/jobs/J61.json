@@ -1,0 +1,13 @@
+{
+  "id": "J61",
+  "description": "J8 deviation and fact napoleon.render.system_backend (open, 2026-11-01): on proxy.backend=system the headless launch fails, and a visible launch presents nothing through the hooked device vtables (frame 0), so no capture, shot or perf number exists for Windows' own d3d9 and the DXVK-against-vanilla half of the phase 3 baseline cannot be measured. Find why (a device created through a path the hooks miss, Direct3DCreate9Ex, a vtable the headless guard does not wrap, the system backend's window handling), fix it in the proxy with host tests, then re-run tools/perf_baseline.py's system-d3d9 half across the J23 rows at 1080p, 1440p and 4K and extend perf/baseline.json. After J16 (which starts with a dev.capture=0 control launch on that backend) and J23 (DXVK-only numbers first, so phase 3 is not blocked on this). Opus: DLL and backend work.",
+  "title": "System d3d9 backend runs headless and presents through the hooked device; baseline's vanilla half",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J16",
+    "J23"
+  ]
+}

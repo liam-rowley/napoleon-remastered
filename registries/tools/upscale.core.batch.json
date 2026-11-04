@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.batch",
+  "kind": "script",
+  "path": "upscale/core/batch.py",
+  "purpose": "turn a list of UI images into 2.5x master images (model x2, Lanczos to the exact size, alpha by Lanczos only, full mip chain), with a per-asset manifest, resume by input hash, and a per-asset verify",
+  "usage": "library (upscale/core), driven by `python3 core/wsc.py upscale plan|run|verify|sheets|pack`; run() takes items [{id, path, role, fmt, w, h}] and a read(item) -> bytes function",
+  "when": "an upscale run on the PC; host tests with the 'lanczos' stand-in model",
+  "not_a_verb": "a library used by tools/verbs/upscale.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

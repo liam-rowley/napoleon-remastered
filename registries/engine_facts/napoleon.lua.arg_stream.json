@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.lua.arg_stream",
+  "claim": "Engine Lua bindings read their arguments from the top of the stack down (argument stream 0x1058750, readers 0x1055760 string, 0x1055840 bool, 0x1055700 / 0x10556d0 number, 0x44d320 / 0x10557e0 pointer, 0x10558b0 table, each reading index -1 and popping it): a call with more arguments than a binding reads shifts every value unless the binding checks lua_gettop or the top's type (static, 1,084 bindings mapped with argument counts in discovery/napoleon/lua_cfuncs.json)",
+  "state": "open",
+  "evidence": "harness/runs/20261101_j9pc/re/lua_cfuncs.md",
+  "date": "2026-11-01",
+  "notes": "static; not exercised at runtime (probes do not call); owner J10 and any Lua caller"
+}

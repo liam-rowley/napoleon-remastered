@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.display.vdd_modes",
+  "claim": "The PC's virtual display ('Virtual Display Driver', non-primary, GDI name DISPLAY11 since the driver reload on 2026-10-29; it was DISPLAY10 before) offers 1920x1080, 2560x1440 and 3840x2160, each at 60 and 240 Hz, after Liam's vdd_settings.xml edit (J2 open question 1); CDS_TEST accepts all three at 60 Hz. Primary today: DISPLAY1 3840x2160@240 at 0,0 (144 DPI); Dell DISPLAY2 2560x1440 at -2560,327; virtual at 3839,2160 (96 DPI)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j13pc/README.md",
+  "date": "2026-10-29",
+  "notes": "vdisplay_probe.ps1 -Test 1920x1080,2560x1440,3840x2160, exit 0 (J13); before the edit only 3840x2160 (DISP_CHANGE_BADMODE for the others)"
+}

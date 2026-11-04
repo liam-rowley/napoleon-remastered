@@ -1,0 +1,55 @@
+/* J31 hello-world: every length in dp (D19), one FreeType font (D7). Not the design language. */
+body, div, span, img { display: block; }
+span { display: inline; }
+body {
+	font-family: "IM FELL English";
+	font-size: 20dp;
+	color: #e8dcc0;
+	background-color: #1b2433;
+	border: 2dp #c8a050;
+	position: absolute;
+	left: 40dp;
+	top: 40dp;
+	width: 520dp;
+	height: 560dp;
+	padding: 16dp;
+}
+#header { height: 64dp; }
+#emblem { display: inline-block; width: 64dp; height: 64dp; }
+#title {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 16dp;
+	margin-top: 16dp;
+	font-size: 30dp;
+	color: #f0d890;
+}
+#facts { margin-top: 12dp; }
+.fact { height: 28dp; }
+#armies {
+	margin-top: 12dp;
+	height: 220dp;
+	overflow-y: auto;
+	border: 1dp #6a5a3a;
+	background-color: #121924;
+}
+.army { height: 32dp; padding: 4dp 8dp; border-bottom: 1dp #2a3446; }
+.army:hover { background-color: #2a3446; }
+.army_size { color: #a8b8c8; margin-left: 12dp; }
+scrollbarvertical { width: 12dp; }
+scrollbarvertical slidertrack { background-color: #0c1018; }
+scrollbarvertical sliderbar { background-color: #8a7040; min-height: 24dp; }
+.button {
+	margin-top: 16dp;
+	width: 200dp;
+	height: 44dp;
+	line-height: 44dp;
+	text-align: center;
+	font-size: 22dp;
+	color: #1b2433;
+	background-color: #c8a050;
+	border: 2dp #f0d890;
+}
+.button:hover { background-color: #e0bc6a; }
+.button:active { background-color: #8a7040; color: #f0d890; }
+#last_event { margin-top: 10dp; color: #a8b8c8; font-size: 16dp; }

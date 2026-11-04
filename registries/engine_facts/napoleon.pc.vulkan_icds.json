@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.pc.vulkan_icds",
+  "claim": "On officepc the 32-bit game loads two Vulkan ICDs: NVIDIA nvoglv32.dll 32.0.16.1714 (with nvgpucomp32 and opengl32) and AMD amdvlk32.dll 32.0.13018.6 (a 2024-12 AMD driver) beside it",
+  "state": "verified",
+  "evidence": "proxy/runs/20261030_j16dumps/README.md",
+  "date": "2026-10-30",
+  "notes": "module lists of WER dumps 11252 and 4556 (2026-10-29)"
+}

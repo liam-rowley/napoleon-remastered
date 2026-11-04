@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.crash.res_switch_stack_overflow",
+  "claim": "Changing the resolution in game from 2560x1440 to 3840x2160 (proxy on DXVK) overflows the main thread's 1 MB stack while the device is recreated (STATUS_STACK_OVERFLOW); launching straight into 3840x2160 works. The proxy's vectored handler used to crash on the exhausted stack (fixed, crashpolicy.h)",
+  "state": "open",
+  "evidence": "proxy/runs/20261029_4kcrash/README.md",
+  "date": "2026-10-29",
+  "notes": "follow-up job J16"
+}

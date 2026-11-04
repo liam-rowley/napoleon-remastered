@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_modal_close",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_modal_close.lua",
+  "purpose": "if the diplomacy panel is up (an AI proposal during the AI turn), decline it through the panel script's own routes, ONE per call in order (<component>:LuaCall(<fn>): DeclineOffer, then ClosePopup on later calls, button_cancel as a last resort; the panel hides a frame later, so the next call sees whether it worked); if an event_message is up, close it (OnOk, then CloseDialog: event_message.lua); returns none | asked <route>=<result> (call again) | closed event_message:<fn> | open <routes tried> (all tried, the panel stays)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_modal_close.lua\" in a campaign, each poll while waiting for the next turn after campaign_end_turn.lua (the Lua pump keeps running behind the popup in a headless launch, J40)",
+  "when": "J40 EndTurn proof (fact napoleon.campaign.modal_stops_pump); load_save.sh --end-turn; J4 unattended turns",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

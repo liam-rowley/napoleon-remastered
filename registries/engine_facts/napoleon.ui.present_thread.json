@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.ui.present_thread",
+  "claim": "IDirect3DDevice9::Present and the game window's procedure run on the same thread in the front end, a campaign map and a land battle (ctl ui state threads.present == threads.window in every cell, three resolutions), so the host's input routing and its frame pass never contend in practice (it still takes one lock for every RmlUi call)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02"
+}

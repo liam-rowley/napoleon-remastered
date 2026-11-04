@@ -1,0 +1,2 @@
+shot: C:\napoleon_remastered_pc\_scratch\j10\20261102_j10pc\a3fe2\shots\j10_fe_sp_load_game.jpg 1280 x 720 (from 1920 x 1080 at 3839,2160)
+[job j10-20261102T104248Z-733010465: ok exit=0]

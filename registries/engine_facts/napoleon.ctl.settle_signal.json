@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.ctl.settle_signal",
+  "claim": "The proxy has no shader-creation signal: settle is scene ready (battle_deploy, battle, naval or campaign) plus 30 presented frames plus the scene unchanged for 2000 ms (adapter ctl.settle). Measured on the PC: the settle ends about 2.7 s after the load answer (300 to 960 frames at 1920x1080), and a shot right after it differs from one 10 s later by 2.56/255, the noise floor of animation and JPEG; the measured baseline shots after it repeat across launches within 1.0 to 4.5 (battles)",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

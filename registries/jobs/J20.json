@@ -1,0 +1,13 @@
+{
+  "id": "J20",
+  "description": "D30/D31: the repo works from Claude Code on Liam's PC (Git Bash). wsc setup check verb; job.sh finds the watcher root from the adapter state_dir (no device mount); pc_deploy send replaces device_commit_files; proxy build in Docker byte-identical to CI; Claude-Session trailers set automatically and pr_policy fails closed without them; .claude/settings.json guard rails; docs and tools rows describe only the local route; gates green on the PC. Proof: install, watcher launch to frontend, kill, uninstall.",
+  "title": "Local Claude Code on the PC replaces the cloud route",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [],
+  "brief": "jobs/J20/brief.md",
+  "report": "jobs/J20/report.md",
+  "review": "jobs/J20/review.md"
+}

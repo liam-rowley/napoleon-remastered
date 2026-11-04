@@ -1,0 +1,93 @@
+== land_stock land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0  15:57:38Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.2
+capture land_stock_a rc 0: ": {"va_mb": 1825, "commit_mb": 1199}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+api land rc 0: atable:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function", "2026-11-01T15:58:33.393Z [INFO ] [t14600] lua: api land __end total=1360"]} 
+cam -0.08 59.02 446.14 180 -25 rc 0
+capture land_stock_c1 rc 0: ": {"va_mb": 1824, "commit_mb": 1199}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+reset rc 0
+api frontend rc 0: tring:function __add:function __div:function userdata:table __mul:function __sub:function __index:table __gc:function", "2026-11-01T15:58:59.151Z [INFO ] [t14600] lua: api frontend __end total=379"]} 
+perf rc 0 None 635227e06e28
+kill rc 0
+2026-11-01T15:57:51.698Z [INFO ] [t14600] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T15:57:51.698Z [INFO ] [t14600] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T15:57:51.698Z [INFO ] [t14600] patch_engine: nothing to do - 26 sites: 26 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 11 hooks verified
+2026-11-01T15:57:51.698Z [INFO ] [t14600] patch_engine: 0 of 0 planned sites written
+== land_shgr land_small keys: gfx.shadow_proof=1 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=1  15:59:20Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.2
+capture land_shgr_a rc 0: ": {"va_mb": 1823, "commit_mb": 1201}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "171"}}, "log": []} 
+shot rc 0
+cam -0.08 59.02 446.14 180 -25 rc 0
+capture land_shgr_c1 rc 0: ": {"va_mb": 1824, "commit_mb": 1185}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "171"}}, "log": []} 
+shot rc 0
+perf rc 0 None 635227e06e28
+kill rc 0
+2026-11-01T15:59:38.819Z [INFO ] [t38396] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T15:59:38.819Z [INFO ] [t38396] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T15:59:38.819Z [INFO ] [t38396] patch_engine: nothing to do - 26 sites: 26 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 11 hooks verified
+2026-11-01T15:59:38.819Z [INFO ] [t38396] patch_engine: 0 of 0 planned sites written
+== land_sprite land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=1 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0  16:00:51Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.0
+capture land_sprite_a rc 0: ": {"va_mb": 1822, "commit_mb": 1201}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []} 
+shot rc 0
+cam -0.08 59.02 446.14 180 -25 rc 0
+capture land_sprite_c1 rc 0: ": {"va_mb": 1823, "commit_mb": 1201}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "156"}}, "log": []} 
+shot rc 0
+perf rc 0 None 635227e06e28
+kill rc 0
+2026-11-01T16:01:10.924Z [INFO ] [t17164] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:01:10.924Z [INFO ] [t17164] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:01:10.924Z [INFO ] [t17164] patch_engine: nothing to do - 26 sites: 26 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 11 hooks verified
+2026-11-01T16:01:10.924Z [INFO ] [t17164] patch_engine: 0 of 0 planned sites written
+== land_unitlod land_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=1 gfx.ship_lod_proof=0 gfx.grass_proof=0  16:02:18Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 4.1
+scene rc 127 Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import json,sys;d=json.load(open('harness/runs/20261101_j9pc/raw/land_unitlod_scene.json'));print(d['status'],d.get('reason','')[:200],'load',d.get('load_s') or d.get('settle',{}))
+                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\liamr\AppData\Local\Python\pythoncore-3.15-64\Lib\json\__init__.py", line 306, in load
+    return loads(fp.read(),
+        cls=cls, object_hook=object_hook,
+        parse_float=parse_float, parse_int=parse_int,
+        parse_constant=parse_constant, object_pairs_hook=object_pairs_hook,
+        array_hook=array_hook, **kw)
+  File "C:\Users\liamr\AppData\Local\Python\pythoncore-3.15-64\Lib\json\__init__.py", line 371, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\liamr\AppData\Local\Python\pythoncore-3.15-64\Lib\json\decoder.py", line 358, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\liamr\AppData\Local\Python\pythoncore-3.15-64\Lib\json\decoder.py", line 376, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+capture land_unitlod_a rc 0: ": {"va_mb": 1823, "commit_mb": 1201}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+cam -0.08 59.02 446.14 180 -25 rc 0
+capture land_unitlod_c1 rc 0: ": {"va_mb": 1824, "commit_mb": 1201}, "reports": {"autostart.map": "NAP_MP_Grassy_Flatlands", "autostart.map_folder": "nap_mp_grassy_flatlands", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "nap_mp_grassy_flatlands", "battle.map_folder_ms": "172"}}, "log": []} 
+shot rc 0
+perf rc 0 None 635227e06e28
+kill rc 0
+2026-11-01T16:02:36.911Z [INFO ] [t3028] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:02:36.911Z [INFO ] [t3028] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:02:36.911Z [INFO ] [t3028] patch_engine: nothing to do - 26 sites: 26 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 11 hooks verified
+2026-11-01T16:02:36.911Z [INFO ] [t3028] patch_engine: 0 of 0 planned sites written
+== naval_stock naval_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0  16:03:44Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 7.0
+capture naval_stock_a rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1755, "commit_mb": 1098}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "219"}}, "log": []} 
+shot rc 0
+api naval rc 0: table:table __tostring:function __add:function __div:function __mul:function __sub:function __index:table __gc:function", "2026-11-01T16:04:49.675Z [INFO ] [t40436] lua: api naval __end total=1364"]} 
+perf rc 0 None 635227e06e28
+kill rc 0
+2026-11-01T16:04:05.146Z [INFO ] [t40436] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:04:05.146Z [INFO ] [t40436] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:04:05.146Z [INFO ] [t40436] patch_engine: nothing to do - 26 sites: 26 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 11 hooks verified
+2026-11-01T16:04:05.146Z [INFO ] [t40436] patch_engine: 0 of 0 planned sites written
+== naval_ship naval_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=1 gfx.grass_proof=0  16:05:10Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 1 failed RuntimeError: ctl state failed (exit 3221225794): is the game running with dev.ctl=1? load {}

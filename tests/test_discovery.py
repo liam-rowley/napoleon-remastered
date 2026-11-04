@@ -7,6 +7,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'discovery', 'core'))
 sys.path.insert(0, os.path.join(ROOT, 'proxy', 'tools'))
+sys.path.insert(0, os.path.join(ROOT, 'core', 'proxy', 'tools'))   # pack_list (J12)
 
 import diffout  # noqa: E402
 import exe  # noqa: E402
@@ -55,37 +56,61 @@ class PackKinds(unittest.TestCase):
         self.assertEqual(packs.kind('readme.txt'), '(root)')
 
 
-def _w_state(w, sid, name, ntrans=0):
+def _w_state(w, sid, name, trans=()):
     w.u32(sid); w.s(name); w.i32(10); w.i32(20); w.ws(''); w.ws(''); w.i32(0); w.i32(0); w.i32(0); w.u32(0); w.u32(0); w.u8(0)
     w.ws(''); w.ws(''); w.s('Ingame 12, Normal'); w.u32(0); w.u32(0); w.u32(0xff); w.raw(b'\0' * 15); w.s('normal_t0')
-    w.raw(b'\0' * 16); w.s(''); w.s(''); w.u32(0); w.i32(0); w.i32(0); w.u32(ntrans)
+    w.raw(b'\0' * 16); w.s(''); w.s(''); w.u32(0); w.i32(0); w.i32(0); w.u32(len(trans))
+    for kind, target, fn in trans:   # V039 transition: u32 kind, u32 target state, str, 8 bytes
+        w.u32(kind); w.u32(target); w.s(fn); w.raw(b'\0' * 8)
 
 
-def _v039(anims):
+def _frame(w, state=None):
+    """A V039 keyframe: 48 bytes with the state-change flag at +44; set, it adds u32, str, str (the state switched to)."""
+    w.raw(b'\x11' * 44); w.u32(1 if state else 0)
+    if state:
+        w.u32(0x18585858); w.s(''); w.s(state)
+
+
+def _v039(anims, trans=()):
     """A one-component Version039 layout, built field by field the way the codec documents it."""
     w = uic.W(); w.raw(b'Version039')
     w.u32(7); w.s('root'); w.i32(0); w.i32(0); w.raw(b'\1\1\0\1\0\0\0'); w.s(''); w.i32(-1); w.ws(''); w.ws(''); w.u32(0); w.u8(0)
     w.u32(99)            # state_ref: the default state's id
     w.s('')              # inline script
     w.u32(0); w.u32(0); w.u32(0)   # images, i_a, i_b
-    w.u32(1); _w_state(w, 99, 'NewState')
+    w.u32(1); _w_state(w, 99, 'NewState', trans)
     w.u32(0); w.s('events_end'); w.u32(0)
     w.u32(len(anims))
     for name, frames in anims:
-        w.s(name); w.s(''); w.u32(frames); w.raw(b'\x11' * (uic.KEYFRAME * frames))
+        w.s(name); w.s(''); w.u32(len(frames))
+        for state in frames:
+            _frame(w, state)
     w.u32(0); w.s('')    # children, script
     return bytes(w.b)
 
 
 class LayoutV039(unittest.TestCase):
     def test_round_trip_without_and_with_animations(self):
-        for anims in ([], [('OnCreate', 5)], [('OnCreate', 1), ('OnHide', 2)]):
+        for anims in ([], [('OnCreate', [None] * 5)], [('OnCreate', [None]), ('OnHide', [None, None])]):
             with self.subTest(anims=anims):
                 b = _v039(anims)
                 doc = uic.parse(b, 't')
                 self.assertEqual(doc['root']['state_ref'], 99)
                 self.assertEqual([a['name'] for a in doc['root']['anims']], [n for n, _ in anims])
                 self.assertEqual(uic.serialise(doc), b)
+
+    def test_keyframe_state_change_and_transitions(self):
+        b = _v039([('OnCreate', [None, '001', '002'])], trans=[(0, 7, ''), (3, 8, 'DisableAdviceAudio')])
+        doc = uic.parse(b, 't')
+        frames = doc['root']['anims'][0]['frames']
+        self.assertIsInstance(frames[0], bytes)
+        self.assertEqual([f[3] for f in frames[1:]], ['001', '002'])
+        self.assertEqual([(t[0], t[1], t[2]) for t in doc['root']['states'][0]['transitions']], [(0, 7, ''), (3, 8, 'DisableAdviceAudio')])
+        self.assertEqual(uic.serialise(doc), b)
+
+    def test_template_v35_is_v039_without_state_ref(self):
+        self.assertNotIn('state_ref', uic.spec(35))
+        self.assertTrue(uic.spec(35)['anims'] and uic.spec(35)['trans18'])
 
     def test_v033_has_no_v039_fields(self):
         self.assertNotIn('state_ref', uic.spec(33))

@@ -1,0 +1,21 @@
+2026-10-31T19:52:36.945Z [WARN ] [t16008] headless: TEST HOOKS on: off_thread=0 dll_window_ms=15000 (PC proof only, never a release)
+2026-10-31T19:52:36.946Z [INFO ] [t16008] headless: on: target 'Virtual Display Driver' at exactly 3840x2160, settle 500 ms, refuse grace 5000 ms
+2026-10-31T19:52:37.999Z [INFO ] [t16008] headless: 2 displays (physical pixels):
+2026-10-31T19:52:37.999Z [INFO ] [t16008] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-10-31T19:52:37.999Z [INFO ] [t16008] headless:   \\.\DISPLAY11 2560,1440 3840x2160 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-10-31T19:52:37.999Z [INFO ] [t16008] headless: target 2560,1440 3840x2160 (\\.\DISPLAY11 matches 'Virtual Display Driver', is not the primary and is exactly 3840x2160); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 3840x2160@60
+2026-10-31T19:52:38.000Z [INFO ] [t16008] headless: GetAdapterDisplayMode(adapter 0) -> 3840x2160@60 (the target)
+2026-10-31T19:52:38.000Z [INFO ] [t16008] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY11
+2026-10-31T19:52:38.000Z [INFO ] [t16008] headless: GetAdapterDisplayMode(adapter 1) -> 3840x2160@60 (the target)
+2026-10-31T19:52:38.000Z [INFO ] [t16008] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY11
+2026-10-31T19:52:38.082Z [INFO ] [t16008] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 121)
+2026-10-31T19:52:38.082Z [INFO ] [t16008] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-10-31T19:52:38.083Z [INFO ] [t16008] headless: window 01b20e16 'Total War: NAPOLEON' class 'Napoleon' asked 3858x2207 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-10-31T19:52:38.083Z [INFO ] [t16008] headless: window 01b20e16 placed at 2560,1440 3840x2160 (inside the target)
+2026-10-31T19:52:38.085Z [INFO ] [t16008] headless: SetFocus(01b20e16) dropped (another process has the foreground; 1 so far)
+2026-10-31T19:52:38.085Z [INFO ] [t16008] headless: CreateDevice: back buffer 3840x2160, windowed, window 01b20e16
+2026-10-31T19:52:38.127Z [INFO ] [t16008] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-10-31T19:52:38.155Z [INFO ] [t16008] headless: ON THE VIRTUAL DISPLAY: window 2560,1440 3840x2160 on \\.\DISPLAY11, first frame presented there at 1.2 s (client 3840x2160, back buffer 3840x2160)
+2026-10-31T19:52:41.318Z [INFO ] [t16008] headless: DirectInput SetCooperativeLevel(2ac18c98, window 01b20e16, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-10-31T19:52:53.022Z [WARN ] [t15240] headless: TEST HOOK headless.test_dll_window_ms: window 025500a8 shown at 0,0 640x480 through the proxy's own import
+2026-10-31T19:52:53.123Z [WARN ] [t22236] headless: unguarded window 025500a8 visible at 0,0 640x480: hidden

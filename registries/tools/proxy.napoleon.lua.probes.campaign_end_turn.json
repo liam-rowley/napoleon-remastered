@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_end_turn",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_end_turn.lua",
+  "purpose": "end the campaign turn through the End Turn button's own path (button_end_turn EndTurn: dismisses messages, then CampaignUI.EndTurn), else CampaignUI.EndTurn()",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_end_turn.lua\" in a campaign; then poll campaign_turn.lua until the season changes and players_turn is true",
+  "when": "load ladder C (a structural edit survives the AI pass) and to make saves of a later turn",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

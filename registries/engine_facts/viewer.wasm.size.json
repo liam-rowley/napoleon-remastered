@@ -1,0 +1,8 @@
+{
+  "id": "viewer.wasm.size",
+  "claim": "The viewer engine (RmlUi 6.3 Core + Lua bindings, FreeType 2.13.3, Lua 5.1.1, stb_image PNG/JPEG, GL3 renderer) is viewer.wasm 2118666 bytes + viewer.js 97597 bytes with emsdk 4.0.10 -O default Release; the Docker build on the PC and CI's are byte-identical for the same commit",
+  "state": "verified",
+  "evidence": "viewer/runs/20261031_j31/README.md",
+  "date": "2026-10-31",
+  "notes": "commit 33efd77: viewer.wasm sha256 039ee66d3ff0..., viewer.js 697673101181... locally and in CI run 41218079368; the touch-input build (fec72e3 on) is viewer.wasm 2118812 + viewer.js 97679 bytes (viewer/runs/20261031_j31/SHA256SUMS.local)"
+}

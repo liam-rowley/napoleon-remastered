@@ -1,0 +1,59 @@
+{
+ "id": "j8-20261101T151044Z-79925376",
+ "request": "capture hw_land_small 1",
+ "status": "ok",
+ "reason": "",
+ "start_utc": "2026-11-01T15:10:44.339Z",
+ "end_utc": "2026-11-01T15:10:44.361Z",
+ "launch_id": "20261101T151021Z-p35292",
+ "dir": "C:\\napoleon_remastered_pc\\captures\\hw_land_small\\",
+ "file": "C:\\napoleon_remastered_pc\\captures\\hw_land_small\\frame.txt",
+ "shader_dir": "C:\\napoleon_remastered_pc\\captures\\shaders\\",
+ "frames": 1,
+ "bytes": 380702,
+ "lines": 6754,
+ "draws": 675,
+ "shaders": 83,
+ "shaders_new": 0,
+ "shaders_unwalked": 0,
+ "shaders_size_differs": 0,
+ "record_s": 0.034,
+ "wait_s": 0.021,
+ "state_at_end": {
+  "launch_id": "20261101T151021Z-p35292",
+  "pid": 35292,
+  "frame": 16922,
+  "scene": "battle_deploy",
+  "scene_s": 5.9,
+  "uptime_s": 23.2,
+  "written_utc": "2026-11-01T15:10:44.361Z",
+  "last_present_utc": "2026-11-01T15:10:44.361Z",
+  "lua": {
+   "loaded": true,
+   "context": "battle",
+   "pump_age_s": 0.0
+  },
+  "battle": {
+   "naval": 0,
+   "deploy_panel": 1,
+   "age_s": 0.0
+  },
+  "load_target": "",
+  "autostart": "off",
+  "movies_refused": 3,
+  "movies_opened": 1,
+  "mem": {
+   "va_mb": 1823,
+   "commit_mb": 1199
+  },
+  "reports": {
+   "autostart.map": "NAP_MP_Grassy_Flatlands",
+   "autostart.map_folder": "nap_mp_grassy_flatlands",
+   "autostart.time_of_day": "2",
+   "autostart.weather": "dry/Dry",
+   "battle.map_folder": "nap_mp_grassy_flatlands",
+   "battle.map_folder_ms": "171"
+  }
+ },
+ "log": []
+}

@@ -22,29 +22,30 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 **Release route: mingw-w64 i686 (`g++-mingw-w64-i686`, GCC 13 win32 thread model) on Linux**, in CI (`ubuntu-24.04`) and on the
 PC inside Docker Desktop (`ubuntu:24.04` pinned by digest in `build.sh`, the same apt packages; D31). Why this one and not MSVC on the Windows runner:
 - one toolchain everywhere an agent works: the local container builds exactly what CI builds, so the DLL tested on the PC is reproducible
-  from the commit (no PE timestamp, relative file names; build id = commit, `-dirty` if `proxy/` has local changes);
+  from the commit (no PE timestamp, relative file names; build id = a hash of the DLL inputs' content, `core/proxy/tools/build_id.py`, `-dirty` if an input has local changes: J45);
 - DXVK's own release route is mingw (empire-remastered `dxvk_fork/docs/build.md`), so a later DXVK-side change needs no second toolchain;
 - the DLL depends on system DLLs only (static libgcc/libstdc++, no winpthread): `build.sh` fails on any other import, and on a
   missing or decorated export (`Direct3DCreate9@4`).
 MSVC stays the fallback (kill criterion: 3 failed loads on the PC -> stop and propose it).
 
 ```sh
-proxy/tools/build.sh --docker all     # on the PC (Git Bash, Docker Desktop running): gen --check, build/proxy/napoleon/d3d9.dll, host tests
-proxy/tools/build.sh --docker repro   # the same bytes from another checkout path
-proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 installed (CI)
+core/proxy/tools/build.sh --docker all     # on the PC (Git Bash, Docker Desktop running): gen --check, build/proxy/napoleon/d3d9.dll, host tests
+core/proxy/tools/build.sh --docker repro   # the same bytes from another checkout path
+core/proxy/tools/build.sh all              # on Linux with g++-mingw-w64-i686 installed (CI)
 ```
 `--docker` computes the build id on the host (a worktree's `.git` points at a host path the container cannot see) and passes it in;
 `smoke` runs the built DLL under wine: `build.sh --docker smoke` (after `--docker all`; the same container plus CI's wine packages,
-about 70 s, J42) or `build.sh smoke` on Linux with wine. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`.
-CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` and `smoke` when the branch changes its inputs (`tools/changed_inputs.py`) and
+about 70 s, J42) or `build.sh smoke` on Linux with wine. Fallback when Docker is down: the CI artifact, `gh run download <run id> -n proxy-d3d9-napoleon`. When CI skipped `proxy` because the same input tree
+already passed (J54), the run's summary names the run that built it: download from that one.
+CI: `.github/workflows/gates.yml` job `proxy` runs `build.sh all` and `smoke` when the branch changes its inputs (`wsc.toml` `[ci] inputs`) and
 keeps the DLL as an artifact; the `gates` job runs `tests/test_proxy_tables.py` (generated tables current) and `tests/test_pc_deploy.py`.
 
 **Local gates run the host tests too** (J41): `python3 core/wsc.py gates` (the `tests` gate, not `--fast`) runs
 `tests/test_proxy_host.py`, which skips in about a second when no proxy input changed against the merge base with `origin/main`
 (uncommitted and untracked files count), and otherwise runs `build.sh all` (native mingw) or `build.sh --docker all` (~1 min) through
 Git Bash, then the wine smoke test on the same route (`--docker smoke`, or native `smoke` with wine on PATH; otherwise a warning
-that it is CI-only; J42). With neither toolchain it **fails** naming the suites not run; `WSP_PROXY_TESTS=skip` turns that into a skip with a warning
-for one run (CI still runs them).
+that it is CI-only; J42). With neither toolchain it is a skip naming the suites not run, which the core's
+`tests` gate shows as a warn (J41; since core v0.4.0, J12). CI still runs them.
 
 ## Start-up and the pass-through contract
 
@@ -85,8 +86,15 @@ patched counts as done. **Any bad site -> nothing is written**, every site still
 checked always and written only when the key is on. No real sites yet: `tests/test_patch_engine.cpp` proves the engine on a synthetic
 image with Napoleon's section layout at three load bases.
 
-Adding a site: `python3 core/wsc.py reg add engine_sites ...` (with `exe=sha1:<pin>`), `python3 proxy/tools/gen_tables.py`, rebuild,
+Adding a site: `python3 core/wsc.py reg add engine_sites ...` (with `exe=sha1:<pin>`), `python3 core/proxy/tools/gen_tables.py`, rebuild,
 then a PC run that logs `patch_engine: apply` and the site `stock`, and set `verified`.
+
+**Shadow sites (J24, run `harness/runs/20261103_j24pc`).** Eleven `shadow.*` rows, each behind one boolean `gfx.shadow_*` key that writes one
+fixed value: map edge 8192 (`gfx.shadow_map_large`), far clip at quality 3 1000 m, extrusion -150 m, height cutoff 200 m, and the
+measurement keys (orthographic fit, crop keep, trapezoid focus and near scale, the forced hardware path); defaults off, release values
+in `registries/config_keys.jsonl`. Rows may not share an RVA (the generator and the engine refuse the overlap whatever the keys), so
+stepping a value means one build per value until the core has a numeric key. Routes, stock values and measured effects:
+`discovery/napoleon/engine_sites_routes.md`.
 
 ## Config, log, crash capture
 
@@ -112,11 +120,11 @@ break the byte-exact uninstall.
 ## PC install and uninstall (`tools/pc_deploy.py`)
 
 The game folder is a deploy target; everything runs in Git Bash in the repo.
-1. `proxy/tools/build.sh --docker all && python3 proxy/tools/pc_deploy.py kit` -> `build/kits/kit_<utc>_<build>/`: `manifest.json`,
+1. `core/proxy/tools/build.sh --docker all && python3 core/proxy/tools/pc_deploy.py kit` -> `build/kits/kit_<utc>_<build>/`: `manifest.json`,
    payload files under unique names `<sha12>__<name>`, and `pc_deploy.py` itself.
-2. `python3 proxy/tools/pc_deploy.py send --kit build/kits/<id> --state <state>` copies it sha-checked to `<state>\kits\<id>`; a kit id
+2. `python3 core/proxy/tools/pc_deploy.py send --kit build/kits/<id> --state <state>` copies it sha-checked to `<state>\kits\<id>`; a kit id
    already there is refused (a new kit id every time: the stale-resend bug, empire-remastered LEARNINGS lesson 18).
-3. `python3 proxy/tools/pc_deploy.py install --kit <state>/kits/<id> --game <game> --state <state>`: checks every staged sha256 first (a stale copy is
+3. `python3 core/proxy/tools/pc_deploy.py install --kit <state>/kits/<id> --game <game> --state <state>`: checks every staged sha256 first (a stale copy is
    refused, nothing installed), refuses while the game looks open, snapshots the game folder (first install), backs up any foreign file
    at an owned path, copies with a temp name + rename, re-hashes every destination, writes `<state>\install.json`.
 4. `pc_deploy.py uninstall --game <game> --state <state>`: moves everything owned (`d3d9.dll`, the ini, the whole
@@ -136,8 +144,8 @@ exe's user32 window imports and more `IDirect3D9` slots the same way, each slot 
 ## Dev control channel (J3)
 
 All `[dev]` keys default off with release value off (`registries/config_keys.jsonl`); with none set the proxy is the skeleton.
-- `dev.timeline`: `napoleon_remastered\logs\timeline.json` (phases, UTC ms, t from process creation); `proxy/tools/timeline_table.py`.
-- `dev.log_files`: the file survey `logs\files.log` (every distinct open, check and listing); `proxy/tools/survey_table.py`.
+- `dev.timeline`: `napoleon_remastered\logs\timeline.json` (phases, UTC ms, t from process creation); `core/proxy/tools/timeline_table.py`.
+- `dev.log_files`: the file survey `logs\files.log` (every distinct open, check and listing); `core/proxy/tools/survey_table.py`.
 - `dev.skip_intro`, `dev.file_rules`: movie and file rules (`core/filerules.h`: redirect, fail, add, movie-fail, movie-redirect).
 - `dev.state_json`: `napoleon_remastered\state.json` ~2/s (scene, frame, Lua context, battle probe, memory, Lua reports); in the
   adapter's `heartbeat_files`, so a watcher launch can wait on `"scene": "frontend"` (`wait_log` regex). For a consistent
@@ -160,6 +168,11 @@ All `[dev]` keys default off with release value off (`registries/config_keys.jso
 | `autostart <target> [t]` | `scene`, `lua`, `load_s`, `total_s`; battles: `map`, `map_folder_loaded`, `map_folder_selected`, `preset_map` (WRONG MAP fails) |
 | `reset <target> [t]` | `steps`, `from`, `to_frontend_s`, `total_s`, `mem_before/frontend/after`, `autostart {...}` |
 | `console <line>\|status\|on\|off` | line: `path` (system, tweak, campaign, unknown, refused), `command`, `args`, `forwarded`, `hits`, `chunk`; status/on/off: `gate`, `slot`, `campaign`, `cli`, `forwards`, `hits`, `refusals`, `gate_offset`, `gate_sets` (J15, below) |
+| `ui show\|hide\|reload <doc>` | `document`, `visible` (refused with `ui.enabled=0`; J30, section below) |
+| `ui scale <percent>` | `scale`, `clamped`, `dp_ratio` |
+| `ui click <x> <y> [button] [down\|up\|move]`, `ui wheel <x> <y> <n>` | `delta` (per event type: [to RmlUi, to the engine]) and `ui` (the state below) |
+| `ui dump <name> [x y w h]` | `dump`: `file` (PNG under `ui.dump_dir`), rect, `backbuffer`, `dp_ratio`, `scale` |
+| `ui state [s]` | `ui`: life, backend, device, back buffer, scale, dp ratio, threads, Lua, documents, `counters`, `hovered`, `scrolled`, `route_state`, `routing`, `input_paths`, `cost_ms` (update, render, hook p50/p99/max over the window) |
 | `exit` | written, then the process exits |
 
 Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: type, map key, prefs), `campaign:continue`,
@@ -168,6 +181,13 @@ campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknow
 Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
 Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
 
+## RmlUi host (J30)
+RmlUi 6.3 in the proxy (core `docs/PROXY_UI.md`: device, frame, shaders, input routing, Lua, build). Off in release (`ui.enabled=0`:
+nothing hooked or allocated); keys `ui.*` in `[ui]` of the ini. Napoleon's side: the UI folder `napoleon_remastered\ui` (fonts from
+`viewer/napoleon/fonts`, documents from `viewer/napoleon/hosttest` and `hello`, installed by `pc_deploy.py kit` from the harness adapter's
+`kit_ui`), the test document `viewer/napoleon/hosttest` and its checks `tools/ui_hosttest.py`. Evidence and numbers for the shipped build (core `v0.10.0`): `proxy/runs/20261103_j30pc/`; the first run on a pre-tag
+core, `proxy/runs/20261102_j30pc/`, holds the facts' original evidence.
+
 ## Fixed sky (J44)
 
 `proxy/tools/build_fixed_sky_pack.py` (run by `pc_deploy.py kit` where the packs are readable) cuts `battles_to_battle_sky_types_junctions` and
@@ -175,6 +195,9 @@ Warm reset works from a battle; from a campaign it is open (fact `napoleon.campa
 `dev.file_rules=napoleon_remastered\lua\fixed_sky_rules.txt` lists it in `data\` virtually (no file written there). Presets pin weather and time
 of day by option index (`weather=`, `time_of_day=`); historical presets use `type=historic`, `all_maps=1`, `terrain=`. Facts
 `napoleon.battle.fixed_sky`, `napoleon.battle.weather_options`, `napoleon.autostart.historical`.
+The kit manifest's `fixed_sky` says whether the pack is in the kit (`present` with its sha256, or not with the reason). A kit without it
+(CI, or a PC whose packs did not read) installs, but `ctl.py` `Pc.launch` refuses before starting the game when the launch's
+`dev.file_rules` adds a source the installed kit lacks, naming the rule, the file and the kit (J45).
 
 ## Battle camera (J43)
 
@@ -183,9 +206,44 @@ battle pump) it calls the active camera mode's own `SetTargetAndPosition(target,
 the mode comes from a pointer chain (battle owner global, +0xf8, +0x281b8, +0x800, engine_sites `battle.camera_*`) and its vtable slot is
 compared with the checked site before every call. Pure parts in `core/camera.h` (`tests/test_camera.cpp`), driver `core/camera.cpp`.
 The chunks `napoleon/lua/ctl/cam_set.lua`, `cam_read.lua` (readback through `BattleUI.BackProjectPosition`) and `speed.lua` (RequestSpeed)
-are what `harness/core/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.battle.camera_route`, `napoleon.battle.speed_route`.
+are what `core/harness/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.battle.camera_route`, `napoleon.battle.speed_route`.
 Engine Lua never calls `string.find`, `string.sub` or `gmatch`: one call stops the battle pump (fact `napoleon.lua.string_find_stalls_pump`,
 `tests/test_repo_rules.py`).
+
+## Battle unit orders (J28)
+
+`dev.orders` (default and release value off) is the core's battle unit control route (contract: warscape-core `docs/PROXY_ORDERS.md`):
+`wsp.unit_state/unit_list/selection/order_move/order_command/peek/orders_info` read live unit state and the UI's own selection from
+engine memory and push one move/face order per unit through the engine's own command path, or a dispatcher command (halt, formation
+toggles), on the engine thread. Napoleon's `OrdersAdapter` is in `napoleon/adapter.cpp`, every operand in an engine_sites row keyed
+`dev.orders` (`battle.ui_queue_site`, `battle.selection_*`, `battle.unit_*`, `battle.order_move_*`, `battle.ground_*`, ...). The chunk
+`napoleon/lua/ctl/orders.lua` is what `core/harness/ctl.py order` runs; its route block (tolerance, settle, the command codes) is
+`harness/napoleon/adapter.json` `ctl.routes.orders`. Facts: `napoleon.battle.order_route` and the other `napoleon.battle.order_*`,
+`unit_layout`, `bearing_convention`, `selection_source`, `unit_ids`; PC run `harness/runs/20261102_j28pc`. Never call a BattleUI
+function with missing arguments from a chunk: the engine's Lua error stops the battle pump (fact `napoleon.lua.battleui_error_stops_pump`).
+
+## Frame capture (J8)
+
+`dev.capture=1` (default and release off) hooks 36 `IDirect3DDevice9` vtable slots at `CreateDevice` (`core/capture.cpp`; pure parts and the hash in
+`core/capture.h`, `tests/test_capture.cpp`); with it off nothing is hooked, and with it on and no capture running each hook is one flag test.
+ctl `capture <name> [frames]` (1 to 8 frames, a new name each time) records every device call of the next frames to
+`<dev.capture_dir>\<name>\frame.txt` and each shader's bytecode once per hash to `<dev.capture_dir>\shaders\<hash>.vs|ps`; `dev.capture_dir`
+is outside the game folder (D25; empty refuses). Result fields: `dir`, `file`, `shader_dir`, `frames`, `bytes`, `lines`, `draws`, `shaders`,
+`shaders_new`, `shaders_unwalked` and `shaders_size_differs` (both must be 0: the walked length agrees with `GetFunction`), `record_s`.
+Hash: canonical FNV-1a-64 over the bytecode up to and including the walked end token (never the first `0x0000FFFF`, which a CTAB may hold);
+Empire's hashes are not comparable. The vtable survives a device `Reset`, so the hooks stay armed across it. The engine's `D3DPERF` events
+(`D3DPERF_BeginEvent` is imported by the exe) are recorded too. Offline: `discovery/core/shader_catalog.py` (summaries, disassembly, fx
+mapping, the catalogue and the anatomy tables).
+
+`frame.txt` is one call per line, in call order (pointers and hashes hex, states `name value`):
+`CAPTURE <name> launch build frames utc scene` | `STATE` ... `ENDSTATE` (what the previous frame left bound, read back with `Get*`) |
+`FRAME n` ... `PRESENT` | `BACKBUFFER ptr` | `SURF ptr w h fmt usage pool ms msq container` (first sight; container = the texture an RT
+belongs to) | `TEX ptr type levels w h d fmt usage pool` | `DECL ptr n s.off.type.method.usage.index...` | `SHADER ptr vs|ps hash size walked` |
+`RT i ptr` | `DS ptr` | `CLEAR n flags color z stencil` | `STRETCH src l t r b dst l t r b filter` | `FILL`, `UPDSURF`, `UPDTEX`, `READBACK` |
+`VS|PS hash` | `VC|PC start count v...` (floats, exact) | `VI|PI`, `VB|PB` | `T stage ptr` | `SS sampler type value` | `RS state value` |
+`TSS stage type value` | `VP x y w h minz maxz` | `SC l t r b` | `VD ptr` | `FVF` | `SSRC stream vb offset stride` | `FREQ stream value` |
+`IDX ptr` | `XFORM state m16` | `DP type start count` | `DIP type base min nv start prims` | `DPUP`, `DIPUP` | `BEGIN`, `END` |
+`SBBEGIN`, `SBEND ptr` | `EVENT name`, `EVENTEND`, `MARKER name`.
 
 ## Campaign console (J15)
 

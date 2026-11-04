@@ -1,0 +1,5 @@
+{
+  "description": "J9 case coverage: gfx_texture_quality 0, gfx_tree_quality 1, gfx_grass_quality 4, every other pref as the acceptance baseline has it; restored byte for byte by the watcher",
+  "requires": [],
+  "warn_missing": ["game:d3d9.dll"]
+}

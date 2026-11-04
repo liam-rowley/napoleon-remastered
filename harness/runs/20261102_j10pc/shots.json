@@ -1,0 +1,291 @@
+{
+ "note": "1280x720 JPEGs of the 1920x1080 headless display (core/harness/shot.sh); the files stay in the PC state folder, the three spot-check shots are copied to shots/",
+ "run": "20261102_j10pc",
+ "shots": [
+  {
+   "bytes": 119560,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_agent.jpg",
+   "sha256": "2505990d4e2f9c0209da2ddebaacca50e274588216d9c2950b4c623555e35da0",
+   "state": "camp_agent",
+   "units": []
+  },
+  {
+   "bytes": 104852,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_army.jpg",
+   "sha256": "79a7ebcde8c8d09a3650c83f9b11e4c3143017b014d073a8624ecea0c597eb64",
+   "state": "camp_army",
+   "units": [
+    "campaign.city_info_bar",
+    "template.buildingframe",
+    "template.diplomacy_region_tooltip"
+   ]
+  },
+  {
+   "bytes": 115000,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_buildings.jpg",
+   "sha256": "f937625274797c09e0d3d36640e5adcf3fcd6c24d5f6855f12ff264776c101b8",
+   "state": "camp_buildings",
+   "units": [
+    "campaign.building_browser",
+    "campaign.objectives_screens",
+    "template.building_constructed_entry",
+    "template.mission_active_entry"
+   ]
+  },
+  {
+   "bytes": 116962,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_diplomacy.jpg",
+   "sha256": "3bb3fdcfecbb54cfb4e8ad0548f190d0ac23e4e4efd4347780e8a1fe5cb0b964",
+   "state": "camp_diplomacy",
+   "units": [
+    "campaign.diplomacy_panel"
+   ]
+  },
+  {
+   "bytes": 121356,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_fleet.jpg",
+   "sha256": "47497aa74619f1772678c6acb2f24f1b2033741b1606e5adb01515ea5d5c36d1",
+   "state": "camp_fleet",
+   "units": [
+    "template.campaignunitcard"
+   ]
+  },
+  {
+   "bytes": 129688,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_gov.jpg",
+   "sha256": "13bae5762ae08d2f226192e6eb31ac7621ed52605cc6bebcf98cc079aba952aa",
+   "state": "camp_gov",
+   "units": [
+    "campaign.government_screens"
+   ]
+  },
+  {
+   "bytes": 117503,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_hud.jpg",
+   "sha256": "a54813c733ec5ab18e06ae39fe991710d5d7ab74a1a880071785827c379b3375",
+   "state": "camp_hud",
+   "units": []
+  },
+  {
+   "bytes": 130006,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_lists.jpg",
+   "sha256": "7a5267ff1beb2c3759028cd1a9396d7b01615e3a3af6de1c81b9fdeb6b4d94c1",
+   "state": "camp_lists",
+   "units": [
+    "campaign.entity_lists"
+   ]
+  },
+  {
+   "bytes": 118203,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_missions.jpg",
+   "sha256": "e8e886376c61d9eb3509d7721e58cd130a189419e88d341ba4b4fae5fe36545e",
+   "state": "camp_missions",
+   "units": []
+  },
+  {
+   "bytes": 163971,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_popup.jpg",
+   "sha256": "bae3a547d801d4bc21d21c330a6fd3c990098a127dbcf0b38f3fe98393f5906b",
+   "state": "camp_popup",
+   "units": [
+    "campaign.hud.card_strip",
+    "campaign.hud.orders",
+    "campaign.hud.radar",
+    "campaign.hud.theatres"
+   ]
+  },
+  {
+   "bytes": 121950,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_settlement.jpg",
+   "sha256": "3f4d312599dda1d495c5bffa4cc12f2148272ef3c1e655d8967ec129c65adbaf",
+   "state": "camp_settlement",
+   "units": []
+  },
+  {
+   "bytes": 118760,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_camp_technologies.jpg",
+   "sha256": "a99f42deabcd09ac6ee856555d25c66538505e20cdcd4ececba9a226cff9cfe1",
+   "state": "camp_technologies",
+   "units": [
+    "campaign.technology",
+    "template.university"
+   ]
+  },
+  {
+   "bytes": 98586,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_grand_campaign.jpg",
+   "sha256": "5bc491c04ee7aefb1c3982dc82426683880e0592ea933f8d13e6460eb35415e0",
+   "state": "fe_grand_campaign",
+   "units": [
+    "frontend.grand_campaign"
+   ]
+  },
+  {
+   "bytes": 80799,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_load_replay.jpg",
+   "sha256": "4f3c43cda077f13100964801a050e9032f68d0a2b6dd92eeff8ce67b623cd24b",
+   "state": "fe_load_replay",
+   "units": [
+    "frontend.load_replay"
+   ]
+  },
+  {
+   "bytes": 76024,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe/shots/j10_fe_main.jpg",
+   "sha256": "502700536e5a6072e3d7b68ee0f37d1d8f3f553bdd3104620c63780e15231caf",
+   "state": "fe_main",
+   "units": [
+    "frontend.main",
+    "frontend.root_layout"
+   ]
+  },
+  {
+   "bytes": 106900,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe/shots/j10_fe_napoleon_battles.jpg",
+   "sha256": "ebdd6f59fb892cecc6082978c587440fd44046e9b76d0fcda903ff233a3ee13c",
+   "state": "fe_napoleon_battles",
+   "units": [
+    "frontend.napoleon_battles"
+   ]
+  },
+  {
+   "bytes": 55201,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_options.jpg",
+   "sha256": "18d71744990a7ab909a4029ac413544de3e24058e03fc67ece135047e318da75",
+   "state": "fe_options",
+   "units": [
+    "frontend.options"
+   ]
+  },
+  {
+   "bytes": 72882,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_player_stats.jpg",
+   "sha256": "24036b205ce09bd1b90b04cf840efe4f30cc32433598f81514b4b3ea84591aa8",
+   "state": "fe_player_stats",
+   "units": [
+    "frontend.player_stats"
+   ]
+  },
+  {
+   "bytes": 71647,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_single_player.jpg",
+   "sha256": "17b52a4668113080165651b0d031931faaeab688fb389f86446a8e0169a13a30",
+   "state": "fe_single_player",
+   "units": [
+    "frontend.single_player"
+   ]
+  },
+  {
+   "bytes": 72049,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe/shots/j10_fe_sp_battle1.jpg",
+   "sha256": "523cb6bb012c45ed705e1ddbb617601aee48f06b7e3b081081c86dfaa586d49c",
+   "state": "fe_sp_battle1",
+   "units": [
+    "frontend.sp_battle1"
+   ]
+  },
+  {
+   "bytes": 86307,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe/shots/j10_fe_sp_battle2.jpg",
+   "sha256": "df428e3e819d7e7313321c020d88a2b03864d0f56c98dd4a8414e4dd8a0c1490",
+   "state": "fe_sp_battle2",
+   "units": [
+    "frontend.sp_battle2"
+   ]
+  },
+  {
+   "bytes": 86462,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe/shots/j10_fe_sp_battle2_scenario.jpg",
+   "sha256": "301d73ce4f6f2631f6b264fde62a172c8227749768f8b65eb068a36b0a73a794",
+   "state": "fe_sp_battle2_scenario",
+   "units": [
+    "frontend.faction_selection_historical",
+    "frontend.sp_battle2_scenario"
+   ]
+  },
+  {
+   "bytes": 93827,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_sp_episodic_campaign.jpg",
+   "sha256": "4e16234ab90a6cc7b16cd2db3c4add0dc6db2ece72ea8e758af2b3082b5ff0a2",
+   "state": "fe_sp_episodic_campaign",
+   "units": [
+    "frontend.sp_episodic_campaign"
+   ]
+  },
+  {
+   "bytes": 83300,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_sp_load_game.jpg",
+   "sha256": "f8a247825c69e59397996ab8aae7ddba299a77b016f56ae2570ca4f2aab16669",
+   "state": "fe_sp_load_game",
+   "units": [
+    "frontend.sp_load_game"
+   ]
+  },
+  {
+   "bytes": 96941,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3fe2/shots/j10_fe_sp_tutorials.jpg",
+   "sha256": "6161ff7fcb21ed5392b9459d42bc9292a12e3712b62123cec391f364904db5fe",
+   "state": "fe_sp_tutorials",
+   "units": [
+    "frontend.sp_tutorials"
+   ]
+  },
+  {
+   "bytes": 98927,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_hist_deploy.jpg",
+   "sha256": "17ee5bc512e300ca2fddf54e1c62cd55ea7ec628c3a7b073fa6aed2df8c506a7",
+   "state": "hist_deploy",
+   "units": [
+    "battle.deployment_end",
+    "battle.land_battle_orders",
+    "template.battleunitcard",
+    "template.unitgroupframe",
+    "template.unitgrouptab"
+   ]
+  },
+  {
+   "bytes": 110235,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_land_deploy.jpg",
+   "sha256": "83fdcf0877cec8d43219c8bf7a273fc646d6d7a25dc23b4e69081f8764021777",
+   "state": "land_deploy",
+   "units": [
+    "battle.hud.balance_of_power",
+    "battle.hud.card_strip",
+    "battle.hud.radar",
+    "battle.hud.timer",
+    "common.advice_interface",
+    "common.menu_bar"
+   ]
+  },
+  {
+   "bytes": 111573,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_land_running.jpg",
+   "sha256": "908eb4f50948e5f110c061bdbb1d21bc3ce3df31e799cc9e6f696a6003cea653",
+   "state": "land_running",
+   "units": []
+  },
+  {
+   "bytes": 72982,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_naval_deploy.jpg",
+   "sha256": "bbdba3fa3a8f581144178e4bf9efada58f489d0ecb53db9867e7a25319dde040",
+   "state": "naval_deploy",
+   "units": [
+    "battle.naval_battle_orders"
+   ]
+  },
+  {
+   "bytes": 71727,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_naval_running.jpg",
+   "sha256": "5cb161237a0d5b4c3da345ae8c072188ffc49d14a3db64d0a21757631834fe7c",
+   "state": "naval_running",
+   "units": []
+  },
+  {
+   "bytes": 132391,
+   "file": "C:/napoleon_remastered_pc/_scratch/j10/20261102_j10pc/a3/shots/j10_siege_deploy.jpg",
+   "sha256": "34b84df99c266218987b57fecf975a758d4955cf9fb4e0941969b9ee797d702d",
+   "state": "siege_deploy",
+   "units": []
+  }
+ ]
+}

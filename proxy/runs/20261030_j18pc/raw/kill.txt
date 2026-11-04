@@ -1,0 +1,10 @@
+taskkill /F /T /PID 15216 (Napoleon): SUCCESS: The process with PID 15216 (child process of PID 6540) has been terminated.
+killed: Napoleon 15216
+[job j18-20261030T235339Z-1014918040: ok exit=0]
+restored prefs  sha256 83b9b32b2b73 OK (byte-identical)
+restored keys  sha256 adc99cc410b6 OK (unchanged)
+restored battle_prefs  sha256 36642c2b5ec7 OK (unchanged)
+restored mod_ini  sha256 c38817628625 OK (byte-identical)
+restored dxvk_conf  absent again (the profile's file moved to _to_delete)
+[job j18-20261030T235343Z-784524248: ok exit=0]
+game.lock released (the watcher restores an active profile by itself once the game is closed)

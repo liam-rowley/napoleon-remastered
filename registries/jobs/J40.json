@@ -1,0 +1,16 @@
+{
+  "id": "J40",
+  "description": "Close the three J15 checks left open at its call cap (jobs/J15/report.md, review.md). (1) transport_to_region <eur_key> is a campaign hit but does not move the agent (fact napoleon.console.transport_to_region_no_move): trace the region lookup 0xaa11e0 and the move 0xa83f90 statically, find which returns early and why, make it move an agent into a named region, or record why it cannot and name the placement route J4 should use instead. (2) Read back the effect of declare_war spain and add_trait C_Agent_Spy_Network 1 (diplomacy state, character traits) through Lua or a save read (J14 tools), and turn fact napoleon.console.acting_commands into verified or a list of commands that hit but do nothing. (3) Show one EndTurn passing after console use and a save reload: handle the AI diplomacy modal that stops the pump (fact napoleon.campaign.modal_stops_pump) or name the job that must. Also fix J15 review later items 5-7 in the core (a warscape-core PR, a tag, a pin bump and 20 acceptance passes on the final build, since J12 moved the console code to core/proxy/src): console off must not write 0 to the slot while the executor may be between its test and its call (keep the forwarder in place and refuse instead), the verb matches the forwarder record to its own command name, and each generated _console chunk is deleted after its result. Saves made go to _scratch with a j40_ name and leave save_games as found.",
+  "title": "Campaign console: close the open checks",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J15",
+    "J12"
+  ],
+  "brief": "jobs/J40/brief.md",
+  "report": "jobs/J40/report.md",
+  "review": "jobs/J40/review.md"
+}

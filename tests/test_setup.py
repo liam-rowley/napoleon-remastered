@@ -1,9 +1,11 @@
 """Host tests for the pure parts of tools/verbs/setup.py (`wsc setup`): version parsing, which bash is on PATH, CR detection, the
 pinned core tag, core.hooksPath and the main clone behind a worktree. Runs in `wsc gates` (tests gate)."""
+import hashlib
 import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools/verbs/setup.py')
@@ -26,6 +28,74 @@ class Setup(unittest.TestCase):
         self.assertEqual(sv.bash_kind('/usr/bin/bash', nt=False), 'posix')
         self.assertIsNone(sv.bash_kind(None))
 
+    def test_bash_check_reports_both_bashes(self):
+        git, wsl = r'C:\Program Files\Git\usr\bin\bash.exe', r'C:\Users\x\AppData\Local\Microsoft\WindowsApps\bash.exe'
+        ok, detail, _ = sv.bash_check(git, git, 'MINGW64', nt=True)   # started from Git Bash
+        self.assertTrue(ok)
+        self.assertIn(f'bash on PATH: {git} (git)', detail)
+        self.assertIn(f'repo tools use: {git}', detail)
+        self.assertNotIn('warn', detail)
+        ok, detail, _ = sv.bash_check(wsl, git, None, nt=True)   # WSL first on PATH: a warning, not a failure
+        self.assertTrue(ok)
+        self.assertIn('(wsl)', detail)
+        self.assertIn('warn:', detail)
+        self.assertIn(r'C:\Program Files\Git\usr\bin', detail)
+        ok, detail, fix = sv.bash_check(wsl, None, None, nt=True)   # no Git Bash at all: the one failure
+        self.assertFalse(ok)
+        self.assertIn('Git for Windows', fix)
+        self.assertEqual(sv.bash_check('/usr/bin/bash', '/usr/bin/bash', None, nt=False)[:2], (True, 'bash at /usr/bin/bash'))
+        self.assertFalse(sv.bash_check(None, None, None, nt=False)[0])
+
+    def test_bash_for_tests(self):
+        git = r'C:\Program Files\Git\bin\bash.exe'
+        self.assertEqual(sv.bash_for_tests(nt=True, find=lambda nt: git), (git, None))
+        b, why = sv.bash_for_tests(nt=True, find=lambda nt: None)   # Windows, no Git Bash: skip with the reason, never the WSL bash
+        self.assertIsNone(b)
+        self.assertIn('python3 core/wsc.py setup', why)
+        self.assertEqual(sv.bash_for_tests(nt=False, find=lambda nt: None), ('bash', None))   # off Windows a missing bash fails later
+        self.assertEqual(sv.bash_for_tests(nt=False, find=lambda nt: '/usr/bin/bash'), ('/usr/bin/bash', None))
+
+    def test_watcher_check_without_git_bash_fails_with_a_fix(self):
+        with mock.patch.object(sv, 'git_bash', lambda: None):
+            ok, detail, fix = sv.check_watcher(ROOT, False)
+        self.assertFalse(ok)
+        self.assertIn('no Git Bash', detail)
+        self.assertIn('Git for Windows', fix)
+
+    def test_watcher_check_runs_the_core_job_sh(self):
+        # J70: the check ran harness/core/job.sh (the pre-J12 path), so bash exited 127 with the watcher up. The fake _run answers
+        # like job.sh status only for an existing script; the real job.sh never runs, so CI needs no watcher.
+        calls = []
+
+        def fake_run(cmd, cwd=None, timeout=60):
+            calls.append(cmd)
+            if Path(cmd[1]).is_file() and cmd[2:] == ['status']:
+                return 0, '{"state": "idle"}'
+            return 127, f'{cmd[1]}: No such file or directory'
+
+        with mock.patch.object(sv, 'git_bash', lambda: 'stub-bash'), mock.patch.object(sv, '_run', fake_run):
+            ok, detail, fix = sv.check_watcher(ROOT, False)
+        self.assertTrue(ok, detail)
+        self.assertEqual(len(calls), 1)
+        want = ROOT / 'core' / 'harness' / 'job.sh'
+        self.assertTrue(want.is_file(), want)
+        self.assertEqual(Path(calls[0][1]).resolve(), want.resolve())
+
+    def test_watcher_check_with_job_sh_missing_names_the_path_and_runs_no_bash(self):
+        # J70: a root without core/harness/job.sh (submodule not initialised) is its own failure, found before bash runs.
+        def fake_run(cmd, cwd=None, timeout=60):
+            if any(str(c).replace('\\', '/').endswith('job.sh') for c in cmd):
+                self.fail(f'bash ran a missing job.sh: {cmd}')
+            return 0, ''
+
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(sv, 'git_bash', lambda: 'stub-bash'), \
+                mock.patch.object(sv, '_run', fake_run):
+            ok, detail, fix = sv.check_watcher(Path(d), False)
+        self.assertFalse(ok)
+        self.assertIn('core/harness/job.sh', detail)
+        self.assertIn('missing', detail)
+        self.assertIn('submodule', fix)
+
     def test_cr_files(self):
         with tempfile.TemporaryDirectory() as t:
             (Path(t) / 'a.sh').write_bytes(b'echo hi\n')
@@ -47,6 +117,30 @@ class Setup(unittest.TestCase):
             (Path(t) / 'repos' / 'napoleon-remastered' / '.git').mkdir(parents=True)
             self.assertEqual(sv.main_clone(Path(t) / 'repos' / 'napoleon-remastered' / '.git'),
                              (Path(t) / 'repos' / 'napoleon-remastered').resolve())
+
+    def test_pc_rules_present_absent_and_failing(self):
+        pd = sv.load_pc_deploy(ROOT)
+        with tempfile.TemporaryDirectory() as tmp:
+            t = Path(tmp)
+            game, state, emp = t / 'game', t / 'state', t / 'empire'
+            self.assertIsNone(sv.pc_rules_result(pd, game, state, [emp], None))   # absent: skipped (CI, other hosts)
+            for d in (game, state, emp):
+                d.mkdir()
+            (game / 'Napoleon.exe').write_bytes(b'MZ fake')
+            ident = {'exe_name': 'Napoleon.exe', 'sha1': hashlib.sha1(b'MZ fake').hexdigest()}
+            ok, detail = sv.pc_rules_result(pd, game, state, [emp], ident)
+            self.assertTrue(ok, detail)
+            self.assertIn('exe: ok', detail)
+            self.assertIn('foreign: not checked', detail)
+            (emp / '.git').mkdir()
+            ok, detail = sv.pc_rules_result(pd, game, state, [emp], ident)
+            self.assertFalse(ok)
+            self.assertIn('git (empire): FAIL', detail)
+            (emp / '.git').rmdir()
+            ok, detail = sv.pc_rules_result(pd, game, state, [emp], dict(ident, sha1='0' * 40))
+            self.assertFalse(ok)
+            self.assertIn('MISMATCH', detail)
+            self.assertFalse(sv.pc_rules_result(pd, game, state, [emp], None)[0])   # cannot check is not a pass
 
     def test_every_check_has_a_function(self):
         for c in sv.CHECKS:

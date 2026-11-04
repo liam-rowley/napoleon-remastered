@@ -1,0 +1,2 @@
+update started detached (rc=0 pid=19560); log: C:\napoleon_remastered_pc\watcher\update\run_20261030T235134Z\update.log and watcher.log ([update] lines). Watch watcher.status version.
+[job j18-20261030T235133Z-30873685: ok exit=0]

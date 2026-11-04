@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.slot_never_written",
+  "claim": "The external-handler slot 0x17670b0 (.bss) is read 4 times and written 0 times by retail (absolute and relocated references); on the PC it held 0 at install in every launch",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

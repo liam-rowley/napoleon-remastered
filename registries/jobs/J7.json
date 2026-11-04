@@ -1,0 +1,15 @@
+{
+  "id": "J7",
+  "description": "Pack reader adapter, then the assets registry filled (pack, path, format, size, hash, role), contact sheets UI first, loc strings and db tables with their reference. Generated, re-runnable, committed tool.",
+  "title": "Asset index, contact sheets, loc and db",
+  "phase": 2,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J6"
+  ],
+  "brief": "jobs/J7/brief.md",
+  "report": "jobs/J7/report.md",
+  "review": "jobs/J7/review.md"
+}

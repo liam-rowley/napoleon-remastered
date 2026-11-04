@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "harness\\runs\\20261101_j8pc\\raw\\yaw180.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.44,
+    "frames": 844,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 105005,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "harness\\runs\\20261101_j8pc\\raw\\yaw180.jpg"
+  },
+  "start_utc": "2026-11-01T13:04:40.961Z",
+  "end_utc": "2026-11-01T13:04:48.594Z"
+}

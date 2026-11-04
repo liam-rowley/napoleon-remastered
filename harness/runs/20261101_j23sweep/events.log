@@ -1,0 +1,103 @@
+2026-11-01T22:51:32Z plan: 80 cells, scenarios ['land_small', 'siege_small'], sizes 1920x1080,3840x2160, backends dxvk, variants ['none', 'latency1', 'interval0', 'availmem2048', 'latencysleep_off']; start keys {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T22:51:33Z block ('1920x1080', 'dxvk', 'none'): exit, set keys, relaunch
+2026-11-01T22:52:04Z cell dxvk-none_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:52:24Z cell dxvk-none_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:53:11Z cell dxvk-none_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.112 p99 4.541 VA 1865/1891.5 commit 1187 vram 567.5 
+2026-11-01T22:53:58Z cell dxvk-none_1920x1080_siege_small_deploy_p1 ok: load 5.2 p50 2.192 p99 3.828 VA 1884/1896.9 commit 1245 vram 823.5 
+2026-11-01T22:54:44Z cell dxvk-none_1920x1080_land_small_deploy_p2 ok: load 4.1 p50 2.141 p99 4.821 VA 1859/1892.0 commit 1190 vram 567.5 
+2026-11-01T22:55:32Z cell dxvk-none_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.292 p99 3.747 VA 1881/1892.2 commit 1247 vram 823.5 
+2026-11-01T22:56:17Z cell dxvk-none_1920x1080_land_small_deploy_p3 ok: load 4.1 p50 2.083 p99 3.638 VA 1859/1891.7 commit 1193 vram 567.5 
+2026-11-01T22:57:05Z cell dxvk-none_1920x1080_siege_small_deploy_p3 ok: load 5.4 p50 2.198 p99 3.679 VA 1880/1891.9 commit 1251 vram 823.5 
+2026-11-01T22:57:05Z block ('1920x1080', 'dxvk', 'latency1'): exit, set keys, relaunch
+2026-11-01T22:57:09Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T22:57:31Z cell dxvk-latency1_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:57:51Z cell dxvk-latency1_1920x1080_siege_small_default_p0 ok: load 5.3 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T22:58:37Z cell dxvk-latency1_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.026 p99 3.372 VA 1864/1890.5 commit 1200 vram 631.5 
+2026-11-01T22:59:25Z cell dxvk-latency1_1920x1080_siege_small_deploy_p1 ok: load 5.3 p50 2.198 p99 3.636 VA 1883/1891.1 commit 1242 vram 823.5 
+2026-11-01T23:00:12Z cell dxvk-latency1_1920x1080_land_small_deploy_p2 ok: load 4.1 p50 2.104 p99 3.613 VA 1859/1890.6 commit 1188 vram 567.5 
+2026-11-01T23:01:00Z cell dxvk-latency1_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.282 p99 3.674 VA 1881/1891.1 commit 1249 vram 823.5 
+2026-11-01T23:01:47Z cell dxvk-latency1_1920x1080_land_small_deploy_p3 ok: load 4.2 p50 2.09 p99 3.536 VA 1859/1890.8 commit 1195 vram 567.5 
+2026-11-01T23:02:35Z cell dxvk-latency1_1920x1080_siege_small_deploy_p3 ok: load 5.5 p50 2.181 p99 3.854 VA 1880/1890.7 commit 1250 vram 823.5 
+2026-11-01T23:02:35Z block ('1920x1080', 'dxvk', 'interval0'): exit, set keys, relaunch
+2026-11-01T23:02:39Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:03:00Z cell dxvk-interval0_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:03:20Z cell dxvk-interval0_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:04:06Z cell dxvk-interval0_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 1.895 p99 3.306 VA 1865/1895.9 commit 1194 vram 631.5 
+2026-11-01T23:04:53Z cell dxvk-interval0_1920x1080_siege_small_deploy_p1 ok: load 5.2 p50 2.177 p99 3.677 VA 1883/1895.4 commit 1267 vram 823.5 
+2026-11-01T23:05:40Z cell dxvk-interval0_1920x1080_land_small_deploy_p2 ok: load 4.2 p50 2.043 p99 3.482 VA 1859/1896.2 commit 1197 vram 567.5 
+2026-11-01T23:06:28Z cell dxvk-interval0_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.29 p99 4.048 VA 1880/1895.5 commit 1253 vram 823.5 
+2026-11-01T23:07:15Z cell dxvk-interval0_1920x1080_land_small_deploy_p3 ok: load 4.1 p50 2.082 p99 3.591 VA 1858/1896.2 commit 1194 vram 567.5 
+2026-11-01T23:08:03Z cell dxvk-interval0_1920x1080_siege_small_deploy_p3 ok: load 5.4 p50 2.202 p99 3.825 VA 1880/1896.0 commit 1267 vram 823.5 
+2026-11-01T23:08:03Z block ('1920x1080', 'dxvk', 'availmem2048'): exit, set keys, relaunch
+2026-11-01T23:08:06Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:08:27Z cell dxvk-availmem2048_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:08:48Z cell dxvk-availmem2048_1920x1080_siege_small_default_p0 ok: load 5.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:09:34Z cell dxvk-availmem2048_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.088 p99 3.483 VA 1864/1894.8 commit 1207 vram 631.5 
+2026-11-01T23:10:21Z cell dxvk-availmem2048_1920x1080_siege_small_deploy_p1 ok: load 5.2 p50 2.194 p99 3.638 VA 1882/1894.0 commit 1249 vram 823.5 
+2026-11-01T23:11:08Z cell dxvk-availmem2048_1920x1080_land_small_deploy_p2 ok: load 4.0 p50 2.117 p99 3.737 VA 1859/1894.6 commit 1194 vram 567.5 
+2026-11-01T23:11:56Z cell dxvk-availmem2048_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.282 p99 3.739 VA 1881/1894.6 commit 1252 vram 823.5 
+2026-11-01T23:12:43Z cell dxvk-availmem2048_1920x1080_land_small_deploy_p3 ok: load 4.2 p50 1.995 p99 3.385 VA 1859/1894.7 commit 1213 vram 567.5 
+2026-11-01T23:13:31Z cell dxvk-availmem2048_1920x1080_siege_small_deploy_p3 ok: load 5.5 p50 2.202 p99 3.62 VA 1880/1894.5 commit 1253 vram 823.5 
+2026-11-01T23:13:31Z block ('1920x1080', 'dxvk', 'latencysleep_off'): exit, set keys, relaunch
+2026-11-01T23:13:34Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:13:55Z cell dxvk-latencysleep_off_1920x1080_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:14:16Z cell dxvk-latencysleep_off_1920x1080_siege_small_default_p0 ok: load 5.3 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:15:02Z cell dxvk-latencysleep_off_1920x1080_land_small_deploy_p1 ok: load 3.9 p50 2.006 p99 3.412 VA 1864/1890.3 commit 1203 vram 579.5 
+2026-11-01T23:15:50Z cell dxvk-latencysleep_off_1920x1080_siege_small_deploy_p1 ok: load 5.2 p50 2.186 p99 3.738 VA 1882/1889.8 commit 1244 vram 835.5 
+2026-11-01T23:16:36Z cell dxvk-latencysleep_off_1920x1080_land_small_deploy_p2 ok: load 4.1 p50 2.123 p99 3.553 VA 1859/1890.3 commit 1189 vram 579.5 
+2026-11-01T23:17:24Z cell dxvk-latencysleep_off_1920x1080_siege_small_deploy_p2 ok: load 5.4 p50 2.293 p99 3.888 VA 1880/1889.5 commit 1246 vram 835.5 
+2026-11-01T23:18:11Z cell dxvk-latencysleep_off_1920x1080_land_small_deploy_p3 ok: load 4.1 p50 2.101 p99 3.777 VA 1859/1890.4 commit 1191 vram 579.5 
+2026-11-01T23:18:58Z cell dxvk-latencysleep_off_1920x1080_siege_small_deploy_p3 ok: load 5.5 p50 2.204 p99 3.844 VA 1879/1889.4 commit 1248 vram 835.5 
+2026-11-01T23:18:58Z block ('3840x2160', 'dxvk', 'none'): exit, set keys, relaunch
+2026-11-01T23:19:02Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:19:33Z cell dxvk-none_3840x2160_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:19:52Z cell dxvk-none_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:20:39Z cell dxvk-none_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.831 p99 3.187 VA 1865/1895.4 commit 1187 vram 879.4 
+2026-11-01T23:21:26Z cell dxvk-none_3840x2160_siege_small_deploy_p1 ok: load 5.1 p50 1.947 p99 3.256 VA 1884/1901.0 commit 1244 vram 1071.4 
+2026-11-01T23:22:12Z cell dxvk-none_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.857 p99 3.295 VA 1859/1895.8 commit 1189 vram 815.4 
+2026-11-01T23:23:00Z cell dxvk-none_3840x2160_siege_small_deploy_p2 ok: load 5.4 p50 2.046 p99 3.638 VA 1881/1896.1 commit 1248 vram 1071.4 
+2026-11-01T23:23:46Z cell dxvk-none_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.86 p99 3.274 VA 1858/1896.2 commit 1189 vram 815.4 
+2026-11-01T23:24:33Z cell dxvk-none_3840x2160_siege_small_deploy_p3 ok: load 5.5 p50 1.96 p99 3.367 VA 1879/1896.2 commit 1247 vram 1070.3 
+2026-11-01T23:24:33Z block ('3840x2160', 'dxvk', 'latency1'): exit, set keys, relaunch
+2026-11-01T23:24:38Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:24:58Z cell dxvk-latency1_3840x2160_land_small_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:25:17Z cell dxvk-latency1_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:26:04Z cell dxvk-latency1_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.832 p99 3.17 VA 1864/1894.7 commit 1187 vram 815.4 
+2026-11-01T23:26:52Z cell dxvk-latency1_3840x2160_siege_small_deploy_p1 ok: load 5.2 p50 1.955 p99 3.351 VA 1883/1895.0 commit 1245 vram 1071.4 
+2026-11-01T23:27:38Z cell dxvk-latency1_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.861 p99 3.229 VA 1859/1894.6 commit 1191 vram 815.4 
+2026-11-01T23:28:25Z cell dxvk-latency1_3840x2160_siege_small_deploy_p2 ok: load 5.3 p50 2.032 p99 3.53 VA 1881/1894.8 commit 1248 vram 1071.4 
+2026-11-01T23:29:12Z cell dxvk-latency1_3840x2160_land_small_deploy_p3 ok: load 4.1 p50 1.857 p99 3.194 VA 1859/1894.7 commit 1193 vram 815.4 
+2026-11-01T23:29:59Z cell dxvk-latency1_3840x2160_siege_small_deploy_p3 ok: load 5.3 p50 1.954 p99 3.284 VA 1880/1894.6 commit 1253 vram 1073.4 
+2026-11-01T23:29:59Z block ('3840x2160', 'dxvk', 'interval0'): exit, set keys, relaunch
+2026-11-01T23:30:03Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:30:26Z cell dxvk-interval0_3840x2160_land_small_default_p0 ok: load 3.5 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:30:45Z cell dxvk-interval0_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:31:32Z cell dxvk-interval0_3840x2160_land_small_deploy_p1 ok: load 3.8 p50 1.822 p99 3.271 VA 1864/1894.3 commit 1192 vram 881.4 
+2026-11-01T23:32:19Z cell dxvk-interval0_3840x2160_siege_small_deploy_p1 ok: load 5.2 p50 1.938 p99 3.299 VA 1882/1894.1 commit 1249 vram 1073.4 
+2026-11-01T23:33:06Z cell dxvk-interval0_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.865 p99 3.524 VA 1858/1893.7 commit 1196 vram 817.4 
+2026-11-01T23:33:53Z cell dxvk-interval0_3840x2160_siege_small_deploy_p2 ok: load 5.3 p50 2.027 p99 3.372 VA 1881/1894.6 commit 1253 vram 1073.4 
+2026-11-01T23:34:40Z cell dxvk-interval0_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.863 p99 3.167 VA 1859/1894.6 commit 1198 vram 817.4 
+2026-11-01T23:35:27Z cell dxvk-interval0_3840x2160_siege_small_deploy_p3 ok: load 5.4 p50 1.952 p99 3.374 VA 1880/1894.5 commit 1254 vram 1073.4 
+2026-11-01T23:35:27Z block ('3840x2160', 'dxvk', 'availmem2048'): exit, set keys, relaunch
+2026-11-01T23:35:31Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:35:51Z cell dxvk-availmem2048_3840x2160_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:36:11Z cell dxvk-availmem2048_3840x2160_siege_small_default_p0 ok: load 5.0 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:36:57Z cell dxvk-availmem2048_3840x2160_land_small_deploy_p1 ok: load 3.9 p50 1.957 p99 3.41 VA 1865/1895.3 commit 1189 vram 815.4 
+2026-11-01T23:37:45Z cell dxvk-availmem2048_3840x2160_siege_small_deploy_p1 ok: load 5.4 p50 1.963 p99 3.42 VA 1884/1895.8 commit 1247 vram 1073.4 
+2026-11-01T23:38:31Z cell dxvk-availmem2048_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.876 p99 3.262 VA 1875/1895.7 commit 1194 vram 817.4 
+2026-11-01T23:39:19Z cell dxvk-availmem2048_3840x2160_siege_small_deploy_p2 ok: load 5.2 p50 2.043 p99 3.586 VA 1896/1899.8 commit 1252 vram 1073.4 
+2026-11-01T23:40:05Z cell dxvk-availmem2048_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.875 p99 3.282 VA 1875/1902.5 commit 1198 vram 817.4 
+2026-11-01T23:40:52Z cell dxvk-availmem2048_3840x2160_siege_small_deploy_p3 ok: load 5.4 p50 1.979 p99 3.356 VA 1896/1902.4 commit 1254 vram 1073.4 
+2026-11-01T23:40:52Z block ('3840x2160', 'dxvk', 'latencysleep_off'): exit, set keys, relaunch
+2026-11-01T23:40:57Z exit before setting ['proxy.backend', 'proxy.dxvk_path']: exit
+2026-11-01T23:41:18Z cell dxvk-latencysleep_off_3840x2160_land_small_default_p0 ok: load 3.6 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:41:38Z cell dxvk-latencysleep_off_3840x2160_siege_small_default_p0 ok: load 5.1 p50 None p99 None VA None/None commit None vram None 
+2026-11-01T23:42:24Z cell dxvk-latencysleep_off_3840x2160_land_small_deploy_p1 ok: load 3.7 p50 1.831 p99 3.268 VA 1864/1894.7 commit 1185 vram 827.4 
+2026-11-01T23:43:12Z cell dxvk-latencysleep_off_3840x2160_siege_small_deploy_p1 ok: load 5.3 p50 1.976 p99 3.628 VA 1882/1894.2 commit 1242 vram 1083.4 
+2026-11-01T23:43:57Z cell dxvk-latencysleep_off_3840x2160_land_small_deploy_p2 ok: load 3.9 p50 1.86 p99 3.101 VA 1859/1894.6 commit 1187 vram 827.4 
+2026-11-01T23:44:44Z cell dxvk-latencysleep_off_3840x2160_siege_small_deploy_p2 ok: load 5.2 p50 2.029 p99 3.493 VA 1881/1894.7 commit 1247 vram 1085.4 
+2026-11-01T23:45:30Z cell dxvk-latencysleep_off_3840x2160_land_small_deploy_p3 ok: load 4.0 p50 1.869 p99 3.287 VA 1859/1895.0 commit 1193 vram 829.4 
+2026-11-01T23:46:18Z cell dxvk-latencysleep_off_3840x2160_siege_small_deploy_p3 ok: load 5.4 p50 1.949 p99 3.458 VA 1880/1894.4 commit 1249 vram 1085.4 
+2026-11-01T23:46:22Z exit: exit
+2026-11-01T23:46:25Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-01T23:46:25Z summary: 20 cell keys, 0 refused cells -> C:\Users\liamr\repos\napoleon-remastered\harness\runs\20261101_j23sweep\summary.json

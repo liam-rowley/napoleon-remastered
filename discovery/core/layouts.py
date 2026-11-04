@@ -69,9 +69,10 @@ def describe(c):
     return f"{c['ok'] + c['fail']} ({c['ok']} round-trip)" if c else '-'
 
 
-V039 = ('V033 plus a u32 default-state id after c_flag (uic.py state_ref) and a per-component animation list before the child '
-        'count (name, empty str, u32 n, 48-byte keyframes: f32 x, f32 y, size, rgba, u32 time ms at +36, u32 interpolation at +40); '
-        'state transitions are longer than V033 (about 18 bytes each, not decoded: napoleon.diff.layouts.v039_transitions)')
+V039 = ('V033 plus a u32 default-state id after c_flag (uic.py state_ref), a per-component animation list before the child '
+        'count (name, empty str, u32 n, 48-byte keyframes: f32 x, f32 y, size, rgba, u32 time ms at +36, u32 interpolation at +40, '
+        'u32 state-change flag at +44 adding u32, str, str: the state switched to) and state transitions of u32 kind, u32 target '
+        'state id, str (event or function name), 8 bytes (J10: napoleon.diff.layouts.v039_transitions)')
 
 
 def compare(el, nl, et, nt):
@@ -88,7 +89,9 @@ def compare(el, nl, et, nt):
     for v in sorted(set(te) | set(tn)):
         e, n = te.get(v), tn.get(v)
         verdict = 'gone' if not n else 'new' if not e else 'same' if n['fail'] == e['fail'] else 'adapter'
-        note = {35: 'not decoded (kill criterion): napoleon.diff.layouts.template_v35', 39: 'same component codec as layout V039'}.get(v, '')
+        note = {35: 'V033 plus the V039 animations and transitions, no state_ref (J10: napoleon.diff.layouts.template_records)',
+                39: 'same component codec as layout V039', 18: 'v17 with 3 header bytes before the inline script (J10)',
+                4: 'UI-editor records (InputWindow, BattleEditor), not game screens; header not decoded (J10: layout_unread)'}.get(v, '')
         if e and n and e['fail'] and n['fail'] == e['fail']:
             note = 'fails in Empire too (Empire codec limit, not a Napoleon change)'
         rows.append(row(f'uied.templates record v{v}', describe(e), describe(n), verdict, note, 'detail.*_templates'))

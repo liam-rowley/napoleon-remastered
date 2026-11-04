@@ -1,0 +1,11 @@
+{
+  "id": "viewer.core.web.viewer_host",
+  "kind": "script",
+  "path": "viewer/core/web/viewer_host.js",
+  "purpose": "the review viewer's page glue: load viewer.wasm, write a screen's files into its file system, run frames, route input, expose a capture API",
+  "usage": "<script src=\"viewer.js\"></script><script src=\"viewer_host.js\"></script> in viewer/core/web/index.html; URL ?w=&h=&slider=&ratio=&headless=1",
+  "when": "every review page and every headless render (viewer/core/render.py drives window.viewer); game-agnostic (core candidate)",
+  "not_a_verb": "browser glue served with the viewer, not a command",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

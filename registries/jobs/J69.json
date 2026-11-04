@@ -1,0 +1,14 @@
+{
+  "id": "J69",
+  "description": "Liam, 2026-11-02, after J34 built the component board: \"We will need to come back to the component board and spend a lot of time refining the style but we can defer it for now.\" Rescoped by D55 (2026-11-04): Liam builds the library by looking at vanilla and iterating, not from scratch. Liam-present sittings that walk J99's vanilla components in usage order, decide per kind what the Engraved Plate version keeps from vanilla, change the D43 tokens and components (adding the vanilla kinds the library lacks) and republish the board and J99's library twins each round, until Liam locks the board (uikit/napoleon/LOCK.json).",
+  "title": "Component library from vanilla, with Liam",
+  "phase": 5,
+  "status": "queued",
+  "model": "opus",
+  "needs_pc": false,
+  "depends_on": [
+    "J34",
+    "J99"
+  ],
+  "brief": "jobs/J69/brief.md"
+}

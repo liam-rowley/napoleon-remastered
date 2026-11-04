@@ -1,0 +1,22 @@
+{
+  "id": "J12",
+  "description": "Move into warscape-core with host tests: proxy/core and proxy/tests; the generic proxy tools (build.sh with repro and --disable-auto-image-base, gen_tables.py, fetch_dxvk.py, fetch_lua.py, pc_deploy.py, tools/wer/*, timeline_table.py, survey_table.py, pack_list.py, luac_list.py, build_dev_pack.py with game paths as input, build_fixed_sky_pack.py's method, the sync-lua verb); harness/core (watcher, ctl.py, acceptance.py, campose.py, job.sh, win_probe.ps1, vdisplay_probe.ps1, shot.sh and the rest of the PC kit); saves/core (the ESF tools, J14 review). discovery/core waits for the phase 2 promotion (after J11) and upscale/core for J50 and J51. Before the move, fix and PC-prove: J13 review should-fix 1 (proxy/core/headless.cpp: recognise the guard's own relocation by its target rect, not by thread id) and 2 (re-run the window sweep from the guard thread every ~250 ms, checked with the window probe); shot.sh takes the game path from the adapter (J15 review 9); job.sh ctl reads dev.ctl_dir from the adapter or kit ini (J3 review 5); the job.sh lock is an exclusive create (J2 review L3); update.ps1 gives '0 files replaced' its own outcome and checks the manifest kit_id against the folder (J2 review L7, report question 4); watcher script jobs propagate a failing exit code (J13 report question 1); the VirtualStore guard lives in the core watcher or launcher, not only ctl.py (J44 report; coordinate with J47). Decide at the move, and say what was decided in the report: J2 review L1, L2, L4 and L5. Cut core v0.4.0 (v0.3.0 is the J41 tests-gate release), then on the same job branch bump the pin to v0.4.0, make tests/test_proxy_host.py's no-toolchain case a plain skip (J41 report question 1) and delete the local copies. Proof: reproducible proxy build byte-identical before and after the move; rule 79's 20 acceptance passes on the moved code; gates green in both repos. Opus: DLL fixes and a cross-repo move. Merging it closes phase 1.",
+  "title": "Promote phase 1 core candidates to warscape-core",
+  "phase": 1,
+  "status": "done",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "J13",
+    "J22",
+    "J44",
+    "J45"
+  ],
+  "brief": "jobs/J12/brief.md",
+  "report": "jobs/J12/report.md",
+  "review": "jobs/J12/review.md"
+}

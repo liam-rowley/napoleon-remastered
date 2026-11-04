@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.weather_options",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/weather_options.lua",
+  "purpose": "return FrontEnd.BattleWeatherAndTimeOfDayOptionsString(<map key>) (the strings sp_battle2 main_panel's SetValidWeatherAndDayTypes",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/weather_options.lua 20 -- <map key>\" in the front end",
+  "when": "before pinning a battle preset's weather and time_of_day (J44 scenario library)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

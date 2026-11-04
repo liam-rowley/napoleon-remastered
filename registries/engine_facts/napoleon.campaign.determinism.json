@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.campaign.determinism",
+  "claim": "The grand campaign start (campaign:new:mp_eur_napoleon:austria) is not image-deterministic at the default view: two launches differ by mean abs 20.1/255, the campaign camera pans by itself after the load (J43) and no camera setter is known (napoleon.campaign.camera_route). The acceptance baseline keeps its load time and shot but does not compare the shot",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

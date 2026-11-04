@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.dxvk.rehook_paths",
+  "claim": "DXVK 3.1.1 subclasses the device window only in EnterFullscreenMode (fullscreen swapchain creation or a windowed-to-fullscreen Reset) and unhooks in LeaveFullscreenMode, the swapchain destructor and WM_DESTROY; a fullscreen-to-fullscreen Reset only changes the display mode. Launching straight into the final resolution hooks once, which is why 4K at launch survives",
+  "state": "verified",
+  "evidence": "proxy/runs/20261030_j16dumps/README.md",
+  "date": "2026-10-30",
+  "notes": "source read (src/d3d9/d3d9_swapchain.cpp, d3d9_window.cpp at v3.1.1); which path Napoleon takes on its options switch is open (needs a PC sitting)"
+}

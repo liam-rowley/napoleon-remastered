@@ -29,6 +29,13 @@ and build skills (about 120 KB of instructions). The causes, and the change for 
    with real data; never translated, only chosen from. The choice is then expressed as **tokens and a component library written in
    RCSS** and shown in the viewer with every state (hover, pressed, disabled, selected, focus-visible). Liam plays the component board
    and locks it.
+   - **Result (2026-11-02, J34):** built. `uikit/napoleon/` holds `tokens.json`, the `$token` build, the library sources and `dist/`, fonts pinned by sha256, `lint.py`, the
+     four-corner `gate.py` and `changes.py` (`README.md` is the screen author's contract); the board is `viewer/napoleon/board/`. Faction tint = CSS custom properties on the
+     body (RmlUi 6.3 supports `var()`), one class per faction from a sheet made at install time; the on-colour rule's hole (4.38:1) is closed by a fill adjustment. Evidence:
+     `uikit/napoleon/runs/20261102_j34/`, `engine_facts` `viewer.rcss.*`, `jobs/J34/report.md`.
+   - **Refinement, vanilla first (D55):** J99 puts every vanilla screen and every reusable vanilla component kind on one private page beside its
+     library twin (`uikit/napoleon/vanilla/components.json` is the inventory and the proposed mapping); J69's sittings with Liam walk those kinds,
+     change tokens and components, add the vanilla kinds the library lacks, and end with Liam's lock (`uikit/napoleon/LOCK.json`).
 3. **Panel host** (core RmlUi host plus the Napoleon adapter). One contract for every screen: open and close triggers (the vanilla
    entry points), keeping the vanilla screen's logic alive but never drawn versus calling getters directly (decided by the spike,
    per screen kind), the data feed (diffed updates, never full rebuilds: Empire's battle HUD received 10 updates a second with about
@@ -46,8 +53,8 @@ and build skills (about 120 KB of instructions). The causes, and the change for 
    for clean downscaling; vanilla art is ML-upscaled then resampled to the master size. Scale follows height, so wider screens get
    more horizontal room: the design gate renders the corners (1080p × 85 %, 4K × 125 %, a 21:9 and a 16:10 shape) and fails on
    clipping or overflow.
-6. **Proving screens** (recommended, awaiting Liam's confirmation), in order: a small tabbed info panel (exact pick after the
-   atlas) to run the whole loop once; a popup or tooltip (unit info) to prove layering, hover and open/close; the battle HUD
+6. **Proving screens** (confirmed, D55), in order: `campaign.entity_lists`, a small tabbed info panel reached live, to run the
+   whole loop once; a popup or tooltip (unit info) to prove layering, hover and open/close; the battle HUD
    (10 Hz updates, selection, cards, where Alt-drag lives). Then the HUDs, then the long tail of panels.
 
 ## 3. Per screen
@@ -59,7 +66,7 @@ Statuses in the `ui_elements` registry; the review page's titles are generated f
 |---|---|---|
 | `atlas` | the vanilla inventory exists | screen present in the atlas with elements, data and interactions |
 | `contract` | **data contract:** model schema with a source per field (getter, db or loc); fixtures captured from the live game (normal cases plus edges: empty lists, longest names, maximum values, negatives); every vanilla interaction marked kept, changed or dropped, with a reason; states; engine questions answered by probe | every field sourced and present in a fixture; every interaction classified; no `open` item in `engine_facts` for this screen |
-| `design` | optional free concept sketch (only for genuinely new layouts; never translated), then RML and RCSS assembled from library components, bound to the contract's model, with the view logic in Lua | lint (tokens only, library classes or the screen's prefix, `dp` only, minimum text size, contrast); every fixture renders at slider 1.0, 1.5 and 2.0 with no overflow or clipping (detected by the renderer, not by eye); every kept or changed interaction bound |
+| `design` | optional free concept sketch (only for genuinely new layouts; never translated), then RML and RCSS assembled from library components, bound to the contract's model, with the view logic in Lua | lint (tokens only, library classes or the screen's prefix, `dp` only, minimum text size, contrast); every fixture renders at the four D19 corners (1080p x 85 %, 4K x 125 %, 21:9, 16:10) with no overflow or clipping (detected by the renderer, not by eye); every kept or changed interaction bound |
 | `locked` | Liam plays it in the viewer and locks it | **Liam** |
 | `built` | the Lua feeder maps the contract to engine getters and actions; host tests against the stubs; deterministic pack; sha-checked install | host tests green; pack sha recorded; installed sha matches |
 | `verified` | the harness opens the screen in game, takes a shot **and captures the live model data at the same moment**; the viewer renders that same data; the images are diffed; every interaction in the contract is walked | diff under the calibrated threshold; interaction walk passes; log clean; frame cost within the UI budget; checker is not the builder |
@@ -81,6 +88,14 @@ page; agents pick up the comments, change the source and republish. Status chang
 | S3 parity | How far apart are the viewer (WebGL) and the game (D3D9 render interface)? Layout is RmlUi's own, so only rasterising should differ. | a test document differs beyond antialiasing and filtering: find out why before any screen work |
 | S4 host | Keep vanilla screens alive but undrawn, or call getters directly? Decide per screen kind (panel, popup, HUD, front end). | either route needs per-screen plumbing: stop and redesign the host |
 
+- **S1: result (2026-10-31, J31):** builds. RmlUi 6.3 (Lua bindings on, with a 5-function Lua 5.2 shim), FreeType 2.13.3 and Lua 5.1.1 with
+  float32 numbers compile to wasm in the pinned `emscripten/emsdk:4.0.10` image through Docker Desktop and in CI, byte-identical
+  (viewer.wasm 2.12 MB); the float32 test passes (2550 x 0.319999992 floors to 816). Headless renders through the same wasm are pixel-identical
+  across runs and between the PC and CI. Evidence: `viewer/runs/20261031_j31/`, CI run 41218079368, `engine_facts` `viewer.*`.
+- **S2: result (2026-10-31, J31):** a private Artifact hosts the viewer: wasm served as `application/wasm` and instantiated, WebGL2, TTF and PNG
+  load, input works (touch after a host fix). Art must be a web image type (`.tga` is refused); RML, RCSS and Lua go as `text/plain`. The engine
+  uses about 2.4 MB of the 64 MB per publish. Evidence: as S1, and https://claude.ai/artifact/EoCR1JcPZH7Rnix9JoKZea (Liam's phone check).
+
 ## 5. Open questions for Liam
 
-1. Confirm the proving screens (section 2.6).
+None open. The proving screens were confirmed by D55 (section 2.6).

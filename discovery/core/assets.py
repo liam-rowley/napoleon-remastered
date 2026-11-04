@@ -264,6 +264,18 @@ def write_registry(rows, path=REGISTRY):
             f.write(json.dumps(r, ensure_ascii=False) + '\n')
 
 
+def pack_fingerprints(index):
+    """{pack file: {'entries': n, 'bytes': sum of its entry sizes}} for the pack sources of the index (loose files are not a pack).
+    `wsc discovery gate --install` compares it with the installed packs' own indexes (J11)."""
+    out = {}
+    for r in index:
+        if r['pack'] != LOOSE:
+            f = out.setdefault(r['pack'], {'entries': 0, 'bytes': 0})
+            f['entries'] += 1
+            f['bytes'] += int(r['size'])
+    return dict(sorted(out.items()))
+
+
 def summarise(index, reg, refs, miss, nref, packs):
     by_role = collections.Counter(r['role'] for r in reg)
     unref = collections.Counter(r['role'] for r in reg if key(r['path']) not in refs)
@@ -272,7 +284,7 @@ def summarise(index, reg, refs, miss, nref, packs):
     return {
         'schema': 1,
         'index_rows': len(index), 'effective': len(eff), 'shadowed': len(index) - len(eff),
-        'pack_order': packs,
+        'pack_fingerprint': pack_fingerprints(index), 'pack_order': packs,
         'per_source': dict(sorted(collections.Counter(r['pack'] for r in index).items())),
         'per_format': dict(sorted(collections.Counter(r['format'] for r in index).items())),
         'images': len(imgs), 'images_without_dimensions': sorted(r['path'] for r in imgs if not r['w']),

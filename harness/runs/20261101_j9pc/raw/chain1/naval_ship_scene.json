@@ -1,0 +1,10 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "RuntimeError: ctl state failed (exit 3221225794): is the game running with dev.ctl=1?",
+  "settle": {},
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-11-01T16:05:21.250Z",
+  "end_utc": "2026-11-01T16:06:02.304Z"
+}

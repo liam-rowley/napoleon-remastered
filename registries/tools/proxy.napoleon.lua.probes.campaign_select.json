@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_select",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_select.lua",
+  "purpose": "select the player's first agent (else first army) with CampaignUI.SelectAndZoomToCharacter(addr, -1) and return its list entry's scalar fields: kind|ok|key=value ...",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_select.lua\" in a campaign; read the camera with campaign_camera.lua at least 5 s later (CameraTarget lies mid-zoom)",
+  "when": "before console teleport_to / transport_to_region (they act on the selection), J15 units fit, J4 campaign scenarios",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

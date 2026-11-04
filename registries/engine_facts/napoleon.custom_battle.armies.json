@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.custom_battle.armies",
+  "claim": "A custom battle's armies are fixed by the army size option, not by the remembered prefs: sp_battle2 main_panel's dropdown_army_size (0-based) is set by SetPerBattlePrefs{army_size=n} and read back from Preferences() (army_size, allowed_funds); sp_battle3 then fills BOTH sides with FrontEnd.RetrieveArmyPresets(faction, type, army_size, era, unit_scale).balanced through army_box:SetSetup. Land options 0/1/2 = 5000/10000/14000 funds = 9/15/20 units (france); naval 0/1/2 = 5000/14000/24000 funds = 3/7/10 ships (britain). The screen's unit cap is 20 (army_box SetUnitLimit(FrontEnd.MaxUnitsFromUnitScaleFactor(scale)) = 20 for every scale tried 0.5 to 2), so the largest land army is 20 units a side and options beyond 2 repeat 14000 funds. autostart.lua preset key army=<n> drives it and reads both sides back from sp_battle3 main_panel:TeamSetups(): land_40 = 20u0s,20u0s, naval_large = 0u10s,0u10s, land_small (army=0) = 9 units, naval_small (army=0) = 3 ships. Preset key army is the only change: no memory write, no preference file written (the remembered prefs are read, the dropdown is set for the launch). The remembered naval option before J46 was 2 (10 ships), so naval_small changed from 10 to 3 ships when it was pinned. land_large equals land_40 (the cap), so there is no separate land_large row",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j46pc/raw/army_options_classic.json",
+  "date": "2026-11-02"
+}

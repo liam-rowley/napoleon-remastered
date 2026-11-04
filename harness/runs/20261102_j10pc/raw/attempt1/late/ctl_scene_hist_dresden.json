@@ -1,0 +1,157 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "hist_dresden",
+  "kind": "historical",
+  "target": "battle:hist_dresden",
+  "load_s": 7.4,
+  "path": {
+    "launch": null,
+    "via": "reset"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.33,
+    "frames": 295,
+    "scene": "battle",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "NHMPB_Dresden_3v3",
+      "deployment": "running"
+    },
+    "got": {
+      "map": "NHMPB_Dresden_3v3",
+      "scene": "battle"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j10-20261102T081337Z-294094088",
+      "request": "reset battle:hist_dresden 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-02T08:13:37.779Z",
+      "end_utc": "2026-11-02T08:13:58.758Z",
+      "launch_id": "20261102T081232Z-p27716",
+      "steps": "battle: ExitBattle; battle: summary dismissed (DismissBattleResult); battle: post-battle screen closed (ClosePopup mp_postbattle)",
+      "from": "naval",
+      "to_frontend_s": 12.4,
+      "total_s": 21.0,
+      "mem_before": {
+        "va_mb": 1809,
+        "commit_mb": 1139
+      },
+      "mem_frontend": {
+        "va_mb": 1729,
+        "commit_mb": 954
+      },
+      "mem_after": {
+        "va_mb": 2124,
+        "commit_mb": 1516
+      },
+      "autostart": {
+        "scene": "battle",
+        "lua": "started battle NHMPB_Dresden_3v3 (historic, prefs .sp_default, button normal) weather=nil/nil time_of_day=nil",
+        "load_s": 7.4,
+        "total_s": 8.6,
+        "map": "NHMPB_Dresden_3v3",
+        "map_folder_loaded": "hb_dresden",
+        "map_folder_loaded_after_request_ms": 438,
+        "map_folder_selected": "hb_dresden",
+        "preset_map": "NHMPB_Dresden_3v3"
+      },
+      "state_at_end": {
+        "launch_id": "20261102T081232Z-p27716",
+        "pid": 27716,
+        "frame": 59608,
+        "scene": "battle",
+        "scene_s": 1.0,
+        "uptime_s": 86.1,
+        "written_utc": "2026-11-02T08:13:58.758Z",
+        "last_present_utc": "2026-11-02T08:13:58.754Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": -0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 0,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 4,
+        "mem": {
+          "va_mb": 2124,
+          "commit_mb": 1516
+        },
+        "reports": {
+          "autostart.map": "NHMPB_Dresden_3v3",
+          "autostart.map_folder": "hb_dresden",
+          "autostart.time_of_day": "nil",
+          "autostart.weather": "nil/nil",
+          "battle.map_folder": "hb_dresden",
+          "battle.map_folder_ms": "438"
+        }
+      },
+      "log": [
+        "2026-11-02T08:13:43.510Z [INFO ] [t39148] scene: naval -> loading after 8.1 s (uptime 70.9 s, frame 48105, lua battle)",
+        "2026-11-02T08:13:43.551Z [INFO ] [t29700] reset: step 1: battle: ExitBattle",
+        "2026-11-02T08:13:43.556Z [INFO ] [t39148] scene: battle probe naval=1 deploy_panel=-1",
+        "2026-11-02T08:13:44.161Z [INFO ] [t29700] reset: step 2: battle: summary dismissed (DismissBattleResult)",
+        "2026-11-02T08:13:44.679Z [INFO ] [t29700] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)",
+        "2026-11-02T08:13:44.868Z [INFO ] [t39148] luaopen_wsp: engine lua_State 3cc4e638, global state 54dd7504 (thread 39148) (again)",
+        "2026-11-02T08:13:44.868Z [INFO ] [t39148] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-02T08:13:44.871Z [INFO ] [t39148] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)",
+        "2026-11-02T08:13:44.968Z [INFO ] [t39148] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-02T08:13:45.117Z [INFO ] [t39148] lua report: battle.map_folder = hb_trafalgar",
+        "2026-11-02T08:13:45.117Z [INFO ] [t39148] lua report: battle.map_folder_ms = 13235",
+        "2026-11-02T08:13:45.119Z [INFO ] [t39148] lua report: battle.map_folder = caribbean",
+        "2026-11-02T08:13:45.273Z [INFO ] [t39148] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-02T08:13:45.277Z [INFO ] [t39148] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok",
+        "2026-11-02T08:13:45.339Z [INFO ] [t39148] timeline: movie_open +73147 ms movies\\frontend2.bik",
+        "2026-11-02T08:13:45.340Z [INFO ] [t39148] movies: BinkOpen movies\\frontend2.bik [handle 00000750 = \\\\?\\C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\data\\media.pack @ 353827505, flags 0x804400] -> 5ff45040",
+        "2026-11-02T08:13:45.340Z [INFO ] [t39148] scene: loading -> frontend after 1.8 s (uptime 72.7 s, frame 48716, lua frontend)",
+        "2026-11-02T08:13:45.348Z [INFO ] [t39148] timeline: first_present_after_ready +73158 ms frontend",
+        "2026-11-02T08:13:50.194Z [INFO ] [t29700] timeline: autostart_issued +78004 ms battle:hist_dresden",
+        "2026-11-02T08:13:50.274Z [INFO ] [t39148] lua report: battle.map_folder = hb_waterloo",
+        "2026-11-02T08:13:50.274Z [INFO ] [t39148] lua report: battle.map_folder_ms = 18391",
+        "2026-11-02T08:13:50.294Z [INFO ] [t39148] lua report: battle.map_folder = hb_austerlitz",
+        "2026-11-02T08:13:50.294Z [INFO ] [t39148] lua report: battle.map_folder_ms = 18407",
+        "2026-11-02T08:13:50.314Z [INFO ] [t39148] lua report: battle.map_folder = hb_waterloo",
+        "2026-11-02T08:13:50.314Z [INFO ] [t39148] lua report: battle.map_folder_ms = 18422",
+        "2026-11-02T08:13:50.316Z [INFO ] [t39148] lua report: battle.map_folder = hb_ligny",
+        "2026-11-02T08:13:50.316Z [INFO ] [t39148] lua report: battle.map_folder_ms = 18438",
+        "2026-11-02T08:13:50.328Z [INFO ] [t39148] lua report: battle.map_folder = hb_dresden",
+        "2026-11-02T08:13:50.338Z [INFO ] [t39148] lua report: autostart.map = NHMPB_Dresden_3v3",
+        "2026-11-02T08:13:50.338Z [INFO ] [t39148] lua report: autostart.map_folder = hb_dresden",
+        "2026-11-02T08:13:50.338Z [INFO ] [t39148] lua report: autostart.weather = nil/nil",
+        "2026-11-02T08:13:50.338Z [INFO ] [t39148] lua report: autostart.time_of_day = nil",
+        "2026-11-02T08:13:50.384Z [INFO ] [t39148] movies: BinkClose movies\\frontend2.bik",
+        "2026-11-02T08:13:50.384Z [INFO ] [t39148] timeline: movie_close +78194 ms movies\\frontend2.bik",
+        "2026-11-02T08:13:50.385Z [INFO ] [t29700] autostart: lua ok: started battle NHMPB_Dresden_3v3 (historic, prefs .sp_default, button normal) weather=nil/nil time_of_day=nil",
+        "2026-11-02T08:13:50.386Z [INFO ] [t29700] scene: frontend -> loading after 5.1 s (uptime 77.8 s, frame 58917, lua frontend)",
+        "2026-11-02T08:13:50.817Z [INFO ] [t39148] lua report: battle.map_folder = hb_dresden",
+        "2026-11-02T08:13:50.817Z [INFO ] [t39148] lua report: battle.map_folder_ms = 438",
+        "2026-11-02T08:13:54.710Z [INFO ] [t39148] luaopen_wsp: engine lua_State 54cb3d30, global state 54dd73ac (thread 39148) (again)",
+        "2026-11-02T08:13:54.710Z [INFO ] [t39148] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-02T08:13:54.717Z [INFO ] [t39148] lua: wrapper: battle pumps from OnUpdate",
+        "2026-11-02T08:13:54.717Z [INFO ] [t39148] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-11-02T08:13:57.719Z [INFO ] [t39148] scene: loading -> battle after 7.3 s (uptime 85.1 s, frame 59402, lua battle)",
+        "2026-11-02T08:13:57.720Z [INFO ] [t39148] lua: battle details: FlagPath=data\\ui\\flags\\france_republic, TotalTime=2400, Faction=France, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false",
+        "2026-11-02T08:13:57.720Z [INFO ] [t39148] scene: battle probe naval=0 deploy_panel=0",
+        "2026-11-02T08:13:57.756Z [INFO ] [t39148] timeline: first_present_after_ready +85566 ms battle",
+        "2026-11-02T08:13:58.758Z [INFO ] [t29700] reset: naval -> battle: ok (address space 1809 -> 2124 MB, commit 1139 -> 1516 MB)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-02T08:13:30.694Z",
+  "end_utc": "2026-11-02T08:14:03.014Z"
+}

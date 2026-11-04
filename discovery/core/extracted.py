@@ -2,7 +2,7 @@
 
 purpose: list the extracted pack entries of one game (extract/<game>/<pack stem>/<path>) with patch-pack precedence applied
 usage: from extracted import effective, load_games; effective(games, 'napoleon', exts={'', '.luac'}) -> {path: file}   (library)
-when: every discovery pass that reads extracted layouts, fonts, scripts or shaders (J6); the extract itself is proxy/tools/pack_list.py --extract
+when: every discovery pass that reads extracted layouts, fonts, scripts or shaders (J6); the extract itself is core/proxy/tools/pack_list.py --extract
 not-a-verb: a library module imported by the discovery readers
 """
 import json

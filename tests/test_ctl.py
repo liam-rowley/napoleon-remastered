@@ -1,4 +1,4 @@
-"""Host tests for harness/core/ctl.py (J4): the result contract, scenario and pose resolution, tolerance checks, settle, the refusals, and the
+"""Host tests for core/harness/ctl.py (J4): the result contract, scenario and pose resolution, tolerance checks, settle, the refusals, and the
 rules turned into tests: row 77 (no verb returns ok without a check) and row 78 (no key or click camera moves in scenario rows, generated
 files or the acceptance script). No game: a fake transport plays the proxy."""
 import importlib.util
@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('ctl', ROOT / 'harness' / 'core' / 'ctl.py')
+spec = importlib.util.spec_from_file_location('ctl', ROOT / 'core' / 'harness' / 'ctl.py')
 ctl = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(ctl)
 
@@ -181,7 +181,7 @@ class Rule78(unittest.TestCase):
     def files(self):
         out = [ROOT / 'registries' / 'scenarios.jsonl']
         out += sorted((ROOT / 'proxy' / 'napoleon' / 'lua' / 'battles').glob('*.txt'))
-        out += [p for p in [ROOT / 'harness' / 'core' / 'acceptance.py'] if p.exists()]
+        out += [p for p in [ROOT / 'core' / 'harness' / 'acceptance.py'] if p.exists()]
         return out
 
     def test_no_key_or_click_in_scenario_rows_generated_files_or_acceptance(self):
@@ -401,6 +401,58 @@ class PcLaunch(unittest.TestCase):
         p.missing_keys = lambda: {}
         return p, calls
 
+    RULE = r'add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack'
+
+    def sky_pc(self, d, with_pack, rules_installed=True):
+        """J45: a PC whose launch keys point dev.file_rules at the fixed-sky rules, and an installed kit with or without the pack."""
+        game, state = d / 'game', d / 'state'
+        (game / 'napoleon_remastered' / 'lua').mkdir(parents=True)
+        (game / 'napoleon_remastered' / 'packs').mkdir()
+        state.mkdir()
+        files = []
+        if rules_installed:
+            (game / 'napoleon_remastered' / 'lua' / 'fixed_sky_rules.txt').write_text('# fixed sky\n' + self.RULE + '\n')
+            files.append({'path': 'napoleon_remastered/lua/fixed_sky_rules.txt'})
+        if with_pack:
+            (game / 'napoleon_remastered' / 'packs' / 'zz_napoleon_remastered_fixed_sky.pack').write_bytes(b'PFH4')
+            files.append({'path': 'napoleon_remastered/packs/zz_napoleon_remastered_fixed_sky.pack'})
+        sky = {'present': True} if with_pack else {'present': False, 'reason': 'the game packs are not readable here'}
+        (state / 'install.json').write_text(json.dumps({'kit_id': 'kit_20261031T000000Z_abc', 'files': files, 'packs': {'fixed_sky': sky}}))
+        p, calls = self.pc([(0, 'ok')])
+        p.a.update(game_dir=str(game), state_dir=str(state))
+        p.launch_cfg = dict(p.launch_cfg, keys={'dev.file_rules': r'napoleon_remastered\lua\fixed_sky_rules.txt'})
+        return p, calls
+
+    def test_failing_fixture_a_kit_without_the_sky_pack_is_refused_before_launch(self):
+        # J44 review 3: this launched with the vanilla sky and failed later as a land shot_match "lighting regression"
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            p, calls = self.sky_pc(Path(d), with_pack=False)
+            with self.assertRaises(ctl.Refused) as e:
+                p.launch()
+            msg = str(e.exception)
+            for part in (self.RULE, r'napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack', 'kit_20261031T000000Z_abc',
+                         'the game packs are not readable here'):
+                self.assertIn(part, msg)
+            self.assertFalse([c for c in calls if c[1] and c[1].startswith('launch')], 'nothing may launch')
+
+    def test_a_missing_rules_file_is_refused(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            p, calls = self.sky_pc(Path(d), with_pack=True, rules_installed=False)
+            with self.assertRaises(ctl.Refused) as e:
+                p.launch()
+            self.assertIn('fixed_sky_rules.txt', str(e.exception))
+            self.assertFalse([c for c in calls if c[1] and c[1].startswith('launch')])
+
+    def test_a_kit_with_the_sky_pack_launches_as_before(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            p, calls = self.sky_pc(Path(d), with_pack=True)
+            self.assertEqual(p.file_rule_problems(), [])
+            self.assertEqual(p.launch()['size'], '1920x1080')
+            self.assertTrue([c for c in calls if c[1] and c[1].startswith('launch')])
+
     def test_a_lost_headless_start_is_retried_once_and_recorded(self):
         p, calls = self.pc([(1, 'x\n[watcher] failed: HEADLESS FAILED: no on_virtual status'), (0, 'ok')])
         r = p.launch()
@@ -411,27 +463,13 @@ class PcLaunch(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             p.launch()
 
-    def test_virtualstore_copies_are_moved_aside_before_a_launch(self):
-        import os, tempfile
-        with tempfile.TemporaryDirectory() as d:
-            d = Path(d)
-            old = os.environ.get('LOCALAPPDATA')
-            os.environ['LOCALAPPDATA'] = str(d / 'local')
-            try:
-                p, _ = self.pc([(0, 'ok')])
-                p.a.update(game_dir=r'C:\Program Files (x86)\Game', state_dir=str(d / 'state'))
-                vs = d / 'local' / 'VirtualStore' / 'Program Files (x86)' / 'Game' / 'napoleon_remastered'
-                vs.mkdir(parents=True)
-                (vs / 'headless_status.json').write_text('{}')
-                r = p.launch()
-                self.assertEqual(r['virtualstore_cleared'], ['headless_status.json'])
-                self.assertFalse((vs / 'headless_status.json').exists())
-                self.assertEqual(len(list((d / 'state' / '_to_delete').rglob('headless_status.json'))), 1)   # moved, never deleted
-            finally:
-                if old is None:
-                    del os.environ['LOCALAPPDATA']
-                else:
-                    os.environ['LOCALAPPDATA'] = old
+    def test_the_watchers_virtualstore_lines_are_recorded(self):
+        # the watcher moves the copies aside before every launch (fix 1g, harness/tests/Test-Integration.ps1); ctl records what it says
+        line = r'virtualstore: moved 1 stale file(s) of mod aside to C:\s\_to_delete\virtualstore_x: headless_status.json'
+        p, _ = self.pc([(0, 'started\n' + line + '\n')])
+        self.assertEqual(p.launch()['virtualstore_cleared'], [line])
+        p, _ = self.pc([(0, 'started\n')])
+        self.assertNotIn('virtualstore_cleared', p.launch())
 
     def test_status_survives_a_moment_without_the_file(self):
         answers = ['cat: watcher.status: No such file or directory', '{"version": "1.0.1", "game_state": {"state": "not_running"}}']
@@ -447,6 +485,172 @@ class PcLaunch(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             p.launch()
         self.assertEqual(len([c for c in calls if c[1] and c[1].startswith('launch')]), 1)
+
+
+ORDERS = {'status': 'reachable', 'why': 'wsp.order_move', 'fact': 'f.o', 'chunk': 'ctl/orders.lua',
+          'tolerance': {'pos_m': 1.0, 'facing_deg': 1.0, 'width_m': 0.5, 'centre_lateral_m': 1.5, 'centre_ahead_m': [-1.0, 30.0]},
+          'settle': {'poll_s': 1.0, 'rest_reads': 3, 'eps_m': 0.1, 'eps_deg': 0.2, 'min_wait_s': 3, 'base_s': 60, 'min_speed_mps': 0.6, 'max_s': 400},
+          'commands': {'halt': {'cmd': 7, 'check': 'stops'}, 'square': {'cmd': 34, 'check': 'shape'}}}
+
+
+class OrdersGame(FakeGame):
+    """Plays ctl/orders.lua the way the engine behaved on the PC (run harness/runs/20261102_j28pc): a move stores the destination front
+    centre at once and the centre walks there 2 m per read, staying `ahead` metres behind it; a blocked unit keeps the destination and never
+    moves; a torn-down unit and an engine-refused unit answer as the proxy does."""
+    def __init__(self, blocked=(), gone=(), refused=(), **kw):
+        super().__init__(here='battle', **kw)
+        self.u = {1: dict(x=0.0, z=0.0, facing=180.0, width=30.0, ahead=1.8), 2: dict(x=50.0, z=0.0, facing=180.0, width=40.0, ahead=1.5)}
+        for u in self.u.values():
+            u.update(fx=u['x'], fz=u['z'] - u['ahead'], tx=None, moving=0)
+        self.blocked, self.gone, self.refused, self.pushed = set(blocked), set(gone), set(refused), []
+
+    def ref(self, s):
+        return int(s, 16) - 0x1000 if s.startswith('0x') else int(s)
+
+    def line(self, i):
+        u = self.u[i]
+        return (f"unit id={i} ptr=0x{0x1000 + i:08x} x={u['x']:.4f} y=15 z={u['z']:.4f} facing={u['facing']:.4f} raw=0 men=120 queued=1 moving={u['moving']} "
+                f"fx={u['fx']:.4f} fy=15 fz={u['fz']:.4f} width={u['width']:.4f} army=0x1")
+
+    def step(self):
+        for i, u in self.u.items():
+            if u['tx'] is None or i in self.blocked:
+                u['moving'] = 0
+                continue
+            cx, cz = u['tx'], u['tz'] + u['ahead']   # facing 180: the centre is ahead metres behind the front, at +z
+            d = math.hypot(cx - u['x'], cz - u['z'])
+            k = min(1.0, 2.0 / d) if d else 1.0
+            u['x'] += (cx - u['x']) * k
+            u['z'] += (cz - u['z']) * k
+            u['moving'] = 1 if d > 2.0 else 0
+
+    def __call__(self, line, wait=0):
+        if not line.startswith('lua ctl/orders.lua'):
+            return super().__call__(line, wait)
+        self.lines.append(line)
+        a = line.split(' -- ', 1)[1].split()
+        if a[0] == 'state':
+            self.step()
+            out = []
+            for r in a[1].split(','):
+                i = self.ref(r)
+                out.append(f"orders refused: {r}: the unit is not in its army's list (not a UNIT, or torn down)" if i in self.gone or i not in self.u else self.line(i))
+            return 0, {'status': 'ok', 'chunk': '\n'.join(out)}
+        i = self.ref(a[1])
+        if i in self.refused:
+            return 0, {'status': 'ok', 'chunk': 'orders refused: the engine refused the unit (AddUnit took 0: routing, dead or withdrawing)'}
+        u = self.u[i]
+        if a[0] == 'move':
+            if a[5] != '-' and float(a[5]) <= 0.5:
+                return 0, {'status': 'ok', 'chunk': 'orders refused: width must be in (0.5, 1000] metres'}
+            u.update(tx=float(a[2]), tz=float(a[3]), fx=float(a[2]), fz=float(a[3]), moving=1)
+            if a[4] != '-':
+                u['facing'] = float(a[4]) % 360
+            if a[5] != '-':
+                u['width'] = float(a[5])
+            self.pushed.append(i)
+            return 0, {'status': 'ok', 'chunk': f'pushed order #{len(self.pushed)} unit {a[1]}\n' + self.line(i)}
+        if a[0] == 'command':
+            if a[2] == '7':
+                u.update(tx=None, moving=0)
+            elif a[2] == '34':
+                u['ahead'] += 4.0
+                u['fz'] = u['z'] - u['ahead']
+            self.pushed.append(i)
+            return 0, {'status': 'ok', 'chunk': f'pushed command #{len(self.pushed)} unit {a[1]} cmd {a[2]} dispatched'}
+        return 0, {'status': 'ok', 'chunk': 'orders refused: unknown verb'}
+
+
+def make_orders(game):
+    c = make(game)
+    c.cfg = dict(c.cfg, routes=dict(c.cfg['routes'], orders={'land': ORDERS}))
+    return c
+
+
+class Orders(unittest.TestCase):
+    """The order verb (J28): every move is read back at rest and compared; the fixtures the brief names fail or refuse with evidence."""
+    def test_a_move_arrives_and_is_checked_field_by_field(self):
+        g = OrdersGame()
+        r = make_orders(g).run('order', '1', 'move', '0', '-20', '180', '30')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+        f = r['check']['fields']
+        self.assertEqual(set(f), {'position_m', 'facing_deg', 'width_m', 'centre_lateral_m', 'centre_ahead_m'})
+        self.assertTrue(all(v['within'] for v in f.values()))
+        self.assertTrue(r['settle']['settled'] and r['settle']['moved'])
+        self.assertEqual(r['ptr'], '0x00001001')   # the number is pinned to its pointer for the whole call
+
+    def test_a_unit_that_never_moves_fails_although_the_destination_reads_back(self):
+        """The engine stores the destination at the push even when it finds no path (siege_small g2, run 20261102_j28pc)."""
+        r = make_orders(OrdersGame(blocked={1})).run('order', '1', 'move', '0', '-20', '180', '30')
+        self.assertEqual(r['status'], 'failed')
+        self.assertIn('never moved', r['reason'])
+        self.assertTrue(r['check']['fields']['position_m']['within'])   # the stored destination alone would have passed
+        self.assertFalse(r['check']['moved']['ok'])
+
+    def test_a_torn_down_unit_is_refused_and_nothing_is_pushed(self):
+        g = OrdersGame(gone={1})
+        r = make_orders(g).run('order', '1', 'move', '0', '-20')
+        self.assertEqual(r['status'], 'refused')
+        self.assertIn('not in its army', r['reason'])
+        self.assertEqual(g.pushed, [])
+
+    def test_a_unit_the_engine_refuses_is_refused(self):
+        r = make_orders(OrdersGame(refused={1})).run('order', '1', 'move', '0', '-20')
+        self.assertEqual(r['status'], 'refused')
+        self.assertIn('AddUnit took 0', r['reason'])
+
+    def test_a_unit_lost_during_the_wait_fails_the_settle_step(self):
+        """Off the map: the push is taken, the unit walks off and leaves its army (f1, run 20261102_j28pc)."""
+        g = OrdersGame()
+        c = make_orders(g)
+        orig = g.step
+        def step():
+            orig()
+            if g.pushed:
+                g.gone.add(1)
+        g.step = step
+        r = c.run('order', '1', 'move', '0', '-2500')
+        self.assertEqual(r['status'], 'failed')
+        self.assertIn('step settle', r['reason'])
+
+    def test_bad_arguments_are_refused(self):
+        self.assertEqual(make_orders(OrdersGame()).run('order', '1', 'move', '0', '-20', '180', '0.2')['status'], 'refused')
+        self.assertEqual(make_orders(OrdersGame()).run('order', '1', 'move', 'x', '-20')['status'], 'refused')
+        self.assertEqual(make_orders(OrdersGame()).run('order', '1', 'fly')['status'], 'refused')
+
+    def test_several_units_are_pushed_back_to_back_and_each_checked(self):
+        g = OrdersGame(blocked={2})
+        r = make_orders(g).run('order', '1,2', 'move', '0,50', '-20', '180', '30,40')
+        self.assertEqual(g.pushed, [1, 2])
+        self.assertEqual([u['status'] for u in r['units']], ['ok', 'failed'])
+        self.assertEqual(r['status'], 'failed')
+        self.assertIn('units 2', r['reason'])
+
+    def test_halt_and_a_formation_are_checked_by_their_effect(self):
+        g = OrdersGame()
+        c = make_orders(g)
+        g.u[1].update(tx=0.0, tz=-200.0, fx=0.0, fz=-200.0, moving=1)
+        r = c.run('order', '1', 'halt')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+        self.assertEqual(r['units'][0]['check']['fields']['moving']['got'], 0)
+        r = c.run('order', '1', 'square')
+        self.assertEqual(r['status'], 'ok', r['reason'])
+        self.assertGreater(r['units'][0]['check']['fields']['shape_change_m']['got'], 3.0)
+        g2 = OrdersGame()   # a formation the engine ignores (wedge on infantry, i5) reads back no change: failed
+        c2 = make_orders(g2)
+        c2.cfg['routes']['orders']['land'] = dict(ORDERS, commands={'wedge': {'cmd': 36, 'check': 'shape'}})
+        self.assertEqual(c2.run('order', '1', 'wedge')['status'], 'failed')
+
+    def test_list_is_checked(self):
+        g = OrdersGame()
+        orig = g.__call__
+        def call(line, wait=0):
+            if line.endswith('-- list'):
+                return 0, {'status': 'ok', 'chunk': g.line(1) + '\n' + g.line(2)}
+            return orig(line, wait)
+        r = make_orders(call).run('order', 'list')
+        self.assertEqual(r['status'], 'ok')
+        self.assertEqual([u['id'] for u in r['units']], [1, 2])
 
 
 if __name__ == '__main__':

@@ -1,0 +1,53 @@
+== C:/napoleon_remastered_pc/captures/j9c_land_uq3_a/frame.txt
+ RTs (w,h,fmt):  {(1920, 1080, '22'): 7, (2048, 2048, '111'): 1, (1920, 1080, '21'): 2, (960, 540, '21'): 2}
+    221 draws    15776 prims  vegetation_billboard.fx:b360static_sm3
+    139 draws   271448 prims  grid.fx:grid_far_sm3
+     97 draws   117958 prims  grass.fx:grass_sm3
+     78 draws      910 prims  sprite.fx:None
+     10 draws     3038 prims  vegetation_billboard.fx:b360_sm3
+      9 draws     1352 prims  imposter.fx:shadow_imposter_sm3
+      9 draws     1352 prims  imposter.fx:imposter_sm3
+      8 draws      960 prims  cloth.fx:non_instanced_navalsail_default_t0_sm3
+      6 draws      860 prims  vegetation_branch.fx:shadow_map_instanced_30_t0_sm3
+      6 draws     1146 prims  vegetation_frond.fx:shadow_map_instanced_30_t0_sm3
+      6 draws      860 prims  vegetation_branch.fx:instanced_30_t0_sm3
+      6 draws     1146 prims  vegetation_frond.fx:instanced_30_t0_sm3
+      6 draws    24528 prims  grid_spline.fx:battlefield_border_sm2
+      5 draws     1326 prims  vegetation_billboard.fx:b360_shadowmap_sm2
+      5 draws     3128 prims  variantmesh.fx:variant_shadow_map_weighted_stream_instancing_sm3
+      5 draws     1030 prims  textured_rigid.fx:campaign_trader_textured_full_dip_batch_t0
+      5 draws     3128 prims  variantmesh.fx:variant_imposter_weighted_sm3
+      5 draws       20 prims  custom_sprite.fx:custom_sprite_radar_t0_sm3
+      4 draws     1532 prims  vegetation_leaf_mesh.fx:shadow_map_instanced_30_t0_sm3
+      4 draws     1578 prims  weighted.fx:weighted_shadow_map_sm3
+      4 draws      480 prims  cloth.fx:non_instanced_navalsail_shadow_map_t0_sm2
+      4 draws     1532 prims  vegetation_leaf_mesh.fx:instanced_30_t0_sm3
+      4 draws     1578 prims  weighted.fx:imposter_sm3
+      4 draws     1410 prims  particle.fx:render_additive_sm3
+      4 draws        8 prims  lenseflare.fx:lense_flare_no_vignette_sm3
+      3 draws      338 prims  vegetation_leaf_card.fx:shadow_map_instanced_30_t0_sm3
+      3 draws      338 prims  vegetation_leaf_card.fx:instanced_30_t0_sm3
+      2 draws       59 prims  variantmesh.fx:variant_shadow_map_rigid_stream_instancing_sm3
+      2 draws    16128 prims  sky.fx:t0_envmap_sm2
+      2 draws      144 prims  cloud_plane.fx:instanced_30_t0_sm3
+      2 draws       59 prims  variantmesh.fx:variant_imposter_rigid_stream_instancing_sm3
+      1 draws     7938 prims  grid.fx:None
+      1 draws        2 prims  sun.fx:sun_sm2
+      1 draws        2 prims  hdr_to_screen.fx:t0_sm3
+      1 draws        2 prims  lenseflare.fx:lense_flare_sm3
+      1 draws        2 prims  custom_sprite.fx:custom_sprite_land_radar_t0_sm3
+  shadow_map_farz values (ps): {'250.5': 289}
+  shadow_map_texture_size (ps): {('2048', '0'): 289}
+  draws per RT: {"(2048, 2048, '111')": 48, "(960, 540, '21')": 82, "(1920, 1080, '21')": 472, "(1920, 1080, '22')": 71}
+  imp/sprite tex ('None', 1, (2048, 2048), '21') 78
+  imp/sprite tex ('None', 2, (128, 128), '894720068') 78
+  imp/sprite tex ('None', 3, (512, 512), '21') 78
+  imp/sprite tex ('None', 4, (2048, 2048), '23') 78
+  imp/sprite tex ('None', 5, (2048, 2048), '894720068') 78
+  imp/sprite tex ('None', 6, (2048, 2048), '827611204') 78
+  imp/sprite tex ('None', 7, (512, 512), '21') 78
+  imp/sprite tex ('None', 8, (512, 512), '21') 78
+  imp/sprite tex ('None', 9, (1024, 1024), '894720068') 78
+  imp/sprite tex ('None', 0, (2048, 2048), '21') 46
+  imp/sprite tex ('None', 0, (512, 512), '21') 19
+  imp/sprite tex ('imposter_sm3', 0, (512, 512), '21') 13

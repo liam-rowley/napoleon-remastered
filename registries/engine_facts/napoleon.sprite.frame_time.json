@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.sprite.frame_time",
+  "claim": "The imposter frame time is written by the switch in 0x1240010: mov dword [0x14692e8], <float> (0.5 / 0.25 / 0.2 / 0.5 s for texture quality 1 / 2 / 3 / other); the per-frame update 0x1226610 copies it into each cached entry (+0x8c); the immediate follows an absolute address, so an anchor before it would hold a relocated dword: not registered",
+  "state": "open",
+  "evidence": "discovery/napoleon/engine_sites_routes.md",
+  "date": "2026-11-01",
+  "notes": "owner J27; a core value_offset field (anchor before the opcode, value after the address) would make it a row"
+}

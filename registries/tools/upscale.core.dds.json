@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.dds",
+  "kind": "script",
+  "path": "upscale/core/dds.py",
+  "purpose": "read and write legacy-header DDS (DXT1, DXT2, DXT3, DXT5, A8R8G8B8) keeping the vanilla header; mip chains (linear-light RGB box, plain alpha box); encoders python, quicktex, texconv",
+  "usage": "library (upscale/core); python3 upscale/core/dds.py info <file.dds> ...",
+  "when": "reading a vanilla DDS, building an upscaled chain, or checking one (wsc upscale verify)",
+  "not_a_verb": "a library used by upscale/core/batch.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

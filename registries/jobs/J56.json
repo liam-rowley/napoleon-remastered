@@ -1,0 +1,13 @@
+{
+  "id": "J56",
+  "description": "Pipeline audit 2026-10-31, item 4. branch_rows in tools/verbs/jobs.py fetches every origin job/* branch one at a time: 27 branches cost 9.1 s warm and 19.7 s cold against 0.3 s with --offline, 25 of the 27 already merged; every jobs next, review and fix call and every autopilot tick (300 s) pays it, and it grows with the queue (53 jobs about 18 s). Build: one glob fetch (+refs/heads/job/*:refs/remotes/origin/job/*, about 0.5 s), then git show from the local refs; skip branches whose main row is done unless --all; optionally gh pr merge --delete-branch in REVIEW.md so merged branches leave origin. Test with a fake git that counts calls; report the timing before and after.",
+  "title": "jobs verbs fetch the job branches in one call",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J56/brief.md",
+  "report": "jobs/J56/report.md",
+  "review": "jobs/J56/review.md"
+}

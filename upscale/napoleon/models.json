@@ -1,0 +1,22 @@
+{
+ "note": "Pinned upscale models (J36). Fetched by `python upscale/core/model.py fetch` into the work folder, never committed. Both are 2x; the licence was read from the release page of each tag on 2026-10-30. CC BY 4.0 lets the outputs be redistributed with attribution: the pack manifest carries the credit lines below.",
+ "models": {
+  "nomos_esrgan_2x": {
+   "file": "2xNomosUni_esrgan_multijpg.pth",
+   "url": "https://github.com/Phhofm/models/releases/download/2xNomosUni_esrgan_multijpg/2xNomosUni_esrgan_multijpg.pth",
+   "sha256": "65c8fe23425e0bca96f23dc8fa484763cc2af08647df575407d1947de89b8529",
+   "arch": "ESRGAN (RRDB)", "scale": 2, "licence": "CC BY 4.0",
+   "credit": "2xNomosUni_esrgan_multijpg by Philip Hofmann (Phhofm), CC BY 4.0, https://github.com/Phhofm/models"
+  },
+  "hfa2k_compact_2x": {
+   "file": "2xHFA2kCompact.pth",
+   "url": "https://github.com/Phhofm/models/releases/download/2xHFA2kCompact/2xHFA2kCompact.pth",
+   "sha256": "c31eaefe3253283acb26785b0e7e8c22d34259fdcdd7dccfcef87c6549ae8cc2",
+   "arch": "RealESRGAN Compact (SRVGG)", "scale": 2, "licence": "CC BY 4.0",
+   "credit": "2xHFA2kCompact by Philip Hofmann (Phhofm), CC BY 4.0, https://github.com/Phhofm/models"
+  }
+ },
+ "excluded": {
+  "2xAoMR_mosr": "its release page says 'License: CC-BY-0.4', which is not a licence that exists; not used until that is clarified"
+ }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "upscale.core.resample",
+  "kind": "script",
+  "path": "upscale/core/resample.py",
+  "purpose": "the image maths between the vanilla RGBA and the output chain: fringe-free RGB for the model, exact-size Lanczos, alpha that never meets the model, mips",
+  "usage": "library (upscale/core)",
+  "when": "batch.py processing an asset; tests of the alpha and mip rules",
+  "not_a_verb": "a library used by upscale/core/batch.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

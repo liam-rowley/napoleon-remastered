@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ctl.lua_args",
+  "claim": "ctl lua <file> [t] -- <args> hands the text after \" -- \" to the chunk as wsp.dev_config(\"lua_args\")",
+  "state": "verified",
+  "evidence": "harness/runs/20261029_j4pc/README.md",
+  "date": "2026-10-29",
+  "notes": "echo_args.lua returned args=[a=1,b=2] in a land_small battle"
+}

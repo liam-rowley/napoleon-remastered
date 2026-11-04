@@ -1,0 +1,12 @@
+{
+  "id": "J87",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) R3 (napoleon half). Once a pin bump carries core W31 (J88): tools/usage_reader.py becomes the usage hook that wsc jobs usage calls, wsc.toml switches the Usage: line rule on for new reports (old reports exempt), and the jobs view shows usage per card (B50). The 'Opus at high effort across the board' change to D15 (J70, W1) gets its own decision line, signed by Liam. After J88.",
+  "title": "Usage lines on napoleon's reports",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J88"
+  ]
+}

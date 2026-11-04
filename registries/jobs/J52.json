@@ -1,0 +1,13 @@
+{
+  "id": "J52",
+  "description": "D36. (1) New status fix: a reviewer with verdict 'merge after fixes' or 'do not merge' sets status=fix, or status=blocked blocked_by='3 review rounds without merge' after round 3. (2) Action fix in jobs.py (PROMPTS, LABELS, not_ready): ready when the job branch row says fix; session J<n>-fix on the row model; it addresses the latest round's findings, appends '## Fix round N' to report.md, sets status=review, pushes, never touches review.md. (3) Review readiness = branch row status review (replaces 'no review.md'). (4) jobs check: '## Round N' headings numbered, newest first, at most 3, one verdict each, row status agrees with the latest verdict. (5) wsc jobs view --serve --auto: a harness-side loop (default 5 min) reads fresh branch rows and launches every ready review and fix with no running session of the same name (no cap, D34), logging each launch; builds and briefs are not auto-started. Check whether claude agents --json lists finished sessions; only running ones may block a launch. (6) docs/REVIEW.md: round numbering, status after each verdict, the cap. Tests: fix readiness, round 2 review ready after a fix, round-3 block, check failures for a 4th round and a status/verdict mismatch, pr_policy reads the newest verdict, the auto loop launching review then fix from fixture branches.",
+  "title": "Automatic review and fix rounds",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J52/brief.md",
+  "report": "jobs/J52/report.md",
+  "review": "jobs/J52/review.md"
+}

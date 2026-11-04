@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.save.quicksave_name",
+  "claim": "CampaignUI.QuickSave() writes save_games\\quick_save.save (overwritten each time); EndTurn writes save_games\\auto_save.save when the turn is ended, before the AI pass",
+  "state": "verified",
+  "evidence": "saves/runs/20261029_j14pc/README.md",
+  "date": "2026-10-29"
+}

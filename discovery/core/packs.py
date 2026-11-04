@@ -6,7 +6,7 @@ usage: python3 discovery/core/packs.py [--games discovery/napoleon/games.json] [
 when: J6 packs area; re-run after a game update (the output is deterministic, so a git diff shows what changed); J7 builds its pack reader adapter from this
 not-a-verb: reads multi-GB game packs in place on the PC (index only), outside the wsc registry operations
 
-Reads only each pack's header and index (proxy/tools/pack_list.py read_header), never the data. Empire's mod packs (games.json
+Reads only each pack's header and index (core/proxy/tools/pack_list.py read_header), never the data. Empire's mod packs (games.json
 empire.mod_packs) are left out so the comparison is vanilla to vanilla.
 """
 import argparse
@@ -18,7 +18,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'proxy', 'tools'))
+sys.path.insert(0, os.path.join(HERE, '..', '..', 'core', 'proxy', 'tools'))   # pack_list moved to the core in J12
 from diffout import row, write  # noqa: E402
 from pack_list import read_header, read_index  # noqa: E402
 

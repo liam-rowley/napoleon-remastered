@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.window.create_request",
+  "claim": "The engine creates its main window as CreateWindowExW class Napoleon, title Total War: NAPOLEON, 3862x2216 at 0,0, style 0x00ca0000 (caption, sysmenu) for x_res 3840 y_res 2160 windowed, then CreateDevice on adapter 0 windowed at the prefs size; visible launches with gfx_fullscreen true put it at 0,0 3840x2160 on the primary 1.3 s after start",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j13pc/README.md",
+  "date": "2026-10-29",
+  "notes": "runs a_visible and b4k_1"
+}

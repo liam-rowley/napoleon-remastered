@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.custom_land_load",
+  "claim": "Custom land battle NAP_MP_Grassy_Flatlands (autostart from the main menu, DXVK 3.1.1, RTX 4090): StartBattle to the battle pumping 18.1-18.4 s (n=10 across both arms), battle_deploy 0.2 s later; deployed 26.36 s (26.13-26.81) after process start with intro skip, 154.17 s with the movies (n=5 each)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc2/README.md",
+  "date": "2026-10-29",
+  "notes": "5-launch baseline per arm, run 20261029_j3pc2. After a PC restart (run 20261029_j3review, 11:31Z) the same battle loaded in 3.4-3.5 s on both the J3 build and the one before it: absolute load times depend on the PC's state"
+}

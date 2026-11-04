@@ -1,0 +1,6 @@
+{
+ "capture": "sys_land_small",
+ "status": "not taken",
+ "reason": "system d3d9 backend: headless launch never reached on_virtual (twice), and the visible launch (Liam ok, 2026-11-01) reached battle_deploy with frame 0: the proxy saw no Present through the hooked device vtables (both devices hooked, raw/sys_proxy.log), so no capture could arm",
+ "scene": "raw/sys_land_small_scene.json"
+}

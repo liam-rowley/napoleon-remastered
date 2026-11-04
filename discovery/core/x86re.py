@@ -116,11 +116,28 @@ class Image:
                 break
         return out
 
+    def jump_table(self, op_str, entry, window=0x8000):
+        """the targets of a switch `jmp dword ptr [reg*4 + table]`: table dwords read while each points into [entry, entry+window)"""
+        m = re.fullmatch(r'dword ptr \[(?:e[a-z]{2})\*4 \+ (0x[0-9a-f]+)\]', op_str)
+        if not m:
+            return []
+        out, at = [], int(m.group(1), 16)
+        while self.section_of(at)[1] and len(out) < 1024:
+            t = self.u32(at)
+            if not entry <= t < entry + window:
+                break
+            out.append(t)
+            at += 4
+        return out
+
     def walk(self, entry, limit=4000):
         """recursive descent over one function: {'calls': [(at, target)], 'icalls': [at], 'rets': [at], 'insns': n,
-        'globals': [(at, va)], 'first': first mnemonic}. Jumps outside [entry, entry+0x8000) count as tail calls."""
+        'globals': [(at, va)], 'tail': [(at, target)], 'itail': [at], 'switch': [(at, n targets)], 'first': first mnemonic}.
+        Direct jumps outside [entry, entry+0x8000) count as tail calls. Every indirect `jmp` is listed: a jump table
+        `jmp [reg*4 + table]` whose entries point into the window goes to 'switch' and its targets are walked; any other
+        (register, memory) goes to 'itail', a tail call to an unknown target (J15 review 8: walk used to drop both)."""
         seen, todo = set(), [entry]
-        res = {'calls': [], 'icalls': [], 'rets': [], 'globals': [], 'tail': [], 'insns': 0}
+        res = {'calls': [], 'icalls': [], 'rets': [], 'globals': [], 'tail': [], 'itail': [], 'switch': [], 'insns': 0}
         while todo and res['insns'] < limit:
             pc = todo.pop()
             while pc not in seen and self.in_text(pc):
@@ -150,6 +167,13 @@ class Image:
                             todo.append(t)
                         else:
                             res['tail'].append((pc, t))
+                    else:
+                        table = self.jump_table(ins.op_str, entry)
+                        if table:
+                            res['switch'].append((pc, len(table)))
+                            todo.extend(table)
+                        else:
+                            res['itail'].append(pc)
                     break
                 elif mn.startswith('j') or mn.startswith('loop'):
                     if ins.op_str.startswith('0x'):
@@ -187,7 +211,7 @@ def main(argv):
             print(_fmt(i))
     elif cmd == 'func':
         w = im.walk(num(arg))
-        print({k: ([(hex(a), hex(b)) for a, b in v] if k in ('calls', 'globals', 'tail') else
+        print({k: ([(hex(a), hex(b)) for a, b in v] if k in ('calls', 'globals', 'tail', 'switch') else
                    [hex(x) for x in v] if isinstance(v, list) else v) for k, v in w.items()})
     else:
         sys.exit(f'unknown command {cmd}')

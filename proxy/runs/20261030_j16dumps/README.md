@@ -66,6 +66,10 @@ Vulkan ICD; `amdvlk32` is a candidate too), and that vanilla d3d9 survives the s
 
 ## Fix built (not yet run on the PC)
 
+> 2026-11-04: the guard was written before J12 moved the proxy sources into the core. It now moves into warscape-core as row W39
+> (liam-rowley/warscape-core#82) and reaches napoleon in a pin bump; the files named below are in this branch's history at `95f5a1e`.
+> The dump reader `proxy/tools/dump_read.py` is at the same commit.
+
 `proxy.dxvk_wndproc_fix` (default on): `core/dxvk_wndproc.cpp` points only `d3d9_dxvk.dll`'s four user32 import slots
 (`GetWindowLongW/A`, `SetWindowLongW/A`, which the pinned DLL imports) at a guard. When DXVK reads `GWL_WNDPROC` on a window it
 hooked and a foreign proc is on top, the guard reports DXVK's own (`core/wndprocpolicy.h`), so DXVK restores the game's proc; the

@@ -1,0 +1,15 @@
+{
+  "id": "J2",
+  "description": "Watcher and PC sync, ported from Empire's watcher v5 into the core: job requests with ids, enforced game lock, hang watchdog, config profiles restored byte for byte, headless virtual display (probe 1080p and 1440p modes), sha-checked PC sync. Unattended launch and kill of Napoleon.",
+  "title": "Watcher and PC sync",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J1"
+  ],
+  "brief": "jobs/J2/brief.md",
+  "report": "jobs/J2/report.md",
+  "review": "jobs/J2/review.md"
+}

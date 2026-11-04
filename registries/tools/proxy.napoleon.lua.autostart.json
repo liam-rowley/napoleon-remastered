@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.autostart",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/autostart.lua",
+  "purpose": "drive the front end to a target (custom battle preset, new / continued / loaded campaign) through its own Lua calls",
+  "usage": "run by the proxy (ctl `autostart <target>`, dev.autostart, `reset <target>`); not by hand",
+  "when": "every autostart; change it when a front-end flow changes (the calls are documented in its header)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

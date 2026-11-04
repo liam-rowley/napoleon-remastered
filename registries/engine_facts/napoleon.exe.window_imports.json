@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.exe.window_imports",
+  "claim": "Napoleon.exe imports every window and display call it makes from user32 through its own import table: CreateWindowExW, ShowWindow, SetWindowPos, MoveWindow, SetWindowLongW, ChangeDisplaySettingsW, MonitorFromRect, GetMonitorInfoW, GetSystemMetrics, AdjustWindowRect, GetWindowRect, GetClientRect, IsIconic, IsWindowVisible, SetFocus, GetForegroundWindow, GetActiveWindow, MessageBoxW, DialogBoxIndirectParamW (and 37 more); no SetForegroundWindow, SetActiveWindow, EnumDisplayDevices/EnumDisplaySettings, SetWindowLongPtr or DPI-awareness calls; gdi32 only SelectObject, no dwmapi or shcore. So the headless guard needs IAT slots only (no inline hook)",
+  "state": "verified",
+  "evidence": "jobs/J13/report.md",
+  "date": "2026-10-29",
+  "notes": "read with python3 proxy/tools/exe_info.py Napoleon.exe --imports user32.dll gdi32.dll dwmapi.dll shcore.dll; exe sha1 as pinned in proxy/napoleon/identity.json"
+}

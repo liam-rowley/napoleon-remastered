@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.release.stray_ini",
+  "claim": "The real game folder holds a napoleon_remastered.ini that no install record owns (found 2026-11-02 before any J38 install): Install backs up anything at an owned path and Uninstall restores it, so the byte-exact check still holds, but the pre-install snapshot already contains that file",
+  "state": "verified",
+  "evidence": "release/runs/2026-11-02_j38host/README.md",
+  "date": "2026-11-02",
+  "notes": "run 2026-11-02_j38host; its content was not read (a harness profile target: harness/napoleon/adapter.json config_files)"
+}

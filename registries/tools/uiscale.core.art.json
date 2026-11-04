@@ -1,0 +1,11 @@
+{
+  "id": "uiscale.core.art",
+  "kind": "script",
+  "path": "uiscale/core/art.py",
+  "purpose": "make the real f x textures the scaled layouts need (the engine tiles frame art at the texture's real size): linear-light RGB Lanczos, plain alpha (binary alpha stays binary), the vanilla container (TGA bit depth, JPG, DDS format with a full mip chain)",
+  "usage": "library: from art import target_size, from_master, from_vanilla; blob, info = from_master(master_bytes, vanilla_bytes, ext, 2.0)   (driven by uiscale/napoleon/cli.py)",
+  "when": "`wsc uiscale build` in the art_build Python; host tests in tests/test_uiscale.py",
+  "not_a_verb": "a library used by uiscale/napoleon/cli.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

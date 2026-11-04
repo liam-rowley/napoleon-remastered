@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.hud_placeholder_attach",
+  "claim": "The battle orders layouts (battle ui\\land_battle_orders, naval_battle_orders) are loaded into the HUD's placeholder component veneer_DY/orders and take its name: no component is called land_battle_orders in the live tree, its children (orders_LB, UC_frame, the ability slots) sit under veneer_DY/orders (run 20261102_j10pc, land and naval battles)",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j10pc/README.md",
+  "date": "2026-11-02",
+  "notes": "ui_atlas.py live finds such a layout as the live parent of its children"
+}

@@ -1,0 +1,33 @@
+<rml>
+<head>
+	<title>J34 spike</title>
+	<link type="text/rcss" href="spike.rcss"/>
+</head>
+<body id="root" onload="local b = document:GetElementById('root'); b.style['--c2'] = '#00ff00'; b:SetClass('alt', true)">
+	<div class="row"><div id="p_var" class="probe v1">var</div>
+	<div id="p_var_rt" class="probe v2">var runtime</div>
+	<div id="p_var_cls" class="probe v3">var class</div>
+	<div id="p_var_hover" class="probe v4">var hover</div>
+	<div id="p_var_fb" class="probe v5">var fallback</div></div>
+	<div class="row"><img id="p_img" src="emblem.png" class="tint"/>
+	<div id="p_shadow" class="probe sh">shadow</div>
+	<div id="p_inset" class="probe ins">inset</div>
+	<div id="p_rep" class="probe rep">repeating</div>
+	<div id="p_focus" class="probe foc" tabindex="1">focus</div>
+	<div id="p_focus_only" class="probe foc2" tabindex="2">focus2</div></div>
+	<div class="row"><div id="p_tr" class="probe tr">translate</div>
+	<div id="p_ts" class="probe ts">text shadow</div>
+	<div id="p_none" class="probe nn">display none</div>
+	<div id="p_trans" class="probe trn">opacity</div>
+	<div id="p_serif" class="serif">Libre Baskerville 400 Hamburgefons 0123456789</div></div>
+	<div class="row">
+	<div id="p_serifb" class="serifb">Libre Baskerville 700 Hamburgefons 0123456789</div>
+	<div id="p_sans" class="sans">Public Sans 400 Hamburgefons 0123456789</div>
+	<div id="p_sansb" class="sansb">Public Sans 600 Hamburgefons 0123456789</div></div>
+	<div class="row"><div id="p_scroll" class="scroll"><div class="tall">tall content</div></div>
+	<div id="p_dev" class="probe dev">dp calc</div></div>
+<div class="row">
+<div id="q_a" class="probe qa">a no bg</div><div id="q_b" class="probe qb">b bg</div><div id="q_c" class="probe qc">c blur</div><div id="q_d" class="probe qd">d alpha</div><div id="q_e" class="probe qe">e two offs</div>
+</div>
+</body>
+</rml>

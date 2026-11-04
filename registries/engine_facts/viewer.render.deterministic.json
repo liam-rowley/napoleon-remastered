@@ -1,0 +1,8 @@
+{
+  "id": "viewer.render.deterministic",
+  "claim": "Headless renders of the viewer (Playwright Chromium, SwiftShader WebGL, RmlUi clock frozen at 0, pixels read back inside the wasm) are repeatable: the same input gives the same RGBA in repeated runs and on Windows (PC) and Linux (CI); the PNG files differ across hosts only through zlib, so compare rgba_sha256",
+  "state": "verified",
+  "evidence": "viewer/runs/20261031_j31/README.md",
+  "date": "2026-10-31",
+  "notes": "hello 1080p x 1.0 rgba 389304b5..., 4K dp 2.5 rgba 6e516e2a...; PC runs 20261031_j31 vs CI run 41218079368: 0 differing pixels, different PNG sha256"
+}

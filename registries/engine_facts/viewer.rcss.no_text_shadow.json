@@ -1,0 +1,8 @@
+{
+  "id": "viewer.rcss.no_text_shadow",
+  "claim": "RmlUi 6.3 has no text-shadow property (the parser logs a syntax error and ignores it); the library does not use it, and LANGUAGE.md needs none",
+  "state": "verified",
+  "evidence": "uikit/napoleon/runs/20261102_j34/README.md",
+  "date": "2026-11-02",
+  "notes": "spike probe p_ts"
+}

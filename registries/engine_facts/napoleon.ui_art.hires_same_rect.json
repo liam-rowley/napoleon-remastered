@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.hires_same_rect",
+  "claim": "UI art at 2.5x its vanilla size at the vanilla path is drawn into the vanilla rect: layout unchanged, no crash",
+  "state": "verified",
+  "evidence": "upscale/runs/2026-10-31_j50/README.md",
+  "date": "2026-10-31",
+  "notes": "probe s2r3, pack zz_j50_real with four J36 outputs (logo 1250x383, Steam button 370x60, two end-turn buttons): same position and size as vanilla at 1920x1080; not visibly sharper there (crop diffs 4.6 and 5.0 against a 3.3 control on an untouched button, real_vs_vanilla_crops.jpg): the gain needs a UI scale above 1 (the UI host jobs)"
+}

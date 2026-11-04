@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.shadow.isolable",
+  "claim": "The shadow pass is the first draw pass of every captured frame and one contiguous block: SetRenderTarget(0, R16F|R32F map), SetDepthStencilSurface(D24X8), Clear(target|z, 0xffffffff, 1.0), the casters, then the next SetRenderTarget; no D3DPERF event marks it",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j8pc/README.md",
+  "date": "2026-11-01"
+}

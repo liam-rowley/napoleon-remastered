@@ -2,7 +2,7 @@
 """save_map.py: semantic summary of a Napoleon save on the record paths mapped in saves/SAVE_FORMAT.md.
 
 purpose: list a Napoleon save's factions, characters (type, position, residence), forces, settlement residences (agents inside) and governorship taxes, resolve an id, and find own field characters near foreign ones
-usage: python3 -I saves/napoleon/save_map.py SAVE [factions|characters|forces|settlements|taxes|near|all] [--faction KEY] [--radius R] [--json]   (id lookups: saves/core/esf_map.py SAVE id ID)
+usage: python3 -I saves/napoleon/save_map.py SAVE [factions|characters|forces|settlements|taxes|near|all] [--faction KEY] [--radius R] [--json]   (id lookups: core/saves/esf_map.py SAVE id ID)
 when: before writing or running a recipe (which agent, which residence id, which theatre), and to read back a value after a QuickSave (load ladder B); field meanings in saves/SAVE_FORMAT.md
 not-a-verb: reads saves on the PC that are never in the repo; a library for the recipes as well as a CLI
 
@@ -14,7 +14,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(os.path.dirname(HERE), 'core'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(HERE)), 'core', 'saves'))   # the ESF tools (warscape-core, J12)
 from esf_map import FIX, Save  # noqa: E402
 
 MODEL = ('CAMPAIGN_ENV', 'CAMPAIGN_MODEL')

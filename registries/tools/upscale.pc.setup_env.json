@@ -1,0 +1,11 @@
+{
+  "id": "upscale.pc.setup_env",
+  "kind": "script",
+  "path": "upscale/pc/setup_env.cmd",
+  "purpose": "build the self-contained GPU environment for the UI art upscaler in <work>\\art_build (embeddable Python, torch cu130, spandrel, pinned models); nothing system-wide",
+  "usage": "upscale\\pc\\setup_env.cmd [work folder, default C:\\napoleon_remastered_pc\\upscale]   then: <work>\\art_build\\py\\python.exe upscale\\pc\\env_check.py --models <work>\\art_build\\models --pins upscale\\napoleon\\models.json",
+  "when": "first use on a PC, or after deleting art_build; safe to re-run (finished downloads are skipped)",
+  "not_a_verb": "a Windows setup script; `wsc upscale env` runs the check it ends with",
+  "status": "live",
+  "last_used": "2026-10-31"
+}

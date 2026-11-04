@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.campaign_turn",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/campaign_turn.lua",
+  "purpose": "return the campaign's year, season, whether it is the player's turn and a save or an end turn is allowed, and the HUD date: year|season|players_turn|can_save|can_end_turn|date",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/campaign_turn.lua\" in a campaign (saves/README.md \"Load ladder\" polls it after an EndTurn)",
+  "when": "to see that a loaded save is the expected turn, and to detect the next player turn after campaign_end_turn.lua",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-29"
+}

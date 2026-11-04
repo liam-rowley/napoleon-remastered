@@ -1,0 +1,3 @@
+'git status' in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War: exit 0, deny: Never run git in a game folder or the PC state folder (CLAUDE.md, J18): this call would run git in c:/program files (x86)/steam/steamapps/common/napoleon total war. Work in the repo checkout and sync files to the PC with proxy/tools/pc_deploy.py (sha-checked copies).
+'git status' in C:\Users\liamr\repos\napoleon-remastered\.claude\worktrees\J18-build: exit 0, allowed
+'ls' in C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War: exit 0, allowed

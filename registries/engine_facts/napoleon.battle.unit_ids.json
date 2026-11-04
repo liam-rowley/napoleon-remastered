@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.battle.unit_ids",
+  "claim": "Units are named by their position in the player's army list ([army+0xf4]): the same order and positions in every launch of land_small (5 launches), so `order 4 ...` is repeatable; a unit that leaves the army (the general's unit after a lost fight, a unit that walked off the map) renumbers the rest, so ctl.py pins a number to its pointer for the whole call",
+  "state": "verified",
+  "evidence": "harness/runs/20261102_j28pc/README.md",
+  "date": "2026-11-02",
+  "notes": "runs c0, c6, f1"
+}

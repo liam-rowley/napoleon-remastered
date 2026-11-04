@@ -1,0 +1,19 @@
+/* The user-agent base RmlUi does not have: every screen links this first (J31's hello showed it missing). Authoring format: $token names, expanded by build.py. */
+body, div, p, h1, h2, h3, ul, ol, li, form, textarea, select, scrollbarvertical, scrollbarhorizontal, slidertrack, sliderbar, sliderarrowdec, sliderarrowinc {
+	display: block;
+	box-sizing: border-box;
+}
+span, a {
+	display: inline;
+}
+img, input {
+	display: inline-block;
+	box-sizing: border-box;
+}
+body {
+	font-family: $type.body.family;
+	font-weight: $type.body.weight;
+	font-size: $type.body.size;
+	line-height: $type.body.line;
+	color: $text;
+}

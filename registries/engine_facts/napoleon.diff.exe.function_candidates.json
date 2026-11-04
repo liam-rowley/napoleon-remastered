@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.exe.function_candidates",
+  "claim": "Of J6's function candidates, J9 checked the ones J28 needs: the battle order chain is located and registered as verify-only hook rows battle.* (selection ctor, AddUnit (J6 unique, 28 fixed bytes), move and formation command ctors and pushes, command dtor (J6 unique, 24 fixed bytes), unit position and bearing getters from the battle.unit luaL_Reg table); the other candidates are unverified",
+  "state": "open",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01",
+  "notes": "notes and the UNIT layout: harness/runs/20261101_j9pc/j28_candidates.md (owner J28)"
+}

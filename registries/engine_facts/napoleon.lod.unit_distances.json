@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.lod.unit_distances",
+  "claim": "Unit LOD distances come from 0x756e80 (thiscall(out, quality, a3, a4), quality = gfx_unit_quality from the battle settings vfunc +0xf8): five squared distances per quality from shared .rdata floats (quality 3: 100, 100, 150, 50 or 70, feathered range 0; 2: 100, 100, 150, 40 or 60; 1: 70, 80, 120, 30; 0 and other: 15, 30, 45, 5, 1.0); with tweaker ENTITY_LOD_OVERRIDE on, the tweakers LARGE_IMPOSTER_DISTANCE, IMPOSTER_DISTANCE, NO_VARIANT_DISTANCE, SHARED_POSE_DISTANCE and FEATHERED_SHARED_POSE_RANGE replace them; the shared constants are not patchable in place (100.0 has 303 users), so the route is the override with tweaker defaults (rows unit_lod.*)",
+  "state": "verified",
+  "evidence": "harness/runs/20261101_j9pc/README.md",
+  "date": "2026-11-01"
+}

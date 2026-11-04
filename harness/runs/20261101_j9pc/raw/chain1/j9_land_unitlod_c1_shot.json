@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "harness\\runs\\20261101_j9pc\\raw\\j9_land_unitlod_c1.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.4,
+    "frames": 868,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 110629,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "harness\\runs\\20261101_j9pc\\raw\\j9_land_unitlod_c1.jpg"
+  },
+  "start_utc": "2026-11-01T16:03:15.954Z",
+  "end_utc": "2026-11-01T16:03:23.516Z"
+}

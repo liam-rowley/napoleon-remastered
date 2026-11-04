@@ -1,0 +1,34 @@
+== naval_far_stock naval_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=0 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:57:51Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.3
+capture naval_far_stock_a rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1722, "commit_mb": 1085}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "125"}}, "log": []} 
+shot rc 0
+cam 0 80 -1700 0 -15 rc 0
+capture naval_far_stock_c1 rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1723, "commit_mb": 1085}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "125"}}, "log": []} 
+shot rc 0
+cam 0 80 -2100 0 -12 rc 0
+capture naval_far_stock_c2 rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1723, "commit_mb": 1069}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "125"}}, "log": []} 
+shot rc 0
+perf rc 0 None d3196b3a8424
+kill rc 0
+2026-11-01T16:58:05.195Z [INFO ] [t37204] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01559ad8: stock (key off) cur [05 00 00 00]
+2026-11-01T16:58:05.195Z [INFO ] [t37204] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01559ae4: stock (key off) cur [05 00 00 00]
+2026-11-01T16:58:05.195Z [INFO ] [t37204] patch_engine: nothing to do - 46 sites: 46 ok, 0 bad, 0 to write (0 bytes), 0 already patched, 26 hooks verified
+2026-11-01T16:58:05.195Z [INFO ] [t37204] patch_engine: 0 of 0 planned sites written
+== naval_far_ship naval_small keys: gfx.shadow_proof=0 gfx.sprite_page_proof=0 gfx.unit_lod_proof=0 gfx.ship_lod_proof=1 gfx.grass_proof=0 gfx.tree_lod_proof=0 gfx.shadow_sweep_proof=0   16:59:27Z
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity
+scene rc 0 ok  load 3.4
+capture naval_far_ship_a rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1755, "commit_mb": 1100}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "125"}}, "log": []} 
+shot rc 0
+cam 0 80 -1700 0 -15 rc 0
+capture naval_far_ship_c1 rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1756, "commit_mb": 1100}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "125"}}, "log": []} 
+shot rc 0
+cam 0 80 -2100 0 -12 rc 0
+capture naval_far_ship_c2 rc 0: vies_refused": 3, "movies_opened": 1, "mem": {"va_mb": 1756, "commit_mb": 1084}, "reports": {"autostart.map": "caribbean", "autostart.map_folder": "caribbean", "autostart.time_of_day": "2", "autostart.weather": "dry/Dry", "battle.map_folder": "caribbean", "battle.map_folder_ms": "125"}}, "log": []} 
+shot rc 0
+perf rc 0 None d3196b3a8424
+kill rc 0
+2026-11-01T16:59:46.796Z [INFO ] [t38684] patch_engine: wrote ship_lod.mast_lod_distance_default at 00555711: [00 00 7a 43] -> [00 00 7a 44]
+2026-11-01T16:59:46.796Z [INFO ] [t38684] patch_engine: wrote ship_lod.rope_distance_default at 005559c1: [00 00 48 43] -> [00 00 7a 44]
+2026-11-01T16:59:46.796Z [INFO ] [t38684] patch_engine: wrote ship_lod.rope_distance_fadeout_default at 00555a11: [00 00 16 43] -> [00 00 61 44]
+2026-11-01T16:59:46.796Z [INFO ] [t38684] patch_engine: 4 of 4 planned sites written

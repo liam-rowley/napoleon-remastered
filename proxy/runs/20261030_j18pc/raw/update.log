@@ -1,0 +1,7 @@
+[2026-10-30T23:51:34Z] [update] begin (pid 19560): kit C:\napoleon_remastered_pc\kits\harness_20261030T235125Z_d5ee0a5997e6, noop window 60 s, healthy window 90 s, stable window 30 s
+[2026-10-30T23:51:34Z] [update] live watcher 1.0.1 pid 27484; kit harness_20261030T235125Z_d5ee0a5997e6 carries watcher 1.1.0
+[2026-10-30T23:51:35Z] [update] backup: C:\napoleon_remastered_pc\watcher\backup\20261030T235134Z (22 files)
+[2026-10-30T23:51:35Z] [update] 3 file(s) replaced
+[2026-10-30T23:51:39Z] [update] watcher 1.1.0 pid 6540 is up; sending a noop job (must answer within 60 s)
+[2026-10-30T23:51:40Z] [update] noop answered by watcher 1.1.0: ok; watching the heartbeat for 30 s
+[2026-10-30T23:52:11Z] [update] CONFIRMED: watcher 1.1.0 stays; rollback copy in C:\napoleon_remastered_pc\watcher\backup\20261030T235134Z

@@ -1,0 +1,15 @@
+{
+  "id": "J45",
+  "description": "J44 review findings 2 and 3. (1) The DLL build id (proxy/tools/build.sh) and rule 79's id (tools/pr_policy.py) are the commit hash of the last change to the DLL inputs, so a reword or rebase after the 20-pass run invalidates it over identical code (J44 lost its run this way). Derive both from the inputs' tree hashes, with a test that an amended commit keeps the id; then say once, where briefs and REVIEW.md tell job branches to rebase on main, that a branch with an acceptance run merges main in instead. (2) pc_deploy.py kit only warns when build_fixed_sky_pack fails, while ctl.launch.keys still points dev.file_rules at the missing pack, so the first symptom is a land shot_match failure: record the pack in the kit manifest and make ctl.py Pc.launch refuse when a file rule's source is not installed. One job so one 20-pass run covers both.",
+  "title": "Acceptance gate survives a rebase",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J44"
+  ],
+  "brief": "jobs/J45/brief.md",
+  "report": "jobs/J45/report.md",
+  "review": "jobs/J45/review.md"
+}

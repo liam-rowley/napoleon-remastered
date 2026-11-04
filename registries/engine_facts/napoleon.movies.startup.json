@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.movies.startup",
+  "claim": "Start-up movies (from media.pack through a Bink file handle): sega_logo_sting_hd.bik 3.3 s, corei7_intro.bik 4.8 s, ntw_intro.bik 115.7 s; front-end background frontend2.bik. Refused at BinkOpen they count as finished: the main menu pumps at 7.0 s after process start instead of 130.3 s",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j3pc/README.md",
+  "date": "2026-10-29",
+  "notes": "n=1 with movies, n=7 refused"
+}

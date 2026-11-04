@@ -1,0 +1,15 @@
+{
+ "pass": 1,
+ "start_utc": "2026-10-31T11:55:25Z",
+ "end_utc": "2026-10-31T11:56:25Z",
+ "build_id": "40377bbdba78",
+ "watcher": "1.1.0",
+ "kit": "kit_20261031T115513Z_40377bbdba78",
+ "passed": false,
+ "steps": {
+  "harness": {
+   "ok": false,
+   "reason": "ModuleNotFoundError: No module named 'PIL'"
+  }
+ }
+}

@@ -1,0 +1,19 @@
+response 200 text/html index.html?headless=1&w=1920&h=1080&ratio=1.0
+response 200 text/javascript viewer_host.js
+response 200 text/javascript viewer.js
+response 200 application/wasm viewer.wasm
+console log: [host] wasm instantiated in 34 ms
+response 200 application/json screen.json
+response 200 application/octet-stream hello.rml
+response 200 application/octet-stream hello.rcss
+response 200 application/octet-stream hello.lua
+response 200 application/octet-stream stubs.lua
+response 200 image/png emblem.png
+response 200 font/ttf IMFeENrm28P.ttf
+console log: [host] 5 screen files and 1 font(s) loaded
+console log: [viewer] Started Emscripten WebGL renderer.
+console log: [rml info] Loading Lua plugin using a new Lua state.
+console log: [rml info] Loaded font face 'IM FELL English' [regular] from '/fonts/IMFeENrm28P.ttf'.
+console log: [host] Viewer spike: hello world (J31): 1920x1080, dp ratio 1.0000
+console log: [host] ready
+console warning: [.WebGL-0x346c00421400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels

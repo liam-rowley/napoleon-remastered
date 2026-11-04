@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.require_sl",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/require_sl.lua",
+  "purpose": "one require \"Scripting_Library\" in the pumping battle UI environment and the globals it adds (type only, no pattern functions)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/require_sl.lua\" in a battle, then watch pump_age_s in ctl state",
+  "when": "J43 deliverable 1 (the pump stall)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-10-30"
+}

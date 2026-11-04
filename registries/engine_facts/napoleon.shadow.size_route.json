@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.size_route",
+  "claim": "The shadow map setup 0x11868f0 switches on gfx_shadow_quality (options +0x69d18): q1 512 (far clip 100 m), q2 1024 (250), q3 2048 (500), q4 2048 with R32F (1000); one mov ebx, 0x800 sizes colour map and depth buffer for q3 and q4 (row shadow.map_size_q34). At 8192 (key gfx.shadow_map_large, run 20261103_j24pc, 2026-11-03) DXVK 3.1.1 on the RTX 4090 creates the 8192 R16F map and 8192 D24X8 depth buffer, the casters draw into an 8192 viewport and the texel density is exactly 4x the 2048 value at every pose; 4096 is 2x (J9). The q1/q2 edges are imm32 at 0x11868fc (512) and 0x1186965 (1024), the far clips at 0x118695c/0x118696a/0x1186973/0x118697c (unregistered except q3).",
+  "state": "verified",
+  "evidence": "harness/runs/20261103_j24pc/README.md",
+  "date": "2026-11-03",
+  "notes": "owner J24"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.console.teleport_units",
+  "claim": "teleport_to x y takes the same units as PosX/PosY of CampaignUI.RetrieveFactionAgentsList entries (3/3 exact: -290 23, -290 30, -300 30); the handler packs each float as 12.20 fixed point with no scaling (0x8809f0); CampaignUI.CameraTarget is not these units and does not follow a teleported agent",
+  "state": "verified",
+  "evidence": "proxy/runs/20261029_j15pc",
+  "date": "2026-10-29"
+}

@@ -1,0 +1,5 @@
+{
+  "description": "J8 review 1 finding 3: gfx_hardware_shadows true (the NVIDIA hardware shadow path), every other pref as the acceptance baseline has it; restored byte for byte by the watcher",
+  "requires": [],
+  "warn_missing": ["game:d3d9.dll"]
+}

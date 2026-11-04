@@ -1,0 +1,14 @@
+{
+  "id": "J16",
+  "description": "Switching resolution in the options screen from 2560x1440 to 3840x2160 kills the game (Liam, 2026-10-29): the main thread's 1 MB stack overflows while the game recreates its D3D device on DXVK. Launching straight into 4K works. Find what eats the stack (game, DXVK or the NVIDIA/AMD Vulkan drivers: amdvlk32 is loaded beside the NVIDIA ICD), check vanilla d3d9 (proxy.enabled=0) and DXVK device filtering, and fix in the proxy or DXVK config. Since the J3 crash-handler fix (build 066fbd0b7c62, dev keys off) the symptom is a hang instead (Liam, 2026-10-29 11:17Z, pid 11252): the loading screen stops at about 3 %, DXVK's log ends after ResetSwapChain to 3840x2160 (a device Reset this time, no second Direct3DCreate9), the proxy log ends at the first Direct3DCreate9 with no deferred crash record, the game never recovered and Liam force-closed it through Steam at about 11:19 (a hang, not a crash), and WER LocalDumps wrote a full dump at that moment (so it should hold every thread's stack in the stuck state; check its exception record says how it was taken) (%LOCALAPPDATA%\\CrashDumps\\napoleon_remastered\\Napoleon.exe.11252.dmp, 1.7 GB): read it first. Evidence: job/J3 proxy/runs/20261029_4kcrash (WER dumps, proxy crash-handler fix 99c4503).",
+  "title": "In-game resolution change crash (stack overflow at device recreation)",
+  "phase": 1,
+  "status": "queued",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J3",
+    "J20"
+  ],
+  "brief": "jobs/J16/brief.md"
+}

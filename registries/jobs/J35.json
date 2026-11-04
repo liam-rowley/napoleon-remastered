@@ -1,0 +1,14 @@
+{
+  "id": "J35",
+  "description": "UI_PIPELINE section 2.3: one contract for every screen (open and close from the vanilla entry points, the S4 route, diffed data feed, action dispatch, input routing, hotkeys through the registry, hide and restore, warm-up), the D17 review page generated from ui_elements, and the scale slider. Gate: one panel, one popup and the battle HUD run on it in game with no screen-specific plumbing. Opus: DLL plumbing across screen kinds.",
+  "title": "Panel host and its gate",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J30",
+    "J32",
+    "J34"
+  ]
+}

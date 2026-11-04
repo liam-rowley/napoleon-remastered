@@ -1,0 +1,40 @@
+== C:/napoleon_remastered_pc/captures/j9d_naval_far_stock_a/frame.txt
+ RTs (w,h,fmt):  {(1920, 1080, '22'): 7, (2048, 2048, '111'): 1, (1920, 1080, '21'): 2, (960, 540, '21'): 2}
+    126 draws    96990 prims  navalship.fx:instanced_30_navalship_default_t0_sm3
+     22 draws     1158 prims  sprite.fx:None
+     20 draws    17676 prims  navalship.fx:instanced_30_navalship_shadow_map_t0_sm3
+     10 draws      180 prims  textured_rigid.fx:campaign_trader_textured_full_dip_batch_t0
+      9 draws     5660 prims  navalsail.fx:non_instanced_navalsail_default_t0_sm2
+      9 draws     4570 prims  navalship.fx:non_instanced_navalship_default_t0_sm3
+      9 draws     5660 prims  navalsail.fx:non_instanced_navalsail_default_t0_sm3
+      6 draws     3618 prims  navalship.fx:non_instanced_navalship_shadow_map_t0_sm2
+      6 draws     3804 prims  navalsail.fx:non_instanced_navalsail_shadow_map_t0_sm3
+      6 draws    24528 prims  grid_spline.fx:battlefield_border_sm2
+      4 draws        8 prims  lenseflare.fx:lense_flare_no_vignette_sm3
+      3 draws     1422 prims  imposter.fx:shadow_imposter_sm3
+      3 draws     1422 prims  imposter.fx:imposter_sm3
+      3 draws        8 prims  custom_sprite.fx:custom_sprite_radar_t0_sm3
+      2 draws    16128 prims  sky.fx:t0_envmap_sm2
+      2 draws      144 prims  cloud_plane.fx:instanced_30_t0_sm3
+      1 draws      216 prims  shipbowwave.fx:render_bow_wave_sm2
+      1 draws    26000 prims  ocean.fx:sm_render_foam_sm3
+      1 draws        2 prims  sun.fx:sun_sm2
+      1 draws      160 prims  particle.fx:render_additive_sm3
+      1 draws        2 prims  hdr_to_screen.fx:t0_sm3
+      1 draws        2 prims  lenseflare.fx:lense_flare_sm3
+      1 draws        2 prims  custom_sprite.fx:custom_sprite_land_radar_t0_sm2
+  shadow_map_farz values (ps): {'410': 154}
+  shadow_map_texture_size (ps): {('2048', '0'): 154}
+  draws per RT: {"(2048, 2048, '111')": 39, "(1920, 1080, '21')": 76, "(960, 540, '21')": 99, "(1920, 1080, '22')": 33}
+  imp/sprite tex ('None', 8, (512, 512), '21') 22
+  imp/sprite tex ('None', 1, (428, 428), '861165636') 21
+  imp/sprite tex ('None', 2, (512, 512), '861165636') 21
+  imp/sprite tex ('None', 3, (64, 64), '21') 21
+  imp/sprite tex ('None', 4, (256, 256), '861165636') 21
+  imp/sprite tex ('None', 7, (512, 512), '894720068') 21
+  imp/sprite tex ('None', 0, (2048, 2048), '21') 14
+  imp/sprite tex ('None', 0, (512, 512), '50') 6
+  imp/sprite tex ('shadow_imposter_sm3', 0, (2048, 2048), '827611204') 3
+  imp/sprite tex ('imposter_sm3', 0, (512, 512), '21') 3
+  imp/sprite tex ('imposter_sm3', 1, (2048, 2048), '111') 3
+  imp/sprite tex ('imposter_sm3', 2, (2048, 2048), '827611204') 3

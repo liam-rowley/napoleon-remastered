@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.j28_units",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/j28_units.lua",
+  "purpose": "one battle-time read of everything the orders route reads, before any order is pushed",
+  "usage": "job.sh ctl <owner> \"lua <abs path>/probes/j28_units.lua 30 -- [select]\" in a battle (select: BattleUI.SelectAllInfantry first)",
+  "when": "J28 PC step b (read-only first)",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-02"
+}

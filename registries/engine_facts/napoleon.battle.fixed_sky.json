@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.battle.fixed_sky",
+  "claim": "A custom battle picks its sky per launch among the skies that fit its weather and time of day (NAP_MP_Grassy_Flatlands, Dry, Afternoon: shots of the same pose on three launches differ by mean abs 9.6 to 11.0/255). Cutting battles_to_battle_sky_types_junctions to one row per (battle, season, weather, time of day) did NOT pin it; cutting battle_sky_types too (Empire's route) brought three launches to 2.6 to 2.7 against the 2.56 floor of one launch, but keeping the junction's picks as well left 11 groups with two skies (summer, dry, afternoon: day_clear_1 and day_overcast_1) and land_small's lighting changed again on 1 launch in 6 (24.0, run 20261030_j44acc pass 1). The pack now keeps exactly one sky per (season, weather, time of day, climate), \"clear\" first, and points every junction row at it (588 skies, 705 junction rows), served as a type-4 dev pack through a dev.file_rules add rule; its proof is the 20-pass run 20261030_j44acc2. proxy/tools/build_fixed_sky_pack.py, proxy/napoleon/lua/fixed_sky_rules.txt",
+  "state": "verified",
+  "evidence": "harness/runs/20261030_j44pc/README.md",
+  "date": "2026-10-30"
+}

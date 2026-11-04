@@ -1,0 +1,24 @@
+{
+  "verb": "shot",
+  "status": "ok",
+  "reason": "",
+  "shot": "upscale\\runs\\2026-10-31_j50\\raw\\s1b_land.jpg",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 2.95,
+    "frames": 767,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 110648,
+    "ok": true
+  },
+  "evidence": {
+    "shot": "upscale\\runs\\2026-10-31_j50\\raw\\s1b_land.jpg"
+  },
+  "start_utc": "2026-10-31T16:53:46.652Z",
+  "end_utc": "2026-10-31T16:53:53.050Z"
+}

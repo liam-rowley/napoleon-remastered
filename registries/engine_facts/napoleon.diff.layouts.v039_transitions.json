@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.diff.layouts.v039_transitions",
+  "claim": "A Version039 (and uied.templates v35) state transition is u32 kind, u32 target state id, a string (an event or function name, e.g. common ui\\menu_bar selected_down_off -> DisableAdviceAudio; empty in most) and 8 bytes (zero in every vanilla file): 18 bytes when the string is empty",
+  "state": "verified",
+  "evidence": "discovery/diff/layouts.json",
+  "date": "2026-11-02",
+  "notes": "J10: decoded and checked by the byte-exact round trip of all 136 V039 layouts and the 4 v35 template records; kinds seen 0, 1, 2, 3, 11 (meaning not probed)"
+}
