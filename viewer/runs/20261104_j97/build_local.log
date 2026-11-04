@@ -1,0 +1,11 @@
+# build.sh --docker build in job-J97 (2026-11-04T18:15:13Z to 2026-11-04T18:16:27Z), tail
+build.sh --docker: build in emscripten/emsdk@sha256:90b757eb11fa9a0e3ce4d2d9f76d932a56018e4accc37b5a28b2783751e60eb7
+[100%] Linking CXX executable viewer.js
+21876236ee8bad99f18159225bf1fb0478abda358fe9c549c9cc081c8288dcd2  viewer.js
+2bdc8a112021772a4e4ad08004bb3e096707f9fcbff95625073f217f478b0f78  viewer.wasm
+  97837 viewer.js
+2122957 viewer.wasm
+2220794 total
+rc=0
+# docker volume inspect -f '{{json .Labels}}' napoleon-viewer-cmake-bcf51fa481f3
+{"napoleon.viewer.checkout":"/c/Users/liamr/repos/napoleon-remastered/.claude/worktrees/job-J97","napoleon.viewer.hash":"bcf51fa481f3"}

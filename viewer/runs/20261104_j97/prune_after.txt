@@ -1,0 +1,16 @@
+# build.sh --prune --dry-run, 2026-11-04T18:16:46Z
+would remove napoleon-viewer-cmake: the old shared volume (one volume per checkout since the J31 review)
+keep napoleon-viewer-cmake-b42762329245: unlabelled, the hash of a live checkout
+keep napoleon-viewer-cmake-bcf51fa481f3: checkout /c/Users/liamr/repos/napoleon-remastered/.claude/worktrees/job-J97 exists
+build.sh --prune --dry-run: kept 2, would remove 1, skipped 0
+
+# build.sh --prune
+removed napoleon-viewer-cmake: the old shared volume (one volume per checkout since the J31 review)
+keep napoleon-viewer-cmake-b42762329245: unlabelled, the hash of a live checkout
+keep napoleon-viewer-cmake-bcf51fa481f3: checkout /c/Users/liamr/repos/napoleon-remastered/.claude/worktrees/job-J97 exists
+build.sh --prune: kept 2, removed 1, skipped 0
+rc=0
+
+# docker volume ls (napoleon-viewer-cmake), after
+napoleon-viewer-cmake-b42762329245
+napoleon-viewer-cmake-bcf51fa481f3
