@@ -1,5 +1,7 @@
 ## Round 1 (2026-11-04, branch job/J81 at 77a9ce5)
-Verdict: fix. Three defects in the installer can lose a player's file or delete outside `_to_delete`; the rest of the branch checks out.
+**Verdict: merge after fixes.**
+
+Three defects in the installer can lose a player's file or delete outside `_to_delete`; the rest of the branch checks out.
 
 Checked: `tests.test_release_installer` + `tests.test_release` 70 OK locally; CI on 77a9ce5 green (2 checks passed or skipped); no `core/` change; the
 report's claims match the diff (`Union-Owned`, backup loop outside `if ($null -eq $rec)`, `Do-Clean`, `Clean.cmd`, sidecar, `--record`, `key_text` gone).
