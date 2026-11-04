@@ -1,11 +1,11 @@
 {
   "id": "discovery.core.effects",
   "kind": "script",
-  "path": "discovery/core/effects.py",
+  "path": "discovery/napoleon/effects.py",
   "purpose": "diff both games' effects\\\\ entries file by file, the XML effect definitions per SCRIPTED_EFFECT_INFO and SCRIPTED_EFFECT_GROUP name (tags and attribute names new or gone), the textures and fx the other game's definitions reference and whether Empire has them, the counts of the new names in both exes, and the particle_effects, projectiles_explosions and projectile_trails tables; the smoke subset is what the projectile rows point at",
-  "usage": "python3 discovery/core/effects.py [--games discovery/napoleon/games.json] [--out discovery/diff/effects.json] [--check] | --trim-schema <empire-remastered rml_mod/tools/db/schema_emp.json>",
+  "usage": "python3 discovery/napoleon/effects.py [--games discovery/napoleon/games.json] [--out discovery/diff/effects.json] [--check] | --trim-schema <empire-remastered rml_mod/tools/db/schema_emp.json>",
   "when": "J72 (the Empire smoke backport question, PLAN section 4); re-run after a game update; --check in review (reads both installs, PC only)",
   "not_a_verb": "reads both installs' packs and exes in place (read only), outside the wsc registry operations",
   "status": "live",
-  "last_used": "2026-11-03"
+  "last_used": "2026-11-04"
 }

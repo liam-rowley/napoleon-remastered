@@ -2,7 +2,7 @@
 """Effects pass (static) of the Empire-to-other-game diff: the particle and smoke definitions, their textures and fx, the exe names and the effect db tables.
 
 purpose: diff both games' effects\\ entries file by file, the XML effect definitions per SCRIPTED_EFFECT_INFO and SCRIPTED_EFFECT_GROUP name (tags and attribute names new or gone), the textures and fx the other game's definitions reference and whether Empire has them, the counts of the new names in both exes, and the particle_effects, projectiles_explosions and projectile_trails tables; the smoke subset is what the projectile rows point at
-usage: python3 discovery/core/effects.py [--games discovery/napoleon/games.json] [--out discovery/diff/effects.json] [--check] | --trim-schema <empire-remastered rml_mod/tools/db/schema_emp.json>
+usage: python3 discovery/napoleon/effects.py [--games discovery/napoleon/games.json] [--out discovery/diff/effects.json] [--check] | --trim-schema <empire-remastered rml_mod/tools/db/schema_emp.json>
 when: J72 (the Empire smoke backport question, PLAN section 4); re-run after a game update; --check in review (reads both installs, PC only)
 not-a-verb: reads both installs' packs and exes in place (read only), outside the wsc registry operations
 
@@ -22,7 +22,8 @@ import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
-sys.path.insert(0, HERE)
+CORE_DISCOVERY = os.path.join(REPO, 'core', 'discovery')   # the passes are the core's since J64 (core v0.15.0)
+sys.path.insert(0, CORE_DISCOVERY)
 from db import decode_table, load_schema  # noqa: E402
 from diffout import dumps, row  # noqa: E402
 from packfs import LOOSE, PackFS, key  # noqa: E402
@@ -563,7 +564,7 @@ def make_rows(files, defs, texts, refs, lacking, fmt, exe_sum, db, primary, how)
 def trim_schema(src, out=EMPIRE_SCHEMA):
     b = open(src, 'rb').read()
     d = json.loads(b)
-    doc = {'note': 'Trimmed by discovery/core/effects.py --trim-schema from empire-remastered rml_mod/tools/db/schema_emp.json '
+    doc = {'note': 'Trimmed by discovery/napoleon/effects.py --trim-schema from empire-remastered rml_mod/tools/db/schema_emp.json '
                    '(RPFM schema_emp.ron converted there): only the tables the effects pass reads, every version, unchanged.',
            'source': {'line': d['source'], 'file': 'empire-remastered/rml_mod/tools/db/schema_emp.json', 'file_sha256': sha(b)},
            'tables': {t + '_tables': d['tables'][t + '_tables'] for t in SCHEMA_TABLES}}

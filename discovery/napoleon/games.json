@@ -1,5 +1,7 @@
 {
- "note": "Paths and quirks for the J6 Empire-to-Napoleon diff (discovery/core/*.py --games this file). Read-only inputs; extracts go under the git-ignored /extract/.",
+ "note": "Paths and quirks for the J6 Empire-to-Napoleon diff (core/discovery/*.py --games this file). Read-only inputs; extracts go under the git-ignored /extract/.",
+ "target": "napoleon",
+ "reference": "empire",
  "napoleon": {
   "root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War",
   "exe": "Napoleon.exe",

@@ -14,7 +14,7 @@ engine_facts = "core:engine_facts"
 jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
 
 [core]
-version = "v0.10.0"
+version = "v0.22.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
@@ -31,14 +31,19 @@ commit = false              # views are written to _scratch/registries/ (git-ign
 [storage]
 dir = ["jobs", "tools", "engine_facts"]
 
-# ---- the job pipeline (napoleon J62): the core runs it, this file configures it, tools/jobs_hooks.py holds the game-specific rules
+# ---- the job pipeline (napoleon J62): the core runs it, this file configures it, tools/gates/pipeline.py holds the game-specific rules
 [jobs]
 id_prefix = "J"
 dir = "jobs"
 models = ["sonnet", "opus"]
 legacy = "jobs/legacy.json"            # frozen id sets exempt from the round rules and the brief hooks (D36, J11)
-hooks = ["tools/jobs_hooks.py"]        # found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75)
 ledgers = "jobs/*/rules.md"            # J5 audit ledgers: their `CL` rows name the job whose brief must cover them
+
+[gates]
+dirs = ["tools/gates"]                 # tools/gates/pipeline.py: found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75); core W13
+
+[discovery]
+adapter = "discovery/napoleon"         # games.json, gate.json and the other adapter files; the passes themselves are core/discovery (core W4, v0.15.0)
 
 [jobs.text]
 wsc = "python3 core/wsc.py"
@@ -78,6 +83,8 @@ policy_extra_steps = '''      # rule 79 compares the core pins at the merge base
       - run: |
           pin=$(git rev-parse "$(git merge-base "origin/${{ github.base_ref }}" HEAD):core")
           git -C core cat-file -e "$pin^{commit}" 2>/dev/null || git -C core fetch --no-tags origin "$pin" || echo "could not fetch core pin $pin"'''
+
+required_checks = ["gates", "policy", "proxy", "harness-windows"]   # what `main` requires (D32); `wsc ci check-settings` compares (core W21)
 
 [ci.artifacts]
 proxy = "proxy-d3d9-napoleon"
