@@ -1,0 +1,13 @@
+{
+ "_note": "Golden sha256s of the five 2x slot fonts (napoleon.ui.font_slots_2x), rendered by uiscale/core/cuf_encode.py render_set from the vendored face and the vanilla .cuf (J79, audit G8). Taken from the build that produced ui_scale_2x_fonts.pack 5f510b27... (J66 after D42, rebuilt by J68); the five, packed in name order by upscale/core/pack.py, give that pack sha. D42 compared that pack with Empire's on the PC; this file pins the pack, nothing more. Test: tests/test_uiscale_fonts.py.",
+ "face": {"path": "uiscale/fonts/Lora-Variable.ttf", "sha256": "822a6621ccbe8d97d20ac88c1c41f5615c9c2c202eaa75f272cd452aac6475a7", "size": 212196},
+ "packages": {"freetype-py": "2.5.1", "freetype": "2.13.2", "uharfbuzz": "0.56.4"},
+ "pack": {"name": "ui_scale_2x_fonts.pack", "sha256": "5f510b27afa32cec1180c579ce263cd6d71dca7102f7b853ad08a9f5d125bbd4", "size": 1772186},
+ "fonts": [
+  {"name": "frontend_24.cuf", "sha256": "0f4bc865ca453a9ded419312cbe3e7cab7baea3c32af061698e475f9a409b17e", "size": 338860, "vanilla_sha256": "6ca84431c5e9a1fd6eed4446ac2636228de5d5c4fc918fa562d2e37b2db9a5e7"},
+  {"name": "frontend_38.cuf", "sha256": "43738ed8fde7e28159ed22dc93b1b89f14aba6832d1d9326fb7c4a17458a8810", "size": 458989, "vanilla_sha256": "51c38403cba3cdc5daf23b378ea4cea572ffafeca8cf0cdbfaaac3c5844c3226"},
+  {"name": "ingame_18.cuf", "sha256": "47f8ba94ee34a23e482f3804bd0db5fa0961fcabd1cf5f9907f2689d05d9c6e7", "size": 304457, "vanilla_sha256": "0dfa2a507094236f8ce9ef163831cb283b17c7fcdc1c5ede36443a3f8f35430a"},
+  {"name": "ingame_24.cuf", "sha256": "9a8c289744f183ab4bae4033497406ba3fc03420c9c64f4fcf368f98d4183d67", "size": 338860, "vanilla_sha256": "6ca84431c5e9a1fd6eed4446ac2636228de5d5c4fc918fa562d2e37b2db9a5e7"},
+  {"name": "ingame_b_24.cuf", "sha256": "26f2de4d5f27fea26bbfc9df1423238ae3c2f0fb59fa338ac006179849c78f2a", "size": 330875, "vanilla_sha256": "10036bd0a2daac2870f5cad0205e36f1422e9a7215870746b1347f18ca746905"}
+ ]
+}

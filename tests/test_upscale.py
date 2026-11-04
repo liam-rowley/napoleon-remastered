@@ -2,7 +2,7 @@
 
 The size rule, status mapping and pack writer are standard library and always run. The image tests (DDS header round trip,
 alpha rules, mips, manifest and resume, determinism, verify) need numpy and Pillow (upscale/requirements.txt) and are skipped
-where they are missing (the CI gate image has neither: run them with the art_build Python on the PC).
+where they are missing (CI installs them from upscale/requirements-ci.txt since J79). Bootstrap: the pinned downloads of setup_env.cmd.
 """
 import hashlib
 import json
@@ -270,6 +270,51 @@ class Images(unittest.TestCase):
         vis = img[..., 3] >= 128
         self.assertLess(np.abs(d[..., :3] - img[..., :3])[vis].mean(), 8)
         self.assertLess(np.abs(d[..., 3] - img[..., 3]).max(), 9)
+
+
+class Bootstrap(unittest.TestCase):
+    """upscale/pc/bootstrap.json pins setup_env.cmd's downloads (J79): versioned url, sha256 and size; the script reads it and installs hash-locked"""
+
+    def test_pins_shape(self):
+        with open(os.path.join(ROOT, 'upscale', 'pc', 'bootstrap.json'), encoding='utf-8') as f:
+            b = json.load(f)
+        self.assertEqual(sorted(k for k in b if not k.startswith('_')), ['get_pip', 'python_embed'])
+        for k in ('get_pip', 'python_embed'):
+            e = b[k]
+            self.assertRegex(e['sha256'], r'^[0-9a-f]{64}$', k)
+            self.assertIsInstance(e['size'], int)
+            self.assertTrue(e['url'].startswith('https://') and e['url'].endswith('/' + e['file']), k)
+        self.assertIn('/' + b['python_embed']['version'] + '/', b['python_embed']['url'])
+        self.assertRegex(b['get_pip']['url'], r'^https://raw\.githubusercontent\.com/pypa/get-pip/[0-9a-f]{40}/public/get-pip\.py$')   # commit-pinned
+        self.assertNotIn('bootstrap.pypa.io/get-pip.py', b['get_pip']['url'])   # that url moves with every pip release
+
+    def test_setup_env_uses_the_pins(self):
+        with open(os.path.join(ROOT, 'upscale', 'pc', 'setup_env.cmd'), encoding='ascii') as f:
+            s = f.read()
+        self.assertIn('bootstrap.json', s)
+        self.assertIn('call :fetch python_embed', s)
+        self.assertIn('call :fetch get_pip', s)
+        self.assertIn('Get-FileHash -Algorithm SHA256', s)
+        self.assertIn(r'--require-hashes -r "%REPO%\upscale\requirements-ci.txt"', s)
+        self.assertNotIn('https://', s.replace('https://download.pytorch.org/whl/cu130', ''))   # every other url comes from bootstrap.json
+
+    def test_ci_requirements_are_hash_locked_and_match_the_pins(self):
+        import re
+        with open(os.path.join(ROOT, 'upscale', 'requirements-ci.txt'), encoding='utf-8') as f:
+            text = f.read()
+        reqs = re.findall(r'^([A-Za-z0-9_.-]+)==(\S+)((?:\s*\\\n\s*--hash=sha256:[0-9a-f]{64})+)', text, re.M)
+        names = {n.lower(): v for n, v, _ in reqs}
+        self.assertEqual(set(names), {'freetype-py', 'uharfbuzz', 'numpy', 'pillow', 'capstone', 'pefile'})
+        self.assertEqual(len([l for l in text.splitlines() if l.strip() and not l.lstrip().startswith(('#', '--hash'))]), len(reqs))   # no unhashed line
+        with open(os.path.join(ROOT, 'upscale', 'requirements.txt'), encoding='utf-8') as f:
+            pins = dict(re.findall(r'^([A-Za-z0-9_.-]+)==([^\s#]+)', f.read(), re.M))
+        for n in ('freetype-py', 'uharfbuzz', 'numpy', 'pillow'):
+            self.assertEqual(names[n], pins[n], n)
+        sys.path.insert(0, os.path.join(ROOT, 'discovery', 'core'))
+        import re_env
+        for spec in re_env.PINS:
+            n, v = spec.split('==')
+            self.assertEqual(names[n], v, n)
 
 
 if __name__ == '__main__':
