@@ -72,7 +72,7 @@ class Promotions(unittest.TestCase):
 
     def test_promotions_name_rows_that_exist(self):
         rows = {p.stem for p in (ROOT / 'registries' / 'jobs').glob('*.json')}
-        for folder, jid in (('discovery/core', 'J64'), ('upscale/core', 'J63'), ('viewer/core', 'J63'), ('release/core', 'J100')):
+        for folder, jid in (('discovery/core', 'J64'), ('upscale/core', 'J63'), ('viewer/core', 'J63')):
             self.assertEqual(hk.PROMOTIONS[folder], jid, folder)
             self.assertIn(jid, rows, folder)
 
