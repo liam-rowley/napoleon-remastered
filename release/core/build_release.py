@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build and check a release folder: `Napoleon Remastered <version>\\` and its zip, from the repo, the CI-built DLL and the component rows.
 
-purpose: build the player release folder (payload per component, manifest.json with every file's target, size and sha256, the installer scripts and .cmd entry points, README.txt, generated LICENSES.txt and RELEASE_NOTES.txt) and its zip from a clean checkout; --check verifies a built folder against its manifest; refuses a dirty tree, a DLL whose embedded build id is not this tree's (build_id.py) or an unpinned DXVK
+purpose: build the player release folder (payload per component, manifest.json with every file's target, size and sha256, the installer scripts and .cmd entry points, README.txt, generated LICENSES.txt and RELEASE_NOTES.txt) and its zip from a clean checkout; --check verifies a built folder against its manifest; refuses a dirty tree, a component ini_set that turns a dev, proof or test key on (unless release.json allowed_dev_keys names it with a decision), a DLL whose embedded build id is not this tree's clean id (build_id.py, whole-token match) or is not backed by the ledger's 20 acceptance passes (--allow-dirty skips only that count), or an unpinned DXVK
 usage: python3 release/core/build_release.py [--out build/release] [--dll build/proxy/napoleon/d3d9.dll] [--external uiscale=DIR] [--no-zip] [--allow-dirty] | --check <release folder>
 when: to make a release (one command, then Install.cmd on a PC); --check on a built or unzipped folder before it goes anywhere; it builds files only, publishing is Liam's call and never done by it
 not-a-verb: a release-builder script (release/core is a core candidate, rule 76); game facts are in release/napoleon (components.json, release.json, licenses.json, VERSION), not here
@@ -135,9 +135,19 @@ def is_off_key(kid, rel):
             or kid in r['off_ids'] or any(p in kid for p in r['off_patterns'])) and kid not in r['inert_parameters']
 
 
-def value_problems(keys, rel, dev_ini_text=None, dev_ini_expected=None):
+def component_ini_set(comps):
+    """What the components set in the player ini: the one place that merges their ini_set maps (build() and the tests use it)."""
+    out = {}
+    for c in comps['components']:
+        out.update(c.get('ini_set', {}))
+    return out
+
+
+def value_problems(keys, rel, dev_ini_text=None, dev_ini_expected=None, ini_set=None):
     """The release-value gate: every dev, proof and test key is off at its release value; the required keys have their value (the exe guard on,
-    the forced mismatch off, minidump 2); every key the player ini omits has default == release value; the shipped dev-side ini equals the generated one."""
+    the forced mismatch off, minidump 2); every key the player ini omits has default == release value; the shipped dev-side ini equals the generated one.
+    ini_set (J74): the components' ini_set map overrides the registry's release_value, so its keys are held to the same rules: a key must be in the registry,
+    an off key stays off unless release.json allowed_dev_keys names it with a decision id (D<n>), a required key keeps its value; an allow-list entry nothing sets is stale."""
     errs = []
     req = rel['release_values']['required']
     ids = {k['id']: k for k in keys}
@@ -146,11 +156,27 @@ def value_problems(keys, rel, dev_ini_text=None, dev_ini_expected=None):
             errs.append(f'required release key {kid} is not in the config_keys registry')
         elif ids[kid].get('release_value', ids[kid]['default']) != want:
             errs.append(f"{kid}: release_value {ids[kid].get('release_value', ids[kid]['default'])!r}, the release needs {want!r}")
+    allowed = rel['release_values'].get('allowed_dev_keys', {})
+    for kid, v in sorted((ini_set or {}).items()):
+        if kid not in ids:
+            errs.append(f'{kid}: set by a component (ini_set) but not in the config_keys registry')
+        elif kid in req and v != req[kid]:
+            errs.append(f'{kid}: a component sets {v!r}, the release needs {req[kid]!r}')
+        elif is_off_key(kid, rel) and not_off(v) and kid not in allowed:
+            errs.append(f'{kid}: a component sets {v!r} but it is a dev, proof or test key that must be off in a release (release.json release_values.allowed_dev_keys needs a decision for it)')
+    if ini_set is not None:
+        for kid, why in sorted(allowed.items()):
+            if kid not in ids:
+                errs.append(f'allowed_dev_keys {kid} is not a config_keys registry key')
+            elif kid not in ini_set:
+                errs.append(f'allowed_dev_keys {kid} is stale: no component sets it any more (remove it from release.json)')
+            if not re.search(r'\bD\d+\b', str(why)):
+                errs.append(f'allowed_dev_keys {kid}: the reason must cite a decision id (D<n>)')
     for k in keys:
         v = k.get('release_value', k['default'])
         if is_off_key(k['id'], rel) and not_off(v):
             errs.append(f"{k['id']}: release_value {v!r} is not off (false, 0 or empty)")
-        if omitted(k, rel) and v != k['default']:
+        if omitted(k, rel) and v != k['default'] and k['id'] not in (ini_set or {}):
             errs.append(f"{k['id']}: omitted from the player ini but release_value {v!r} differs from the DLL default {k['default']!r}")
     for kid in rel['release_values']['inert_parameters']:
         k = ids.get(kid)
@@ -160,6 +186,21 @@ def value_problems(keys, rel, dev_ini_text=None, dev_ini_expected=None):
             errs.append(f'{kid}: an inert parameter must be omitted from the player ini')
     if dev_ini_text is not None and dev_ini_text != dev_ini_expected:
         errs.append('the shipped proxy ini differs from the generated one (python3 core/proxy/tools/gen_tables.py)')
+    return errs
+
+
+def shipped_ini_problems(ini_text, rel):
+    """The gate on the rendered player ini (J74): no key under [dev] or [headless], and no dev, proof or test key, unless allow-listed."""
+    allowed = rel['release_values'].get('allowed_dev_keys', {})
+    errs, sec = [], None
+    for line in ini_text.splitlines():
+        line = line.strip()
+        if line.startswith('[') and line.endswith(']'):
+            sec = line[1:-1]
+        elif '=' in line and not line.startswith(';') and sec:
+            kid = f"{sec}.{line.split('=', 1)[0].strip()}"
+            if (sec in ('dev', 'headless') or is_off_key(kid, rel)) and kid not in allowed:
+                errs.append(f'the player ini sets {kid}, a dev, headless, proof or test key that is not allow-listed')
     return errs
 
 
@@ -193,13 +234,36 @@ def ownership_problems(comps, installed=None, mod_dir=''):
     return errs
 
 
-def dll_problem(dll, want_id):
-    """The DLL must carry the build id of this tree's DLL inputs (build_id.py), clean."""
-    if want_id.endswith('-dirty'):
-        return f'build id {want_id} is dirty: a DLL input differs from HEAD'
+ID_RE = re.compile(r'^[0-9a-f]{12}$')
+
+
+def acceptance_streak(ledger_text, build_id, exists):
+    """Consecutive `pass` rows at the end of the ledger among the rows of exactly this build id (other ids, -dirty ids included, are skipped), each naming a run
+    and an evidence file that exists. The streak rule of rule 79 (tools/jobs_hooks.py) without its branch and watcher conditions."""
+    rows = [json.loads(l) for l in ledger_text.splitlines() if l.strip()]
+    n = 0
+    for r in reversed([r for r in rows if r.get('build_id') == build_id]):
+        if not (r.get('result') == 'pass' and r.get('run') and r.get('evidence') and exists(r['evidence'])):
+            break
+        n += 1
+    return n
+
+
+def dll_problem(dll, want_id, acceptance=None):
+    """The DLL must carry the clean build id of this tree's DLL inputs (build_id.py) as a whole token, and no dirty literal; with `acceptance`
+    ({'text': ledger text, 'passes': needed, 'exists': path -> bool}) the ledger must also hold that many consecutive passes on the id (J74)."""
+    if not ID_RE.match(want_id or ''):
+        return f'build id {want_id!r} is not a clean 12-hex id (an empty, malformed or -dirty id: a DLL input differs from HEAD)'
     b = Path(dll).read_bytes()
-    if want_id.encode('ascii') not in b:
-        return f"{dll} does not carry build id {want_id} (its inputs differ from this tree: rebuild it with core/proxy/tools/build.sh --docker dll, or download the CI artifact of this commit)"
+    i = want_id.encode('ascii')
+    if not re.search(rb'(?<![0-9A-Za-z_-])' + i + rb'(?![0-9A-Za-z_-])', b):
+        return f"{dll} does not carry build id {want_id} as a whole token (its inputs differ from this tree: rebuild it with core/proxy/tools/build.sh --docker dll, or download the CI artifact of this commit)"
+    if i + b'-dirty' in b:
+        return f'{dll} also carries {want_id}-dirty: the build mixed a dirty id in'
+    if acceptance is not None:
+        n = acceptance_streak(acceptance['text'], want_id, acceptance['exists'])
+        if n < acceptance['passes']:
+            return f"build {want_id}: the acceptance ledger holds {n} consecutive passes with committed evidence, a release needs {acceptance['passes']} (run `python3 core/harness/acceptance.py run` on this build)"
     return ''
 
 
@@ -226,6 +290,8 @@ def resolve(cf, comp, ctx):
         return ctx['player_ini'].encode('utf-8')
     if s.startswith('repo:'):
         return ROOT / s[5:]
+    if s.startswith('crash_cmd:'):
+        return crash_dump_cmd(s[10:], ctx['ident']).encode('ascii')
     if s.startswith('text:'):
         return comp['texts'][s[5:]].replace('\n', '\r\n').encode('ascii')
     if s.startswith('external:'):
@@ -256,6 +322,26 @@ def cmd_text(verb, extra, blurb):
     return ('@echo off\r\nrem ' + blurb + '\r\n'
             f'powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0installer\\rr.ps1" {verb}{extra} %*\r\n'
             'set RR_EXIT=%ERRORLEVEL%\r\necho.\r\nif "%RR_EXIT%"=="0" (echo Done.) else (echo Finished with problems, exit code %RR_EXIT%. See the lines above.)\r\npause\r\nexit /b %RR_EXIT%\r\n')
+
+
+def crash_dump_cmd(mode, ident):
+    """tools/Enable|Disable crash dumps.cmd (J74): the core's wrapper with -ExeName and -DumpFolder added, so wer_localdumps.ps1 needs no repo. The folder goes
+    in unexpanded (%LOCALAPPDATA% is written %% in a batch file) and is stored REG_EXPAND_SZ, outside the game folder."""
+    on = mode == 'enable'
+    out = f'%TEMP%\\rr_wer_{mode}.txt'
+    folder = '%%LOCALAPPDATA%%\\CrashDumps\\' + ident['mod_dir']
+    L = ['@echo off',
+         "rem purpose: turn WER LocalDumps (full crash dumps, written outside the game folder) " + ('on' if on else 'off again (removes only its own registry subkey)') + " for the game's exe; asks for administrator rights once",
+         'rem usage: double-click it' + ('; undo with "Disable crash dumps.cmd"' if on else ''),
+         'rem when: ' + ('before you send a crash report: the dumps go to %LOCALAPPDATA%\\CrashDumps\\' + ident['mod_dir'] if on else 'when crash dumps are no longer wanted'),
+         'rem not-a-verb: generated by release/core/build_release.py from the game identity; a Windows double-click wrapper around wer_localdumps.ps1']
+    if on:
+        L.append("echo Enabling crash dumps for the game's exe (a Windows admin prompt will appear)...")
+    q = "'"
+    L += ["powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-Process -Verb RunAs -Wait -FilePath powershell.exe -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-Command',"
+          f"'& ''%~dp0wer_localdumps.ps1'' -Mode {mode} -ExeName ''{ident['exe_name']}'' -DumpFolder ''{folder}'' *> ''{out}{q}{q}{q}\"",
+          f'type "{out}"', 'echo.', 'pause']
+    return '\r\n'.join(L) + '\r\n'
 
 
 def readme_text(rel, ident, version, comps, lic):
@@ -328,14 +414,20 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
     version = version or (ROOT / 'release' / 'napoleon' / 'VERSION').read_text(encoding='ascii').strip()
     rpath = ROOT / 'release' / 'napoleon' / 'releases.json'
     releases = read_json(rpath)['releases'] if rpath.is_file() else []
-    errs = version_problems(version, releases) + ownership_problems(comps) + gen_licenses.problems(lic, comps, ROOT) + value_problems(keys, rel)
+    ini_set = component_ini_set(comps)
+    errs = version_problems(version, releases) + ownership_problems(comps) + gen_licenses.problems(lic, comps, ROOT) + value_problems(keys, rel, ini_set=ini_set)
     if errs:
         raise SystemExit('build_release: refusing:\n  ' + '\n  '.join(errs))
     dirty = tree_dirty()
     if dirty and not allow_dirty:
         raise SystemExit('build_release: the working tree has uncommitted changes to tracked files: commit them (a release is built from a commit), or --allow-dirty for a throwaway build')
     bid = subprocess.run([sys.executable, str(ROOT / 'core' / 'proxy' / 'tools' / 'build_id.py')], capture_output=True, text=True).stdout.strip()
-    p = dll_problem(dll, bid)
+    acc = rel.get('acceptance')
+    if not acc:
+        raise SystemExit('build_release: refusing: release.json has no "acceptance" block (ledger and passes)')
+    ledger = ROOT / acc['ledger']
+    ledger_acc = {'text': ledger.read_text(encoding='utf-8') if ledger.is_file() else '', 'passes': acc['passes'], 'exists': lambda p: (ROOT / p).is_file()}
+    p = dll_problem(dll, bid, None if allow_dirty else ledger_acc)
     if p:
         raise SystemExit('build_release: refusing: ' + p)
     if dxvk is None:
@@ -344,11 +436,15 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
         dxvk = fetch_dxvk.fetch(ROOT / 'build' / 'dxvk')
     ext = dict(comps.get('external', {}))
     ext.update(external or {})
-    ini_set = {}
-    for c in comps['components']:
-        ini_set.update(c.get('ini_set', {}))
     ini_text = player_ini(keys, rel, ident, ini_set)
-    ctx = {'dll': dll, 'dxvk': dxvk, 'external': ext, 'player_ini': ini_text}
+    bad_ini = shipped_ini_problems(ini_text, rel)
+    if bad_ini:
+        raise SystemExit('build_release: refusing: the rendered player ini:\n  ' + '\n  '.join(bad_ini))
+    if allow_dirty:
+        print('build_release: warning: --allow-dirty skips the acceptance-pass check of the DLL build id: not a releasable build')
+    else:
+        print(f"build_release: acceptance ledger holds {acceptance_streak(ledger_acc['text'], bid, ledger_acc['exists'])} consecutive passes on build {bid} (need {acc['passes']})")
+    ctx = {'dll': dll, 'dxvk': dxvk, 'external': ext, 'player_ini': ini_text, 'ident': ident}
     name = f"{rel['product']} {version}"
     folder = Path(out) / name
     if folder.exists():
@@ -377,7 +473,8 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
         extras.append({'path': relpath, 'component': component, 'size': len(data), 'sha256': sha256_bytes(data)})
     for c in comps['components']:
         for x in c.get('extras', []):
-            add_extra(x['path'], resolve({'source': x['source'], 'target': x['path']}, c, ctx).read_bytes(), c['id'])
+            src = resolve({'source': x['source'], 'target': x['path']}, c, ctx)
+            add_extra(x['path'], src if isinstance(src, bytes) else src.read_bytes(), c['id'])
     add_extra('installer/rr.ps1', INSTALLER.read_bytes().replace(b'\r\n', b'\n').replace(b'\n', b'\r\n'), 'installer')
     idb = ident_path.read_bytes()
     add_extra('installer/exe_identity.json', idb, 'installer')
@@ -487,6 +584,15 @@ def check_folder(folder):
     for cmd in CMDS:
         if not (folder / cmd).is_file():
             bad.append(f'{cmd}: missing')
+    tools = folder / 'tools'
+    for p in sorted(tools.glob('*')) if tools.is_dir() else []:
+        if p.suffix.lower() in ('.cmd', '.ps1') and p.name != 'wer_localdumps.ps1':
+            t = p.read_text(encoding='utf-8', errors='replace')
+            if 'wer_localdumps.ps1' in t:
+                if '-ExeName' not in t or '-DumpFolder' not in t:
+                    bad.append(f'tools/{p.name}: runs wer_localdumps.ps1 without -ExeName and -DumpFolder (it then needs the repo and fails on a player PC)')
+                if not (tools / 'wer_localdumps.ps1').is_file():
+                    bad.append(f'tools/{p.name}: tools/wer_localdumps.ps1 is not beside it')
     return bad
 
 
