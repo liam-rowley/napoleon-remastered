@@ -428,6 +428,15 @@ class Parser(unittest.TestCase):
         self.assertIs(hp.rp(r'C:\ABCDEF~1\x', REPO, lambda p: p), hp.UNKNOWN)
 
 
+class ShortNames(unittest.TestCase):
+    def test_the_real_expander(self):
+        self.assertEqual(ch.expand_short(str(ROOT)).lower().replace('\\', '/'), str(ROOT).lower().replace('\\', '/'))   # a long path comes back as it was
+        if sys.platform == 'win32' and os.path.isdir(r'C:\Program Files (x86)'):
+            self.assertEqual(ch.expand_short('C:/PROGRA~2').lower().replace('\\', '/'), 'c:/program files (x86)')
+        else:
+            self.assertEqual(ch.expand_short('C:/PROGRA~2'), 'C:/PROGRA~2')
+
+
 class Messages(unittest.TestCase):
     def test_every_family_names_its_route(self):
         want = [
