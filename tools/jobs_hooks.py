@@ -1,6 +1,6 @@
 """Napoleon's rules for the job pipeline: the hook module warscape-core's `wsc jobs` and `wsc policy` load (`wsc.toml` [jobs] hooks; napoleon J62).
 
-purpose: the game-specific half of the job pipeline, as the five hook names of warscape/hooks.py: the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (on every branch kind, J73: a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)
+purpose: the game-specific half of the job pipeline, as the five hook names of warscape/hooks.py: the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (on every branch kind, J73: a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58; J75: each counted line's committed evidence is unique and agrees with it, the ledger diff is append-only, base pass files are immutable, only ledger.jsonl is exempt, and the shas the pinned core names are required) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)
 usage: not run by hand: `python3 core/wsc.py jobs check|view` and `python3 core/wsc.py policy --branch <branch>` call it; `python3 -m unittest tests.test_jobs_hooks` tests it
 when: automatic, through wsc.toml [jobs] hooks; edit it when one of those rules changes (rules 76 and 79 in docs/plans/PLAN.md section 4, the J5 ledger)
 not-a-verb: a hook module the core's jobs and policy verbs import; it has no command line of its own
@@ -9,6 +9,7 @@ Everything generic (branch kinds, the decisions file, the session-trailer rule, 
 discovery/core/briefpaths.py (moves with discovery/core in J64), harness/napoleon/adapter.json, harness/acceptance/, `<area>/core/` candidate folders.
 The legacy id sets that exempt old jobs from two rules are data (`jobs/legacy.json`, read by the core), not code.
 """
+import ast
 import json
 import re
 import subprocess
@@ -206,6 +207,9 @@ ACC_LEDGER = 'harness/acceptance/ledger.jsonl'
 ACC_BASELINE = 'harness/acceptance/baseline.json'
 ACC_NEEDED = 20
 ACC_CHECKERS = ('core/harness/acceptance.py', 'harness/core/acceptance.py')   # after J12, then before it (an older base)
+ACC_SHA_NAME = 'LEDGER_SHA_FIELDS'   # core W9's tuple of the sha fields a ledger line and its pass file carry (J75 Decision 5)
+_PASS_FILE = re.compile(r'^harness/runs/.+/pass_[^/]*\.json$')
+_HEX = re.compile(r'^[0-9a-f]+$')
 
 
 def _git(root, *args):
@@ -262,9 +266,10 @@ def dll_build_id(root):
 
 
 def acc_exempt(path):
-    """runs/ folders, READMEs and the acceptance files themselves; by path segment and name, never by substring (J4 review 6)."""
+    """runs/ folders, READMEs and the ledger itself (a pass run appends to it); by path segment and name, never by substring (J4 review 6).
+    baseline.json and shots/ count (J75): a branch that edits only the thresholds needs the passes too."""
     parts = path.split('/')
-    return 'runs' in parts[:-1] or parts[-1] == 'README.md' or path.startswith('harness/acceptance/')
+    return 'runs' in parts[:-1] or parts[-1] == 'README.md' or path == ACC_LEDGER
 
 
 def acceptance_active(ledger, baseline, checker_src, root=None):
@@ -304,14 +309,96 @@ def core_pin_diff(base, head='HEAD', root=None):
     return [l for l in p.stdout.splitlines() if l]
 
 
+def acc_sha_fields(root=None, src=None):
+    """The sha fields the pinned core writes (core W9's module-level ACC_SHA_NAME tuple in acceptance.py), or None while it has none: the sha rule
+    is then off. Read from `src`, else the core pinned at HEAD; parsed with ast, never run."""
+    if src is None and root is not None:
+        src = show_first(root, 'HEAD', *ACC_CHECKERS)
+    try:
+        for node in ast.parse(src or '').body:
+            if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == ACC_SHA_NAME for t in node.targets):
+                v = ast.literal_eval(node.value)
+                return tuple(v) if isinstance(v, (tuple, list)) and v and all(isinstance(x, str) for x in v) else None
+    except (SyntaxError, ValueError):
+        return None
+    return None
+
+
+def _lines(text):
+    return [l for l in (text or '').split('\n') if l.strip()]
+
+
+def _where(r):
+    return f"pass {r.get('pass')} of {r.get('run') or 'no run'}"
+
+
+def ledger_append_problems(base_ledger, ledger):
+    """J75 Decision 3: the base's lines must be an exact prefix of the branch's (a trailing newline aside); None at the base costs nothing."""
+    if base_ledger is None:
+        return []
+    base, head = _lines(base_ledger), _lines(ledger)
+    if head[:len(base)] == base:
+        return []
+    i = next((k for k, l in enumerate(base) if k >= len(head) or head[k] != l), len(base))
+    try:
+        what = _where(json.loads(base[i]))
+    except (ValueError, AttributeError):
+        what = 'an unreadable line'
+    return [f'rule 79: {ACC_LEDGER} is not append-only: line {i + 1} of the base ({what}) is changed, removed or moved on this branch; keep the '
+            f"base's lines first and unchanged and append this branch's after them (when merging main, put main's lines first)"]
+
+
+def pass_file_problems(runs_diff):
+    """J75 Decision 4: a committed pass file at the base is never modified or deleted; `runs_diff` is [(status, path)] of harness/runs."""
+    verb = {'M': 'modified', 'D': 'deleted'}
+    return [f'rule 79: {path} is {verb[st[:1]]} on this branch: committed pass files are immutable (a new run adds new files)'
+            for st, path in runs_diff or () if st[:1] in verb and _PASS_FILE.match(path)]
+
+
+def evidence_problem(r, read, sha_fields):
+    """J75 Decisions 2 and 5 for one line: the file names its run folder, parses, and agrees with the line; with sha_fields, each sha is a
+    non-empty hex string on both. `read` None: no content is available (the older fixtures) and only the run-folder rule applies."""
+    ev = r['evidence']
+    if not ev.startswith(f"{r.get('run')}/"):
+        return f'{ev} is not in the run folder {r.get("run")}'
+    if read is None:
+        return None
+    try:
+        f = json.loads(read(ev) or '')
+    except ValueError:
+        return f'{ev} is not JSON'
+    if not isinstance(f, dict):
+        return f'{ev} is not a pass file'
+    for k in ('build_id', 'watcher', 'pass'):
+        if f.get(k) != r.get(k):
+            return f'{ev} says {k} {f.get(k)!r}, the line {r.get(k)!r}'
+    if f.get('passed') is not (r.get('result') == 'pass'):
+        return f"{ev} says passed {f.get('passed')!r}, the line result {r.get('result')!r}"
+    steps = f.get('steps') if isinstance(f.get('steps'), dict) else {}
+    if {k: isinstance(v, dict) and v.get('ok') is True for k, v in steps.items()} != (r.get('steps') or {}):
+        return f'{ev} and the line disagree on the steps or their results'
+    for k in sha_fields or ():
+        v = r.get(k)
+        if not (isinstance(v, str) and _HEX.match(v)):
+            return f'{ev}: the line has no hex {k}'
+        if f.get(k) != v:
+            return f'{ev} says {k} {f.get(k)!r}, the line {v!r}'
+    return None
+
+
 def acceptance_problems(changed, acc):
     """Rule 79. `acc` is None (skip) or {'active': acceptance_active() on the base, 'ledger': its text on the branch or None, 'build_id', 'watcher', 'branch',
-    'exists': path -> bool on the branch, 'core_diff': core_pin_diff() when the pin moved}. A change to proxy/ or harness/ needs ACC_NEEDED passes in a row
-    at the end of the ledger on this build and watcher, each run for this branch and naming its run and a committed evidence file; a fail, a pass of
-    another build or branch, or a pass without evidence ends the run. A pin change counts only when the core's own proxy/ or harness/ changed
-    between the two pins, or when they cannot be compared (J58)."""
+    'exists': path -> bool on the branch, 'core_diff': core_pin_diff() when the pin moved; J75: 'read': path -> text on the branch or None, 'base_ledger':
+    the ledger at the merge base, 'runs_diff': [(status, path)] of harness/runs since it, 'sha_fields': acc_sha_fields()}. A missing J75 key means
+    that input is not available (the older fixtures): without 'read' the content rules are skipped and the existence rules apply. A change to proxy/
+    or harness/ needs ACC_NEEDED passes in a row at the end of the ledger on this build and watcher, each run for this branch and naming its run and
+    a committed evidence file that no later counted line names, that agrees with the line and whose pass number follows the one before it in its run;
+    a fail, a pass of another build or branch, or a pass whose evidence is missing, reused or disagrees ends the run. A pin change counts only when the
+    core's own proxy/ or harness/ changed between the two pins, or when they cannot be compared (J58). Whatever is counted, a ledger diff that is
+    not append-only, or a changed base pass file, is an error (J75)."""
     if not acc or not acc.get('active'):
         return []
+    errs = ledger_append_problems(acc.get('base_ledger'), acc.get('ledger')) + pass_file_problems(acc.get('runs_diff'))
     code = [p for p in changed if rule79_path(p)]
     if 'core' in changed:   # the pin (J12): judged on the core's diff (J58)
         diff = acc.get('core_diff')
@@ -320,9 +407,11 @@ def acceptance_problems(changed, acc):
         else:
             code.append(f'core ({diff or "cannot compare core pins: no core diff was computed"})')
     if not code:
-        return []
+        return errs
     exists = acc.get('exists') or (lambda p: False)
-    n, unproved, foreign = 0, None, None
+    read, shas = acc.get('read'), acc.get('sha_fields')
+    shots = [k for k in shas or () if 'shot' in k]
+    n, unproved, foreign, bad, used, last = 0, None, None, None, {}, None
     for line in reversed([l for l in (acc.get('ledger') or '').splitlines() if l.strip()]):
         r = json.loads(line)
         if not (r.get('result') == 'pass' and r.get('build_id') == acc['build_id'] and r.get('watcher') == acc['watcher']):
@@ -334,13 +423,33 @@ def acceptance_problems(changed, acc):
         if not (r.get('run') and r.get('evidence') and exists(r['evidence'])):
             unproved = r.get('evidence') or f"pass {r.get('pass')} names no evidence file"
             break
-        n += 1
+        bad = streak_problem(r, last, used, read, shas, shots)
+        if bad:
+            break
+        used[r['evidence']] = r
+        used.update({('shot', r.get(k)): r for k in shots})
+        last, n = r, n + 1
     if n >= ACC_NEEDED:
-        return []
+        return errs
     why = (f' (the streak ends at a line whose evidence is not committed: {unproved})' if unproved else
-           f' (the streak ends at a line of another branch: {foreign})' if foreign else '')
-    return [f'rule 79: this branch changes {code[0]}{" and more" if len(code) > 1 else ""} but {ACC_LEDGER} holds {n} consecutive acceptance passes '
+           f' (the streak ends at a line of another branch: {foreign})' if foreign else
+           f' (the streak ends at {_where(r)}: {bad})' if bad else '')
+    return errs + [f'rule 79: this branch changes {code[0]}{" and more" if len(code) > 1 else ""} but {ACC_LEDGER} holds {n} consecutive acceptance passes '
             f'on build {acc["build_id"]}, watcher {acc["watcher"]}{why} (need {ACC_NEEDED}): run `python3 core/harness/acceptance.py run` on the final build']
+
+
+def streak_problem(r, last, used, read, shas, shots):
+    """Why line `r` cannot join the streak counted so far (`last` the line after it, `used` the evidence and shot shas already counted), or None."""
+    ev = r['evidence']
+    if ev in used:
+        return f'{ev} is already counted by {_where(used[ev])}'
+    if last is not None and last.get('run') == r.get('run') and r.get('pass') != (last.get('pass') or 0) - 1:
+        return f"{ev}: pass {r.get('pass')} comes before pass {last.get('pass')} in one run (the numbers must rise by one)"
+    why = evidence_problem(r, read, shas)
+    if why:
+        return why
+    dup = next((k for k in shots if ('shot', r.get(k)) in used), None)
+    return f'{ev}: {dup} {r.get(dup)} is already counted by {_where(used[("shot", r.get(dup))])}' if dup else None
 
 
 def collect_acceptance(root, facts):
@@ -350,15 +459,18 @@ def collect_acceptance(root, facts):
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
     return {'active': acceptance_active(show(root, base, ACC_LEDGER), show(root, base, ACC_BASELINE), show_first(root, base, *ACC_CHECKERS), root),
             'ledger': show(root, 'HEAD', ACC_LEDGER), 'build_id': dll_build_id(root), 'watcher': wm.group(1) if wm else '?', 'branch': facts['branch'],
-            'exists': lambda p: show(root, 'HEAD', p) is not None, 'core_diff': core_pin_diff(mb, 'HEAD', root) if 'core' in changed else None}
+            'exists': lambda p: show(root, 'HEAD', p) is not None, 'core_diff': core_pin_diff(mb, 'HEAD', root) if 'core' in changed else None,
+            'read': lambda p: show(root, 'HEAD', p), 'base_ledger': show(root, mb or base, ACC_LEDGER), 'sha_fields': acc_sha_fields(root),
+            'runs_diff': [tuple(l.split('\t', 1)) for l in _git(root, 'diff', '--name-status', '--no-renames', mb or base, 'HEAD', '--', 'harness/runs').splitlines() if l]}
 
 
 def policy_problems(ctx, facts):
     """Rule 79 on every branch kind (J73): acceptance_problems is the one authority on what needs passes. `facts['acceptance']` (the tests and
     the J62 replay pass recorded inputs) replaces the git reads. Without it, a change that counts nothing (no proxy/ or harness/ path, no pin)
-    returns [] first, which is what acceptance_problems gives for exactly that input, so docs-only pull requests skip the git reads."""
+    returns [] first, which is what acceptance_problems gives for exactly that input, so docs-only pull requests skip the git reads. The ledger
+    and pass files reach the git reads too (J75: the append-only and immutable-evidence rules judge them whatever else changed)."""
     changed = facts['changed']
     acc = facts.get('acceptance')
-    if not acc and not (any(rule79_path(p) for p in changed) or 'core' in changed):
+    if not acc and not (any(rule79_path(p) or p == ACC_LEDGER or _PASS_FILE.match(p) for p in changed) or 'core' in changed):
         return []
     return acceptance_problems(changed, acc or collect_acceptance(ctx.root, facts))

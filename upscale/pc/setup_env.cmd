@@ -1,7 +1,7 @@
 @echo off
 rem purpose: build the self-contained GPU environment for the UI art upscaler in <work>\art_build (embeddable Python, torch cu130, spandrel, pinned models); nothing system-wide
 rem usage: upscale\pc\setup_env.cmd [work folder, default C:\napoleon_remastered_pc\upscale]   then: <work>\art_build\py\python.exe upscale\pc\env_check.py --models <work>\art_build\models --pins upscale\napoleon\models.json
-rem when: first use on a PC, or after deleting art_build; safe to re-run (finished downloads are skipped)
+rem when: first use on a PC, or after deleting art_build; safe to re-run (finished downloads are skipped, but their sha256 is checked against upscale\pc\bootstrap.json every run)
 rem not-a-verb: a Windows setup script; `wsc upscale env` runs the check it ends with
 setlocal
 set "WORK=%~1"
@@ -16,12 +16,21 @@ if not exist "%AB%\tmp" mkdir "%AB%\tmp"
 set "PIP_CACHE_DIR=%AB%\cache\pip"
 set "TMP=%AB%\tmp"
 set "TEMP=%AB%\tmp"
-if not exist "%AB%\dl\python-3.12.10-embed-amd64.zip" curl -sSfL -o "%AB%\dl\python-3.12.10-embed-amd64.zip" https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip || exit /b 1
-if not exist "%AB%\dl\get-pip.py" curl -sSfL -o "%AB%\dl\get-pip.py" https://bootstrap.pypa.io/get-pip.py || exit /b 1
+rem the embeddable zip and get-pip.py are pinned by url and sha256 in upscale\pc\bootstrap.json (J79): fetched once, checked every run
+call :fetch python_embed || exit /b 1
+call :fetch get_pip || exit /b 1
 if not exist "%AB%\py\python.exe" "%SystemRoot%\System32\tar.exe" -xf "%AB%\dl\python-3.12.10-embed-amd64.zip" -C "%AB%\py" || exit /b 1
 powershell -NoProfile -Command "(Get-Content '%AB%\py\python312._pth') -replace '^#import site','import site' | Set-Content '%AB%\py\python312._pth'"
 "%AB%\py\python.exe" -c "import pip" 2>nul || "%AB%\py\python.exe" "%AB%\dl\get-pip.py" --no-warn-script-location || exit /b 1
 "%AB%\py\python.exe" -m pip install --no-warn-script-location torch==2.14.1 --index-url https://download.pytorch.org/whl/cu130 || exit /b 1
-"%AB%\py\python.exe" -m pip install --no-warn-script-location numpy==2.5.2 pillow==12.3.0 spandrel==0.4.2 || exit /b 1
+rem freetype-py and uharfbuzz (the 2x fonts, D42; cuf_encode refuses to encode without uharfbuzz), numpy, pillow, capstone, pefile: hash-locked (J79)
+"%AB%\py\python.exe" -m pip install --no-warn-script-location --require-hashes -r "%REPO%\upscale\requirements-ci.txt" || exit /b 1
+"%AB%\py\python.exe" -m pip install --no-warn-script-location spandrel==0.4.2 || exit /b 1
 "%AB%\py\python.exe" "%REPO%\upscale\core\model.py" fetch "%REPO%\upscale\napoleon\models.json" "%AB%\models" || exit /b 1
 "%AB%\py\python.exe" "%REPO%\upscale\pc\env_check.py" --models "%AB%\models" --pins "%REPO%\upscale\napoleon\models.json"
+exit /b %ERRORLEVEL%
+
+rem :fetch KEY   fetch bootstrap.json's KEY file into %AB%\dl when it is missing, then compare its sha256 with the pin; a mismatch deletes the file and fails
+:fetch
+powershell -NoProfile -Command "$ErrorActionPreference='Stop'; $e=(Get-Content -Raw '%REPO%\upscale\pc\bootstrap.json' | ConvertFrom-Json).'%~1'; $f=Join-Path '%AB%\dl' $e.file; if (-not (Test-Path $f)) { & curl.exe -sSfL -o $f $e.url; if ($LASTEXITCODE -ne 0) { exit 1 } }; $h=(Get-FileHash -Algorithm SHA256 $f).Hash.ToLower(); if ($h -ne $e.sha256) { Remove-Item -Force $f; Write-Host ('setup_env: ' + $e.file + ' has sha256 ' + $h + ', not the pin ' + $e.sha256 + ' (upscale\pc\bootstrap.json): deleted'); exit 1 }"
+exit /b %ERRORLEVEL%

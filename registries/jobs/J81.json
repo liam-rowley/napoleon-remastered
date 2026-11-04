@@ -3,11 +3,13 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) G5, G6, G7, G14 (release). release/napoleon/rr.ps1: an upgrade overwrites rec.owned with the new set, so files an older release owned are orphaned and uninstall reports DIFFERS: owned is the union of every installed set; a re-run after a failed backup skips the backups, so foreign files at owned paths go to _to_delete as ours: back up on every install (rr.ps1:245-266, 272, 285, 303-310). G6: each install, repair or uninstall moves about 1.8 GB into the installer's _to_delete under LOCALAPPDATA and nothing cleans it: a Clean.cmd with confirmation, and a size line at the end of uninstall. G7: after a Steam update, uninstall always ends DIFFERS with exit 1: classify changes outside owned paths as Steam's when the exe verdict is MISMATCH, with a test on the exit code. G14: external build outputs pass without their .json sidecar (build_release.py:94-96); releases.json is hand-edited, so the builder rebuilds 0.1.0 with different content until publishing: build_release --record; drop the dead key_text(); README.txt says unzip anywhere except the game folder while Find-Game searches upward first: one discovery story. After J74 (build_release.py). The pc_deploy half of G5 is core W25.",
   "title": "Installer robustness: owned set union, backups, Steam updates, cleanup",
   "phase": 6,
-  "status": "queued",
+  "status": "done",
   "model": "opus",
   "needs_pc": false,
   "depends_on": [
     "J74"
   ],
-  "brief": "jobs/J81/brief.md"
+  "brief": "jobs/J81/brief.md",
+  "report": "jobs/J81/report.md",
+  "review": "jobs/J81/review.md"
 }
