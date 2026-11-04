@@ -1,0 +1,15 @@
+{
+  "id": "J99",
+  "description": "D55, Liam 2026-11-04: \"To build the component library I need to see vanilla screens and iterate over them. I can't come up with components from scratch.\" One private review page with every vanilla screen (all 300 atlas surfaces composited from the atlas and the extracted art, plus live shots of the units J10 reached) and every reusable vanilla component kind (templates, 9-slice frames, button families) with its states, usage and screens, beside its J34 library twin or marked as a gap. Generator and the component inventory in the repo; images on the page only (data rule). No library change: that is J69.",
+  "title": "Vanilla UI reference gallery",
+  "phase": 5,
+  "status": "queued",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J10",
+    "J34",
+    "J36"
+  ],
+  "brief": "jobs/J99/brief.md"
+}

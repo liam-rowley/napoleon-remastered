@@ -33,6 +33,9 @@ and build skills (about 120 KB of instructions). The causes, and the change for 
      four-corner `gate.py` and `changes.py` (`README.md` is the screen author's contract); the board is `viewer/napoleon/board/`. Faction tint = CSS custom properties on the
      body (RmlUi 6.3 supports `var()`), one class per faction from a sheet made at install time; the on-colour rule's hole (4.38:1) is closed by a fill adjustment. Evidence:
      `uikit/napoleon/runs/20261102_j34/`, `engine_facts` `viewer.rcss.*`, `jobs/J34/report.md`.
+   - **Refinement, vanilla first (D55):** J99 puts every vanilla screen and every reusable vanilla component kind on one private page beside its
+     library twin (`uikit/napoleon/vanilla/components.json` is the inventory and the proposed mapping); J69's sittings with Liam walk those kinds,
+     change tokens and components, add the vanilla kinds the library lacks, and end with Liam's lock (`uikit/napoleon/LOCK.json`).
 3. **Panel host** (core RmlUi host plus the Napoleon adapter). One contract for every screen: open and close triggers (the vanilla
    entry points), keeping the vanilla screen's logic alive but never drawn versus calling getters directly (decided by the spike,
    per screen kind), the data feed (diffed updates, never full rebuilds: Empire's battle HUD received 10 updates a second with about
@@ -50,8 +53,8 @@ and build skills (about 120 KB of instructions). The causes, and the change for 
    for clean downscaling; vanilla art is ML-upscaled then resampled to the master size. Scale follows height, so wider screens get
    more horizontal room: the design gate renders the corners (1080p × 85 %, 4K × 125 %, a 21:9 and a 16:10 shape) and fails on
    clipping or overflow.
-6. **Proving screens** (recommended, awaiting Liam's confirmation), in order: a small tabbed info panel (exact pick after the
-   atlas) to run the whole loop once; a popup or tooltip (unit info) to prove layering, hover and open/close; the battle HUD
+6. **Proving screens** (confirmed, D55), in order: `campaign.entity_lists`, a small tabbed info panel reached live, to run the
+   whole loop once; a popup or tooltip (unit info) to prove layering, hover and open/close; the battle HUD
    (10 Hz updates, selection, cards, where Alt-drag lives). Then the HUDs, then the long tail of panels.
 
 ## 3. Per screen
@@ -95,4 +98,4 @@ page; agents pick up the comments, change the source and republish. Status chang
 
 ## 5. Open questions for Liam
 
-1. Confirm the proving screens (section 2.6).
+None open. The proving screens were confirmed by D55 (section 2.6).
