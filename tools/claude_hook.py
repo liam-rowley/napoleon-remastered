@@ -13,7 +13,7 @@ decide() raising -> panic(), a text screen that denies only a trailer-less git c
 word. main() always returns 0. An unresolvable write or git target is denied only when the command also names a protected root (brief J76 default,
 open for Liam); `echo x > "$OUT"` stays allowed.
 
-Residuals (the hook sees command text, not behaviour): `python3 script.py` and any program that writes where the shell cannot see; a write through
+Residuals (the hook sees command text, not behaviour): curl/wget/perl writers are read only for -o/-O/--output/-P and perl -i; other flags or tools (a `-K` config, `aria2c`) are not; `python3 script.py` and any program that writes where the shell cannot see; a write through
 a shell variable that is not set in the same command or the hook's environment; a path assembled inside inline code; a rule 79 or watcher.ini
 weakening done by a sanctioned script (core W25).
 """
@@ -70,7 +70,7 @@ WRITE_VERB = re.compile(r'''\bopen\s*\(.*?[,=]\s*['"][^'"]*[wax+]|\.write|write_
                         r'''Move-Item|Rename-Item|Clear-Content|fs\.\w*(?:write|unlink|rm|mkdir|rename|append)\w*|writeFile|File\.(?:write|open|delete)|'''
                         r'''unlink|\bcp\b|\brm\b|\bdel\b|\bmv\b|\bmkdir\b''', re.I)
 INLINE = {'python': ('-c',), 'python3': ('-c',), 'py': ('-c',), 'node': ('-e', '-p', '--eval'), 'perl': ('-e', '-E'), 'ruby': ('-e',)}
-SCRIPT_SUFFIXES = ('core/proxy/tools/pc_deploy.py', 'proxy/tools/pc_deploy.py', 'core/harness/job.sh', 'harness/job.sh')
+SCRIPT_SUFFIXES = ('core/proxy/tools/pc_deploy.py', 'core/harness/job.sh')
 SANCTIONED = ('pc_deploy.py', 'job.sh')
 KILLERS = {'taskkill', 'stop-process', 'spps', 'pkill', 'killall', 'wmic', 'pskill', 'tskill'}
 LAUNCHERS = {'start-process', 'invoke-item', 'ii', 'explorer', 'rundll32', 'xdg-open', 'open', 'steam', 'saps'}
@@ -427,6 +427,18 @@ def writer_args(name, args):
         return [a for a in pos if not CMD_FLAG.match(a)]
     if name == 'sed':
         return pos if any(a == '-i' or a.startswith(('-i', '--in-place')) for a in args) else []
+    if name in ('curl', 'wget'):
+        out = []
+        for i, a in enumerate(args):
+            if a in ('-o', '-O', '--output', '--output-document', '--output-dir', '-P', '--directory-prefix') and i + 1 < len(args):
+                out.append(args[i + 1])
+            elif a.startswith(('--output=', '--output-document=', '--output-dir=', '--directory-prefix=')):
+                out.append(a.split('=', 1)[1])
+            elif re.match(r'^-[A-Za-z]*[oO]$', a) and i + 1 < len(args):
+                out.append(args[i + 1])
+        return out
+    if name == 'perl':
+        return pos if any(re.match(r'^-[A-Za-z]*i', a) for a in args) else []
     if name == 'unzip':
         return [args[i + 1] for i, a in enumerate(args[:-1]) if a == '-d']
     if name == 'dd':
@@ -624,6 +636,21 @@ def merge_reason(u):
 
 # ---- decide -------------------------------------------------------------------------------------------------------------------------------
 
+_WT = []
+
+
+def _worktrees():
+    """Normalised paths of this repo's git worktrees (`git worktree list`); a sibling directory that is not one is not exempt."""
+    if not _WT:
+        import subprocess
+        try:
+            out = subprocess.run(['git', '-C', str(ROOT), 'worktree', 'list', '--porcelain'], capture_output=True, text=True, timeout=10).stdout
+        except (OSError, subprocess.SubprocessError):
+            out = ''
+        _WT.append([norm(l[9:].strip()) for l in out.splitlines() if l.startswith('worktree ')])
+    return _WT[0]
+
+
 def exempt_script(u, roots):
     """True when the unit runs this checkout's core pc_deploy.py or job.sh (relative to its cwd or absolute)."""
     words = u.words
@@ -639,9 +666,7 @@ def exempt_script(u, roots):
     p = rp(script, u.cwd, _short)
     if not isinstance(p, str) or not p.endswith(SCRIPT_SUFFIXES):
         return False
-    base = norm(ROOT)
-    parent = norm(ROOT.parent)
-    return under(p, base) or (under(p, parent) and p[len(parent) + 1:].count('/') >= 2)
+    return under(p, norm(ROOT)) or any(under(p, w) for w in _worktrees())
 
 
 def look_alike(u, roots):

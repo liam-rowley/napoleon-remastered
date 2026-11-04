@@ -146,7 +146,7 @@ NAP = r'C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War'
 EMP = 'C:/Program Files (x86)/Steam/steamapps/common/Empire Total War'
 STATE = '/c/napoleon_remastered_pc'
 ROOTS = ([ch.norm(NAP), ch.norm(EMP)], ch.norm(STATE))
-REPO = '/c/Users/liamr/repos/napoleon-remastered'
+REPO = ch.norm(ch.ROOT)
 
 
 def pc(cmd, cwd=REPO, tool='Bash'):
@@ -221,7 +221,7 @@ class PcRules(unittest.TestCase):
         for c in (f'ls -la "{NAP}"', f'cat "{NAP}/napoleon_remastered.ini"', f'sha1sum "{NAP}/Napoleon.exe"', f'cp "{NAP}/dxvk.conf" /tmp/x',
                   rf'grep -r x "{STATE}/watcher" > /tmp/out.txt', rf'Get-Content "{NAP}\dxvk.conf"', rf'Copy-Item "{NAP}\dxvk.conf" C:\tmp\x',
                   rf'mkdir -p "{STATE}/_scratch/j18/a"', rf'echo x > {STATE}/_scratch/j18/x.txt', rf'cp a.txt "C:\napoleon_remastered_pc\_scratch\j18"',
-                  f'python3 proxy/tools/pc_deploy.py install --kit k --game "{NAP}" --state {STATE}',
+                  f'python3 core/proxy/tools/pc_deploy.py install --kit k --game "{NAP}" --state {STATE}',
                   f'bash core/harness/job.sh j18 - <<< "launch owner=j18" > /tmp/x.log', f'bash core/harness/job.sh scratch j18',
                   f'ls "{NAP}" 2>&1 | head', f'cmd > /dev/null 2>&1', 'echo $X > "$OUT"', 'git commit -m "a > b" --trailer "Claude-Session: abc-123"',
                   f'cd "{NAP}" && ls && cat dxvk.conf', 'mkdir -p build/x && cp a build/x'):

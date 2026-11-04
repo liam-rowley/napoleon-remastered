@@ -77,6 +77,10 @@ add('exempt', [
     ('echo pc_deploy.py job.sh > ' + STATE + '/watcher/watcher.ini', D),
     (f'bash core/harness/job.sh j18 - <<< "launch owner=j18" > {STATE}/x.log', D),
     ('python3 core/proxy/tools/pc_deploy.py status', A),
+    (f'python3 /c/Users/liamr/repos/evil/proxy/tools/pc_deploy.py cp x "{NAP}"', D),
+    (f'bash /c/Users/liamr/repos/evil/harness/job.sh "{NAP}"', D),
+    (f'curl -o "{NAP}/a" http://x', D),
+    (f'perl -pi -e s/a/b/ "{NAP}/a"', D),
     (f'python3 core/proxy/tools/pc_deploy.py install --kit k --game "{NAP}" --state {STATE}', A),
     ('bash core/harness/job.sh scratch j76 && echo x > ' + STATE + '/_scratch/j76/a.txt', A),
 ])
