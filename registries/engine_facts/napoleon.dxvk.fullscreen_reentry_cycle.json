@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.dxvk.fullscreen_reentry_cycle",
+  "claim": "Every in-game fullscreen re-entry on DXVK 3.1.1 without the J16 guard ends in the opengl32!wglWndProc <-> DXVK window-proc cycle and a c000041d crash (3840x2160 to 2560x1440, 3840x2160 to 1920x1080, windowed to fullscreen), while vanilla d3d9 (proxy.enabled=0) survives 3840x2160 to 2560x1440 and back: the bug is DXVK's, not the game's or the driver's",
+  "state": "verified",
+  "evidence": "proxy/runs/20261104_j16ab/README.md",
+  "date": "2026-11-04",
+  "notes": "run 20261104_j16ab, watcher launches 20261104T175807Z, 20261104T180058Z, 20261104T180308Z, 20261104T180443Z; dumps 27124, 30100, 28404 in the PC scratch folder _scratch/j16/ab; Liam switched by hand"
+}
