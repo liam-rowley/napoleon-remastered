@@ -163,6 +163,14 @@ jobs:
           if (-not (Test-Path $py3)) { Copy-Item $py $py3 }
           python -m unittest tests.test_job_sh tests.test_pc_deploy tests.test_claude_hook tests.test_setup tests.test_proxy_host.GitBash
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      # J74 (audit G3, H9): the PowerShell installer, the play script and the pack installer run only on Windows; -v lists every test as ok or skipped
+      # in the log, and the three modules fail (never skip) here when PowerShell is missing.
+      - name: PowerShell installer, play and pack-installer tests
+        timeout-minutes: 8
+        shell: powershell
+        run: |
+          python -m unittest -v tests.test_release_installer tests.test_play tests.test_install_packs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: harness host tests (unit and integration)
         # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept
         timeout-minutes: 18
