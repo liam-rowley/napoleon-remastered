@@ -190,3 +190,14 @@ Answered 2026-11-04: Liam, "Follow recommendation" (question 1 put to him; 2 and
 Write `jobs/J64/report.md` (headings `## What was built`, `## Deviations from the brief and why`, `## Open questions`): the tag and its commit, the pin commit's contents, the verb collision and `[jobs] hooks` evidence (the `wsc` error lines before), the hook-to-gate move and its unchanged `jobs check` / `policy` / page lines,
 the designated-initialiser diff, the proof of a pure move (every result, the accepted effects-README difference with its diff), the test counts before and after, CI run ids and the `proxy` job time, the `ci check-settings` output, the kit update (version before and after, build id), the 20-pass run id, ledger range and the `policy` output,
 the overlap list of Napoleon tests the core now has, the proposed core row for the effects pass, and what rebase J29, J37, J60 and J67 and the briefs of J27 and J48 now need. Then `wsc reg set jobs J64 status=review report=jobs/J64/report.md`.
+
+## Re-scope (Liam, 2026-11-04)
+The target is the **newest warscape-core tag** when the build starts (v0.30.0 on 2026-11-04, commit 4d69d11; a newer one if `git -C core fetch --tags` shows it), not v0.22.0,
+and this job absorbs what that tag needs. Why: on v0.22.0 CI's `proxy` job fails in the core's `build.sh` smoke ("gesture: on: drag 6 px" not in the log, runs
+41801657509 and 41804261931; the kill criterion stopped the first build session at df7339a). The fix (core W37, "the smoke runs for a game without gestures") is first
+in v0.28.0, and every tag from v0.24.0 on also carries W12 (`run_refs` gate, commit-msg hook), W23 (base-judged policy: `ci/policy.yml.in` on
+`pull_request_target`, the `policy` stage reads the head as git objects), W24 (the build id names one DLL; CI installs the pinned toolchain), W10 (the lock is the
+session's; watcher 1.4.0) and W22 (main health: re-render). A local trial of v0.28.0 failed `ci_render` (W23's templates) and `run_refs` (12 run-README references,
+W12). Rather than a v0.22.1 patch tag, Liam chose to take the newest tag now: the parts of J78's scope a bump to that tag forces (W12, W23, W24 wiring) move into J64;
+anything J78 lists that the bump does not force stays J78's. Every other step above stands, read with the new tag: the CONSUMING.md notes of every version from
+v0.10.0 to the target, rule 79's 20 passes on the final build and the watcher version the kit at the target carries, and D57 is followed by a D line naming the new pin.
