@@ -14,7 +14,9 @@ this game's. Every `wsc ...` below is `python3 core/wsc.py ...`; the job steps (
 - **Rule 79 (J4, J44, J45, J58).** A branch that changes `proxy/` or `harness/`, or moves the core pin so that the core's own `proxy/` or `harness/` changes,
   must carry 20 consecutive acceptance passes on its final DLL build id and watcher version (`harness/acceptance/ledger.jsonl`, `tools/jobs_hooks.py`
   `policy_problems`). Check that the passes name a run and an evidence file committed on the branch; a reword, rebase or merge of `main` that leaves the DLL
-  inputs unchanged keeps them.
+  inputs unchanged keeps them. Rule 79 runs for every branch kind (J73), so a `meta/` or `brief/` branch meets it too. A core pin bump is therefore a `job/`
+  branch, never `meta/` or `plan/` (`core` is in neither glob list), and meets rule 79 whenever the core's own `proxy/` or `harness/` changed between the
+  two pins; a registry edit outside `registries/jobs/*` is a `job/` branch as well.
 - **Empire repeats (step 5).** Anything left as prose that Empire's history shows biting twice (a timing, a trap, a wrong default) and that could be a
   default, a guard or a gate is a finding. A *later* item for the core goes to warscape-core `docs/BACKLOG.md` through a warscape-core pull request.
 - **Merging.** Liam merges and tags warscape-core; a job branch is merged by its reviewer on green CI (D32); `plan/` and `meta/` branches by Liam.

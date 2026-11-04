@@ -1,6 +1,6 @@
 """Napoleon's rules for the job pipeline: the hook module warscape-core's `wsc jobs` and `wsc policy` load (`wsc.toml` [jobs] hooks; napoleon J62).
 
-purpose: the game-specific half of the job pipeline, as the five hook names of warscape/hooks.py: the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)
+purpose: the game-specific half of the job pipeline, as the five hook names of warscape/hooks.py: the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (on every branch kind, J73: a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)
 usage: not run by hand: `python3 core/wsc.py jobs check|view` and `python3 core/wsc.py policy --branch <branch>` call it; `python3 -m unittest tests.test_jobs_hooks` tests it
 when: automatic, through wsc.toml [jobs] hooks; edit it when one of those rules changes (rules 76 and 79 in docs/plans/PLAN.md section 4, the J5 ledger)
 not-a-verb: a hook module the core's jobs and policy verbs import; it has no command line of its own
@@ -48,10 +48,10 @@ PROMOTIONS = {
     'proxy/core': 'J12',      # -> warscape-core proxy/src
     'harness/core': 'J12',    # -> warscape-core harness/
     'saves/core': 'J12',      # -> warscape-core saves/
-    'discovery/core': None,   # phase 2 promotion, after the discovery gate J11 (no row yet)
-    'upscale/core': None,     # its own promotion, after J50 and J51 (no row yet)
+    'discovery/core': 'J64',  # the Napoleon discovery switch is part of J64's pin bump (promoted in the core since J11's gate)
+    'upscale/core': 'J63',    # J63 promotes upscale/core and viewer/core
     'uiscale/core': None,     # J66 stop-gap scaler; its promotion follows J67 (no row yet)
-    'viewer/core': None,      # the review viewer (J31): promotion with the RmlUi host work (no row yet)
+    'viewer/core': 'J63',     # the review viewer (J31), promoted with upscale/core
     'release/core': None,     # the release builder, installer scripts and support bundle (J38): a core job when a second game ships (no row yet)
 }
 
@@ -93,20 +93,15 @@ def _usage_reader():
     return usage_reader
 
 
-def usage_state(root, projects_dir=None, now=None):
+def usage_state(root, projects_dir=None, now=None, rows=None):
     """The usage half of rule 75 (J49): {'source': one line, 'error': text or None, 'week': {...}, 'jobs': [per-job rows], 'unattributed': {...}}.
-    Fails soft: a missing folder or an odd file only changes the text."""
+    `rows`: the job registry rows (view_panel passes the core's), None meaning no rows. Fails soft: a missing folder or an odd file only changes the text."""
     ur = _usage_reader()
     root = Path(root)
     u = ur.usage_by_session(projects_dir, cache_path=ur.cache_file(root), now=now)
     if u['error']:
         return {'source': f'{u["error"]}; {USAGE_NOTE}', 'error': u['error'], 'week': None, 'jobs': [], 'unattributed': None}
-    rows = []
-    for p in sorted((root / 'registries' / 'jobs').glob('*.json')):
-        try:
-            rows.append(json.loads(p.read_text(encoding='utf-8')))
-        except (OSError, ValueError):
-            pass
+    rows = list(rows or [])
     since = ur.week_start(now)
     r = ur.usage_by_job(rows, u['sessions'], ur.branch_trailers(root, {x['id'] for x in rows}), since)
     out = []
@@ -144,7 +139,7 @@ def usage_html(us):
             '<th>tokens by model</th><th>cost</th><th>wall</th><th>last</th></tr>' + ''.join(rows) + '</table>' + tail + '</details>')
 
 
-def pc_state(root, read_json=None, projects_dir=None):
+def pc_state(root, read_json=None, projects_dir=None, rows=None):
     """The PC's state for the view, or None off the PC (no adapter state_dir). Lock holder, watcher version and heartbeat age, the installed
     kit and DLL build, the last acceptance pass (the ledger on this checkout) and the usage source."""
     import time as _time
@@ -176,7 +171,7 @@ def pc_state(root, read_json=None, projects_dir=None):
     alive = w / 'watcher.alive'
     age = int(_time.time() - alive.stat().st_mtime) if alive.exists() else None
     try:
-        us = usage_state(root, projects_dir)
+        us = usage_state(root, projects_dir, rows=rows)
     except Exception as ex:   # the usage half must never break the view
         us = {'source': f'unavailable ({ex.__class__.__name__}); {USAGE_NOTE}', 'jobs': [], 'unattributed': None}
     ledger = [l for l in (text(root / 'harness' / 'acceptance' / 'ledger.jsonl') or '').splitlines() if l.strip()]
@@ -200,7 +195,10 @@ def pc_block(pc):
 
 
 def view_panel(ctx):
-    return pc_block(pc_state(ctx.root))
+    if str(Path(ctx.root) / 'core') not in sys.path and 'warscape' not in sys.modules:
+        sys.path.insert(0, str(Path(ctx.root) / 'core'))
+    from warscape.registry import load_all
+    return pc_block(pc_state(ctx.root, rows=load_all(ctx)['jobs'].rows))
 
 
 # ------------------------------------------------------------------ rule 79 (J4, J44, J45, J58): acceptance passes for proxy/ and harness/
@@ -214,13 +212,22 @@ def _git(root, *args):
     return subprocess.run(['git', '-C', str(root), *args], capture_output=True, text=True, check=True).stdout
 
 
+def _core_policy(root):
+    """warscape.policy, imported lazily: the unit tests load this module by path with no core on sys.path."""
+    try:
+        from warscape import policy
+    except ImportError:
+        sys.path.insert(0, str(Path(root) / 'core'))
+        from warscape import policy
+    return policy
+
+
 def show(root, ref, path):
     """File text at ref, or None when it does not exist there. A path under `core/` is read inside the submodule at the commit the ref's
     gitlink pins (`git show <ref>:core/...` does not reach into a submodule; J12)."""
-    try:
-        return _git(root, 'show', f'{ref}:{path}')
-    except subprocess.CalledProcessError:
-        pass
+    text = _core_policy(root).show(ref, path, cwd=str(root))
+    if text is not None:
+        return text
     if path.startswith('core/'):
         try:
             pin = _git(root, 'rev-parse', f'{ref}:core').strip()
@@ -347,8 +354,11 @@ def collect_acceptance(root, facts):
 
 
 def policy_problems(ctx, facts):
-    """Rule 79 on job branches. `facts['acceptance']` (the tests and the J62 replay pass recorded inputs) replaces the git reads."""
-    if facts.get('kind') != 'job':
+    """Rule 79 on every branch kind (J73): acceptance_problems is the one authority on what needs passes. `facts['acceptance']` (the tests and
+    the J62 replay pass recorded inputs) replaces the git reads. Without it, a change that counts nothing (no proxy/ or harness/ path, no pin)
+    returns [] first, which is what acceptance_problems gives for exactly that input, so docs-only pull requests skip the git reads."""
+    changed = facts['changed']
+    acc = facts.get('acceptance')
+    if not acc and not (any(rule79_path(p) for p in changed) or 'core' in changed):
         return []
-    acc = facts.get('acceptance') or collect_acceptance(ctx.root, facts)
-    return acceptance_problems(facts['changed'], acc)
+    return acceptance_problems(changed, acc or collect_acceptance(ctx.root, facts))

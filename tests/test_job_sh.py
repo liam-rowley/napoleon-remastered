@@ -167,17 +167,19 @@ class JobSh(unittest.TestCase):
 
     def test_ctl_without_an_ini_uses_the_registered_default(self):
         (self.game / 'mod.ini').unlink()
-        r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], self.env)
-        default = next(json.loads(l)['default'] for l in (ROOT / 'registries' / 'config_keys.jsonl').read_text(encoding='utf-8').splitlines()
-                       if l.strip() and json.loads(l)['id'] == 'dev.ctl_dir')
+        # J82: isolated from the PC. The repo's own default is C:\napoleon_remastered_pc\ctl, the REAL control folder: on the project PC the
+        # old body wrote a `ping` request there, and whatever answers requests in it (a running game with dev.ctl=1) turned the 124 and the
+        # stderr this test expects into a plain answer (empty stderr: jobs/J49, J55, J65, J71 reviews); on CI the folder does not exist.
+        # WSP_GAME_ROOT (core/proxy/tools/layout.py game_root) names a temporary game root whose registered default is inside the temp dir.
+        default = self.state / 'registered_default_ctl'
+        root = Path(self.tmp.name) / 'gameroot'
+        (root / 'registries').mkdir(parents=True)
+        (root / 'registries' / 'config_keys.jsonl').write_text(
+            json.dumps({'id': 'dev.ctl_dir', 'description': 'test', 'default': str(default), 'owner': 'proxy'}) + '\n', encoding='utf-8')
+        r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], {**self.env, 'WSP_GAME_ROOT': str(root)})
         self.assertIn(bash_path(default), r.stderr)
-        # the default is a Windows drive path: on the PC the request waits there (no answer, 124); a Linux CI runner cannot create /c,
-        # so job.sh stops with "cannot write into <default>" (1). Either way the stderr above proves the default was the folder chosen.
-        if os.name == 'nt':
-            self.assertEqual(r.returncode, 124)
-        else:
-            self.assertEqual(r.returncode, 1)
-            self.assertIn('cannot write into', r.stderr)
+        self.assertEqual(r.returncode, 124)   # nobody answers in the temp folder; the unanswered request is withdrawn
+        self.assertEqual(len(list(default.glob('*.cmd.expired'))), 1)
 
     def test_ctl_no_answer_withdraws_the_request(self):
         # a request nobody answered must not stay as .cmd: the proxy would run it on its next launch (a stale exit or reset)

@@ -59,6 +59,50 @@ class Promotions(unittest.TestCase):
         rows = [json.loads(p.read_text(encoding='utf-8')) for p in (root / 'registries' / 'jobs').glob('*.json')]
         self.assertEqual(hk.promotion_problems(rows, {str(Path(f).parent.as_posix()) for f in tracked}), [])
 
+    def test_promotions_name_rows_that_exist(self):
+        rows = {p.stem for p in (ROOT / 'registries' / 'jobs').glob('*.json')}
+        for folder, jid in (('discovery/core', 'J64'), ('upscale/core', 'J63'), ('viewer/core', 'J63')):
+            self.assertEqual(hk.PROMOTIONS[folder], jid, folder)
+            self.assertIn(jid, rows, folder)
+
+
+class MetaGlobs(unittest.TestCase):
+    """J73 (audit P3): `meta/` may not carry the core pin or the registries that feed the DLL tables; the globs match the way the core's `policy.allowed` does."""
+    sys.path.insert(0, str(ROOT / 'core'))
+    from warscape import policy as _policy
+    from warscape.repo import load_config as _load_config
+    POLICY = _load_config(ROOT)['policy']
+
+    @staticmethod
+    def segment_match(path, glob):
+        """`*` and `?` stay inside one path segment, `**` is zero or more whole segments."""
+        import fnmatch
+
+        def go(ps, gs):
+            if not gs:
+                return not ps
+            if gs[0] == '**':
+                return any(go(ps[i:], gs[1:]) for i in range(len(ps) + 1))
+            return bool(ps) and fnmatch.fnmatchcase(ps[0], gs[0]) and go(ps[1:], gs[1:])
+        return go(path.split('/'), glob.split('/'))
+
+    def test_the_pin_and_the_registries_are_not_meta_or_plan(self):
+        for kind in ('plan', 'meta'):
+            self.assertNotIn('core', self.POLICY[kind])
+            self.assertNotIn('registries/*', self.POLICY[kind])
+            self.assertFalse(self._policy.allowed('core', self.POLICY[kind]), kind)
+            self.assertFalse(self._policy.allowed('registries/engine_sites.jsonl', self.POLICY[kind]), kind)
+            self.assertFalse(self._policy.allowed('registries/engine_facts/x.json', self.POLICY[kind]), kind)
+            self.assertTrue(self._policy.allowed('registries/jobs/J73.json', self.POLICY[kind]), kind)
+
+    def test_the_globs_of_each_kind_match_no_more_than_a_segment_wise_match(self):
+        # per kind, not per glob: `docs/*` crosses `/` under fnmatch but `docs/**` is listed beside it
+        tracked = subprocess.run(['git', '-C', str(ROOT), 'ls-files'], capture_output=True, text=True, check=True).stdout.splitlines()
+        for kind in ('plan', 'meta'):
+            fn = {p for p in tracked if self._policy.allowed(p, self.POLICY[kind])}
+            seg = {p for p in tracked if any(self.segment_match(p, g) for g in self.POLICY[kind])}
+            self.assertEqual(fn, seg, f'[policy] {kind} globs match {sorted(fn - seg)[:3]} under fnmatch but not per segment')
+
 
 class PcState(unittest.TestCase):
     """Rule 75 (J44): on the PC the view shows the lock holder, the watcher version, the installed kit, the last acceptance pass and a usage source."""
@@ -214,7 +258,43 @@ class Rule79(unittest.TestCase):
         ctx = types.SimpleNamespace(root=ROOT)
         errs = hk.policy_problems(ctx, {'kind': 'job', 'changed': ['proxy/core/dev.cpp'], 'acceptance': self.acc(self.led(3))})
         self.assertTrue(any('rule 79' in e for e in errs))
-        self.assertEqual(hk.policy_problems(ctx, {'kind': 'brief', 'changed': ['proxy/core/dev.cpp'], 'acceptance': self.acc(self.led(3))}), [])
+
+    def test_failing_fixture_rule_79_runs_on_every_branch_kind(self):
+        # J73 (audit P3): the hook runs for every kind; a meta/ or brief/ branch cannot move proxy/ or harness/ without passes
+        ctx = types.SimpleNamespace(root=ROOT)
+        for kind in ('brief', 'plan', 'meta', '', 'job'):
+            with self.subTest(kind=kind):
+                errs = hk.policy_problems(ctx, {'kind': kind, 'changed': ['proxy/napoleon/adapter.cpp'], 'acceptance': self.acc(self.led(3))})
+                self.assertTrue(any('rule 79' in e for e in errs), errs)
+                self.assertEqual(hk.policy_problems(ctx, {'kind': kind, 'changed': ['docs/x.md'], 'acceptance': self.acc(self.led(3))}), [])
+                pin = lambda diff: hk.policy_problems(ctx, {'kind': kind, 'changed': ['core'], 'acceptance': dict(self.acc(self.led(3)), core_diff=diff)})
+                self.assertTrue(any('rule 79' in e for e in pin(['proxy/src/a.cpp'])))
+                self.assertEqual(pin(['docs/x.md']), [])
+
+    def test_docs_only_branches_skip_the_git_reads_and_the_shortcut_equals_the_full_path(self):
+        ctx = types.SimpleNamespace(root=ROOT)
+
+        def boom(*a, **k):
+            raise AssertionError('collect_acceptance ran for a change rule 79 does not count')
+        real = hk.collect_acceptance
+        hk.collect_acceptance = boom
+        try:
+            for kind in ('brief', 'plan', 'meta', '', 'job'):
+                self.assertEqual(hk.policy_problems(ctx, {'kind': kind, 'changed': ['docs/x.md', 'jobs/J9/brief.md', 'harness/runs/r/a.json']}), [])
+        finally:
+            hk.collect_acceptance = real
+        # equal in effect: acceptance_problems gives [] for exactly these inputs, whatever the ledger holds
+        for changed in (['docs/x.md'], ['harness/runs/r/a.json', 'proxy/README.md']):
+            self.assertEqual(hk.acceptance_problems(changed, self.acc('')), [])
+        # a counted path still reaches the git reads
+        seen = []
+        hk.collect_acceptance = lambda root, facts: seen.append(facts['changed']) or None
+        try:
+            hk.policy_problems(ctx, {'kind': 'meta', 'changed': ['proxy/napoleon/a.cpp']})
+            hk.policy_problems(ctx, {'kind': 'meta', 'changed': ['core']})
+        finally:
+            hk.collect_acceptance = real
+        self.assertEqual(seen, [['proxy/napoleon/a.cpp'], ['core']])
 
 
 class CorePin(unittest.TestCase):
@@ -300,25 +380,47 @@ class CorePin(unittest.TestCase):
         self.assertEqual(len(errs), 1)
         self.assertIn('changes proxy/napoleon/adapter.cpp but', errs[0])
 
-    def test_main_passes_the_merge_bases_pin_diff(self):
-        self.assertIn("'core_diff': core_pin_diff(mb, 'HEAD', root) if 'core' in changed else None", (ROOT / 'tools' / 'jobs_hooks.py').read_text(encoding='utf-8'))
+    def test_collect_acceptance_reads_the_pin_diff_from_the_merge_base(self):
+        self.bump({'proxy/src/a.cpp': 'int a2;\n'})
+        mb = self.g(self.game, 'rev-parse', 'HEAD~1')
+        facts = {'base': 'HEAD~1', 'merge_base': mb, 'changed': ['core'], 'branch': 'job/J9'}
+        real = hk.dll_build_id
+        hk.dll_build_id = lambda root: 'abc'   # the fixture core has no build id tool
+        try:
+            got = hk.collect_acceptance(self.game, facts)
+            self.assertEqual(got['core_diff'], hk.core_pin_diff(mb, 'HEAD', self.game))
+            self.assertEqual(got['core_diff'], ['proxy/src/a.cpp'])
+            self.assertIsNone(hk.collect_acceptance(self.game, dict(facts, changed=['docs/x.md']))['core_diff'])
+            # the wrong base (HEAD itself) would give an empty diff: the merge base is what is read
+            self.assertNotEqual(got['core_diff'], hk.core_pin_diff('HEAD', 'HEAD', self.game))
+        finally:
+            hk.dll_build_id = real
 
 
 class LegacyData(unittest.TestCase):
     """jobs/legacy.json replaces the three frozen sets of tools/verbs/jobs.py (napoleon J62): same ids, same effect."""
     DATA = json.loads((ROOT / 'jobs' / 'legacy.json').read_text(encoding='utf-8'))
 
+    # sha256 of '\n'.join(ids) (sorted by number): the frozen sets, checked in every clone, a depth-1 one included (J73)
+    FROZEN = {'round_rules': '5b4755b405b52fc62abdd27d9155a0d0f42641a6dacec5af1b8eee98a41ba8ff',
+              'brief_hooks': '059f0a5b218cb562aa7ed5fc4a3df45d57add323e312f8c8c98c502aab321a05'}
+
+    def test_the_frozen_sets_still_hash_to_their_constants(self):
+        import hashlib
+        for k, want in self.FROZEN.items():
+            self.assertEqual(hashlib.sha256('\n'.join(self.DATA[k]).encode()).hexdigest(), want, f'{k}: jobs/legacy.json changed; the sets are frozen')
+
     def test_the_round_rules_set_is_every_review_on_main_at_j52s_base(self):
         out = subprocess.run(['git', '-C', str(ROOT), 'ls-tree', '-r', '--name-only', '39eab5e', 'jobs'], capture_output=True, text=True)
         if out.returncode != 0:
-            self.skipTest('J52 base commit not in this clone')
+            self.skipTest('J52 base commit not in this clone (the constant half above still runs)')
         on_main = {p.split('/')[1] for p in out.stdout.split() if p.endswith('/review.md')}
         self.assertEqual(on_main, set(self.DATA['round_rules']))
 
     def test_the_brief_hooks_set_is_every_brief_on_main_when_j11_cut_its_branch_plus_the_two_that_merged_first(self):
         out = subprocess.run(['git', '-C', str(ROOT), 'ls-tree', '-r', '--name-only', 'c674fb1', 'jobs'], capture_output=True, text=True)
         if out.returncode != 0:
-            self.skipTest('J11 base commit not in this clone')
+            self.skipTest('J11 base commit not in this clone (the constant half above still runs)')
         on_main = {p.split('/')[1] for p in out.stdout.split() if p.endswith('/brief.md')}
         self.assertEqual(on_main | {'J24', 'J37'}, set(self.DATA['brief_hooks']))
 
