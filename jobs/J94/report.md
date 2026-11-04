@@ -109,3 +109,15 @@ Each item was re-checked on `origin/main` at `e1cb6a8` (the J94 brief merge) bef
   stripping a closing quote: a core backlog item (not filed here).
 - `uiscale/core` (J66) still has no promotion row (`PROMOTIONS` `None`, "follows J67"): named here only, as briefed.
 - J100's "held until a second game ships" is not enforced by anything; Liam decides when it is briefed.
+
+## Fix round 1
+- **Blocker (`BARE_BASH` flags `tests/test_viewer_prune.py:37`)**: fixed at the caller, not allow-listed (`a694f49`). The J97 test's own
+  `find_bash()` is replaced by `tools/verbs/setup.py` `bash_for_tests()`, loaded the way `tests/test_job_sh.py` loads it: Git Bash on Windows, never
+  the WSL launcher, and the skip reason comes from the helper. `ThisRepo.test_no_bare_bash_in_tests_and_tools` is the test; the six `Prune` tests
+  still run (not skip) on this PC.
+- **Re-run after merging `main`** (the review's instruction): `origin/main` at `c472651` (J75, J79, J81) merged in; then the full
+  `python3 core/wsc.py gates`: 12 ok, 2 warn, 0 failed, so nothing new from those merges trips `BARE_BASH` or the other J94 rules.
+- **Left: `PROMOTIONS['release/core'] = 'J100'`**: PR #194 is still open on 2026-11-04, so the row is absent and setting the entry would
+  fail rule 76. It stays `None` with its comment; the follow-up is unchanged (set it and add `('release/core', 'J100')` to
+  `test_promotions_name_rows_that_exist` once #194 is on main).
+- No should-fix items were raised; item 5 and the other open questions above are unchanged.
