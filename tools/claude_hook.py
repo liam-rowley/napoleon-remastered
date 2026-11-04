@@ -695,6 +695,7 @@ def decide(event, roots=None):
             roots, note = FALLBACK, FALLBACK_NOTE
     elif not isinstance(roots, Roots):
         roots = Roots(roots[0], roots[1], roots[2] if len(roots) > 2 else ())
+    note = FALLBACK_NOTE if roots.fallback else note
     cwd = norm(event['cwd']) if event.get('cwd') else None
     import os
     why = evaluate(cmd, cwd, roots, sid, event.get('tool_name') == 'PowerShell', {k.upper(): v for k, v in os.environ.items()})

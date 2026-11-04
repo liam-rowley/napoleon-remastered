@@ -526,6 +526,9 @@ class Parse:
                 i += 2
             elif w == '-argumentlist':
                 j = i + 1
+                if j < len(a):
+                    argl.append(a[j])
+                    j += 1
                 while j < len(a) and not a[j].startswith('-'):
                     argl.append(a[j])
                     j += 1
