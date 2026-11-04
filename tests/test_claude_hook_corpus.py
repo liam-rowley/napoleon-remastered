@@ -15,11 +15,13 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+REAL_SHORT = None
 HOOK = Path(os.environ.get('HOOK_UNDER_TEST') or ROOT / 'tools' / 'claude_hook.py')
 spec = importlib.util.spec_from_file_location('claude_hook_under_test', HOOK)
 ch = importlib.util.module_from_spec(spec)
 sys.modules.pop('hook_parse', None)
 spec.loader.exec_module(ch)
+REAL_SHORT = getattr(ch, 'expand_short', None)
 
 NAP = r'C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War'
 NAPU = 'C:/Program Files (x86)/Steam/steamapps/common/Napoleon Total War'
@@ -417,7 +419,7 @@ class Parser(unittest.TestCase):
     def test_too_deep_is_unparseable(self):
         hp = sys.modules['hook_parse']
         p = hp.Parse(REPO, {}, False, short)
-        p.run("bash -c \"bash -c 'bash -c \\\"bash -c \\\\\\\"bash -c true\\\\\\\"\\\"'\"")
+        p.run("sh -c \"sh -c 'sh -c \\\"sh -c \\\\\\\"sh -c true\\\\\\\"\\\"'\"")
         p2 = hp.Parse(REPO, {}, False, short)
         p2.run('echo ' + '$(' * 6 + 'true' + ')' * 6)
         self.assertTrue(p.unparseable or p2.unparseable)
@@ -430,11 +432,11 @@ class Parser(unittest.TestCase):
 
 class ShortNames(unittest.TestCase):
     def test_the_real_expander(self):
-        self.assertEqual(ch.expand_short(str(ROOT)).lower().replace('\\', '/'), str(ROOT).lower().replace('\\', '/'))   # a long path comes back as it was
+        self.assertEqual(REAL_SHORT(str(ROOT)).lower().replace('\\', '/'), str(ROOT).lower().replace('\\', '/'))   # a long path comes back as it was
         if sys.platform == 'win32' and os.path.isdir(r'C:\Program Files (x86)'):
-            self.assertEqual(ch.expand_short('C:/PROGRA~2').lower().replace('\\', '/'), 'c:/program files (x86)')
+            self.assertEqual(REAL_SHORT('C:/PROGRA~2').lower().replace('\\', '/'), 'c:/program files (x86)')
         else:
-            self.assertEqual(ch.expand_short('C:/PROGRA~2'), 'C:/PROGRA~2')
+            self.assertEqual(REAL_SHORT('C:/PROGRA~2'), 'C:/PROGRA~2')
 
 
 class Messages(unittest.TestCase):
