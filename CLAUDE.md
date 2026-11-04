@@ -64,9 +64,14 @@
   sha after every install, uninstall and set; the watcher refuses a launch (`exe_check`); `pc_deploy.py status` and `wsc setup` report it.
 - **The PC game folder is a deploy target.** Change the repo, then sync with a sha-checked copy (`pc_deploy.py`).
 - **PC experiments live under `<state>\_scratch\<you>\`** (`job.sh scratch <you>`); anything worth keeping comes back to the repo. Guard: the
-  hook (`tools/claude_hook.py`) denies shell writes into a game folder or the state folder elsewhere; `pc_deploy.py status` lists foreign files.
-- **Never run git in a game folder.** Guard: the hook denies git there (cwd, `cd`, `-C`, `--git-dir`, `GIT_DIR`), the watcher refuses a script
-  that runs git, and `pc_deploy.py status` and `wsc setup` fail on a `.git` in or above a game folder.
+  hook (`tools/claude_hook.py`, J76) judges every simple command of a call on its own and denies shell writes (redirects, cp/mv/rm/install/tar/...,
+  inline python/node/powershell) into a game folder, the state folder or the AppData prefs file and `save_games` elsewhere; only the core's
+  `pc_deploy.py` and `job.sh` are exempt, and their redirects are still checked; `pc_deploy.py status` lists foreign files. The residuals are in its header.
+- **Never run git in a game folder.** Guard: the hook denies git there (cwd, `cd`, `-C`, `--git-dir`, `GIT_DIR`, `init`/`clone` arguments, behind
+  wrappers, `bash -c`, subshells), the watcher refuses a script that runs git, and `pc_deploy.py status` and `wsc setup` fail on a `.git` in or above a game folder.
+- **Launch and kill the game only through `job.sh`; never `--no-verify`; only Liam merges `plan/` and `meta/` (D50).** Guard: the hook denies starting or
+  killing `Napoleon.exe`/`Empire.exe` (also `steam://`), `--no-verify` on commit/push/merge/rebase/cherry-pick/am, `gh pr merge` of a `plan/` or
+  `meta/` branch (a number or no target is resolved with `gh pr view`; unresolvable is denied) and deleting a remote `main`, `plan/`, `meta/`, `job/` or `brief/` branch.
 - **Reuse before you write.** Search the tools registry first; extend an existing tool or CLI verb rather than adding a near-duplicate.
   Every tool has a header and a registry row (`tools` gate; header format: `core/warscape/tools.py`).
 - **"Verified" carries a date and a run id** (`verified_dates` gate for docs; structured fields in registries).

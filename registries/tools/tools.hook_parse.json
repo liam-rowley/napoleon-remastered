@@ -1,0 +1,11 @@
+{
+  "id": "tools.hook_parse",
+  "kind": "script",
+  "path": "tools/hook_parse.py",
+  "purpose": "split a shell command into units (argv, redirections, tracked cwd and variables, heredoc body) through separators, if/for/{} blocks, subshells, $( ), backticks, bash -c, eval, cmd /c, powershell -Command, Start-Process and the nice/timeout/env/sudo/xargs family of wrappers, so the hook rules look at the right slice of a command (audit H1, H6)",
+  "usage": "imported by tools/claude_hook.py by path; Parse(cwd, env, ps, short).run(command) then .units; test: python3 -m unittest tests.test_claude_hook_corpus",
+  "when": "never run by hand; read it when a hook rule misjudges a command shape",
+  "not_a_verb": "a library module loaded by the hook, not a command line tool",
+  "status": "live",
+  "last_used": "2026-11-04"
+}

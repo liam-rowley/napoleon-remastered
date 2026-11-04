@@ -91,16 +91,39 @@ def make_kit(tmp, rel):
     return kit
 
 
+def _win_path(fn, p):
+    import ctypes
+    buf = ctypes.create_unicode_buffer(32768)
+    n = getattr(ctypes.windll.kernel32, fn)(str(p), buf, 32768)
+    return buf.value if 0 < n < 32768 else str(p)
+
+
+def long_path(p):
+    """The long, full form of an existing path (the runner's TEMP is C:\\Users\\RUNNER~1\\..., its files enumerate as C:\\Users\\runneradmin\\...)."""
+    return _win_path('GetLongPathNameW', p) if os.name == 'nt' else str(p)
+
+
+def short_path(p):
+    """The 8.3 short form of an existing path (the same path when the volume has 8.3 names off)."""
+    return _win_path('GetShortPathNameW', p) if os.name == 'nt' else str(p)
+
+
 def view(game):
     """path -> (size, sha256 or None) of every file and the empty folders: what 'identical' means, without mtimes."""
     return {k: (v.get('size'), v.get('sha256')) if not v.get('dir') else 'dir' for k, v in pc_deploy.snapshot(game).items()}
 
 
-@unittest.skipUnless(PS, 'needs Windows PowerShell 5.1')
 class Installer(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        if not PS:   # J74: on the Windows CI runner a missing PowerShell is a failure, never a silent skip
+            if os.name == 'nt' and os.environ.get('CI') == 'true':
+                raise AssertionError('Windows PowerShell is missing on the Windows CI runner: the installer tests must run there, not skip')
+            raise unittest.SkipTest('needs Windows PowerShell 5.1')
+
     def setUp(self):
         self._t = tempfile.TemporaryDirectory()
-        self.tmp = self._t.name
+        self.tmp = long_path(self._t.name)   # one path form: rr.ps1 prints and compares the long form
         self.rel = make_release(self.tmp)
         self.state = Path(self.tmp) / 'state'
         self.appdata = Path(self.tmp) / 'appdata'
@@ -267,6 +290,26 @@ class Installer(unittest.TestCase):
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         self.assertIn(f'game folder {g}', r.stdout)
 
+    def test_short_8_3_game_and_state_paths(self):
+        """J74 (CI run 41796839289): a game or state folder given as an 8.3 short name (the runner's TEMP, or a player's) must install, check and
+        uninstall to 'identical' and be reported in the long form; relative paths were cut by the wrong length before."""
+        g = make_game(self.tmp, 'a long game folder name')
+        (Path(self.tmp) / 'a long state folder').mkdir()
+        sg, ss = short_path(g), short_path(Path(self.tmp) / 'a long state folder')
+        if sg.lower() == str(g).lower() or ss.lower() == str(Path(self.tmp, 'a long state folder')).lower():
+            self.skipTest('8.3 short names are disabled on this volume')
+        before = view(g)
+        long_state = Path(self.tmp) / 'a long state folder'
+        for verb in ('install', 'check'):
+            code, out = self.rr(verb, sg, state=ss)
+            self.assertEqual(code, 0, out)
+            self.assertIn(f'game folder {g}', out)
+        code, out = self.rr('uninstall', sg, state=ss)
+        self.assertEqual(code, 0, out)
+        self.assertIn('identical to the pre-install snapshot', out)
+        self.assertEqual(view(g), before)
+        self.assertTrue(long_state.is_dir())
+
     # ---- the support bundle -------------------------------------------------------------------------------------------------------
     def plant(self, g):
         text = (f"launch 1\r\npath {PLANTED['profile']}\\AppData\\Local\\Temp\\x user={PLANTED['user']} host={PLANTED['machine'].lower()}\r\n"
@@ -327,6 +370,46 @@ class Installer(unittest.TestCase):
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         self.assertEqual(dst.read_text(encoding='utf-8'), '<user> <machine> <steamid> userdata\\<steamid>\\x keepme')
+
+
+class CrashDumpTool(unittest.TestCase):
+    """G1 (J74): the shipped crash-dump tool works from a folder outside the repo (no wsc.toml above it), as it does on a player's PC.
+    Runs wer_localdumps.ps1 in -Mode status only: no admin rights, nothing written. The generated .cmd itself is never run (UAC prompt, HKLM)."""
+
+    @classmethod
+    def setUpClass(cls):
+        if not PS:
+            if os.name == 'nt' and os.environ.get('CI') == 'true':
+                raise AssertionError('Windows PowerShell is missing on the Windows CI runner: the installer tests must run there, not skip')
+            raise unittest.SkipTest('needs Windows PowerShell 5.1')
+
+    def run_ps(self, *args):
+        return subprocess.run([PS, '-NoProfile', '-ExecutionPolicy', 'Bypass', *args], capture_output=True, text=True, timeout=120)
+
+    def test_status_outside_the_repo_with_the_generated_arguments(self):
+        sys.path.insert(0, str(ROOT / 'release' / 'core'))
+        import build_release as br
+        ident = json.loads((ROOT / 'proxy' / 'napoleon' / 'identity.json').read_text(encoding='utf-8'))
+        text = br.crash_dump_cmd('enable', ident)
+        with tempfile.TemporaryDirectory() as tmp:
+            tools = Path(tmp) / 'tools'
+            tools.mkdir()
+            self.assertFalse(any((p / 'wsc.toml').exists() for p in [tools, *tools.parents]), 'the temp folder must be outside any repo')
+            script = tools / 'wer_localdumps.ps1'
+            shutil.copy(ROOT / 'core' / 'proxy' / 'tools' / 'wer' / 'wer_localdumps.ps1', script)
+            (tools / 'Enable crash dumps.cmd').write_bytes(text.encode('ascii'))
+            # the inner command exactly as the elevated powershell receives it: undo the batch (%%, %~dp0) and the PowerShell ('') quoting
+            inner = text.split("'-Command','", 1)[1].split(' *> ', 1)[0]
+            inner = inner.replace("''", "'").replace('%~dp0', str(tools) + '\\').replace('%%', '%').replace('-Mode enable', '-Mode status')
+            r = self.run_ps('-Command', inner)
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            self.assertIn('WER LOCALDUMPS:', r.stdout)
+            self.assertIn(ident['exe_name'], r.stdout)
+            self.assertIn('%LOCALAPPDATA%\\CrashDumps\\' + ident['mod_dir'], r.stdout.replace('DumpFolder=', '') + inner)
+            # control: without the two arguments it needs the repo and fails, so the test fails if the arguments are ever dropped
+            c = self.run_ps('-File', str(script), '-Mode', 'status')
+            self.assertNotEqual(c.returncode, 0)
+            self.assertIn('no -ExeName', c.stdout + c.stderr)
 
 
 def RR_COPY(rel):

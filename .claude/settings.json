@@ -11,7 +11,12 @@
       "Edit(//c/napoleon_remastered_pc/backup/**)",
       "Edit(//c/napoleon_remastered_pc/snapshots/**)",
       "Edit(//c/napoleon_remastered_pc/_to_delete/**)",
-      "Edit(//c/napoleon_remastered_pc/install.json)"
+      "Edit(//c/napoleon_remastered_pc/install.json)",
+      "Edit(//c/napoleon_remastered_pc/ctl/**)",
+      "Edit(//c/napoleon_remastered_pc/play/**)",
+      "Edit(//c/napoleon_remastered_pc/saves/**)",
+      "Edit(~/AppData/Roaming/The Creative Assembly/Napoleon/scripts/preferences.script.txt)",
+      "Edit(~/AppData/Roaming/The Creative Assembly/Napoleon/save_games/**)"
     ]
   },
   "hooks": {
@@ -22,7 +27,7 @@
           {
             "type": "command",
             "shell": "bash",
-            "command": "f=\"${CLAUDE_PROJECT_DIR:-.}/tools/claude_hook.py\"; [ -f \"$f\" ] || exit 0; python3 \"$f\" || exit 0"
+            "command": "f=\"${CLAUDE_PROJECT_DIR:-.}/tools/claude_hook.py\"; [ -f \"$f\" ] || exit 0; inp=$(cat); rc=1; out=; t=; command -v timeout >/dev/null 2>&1 && t=\"timeout ${CLAUDE_HOOK_TIMEOUT:-10}\"; for py in python3 python \"py -3\"; do command -v \"${py%% *}\" >/dev/null 2>&1 || continue; out=$(printf \"%s\" \"$inp\" | $t $py \"$f\" 2>/dev/null); rc=$?; break; done; [ \"$rc\" = 0 ] && { printf \"%s\" \"$out\"; exit 0; }; if printf \"%s\" \"$inp\" | grep -Eq \"git[^|;&]*commit([^a-zA-Z0-9_-]|$)\" && ! printf \"%s\" \"$inp\" | grep -q \"Claude-Session\"; then printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"The hook could not run (python missing, crashed or timed out) and fell back to its text screen: this git commit has no Claude-Session trailer. Add --trailer with the session id, or repair tools/claude_hook.py.\"}}'; elif printf \"%s\" \"$inp\" | grep -Eiq 'program files|steamapps|napoleon_remastered_pc|total war|(progra|napole|empire)[a-z0-9_]*~[0-9]' && printf \"%s\" \"$inp\" | grep -Eiq '>|\\b(cp|mv|rm|rmdir|mkdir|touch|tee|install|rsync|dd|tar|ln|robocopy|xcopy|copy|move|ren|del|truncate|chmod|chown|git|sed|unzip|Remove-Item|Set-Content|Add-Content|Out-File|Copy-Item|Move-Item|New-Item|taskkill|Stop-Process|pkill|killall|start|Start-Process|python3?|node|perl|ruby|powershell|pwsh)\\b'; then printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"The hook could not run (python missing, crashed or timed out) and fell back to its text screen: this call names a protected PC folder together with a write, git, launch or kill word. Use core/proxy/tools/pc_deploy.py or core/harness/job.sh, or repair python.\"}}'; fi; exit 0"
           }
         ]
       }
