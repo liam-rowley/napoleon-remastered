@@ -37,6 +37,14 @@ asks for administrator rights.
 Parity with `core/proxy/tools/pc_deploy.py` is the contract: `tests/test_release_installer.py` installs and uninstalls a synthetic game folder with both and compares
 the snapshots. Details of the proxy side: `proxy/README.md` "PC install and uninstall", "DXVK", "Crash".
 
+## Release gates (J74)
+- **Component keys are gated.** A component's `ini_set` goes through the same release-value gate as the registry (`value_problems(..., ini_set=)`) before anything is built, and the rendered player ini is checked again (`shipped_ini_problems`). A dev, proof or test
+key may be on only if `release.json` `release_values.allowed_dev_keys` names it with a reason that cites a decision (`D<n>`); a stale or unknown entry fails. Today: `dev.file_rules` (D46).
+- **The DLL must be the proven one.** Its build id must appear as a whole token (not `<id>-dirty`, not inside a longer hex run), no `-dirty` literal may sit beside it, and `harness/acceptance/ledger.jsonl` (`release.json` `acceptance`)
+must end in 20 consecutive passes on that id, each with an evidence file in the tree. `--allow-dirty` skips only the pass count.
+- **Crash-dump tools work outside the repo.** `tools\Enable crash dumps.cmd` and `Disable crash dumps.cmd` are generated from `identity.json` (`crash_dump_cmd`) with `-ExeName` and `-DumpFolder` (unexpanded `%LOCALAPPDATA%`); `--check` fails a `tools\*.cmd` that names `wer_localdumps.ps1` without them.
+- **CI runs the installer.** `harness-windows` runs `tests.test_release_installer`, `tests.test_play` and `tests.test_install_packs` (`-v`), and `release/` changes start that job.
+
 ## Steam Verify, game updates
 Our files are additions, so Verify should leave them (not yet proved on the PC: see the report). A game update changes the exe sha1: the proxy's guard falls back to
 pass-through and writes `napoleon_remastered\EXE_MISMATCH.txt`; Check says so and Uninstall returns the game to vanilla.

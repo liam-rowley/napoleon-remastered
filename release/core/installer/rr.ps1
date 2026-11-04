@@ -64,6 +64,19 @@ function Hash-File([string]$p, [string]$alg = 'SHA256') {
     return ([BitConverter]::ToString($b) -replace '-', '').ToLower()
 }
 
+# ---- one path form (J74): a TEMP or game path may be an 8.3 short name (C:\Users\RUNNER~1\...) while the files under it enumerate in the long form,
+# so every relative path is computed from the long, full form of the game and state folders, resolved once at start.
+Add-Type -ErrorAction Stop -Name RrPath -Namespace Rr -MemberDefinition '[DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)] public static extern uint GetLongPathNameW(string s, System.Text.StringBuilder b, uint n);'
+function Long-Path([string]$p) {
+    $p = [IO.Path]::GetFullPath($p).TrimEnd('\')
+    if ($p.Length -le 3) { return $p }
+    if (-not (Test-Path -LiteralPath $p)) { return (Join-Path (Long-Path (Split-Path -Parent $p)) (Split-Path -Leaf $p)) }
+    $sb = New-Object System.Text.StringBuilder 32768
+    $n = [Rr.RrPath]::GetLongPathNameW($p, $sb, 32768)
+    if ($n -eq 0 -or $n -gt 32768) { return $p }
+    return $sb.ToString().TrimEnd('\')
+}
+
 # ---- snapshots (same format and rules as pc_deploy.snapshot / diff_snapshots) ---------------------------------------------------
 $script:EpochTicks = 621355968000000000
 function Walk-Snap($dir, $root, $out) {
@@ -84,7 +97,7 @@ function Walk-Snap($dir, $root, $out) {
     }
 }
 function Take-Snapshot([string]$game) {
-    $root = (Resolve-Path -LiteralPath $game).Path.TrimEnd('\')
+    $root = Long-Path $game
     $out = @{}
     Walk-Snap $root $root $out
     return $out
@@ -513,8 +526,8 @@ switch ($Verb) {
         $code = 0
     }
     default {
-        $game = Find-Game
-        $state = State-Dir
+        $game = Long-Path (Find-Game)
+        $state = Long-Path (State-Dir)
         Say "rr: $($script:Man['product']) $($script:Man['version']); game folder $game; state folder $state"
         switch ($Verb) {
             'install' {

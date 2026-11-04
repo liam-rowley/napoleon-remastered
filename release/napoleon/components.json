@@ -13,8 +13,8 @@
     {"target": "napoleon_remastered/LICENSE.dxvk.txt", "source": "dxvk_license"}
    ],
    "extras": [
-    {"path": "tools/Enable crash dumps.cmd", "source": "repo:core/proxy/tools/wer/Enable crash dumps.cmd"},
-    {"path": "tools/Disable crash dumps.cmd", "source": "repo:core/proxy/tools/wer/Disable crash dumps.cmd"},
+    {"path": "tools/Enable crash dumps.cmd", "source": "crash_cmd:enable"},
+    {"path": "tools/Disable crash dumps.cmd", "source": "crash_cmd:disable"},
     {"path": "tools/wer_localdumps.ps1", "source": "repo:core/proxy/tools/wer/wer_localdumps.ps1"}
    ]
   },
