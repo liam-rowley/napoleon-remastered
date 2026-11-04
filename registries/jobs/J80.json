@@ -3,11 +3,12 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) G10, G12. The pixel gate is an exact rgba_sha256 with no tolerance (tests/test_uikit.py:235-236, 316-320); CI pins playwright==1.64.1 (ci/gates.yml.in:116) while wsc setup installs it unpinned (tools/verbs/setup.py:204); the recorded wasm_sha256 is never compared; a builder can --accept its own baseline change (uikit/napoleon/changes.py:88-89). Pin Playwright in viewer/pins.json and in setup; compare the wasm hash before any pixel; write a diff PNG and use a threshold; a jobs_hooks policy rule refuses a baseline change accepted on the branch that made it (after J75, the same file); rescope test_no_lock_file_is_committed_by_this_job so it does not fail the day Liam locks a screen. G12: tokens.draft.json to uikit/napoleon/tokens.json is a hand copy with renamed keys: a test through an explicit rename map (test_palette_matches_language asserts five literals).",
   "title": "Pixel gate and tokens: pinned Playwright, wasm hash first, diff threshold, accepted baselines",
   "phase": 5,
-  "status": "queued",
+  "status": "review",
   "model": "opus",
   "needs_pc": false,
   "depends_on": [
     "J75"
   ],
-  "brief": "jobs/J80/brief.md"
+  "brief": "jobs/J80/brief.md",
+  "report": "jobs/J80/report.md"
 }
