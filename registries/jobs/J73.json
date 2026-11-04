@@ -3,10 +3,11 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) P3, P4, the hook-module findings, the legacy-set item. tools/jobs_hooks.py policy_problems returns [] unless kind == 'job' (:349-354) and the meta globs include core and registries/* (wsc.toml:65-66), so a pin bump or a registry edit on meta/ skips rule 79 and can move 57 proxy and harness files with zero passes: run rule 79 for every branch kind; drop core and registries/* from meta (a pin moves only on job/); match globs by path segment (fnmatch * crosses /, so the meta globs match 533 of 5,723 tracked files). P4: core 0.16 and later hash viewer/pins.json and fetch_ui.py into the build id (core proxy/tools/build_id.py INPUTS) while wsc.toml [ci.inputs] proxy has no ^viewer/: add it, with a test that every build_id.INPUTS path matches the proxy regex. jobs_hooks.py re-implements policy.show and reads job rows by path (:105-109, 213-231), against CONSUMING.md's rule: use the core's API; PROMOTIONS (:47-55) still says 'no row yet' for discovery/core, upscale/core and viewer/core, though J64 and J63 exist. tests/test_jobs_hooks.py:303 greps for a source line: test the behaviour. The legacy-set freeze tests skip in CI's depth-1 clone: store the hashes in the test. Until core W23 reaches napoleon (J78), the policy check runs this branch's own hooks, so the reviewer checks by hand that no rule is loosened.",
   "title": "Napoleon's gates: rule 79 on every branch kind, narrower meta, derived proxy inputs",
   "phase": 1,
-  "status": "review",
+  "status": "done",
   "model": "sonnet",
   "needs_pc": false,
   "depends_on": [],
   "brief": "jobs/J73/brief.md",
-  "report": "jobs/J73/report.md"
+  "report": "jobs/J73/report.md",
+  "review": "jobs/J73/review.md"
 }
