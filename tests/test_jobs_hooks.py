@@ -180,7 +180,7 @@ class Rule79(unittest.TestCase):
         self.assertFalse(hk.acceptance_active('', b, weak))           # a weakened checker would say inactive...
         self.assertTrue(hk.acceptance_active('', b, self.CHECKER))    # ...but main() passes the base's text, which says active
         src = (ROOT / 'tools' / 'gates' / 'pipeline.py').read_text(encoding='utf-8')
-        self.assertIn('show_first(root, base, *ACC_CHECKERS)', src)   # the base's checker, in either layout (J12)
+        self.assertIn('show_first(repo, base, *ACC_CHECKERS)', src)   # the base's checker, in either layout (J12), read at the clone (W23)
         self.assertNotIn("spec_from_file_location('acceptance'", src)
 
     def test_failing_fixture_another_branchs_passes_do_not_count(self):
@@ -237,7 +237,9 @@ class Rule79(unittest.TestCase):
         g = lambda *a: subprocess.run(['git', *a], cwd=d, capture_output=True, text=True, check=True)
         g('init', '-q', '-b', 'job/J9'); g('config', 'user.email', 't@example.invalid'); g('config', 'user.name', 'test')
         for rel, data in (('proxy/core/a.cpp', b'int a;\n'), ('proxy/napoleon/adapter.cpp', b'int b;\n'), ('proxy/tools/build.sh', b'#!\n'),
-                          ('proxy/tools/fetch_lua.py', b'#\n'), ('proxy/tools/fetch_ui.py', b'#\n'), ('viewer/pins.json', b'{}\n'),('proxy/tools/build_id.py', (ROOT / 'core/proxy/tools/build_id.py').read_bytes())):
+                          ('proxy/tools/fetch_lua.py', b'#\n'), ('proxy/tools/fetch_ui.py', b'#\n'), ('viewer/pins.json', b'{}\n'),
+                          ('proxy/tools/toolchain.py', b'#\n'),   # a DLL input since core 0.27.0 (W24)
+                          ('proxy/tools/build_id.py', (ROOT / 'core/proxy/tools/build_id.py').read_bytes())):
             (Path(d) / rel).parent.mkdir(parents=True, exist_ok=True)
             (Path(d) / rel).write_bytes(data)
         g('add', '-A'); g('commit', '-q', '-m', 'J9: proxy change')
@@ -390,16 +392,23 @@ class CorePin(unittest.TestCase):
     def test_collect_acceptance_reads_the_pin_diff_from_the_merge_base(self):
         self.bump({'proxy/src/a.cpp': 'int a2;\n'})
         mb = self.g(self.game, 'rev-parse', 'HEAD~1')
-        facts = {'base': 'HEAD~1', 'merge_base': mb, 'changed': ['core'], 'branch': 'job/J9'}
+        head = self.g(self.game, 'rev-parse', 'HEAD')
+        # core W23 (0.26.0): the facts carry the clone and the shas; the rules' folder (here a stand-in) is never a git cwd
+        facts = {'base': mb, 'merge_base': mb, 'head': head, 'repo': str(self.game), 'changed': ['core'], 'branch': 'job/J9'}
         real = hk.dll_build_id
-        hk.dll_build_id = lambda root: 'abc'   # the fixture core has no build id tool
+        seen = []
+        hk.dll_build_id = lambda root, rev='HEAD', tool_root=None: seen.append((rev, tool_root)) or 'abc'   # the fixture core has no build id tool
         try:
-            got = hk.collect_acceptance(self.game, facts)
-            self.assertEqual(got['core_diff'], hk.core_pin_diff(mb, 'HEAD', self.game))
+            got = hk.collect_acceptance('rules-folder', facts)
+            self.assertEqual(got['core_diff'], hk.core_pin_diff(mb, head, self.game))
             self.assertEqual(got['core_diff'], ['proxy/src/a.cpp'])
-            self.assertIsNone(hk.collect_acceptance(self.game, dict(facts, changed=['docs/x.md']))['core_diff'])
-            # the wrong base (HEAD itself) would give an empty diff: the merge base is what is read
-            self.assertNotEqual(got['core_diff'], hk.core_pin_diff('HEAD', 'HEAD', self.game))
+            self.assertEqual(seen[-1], (head, 'rules-folder'))   # the base's build id tool over the head's blobs
+            self.assertIsNone(hk.collect_acceptance('rules-folder', dict(facts, changed=['docs/x.md']))['core_diff'])
+            # the wrong base (the head itself) would give an empty diff: the merge base is what is read
+            self.assertNotEqual(got['core_diff'], hk.core_pin_diff(head, head, self.game))
+            # a pull_request_target run checks out the base: HEAD is the base there, and the head is still read by its sha
+            self.g(self.game, 'checkout', '-q', '--detach', mb)
+            self.assertEqual(hk.collect_acceptance('rules-folder', facts)['core_diff'], ['proxy/src/a.cpp'])
         finally:
             hk.dll_build_id = real
 

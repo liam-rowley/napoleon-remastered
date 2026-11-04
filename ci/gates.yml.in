@@ -79,7 +79,11 @@ jobs:
         with:
           submodules: true   # the proxy sources, tools and the harness live in the core since J12
           token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
-      - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
+      - name: the pinned mingw-w64 toolchain (core/proxy/tools/toolchain.py apt; core 0.27.0, W24)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends $(python3 core/proxy/tools/toolchain.py apt)
+          dpkg-query -W -f '${Package}=${Version}\n' '*mingw-w64*'
 {{wsc fetch_cache}}
       - run: core/proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path

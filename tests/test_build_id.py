@@ -37,7 +37,7 @@ class Fixture(unittest.TestCase):
         self.write('proxy/tools/fetch_lua.py', '# lua\n')
         self.write('proxy/tools/fetch_ui.py', '# ui\n')   # core 0.10.0 (W2): the RmlUi host's fetcher and its pin file are DLL inputs
         self.write('viewer/pins.json', '{}\n')
-        for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py', 'proxy/tools/layout.py'):
+        for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py', 'proxy/tools/layout.py', 'proxy/tools/toolchain.py'):   # toolchain.py: a DLL input since core 0.27.0 (W24)
             self.write(rel, (ROOT / 'core' / rel).read_bytes())   # the tools live in the core since J12; the fixture keeps the flat layout
         self.write('wsc.toml', '# the repo marker layout.py looks for' + chr(10))
         self.write('docs/x.md', 'x\n')
@@ -146,7 +146,8 @@ class MovedToTheCore(Fixture):
         for src, dst in (('proxy/core/a.cpp', 'proxy/src/a.cpp'), ('proxy/tools/build.sh', 'proxy/tools/build.sh'),
                          ('proxy/tools/build_id.py', 'proxy/tools/build_id.py'), ('proxy/tools/fetch_lua.py', 'proxy/tools/fetch_lua.py'),
                          ('proxy/tools/fetch_ui.py', 'proxy/tools/fetch_ui.py'),
-                         ('proxy/tools/layout.py', 'proxy/tools/layout.py'), ('wsc.toml', 'wsc.toml')):
+                         ('proxy/tools/layout.py', 'proxy/tools/layout.py'), ('proxy/tools/toolchain.py', 'proxy/tools/toolchain.py'),
+                         ('wsc.toml', 'wsc.toml')):
             (core / dst).parent.mkdir(parents=True, exist_ok=True)
             (core / dst).write_bytes((self.d / src).read_bytes())
         g('add', '-A'); g('commit', '-q', '-m', 'core')

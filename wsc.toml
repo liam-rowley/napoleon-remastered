@@ -14,7 +14,7 @@ engine_facts = "core:engine_facts"
 jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
 
 [core]
-version = "v0.22.0"
+version = "v0.30.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
@@ -41,6 +41,7 @@ ledgers = "jobs/*/rules.md"            # J5 audit ledgers: their `CL` rows name 
 
 [gates]
 dirs = ["tools/gates"]                 # tools/gates/pipeline.py: found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75); core W13
+run_refs_since = "2026-11-04"          # core W12 (0.24.0): run READMEs dated before the J64 bump name paths J12 and J64 moved into the core; dated records stay as written
 
 [discovery]
 adapter = "discovery/napoleon"         # games.json, gate.json and the other adapter files; the passes themselves are core/discovery (core W4, v0.15.0)
@@ -77,12 +78,17 @@ token_secret = "WARSCAPE_CORE_TOKEN"    # the core is public (D29); keep the sec
 workflows = ["gates.yml", "policy.yml"]
 notice = "A failed check leaves this pull request open (D32); fix it on the branch and push."
 footer = "Classes and their guards: `docs/CI_FAILURES.md`."
-policy_extra_steps = '''      # rule 79 compares the core pins at the merge base and the head (J58). fetch-depth 0 already clones the core in full (no --depth on
-      # the submodule update), so the base pin is there whenever a core branch or tag reaches it; this fetch makes sure of it. A pin that
-      # still cannot be fetched is left to the policy hook, which counts the pin change and says why (fail closed).
-      - run: |
-          pin=$(git rev-parse "$(git merge-base "origin/${{ github.base_ref }}" HEAD):core")
-          git -C core cat-file -e "$pin^{commit}" 2>/dev/null || git -C core fetch --no-tags origin "$pin" || echo "could not fetch core pin $pin"'''
+policy_extra_steps = '''      # rule 79 compares the core pins at the merge base and the head (J58). The checkout is the base (core W23: pull_request_target), so HEAD
+      # is the base: the head's sha comes from env, never from an expression inside run. Both pins are fetched into core/ when missing; a pin
+      # that still cannot be fetched is left to the policy module, which counts the pin change and says why (fail closed).
+      - env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          for rev in "$(git merge-base "origin/$BASE_REF" "$HEAD_SHA")" "$HEAD_SHA"; do
+            pin=$(git rev-parse "$rev:core")
+            git -C core cat-file -e "$pin^{commit}" 2>/dev/null || git -C core fetch --no-tags origin "$pin" || echo "could not fetch core pin $pin"
+          done'''
 
 required_checks = ["gates", "policy", "proxy", "harness-windows"]   # what `main` requires (D32); `wsc ci check-settings` compares (core W21)
 

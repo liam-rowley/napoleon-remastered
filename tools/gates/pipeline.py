@@ -240,16 +240,19 @@ def show_first(root, ref, *paths):
     return None
 
 
-def dll_build_id(root):
-    """The final DLL's build id at HEAD, committed content only: the core's proxy/tools/build_id.py, the implementation build.sh uses (J45)."""
+def dll_build_id(root, rev='HEAD', tool_root=None):
+    """The DLL's build id at `rev` of the clone `root`, committed content only: the core's proxy/tools/build_id.py, the implementation build.sh
+    uses (J45). `tool_root` holds the copy that computes it: in the policy stage the base's rule inputs (core W23: the base's algorithm over the
+    head's blobs, never the head's copy run), else `root` itself. A bump that changes build_id.py is then refused until its base has the new one."""
     import importlib.util
     root = Path(root)
+    tools = Path(tool_root) if tool_root else root
     try:
-        tool = next(p for p in (root / 'core/proxy/tools/build_id.py', root / 'proxy/tools/build_id.py') if p.is_file())
+        tool = next(p for p in (tools / 'core/proxy/tools/build_id.py', tools / 'proxy/tools/build_id.py') if p.is_file())
         spec = importlib.util.spec_from_file_location('build_id', tool)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        return mod.build_id(root, 'HEAD', dirty=False)
+        return mod.build_id(root, rev, dirty=False)
     except (OSError, ValueError) as e:   # an input not committed: no ledger line can match, so rule 79 refuses and names it
         return f'nogit ({e})'
 
@@ -337,13 +340,16 @@ def acceptance_problems(changed, acc):
 
 
 def collect_acceptance(root, facts):
-    """The inputs of rule 79 for the branch in `facts` (the core's `collect_facts` plus 'kind'), read from git: what the old `pr_policy.main` gathered."""
-    base, mb, changed = facts['base'], facts['merge_base'], facts['changed']
-    wsrc = show_first(root, 'HEAD', 'core/harness/watcher.ps1', 'harness/core/watcher.ps1') or ''
+    """The inputs of rule 79 for the branch in `facts` (the core's `run_check` facts plus 'kind'), read from git: what the old `pr_policy.main` gathered.
+    Core W23 (0.26.0): `root` is the base's rule inputs (a temporary folder, never a git cwd); git runs at the clone `facts['repo']` with the
+    `head`, `base` and `merge_base` shas, never with 'HEAD' (in a pull_request_target run HEAD is the base)."""
+    repo, head, base, mb, changed = facts['repo'], facts['head'], facts['base'], facts['merge_base'], facts['changed']
+    wsrc = show_first(repo, head, 'core/harness/watcher.ps1', 'harness/core/watcher.ps1') or ''
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
-    return {'active': acceptance_active(show(root, base, ACC_LEDGER), show(root, base, ACC_BASELINE), show_first(root, base, *ACC_CHECKERS), root),
-            'ledger': show(root, 'HEAD', ACC_LEDGER), 'build_id': dll_build_id(root), 'watcher': wm.group(1) if wm else '?', 'branch': facts['branch'],
-            'exists': lambda p: show(root, 'HEAD', p) is not None, 'core_diff': core_pin_diff(mb, 'HEAD', root) if 'core' in changed else None}
+    return {'active': acceptance_active(show(repo, base, ACC_LEDGER), show(repo, base, ACC_BASELINE), show_first(repo, base, *ACC_CHECKERS), root),
+            'ledger': show(repo, head, ACC_LEDGER), 'build_id': dll_build_id(repo, head, tool_root=root), 'watcher': wm.group(1) if wm else '?',
+            'branch': facts['branch'], 'exists': lambda p: show(repo, head, p) is not None,
+            'core_diff': core_pin_diff(mb, head, repo) if 'core' in changed else None}
 
 
 def policy_rule(ctx, facts):
