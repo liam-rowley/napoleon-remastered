@@ -54,7 +54,7 @@ same reviews (see its table). J10 Later 3 and J65 Later 2 live in `ui_atlas.py`,
    imported, exit 0 if at least one imported and non-zero if none did. (b) `density` takes capture paths as `nargs='+'`, which breaks past about 40 paths on a Windows command
    line: add `--from-file FILE` (one path per line, `-` for stdin) and keep the positional form. The third part of the audit's bullet (never edit a running `.sh`) is the watcher's,
    core line K19, not this job. Tests: a synthetic capture folder with one missing `frame.txt` (import skips, lists, exits 0); `--from-file` with 100 paths yields 100 results.
-7. **`discovery ui` fails loudly** (J65 Later 2). Applies: `grep -n "extract\|reach.json\|art_keys" discovery/ui_atlas.py` (Napoleon 868 and 1300-1320): it writes empty `reach.json`
+7. **`discovery ui` fails loudly** (J65 Later 2). Applies: `grep -nE "extract|reach.json|art_keys" discovery/ui_atlas.py` (Napoleon 868 and 1300-1320): it writes empty `reach.json`
    and `art_keys.json` without an error when `extract/<target>` is missing. Fix: before the `art` and `live` steps, if the extract folder the step reads is absent or empty, exit
    non-zero with a message naming the folder and the command that builds it (use the verb the core README names) and write nothing. Test: the step against a temp tree
    without the extract exits non-zero, names the folder, creates neither file.

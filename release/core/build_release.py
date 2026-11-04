@@ -240,7 +240,7 @@ ID_RE = re.compile(r'^[0-9a-f]{12}$')
 
 def acceptance_streak(ledger_text, build_id, exists):
     """Consecutive `pass` rows at the end of the ledger among the rows of exactly this build id (other ids, -dirty ids included, are skipped), each naming a run
-    and an evidence file that exists. The streak rule of rule 79 (tools/jobs_hooks.py) without its branch and watcher conditions."""
+    and an evidence file that exists. The streak rule of rule 79 (tools/gates/pipeline.py) without its branch and watcher conditions."""
     rows = [json.loads(l) for l in ledger_text.splitlines() if l.strip()]
     n = 0
     for r in reversed([r for r in rows if r.get('build_id') == build_id]):
