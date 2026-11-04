@@ -19,7 +19,7 @@ The build writes these files to `<state folder>\uiscale\work\` (`tools/pc_state.
 A re-run is byte-identical: the art is cached by input sha256, and the pack is kept when its plan is unchanged.
 
 ## Code
-- `core/scale.py`: the rules (multiscale.md section 4 of the Empire branch).
+- `core/scale.py`: the rules (multiscale.md section 4 of the Empire branch), and Empire's long-form pass (J79): only a TextView's `Text` child keeps the spaced `Frontend 24` slot, every other user of it takes `Ingame 24`.
   - **Geometry:** absolute edge snapping `px(x) = floor(x + 0.5)` on edges relative to the root, never per-value rounding. It covers component x/y, state w/h, image-use rects, V039 keyframe x/y/w/h, and textured image defs (`ceil(t * f)`).
   - **Left alone:** the image-use tail (9-slice stretch flags) and blank image defs.
   - **Fonts:** onto the slot files each context loads (Empire: `Ingame 24` Normal/Bold, `Frontend 24`, `Frontend 38`; the front end takes the nearest vanilla-named size).
