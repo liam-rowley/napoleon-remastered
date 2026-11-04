@@ -1,3 +1,15 @@
+## Round 2 (2026-11-04, branch job/J76 at 1eb89b1)
+
+**Verdict: merge.**
+
+All three round 1 findings were answered in `## Fix round 1` of the report and I checked each against the branch.
+- **Blocker 1 (hard-coded path):** `tests/test_claude_hook.py:149` is now `REPO = ch.norm(ch.ROOT)`. Run 41817052172 is green on `gates` and `harness-windows`; `proxy` and `viewer` are skipped as unaffected.
+- **Should-fix 2 (sibling exemption):** `tools/claude_hook.py:642-669` accepts a script only under this checkout or a `git worktree list` entry. The two `evil/` commands are corpus rows 80-81, both `deny`.
+- **Should-fix 3 (writers):** curl/wget output flags and `perl -i` count as writes, with corpus rows. Remaining flags are listed as residuals in the hook header.
+- **Later 4:** unchanged by design (CI's `policy` owns the own-review rule).
+
+Local `tests.test_claude_hook` and `tests.test_claude_hook_corpus` pass (30 tests). Rule 79 does not apply (no `proxy/` or `harness/` change). No open findings.
+
 ## Round 1 (2026-11-04, branch job/J76 at 18db6b4)
 
 **Verdict: merge after fixes.**
