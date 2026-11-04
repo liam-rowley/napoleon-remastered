@@ -1,5 +1,38 @@
 # Review of J94 (Napoleon tools, tests and gates: small fixes)
 
+## Round 2 (2026-11-04, branch job/J94 at 523938e)
+
+**Verdict: merge.** The round-1 blocker is fixed at the caller, the full gates and CI are green, and the item-7 follow-up is done here now that PR #194 is on main.
+
+Reviewer: a fresh session (`4c518ed4`) that neither built nor fixed the branch. Checked against `jobs/J94/brief.md`, `jobs/J94/report.md` "Fix round 1" and round 1 below.
+
+### Round 1 findings, answered
+- Blocker (`BARE_BASH` flags `tests/test_viewer_prune.py:37`): fixed in `a694f49`. `find_bash()` is gone and the module loads `tools/verbs/setup.py`
+  `bash_for_tests()` the way `tests/test_job_sh.py` does, so the WSL launcher is still refused and nothing needed allow-listing. `ThisRepo.test_no_bare_bash_in_tests_and_tools` passes.
+- Re-run after the merge of `main`: done by the fixer (`803bb6e`, main at `c472651`) and again here after a second merge (below).
+
+### Reviewer fixes on the branch (this round)
+- `a9a5568`: merged `origin/main` (main at `36318bf`, which carries `registries/jobs/J100.json` from PR #194). Job-only changes vs main are the same 15 files as before.
+- `d1f6d8f`: `tools/jobs_hooks.py:56` `PROMOTIONS['release/core'] = 'J100'` (comment no longer points at the open PR), and
+  `tests/test_jobs_hooks.py` `test_promotions_name_rows_that_exist` checks `('release/core', 'J100')`. This was the report's stated follow-up once #194 merged;
+  it completes brief item 7 as written. `python3 -m unittest tests.test_jobs_hooks`: 52 OK.
+
+### Evidence (run here)
+- `python3 core/wsc.py gates` (full) at `523938e`: 13 ok, 1 warn (tests: skips for absent numpy/Pillow, viewer.wasm, capstone), 0 failed, 264.5 s.
+  Again at `d1f6d8f`: 13 ok, 1 warn, 0 failed, 233.7 s.
+- CI on PR #195 at `523938e`: `gates`, `harness-windows`, `changes` success; `proxy`, `viewer` skipped (inputs untouched); `policy` skipped (draft).
+- `wsc policy --branch job/J94 --base origin/main` at `523938e`: refused only for the verdict and the `done` row, which this round supplies.
+- Rule 79: no `proxy/` or `harness/` change and no core pin move on the branch, so no passes are needed.
+
+### Read in depth
+- `tools/verbs/setup.py` `watcher_detail`, `git_bash` roots and `pillow_result` (they run on the PC through `wsc setup`), and `tools/verbs/hotkeys.py`
+  `game_data`/`load_known`/`canon` (they decide what a registry import writes). They match the brief; a missing games.json or known file is an error line, not a traceback.
+
+### Later (repo)
+- `tools/verbs/setup.py` `watcher_detail`: a status JSON without `heartbeat_utc` falls back to the first output line, which is then `{`. Harmless
+  (the watcher always writes the field) but the fallback could print the state alone. Not worth a round.
+- Item 5 (`proxy.dxvk_path`) and the `uikit/napoleon/changes.py` header stay as the report's open questions; `uiscale/core` still has no promotion row.
+
 ## Round 1 (2026-11-04, branch `job/J94` at a65ff3e)
 
 **Verdict: merge after fixes.** One blocker: the new `BARE_BASH` rule flags a file that merged to `main` after the builder's last full run, so the `tests` gate is red on this branch.
