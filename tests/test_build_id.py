@@ -35,6 +35,8 @@ class Fixture(unittest.TestCase):
         self.write('proxy/core/a.cpp', 'int a;\n')
         self.write('proxy/napoleon/adapter.cpp', 'int b;\n')
         self.write('proxy/tools/fetch_lua.py', '# lua\n')
+        self.write('proxy/tools/fetch_ui.py', '# ui\n')   # core 0.10.0 (W2): the RmlUi host's fetcher and its pin file are DLL inputs
+        self.write('viewer/pins.json', '{}\n')
         for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py', 'proxy/tools/layout.py'):
             self.write(rel, (ROOT / 'core' / rel).read_bytes())   # the tools live in the core since J12; the fixture keeps the flat layout
         self.write('wsc.toml', '# the repo marker layout.py looks for' + chr(10))
@@ -143,6 +145,7 @@ class MovedToTheCore(Fixture):
         g('config', 'core.autocrlf', 'false')
         for src, dst in (('proxy/core/a.cpp', 'proxy/src/a.cpp'), ('proxy/tools/build.sh', 'proxy/tools/build.sh'),
                          ('proxy/tools/build_id.py', 'proxy/tools/build_id.py'), ('proxy/tools/fetch_lua.py', 'proxy/tools/fetch_lua.py'),
+                         ('proxy/tools/fetch_ui.py', 'proxy/tools/fetch_ui.py'),
                          ('proxy/tools/layout.py', 'proxy/tools/layout.py'), ('wsc.toml', 'wsc.toml')):
             (core / dst).parent.mkdir(parents=True, exist_ok=True)
             (core / dst).write_bytes((self.d / src).read_bytes())
@@ -164,6 +167,8 @@ class MovedToTheCore(Fixture):
         self.assertEqual(paths['core'], 'core/proxy/src')
         self.assertEqual(paths['build_sh'], 'core/proxy/tools/build.sh')
         self.assertEqual(paths['adapter'], 'proxy/napoleon')
+        self.assertEqual(paths['fetch_ui'], 'core/proxy/tools/fetch_ui.py')
+        self.assertEqual(paths['ui_pins'], 'viewer/pins.json')   # the game's pin file stays in the game repo
 
     def test_failing_fixture_a_change_inside_the_submodule_is_seen(self):
         flat = self.bid()

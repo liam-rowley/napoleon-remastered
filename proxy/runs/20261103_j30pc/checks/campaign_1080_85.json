@@ -1,0 +1,259 @@
+{
+ "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\agent-a870b449f9789345f\\proxy\\runs\\20261103_j30pc\\dumps\\campaign_1080_85.png",
+ "size": [
+  1920,
+  1080
+ ],
+ "dp": 0.85,
+ "checks": {
+  "rules_solid": {
+   "ok": false,
+   "thickness_px_allowed": [
+    1,
+    1
+   ],
+   "columns": [
+    {
+     "x": 64,
+     "white_runs": [
+      [
+       199,
+       1
+      ],
+      [
+       203,
+       1
+      ],
+      [
+       208,
+       1
+      ],
+      [
+       214,
+       1
+      ]
+     ],
+     "blend_rows": 0
+    },
+    {
+     "x": 108,
+     "white_runs": [
+      [
+       199,
+       1
+      ],
+      [
+       203,
+       1
+      ],
+      [
+       208,
+       1
+      ],
+      [
+       214,
+       1
+      ]
+     ],
+     "blend_rows": 0
+    },
+    {
+     "x": 153,
+     "white_runs": [
+      [
+       199,
+       1
+      ],
+      [
+       203,
+       1
+      ],
+      [
+       208,
+       1
+      ],
+      [
+       214,
+       1
+      ]
+     ],
+     "blend_rows": 0
+    },
+    {
+     "x": 197,
+     "white_runs": [
+      [
+       199,
+       1
+      ],
+      [
+       203,
+       1
+      ],
+      [
+       208,
+       1
+      ],
+      [
+       214,
+       1
+      ]
+     ],
+     "blend_rows": 0
+    },
+    {
+     "x": 241,
+     "white_runs": [
+      [
+       199,
+       1
+      ],
+      [
+       203,
+       1
+      ],
+      [
+       208,
+       1
+      ],
+      [
+       214,
+       1
+      ]
+     ],
+     "blend_rows": 0
+    }
+   ]
+  },
+  "box_edges_whole_pixels": {
+   "ok": true,
+   "boxes": [
+    {
+     "box_left_dp": 290,
+     "row_edges": [
+      [
+       281,
+       1,
+       "white"
+      ],
+      [
+       316,
+       1,
+       "white"
+      ]
+     ],
+     "col_edges": [
+      [
+       196,
+       1,
+       "white"
+      ],
+      [
+       231,
+       1,
+       "white"
+      ]
+     ]
+    },
+    {
+     "box_left_dp": 340,
+     "row_edges": [
+      [
+       323,
+       1,
+       "white"
+      ],
+      [
+       358,
+       1,
+       "white"
+      ]
+     ],
+     "col_edges": [
+      [
+       196,
+       1,
+       "white"
+      ],
+      [
+       231,
+       1,
+       "white"
+      ]
+     ]
+    },
+    {
+     "box_left_dp": 390,
+     "row_edges": [
+      [
+       366,
+       1,
+       "white"
+      ],
+      [
+       401,
+       1,
+       "white"
+      ]
+     ],
+     "col_edges": [
+      [
+       196,
+       1,
+       "white"
+      ],
+      [
+       231,
+       1,
+       "white"
+      ]
+     ]
+    }
+   ]
+  },
+  "text_height": {
+   "ok": true,
+   "cap_height_per_em": 0.6919,
+   "lines": [
+    {
+     "id": "t14",
+     "size_dp": 14,
+     "px_size": 11.9,
+     "ink_rows": 8,
+     "ink_rows_strict": 7,
+     "expected_cap_px": 8.23,
+     "ok": true
+    },
+    {
+     "id": "t20",
+     "size_dp": 20,
+     "px_size": 17.0,
+     "ink_rows": 13,
+     "ink_rows_strict": 12,
+     "expected_cap_px": 11.76,
+     "ok": true
+    },
+    {
+     "id": "t28",
+     "size_dp": 28,
+     "px_size": 23.8,
+     "ink_rows": 17,
+     "ink_rows_strict": 16,
+     "expected_cap_px": 16.47,
+     "ok": true
+    },
+    {
+     "id": "t40",
+     "size_dp": 40,
+     "px_size": 34.0,
+     "ink_rows": 24,
+     "ink_rows_strict": 24,
+     "expected_cap_px": 23.52,
+     "ok": true
+    }
+   ]
+  }
+ },
+ "ok": false,
+ "crops": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\agent-a870b449f9789345f\\proxy\\runs\\20261103_j30pc\\crops"
+}

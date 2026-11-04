@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.helper_device_rehook",
+  "claim": "Because the battle loader's helper device shares the main device's vtable, any feature that re-hooks a device slot at every CreateDevice puts itself in front of hooks installed after it; with the dev side's Present hook re-installed in front of the RmlUi host's, the two called each other forever and every land battle load hung (watcher IsHungAppWindow kill after 166 s; with ui.enabled=0 the same build loaded in 12.6 s). Fixed in the core's VtableHook: a detour already in a slot's chain is never installed again (16.1 s load with the host and a document after the fix)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02",
+  "notes": "hang runs C:\\napoleon_remastered_pc\\watcher\\runs\\20261102T183258Z_hang and 20261102T184216Z_hang; core test_ui_core lint"
+}

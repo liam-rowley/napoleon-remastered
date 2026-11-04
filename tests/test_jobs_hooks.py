@@ -186,7 +186,7 @@ class Rule79(unittest.TestCase):
         g = lambda *a: subprocess.run(['git', *a], cwd=d, capture_output=True, text=True, check=True)
         g('init', '-q', '-b', 'job/J9'); g('config', 'user.email', 't@example.invalid'); g('config', 'user.name', 'test')
         for rel, data in (('proxy/core/a.cpp', b'int a;\n'), ('proxy/napoleon/adapter.cpp', b'int b;\n'), ('proxy/tools/build.sh', b'#!\n'),
-                          ('proxy/tools/fetch_lua.py', b'#\n'), ('proxy/tools/build_id.py', (ROOT / 'core/proxy/tools/build_id.py').read_bytes())):
+                          ('proxy/tools/fetch_lua.py', b'#\n'), ('proxy/tools/fetch_ui.py', b'#\n'), ('viewer/pins.json', b'{}\n'),('proxy/tools/build_id.py', (ROOT / 'core/proxy/tools/build_id.py').read_bytes())):
             (Path(d) / rel).parent.mkdir(parents=True, exist_ok=True)
             (Path(d) / rel).write_bytes(data)
         g('add', '-A'); g('commit', '-q', '-m', 'J9: proxy change')
