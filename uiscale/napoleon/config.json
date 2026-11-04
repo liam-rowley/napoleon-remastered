@@ -1,8 +1,7 @@
 {
  "note": "Napoleon adapter of the UI scale stop-gap (J66, D40): one factor, 2.0 (3840x2160 = 2 x 1080). Packs are movie packs named in discovery/napoleon/games.json mod_packs.",
  "factors": [2.0],
- "work": "C:\\napoleon_remastered_pc\\uiscale\\work",
- "upscale_work": "C:\\napoleon_remastered_pc\\upscale\\work",
+ "work_note": "the work folders are not configured here (J79): cli.py takes <state>\\uiscale\\work and the masters from <state>\\upscale\\work, with <state> from tools/pc_state.py (harness/napoleon/adapter.json state_dir, or $NAPOLEON_STATE_DIR); --work overrides the first",
  "pack_name": "ui_scale_{tag}x",
  "fonts_pack_name": "ui_scale_{tag}x_fonts",
  "templates_name": "uied.templates.ui_scale_{tag}x",

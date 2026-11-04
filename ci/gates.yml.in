@@ -65,6 +65,9 @@ jobs:
       - run: |
           pin=$(python -c "import tomllib; print(tomllib.load(open('wsc.toml', 'rb'))['core']['version'])")
           git -C core fetch --depth=1 --no-tags origin "refs/tags/$pin:refs/tags/$pin" || echo "could not fetch core tag $pin"
+      # J79 (audit G13): the host-test packages, hash-locked (upscale/requirements-ci.txt says how the hashes were made), so the art, font and
+      # x86re tests run here instead of skipping; a package whose wheel no longer matches its pinned sha256 fails this step, never the lock
+      - run: python -m pip install --require-hashes -r upscale/requirements-ci.txt
       - run: python core/wsc.py gates
   # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the PC's
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.

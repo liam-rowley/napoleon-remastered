@@ -213,6 +213,20 @@ def owned_paths(targets, mod_dir):
     return sorted(out)
 
 
+def provenance_problems(comps):
+    """components.json `external_provenance` (J79): every named external source records the sha256 of what it was built from."""
+    errs = []
+    for name, srcs in comps.get('external_provenance', {}).items():
+        if name not in comps.get('external', {}):
+            errs.append(f'external_provenance names {name!r}, which is not an external source')
+        for k, v in srcs.items():
+            if not (isinstance(v.get('sha256'), str) and len(v['sha256']) == 64 and all(ch in '0123456789abcdef' for ch in v['sha256'])):
+                errs.append(f'external_provenance {name}.{k}: sha256 must be 64 lower-case hex digits')
+            if not isinstance(v.get('files'), int) or v['files'] <= 0:
+                errs.append(f'external_provenance {name}.{k}: files must be a positive count')
+    return errs
+
+
 def ownership_problems(comps, installed=None, mod_dir=''):
     """Every target belongs to exactly one component and stays inside the game folder; an installed file (a path list) no component owns is an error."""
     errs, seen = [], {}
@@ -415,7 +429,7 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
     rpath = ROOT / 'release' / 'napoleon' / 'releases.json'
     releases = read_json(rpath)['releases'] if rpath.is_file() else []
     ini_set = component_ini_set(comps)
-    errs = version_problems(version, releases) + ownership_problems(comps) + gen_licenses.problems(lic, comps, ROOT) + value_problems(keys, rel, ini_set=ini_set)
+    errs = version_problems(version, releases) + ownership_problems(comps) + provenance_problems(comps) + gen_licenses.problems(lic, comps, ROOT) + value_problems(keys, rel, ini_set=ini_set)
     if errs:
         raise SystemExit('build_release: refusing:\n  ' + '\n  '.join(errs))
     dirty = tree_dirty()
@@ -504,7 +518,8 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
            'exe_identity': {'name': 'installer/exe_identity.json', 'sha256': sha256_bytes(idb)},
            'owned': owned_paths([e['path'] for e in entries], mod),
            'components': [{'id': c['id'], 'title': c['title'], 'optional': bool(c.get('optional')), 'requires': c.get('requires', []), 'licences': c.get('licences', [])} for c in comps['components']],
-           'files': entries, 'extras': extras, 'pending': gen_licenses.pending(lic)}
+           'files': entries, 'extras': extras, 'pending': gen_licenses.pending(lic),
+           'external_provenance': comps.get('external_provenance', {})}   # J79: what an external build output was made from (the 2.5x masters' manifest)
     (folder / 'manifest.json').write_text(json.dumps(man, indent=1) + '\n', encoding='utf-8')
     for k in man['pending']:
         print(f'build_release: warning: {k} is still pending in licenses.json (Liam decides): the shipped LICENSES.txt says so')
