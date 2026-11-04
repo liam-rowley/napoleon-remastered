@@ -1,0 +1,7 @@
+{
+ "note": "Vanilla hotkeys rows the clash rules allow, read by tools/verbs/hotkeys.py (`hotkeys check`) and tests/test_hotkeys.py. os_combo: [row id, reason], a vanilla row allowed to be an OS combo (empty: no vanilla binding is one, J21 2026-10-29). vanilla_clash: [id, id, reason], a vanilla pair allowed to clash. A stale entry is a check failure.",
+ "os_combo": [],
+ "vanilla_clash": [
+  ["vanilla.fps.deselect_all.0", "vanilla.fps.end_turn.0", "Return deselects (mode all) and ends the turn (campaign): a vanilla double binding; the engine takes the mode-specific binding first (unproven, J21 open question)"]
+ ]
+}
