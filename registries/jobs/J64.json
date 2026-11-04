@@ -12,5 +12,5 @@
   ],
   "brief": "jobs/J64/brief.md",
   "report": "jobs/J64/report.md",
-  "blocked_by": "rule 79: run 20261104_j64pc3 stopped at pass 6 (a terminal window over the game in the hist_nile shot); 20 passes on build 6e89faf06754 and watcher 1.4.0 still needed with the PC quiet (jobs/J64/report.md, Open questions 7)"
+  "blocked_by": "rule 79: runs 20261104_j64pc3 and _j64pc4 failed shot_match on a Windows Terminal window (pid 8872) that each launch pulls onto the virtual display; move it off, then 20 passes on build 6e89faf06754, watcher 1.4.0 (jobs/J64/report.md, Open questions 7)"
 }
