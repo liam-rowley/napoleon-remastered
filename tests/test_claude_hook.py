@@ -59,7 +59,7 @@ class Hook(unittest.TestCase):
         # J20 review: the old command ran `git rev-parse` and, outside a repo, python on /tools/claude_hook.py: exit 2 = block the call.
         cmd = next(x['command'] for h in json.loads((ROOT / '.claude' / 'settings.json').read_text(encoding='utf-8'))['hooks']['PreToolUse']
                    for x in h['hooks'])
-        self.assertNotIn('git ', cmd)
+        self.assertNotIn('git rev-parse', cmd)
         commit = json.dumps(ev('git commit -m x'))
         with tempfile.TemporaryDirectory() as t:   # not a repo, no project dir, or a project dir without the hook (main before J20)
             for env in ({}, {'CLAUDE_PROJECT_DIR': t}, {'CLAUDE_PROJECT_DIR': str(Path(t) / 'missing')}):
@@ -97,6 +97,50 @@ class Hook(unittest.TestCase):
         for part in ('watcher/**', 'kits/**', 'backup/**', 'snapshots/**', '_to_delete/**', 'install.json'):
             self.assertIn(rule(state + '/' + part).lower(), lower, part)
         self.assertFalse(any('_scratch' in d for d in deny), 'the scratch folders stay writable')
+        # J76: the rest of the managed state and the AppData prefs file and save folder (the hook denies their shell writes too)
+        for part in ('ctl/**', 'play/**', 'saves/**'):
+            self.assertIn(rule(state + '/' + part).lower(), lower, part)
+        self.assertIn('Edit(~/AppData/Roaming/The Creative Assembly/Napoleon/scripts/preferences.script.txt)'.lower(), lower)
+        self.assertIn('Edit(~/AppData/Roaming/The Creative Assembly/Napoleon/save_games/**)'.lower(), lower)
+        appdata = json.loads((ROOT / 'harness/napoleon/adapter.json').read_text(encoding='utf-8'))['appdata_dir']
+        self.assertEqual(appdata.replace('\\', '/'), '%APPDATA%/The Creative Assembly/Napoleon')
+        self.assertEqual(len(ch.appdata_paths(environ={'APPDATA': 'C:/Users/x/AppData/Roaming'})), 2)
+
+    def wrapper(self, stdin, path, env_extra=None, timeout=60):
+        cmd = next(x['command'] for h in json.loads((ROOT / '.claude' / 'settings.json').read_text(encoding='utf-8'))['hooks']['PreToolUse']
+                   for x in h['hooks'])
+        e = dict(os.environ, CLAUDE_PROJECT_DIR=str(ROOT), PATH=path, **(env_extra or {}))
+        return subprocess.run([BASH, '-c', cmd], input=stdin, env=e, capture_output=True, text=True, timeout=timeout)
+
+    def test_the_wrapper_screens_commands_when_python_is_missing_or_hangs(self):
+        """J76: python missing, crashing or hanging used to let every call through; now a benign command passes and a dangerous one is denied."""
+        if NO_BASH:
+            self.skipTest(NO_BASH)
+        bash_dir = Path(BASH).parent
+        sysbin = [str(bash_dir), str(bash_dir.parent / 'usr' / 'bin')]
+        benign = json.dumps(ev('git status'))
+        danger = [json.dumps(ev('git commit -m x')), json.dumps(ev(r'cp a.dll "C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War"'))]
+        with tempfile.TemporaryDirectory() as t:
+            fake = {}
+            for name, body in (('hang', '#!/bin/sh\nexec sleep 30\n'), ('crash', '#!/bin/sh\nexit 3\n')):
+                d = Path(t) / name
+                d.mkdir()
+                (d / 'python3').write_text(body, encoding='utf-8', newline='\n')
+                fake[name] = str(d)
+            cases = [('missing', os.pathsep.join(sysbin), {}),
+                     ('crash', os.pathsep.join([fake['crash']] + sysbin), {}),
+                     ('hang', os.pathsep.join([fake['hang']] + sysbin), {'CLAUDE_HOOK_TIMEOUT': '1'})]
+            for label, path, extra in cases:
+                if label == 'crash':
+                    probe = subprocess.run([BASH, '-c', 'python3'], env=dict(os.environ, PATH=path), capture_output=True, text=True)
+                    if probe.returncode not in (3, 124, 137, 143) and label == 'crash':
+                        self.skipTest(f'cannot run a fake python3 here: {probe.returncode} {probe.stderr}')
+                r = self.wrapper(benign, path, extra)
+                self.assertEqual((r.returncode, r.stdout), (0, ''), (label, r.stderr))
+                for d in danger:
+                    r = self.wrapper(d, path, extra)
+                    self.assertEqual(r.returncode, 0, (label, r.stderr))
+                    self.assertEqual(json.loads(r.stdout)['hookSpecificOutput']['permissionDecision'], 'deny', (label, d))
 
 NAP = r'C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War'
 EMP = 'C:/Program Files (x86)/Steam/steamapps/common/Empire Total War'
