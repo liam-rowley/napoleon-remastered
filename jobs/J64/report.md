@@ -28,7 +28,7 @@ minutes; d26e35e the discovery switch and `tests/test_discovery_repo.py`; 01366d
   the brief's table missed when it listed W6.
 - 9452997: the player ini omits the key (inert without a GestureAdapter; default equals release value; `release/napoleon/release.json`).
 - f6dda50: `proxy/README.md` capture count 36 to 37 plus 2 state-block slots (step 6's check found it).
-- c019c65: merge of `main` (J75, J79, J81, J94). J79 took D57 and a plan commit took D58, so J64's rows are D59 and D60. J75's new rule 79 reads were moved to read the head by sha too, including `acc_sha_fields`. Main brought no DLL input; the id did not change.
+- c019c65: merge of `main` (J75, J79, J81, J94). J79 took D57 and plan commits took D58 and D59, so J64's rows are D60 and D61. J75's new rule 79 reads were moved to read the head by sha too, including `acc_sha_fields`. Main brought no DLL input; the id did not change.
 
 **Evidence, host, at c019c65:**
 - `python3 core/wsc.py gates`: 13 ok, 2 warn, 0 failed in 506 s; 585 host tests passed, 29 skipped. The warnings: the bootstrap trigger, and the skips (viewer render, fonts, images: no Playwright, numpy or Pillow here). The tests gate took 501 s of its 600 s cap warm, and hit the cap once with a cold toolchain image.
