@@ -336,18 +336,113 @@ class Notes(unittest.TestCase):
         self.assertTrue(t.isascii())
         r = br.readme_text(REL, IDENT, '0.1.0', COMPS, LIC)
         self.assertTrue(r.isascii())
-        for want in ('Install.cmd', 'Uninstall.cmd', 'Support.cmd', 'EXCEPT inside the game folder'):
+        for want in ('Install.cmd', 'Uninstall.cmd', 'Support.cmd', 'Clean.cmd', 'changed by the game update, not by this tool'):
             self.assertIn(want, r)
+
+    def test_one_discovery_story(self):
+        """G14d (J81): rr.ps1 Find-Game searches upward from the release folder first, so README.txt must not forbid unzipping inside the game folder."""
+        r = br.readme_text(REL, IDENT, '0.1.0', COMPS, LIC)
+        self.assertNotIn('EXCEPT', r)
+        self.assertIn('the installer still finds the game, but verify-and-reinstall in Steam deletes it', r)
+        self.assertNotIn('EXCEPT', (ROOT / 'release' / 'README.md').read_text(encoding='utf-8'))
 
     def test_limit_facts_exist(self):
         self.assertEqual(len(br.load_facts(REL['limit_facts'])), len(REL['limit_facts']))
 
     def test_cmd_entry_points(self):
+        self.assertEqual(br.CMDS['Clean.cmd'][0], 'clean')   # G6 (J81): the release ships Clean.cmd
         for name, (verb, extra, blurb) in br.CMDS.items():
             t = br.cmd_text(verb, extra, blurb)
             self.assertIn(f'rr.ps1" {verb}', t)
             self.assertIn('%~dp0installer', t)
             self.assertTrue(t.isascii() and '\r\n' in t)
+            self.assertEqual(t.count('\n'), t.count('\r\n'))
+        self.assertIn('game update', br.CMDS['Uninstall.cmd'][2])
+
+    def test_key_text_is_gone(self):
+        """G14c (J81): the dead helper (it imported gen_tables, nothing called it)."""
+        self.assertFalse(hasattr(br, 'key_text'))
+
+
+class External(unittest.TestCase):
+    """G14a (J81): an external build output is taken only with its .json sidecar naming its sha256 (and the pinned build id when a row pins one)."""
+
+    def setUp(self):
+        self._t = tempfile.TemporaryDirectory()
+        self.addCleanup(self._t.cleanup)
+        self.d = Path(self._t.name)
+        (self.d / 'x.pack').write_bytes(b'PACK' * 10)
+
+    def res(self, **cf):
+        return br.resolve(dict({'source': 'external:ext:x.pack', 'target': 'data/x.pack'}, **cf), {}, {'external': {'ext': str(self.d)}})
+
+    def side(self, **m):
+        (self.d / 'x.pack.json').write_text(json.dumps(m), encoding='utf-8')
+
+    def test_missing_sidecar_is_refused(self):
+        with self.assertRaises(SystemExit) as e:
+            self.res()
+        self.assertIn('sidecar', str(e.exception))
+
+    def test_other_sha256_is_refused(self):
+        self.side(sha256='0' * 64)
+        with self.assertRaises(SystemExit):
+            self.res()
+        self.side(file='x.pack')   # names no sha256
+        with self.assertRaises(SystemExit):
+            self.res()
+
+    def test_matching_sidecar_and_pin(self):
+        good = hashlib.sha256(b'PACK' * 10).hexdigest()
+        self.side(sha256=good)
+        self.assertEqual(self.res(), self.d / 'x.pack')
+        with self.assertRaises(SystemExit):
+            self.res(build_id='abcabcabcabc')   # the row pins a build the sidecar does not name
+        self.side(sha256=good, build_id='abcabcabcabc')
+        self.assertEqual(self.res(build_id='abcabcabcabc'), self.d / 'x.pack')
+
+
+class Record(unittest.TestCase):
+    """G14b (J81): --record writes version, manifest sha256 and build id into releases.json; a rebuild with other content is refused."""
+    MAN = {'product': 'Napoleon Remastered', 'version': '0.1.0', 'created_utc': '2026-11-04T00:00:00Z', 'dll_build_id': 'cb34c06baf42',
+           'files': [{'path': 'd3d9.dll', 'sha256': 'a' * 64}]}
+
+    def entry(self, man):
+        return {'version': man['version'], 'manifest_sha256': br.content_sha256(man), 'build_id': man['dll_build_id'], 'jobs_done': [], 'published': False}
+
+    def test_record_then_rebuild(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            rp = Path(tmp) / 'releases.json'
+            rp.write_text(json.dumps({'_note': 'kept', 'releases': []}), encoding='utf-8')
+            br.record_release(rp, self.entry(self.MAN))
+            rels = json.loads(rp.read_text(encoding='utf-8'))
+            self.assertEqual(rels['_note'], 'kept')
+            self.assertEqual([(r['version'], r['build_id'], r['published']) for r in rels['releases']], [('0.1.0', 'cb34c06baf42', False)])
+            releases = rels['releases']
+            same = dict(self.MAN, created_utc='2026-11-05T00:00:00Z')   # an identical rebuild a day later
+            self.assertEqual(br.version_problems('0.1.0', releases), [])
+            self.assertEqual(br.record_problems('0.1.0', br.content_sha256(same), releases), [])
+            changed = dict(self.MAN, files=[{'path': 'd3d9.dll', 'sha256': 'b' * 64}])
+            errs = br.record_problems('0.1.0', br.content_sha256(changed), releases)
+            self.assertTrue(errs and 'recorded with another content' in errs[0] and '--rebuild-unreleased' in errs[0], errs)
+            with self.assertRaises(SystemExit):
+                br.record_release(rp, self.entry(changed))
+            self.assertEqual(br.record_problems('0.1.0', br.content_sha256(changed), releases, rebuild_unreleased=True), [])
+            br.record_release(rp, self.entry(changed), rebuild_unreleased=True)
+            rels = json.loads(rp.read_text(encoding='utf-8'))['releases']
+            self.assertEqual(len(rels), 1)
+            self.assertEqual(rels[0]['manifest_sha256'], br.content_sha256(changed))
+
+    def test_published_entries_are_final(self):
+        pub = [{'version': '0.1.0', 'manifest_sha256': 'c' * 64, 'build_id': 'x', 'jobs_done': [], 'published': True}]
+        self.assertTrue(br.version_problems('0.1.0', pub))
+        self.assertTrue(br.record_problems('0.1.0', 'd' * 64, pub, rebuild_unreleased=True))
+        self.assertTrue(br.version_problems('0.1.0', [{'version': '0.1.0', 'jobs_done': []}]))   # a hand entry (no sha) counts as published
+        self.assertFalse(br.version_problems('0.1.1', pub))
+
+    def test_the_real_file_reads(self):
+        rels = rj('release/napoleon/releases.json')['releases']
+        self.assertEqual(br.version_problems((ROOT / 'release' / 'napoleon' / 'VERSION').read_text().strip(), rels), [])
 
 
 class Folder(unittest.TestCase):
@@ -383,6 +478,9 @@ class Folder(unittest.TestCase):
             (f / 'stray.txt').write_text('x')
             self.assertTrue(any('stray.txt' in b for b in br.check_folder(f)))
             (f / 'stray.txt').unlink()
+            (f / 'Clean.cmd').unlink()   # J81: the folder rule covers the new entry point
+            self.assertTrue(any(b == 'Clean.cmd: missing' for b in br.check_folder(f)))
+            (f / 'Clean.cmd').write_bytes(b'x')
             f2 = f.rename(f.parent / 'Napoleon Remastered 0.2.0')
             self.assertTrue(any('folder name' in b for b in br.check_folder(f2)))
 
