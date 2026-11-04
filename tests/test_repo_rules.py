@@ -205,6 +205,17 @@ def silenced(cfg, decisions):
     return out
 
 
+def odd_quotes(text):
+    """True when a tool row's purpose has an odd number of double quotes (a closing one was stripped with the header's line end)."""
+    return text.count('"') % 2 == 1
+
+
+# tool path -> why its row may keep an unclosed quote for now; every entry needs a reason
+PURPOSE_QUOTE_ALLOWED = {
+    'uikit/napoleon/changes.py': 'header ends in "changed since lock"; outside J94\'s files, left for its owner (J94 report, open questions)',
+}
+
+
 class ThisRepo(unittest.TestCase):
     def test_no_gate_silenced_without_a_decision(self):
         cfg = tomllib.loads((ROOT / 'wsc.toml').read_text(encoding='utf-8'))
@@ -241,6 +252,18 @@ class ThisRepo(unittest.TestCase):
                 errs += moved_path_problems(p, (ROOT / p).read_text(encoding='utf-8', errors='replace'), folders)
         self.assertEqual(errs, [])
         self.assertTrue(all(MOVED_ALLOWED.values()), 'every allow-list entry names its reason')
+
+    def test_tool_rows_keep_their_quotes(self):
+        # J94 (J24 Later 2): the header-to-row extraction (core warscape/tools.py) strips a trailing quote, so a `purpose:` line that ends
+        # in one leaves the row with an odd number of quotes (tools.shot_sheet ended in `marked "missing`). Reword the header.
+        import json
+        bad = []
+        for p in sorted((ROOT / 'registries' / 'tools').glob('*.json')):
+            r = json.loads(p.read_text(encoding='utf-8'))
+            if r.get('path') not in PURPOSE_QUOTE_ALLOWED and odd_quotes(r.get('purpose', '')):
+                bad.append(f'{r["id"]} ({r.get("path")}): purpose has an unclosed quote: ...{r["purpose"][-50:]}')
+        self.assertEqual(bad, [])
+        self.assertTrue(all(PURPOSE_QUOTE_ALLOWED.values()), 'every allow-list entry names its reason')
 
     def test_no_binaries_committed(self):
         self.assertEqual(tracked('*.dll', '*.exe', '*.pdb', '*.dmp'), [])
