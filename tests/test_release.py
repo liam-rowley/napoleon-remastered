@@ -409,5 +409,21 @@ class Folder(unittest.TestCase):
             self.assertIn('dirty', br.dll_problem(d, '715e9dfc0727-dirty'))
 
 
+
+class Provenance(unittest.TestCase):
+    """J79 (audit G13): the shipped ui_scale_2x pack is an external PC build; components.json names the 2.5x masters it was made from"""
+
+    def test_real_components_name_the_masters(self):
+        comps = br.read_json(ROOT / 'release' / 'napoleon' / 'components.json')
+        self.assertEqual(br.provenance_problems(comps), [])
+        m = comps['external_provenance']['uiscale']['masters']
+        self.assertEqual((len(m['sha256']), m['files'] <= m['entries']), (64, True))
+
+    def test_bad_rows_are_refused(self):
+        comps = {'external': {'uiscale': 'x'}, 'external_provenance': {'uiscale': {'masters': {'sha256': 'ab', 'files': 0}}, 'other': {}}}
+        errs = br.provenance_problems(comps)
+        self.assertEqual(len(errs), 3, errs)
+
+
 if __name__ == '__main__':
     unittest.main()

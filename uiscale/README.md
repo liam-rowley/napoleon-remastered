@@ -9,7 +9,7 @@ job leaves are **J67**.
 python3 core/wsc.py uiscale build [--factor 2] [--no-art] [--no-fonts]      # in the art_build Python; nothing touches the game folder
 python3 upscale/pc/play.py install --scale 2  |  status  |  uninstall        # Liam's play install (upscale/README.md "Play test")
 ```
-The build writes these files to `C:\napoleon_remastered_pc\uiscale\work\`. Each has a `.json` with its entries, sha256, what was held back and the method:
+The build writes these files to `<state folder>\uiscale\work\` (`tools/pc_state.py`: the adapter's `state_dir`, `C:\napoleon_remastered_pc`, or `$NAPOLEON_STATE_DIR`). Each has a `.json` with its entries, sha256, what was held back and the method:
 - `ui_scale_2x.pack` (movie): every vanilla layout (174) and the UI art at 2x.
 - `ui_scale_2x_fonts.pack` (movie): the slot fonts.
 - `uied.templates.ui_scale_2x`: the scaled templates file.

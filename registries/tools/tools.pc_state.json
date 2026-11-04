@@ -1,0 +1,11 @@
+{
+  "id": "tools.pc_state",
+  "kind": "script",
+  "path": "tools/pc_state.py",
+  "purpose": "resolve the PC state folder (default: harness/napoleon/adapter.json state_dir, C:\\\\napoleon_remastered_pc; override: $NAPOLEON_STATE_DIR) and the art_build Python, upscale work and uiscale work folders under it",
+  "usage": "library: from pc_state import state_dir, art_python, upscale_root, upscale_work, uiscale_work; state_dir(root) -> Path   (root: the repo; environ defaults to os.environ)",
+  "when": "the uiscale and upscale verbs (tools/verbs) and uiscale/napoleon/cli.py find the art_build Python and their work folders; tests pass their own environ",
+  "not_a_verb": "a path helper the verbs import, no registry or game state",
+  "status": "live",
+  "last_used": "2026-11-04"
+}
