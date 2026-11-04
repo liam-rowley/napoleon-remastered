@@ -3,6 +3,7 @@ the page), rule 79 (acceptance passes, with the core-pin diff of J58), the legac
 
 Moved from tests/test_jobs.py and tests/test_pr_policy.py; the generic rules are tested in warscape-core (tests/test_jobs.py, test_policy.py, test_fixture_game.py).
 """
+import hashlib
 import importlib.util
 import json
 import re
@@ -295,6 +296,183 @@ class Rule79(unittest.TestCase):
         finally:
             hk.collect_acceptance = real
         self.assertEqual(seen, [['proxy/napoleon/a.cpp'], ['core']])
+
+
+class Rule79Evidence(unittest.TestCase):
+    """J75 (audit H3): each counted line's evidence is unique and agrees with it, the ledger diff is append-only, base pass files are
+    immutable, only ledger.jsonl is exempt, and once the pinned core names them (core W9) the shas must be on the lines and files."""
+    SHAS = ('shot_sha256', 'kit_sha256', 'dll_sha256', 'watcher_sha256')
+    C = ['proxy/core/dev.cpp']
+
+    @staticmethod
+    def valid(n, run='harness/runs/r', start=1, shas=()):
+        """n lines and their pass files, all agreeing: (lines, files)."""
+        lines, files = [], {}
+        for i in range(start, start + n):
+            ev, steps = f'{run}/pass_{i:02d}.json', {'exe_sha1': True, 'land:load': True}
+            sh = {k: hashlib.sha256(f'{k}{i if k.startswith("shot") else 0}'.encode()).hexdigest() for k in shas}
+            lines.append({'pass': i, 'build_id': 'abc', 'watcher': '1.0.1', 'kit': 'k', 'branch': 'job/J9', 'run': run, 'evidence': ev,
+                          'result': 'pass', 'steps': steps, **sh})
+            files[ev] = {'pass': i, 'build_id': 'abc', 'watcher': '1.0.1', 'kit': 'k', 'passed': True,
+                         'steps': {k: {'ok': v} for k, v in steps.items()}, **sh}
+        return lines, files
+
+    @staticmethod
+    def acc(lines, files, **kw):
+        text = {p: (f if isinstance(f, str) else json.dumps(f)) for p, f in files.items()}
+        return {'active': True, 'ledger': ''.join(json.dumps(l) + '\n' for l in lines), 'build_id': 'abc', 'watcher': '1.0.1', 'branch': 'job/J9',
+                'exists': lambda p: p in text, 'read': lambda p: text.get(p), **kw}
+
+    def test_failing_fixture_only_the_ledger_is_exempt(self):
+        self.assertFalse(hk.acc_exempt('harness/acceptance/baseline.json'))
+        self.assertFalse(hk.acc_exempt('harness/acceptance/shots/x.png'))
+        self.assertTrue(hk.acc_exempt('harness/acceptance/ledger.jsonl'))
+        self.assertTrue(hk.acc_exempt('harness/acceptance/README.md'))
+        errs = hk.acceptance_problems(['harness/acceptance/baseline.json'], self.acc([], {}))
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn('changes harness/acceptance/baseline.json but', errs[0])
+
+    def test_failing_fixture_twenty_copies_of_one_line_are_one_pass(self):
+        lines, files = self.valid(1)
+        errs = hk.acceptance_problems(self.C, self.acc(lines * 20, files))
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn('1 consecutive', errs[0])
+        self.assertIn('harness/runs/r/pass_01.json', errs[0])
+        self.assertIn('already counted', errs[0])
+        self.assertEqual(hk.acceptance_problems(self.C, self.acc(*self.valid(20))), [])
+
+    def test_failing_fixture_evidence_that_disagrees_with_its_line_ends_the_streak(self):
+        cases = {'build_id': lambda l, f: f.update(build_id='old'), 'watcher': lambda l, f: f.update(watcher='0.9'),
+                 'pass': lambda l, f: f.update({'pass': 3}), 'passed': lambda l, f: f.update(passed=False),
+                 'steps': lambda l, f: f['steps']['land:load'].update(ok=False), 'step names': lambda l, f: f['steps'].pop('land:load'),
+                 'run': lambda l, f: l.update(run='harness/runs/q')}
+        for name, spoil in cases.items():
+            with self.subTest(field=name):
+                lines, files = self.valid(20)
+                spoil(lines[10], files[lines[10]['evidence']])
+                errs = hk.acceptance_problems(self.C, self.acc(lines, files))
+                self.assertEqual(len(errs), 1, errs)
+                self.assertIn('9 consecutive', errs[0])
+                self.assertIn('pass 11 of harness/runs/', errs[0])
+                self.assertIn('harness/runs/r/pass_11.json', errs[0])
+
+    def test_failing_fixture_unparsable_evidence_and_a_repeated_pass_number_end_the_streak(self):
+        lines, files = self.valid(20)
+        files['harness/runs/r/pass_11.json'] = 'not json {'
+        errs = hk.acceptance_problems(self.C, self.acc(lines, files))
+        self.assertIn('9 consecutive', errs[0])
+        self.assertIn('not JSON', errs[0])
+        lines, files = self.valid(20)
+        lines[10] = dict(lines[9], evidence='harness/runs/r/pass_10b.json')      # a pasted line repeats a number, with a copied file
+        files['harness/runs/r/pass_10b.json'] = files['harness/runs/r/pass_10.json']
+        errs = hk.acceptance_problems(self.C, self.acc(lines, files))
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn('9 consecutive', errs[0])
+        self.assertIn('pass 10 of harness/runs/r', errs[0])
+        # two runs in one streak: the numbers restart with the new run
+        a, fa = self.valid(5, run='harness/runs/a')
+        b, fb = self.valid(15, run='harness/runs/b')
+        self.assertEqual(hk.acceptance_problems(self.C, self.acc(a + b, {**fa, **fb})), [])
+
+    def test_failing_fixture_the_ledger_diff_is_append_only(self):
+        a, b, c = (json.dumps({'pass': i, 'run': 'harness/runs/r', 'result': 'pass'}) for i in (1, 2, 3))
+        b2 = b.replace('pass"}', 'pass", "x": 1}')
+        led = lambda *ls: ''.join(l + '\n' for l in ls)
+        check = lambda base, branch, changed=('docs/x.md',): hk.acceptance_problems(list(changed), dict(self.acc([], {}), ledger=branch, base_ledger=base))
+        self.assertEqual(check(led(a, b), led(a, b, c)), [])
+        self.assertEqual(check(led(a, b), led(a, b)), [])
+        self.assertEqual(check(led(a, b), led(a, b).rstrip('\n')), [])
+        self.assertEqual(check(None, led(a)), [])                                   # a ledger new at the base
+        for branch in (led(a, b2), led(b), led(a), led(b, a, c)):
+            with self.subTest(branch=branch):
+                errs = check(led(a, b), branch, changed=('harness/acceptance/ledger.jsonl',))   # rewriting the ledger alone is the attack
+                self.assertEqual(len(errs), 1, errs)
+                self.assertTrue(errs[0].startswith('rule 79: harness/acceptance/ledger.jsonl is not append-only'), errs[0])
+        self.assertIn('pass 2 of harness/runs/r', check(led(a, b), led(a, b2))[0])
+
+    def test_failing_fixture_shas_are_required_once_the_core_names_them(self):
+        lines, files = self.valid(20, shas=self.SHAS)
+        self.assertEqual(hk.acceptance_problems(self.C, self.acc(lines, files, sha_fields=self.SHAS)), [])
+        spoils = {'missing': lambda l, f: l.pop('dll_sha256'), 'differs': lambda l, f: f.update(kit_sha256='0' * 64),
+                  'not hex': lambda l, f: (l.update(watcher_sha256='zz'), f.update(watcher_sha256='zz')),
+                  'shared shot': lambda l, f: (l.update(shot_sha256=lines[11]['shot_sha256']), f.update(shot_sha256=lines[11]['shot_sha256']))}
+        for name, spoil in spoils.items():
+            with self.subTest(case=name):
+                lines, files = self.valid(20, shas=self.SHAS)
+                spoil(lines[10], files[lines[10]['evidence']])
+                errs = hk.acceptance_problems(self.C, self.acc(lines, files, sha_fields=self.SHAS))
+                self.assertEqual(len(errs), 1, errs)
+                self.assertIn('9 consecutive', errs[0])
+                self.assertIn('pass 11 of harness/runs/r', errs[0])
+                self.assertEqual(hk.acceptance_problems(self.C, self.acc(lines, files, sha_fields=None)), [])   # off: Decisions 1-4 only
+        self.assertIsNone(hk.acc_sha_fields(src='NEEDED = 20\n'))
+        self.assertIsNone(hk.acc_sha_fields(src=None))
+        self.assertEqual(hk.acc_sha_fields(src="X = 1\nLEDGER_SHA_FIELDS = ('shot_sha256', 'kit_sha256')\n"), ('shot_sha256', 'kit_sha256'))
+
+
+class Rule79Repo(unittest.TestCase):
+    """J75 Decisions 3-5 through collect_acceptance, on a throwaway repo: pass files at the base are immutable, and the new keys are read from git."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.d = Path(self.tmp.name)
+        self.g('init', '-q', '-b', 'main'); self.g('config', 'user.email', 't@example.invalid'); self.g('config', 'user.name', 'test')
+        lines, files = Rule79Evidence.valid(20)
+        self.write({'harness/core/watcher.ps1': "$Version = '1.0.1'\n", 'harness/acceptance/ledger.jsonl': json.dumps(lines[0]) + '\n',
+                    'harness/runs/r/pass_01.json': json.dumps(files['harness/runs/r/pass_01.json'])})
+        self.base = self.g('rev-parse', 'HEAD')
+        self.g('checkout', '-q', '-b', 'job/J9')
+        self.lines, self.files = lines, files
+        self.real = hk.dll_build_id
+        hk.dll_build_id = lambda root: 'abc'   # the fixture has no build id tool
+
+    def tearDown(self):
+        hk.dll_build_id = self.real
+        self.tmp.cleanup()
+
+    def g(self, *a):
+        return subprocess.run(['git', '-c', 'core.hooksPath=/dev/null', *a], cwd=self.d, capture_output=True, text=True, check=True).stdout.strip()
+
+    def write(self, files, rm=()):
+        for rel, text in files.items():
+            (self.d / rel).parent.mkdir(parents=True, exist_ok=True)
+            (self.d / rel).write_text(text, encoding='utf-8', newline='\n')
+        for rel in rm:
+            (self.d / rel).unlink()
+        self.g('add', '-A'); self.g('commit', '-q', '-m', 'change')
+
+    def problems(self, changed):
+        acc = hk.collect_acceptance(self.d, {'base': 'main', 'merge_base': self.base, 'changed': changed, 'branch': 'job/J9'})
+        return acc, hk.acceptance_problems(changed, dict(acc, active=True))
+
+    def test_failing_fixture_a_base_pass_file_is_immutable(self):
+        self.write({'harness/runs/r/pass_01.json': '{"pass": 1, "passed": true}\n'})
+        errs = self.problems(['harness/runs/r/pass_01.json'])[1]
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn('harness/runs/r/pass_01.json is modified', errs[0])
+        self.g('reset', '-q', '--hard', self.base)
+        self.write({}, rm=['harness/runs/r/pass_01.json'])
+        self.assertIn('is deleted', self.problems(['harness/runs/r/pass_01.json'])[1][0])
+        self.g('reset', '-q', '--hard', self.base)
+        self.write({'harness/runs/r/pass_02.json': json.dumps(self.files['harness/runs/r/pass_02.json'])})
+        self.assertEqual(self.problems(['harness/runs/r/pass_02.json'])[1], [])
+
+    def test_failing_fixture_collect_reads_content_the_base_ledger_and_the_sha_fields(self):
+        self.write({'harness/acceptance/ledger.jsonl': ''.join(json.dumps(l) + '\n' for l in self.lines),
+                    **{p: json.dumps(f) for p, f in self.files.items()}})
+        acc, errs = self.problems(['proxy/core/dev.cpp', 'harness/acceptance/ledger.jsonl'])
+        self.assertEqual(errs, [])
+        self.assertEqual(acc['base_ledger'], json.dumps(self.lines[0]) + '\n')
+        self.assertEqual(json.loads(acc['read']('harness/runs/r/pass_07.json'))['pass'], 7)
+        self.assertIsNone(acc['read']('harness/runs/r/pass_99.json'))
+        self.assertIsNone(acc['sha_fields'])
+        self.write({'harness/core/acceptance.py': "LEDGER_SHA_FIELDS = ('shot_sha256',)\n"})
+        acc, errs = self.problems(['proxy/core/dev.cpp'])
+        self.assertEqual(acc['sha_fields'], ('shot_sha256',))
+        self.assertIn('shot_sha256', errs[0])
+        # rewriting the base's line on the branch is refused even when nothing else counts
+        self.write({'harness/acceptance/ledger.jsonl': ''.join(json.dumps(dict(l, kit='k2')) + '\n' for l in self.lines)})
+        self.assertIn('not append-only', self.problems(['harness/acceptance/ledger.jsonl'])[1][0])
 
 
 class CorePin(unittest.TestCase):
