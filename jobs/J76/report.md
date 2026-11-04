@@ -194,3 +194,10 @@ All four are still open for Liam. The build uses the brief's defaults, and each 
    other names stay allowed. If the answer is no, the denials go and the allowed cases stay.
 4. **`--no-verify` scope.** Built: denied on `push`, `merge`, `rebase`, `cherry-pick` and `am` as well as `commit`. If the answer is no, the
    other five subcommands drop out.
+
+## Fix round 1
+
+1. **Blocker, hard-coded path** (fixed, d2c5999): `REPO` in `tests/test_claude_hook.py` is now `ch.norm(ch.ROOT)` and the fixture uses `core/proxy/tools/pc_deploy.py`, so it no longer depends on the author's machine.
+2. **Sibling exemption** (fixed, d2c5999): a script is exempt only under this checkout or one of its `git worktree list` entries, and only in the `core/` form (bare `proxy/tools/` and `harness/job.sh` suffixes dropped). Both review commands are in the corpus as `deny`.
+3. **Writers** (fixed, d2c5999): curl/wget `-o/-O/--output/--output-document/-P`, and `perl -i`, now count as writes; corpus rows added. Other flags (`-K` config, `aria2c`) are listed as residuals in the hook header.
+4. **Later item** (left): `gh pr merge job/<id>` stays allowed by design; CI's `policy` owns the own-review rule.
