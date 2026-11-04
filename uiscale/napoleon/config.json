@@ -14,5 +14,5 @@
  "art_keep_vanilla": ["1x1", "1px_", "fe_1x1", "progressbar_beige", "ui\\loading_screen\\", "ui\\cursors\\", "ui\\frontend ui\\loadingscreen\\"],
  "art_keep_vanilla_note": "path substrings (lower case) never scaled: engine pixel-UV helpers, the 1-px progress fill (the engine multiplies progress by its width), loading screens and cursors (J67)",
  "font_faces": ["uiscale/fonts/Lora-Variable.ttf", "C:/Users/liamr/repos/empire-remastered/ui_scale_mod/font_src/Lora-Variable.ttf"],
- "font_faces_note": "the first that exists: the vendored face (D42; OFL text in uiscale/fonts/OFL.txt), else the empire-remastered clone read in place (the same file) until it is vendored"
+ "font_faces_note": "the first that exists: the vendored face (D42, committed by J68; OFL text in uiscale/fonts/OFL.txt), else the empire-remastered clone read in place (the same file, sha256 822a6621...), kept only as a fallback"
 }
