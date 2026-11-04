@@ -63,7 +63,7 @@ decision_prefix = "D"
 session_trailer = "Claude-Session"
 plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md"]
 meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
-        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules", "core", "registries/*"]
+        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules"]
 
 [ci]
 salt = "1"                              # bump to invalidate every CI pass marker (J54)
@@ -83,11 +83,11 @@ policy_extra_steps = '''      # rule 79 compares the core pins at the merge base
 proxy = "proxy-d3d9-napoleon"
 viewer = "viewer-wasm"
 
-# proxy: proxy/, the core pin (the proxy sources and tools live in core/ since J12) and the two registries gen_tables.py reads; harness: harness/, the core
+# proxy: proxy/, the core pin (the proxy sources and tools live in core/ since J12) and the two registries gen_tables.py reads and the UI pin file the build id hashes (J30; tests/test_proxy_host.py derives the DLL inputs from the core's build_id and fails when this set misses one); harness: harness/, the core
 # pin and the Python tests that run bash on Windows (J22) with the finder in setup.py and the hook they run; viewer: viewer/, uikit/ (the design library, J34) and their tests (J31).
 # A workflow change runs all three. proxy/runs/ and viewer/runs/ are committed run evidence, not build inputs (J42).
 [ci.inputs]
-proxy = '^\.github/workflows/|^proxy/(?!runs/)|^core$|^registries/(engine_sites|config_keys)\.jsonl$'
+proxy = '^\.github/workflows/|^proxy/(?!runs/)|^core$|^registries/(engine_sites|config_keys)\.jsonl$|^viewer/pins\.json$'
 harness = '^\.github/workflows/|^harness/|^core$|^tests/test_(job_sh|pc_deploy|claude_hook|setup|proxy_host)\.py$|^tools/verbs/setup\.py$|^tools/claude_hook\.py$|^\.claude/settings\.json$'
 viewer = '^\.github/workflows/|^viewer/(?!runs/)|^uikit/(?!napoleon/runs/)|^tests/test_(viewer|uikit)\.py$'
 
