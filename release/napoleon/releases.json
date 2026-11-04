@@ -1,4 +1,4 @@
 {
- "_note": "Releases that were built and handed out, newest last. Added by hand when Liam publishes (never by the builder): version, date, jobs done at that release. The builder takes the done jobs since the last entry for the notes and refuses a version that is not higher.",
+ "_note": "Releases built for handing out, newest last. Written by `build_release.py --record` (a flag, never a default; only when Liam says this build is the one): version, recorded_utc, manifest_sha256 (the manifest without created_utc), build_id, commit, jobs_done (done jobs at that build), published. Liam sets published to true by hand when he hands it out; the builder never publishes. A rebuild of a recorded version with another manifest_sha256 is refused; --rebuild-unreleased overwrites an entry not yet published, and a published entry (or a hand entry without manifest_sha256) is final. The builder takes the done jobs since the last other entry for the notes and refuses a version lower than any entry.",
  "releases": []
 }

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build and check a release folder: `Napoleon Remastered <version>\\` and its zip, from the repo, the CI-built DLL and the component rows.
 
-purpose: build the player release folder (payload per component, manifest.json with every file's target, size and sha256, the installer scripts and .cmd entry points, README.txt, generated LICENSES.txt and RELEASE_NOTES.txt) and its zip from a clean checkout; --check verifies a built folder against its manifest; refuses a dirty tree, a component ini_set that turns a dev, proof or test key on (unless release.json allowed_dev_keys names it with a decision), a DLL whose embedded build id is not this tree's clean id (build_id.py, whole-token match) or is not backed by the ledger's 20 acceptance passes (--allow-dirty skips only that count), or an unpinned DXVK
-usage: python3 release/core/build_release.py [--out build/release] [--dll build/proxy/napoleon/d3d9.dll] [--external uiscale=DIR] [--no-zip] [--allow-dirty] | --check <release folder>
-when: to make a release (one command, then Install.cmd on a PC); --check on a built or unzipped folder before it goes anywhere; it builds files only, publishing is Liam's call and never done by it
+purpose: build the player release folder (payload per component, manifest.json with every file's target, size and sha256, the installer scripts and .cmd entry points, README.txt, generated LICENSES.txt and RELEASE_NOTES.txt) and its zip from a clean checkout; --check verifies a built folder against its manifest; refuses a dirty tree, a component ini_set that turns a dev, proof or test key on (unless release.json allowed_dev_keys names it with a decision), a DLL whose embedded build id is not this tree's clean id (build_id.py, whole-token match) or is not backed by the ledger's 20 acceptance passes (--allow-dirty skips only that count), an unpinned DXVK, an external build output without a matching .json sidecar, or a rebuild of a version releases.json records with other content; --record writes the version, manifest sha256 and build id into releases.json
+usage: python3 release/core/build_release.py [--out build/release] [--dll build/proxy/napoleon/d3d9.dll] [--external uiscale=DIR] [--no-zip] [--allow-dirty] [--record] [--rebuild-unreleased] | --check <release folder>
+when: to make a release (one command, then Install.cmd on a PC); --record only when Liam says this build is the one (it records, it never publishes); --check on a built or unzipped folder before it goes anywhere; publishing is Liam's call and never done by it
 not-a-verb: a release-builder script (release/core is a core candidate, rule 76); game facts are in release/napoleon (components.json, release.json, licenses.json, VERSION), not here
 """
 import argparse
@@ -26,10 +26,11 @@ VERSION_RE = re.compile(r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$')
 INSTALLER = HERE / 'installer' / 'rr.ps1'
 CMDS = {   # entry point -> installer verb (the player double-clicks these; no Python, Git or repo)
     'Install.cmd': ('install', ' -OfferDumps', 'Installs Napoleon Remastered into your Napoleon: Total War game folder.'),
-    'Uninstall.cmd': ('uninstall', '', 'Removes it and checks the game folder is exactly as it was before the install.'),
+    'Uninstall.cmd': ('uninstall', '', 'Removes it and checks the game folder against the pre-install snapshot (files a game update changed are listed apart).'),
     'Repair.cmd': ('repair', '', 'Puts back missing or changed files (for example after Steam "Verify integrity of game files").'),
     'Check.cmd': ('check', '', 'Checks every installed file and the game exe.'),
     'Support.cmd': ('support', '', 'Makes a support bundle (logs and versions, personal names removed) to send when something goes wrong.'),
+    'Clean.cmd': ('clean', '', 'Frees the disk space of the files installs, repairs and uninstalls moved aside (lists them and asks first).'),
 }
 
 
@@ -61,16 +62,55 @@ def parse_version(v):
     return tuple(int(x) for x in m.groups())
 
 
+def is_published(r):
+    """A releases.json entry Liam handed out: published true, or a hand entry from before --record (no manifest_sha256)."""
+    return bool(r.get('published', 'manifest_sha256' not in r))
+
+
 def version_problems(version, releases):
-    """The version is well formed and higher than every recorded release (releases: [{version, jobs_done}])."""
+    """The version is well formed and higher than every recorded release (releases: [{version, jobs_done, ...}]); the same version as an entry
+    --record wrote and nobody published yet passes here, and record_problems decides on its content (J81)."""
     try:
         v = parse_version(version)
     except ValueError as e:
         return [str(e)]
-    prev = [parse_version(r['version']) for r in releases]
+    prev = [parse_version(r['version']) for r in releases if r['version'] != version or is_published(r)]
     if prev and v <= max(prev):
         return [f'version {version} is not higher than the last recorded release {".".join(map(str, max(prev)))} (release/napoleon/releases.json)']
     return []
+
+
+def content_sha256(man):
+    """The manifest's sha256 without its build time (created_utc): two builds of one commit with the same inputs give the same value (J81)."""
+    m = {k: v for k, v in man.items() if k != 'created_utc'}
+    return sha256_bytes(json.dumps(m, sort_keys=True, separators=(',', ':')).encode('utf-8'))
+
+
+def record_problems(version, csha, releases, rebuild_unreleased=False):
+    """A recorded version is rebuilt only with the content it was recorded with; --rebuild-unreleased overwrites an entry not yet published, never a published one."""
+    for r in releases:
+        if r['version'] != version or r.get('manifest_sha256') == csha:
+            continue
+        if is_published(r):
+            return [f'{version} is published (release/napoleon/releases.json) with another content: bump `VERSION`']
+        if not rebuild_unreleased:
+            return [f'{version} is recorded with another content: bump `VERSION` or pass `--rebuild-unreleased`']
+    return []
+
+
+def record_release(rpath, entry, rebuild_unreleased=False):
+    """--record: write entry (version, manifest_sha256, build_id, ...) into releases.json, newest last; a published entry is never rewritten."""
+    rpath = Path(rpath)
+    data = read_json(rpath) if rpath.is_file() else {'releases': []}
+    errs = record_problems(entry['version'], entry['manifest_sha256'], data['releases'], rebuild_unreleased)
+    if errs:
+        raise SystemExit('build_release: refusing: ' + errs[0])
+    old = next((r for r in data['releases'] if r['version'] == entry['version']), None)
+    if old is not None and is_published(old):
+        return old
+    data['releases'] = sorted([r for r in data['releases'] if r['version'] != entry['version']] + [entry], key=lambda r: parse_version(r['version']))
+    rpath.write_bytes((json.dumps(data, indent=1) + '\n').encode('utf-8'))   # LF on every OS, as committed
+    return entry
 
 
 def jobs_since(rows, releases):
@@ -89,11 +129,6 @@ def human(n):
 
 def not_off(v):
     return v not in (False, 0, '', None)
-
-
-def key_text(v):
-    import gen_tables
-    return gen_tables.key_type(v)[1]
 
 
 # ---- config keys and the player ini (pure) ------------------------------------------------------------------------------------------
@@ -317,12 +352,29 @@ def resolve(cf, comp, ctx):
         meta = Path(str(p) + '.json')
         if not p.is_file():
             raise SystemExit(f'build_release: {p} not found (build it first: python3 core/wsc.py uiscale build)')
-        if meta.is_file():
-            want = read_json(meta).get('sha256')
-            if want and sha256_file(p) != want:
-                raise SystemExit(f'build_release: {p} does not match the sha256 in {meta.name} (a stale or partial build output)')
+        problem = external_problem(p, meta, cf.get('build_id'))
+        if problem:
+            raise SystemExit('build_release: refusing: ' + problem)
         return p
     raise SystemExit(f'build_release: unknown source {s!r} for {cf["target"]}')
+
+
+def external_problem(p, meta, pin=None):
+    """An external build output needs its .json sidecar (J81 G14a): it must exist and name the file's sha256, and the build id when the
+    components.json file row pins one (build_id)."""
+    if not Path(meta).is_file():
+        return f'{p} has no sidecar {Path(meta).name}: an external build output is taken only with the .json its build step wrote (sha256)'
+    try:
+        m = read_json(meta)
+    except ValueError as e:
+        return f'{Path(meta).name} does not parse: {e}'
+    if not m.get('sha256'):
+        return f'{Path(meta).name} names no sha256 for {Path(p).name}'
+    if sha256_file(p) != m['sha256']:
+        return f'{p} does not match the sha256 in {Path(meta).name} (a stale or partial build output)'
+    if pin and m.get('build_id') != pin:
+        return f"{Path(meta).name} names build {m.get('build_id')!r}, the release pins {pin} (components.json build_id)"
+    return ''
 
 
 def write_text(p, text, crlf=False):
@@ -363,11 +415,13 @@ def readme_text(rel, ident, version, comps, lic):
     L = [f"{rel['product']} {version}", '=' * 40, '',
          f"An unofficial, fan-made modification for {ident['game']} (Steam). It never changes {ident['exe_name']} on disk: it only adds files to the game folder.", '',
          'WHAT YOU NEED', f"  The Steam build of {ident['game']}, unmodified; an NVIDIA graphics card; Windows 10 or 11. Close the game first.", '',
-         'INSTALL', '  Unzip this folder anywhere EXCEPT inside the game folder (uninstalling the game would delete it).',
+         'INSTALL', '  Unzip this folder anywhere. If it sits inside the game folder, the installer still finds the game, but verify-and-reinstall in Steam deletes it, so keep a copy elsewhere.',
          '  Double-click Install.cmd. It finds the game by itself (Steam), takes a snapshot of the game folder first, checks every file, and copies the mod in.',
          '  If it cannot find the game, run:  Install.cmd -GamePath "D:\\path\\to\\Napoleon Total War"', '',
-         'UNINSTALL', '  Double-click Uninstall.cmd. It moves everything the mod added away and checks the game folder against the snapshot.',
-         '  It ends with "identical to the pre-install snapshot" when the folder is exactly as before. Nothing is ever deleted: removed files go to the installer\'s state folder.', '',
+         'UNINSTALL', '  Double-click Uninstall.cmd. It moves everything the mod added away, puts back the files it had backed up, and checks the game folder against the snapshot.',
+         '  It ends with "identical to the pre-install snapshot" when the folder is exactly as before. After a game update it lists the files the update changed under',
+         '  "changed by the game update, not by this tool" and still succeeds when everything of the mod is gone and your files are back.',
+         '  Removed files go to the installer\'s state folder (_to_delete); Clean.cmd lists them with their size and deletes them after you confirm.', '',
          'IF SOMETHING GOES WRONG', '  Check.cmd lists missing, changed or foreign files. Repair.cmd puts back missing or changed ones (for example after Steam\'s "Verify integrity").',
          '  After a game update the remaster switches itself off by design (it only runs on the exe it was built for); Check.cmd says so, and Uninstall.cmd returns the game to vanilla.',
          '  Support.cmd makes a zip of logs and versions with your Windows user name, machine name and Steam ids removed. Crash dumps are never included unless you pass -IncludeDumps.',
@@ -418,7 +472,7 @@ def core_tag():
     return m.group(1) if m else 'unknown'
 
 
-def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None, dxvk=None):
+def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None, dxvk=None, record=False, rebuild_unreleased=False):
     rel = read_json(ROOT / 'release' / 'napoleon' / 'release.json')
     comps = read_json(ROOT / 'release' / 'napoleon' / 'components.json')
     lic = gen_licenses.load(ROOT / 'release' / 'napoleon' / 'licenses.json')
@@ -432,6 +486,8 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
     errs = version_problems(version, releases) + ownership_problems(comps) + provenance_problems(comps) + gen_licenses.problems(lic, comps, ROOT) + value_problems(keys, rel, ini_set=ini_set)
     if errs:
         raise SystemExit('build_release: refusing:\n  ' + '\n  '.join(errs))
+    if record and allow_dirty:
+        raise SystemExit('build_release: refusing: --record records a releasable build only (not with --allow-dirty)')
     dirty = tree_dirty()
     if dirty and not allow_dirty:
         raise SystemExit('build_release: the working tree has uncommitted changes to tracked files: commit them (a release is built from a commit), or --allow-dirty for a throwaway build')
@@ -497,8 +553,9 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
     mod = ident['mod_dir']
     commit = git('rev-parse', 'HEAD')
     ctag = core_tag()
-    prev = releases[-1]['version'] if releases else ''
-    jobs = jobs_since(jobs_rows(), releases)
+    before = [r for r in releases if r['version'] != version]   # a recorded, unpublished entry of this version is not its own predecessor
+    prev = before[-1]['version'] if before else ''
+    jobs = jobs_since(jobs_rows(), before)
     nonoff = []
     cur = None
     for line in ini_text.splitlines():
@@ -521,6 +578,10 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
            'files': entries, 'extras': extras, 'pending': gen_licenses.pending(lic),
            'external_provenance': comps.get('external_provenance', {})}   # J79: what an external build output was made from (the 2.5x masters' manifest)
     (folder / 'manifest.json').write_text(json.dumps(man, indent=1) + '\n', encoding='utf-8')
+    csha = content_sha256(man)
+    rp = record_problems(version, csha, releases, rebuild_unreleased)
+    if rp:
+        raise SystemExit(f'build_release: refusing: {rp[0]} (the folder {folder} is not releasable: move it away)')
     for k in man['pending']:
         print(f'build_release: warning: {k} is still pending in licenses.json (Liam decides): the shipped LICENSES.txt says so')
     if dirty:
@@ -528,7 +589,11 @@ def build(out, dll, external=None, no_zip=False, allow_dirty=False, version=None
     bad = check_folder(folder)
     if bad:
         raise SystemExit('build_release: the folder it just built does not check:\n  ' + '\n  '.join(bad))
-    print(f"build_release: {folder} ({len(entries)} payload files, {len(extras)} others, DLL build {bid}, core {ctag})")
+    print(f"build_release: {folder} ({len(entries)} payload files, {len(extras)} others, DLL build {bid}, core {ctag}, content sha256 {csha[:12]})")
+    if record:
+        e = record_release(rpath, {'version': version, 'recorded_utc': man['created_utc'], 'manifest_sha256': csha, 'build_id': bid, 'commit': commit,
+                                   'jobs_done': [r['id'] for r in jobs_rows() if r.get('status') == 'done'], 'published': False}, rebuild_unreleased)
+        print(f"build_release: recorded {version} in {rpath.relative_to(ROOT).as_posix()} (manifest sha256 {e['manifest_sha256'][:12]}, published {e.get('published', True)}): commit it; Liam sets published")
     if not no_zip:
         z = make_zip(folder)
         print(f'build_release: {z} ({human(z.stat().st_size)})')
@@ -619,6 +684,8 @@ def main():
     ap.add_argument('--dxvk-dir', help='a folder with d3d9_dxvk.dll and LICENSE.dxvk.txt already checked against the pin (default: fetch_dxvk.py downloads the pinned release)')
     ap.add_argument('--no-zip', action='store_true')
     ap.add_argument('--allow-dirty', action='store_true')
+    ap.add_argument('--record', action='store_true', help='after a clean build, write version, manifest sha256 and build id into releases.json (only when Liam says so)')
+    ap.add_argument('--rebuild-unreleased', action='store_true', help='overwrite a recorded entry of this version that is not published yet')
     ap.add_argument('--check', metavar='FOLDER')
     a = ap.parse_args()
     if a.check:
@@ -633,7 +700,7 @@ def main():
         if sha256_file(d) != fetch_dxvk.PIN['d3d9_sha256'] or sha256_file(lic) != fetch_dxvk.PIN['license_sha256']:
             raise SystemExit(f'build_release: {a.dxvk_dir} does not match the DXVK pin in fetch_dxvk.py: refusing an unpinned DXVK')
         dxvk = (d, lic)
-    build(a.out, a.dll, dict(x.split('=', 1) for x in a.external), a.no_zip, a.allow_dirty, dxvk=dxvk)
+    build(a.out, a.dll, dict(x.split('=', 1) for x in a.external), a.no_zip, a.allow_dirty, dxvk=dxvk, record=a.record, rebuild_unreleased=a.rebuild_unreleased)
     return 0
 
 

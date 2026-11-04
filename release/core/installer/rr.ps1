@@ -1,13 +1,14 @@
-# purpose: the player-side installer of a release folder (no Python, Git or repo needed): install, uninstall (byte-exact against the pre-install snapshot), repair, check and a redacted support bundle, all refusing while the game runs and on a non-vanilla exe
-# usage: powershell -NoProfile -ExecutionPolicy Bypass -File rr.ps1 install|uninstall|repair|check|support [-GamePath <game folder>] [-StateDir <folder>] [-AssumeClosed] [-IncludeDumps]   (the .cmd files in the release folder call it)
-# when: it is the release folder's own engine (release/core/build_release.py copies it to installer\rr.ps1 and writes the Install, Uninstall, Repair, Check and Support .cmd entry points); behaviour parity with core/proxy/tools/pc_deploy.py is the contract (tests/test_release_installer.py compares them)
+# purpose: the player-side installer of a release folder (no Python, Git or repo needed): install (owned set = union of every installed release, foreign files backed up on every run), uninstall (byte-exact against the pre-install snapshot; after a game update the files the update changed are listed apart), repair, check, clean (frees _to_delete after confirmation) and a redacted support bundle, all refusing while the game runs and install on a non-vanilla exe
+# usage: powershell -NoProfile -ExecutionPolicy Bypass -File rr.ps1 install|uninstall|repair|check|clean|support [-GamePath <game folder>] [-StateDir <folder>] [-AssumeClosed] [-IncludeDumps] [-Yes]   (the .cmd files in the release folder call it)
+# when: it is the release folder's own engine (release/core/build_release.py copies it to installer\rr.ps1 and writes the Install, Uninstall, Repair, Check, Clean and Support .cmd entry points); behaviour parity with core/proxy/tools/pc_deploy.py is the contract (tests/test_release_installer.py compares them)
 # not-a-verb: runs on the player's PC from the release folder, outside the repo and the wsc CLI
 # Windows PowerShell 5.1, ASCII only. Everything the installer keeps (snapshot, backups, install.json, moved-aside files) lives OUTSIDE the game
-# folder (D25) in %LOCALAPPDATA%\<state_dir_name>. Nothing is ever deleted: a removal is a move to <state>\_to_delete after a verified copy.
+# folder (D25) in %LOCALAPPDATA%\<state_dir_name>. A removal is a move to <state>\_to_delete after a verified copy; only the clean verb deletes, only inside
+# <state>\_to_delete and only after the player confirms (J81: the player's tool on the player's PC; the agents' never-delete rule is for their PC folders).
 param(
-    [Parameter(Position = 0)][ValidateSet('install', 'uninstall', 'repair', 'check', 'support', 'redact', 'version')][string]$Verb = 'check',
+    [Parameter(Position = 0)][ValidateSet('install', 'uninstall', 'repair', 'check', 'clean', 'support', 'redact', 'version')][string]$Verb = 'check',
     [string]$GamePath = '', [string]$StateDir = '', [string]$AppDataDir = '',
-    [switch]$AssumeClosed, [switch]$IncludeDumps, [switch]$OfferDumps, [switch]$NoPause,
+    [switch]$AssumeClosed, [switch]$IncludeDumps, [switch]$OfferDumps, [switch]$NoPause, [switch]$Yes,
     [string]$OutDir = '', [string]$RedactUser = '', [string]$RedactMachine = '', [string]$RedactProfile = '',
     [string]$In = '', [string]$Out = ''
 )
@@ -154,7 +155,8 @@ function Find-Game {
     if ($GamePath) { return $GamePath.TrimEnd('\') }
     $exe = $script:Man['game']['exe_name']
     $d = $script:RelRoot
-    while ($d) {   # the release folder unpacked inside the game folder (or below it)
+    while ($d) {   # first upward from the release folder: unzipped inside the game folder it still finds the game (J81: the one discovery story; README.txt says
+                   # unzip anywhere, and that verify-and-reinstall in Steam deletes a copy inside the game folder), then Steam's registry key and libraryfolders.vdf
         if (Test-Path -LiteralPath (Join-Path $d $exe)) { return $d }
         $parent = Split-Path -Parent $d
         if ($parent -eq $d) { break }
@@ -237,8 +239,59 @@ function Record-Exe($rec, [string]$game, [string]$action, [string]$stamp) {
         if ($v.ok -eq $true) { $verdict = 'vanilla' } elseif ($v.ok -eq $false) { $verdict = 'MISMATCH' }
         [void]$rec['history'].Add(@{ utc = $stamp; action = "$action exe check"; exe_sha1 = $v.sha1; exe_verdict = $verdict })
     }
-    if ($v.ok -eq $false -and $action -ne 'check') { Say "rr $action`: !!! THE EXE ON DISK IS NOT VANILLA AFTER $($action.ToUpper()) !!! (the installer never writes the exe: tell the support contact)" }
+    if ($v.ok -eq $false -and $action -eq 'uninstall') { Say 'rr uninstall: the exe is not the build this release knows: a game update changed it (the installer never writes the exe)' }
+    elseif ($v.ok -eq $false -and $action -ne 'check') { Say "rr $action`: !!! THE EXE ON DISK IS NOT VANILLA AFTER $($action.ToUpper()) !!! (the installer never writes the exe: tell the support contact)" }
     return $v.ok
+}
+
+# ---- the owned set across releases (J81) ------------------------------------------------------------------------------------------
+function Union-Owned($a, $b) {   # sorted (ordinal) union of two owned lists: what every release installed so far may have put in the game folder
+    $s = New-Object 'System.Collections.Generic.SortedSet[string]' ([StringComparer]::Ordinal)
+    foreach ($x in @($a) + @($b)) { if ($null -ne $x -and [string]$x) { [void]$s.Add([string]$x) } }
+    return , ([string[]]@($s))
+}
+function Install-Touched($rec) {   # this installer has copied files into the game folder already (a completed install, or a run past its backups)
+    if ($rec['installed_utc']) { return $true }
+    foreach ($h in @($rec['history'])) { if ($h -is [System.Collections.IDictionary] -and [string]$h['action'] -eq 'install started') { return $true } }
+    return $false
+}
+function Ours-File([string]$game, [string]$rel, $rec) {   # a file this installer put there: listed (installed record or this release) with the sha256 it still has
+    $h = $null
+    foreach ($f in @($rec['files']) + @($script:Man['files'])) {
+        if ($null -eq $f -or [string]$f['path'] -ne $rel) { continue }
+        if ($f['config']) { return $true }   # a settings file the installer wrote, edited by the player since: still ours
+        if ($null -eq $h) { $h = Hash-File (Join-Path $game $rel.Replace('/', '\')) }
+        if ($h -eq [string]$f['sha256']) { return $true }
+    }
+    return $false
+}
+function Diff-Path([string]$d) {   # the path of a Diff-Snapshots line ('changed <path>', 'touched <path> (large file: ...)')
+    $r = $d.Substring(8)
+    $i = $r.IndexOf(' (large file:')
+    if ($i -ge 0) { $r = $r.Substring(0, $i) }
+    return $r
+}
+function Ours-Path([string]$rel, $rec) {   # inside the recorded owned set (the union) or at a backed-up path: a difference there is this tool's, never the game update's
+    foreach ($o in @($rec['owned'])) { if (Owned-Entry ([string]$o) $rel) { return $true } }
+    foreach ($b in @($rec['backups'])) { $bp = [string]$b['path']; if ($rel -eq $bp -or $rel.TrimEnd('/') -eq $bp -or $rel.StartsWith($bp + '/')) { return $true } }
+    return $false
+}
+function Is-Ours([string]$game, [string]$rel, $rec) {   # ours: listed with its sha, a runtime_globs file, or (in our own mod folder) a file nobody listed (a leftover .tmp); never the whole folder foreign for that
+    $p = Join-Path $game $rel.Replace('/', '\')
+    $globs = @($script:Man['runtime_globs'])
+    $mod = ([string]$rec['mod_dir']).Trim('/')
+    if (-not (Test-Path -LiteralPath $p -PathType Container)) { return ((Glob-Match $rel $globs) -or (Ours-File $game $rel $rec)) }
+    foreach ($f in (Get-ChildItem -LiteralPath $p -Recurse -File -Force)) {
+        $r = $f.FullName.Substring($game.TrimEnd('\').Length).TrimStart('\').Replace('\', '/')
+        if ((Glob-Match $r $globs) -or (Ours-File $game $r $rec)) { continue }
+        if ($mod -and ($r -eq $mod -or $r.StartsWith($mod + '/')) -and -not (Listed-File $r $rec)) { continue }
+        return $false
+    }
+    return $true
+}
+function Listed-File([string]$rel, $rec) {
+    foreach ($f in @($rec['files']) + @($script:Man['files'])) { if ($null -ne $f -and [string]$f['path'] -eq $rel) { return $true } }
+    return $false
 }
 
 # ---- install ---------------------------------------------------------------------------------------------------------------
@@ -265,21 +318,47 @@ function Do-Install([string]$game, [string]$state) {
                   release_version = $null; build_id = $null; installed_utc = $null; files = @(); game = $game
                   owned = @($script:Man['owned']); mod_dir = $script:Man['game']['mod_dir']; exe_name = $exeName; config_file = $script:Man['game']['config_file']; other_exes = @($script:Man['game']['other_exes']); game_config_files = @() }
         Write-Json $recPath $rec
-        foreach ($o in $script:Man['owned']) {   # anything already at an owned path is foreign: back it up for the uninstall to restore
-            $rel = $o.TrimEnd('/')
-            $p = Join-Path $game $rel.Replace('/', '\')
-            if (Test-Path -LiteralPath $p) {
-                $b = Join-Path $state ("backup\" + $stamp + "\" + $rel.Replace('/', '\'))
-                [void]$rec['backups'].Add(@{ path = $rel; backup = ("backup\" + $stamp + "\" + $rel.Replace('/', '\')) })
-                Write-Json $recPath $rec
-                Move-Out $p $b
-                Say "rr install: backed up the existing $o to $b"
-            }
+    }
+    # J81 G5b: back up on every install, not only on the first: a re-run after a failed install (record on disk, backups half done) and an upgrade
+    # check every path of the union owned set. Anything there that is not ours is foreign; a path already backed up is not backed up again.
+    $touched = Install-Touched $rec
+    $union = Union-Owned $rec['owned'] $script:Man['owned']
+    $done = @{}
+    foreach ($b in $rec['backups']) { $done[[string]$b['path']] = $true }
+    foreach ($o in $union) {
+        $rel = ([string]$o).TrimEnd('/')
+        $p = Join-Path $game $rel.Replace('/', '\')
+        if (-not (Test-Path -LiteralPath $p)) { continue }
+        if ($done.ContainsKey($rel)) {
+            $bk = $null
+            foreach ($x in $rec['backups']) { if ([string]$x['path'] -eq $rel) { $bk = Join-Path $state ([string]$x['backup']) } }
+            if ($bk -and (Test-Path -LiteralPath $bk)) { continue }
+            # recorded but never moved (the run stopped between the record and the move): the original is still here; finish the move now
+            # but never "finish" it with our own file: after a completed install whose backup the player deleted, that would make ours the original
+            if ($bk -and $touched -and (Is-Ours $game $rel $rec)) { Say "rr install: WARNING: the backup of $o recorded at $bk is missing and the $o here is ours; it is not backed up again, so the uninstall cannot restore the original"; continue }
+            if ($bk) { Move-Out $p $bk; Say "rr install: backed up the existing $o to $bk (finishing an earlier run)"; continue }
         }
+        if ($touched -and (Is-Ours $game $rel $rec)) { continue }
+        $b = Join-Path $state ("backup\" + $stamp + "\" + $rel.Replace('/', '\'))
+        [void]$rec['backups'].Add(@{ path = $rel; backup = ("backup\" + $stamp + "\" + $rel.Replace('/', '\')) })
+        $done[$rel] = $true
+        Write-Json $recPath $rec
+        Move-Out $p $b
+        Say "rr install: backed up the existing $o to $b"
     }
     $rec['exe_identity'] = @{ sha1 = $script:Ident['sha1']; exe_name = $exeName }
     [void]$rec['history'].Add(@{ utc = $stamp; action = 'install started'; release_version = $script:Man['version'] })
     Write-Json $recPath $rec
+    $new = @{}
+    foreach ($e in $script:Man['files']) { $new[[string]$e['path']] = $true }
+    foreach ($f in @($rec['files'])) {   # J81: a file the installed release shipped and this one does not (renamed or dropped): out of the way, still owned
+        if ($null -eq $f) { continue }
+        $fp = Join-Path $game ([string]$f['path']).Replace('/', '\')
+        if ($new.ContainsKey([string]$f['path']) -or -not (Test-Path -LiteralPath $fp -PathType Leaf)) { continue }
+        if ((Hash-File $fp) -ne $f['sha256']) { continue }   # edited since (a settings file): left in place, the uninstall takes it with the owned set
+        Move-Out $fp (Join-Path $state ("_to_delete\" + $stamp + "\" + ([string]$f['path']).Replace('/', '\')))
+        Say "rr install: moved $($f['path']) of release $($rec['release_version']) aside (this release does not ship it)"
+    }
     foreach ($e in $script:Man['files']) {
         $dest = Join-Path $game ([string]$e['path']).Replace('/', '\')
         if (Test-Path -LiteralPath $dest) { Move-Out $dest (Join-Path $state ("_to_delete\" + $stamp + "\" + ([string]$e['path']).Replace('/', '\'))) }
@@ -295,7 +374,7 @@ function Do-Install([string]$game, [string]$state) {
     $files = @()
     foreach ($e in $script:Man['files']) { $files += @{ path = $e['path']; sha256 = $e['sha256']; size = $e['size']; component = $e['component']; config = [bool]$e['config'] } }
     $rec['release_version'] = $script:Man['version']; $rec['build_id'] = $script:Man['dll_build_id']; $rec['installed_utc'] = $stamp
-    $rec['files'] = $files; $rec['owned'] = @($script:Man['owned']); $rec['game'] = $game
+    $rec['files'] = $files; $rec['owned'] = $union; $rec['game'] = $game   # J81 G5a: the union, so a file an older release owned is still taken at uninstall
     $rec['components'] = @($script:Man['components'] | ForEach-Object { $_['id'] })
     [void]$rec['history'].Add(@{ utc = $stamp; action = 'install'; release_version = $script:Man['version'] })
     $after = Record-Exe $rec $game 'install' $stamp
@@ -330,19 +409,34 @@ function Do-Uninstall([string]$game, [string]$state) {
     Clear-UiCache $state ("uninstall_" + $stamp)
     $pre = Read-Json (Join-Path $state ([string]$rec['pre_snapshot']))
     $post = Take-Snapshot $game
-    $diffs = Diff-Snapshots $pre $post
+    $all = Diff-Snapshots $pre $post
     New-Item -ItemType Directory -Force -Path (Join-Path $state 'snapshots') | Out-Null
     Write-Json (Join-Path $state ("snapshots\post_uninstall_" + $stamp + ".json")) $post
-    [void]$rec['history'].Add(@{ utc = $stamp; action = 'uninstall'; identical = ($diffs.Count -eq 0); diffs = @($diffs | Select-Object -First 50) })
     $exeOk = Record-Exe $rec $game 'uninstall' $stamp
+    # J81 G7: after a game update (exe verdict MISMATCH) every file the update changed differs from the pre-install snapshot. A diff outside the owned
+    # set and outside the backups is then the update's, listed apart, and does not fail the uninstall; a diff at an owned or backed-up path is ours and always does.
+    $diffs = New-Object System.Collections.ArrayList
+    $steam = New-Object System.Collections.ArrayList
+    foreach ($d in $all) {
+        if ($exeOk -eq $false -and -not (Ours-Path (Diff-Path $d) $rec)) { [void]$steam.Add($d) } else { [void]$diffs.Add($d) }
+    }
+    $h = @{ utc = $stamp; action = 'uninstall'; identical = ($all.Count -eq 0); diffs = @($diffs | Select-Object -First 50) }
+    if ($steam.Count) { $h['steam_update_diffs'] = $steam.Count; $h['steam_update'] = @($steam | Select-Object -First 50) }
+    [void]$rec['history'].Add($h)
     New-Item -ItemType Directory -Force -Path (Join-Path $state 'history') | Out-Null
     Write-Json (Join-Path $state ("history\install_" + $stamp + ".json")) $rec
     Move-Out $recPath (Join-Path $state ("_to_delete\uninstall_" + $stamp + "\install.json"))
+    if ($steam.Count) {
+        Say ("rr uninstall: changed by the game update, not by this tool ($($steam.Count)):`n  " + (($steam | Select-Object -First 50) -join "`n  "))
+    }
     if ($diffs.Count) {
         Say ("rr uninstall: game folder DIFFERS from the pre-install snapshot:`n  " + (($diffs | Select-Object -First 50) -join "`n  "))
         return 1
     }
-    if ($exeOk -eq $false) { return 1 }
+    if ($exeOk -eq $false) {
+        Say "rr uninstall: the mod's files are removed and your own files restored; the rest of the game folder is as the game update left it ($($post.Count) files)"
+        return 0
+    }
     Say "rr uninstall: game folder identical to the pre-install snapshot ($($post.Count) files)"
     return 0
 }
@@ -445,6 +539,66 @@ function Do-Repair([string]$game, [string]$state) {
     return $c.Code
 }
 
+# ---- _to_delete: its size and the clean verb (J81 G6) --------------------------------------------------------------------------------
+function Human-Size([double]$n) {
+    foreach ($u in 'bytes', 'KB', 'MB', 'GB') {
+        if ($n -lt 1024 -or $u -eq 'GB') { if ($u -eq 'bytes') { return ('{0:0} bytes' -f $n) }; return ([string]::Format([Globalization.CultureInfo]::InvariantCulture, '{0:0.0} {1}', $n, $u)) }
+        $n = $n / 1024
+    }
+}
+function Folder-Size([string]$p) {
+    if (Test-Path -LiteralPath $p -PathType Leaf) { return [long](Get-Item -LiteralPath $p -Force).Length }
+    $s = [long]0
+    foreach ($f in (Get-ChildItem -LiteralPath $p -Recurse -File -Force -ErrorAction SilentlyContinue)) { $s += [long]$f.Length }
+    return $s
+}
+function ToDelete-Items([string]$state) {   # the stamp folders (and any loose file) directly under <state>\_to_delete, oldest name first
+    $td = Join-Path $state '_to_delete'
+    if (-not (Test-Path -LiteralPath $td -PathType Container)) { return , @() }
+    return , @(Get-ChildItem -LiteralPath $td -Force | Sort-Object Name)
+}
+function Say-ToDelete([string]$state) {   # the closing line of install, repair and uninstall
+    $items = ToDelete-Items $state
+    if (-not $items.Count) { return }
+    $sum = [long]0
+    foreach ($i in $items) { $sum += Folder-Size $i.FullName }
+    Say "rr: _to_delete holds $(Human-Size $sum) in $($items.Count) folders: run Clean.cmd to free it"
+}
+function Ask([string]$q) {   # a prompt that also reads a redirected stdin (the tests answer it); end of input is 'no'
+    if ([Console]::IsInputRedirected) { Write-Host -NoNewline ($q + ' '); $a = [Console]::In.ReadLine(); Write-Host $a; return [string]$a }
+    return [string](Read-Host $q)
+}
+function Remove-Links([string]$dir) {   # PowerShell 5.1 Remove-Item -Recurse follows junctions and symlinks: take every link out as a link first, never descending
+    foreach ($c in @(Get-ChildItem -LiteralPath $dir -Force)) {
+        if ($c.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            if ($c.PSIsContainer) { [IO.Directory]::Delete($c.FullName) } else { [IO.File]::Delete($c.FullName) }
+        } elseif ($c.PSIsContainer) { Remove-Links $c.FullName }
+    }
+}
+function Do-Clean([string]$state) {
+    Require-Closed
+    $td = Long-Path (Join-Path $state '_to_delete')
+    $items = ToDelete-Items $state
+    if (-not $items.Count) { Say "rr clean: nothing to free ($td is empty or absent)"; return 0 }
+    $sum = [long]0
+    foreach ($i in $items) { $n = Folder-Size $i.FullName; $sum += $n; Say ("rr clean: {0,10}  {1}" -f (Human-Size $n), $i.Name) }
+    Say "rr clean: $(Human-Size $sum) in $($items.Count) folders under $td (files earlier installs, repairs and uninstalls moved aside; your backups, snapshots, history and install record are elsewhere and are kept)"
+    if (-not $Yes) {
+        if ($NoPause) { Say 'rr clean: nothing deleted (-NoPause without -Yes: run Clean.cmd to be asked)'; return 0 }
+        $a = Ask 'Delete these? [y/N]'
+        if ($a -notmatch '^\s*[yY]') { Say 'rr clean: nothing deleted'; return 0 }
+    }
+    foreach ($i in $items) {
+        $full = Long-Path $i.FullName
+        if (-not $full.StartsWith($td + '\', [StringComparison]::OrdinalIgnoreCase)) { Fail "refusing to delete $full`: not inside $td" 2 }
+        if ((Get-Item -LiteralPath $full -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { [IO.Directory]::Delete($full) }
+        else { Remove-Links $full; Remove-Item -LiteralPath $full -Recurse -Force }
+        Say "rr clean: deleted $($i.Name)"
+    }
+    Say "rr clean: freed $(Human-Size $sum)"
+    return 0
+}
+
 # ---- support bundle and redaction ------------------------------------------------------------------------------------------------
 function Redact-Text([string]$t, [string]$user, [string]$machine, [string]$prof) {
     foreach ($p in @($prof, $env:USERPROFILE)) {
@@ -525,6 +679,11 @@ switch ($Verb) {
         Redact-File $In $Out $u $m $RedactProfile
         $code = 0
     }
+    'clean' {   # needs no game folder: only the state folder
+        $state = Long-Path (State-Dir)
+        Say "rr: $($script:Man['product']) $($script:Man['version']); state folder $state"
+        $code = Do-Clean $state
+    }
     default {
         $game = Long-Path (Find-Game)
         $state = Long-Path (State-Dir)
@@ -547,6 +706,7 @@ switch ($Verb) {
             }
             'support' { $code = Do-Support $game $state }
         }
+        if ($Verb -in 'install', 'uninstall', 'repair') { Say-ToDelete $state }
     }
 }
 exit $code
