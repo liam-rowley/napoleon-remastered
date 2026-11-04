@@ -8,8 +8,7 @@
   "needs_pc": true,
   "depends_on": [
     "J12",
-    "J13",
-    "J64"
+    "J13"
   ],
   "brief": "jobs/J30/brief.md",
   "report": "jobs/J30/report.md",
