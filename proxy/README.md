@@ -185,7 +185,8 @@ Warm reset works from a battle; from a campaign it is open (fact `napoleon.campa
 RmlUi 6.3 in the proxy (core `docs/PROXY_UI.md`: device, frame, shaders, input routing, Lua, build). Off in release (`ui.enabled=0`:
 nothing hooked or allocated); keys `ui.*` in `[ui]` of the ini. Napoleon's side: the UI folder `napoleon_remastered\ui` (fonts from
 `viewer/napoleon/fonts`, documents from `viewer/napoleon/hosttest` and `hello`, installed by `pc_deploy.py kit` from the harness adapter's
-`kit_ui`), the test document `viewer/napoleon/hosttest` and its checks `tools/ui_hosttest.py`. Evidence and numbers: `proxy/runs/20261102_j30pc/`.
+`kit_ui`), the test document `viewer/napoleon/hosttest` and its checks `tools/ui_hosttest.py`. Evidence and numbers for the shipped build (core `v0.10.0`): `proxy/runs/20261103_j30pc/`; the first run on a pre-tag
+core, `proxy/runs/20261102_j30pc/`, holds the facts' original evidence.
 
 ## Fixed sky (J44)
 
