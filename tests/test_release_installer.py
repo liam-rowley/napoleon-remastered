@@ -91,6 +91,23 @@ def make_kit(tmp, rel):
     return kit
 
 
+def _win_path(fn, p):
+    import ctypes
+    buf = ctypes.create_unicode_buffer(32768)
+    n = getattr(ctypes.windll.kernel32, fn)(str(p), buf, 32768)
+    return buf.value if 0 < n < 32768 else str(p)
+
+
+def long_path(p):
+    """The long, full form of an existing path (the runner's TEMP is C:\\Users\\RUNNER~1\\..., its files enumerate as C:\\Users\\runneradmin\\...)."""
+    return _win_path('GetLongPathNameW', p) if os.name == 'nt' else str(p)
+
+
+def short_path(p):
+    """The 8.3 short form of an existing path (the same path when the volume has 8.3 names off)."""
+    return _win_path('GetShortPathNameW', p) if os.name == 'nt' else str(p)
+
+
 def view(game):
     """path -> (size, sha256 or None) of every file and the empty folders: what 'identical' means, without mtimes."""
     return {k: (v.get('size'), v.get('sha256')) if not v.get('dir') else 'dir' for k, v in pc_deploy.snapshot(game).items()}
@@ -106,7 +123,7 @@ class Installer(unittest.TestCase):
 
     def setUp(self):
         self._t = tempfile.TemporaryDirectory()
-        self.tmp = self._t.name
+        self.tmp = long_path(self._t.name)   # one path form: rr.ps1 prints and compares the long form
         self.rel = make_release(self.tmp)
         self.state = Path(self.tmp) / 'state'
         self.appdata = Path(self.tmp) / 'appdata'
@@ -272,6 +289,26 @@ class Installer(unittest.TestCase):
         cmd = [PS, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(inside / 'installer' / 'rr.ps1'), 'check', '-StateDir', str(self.state)]
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         self.assertIn(f'game folder {g}', r.stdout)
+
+    def test_short_8_3_game_and_state_paths(self):
+        """J74 (CI run 41796839289): a game or state folder given as an 8.3 short name (the runner's TEMP, or a player's) must install, check and
+        uninstall to 'identical' and be reported in the long form; relative paths were cut by the wrong length before."""
+        g = make_game(self.tmp, 'a long game folder name')
+        (Path(self.tmp) / 'a long state folder').mkdir()
+        sg, ss = short_path(g), short_path(Path(self.tmp) / 'a long state folder')
+        if sg.lower() == str(g).lower() or ss.lower() == str(Path(self.tmp, 'a long state folder')).lower():
+            self.skipTest('8.3 short names are disabled on this volume')
+        before = view(g)
+        long_state = Path(self.tmp) / 'a long state folder'
+        for verb in ('install', 'check'):
+            code, out = self.rr(verb, sg, state=ss)
+            self.assertEqual(code, 0, out)
+            self.assertIn(f'game folder {g}', out)
+        code, out = self.rr('uninstall', sg, state=ss)
+        self.assertEqual(code, 0, out)
+        self.assertIn('identical to the pre-install snapshot', out)
+        self.assertEqual(view(g), before)
+        self.assertTrue(long_state.is_dir())
 
     # ---- the support bundle -------------------------------------------------------------------------------------------------------
     def plant(self, g):
