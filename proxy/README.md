@@ -224,7 +224,7 @@ function with missing arguments from a chunk: the engine's Lua error stops the b
 
 ## Frame capture (J8)
 
-`dev.capture=1` (default and release off) hooks 36 `IDirect3DDevice9` vtable slots at `CreateDevice` (`core/capture.cpp`; pure parts and the hash in
+`dev.capture=1` (default and release off) hooks 37 `IDirect3DDevice9` and 2 `IDirect3DStateBlock9` vtable slots at `CreateDevice` (core 0.21.0, W19; `core/proxy/src/capture.cpp`; pure parts and the hash in
 `core/capture.h`, `tests/test_capture.cpp`); with it off nothing is hooked, and with it on and no capture running each hook is one flag test.
 ctl `capture <name> [frames]` (1 to 8 frames, a new name each time) records every device call of the next frames to
 `<dev.capture_dir>\<name>\frame.txt` and each shader's bytecode once per hash to `<dev.capture_dir>\shaders\<hash>.vs|ps`; `dev.capture_dir`

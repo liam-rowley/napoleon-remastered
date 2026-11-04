@@ -41,7 +41,7 @@ ledgers = "jobs/*/rules.md"            # J5 audit ledgers: their `CL` rows name 
 
 [gates]
 dirs = ["tools/gates"]                 # tools/gates/pipeline.py: found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75); core W13
-run_refs_since = "2026-11-04"          # core W12 (0.24.0): run READMEs dated before the J64 bump name paths J12 and J64 moved into the core; dated records stay as written
+run_refs_since = "2026-11-04"          # core W12 (0.24.0): 12 references in run READMEs dated before the J64 bump do not resolve (moved paths, PC-side paths, non-file names); dated records stay as written
 
 [discovery]
 adapter = "discovery/napoleon"         # games.json, gate.json and the other adapter files; the passes themselves are core/discovery (core W4, v0.15.0)
