@@ -54,7 +54,7 @@
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only through a pull request: a job branch
   is merged by its independent reviewer on green CI (D32, `docs/REVIEW.md`), a `brief/` branch by its writer on green CI
-  (D33); `plan/` and `meta/` branches by Liam (or the orchestrator, once there is one). End every job with a report: what was built, evidence
+  (D33); `plan/` and `meta/` branches by Liam only (D50). End every job with a report: what was built, evidence
   (run ids), deviations from the brief and why, open questions (`wsc jobs check` checks the headings).
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.

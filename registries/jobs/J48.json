@@ -7,7 +7,8 @@
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
-    "J18"
+    "J18",
+    "J64"
   ],
   "brief": "jobs/J48/brief.md"
 }

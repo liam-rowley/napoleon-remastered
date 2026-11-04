@@ -1,0 +1,13 @@
+{
+  "id": "J84",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) automation 3. Today plan/ may change docs/** (CLAUDE.md and docs/REVIEW.md among them), every job row and new briefs, and only Liam merges it (D50). Once the policy check judges with the base's rules (core W23, arriving with J78): [policy] plan stops matching CLAUDE.md, docs/REVIEW.md and the core's docs; row edits on plan/ are limited to new needs_brief rows plus title, description and depends_on changes (no status), compared row by row as brief/ already is; then a plan/ branch queues its own merge on green CI like brief/ (D33), and J76's hook stops denying plan/ merges. meta/ keeps waiting for Liam. Needs Liam's decision line first (it replaces the plan/ half of D50).",
+  "title": "plan/ merges itself under narrowed rules",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J78",
+    "J76"
+  ]
+}

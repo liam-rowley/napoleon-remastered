@@ -1,0 +1,12 @@
+{
+  "id": "J88",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) carries the core's process fixes to napoleon: the first tag holding W26, W27, W28, W29, W31, W32 and W35. Rule 79 judges the core's own diff (jobs_hooks core_pin_diff), so when the core's proxy/ and harness/ are unchanged since J78's tag this bump needs no acceptance run; if they changed (W35, or W34 merged in the meantime), set needs_pc when briefing and run 20 passes (J85 can run them). Opt into W27's review rules, W28's skip warnings and W31's Usage: rule (J87 wires the reader). Use W29's wsc core bump verb if it exists.",
+  "title": "Pin bump to the core's process train",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J78"
+  ]
+}

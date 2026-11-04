@@ -8,7 +8,8 @@
   "needs_pc": true,
   "depends_on": [
     "J9",
-    "J23"
+    "J23",
+    "J64"
   ],
   "brief": "jobs/J27/brief.md"
 }
