@@ -154,7 +154,7 @@ jobs:
     needs: changes
     if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' && (needs.changes.result != 'success' || needs.changes.outputs.proxy == 'true') }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30   # RmlUi compiles in this job (core ci/gates.yml.in has 30; J64 raised it from 15)
     steps:
       # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (core/proxy/tools/build_id.py, J45), not history
       - uses: actions/checkout@v5
@@ -162,6 +162,17 @@ jobs:
           submodules: true   # the proxy sources, tools and the harness live in the core since J12
           token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
       - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
+      # fetch cache (W21): the raw downloads (tarballs, RmlUi and FreeType checkouts), keyed by the pins and [ci] salt, never the patched
+      # trees; a warm cache makes the fetch offline. A cache fault never fails the job; the fetchers' sha checks judge every byte.
+      - id: fetch_key
+        run: python3 core/proxy/tools/netfetch.py ci-cache >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v5
+        continue-on-error: true
+        with:
+          path: ${{ steps.fetch_key.outputs.paths }}
+          key: fetch-1-${{ steps.fetch_key.outputs.key }}
+      # every source build.sh compiles, each fetcher retried on a network flake (build.sh then makes no network call)
+      - run: python3 core/proxy/tools/netfetch.py prefetch
       - run: core/proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path
         run: core/proxy/tools/build.sh repro
