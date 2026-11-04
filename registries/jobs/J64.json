@@ -12,5 +12,5 @@
   ],
   "brief": "jobs/J64/brief.md",
   "report": "jobs/J64/report.md",
-  "blocked_by": "rule 79: runs 20261104_j64pc3 and _j64pc4 failed shot_match on a Windows Terminal window (pid 8872) that each launch pulls onto the virtual display; move it off, then 20 passes on build 6e89faf06754, watcher 1.4.0 (jobs/J64/report.md, Open questions 7)"
+  "blocked_by": "rule 79: run 20261104_j64pc5 stopped at pass 1 (campaign_start:load 8.1 s, limit 6.75 s; display clear, likely machine load, unproved); decide the re-run, then 20 passes on build 6e89faf06754, watcher 1.4.0 (jobs/J64/report.md, Open questions 1 and 7)"
 }
