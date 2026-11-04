@@ -4,6 +4,7 @@ The stub answers `info`, `volume ls -q`, `volume inspect` (the checkout label) a
 so no Docker is needed. The script runs from a temp git repo with one `git worktree add`, for the unlabelled-live case. Skips without bash.
 """
 import hashlib
+import importlib.util
 import os
 import shutil
 import subprocess
@@ -33,17 +34,13 @@ esac
 '''
 
 
-def find_bash():
-    b = shutil.which('bash')
-    if not b or 'system32' in b.lower():   # WSL's bash.exe is not Git Bash: it cannot see this PATH or these paths
-        return None
-    return b
+_spec = importlib.util.spec_from_file_location('setup_verb', ROOT / 'tools' / 'verbs' / 'setup.py')
+sv = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(sv)
+BASH, NO_BASH = sv.bash_for_tests()   # Git Bash on Windows, never the WSL launcher on PATH (J22)
 
 
-BASH = find_bash()
-
-
-@unittest.skipUnless(BASH, 'no bash (Git Bash or Linux) on PATH')
+@unittest.skipUnless(BASH, NO_BASH or 'no bash')
 class Prune(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(os.path.realpath(tempfile.mkdtemp(prefix='j97_')))

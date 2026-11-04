@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 r"""Build Napoleon's UI scale stop-gap at a factor (J66, D40): every vanilla layout, uied.templates, the slot fonts and the UI art, as packs plus a templates file.
 
-purpose: write ui_scale_<f>x.pack (layouts + art), ui_scale_<f>x_fonts.pack, uied.templates.ui_scale_<f>x and the proxy rules file that redirects the loose templates to it, each with a .json (entries, sha256, held back, method), into <work> (C:\napoleon_remastered_pc\uiscale\work)
+purpose: write ui_scale_<f>x.pack (layouts + art), ui_scale_<f>x_fonts.pack, uied.templates.ui_scale_<f>x and the proxy rules file that redirects the loose templates to it, each with a .json (entries, sha256, held back, method), into <work> (default <state folder>\uiscale\work: tools/pc_state.py, the adapter's state_dir or $NAPOLEON_STATE_DIR)
 usage: python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [--no-fonts] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]
 when: before `python3 upscale/pc/play.py install --scale 2` (Liam's 4K play test) and before a J66/J67 PC run; re-running reuses the art cache and gives byte-identical packs
-not-a-verb: the build behind tools/verbs/uiscale.py (runs in the art_build Python: numpy, Pillow, freetype-py)
+not-a-verb: the build behind tools/verbs/uiscale.py (runs in the art_build Python: numpy, Pillow, freetype-py, uharfbuzz)
 
 Reads the game read-only through core/discovery/packfs.py (mod packs skipped, so an installed scale pack never feeds its own build) and
-the J36 masters under C:\napoleon_remastered_pc\upscale\work. Nothing here writes the game folder.
+the J36 masters under <state folder>\upscale\work. Nothing here writes the game folder.
 """
 import argparse
 import concurrent.futures as cf
@@ -19,9 +19,10 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
-for p in ('uiscale/core', 'core/discovery', 'upscale/core'):
+for p in ('uiscale/core', 'core/discovery', 'upscale/core', 'tools'):
     sys.path.insert(0, os.path.join(REPO, p))
 import packfs  # noqa: E402
+import pc_state  # noqa: E402
 import scale  # noqa: E402
 import tpl  # noqa: E402
 import uic  # noqa: E402
@@ -215,7 +216,7 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
     stray = [n for n in fs.packs if n.lower().startswith(('ui_scale_', 'ui_art_'))]
     if stray:
         raise SystemExit(f'uiscale: mod pack(s) {stray} in data\\ are not in mod_packs: add them to discovery/napoleon/games.json')
-    work = work or cfg['work']
+    work = work or str(pc_state.uiscale_work(REPO))
     tag = tag_of(factor)
     os.makedirs(work, exist_ok=True)
     stats = {}
@@ -258,7 +259,7 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
     held, methods, aent = [], {}, []
     if not no_art:
         refs = referenced_textures(lays, tvan)
-        aent, held, methods = build_art(cfg, fs, refs, factor, work, cfg['upscale_work'], limit, jobs, log)
+        aent, held, methods = build_art(cfg, fs, refs, factor, work, str(pc_state.upscale_work(REPO)), limit, jobs, log)
     ents = sorted(lay_entries + aent, key=lambda e: e[0].lower())
     metas['pack'] = upack.build(cfg['pack_name'].format(tag=tag), ents, work, work, log=log,
                                 extra={'factor': factor, 'layouts': len(lay_entries), 'art': len(aent), 'art_methods': methods,
@@ -273,7 +274,7 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
 
 def status(work=None):
     cfg = load(CONFIG)
-    work = work or cfg['work']
+    work = work or str(pc_state.uiscale_work(REPO))
     for f in cfg['factors']:
         p = os.path.join(work, f'build_{tag_of(f)}x.json')
         print(open(p, encoding='utf-8').read() if os.path.exists(p) else f'uiscale: no {f:g}x build in {work}')

@@ -1,8 +1,8 @@
 """TTF -> Warscape bitmap font (.cuf, CUF0) encoder and the Lora 2x set recipe (game-agnostic; Empire and Napoleon share the format).
 
-purpose: re-render a vanilla .cuf from a TrueType face (FreeType glyphs, GPOS pair kerning) keeping its glyph order and header, plus the Lora 2x set recipe
+purpose: re-render a vanilla .cuf from a TrueType face (FreeType glyphs, HarfBuzz pair kerning) keeping its glyph order and header, plus the Lora 2x set recipe
 usage: library: encode(face, vanilla_bytes, em, wght) -> bytes; render_set(names, reader) -> {name: (bytes, note)}   |   python uiscale/core/cuf_encode.py OUT_DIR ingame_24.cuf ... [--compare PNG] [--face TTF] [--game napoleon]
-when: building the 2x UI fonts (J66: crisp text for the 2x-scaled layouts); runs in the art_build Python (freetype-py, upscale/requirements.txt)
+when: building the 2x UI fonts (J66: crisp text for the 2x-scaled layouts); runs in the art_build Python (freetype-py and uharfbuzz, upscale/requirements.txt; golden shas: uiscale/napoleon/font_golden.json)
 not-a-verb: a build library and its one-shot CLI for the uiscale pipeline, not a registry operation
 
 Port of empire-remastered ui_scale_mod/tools/cuf_encode.py (encoder) and build_lora_set.py (recipe, confirmed in game on Empire).
@@ -13,8 +13,10 @@ Spacing model (Empire, verified by rendering vanilla text): a glyph's ink-croppe
 the pen then moves by pairs[L][R] when both glyphs are in the table, else by glyph.adv. So
 pairs[L][R] = advance(L) + kern(L, R) - left(L) + left(R), and glyph.adv = advance - left (Empire's default `origin` mode).
 
-Deviation from Empire: Empire took kerning from HarfBuzz (uharfbuzz). Here a small GPOS reader (`Gpos`) applies the 'kern'
-and 'dist' PairPos lookups with their variation deltas (GDEF item variation store), so the only extra package is freetype-py.
+Kerning comes from HarfBuzz (uharfbuzz), Empire's route (D42): encoding refuses to run without it (J79), because any other kerning
+gives a different pack than the golden one (uiscale/napoleon/font_golden.json). The small GPOS reader (`Gpos`, the 'kern' and 'dist'
+PairPos lookups with their variation deltas) is no longer used by encode(); it stays only as a test cross-check of HarfBuzz's pairs.
+Packages: freetype-py and uharfbuzz (upscale/requirements.txt; CI: upscale/requirements-ci.txt).
 """
 import argparse, hashlib, json, os, struct, sys
 
@@ -302,12 +304,13 @@ def _scale_glyph(g, r):
 
 
 def _hb_pairs(face_path, em, axis_values, cps):
-    """{(gl, gr): 26.6 advance of gl before gr, kerning applied} by HarfBuzz (empire cuf_encode.pair_kerning), or None without uharfbuzz.
-    cps: {glyph index: codepoint} of the rendered glyphs in the pair span."""
+    """{(gl, gr): 26.6 advance of gl before gr, kerning applied} by HarfBuzz (empire cuf_encode.pair_kerning).
+    cps: {glyph index: codepoint} of the rendered glyphs in the pair span. Raises RuntimeError without uharfbuzz (no fallback: J79)."""
     try:
         import uharfbuzz as hb
-    except ImportError:
-        return None
+    except ImportError as e:
+        raise RuntimeError('cuf_encode: uharfbuzz is required for the pair kerning (D42); install the pins in upscale/requirements.txt '
+                           '(uharfbuzz==0.56.4) into the art_build Python: upscale/pc/setup_env.cmd') from e
     font = hb.Font(hb.Face(hb.Blob.from_file_path(face_path), 0))
     font.scale = (int(round(em * 64)),) * 2
     if axis_values:
@@ -349,7 +352,7 @@ def encode(face_path, vanilla_cuf_bytes, em, wght, keep_header=True, set_h2=None
     out.cmap = list(tpl.cmap)
     out.pair_first = tpl.pair_first
     out.header = list(tpl.header)
-    lefts, adv26s, lin26s, gids, missing = {}, {}, {}, {}, []
+    lefts, adv26s, gids, missing = {}, {}, {}, []
     for gi, tg in enumerate(tpl.glyphs):
         cp = inv.get(gi)
         if cp is None or cp < 32:
@@ -359,7 +362,7 @@ def encode(face_path, vanilla_cuf_bytes, em, wght, keep_header=True, set_h2=None
         gid = face.get_char_index(cp)
         if gid and cp not in PUA:
             adv26, lin, left, top, w, h, bm = _render_glyph(face, cp, flags, hinting == 'mono')
-            adv26s[gi], lin26s[gi], gids[gi] = adv26, lin / 1024.0, gid
+            adv26s[gi], gids[gi] = adv26, gid
             if w == 0:
                 top = tg.top if tg.w == 0 else -128
             if not (-128 <= top <= 127 and w <= 255 and h <= 255):
@@ -375,23 +378,16 @@ def encode(face_path, vanilla_cuf_bytes, em, wght, keep_header=True, set_h2=None
             lefts[gi] = 0
 
     # pair table: step = round(kerned advance) - left(L) + left(R). Kerned advance in 26.6 comes from HarfBuzz shaping the pair
-    # (Empire's route, D42); without uharfbuzz, from FreeType's linear advance + the GPOS reader above.
+    # (Empire's route, D42); uharfbuzz is required (no GPOS fallback: J79).
     N, base = len(tpl.pairs), tpl.pair_base
     span = range(base, base + N)
     hbk = _hb_pairs(face_path, em, axis_values, {gi: inv[gi] for gi in span if gi in gids})
-    if hbk is None:
-        with open(face_path, 'rb') as fh:
-            gpos = Gpos(fh.read(), axis_values)
-    sc = em * 64 / face.units_per_EM
     out.pairs = []
     for gl in span:
         row = bytearray(N)
         for j, gr in enumerate(span):
-            if gl in gids and gr in gids and hbk is not None and (gl, gr) in hbk:
+            if gl in gids and gr in gids and (gl, gr) in hbk:
                 d26 = hbk[(gl, gr)]
-            elif gl in gids and gr in gids and hbk is None:
-                xa, xp1, xp2 = gpos.pair(gids[gl], gids[gr])
-                d26 = round(lin26s[gl] + xa * sc) + round(xp2 * sc) - round(xp1 * sc)
             elif gl in adv26s:
                 d26 = adv26s[gl]
             else:

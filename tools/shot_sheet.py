@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Labelled contact sheet of ctl shots (J24; needs Pillow): rows are poses, columns are settings, one JPEG for Liam to judge a look.
 
-purpose: build one labelled JPEG contact sheet from ctl shot files, rows = poses, columns = settings (each setting a folder of shots), optionally a full-resolution crop of the near-camera region; a missing shot is a grey cell marked "missing"
+purpose: build one labelled JPEG contact sheet from ctl shot files, rows = poses, columns = settings (each setting a folder of shots), optionally a full-resolution crop of the near-camera region; a missing shot is a grey cell with "missing" in its label
 usage: shot_sheet.py --shots DIR --out OUT.jpg --title T --poses p1,p2,... [--crop] TAG[:LABEL] [TAG[:LABEL] ...]   (shots are DIR/<TAG>/*_<pose>.jpg|png)
 when: a before/after or ladder sitting of a graphics job (J24 shadows; J25, J26, J27 next) needs side-by-side shots per pose
 not-a-verb: a run helper over shot files on disk, no registry or game state
