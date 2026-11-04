@@ -1,0 +1,13 @@
+{
+  "id": "J77",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) R2. J24 merged release_value: true for gfx.shadow_extrusion, gfx.shadow_height_cutoff and gfx.shadow_map_large (registries/config_keys.jsonl:19, 23, 25) while its report left them to Liam; build_release.py:138 checks consistency, not approval, and nothing reads perf/budgets.json's PROPOSED. Liam approved those three on 2026-11-04 (D49). Add an approved_by decision id to every config_keys row whose release_value differs from its default (through core W14's x-extends, so after J64); the release gate refuses a row without one, or whose decision is not Liam's; the gate also refuses a PROPOSED budget; the jobs view lists rows awaiting approval. Stamp D49 on the three shadow rows. After J64 and J74 (build_release.py).",
+  "title": "Release values need an approval",
+  "phase": 6,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J64",
+    "J74"
+  ]
+}
