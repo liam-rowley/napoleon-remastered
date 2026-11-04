@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Shadow texel-density table per setting (J24): imports a run's yaw-sweep and pose captures and tabulates shader_catalog.py's metric.
 
-purpose: import the captures of one or more settings (named <prefix>_<tag>_y_<yaw> and <prefix>_<tag>_<pose>) into a run with discovery/core/shader_catalog.py, write <run>/density.tsv from its shadow_density metric, and print per setting the texels per metre at 20 m by yaw, the worst yaw, best/worst and the poses
+purpose: import the captures of one or more settings (named <prefix>_<tag>_y_<yaw> and <prefix>_<tag>_<pose>) into a run with core/discovery/shader_catalog.py, write <run>/density.tsv from its shadow_density metric, and print per setting the texels per metre at 20 m by yaw, the worst yaw, best/worst and the poses
 usage: shadow_density.py --run RUN_ID [--prefix j24] [--yaws 0,45,...,315] [--poses p1,...,s1] [--captures DIR] [--no-import] TAG [TAG ...]
 when: a shadow fit or map-size sweep (J24; J25 and J26 cascades) needs its density figures compared across settings
-not-a-verb: a run helper; the metric itself is owned by discovery/core/shader_catalog.py (J8 review 1 finding 4) and only tabulated here
+not-a-verb: a run helper; the metric itself is owned by core/discovery/shader_catalog.py (J8 review 1 finding 4) and only tabulated here
 """
 import argparse
 import json
@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG = 'discovery/core/shader_catalog.py'
+CATALOG = 'core/discovery/shader_catalog.py'
 YAWS = '0,45,90,135,180,225,270,315'   # the J8 yaw sweep
 POSES = 'p1,p2,p3,p4,p5,p6,s1'         # the J24 shot poses and the siege deploy pose
 CHUNK = 40                             # paths per shader_catalog.py density call (the Windows command line limit)

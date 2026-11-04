@@ -232,7 +232,7 @@ is outside the game folder (D25; empty refuses). Result fields: `dir`, `file`, `
 `shaders_new`, `shaders_unwalked` and `shaders_size_differs` (both must be 0: the walked length agrees with `GetFunction`), `record_s`.
 Hash: canonical FNV-1a-64 over the bytecode up to and including the walked end token (never the first `0x0000FFFF`, which a CTAB may hold);
 Empire's hashes are not comparable. The vtable survives a device `Reset`, so the hooks stay armed across it. The engine's `D3DPERF` events
-(`D3DPERF_BeginEvent` is imported by the exe) are recorded too. Offline: `discovery/core/shader_catalog.py` (summaries, disassembly, fx
+(`D3DPERF_BeginEvent` is imported by the exe) are recorded too. Offline: `core/discovery/shader_catalog.py` (summaries, disassembly, fx
 mapping, the catalogue and the anatomy tables).
 
 `frame.txt` is one call per line, in call order (pointers and hashes hex, states `name value`):

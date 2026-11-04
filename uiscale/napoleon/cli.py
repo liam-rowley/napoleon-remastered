@@ -6,7 +6,7 @@ usage: python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [-
 when: before `python3 upscale/pc/play.py install --scale 2` (Liam's 4K play test) and before a J66/J67 PC run; re-running reuses the art cache and gives byte-identical packs
 not-a-verb: the build behind tools/verbs/uiscale.py (runs in the art_build Python: numpy, Pillow, freetype-py)
 
-Reads the game read-only through discovery/core/packfs.py (mod packs skipped, so an installed scale pack never feeds its own build) and
+Reads the game read-only through core/discovery/packfs.py (mod packs skipped, so an installed scale pack never feeds its own build) and
 the J36 masters under C:\napoleon_remastered_pc\upscale\work. Nothing here writes the game folder.
 """
 import argparse
@@ -19,7 +19,7 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
-for p in ('uiscale/core', 'discovery/core', 'upscale/core'):
+for p in ('uiscale/core', 'core/discovery', 'upscale/core'):
     sys.path.insert(0, os.path.join(REPO, p))
 import packfs  # noqa: E402
 import scale  # noqa: E402

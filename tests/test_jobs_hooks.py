@@ -1,4 +1,4 @@
-"""Host tests for tools/jobs_hooks.py, napoleon's hook module for the core's job pipeline (napoleon J62): rule 76 (promotion folders), rule 75 (the PC line of
+"""Host tests for tools/gates/pipeline.py, napoleon's gate module for the core's job pipeline (napoleon J62): rule 76 (promotion folders), rule 75 (the PC line of
 the page), rule 79 (acceptance passes, with the core-pin diff of J58), the legacy id sets (jobs/legacy.json) and the found-path brief hook.
 
 Moved from tests/test_jobs.py and tests/test_pr_policy.py; the generic rules are tested in warscape-core (tests/test_jobs.py, test_policy.py, test_fixture_game.py).
@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-_spec = importlib.util.spec_from_file_location('jobs_hooks', ROOT / 'tools' / 'jobs_hooks.py')
+_spec = importlib.util.spec_from_file_location('jobs_hooks', ROOT / 'tools' / 'gates' / 'pipeline.py')
 hk = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(hk)
 
@@ -61,9 +61,16 @@ class Promotions(unittest.TestCase):
 
     def test_promotions_name_rows_that_exist(self):
         rows = {p.stem for p in (ROOT / 'registries' / 'jobs').glob('*.json')}
-        for folder, jid in (('discovery/core', 'J64'), ('upscale/core', 'J63'), ('viewer/core', 'J63')):
+        for folder, jid in (('upscale/core', 'J63'), ('viewer/core', 'J63')):
             self.assertEqual(hk.PROMOTIONS[folder], jid, folder)
             self.assertIn(jid, rows, folder)
+
+    def test_discovery_core_is_gone_and_unlisted(self):
+        # J64: the folder moved to the core (v0.15.0); rule 76 has nothing to list, and a new discovery/core would fail as an unlisted candidate
+        self.assertEqual(hk.PROMOTIONS['discovery/core'], 'J64')
+        self.assertFalse((ROOT / 'discovery' / 'core').exists())
+        self.assertEqual(hk.promotion_problems([row('J64', status='review')], {'discovery/core'}), [])
+        self.assertTrue(hk.promotion_problems([row('J64', status='done')], {'discovery/core'}))
 
 
 class MetaGlobs(unittest.TestCase):
@@ -172,7 +179,7 @@ class Rule79(unittest.TestCase):
         weak = self.CHECKER.replace('def baseline_problems(b):', 'def baseline_problems(b):\n    return ["always"]\n\ndef _old(b):')
         self.assertFalse(hk.acceptance_active('', b, weak))           # a weakened checker would say inactive...
         self.assertTrue(hk.acceptance_active('', b, self.CHECKER))    # ...but main() passes the base's text, which says active
-        src = (ROOT / 'tools' / 'jobs_hooks.py').read_text(encoding='utf-8')
+        src = (ROOT / 'tools' / 'gates' / 'pipeline.py').read_text(encoding='utf-8')
         self.assertIn('show_first(root, base, *ACC_CHECKERS)', src)   # the base's checker, in either layout (J12)
         self.assertNotIn("spec_from_file_location('acceptance'", src)
 
@@ -182,7 +189,7 @@ class Rule79(unittest.TestCase):
         self.assertEqual(len(errs), 1)
         self.assertIn('another branch', errs[0])
         self.assertTrue(hk.acceptance_problems(['harness/napoleon/adapter.json'], self.acc(self.led(20, branch=None))))
-        self.assertIn("'branch': facts['branch']", (ROOT / 'tools' / 'jobs_hooks.py').read_text(encoding='utf-8'))
+        self.assertIn("'branch': facts['branch']", (ROOT / 'tools' / 'gates' / 'pipeline.py').read_text(encoding='utf-8'))
 
     def test_exemptions_match_segments_not_substrings(self):
         self.assertFalse(hk.acc_exempt('proxy/core/README.md.bak'))
@@ -256,7 +263,7 @@ class Rule79(unittest.TestCase):
 
     def test_check_wires_it_into_job_branches(self):
         ctx = types.SimpleNamespace(root=ROOT)
-        errs = hk.policy_problems(ctx, {'kind': 'job', 'changed': ['proxy/core/dev.cpp'], 'acceptance': self.acc(self.led(3))})
+        errs = hk.policy_rule(ctx, {'kind': 'job', 'changed': ['proxy/core/dev.cpp'], 'acceptance': self.acc(self.led(3))})
         self.assertTrue(any('rule 79' in e for e in errs))
 
     def test_failing_fixture_rule_79_runs_on_every_branch_kind(self):
@@ -264,10 +271,10 @@ class Rule79(unittest.TestCase):
         ctx = types.SimpleNamespace(root=ROOT)
         for kind in ('brief', 'plan', 'meta', '', 'job'):
             with self.subTest(kind=kind):
-                errs = hk.policy_problems(ctx, {'kind': kind, 'changed': ['proxy/napoleon/adapter.cpp'], 'acceptance': self.acc(self.led(3))})
+                errs = hk.policy_rule(ctx, {'kind': kind, 'changed': ['proxy/napoleon/adapter.cpp'], 'acceptance': self.acc(self.led(3))})
                 self.assertTrue(any('rule 79' in e for e in errs), errs)
-                self.assertEqual(hk.policy_problems(ctx, {'kind': kind, 'changed': ['docs/x.md'], 'acceptance': self.acc(self.led(3))}), [])
-                pin = lambda diff: hk.policy_problems(ctx, {'kind': kind, 'changed': ['core'], 'acceptance': dict(self.acc(self.led(3)), core_diff=diff)})
+                self.assertEqual(hk.policy_rule(ctx, {'kind': kind, 'changed': ['docs/x.md'], 'acceptance': self.acc(self.led(3))}), [])
+                pin = lambda diff: hk.policy_rule(ctx, {'kind': kind, 'changed': ['core'], 'acceptance': dict(self.acc(self.led(3)), core_diff=diff)})
                 self.assertTrue(any('rule 79' in e for e in pin(['proxy/src/a.cpp'])))
                 self.assertEqual(pin(['docs/x.md']), [])
 
@@ -280,7 +287,7 @@ class Rule79(unittest.TestCase):
         hk.collect_acceptance = boom
         try:
             for kind in ('brief', 'plan', 'meta', '', 'job'):
-                self.assertEqual(hk.policy_problems(ctx, {'kind': kind, 'changed': ['docs/x.md', 'jobs/J9/brief.md', 'harness/runs/r/a.json']}), [])
+                self.assertEqual(hk.policy_rule(ctx, {'kind': kind, 'changed': ['docs/x.md', 'jobs/J9/brief.md', 'harness/runs/r/a.json']}), [])
         finally:
             hk.collect_acceptance = real
         # equal in effect: acceptance_problems gives [] for exactly these inputs, whatever the ledger holds
@@ -290,8 +297,8 @@ class Rule79(unittest.TestCase):
         seen = []
         hk.collect_acceptance = lambda root, facts: seen.append(facts['changed']) or None
         try:
-            hk.policy_problems(ctx, {'kind': 'meta', 'changed': ['proxy/napoleon/a.cpp']})
-            hk.policy_problems(ctx, {'kind': 'meta', 'changed': ['core']})
+            hk.policy_rule(ctx, {'kind': 'meta', 'changed': ['proxy/napoleon/a.cpp']})
+            hk.policy_rule(ctx, {'kind': 'meta', 'changed': ['core']})
         finally:
             hk.collect_acceptance = real
         self.assertEqual(seen, [['proxy/napoleon/a.cpp'], ['core']])
@@ -436,25 +443,25 @@ class FoundPathHook(unittest.TestCase):
     CTX = types.SimpleNamespace(root=ROOT)
 
     def test_a_found_path_is_refused_and_the_registry_id_passes(self):
-        sys.path.insert(0, str(ROOT / 'discovery' / 'core'))
+        sys.path.insert(0, str(ROOT / 'core' / 'discovery'))
         import briefpaths
         known = briefpaths.load_known(ROOT)
         unit = next(u for u in known.ui_ids if u.startswith('battle.'))
         path = next(k for k, v in known.ui_paths.items() if unit in v and ' ' in k)
-        bad = hk.brief_problems(self.CTX, 'J99', row('J99'), f'# J99: x\n\nOpen `{path}`.\n')
+        bad = hk.brief_rule(self.CTX, 'J99', row('J99'), f'# J99: x\n\nOpen `{path}`.\n')
         self.assertTrue(bad and all(e.startswith('found path: ') for e in bad), bad)
-        self.assertEqual(hk.brief_problems(self.CTX, 'J99', row('J99'), f'# J99: x\n\nOpen `{unit}`.\n'), [])
+        self.assertEqual(hk.brief_rule(self.CTX, 'J99', row('J99'), f'# J99: x\n\nOpen `{unit}`.\n'), [])
 
     def test_summary_counts_registry_gaps(self):
         read = lambda p: '## Registry gaps\n- path: ui/x.layout; owner: liam; reason: no row yet\n' if p == 'jobs/J99/brief.md' else None
-        self.assertEqual(hk.summary(self.CTX, [row('J99')], read), '1 registry gaps in briefs')
+        self.assertEqual(hk.gap_summary(self.CTX, [row('J99')], read), '1 registry gaps in briefs')
 
 
 class Queue(unittest.TestCase):
     def test_the_hook_runs_rule_76_on_the_tracked_files(self):
         ctx = types.SimpleNamespace(root=ROOT)
-        self.assertEqual(hk.queue_problems(ctx, [row('J12', status='review')], ['proxy/core/a.py']), [])
-        self.assertTrue(hk.queue_problems(ctx, [row('J12', status='done')], ['proxy/core/a.py']))
+        self.assertEqual(hk.queue_rule(ctx, [row('J12', status='review')], ['proxy/core/a.py']), [])
+        self.assertTrue(hk.queue_rule(ctx, [row('J12', status='done')], ['proxy/core/a.py']))
 
     def test_the_repo_table_covers_every_core_folder_here(self):
         tracked = subprocess.run(['git', '-C', str(ROOT), 'ls-files'], capture_output=True, text=True).stdout.split()

@@ -1,5 +1,5 @@
 """Host tests for core/proxy/tools/build_id.py (J45): the DLL build id follows the inputs' content, not the history, and build.sh and rule 79
-(tools/jobs_hooks.py, rule 79) compute the same id. Each test runs on a throwaway git repository holding copies of the real id tool and build.sh."""
+(tools/gates/pipeline.py, rule 79) compute the same id. Each test runs on a throwaway git repository holding copies of the real id tool and build.sh."""
 import importlib.util
 import shutil
 import subprocess
@@ -19,7 +19,7 @@ def _load(name, rel):
 
 
 bi = _load('build_id', 'core/proxy/tools/build_id.py')
-pp = _load('jobs_hooks', 'tools/jobs_hooks.py')   # rule 79's build id moved with the hook module (J62)
+pp = _load('jobs_hooks', 'tools/gates/pipeline.py')   # rule 79's build id moved with the hook module (J62)
 sv = _load('setup_verb', 'tools/verbs/setup.py')
 
 
@@ -203,7 +203,7 @@ class OneImplementation(Fixture):
 
     def test_neither_computes_its_own_id(self):
         sh = (ROOT / 'core/proxy/tools/build.sh').read_text(encoding='utf-8')
-        pol = (ROOT / 'tools/jobs_hooks.py').read_text(encoding='utf-8')
+        pol = (ROOT / 'tools/gates/pipeline.py').read_text(encoding='utf-8')
         self.assertIn('proxy/tools/build_id.py', sh)
         self.assertIn('proxy/tools/build_id.py', pol)
         for src in (sh, pol):

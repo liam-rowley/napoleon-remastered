@@ -20,7 +20,7 @@ import argparse, hashlib, json, os, struct, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-sys.path.insert(0, os.path.join(ROOT, 'discovery', 'core'))
+sys.path.insert(0, os.path.join(ROOT, 'core', 'discovery'))
 from cuf import Cuf, Glyph  # noqa: E402
 
 DEFAULT_FACE = os.path.join(ROOT, 'uiscale', 'fonts', 'Lora-Variable.ttf')

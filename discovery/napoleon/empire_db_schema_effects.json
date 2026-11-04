@@ -1,5 +1,5 @@
 {
- "note": "Trimmed by discovery/core/effects.py --trim-schema from empire-remastered rml_mod/tools/db/schema_emp.json (RPFM schema_emp.ron converted there): only the tables the effects pass reads, every version, unchanged.",
+ "note": "Trimmed by core/discovery/effects.py --trim-schema from empire-remastered rml_mod/tools/db/schema_emp.json (RPFM schema_emp.ron converted there): only the tables the effects pass reads, every version, unchanged.",
  "source": {
   "file": "empire-remastered/rml_mod/tools/db/schema_emp.json",
   "file_sha256": "631d972a61d7fe07f9d6a7ad10d9d5ffe178ff94394659c6a4560531afd61fb9",

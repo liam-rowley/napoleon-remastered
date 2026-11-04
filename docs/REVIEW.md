@@ -12,8 +12,8 @@ this game's. Every `wsc ...` below is `python3 core/wsc.py ...`; the job steps (
   when the branch does not touch their inputs or the same input tree already passed (`wsc.toml` `[ci] inputs`, `.github/workflows/gates.yml` job `changes`).
   A red required check is a blocker for a `merge` verdict (`docs/CI_FAILURES.md` classes the failures).
 - **Rule 79 (J4, J44, J45, J58).** A branch that changes `proxy/` or `harness/`, or moves the core pin so that the core's own `proxy/` or `harness/` changes,
-  must carry 20 consecutive acceptance passes on its final DLL build id and watcher version (`harness/acceptance/ledger.jsonl`, `tools/jobs_hooks.py`
-  `policy_problems`). Check that the passes name a run and an evidence file committed on the branch; a reword, rebase or merge of `main` that leaves the DLL
+  must carry 20 consecutive acceptance passes on its final DLL build id and watcher version (`harness/acceptance/ledger.jsonl`, `tools/gates/pipeline.py`
+  `policy_rule`). Check that the passes name a run and an evidence file committed on the branch; a reword, rebase or merge of `main` that leaves the DLL
   inputs unchanged keeps them. Rule 79 runs for every branch kind (J73), so a `meta/` or `brief/` branch meets it too. A core pin bump is therefore a `job/`
   branch, never `meta/` or `plan/` (`core` is in neither glob list), and meets rule 79 whenever the core's own `proxy/` or `harness/` changed between the
   two pins; a registry edit outside `registries/jobs/*` is a `job/` branch as well.

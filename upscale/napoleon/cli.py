@@ -15,7 +15,7 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
-sys.path[:0] = [os.path.join(REPO, 'upscale', 'core'), os.path.join(REPO, 'discovery', 'core')]
+sys.path[:0] = [os.path.join(REPO, 'upscale', 'core'), os.path.join(REPO, 'core', 'discovery')]
 
 import rules  # noqa: E402
 

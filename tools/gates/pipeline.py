@@ -48,6 +48,7 @@ PROMOTIONS = {
     'proxy/core': 'J12',      # -> warscape-core proxy/src
     'harness/core': 'J12',    # -> warscape-core harness/
     'saves/core': 'J12',      # -> warscape-core saves/
+    'discovery/core': 'J64',  # promoted in the core since v0.15.0; the folder is gone (J64), so this entry only keeps a new one named
     'upscale/core': 'J63',    # J63 promotes upscale/core and viewer/core
     'uiscale/core': None,     # J66 stop-gap scaler; its promotion follows J67 (no row yet)
     'viewer/core': 'J63',     # the review viewer (J31), promoted with upscale/core

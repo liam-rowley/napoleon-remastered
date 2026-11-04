@@ -219,7 +219,7 @@ def free_keys(rows, contexts=('battle', 'campaign', 'global'), mods=('', 'Ctrl+'
 
 # ---- verb ------------------------------------------------------------------------------------------------------------------------
 def load_loc(data_dir):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'discovery' / 'core'))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'core' / 'discovery'))
     from packfs import PackFS
     import loc
     games = json.loads((Path(__file__).resolve().parents[2] / 'discovery' / 'napoleon' / 'games.json').read_text(encoding='utf-8'))
@@ -256,7 +256,7 @@ def run(args, ctx):
         try:
             loc, fs = load_loc(args.from_pack) if not args.no_loc else (None, None)
             if fs is None:
-                sys.path.insert(0, str(Path(ctx.root) / 'discovery' / 'core'))
+                sys.path.insert(0, str(Path(ctx.root) / 'core' / 'discovery'))
                 from packfs import PackFS
                 fs = PackFS(args.from_pack)
             text, src = fs.read(KEYS_ENTRY).decode('utf-8'), f'{fs.stat(KEYS_ENTRY).source}:{KEYS_ENTRY}'

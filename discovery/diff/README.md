@@ -27,7 +27,6 @@ Every row whose verdict is not `same`; the `same` rows are counted per area. Ful
 | lua_api | 11 of 20 |
 | shaders | 1 of 28 |
 | exe | 21 of 37 |
-| effects | 2 of 12 |
 
 | Area | Item | Empire | Napoleon | Verdict | Adapter note | Evidence |
 |---|---|---|---|---|---|---|
@@ -157,13 +156,3 @@ Every row whose verdict is not `same`; the `same` rows are counted per area. Ful
 | exe | signatures function | 2854 signatures | 1159 unique, 33 shared, 468 multiple, 1190 none, 4 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
 | exe | signatures guard_site | 23 signatures | 6 unique, 2 multiple, 15 none | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
 | exe | signatures patch_site | 26 signatures | 2 unique, 4 multiple, 19 none, 1 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
-| effects | db particle_effects | v0, 101 rows | v0, 104 rows | adapter | keys 101/0/3/0 (same/changed/new/gone) | detail.db |
-| effects | db projectiles_explosions | v0, 36 rows | v1, 35 rows | adapter | keys 11/24/0/1 (same/changed/new/gone); fields +1 -0 | detail.db |
-| effects | effects campaignmap.xml | 7 infos, 9 groups | infos 0/7/12/0, groups 0/9/7/0 (same/changed/new/gone) | adapter | changed only by added attributes: 0 infos, 8 groups | detail.definitions |
-| effects | effects definition format | EFFECTS_MANAGER XML | 1 new tag, 16 new attribute names; 0 gone | new | new tag: EFFECT_GROUP_AMBIENT_SETTINGS; names in detail.format | detail.format |
-| effects | effects landbattle.xml | 229 infos, 132 groups | infos 0/226/57/3, groups 0/132/20/0 (same/changed/new/gone) | adapter | changed only by added attributes: 15 infos, 114 groups | detail.definitions |
-| effects | effects names in the exes | 0 of 20 (controls 118 of 118) | 20 of 20 | new | Napoleon-only tag, attribute, fx and file names; Empire runtime acceptance open | detail.exe_names |
-| effects | effects references Empire lacks | - | 12 of 50: 11 textures, ribbon.fx | new | used by 29 Napoleon infos; 9 more absent in both games | detail.references |
-| effects | effects smoke subset (db-linked) | - | 26 keys, 26 join an XML name, 9 need an asset Empire lacks | adapter | SCRIPTED_EFFECT_GROUP exact: 26 | detail.smoke |
-| effects | effects textures | 70 files | same 68, changed 2, new 20, gone 0 | adapter | new textures ship in a pack | detail.files |
-| effects | effects unit_dust_parameters.txt | - | 15 records | new | plain text, header "version 1.0" | detail.text_files |

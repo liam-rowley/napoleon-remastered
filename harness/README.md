@@ -113,7 +113,7 @@ test that finds no Git Bash skips with the reason. `harness-windows` also runs t
 `core/harness/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`
 when needed, moving UAC VirtualStore copies of the mod folder aside first (fact `napoleon.harness.uac_virtualstore`). `core/harness/acceptance.py
 measure --run <id>` writes `harness/acceptance/baseline.json` from two passes; `run --passes 20 --run <id>` takes the lock per pass, compares with
-the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/jobs_hooks.py`). The ledger's `build_id` is the DLL inputs' content hash
+the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/gates/pipeline.py`). The ledger's `build_id` is the DLL inputs' content hash
 (`core/proxy/tools/build_id.py`, J45; lines before J45 carry the old commit-hash ids as a record).
 
 ## Open questions
