@@ -3,12 +3,14 @@
   "description": "Re-scoped by the Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) plan, P5: the pin bump from core v0.10.0 (J30 pinned W2's tag on 2026-11-04) to v0.22.0 (or the newest tag when the brief is written; plus W20 if merged first), one needs_pc job. The core half of the discovery promotion is done (core W4, v0.15.0), so this row's old step 4, the Napoleon switch, is the bump itself. In one commit: the core gitlink, wsc.toml [core] version and [discovery] adapter; delete tools/verbs/discovery.py (a game verb named like a core verb stops every verb loading: 'verb discovery already exists', cli.py:28) and the discovery/core copy (30 of 31 files differ from the core's; no logic fix on one side only), with every committed discovery output re-rendered byte-identical from the core tools (--check). proxy/napoleon/adapter.cpp gains GameAdapter's gesture member and moves to designated initialisers (C2, C6; -Werror=missing-field-initializers); raise the proxy CI timeout from 15 to 30 min (ci/gates.yml.in:75; RmlUi compiles); re-render the workflows (W21's fetch retry and cache); update tools/jobs_hooks.py PROMOTIONS; gen_tables --check, build.sh all, wsc gates, wsc ci check-settings. The DLL build id and the watcher change (1.2.0 to the kit's version, with W5's display-restore fix), so rule 79 needs 20 passes on the PC, with the watcher kit reinstalled first. Unblocks J27, J29, J48 and J60, whose briefs each plan their own bump. The old brief (v0.8 or 0.9, 'no DLL input change') is in git history at 461b908. J30 already added the stb_image_write pin that fetch_ui.py requires.",
   "title": "Pin bump to core v0.22.0 and the discovery switch",
   "phase": 1,
-  "status": "queued",
+  "status": "blocked",
   "model": "sonnet",
   "needs_pc": true,
   "depends_on": [
     "J11",
     "J65"
   ],
-  "brief": "jobs/J64/brief.md"
+  "brief": "jobs/J64/brief.md",
+  "report": "jobs/J64/report.md",
+  "blocked_by": "rule 79: run 20261104_j64pc3 stopped at pass 6 (a terminal window over the game in the hist_nile shot); 20 passes on build 6e89faf06754 and watcher 1.4.0 still needed with the PC quiet (jobs/J64/report.md, Open questions 7)"
 }
