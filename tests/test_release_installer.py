@@ -199,6 +199,59 @@ class Installer(unittest.TestCase):
         moved = [p for p in (self.state / '_to_delete').rglob('*') if p.is_file() and p.read_bytes() == foreign]
         self.assertEqual(moved, [], 'the foreign file went to _to_delete as ours')
 
+    def test_rerun_keeps_our_mod_folder_with_a_stray_tmp_and_runtime_files(self):
+        """Review 5.1: a re-run must not back up our own mod folder (a leftover .tmp in it) or an owned runtime file (runtime_globs) as foreign."""
+        g = make_game(self.tmp)
+        rel = make_release(self.tmp, version='9.9.7', extra_owned=['Napoleon_d3d9.log'])
+        self.assertEqual(self.rr('install', g, rel=rel)[0], 0)
+        (g / MOD / 'stray.tmp').write_bytes(b'left behind by a crashed write')
+        (g / 'Napoleon_d3d9.log').write_bytes(b'runtime log')
+        code, out = self.rr('install', g, rel=rel)
+        self.assertEqual(code, 0, out)
+        self.assertNotIn(f'backed up the existing {MOD}', out)
+        self.assertNotIn('backed up the existing Napoleon_d3d9.log', out)
+        self.assertFalse(any(p.name == 'stray.tmp' for p in (self.state / 'backup').rglob('*')))
+        self.assertEqual((g / 'Napoleon_d3d9.log').read_bytes(), b'runtime log')
+
+    def test_unfinished_backup_is_finished_not_deleted(self):
+        """Review 5.2: a backup entry recorded but never moved (source still at the game path) must be moved on the re-run, never left for Clean."""
+        g = make_game(self.tmp)
+        foreign = (g / 'd3d9.dll').read_bytes()
+        stamp = '20260101T000000Z'
+        (self.state / 'snapshots').mkdir(parents=True)
+        (self.state / 'snapshots' / f'pre_install_{stamp}.json').write_text(json.dumps(pc_deploy.snapshot(g)), encoding='utf-8')
+        man = json.loads((self.rel / 'manifest.json').read_text(encoding='utf-8'))
+        rec = {'pre_snapshot': f'snapshots\\pre_install_{stamp}.json', 'backups': [{'path': 'd3d9.dll', 'backup': f'backup\\{stamp}\\d3d9.dll'}],
+               'history': [], 'release_version': None, 'build_id': None, 'installed_utc': None, 'files': [], 'game': str(g), 'owned': man['owned'],
+               'mod_dir': MOD, 'exe_name': 'Napoleon.exe', 'config_file': INI, 'other_exes': ['Empire.exe'], 'game_config_files': []}
+        (self.state / 'install.json').write_text(json.dumps(rec), encoding='utf-8')   # the backup file does not exist; the original is still in the game
+        code, out = self.rr('install', g)
+        self.assertEqual(code, 0, out)
+        self.assertEqual((self.state / 'backup' / stamp / 'd3d9.dll').read_bytes(), foreign)
+        self.assertEqual(self.rr('clean', g, '-Yes')[0], 0)
+        self.assertEqual((self.state / 'backup' / stamp / 'd3d9.dll').read_bytes(), foreign)
+        self.assertEqual(self.rr('uninstall', g)[0], 0)
+        self.assertEqual((g / 'd3d9.dll').read_bytes(), foreign)
+
+    def test_clean_does_not_follow_a_junction_out_of_to_delete(self):
+        """Review 5.3: a junction inside _to_delete is removed as a link; the folder it points at (a temp folder here) keeps its files."""
+        g = make_game(self.tmp)
+        outside = Path(self.tmp) / 'outside'
+        outside.mkdir()
+        (outside / 'sentinel.txt').write_bytes(b'keep me')
+        d = self.state / '_to_delete' / '20260101T000000Z' / 'sub'
+        d.mkdir(parents=True)
+        (d.parent / 'plain.txt').write_bytes(b'x')
+        r = subprocess.run(['cmd', '/c', 'mklink', '/J', str(d / 'link'), str(outside)], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        top = self.state / '_to_delete' / '20260102T000000Z'   # the stamp folder itself is a junction
+        r = subprocess.run(['cmd', '/c', 'mklink', '/J', str(top), str(outside)], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        code, out = self.rr('clean', g, '-Yes')
+        self.assertEqual(code, 0, out)
+        self.assertEqual((outside / 'sentinel.txt').read_bytes(), b'keep me')
+        self.assertEqual(list((self.state / '_to_delete').iterdir()), [])
+
     def test_uninstall_after_a_steam_update_exits_0(self):
         """G7: a game update changed the exe and a vanilla pack after the install; the uninstall removes ours, restores the backups, lists the
         update's files under their own heading and exits 0."""

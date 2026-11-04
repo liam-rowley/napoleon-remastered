@@ -276,15 +276,22 @@ function Ours-Path([string]$rel, $rec) {   # inside the recorded owned set (the 
     foreach ($b in @($rec['backups'])) { $bp = [string]$b['path']; if ($rel -eq $bp -or $rel.TrimEnd('/') -eq $bp -or $rel.StartsWith($bp + '/')) { return $true } }
     return $false
 }
-function Is-Ours([string]$game, [string]$rel, $rec) {   # a folder is ours when every file in it is ours or one the DLL writes at runtime (runtime_globs)
+function Is-Ours([string]$game, [string]$rel, $rec) {   # ours: listed with its sha, a runtime_globs file, or (in our own mod folder) a file nobody listed (a leftover .tmp); never the whole folder foreign for that
     $p = Join-Path $game $rel.Replace('/', '\')
-    if (-not (Test-Path -LiteralPath $p -PathType Container)) { return (Ours-File $game $rel $rec) }
     $globs = @($script:Man['runtime_globs'])
+    $mod = ([string]$rec['mod_dir']).Trim('/')
+    if (-not (Test-Path -LiteralPath $p -PathType Container)) { return ((Glob-Match $rel $globs) -or (Ours-File $game $rel $rec)) }
     foreach ($f in (Get-ChildItem -LiteralPath $p -Recurse -File -Force)) {
         $r = $f.FullName.Substring($game.TrimEnd('\').Length).TrimStart('\').Replace('\', '/')
-        if (-not (Glob-Match $r $globs) -and -not (Ours-File $game $r $rec)) { return $false }
+        if ((Glob-Match $r $globs) -or (Ours-File $game $r $rec)) { continue }
+        if ($mod -and ($r -eq $mod -or $r.StartsWith($mod + '/')) -and -not (Listed-File $r $rec)) { continue }
+        return $false
     }
     return $true
+}
+function Listed-File([string]$rel, $rec) {
+    foreach ($f in @($rec['files']) + @($script:Man['files'])) { if ($null -ne $f -and [string]$f['path'] -eq $rel) { return $true } }
+    return $false
 }
 
 # ---- install ---------------------------------------------------------------------------------------------------------------
@@ -322,7 +329,13 @@ function Do-Install([string]$game, [string]$state) {
         $rel = ([string]$o).TrimEnd('/')
         $p = Join-Path $game $rel.Replace('/', '\')
         if (-not (Test-Path -LiteralPath $p)) { continue }
-        if ($done.ContainsKey($rel)) { continue }
+        if ($done.ContainsKey($rel)) {
+            $bk = $null
+            foreach ($x in $rec['backups']) { if ([string]$x['path'] -eq $rel) { $bk = Join-Path $state ([string]$x['backup']) } }
+            if ($bk -and (Test-Path -LiteralPath $bk)) { continue }
+            # recorded but never moved (the run stopped between the record and the move): the original is still here; finish the move now
+            if ($bk) { Move-Out $p $bk; Say "rr install: backed up the existing $o to $bk (finishing an earlier run)"; continue }
+        }
         if ($touched -and (Is-Ours $game $rel $rec)) { continue }
         $b = Join-Path $state ("backup\" + $stamp + "\" + $rel.Replace('/', '\'))
         [void]$rec['backups'].Add(@{ path = $rel; backup = ("backup\" + $stamp + "\" + $rel.Replace('/', '\')) })
@@ -553,6 +566,13 @@ function Ask([string]$q) {   # a prompt that also reads a redirected stdin (the 
     if ([Console]::IsInputRedirected) { Write-Host -NoNewline ($q + ' '); $a = [Console]::In.ReadLine(); Write-Host $a; return [string]$a }
     return [string](Read-Host $q)
 }
+function Remove-Links([string]$dir) {   # PowerShell 5.1 Remove-Item -Recurse follows junctions and symlinks: take every link out as a link first, never descending
+    foreach ($c in @(Get-ChildItem -LiteralPath $dir -Force)) {
+        if ($c.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            if ($c.PSIsContainer) { [IO.Directory]::Delete($c.FullName) } else { [IO.File]::Delete($c.FullName) }
+        } elseif ($c.PSIsContainer) { Remove-Links $c.FullName }
+    }
+}
 function Do-Clean([string]$state) {
     Require-Closed
     $td = Long-Path (Join-Path $state '_to_delete')
@@ -569,7 +589,8 @@ function Do-Clean([string]$state) {
     foreach ($i in $items) {
         $full = Long-Path $i.FullName
         if (-not $full.StartsWith($td + '\', [StringComparison]::OrdinalIgnoreCase)) { Fail "refusing to delete $full`: not inside $td" 2 }
-        Remove-Item -LiteralPath $full -Recurse -Force
+        if ((Get-Item -LiteralPath $full -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { [IO.Directory]::Delete($full) }
+        else { Remove-Links $full; Remove-Item -LiteralPath $full -Recurse -Force }
         Say "rr clean: deleted $($i.Name)"
     }
     Say "rr clean: freed $(Human-Size $sum)"
