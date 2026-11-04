@@ -3,12 +3,13 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) G8 (rest), G9, G13, G14 (PC paths). After J68 vendors the Lora face: golden sha256s for the five slot fonts, so 'byte-identical to Empire's' (D42, J66) is a committed test, not a reviewer's comparison on the PC; cuf_encode.py refuses to encode without uharfbuzz instead of falling back to GPOS kerning (:305-310; fix the docstring at :16-17), and upscale/pc/setup_env.cmd installs both packages. G9: port Empire's longform_pass and is_textview (empire-remastered ui_scale_mod/tools/scale.py:110-142) beside SPACED_H2 (uiscale/core/scale.py:68-69), with a test on the 12 template states that use frontend_24. G13: a pinned, hash-locked pip install step in the gates CI job (ci/gates.yml.in:51-69), so test_upscale.Images, test_uiscale.ArtSize, the font tests and test_x86re run in CI; pin get-pip.py and the embeddable zip by sha; record the D35 2.5x masters' manifest sha in releases.json. Move the hard-coded PC paths out of tools/verbs/uiscale.py:14 and the upscale verb.",
   "title": "Fonts and art provenance: golden font shas, uharfbuzz required, long-form pass, CI packages",
   "phase": 5,
-  "status": "review",
+  "status": "done",
   "model": "opus",
   "needs_pc": false,
   "depends_on": [
     "J68"
   ],
   "brief": "jobs/J79/brief.md",
-  "report": "jobs/J79/report.md"
+  "report": "jobs/J79/report.md",
+  "review": "jobs/J79/review.md"
 }
