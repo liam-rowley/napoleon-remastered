@@ -53,7 +53,7 @@ PROMOTIONS = {
     'upscale/core': 'J63',    # J63 promotes upscale/core and viewer/core
     'uiscale/core': None,     # J66 stop-gap scaler; its promotion follows J67 (no row yet)
     'viewer/core': 'J63',     # the review viewer (J31), promoted with upscale/core
-    'release/core': None,     # the release builder, installer scripts and support bundle (J38): a core job when a second game ships (no row yet)
+    'release/core': 'J100',   # the release builder, installer scripts and support bundle (J38); J100 is held until a second game ships
 }
 
 

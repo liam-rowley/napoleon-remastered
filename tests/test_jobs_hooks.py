@@ -35,16 +35,17 @@ def files(**kw):
 
 
 class Promotions(unittest.TestCase):
-    """Rule 76 (J12): core candidate folders and the jobs that promote them."""
-    T = {'proxy/core': 'J12', 'discovery/core': None}
+    """Rule 76 (J12): core candidate folders and the jobs that promote them. `T` is a fixture table with neutral folder names (J94: it
+    named proxy/core and discovery/core, which read like the real table from before J12 moved the proxy into the core)."""
+    T = {'area_a/core': 'J12', 'area_b/core': None}
 
     def test_listed_folders_pass_while_the_job_is_open(self):
-        self.assertEqual(hk.promotion_problems([row('J12', status='review')], {'proxy/core', 'proxy/core/x', 'discovery/core'}, self.T), [])
+        self.assertEqual(hk.promotion_problems([row('J12', status='review')], {'area_a/core', 'area_a/core/x', 'area_b/core'}, self.T), [])
 
     def test_failing_fixture_a_folder_whose_promotion_is_done_must_be_gone(self):
-        e = hk.promotion_problems([row('J12', status='done')], {'proxy/core'}, self.T)
+        e = hk.promotion_problems([row('J12', status='done')], {'area_a/core'}, self.T)
         self.assertEqual(len(e), 1); self.assertIn('promotion job J12 is done', e[0])
-        self.assertEqual(hk.promotion_problems([row('J12', status='done')], {'proxy/napoleon'}, self.T), [])   # gone: fine
+        self.assertEqual(hk.promotion_problems([row('J12', status='done')], {'area_a/napoleon'}, self.T), [])   # gone: fine
 
     def test_failing_fixture_an_unlisted_core_folder_fails(self):
         e = hk.promotion_problems([row('J12')], {'audio/core/a'}, self.T)
@@ -52,7 +53,17 @@ class Promotions(unittest.TestCase):
 
     def test_the_submodule_and_unknown_jobs(self):
         self.assertEqual(hk.promotion_problems([], {'core/proxy/src', 'core/warscape'}, self.T), [])   # the core itself is not a candidate
-        self.assertIn('has no row', hk.promotion_problems([], {'proxy/core'}, self.T)[0])
+        self.assertIn('has no row', hk.promotion_problems([], {'area_a/core'}, self.T)[0])
+
+    def test_the_real_table_names_no_folder_that_is_gone(self):
+        # J94 (J70 Later 2): an entry whose promotion is not done must name a folder that still has tracked files; a done one is the
+        # record that its folder stays gone (rule 76 fails it if it comes back), so it is the one kind of entry allowed to be absent
+        tracked = subprocess.run(['git', '-C', str(ROOT), 'ls-files'], capture_output=True, text=True, check=True).stdout.split()
+        have = {'/'.join(f.split('/')[:2]) for f in tracked}
+        rows = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (ROOT / 'registries' / 'jobs').glob('*.json')}
+        stale = [f'{d} ({j or "no row"})' for d, j in hk.PROMOTIONS.items()
+                 if d not in have and not (j and rows.get(j, {}).get('status') == 'done')]
+        self.assertEqual(stale, [], 'PROMOTIONS entries for folders that no longer exist and whose promotion is not done')
 
     def test_the_repo_table_covers_every_core_folder_here(self):
         root = Path(__file__).resolve().parent.parent
@@ -62,7 +73,7 @@ class Promotions(unittest.TestCase):
 
     def test_promotions_name_rows_that_exist(self):
         rows = {p.stem for p in (ROOT / 'registries' / 'jobs').glob('*.json')}
-        for folder, jid in (('discovery/core', 'J64'), ('upscale/core', 'J63'), ('viewer/core', 'J63')):
+        for folder, jid in (('discovery/core', 'J64'), ('upscale/core', 'J63'), ('viewer/core', 'J63'), ('release/core', 'J100')):
             self.assertEqual(hk.PROMOTIONS[folder], jid, folder)
             self.assertIn(jid, rows, folder)
 
