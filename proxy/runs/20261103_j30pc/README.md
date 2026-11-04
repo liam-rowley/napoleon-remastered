@@ -93,3 +93,14 @@ backend, not the UI. `proxy.backend` was set back to `dxvk` afterwards.
   happened and was retried 10 times in passes 1-16 (3 times in J46's 20 passes on `7631068c014b`); J24's build `75739186b92e` (no RmlUi
   host) shows the same early exits at 4-9 an hour in `watcher.log` the same morning, so it is the PC's launch flake and not the host,
   which is off at these keys (`ui.enabled=0`: `UiInit` returns after reading the key). Stopped there: two broken runs (job instruction).
+- Final build `cb34c06baf42` (after the main merge; DLL 4,225,536 B, sha256 `b9c2bc2b...`), idle host per deliverable 7 (`ui.enabled=1`,
+  `ui.show` empty): `20261103_j30acc3`, `acc4` and `acc5` each broke on one scene load just over its limit while the PC had about 2 GB free
+  (see the J30 report). After a reboot, `harness/runs/20261103_j30acc6/` (2026-11-03 22:35 to 2026-11-04 00:42 UTC, watcher 1.2.0, kit
+  `kit_20261103T195609Z_6ee33bd89704`): **21 of 21 passes**; pass 1 carries the fresh-install kit label `6ee33bd89704` (no proxy log yet),
+  passes 2-21 are 20 consecutive passes on `cb34c06baf42`. Every load stayed at or under 52 % of its limit (worst: `campaign_start` 3.5 of
+  6.75 s in pass 1; `hist_lodi` 5.1-6.1 s against 14.75 s). Two launches were retried and recovered: pass 5 `hist_nile` (exit at DllMain,
+  minidump `20261103T225938Z-p2052_c0000374.dmp`, fact `napoleon.proxy.init_heap_corruption`) and pass 18 `naval_small` (no `on_virtual`
+  within 180 s, last status `starting DllMain`, the game spinning about two cores until killed; the retry moved a stale VirtualStore
+  `headless_status.json` aside). PC load over the run, 10 s samples in `acc6_pc_load.tsv`: free RAM 18.8 to 22.6 GB, commit at most 17.7
+  of 46.2 GB, CPU median 23 % (the game itself), 13 to 17 `claude` processes, no busy loop. Uninstall: identical to the snapshot (1565
+  files), exe sha1 `9aebcd21...` vanilla, prefs sha256 `83b9b32b...` unchanged, no lock.
