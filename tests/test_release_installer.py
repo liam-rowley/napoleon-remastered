@@ -1,6 +1,8 @@
 """Host tests of the player installer (release/core/installer/rr.ps1, J38) on a synthetic game folder: install and uninstall with the PowerShell
 installer and with core/proxy/tools/pc_deploy.py and compare the resulting snapshots (behaviour parity is the contract), the refusals (non-vanilla
-exe), check, repair, a game update, the UI cache move, and the support bundle's redaction. Windows only (Windows PowerShell 5.1); skipped elsewhere."""
+exe), check, repair, a game update, the UI cache move, the support bundle's redaction, and (J81) an upgrade between releases, a re-run after a
+failed install, an uninstall after a Steam update and the clean verb. Windows only (Windows PowerShell 5.1); skipped elsewhere."""
+import re
 import hashlib
 import json
 import os
@@ -35,27 +37,30 @@ def sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
-def make_release(tmp, exe=EXE):
-    """A release folder in the real layout (manifest.json, installer\\rr.ps1, installer\\exe_identity.json, payload\\<component>\\...)."""
-    rel = Path(tmp) / 'Napoleon Remastered 9.9.9'
+def make_release(tmp, exe=EXE, version='9.9.9', payload=None, extra_owned=()):
+    """A release folder in the real layout (manifest.json, installer\\rr.ps1, installer\\exe_identity.json, payload\\<component>\\...).
+    payload (default PAYLOAD) and extra_owned (runtime files outside the mod folder, also runtime globs) let a test build two releases (J81)."""
+    payload = PAYLOAD if payload is None else payload
+    rel = Path(tmp) / f'Napoleon Remastered {version}'
     (rel / 'installer').mkdir(parents=True)
     shutil.copy(RR, rel / 'installer' / 'rr.ps1')
     ident = {'game': 'Test Game', 'exe_name': 'Napoleon.exe', 'sha1': hashlib.sha1(exe).hexdigest(), 'config_file': INI, 'mod_dir': MOD}
     ib = json.dumps(ident).encode()
     (rel / 'installer' / 'exe_identity.json').write_bytes(ib)
     files = []
-    for target, (comp, data, cfg) in PAYLOAD.items():
+    for target, (comp, data, cfg) in payload.items():
         p = rel / 'payload' / comp / target
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_bytes(data)
         files.append({'path': target, 'component': comp, 'size': len(data), 'sha256': sha(data), 'payload': f'payload/{comp}/{target}', 'config': cfg})
-    man = {'product': 'Napoleon Remastered', 'version': '9.9.9', 'dll_build_id': 'abc123abc123', 'core_tag': 'v0.0.0', 'commit': 'f' * 40,
+    owned = sorted({f'{MOD}/' if t.startswith(f'{MOD}/') else t for t in payload} | set(extra_owned))   # build_release.owned_paths
+    man = {'product': 'Napoleon Remastered', 'version': version, 'dll_build_id': 'abc123abc123', 'core_tag': 'v0.0.0', 'commit': 'f' * 40,
            'game': {'name': 'Test Game', 'exe_name': 'Napoleon.exe', 'mod_dir': MOD, 'config_file': INI, 'steam_folder': 'Napoleon Total War',
                     'other_exes': ['Empire.exe'], 'appdata_subpath': 'Test\\Napoleon'},
            'state_dir_name': 'napoleon_remastered', 'clear_ui_cache': True,
-           'runtime_globs': [f'{MOD}/logs/*', f'{MOD}/dumps/*', f'{MOD}/dxvk/*', f'{MOD}/EXE_MISMATCH.txt'],
+           'runtime_globs': [f'{MOD}/logs/*', f'{MOD}/dumps/*', f'{MOD}/dxvk/*', f'{MOD}/EXE_MISMATCH.txt', *extra_owned],
            'exe_identity': {'name': 'installer/exe_identity.json', 'sha256': sha(ib)},
-           'owned': ['d3d9.dll', 'data/ui_scale_x.pack', INI, f'{MOD}/'],
+           'owned': owned,
            'components': [{'id': 'proxy'}, {'id': 'ui'}], 'files': files, 'extras': []}
     (rel / 'manifest.json').write_text(json.dumps(man), encoding='utf-8')
     return rel
@@ -133,11 +138,127 @@ class Installer(unittest.TestCase):
     def tearDown(self):
         self._t.cleanup()
 
-    def rr(self, verb, game, *extra, state=None):
-        cmd = [PS, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(self.rel / 'installer' / 'rr.ps1'), verb, '-GamePath', str(game),
+    def rr(self, verb, game, *extra, state=None, rel=None, answer=''):
+        """answer: what the player types at a prompt (stdin is always redirected, so no prompt can block a test)."""
+        cmd = [PS, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str((rel or self.rel) / 'installer' / 'rr.ps1'), verb, '-GamePath', str(game),
                '-StateDir', str(state or self.state), '-AppDataDir', str(self.appdata), '-AssumeClosed', *extra]
-        r = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=300, input=answer)
         return r.returncode, r.stdout + r.stderr
+
+    # ---- upgrades, re-runs, Steam updates, cleanup (J81: audit G5, G6, G7) ----------------------------------------------------------------
+    def test_upgrade_keeps_the_old_release_owned_set(self):
+        """G5a: release A owns a pack B dropped and a runtime file next to the exe; after B's install the uninstall must still take both."""
+        g = make_game(self.tmp)
+        pre = view(g)
+        a_payload = dict(PAYLOAD, **{'data/a_only.pack': ('ui', b'OLD PACK' * 100, False)})
+        rel_a = make_release(self.tmp, version='9.9.8', payload=a_payload, extra_owned=['Napoleon_d3d9.log'])
+        code, out = self.rr('install', g, rel=rel_a)
+        self.assertEqual(code, 0, out)
+        code, out = self.rr('install', g)   # release B (self.rel, 9.9.9) over A
+        self.assertEqual(code, 0, out)
+        rec = json.loads((self.state / 'install.json').read_text())
+        self.assertEqual(rec['release_version'], '9.9.9')
+        for p in ('data/a_only.pack', 'Napoleon_d3d9.log', 'd3d9.dll', f'{MOD}/'):
+            self.assertIn(p, rec['owned'], 'the owned set after an upgrade must be the union of both releases')
+        self.assertEqual(rec['owned'], sorted(rec['owned']))
+        self.assertFalse((g / 'data' / 'a_only.pack').exists(), "B does not ship A's pack: the install moves it aside")
+        (g / 'Napoleon_d3d9.log').write_bytes(b'a runtime file only A owned')
+        (g / 'data' / 'a_only.pack').write_bytes(b'OLD PACK' * 100)   # as an older installer left it
+        code, out = self.rr('uninstall', g)
+        self.assertEqual(code, 0, out)
+        self.assertIn('identical to the pre-install snapshot', out)
+        self.assertEqual(view(g), pre)
+        self.assertEqual((g / 'd3d9.dll').read_bytes(), b'someone else\'s d3d9 wrapper')
+
+    def test_rerun_after_a_failed_install_backs_up_foreign_files(self):
+        """G5b: the first install stopped after its first backup entry (record on disk, half the backups done); the re-run must back up the
+        foreign file at a later owned path, not move it to _to_delete as ours."""
+        g = make_game(self.tmp)
+        foreign = b'someone else\'s pack at an owned path'
+        (g / 'data' / 'ui_scale_x.pack').write_bytes(foreign)
+        pre = view(g)
+        stamp = '20260101T000000Z'
+        (self.state / 'snapshots').mkdir(parents=True)
+        (self.state / 'snapshots' / f'pre_install_{stamp}.json').write_text(json.dumps(pc_deploy.snapshot(g)), encoding='utf-8')
+        b = self.state / 'backup' / stamp / 'd3d9.dll'
+        b.parent.mkdir(parents=True)
+        shutil.move(str(g / 'd3d9.dll'), str(b))
+        man = json.loads((self.rel / 'manifest.json').read_text(encoding='utf-8'))
+        rec = {'pre_snapshot': f'snapshots\\pre_install_{stamp}.json', 'backups': [{'path': 'd3d9.dll', 'backup': f'backup\\{stamp}\\d3d9.dll'}],
+               'history': [], 'release_version': None, 'build_id': None, 'installed_utc': None, 'files': [], 'game': str(g), 'owned': man['owned'],
+               'mod_dir': MOD, 'exe_name': 'Napoleon.exe', 'config_file': INI, 'other_exes': ['Empire.exe'], 'game_config_files': []}
+        (self.state / 'install.json').write_text(json.dumps(rec), encoding='utf-8')
+        code, out = self.rr('install', g)
+        self.assertEqual(code, 0, out)
+        self.assertIn('backed up the existing data/ui_scale_x.pack', out)
+        self.assertNotIn('backed up the existing d3d9.dll', out, 'a recorded backup is not repeated')
+        code, out = self.rr('uninstall', g)
+        self.assertEqual(code, 0, out)
+        self.assertEqual((g / 'data' / 'ui_scale_x.pack').read_bytes(), foreign)
+        self.assertEqual(view(g), pre)
+        moved = [p for p in (self.state / '_to_delete').rglob('*') if p.is_file() and p.read_bytes() == foreign]
+        self.assertEqual(moved, [], 'the foreign file went to _to_delete as ours')
+
+    def test_uninstall_after_a_steam_update_exits_0(self):
+        """G7: a game update changed the exe and a vanilla pack after the install; the uninstall removes ours, restores the backups, lists the
+        update's files under their own heading and exits 0."""
+        g = make_game(self.tmp)
+        self.assertEqual(self.rr('install', g)[0], 0)
+        (g / 'Napoleon.exe').write_bytes(EXE + b' updated by Steam')
+        (g / 'data' / 'vanilla.pack').write_bytes(b'vanilla pack v2' * 40)
+        code, out = self.rr('uninstall', g)
+        self.assertEqual(code, 0, out)
+        self.assertIn('rr uninstall: exe: MISMATCH', out)
+        self.assertIn('changed by the game update, not by this tool (2)', out)
+        self.assertIn('changed data/vanilla.pack', out)
+        self.assertIn('changed Napoleon.exe', out)
+        self.assertNotIn('DIFFERS', out)
+        self.assertFalse((g / MOD).exists())
+        self.assertFalse((g / INI).exists())
+        self.assertEqual((g / 'd3d9.dll').read_bytes(), b'someone else\'s d3d9 wrapper')   # the backup is back
+        hist = json.loads(next((self.state / 'history').glob('install_*.json')).read_text(encoding='utf-8'))['history']
+        u = next(h for h in hist if h['action'] == 'uninstall')
+        self.assertIs(u['identical'], False)
+        self.assertEqual(u['steam_update_diffs'], 2)
+
+    def test_clean_removes_only_to_delete_after_confirmation(self):
+        """G6: Clean lists _to_delete, deletes nothing on 'no', and with -Yes deletes the stamp folders only."""
+        g = make_game(self.tmp)
+        self.assertEqual(self.rr('install', g)[0], 0)
+        (g / MOD / 'dxvk' / 'd3d9_dxvk.dll').write_bytes(b'damaged')
+        self.assertEqual(self.rr('repair', g)[0], 0)
+        td = self.state / '_to_delete'
+        stamps = sorted(p.name for p in td.iterdir())
+        self.assertGreaterEqual(len(stamps), 2, stamps)
+
+        def kept():
+            return {p.relative_to(self.state).as_posix(): p.read_bytes() for p in self.state.rglob('*') if p.is_file() and td not in p.parents}
+        before = kept()
+        self.assertTrue(any(k.startswith('backup/') for k in before) and any(k.startswith('snapshots/') for k in before) and 'install.json' in before)
+        code, out = self.rr('clean', g, answer='n\n')
+        self.assertEqual(code, 0, out)
+        self.assertIn('Delete these? [y/N]', out)
+        self.assertIn('nothing deleted', out)
+        for s in stamps:
+            self.assertIn(s, out)
+        self.assertEqual(sorted(p.name for p in td.iterdir()), stamps)
+        code, out = self.rr('clean', g, '-Yes')
+        self.assertEqual(code, 0, out)
+        self.assertIn('rr clean: freed', out)
+        self.assertEqual(list(td.iterdir()), [])
+        self.assertEqual(kept(), before, 'clean touched something outside _to_delete')
+        code, out = self.rr('uninstall', g)   # the backups and the record survived: the uninstall still ends identical
+        self.assertEqual(code, 0, out)
+        self.assertIn('identical to the pre-install snapshot', out)
+
+    def test_uninstall_prints_the_to_delete_size(self):
+        g = make_game(self.tmp)
+        code, out = self.rr('install', g)
+        self.assertEqual(code, 0, out)
+        self.assertRegex(out, r'rr: _to_delete holds [\d.]+ (bytes|KB|MB|GB) in 1 folders: run Clean\.cmd to free it')
+        code, out = self.rr('uninstall', g)
+        self.assertEqual(code, 0, out)
+        self.assertRegex(out, r'rr: _to_delete holds [\d.]+ (bytes|KB|MB|GB) in 2 folders: run Clean\.cmd to free it')
 
     # ---- parity with pc_deploy.py -------------------------------------------------------------------------------------------------
     def test_install_uninstall_parity_with_pc_deploy(self):
@@ -280,7 +401,9 @@ class Installer(unittest.TestCase):
         self.assertIn('EXE_MISMATCH.txt present', out)
         # the uninstall still works and reports the exe as it is (it never refuses and never touches the exe)
         code, out = self.rr('uninstall', g)
+        self.assertEqual(code, 0, out)   # J81 G7: only the update's exe differs, so the uninstall succeeds
         self.assertIn('rr uninstall: exe: MISMATCH', out)
+        self.assertIn('changed by the game update, not by this tool (1)', out)
 
     def test_finds_the_game_from_the_scripts_own_location(self):
         g = make_game(self.tmp, foreign_dll=False)
