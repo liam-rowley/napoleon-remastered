@@ -25,8 +25,8 @@ def ratio(h, slider):
     return round(h / 1080 * slider, 6)
 
 
-def render_corners(screen_dir, wasm=None, site=None, out_dir=None, corners=CORNERS):
-    """[{corner, w, h, dp_ratio, rgba_sha256, findings, timings}] for one screen folder; PNGs go to out_dir/<screen>_<corner>.png when given."""
+def render_corners(screen_dir, wasm=None, site=None, out_dir=None, corners=CORNERS, keep_rgba=False):
+    """[{corner, w, h, dp_ratio, rgba_sha256, findings, timings}] for one screen folder; PNGs go to out_dir/<screen>_<corner>.png when given; keep_rgba adds the pixels as `rgba`."""
     import hashlib
     import tempfile
     screen_dir = Path(screen_dir)
@@ -46,6 +46,8 @@ def render_corners(screen_dir, wasm=None, site=None, out_dir=None, corners=CORNE
         rw, rh, rgba, _ = R.render(site, (w, h), ratio(h, slider), actions=probe)
         res = {'corner': name, 'w': rw, 'h': rh, 'dp_ratio': ratio(h, slider), 'rgba_sha256': hashlib.sha256(rgba).hexdigest(),
                'findings': seen['findings'], 'timings': seen['timings']}
+        if keep_rgba:
+            res['rgba'] = rgba
         if out_dir:
             Path(out_dir).mkdir(parents=True, exist_ok=True)
             (Path(out_dir) / f'{screen_dir.name}_{name}.png').write_bytes(R.png_bytes(rw, rh, rgba))

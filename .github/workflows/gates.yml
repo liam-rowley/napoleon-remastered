@@ -223,7 +223,9 @@ jobs:
           python viewer/core/render.py --size 1920x1080 --dp-ratio 1.0 --out build/viewer/out/hello_1080p_r1.png | tee -a build/viewer/out/renders.txt
           python viewer/core/render.py --size 3840x2160 --dp-ratio 2.5 --out build/viewer/out/hello_4k_slider125.png | tee -a build/viewer/out/renders.txt
           (cd build/viewer/out && sha256sum *.png >> SHA256SUMS && cat SHA256SUMS)
+      # always: a red run keeps its diff PNGs (build/viewer/out/uikit_gate, J80), written by changes.py and by the baseline test in tests/test_uikit.py
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: viewer-wasm
           path: build/viewer/out/

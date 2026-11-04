@@ -486,6 +486,102 @@ class Rule79Repo(unittest.TestCase):
         self.assertIn('not append-only', self.problems(['harness/acceptance/ledger.jsonl'])[1][0])
 
 
+class UiBaseline(unittest.TestCase):
+    """J80 Decisions 4 and 5 through policy_problems on a throwaway repo: a UI baseline change is accepted by the reviewer, and LOCK.json is never a job's."""
+
+    CHANGE = {'uikit/napoleon/baseline.json': '{"a": 2}\n'}
+    REPORT = {'jobs/J99/report.md': 'r\n'}
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.d = Path(self.tmp.name)
+        self.g('init', '-q', '-b', 'main'); self.g('config', 'user.email', 't@example.invalid'); self.g('config', 'user.name', 'test')
+        self.write({'uikit/napoleon/baseline.json': '{"a": 1}\n', 'uikit/napoleon/baseline/board_a.png': 'png1', 'docs/x.md': 'x\n'})
+        self.base = self.g('rev-parse', 'HEAD')
+
+    def g(self, *a):
+        return subprocess.run(['git', '-c', 'core.hooksPath=/dev/null', *a], cwd=self.d, capture_output=True, text=True, check=True).stdout.strip()
+
+    def write(self, files):
+        for rel, text in files.items():
+            (self.d / rel).parent.mkdir(parents=True, exist_ok=True)
+            (self.d / rel).write_text(text, encoding='utf-8', newline='\n')
+        self.g('add', '-A'); self.g('commit', '-q', '-m', 'change')
+
+    def branch(self, name, files):
+        self.g('checkout', '-q', '-B', name, self.base)
+        self.write(files)
+
+    def problems(self, name):
+        changed = self.g('diff', '--name-only', f'{self.base}...HEAD').splitlines()
+        return hk.policy_problems(types.SimpleNamespace(root=self.d), {'changed': changed, 'branch': name, 'base': 'main', 'merge_base': self.base})
+
+    def blob(self):
+        return self.g('rev-parse', 'HEAD:uikit/napoleon/baseline.json')
+
+    def test_a_handed_in_job_needs_the_review_line_and_before_the_report_it_is_not_judged(self):
+        self.branch('job/J99', self.CHANGE)
+        self.assertEqual(self.problems('job/J99'), [])
+        self.write(self.REPORT)
+        errs = self.problems('job/J99')
+        self.assertEqual(len(errs), 1, errs)
+        self.assertTrue(errs[0].startswith('ui baseline:'), errs[0])
+        self.assertIn('uikit/napoleon/baseline.json', errs[0])
+        self.assertIn(f'Baseline accepted: {self.blob()}', errs[0])
+        self.assertIn('jobs/J99/review.md', errs[0])
+
+    def test_the_right_line_passes_and_a_stale_one_fails(self):
+        self.branch('job/J99', {**self.CHANGE, **self.REPORT})
+        self.assertEqual(len(self.problems('job/J99')), 1)
+        old = self.blob()
+        self.write({'jobs/J99/review.md': f'verdict\n\nBaseline accepted: {old}\n'})
+        self.assertEqual(self.problems('job/J99'), [])
+        self.write({'uikit/napoleon/baseline.json': '{"a": 3}\n'})
+        errs = self.problems('job/J99')
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn(self.blob(), errs[0])
+        self.assertNotEqual(old, self.blob())
+
+    def test_the_line_must_be_a_line_of_its_own_with_the_whole_sha(self):
+        self.branch('job/J99', {**self.CHANGE, **self.REPORT})
+        for text in (f'not Baseline accepted: {self.blob()}\n', f'Baseline accepted: {self.blob()[:12]}\n', f'Baseline accepted: {self.blob()}0\n'):
+            self.write({'jobs/J99/review.md': text})
+            self.assertEqual(len(self.problems('job/J99')), 1, text)
+
+    def test_a_png_only_change_is_judged_the_same(self):
+        self.branch('job/J99', {'uikit/napoleon/baseline/board_a.png': 'png2', **self.REPORT})
+        errs = self.problems('job/J99')
+        self.assertEqual(len(errs), 1, errs)
+        self.assertIn('ui baseline:', errs[0])
+        self.write({'jobs/J99/review.md': f'Baseline accepted: {self.blob()}\n'})
+        self.assertEqual(self.problems('job/J99'), [])
+
+    def test_plan_and_meta_are_exempt_and_any_other_branch_is_refused(self):
+        for name in ('feature/x', 'brief/J99', 'J99'):
+            self.branch(name, self.CHANGE)
+            errs = self.problems(name)
+            self.assertEqual(len(errs), 1, name)
+            self.assertIn('ui baseline:', errs[0])
+        for name in ('plan/x', 'meta/x'):
+            self.branch(name, self.CHANGE)
+            self.assertEqual(self.problems(name), [])
+
+    def test_no_baseline_change_reads_nothing(self):
+        real = hk.show
+        self.addCleanup(setattr, hk, 'show', real)
+        hk.show = lambda *a: self.fail('read the repo')
+        self.assertEqual(hk.ui_baseline_problems(self.d, 'job/J99', ['docs/x.md', 'uikit/napoleon/baseline.py', 'uikit/napoleon/baseline2/a.png']), [])
+
+    def test_a_job_never_writes_the_lock_and_meta_and_plan_may(self):
+        lock = {'uikit/napoleon/LOCK.json': '{"locked": ["board"]}\n'}
+        self.branch('job/J99', lock)
+        self.assertEqual(self.problems('job/J99'), ["ui lock: LOCK.json is Liam's; a job never writes it"])
+        for name in ('meta/lock', 'plan/lock'):
+            self.branch(name, lock)
+            self.assertEqual(self.problems(name), [])
+
+
 class CorePin(unittest.TestCase):
     """J58: a core pin bump counts for rule 79 only when the core's own proxy/ or harness/ changed between the two pins."""
 

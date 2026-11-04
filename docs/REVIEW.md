@@ -19,6 +19,8 @@ this game's. Every `wsc ...` below is `python3 core/wsc.py ...`; the job steps (
   two pins; a registry edit outside `registries/jobs/*` is a `job/` branch as well. Since J75 the [hook](../tools/jobs_hooks.py) also checks that each counted
   line's evidence file is unique and agrees with the line, that the ledger diff is append-only (when merging `main`, its lines go first) and that no base
   pass file changes; only `ledger.jsonl` is exempt, so a `baseline.json` or `shots/` change needs the passes too.
+- **UI baseline (J80).** A job that changes `uikit/napoleon/baseline.json` or `uikit/napoleon/baseline/` is accepted by you, not its builder: look at what changed, then add the line
+  `Baseline accepted: <sha>` to `review.md`, with `<sha>` from `git rev-parse HEAD:uikit/napoleon/baseline.json`; the [hook](../tools/jobs_hooks.py) refuses a missing or stale line.
 - **Empire repeats (step 5).** Anything left as prose that Empire's history shows biting twice (a timing, a trap, a wrong default) and that could be a
   default, a guard or a gate is a finding. A *later* item for the core goes to warscape-core `docs/BACKLOG.md` through a warscape-core pull request.
 - **Merging.** Liam merges and tags warscape-core; a job branch is merged by its reviewer on green CI (D32); `plan/` and `meta/` branches by Liam.

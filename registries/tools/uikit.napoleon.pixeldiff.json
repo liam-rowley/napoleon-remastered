@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.pixeldiff",
+  "kind": "script",
+  "path": "uikit/napoleon/pixeldiff.py",
+  "purpose": "pure functions for uikit/napoleon/changes.py: decode_png (the fixed format of viewer/core/render.py png_bytes, stdlib only), judge (unchanged, within tolerance or changed against the baseline's channel_tolerance, max_changed_pixels and max_delta) and diff_png (changed pixels in red over the render dimmed 30 %)",
+  "usage": "import it (changes.py and tests/test_uikit.py do); it has no command line",
+  "when": "changes.py calls it for a corner whose rgba_sha256 differs from the baseline; equal hashes never reach it",
+  "not_a_verb": "a library module of changes.py, with no command line of its own",
+  "status": "live",
+  "last_used": "2026-11-04"
+}
