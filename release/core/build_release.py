@@ -91,9 +91,10 @@ def not_off(v):
     return v not in (False, 0, '', None)
 
 
-def key_text(v):
+def key_text(k):
+    """The ini text of a config_keys row's value (core W7, v0.16.0: gen_tables.key_type takes the row, not the value)."""
     import gen_tables
-    return gen_tables.key_type(v)[1]
+    return gen_tables.key_type(k)[1]
 
 
 # ---- config keys and the player ini (pure) ------------------------------------------------------------------------------------------
@@ -116,16 +117,16 @@ def player_ini(keys, rel, ident, ini_set=None):
     for k in sorted(keys, key=lambda k: k['id']):
         if not omitted(k, rel):
             sec, name = k['id'].split('.', 1)
-            sections.setdefault(sec, []).append((name, k['description'], k.get('release_value', k['default'])))
+            sections.setdefault(sec, []).append((name, k['description'], dict(k, default=k.get('release_value', k['default']))))
     byid = {k['id']: k for k in keys}
     for kid, v in sorted((ini_set or {}).items()):
         sec, name = kid.split('.', 1)
         desc = byid[kid]['description'] if kid in byid else 'set by a release component'
-        sections.setdefault(sec, []).append((name, desc + ' (set by the UI scale component of this release)', v))
+        sections.setdefault(sec, []).append((name, desc + ' (set by the UI scale component of this release)', dict(byid.get(kid, {'id': kid}), default=v)))
     for sec, items in sections.items():
         lines += ['', f'[{sec}]']
-        for name, desc, v in items:
-            lines += [f'; {desc}', f'{name}={gen_tables.key_type(v)[1]}']
+        for name, desc, row in items:   # row: the config_keys row with its default replaced by the value to list (key_type takes a row since core v0.16.0)
+            lines += [f'; {desc}', f'{name}={gen_tables.key_type(row)[1]}']
     return '\r\n'.join(lines) + '\r\n'
 
 
