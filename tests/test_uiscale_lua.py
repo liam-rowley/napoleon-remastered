@@ -44,6 +44,15 @@ def kval(data, func, k):
     return struct.unpack('<f', v)[0]
 
 
+def uiscale_cli():
+    """uiscale/napoleon/cli.py by path: the suite has other `cli` modules"""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('uiscale_cli', os.path.join(REPO, 'uiscale', 'napoleon', 'cli.py'))
+    cli = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cli)
+    return cli
+
+
 class Applier(unittest.TestCase):
     def setUp(self):
         self.data = chunk(RESIZE)
@@ -128,7 +137,7 @@ class Classifier(unittest.TestCase):
 
 class Tables(unittest.TestCase):
     def test_no_wrapped_refuses_the_play_install_work_folder(self):
-        import cli
+        cli = uiscale_cli()
         for work in (None, str(cli.pc_state.uiscale_work(cli.REPO))):
             with self.assertRaisesRegex(SystemExit, 'scratch folder'):
                 cli.build(1.5, work=work, no_wrapped=True)
@@ -231,8 +240,7 @@ class AgainstTheGame(unittest.TestCase):
 
     def test_the_check_is_green_at_every_factor(self):
         import check
-        import cli
-        layouts = cli.layouts_from()
+        layouts = uiscale_cli().layouts_from()
         for f, w, h in ((2.0, 3840, 2160), (1.5, 2560, 1440), (1.25, 2560, 1440)):
             rep = check.check_layouts(layouts, f, w, h)
             self.assertEqual((rep['loses_content'], rep['abutting']), ([], []), f)
