@@ -1,7 +1,7 @@
 {
   "id": "napoleon.fonts.engine_text_slots",
   "claim": "Which .cuf each engine text slot (HUD, tooltips, map labels, panels) opens in a running game is known only from static reading (uiscale/napoleon/font_slots.json), not from a run",
-  "state": "open",
+  "state": "verified",
   "evidence": "uiscale/runs/2026-11-05_j37pc/README.md",
   "date": "2026-11-05",
   "notes": "static_only: the file survey logs no .cuf opens (napoleon.fonts.file_survey_blind_to_cuf), so a per-context readout cannot be shot. Needs a proxy pack-read log (DLL change, rule 79). Owner: liam (decides whether that job is queued)."
