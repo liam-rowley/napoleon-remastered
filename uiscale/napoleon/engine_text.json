@@ -1,5 +1,7 @@
 {
  "factors": [
+  "1.25",
+  "1.5",
   "2"
  ],
  "generator": "uiscale/napoleon/engine_text.py",
@@ -43,6 +45,14 @@
    "fonts": {
     "Ingame 12, Normal": {
      "at": {
+      "1.25": {
+       "file": "ingame_24.cuf",
+       "name": "Ingame 24, Normal"
+      },
+      "1.5": {
+       "file": "ingame_24.cuf",
+       "name": "Ingame 24, Normal"
+      },
       "2": {
        "file": "ingame_24.cuf",
        "name": "Ingame 24, Normal"
@@ -80,6 +90,12 @@
   },
   {
    "at": {
+    "1.25": {
+     "frontend_22.cuf": "render"
+    },
+    "1.5": {
+     "frontend_22.cuf": "render"
+    },
     "2": {
      "frontend_22.cuf": "render"
     }
@@ -97,6 +113,12 @@
   },
   {
    "at": {
+    "1.25": {
+     "frontend_22.cuf": "render"
+    },
+    "1.5": {
+     "frontend_22.cuf": "render"
+    },
     "2": {
      "frontend_22.cuf": "render"
     }
@@ -114,6 +136,22 @@
   },
   {
    "at": {
+    "1.25": {
+     "frontend_10.cuf": "render",
+     "frontend_12.cuf": "render",
+     "frontend_14.cuf": "render",
+     "frontend_16.cuf": "render",
+     "frontend_18.cuf": "render",
+     "frontend_20.cuf": "render"
+    },
+    "1.5": {
+     "frontend_10.cuf": "render",
+     "frontend_12.cuf": "render",
+     "frontend_14.cuf": "render",
+     "frontend_16.cuf": "render",
+     "frontend_18.cuf": "render",
+     "frontend_20.cuf": "render"
+    },
     "2": {
      "frontend_10.cuf": "render",
      "frontend_12.cuf": "render",
@@ -179,6 +217,118 @@
  ],
  "model": "uiscale/runs/2026-11-03_j37_static/README.md",
  "plans": {
+  "1.25": {
+   "alias": {
+    "frontend_32.cuf": {
+     "items": [
+      "layouts naming Frontend 38, Normal"
+     ],
+     "of": "frontend_38.cuf"
+    }
+   },
+   "render": {
+    "frontend_10.cuf": {
+     "factor": 1.25,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_12.cuf": {
+     "factor": 1.25,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_14.cuf": {
+     "factor": 1.25,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_16.cuf": {
+     "factor": 1.25,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_18.cuf": {
+     "factor": 1.25,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_20.cuf": {
+     "factor": 1.25,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_22.cuf": {
+     "factor": 1.25,
+     "items": [
+      "engine.overlay_text_style",
+      "engine.ribbon_text"
+     ]
+    }
+   },
+   "skipped": {}
+  },
+  "1.5": {
+   "alias": {
+    "frontend_32.cuf": {
+     "items": [
+      "layouts naming Frontend 38, Normal"
+     ],
+     "of": "frontend_38.cuf"
+    }
+   },
+   "render": {
+    "frontend_10.cuf": {
+     "factor": 1.5,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_12.cuf": {
+     "factor": 1.5,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_14.cuf": {
+     "factor": 1.5,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_16.cuf": {
+     "factor": 1.5,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_18.cuf": {
+     "factor": 1.5,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_20.cuf": {
+     "factor": 1.5,
+     "items": [
+      "engine.loading_screen.quote"
+     ]
+    },
+    "frontend_22.cuf": {
+     "factor": 1.5,
+     "items": [
+      "engine.overlay_text_style",
+      "engine.ribbon_text"
+     ]
+    }
+   },
+   "skipped": {}
+  },
   "2": {
    "alias": {
     "frontend_32.cuf": {

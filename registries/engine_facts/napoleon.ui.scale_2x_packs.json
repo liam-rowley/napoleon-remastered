@@ -4,5 +4,5 @@
   "state": "verified",
   "evidence": "uiscale/runs/2026-11-02_j66/README.md",
   "date": "2026-11-02",
-  "notes": "run 2026-11-02_j66: land_small loaded in 3.8 s (J53: 3.9 s), campaign_start in 3.0 s; 96540 pack entries indexed (86995 vanilla + 9539 + 5 + 1 probe). The warm reset from the campaign stalled in loading (the known napoleon.campaign.quit_to_menu), killed through the watcher. Tooltips, settlement panel and unit-card rows in the campaign were not on screen (no click verb): unchecked"
+  "notes": "run 2026-11-02_j66: land_small loaded in 3.8 s (J53: 3.9 s), campaign_start in 3.0 s; 96540 pack entries indexed (86995 vanilla + 9539 + 5 + 1 probe). The warm reset from the campaign stalled in loading (the known napoleon.campaign.quit_to_menu), killed through the watcher. Tooltips, settlement panel and unit-card rows in the campaign were not on screen (no click verb): unchecked J67 (run 2026-11-05_j67pc), the J66 held-back items: radar group, Start Battle box, campaign minimap, front-end New content box, settlement panel and unit-card row: fixed and seen. Tooltip pre-size, wrap and map hover: patched, unseen headless. Loading screen and cursor: still 1x, after the cut line. The 2x set with the Lua is ui_scale_2x.pack sha 74f8729ad872, land_small load 3.8 s."
 }

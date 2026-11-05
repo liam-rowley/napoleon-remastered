@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.scale_1_25x_packs",
+  "claim": "The 1.25x harness build (ui_scale_125x.pack without the 2 wrapped scripts, fonts pack, templates) runs at 2560x1440: land_small and campaign_start with a field army shot with no crash that is not the known init one; it does not fill the front end at that size, and the minimap draws at 1.5x in its 1.25x frame (uiscale/README.md). The shipping pack was seen on the front end only",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc, the same harness-build limit as napoleon.ui.scale_1_5x_packs (shipping pack seen on the front end only: raw/c125). Not the 1440p default"
+}

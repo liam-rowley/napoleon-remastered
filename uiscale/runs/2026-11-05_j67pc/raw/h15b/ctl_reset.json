@@ -1,0 +1,105 @@
+{
+  "verb": "reset",
+  "status": "ok",
+  "reason": "",
+  "path": "warm",
+  "settle": {
+    "waited_for": "frontend",
+    "settled": true
+  },
+  "check": {
+    "compared": "scene after reset",
+    "expected": "frontend",
+    "got": "frontend",
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j67-20261105T204145Z-471029005",
+      "request": "reset frontend 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-05T20:41:45.761Z",
+      "end_utc": "2026-11-05T20:41:52.469Z",
+      "launch_id": "20261105T204113Z-p8952",
+      "steps": "battle: ExitBattle; battle: summary dismissed (DismissBattleResult); battle: post-battle screen closed (ClosePopup mp_postbattle)",
+      "from": "battle_deploy",
+      "to_frontend_s": 6.7,
+      "total_s": 6.7,
+      "mem_before": {
+        "va_mb": 1867,
+        "commit_mb": 1235
+      },
+      "mem_frontend": {
+        "va_mb": 1760,
+        "commit_mb": 977
+      },
+      "mem_after": {
+        "va_mb": 1760,
+        "commit_mb": 977
+      },
+      "state_at_end": {
+        "launch_id": "20261105T204113Z-p8952",
+        "pid": 8952,
+        "frame": 30142,
+        "scene": "frontend",
+        "scene_s": 4.6,
+        "uptime_s": 38.5,
+        "written_utc": "2026-11-05T20:41:52.469Z",
+        "last_present_utc": "2026-11-05T20:41:52.468Z",
+        "lua": {
+          "loaded": true,
+          "context": "frontend",
+          "pump_age_s": -0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": -1,
+          "age_s": 5.3
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 2,
+        "mem": {
+          "va_mb": 1760,
+          "commit_mb": 977
+        },
+        "reports": {
+          "autostart.army_sides": "9u0s,8u0s",
+          "autostart.army_size": "0/5000",
+          "autostart.army_units": "9",
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "23703"
+        }
+      },
+      "log": [
+        "2026-11-05T20:41:45.762Z [INFO ] [t24324] scene: battle_deploy -> loading after 18.0 s (uptime 31.8 s, frame 18394, lua battle)",
+        "2026-11-05T20:41:45.805Z [INFO ] [t17544] reset: step 1: battle: ExitBattle",
+        "2026-11-05T20:41:45.818Z [INFO ] [t24324] scene: battle probe naval=0 deploy_panel=-1",
+        "2026-11-05T20:41:46.445Z [INFO ] [t17544] reset: step 2: battle: summary dismissed (DismissBattleResult)",
+        "2026-11-05T20:41:46.959Z [INFO ] [t17544] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)",
+        "2026-11-05T20:41:47.237Z [INFO ] [t24324] luaopen_wsp: engine lua_State 04c79158, global state 405b8574 (thread 24324) (again)",
+        "2026-11-05T20:41:47.237Z [INFO ] [t24324] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-05T20:41:47.241Z [INFO ] [t24324] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)",
+        "2026-11-05T20:41:47.375Z [INFO ] [t24324] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-05T20:41:47.564Z [INFO ] [t24324] lua report: battle.map_folder = nap_mp_syrian_ridge",
+        "2026-11-05T20:41:47.564Z [INFO ] [t24324] lua report: battle.map_folder_ms = 23703",
+        "2026-11-05T20:41:47.566Z [INFO ] [t24324] lua report: battle.map_folder = nap_mp_grassy_flatlands",
+        "2026-11-05T20:41:47.752Z [INFO ] [t24324] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-05T20:41:47.756Z [INFO ] [t24324] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok",
+        "2026-11-05T20:41:47.827Z [INFO ] [t24324] timeline: movie_open +34457 ms movies\\frontend2.bik",
+        "2026-11-05T20:41:47.831Z [INFO ] [t24324] movies: BinkOpen movies\\frontend2.bik [handle 00000764 = \\\\?\\C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\data\\media.pack @ 353827505, flags 0x804400] -> 35bea2c0",
+        "2026-11-05T20:41:47.831Z [INFO ] [t24324] scene: loading -> frontend after 2.1 s (uptime 33.9 s, frame 18985, lua frontend)",
+        "2026-11-05T20:41:47.838Z [INFO ] [t24324] timeline: first_present_after_ready +34468 ms frontend",
+        "2026-11-05T20:41:52.469Z [INFO ] [t17544] reset: battle_deploy -> frontend: ok (address space 1867 -> 1760 MB, commit 1235 -> 977 MB)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-05T20:41:44.922Z",
+  "end_utc": "2026-11-05T20:41:53.022Z"
+}

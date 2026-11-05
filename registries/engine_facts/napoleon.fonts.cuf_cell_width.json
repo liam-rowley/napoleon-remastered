@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.cuf_cell_width",
+  "claim": "CUF header h9 (cuf.py size2) is the glyph cell width: it equals the widest glyph in every vanilla font, and the engine draws a glyph no wider than it, so a font scaled past its vanilla h9 loses the right of its wide glyphs",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc: J37 engine-text files kept the vanilla h9 (frontend_18 at 2x: 26 px m in a 16 px cell) and the credits read Tin for Tim; h9 = widest glyph fixed it (raw/x2_fix). The five 2x slots keep h9 24 with a widest glyph of 30 px, pinned by the golden pack: the rare glyphs over 24 px may clip"
+}

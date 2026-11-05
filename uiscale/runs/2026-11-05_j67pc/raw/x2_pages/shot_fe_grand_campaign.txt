@@ -1,0 +1,3 @@
+game.lock is held by 'j67' (session '37d9d2f9-15cf-4c9e-8dd4-c06811d0d1b9'): j67 holds it
+shot: C:\napoleon_remastered_pc\_scratch\j67\x2_pages\shots\fe_grand_campaign.jpg 1280 x 720 (from 3840 x 2160 at 2560,1440)
+[job j67-20261105T193742Z-44369884: ok exit=0]

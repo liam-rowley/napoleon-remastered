@@ -2,10 +2,10 @@
   "id": "uiscale.napoleon.cli",
   "kind": "script",
   "path": "uiscale/napoleon/cli.py",
-  "purpose": "write ui_scale_<f>x.pack (layouts + art), ui_scale_<f>x_fonts.pack, uied.templates.ui_scale_<f>x and the proxy rules file that redirects the loose templates to it, each with a .json (entries, sha256, held back, method), into <work> (default <state folder>\\uiscale\\work: tools/pc_state.py, the adapter's state_dir or $NAPOLEON_STATE_DIR)",
-  "usage": "python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [--no-fonts] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]   |   ... uiscale check-fonts [--factor 2] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]",
-  "when": "before `python3 upscale/pc/play.py install --scale 2` (Liam's 4K play test) and before a J66/J67 PC run; re-running reuses the art cache and gives byte-identical packs",
-  "not_a_verb": "the build behind tools/verbs/uiscale.py (runs in the art_build Python: numpy, Pillow, freetype-py, uharfbuzz)",
+  "purpose": "write ui_scale_<tag>x.pack (layouts, patched Lua scripts, art), ui_scale_<tag>x_fonts.pack, uied.templates.ui_scale_<tag>x and the proxy rules file that redirects the loose templates to it, each with a .json, into <work> (default <state folder>\\uiscale\\work: tools/pc_state.py, the adapter's state_dir or $NAPOLEON_STATE_DIR); write uiscale/napoleon/lua_consts.json and lua_patches.txt (lua-consts); verify the patch list's asserts (lua-patches --check); report a factor's overflow at a screen size (check)",
+  "usage": "python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--no-wrapped] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]   |   ... uiscale lua-consts [--scripts DIR] [--check]   |   ... uiscale lua-patches [--check] [--factor F] [--scripts DIR]   |   ... uiscale check --factor F --height H [--width W] [--scripts DIR]   |   ... uiscale check-fonts [--factor F] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]",
+  "when": "before `python3 upscale/pc/play.py install --scale F` (Liam's play test) and before a J66/J67 PC run; lua-consts after a change to the classifier or its overrides, lua-patches --check after a game update; re-running gives byte-identical packs and lists",
+  "not_a_verb": "the build behind tools/verbs/uiscale.py (build runs in the art_build Python: numpy, Pillow, freetype-py, uharfbuzz; lua-consts, lua-patches, check and check-fonts need only the standard library)",
   "status": "live",
-  "last_used": "2026-11-02"
+  "last_used": "2026-11-05"
 }

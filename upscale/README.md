@@ -47,6 +47,7 @@ python3 upscale/pc/play.py install --scale 2            # kit + ui_scale_2x.pack
 python3 upscale/pc/play.py status
 python3 upscale/pc/play.py uninstall                    # ends "identical"
 ```
+Other factors (J67): `--scale 1.5` for 2560x1440 (the default there), `--scale 1.25` built. The install refuses a leftover `napoleon_remastered.ini` with no proxy in (`--keep-ini` goes on, and the uninstall then leaves it); the uninstall refuses while a watcher profile is active.
 `--scale` refuses `--roles` or `--all`, because the scale pack carries its own 2x art. Set the game to 3840x2160 yourself in its options:
 the install does not touch the preferences. The loose `uied.templates` in `data\ui\templates\` is never written. The proxy's
 `dev.file_rules` redirects its reads to the scaled copy in the state folder. Files in the engine's UI cache

@@ -145,6 +145,20 @@ class EncodeTests(unittest.TestCase):
     def test_deterministic(self):
         self.assertEqual(cuf_encode.encode(FACE, self.van, 23.0, 500), self.out)
 
+    def test_a_slot_drawn_smaller_takes_a_scaled_header(self):
+        # J67: with the vanilla ascent over smaller glyphs the text sat low in its cell and was clipped (1.25x, run 2026-11-05_j67pc)
+        v = Cuf.parse(self.van)
+        data, _ = cuf_encode.render_set(['ingame_24.cuf'], lambda n: self.van, FACE, scale={'ingame_24.cuf': 0.625})['ingame_24.cuf']
+        self.assertLess(Cuf.parse(data).header[0], v.header[0])
+        full, _ = cuf_encode.render_set(['ingame_24.cuf'], lambda n: self.van, FACE)['ingame_24.cuf']
+        self.assertEqual(Cuf.parse(full).header[0], v.header[0])                 # the 2x slots keep theirs: the golden pack depends on it
+
+    def test_a_scaled_header_gives_the_widest_glyph_its_cell(self):
+        # J67: h9 is the glyph cell width; left at the vanilla value, a scaled font lost the right of its wide glyphs in the credits
+        o = Cuf.parse(cuf_encode.encode(FACE, self.van, 46.0, 500, keep_header=False, set_h2=48))
+        self.assertEqual(o.header[9], max(g.w for g in o.glyphs))
+        self.assertGreater(o.header[9], Cuf.parse(self.van).header[9])
+
     def test_parses_and_keeps_glyph_order_and_header(self):
         v, o = Cuf.parse(self.van), Cuf.parse(self.out)
         self.assertEqual(o.cmap, v.cmap)

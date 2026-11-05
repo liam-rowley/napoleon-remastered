@@ -2,9 +2,9 @@
   "id": "upscale.pc.play",
   "kind": "script",
   "path": "upscale/pc/play.py",
-  "purpose": "Liam's play-test install of the 2.5x UI art, or (J66, --scale 2) of the whole vanilla UI at 2x for 4K: refuse unsafe states, snapshot the game folder, install the proxy kit (pc_deploy) with dev.skip_intro=1 and the chosen packs (install_packs.ps1, sha-checked; with --scale also dev.file_rules pointing the loose uied.templates at the scaled copy in the state folder, and the UI cache moved aside), and undo it all back to a snapshot-identical game folder",
-  "usage": "python3 upscale/pc/play.py install [--roles a,b | --all | --scale 2] [--kit ID|DIR] [--intro] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR] [--uiscale-work DIR]   (Git Bash on the PC, from the repo checkout)",
-  "when": "before Liam sits down to play with the upscaled art (build the packs first: python3 core/wsc.py upscale pack --play --roles ..., or for --scale 2: python3 core/wsc.py uiscale build), and after, to put the game folder back; never while an agent job holds the game lock",
+  "purpose": "Liam's play-test install of the 2.5x UI art, or (J66, J67: --scale 2|1.5|1.25) of the whole vanilla UI at a factor (2 for 3840x2160, 1.25 or 1.5 for 2560x1440): refuse unsafe states, snapshot the game folder, install the proxy kit (pc_deploy) with dev.skip_intro=1 and the chosen packs (install_packs.ps1, sha-checked; with --scale also dev.file_rules pointing the loose uied.templates at the scaled copy in the state folder, and the UI cache moved aside), and undo it all back to a snapshot-identical game folder",
+  "usage": "python3 upscale/pc/play.py install [--roles a,b | --all | --scale 2|1.5|1.25] [--kit ID|DIR] [--intro] [--keep-ini] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR] [--uiscale-work DIR]   (Git Bash on the PC, from the repo checkout)",
+  "when": "before Liam sits down to play with the upscaled art (build the packs first: python3 core/wsc.py upscale pack --play --roles ..., or for --scale F: python3 core/wsc.py uiscale build --factor F), and after, to put the game folder back; never while an agent job holds the game lock",
   "not_a_verb": "a PC-side wrapper for Liam's own shell that composes pc_deploy.py and install_packs.ps1 (both stay the only writers of the game folder); agents use watcher jobs instead",
   "status": "live",
   "last_used": "2026-11-02"
