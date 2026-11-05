@@ -4,5 +4,5 @@
   "state": "open",
   "evidence": "uiscale/runs/2026-11-05_j37pc/README.md",
   "date": "2026-11-05",
-  "notes": "PC run 2026-11-05_j37pc: the file survey (dev.log_files, files.log) cannot settle this: it logged 0 rows naming font or .cuf in any of 9 launches (fonts are read through the pack index, not OS probes). Stays open; needs a proxy-side pack-read log (a DLL change, not this job)."
+  "notes": "PC run 2026-11-05_j37pc: the file survey (dev.log_files, files.log) cannot settle this: it logged 0 rows naming font or .cuf in any of 9 launches (fonts are read through the pack index, not OS probes). Stays open; needs a proxy-side pack-read log (a DLL change, not this job). Owner: liam (decides whether a proxy pack-read log job is queued)."
 }
