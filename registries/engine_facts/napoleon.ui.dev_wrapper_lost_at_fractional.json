@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.dev_wrapper_lost_at_fractional",
+  "claim": "With the patched scripts in ui_scale_125x.pack or ui_scale_15x.pack, the dev wrapper of ui\\frontend ui\\main.advert.luac does not run and the front end never pumps the bridge; the same list in ui_scale_2x.pack does not do this. Cause unknown",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc, 2560x1440: 1.25x and 1.5x no pump; vanilla and the 2x set pump at the same size; 1.5x without Lua or art pumps; 1.5x with the wrapped scripts left out (wsc uiscale build --no-wrapped) pumps. The patched advert itself runs (its text and size are right), so the pack entry was served in place of the wrapper. The proxy lists the virtual dev pack last at every factor (files.cpp), the pack headers match, and the Lua differs only in values, so the order is decided inside the engine. Harness only: a play install has no wrappers. Finding out needs a pack-read log (a DLL input, its own job). Verified is the observation; the cause stays an open question for liam (jobs/J67/report.md, open question 3)"
+}

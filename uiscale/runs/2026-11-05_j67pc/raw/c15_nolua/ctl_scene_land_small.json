@@ -1,0 +1,150 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "land_small",
+  "kind": "land",
+  "target": "battle:land_small",
+  "load_s": 3.7,
+  "path": {
+    "launch": {
+      "size": "2560x1440",
+      "keys_set": [
+        "dev.camera",
+        "dev.ctl",
+        "dev.log_files",
+        "dev.lua_bridge",
+        "dev.orders",
+        "dev.perf",
+        "dev.state_json",
+        "dev.timeline"
+      ],
+      "launch_s": 19.0,
+      "retried_after": "[job j67-20261105T202504Z-292228565: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]"
+    },
+    "via": "autostart"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'frontend', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.63,
+    "frames": 961,
+    "scene": "battle_deploy",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "NAP_MP_Grassy_Flatlands",
+      "deployment": "running"
+    },
+    "got": {
+      "map": "NAP_MP_Grassy_Flatlands",
+      "scene": "battle_deploy"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j67-20261105T202525Z-3153430468",
+      "request": "autostart battle:land_small 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-05T20:25:25.323Z",
+      "end_utc": "2026-11-05T20:25:30.403Z",
+      "launch_id": "20261105T202515Z-p3328",
+      "scene": "battle_deploy",
+      "lua": "started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+      "load_s": 3.7,
+      "total_s": 5.1,
+      "map": "NAP_MP_Grassy_Flatlands",
+      "map_folder_loaded": "nap_mp_grassy_flatlands",
+      "map_folder_loaded_after_request_ms": 157,
+      "map_folder_selected": "nap_mp_grassy_flatlands",
+      "preset_map": "NAP_MP_Grassy_Flatlands",
+      "state_at_end": {
+        "launch_id": "20261105T202515Z-p3328",
+        "pid": 3328,
+        "frame": 10683,
+        "scene": "battle_deploy",
+        "scene_s": 1.0,
+        "uptime_s": 13.8,
+        "written_utc": "2026-11-05T20:25:30.403Z",
+        "last_present_utc": "2026-11-05T20:25:30.402Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": -0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1837,
+          "commit_mb": 1207
+        },
+        "reports": {
+          "autostart.army_sides": "9u0s,8u0s",
+          "autostart.army_size": "0/5000",
+          "autostart.army_units": "9",
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "157"
+        }
+      },
+      "log": [
+        "2026-11-05T20:25:25.324Z [INFO ] [t25368] timeline: autostart_issued +9350 ms battle:land_small",
+        "2026-11-05T20:25:25.480Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_syrian_ridge",
+        "2026-11-05T20:25:25.480Z [INFO ] [t23620] lua report: battle.map_folder_ms = ",
+        "2026-11-05T20:25:25.483Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_sunken_crater",
+        "2026-11-05T20:25:25.486Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_siberian_plateau",
+        "2026-11-05T20:25:25.489Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_mountain",
+        "2026-11-05T20:25:25.491Z [INFO ] [t23620] lua report: battle.map_folder = welly_map_a",
+        "2026-11-05T20:25:25.494Z [INFO ] [t23620] lua report: battle.map_folder = welly_map_c",
+        "2026-11-05T20:25:25.496Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_prussian_hills",
+        "2026-11-05T20:25:25.500Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_italian_grassland",
+        "2026-11-05T20:25:25.502Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_homestead",
+        "2026-11-05T20:25:25.505Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_grassy_flatlands",
+        "2026-11-05T20:25:25.506Z [INFO ] [t23620] lua report: autostart.map = NAP_MP_Grassy_Flatlands",
+        "2026-11-05T20:25:25.506Z [INFO ] [t23620] lua report: autostart.map_folder = nap_mp_grassy_flatlands",
+        "2026-11-05T20:25:25.506Z [INFO ] [t23620] lua report: autostart.weather = dry/Dry",
+        "2026-11-05T20:25:25.506Z [INFO ] [t23620] lua report: autostart.time_of_day = 2",
+        "2026-11-05T20:25:25.506Z [INFO ] [t23620] lua report: autostart.army_size = 0/5000",
+        "2026-11-05T20:25:25.709Z [INFO ] [t23620] lua report: autostart.army_units = 9",
+        "2026-11-05T20:25:25.709Z [INFO ] [t23620] lua report: autostart.army_sides = 9u0s,8u0s",
+        "2026-11-05T20:25:25.712Z [INFO ] [t23620] movies: BinkClose movies\\frontend2.bik",
+        "2026-11-05T20:25:25.712Z [INFO ] [t23620] timeline: movie_close +9738 ms movies\\frontend2.bik",
+        "2026-11-05T20:25:25.714Z [INFO ] [t25368] autostart: lua ok: started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+        "2026-11-05T20:25:25.714Z [INFO ] [t25368] scene: frontend -> loading after 3.2 s (uptime 9.1 s, frame 9748, lua frontend)",
+        "2026-11-05T20:25:25.865Z [INFO ] [t23620] lua report: battle.map_folder = nap_mp_grassy_flatlands",
+        "2026-11-05T20:25:25.865Z [INFO ] [t23620] lua report: battle.map_folder_ms = 157",
+        "2026-11-05T20:25:25.866Z [INFO ] [t23620] Direct3DCreate9(sdk=32) -> 33650a58 [dxvk]",
+        "2026-11-05T20:25:25.866Z [INFO ] [t23620] headless: CreateDevice: back buffer 1x1, windowed, window 0001000c",
+        "2026-11-05T20:25:25.866Z [INFO ] [t23620] headless: CreateDevice: a helper device (back buffer 1x1): allowed, it shows nothing",
+        "2026-11-05T20:25:25.913Z [INFO ] [t23620] headless: CreateDevice(adapter 0, flags 0x22) -> 0x00000000",
+        "2026-11-05T20:25:27.549Z [INFO ] [t23620] luaopen_wsp: engine lua_State 3f1faa80, global state 3f1d86f4 (thread 23620) (again)",
+        "2026-11-05T20:25:27.549Z [INFO ] [t23620] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-05T20:25:27.557Z [INFO ] [t23620] lua: wrapper: battle pumps from OnUpdate",
+        "2026-11-05T20:25:27.558Z [INFO ] [t23620] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-11-05T20:25:29.375Z [INFO ] [t23620] lua: first pump from context 'battle' (thread 23620)",
+        "2026-11-05T20:25:29.375Z [INFO ] [t23620] scene: loading -> battle after 3.7 s (uptime 12.8 s, frame 10150, lua battle)",
+        "2026-11-05T20:25:29.376Z [INFO ] [t23620] lua: battle details: FlagPath=data\\ui\\flags\\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false",
+        "2026-11-05T20:25:29.376Z [INFO ] [t23620] scene: battle probe naval=0 deploy_panel=0",
+        "2026-11-05T20:25:29.404Z [INFO ] [t23620] timeline: first_present_after_ready +13430 ms battle",
+        "2026-11-05T20:25:29.438Z [INFO ] [t23620] scene: battle probe naval=0 deploy_panel=1",
+        "2026-11-05T20:25:29.438Z [INFO ] [t23620] scene: battle -> battle_deploy after 0.1 s (uptime 12.9 s, frame 10155, lua battle)",
+        "2026-11-05T20:25:29.440Z [INFO ] [t23620] timeline: first_present_after_ready +13466 ms battle_deploy"
+      ]
+    }
+  },
+  "start_utc": "2026-11-05T20:25:03.873Z",
+  "end_utc": "2026-11-05T20:25:34.861Z"
+}

@@ -126,6 +126,16 @@ class Classifier(unittest.TestCase):
 
 
 class Tables(unittest.TestCase):
+    def test_no_wrapped_knows_the_scripts_the_dev_wrappers_replace(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('uiscale_cli', os.path.join(REPO, 'uiscale', 'napoleon', 'cli.py'))   # by path: the suite has other `cli` modules
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+        w = cli.wrapped_paths()
+        self.assertIn('ui\\battle ui\\root.luac', w)
+        self.assertIn('ui\\frontend ui\\main.advert.luac', w)
+        self.assertEqual(len(w), 4)
+
     def test_font_slot_table_at_2x_is_j66s_set_at_its_own_size(self):
         t = json.loads(rd(os.path.join(REPO, 'uiscale/napoleon/font_slots.json')))
         two = {r['slot']: r for r in t['layouts'] if r['factor'] == 2.0}

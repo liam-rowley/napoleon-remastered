@@ -3,11 +3,12 @@
   "description": "D40 stop-gap, part 2, on J66's packs and tools: patch the pixel constants in Napoleon's UI Lua chunks that the 2x layouts leave at 1x (grid pitches, Resize calls, tooltip margins and wrap widths, map image draw and hover regions: Empire's lua/patches.txt and multiscale.md section 3.2 classify each; Napoleon's 497 scripts need their own list), add the 1.25x and 1.5x factors for 1440p (Empire: 1.5x overflows 96 px at 1440p, so 1440p used 1.25x), and fix the screens J66's report lists as broken or unchecked, screen by screen at 4K and 1440p.",
   "title": "UI scale stop-gap: Lua constants, 1440p factors, remaining screens",
   "phase": 5,
-  "status": "queued",
+  "status": "review",
   "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J66"
   ],
-  "brief": "jobs/J67/brief.md"
+  "brief": "jobs/J67/brief.md",
+  "report": "jobs/J67/report.md"
 }

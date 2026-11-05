@@ -1,0 +1,69 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "step autostart battle:land_small: no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)",
+  "scenario": "land_small",
+  "path": {
+    "launch": {
+      "size": "2560x1440",
+      "keys_set": [
+        "dev.camera",
+        "dev.ctl",
+        "dev.log_files",
+        "dev.lua_bridge",
+        "dev.orders",
+        "dev.perf",
+        "dev.state_json",
+        "dev.timeline"
+      ],
+      "launch_s": 19.3,
+      "retried_after": "[job j67-20261105T201437Z-338619857: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]"
+    },
+    "via": "autostart"
+  },
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "ctl": {
+      "id": "j67-20261105T201458Z-40111666",
+      "request": "autostart battle:land_small 240",
+      "status": "failed",
+      "reason": "no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)",
+      "start_utc": "2026-11-05T20:14:58.721Z",
+      "end_utc": "2026-11-05T20:18:58.751Z",
+      "launch_id": "20261105T201449Z-p8588",
+      "state_at_end": {
+        "launch_id": "20261105T201449Z-p8588",
+        "pid": 8588,
+        "frame": 984254,
+        "scene": "frontend",
+        "scene_s": 242.6,
+        "uptime_s": 248.8,
+        "written_utc": "2026-11-05T20:18:58.751Z",
+        "last_present_utc": "2026-11-05T20:18:58.751Z",
+        "lua": {
+          "loaded": true,
+          "context": "frontend",
+          "pump_age_s": -1.0
+        },
+        "battle": {
+          "naval": -1,
+          "deploy_panel": -1,
+          "age_s": -1.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1304,
+          "commit_mb": 690
+        },
+        "reports": {}
+      },
+      "log": []
+    }
+  },
+  "start_utc": "2026-11-05T20:14:36.968Z",
+  "end_utc": "2026-11-05T20:18:59.500Z"
+}

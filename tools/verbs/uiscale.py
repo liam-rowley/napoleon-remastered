@@ -1,7 +1,7 @@
 """The UI scale stop-gap as a verb (J66, J67, D40): build the vanilla UI at a factor, classify and check its Lua pixel constants, check a factor against a screen.
 
 purpose: run uiscale/napoleon/cli.py: build and status in the art_build Python under the PC state folder (tools/pc_state.py: adapter state_dir, or $NAPOLEON_STATE_DIR; numpy, Pillow, freetype-py, uharfbuzz); lua-consts, lua-patches and check in this Python (standard library only)
-usage: python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--limit N] [--jobs N]   |   python3 core/wsc.py uiscale status   |   python3 core/wsc.py uiscale lua-consts [--scripts DIR] [--check]   |   python3 core/wsc.py uiscale lua-patches [--check] [--factor F]   |   python3 core/wsc.py uiscale check --factor F --height H   |   ... uiscale check-fonts [--factor F] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]
+usage: python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--no-wrapped] [--limit N] [--jobs N]   |   python3 core/wsc.py uiscale status   |   python3 core/wsc.py uiscale lua-consts [--scripts DIR] [--check]   |   python3 core/wsc.py uiscale lua-patches [--check] [--factor F]   |   python3 core/wsc.py uiscale check --factor F --height H   |   ... uiscale check-fonts [--factor F] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]
 when: before `python3 upscale/pc/play.py install --scale F` (Liam's play test) and before a PC run of the scaled UI; lua-patches --check after a game update; nothing here writes the game folder
 verb: uiscale
 """
@@ -21,7 +21,7 @@ PLAIN = ('lua-consts', 'lua-patches', 'check')
 def add_arguments(p):
     p.add_argument('action', choices=('build', 'status', 'check-fonts', 'engine-text', 'licences') + PLAIN)
     p.add_argument('rest', nargs=argparse.REMAINDER,
-                   help='passed to uiscale/napoleon/cli.py (--factor, --work, --no-art, --no-fonts, --no-lua, --limit, --jobs, --scripts, --check, --height, --width)')
+                   help='passed to uiscale/napoleon/cli.py (--factor, --work, --no-art, --no-fonts, --no-lua, --no-wrapped, --limit, --jobs, --scripts, --check, --height, --width)')
 
 
 # J37: stdlib-only passes run in this Python (no art_build environment needed)

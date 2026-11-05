@@ -25,13 +25,15 @@ A re-run is byte-identical: the art is cached by input sha256, and the pack is k
 | Resolution | Factor | Packs | Status |
 |---|---|---|---|
 | 1920x1080 | none | vanilla | - |
-| 3840x2160 | 2.0 | `ui_scale_2x.pack` (about 1.8 GB), `ui_scale_2x_fonts.pack`, templates, rules | proven in game for layouts, art, fonts (run 2026-11-02_j66); the Lua is J67's PC slot |
-| 2560x1440 | 1.25 (default until the shots) or 1.5 | `ui_scale_125x.pack` (about 0.8 GB estimated), `ui_scale_15x.pack` (about 1.1 GB estimated), their fonts packs | built and host-tested only: unproven in game until J67's PC slot |
+| 3840x2160 | 2.0 | `ui_scale_2x.pack` (1810 MB), `ui_scale_2x_fonts.pack` (4.9 MB), templates (39 MB), rules | proven in game, Lua included (run 2026-11-05_j67pc) |
+| 2560x1440 | 1.5 | `ui_scale_15x.pack` (1025 MB), `ui_scale_15x_fonts.pack` (4.2 MB), templates (22 MB), rules | seen in game; battle and campaign on the harness build only (below) |
+| 2560x1440, not the default | 1.25 | `ui_scale_125x.pack` (717 MB), `ui_scale_125x_fonts.pack` (4.0 MB), templates (16 MB), rules | seen in game on the same terms; black bars on the front end |
 
-The installer picks one factor by resolution (`napoleon/config.json` `resolution_factor`). 1440p: `uiscale check --factor 1.5 --height 1440` finds no
-layout that loses content against 1080p; six front-end pages (credits, load_replay, mp_load_game, player_stats, sp_episodic_campaign, sp_load_game)
-draw their 1280x961 background 1 vanilla px past the 960-tall root, a bleed. So the check allows 1.5; by the J67 rule the 1440p shots decide, and until
-then the default is 1.25. Whether all three ship or are built on the player's machine is J38's call.
+The installer picks one factor by resolution (`napoleon/config.json` `resolution_factor`). 1440p takes 1.5 (fact `napoleon.ui.scale_factor_1440p`): `uiscale check --factor 1.5 --height 1440` finds no
+layout that loses content against 1080p (six front-end pages bleed 1 vanilla px), and its shots read better than 1.25. Whether all three ship or are built on the player's machine is J38's call.
+
+**Harness builds at 1.25x and 1.5x:** with the patched scripts in those packs the dev wrapper of the main menu does not run, so the bridge never pumps (fact `napoleon.ui.dev_wrapper_lost_at_fractional`, cause unknown; a play install
+has no wrappers). `wsc uiscale build --factor F --no-wrapped --work <scratch>` leaves out the wrapped scripts for a harness run, and `play.py install --scale F --uiscale-work <scratch>` takes it. Never ship that build.
 
 ## Code
 - `core/scale.py`: the layout and template rules (multiscale.md section 4 of the Empire branch), and Empire's long-form pass (J79): only a TextView's `Text` child keeps the spaced `Frontend 24` slot, every other user of it takes `Ingame 24`.
@@ -76,7 +78,7 @@ Text the engine draws without a layout's font choice, from `.cuf` files it opens
   It notes files nothing opens.
 - **Licences:** `uiscale/napoleon/font_licences.json` (for J38), checked by `python3 core/wsc.py uiscale licences --check`. It holds the face's own name-table facts, the pinned sha256 of the TTF and of `OFL.txt`, and what the Reserved Font Name means for the `.cuf` files. It is not legal advice.
 
-## Lua pixel constants (J67, desk phase 2026-11-03)
+## Lua pixel constants (J67, proven in run 2026-11-05_j67pc)
 `lua_consts.json`: 1014 uses in 145 of the 497 scripts reach a pixel: 258 `scale`, 756 `leave` (each with its reason), no `manual` and none unclassified.
 `lua_patches.txt`: 204 items in 69 scripts. Of Empire's 109 items, every one whose script and value exist in Napoleon is `scale` here, except the ones
 listed under "Not ported" below. Causes found:
@@ -85,11 +87,13 @@ listed under "Not ported" below. Causes found:
 - **Campaign minimap content** (`campaign.hud.radar`, `template.map_image`): the map draws at texture pixels x zoom x 2, and the theatre-map textures stay 1x; the x 2 and
   the two `FindRegion` multiplies (hover and click) scale together.
 - **Generic tooltip** (`template.tooltip`): the 200x200 pre-size and the 16 px padding scale (vanilla wrap and padding at every factor).
-- Patched scripts the dev wrappers also wrap (`proxy/napoleon/lua/wrappers.txt`): `ui/battle_ui/root.luac` and `ui/frontend_ui/main.advert.luac`. Which copy `wsp.vanilla`
-  runs under the harness is the first PC probe (`napoleon.ui.lua_pack_route`).
+- Patched scripts the dev wrappers also wrap (`proxy/napoleon/lua/wrappers.txt`): `ui/battle_ui/root.luac` and `ui/frontend_ui/main.advert.luac`. At 2x `wsp.vanilla` runs the patched copy (`napoleon.ui.lua_pack_route`).
 
 ## Held back or left (what is still 1x or unchecked)
-- **Unproven in game:** every Lua patch, and the 1.25x and 1.5x sets (J67 PC slot).
+- **Seen on the front end only:** the shipping 1.25x and 1.5x packs with all 69 scripts; their battle root patch has not run in a battle (harness builds above).
+- **Unreached headless:** pre-battle, reinforcements, battle results, the minimised HUD, the options tabs' content, the recruitment tab; the screen table is in `runs/2026-11-05_j67pc/README.md`.
+- **Front-end page titles:** about half their vanilla share of the screen at 2x. `Frontend 38` is the largest slot and `GetFont` clamps at 32, so a larger title needs a new slot plan (J37's side).
+- **Slot quantisation:** text drawn at a size between two slots looks a little small or large, as the first four Player Stats rows do.
 - **Unseen headless:** tooltips and map hover (no hover verb); they are checked statically. Liam's first play session: hover a settlement, a unit card, a building and a technology.
 - **Not ported from Empire (design changes, not scale fixes):** the wider tooltip wraps (900 at 2x) and equal right insets, and the map tooltip's right padding (inserted instructions).
   Vanilla has the same insets at 1080p. Empire's government one-letter fix and its religion-icon offset have no counterpart in Napoleon's script.

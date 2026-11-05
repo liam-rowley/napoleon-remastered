@@ -1,0 +1,68 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "step autostart battle:land_small: no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)",
+  "scenario": "land_small",
+  "path": {
+    "launch": {
+      "size": "2560x1440",
+      "keys_set": [
+        "dev.camera",
+        "dev.ctl",
+        "dev.log_files",
+        "dev.lua_bridge",
+        "dev.orders",
+        "dev.perf",
+        "dev.state_json",
+        "dev.timeline"
+      ],
+      "launch_s": 12.1
+    },
+    "via": "autostart"
+  },
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "ctl": {
+      "id": "j67-20261105T200116Z-1815416206",
+      "request": "autostart battle:land_small 240",
+      "status": "failed",
+      "reason": "no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)",
+      "start_utc": "2026-11-05T20:01:16.423Z",
+      "end_utc": "2026-11-05T20:05:16.459Z",
+      "launch_id": "20261105T200107Z-p21276",
+      "state_at_end": {
+        "launch_id": "20261105T200107Z-p21276",
+        "pid": 21276,
+        "frame": 990884,
+        "scene": "frontend",
+        "scene_s": 242.5,
+        "uptime_s": 248.5,
+        "written_utc": "2026-11-05T20:05:16.459Z",
+        "last_present_utc": "2026-11-05T20:05:16.458Z",
+        "lua": {
+          "loaded": true,
+          "context": "frontend",
+          "pump_age_s": -1.0
+        },
+        "battle": {
+          "naval": -1,
+          "deploy_panel": -1,
+          "age_s": -1.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1292,
+          "commit_mb": 685
+        },
+        "reports": {}
+      },
+      "log": []
+    }
+  },
+  "start_utc": "2026-11-05T20:01:01.952Z",
+  "end_utc": "2026-11-05T20:05:17.027Z"
+}

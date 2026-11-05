@@ -442,7 +442,8 @@ def render_set(names, vanilla_reader, face_path=DEFAULT_FACE, scale=None, spaced
             h2 = (spaced or {}).get(name) or int(van.header[2] * k + 0.5)
 
         def enc(e):
-            return encode(face_path, van_bytes, float(f'{e:.2f}'), wght, keep_header=True, set_h2=h2)
+            # a slot drawn smaller than its vanilla size takes a scaled header: with the vanilla ascent the text sat low and its cell clipped it (J67, 1.25x)
+            return encode(face_path, van_bytes, float(f'{e:.2f}'), wght, keep_header=(k == 1.0), set_h2=h2)
         data = enc(em)
         note = f'wght {wght} em {float(f"{em:.2f}"):.2f}'
         if fit:

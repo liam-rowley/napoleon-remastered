@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.radar_placement",
+  "claim": "ui/huds.luac RegisterHud clamps the HUD width to 1280 (if h_width > 1280 then h_width = 1280) and MoveRelativeToHUD places a right-docked part at h_width - width, so at 2x the radar group sat 1280 px left of its place: a script constant, not engine docking. Scaling the 1280 puts it in the top-right corner at 2x, 1.5x and 1.25x",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc: raw/x2_route/land.jpg against the 1080p reference; h15/land.jpg, h125/land.jpg"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.scale_1_25x_packs",
+  "claim": "The 1.25x set (ui_scale_125x.pack 717 MB, fonts pack, templates) runs at 2560x1440: land_small and campaign_start with a field army shot with no crash that is not the known init one; it does not fill the front end at that size",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc, the same harness-build limit as napoleon.ui.scale_1_5x_packs (shipping pack seen on the front end only: raw/c125). Not the 1440p default"
+}

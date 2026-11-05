@@ -2,7 +2,7 @@
 r"""Build Napoleon's UI scale stop-gap at a factor (J66, J67, D40): every vanilla layout, the patched UI scripts, uied.templates, the slot fonts and the UI art, as packs plus a templates file; classify and check the Lua pixel constants; check a factor against a screen.
 
 purpose: write ui_scale_<tag>x.pack (layouts, patched Lua scripts, art), ui_scale_<tag>x_fonts.pack, uied.templates.ui_scale_<tag>x and the proxy rules file that redirects the loose templates to it, each with a .json, into <work> (default <state folder>\uiscale\work: tools/pc_state.py, the adapter's state_dir or $NAPOLEON_STATE_DIR); write uiscale/napoleon/lua_consts.json and lua_patches.txt (lua-consts); verify the patch list's asserts (lua-patches --check); report a factor's overflow at a screen size (check)
-usage: python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]   |   ... uiscale lua-consts [--scripts DIR] [--check]   |   ... uiscale lua-patches [--check] [--factor F] [--scripts DIR]   |   ... uiscale check --factor F --height H [--width W] [--scripts DIR]   |   ... uiscale check-fonts [--factor F] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]
+usage: python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--no-wrapped] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]   |   ... uiscale lua-consts [--scripts DIR] [--check]   |   ... uiscale lua-patches [--check] [--factor F] [--scripts DIR]   |   ... uiscale check --factor F --height H [--width W] [--scripts DIR]   |   ... uiscale check-fonts [--factor F] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]
 when: before `python3 upscale/pc/play.py install --scale F` (Liam's play test) and before a J66/J67 PC run; lua-consts after a change to the classifier or its overrides, lua-patches --check after a game update; re-running gives byte-identical packs and lists
 not-a-verb: the build behind tools/verbs/uiscale.py (build runs in the art_build Python: numpy, Pillow, freetype-py, uharfbuzz; lua-consts, lua-patches, check and check-fonts need only the standard library)
 
@@ -200,12 +200,23 @@ def lua_patches_cmd(check=False, factor=2.0, scripts_dir=None):
     return 0
 
 
-def lua_entries(scripts, factor, work, tag, log=print):
-    """the patched scripts as pack entries (at each script's own pack path), written under work/lua_<tag>x"""
+def wrapped_paths():
+    """the pack entries the dev wrappers replace (proxy/napoleon/lua/wrappers.txt), lower case"""
+    with open(os.path.join(REPO, 'proxy', 'napoleon', 'lua', 'wrappers.txt'), encoding='utf-8') as f:
+        return {l.split('|')[0].strip().lower() for l in f if '|' in l and not l.startswith('#')}
+
+
+def lua_entries(scripts, factor, work, tag, log=print, no_wrapped=False):
+    """the patched scripts as pack entries (at each script's own pack path), written under work/lua_<tag>x. no_wrapped (harness builds only): leave out
+    the scripts the dev wrappers replace: at 1.25x and 1.5x a patched copy in the pack beat the wrapper and the bridge never pumped (run 2026-11-05_j67pc)"""
     import lua_patch
     paths = lua_paths()
+    skip = wrapped_paths() if no_wrapped else set()
     out = []
     for sid, items in lua_patch.parse_list(open(LUA_PATCHES, encoding='utf-8').read()):
+        if paths[sid].lower() in skip:
+            log(f'lua: {paths[sid]} left out (--no-wrapped)')
+            continue
         data, _ = lua_patch.apply(scripts[sid], items, factor)
         rel = os.path.join(f'lua_{tag}x', rel_file(paths[sid]))
         write_file(os.path.join(work, rel), data)
@@ -416,7 +427,7 @@ def build_fonts(cfg, fs, names, work, f, log=print):
 
 
 # -------------------------------------------------------------------------------------------------------------- build
-def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, log=print, no_lua=False):
+def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, log=print, no_lua=False, no_wrapped=False):
     import pack as upack
     cfg = load(CONFIG)
     games = load(GAMES)
@@ -473,7 +484,7 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
     if not no_art:
         refs = referenced_textures(lays, tvan)
         aent, held, methods = build_art(cfg, fs, refs, factor, work, str(pc_state.upscale_work(REPO)), limit, jobs, log)
-    lent = [] if no_lua else lua_entries(lua_scripts(fs=fs), factor, work, tag, log)
+    lent = [] if no_lua else lua_entries(lua_scripts(fs=fs), factor, work, tag, log, no_wrapped)
     ents = sorted(lay_entries + aent + lent, key=lambda e: e[0].lower())
     metas['pack'] = upack.build(cfg['pack_name'].format(tag=tag), ents, work, work, log=log,
                                 extra={'factor': factor, 'layouts': len(lay_entries), 'art': len(aent), 'lua': len(lent), 'art_methods': methods,
@@ -531,6 +542,7 @@ def main(argv=None):
     ap.add_argument('action', choices=['build', 'status', 'lua-consts', 'lua-patches', 'check', 'check-fonts'])
     ap.add_argument('--factor', type=float, default=2.0)
     ap.add_argument('--no-lua', action='store_true', help='build: leave the UI scripts vanilla')
+    ap.add_argument('--no-wrapped', action='store_true', help='build, harness runs only: leave out the scripts the dev wrappers replace')
     ap.add_argument('--scripts', help='lua-consts, lua-patches, check: read an extract folder (extract/napoleon) instead of the game')
     ap.add_argument('--check', action='store_true', help='lua-consts: compare with the committed files; lua-patches: verify every assert')
     ap.add_argument('--height', type=int, help='check: screen height (2160, 1440)')
@@ -553,7 +565,7 @@ def main(argv=None):
         if not a.height:
             ap.error('check needs --height')
         return check_cmd(a.factor, a.height, a.width, a.scripts)
-    build(a.factor, a.work, a.no_art, a.no_fonts, a.limit, a.jobs, no_lua=a.no_lua)
+    build(a.factor, a.work, a.no_art, a.no_fonts, a.limit, a.jobs, no_lua=a.no_lua, no_wrapped=a.no_wrapped)
     return 0
 
 

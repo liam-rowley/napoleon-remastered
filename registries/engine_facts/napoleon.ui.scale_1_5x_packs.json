@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.scale_1_5x_packs",
+  "claim": "The 1.5x set (ui_scale_15x.pack 1025 MB, fonts pack, templates) runs at 2560x1440: land_small, campaign_start with a field army and five front-end pages shot with no crash that is not the known init one; load 3.7 s",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc. The battle and campaign shots are of the harness build (--no-wrapped: 67 of 69 scripts, without main.advert and the battle root); the shipping pack with all 69 was seen on the front end only (raw/c15), because its bridge does not pump: napoleon.ui.dev_wrapper_lost_at_fractional"
+}

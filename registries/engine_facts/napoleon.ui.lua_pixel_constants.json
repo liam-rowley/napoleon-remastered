@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.lua_pixel_constants",
+  "claim": "The 497 UI scripts hold 1014 numeric constant uses that reach a pixel, in 145 scripts: 258 scale, 756 leave (each with a reason), no manual and none unclassified; lua_patches.txt applies 204 items in 69 scripts, every one asserting its vanilla value, and all hold against the installed game",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc: wsc uiscale lua-patches --check and lua-consts --check. Screens covered: battle radar group, campaign minimap and map_image hover, tooltips (static), grids and Resize calls; the screen table is in the run README"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.scale_factor_1440p",
+  "claim": "2560x1440 uses factor 1.5: wsc uiscale check --factor 1.5 --height 1440 lists no layout that loses content against 1080p (six front-end pages bleed 1 vanilla px) and the 1440p shots read better than 1.25, which leaves black bars left and right of the front end (2400 of 2560 px) and smaller text",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc, shots raw/c15/frontend.jpg, c125/frontend.jpg, h15b, h125b. At 1.5 the 960-tall canvas fills 1440 exactly: the mission popup touches the top edge. 1.25 stays built. config.json resolution_factor. Liam can overrule in the review (brief, open question 1)"
+}
