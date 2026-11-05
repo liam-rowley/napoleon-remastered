@@ -12,5 +12,5 @@
   ],
   "brief": "jobs/J64/brief.md",
   "report": "jobs/J64/report.md",
-  "blocked_by": "rule 79: run 20261104_j64pc5 stopped at pass 1 (campaign_start:load 8.1 s, limit 6.75 s; display clear, likely machine load, unproved); decide the re-run, then 20 passes on build 6e89faf06754, watcher 1.4.0 (jobs/J64/report.md, Open questions 1 and 7)"
+  "blocked_by": "rule 79: run 20261105_j64pc6 stopped at pass 7 (5 counting passes): a USB hub dropped and a third display joined at 08:51 UTC, so the headless guard refused (exit 2160); cause of the hardware event unknown; Liam to say what happened and which layout to use, then 21 passes on build 6e89faf06754, watcher 1.4.0 (jobs/J64/report.md, Open questions 1 and 7)"
 }

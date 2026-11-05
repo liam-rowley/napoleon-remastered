@@ -1,0 +1,10 @@
+2026-11-05T08:06:30 1010 Device VHF\HID_DEVICE_SYSTEM_VHF\9&203395a&0&3_Slot00 has been surprise removed as it is reported as missing on the bus. Count of devices removed: 2
+2026-11-05T08:20:42 1010 Device STORAGE\VolumeSnapshot\HarddiskVolumeSnapshot1 has been surprise removed as it is reported as missing on the bus. Count of devices removed: 1
+2026-11-05T08:50:13 1010 Device VHF\HID_DEVICE_SYSTEM_VHF\9&203395a&0&3_Slot00 has been surprise removed as it is reported as missing on the bus. Count of devices removed: 2
+2026-11-05T08:51:12 1010 Device USB\VID_0BDA&PID_5487\6&213fc5f6&0&1 has been surprise removed as it is reported as missing on the bus. Count of devices removed: 43
+2026-11-05T08:51:15 1010 Device USB\VID_0BDA&PID_8153\111000001 has been surprise removed as it is reported as missing on the bus. Count of devices removed: 1
+2026-11-05T08:51:15 1010 Device USB\VID_0BDA&PID_0413\7&1293e5f8&0&3 has been surprise removed as it is reported as missing on the bus. Count of devices removed: 1
+2026-11-05T08:51:15 1010 Device USB\VID_0BDA&PID_0487\6&213fc5f6&0&3 has been surprise removed as it is reported as missing on the bus. Count of devices removed: 1
+2026-11-05T08:53:55 1010 Device SWD\MMDEVAPI\{0.0.0.00000000}.{a526e4c6-b0c3-4cb4-99a7-515e9e7c432e} has been surprise removed as it is reported as missing on the bus. Count of devices removed: 1
+2026-11-05T08:53:56 1010 Device SWD\MMDEVAPI\{0.0.0.00000000}.{6b33e652-34d0-4a16-8334-cc3f8c752cb7} has been surprise removed as it is reported as missing on the bus. Count of devices removed: 1
+2026-11-05T08:53:56 1010 Device SWD\MMDEVAPI\{0.0.1.00000000}.{f1c3254c-d65b-4a97-812c-f93a0a5c078b} has been surprise removed as it is reported as missing on the bus. Count of devices removed: 1

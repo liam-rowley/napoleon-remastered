@@ -1,8 +1,8 @@
 # J64 report: pin bump to core v0.30.0 (re-scoped from v0.22.0) and the discovery switch
 
 **State: not finished. Rule 79 is not met.** The host work is done and green, but the 20 acceptance passes are not. Two runs stopped on a Windows Terminal window that each launch
-pulled onto the virtual display (proved in run 20261104_j64pc4; Liam has moved it). The latest run, 20261104_j64pc5, had a clear display and stopped in pass 1 on a load time over its
-limit. The row is `blocked`, not `review`, because a reviewer could not merge this. Liam's decision (2026-11-05): reboot, then re-run on a quiet PC. What is left is that run: **Open question 7 is the complete recipe.**
+pulled onto the virtual display (proved in run 20261104_j64pc4; Liam has moved it). Run 20261104_j64pc5 stopped in pass 1 on a load time over its limit. The latest run, 20261105_j64pc6, on a quiet PC after the reboot,
+passed 6 passes (5 that count for rule 79, on build `6e89faf06754`) with every load and shot in tolerance, then stopped in pass 7 because the PC's display layout changed mid-pass: a USB hub dropped off and a second physical monitor joined as primary. The row is `blocked`, not `review`, because a reviewer could not merge this. What is left is a fresh 21-pass run, which **needs Liam first (Open question 1)**; **Open question 7 is the recipe.**
 
 Sessions: the first build (`3815a970-...`, stop commit by `ed0f955b-...`) made the v0.22.0 bump and stopped before the PC (df7339a) with no report. This session
 (`0d47e00b-dc5e-433a-a22b-ac7cd944421f`) took Liam's re-scope.
@@ -53,6 +53,9 @@ minutes; d26e35e the discovery switch and `tests/test_discovery_repo.py`; 01366d
 | 20261104_j64pc3 | 6 | 6e89faf06754 | 6e89faf06754 | **FAIL**: `hist_nile:shot_match` 65.23, threshold 10.29 |
 | 20261104_j64pc4 | 1 | 62f2fdf4bd28 (kit label) | 6e89faf06754 | **FAIL**: `naval_large:shot_match` 41.098, threshold 10.18 (four earlier shots in tolerance) |
 | 20261104_j64pc5 | 1 | a6c0ba2ab61a (kit label) | 6e89faf06754 | **FAIL**: `campaign_start:load` 8.1 s, limit 6.75 s, baseline 2.7 s (every shot in tolerance) |
+| 20261105_j64pc6 | 1 | 7eb62ab4d5b7 (kit label) | 6e89faf06754 | pass (first launch died in `DllMain`, c0000374; relaunched) |
+| 20261105_j64pc6 | 2 to 6 | 6e89faf06754 | 6e89faf06754 | pass |
+| 20261105_j64pc6 | 7 | 6e89faf06754 | 6e89faf06754 | **FAIL**: `land_small:scene`, `step reset battle:land_small: no result`: the headless guard refused after a display change (exit code 2160) |
 
 **Cause of both shot failures, proved in run 20261104_j64pc4.** Both shots show the same Windows Terminal window over the game, with identical text down to the prompt `PS C:\Users\liamr\repos\warscape-core>`, so it sat idle from at least 20:23 to 22:30 UTC. `win_probe` could not name it: it enumerates only the game's own windows (`win_probe.ps1` line 140). For run 4 I ran a read-only observer beside the passes; its log is `harness/runs/20261104_j64pc4/foreign_windows.log`:
 - **Window:** title `Windows PowerShell`, process `WindowsTerminal`, pid 8872, the foreground window, rect 4655,2228,6407,3164 at rest: already on the virtual display (2560,1440 at 3840x2160).
@@ -63,7 +66,20 @@ minutes; d26e35e the discovery switch and `tests/test_discovery_repo.py`; 01366d
 
 The Nile headless relaunch flake (B60) happened once, in run 1's pass 2, and was retried as allowed.
 
-**End state (verified 2026-11-04, after run 20261104_j64pc5):** `pc_deploy uninstall`: "game folder identical to the pre-install snapshot"; `status`: exe ok, vanilla; no `game.lock`; game not running; watcher 1.4.0.
+**Run 20261105_j64pc6, the display change (session `787b5534-2481-4979-b076-947644bd84ee`).** Quiet PC, after the reboot: CPU 2 to 6% and 18 GB free before the first pass, lowest 17 GB free in the whole log, no other session, no Docker work, observer on (`harness/runs/20261105_j64pc6/foreign_windows.log`, only Explorer's windows). Passes 1 to 6 passed. No load in the 7 passes went over its limit: `campaign_start:load` 2.2 to 2.5 s, Dresden 6.2 to 6.4, Nile 3.7 to 4.5, Lodi 5.1 to 5.2. So run 5's 8.1 s did not recur on a quiet PC, which fits machine load as its cause, and the old-against-new DLL comparison was not triggered. The observer's CPU reading is 95% or more on 26 of its 55 minutes, while the game is running; I did not look into that further.
+
+What stopped pass 7, in order (UTC; `pass_07_proxy.log`, `pnp_events.log`, `watcher_extract.log`):
+- **08:50:13:** a virtual HID device (`VHF\HID_DEVICE_SYSTEM_VHF`) drops off. The same device did this at 08:06:30, so it may be unrelated.
+- **08:51:12 to 08:51:15:** Windows reports a USB hub surprise-removed (`VID_0BDA&PID_5487`, 43 devices), then `PID_0413`, `PID_0487` and the Realtek network adapter `PID_8153`. The proxy relocates the game and carries on; `siege_small` is shot and matches at 08:51:23.
+- **08:51:24:** the layout changes from 2 displays (Dell at 0,0 as primary, virtual display at 2560,1440 at 1920x1080) to 3: `DISPLAY1`, 3840x2160, is the new primary at 0,0, the Dell moves to -2560,327, and the virtual display is at 3839,2160 at 3840x2160. `DISPLAY1` shows as 'Generic PnP Monitor'; the PC's monitor list names the third monitor as the MSI MPG321UX OLED, so that is very likely it.
+- **08:51:29:** while the reset for `land_small` is running, the proxy refuses as designed: "the target display is gone after a display change", all windows hidden, exit code 2160. No crash dump, no hang; the watcher logged no hang.
+- **08:55:49:** the reset never gets a result, the pass ends, the lock is freed, the profile restores byte-identical, and the virtual display is restored in mode but not position ("position gone", kept 3839,2160, because 2560,1440 would now overlap the new primary).
+
+What set this off is **not known**. The last keyboard or mouse input was about 08:45, the display timeout on AC is never, and the log has no driver or power event. A hub and a monitor changing together fits one physical cause (a dock, a KVM, or a monitor with a built-in hub being switched or powered), but that is an inference; only Liam can say. The layout change itself is proved, and it is not a DLL fault: the guard did its job. These passes prove nothing about passes 8 to 21, though.
+
+**The pass 1 crash.** Pass 1's first launch (pid 20920, 08:12:27) exited at `starting DllMain` with a c0000374 dump, and `ctl.py` relaunched it; the pass went on and passed. This is the known `napoleon.proxy.init_heap_corruption` fact, not B60. The watcher log has 89 `HEADLESS FAILED` lines with that last status, 7 of them in J64's runs on 2026-11-04. The dump is beside the run's files in the J64 worktree (`*.dmp` is git-ignored).
+
+**End state (verified 2026-11-05, after run 20261105_j64pc6):** `pc_deploy uninstall`: "game folder identical to the pre-install snapshot" (1564 files); `status`: exe ok, vanilla; no `game.lock`; game not running; watcher 1.4.0. The display layout is **not** as it was before the run (see Open question 1).
 
 ## Deviations from the brief and why
 - **Target v0.30.0** (Liam's re-scope). Taken from J78: only W12, W23, W24 and W10's forced parts; not the opt-in `commit_msg_hook` or the audit's other pins.
@@ -78,7 +94,7 @@ The Nile headless relaunch flake (B60) happened once, in run 1's pass 2, and was
 - **Not done or not on record:** the first session's `sha256sum -c` proof of a pure move and the test counts before the bump are unrecorded, so "nothing silently lost" is unproved; I did not repeat them. The discovery passes that read the game were not re-run. The effects README difference was accepted by the first session; I did not re-diff it.
 
 ## Open questions
-1. **Re-run: decided.** Liam, 2026-11-05, through the orchestrating session: re-run with the same settings and baseline on a quiet PC, after a reboot (item 7). The comparison of old and new DLL load times follows only if a load time fails again on a quiet PC. The brief forbids editing the tolerance to pass; D56 prices a baseline edit at a 20-pass run. Still open: the `Empire.exe` at about 19:21 UTC is unexplained (not a watcher; the observer saw none in runs 4 and 5). My earlier reading that someone was at the PC was wrong for the terminal, which was idle.
+1. **Re-run: needs Liam (run 20261105_j64pc6).** Before a new 21-pass run: (a) what happened to the USB hub and monitor at 08:51 UTC, and can it be kept from happening for two hours? (b) Which layout should the run use? It now has a third display, and the virtual display sits at 3839,2160, so item 7's observer needs `-X 3839 -Y 2160`, or the layout has to go back to how it was. No retry was made and nothing was moved. Proposed for core W9 (its `result: flake`): a display change that the guard refuses on should stop a run as a flake, not a failure. Earlier decision, still standing: Liam, 2026-11-05, through the orchestrating session: re-run with the same settings and baseline on a quiet PC, after a reboot (item 7). The comparison of old and new DLL load times follows only if a load time fails again on a quiet PC. The brief forbids editing the tolerance to pass; D56 prices a baseline edit at a 20-pass run. Still open: the `Empire.exe` at about 19:21 UTC is unexplained (not a watcher; the observer saw none in runs 4 and 5). My earlier reading that someone was at the PC was wrong for the terminal, which was idle.
 2. **Proposed core row: a window on the virtual display must not be able to fail a pass.** The launch could refuse or warn on a foreign window inside the rect, `win_probe` could list foreign windows, or `shot` could capture the back buffer. Not made here (core change). The observer, `harness/runs/20261104_j64pc5/foreign_windows.ps1`, shows what such a check needs. Its one-minute `load` lines were added after run 5 and are unproved until the next run (only parsed so far).
 3. **Pass 1's build id** comes from the previous launch's log (core W9 is briefed). Until it lands, run 21 passes after a new DLL.
 4. `watch.cmd` changed in the 1.4.0 kit and `update` does not replace it: re-run `Install watcher.cmd` from `C:\napoleon_remastered_pc\kits\harness_20261104T190825Z_5fb94ad877ac`.
