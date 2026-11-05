@@ -402,6 +402,10 @@ def encode(face_path, vanilla_cuf_bytes, em, wght, keep_header=True, set_h2=None
     H[1] = out.glyphs[out.cmap[ord('H')]].top
     if set_h2 is not None:
         H[2] = set_h2
+    if not keep_header:
+        # h9 (cuf.py 'size2') is the glyph cell width: it equals the widest glyph in every vanilla file, and the engine draws no further, so a
+        # font scaled past its vanilla h9 loses the right of its wide glyphs (J67, run 2026-11-05_j67pc: "Tim" read "Tin" in the credits)
+        H[9] = max(g.w for g in out.glyphs)
     data = out.serialise()
     Cuf.parse(data)                                           # refuse to hand back anything the codec cannot read
     return data
@@ -419,20 +423,27 @@ def recipe(name):
     return (700 if name.startswith(('ingame_b_', 'tooltip_')) else 500), not regular
 
 
-def render_set(names, vanilla_reader, face_path=DEFAULT_FACE):
+def render_set(names, vanilla_reader, face_path=DEFAULT_FACE, scale=None, spaced=None):
     """Render each vanilla font `name` (e.g. 'ingame_24.cuf') as Lora. vanilla_reader(name) -> vanilla .cuf bytes.
     Regular ingame_/frontend_: wght 500, em = 23/24 x vanilla h2. ingame_b_/tooltip_: wght 700, others 500, em reduced until
-    the sample line is <= 99% of the vanilla width. Header kept; SPACED_H2 names get their h2. Returns {name: (bytes, note)}."""
+    the sample line is <= 99% of the vanilla width. Header kept; SPACED_H2 names get their h2. Returns {name: (bytes, note)}.
+    scale: {name: render scale} (J67, uiscale/napoleon/font_slots.json): the slot is drawn at that fraction of its own vanilla size
+    (1.0 = the 2x build, byte-identical to J66), with h2 = px(vanilla h2 * scale); spaced: {name: h2} replaces SPACED_H2 then."""
     res = {}
     for name in names:
         van_bytes = vanilla_reader(name)
         van = Cuf.parse(van_bytes)
         wght, fit = recipe(name)
+        k = (scale or {}).get(name, 1.0)
         em = van.header[2] * 23.0 / 24
         h2 = SPACED_H2.get(name)
+        if k != 1.0:
+            em *= k
+            h2 = (spaced or {}).get(name) or int(van.header[2] * k + 0.5)
 
         def enc(e):
-            return encode(face_path, van_bytes, float(f'{e:.2f}'), wght, keep_header=True, set_h2=h2)
+            # a slot drawn smaller than its vanilla size takes a scaled header: with the vanilla ascent the text sat low and its cell clipped it (J67, 1.25x)
+            return encode(face_path, van_bytes, float(f'{e:.2f}'), wght, keep_header=(k == 1.0), set_h2=h2)
         data = enc(em)
         note = f'wght {wght} em {float(f"{em:.2f}"):.2f}'
         if fit:

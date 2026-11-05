@@ -1,0 +1,55 @@
+{
+  "verb": "scene",
+  "status": "failed",
+  "reason": "step autostart campaign:new:mp_eur_napoleon:austria: no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)",
+  "scenario": "campaign_start",
+  "path": {
+    "launch": null,
+    "via": "autostart"
+  },
+  "settle": {},
+  "check": {},
+  "evidence": {
+    "ctl": {
+      "id": "j67-20261105T200617Z-2530130167",
+      "request": "autostart campaign:new:mp_eur_napoleon:austria 240",
+      "status": "failed",
+      "reason": "no front-end Lua pump (is dev.lua_bridge on and the wrapper loaded?)",
+      "start_utc": "2026-11-05T20:06:17.847Z",
+      "end_utc": "2026-11-05T20:10:17.892Z",
+      "launch_id": "20261105T200107Z-p21276",
+      "state_at_end": {
+        "launch_id": "20261105T200107Z-p21276",
+        "pid": 21276,
+        "frame": 2209379,
+        "scene": "frontend",
+        "scene_s": 543.9,
+        "uptime_s": 550.0,
+        "written_utc": "2026-11-05T20:10:17.892Z",
+        "last_present_utc": "2026-11-05T20:10:17.892Z",
+        "lua": {
+          "loaded": true,
+          "context": "frontend",
+          "pump_age_s": -1.0
+        },
+        "battle": {
+          "naval": -1,
+          "deploy_panel": -1,
+          "age_s": -1.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1292,
+          "commit_mb": 684
+        },
+        "reports": {}
+      },
+      "log": []
+    }
+  },
+  "start_utc": "2026-11-05T20:06:15.182Z",
+  "end_utc": "2026-11-05T20:10:18.501Z"
+}

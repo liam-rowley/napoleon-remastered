@@ -1,0 +1,11 @@
+{
+  "id": "uiscale.core.lua_consts",
+  "kind": "script",
+  "path": "uiscale/core/lua_consts.py",
+  "purpose": "walk every compiled UI script (Lua 5.1, core/discovery/luachunk.py) and list each numeric constant that reaches a pixel-taking engine call (MoveTo, Resize, CreateComponentFromTemplate x/y, ...) or a position or size calculation (arithmetic or a comparison with a value read from Width, Height, Bounds, Position, Dimensions, ScreenSize, ...), with script, function, pc, the call and a class; a game adapter's overrides correct the class with a reason",
+  "usage": "from lua_consts import classify; doc = classify({script id: bytes}, overrides, empire_items)   (library; `python3 core/wsc.py uiscale lua-consts` writes uiscale/napoleon/lua_consts.json and lua_patches.txt)",
+  "when": "J67 Lua pass of the UI scale stop-gap: before writing or changing a patch list, and after a game update (the classes are by vanilla pc)",
+  "not_a_verb": "a library behind uiscale/napoleon/cli.py lua-consts",
+  "status": "live",
+  "last_used": "2026-11-03"
+}

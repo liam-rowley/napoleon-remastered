@@ -1,0 +1,76 @@
+{
+  "verb": "reset",
+  "status": "ok",
+  "reason": "",
+  "path": "warm",
+  "settle": {
+    "waited_for": "frontend",
+    "settled": true
+  },
+  "check": {
+    "compared": "scene after reset",
+    "expected": "frontend",
+    "got": "frontend",
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j67-20261105T200558Z-2705219109",
+      "request": "reset frontend 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-05T20:05:58.670Z",
+      "end_utc": "2026-11-05T20:05:58.670Z",
+      "launch_id": "20261105T200107Z-p21276",
+      "from": "frontend",
+      "to_frontend_s": 0.0,
+      "total_s": 0.0,
+      "mem_before": {
+        "va_mb": 1292,
+        "commit_mb": 685
+      },
+      "mem_frontend": {
+        "va_mb": 1292,
+        "commit_mb": 685
+      },
+      "mem_after": {
+        "va_mb": 1292,
+        "commit_mb": 685
+      },
+      "state_at_end": {
+        "launch_id": "20261105T200107Z-p21276",
+        "pid": 21276,
+        "frame": 1158697,
+        "scene": "frontend",
+        "scene_s": 284.7,
+        "uptime_s": 290.8,
+        "written_utc": "2026-11-05T20:05:58.670Z",
+        "last_present_utc": "2026-11-05T20:05:58.670Z",
+        "lua": {
+          "loaded": true,
+          "context": "frontend",
+          "pump_age_s": -1.0
+        },
+        "battle": {
+          "naval": -1,
+          "deploy_panel": -1,
+          "age_s": -1.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 1,
+        "mem": {
+          "va_mb": 1292,
+          "commit_mb": 686
+        },
+        "reports": {}
+      },
+      "log": [
+        "2026-11-05T20:05:58.670Z [INFO ] [t20576] reset: frontend -> frontend: ok (address space 1292 -> 1292 MB, commit 685 -> 685 MB)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-05T20:05:57.940Z",
+  "end_utc": "2026-11-05T20:05:59.562Z"
+}

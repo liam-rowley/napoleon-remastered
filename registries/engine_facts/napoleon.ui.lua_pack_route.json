@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.lua_pack_route",
+  "claim": "A compiled UI script at its own entry in a movie pack (ui_scale_<tag>x.pack) replaces the vanilla script: no dev.file_rules line is needed. With the dev bridge on at 2x, wsp.vanilla returns that patched copy of a wrapped script, so the harness and a play install run the same bytes",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j67pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j67pc: ui/huds.luac (not wrapped) moved the battle radar group to the top-right corner on the first launch; probes/wsp_copy.lua read ui\\battle ui\\root.luac through wsp.vanilla at 2x: 76 present, 38 absent. See napoleon.ui.dev_wrapper_lost_at_fractional for 1.25x and 1.5x"
+}

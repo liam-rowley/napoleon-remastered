@@ -45,6 +45,14 @@ def resize_rgba(rgba, w, h, alpha_kind):
     return resample.finish(rgb_t, alpha)
 
 
+def resize_bgra(body, w, h, tw, th):
+    """the pixels of an uncompressed 32-bit TGA (a template's embedded texture, J67) at tw x th, by resize_rgba: bytes in, bytes out, row order kept"""
+    bgra = np.frombuffer(body, np.uint8).reshape(h, w, 4)
+    rgba = bgra[..., [2, 1, 0, 3]]
+    out = resize_rgba(rgba, tw, th, imageio.Source(rgba, 'tga').alpha_kind())
+    return np.ascontiguousarray(out[..., [2, 1, 0, 3]]).tobytes()
+
+
 def encode_like(out, src):
     """RGBA at the target size -> bytes in the vanilla source's container; (blob, info)"""
     th, tw = out.shape[:2]

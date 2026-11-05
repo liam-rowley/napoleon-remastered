@@ -1,0 +1,158 @@
+{
+  "verb": "scene",
+  "status": "ok",
+  "reason": "",
+  "scenario": "naval_small",
+  "kind": "naval",
+  "target": "battle:naval_small",
+  "load_s": 3.8,
+  "path": {
+    "launch": null,
+    "via": "reset"
+  },
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'frontend', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 3.69,
+    "frames": 1304,
+    "scene": "naval",
+    "settled": true
+  },
+  "check": {
+    "compared": "preset map against the row",
+    "expected": {
+      "map": "caribbean",
+      "deployment": "running"
+    },
+    "got": {
+      "map": "caribbean",
+      "scene": "naval"
+    },
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j67-20261105T192039Z-1454825031",
+      "request": "reset battle:naval_small 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-05T19:20:40.025Z",
+      "end_utc": "2026-11-05T19:20:51.589Z",
+      "launch_id": "20261105T192005Z-p26400",
+      "steps": "battle: ExitBattle; battle: summary dismissed (DismissBattleResult); battle: post-battle screen closed (ClosePopup mp_postbattle)",
+      "from": "battle_deploy",
+      "to_frontend_s": 6.7,
+      "total_s": 11.6,
+      "mem_before": {
+        "va_mb": 1902,
+        "commit_mb": 1238
+      },
+      "mem_frontend": {
+        "va_mb": 1804,
+        "commit_mb": 1011
+      },
+      "mem_after": {
+        "va_mb": 1833,
+        "commit_mb": 1166
+      },
+      "autostart": {
+        "scene": "naval",
+        "lua": "started battle caribbean (naval, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+        "load_s": 3.8,
+        "total_s": 4.8,
+        "map": "caribbean",
+        "map_folder_loaded": "caribbean",
+        "map_folder_loaded_after_request_ms": 562,
+        "map_folder_selected": "caribbean",
+        "preset_map": "caribbean"
+      },
+      "state_at_end": {
+        "launch_id": "20261105T192005Z-p26400",
+        "pid": 26400,
+        "frame": 29371,
+        "scene": "naval",
+        "scene_s": 1.0,
+        "uptime_s": 45.9,
+        "written_utc": "2026-11-05T19:20:51.589Z",
+        "last_present_utc": "2026-11-05T19:20:51.589Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 1,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 2,
+        "mem": {
+          "va_mb": 1833,
+          "commit_mb": 1166
+        },
+        "reports": {
+          "autostart.army_sides": "0u3s,0u3s",
+          "autostart.army_size": "0/5000",
+          "autostart.army_units": "3",
+          "autostart.map": "caribbean",
+          "autostart.map_folder": "caribbean",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "caribbean",
+          "battle.map_folder_ms": "562"
+        }
+      },
+      "log": [
+        "2026-11-05T19:20:40.026Z [INFO ] [t11784] scene: battle_deploy -> loading after 21.5 s (uptime 34.3 s, frame 16822, lua battle)",
+        "2026-11-05T19:20:40.077Z [INFO ] [t26084] reset: step 1: battle: ExitBattle",
+        "2026-11-05T19:20:40.081Z [INFO ] [t11784] scene: battle probe naval=0 deploy_panel=-1",
+        "2026-11-05T19:20:40.724Z [INFO ] [t26084] reset: step 2: battle: summary dismissed (DismissBattleResult)",
+        "2026-11-05T19:20:41.241Z [INFO ] [t26084] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)",
+        "2026-11-05T19:20:41.514Z [INFO ] [t11784] luaopen_wsp: engine lua_State 05c70a60, global state 05c06fb4 (thread 11784) (again)",
+        "2026-11-05T19:20:41.514Z [INFO ] [t11784] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-05T19:20:41.517Z [INFO ] [t11784] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)",
+        "2026-11-05T19:20:41.629Z [INFO ] [t11784] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-05T19:20:41.810Z [INFO ] [t11784] lua report: battle.map_folder = nap_mp_syrian_ridge",
+        "2026-11-05T19:20:41.810Z [INFO ] [t11784] lua report: battle.map_folder_ms = 26985",
+        "2026-11-05T19:20:41.813Z [INFO ] [t11784] lua report: battle.map_folder = nap_mp_grassy_flatlands",
+        "2026-11-05T19:20:41.813Z [INFO ] [t11784] lua report: battle.map_folder_ms = 27000",
+        "2026-11-05T19:20:41.999Z [INFO ] [t11784] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-05T19:20:42.003Z [INFO ] [t11784] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok",
+        "2026-11-05T19:20:42.083Z [INFO ] [t11784] timeline: movie_open +36976 ms movies\\frontend2.bik",
+        "2026-11-05T19:20:42.087Z [INFO ] [t11784] movies: BinkOpen movies\\frontend2.bik [handle 00000764 = \\\\?\\C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\data\\media.pack @ 353827505, flags 0x804400] -> 795df040",
+        "2026-11-05T19:20:42.087Z [INFO ] [t11784] scene: loading -> frontend after 2.1 s (uptime 36.4 s, frame 17417, lua frontend)",
+        "2026-11-05T19:20:42.095Z [INFO ] [t11784] timeline: first_present_after_ready +36988 ms frontend",
+        "2026-11-05T19:20:46.757Z [INFO ] [t26084] timeline: autostart_issued +41650 ms battle:naval_small",
+        "2026-11-05T19:20:46.769Z [INFO ] [t11784] lua report: battle.map_folder = hb_trafalgar",
+        "2026-11-05T19:20:46.769Z [INFO ] [t11784] lua report: battle.map_folder_ms = 31954",
+        "2026-11-05T19:20:46.771Z [INFO ] [t11784] lua report: battle.map_folder = hb_nile",
+        "2026-11-05T19:20:46.773Z [INFO ] [t11784] lua report: battle.map_folder = caribbean",
+        "2026-11-05T19:20:46.775Z [INFO ] [t11784] lua report: autostart.map = caribbean",
+        "2026-11-05T19:20:46.775Z [INFO ] [t11784] lua report: autostart.map_folder = caribbean",
+        "2026-11-05T19:20:46.794Z [INFO ] [t11784] lua report: autostart.army_units = 3",
+        "2026-11-05T19:20:46.795Z [INFO ] [t11784] lua report: autostart.army_sides = 0u3s,0u3s",
+        "2026-11-05T19:20:46.797Z [INFO ] [t11784] movies: BinkClose movies\\frontend2.bik",
+        "2026-11-05T19:20:46.797Z [INFO ] [t11784] timeline: movie_close +41690 ms movies\\frontend2.bik",
+        "2026-11-05T19:20:46.801Z [INFO ] [t26084] autostart: lua ok: started battle caribbean (naval, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2",
+        "2026-11-05T19:20:46.801Z [INFO ] [t26084] scene: frontend -> loading after 4.7 s (uptime 41.1 s, frame 28385, lua frontend)",
+        "2026-11-05T19:20:47.370Z [INFO ] [t11784] lua report: battle.map_folder = caribbean",
+        "2026-11-05T19:20:47.370Z [INFO ] [t11784] lua report: battle.map_folder_ms = 562",
+        "2026-11-05T19:20:49.450Z [INFO ] [t11784] luaopen_wsp: engine lua_State 42ef7dd0, global state 05c06fb4 (thread 11784) (again)",
+        "2026-11-05T19:20:49.450Z [INFO ] [t11784] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-05T19:20:49.458Z [INFO ] [t11784] lua: wrapper: battle pumps from OnUpdate",
+        "2026-11-05T19:20:49.458Z [INFO ] [t11784] lua: wrapper: battle pumps from OnUpdatePulse",
+        "2026-11-05T19:20:50.545Z [INFO ] [t11784] scene: loading -> battle after 3.7 s (uptime 44.8 s, frame 28813, lua battle)",
+        "2026-11-05T19:20:50.545Z [INFO ] [t11784] lua: battle details: FlagPath=data\\ui\\flags\\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=true",
+        "2026-11-05T19:20:50.545Z [INFO ] [t11784] scene: battle probe naval=1 deploy_panel=0",
+        "2026-11-05T19:20:50.545Z [INFO ] [t11784] scene: battle -> naval after 0.0 s (uptime 44.8 s, frame 28813, lua battle)",
+        "2026-11-05T19:20:50.608Z [INFO ] [t11784] timeline: first_present_after_ready +45501 ms naval",
+        "2026-11-05T19:20:50.632Z [INFO ] [t11784] scene: battle probe naval=1 deploy_panel=1",
+        "2026-11-05T19:20:51.589Z [INFO ] [t26084] reset: battle_deploy -> battle: ok (address space 1902 -> 1833 MB, commit 1238 -> 1166 MB)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-05T19:20:37.369Z",
+  "end_utc": "2026-11-05T19:20:56.211Z"
+}

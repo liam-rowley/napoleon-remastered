@@ -188,6 +188,24 @@ def scale_component(c, f, context, is_root=False, image_defs=True, org=(0, 0), s
         scale_component(ch, f, context, image_defs=image_defs, org=(ax, ay), stats=stats)
 
 
+# J67, run 2026-11-05_j67pc: a date cell in a list row on a Frontend slot. The slot is bigger than a true factor and Lora is wider, so a date takes
+# 353 px of the 360 px cell at 2x (vanilla: 144 of 180), past the wrap point: the time drops to a second line over the next row. Only the wrap
+# width grows: the text is left aligned and stays inside its column. The list's sp_load_game, mp_load_game, load_replay and file_requester.
+DATE_CELLS = {'save_date', 'date'}
+DATE_CELL_W = 200                # vanilla px
+DATE_CELL_SHIFT = 10             # vanilla px left: the row's clip cut the last digit of the seconds
+
+
+def date_cell_pass(c, f, parent=''):
+    """widen the wrap box of the date cells and move them clear of the row's clip (after the slots: an Ingame cell scales exactly and stays)"""
+    if f != 1 and parent == 'row_example' and c.get('name') in DATE_CELLS and any((st.get('font') or '').startswith('Frontend') for st in c['states']):
+        for st in c['states']:
+            st['w'] = max(st['w'], px(DATE_CELL_W * f))
+        c['x'] -= px(DATE_CELL_SHIFT * f)
+    for ch in c['children']:
+        date_cell_pass(ch, f, c.get('name') or '')
+
+
 def scale_layout(doc, f, context, scale_root=True, stats=None):
     """scale a parsed layout in place. scale_root=False keeps the root's own state size (the canvas) vanilla."""
     root = doc['root']
@@ -198,6 +216,7 @@ def scale_layout(doc, f, context, scale_root=True, stats=None):
             st['w'], st['h'] = w, h
     if LONGFORM:
         longform_pass(root, stats)   # after the slots, as Empire's scale_doc
+    date_cell_pass(root, f)
     return doc
 
 
@@ -252,15 +271,20 @@ def upgrade_component(c, is_root):
 
 
 def upscale_tga(tga, f):
-    """uncompressed TGA (type 2/3) -> tex_size(dim, f) by nearest neighbour (integer factors; the 2x build)"""
-    if f != int(f):
-        raise ValueError('embedded template textures: only integer factors (J66 builds 2.0; fractional needs the wrap-aware Lanczos, J67)')
+    """uncompressed TGA (type 2/3) -> tex_size(dim, f): nearest neighbour at integer factors (the 2x build), Lanczos otherwise (art.resize_bgra, J67;
+    every embedded texture in Napoleon's templates is 32-bit, and art needs numpy, so it is imported here and `wsc uiscale check` runs without it)"""
     h = bytearray(tga[:18])
     idlen = h[0]
     w, hh = struct.unpack_from('<HH', h, 12)
     bpp = h[16] // 8
     body = tga[18 + idlen:18 + idlen + w * hh * bpp]
     nw, nh = tex_size(w, f), tex_size(hh, f)
+    if f != int(f):
+        if bpp != 4:
+            raise ValueError(f'embedded template texture of {bpp * 8} bits at {f:g}x: only 32-bit ones resample')
+        import art
+        struct.pack_into('<HH', h, 12, nw, nh)
+        return bytes(h) + tga[18:18 + idlen] + art.resize_bgra(body, w, hh, nw, nh) + tga[18 + idlen + w * hh * bpp:]
     rows = []
     for y in range(nh):
         sy = min(int(y / f), hh - 1)

@@ -1,0 +1,56 @@
+{
+  "verb": "state",
+  "status": "ok",
+  "reason": "",
+  "state": {
+    "launch_id": "20261105T202046Z-p22168",
+    "pid": 22168,
+    "frame": 53645,
+    "scene": "frontend",
+    "scene_s": 14.7,
+    "uptime_s": 46.9,
+    "written_utc": "2026-11-05T20:21:33.510Z",
+    "last_present_utc": "2026-11-05T20:21:33.509Z",
+    "lua": {
+      "loaded": true,
+      "context": "frontend",
+      "pump_age_s": 0.0
+    },
+    "battle": {
+      "naval": 0,
+      "deploy_panel": -1,
+      "age_s": 15.4
+    },
+    "load_target": "",
+    "autostart": "off",
+    "movies_refused": 3,
+    "movies_opened": 2,
+    "mem": {
+      "va_mb": 1674,
+      "commit_mb": 921
+    },
+    "reports": {
+      "autostart.army_sides": "9u0s,8u0s",
+      "autostart.army_size": "0/5000",
+      "autostart.army_units": "9",
+      "autostart.map": "NAP_MP_Grassy_Flatlands",
+      "autostart.map_folder": "nap_mp_grassy_flatlands",
+      "autostart.time_of_day": "2",
+      "autostart.weather": "dry/Dry",
+      "battle.map_folder": "nap_mp_grassy_flatlands",
+      "battle.map_folder_ms": "22954"
+    }
+  },
+  "settle": {},
+  "check": {
+    "compared": "state.json readable",
+    "expected": "a scene and a frame",
+    "got": {
+      "scene": "frontend",
+      "frame": 53645
+    }
+  },
+  "evidence": {},
+  "start_utc": "2026-11-05T20:21:32.775Z",
+  "end_utc": "2026-11-05T20:21:34.233Z"
+}
