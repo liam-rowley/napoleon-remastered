@@ -21,3 +21,11 @@
 1. Is a proxy-side pack-read log (to see `.cuf` opens) wanted? It is a DLL change and needs its own job and rule-79 run.
 2. Should a full-size capture variant of `shot.sh` (cropping at native 4K) be added to the core for the measured crop pairs?
 3. The 1080p front-end shot and the measured heights could be added by a short follow-up sitting.
+
+## Fix round 1
+- Gate (row shapes, getfont_rule owner): fixed by the reviewer in 67aad7f; nothing left.
+- Should-fix 1 (missing facts): added `napoleon.fonts.engine_text_slots` and `napoleon.fonts.subtitles` (open, static_only, owner liam, reason: no .cuf open is logged) and `napoleon.fonts.licence` (verified, from `font_licences.json`) (898a3d7). `loading_quote` already existed.
+- Should-fix 2 (evidence by eye): not measured (shot helper writes 1280 px copies only); the `factor_follows_install` claim now says "by eye, not measured" and the run README says so (898a3d7).
+- Should-fix 3 (1080p front end): marked static_only in the run README (898a3d7); no extra PC sitting.
+- Should-fix 4 (DLL id): README now records that `build_id.py` gives a005f6cccc17 at both HEAD and origin/main, so the DLL inputs are unchanged (898a3d7).
+- Later items (proxy pack-read log, full-size shot mode): left for Liam / a core PR, as the review says.
