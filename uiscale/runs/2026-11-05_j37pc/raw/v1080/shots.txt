@@ -1,0 +1,5 @@
+campaign.jpg
+land_deploy.jpg
+land_turned.jpg
+naval_deploy.jpg
+siege_deploy.jpg

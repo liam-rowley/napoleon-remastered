@@ -10,7 +10,7 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'discovery', 'core'))
+sys.path.insert(0, os.path.join(ROOT, 'core', 'discovery'))
 
 from packfs import PackFS, write_pack  # noqa: E402
 

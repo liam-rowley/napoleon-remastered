@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 r"""Build Napoleon's UI scale stop-gap at a factor (J66, J67, D40): every vanilla layout, the patched UI scripts, uied.templates, the slot fonts and the UI art, as packs plus a templates file; classify and check the Lua pixel constants; check a factor against a screen.
 
-purpose: write ui_scale_<tag>x.pack (layouts, patched Lua scripts, art), ui_scale_<tag>x_fonts.pack, uied.templates.ui_scale_<tag>x and the proxy rules file that redirects the loose templates to it, each with a .json, into <work> (C:\napoleon_remastered_pc\uiscale\work); write uiscale/napoleon/lua_consts.json and lua_patches.txt (lua-consts); verify the patch list's asserts (lua-patches --check); report a factor's overflow at a screen size (check)
-usage: python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]   |   ... uiscale lua-consts [--scripts DIR] [--check]   |   ... uiscale lua-patches [--check] [--factor F] [--scripts DIR]   |   ... uiscale check --factor F --height H [--width W] [--scripts DIR]
+purpose: write ui_scale_<tag>x.pack (layouts, patched Lua scripts, art), ui_scale_<tag>x_fonts.pack, uied.templates.ui_scale_<tag>x and the proxy rules file that redirects the loose templates to it, each with a .json, into <work> (default <state folder>\uiscale\work: tools/pc_state.py, the adapter's state_dir or $NAPOLEON_STATE_DIR); write uiscale/napoleon/lua_consts.json and lua_patches.txt (lua-consts); verify the patch list's asserts (lua-patches --check); report a factor's overflow at a screen size (check)
+usage: python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]   |   ... uiscale lua-consts [--scripts DIR] [--check]   |   ... uiscale lua-patches [--check] [--factor F] [--scripts DIR]   |   ... uiscale check --factor F --height H [--width W] [--scripts DIR]   |   ... uiscale check-fonts [--factor F] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]
 when: before `python3 upscale/pc/play.py install --scale F` (Liam's play test) and before a J66/J67 PC run; lua-consts after a change to the classifier or its overrides, lua-patches --check after a game update; re-running gives byte-identical packs and lists
-not-a-verb: the build behind tools/verbs/uiscale.py (build runs in the art_build Python: numpy, Pillow, freetype-py; lua-consts, lua-patches and check need only the standard library)
+not-a-verb: the build behind tools/verbs/uiscale.py (build runs in the art_build Python: numpy, Pillow, freetype-py, uharfbuzz; lua-consts, lua-patches, check and check-fonts need only the standard library)
 
-Reads the game read-only through discovery/core/packfs.py (mod packs skipped, so an installed scale pack never feeds its own build), or with
+Reads the game read-only through core/discovery/packfs.py (mod packs skipped, so an installed scale pack never feeds its own build), or with
 --scripts an extract folder (extract/napoleon, core/proxy/tools/pack_list.py --extract), and the J36 masters under
-C:\napoleon_remastered_pc\upscale\work. Nothing here writes the game folder.
+<state folder>\upscale\work. Nothing here writes the game folder.
 """
 import argparse
 import concurrent.futures as cf
@@ -20,21 +20,23 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
-for p in ('uiscale/core', 'discovery/core', 'upscale/core'):
+for p in ('uiscale/core', 'core/discovery', 'upscale/core', 'tools'):
     sys.path.insert(0, os.path.join(REPO, p))
 import packfs  # noqa: E402
+import pc_state  # noqa: E402
 import scale  # noqa: E402
 import tpl  # noqa: E402
 import uic  # noqa: E402
 
 CONFIG = os.path.join(HERE, 'config.json')
+SLOTS = os.path.join(HERE, 'font_slots.json')
 GAMES = os.path.join(REPO, 'discovery', 'napoleon', 'games.json')
 ASSETS = os.path.join(REPO, 'registries', 'assets.jsonl')
 LUA_CONSTS = os.path.join(HERE, 'lua_consts.json')
 LUA_PATCHES = os.path.join(HERE, 'lua_patches.txt')
 LUA_OVERRIDES = os.path.join(HERE, 'lua_overrides.json')
 LUA_EMPIRE = os.path.join(HERE, 'lua_empire_items.json')
-FONT_SLOTS = os.path.join(HERE, 'font_slots.json')
+FONTS_DIFF = os.path.join(REPO, 'discovery', 'diff', 'fonts.json')
 
 
 def load(p):
@@ -236,7 +238,7 @@ def layouts_from(scripts_dir=None, fs=None):
 def check_cmd(factor, height, width=None, scripts_dir=None):
     import check
     width = width or int(round(height * 16 / 9))
-    slots = {r['slot'] for r in load(FONT_SLOTS)['layouts'] if r['factor'] == factor}
+    slots = {r['slot'] for r in load(SLOTS)['layouts'] if r['factor'] == factor}
     rep = check.check_layouts(layouts_from(scripts_dir), factor, width, height, slots or None)
     print(f'uiscale check: factor {factor:g} at {width}x{height}: {rep["layouts"]} layouts; '
           f'{len(rep["loses_content"])} lose content against 1080p {rep["loses_content"]}; {len(rep["bleed"])} bleed by at most '
@@ -383,13 +385,25 @@ def build_fonts(cfg, fs, names, work, f, log=print):
     if not face:
         raise SystemExit(f'uiscale: no Lora face at any of {cfg["font_faces"]}: vendor it at uiscale/fonts/Lora-Variable.ttf (D42)')
     log(f'font face: {face}')
-    rows = {r['slot']: r for r in load(FONT_SLOTS)['layouts'] if r['factor'] == f}
+    rows = {r['slot']: r for r in load(SLOTS)['layouts'] if r['factor'] == f}
     miss = sorted(set(names) - set(rows))
     if miss:
         raise SystemExit(f'uiscale: the scaled layouts name slot fonts {miss} that font_slots.json has no {f:g}x row for')
     out = cuf_encode.render_set(sorted(names), lambda n: fs.read('font\\' + n), face,
                                 scale={n: rows[n]['render_scale'] for n in names},
                                 spaced={n: rows[n]['spaced_h2'] for n in names if rows[n].get('spaced_h2')})
+    # J37 engine text: files the exe opens by itself, rendered at the factor, and aliases where GetFont's clamp sends a list name elsewhere
+    import fontcheck
+    plan = fontcheck.plan_engine(load(SLOTS)['engine_text'], f, set(names))
+    eng = cuf_encode.render_scaled(sorted(plan['render']), lambda n: fs.read('font\\' + n), f, face)
+    for n in sorted(eng):
+        if n in out:
+            raise SystemExit(f'uiscale: {n} is both a layout slot and engine text at {f:g}x (font_slots.json engine_text)')
+        out[n] = eng[n]
+    for n, a in sorted(plan['alias'].items()):
+        out[n] = (out[a['of']][0], f'alias of {a["of"]} (GetFont clamp): {out[a["of"]][1]}')
+    for n, why in sorted(plan['skipped'].items()):
+        log(f'font: {n} engine text skipped: {why}')
     sub = f'fonts_{tag_of(f)}x'
     entries, notes = [], {}
     for n in sorted(out):
@@ -412,7 +426,7 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
     stray = [n for n in fs.packs if n.lower().startswith(('ui_scale_', 'ui_art_'))]
     if stray:
         raise SystemExit(f'uiscale: mod pack(s) {stray} in data\\ are not in mod_packs: add them to discovery/napoleon/games.json')
-    work = work or cfg['work']
+    work = work or str(pc_state.uiscale_work(REPO))
     tag = tag_of(factor)
     os.makedirs(work, exist_ok=True)
     stats = {}
@@ -455,7 +469,7 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
     held, methods, aent = [], {}, []
     if not no_art:
         refs = referenced_textures(lays, tvan)
-        aent, held, methods = build_art(cfg, fs, refs, factor, work, cfg['upscale_work'], limit, jobs, log)
+        aent, held, methods = build_art(cfg, fs, refs, factor, work, str(pc_state.upscale_work(REPO)), limit, jobs, log)
     lent = [] if no_lua else lua_entries(lua_scripts(fs=fs), factor, work, tag, log)
     ents = sorted(lay_entries + aent + lent, key=lambda e: e[0].lower())
     metas['pack'] = upack.build(cfg['pack_name'].format(tag=tag), ents, work, work, log=log,
@@ -471,16 +485,47 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
 
 def status(work=None):
     cfg = load(CONFIG)
-    work = work or cfg['work']
+    work = work or str(pc_state.uiscale_work(REPO))
     for f in cfg['factors']:
         p = os.path.join(work, f'build_{tag_of(f)}x.json')
         print(open(p, encoding='utf-8').read() if os.path.exists(p) else f'uiscale: no {f:g}x build in {work}')
     return 0
 
 
+def vanilla_font_shas():
+    """{sha256: 'font\\<name>'} of every vanilla Napoleon .cuf (discovery/diff/fonts.json, J6): a pack must never carry one of them"""
+    d = load(FONTS_DIFF)['detail']['napoleon_files']
+    return {v['sha256']: k for k, v in d.items()}
+
+
+def check_fonts(factor=2.0, work=None, log=print):
+    """the slot check over a built fonts pack (<work>/ui_scale_<f>x_fonts.pack.json): returns the number of problems"""
+    import fontcheck
+    cfg = load(CONFIG)
+    work = work or str(pc_state.uiscale_work(REPO))
+    meta_p = os.path.join(work, cfg['fonts_pack_name'].format(tag=tag_of(factor)) + '.pack.json')
+    if not os.path.exists(meta_p):
+        log(f'check-fonts: no fonts pack manifest at {meta_p}: run `wsc uiscale build --factor {factor:g}` first')
+        return 1
+    meta = load(meta_p)
+    slots = load(SLOTS)
+    model = fontcheck.Model(slots['engine'])
+    names = dict(meta.get('slot_uses', {}))
+    files = {e['path'].lower().split('\\')[-1]: e['sha256'] for e in meta['files']}
+    plan = fontcheck.plan_engine(slots['engine_text'], factor, {scale.font_file(n) for n in names if scale.font_file(n)})
+    probs, notes = fontcheck.check(model, names, plan, files, vanilla_font_shas(), slots['engine']['fixed_opens'])
+    for n in notes:
+        log('check-fonts: note: ' + n)
+    for p in probs:
+        log('check-fonts: ' + p)
+    log(f'check-fonts {factor:g}x: {len(files)} files, {len(names)} layout names, {len(plan["render"])} engine renders, '
+        f'{len(plan["alias"])} aliases: {"ok" if not probs else f"{len(probs)} problem(s)"}')
+    return len(probs)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('action', choices=['build', 'status', 'lua-consts', 'lua-patches', 'check'])
+    ap.add_argument('action', choices=['build', 'status', 'lua-consts', 'lua-patches', 'check', 'check-fonts'])
     ap.add_argument('--factor', type=float, default=2.0)
     ap.add_argument('--no-lua', action='store_true', help='build: leave the UI scripts vanilla')
     ap.add_argument('--scripts', help='lua-consts, lua-patches, check: read an extract folder (extract/napoleon) instead of the game')
@@ -495,6 +540,8 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if a.action == 'status':
         return status(a.work)
+    if a.action == 'check-fonts':
+        return 1 if check_fonts(a.factor, a.work) else 0
     if a.action == 'lua-consts':
         return lua_consts_cmd(a.scripts, a.check)
     if a.action == 'lua-patches':

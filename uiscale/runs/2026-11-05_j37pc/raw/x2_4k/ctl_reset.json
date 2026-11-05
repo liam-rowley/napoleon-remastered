@@ -1,0 +1,105 @@
+{
+  "verb": "reset",
+  "status": "ok",
+  "reason": "",
+  "path": "warm",
+  "settle": {
+    "waited_for": "frontend",
+    "settled": true
+  },
+  "check": {
+    "compared": "scene after reset",
+    "expected": "frontend",
+    "got": "frontend",
+    "ok": true
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j37-20261105T184003Z-193002154",
+      "request": "reset frontend 240",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-05T18:40:04.053Z",
+      "end_utc": "2026-11-05T18:40:10.772Z",
+      "launch_id": "20261105T183810Z-p27520",
+      "steps": "battle: ExitBattle; battle: summary dismissed (DismissBattleResult); battle: post-battle screen closed (ClosePopup mp_postbattle)",
+      "from": "battle_deploy",
+      "to_frontend_s": 6.7,
+      "total_s": 6.7,
+      "mem_before": {
+        "va_mb": 1969,
+        "commit_mb": 1314
+      },
+      "mem_frontend": {
+        "va_mb": 1867,
+        "commit_mb": 1048
+      },
+      "mem_after": {
+        "va_mb": 1867,
+        "commit_mb": 1048
+      },
+      "state_at_end": {
+        "launch_id": "20261105T183810Z-p27520",
+        "pid": 27520,
+        "frame": 79092,
+        "scene": "frontend",
+        "scene_s": 4.7,
+        "uptime_s": 119.3,
+        "written_utc": "2026-11-05T18:40:10.772Z",
+        "last_present_utc": "2026-11-05T18:40:10.771Z",
+        "lua": {
+          "loaded": true,
+          "context": "frontend",
+          "pump_age_s": -0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": -1,
+          "age_s": 5.4
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 4,
+        "mem": {
+          "va_mb": 1867,
+          "commit_mb": 1048
+        },
+        "reports": {
+          "autostart.army_sides": "0u3s,0u3s",
+          "autostart.army_size": "0/5000",
+          "autostart.army_units": "3",
+          "autostart.map": "rti_fort_1",
+          "autostart.map_folder": "rti_fort_1",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "rti_fort_1",
+          "battle.map_folder_ms": "26891"
+        }
+      },
+      "log": [
+        "2026-11-05T18:40:04.055Z [INFO ] [t5496] scene: battle_deploy -> loading after 19.8 s (uptime 112.6 s, frame 68374, lua battle)",
+        "2026-11-05T18:40:04.107Z [INFO ] [t22200] reset: step 1: battle: ExitBattle",
+        "2026-11-05T18:40:04.108Z [INFO ] [t5496] scene: battle probe naval=0 deploy_panel=-1",
+        "2026-11-05T18:40:04.745Z [INFO ] [t22200] reset: step 2: battle: summary dismissed (DismissBattleResult)",
+        "2026-11-05T18:40:05.260Z [INFO ] [t22200] reset: step 3: battle: post-battle screen closed (ClosePopup mp_postbattle)",
+        "2026-11-05T18:40:05.512Z [INFO ] [t5496] luaopen_wsp: engine lua_State 05255120, global state 427c0544 (thread 5496) (again)",
+        "2026-11-05T18:40:05.512Z [INFO ] [t5496] lua: wsp.lua loaded (wsp 1)",
+        "2026-11-05T18:40:05.515Z [INFO ] [t5496] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)",
+        "2026-11-05T18:40:05.626Z [INFO ] [t5496] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-05T18:40:05.803Z [INFO ] [t5496] lua report: battle.map_folder = rti_fort_3",
+        "2026-11-05T18:40:05.803Z [INFO ] [t5496] lua report: battle.map_folder_ms = 26891",
+        "2026-11-05T18:40:05.804Z [INFO ] [t5496] lua report: battle.map_folder = rti_fort_1",
+        "2026-11-05T18:40:05.989Z [INFO ] [t5496] lua: wrapper: frontend pumps from OnUpdate",
+        "2026-11-05T18:40:05.992Z [INFO ] [t5496] lua: wrapper: frontend root InitState: warm reset, TransitionTo main ok",
+        "2026-11-05T18:40:06.071Z [INFO ] [t5496] timeline: movie_open +115206 ms movies\\frontend2.bik",
+        "2026-11-05T18:40:06.074Z [INFO ] [t5496] movies: BinkOpen movies\\frontend2.bik [handle 00000770 = \\\\?\\C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\data\\media.pack @ 353827505, flags 0x804400] -> 5893db60",
+        "2026-11-05T18:40:06.074Z [INFO ] [t5496] scene: loading -> frontend after 2.0 s (uptime 114.6 s, frame 68902, lua frontend)",
+        "2026-11-05T18:40:06.082Z [INFO ] [t5496] timeline: first_present_after_ready +115217 ms frontend",
+        "2026-11-05T18:40:10.772Z [INFO ] [t22200] reset: battle_deploy -> frontend: ok (address space 1969 -> 1867 MB, commit 1314 -> 1048 MB)"
+      ]
+    }
+  },
+  "start_utc": "2026-11-05T18:40:03.364Z",
+  "end_utc": "2026-11-05T18:40:11.388Z"
+}

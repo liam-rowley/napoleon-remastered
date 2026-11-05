@@ -12,7 +12,7 @@ component board and locks it; `LOCK.json` is his (this job never writes it).
 | `build.py` | expands the sources into `dist/` (committed): `base.rcss`, `library.rcss`, `factions_synthetic.rcss`; `--check` regenerates and compares |
 | `lint.py`, `gate.py`, `changes.py` | the machine checks below; `test_glyphs.py` draws the three throwaway board glyphs |
 | `fonts/` | Libre Baskerville 400, 700 and Public Sans 400, 600 as static TTFs, each pinned by sha256 in `SOURCES.json` with its OFL text |
-| `baseline.json`, `runs/` | the render hashes of the board at the four corners, and the evidence of the J34 run |
+| `baseline.json`, `baseline/`, `runs/` | the render hashes, the viewer build and the tolerance; one reference PNG per screen and corner; the evidence of the J34 run |
 
 The board is a viewer screen: `viewer/napoleon/board/` (`screen.json` with `"library": true`). Run everything with
 `viewer/core/build.sh --docker all` once, then:
@@ -93,8 +93,11 @@ class on the body (`document:SetClass("fac-france", true)`) or, with no sheet, `
 - **gate** (`gate.py`): the board at 1080p x 85 % (dp 0.85), 4K x 125 % (2.5), 21:9 3440x1440 x 100 % (1.333), 16:10 1920x1200 x 100 % (1.111). The renderer
   (`viewer_overflow_json` in `viewer/core/src/viewer.cpp`) reports any border box outside the viewport or outside a non-scrolling parent's content box (per axis; absolute elements against the
   viewport only), and content wider or taller than its own box. A scrolling or clipping ancestor exempts what is inside it on that axis.
-- **changes** (`changes.py`): re-renders the board and every library screen at the four corners and compares `rgba_sha256` with `baseline.json`; `--accept` rewrites it. When
-  `LOCK.json` (`{"locked": ["board"]}`, Liam's) names a screen that changed, the tool prints `CHANGED SINCE LOCK` and exits non-zero, and `--accept` refuses without `--allow-locked`: a locked screen is never silently demoted.
+- **changes** (`changes.py`, `pixeldiff.py`): re-renders the board and every library screen at the four corners. It compares `viewer.wasm` with the baseline's `wasm_sha256` first (a difference fails on its own: rebuild and
+  re-accept together), then `rgba_sha256`. A corner whose hash differs is decoded against its reference PNG in `baseline/`: it is `within tolerance` (listed, does not fail) when at most `max_changed_pixels` (a fraction of the corner)
+  differ by more than `channel_tolerance` and none by more than `max_delta`, else `changed`, with a `<screen>_<corner>.diff.png` (red over the render dimmed 30 %) in `--out`, kept in CI's `viewer-wasm` artifact. A size change is `changed` with no diff image.
+  The three numbers live in `baseline.json` `tolerance`. `--accept` rewrites the hashes and the PNGs, and the change counts only once the job's reviewer writes `Baseline accepted: <sha>` (`docs/REVIEW.md`). When
+  `LOCK.json` (`{"locked": ["board"]}`, Liam's) names a screen that changed, even within tolerance, the tool prints `CHANGED SINCE LOCK` and exits non-zero, and `--accept` refuses without `--allow-locked`: a locked screen is never silently demoted.
 
 ## RCSS features the library uses (for J32 parity and J35 host)
 

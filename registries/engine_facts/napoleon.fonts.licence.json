@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.licence",
+  "claim": "The only font component in the UI scale fonts packs is Lora (Version 3.008, SIL OFL-1.1, Reserved Font Name Lora), shipped as rendered .cuf bitmaps only; OFL.txt ships with the release",
+  "state": "verified",
+  "evidence": "uiscale/napoleon/font_licences.json",
+  "date": "2026-11-03",
+  "notes": "read from the face's name table and licence file, checked 2026-11-03 by uiscale licences --check; not legal advice."
+}

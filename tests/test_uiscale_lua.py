@@ -1,6 +1,6 @@
 """J67 host tests: the Lua patch applier and list, the pixel-constant classifier, the font slot table and the factor check.
 
-Synthetic chunks are assembled with discovery/core/luachunk.py, so nothing here needs the game. The committed list's asserts and the
+Synthetic chunks are assembled with core/discovery/luachunk.py, so nothing here needs the game. The committed list's asserts and the
 generated files are checked against the vanilla scripts when they are on this machine (the game, or an extract folder), else skipped.
 """
 import json
@@ -10,7 +10,7 @@ import sys
 import unittest
 
 REPO = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
-for p in ('uiscale/core', 'discovery/core', 'uiscale/napoleon'):
+for p in ('uiscale/core', 'core/discovery', 'uiscale/napoleon'):
     sys.path.insert(0, os.path.join(REPO, p))
 import luachunk as L  # noqa: E402
 import lua_consts  # noqa: E402

@@ -6,6 +6,8 @@ runs them on registries/hotkeys.jsonl, which is what makes them a gate today: th
 """
 import importlib.util
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -15,11 +17,8 @@ _spec = importlib.util.spec_from_file_location('hotkeys_verb', ROOT / 'tools' / 
 hk = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(hk)
 
-# Vanilla rows allowed to be an OS combo: (row id, reason). Empty today: no vanilla binding is one (J21, 2026-10-29).
-KNOWN_OS_COMBO = []
-# Vanilla pairs allowed to clash: (id, id, reason). The engine takes the mode-specific binding first (unproven, J21 open question).
-KNOWN_VANILLA_CLASH = [('vanilla.fps.deselect_all.0', 'vanilla.fps.end_turn.0',
-                        'Return deselects (mode all) and ends the turn (campaign): a vanilla double binding')]
+# Vanilla rows allowed to be an OS combo, and vanilla pairs allowed to clash: tools/verbs/hotkeys_known.json (J94: the verb reads it too).
+KNOWN_OS_COMBO, KNOWN_VANILLA_CLASH = hk.load_known()
 
 
 def row(rid, binding, context='battle', **kw):
@@ -95,6 +94,15 @@ class ClashRules(unittest.TestCase):
         a, b = row('a', 'K', 'global'), row('b', 'K', 'campaign')
         self.assertEqual(problems([a, b], known_clash=[('a', 'b', 'r')]), [])
         self.assertIn('stale', problems([a, row('b', 'L', 'campaign')], known_clash=[('a', 'b', 'r')])[0])
+
+    def test_split_keeps_canonical_names(self):   # J94: str.capitalize() turned NumpadAdd into Numpadadd
+        self.assertEqual(hk.split('Ctrl+NumpadAdd'), (['Ctrl'], 'NumpadAdd'))
+        self.assertEqual(hk.split('ctrl + numpadadd'), (['Ctrl'], 'NumpadAdd'))
+        self.assertEqual(hk.split('shift+pageup'), (['Shift'], 'PageUp'))
+        self.assertEqual(hk.split('alt+k'), (['Alt'], 'K'))
+        self.assertEqual(hk.split('alt+esc'), (['Alt'], 'Escape'))
+        self.assertEqual(hk.split('Ctrl+LeftDrag'), (['Ctrl'], 'LeftDrag'))   # not a known name: as typed
+        self.assertTrue(hk.os_combo('alt+f4') and hk.os_combo('win+d'))
 
     def test_free_keys_skip_clashes_f4_and_os_combos(self):
         free = hk.free_keys([row('v', 'K', 'battle'), wild('e', 'Escape', 'ANY', 'global')], contexts=('battle', 'campaign'))
@@ -181,6 +189,44 @@ class Parser(unittest.TestCase):
     def test_key_spelling(self):
         self.assertEqual([hk.spell_key(k) for k in ('a', '7', 'F12', 'ESCAPE', 'NUMPAD3', 'PAGE_DOWN', 'OEM_102', '')],
                          ['A', '7', 'F12', 'Escape', 'Numpad3', 'PageDown', None, None])
+
+
+class VerbInputs(unittest.TestCase):
+    """J94: the data folder comes from discovery/napoleon/games.json, and `hotkeys check` does not import from tests/."""
+
+    def test_game_data_is_the_games_json_value(self):
+        g = json.loads((ROOT / 'discovery' / 'napoleon' / 'games.json').read_text(encoding='utf-8'))['napoleon']
+        self.assertEqual(hk.GAME_DATA, g['root'].rstrip('\\') + '\\' + g['data'])
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / 'games.json'
+            f.write_text(json.dumps({'napoleon': {'root': r'D:\Games\Napoleon', 'data': 'data'}}), encoding='utf-8')
+            self.assertEqual(hk.game_data(f), (r'D:\Games\Napoleon\data', None))
+            path, err = hk.game_data(Path(d) / 'missing.json')
+            self.assertIsNone(path)
+            self.assertIn('cannot read the Napoleon data folder', err)
+
+    def test_check_runs_without_tests_on_the_path(self):
+        code = CHECK_WITHOUT_TESTS.format(core=str(ROOT / 'core'), root=str(ROOT))
+        p = subprocess.run([sys.executable, '-I', '-c', code], capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        self.assertIn('no clash', p.stdout)
+
+
+# `hotkeys check` in a fresh interpreter that refuses to import test_hotkeys and fails if tests/ ends up on sys.path
+CHECK_WITHOUT_TESTS = r'''
+import sys
+class Block:
+    def find_spec(self, name, path=None, target=None):
+        if name == 'test_hotkeys':
+            raise ImportError('the verb must not import from tests/')
+sys.meta_path.insert(0, Block())
+sys.path.insert(0, {core!r})
+from warscape.cli import main
+rc = main(['--root', {root!r}, 'hotkeys', 'check'])
+bad = [p for p in sys.path if p.replace('\\', '/').rstrip('/').endswith('/tests')]
+assert not bad, bad
+sys.exit(rc)
+'''
 
 
 class RealRegistry(unittest.TestCase):

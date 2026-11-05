@@ -1,6 +1,6 @@
 """Check a UI scale factor against a screen: each layout's scaled extent, abutting pairs, and the fonts its scaled layouts name.
 
-purpose: for each vanilla layout (discovery/core/uic.py), scale it at a factor (scale.py) and report its scaled root, the extent of its components against the screen (a layout taller or wider than the screen loses content), abutting sibling pairs that gap or overlap after scaling, and every font name of the scaled layouts against the slot table for that factor
+purpose: for each vanilla layout (core/discovery/uic.py), scale it at a factor (scale.py) and report its scaled root, the extent of its components against the screen (a layout taller or wider than the screen loses content), abutting sibling pairs that gap or overlap after scaling, and every font name of the scaled layouts against the slot table for that factor
 usage: from check import check_layouts; rep = check_layouts([(path, bytes)], 1.5, 2560, 1440, slots)   (library; `python3 core/wsc.py uiscale check --factor F --height H` prints it)
 when: choosing the 1440p factor (J67: 1.25 or 1.5) and before shipping any factor; ported from the idea of empire-remastered origin/ui/multiscale multiscale_check.py
 not-a-verb: a library behind uiscale/napoleon/cli.py check

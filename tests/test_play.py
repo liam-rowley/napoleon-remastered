@@ -28,8 +28,14 @@ def sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
-@unittest.skipUnless(PS, 'Windows PowerShell (powershell.exe) not found')
 class Play(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        if not PS:   # J74: on the Windows CI runner a missing PowerShell is a failure, never a silent skip
+            if os.name == 'nt' and os.environ.get('CI') == 'true':
+                raise AssertionError('Windows PowerShell is missing on the Windows CI runner: the play tests must run there, not skip')
+            raise unittest.SkipTest('Windows PowerShell (powershell.exe) not found')
+
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
         self.game = os.path.join(self.tmp, 'game')

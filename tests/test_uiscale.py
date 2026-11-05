@@ -13,7 +13,7 @@ import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'uiscale', 'core'))
-sys.path.insert(0, os.path.join(ROOT, 'discovery', 'core'))
+sys.path.insert(0, os.path.join(ROOT, 'core', 'discovery'))
 
 import scale  # noqa: E402
 import tpl  # noqa: E402
@@ -142,6 +142,72 @@ class Synthetic(unittest.TestCase):
         self.assertEqual(scale.context_of('ui\\campaign ui\\hud'), 'campaign')
 
 
+class LongForm(unittest.TestCase):
+    """J79 (audit G9): Empire's long-form pass. Only a TextView's 'Text' child keeps the spaced Frontend 24 (line pitch 30); the rest
+    move to Ingame 24, so no fixed-height box gets the spaced font. Frontend 38 and Bold stay."""
+
+    def doc(self):
+        v = 33
+        tv_text = comp(v, 'Text', 2, 2, [state(v, 100, 20, font='Ingame 12, Normal')])                  # -> Ingame 24 -> Frontend 24
+        tv_text_f = comp(v, 'Text', 2, 2, [state(v, 100, 20, font='Frontend 12, Normal')])              # -> Frontend 24, kept
+        tv_big = comp(v, 'Text', 2, 2, [state(v, 100, 20, font='Frontend 18, Normal')])                 # -> Frontend 38, kept
+        tv_bold = comp(v, 'Text', 2, 2, [state(v, 100, 20, font='Ingame 12, Bold')])                    # -> Ingame 24 Bold, kept
+        tv_other = comp(v, 'title', 2, 30, [state(v, 100, 20, font='Frontend 12, Normal')])             # in a TextView, not 'Text'
+        tv = comp(v, 'desc', 10, 10, [state(v, 120, 60)], children=[tv_text])
+        tv['template'] = 'TextView'
+        tv2 = comp(v, 'desc2', 10, 80, [state(v, 120, 60)], children=[tv_text_f, tv_big, tv_other])
+        tv2['script'] = 'Template.TextView.lua'                                                          # script route, any case
+        tv3 = comp(v, 'desc3', 10, 150, [state(v, 120, 60)], children=[tv_bold])
+        tv3['template'] = 'TextView'
+        label = comp(v, 'label', 10, 220, [state(v, 120, 20, font='Frontend 14, Normal')])              # fixed box -> Ingame 24
+        plain_text = comp(v, 'Text', 10, 250, [state(v, 120, 20, font='Frontend 14, Normal')])          # 'Text' outside a TextView
+        root = comp(v, 'root', 0, 0, [state(v, 1280, 960, font='Frontend 12, Normal')], children=[tv, tv2, tv3, label, plain_text])
+        return dict(version=v, root=root)
+
+    def walk(self, c, path=()):
+        yield path, c
+        for ch in c['children']:
+            yield from self.walk(ch, path + (c,))
+
+    def test_textview_text_takes_the_spaced_font_and_the_rest_move_off_it(self):
+        stats = {}
+        d = scale.scale_layout(self.doc(), 2.0, 'campaign', stats=stats)
+        got = {'/'.join(x['name'] for x in p) + '/' + c['name']: c['states'][0]['font'] for p, c in self.walk(d['root'])}
+        self.assertEqual(got['/root'], 'Ingame 24, Normal')                         # the root is never long-form
+        self.assertEqual(got['root/desc/Text'], 'Frontend 24, Normal')              # TextView (template) Text: Ingame 24 -> Frontend 24
+        d2 = [c for p, c in self.walk(d['root']) if p and p[-1]['name'] == 'desc2']    # TextView by script: Text, Text (38), title
+        self.assertEqual([c['states'][0]['font'] for c in d2], ['Frontend 24, Normal', 'Frontend 38, Normal', 'Ingame 24, Normal'])
+        self.assertEqual(got['root/desc3/Text'], 'Ingame 24, Bold')                 # Bold stays
+        self.assertEqual(got['root/label'], 'Ingame 24, Normal')                    # fixed box: displaced
+        self.assertEqual(got['root/Text'], 'Ingame 24, Normal')                     # 'Text' outside a TextView: displaced
+        self.assertEqual(stats['fonts']['Frontend 24, Normal'], 2)
+        self.assertEqual(sum(stats['fonts'].values()), 11)                         # every state still counted once
+        self.assertEqual(stats['longform'], {'Ingame 24, Normal -> Frontend 24, Normal': 1, 'Frontend 24, Normal -> Ingame 24, Normal': 4})
+
+    def test_off_keeps_the_slots(self):
+        scale.LONGFORM = False
+        try:
+            d = scale.scale_layout(self.doc(), 2.0, 'campaign')
+        finally:
+            scale.LONGFORM = True
+        self.assertEqual(find(d, 'label')['states'][0]['font'], 'Frontend 24, Normal')
+
+    def test_template_records_get_the_pass(self):
+        v = 33
+        text = comp(v, 'Text', 2, 2, [state(v, 100, 20, font='Ingame 12, Normal')])
+        tv = comp(v, 'tv', 0, 0, [state(v, 120, 60)], children=[text])
+        tv['template'] = 'TextView'
+        label = comp(v, 'label', 0, 70, [state(v, 120, 20, font='Frontend 16, Normal')])
+        root = comp(v, 'rec', 0, 0, [state(v, 200, 100)], children=[tv, label])
+        for _, c in uic.walk(root):
+            c['textures'] = []
+        d = template_file([('rec', tpl.serialise_record({'textures': [], 'root': root}, 33), 0)])
+        out, rep = scale.scale_templates_file(d, 2.0)
+        r = tpl.parse_record([r for r in tpl.split(out) if r['name'] == 'rec'][0])['root']
+        self.assertEqual(r['children'][0]['children'][0]['states'][0]['font'], 'Frontend 24, Normal')
+        self.assertEqual(r['children'][1]['states'][0]['font'], 'Ingame 24, Normal')
+
+
 def tga(w, h, seed=0):
     return struct.pack('<BBBHHBHHHHBB', 0, 0, 2, 0, 0, 0, 0, 0, w, h, 32, 0x28) + bytes((seed + i) & 0xFF for i in range(w * h * 4))
 
@@ -229,6 +295,44 @@ class Vanilla(unittest.TestCase):
         self.assertEqual(len(rep['scaled']) + len(rep['passed']), 126)
         self.assertEqual(sorted(p.split(' ')[0] for p in rep['passed']), ['BattleEditor', 'Cursor', 'InputWindow', 'slider'])
         self.assertEqual(len(tpl.split(out)), 126)
+
+
+    @unittest.skipUnless(game_root()[0], 'Napoleon is not installed here')
+    def test_long_form_rule_holds_on_every_template_state(self):
+        """J79: 12 template states use Frontend 24 after the slots alone (audit G9), none in a TextView's Text; after the pass only
+        TextView Text states use it (1 in the shipped uied.templates, measured 2026-11-04)"""
+        g, data = game_root()
+        with open(os.path.join(data, 'ui', 'templates', 'uied.templates'), 'rb') as f:
+            d = f.read()
+
+        def counts(on):
+            scale.LONGFORM = on
+            try:
+                out, rep = scale.scale_templates_file(d, 2.0)
+            finally:
+                scale.LONGFORM = True
+            tv_text = other = 0
+            for r in tpl.split(out):
+                if r['name'] not in rep['scaled']:
+                    continue
+                root = tpl.parse_record(r)['root']
+
+                def rec(c, in_tv, top=False):
+                    nonlocal tv_text, other
+                    if any(st.get('font') == scale.LONGFORM_FONT for st in c['states']):
+                        n = sum(st.get('font') == scale.LONGFORM_FONT for st in c['states'])
+                        if in_tv and not top and c['name'] == 'Text':
+                            tv_text += n
+                        else:
+                            other += n
+                    for ch in c['children']:
+                        rec(ch, scale.is_textview(c))
+                rec(root, False, True)
+            return tv_text, other
+        self.assertEqual(counts(False), (0, 12))
+        after = counts(True)
+        self.assertEqual(after[1], 0)                                               # no fixed box keeps the spaced font
+        self.assertEqual(after, (1, 0))
 
 
 class ArtSize(unittest.TestCase):

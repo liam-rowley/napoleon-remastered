@@ -2,10 +2,10 @@
   "id": "wsc.uiscale",
   "kind": "verb",
   "path": "tools/verbs/uiscale.py",
-  "purpose": "run uiscale/napoleon/cli.py: build and status in the Python under C:\\\\napoleon_remastered_pc\\\\upscale\\\\art_build (numpy, Pillow, freetype-py); lua-consts, lua-patches and check in this Python (standard library only)",
-  "usage": "python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--limit N] [--jobs N]   |   python3 core/wsc.py uiscale status   |   python3 core/wsc.py uiscale lua-consts [--scripts DIR] [--check]   |   python3 core/wsc.py uiscale lua-patches [--check] [--factor F]   |   python3 core/wsc.py uiscale check --factor F --height H",
+  "purpose": "run uiscale/napoleon/cli.py: build and status in the art_build Python under the PC state folder (tools/pc_state.py: adapter state_dir, or $NAPOLEON_STATE_DIR; numpy, Pillow, freetype-py, uharfbuzz); lua-consts, lua-patches and check in this Python (standard library only)",
+  "usage": "python3 core/wsc.py uiscale build [--factor 1.25|1.5|2] [--work DIR] [--no-art] [--no-fonts] [--no-lua] [--limit N] [--jobs N]   |   python3 core/wsc.py uiscale status   |   python3 core/wsc.py uiscale lua-consts [--scripts DIR] [--check]   |   python3 core/wsc.py uiscale lua-patches [--check] [--factor F]   |   python3 core/wsc.py uiscale check --factor F --height H   |   ... uiscale check-fonts [--factor F] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]",
   "when": "before `python3 upscale/pc/play.py install --scale F` (Liam's play test) and before a PC run of the scaled UI; lua-patches --check after a game update; nothing here writes the game folder",
   "verb": "uiscale",
   "status": "live",
-  "last_used": "2026-11-03"
+  "last_used": "2026-11-05"
 }

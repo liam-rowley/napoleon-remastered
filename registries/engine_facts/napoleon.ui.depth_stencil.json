@@ -1,0 +1,6 @@
+{
+  "id": "napoleon.ui.depth_stencil",
+  "claim": "The main device has no auto depth-stencil (EnableAutoDepthStencil 0, the format field holds 75 = D24S8 but is unused), so the game's own depth surfaces carry whatever stencil it creates them with; not read yet. The RmlUi host does not depend on it: its clip masks use its own D24S8 surface (default pool, released before Reset)",
+  "state": "open",
+  "notes": "owner: J35 (or a dev.capture frame capture: the CreateDepthStencilSurface/CreateTexture formats); verified part: proxy.log 'ui: CreateDevice', run 20261102_j30pc"
+}

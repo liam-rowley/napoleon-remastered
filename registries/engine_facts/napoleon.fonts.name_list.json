@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.name_list",
+  "claim": "A layout or template font name resolves only through a fixed exe list of 19 names (Ingame 10/12/14/16/18/24 Normal and Bold, Frontend 12/14/16/18/22/24/38 Normal; table 0x1464120, lookup 0x1029fd0); any other name gets index 2, Ingame 12 Normal",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-03_j37_static/README.md",
+  "date": "2026-11-03",
+  "notes": "static RE only (run 2026-11-03_j37_static, vanilla exe sha1 9aebcd21); the in-game confirmation is a scaled layout with an unlisted name drawing small, not tried"
+}

@@ -1,12 +1,12 @@
 """Apply a factor-neutral Lua patch list to compiled UI scripts: assert each vanilla constant or instruction, then scale it by the factor.
 
-purpose: parse a patch list (Empire's ui_scale_mod syntax, every number in vanilla pixels, every item asserting what it changes), apply it to Lua 5.1 chunks at a factor with px(x) = floor(x + 0.5) on discovery/core/luachunk.py, re-parse every result, and check a list against a set of scripts; also writes a list from a lua_consts classification
+purpose: parse a patch list (Empire's ui_scale_mod syntax, every number in vanilla pixels, every item asserting what it changes), apply it to Lua 5.1 chunks at a factor with px(x) = floor(x + 0.5) on core/discovery/luachunk.py, re-parse every result, and check a list against a set of scripts; also writes a list from a lua_consts classification
 usage: from lua_patch import parse_list, apply, check, write_list; out, log = apply(chunk_bytes, items, 1.5)   (library; `python3 core/wsc.py uiscale lua-patches [--check]` and `uiscale build` drive it)
 when: J67 Lua part of the UI scale stop-gap: the build writes the patched scripts into ui_scale_<tag>x.pack; --check after a game update fails loudly on a changed instruction
 not-a-verb: a library behind uiscale/napoleon/cli.py, ported from empire-remastered ui_scale_mod/tools/apply_patches.py and luapatch.py
 
 List syntax: `script id | item, item, ...`, one line per script (`#` starts a comment line). pc and K are vanilla indices
-(`python3 discovery/core/luachunk.py list <file>`), however many edits come before them on the line.
+(`python3 core/discovery/luachunk.py list <file>`), however many edits come before them on the line.
   func:K[v]                 scale numeric constant K, whose vanilla value must be v, to px(v * factor)
   func:K[v]=w               set it to px(w * factor) (w in vanilla pixels)
   func@pc[INSTR]=INSTR      replace the instruction at pc, which must be the vanilla INSTR

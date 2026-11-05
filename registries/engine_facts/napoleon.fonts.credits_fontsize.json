@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.credits_fontsize",
+  "claim": "The exe string fontsize is an attribute of text/credits.xml string elements (parser 0x4635b0), not a preference, a script argument or a subtitle setting",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-03_j37_static/README.md",
+  "date": "2026-11-03",
+  "notes": "static RE (run 2026-11-03_j37_static); the credits size is data and obeys the GetFont 6..32 rule if it reaches GetFont (not traced)"
+}

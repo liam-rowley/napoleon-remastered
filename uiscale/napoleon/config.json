@@ -3,8 +3,7 @@
  "factors": [1.25, 1.5, 2.0],
  "resolution_factor": {"3840x2160": 2.0, "2560x1440": 1.25},
  "resolution_factor_note": "the factor the installer picks for a resolution (1080p: none, vanilla). 2560x1440: 1.25 until the J67 PC slot's 1440p shots; `wsc uiscale check --factor 1.5 --height 1440` loses no content against 1080p (six front-end pages bleed their 1280x961 background by 1 vanilla px), so 1.5 is allowed by the check and the shots decide (brief rule: 1.5 only if no loss and its shots read better). Both are built.",
- "work": "C:\\napoleon_remastered_pc\\uiscale\\work",
- "upscale_work": "C:\\napoleon_remastered_pc\\upscale\\work",
+ "work_note": "the work folders are not configured here (J79): cli.py takes <state>\\uiscale\\work and the masters from <state>\\upscale\\work, with <state> from tools/pc_state.py (harness/napoleon/adapter.json state_dir, or $NAPOLEON_STATE_DIR); --work overrides the first",
  "pack_name": "ui_scale_{tag}x",
  "fonts_pack_name": "ui_scale_{tag}x_fonts",
  "templates_name": "uied.templates.ui_scale_{tag}x",
@@ -16,5 +15,5 @@
  "art_keep_vanilla": ["1x1", "1px_", "fe_1x1", "progressbar_beige", "ui\\loading_screen\\", "ui\\cursors\\", "ui\\frontend ui\\loadingscreen\\"],
  "art_keep_vanilla_note": "path substrings (lower case) never scaled: engine pixel-UV helpers, the 1-px progress fill (the engine multiplies progress by its width), loading screens and cursors (J67)",
  "font_faces": ["uiscale/fonts/Lora-Variable.ttf", "C:/Users/liamr/repos/empire-remastered/ui_scale_mod/font_src/Lora-Variable.ttf"],
- "font_faces_note": "the first that exists: the vendored face (D42; OFL text in uiscale/fonts/OFL.txt), else the empire-remastered clone read in place (the same file) until it is vendored"
+ "font_faces_note": "the first that exists: the vendored face (D42, committed by J68; OFL text in uiscale/fonts/OFL.txt), else the empire-remastered clone read in place (the same file, sha256 822a6621...), kept only as a fallback"
 }

@@ -1,0 +1,11 @@
+{
+  "id": "uiscale.core.fontcheck",
+  "kind": "script",
+  "path": "uiscale/core/fontcheck.py",
+  "purpose": "model the engine's font resolution (fixed name list -> id, unknown name -> the default id; GetFont(family, size, bold) -> even size clamped to [min, max] -> <family>_[b_]<n>.cuf), plan the engine-text fonts a factor needs (files the engine opens by itself, rendered at the factor, and aliases where the clamp sends a list name to another file), and check a fonts pack: every name a scaled layout, a template or the engine-text inventory uses resolves to a file the pack carries, no unlisted name, no vanilla font copied in, no file nothing opens",
+  "usage": "library: from fontcheck import Model, plan_engine, check; Model(cfg['engine']).file_of('Frontend 38, Normal'); check(model, names, engine_plan, pack_files, vanilla_sha)   (driven by uiscale/napoleon/cli.py: `wsc uiscale check-fonts`, `wsc uiscale engine-text`)",
+  "when": "building and checking a ui_scale_<f>x_fonts pack (J37 engine text, J66/J67 layout slots); host tests in tests/test_uiscale_engine_text.py",
+  "not_a_verb": "a library used by uiscale/napoleon/cli.py and uiscale/napoleon/engine_text.py, not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-03"
+}

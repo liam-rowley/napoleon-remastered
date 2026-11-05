@@ -1,11 +1,11 @@
 """Classify every numeric constant of a game's compiled UI scripts that reaches a pixel: scale, set, leave (with a reason) or manual.
 
-purpose: walk every compiled UI script (Lua 5.1, discovery/core/luachunk.py) and list each numeric constant that reaches a pixel-taking engine call (MoveTo, Resize, CreateComponentFromTemplate x/y, ...) or a position or size calculation (arithmetic or a comparison with a value read from Width, Height, Bounds, Position, Dimensions, ScreenSize, ...), with script, function, pc, the call and a class; a game adapter's overrides correct the class with a reason
+purpose: walk every compiled UI script (Lua 5.1, core/discovery/luachunk.py) and list each numeric constant that reaches a pixel-taking engine call (MoveTo, Resize, CreateComponentFromTemplate x/y, ...) or a position or size calculation (arithmetic or a comparison with a value read from Width, Height, Bounds, Position, Dimensions, ScreenSize, ...), with script, function, pc, the call and a class; a game adapter's overrides correct the class with a reason
 usage: from lua_consts import classify; doc = classify({script id: bytes}, overrides, empire_items)   (library; `python3 core/wsc.py uiscale lua-consts` writes uiscale/napoleon/lua_consts.json and lua_patches.txt)
 when: J67 Lua pass of the UI scale stop-gap: before writing or changing a patch list, and after a game update (the classes are by vanilla pc)
 not-a-verb: a library behind uiscale/napoleon/cli.py lua-consts
 
-Static and best-effort, like discovery/core/ui_walk.py: a linear symbolic walk per function (branches are not merged), with values carried
+Static and best-effort, like core/discovery/ui_walk.py: a linear symbolic walk per function (branches are not merged), with values carried
 through registers, upvalues (closure captures), globals and string-keyed table fields, into Lua functions called by a unique name (their
 parameters) and back out of them (their returns), across all scripts, to a fixed point. Each constant use is a row; its role is how it
 met the pixel value: an offset or size (scale), a pitch (multiplied by a loop index: scale), a threshold (compared with a pixel value:

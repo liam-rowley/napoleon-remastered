@@ -2,10 +2,10 @@
   "id": "tools.shadow_density",
   "kind": "script",
   "path": "tools/shadow_density.py",
-  "purpose": "import the captures of one or more settings (named <prefix>_<tag>_y_<yaw> and <prefix>_<tag>_<pose>) into a run with discovery/core/shader_catalog.py, write <run>/density.tsv from its shadow_density metric, and print per setting the texels per metre at 20 m by yaw, the worst yaw, best/worst and the poses",
+  "purpose": "import the captures of one or more settings (named <prefix>_<tag>_y_<yaw> and <prefix>_<tag>_<pose>) into a run with core/discovery/shader_catalog.py, write <run>/density.tsv from its shadow_density metric, and print per setting the texels per metre at 20 m by yaw, the worst yaw, best/worst and the poses",
   "usage": "shadow_density.py --run RUN_ID [--prefix j24] [--yaws 0,45,...,315] [--poses p1,...,s1] [--captures DIR] [--no-import] TAG [TAG ...]",
   "when": "a shadow fit or map-size sweep (J24; J25 and J26 cascades) needs its density figures compared across settings",
-  "not_a_verb": "a run helper; the metric itself is owned by discovery/core/shader_catalog.py (J8 review 1 finding 4) and only tabulated here",
+  "not_a_verb": "a run helper; the metric itself is owned by core/discovery/shader_catalog.py (J8 review 1 finding 4) and only tabulated here",
   "status": "live",
   "last_used": "2026-11-03"
 }

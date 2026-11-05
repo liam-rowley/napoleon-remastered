@@ -1,0 +1,15 @@
+{
+  "verb": "shot",
+  "status": "failed",
+  "reason": "step settle: {\"waited_for\": \"scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable\", \"waited_s\": 121.18, \"scene\": \"frontend\", \"settled\": false}",
+  "settle": {
+    "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+    "waited_s": 121.18,
+    "scene": "frontend",
+    "settled": false
+  },
+  "check": {},
+  "evidence": {},
+  "start_utc": "2026-11-05T18:30:53.669Z",
+  "end_utc": "2026-11-05T18:32:54.855Z"
+}

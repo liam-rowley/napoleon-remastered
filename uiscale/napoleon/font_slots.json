@@ -1,5 +1,39 @@
 {
- "note": "Slot fonts per factor (J67; J37 adds an 'engine_text' key beside 'layouts' and does not change these rows). 'layouts': the .cuf slot files the scaled layouts and templates name (scale.py font_slot picks the slot as at 2x at every factor) and the size each is rendered at: render_scale x the slot file's own vanilla size (em = vanilla h2 x 23/24 x render_scale, h2 = px(vanilla h2 x render_scale)), so text named 'Ingame 12' renders at 12 x factor. At 2.0 the scale is 1 and the pack is byte-identical to J66's (5f510b27afa3). bold: drawn at wght 700 fitted to the vanilla width (cuf_encode.recipe); spaced_h2: the long-form line pitch slot (frontend_24, h2 28 at 2x). Read by uiscale/napoleon/cli.py build_fonts; the check verb reports a layout font with no row.",
+ "note": "Font data for the UI scale packs (J37, D7). `engine`: how Napoleon.exe turns a font name or size into a .cuf file (static RE, uiscale/runs/2026-11-03_j37_static). `engine_text`: the .cuf files the exe opens by itself for engine-drawn text, rendered at the install factor (kind render) or filled with a layout slot's render where the GetFont clamp redirects a list name (kind alias). J67 adds the `layouts` key (the per-factor slot rows for the scaled layouts and templates); this file does not hold them yet.",
+ "engine": {
+  "evidence": "uiscale/runs/2026-11-03_j37_static/README.md",
+  "name_list": ["Ingame 10, Normal", "Ingame 10, Bold", "Ingame 12, Normal", "Ingame 12, Bold", "Ingame 14, Normal", "Ingame 14, Bold", "Ingame 16, Normal", "Ingame 16, Bold",
+                "Ingame 18, Normal", "Ingame 18, Bold", "Ingame 24, Normal", "Ingame 24, Bold", "Frontend 12, Normal", "Frontend 14, Normal", "Frontend 16, Normal",
+                "Frontend 18, Normal", "Frontend 22, Normal", "Frontend 24, Normal", "Frontend 38, Normal"],
+  "name_list_at": "0x1464120 (lookup 0x1029fd0)",
+  "default_index": 2,
+  "getfont": {"min": 6, "max": 32, "even": "down", "at": "0x116cbb0 via renderer vtable 0x140cc30 slot 0x220", "file": "font/<family>_[b_]<n>.cuf"},
+  "fixed_opens": {
+   "frontend_22.cuf": "GetFont(\"Frontend\", 22) at 0xdae510 (text style, MVC Create UIs) and 0x1215a20 (ribbon.fx text)",
+   "frontend_20.cuf": "loading quote fit loop 0x110d859 (first file)",
+   "frontend_18.cuf": "loading quote fit loop",
+   "frontend_16.cuf": "loading quote fit loop; dev console 0xe33450",
+   "frontend_14.cuf": "loading quote fit loop",
+   "frontend_12.cuf": "loading quote fit loop; dev console 0xe33450",
+   "frontend_10.cuf": "loading quote fit loop (last file)",
+   "console_12.cuf": "dev console 0xe33450",
+   "ingame_16.cuf": "render statistics overlay 0x1197430 (also a list slot)",
+   "editor_12.cuf": "editor gadgets 0x117fb10"
+  }
+ },
+ "engine_text": [
+  {"file": "frontend_22.cuf", "kind": "render", "items": ["engine.overlay_text_style", "engine.ribbon_text"],
+   "why": "the two fixed GetFont(\"Frontend\", 22) callers; no scaled layout names Frontend 22 at 2x (the scaler maps it to Frontend 38 or 24)"},
+  {"file": "frontend_20.cuf", "kind": "render", "items": ["engine.loading_screen.quote"], "why": "loading-quote fit loop: the largest file whose text fits the box is kept"},
+  {"file": "frontend_18.cuf", "kind": "render", "items": ["engine.loading_screen.quote"], "why": "loading-quote fit loop"},
+  {"file": "frontend_16.cuf", "kind": "render", "items": ["engine.loading_screen.quote"], "why": "loading-quote fit loop (the dev console's 16 follows; dev only)"},
+  {"file": "frontend_14.cuf", "kind": "render", "items": ["engine.loading_screen.quote"], "why": "loading-quote fit loop"},
+  {"file": "frontend_12.cuf", "kind": "render", "items": ["engine.loading_screen.quote"], "why": "loading-quote fit loop (the dev console's 12 follows; dev only)"},
+  {"file": "frontend_10.cuf", "kind": "render", "items": ["engine.loading_screen.quote"], "why": "loading-quote fit loop"},
+  {"file": "frontend_32.cuf", "kind": "alias", "alias_of": "frontend_38.cuf", "items": ["layouts naming Frontend 38, Normal"],
+   "why": "GetFont clamps 38 to 32: the list name Frontend 38 opens frontend_32.cuf, so the slot render built for Frontend 38 must sit in frontend_32.cuf"}
+ ],
+ "layouts_note": "Slot fonts per factor (J67; J37 adds an 'engine_text' key beside 'layouts' and does not change these rows). 'layouts': the .cuf slot files the scaled layouts and templates name (scale.py font_slot picks the slot as at 2x at every factor) and the size each is rendered at: render_scale x the slot file's own vanilla size (em = vanilla h2 x 23/24 x render_scale, h2 = px(vanilla h2 x render_scale)), so text named 'Ingame 12' renders at 12 x factor. At 2.0 the scale is 1 and the pack is byte-identical to J66's (5f510b27afa3). bold: drawn at wght 700 fitted to the vanilla width (cuf_encode.recipe); spaced_h2: the long-form line pitch slot (frontend_24, h2 28 at 2x). Read by uiscale/napoleon/cli.py build_fonts; the check verb reports a layout font with no row.",
  "layouts": [
   {
    "factor": 1.25,

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.lua_state",
+  "claim": "The RmlUi host runs RmlUi's Lua bindings on its own Lua 5.1.1 state (float lua_Number, the review viewer's copy, collector and dummynode unpatched) linked with every lua* symbol local, not on the proxy's engine-patched core: that core's tables need the engine's dummynode, which only the dev bridge's sentinel supplies (no bridge in release and none before the front end pumps), and its collector never runs. The engine's own lua_State is never touched; documents with no script need no Lua at all. The host's state came up in every launch (ui state lua.up, about 74 KB) and its onload line computed floor(2550 x 0.319999992) = 816",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02",
+  "notes": "core proxy/src/ui_lua.h; test_ui_rml (816, 0.3333333, 2^24+1 - 2^24 = 0); Lua 5.1.1 ltable.c declares dummynode_ static const, so identity use was the only option on the engine's core"
+}

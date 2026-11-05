@@ -1,6 +1,6 @@
 {
   "id": "napoleon.files.loose_override",
-  "claim": "Whether a loose data\\ file beats a pack entry with the same path at runtime (discovery/core/packfs.py assumes it does: loose_wins=True)",
+  "claim": "Whether a loose data\\ file beats a pack entry with the same path at runtime (core/discovery/packfs.py assumes it does: loose_wins=True)",
   "state": "open",
   "evidence": "harness/runs/20261101_j9pc/README.md",
   "date": "2026-11-01",

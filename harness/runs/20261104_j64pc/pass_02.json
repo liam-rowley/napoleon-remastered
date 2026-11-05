@@ -1,0 +1,253 @@
+{
+ "pass": 2,
+ "start_utc": "2026-11-04T19:19:03Z",
+ "end_utc": "2026-11-04T19:21:28Z",
+ "build_id": "b025b49b88e1",
+ "watcher": "1.4.0",
+ "kit": "kit_20261104T191101Z_5fb94ad877ac",
+ "passed": false,
+ "steps": {
+  "exe_sha1": {
+   "ok": true,
+   "compared": "the game exe sha1 against the pin (rule 28)",
+   "expected": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+   "got": "9aebcd2172f2878d781b079f7feb45b0e12e0250"
+  },
+  "hist_dresden:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 7.3,
+   "got_s": 12.4,
+   "limit_s": 18.25,
+   "path": {
+    "launch": null,
+    "via": "autostart"
+   }
+  },
+  "hist_dresden:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 675.7,
+      "got": 675.7,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 59.7,
+      "got": 59.6999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": 529.2,
+      "got": 529.2,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -137.37,
+      "got": -137.37003415822983,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -20.36,
+      "got": -20.359877195645666,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0003479681712048266,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_dresden:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 97692,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261104_j64pc\\pass_02\\hist_dresden_deploy.jpg"
+  },
+  "hist_dresden:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 3.932,
+   "threshold": 7.8
+  },
+  "hist_nile:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 4.2,
+   "got_s": 5.4,
+   "limit_s": 10.5,
+   "path": {
+    "launch": null,
+    "relaunch": {
+     "exit": "exit",
+     "size": "1920x1080",
+     "keys_set": [],
+     "launch_s": 17.9,
+     "retried_after": "[job j64-20261104T191956Z-299818818: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]"
+    },
+    "via": "autostart"
+   }
+  },
+  "hist_nile:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 255.7,
+      "got": 255.7,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 61.5,
+      "got": 61.4999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -685.7,
+      "got": -685.6998,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -20.82,
+      "got": -20.82006871345873,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -4.57,
+      "got": -4.56991924606761,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0004202807990760581,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_nile:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 93914,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261104_j64pc\\pass_02\\hist_nile_deploy.jpg"
+  },
+  "hist_nile:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 5.004,
+   "threshold": 10.29
+  },
+  "hist_lodi:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 5.9,
+   "got_s": 6.0,
+   "limit_s": 14.75,
+   "path": {
+    "launch": null,
+    "relaunch": {
+     "exit": "exit",
+     "size": "1920x1080",
+     "keys_set": [],
+     "launch_s": 9.0
+    },
+    "via": "autostart"
+   }
+  },
+  "hist_lodi:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 480.1,
+      "got": 480.1,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 63.3,
+      "got": 63.3001,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -247.5,
+      "got": -247.4999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -38.64,
+      "got": -38.64008601453689,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -16.28,
+      "got": -16.280046553401615,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.00041719681229019956,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_lodi:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 77325,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261104_j64pc\\pass_02\\hist_lodi_deploy.jpg"
+  },
+  "hist_lodi:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 2.428,
+   "threshold": 4.0
+  },
+  "campaign_start:scene": {
+   "ok": false,
+   "reason": "RuntimeError: step launch: exit 2: Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in exe_identity.json\nREFUSED by watcher: already running: Empire.exe (pid 22448) - refusing to start a second instance (close it with a kill job first)\n[job j64-20261104T192125Z-2969031419: refused exit=-2 - already running: Empire.exe (pid 22448) - refusing to start a second instance (close it with a kill job first)]\n"
+  }
+ }
+}

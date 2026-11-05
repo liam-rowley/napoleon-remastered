@@ -212,17 +212,31 @@ class InputSet(unittest.TestCase):
         self.assertTrue(ci.classify(['proxy/runs/x.log', 'proxy/core/console.cpp'])['proxy'])
         self.assertTrue(ci.classify(['proxy/runsheet.md'])['proxy'])
 
+    def test_the_proxy_set_covers_every_input_of_the_dll_build_id(self):
+        # J73 (audit P4): the input list is the checked-out core's build_id.INPUTS, never a copy; fails naming the role and path
+        bid = _load('build_id_inputs', 'core/proxy/tools/build_id.py')
+        missed = []
+        for role, path, _ in bid.object_ids(ROOT, 'HEAD'):
+            probes = ['core'] if path.startswith('core/') else [path, path + '/probe'] if (ROOT / path).is_dir() else [path]
+            if not all(ci.classify([p])['proxy'] for p in probes):
+                missed.append(f'{role} {path}')
+        self.assertEqual(missed, [], 'DLL build id inputs the CI proxy set does not cover: wsc.toml [ci.inputs] proxy')
+
+    def test_the_ui_pins_file_runs_the_proxy_and_viewer_jobs(self):
+        got = ci.classify(['viewer/pins.json'])
+        self.assertTrue(got['proxy'] and got['viewer'], got)
+
     def test_workflow_change_runs_all(self):
         self.assertEqual(ci.classify(['.github/workflows/gates.yml']), {'proxy': True, 'harness': True, 'viewer': True})
 
     def test_harness_set(self):
         self.assertEqual(ci.classify(['core']), {'proxy': True, 'harness': True, 'viewer': False})   # the pin: the proxy and harness live there (J12)
-        self.assertEqual(ci.classify(['harness/core/job.sh']), {'proxy': False, 'harness': True, 'viewer': False})
+        self.assertEqual(ci.classify(['harness/napoleon/adapter.json']), {'proxy': False, 'harness': True, 'viewer': False})
         # J22: the Windows step of harness-windows runs the Python tests that run bash
         for f in ('tests/test_job_sh.py', 'tests/test_claude_hook.py', 'tests/test_setup.py', 'tests/test_proxy_host.py',
                   'tools/verbs/setup.py', 'tools/claude_hook.py', '.claude/settings.json'):
             self.assertEqual(ci.classify([f]), {'proxy': False, 'harness': True, 'viewer': False}, f)
-        self.assertEqual(ci.classify(['tests/test_jobs_hooks.py', 'tools/jobs_hooks.py']), {'proxy': False, 'harness': False, 'viewer': False})
+        self.assertEqual(ci.classify(['tests/test_jobs_hooks.py', 'tools/gates/pipeline.py']), {'proxy': False, 'harness': False, 'viewer': False})
 
     def test_viewer_set(self):
         # J31: viewer/ and its test build the viewer; viewer/runs/ is committed evidence

@@ -3,7 +3,7 @@
   "kind": "script",
   "path": "tools/usage_reader.py",
   "purpose": "sum tokens, tool calls and wall time per Claude Code session from `~/.claude/projects/<cwd-slug>/<session>.jsonl` (and the sub-agent files under `<session>/subagents/`), and attribute each session to a job: pure functions that take paths and return dicts, so tests use synthetic files",
-  "usage": "library only, imported by tools/jobs_hooks.py (the `wsc jobs view` PC block); `python3 -m unittest tests.test_usage_reader` tests it; by hand: `python3 tools/usage_reader.py [--days 7]` prints the per-job table",
+  "usage": "library only, imported by tools/gates/pipeline.py (the `wsc jobs view` PC block); `python3 -m unittest tests.test_usage_reader` tests it; by hand: `python3 tools/usage_reader.py [--days 7]` prints the per-job table",
   "when": "automatic, every `wsc jobs view` on the PC; edit it when Claude Code changes its transcript format (check `claude --version` against the line below)",
   "not_a_verb": "a library module; its command line is a debugging aid and writes nothing but its cache",
   "status": "live",

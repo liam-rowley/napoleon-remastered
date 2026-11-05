@@ -25,7 +25,7 @@ GUARDS = {
     "branch": "none: branch bug, CI did its job",
     "smoke": "local route: `build.sh --docker smoke`, run by `tests/test_proxy_host.py` after `all` (J42)",
     "harness-host": "local route: `tests/test_harness_host.py` runs `Run-HostTests.ps1` under Windows PowerShell 5.1 (J42)",
-    "policy": "local route named in `wsc jobs next` and `docs/REVIEW.md`: `python3 tools/pr_policy.py` (J42)",
+    "policy": "local route named in `wsc jobs next` and `docs/REVIEW.md`: `python3 core/wsc.py policy --branch <kind>/<id> --base origin/main` (J42)",
     "heartbeat": "the 40 s start wait covered a cold powershell.exe start: on fresh runners a new watcher process reached its main loop "
                  "17 to 35 s after it started (39.9 s in run 40970029940), while a warm load of the script takes under 3 s and the "
                  "Add-Type compile under 2 s, so the time goes before the first statement. The watcher logs its first-statement and "

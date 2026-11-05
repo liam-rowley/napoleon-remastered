@@ -1,0 +1,13 @@
+{
+  "id": "J76",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) H1, H6, H12 (deny list), R11 (--no-verify), P6, the trailer-hook rule row; D50. tools/claude_hook.py: EXEMPT (:27) is tested against the whole command (:168), so 'pc_deploy.py status; rm -rf <state>/watcher' is allowed: exempt per segment. Add the missing writers and forms (install, rsync, dd, tar -C, ln, robocopy, xcopy, copy, Rename-Item, python -c, noclobber and combined redirections, $VAR targets, 8.3 names) and deny an unparseable target in a protected path. Git in a game folder: deny a protected root anywhere in a git command (cd subshells, variables, git init <path>, -c core.worktree=, nice, timeout and env wrappers, if and {} blocks, bash -c, PowerShell Start-Process), and check init and clone by positional argument. Deny launching or killing the game outside the watcher (Napoleon.exe, steam://rungameid, taskkill). Deny git commit --no-verify (J9's 5eafc75); the trailer check sees git --no-pager commit, -c options and aliases; fail closed when core/ or the protected roots cannot be read (:191-195, 212-216, and the settings wrapper's '|| exit 0'). D50: deny an agent's gh pr merge on plan/ and meta/ branches. Allow deleting remote scratch/* branches. .claude/settings.json deny rows for ctl/, play/, saves/, the AppData Napoleon prefs and save_games. A corpus test of at least 107 command shapes (the audit's probe count), with every bypass the audit lists as a denied case.",
+  "title": "Agent hook hardening: per-segment exemptions, writers, git and game guards, merge rights",
+  "phase": 1,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J76/brief.md",
+  "report": "jobs/J76/report.md",
+  "review": "jobs/J76/review.md"
+}

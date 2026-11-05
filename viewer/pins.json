@@ -36,5 +36,17 @@
     "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3",
     "licence": "MIT or public domain",
     "why": "PNG and JPEG decoding for art (the review artifact serves web image types only, not .tga); the same commit as Empire's rml_mod"
+  },
+  "stb_image_write": {
+    "version": "1.16",
+    "url": "https://raw.githubusercontent.com/nothings/stb/f0569113c93ad095470c54bf34a17b36646bbbb5/stb_image_write.h",
+    "commit": "f0569113c93ad095470c54bf34a17b36646bbbb5",
+    "sha256": "cbd5f0ad7a9cf4468affb36354a1d2338034f2c12473cf1a8e32053cb6914a05",
+    "licence": "MIT or public domain",
+    "why": "J30: the in-game host's lossless backbuffer dump (ctl ui dump) writes PNG; the same stb commit as stb_image"
+  },
+  "playwright": {
+    "version": "1.64.1",
+    "why": "J80: Chromium's revision follows this version, so it is also the browser pin of every render; read by wsc setup check_playwright, and ci/gates.yml.in keeps the same literal (tests/test_viewer.py). Bumping it affects the UI baseline: re-render, and the reviewer accepts the new baseline"
   }
 }
