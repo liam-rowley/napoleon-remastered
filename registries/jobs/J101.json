@@ -1,0 +1,10 @@
+{
+  "id": "J101",
+  "description": "Liam, 2026-11-05. Find the cause of the start-up crash in napoleon.proxy.init_heap_corruption (c0000374 about 150 ms after process start, before the first d3d9 call), open since 2026-10-31 with no job on it. J67's report counts at least 14 on 2026-11-05 and 6 of 18 launches in one sitting, and warns that a player would meet it if it is not proxy-only. Empire's learning (J98's row, unproved on Napoleon) is that the crash is bursty by display topology: 0 of 60 vanilla launches with one layout, about 6 of 7 with another. The PC's layout changed at 08:51 UTC on 2026-11-05 (a third display joined, jobs/J64/report.md run 20261105_j64pc6), and J67's 6 of 18 came after it, but J64 had 7 such failures the day before, so the layout is a lead, not a finding. Measure before reading: launch to the front end and kill (dev.skip_intro, through the watcher), many launches in each cell of display layout by DLL installed or vanilla, and record the rate per cell. Then read the dumps: the crash stack, and whether the heap damage is the proxy's or the game's. Dumps of 2026-11-05: 20261105T081227Z-p20920 and 20261105T094426Z-p19168 sit in the run folders of the J64 worktree (git-ignored). Answer also whether the MSI should stay on during PC jobs. Liam wants this before J59. J98's soak can share what this job builds; do not write the soak twice.",
+  "title": "Start-up crash c0000374: rate by display layout and DLL, then the cause",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": []
+}
