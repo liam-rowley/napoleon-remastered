@@ -1,0 +1,12 @@
+fe_credits.jpg
+fe_grand_campaign.jpg
+fe_load_replay.jpg
+fe_napoleon_battles.jpg
+fe_options.jpg
+fe_player_stats.jpg
+fe_single_player.jpg
+fe_sp_battle1.jpg
+fe_sp_battle2.jpg
+fe_sp_episodic_campaign.jpg
+fe_sp_load_game.jpg
+fe_sp_tutorials.jpg

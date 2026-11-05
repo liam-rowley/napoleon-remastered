@@ -54,6 +54,10 @@ for part in "$@"; do
       L "$Q/camp_panel.lua -- $fn" "panel_$sc"; sleep 5; C shot "camp_$sc"; L "$Q/camp_panel.lua -- close" "close_$sc"; sleep 3
     done
     grab campaign ;;
+  army)
+    C scene campaign_start; sleep 20
+    L "$Q/vis.lua" vis_popup; L "$P/tree.lua -- camp_popup *" tree_popup; grab popup
+    L "$RUNP/camp_field.lua" select_field; sleep 6; C shot camp_field; L "$Q/vis.lua" vis_field ;;
   *) echo "unknown part $part" ;;
   esac
 done

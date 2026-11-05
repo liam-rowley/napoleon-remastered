@@ -3,23 +3,23 @@
   "status": "ok",
   "reason": "",
   "state": {
-    "launch_id": "20261105T192608Z-p22812",
-    "pid": 22812,
-    "frame": 45470,
+    "launch_id": "20261105T193657Z-p8844",
+    "pid": 8844,
+    "frame": 45911,
     "scene": "frontend",
-    "scene_s": 14.8,
-    "uptime_s": 37.8,
-    "written_utc": "2026-11-05T19:26:46.727Z",
-    "last_present_utc": "2026-11-05T19:26:46.727Z",
+    "scene_s": 14.6,
+    "uptime_s": 37.3,
+    "written_utc": "2026-11-05T19:37:34.988Z",
+    "last_present_utc": "2026-11-05T19:37:34.988Z",
     "lua": {
       "loaded": true,
       "context": "frontend",
-      "pump_age_s": 0.0
+      "pump_age_s": -0.0
     },
     "battle": {
       "naval": 0,
       "deploy_panel": -1,
-      "age_s": 15.4
+      "age_s": 15.3
     },
     "load_target": "",
     "autostart": "off",
@@ -27,7 +27,7 @@
     "movies_opened": 2,
     "mem": {
       "va_mb": 1770,
-      "commit_mb": 975
+      "commit_mb": 972
     },
     "reports": {
       "autostart.army_sides": "9u0s,8u0s",
@@ -38,7 +38,7 @@
       "autostart.time_of_day": "2",
       "autostart.weather": "dry/Dry",
       "battle.map_folder": "nap_mp_grassy_flatlands",
-      "battle.map_folder_ms": "13453"
+      "battle.map_folder_ms": "13406"
     }
   },
   "settle": {},
@@ -47,10 +47,10 @@
     "expected": "a scene and a frame",
     "got": {
       "scene": "frontend",
-      "frame": 45470
+      "frame": 45911
     }
   },
   "evidence": {},
-  "start_utc": "2026-11-05T19:26:45.913Z",
-  "end_utc": "2026-11-05T19:26:47.442Z"
+  "start_utc": "2026-11-05T19:37:34.203Z",
+  "end_utc": "2026-11-05T19:37:35.679Z"
 }
