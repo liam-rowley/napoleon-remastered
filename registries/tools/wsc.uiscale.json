@@ -3,7 +3,7 @@
   "kind": "verb",
   "path": "tools/verbs/uiscale.py",
   "purpose": "run uiscale/napoleon/cli.py (build, status) in the art_build Python under the PC state folder (tools/pc_state.py: adapter state_dir, or $NAPOLEON_STATE_DIR; numpy, Pillow, freetype-py, uharfbuzz)",
-  "usage": "python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [--no-fonts] [--limit N] [--jobs N]   |   python3 core/wsc.py uiscale status   |   ... uiscale check-fonts [--factor 2] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]",
+  "usage": "python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [--no-fonts] [--limit N] [--jobs N]   |   ... uiscale status   |   ... uiscale check-fonts [--factor 2] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]",
   "when": "before `python3 upscale/pc/play.py install --scale 2` (Liam's 4K play test) and before a PC run of the scaled UI; nothing here writes the game folder",
   "verb": "uiscale",
   "status": "live",

@@ -7,7 +7,7 @@
 ## Evidence
 - Run `2026-11-05_j37pc` (README there): 1080p vanilla, 4K vanilla, 4K with the 2x set; game folder identical at the end; load 3.7-3.9 s against J66's 3.8 s.
 - Fonts pack from the full build; `check-fonts 2x: 13 files ... ok`.
-- Facts: `napoleon.fonts.file_survey_blind_to_cuf` (new, verified), `napoleon.fonts.factor_follows_install` (new, verified by eye), `getfont_rule` stays open with the new note.
+- Facts: `napoleon.fonts.file_survey_blind_to_cuf` (new, verified 2026-11-05, run 2026-11-05_j37pc), `napoleon.fonts.factor_follows_install` (new, verified by eye 2026-11-05, run 2026-11-05_j37pc), `getfont_rule` stays open with the new note.
 
 ## Deviations from the brief and why
 - No crop pairs or measured glyph heights: the shot helper only writes 1280 px copies. Comparison is by eye (labels about 2x).
