@@ -127,6 +127,12 @@ class Classifier(unittest.TestCase):
 
 
 class Tables(unittest.TestCase):
+    def test_no_wrapped_refuses_the_play_install_work_folder(self):
+        import cli
+        for work in (None, str(cli.pc_state.uiscale_work(cli.REPO))):
+            with self.assertRaisesRegex(SystemExit, 'scratch folder'):
+                cli.build(1.5, work=work, no_wrapped=True)
+
     def test_no_wrapped_knows_the_scripts_the_dev_wrappers_replace(self):
         import importlib.util
         spec = importlib.util.spec_from_file_location('uiscale_cli', os.path.join(REPO, 'uiscale', 'napoleon', 'cli.py'))   # by path: the suite has other `cli` modules

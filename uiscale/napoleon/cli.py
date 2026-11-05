@@ -447,6 +447,8 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
     games = load(GAMES)
     if factor not in cfg['factors']:
         raise SystemExit(f'uiscale: factor {factor:g} is not built here (config factors {cfg["factors"]})')
+    if no_wrapped and (not work or os.path.normcase(os.path.abspath(work)) == os.path.normcase(os.path.abspath(str(pc_state.uiscale_work(REPO))))):
+        raise SystemExit('uiscale: --no-wrapped is a harness build (2 scripts stay vanilla) and must never reach a play install: give it its own --work scratch folder')
     fs = game_fs(games)
     stray = [n for n in fs.packs if n.lower().startswith(('ui_scale_', 'ui_art_'))]
     if stray:
