@@ -1,3 +1,21 @@
+## Round 2 (2026-11-05, branch job/J37 at e3493bf)
+
+**Verdict: merge.**
+
+Machines: `wsc gates` 13 ok, 2 warn, 0 failed locally; CI on e3493bf: all 9 checks passed or skipped. No change to `core/`, `proxy/` or `harness/`: rule 79 does not apply.
+Round 1 findings against `## Fix round 1` of the report: (1) the three missing facts exist (`engine_text_slots`, `subtitles`, `licence`) with owner and reason; (2) `factor_follows_install` now says "by eye, not measured", as does the run README; (3) the 1080p front end is marked `static_only` in the README; (4) the README records `build_id.py` at HEAD and origin/main both a005f6cccc17. All answered.
+
+### Blockers
+- none.
+
+### Should-fix
+- none.
+
+### Later
+- Measured label height needs a native-size capture mode (core `docs/BACKLOG.md`, via a core pull request); a per-context `.cuf` readout needs a proxy pack-read log job (DLL, rule 79; Liam decides). Both are already recorded as open facts with an owner.
+
+Not legal advice applies to `font_licences.json`.
+
 ## Round 1 (2026-11-05, branch job/J37 at 67aad7f)
 
 **Verdict: merge after fixes.**
