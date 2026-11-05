@@ -1,0 +1,12 @@
+{
+  "id": "J104",
+  "description": "Core C41 (warscape-core plan/audit-loop, Liam merges it), after J88 (the process train pin bump, so two pin bumps do not run at once; fold this into J88 if J88 is still needs_brief when the core tags W47). Bump the core pin to the tag that carries W41 and W44 to W47 (and W43, decisions and later rows); every UPGRADING.md section between the pins. wsc.toml: [jobs] max_sessions = 4 (D59), auto_actions = brief, build, review, fix (W46), auto_hold_phases and auto_phase_order as Liam answers; [audit] overhead_phases = [1], startup_docs = docs/DECISIONS.md and docs/plans/PLAN.md (or what W43 leaves of them), every_days and every_merges. tools/claude_hook.py (J76) denies gh pr merge of a decide/ branch as it does meta/ (D50). Then the first wsc audit --record and its audit session's plan/audit-<date> branch. Rule 79: W41 and W44 to W47 change no DLL or harness input, so the pin bump needs no acceptance run unless the build id moves (J58); if it moves, stop and say which core change moved it.",
+  "title": "Adopt the audit loop: pin bump, [audit] and [jobs] keys, decide/ in the hook, the first audit",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": false,
+  "depends_on": [
+    "J88"
+  ]
+}
