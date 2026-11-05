@@ -1,0 +1,14 @@
+camp_agent.jpg
+camp_army.jpg
+camp_buildings.jpg
+camp_diplomacy.jpg
+camp_gov.jpg
+camp_hud.jpg
+camp_lists.jpg
+camp_missions.jpg
+camp_popup.jpg
+camp_settlement.jpg
+camp_technologies.jpg
+land_deploy.jpg
+naval_deploy.jpg
+siege_deploy.jpg
