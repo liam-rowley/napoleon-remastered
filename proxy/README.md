@@ -224,7 +224,7 @@ function with missing arguments from a chunk: the engine's Lua error stops the b
 
 ## Frame capture (J8)
 
-`dev.capture=1` (default and release off) hooks 36 `IDirect3DDevice9` vtable slots at `CreateDevice` (`core/capture.cpp`; pure parts and the hash in
+`dev.capture=1` (default and release off) hooks 37 `IDirect3DDevice9` and 2 `IDirect3DStateBlock9` vtable slots at `CreateDevice` (core 0.21.0, W19; `core/proxy/src/capture.cpp`; pure parts and the hash in
 `core/capture.h`, `tests/test_capture.cpp`); with it off nothing is hooked, and with it on and no capture running each hook is one flag test.
 ctl `capture <name> [frames]` (1 to 8 frames, a new name each time) records every device call of the next frames to
 `<dev.capture_dir>\<name>\frame.txt` and each shader's bytecode once per hash to `<dev.capture_dir>\shaders\<hash>.vs|ps`; `dev.capture_dir`
@@ -232,7 +232,7 @@ is outside the game folder (D25; empty refuses). Result fields: `dir`, `file`, `
 `shaders_new`, `shaders_unwalked` and `shaders_size_differs` (both must be 0: the walked length agrees with `GetFunction`), `record_s`.
 Hash: canonical FNV-1a-64 over the bytecode up to and including the walked end token (never the first `0x0000FFFF`, which a CTAB may hold);
 Empire's hashes are not comparable. The vtable survives a device `Reset`, so the hooks stay armed across it. The engine's `D3DPERF` events
-(`D3DPERF_BeginEvent` is imported by the exe) are recorded too. Offline: `discovery/core/shader_catalog.py` (summaries, disassembly, fx
+(`D3DPERF_BeginEvent` is imported by the exe) are recorded too. Offline: `core/discovery/shader_catalog.py` (summaries, disassembly, fx
 mapping, the catalogue and the anatomy tables).
 
 `frame.txt` is one call per line, in call order (pointers and hashes hex, states `name value`):

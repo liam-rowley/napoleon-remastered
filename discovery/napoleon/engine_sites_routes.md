@@ -6,7 +6,7 @@ and how many places change together. J24 (shadow) and J27 (distances, sprites) r
 (`napoleon.shadow.*`, `napoleon.lod.*`, `napoleon.sprite.*`, `napoleon.exe.options_object`, `napoleon.tweakers.table`).
 VAs at ImageBase 0x400000, RVA = VA - 0x400000. Proofs: run `harness/runs/20261101_j9pc` (README: one line per proof), 2026-11-01,
 on DLL builds 286b3fa123e4, d3196b3a8424 and 46f52d356ce8 (the proven rows are byte-identical in all three; the final build's start-up
-check passes all 45 rows). Strings: `python3 discovery/core/exe_strings.py find <regex>`.
+check passes all 45 rows). Strings: `python3 core/discovery/exe_strings.py find <regex>`.
 
 ## Routes
 

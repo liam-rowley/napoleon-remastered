@@ -4,7 +4,7 @@ The one owner of what Napoleon draws, pass by pass. Source: proxy frame captures
 acceptance scenes through `ctl.py scene` (fixed sky, settled), DXVK, 1920x1080, the PC's prefs as the acceptance baseline uses them
 (`gfx_hdr`, `gfx_ssao`, `gfx_distortion`, `gfx_depth_of_field`, `gfx_hardware_shadows` false; `gfx_shadow_quality` 3; `gfx_unit_quality` 2).
 Verified 2026-11-01, run `harness/runs/20261101_j8pc` (README there: captures, sizes, raw files). Tables between `gen` markers are written by
-`python3 discovery/core/shader_catalog.py build` from the committed capture summaries (`harness/runs/*/captures/*.json`); never edit them by
+`python3 core/discovery/shader_catalog.py build` from the committed capture summaries (`harness/runs/*/captures/*.json`); never edit them by
 hand. The catalogue is `shader_catalog.json` beside this file; facts `napoleon.render.*`, `napoleon.shadow.*`, `napoleon.shaders.*`.
 
 ## The frame, per scene kind

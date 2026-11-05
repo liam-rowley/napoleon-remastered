@@ -3,7 +3,7 @@
 Game-free, always run: the vendored Lora face's sha256 and font_golden.json's shape (five slot fonts, the pack, the package pins).
 With freetype-py: encoding without uharfbuzz raises (no GPOS fallback, J79). With freetype-py and uharfbuzz (upscale/requirements.txt;
 CI installs upscale/requirements-ci.txt): the encoder on a synthetic vanilla .cuf, and the GPOS reader as a cross-check of HarfBuzz's kerning.
-With those and the game (the vanilla .cuf files through discovery/core/packfs.py): the five slot fonts render to their golden sha256s and,
+With those and the game (the vanilla .cuf files through core/discovery/packfs.py): the five slot fonts render to their golden sha256s and,
 packed as the build packs them, give the golden fonts pack sha256. "Byte-identical to Empire's" means exactly that: the golden shas are
 those of the J66/J68 pack, which D42 compared with Empire's on the PC.
 """
@@ -16,7 +16,7 @@ import sys
 import unittest
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
-sys.path[:0] = [os.path.join(ROOT, 'uiscale', 'core'), os.path.join(ROOT, 'discovery', 'core'), os.path.join(ROOT, 'upscale', 'core')]
+sys.path[:0] = [os.path.join(ROOT, 'uiscale', 'core'), os.path.join(ROOT, 'core', 'discovery'), os.path.join(ROOT, 'upscale', 'core')]
 
 from cuf import Cuf, Glyph  # noqa: E402
 

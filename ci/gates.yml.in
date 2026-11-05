@@ -75,14 +75,19 @@ jobs:
     needs: changes
 {{wsc if proxy}}
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30   # RmlUi compiles in this job (core ci/gates.yml.in has 30; J64 raised it from 15)
     steps:
       # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (core/proxy/tools/build_id.py, J45), not history
       - uses: actions/checkout@v5
         with:
           submodules: true   # the proxy sources, tools and the harness live in the core since J12
           token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
-      - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
+      - name: the pinned mingw-w64 toolchain (core/proxy/tools/toolchain.py apt; core 0.27.0, W24)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends $(python3 core/proxy/tools/toolchain.py apt)
+          dpkg-query -W -f '${Package}=${Version}\n' '*mingw-w64*'
+{{wsc fetch_cache}}
       - run: core/proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path
         run: core/proxy/tools/build.sh repro

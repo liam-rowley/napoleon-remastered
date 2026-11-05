@@ -1,0 +1,26 @@
+[2026-11-05T08:12:21Z] lock: held by owner=j64 purpose=acceptance pass
+[2026-11-05T08:12:27Z] launch: launch job j64-20261105T081221Z-2728422764 owner=j64 headless 1920x1080 -> pid 20920
+[2026-11-05T08:12:30Z] job j64-20261105T081221Z-2728422764 [launch owner=j64] failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)
+[2026-11-05T08:12:33Z] launch: launch job j64-20261105T081231Z-76859182 owner=j64 headless 1920x1080 -> pid 4288
+[2026-11-05T08:13:13Z] launch: launch job j64-20261105T081312Z-3055716135 owner=j64 headless 1920x1080 -> pid 22484
+[2026-11-05T08:13:47Z] launch: launch job j64-20261105T081346Z-72315764 owner=j64 headless 1920x1080 -> pid 3772
+[2026-11-05T08:14:24Z] launch: launch job j64-20261105T081422Z-2864420283 owner=j64 headless 1920x1080 -> pid 22972
+[2026-11-05T08:14:52Z] launch: launch job j64-20261105T081450Z-1496320605 owner=j64 headless 1920x1080 -> pid 1244
+[2026-11-05T08:17:59Z] launch: launch job j64-20261105T081757Z-3219526764 owner=j64 headless 1920x1080 -> pid 22064
+[2026-11-05T08:18:08Z] lock: free
+[2026-11-05T08:18:10Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-05T08:18:11Z] lock: held by owner=j64 purpose=acceptance pass
+[2026-11-05T08:18:15Z] launch: launch job j64-20261105T081811Z-455419495 owner=j64 headless 1920x1080 -> pid 12504
+[2026-11-05T08:18:54Z] launch: launch job j64-20261105T081853Z-778822898 owner=j64 headless 1920x1080 -> pid 22336
+[2026-11-05T08:19:28Z] launch: launch job j64-20261105T081927Z-2241430659 owner=j64 headless 1920x1080 -> pid 11292
+[2026-11-05T08:47:08Z] launch: launch job j64-20261105T084706Z-3063620928 owner=j64 headless 1920x1080 -> pid 4864
+[2026-11-05T08:47:17Z] lock: free
+[2026-11-05T08:47:19Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-05T08:47:20Z] lock: held by owner=j64 purpose=acceptance pass
+[2026-11-05T08:47:25Z] launch: launch job j64-20261105T084720Z-2425120877 owner=j64 headless 1920x1080 -> pid 16836
+[2026-11-05T08:48:04Z] launch: launch job j64-20261105T084802Z-450631192 owner=j64 headless 1920x1080 -> pid 23020
+[2026-11-05T08:48:40Z] launch: launch job j64-20261105T084838Z-1517232618 owner=j64 headless 1920x1080 -> pid 22676
+[2026-11-05T08:49:17Z] launch: launch job j64-20261105T084915Z-28764960 owner=j64 headless 1920x1080 -> pid 18812
+[2026-11-05T08:49:43Z] launch: launch job j64-20261105T084942Z-1951828203 owner=j64 headless 1920x1080 -> pid 3060
+[2026-11-05T08:55:49Z] lock: free
+[2026-11-05T08:55:51Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED (position gone): \\.\DISPLAY10 mode back at 3840x2160@60; saved origin 2560,1440 not applicable (the new rect 2560,1440-6400,3600 overlaps \\.\DISPLAY1 at 0,0 (3840x2160)), kept 3839,2160 (display tool exit 0)

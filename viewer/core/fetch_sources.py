@@ -6,7 +6,7 @@ usage: python3 viewer/core/fetch_sources.py [--pins viewer/pins.json] [--out bui
 when: viewer/core/build.sh runs it before the wasm build (inside the emsdk container: python 3.10, git); never commit the output
 not-a-verb: needs network and writes build output, not a registry operation; build.sh calls it
 
-Lua's number type follows the engine (a 4-byte float lua_Number: discovery/core/luachunk.py). The luaconf.h edits are the
+Lua's number type follows the engine (a 4-byte float lua_Number: core/discovery/luachunk.py). The luaconf.h edits are the
 number-type half of core/proxy/tools/fetch_lua.py's patches (the proxy's dummynode and GC patches are for running on the engine's own
 lua_State and do not apply here: the viewer owns its state). The viewer keeps Lua's standard libraries.
 """

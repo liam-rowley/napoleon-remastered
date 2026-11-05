@@ -1,6 +1,6 @@
 -- probes/api_surface.lua - the engine Lua API surface of the pumping context, enumerated without calling anything (J9).
 -- purpose: log every name reachable by enumeration: the script environment (owner S) and the globals it falls back to through its metatable __index chain and _G (owner G), one level into each of their tables, the metatables (and their __index tables) of globals, and every string-keyed table in the Lua registry (Lunar classes, Pointer<TYPE> method tables); lines "api <state> <owner> <name>:<type> ..." in proxy.log
--- usage: job.sh ctl <owner> "lua napoleon_remastered/lua/probes/api_surface.lua -- <state label>" in any context; discovery/core/engine_api.py reads the lines from the run's proxy.log
+-- usage: job.sh ctl <owner> "lua napoleon_remastered/lua/probes/api_surface.lua -- <state label>" in any context; core/discovery/engine_api.py reads the lines from the run's proxy.log
 -- when: the engine API surface per screen and game phase (J9; again after a game update)
 -- not-a-verb: runs inside the game's own Lua, not on a host
 -- Probe-safe by construction: only pairs, type, getmetatable, rawget and debug.getregistry; never tostring on a value (a __tostring

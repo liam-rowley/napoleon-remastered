@@ -13,7 +13,7 @@ import tempfile
 import unittest
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
-sys.path[:0] = [os.path.join(ROOT, 'upscale', 'core'), os.path.join(ROOT, 'discovery', 'core')]
+sys.path[:0] = [os.path.join(ROOT, 'upscale', 'core'), os.path.join(ROOT, 'core', 'discovery')]
 
 import pack  # noqa: E402
 import rules  # noqa: E402
@@ -310,7 +310,7 @@ class Bootstrap(unittest.TestCase):
             pins = dict(re.findall(r'^([A-Za-z0-9_.-]+)==([^\s#]+)', f.read(), re.M))
         for n in ('freetype-py', 'uharfbuzz', 'numpy', 'pillow'):
             self.assertEqual(names[n], pins[n], n)
-        sys.path.insert(0, os.path.join(ROOT, 'discovery', 'core'))
+        sys.path.insert(0, os.path.join(ROOT, 'core', 'discovery'))
         import re_env
         for spec in re_env.PINS:
             n, v = spec.split('==')

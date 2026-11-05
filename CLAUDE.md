@@ -28,7 +28,8 @@
 - Everything goes through `python3 core/wsc.py <verb>`: `find <words>` searches every registry, `reg add|set|render` changes them,
   `gates` runs the checks CI runs (`--fast` is what the pre-push hook runs). Views are not committed (J55): `reg render` writes them to `_scratch/registries/`.
 - Since J12 the core carries the proxy sources and tools (`core/proxy/src`, `core/proxy/tools`), the watcher kit (`core/harness/`) and the
-  ESF tools (`core/saves/`); this repo keeps the adapters (`proxy/napoleon`, `harness/napoleon`, `saves/napoleon`). `python3 core/proxy/tools/layout.py`
+  ESF tools (`core/saves/`); since J64 also the discovery passes (`core/discovery/`, the core verb `wsc discovery`; this repo keeps `discovery/napoleon` and the results) and the game gates
+  (`wsc.toml` `[gates] dirs`: `tools/gates/pipeline.py`). This repo keeps the adapters (`proxy/napoleon`, `harness/napoleon`, `saves/napoleon`). `python3 core/proxy/tools/layout.py`
   shows what the tools use.
 - **Never change files inside `core/`.** A change the game needs goes to warscape-core as a PR and arrives with a new tag
   (`core/docs/CONSUMING.md`); the `core_pin` gate fails on local edits.
@@ -36,7 +37,7 @@
 ## Jobs (D16, D21): what Liam means by "pick up the next job" and "review the next job"
 - The queue is the `jobs` registry (`registries/jobs/J<n>.json`, one file per job; status page: `python3 core/wsc.py jobs view`). Each job has a folder
   `jobs/<id>/` with `brief.md` (the full prompt), then `report.md` and `review.md`. A job in progress is a remote branch `job/<id>`.
-  `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (the core's `jobs` verb: `core/warscape/jobq.py`, configured by `wsc.toml` `[jobs]` and `tools/jobs_hooks.py`).
+  `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (the core's `jobs` verb: `core/warscape/jobq.py`, configured by `wsc.toml` `[jobs]` and the gate module `tools/gates/pipeline.py`).
 - **"Pick up the next job":** `git pull`, then `python3 core/wsc.py jobs next`. It names the job and its steps, or the brief to write
   (on `brief/<id>`, then queue its merge on green CI: D33), or what every open job is waiting for. Say which job you took.
 - **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it. A `merge` verdict

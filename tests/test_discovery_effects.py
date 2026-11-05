@@ -1,4 +1,4 @@
-"""Host tests for the effects discovery pass (discovery/core/effects.py, J72): synthetic packs, XML, db bytes and fake exes; no game needed."""
+"""Host tests for the effects discovery pass (discovery/napoleon/effects.py, J72; the core's passes it imports are core/discovery): synthetic packs, XML, db bytes and fake exes; no game needed."""
 import json
 import os
 import struct
@@ -6,7 +6,9 @@ import sys
 import tempfile
 import unittest
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'discovery', 'core'))
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, '..', 'core', 'discovery'))
+sys.path.insert(0, os.path.join(HERE, '..', 'discovery', 'napoleon'))
 import diffout  # noqa: E402
 import effects  # noqa: E402
 from packfs import PackFS, write_pack  # noqa: E402

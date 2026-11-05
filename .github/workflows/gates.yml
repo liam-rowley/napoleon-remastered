@@ -48,8 +48,9 @@ concurrency:
   group: gates-${{ github.ref }}${{ github.event_name == 'workflow_dispatch' && format('-dispatch-{0}', github.run_id) || '' }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
-  # changes: which slow jobs this run needs. Diffs against the merge base with main (a push to any branch but main)
-  # or the previous main tip (a push to main). When the base is unknown (first push to main, a force push past it) everything runs.
+  # changes: which slow jobs this run needs. A push to a branch diffs against its merge base with main. A push to main has no base
+  # (W22): every set counts as changed and only a pass marker for its tree skips it, so a set that failed on main runs again.
+  # When the base is unknown (a branch with no merge base, a shallow clone) everything runs.
   # Which files feed which job: `wsc.toml` [ci] inputs, read by `python3 core/wsc.py ci inputs`. Then a changed set whose tree hash has a pass marker
   # is turned off; its outputs are the combined answer: true = inputs changed against the base AND no marker for this tree.
   changes:
@@ -71,10 +72,8 @@ jobs:
       # only the core commit this repo pins, shallow: the verbs need no history
       - run: git submodule update --init --depth 1 core
       - id: diff
-        env:
-          BEFORE: ${{ github.event.before }}
         run: |
-          if [ "$GITHUB_REF" = refs/heads/main ]; then base=$BEFORE
+          if [ "$GITHUB_REF" = refs/heads/main ]; then base=''
           else base=$(git merge-base origin/main HEAD || true); fi
           python3 core/wsc.py ci inputs --base "$base" >> "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
@@ -157,14 +156,28 @@ jobs:
     needs: changes
     if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' && (needs.changes.result != 'success' || needs.changes.outputs.proxy == 'true') }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30   # RmlUi compiles in this job (core ci/gates.yml.in has 30; J64 raised it from 15)
     steps:
       # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (core/proxy/tools/build_id.py, J45), not history
       - uses: actions/checkout@v5
         with:
           submodules: true   # the proxy sources, tools and the harness live in the core since J12
           token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
-      - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
+      - name: the pinned mingw-w64 toolchain (core/proxy/tools/toolchain.py apt; core 0.27.0, W24)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends $(python3 core/proxy/tools/toolchain.py apt)
+          dpkg-query -W -f '${Package}=${Version}\n' '*mingw-w64*'
+      # fetch cache (W21): the raw downloads (tarballs, RmlUi and FreeType checkouts), keyed by the pins and [ci] salt, never the patched
+      # trees; a warm cache makes the fetch offline. A cache fault never fails the job; the fetchers' sha checks judge every byte, and
+      # the fetchers retry their own downloads and git fetches on a network flake inside build.sh (W24), never a wrong byte.
+      - id: fetch_key
+        run: python3 core/proxy/tools/netfetch.py ci-cache >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v5
+        continue-on-error: true
+        with:
+          path: ${{ steps.fetch_key.outputs.paths }}
+          key: fetch-1-${{ steps.fetch_key.outputs.key }}
       - run: core/proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path
         run: core/proxy/tools/build.sh repro
@@ -331,3 +344,21 @@ jobs:
       - env:
           GH_TOKEN: ${{ github.token }}
         run: python3 core/wsc.py ci notify --run-id ${{ github.run_id }} --attempt ${{ github.run_attempt }} --branch "${{ github.ref_name }}" --repo "${{ github.repository }}"
+  main_health:
+    needs: [changes, gates, proxy, viewer, harness-windows]
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+          token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 core/wsc.py ci main-health --run-id ${{ github.run_id }} --attempt ${{ github.run_attempt }} --repo "${{ github.repository }}"

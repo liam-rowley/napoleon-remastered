@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TOOLS = ('tools/jobs_hooks.py', 'tools/claude_hook.py')
+TOOLS = ('tools/gates/pipeline.py', 'tools/claude_hook.py')
 
 
 class TwoJobsMerge(unittest.TestCase):

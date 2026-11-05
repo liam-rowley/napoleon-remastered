@@ -79,7 +79,7 @@ Promotion: core candidates are built in this repo under a `*/core/` folder next 
 interface has settled, in one promotion job per phase that depends on that phase's gate (phase 1: J12, after the J4 acceptance gate).
 Jobs that build heavily on a candidate depend on its promotion job, so their briefs cite core paths from the start.
 Promotion rows (2026-11-01): phase 1 was J12; the job pipeline itself (the `jobs` verb, the pull-request policy, the CI notifier
-and workflows) moved to the core in J62 (v0.9.0; napoleon keeps its rules in `wsc.toml` and `tools/jobs_hooks.py`); `discovery/core` in J64 (after the discovery gate J11); `upscale/core` and
+and workflows) moved to the core in J62 (v0.9.0; napoleon keeps its rules in `wsc.toml` and `tools/gates/pipeline.py`, a gate module since J64); the discovery passes (`discovery/core`) in J64 (core v0.15.0, after the discovery gate J11); `upscale/core` and
 `viewer/core` in J63 (after S3 parity, J32). The RmlUi host and panel host (J30, J35) are core candidates from their briefs.
 
 **Next games** (planning chat 2026-11-01, Liam's intent: back-port the core into Empire and start that game fresh; Shogun 2 later).
