@@ -97,6 +97,7 @@ listed under "Not ported" below. Causes found:
 - **Unseen headless:** tooltips and map hover (no hover verb); they are checked statically. Liam's first play session: hover a settlement, a unit card, a building and a technology.
 - **Not ported from Empire (design changes, not scale fixes):** the wider tooltip wraps (900 at 2x) and equal right insets, and the map tooltip's right padding (inserted instructions).
   Vanilla has the same insets at 1080p. Empire's government one-letter fix and its religion-icon offset have no counterpart in Napoleon's script.
+- **1.25x minimap (J67 review):** `template.map_image`'s x 2 is a multiplier, but the list writes `px(2 * 1.25)` = 3, not 2.5, for the draw size and both `FindRegion` multiplies. The three agree, so hover stays right, but the map draws at 1.5x in a 1.25x frame and is cropped (`runs/2026-11-05_j67pc/raw/h125/camp_field.jpg`). 1.5x and 2x are exact. A fix needs an unrounded patch item and a PC launch.
 - **Theatre-map art:** the minimap and the diplomacy and objectives maps draw at the scaled size from the 1x textures (Empire made 4x art; a later job).
 - **Loading screen and cursor** (`engine.loading_screen`, `engine.cursors`): after the J67 cut line. Empire's recipe for the progress bar is data only (2x trough and end-cap, the 1-px fill strip kept 1 px wide); the cursor has no known data route.
 - **Engine-drawn text:** J37 (section above). `ui/labels.luac` is left vanilla here for that reason (`lua_overrides.json` `exclude_scripts`).
