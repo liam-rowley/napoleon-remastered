@@ -305,7 +305,7 @@ def check_fonts(factor=2.0, work=None, log=print):
     """the slot check over a built fonts pack (<work>/ui_scale_<f>x_fonts.pack.json): returns the number of problems"""
     import fontcheck
     cfg = load(CONFIG)
-    work = work or cfg['work']
+    work = work or str(pc_state.uiscale_work(REPO))
     meta_p = os.path.join(work, cfg['fonts_pack_name'].format(tag=tag_of(factor)) + '.pack.json')
     if not os.path.exists(meta_p):
         log(f'check-fonts: no fonts pack manifest at {meta_p}: run `wsc uiscale build --factor {factor:g}` first')
