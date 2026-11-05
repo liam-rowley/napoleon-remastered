@@ -246,6 +246,17 @@ def layouts_from(scripts_dir=None, fs=None):
     return vanilla_layouts(fs or game_fs())
 
 
+def check_templates(factor, games=None):
+    """the image-def and TGA pairs of the built templates file for `factor`; None when it is not built"""
+    import check
+    cfg, games = load(CONFIG), games or load(GAMES)
+    built = os.path.join(str(pc_state.uiscale_work(REPO)), cfg['templates_name'].format(tag=tag_of(factor)))
+    if not os.path.exists(built):
+        return None
+    with open(os.path.join(games['napoleon']['root'], cfg['templates_vanilla']), 'rb') as v, open(built, 'rb') as b:
+        return check.templates_off(v.read(), b.read())
+
+
 def check_cmd(factor, height, width=None, scripts_dir=None):
     import check
     width = width or int(round(height * 16 / 9))
@@ -258,7 +269,10 @@ def check_cmd(factor, height, width=None, scripts_dir=None):
           f'fonts missing from the slot table: {rep["fonts_missing"] or "none"}')
     for o in rep['overflow']:
         print('  ', json.dumps(o))
-    return 1 if rep['loses_content'] or rep['abutting'] or rep['fonts_missing'] else 0
+    tpl_off = check_templates(factor)
+    print('uiscale check: templates not built at this factor: image defs not checked' if tpl_off is None else
+          f'uiscale check: {len(tpl_off)} template image defs off their TGA {tpl_off[:8]}')
+    return 1 if rep['loses_content'] or rep['abutting'] or rep['fonts_missing'] or tpl_off else 0
 
 
 # ------------------------------------------------------------------------------------------------------------ layouts

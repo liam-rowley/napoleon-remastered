@@ -1,6 +1,6 @@
-"""Check a UI scale factor against a screen: each layout's scaled extent, abutting pairs, and the fonts its scaled layouts name.
+"""Check a UI scale factor against a screen: each layout's scaled extent, abutting pairs, the fonts its scaled layouts name, and the built templates' image defs against their TGAs.
 
-purpose: for each vanilla layout (core/discovery/uic.py), scale it at a factor (scale.py) and report its scaled root, the extent of its components against the screen (a layout taller or wider than the screen loses content), abutting sibling pairs that gap or overlap after scaling, and every font name of the scaled layouts against the slot table for that factor
+purpose: for each vanilla layout (core/discovery/uic.py), scale it at a factor (scale.py) and report its scaled root, the extent of its components against the screen (a layout taller or wider than the screen loses content), abutting sibling pairs that gap or overlap after scaling, every font name of the scaled layouts against the slot table for that factor, and, on a built templates file, each image def against the embedded TGA it names
 usage: from check import check_layouts; rep = check_layouts([(path, bytes)], 1.5, 2560, 1440, slots)   (library; `python3 core/wsc.py uiscale check --factor F --height H` prints it)
 when: choosing the 1440p factor (J67: 1.25 or 1.5) and before shipping any factor; ported from the idea of empire-remastered origin/ui/multiscale multiscale_check.py
 not-a-verb: a library behind uiscale/napoleon/cli.py check
@@ -9,12 +9,14 @@ Positions are parent-relative, so a component's absolute rect is the sum of its 
 Docking is not applied (the extent is the layout's own coordinate box), the same approximation Empire's check made.
 """
 import copy
+import struct
 
 PARKED = 4000          # a component placed this far out is parked off screen by design (the tooltips park theirs near x = 10000)
 BLEED = 1              # vanilla pixels: a full-canvas page drawn 1 px past the 1280x960 root (credits, load pages: 1280x961) loses no content
 BASELINE = (1.0, 1920, 1080)   # what a layout is measured against: vanilla at 1080p (the 2x build at 3840x2160 is the same box)
 
 import scale
+import tpl
 import uic
 
 
@@ -63,6 +65,33 @@ def abutting(van, sc):
     return bad
 
 
+def template_mismatches(data):
+    """{(record, texture path): (image w, h, TGA w, h)} of a uied.templates file: an image def whose size differs from the embedded TGA it names"""
+    out = {}
+
+    def walk(name, c, texs):
+        texs = dict(texs, **{t['path']: t['tga'] for t in c.get('textures', [])})
+        for im in c['images']:
+            if im['path'] in texs:
+                w, h = struct.unpack_from('<HH', texs[im['path']], 12)
+                if (im['w'], im['h']) != (w, h):
+                    out[(name, im['path'])] = (im['w'], im['h'], w, h)
+        for ch in c['children']:
+            walk(name, ch, texs)
+
+    for r in tpl.split(data):
+        if not r['legacy'] and r['name'] not in scale.SKIP_TEMPLATES:          # the build passes those through unchanged
+            doc = tpl.parse_record(r)
+            walk(r['name'], doc['root'], {t['path']: t['tga'] for t in doc['textures']})
+    return out
+
+
+def templates_off(vanilla, scaled):
+    """the pairs a scaled templates file breaks: mismatches it has and the vanilla file has not, as 'record: path WxH on a WxH TGA'"""
+    van = template_mismatches(vanilla)
+    return sorted(f'{k[0]}: {k[1]} {v[0]}x{v[1]} on a {v[2]}x{v[3]} TGA' for k, v in template_mismatches(scaled).items() if k not in van)
+
+
 def fonts_of(doc):
     out = set()
 
@@ -98,6 +127,8 @@ def check_layouts(layouts, f, width, height, slot_files=None, scale_root=True):
                 over.append({'layout': path, 'vanilla': [w, h], 'scaled': [sw, sh], 'over': [max(0, sw - width), max(0, sh - height)],
                              'over_vanilla': round(max(w - width / f, h - height / f), 2), 'also_at_1080p': base})
         for a, b, axis, d in abutting(van, sc):
+            if b in scale.DATE_CELLS and axis == 'x' and d == scale.px(scale.DATE_CELL_SHIFT * f):
+                continue                    # scale.date_cell_pass moves the cell left on purpose, over the empty right of the turn column
             abut.append({'layout': path, 'pair': [a, b], 'axis': axis, 'gap': d})
         if slot_files is not None:
             for name in fonts_of(sc):

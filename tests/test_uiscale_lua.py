@@ -8,6 +8,7 @@ import os
 import struct
 import sys
 import unittest
+from unittest import mock
 
 REPO = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 for p in ('uiscale/core', 'core/discovery', 'uiscale/napoleon'):
@@ -164,6 +165,38 @@ def vanilla_scripts():
     return None
 
 
+class FactorCheck(unittest.TestCase):
+    def comp(self, name, x, w, children=()):
+        return {'name': name, 'x': x, 'y': 0, 'states': [{'w': w, 'h': 20}], 'children': list(children), 'images': []}
+
+    def test_only_the_date_cells_own_shift_is_allowed_between_abutting_cells(self):
+        import check
+        import scale
+        for f in (1.25, 1.5, 2.0):
+            shift = scale.px(scale.DATE_CELL_SHIFT * f)
+            cases = ((self.comp('save_date', 100, 50), shift, 0), (self.comp('save_date', 100, 50), shift + 1, 1), (self.comp('other', 100, 50), shift, 1))
+            for b, d, want in cases:
+                van = {'root': self.comp('row', 0, 200, [self.comp('turn', 50, 50), b])}
+                sc = {'root': self.comp('row', 0, 200, [self.comp('turn', 50, 50), dict(b, x=100 - d)])}
+                with mock.patch.object(check.uic, 'parse', side_effect=[van]), mock.patch.object(check.scale, 'scale_layout', return_value=sc):
+                    self.assertEqual(len(check.check_layouts([('ui/x', b'')], f, 3840, 2160)['abutting']), want, (f, b['name'], d))
+
+    def test_templates_off_lists_only_pairs_the_scaled_file_broke(self):
+        import check
+
+        def tga(w, h):
+            return bytes(12) + struct.pack('<HH', w, h) + bytes(2)
+
+        def doc(tw, iw):
+            return {'textures': [{'path': 'a.tga', 'tga': tga(tw, tw)}, {'path': 'odd.tga', 'tga': tga(4, 4)}],
+                    'root': {'images': [{'path': 'a.tga', 'w': iw, 'h': iw}, {'path': 'odd.tga', 'w': 8, 'h': 8}, {'path': '', 'w': 1, 'h': 1}], 'children': []}}
+        rec = [{'name': 'r', 'legacy': False}]
+        with mock.patch.object(check.tpl, 'split', return_value=rec), mock.patch.object(check.tpl, 'parse_record', side_effect=[doc(16, 16), doc(32, 32)]):
+            self.assertEqual(check.templates_off(b'', b''), [])          # odd.tga is off in vanilla too
+        with mock.patch.object(check.tpl, 'split', return_value=rec), mock.patch.object(check.tpl, 'parse_record', side_effect=[doc(16, 16), doc(32, 16)]):
+            self.assertEqual(check.templates_off(b'', b''), ['r: a.tga 16x16 on a 32x32 TGA'])
+
+
 class AgainstTheGame(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -189,6 +222,14 @@ class AgainstTheGame(unittest.TestCase):
                          'run python3 core/wsc.py uiscale lua-consts')
         self.assertEqual(lua_patch.write_list(doc, self.scripts, cli.LUA_HEADER), rd(cli.LUA_PATCHES))
         self.assertNotIn('unclassified', {r['class'] for r in doc['rows']})
+
+    def test_the_check_is_green_at_every_factor(self):
+        import check
+        import cli
+        layouts = cli.layouts_from()
+        for f, w, h in ((2.0, 3840, 2160), (1.5, 2560, 1440), (1.25, 2560, 1440)):
+            rep = check.check_layouts(layouts, f, w, h)
+            self.assertEqual((rep['loses_content'], rep['abutting']), ([], []), f)
 
 
 if __name__ == '__main__':
