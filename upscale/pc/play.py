@@ -2,7 +2,7 @@
 r"""Install the upscaled UI art for a play test (proxy kit + play packs) with one command, and take it all out again with one (J53).
 
 purpose: Liam's play-test install of the 2.5x UI art, or (J66, J67: --scale 2|1.5|1.25) of the whole vanilla UI at a factor (2 for 3840x2160, 1.25 or 1.5 for 2560x1440): refuse unsafe states, snapshot the game folder, install the proxy kit (pc_deploy) with dev.skip_intro=1 and the chosen packs (install_packs.ps1, sha-checked; with --scale also dev.file_rules pointing the loose uied.templates at the scaled copy in the state folder, and the UI cache moved aside), and undo it all back to a snapshot-identical game folder
-usage: python3 upscale/pc/play.py install [--roles a,b | --all | --scale 2|1.5|1.25] [--kit ID|DIR] [--intro] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR] [--uiscale-work DIR]   (Git Bash on the PC, from the repo checkout)
+usage: python3 upscale/pc/play.py install [--roles a,b | --all | --scale 2|1.5|1.25] [--kit ID|DIR] [--intro] [--keep-ini] | uninstall | status   [--game DIR] [--state DIR] [--packs DIR] [--uiscale-work DIR]   (Git Bash on the PC, from the repo checkout)
 when: before Liam sits down to play with the upscaled art (build the packs first: python3 core/wsc.py upscale pack --play --roles ..., or for --scale F: python3 core/wsc.py uiscale build --factor F), and after, to put the game folder back; never while an agent job holds the game lock
 not-a-verb: a PC-side wrapper for Liam's own shell that composes pc_deploy.py and install_packs.ps1 (both stay the only writers of the game folder); agents use watcher jobs instead
 
@@ -202,7 +202,7 @@ def run_ps1(args):
     return r.returncode, out
 
 
-def install(game, state, packs_dir, roles=None, all_roles=False, kit=None, intro=False, scale=None, uiscale_work=None):
+def install(game, state, packs_dir, roles=None, all_roles=False, kit=None, intro=False, scale=None, uiscale_work=None, keep_ini=False):
     cfg = load(CONFIG)
     game, state = Path(game), Path(state)
     if record_path(state).exists():
@@ -213,6 +213,10 @@ def install(game, state, packs_dir, roles=None, all_roles=False, kit=None, intro
                       f'(python3 core/proxy/tools/pc_deploy.py uninstall --game "{game}" --state "{state}")')
     ident = identity()
     common_refusals(game, state, ident)
+    if (game / ident['config_file']).exists() and not keep_ini:
+        # J67: a stale ini with nothing installed went into the pre-install snapshot, so every later uninstall ended "identical" with it still there
+        raise Refused(f"{ident['config_file']} is in the game folder but no proxy is installed: a leftover (a watcher restore after an uninstall?). "
+                      'Have it moved out before installing, or the snapshot takes it as vanilla (--keep-ini: go on, knowing the uninstall leaves it there)')
     if scale:
         if roles or all_roles:
             raise Refused('--scale installs the scale packs, which carry their own 2x art: no --roles or --all with it')
@@ -362,6 +366,7 @@ def main(argv=None):
     ap.add_argument('--roles', help='install: comma list of roles (default: the config first_roles)')
     ap.add_argument('--all', action='store_true', help='install: every role that has a play pack')
     ap.add_argument('--kit', help='install: a kit id under <state>/kits or a kit folder (default: the newest sent kit_*)')
+    ap.add_argument('--keep-ini', action='store_true', help='install: go on with a leftover mod ini in the game folder; the uninstall will leave it there')
     ap.add_argument('--intro', action='store_true', help='install: keep the splash screens and intro (default: dev.skip_intro=1)')
     ap.add_argument('--game', default=load(GAMES)['napoleon']['root'])
     ap.add_argument('--state', default=str(DEFAULT_STATE))
@@ -374,7 +379,7 @@ def main(argv=None):
         if a.action == 'install':
             if a.roles and a.all:
                 raise Refused('--roles or --all, not both')
-            return install(a.game, a.state, packs, a.roles, a.all, a.kit, a.intro, a.scale, a.uiscale_work)
+            return install(a.game, a.state, packs, a.roles, a.all, a.kit, a.intro, a.scale, a.uiscale_work, a.keep_ini)
         if a.action == 'uninstall':
             return uninstall(a.game, a.state)
         return status(a.game, a.state)

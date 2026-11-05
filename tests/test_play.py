@@ -110,6 +110,12 @@ class Play(unittest.TestCase):
             play.uninstall(self.game, self.state)
         self.assertIn('profile', str(e.exception))
 
+    def test_install_refuses_a_leftover_mod_ini(self):
+        self.write(os.path.join(self.game, INI), b'stale')
+        with mock.patch.object(play.pc_deploy, 'running_check', return_value=''), self.assertRaises(play.Refused) as e:
+            play.install(self.game, self.state, self.packs)
+        self.assertIn('leftover', str(e.exception))
+
     def test_install_then_uninstall_is_identical(self):
         self.assertEqual(self.run_play('install'), 0, self.out.getvalue())
         self.assertEqual(self.data(), ['data.pack'] + [f'ui_art_play_{r}.pack' for r in ('button_state', 'icon', 'panel_frame', 'ui_art')])

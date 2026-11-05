@@ -193,14 +193,15 @@ def scale_component(c, f, context, is_root=False, image_defs=True, org=(0, 0), s
 # width grows: the text is left aligned and stays inside its column. The list's sp_load_game, mp_load_game, load_replay and file_requester.
 DATE_CELLS = {'save_date', 'date'}
 DATE_CELL_W = 200                # vanilla px
+DATE_CELL_SHIFT = 10             # vanilla px left: the row's clip cut the last digit of the seconds
 
 
 def date_cell_pass(c, f, parent=''):
-    """widen the wrap box of the date cells (after the slots: an Ingame cell scales exactly and keeps its width)"""
-    if f != 1 and parent == 'row_example' and c.get('name') in DATE_CELLS:
+    """widen the wrap box of the date cells and move them clear of the row's clip (after the slots: an Ingame cell scales exactly and stays)"""
+    if f != 1 and parent == 'row_example' and c.get('name') in DATE_CELLS and any((st.get('font') or '').startswith('Frontend') for st in c['states']):
         for st in c['states']:
-            if (st.get('font') or '').startswith('Frontend'):
-                st['w'] = max(st['w'], px(DATE_CELL_W * f))
+            st['w'] = max(st['w'], px(DATE_CELL_W * f))
+        c['x'] -= px(DATE_CELL_SHIFT * f)
     for ch in c['children']:
         date_cell_pass(ch, f, c.get('name') or '')
 

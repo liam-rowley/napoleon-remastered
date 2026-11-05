@@ -233,7 +233,7 @@ class DateCell(unittest.TestCase):
     @staticmethod
     def tree(cell, font, parent='row_example', w=180):
         return {'name': 'list_box', 'states': [], 'children': [{'name': parent, 'states': [], 'children': [
-            {'name': cell, 'states': [{'w': w, 'font': font}], 'children': []}]}]}
+            {'name': cell, 'x': 660, 'states': [{'w': w, 'font': font}], 'children': []}]}]}
 
     def width(self, t):
         return t['children'][0]['children'][0]['states'][0]['w']
@@ -243,6 +243,7 @@ class DateCell(unittest.TestCase):
             t = self.tree('save_date', 'Frontend 38, Normal', w=int(180 * f))
             scale.date_cell_pass(t, f)
             self.assertEqual(self.width(t), want)
+            self.assertEqual(t['children'][0]['children'][0]['x'], 660 - int(10 * f + 0.5))
 
     def test_factor_1_ingame_and_other_cells_stay(self):
         for args, f in ((('save_date', 'Frontend 18, Normal'), 1), (('date', 'Ingame 24, Normal'), 2.0),
