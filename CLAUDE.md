@@ -55,7 +55,7 @@
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only through a pull request: a job branch
   is merged by its independent reviewer on green CI (D32, `docs/REVIEW.md`), a `brief/` branch by its writer on green CI
-  (D33); `plan/` and `meta/` branches by Liam only (D50). End every job with a report: what was built, evidence
+  (D33); `plan/` by its writer on green CI once J84 lands (D62), `meta/` by Liam only (D50). End every job with a report: what was built, evidence
   (run ids), deviations from the brief and why, open questions (`wsc jobs check` checks the headings).
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.
@@ -69,7 +69,7 @@
   `pc_deploy.py` and `job.sh` are exempt, and their redirects are still checked; `pc_deploy.py status` lists foreign files. The residuals are in its header.
 - **Never run git in a game folder.** Guard: the hook denies git there (cwd, `cd`, `-C`, `--git-dir`, `GIT_DIR`, `init`/`clone` arguments, behind
   wrappers, `bash -c`, subshells), the watcher refuses a script that runs git, and `pc_deploy.py status` and `wsc setup` fail on a `.git` in or above a game folder.
-- **Launch and kill the game only through `job.sh`; never `--no-verify`; only Liam merges `plan/` and `meta/` (D50).** Guard: the hook denies starting or
+- **Launch and kill the game only through `job.sh`; never `--no-verify`; only Liam merges `meta/` (D50), and `plan/` until J84 lands (D62).** Guard: the hook denies starting or
   killing `Napoleon.exe`/`Empire.exe` (also `steam://`), `--no-verify` on commit/push/merge/rebase/cherry-pick/am, `gh pr merge` of a `plan/` or
   `meta/` branch (a number or no target is resolved with `gh pr view`; unresolvable is denied) and deleting a remote `main`, `plan/`, `meta/`, `job/` or `brief/` branch.
 - **Reuse before you write.** Search the tools registry first; extend an existing tool or CLI verb rather than adding a near-duplicate.

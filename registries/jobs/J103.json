@@ -1,0 +1,13 @@
+{
+  "id": "J103",
+  "description": "Audit 2026-11-03 automation 3, moved out of J84 by D62. Once the policy check judges with the base's rules (core W23, arriving with J78): [policy] plan stops matching CLAUDE.md, docs/REVIEW.md and the core's docs; row edits on plan/ are limited to new needs_brief rows plus title, description and depends_on changes (no status), compared row by row as brief/ already is. Until this lands a plan/ branch can change those files with no human review (accepted by Liam in D62).",
+  "title": "plan/ narrowed rules",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [
+    "J78",
+    "J84"
+  ]
+}
