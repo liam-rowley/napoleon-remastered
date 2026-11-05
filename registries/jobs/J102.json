@@ -1,0 +1,12 @@
+{
+  "id": "J102",
+  "description": "Liam, 2026-11-05. A proxy log of pack reads, the one way to see which file the engine really opens. The file survey is blind to .cuf opens (napoleon.fonts.file_survey_blind_to_cuf), so two J37 gaps stay static: napoleon.fonts.engine_text_slots and napoleon.fonts.subtitles (their state is verified because each claim says it is known only from static reading; the gap is in the notes, owner Liam). J67's report open question 3 asks for the same log: why the dev wrapper loses at 1.25x and 1.5x and not at 2x. A DLL input, so rule 79's 20 passes apply.",
+  "title": "Proxy pack-read log",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J67"
+  ]
+}
