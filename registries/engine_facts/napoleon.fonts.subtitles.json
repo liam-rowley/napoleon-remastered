@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.subtitles",
+  "claim": "The font and size used for subtitles are known only from static reading, not from a run",
+  "state": "open",
+  "evidence": "uiscale/runs/2026-11-05_j37pc/README.md",
+  "date": "2026-11-05",
+  "notes": "static_only: no subtitle scene was shot and the .cuf opens are not logged (napoleon.fonts.file_survey_blind_to_cuf). Owner: liam (decides whether a proxy pack-read log job is queued)."
+}
