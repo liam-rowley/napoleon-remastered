@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.main_device",
+  "claim": "The game makes one main D3D9 device at start on its window and keeps it through the front end, a campaign, a battle and a warm reset (no re-creation, no Reset seen in these runs): windowed under headless, back buffer X8R8G8B8 (format 22) x1 at the launch size, flags 0x42 (hardware vertex processing, FPU preserve), no multisampling, no auto depth-stencil (EnableAutoDepthStencil 0), SWAPEFFECT_DISCARD, PRESENT_INTERVAL_IMMEDIATE. The battle loader makes a second IDirect3D9 and a 1x1 helper device (flags 0x22, window 0001000c, SWAPEFFECT_COPY) of the same class, so it shares the main device's vtable",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02",
+  "notes": "proxy.log 'ui: CreateDevice' lines, build 68a9bc84bb05 (1440p and 4K) and j30pc5 (1080p)"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "napoleon.ui.loading_and_video",
+  "claim": "A document left open is drawn on every Present of the main device, including the front end's background movie (frontend2.bik), the battle loading screen and a warm reset back to the front end (frames_drawn == presents); no crash, no RmlUi error and nothing stale in the log across front end -> battle -> front end. The battle loader's helper device is never drawn on. Whether a screen should hide itself over a movie or a loading screen is the panel host's call (J35)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02"
+}

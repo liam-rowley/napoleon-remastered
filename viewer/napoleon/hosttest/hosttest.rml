@@ -1,0 +1,53 @@
+<rml>
+<head>
+	<title>Host test (J30)</title>
+	<link type="text/rcss" href="hosttest.rcss"/>
+</head>
+<!-- J30 in-game host test: static RML; the click counter is C++ (data-host-counter), the Lua line runs only when the host's Lua is up.
+     Every position is fixed in dp so tools/ui_hosttest.py check knows where each probe is (keep the two in step). -->
+<body id="hosttest" onload="local e = document:GetElementById('lua_line'); if e then e.inner_rml = 'Lua ' .. _VERSION .. ' up: floor(2550 x 0.319999992) = ' .. math.floor(2550 * 0.319999992) end">
+	<div id="t14" class="line s14">HHHHHHHH</div>
+	<div id="t20" class="line s20">HHHHHHHH</div>
+	<div id="t28" class="line s28">HHHHHHHH</div>
+	<div id="t40" class="line s40">HHHHHHHH</div>
+	<div id="rules">
+		<div class="rule" style="top: 0dp;"/>
+		<div class="rule" style="top: 4dp;"/>
+		<div class="rule" style="top: 9dp;"/>
+		<div class="rule" style="top: 15dp;"/>
+		<div class="rule" style="top: 22dp;"/>
+	</div>
+	<div id="boxes">
+		<div class="box" style="left: 0dp;"/>
+		<div class="box" style="left: 50dp;"/>
+		<div class="box" style="left: 100dp;"/>
+	</div>
+	<img id="art" src="art_master.png"/>
+	<div id="click_target" class="button" data-host-counter="click_count">Click me</div>
+	<div id="click_line">Clicks: <span id="click_count">0</span></div>
+	<div id="lua_line">Lua off: static text</div>
+	<div id="list">
+		<div class="item">Item 01 Armee d'Italie</div>
+		<div class="item">Item 02 Armee du Rhin</div>
+		<div class="item">Item 03 Armee d'Egypte</div>
+		<div class="item">Item 04 Garde Imperiale</div>
+		<div class="item">Item 05 I Corps</div>
+		<div class="item">Item 06 II Corps</div>
+		<div class="item">Item 07 III Corps</div>
+		<div class="item">Item 08 IV Corps</div>
+		<div class="item">Item 09 V Corps</div>
+		<div class="item">Item 10 VI Corps</div>
+		<div class="item">Item 11 VII Corps</div>
+		<div class="item">Item 12 Reserve Cavalry</div>
+		<div class="item">Item 13 Artillery Park</div>
+		<div class="item">Item 14 Engineers</div>
+		<div class="item">Item 15 Pontonniers</div>
+		<div class="item">Item 16 Train</div>
+		<div class="item">Item 17 Marines</div>
+		<div class="item">Item 18 Militia</div>
+		<div class="item">Item 19 Garrison</div>
+		<div class="item">Item 20 Last line</div>
+	</div>
+	<div id="title">Napoleon Remastered: RmlUi host test (J30)</div>
+</body>
+</rml>

@@ -1,0 +1,12 @@
+{
+  "id": "J89",
+  "description": "Later sweep 2026-11-04 (docs/audits/LATER_TRIAGE_2026-11-04.md, job J82, audit R4). Built to the brief's defaults for its open questions (open for Liam). Rides J78's 20-pass run (these are DLL inputs: carries 20 passes). J78 moves the J9 probes into proxy/napoleon/lua/probes/ and removes J46's dead loop but its description misses: (1) getters.lua runs dofile(nil) when called without its list (it crashed the game three times in J10's run): refuse a missing argument; (2) generate probe_safe_list.lua from engine_api.py probe-safe --lua with a --check in the tests so the list cannot drift from probe_safe.json (J9 review Later 3); (3) the two stale comments J70 filed, proxy/napoleon/lua/ctl/cam_read.lua:3 (names harness/core/campose.py) and harness/napoleon/adapter.json (a comment line that names a moved path). Bullets: J10 review Later 1; J70 review Later 3. Why now: the same proxy/napoleon Lua change as J78, so one 20-pass run covers all.",
+  "title": "Lua probe follow-ups to J78 and stale proxy comments",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J78"
+  ]
+}

@@ -65,6 +65,9 @@ jobs:
       - run: |
           pin=$(python -c "import tomllib; print(tomllib.load(open('wsc.toml', 'rb'))['core']['version'])")
           git -C core fetch --depth=1 --no-tags origin "refs/tags/$pin:refs/tags/$pin" || echo "could not fetch core tag $pin"
+      # J79 (audit G13): the host-test packages, hash-locked (upscale/requirements-ci.txt says how the hashes were made), so the art, font and
+      # x86re tests run here instead of skipping; a package whose wheel no longer matches its pinned sha256 fails this step, never the lock
+      - run: python -m pip install --require-hashes -r upscale/requirements-ci.txt
       - run: python core/wsc.py gates
   # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the PC's
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.
@@ -72,14 +75,19 @@ jobs:
     needs: changes
 {{wsc if proxy}}
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30   # RmlUi compiles in this job (core ci/gates.yml.in has 30; J64 raised it from 15)
     steps:
       # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (core/proxy/tools/build_id.py, J45), not history
       - uses: actions/checkout@v5
         with:
           submodules: true   # the proxy sources, tools and the harness live in the core since J12
           token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
-      - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
+      - name: the pinned mingw-w64 toolchain (core/proxy/tools/toolchain.py apt; core 0.27.0, W24)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends $(python3 core/proxy/tools/toolchain.py apt)
+          dpkg-query -W -f '${Package}=${Version}\n' '*mingw-w64*'
+{{wsc fetch_cache}}
       - run: core/proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path
         run: core/proxy/tools/build.sh repro
@@ -124,7 +132,9 @@ jobs:
           python viewer/core/render.py --size 1920x1080 --dp-ratio 1.0 --out build/viewer/out/hello_1080p_r1.png | tee -a build/viewer/out/renders.txt
           python viewer/core/render.py --size 3840x2160 --dp-ratio 2.5 --out build/viewer/out/hello_4k_slider125.png | tee -a build/viewer/out/renders.txt
           (cd build/viewer/out && sha256sum *.png >> SHA256SUMS && cat SHA256SUMS)
+      # always: a red run keeps its diff PNGs (build/viewer/out/uikit_gate, J80), written by changes.py and by the baseline test in tests/test_uikit.py
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: viewer-wasm
           path: build/viewer/out/
@@ -162,6 +172,14 @@ jobs:
           $py3 = Join-Path (Split-Path $py) 'python3.exe'
           if (-not (Test-Path $py3)) { Copy-Item $py $py3 }
           python -m unittest tests.test_job_sh tests.test_pc_deploy tests.test_claude_hook tests.test_setup tests.test_proxy_host.GitBash
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      # J74 (audit G3, H9): the PowerShell installer, the play script and the pack installer run only on Windows; -v lists every test as ok or skipped
+      # in the log, and the three modules fail (never skip) here when PowerShell is missing.
+      - name: PowerShell installer, play and pack-installer tests
+        timeout-minutes: 8
+        shell: powershell
+        run: |
+          python -m unittest -v tests.test_release_installer tests.test_play tests.test_install_packs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: harness host tests (unit and integration)
         # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept

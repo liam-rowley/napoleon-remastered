@@ -13,8 +13,8 @@
     {"target": "napoleon_remastered/LICENSE.dxvk.txt", "source": "dxvk_license"}
    ],
    "extras": [
-    {"path": "tools/Enable crash dumps.cmd", "source": "repo:core/proxy/tools/wer/Enable crash dumps.cmd"},
-    {"path": "tools/Disable crash dumps.cmd", "source": "repo:core/proxy/tools/wer/Disable crash dumps.cmd"},
+    {"path": "tools/Enable crash dumps.cmd", "source": "crash_cmd:enable"},
+    {"path": "tools/Disable crash dumps.cmd", "source": "crash_cmd:disable"},
     {"path": "tools/wer_localdumps.ps1", "source": "repo:core/proxy/tools/wer/wer_localdumps.ps1"}
    ]
   },
@@ -36,5 +36,18 @@
    ]
   }
  ],
- "external": {"uiscale": "C:\\napoleon_remastered_pc\\uiscale\\work"}
+ "external": {"uiscale": "C:\\napoleon_remastered_pc\\uiscale\\work"},
+ "external_provenance": {
+  "uiscale": {
+   "masters": {
+    "what": "the D35-approved 2.5x master UI art (J36) that ui_scale_2x.pack resamples; not committed (PC only), so its manifest names it",
+    "manifest": "C:\\napoleon_remastered_pc\\upscale\\work\\manifest.json",
+    "sha256": "91b485ae3e32268440b9e21e10e289568773329dc1ad2747f6ee538e52576be7",
+    "bytes": 7910948,
+    "entries": 9440,
+    "files": 9438,
+    "recorded": "2026-11-04, J79: two reads gave the same sha256 (manifest written 2026-10-31 10:22 UTC; 9438 entries done, 2 skipped:no_header)"
+   }
+  }
+ }
 }

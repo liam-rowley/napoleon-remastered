@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.saved_state",
+  "claim": "Per drawn frame the host saves the whole device state with a D3DSBT_ALL state block plus render target 0 and the depth-stencil surface, draws inside its own BeginScene/EndScene after the game's, and restores all of it before the real Present; the game drew on normally around the UI in every cell (dumps, interaction and warm resets at three sizes); the 20-pass acceptance with the host idle is still to run. It touches render targets 0-3, the depth-stencil surface, viewport, scissor, every render state it sets in BeginFrame, samplers 0-1 (and textures 0-7), shaders, vertex declaration, stream 0, indices and vertex/pixel shader constants c0-c23",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02",
+  "notes": "core proxy/src/ui_render_d3d9.cpp BeginFrame/EndFrame"
+}

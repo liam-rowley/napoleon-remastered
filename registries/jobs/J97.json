@@ -1,0 +1,13 @@
+{
+  "id": "J97",
+  "description": "Later sweep 2026-11-04 (docs/audits/LATER_TRIAGE_2026-11-04.md, job J82, audit R4). Built to the brief's defaults for its open questions (open for Liam). (1) Per-checkout docker volumes (napoleon-viewer-cmake-*) accumulate on the PC: add a clean step or build.sh --prune that removes volumes whose checkout is gone (J31 Later 1). (2) S2 has no console or network capture from inside the artifact: when a signed-in browser is available, capture it once with Playwright or the browser pane and add it to the run folder (J31 Later 2). Bullets: J31 review Later 1, 2. Why now: the volumes grow with every worktree.",
+  "title": "Viewer housekeeping: docker volumes and the S2 capture",
+  "phase": 5,
+  "status": "done",
+  "model": "sonnet",
+  "needs_pc": false,
+  "depends_on": [],
+  "brief": "jobs/J97/brief.md",
+  "report": "jobs/J97/report.md",
+  "review": "jobs/J97/review.md"
+}

@@ -1,0 +1,30 @@
+# Hash-locked host-test packages (J79, audit G13): `python -m pip install --require-hashes -r upscale/requirements-ci.txt`.
+# Used by the `gates` CI job (ci/gates.yml.in, Python 3.12 on ubuntu-latest), so test_upscale.Images, test_uiscale.ArtSize, the font tests
+# (tests/test_uiscale_fonts.py) and test_x86re run there, and by upscale/pc/setup_env.cmd for the art_build Python (Windows, 3.12).
+# Versions are the pins of upscale/requirements.txt (freetype-py, uharfbuzz, numpy, pillow) and discovery/core/re_env.py (capstone, pefile:
+# x86re imports both). torch and spandrel stay out (GPU, PC only: setup_env.cmd installs them).
+# Each package has its one CPython 3.12 x86_64 manylinux wheel and its win_amd64 wheel; none of them has a dependency (pip refuses an unhashed one).
+# How (2026-11-04, J79): for each platform
+#   python -m pip download --no-deps --only-binary=:all: --python-version 3.12 --implementation cp --abi cp312 --abi abi3 --abi none
+#     --platform manylinux_2_28_x86_64 --platform manylinux_2_17_x86_64 --platform manylinux2014_x86_64 --platform manylinux_2_27_x86_64
+#     (then again with --platform win_amd64) -d <dir> <the six pins>
+#   python -m pip hash <dir>/*.whl
+# and checked against the PyPI JSON digests (https://pypi.org/pypi/<name>/<version>/json): one x86_64 glibc and one win_amd64 wheel per
+# pin for cp312, so a new hash means a new pin. To bump a pin: change it here and in upscale/requirements.txt, and redo both steps.
+freetype-py==2.5.1 \
+    --hash=sha256:289b443547e03a4f85302e3ac91376838e0d11636050166662a4f75e3087ed0b \
+    --hash=sha256:0b7f8e0342779f65ca13ef8bc103938366fecade23e6bb37cb671c2b8ad7f124
+uharfbuzz==0.56.4 \
+    --hash=sha256:b4476c6b466a5145997965c330bbb254ce918a1ddc4c9f2412411d722d8b5aa8 \
+    --hash=sha256:a308deb9905b3b25ddcdddc3438b73e4b3b4978292f78b2500e2ead2d453f75f
+numpy==2.5.2 \
+    --hash=sha256:3cdec01fa790a186d430433fdd4d4ffb70eed6f0eeb4bf05c8dbe2dce0a9bcb8 \
+    --hash=sha256:28ac63476ec7651484215ee7fa15a1f78b57c14621f01e392afe17b9a1390ce4
+pillow==12.3.0 \
+    --hash=sha256:78cb2c6865a35ab8ff8b75fd122f6033b92a62c82801110e48ddd6c936a45d91 \
+    --hash=sha256:a2b55dd6b2a4c4b7d87ffa56bdb33fdc5fdb9a462173861a7bc097f17d91cb09
+capstone==5.0.6 \
+    --hash=sha256:0358855773100bb91ae6681fabce7299df83156945ba943f6211061a592c54a6 \
+    --hash=sha256:761c3deae00b22ac697081cdae1383bb90659dd0d79387a09cf5bdbb22b17064
+pefile==2024.8.26 \
+    --hash=sha256:76f8b485dcd3b1bb8166f1128d395fa3d87af26360c2358fb75b80019b957c6f

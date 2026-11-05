@@ -1,5 +1,5 @@
 {
- "note": "UI function of each UI-first asset (J7). Rules are tried in order; the first whose path glob (fnmatch on the lower-case path with / separators; * crosses folders), optional exts ('' = none) and optional max_side (largest of w, h) match gives the role. A path no rule matches is 'unclassified'. Roles are UI functions, never remaster methods (those are upscale_method). Read by discovery/core/assets.py.",
+ "note": "UI function of each UI-first asset (J7). Rules are tried in order; the first whose path glob (fnmatch on the lower-case path with / separators; * crosses folders), optional exts ('' = none) and optional max_side (largest of w, h) match gives the role. A path no rule matches is 'unclassified'. Roles are UI functions, never remaster methods (those are upscale_method). Read by core/discovery/assets.py.",
  "rules": [
   {"role": "font", "paths": ["*"], "exts": [".cuf", ".fc"]},
   {"role": "campaign_minimap", "paths": ["campaign_maps/*/stratradar*"]},

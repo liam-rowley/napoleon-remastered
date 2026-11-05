@@ -1,0 +1,12 @@
+{
+  "id": "J86",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) Empire learnings: nightly visual regression was dropped from PIPELINE_V2 with no decision, and the shadow and LOD jobs (J24 to J27) are what it would catch. On J85's scheduler, each night capture the golden scene set (registries/scenarios.jsonl) on main's build, diff each scene against the last accepted capture with a threshold, and open or update one issue with the diff images. Needs Liam's decision line first (keep or drop the learning). After J85.",
+  "title": "Nightly visual regression on the golden scenes",
+  "phase": 3,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J85"
+  ]
+}

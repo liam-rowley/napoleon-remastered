@@ -1,0 +1,18 @@
+2026-11-04T22:22:58Z start rect=2560,1440 3840x2160
+2026-11-04T22:22:58Z ---
+explorer pid=9420 title=[] rect=2560,3598,6400,3646
+explorer pid=9420 title=[Program Manager] rect=0,0,6400,3600
+WindowsTerminal pid=8872 title=[Windows PowerShell] rect=4655,2228,6407,3164 FOREGROUND
+2026-11-04T22:26:44Z ---
+explorer pid=9420 title=[] rect=2560,2472,4480,2520
+explorer pid=9420 title=[Program Manager] rect=0,0,4480,2520
+WindowsTerminal pid=8872 title=[Windows PowerShell] rect=2735,1591,4487,2527 FOREGROUND
+2026-11-04T22:26:46Z ---
+explorer pid=9420 title=[] rect=2560,2518,4480,2566
+explorer pid=9420 title=[Program Manager] rect=0,0,4480,2520
+WindowsTerminal pid=8872 title=[Windows PowerShell] rect=2735,1591,4487,2527 FOREGROUND
+2026-11-04T22:30:46Z ---
+explorer pid=9420 title=[] rect=2560,3598,6400,3646
+explorer pid=9420 title=[Program Manager] rect=0,0,6400,3600
+WindowsTerminal pid=8872 title=[Windows PowerShell] rect=4655,2228,6407,3164 FOREGROUND
+2026-11-04T22:31:45Z stop

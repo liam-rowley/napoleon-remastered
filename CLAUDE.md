@@ -28,7 +28,8 @@
 - Everything goes through `python3 core/wsc.py <verb>`: `find <words>` searches every registry, `reg add|set|render` changes them,
   `gates` runs the checks CI runs (`--fast` is what the pre-push hook runs). Views are not committed (J55): `reg render` writes them to `_scratch/registries/`.
 - Since J12 the core carries the proxy sources and tools (`core/proxy/src`, `core/proxy/tools`), the watcher kit (`core/harness/`) and the
-  ESF tools (`core/saves/`); this repo keeps the adapters (`proxy/napoleon`, `harness/napoleon`, `saves/napoleon`). `python3 core/proxy/tools/layout.py`
+  ESF tools (`core/saves/`); since J64 also the discovery passes (`core/discovery/`, the core verb `wsc discovery`; this repo keeps `discovery/napoleon` and the results) and the game gates
+  (`wsc.toml` `[gates] dirs`: `tools/gates/pipeline.py`). This repo keeps the adapters (`proxy/napoleon`, `harness/napoleon`, `saves/napoleon`). `python3 core/proxy/tools/layout.py`
   shows what the tools use.
 - **Never change files inside `core/`.** A change the game needs goes to warscape-core as a PR and arrives with a new tag
   (`core/docs/CONSUMING.md`); the `core_pin` gate fails on local edits.
@@ -36,12 +37,12 @@
 ## Jobs (D16, D21): what Liam means by "pick up the next job" and "review the next job"
 - The queue is the `jobs` registry (`registries/jobs/J<n>.json`, one file per job; status page: `python3 core/wsc.py jobs view`). Each job has a folder
   `jobs/<id>/` with `brief.md` (the full prompt), then `report.md` and `review.md`. A job in progress is a remote branch `job/<id>`.
-  `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (the core's `jobs` verb: `core/warscape/jobq.py`, configured by `wsc.toml` `[jobs]` and `tools/jobs_hooks.py`).
+  `wsc jobs check` (run by the `tests` gate) enforces the statuses, their files and the brief shape (the core's `jobs` verb: `core/warscape/jobq.py`, configured by `wsc.toml` `[jobs]` and the gate module `tools/gates/pipeline.py`).
 - **"Pick up the next job":** `git pull`, then `python3 core/wsc.py jobs next`. It names the job and its steps, or the brief to write
   (on `brief/<id>`, then queue its merge on green CI: D33), or what every open job is waiting for. Say which job you took.
 - **"Review the next job":** `python3 core/wsc.py jobs review` names the branch; follow `docs/REVIEW.md` on it. A `merge` verdict
   ends with the reviewer queueing the merge on green CI (D32); any other verdict is never merged.
-- The `wsc jobs view --serve` buttons start the same sessions (`claude --bg`, named `J<n>-<action>`, one session per name; no count cap: D34).
+- The `wsc jobs view --serve` buttons start the same sessions (`claude --bg`, named `J<n>-<action>`, one session per name; at most 4 background sessions at once: D59).
 - Never mark your own job `done`, and never review a job you built (CI's `policy` check refuses a review written by a session that
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
@@ -54,7 +55,7 @@
 ## While you work
 - Work on a branch; commit and push after every meaningful step. `main` changes only through a pull request: a job branch
   is merged by its independent reviewer on green CI (D32, `docs/REVIEW.md`), a `brief/` branch by its writer on green CI
-  (D33); `plan/` and `meta/` branches by Liam (or the orchestrator, once there is one). End every job with a report: what was built, evidence
+  (D33); `plan/` and `meta/` branches by Liam only (D50). End every job with a report: what was built, evidence
   (run ids), deviations from the brief and why, open questions (`wsc jobs check` checks the headings).
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.
@@ -63,9 +64,14 @@
   sha after every install, uninstall and set; the watcher refuses a launch (`exe_check`); `pc_deploy.py status` and `wsc setup` report it.
 - **The PC game folder is a deploy target.** Change the repo, then sync with a sha-checked copy (`pc_deploy.py`).
 - **PC experiments live under `<state>\_scratch\<you>\`** (`job.sh scratch <you>`); anything worth keeping comes back to the repo. Guard: the
-  hook (`tools/claude_hook.py`) denies shell writes into a game folder or the state folder elsewhere; `pc_deploy.py status` lists foreign files.
-- **Never run git in a game folder.** Guard: the hook denies git there (cwd, `cd`, `-C`, `--git-dir`, `GIT_DIR`), the watcher refuses a script
-  that runs git, and `pc_deploy.py status` and `wsc setup` fail on a `.git` in or above a game folder.
+  hook (`tools/claude_hook.py`, J76) judges every simple command of a call on its own and denies shell writes (redirects, cp/mv/rm/install/tar/...,
+  inline python/node/powershell) into a game folder, the state folder or the AppData prefs file and `save_games` elsewhere; only the core's
+  `pc_deploy.py` and `job.sh` are exempt, and their redirects are still checked; `pc_deploy.py status` lists foreign files. The residuals are in its header.
+- **Never run git in a game folder.** Guard: the hook denies git there (cwd, `cd`, `-C`, `--git-dir`, `GIT_DIR`, `init`/`clone` arguments, behind
+  wrappers, `bash -c`, subshells), the watcher refuses a script that runs git, and `pc_deploy.py status` and `wsc setup` fail on a `.git` in or above a game folder.
+- **Launch and kill the game only through `job.sh`; never `--no-verify`; only Liam merges `plan/` and `meta/` (D50).** Guard: the hook denies starting or
+  killing `Napoleon.exe`/`Empire.exe` (also `steam://`), `--no-verify` on commit/push/merge/rebase/cherry-pick/am, `gh pr merge` of a `plan/` or
+  `meta/` branch (a number or no target is resolved with `gh pr view`; unresolvable is denied) and deleting a remote `main`, `plan/`, `meta/`, `job/` or `brief/` branch.
 - **Reuse before you write.** Search the tools registry first; extend an existing tool or CLI verb rather than adding a near-duplicate.
   Every tool has a header and a registry row (`tools` gate; header format: `core/warscape/tools.py`).
 - **"Verified" carries a date and a run id** (`verified_dates` gate for docs; structured fields in registries).
@@ -73,7 +79,7 @@
 - Windows-safe names only: the `windows_paths` gate is the rule.
 - Never edit generated copies: the claude.ai Project docs, review pages and anything a generator writes. Change the source and regenerate.
 
-## Usage (D15, D34)
+## Usage (D15, D59)
 Sonnet medium by default; Opus only with a reason in the brief (reverse engineering, shaders, DLL, crashes, independent checks);
-no fixed cap on agents at once: Liam decides (D34); every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
+at most 4 background sessions or subagents at once, a PC job counting as one, and finished ones stopped (D59); every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
 to an agent making repeated calls.

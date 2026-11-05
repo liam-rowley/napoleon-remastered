@@ -14,7 +14,7 @@ engine_facts = "core:engine_facts"
 jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
 
 [core]
-version = "v0.9.0"
+version = "v0.30.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
@@ -31,14 +31,20 @@ commit = false              # views are written to _scratch/registries/ (git-ign
 [storage]
 dir = ["jobs", "tools", "engine_facts"]
 
-# ---- the job pipeline (napoleon J62): the core runs it, this file configures it, tools/jobs_hooks.py holds the game-specific rules
+# ---- the job pipeline (napoleon J62): the core runs it, this file configures it, tools/gates/pipeline.py holds the game-specific rules
 [jobs]
 id_prefix = "J"
 dir = "jobs"
 models = ["sonnet", "opus"]
 legacy = "jobs/legacy.json"            # frozen id sets exempt from the round rules and the brief hooks (D36, J11)
-hooks = ["tools/jobs_hooks.py"]        # found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75)
 ledgers = "jobs/*/rules.md"            # J5 audit ledgers: their `CL` rows name the job whose brief must cover them
+
+[gates]
+dirs = ["tools/gates"]                 # tools/gates/pipeline.py: found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75); core W13
+run_refs_since = "2026-11-04"          # core W12 (0.24.0): 12 references in run READMEs dated before the J64 bump do not resolve (moved paths, PC-side paths, non-file names); dated records stay as written
+
+[discovery]
+adapter = "discovery/napoleon"         # games.json, gate.json and the other adapter files; the passes themselves are core/discovery (core W4, v0.15.0)
 
 [jobs.text]
 wsc = "python3 core/wsc.py"
@@ -63,7 +69,7 @@ decision_prefix = "D"
 session_trailer = "Claude-Session"
 plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md"]
 meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
-        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules", "core", "registries/*"]
+        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules"]
 
 [ci]
 salt = "1"                              # bump to invalidate every CI pass marker (J54)
@@ -72,23 +78,30 @@ token_secret = "WARSCAPE_CORE_TOKEN"    # the core is public (D29); keep the sec
 workflows = ["gates.yml", "policy.yml"]
 notice = "A failed check leaves this pull request open (D32); fix it on the branch and push."
 footer = "Classes and their guards: `docs/CI_FAILURES.md`."
-policy_extra_steps = '''      # rule 79 compares the core pins at the merge base and the head (J58). fetch-depth 0 already clones the core in full (no --depth on
-      # the submodule update), so the base pin is there whenever a core branch or tag reaches it; this fetch makes sure of it. A pin that
-      # still cannot be fetched is left to the policy hook, which counts the pin change and says why (fail closed).
-      - run: |
-          pin=$(git rev-parse "$(git merge-base "origin/${{ github.base_ref }}" HEAD):core")
-          git -C core cat-file -e "$pin^{commit}" 2>/dev/null || git -C core fetch --no-tags origin "$pin" || echo "could not fetch core pin $pin"'''
+policy_extra_steps = '''      # rule 79 compares the core pins at the merge base and the head (J58). The checkout is the base (core W23: pull_request_target), so HEAD
+      # is the base: the head's sha comes from env, never from an expression inside run. Both pins are fetched into core/ when missing; a pin
+      # that still cannot be fetched is left to the policy module, which counts the pin change and says why (fail closed).
+      - env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          for rev in "$(git merge-base "origin/$BASE_REF" "$HEAD_SHA")" "$HEAD_SHA"; do
+            pin=$(git rev-parse "$rev:core")
+            git -C core cat-file -e "$pin^{commit}" 2>/dev/null || git -C core fetch --no-tags origin "$pin" || echo "could not fetch core pin $pin"
+          done'''
+
+required_checks = ["gates", "policy", "proxy", "harness-windows"]   # what `main` requires (D32); `wsc ci check-settings` compares (core W21)
 
 [ci.artifacts]
 proxy = "proxy-d3d9-napoleon"
 viewer = "viewer-wasm"
 
-# proxy: proxy/, the core pin (the proxy sources and tools live in core/ since J12) and the two registries gen_tables.py reads; harness: harness/, the core
-# pin and the Python tests that run bash on Windows (J22) with the finder in setup.py and the hook they run; viewer: viewer/, uikit/ (the design library, J34) and their tests (J31).
+# proxy: proxy/, the core pin (the proxy sources and tools live in core/ since J12) and the two registries gen_tables.py reads and the UI pin file the build id hashes (J30; tests/test_proxy_host.py derives the DLL inputs from the core's build_id and fails when this set misses one); harness: harness/, the core
+# pin, release/ (J74: the installer and its tests; release/runs/ is committed evidence), upscale/pc/ (the scripts two of the Windows tests run) and the Python tests that run bash or PowerShell on Windows (J22, J74) with the finder in setup.py and the hook they run; viewer: viewer/, uikit/ (the design library, J34) and their tests (J31).
 # A workflow change runs all three. proxy/runs/ and viewer/runs/ are committed run evidence, not build inputs (J42).
 [ci.inputs]
-proxy = '^\.github/workflows/|^proxy/(?!runs/)|^core$|^registries/(engine_sites|config_keys)\.jsonl$'
-harness = '^\.github/workflows/|^harness/|^core$|^tests/test_(job_sh|pc_deploy|claude_hook|setup|proxy_host)\.py$|^tools/verbs/setup\.py$|^tools/claude_hook\.py$|^\.claude/settings\.json$'
+proxy = '^\.github/workflows/|^proxy/(?!runs/)|^core$|^registries/(engine_sites|config_keys)\.jsonl$|^viewer/pins\.json$'
+harness = '^\.github/workflows/|^harness/|^release/(?!runs/)|^upscale/pc/|^core$|^tests/test_(job_sh|pc_deploy|claude_hook|setup|proxy_host|release_installer|play|install_packs)\.py$|^tools/verbs/setup\.py$|^tools/claude_hook\.py$|^\.claude/settings\.json$'
 viewer = '^\.github/workflows/|^viewer/(?!runs/)|^uikit/(?!napoleon/runs/)|^tests/test_(viewer|uikit)\.py$'
 
 [ci.hints]

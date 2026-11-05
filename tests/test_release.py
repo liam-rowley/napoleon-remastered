@@ -133,6 +133,155 @@ class ReleaseValues(unittest.TestCase):
                 self.assertFalse(br.not_off(k.get('release_value', k['default'])), k['id'])
 
 
+def ledger_text(*rows):
+    """A fake acceptance ledger: rows are (build_id, result); every row names a run and an evidence file."""
+    return ''.join(json.dumps({'pass': i + 1, 'build_id': b, 'result': r, 'run': 'harness/runs/x', 'evidence': f'harness/runs/x/pass_{i + 1}.json'}) + '\n'
+                   for i, (b, r) in enumerate(rows))
+
+
+class DllMarker(unittest.TestCase):
+    """G4 (J74): the DLL must carry the clean id as a whole token, and the ledger must hold 20 passes on it."""
+    ID = 'cb34c06baf42'
+
+    def setUp(self):
+        self._t = tempfile.TemporaryDirectory()
+        self.addCleanup(self._t.cleanup)
+
+    def dll(self, data):
+        d = Path(self._t.name) / 'd3d9.dll'
+        d.write_bytes(data)
+        return d
+
+    def acc(self, text, passes=20, exists=None):
+        return {'text': text, 'passes': passes, 'exists': exists or (lambda p: True)}
+
+    def test_dirty_neighbour_is_not_the_id(self):
+        self.assertTrue(br.dll_problem(self.dll(b'MZ\0' + self.ID.encode() + b'-dirty\0'), self.ID))
+
+    def test_empty_or_malformed_id_is_refused(self):
+        d = self.dll(b'MZ\0' + self.ID.encode() + b'\0')
+        for bad in ('', 'abc', 'CB34C06BAF42', 'cb34c06baf4', 'cb34c06baf42a', self.ID + '-dirty'):
+            self.assertTrue(br.dll_problem(d, bad), repr(bad))
+
+    def test_prefix_of_a_longer_run_is_not_the_id(self):
+        self.assertTrue(br.dll_problem(self.dll(b'MZ\0' + self.ID.encode() + b'ff\0'), self.ID))
+        self.assertTrue(br.dll_problem(self.dll(b'MZ\0ff' + self.ID.encode() + b'\0'), self.ID))
+
+    def test_delimited_id_is_accepted(self):
+        self.assertEqual(br.dll_problem(self.dll(b'MZ\0' + self.ID.encode() + b'\0rest'), self.ID), '')
+        self.assertEqual(br.dll_problem(self.dll(b'MZ..build ' + self.ID.encode() + b' ..'), self.ID), '')
+
+    def test_a_dll_that_also_carries_the_dirty_literal_is_refused(self):
+        i = self.ID.encode()
+        self.assertTrue(br.dll_problem(self.dll(b'\0' + i + b'\0' + i + b'-dirty\0'), self.ID))
+
+    def test_twenty_passes_are_needed(self):
+        d = self.dll(b'\0' + self.ID.encode() + b'\0')
+        i = self.ID
+        self.assertEqual(br.dll_problem(d, i, self.acc(ledger_text(*[(i, 'pass')] * 20))), '')
+        msg = br.dll_problem(d, i, self.acc(ledger_text(*[(i, 'pass')] * 19)))
+        self.assertTrue(msg and i in msg and '19' in msg and '20' in msg, msg)
+        self.assertTrue(br.dll_problem(d, i, self.acc(ledger_text(*([(i, 'pass')] * 20 + [(i, 'fail')])))))
+        self.assertEqual(br.dll_problem(d, i, self.acc(ledger_text(*([(i, 'fail')] + [(i, 'pass')] * 20)))), '')
+
+    def test_other_ids_and_dirty_rows_do_not_count(self):
+        d = self.dll(b'\0' + self.ID.encode() + b'\0')
+        i = self.ID
+        rows = [(i, 'pass')] * 10 + [(i + '-dirty', 'pass')] * 5 + [('000000000000', 'pass')] * 5 + [(i, 'pass')] * 9
+        self.assertTrue(br.dll_problem(d, i, self.acc(ledger_text(*rows))))
+        rows = [(i, 'pass')] * 10 + [(i + '-dirty', 'pass')] * 5 + [('000000000000', 'pass')] * 5 + [(i, 'pass')] * 10
+        self.assertEqual(br.dll_problem(d, i, self.acc(ledger_text(*rows))), '')
+
+    def test_missing_evidence_ends_the_streak(self):
+        d = self.dll(b'\0' + self.ID.encode() + b'\0')
+        i = self.ID
+        text = ledger_text(*[(i, 'pass')] * 20)
+        self.assertTrue(br.dll_problem(d, i, self.acc(text, exists=lambda p: not p.endswith('pass_20.json'))))
+        self.assertTrue(br.dll_problem(d, i, self.acc(text, exists=lambda p: not p.endswith('pass_5.json'))))
+
+    def test_real_ledger_clears_main(self):
+        a = REL['acceptance']
+        self.assertEqual(a['passes'], 20)
+        n = br.acceptance_streak((ROOT / a['ledger']).read_text(encoding='utf-8'), self.ID, lambda p: (ROOT / p).is_file())
+        self.assertGreaterEqual(n, 20)
+
+
+class IniSetGate(unittest.TestCase):
+    """G2 (J74): the components' ini_set keys go through the same release-value gate as the registry."""
+
+    def vp(self, ini_set, allowed=None):
+        rel = copy.deepcopy(REL)
+        rel['release_values']['allowed_dev_keys'] = allowed or {}
+        return br.value_problems(KEYS, rel, ini_set=ini_set)
+
+    def test_a_dev_key_on_is_refused(self):
+        errs = self.vp({'dev.ctl': 1})
+        self.assertTrue(any('dev.ctl' in e for e in errs), errs)
+
+    def test_allow_list_with_a_decision_passes(self):
+        self.assertEqual(self.vp({'dev.file_rules': 'x\\y.rules'}, {'dev.file_rules': 'D46: the UI scale stop-gap'}), [])
+        self.assertTrue(self.vp({'dev.file_rules': 'x\\y.rules'}))     # not listed
+
+    def test_the_allow_list_does_not_excuse_other_keys(self):
+        self.assertTrue(self.vp({'dev.ctl': 1}, {'dev.file_rules': 'D46: x'}))
+
+    def test_required_key_changed_is_refused(self):
+        self.assertTrue(any('proxy.exe_guard' in e for e in self.vp({'proxy.exe_guard': 0})))
+
+    def test_unknown_key_is_refused(self):
+        self.assertTrue(any('no.such_key' in e for e in self.vp({'no.such_key': 1})))
+
+    def test_stale_or_reasonless_or_unknown_allow_entries_are_refused(self):
+        self.assertTrue(any('dev.file_rules' in e for e in self.vp({}, {'dev.file_rules': 'D46: x'})))     # no component sets it
+        self.assertTrue(self.vp({'dev.file_rules': 'x'}, {'dev.file_rules': 'because we said so'}))         # no decision id
+        self.assertTrue(any('dev.nope' in e for e in self.vp({}, {'dev.nope': 'D46: x'})))                   # not a registry key
+
+    def test_shipped_ini_is_checked_too(self):
+        rel = copy.deepcopy(REL)
+        rel['release_values']['allowed_dev_keys'] = {'dev.file_rules': 'D46: x'}
+        ok = '[proxy]\r\nenabled=1\r\n\r\n[dev]\r\nfile_rules=a\r\n'
+        self.assertEqual(br.shipped_ini_problems(ok, rel), [])
+        self.assertTrue(br.shipped_ini_problems('[dev]\r\nctl=1\r\n', rel))
+        self.assertTrue(br.shipped_ini_problems('[headless]\r\nenabled=1\r\n', rel))
+        rel['release_values']['allowed_dev_keys'] = {}
+        self.assertTrue(br.shipped_ini_problems(ok, rel))
+
+    def test_real_release_is_clean(self):
+        ini_set = br.component_ini_set(COMPS)
+        self.assertEqual(list(ini_set), ['dev.file_rules'])
+        self.assertEqual(list(REL['release_values']['allowed_dev_keys']), ['dev.file_rules'])
+        self.assertEqual(br.value_problems(KEYS, REL, ini_set=ini_set), [])
+        self.assertEqual(br.shipped_ini_problems(br.player_ini(KEYS, REL, IDENT, ini_set), REL), [])
+
+
+class CrashDumpCmd(unittest.TestCase):
+    """G1 (J74): the shipped crash-dump .cmd files are generated with the game's exe name and dump folder."""
+
+    def test_generated_text(self):
+        for mode in ('enable', 'disable'):
+            t = br.crash_dump_cmd(mode, IDENT)
+            self.assertTrue(t.isascii())
+            self.assertEqual(t.count('\n'), t.count('\r\n'))
+            self.assertIn(f'-Mode {mode} ', t)
+            self.assertIn("-ExeName ''Napoleon.exe''", t)
+            self.assertIn("-DumpFolder ''%%LOCALAPPDATA%%\\CrashDumps\\napoleon_remastered''", t)
+            self.assertIn('%~dp0wer_localdumps.ps1', t)
+            self.assertIn(f'rr_wer_{mode}.txt', t)
+        other = br.crash_dump_cmd('enable', dict(IDENT, exe_name='Other.exe', mod_dir='other_mod'))
+        self.assertIn("-ExeName ''Other.exe''", other)
+        self.assertIn('CrashDumps\\other_mod', other)
+        self.assertNotIn('Napoleon.exe', other)
+
+    def test_proxy_component_ships_the_generated_files(self):
+        src = {x['path']: x['source'] for c in COMPS['components'] for x in c.get('extras', [])}
+        self.assertEqual(src['tools/Enable crash dumps.cmd'], 'crash_cmd:enable')
+        self.assertEqual(src['tools/Disable crash dumps.cmd'], 'crash_cmd:disable')
+        self.assertEqual(src['tools/wer_localdumps.ps1'], 'repo:core/proxy/tools/wer/wer_localdumps.ps1')
+        c = next(c for c in COMPS['components'] if c['id'] == 'proxy')
+        got = br.resolve({'source': 'crash_cmd:enable', 'target': 'x'}, c, {'ident': IDENT})
+        self.assertEqual(got, br.crash_dump_cmd('enable', IDENT).encode('ascii'))
+
+
 class Licences(unittest.TestCase):
     def test_gate_passes_and_text_is_the_pinned_dxvk_text(self):
         self.assertEqual(gl.problems(LIC, COMPS, ROOT), [])
@@ -187,18 +336,113 @@ class Notes(unittest.TestCase):
         self.assertTrue(t.isascii())
         r = br.readme_text(REL, IDENT, '0.1.0', COMPS, LIC)
         self.assertTrue(r.isascii())
-        for want in ('Install.cmd', 'Uninstall.cmd', 'Support.cmd', 'EXCEPT inside the game folder'):
+        for want in ('Install.cmd', 'Uninstall.cmd', 'Support.cmd', 'Clean.cmd', 'changed by the game update, not by this tool'):
             self.assertIn(want, r)
+
+    def test_one_discovery_story(self):
+        """G14d (J81): rr.ps1 Find-Game searches upward from the release folder first, so README.txt must not forbid unzipping inside the game folder."""
+        r = br.readme_text(REL, IDENT, '0.1.0', COMPS, LIC)
+        self.assertNotIn('EXCEPT', r)
+        self.assertIn('the installer still finds the game, but verify-and-reinstall in Steam deletes it', r)
+        self.assertNotIn('EXCEPT', (ROOT / 'release' / 'README.md').read_text(encoding='utf-8'))
 
     def test_limit_facts_exist(self):
         self.assertEqual(len(br.load_facts(REL['limit_facts'])), len(REL['limit_facts']))
 
     def test_cmd_entry_points(self):
+        self.assertEqual(br.CMDS['Clean.cmd'][0], 'clean')   # G6 (J81): the release ships Clean.cmd
         for name, (verb, extra, blurb) in br.CMDS.items():
             t = br.cmd_text(verb, extra, blurb)
             self.assertIn(f'rr.ps1" {verb}', t)
             self.assertIn('%~dp0installer', t)
             self.assertTrue(t.isascii() and '\r\n' in t)
+            self.assertEqual(t.count('\n'), t.count('\r\n'))
+        self.assertIn('game update', br.CMDS['Uninstall.cmd'][2])
+
+    def test_key_text_is_gone(self):
+        """G14c (J81): the dead helper (it imported gen_tables, nothing called it)."""
+        self.assertFalse(hasattr(br, 'key_text'))
+
+
+class External(unittest.TestCase):
+    """G14a (J81): an external build output is taken only with its .json sidecar naming its sha256 (and the pinned build id when a row pins one)."""
+
+    def setUp(self):
+        self._t = tempfile.TemporaryDirectory()
+        self.addCleanup(self._t.cleanup)
+        self.d = Path(self._t.name)
+        (self.d / 'x.pack').write_bytes(b'PACK' * 10)
+
+    def res(self, **cf):
+        return br.resolve(dict({'source': 'external:ext:x.pack', 'target': 'data/x.pack'}, **cf), {}, {'external': {'ext': str(self.d)}})
+
+    def side(self, **m):
+        (self.d / 'x.pack.json').write_text(json.dumps(m), encoding='utf-8')
+
+    def test_missing_sidecar_is_refused(self):
+        with self.assertRaises(SystemExit) as e:
+            self.res()
+        self.assertIn('sidecar', str(e.exception))
+
+    def test_other_sha256_is_refused(self):
+        self.side(sha256='0' * 64)
+        with self.assertRaises(SystemExit):
+            self.res()
+        self.side(file='x.pack')   # names no sha256
+        with self.assertRaises(SystemExit):
+            self.res()
+
+    def test_matching_sidecar_and_pin(self):
+        good = hashlib.sha256(b'PACK' * 10).hexdigest()
+        self.side(sha256=good)
+        self.assertEqual(self.res(), self.d / 'x.pack')
+        with self.assertRaises(SystemExit):
+            self.res(build_id='abcabcabcabc')   # the row pins a build the sidecar does not name
+        self.side(sha256=good, build_id='abcabcabcabc')
+        self.assertEqual(self.res(build_id='abcabcabcabc'), self.d / 'x.pack')
+
+
+class Record(unittest.TestCase):
+    """G14b (J81): --record writes version, manifest sha256 and build id into releases.json; a rebuild with other content is refused."""
+    MAN = {'product': 'Napoleon Remastered', 'version': '0.1.0', 'created_utc': '2026-11-04T00:00:00Z', 'dll_build_id': 'cb34c06baf42',
+           'files': [{'path': 'd3d9.dll', 'sha256': 'a' * 64}]}
+
+    def entry(self, man):
+        return {'version': man['version'], 'manifest_sha256': br.content_sha256(man), 'build_id': man['dll_build_id'], 'jobs_done': [], 'published': False}
+
+    def test_record_then_rebuild(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            rp = Path(tmp) / 'releases.json'
+            rp.write_text(json.dumps({'_note': 'kept', 'releases': []}), encoding='utf-8')
+            br.record_release(rp, self.entry(self.MAN))
+            rels = json.loads(rp.read_text(encoding='utf-8'))
+            self.assertEqual(rels['_note'], 'kept')
+            self.assertEqual([(r['version'], r['build_id'], r['published']) for r in rels['releases']], [('0.1.0', 'cb34c06baf42', False)])
+            releases = rels['releases']
+            same = dict(self.MAN, created_utc='2026-11-05T00:00:00Z')   # an identical rebuild a day later
+            self.assertEqual(br.version_problems('0.1.0', releases), [])
+            self.assertEqual(br.record_problems('0.1.0', br.content_sha256(same), releases), [])
+            changed = dict(self.MAN, files=[{'path': 'd3d9.dll', 'sha256': 'b' * 64}])
+            errs = br.record_problems('0.1.0', br.content_sha256(changed), releases)
+            self.assertTrue(errs and 'recorded with another content' in errs[0] and '--rebuild-unreleased' in errs[0], errs)
+            with self.assertRaises(SystemExit):
+                br.record_release(rp, self.entry(changed))
+            self.assertEqual(br.record_problems('0.1.0', br.content_sha256(changed), releases, rebuild_unreleased=True), [])
+            br.record_release(rp, self.entry(changed), rebuild_unreleased=True)
+            rels = json.loads(rp.read_text(encoding='utf-8'))['releases']
+            self.assertEqual(len(rels), 1)
+            self.assertEqual(rels[0]['manifest_sha256'], br.content_sha256(changed))
+
+    def test_published_entries_are_final(self):
+        pub = [{'version': '0.1.0', 'manifest_sha256': 'c' * 64, 'build_id': 'x', 'jobs_done': [], 'published': True}]
+        self.assertTrue(br.version_problems('0.1.0', pub))
+        self.assertTrue(br.record_problems('0.1.0', 'd' * 64, pub, rebuild_unreleased=True))
+        self.assertTrue(br.version_problems('0.1.0', [{'version': '0.1.0', 'jobs_done': []}]))   # a hand entry (no sha) counts as published
+        self.assertFalse(br.version_problems('0.1.1', pub))
+
+    def test_the_real_file_reads(self):
+        rels = rj('release/napoleon/releases.json')['releases']
+        self.assertEqual(br.version_problems((ROOT / 'release' / 'napoleon' / 'VERSION').read_text().strip(), rels), [])
 
 
 class Folder(unittest.TestCase):
@@ -234,8 +478,25 @@ class Folder(unittest.TestCase):
             (f / 'stray.txt').write_text('x')
             self.assertTrue(any('stray.txt' in b for b in br.check_folder(f)))
             (f / 'stray.txt').unlink()
+            (f / 'Clean.cmd').unlink()   # J81: the folder rule covers the new entry point
+            self.assertTrue(any(b == 'Clean.cmd: missing' for b in br.check_folder(f)))
+            (f / 'Clean.cmd').write_bytes(b'x')
             f2 = f.rename(f.parent / 'Napoleon Remastered 0.2.0')
             self.assertTrue(any('folder name' in b for b in br.check_folder(f2)))
+
+    def test_crash_dump_cmd_without_its_arguments_is_flagged(self):
+        """G1: today's core copy of the .cmd names wer_localdumps.ps1 with no -ExeName and -DumpFolder; it only works inside the repo."""
+        with tempfile.TemporaryDirectory() as tmp:
+            f = self.make(tmp)
+            (f / 'tools').mkdir()
+            core = ROOT / 'core' / 'proxy' / 'tools' / 'wer'
+            (f / 'tools' / 'Enable crash dumps.cmd').write_bytes((core / 'Enable crash dumps.cmd').read_bytes())
+            (f / 'tools' / 'wer_localdumps.ps1').write_bytes((core / 'wer_localdumps.ps1').read_bytes())
+            self.assertTrue([b for b in br.check_folder(f) if 'Enable crash dumps.cmd' in b and '-ExeName' in b])
+            (f / 'tools' / 'Enable crash dumps.cmd').write_bytes(br.crash_dump_cmd('enable', IDENT).encode('ascii'))
+            self.assertEqual([b for b in br.check_folder(f) if 'crash dumps' in b and '-ExeName' in b], [])
+            (f / 'tools' / 'wer_localdumps.ps1').unlink()
+            self.assertTrue([b for b in br.check_folder(f) if 'wer_localdumps.ps1' in b and 'beside' in b])
 
     def test_dll_build_id(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -244,6 +505,22 @@ class Folder(unittest.TestCase):
             self.assertEqual(br.dll_problem(d, '715e9dfc0727'), '')
             self.assertIn('does not carry', br.dll_problem(d, '000000000000'))
             self.assertIn('dirty', br.dll_problem(d, '715e9dfc0727-dirty'))
+
+
+
+class Provenance(unittest.TestCase):
+    """J79 (audit G13): the shipped ui_scale_2x pack is an external PC build; components.json names the 2.5x masters it was made from"""
+
+    def test_real_components_name_the_masters(self):
+        comps = br.read_json(ROOT / 'release' / 'napoleon' / 'components.json')
+        self.assertEqual(br.provenance_problems(comps), [])
+        m = comps['external_provenance']['uiscale']['masters']
+        self.assertEqual((len(m['sha256']), m['files'] <= m['entries']), (64, True))
+
+    def test_bad_rows_are_refused(self):
+        comps = {'external': {'uiscale': 'x'}, 'external_provenance': {'uiscale': {'masters': {'sha256': 'ab', 'files': 0}}, 'other': {}}}
+        errs = br.provenance_problems(comps)
+        self.assertEqual(len(errs), 3, errs)
 
 
 if __name__ == '__main__':

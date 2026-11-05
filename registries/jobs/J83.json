@@ -1,0 +1,15 @@
+{
+  "id": "J83",
+  "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) G3 (real install), the J38 condition. J38's Liam-present sitting (its brief steps b to f) never ran: the installer's only run never installed into the real game folder, and the player installer state folder is absent on the PC. Build the 0.1.0 zip, install it into the real game folder with Install.cmd, enable crash dumps, check that the game starts and the exe stays vanilla on disk (D2), uninstall back to vanilla, then a Steam Verify and a repair; evidence in a run folder. releases.json and publishing stay Liam's. After J74, J77, J81 and J78 (the release DLL then carries audit train 1).",
+  "title": "0.1.0 release sitting on the PC",
+  "phase": 6,
+  "status": "needs_brief",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [
+    "J74",
+    "J77",
+    "J81",
+    "J78"
+  ]
+}

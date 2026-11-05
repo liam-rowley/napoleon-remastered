@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.input_path",
+  "claim": "The mouse reaches the engine through the window procedure, not DirectInput: the game creates a DirectInput keyboard device only (GUID_SysKeyboard; no GUID_SysMouse device in the front end, a campaign or a battle), so the RmlUi host routes the mouse in its window subclass and DirectInput arbitration only matters for the keyboard. Synthetic WM_MOUSEMOVE/WM_*BUTTON*/WM_MOUSEWHEEL sent to the window take the same route",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02",
+  "notes": "ctl ui state input_paths (di_mouse false, di_keyboard true) in every cell; proxy.log 'ui: DirectInput keyboard device'"
+}

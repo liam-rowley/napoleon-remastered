@@ -8,7 +8,10 @@ verb: hotkeys
 Reseed after a game update: `python3 core/wsc.py hotkeys import --from-pack` reads text\\default_keys.xml out of the Napoleon packs (the
 J7 PackFS, precedence applied) and rewrites every `vanilla.*` row; mod rows are untouched. Rerunning on the same file gives the same
 rows in the same order (the registry sorts by id). A row the grammar cannot spell, or that is an OS combo, stops the import (exit 1,
-nothing written) and is listed: add its key to KEY_NAMES, or record it in tests/test_hotkeys.py KNOWN_OS_COMBO.
+nothing written) and is listed: add its key to KEY_NAMES, or record it in tools/verbs/hotkeys_known.json `os_combo`.
+
+The allowed vanilla OS combos and clashes live in tools/verbs/hotkeys_known.json (a data file beside this verb, read by the verb and by
+tests/test_hotkeys.py). The game data folder is discovery/napoleon/games.json `napoleon.root` joined with `napoleon.data`.
 
 Encoding (checked on Napoleon 2026-10-29, see the engine_facts rows napoleon.hotkeys.*):
 - context from the `<mappings>` mode (default file) or the func's own `<mapping mode>` (custom file): `battle`, `campaign`; a func in both,
@@ -20,19 +23,40 @@ Encoding (checked on Napoleon 2026-10-29, see the engine_facts rows napoleon.hot
   schema has no field for it).
 - `all`-mode funcs are `global`, except `deselect_all`: it shares Return with the campaign `end_turn`, a vanilla double binding the
   schema would reject, so it is context `all_modes` (a wildcard like `global` in the test, not in the schema) and the pair is listed in
-  tests/test_hotkeys.py KNOWN_VANILLA_CLASH.
+  tools/verbs/hotkeys_known.json `vanilla_clash`.
 """
 import json
 import re
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 NAME = 'hotkeys'
 HELP = 'seed the hotkeys registry from the vanilla key file (import) and check it for clashes (check)'
 
-GAME_DATA = r'C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data'
+HERE = Path(__file__).resolve().parent
+GAMES_JSON = HERE.parents[1] / 'discovery' / 'napoleon' / 'games.json'
+KNOWN_JSON = HERE / 'hotkeys_known.json'
+
+
+def game_data(path=GAMES_JSON):
+    """(Napoleon data folder, None) from games.json (`napoleon.root` joined with `napoleon.data`), or (None, an error line)."""
+    try:
+        g = json.loads(Path(path).read_text(encoding='utf-8'))['napoleon']
+        return str(PureWindowsPath(g['root']) / g['data']), None
+    except (OSError, ValueError, KeyError, TypeError) as e:
+        return None, f'hotkeys: cannot read the Napoleon data folder from {path}: {type(e).__name__}: {e}'
+
+
+def load_known(path=KNOWN_JSON):
+    """(known_os_combo, known_clash) lists for find_problems, from hotkeys_known.json."""
+    d = json.loads(Path(path).read_text(encoding='utf-8'))
+    return [tuple(x) for x in d['os_combo']], [tuple(x) for x in d['vanilla_clash']]
+
+
+GAME_DATA, GAME_DATA_ERROR = game_data()
+FROM_GAMES = '<games.json>'   # --from-pack with no folder: the games.json data folder
 KEYS_ENTRY = 'text\\default_keys.xml'
 LOC_ENTRY = 'text\\localisation.loc'
 LOC_PREFIX = 'shortcut_localisation_onscreen_'
@@ -125,11 +149,21 @@ def parse_keys(text, keyset='fps', source_ref='keys.xml', loc=None):
 
 
 ORDER = ['Ctrl', 'Alt', 'Shift']
+WIN_MODS = ('Win', 'Windows', 'Super', 'Meta')
+CANON = {n.lower(): n for n in [*KEY_NAMES.values(), *ORDER, *KEY_ALIAS, *KEY_ALIAS.values(), *(m for m in MODS.values() if m), *WIN_MODS,
+                                *(f'F{n}' for n in range(1, 25)), *(f'Numpad{n}' for n in range(10))]}
+
+
+def canon(part):
+    """A key or modifier as typed, spelled canonically: one letter upper-cased, else a case-insensitive lookup into the known names
+    (KEY_NAMES values, ORDER, KEY_ALIAS, MODS, F-keys, NumpadN), else the text as typed."""
+    p = part.strip()
+    return p.upper() if len(p) == 1 else CANON.get(p.lower(), p)
 
 
 def split(binding):
     """(modifiers in Ctrl, Alt, Shift order, then any others; key) of a binding or loose text such as `win+x` or `alt + esc`."""
-    parts = [p.strip().capitalize() for p in binding.split('+')]
+    parts = [canon(p) for p in binding.split('+')]
     key = KEY_ALIAS.get(parts[-1], parts[-1])
     mods = sorted(set(parts[:-1]), key=lambda m: (ORDER.index(m) if m in ORDER else len(ORDER), m))
     return mods, key
@@ -137,7 +171,7 @@ def split(binding):
 
 def os_combo(binding):
     mods, key = split(binding)
-    if {'Win', 'Windows', 'Super', 'Meta'} & set(mods) or WIN_RAW.match(key):   # LWin / RWin / Apps as the key, too
+    if set(WIN_MODS) & set(mods) or WIN_RAW.match(key):   # LWin / RWin / Apps as the key, too
         return True
     return '+'.join(mods + [key]) in OS_COMBOS
 
@@ -219,10 +253,10 @@ def free_keys(rows, contexts=('battle', 'campaign', 'global'), mods=('', 'Ctrl+'
 
 # ---- verb ------------------------------------------------------------------------------------------------------------------------
 def load_loc(data_dir):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'discovery' / 'core'))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'core' / 'discovery'))
     from packfs import PackFS
     import loc
-    games = json.loads((Path(__file__).resolve().parents[2] / 'discovery' / 'napoleon' / 'games.json').read_text(encoding='utf-8'))
+    games = json.loads(GAMES_JSON.read_text(encoding='utf-8'))
     fs = PackFS(data_dir, pack_order=games['napoleon']['pack_order'])
     _, entries = loc.decode(fs.read(LOC_ENTRY))
     return {k: t for k, t, _ in entries}, fs
@@ -232,7 +266,8 @@ def add_arguments(p):
     sub = p.add_subparsers(dest='action', required=True)
     i = sub.add_parser('import', help='seed vanilla.* rows from a key file or the game packs')
     i.add_argument('file', nargs='?', help='a default_keys.xml or custom_keys.keys.xml')
-    i.add_argument('--from-pack', nargs='?', const=GAME_DATA, metavar='DATA_DIR', help='read text\\default_keys.xml from the Napoleon packs')
+    i.add_argument('--from-pack', nargs='?', const=FROM_GAMES, metavar='DATA_DIR',
+                   help='read text\\default_keys.xml from the Napoleon packs (default folder: discovery/napoleon/games.json)')
     i.add_argument('--keyset', default='fps')
     i.add_argument('--no-loc', action='store_true', help='descriptions are the func names (no localisation lookup)')
     i.add_argument('--dry-run', action='store_true', help='parse and report, write nothing')
@@ -243,20 +278,28 @@ def run(args, ctx):
     from warscape.registry import load_all
     reg = load_all(ctx)['hotkeys']
     if args.action == 'check':
-        sys.path.insert(0, str(Path(ctx.root) / 'tests'))
-        from test_hotkeys import KNOWN_OS_COMBO, KNOWN_VANILLA_CLASH
-        probs = find_problems(reg.rows, KNOWN_OS_COMBO, KNOWN_VANILLA_CLASH)
+        try:
+            known_os, known_clash = load_known()
+        except (OSError, ValueError, KeyError, TypeError) as e:
+            print(f'hotkeys check: cannot read {KNOWN_JSON}: {type(e).__name__}: {e}')
+            return 1
+        probs = find_problems(reg.rows, known_os, known_clash)
         print('\n'.join(probs) or f'hotkeys: {len(reg.rows)} rows, no clash')
         return 1 if probs else 0
     if bool(args.file) == bool(args.from_pack):
         print('hotkeys import: give a key file or --from-pack')
         return 2
     loc = None
+    if args.from_pack == FROM_GAMES:
+        if GAME_DATA is None:
+            print(GAME_DATA_ERROR)
+            return 1
+        args.from_pack = GAME_DATA
     if args.from_pack:
         try:
             loc, fs = load_loc(args.from_pack) if not args.no_loc else (None, None)
             if fs is None:
-                sys.path.insert(0, str(Path(ctx.root) / 'discovery' / 'core'))
+                sys.path.insert(0, str(Path(ctx.root) / 'core' / 'discovery'))
                 from packfs import PackFS
                 fs = PackFS(args.from_pack)
             text, src = fs.read(KEYS_ENTRY).decode('utf-8'), f'{fs.stat(KEYS_ENTRY).source}:{KEYS_ENTRY}'
@@ -265,7 +308,7 @@ def run(args, ctx):
             return 1
     else:
         text, src = Path(args.file).read_text(encoding='utf-8-sig'), Path(args.file).name
-        if not args.no_loc and Path(GAME_DATA).is_dir():
+        if not args.no_loc and GAME_DATA and Path(GAME_DATA).is_dir():
             try:
                 loc = load_loc(GAME_DATA)[0]
             except (OSError, ValueError, KeyError) as e:

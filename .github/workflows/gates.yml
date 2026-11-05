@@ -48,8 +48,9 @@ concurrency:
   group: gates-${{ github.ref }}${{ github.event_name == 'workflow_dispatch' && format('-dispatch-{0}', github.run_id) || '' }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
-  # changes: which slow jobs this run needs. Diffs against the merge base with main (a push to any branch but main)
-  # or the previous main tip (a push to main). When the base is unknown (first push to main, a force push past it) everything runs.
+  # changes: which slow jobs this run needs. A push to a branch diffs against its merge base with main. A push to main has no base
+  # (W22): every set counts as changed and only a pass marker for its tree skips it, so a set that failed on main runs again.
+  # When the base is unknown (a branch with no merge base, a shallow clone) everything runs.
   # Which files feed which job: `wsc.toml` [ci] inputs, read by `python3 core/wsc.py ci inputs`. Then a changed set whose tree hash has a pass marker
   # is turned off; its outputs are the combined answer: true = inputs changed against the base AND no marker for this tree.
   changes:
@@ -71,10 +72,8 @@ jobs:
       # only the core commit this repo pins, shallow: the verbs need no history
       - run: git submodule update --init --depth 1 core
       - id: diff
-        env:
-          BEFORE: ${{ github.event.before }}
         run: |
-          if [ "$GITHUB_REF" = refs/heads/main ]; then base=$BEFORE
+          if [ "$GITHUB_REF" = refs/heads/main ]; then base=''
           else base=$(git merge-base origin/main HEAD || true); fi
           python3 core/wsc.py ci inputs --base "$base" >> "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
@@ -147,6 +146,9 @@ jobs:
       - run: |
           pin=$(python -c "import tomllib; print(tomllib.load(open('wsc.toml', 'rb'))['core']['version'])")
           git -C core fetch --depth=1 --no-tags origin "refs/tags/$pin:refs/tags/$pin" || echo "could not fetch core tag $pin"
+      # J79 (audit G13): the host-test packages, hash-locked (upscale/requirements-ci.txt says how the hashes were made), so the art, font and
+      # x86re tests run here instead of skipping; a package whose wheel no longer matches its pinned sha256 fails this step, never the lock
+      - run: python -m pip install --require-hashes -r upscale/requirements-ci.txt
       - run: python core/wsc.py gates
   # proxy: build the proxy d3d9.dll with the release route (mingw-w64 i686 on Ubuntu 24.04, the same toolchain as the PC's
   # `build.sh --docker`: proxy/README.md "Build", D31) and run its host tests; the DLL is kept as a workflow artifact.
@@ -154,14 +156,28 @@ jobs:
     needs: changes
     if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' && (needs.changes.result != 'success' || needs.changes.outputs.proxy == 'true') }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30   # RmlUi compiles in this job (core ci/gates.yml.in has 30; J64 raised it from 15)
     steps:
       # a shallow checkout is enough: the build id hashes the DLL inputs' content at HEAD (core/proxy/tools/build_id.py, J45), not history
       - uses: actions/checkout@v5
         with:
           submodules: true   # the proxy sources, tools and the harness live in the core since J12
           token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
-      - run: sudo apt-get update -q && sudo apt-get install -y -q g++-mingw-w64-i686
+      - name: the pinned mingw-w64 toolchain (core/proxy/tools/toolchain.py apt; core 0.27.0, W24)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends $(python3 core/proxy/tools/toolchain.py apt)
+          dpkg-query -W -f '${Package}=${Version}\n' '*mingw-w64*'
+      # fetch cache (W21): the raw downloads (tarballs, RmlUi and FreeType checkouts), keyed by the pins and [ci] salt, never the patched
+      # trees; a warm cache makes the fetch offline. A cache fault never fails the job; the fetchers' sha checks judge every byte, and
+      # the fetchers retry their own downloads and git fetches on a network flake inside build.sh (W24), never a wrong byte.
+      - id: fetch_key
+        run: python3 core/proxy/tools/netfetch.py ci-cache >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v5
+        continue-on-error: true
+        with:
+          path: ${{ steps.fetch_key.outputs.paths }}
+          key: fetch-1-${{ steps.fetch_key.outputs.key }}
       - run: core/proxy/tools/build.sh all
       - name: the DLL is byte-identical when built from another checkout path
         run: core/proxy/tools/build.sh repro
@@ -220,7 +236,9 @@ jobs:
           python viewer/core/render.py --size 1920x1080 --dp-ratio 1.0 --out build/viewer/out/hello_1080p_r1.png | tee -a build/viewer/out/renders.txt
           python viewer/core/render.py --size 3840x2160 --dp-ratio 2.5 --out build/viewer/out/hello_4k_slider125.png | tee -a build/viewer/out/renders.txt
           (cd build/viewer/out && sha256sum *.png >> SHA256SUMS && cat SHA256SUMS)
+      # always: a red run keeps its diff PNGs (build/viewer/out/uikit_gate, J80), written by changes.py and by the baseline test in tests/test_uikit.py
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: viewer-wasm
           path: build/viewer/out/
@@ -273,6 +291,14 @@ jobs:
           if (-not (Test-Path $py3)) { Copy-Item $py $py3 }
           python -m unittest tests.test_job_sh tests.test_pc_deploy tests.test_claude_hook tests.test_setup tests.test_proxy_host.GitBash
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      # J74 (audit G3, H9): the PowerShell installer, the play script and the pack installer run only on Windows; -v lists every test as ok or skipped
+      # in the log, and the three modules fail (never skip) here when PowerShell is missing.
+      - name: PowerShell installer, play and pack-installer tests
+        timeout-minutes: 8
+        shell: powershell
+        run: |
+          python -m unittest -v tests.test_release_installer tests.test_play tests.test_install_packs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: harness host tests (unit and integration)
         # shorter than the job timeout: a hung test fails the step and the job still ends, so its log is kept
         timeout-minutes: 18
@@ -318,3 +344,21 @@ jobs:
       - env:
           GH_TOKEN: ${{ github.token }}
         run: python3 core/wsc.py ci notify --run-id ${{ github.run_id }} --attempt ${{ github.run_attempt }} --branch "${{ github.ref_name }}" --repo "${{ github.repository }}"
+  main_health:
+    needs: [changes, gates, proxy, viewer, harness-windows]
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+          token: ${{ secrets.WARSCAPE_CORE_TOKEN }}
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 core/wsc.py ci main-health --run-id ${{ github.run_id }} --attempt ${{ github.run_attempt }} --repo "${{ github.repository }}"

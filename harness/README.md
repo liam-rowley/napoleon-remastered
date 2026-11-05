@@ -18,7 +18,7 @@ all times are UTC (`...Z`).
 `profiles\_active.json` | `runs\<utc>_hang\`, `runs\<utc>_winprobe\` | `vdisplay_restore.json` (only while a launch has changed the virtual display's mode) | `_to_delete\` (nothing is ever deleted) | `update\`, `backup\` | `game.lock`, `watcher.status`,
 `watcher.alive`, `watcher.pid`, `watcher.log`, `watcher.ini`, `watcher.zombie.json`, `watcher.stop`, `watchdog.off`, `install.log`, `install_result.json`.
 Kits live beside it: `<state>\kits\<id>`. PC experiments live in `<state>\_scratch\<owner>\` only: `job.sh scratch <owner>` creates it
-and prints its Git Bash path (owner `^[a-z0-9][a-z0-9_-]{0,31}$`, the job id: `j18`). The Claude Code hook (`tools/claude_hook.py`) denies a shell
+and prints its Git Bash path (owner `^[a-z0-9][a-z0-9_-]{0,39}$` for every job.sh command since core 0.29.0, the job id: `j18`). The Claude Code hook (`tools/claude_hook.py`) denies a shell
 write anywhere else in the state folder or in a game folder, and any git there (J18).
 
 ## Job requests
@@ -39,7 +39,7 @@ Write `jobs\<id>.request` (write a temp name, then rename). Ids are never reused
 expires (moved to `_to_delete`). Release = move it away. A fresh lock from the Empire watcher, or the other title running, blocks a launch. The
 watchdog is armed only while a valid lock exists and the watcher launched the game.
 `core/harness/job.sh` does all of it from Git Bash: `job.sh lock <owner> <session> <purpose> [hang_s]`, `job.sh <owner> <file|-> [timeout_s]`
-(blocks inside one call until the result; exit code = the job's, refused 2, no answer 124), `touch`, `unlock <owner>`, `status`, `root`, `scratch <owner>`.
+(blocks inside one call until the result; exit code = the job's, refused 2, no answer 124: the request is then withdrawn), `touch <owner>`, `unlock <owner>`, `holds <owner>`, `status`, `root`, `scratch <owner>`. Since core 0.29.0 (W10) the holder is the pair (owner, session): `touch`, `unlock` and `ctl` act only for the holder, and `ctl` needs the lock.
 The root comes from the adapter: `state_dir` as a Git Bash path plus `watcher_subdir` (no environment variable; `$WATCHER_ROOT` overrides it for tests).
 
 ## Hang watchdog and zombies
@@ -113,7 +113,7 @@ test that finds no Git Bash skips with the reason. `harness-windows` also runs t
 `core/harness/ctl.py <verb>` (result contract in its header): `scene <id>` launches through the watcher with the adapter's `ctl.launch.keys`
 when needed, moving UAC VirtualStore copies of the mod folder aside first (fact `napoleon.harness.uac_virtualstore`). `core/harness/acceptance.py
 measure --run <id>` writes `harness/acceptance/baseline.json` from two passes; `run --passes 20 --run <id>` takes the lock per pass, compares with
-the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/jobs_hooks.py`). The ledger's `build_id` is the DLL inputs' content hash
+the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/gates/pipeline.py`). The ledger's `build_id` is the DLL inputs' content hash
 (`core/proxy/tools/build_id.py`, J45; lines before J45 carry the old commit-hash ids as a record).
 
 ## Open questions

@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.sub_pixel_rule",
+  "claim": "RmlUi 6.3 snaps box edges to whole pixels by rounding each edge, so a 1 dp tall box (a rule drawn as a filled div) vanishes when the dp ratio is below 1 and the box lands on a half pixel: at 1080p x 85 % (dp 0.85) the first of five 1 dp rules in the host test drew nothing, the other four drew one solid pixel row. A 1 dp border keeps at least one pixel at every ratio (boxes passed at 0.85). Design rule for J34: draw hairlines as borders, never as 1 dp boxes",
+  "state": "verified",
+  "evidence": "proxy/runs/20261102_j30pc/README.md",
+  "date": "2026-11-02",
+  "notes": "checks/*_1080_85.json rules_solid"
+}

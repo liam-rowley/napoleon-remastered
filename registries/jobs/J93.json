@@ -1,0 +1,11 @@
+{
+  "id": "J93",
+  "description": "Later sweep 2026-11-04 (docs/audits/LATER_TRIAGE_2026-11-04.md, job J82, audit R4). Built to the brief's defaults for its open questions (open for Liam). Liam decides: when to run upscale/pc/play.py install on the real game folder for the first time (it has only run on a fake folder; uninstall exits non-zero and prints what it could not do), and how to judge the 28 held-back loading screens and memory use after his play test. Then a small job: make uninstall refuse while an agent holds the game lock, as install does (J53 Later 3). The watcher-side hazard (a forgotten play install is picked up by the next agent job) is core BACKLOG line B79. Bullets: J53 review Later 1, 3, 4. Why now: the install is the next thing Liam does by hand; nothing else is waiting on it.",
+  "title": "Liam decides: player install on the real folder, and the held-back screens",
+  "phase": 5,
+  "status": "queued",
+  "model": "sonnet",
+  "needs_pc": true,
+  "depends_on": [],
+  "brief": "jobs/J93/brief.md"
+}

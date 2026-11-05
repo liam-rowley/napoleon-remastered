@@ -27,3 +27,6 @@ __pycache__/
 *.exe
 *.pdb
 *.dmp
+
+# tools/perf_baseline.py writes summary.json into every run folder it fills (J82); the seven already tracked (J24 evidence) stay tracked
+harness/runs/*/summary.json

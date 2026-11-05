@@ -85,16 +85,16 @@ class JobSh(unittest.TestCase):
 
     def test_scratch_creates_the_owner_folder_and_refuses_bad_owners(self):
         # J18 (J5 ledger row 31): <state>/_scratch/<owner>/, owner like the job ids J2 to J6 used (j2, j3s2, j6)
-        for owner in ('j18', 'j3s2', 'a', 'x_y-z', 'a' * 32):
+        for owner in ('j18', 'j3s2', 'a', 'x_y-z', 'a' * 40):   # core 0.29.0 (W10): one owner rule everywhere, up to 40 characters
             r = run(['--adapter', str(self.adapter), 'scratch', owner], self.env)
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertEqual(r.stdout.strip(), bash_path(self.state / '_scratch' / owner))
             self.assertTrue((self.state / '_scratch' / owner).is_dir())
-        for owner in ('', 'J18', '-x', '_x', 'a b', '../x', 'a/b', 'a' * 33, 'x.y'):
+        for owner in ('', 'J18', '-x', '_x', 'a b', '../x', 'a/b', 'a' * 41, 'x.y', 'Upper'):
             r = run(['--adapter', str(self.adapter), 'scratch', owner], self.env)
             self.assertEqual(r.returncode, 64, owner)
             self.assertIn('must match', r.stderr)
-        self.assertEqual(sorted(p.name for p in (self.state / '_scratch').iterdir()), sorted(['j18', 'j3s2', 'a', 'x_y-z', 'a' * 32]))
+        self.assertEqual(sorted(p.name for p in (self.state / '_scratch').iterdir()), sorted(['j18', 'j3s2', 'a', 'x_y-z', 'a' * 40]))
 
     def test_root_comes_from_the_adapter_not_a_default(self):
         r = run(['--adapter', str(self.adapter), 'root'], self.env)
@@ -132,15 +132,24 @@ class JobSh(unittest.TestCase):
         self.w.result = {'status': 'timeout', 'exit': -1, 'out': ''}
         self.assertEqual(run(['--adapter', str(self.adapter), 'me', '-', '20'], self.env, stdin='x\n').returncode, 124)
 
-    def test_no_answer_is_124_and_the_request_stays_queued(self):
+    def test_no_answer_is_124_and_the_request_is_withdrawn(self):
+        # core 0.29.0 (W10): a timed-out request is renamed to .request.expired, as the ctl path does, so it cannot fire later
         t0 = time.time()
         r = run(['--adapter', str(self.adapter), 'me', '-', '2'], self.env, stdin='noop\n')
         self.assertEqual(r.returncode, 124)
         self.assertLess(time.time() - t0, 10)
-        self.assertEqual(len(list((self.root / 'jobs').glob('*.request'))), 1)
+        self.assertIn('withdrawn', r.stderr)
+        self.assertEqual(len(list((self.root / 'jobs').glob('*.request'))), 0)
+        self.assertEqual(len(list((self.root / 'jobs').glob('*.request.expired'))), 1)
         self.assertEqual(len(list((self.root / 'jobs').glob('*.tmp'))), 0)      # submitted atomically: no half-written .tmp left behind
 
+    def take(self, owner='me', session='s1', purpose='p'):
+        # core 0.29.0 (W10): `job.sh ctl` needs the caller to hold game.lock
+        r = run(['--adapter', str(self.adapter), 'lock', owner, session, purpose], self.env)
+        self.assertEqual(r.returncode, 0, r.stderr)
+
     def test_ctl_ok_and_exit_codes(self):
+        self.take()
         ctl = self.state / 'ctl'
         answers = iter(['ok', 'failed', 'timeout', 'refused'])
 
@@ -160,6 +169,7 @@ class JobSh(unittest.TestCase):
         # J3 review 5: a changed dev.ctl_dir used to time out every call; now the requests go where the proxy reads them
         elsewhere = Path(self.tmp.name) / 'ctl_elsewhere'
         (self.game / 'mod.ini').write_text(f'[dev]\nctl_dir={elsewhere}\n')
+        self.take()
         r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], self.env)
         self.assertEqual(r.returncode, 124)
         self.assertEqual(len(list(elsewhere.glob('*.cmd.expired'))), 1)
@@ -167,20 +177,24 @@ class JobSh(unittest.TestCase):
 
     def test_ctl_without_an_ini_uses_the_registered_default(self):
         (self.game / 'mod.ini').unlink()
-        r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], self.env)
-        default = next(json.loads(l)['default'] for l in (ROOT / 'registries' / 'config_keys.jsonl').read_text(encoding='utf-8').splitlines()
-                       if l.strip() and json.loads(l)['id'] == 'dev.ctl_dir')
+        # J82: isolated from the PC. The repo's own default is C:\napoleon_remastered_pc\ctl, the REAL control folder: on the project PC the
+        # old body wrote a `ping` request there, and whatever answers requests in it (a running game with dev.ctl=1) turned the 124 and the
+        # stderr this test expects into a plain answer (empty stderr: jobs/J49, J55, J65, J71 reviews); on CI the folder does not exist.
+        # WSP_GAME_ROOT (core/proxy/tools/layout.py game_root) names a temporary game root whose registered default is inside the temp dir.
+        default = self.state / 'registered_default_ctl'
+        root = Path(self.tmp.name) / 'gameroot'
+        (root / 'registries').mkdir(parents=True)
+        (root / 'registries' / 'config_keys.jsonl').write_text(
+            json.dumps({'id': 'dev.ctl_dir', 'description': 'test', 'default': str(default), 'owner': 'proxy'}) + '\n', encoding='utf-8')
+        self.take()
+        r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'ping', '1'], {**self.env, 'WSP_GAME_ROOT': str(root)})
         self.assertIn(bash_path(default), r.stderr)
-        # the default is a Windows drive path: on the PC the request waits there (no answer, 124); a Linux CI runner cannot create /c,
-        # so job.sh stops with "cannot write into <default>" (1). Either way the stderr above proves the default was the folder chosen.
-        if os.name == 'nt':
-            self.assertEqual(r.returncode, 124)
-        else:
-            self.assertEqual(r.returncode, 1)
-            self.assertIn('cannot write into', r.stderr)
+        self.assertEqual(r.returncode, 124)   # nobody answers in the temp folder; the unanswered request is withdrawn
+        self.assertEqual(len(list(default.glob('*.cmd.expired'))), 1)
 
     def test_ctl_no_answer_withdraws_the_request(self):
         # a request nobody answered must not stay as .cmd: the proxy would run it on its next launch (a stale exit or reset)
+        self.take()
         r = run(['--adapter', str(self.adapter), 'ctl', 'me', 'exit', '1'], self.env)
         self.assertEqual(r.returncode, 124)
         self.assertIn('withdrawn', r.stderr)
@@ -208,7 +222,7 @@ class JobSh(unittest.TestCase):
         os.utime(self.root / 'game.lock', (time.time() - 1300, time.time() - 1300))
         self.assertEqual(run(a + ['lock', 'other', 's', 'p'], self.env).returncode, 0)         # stale: may be taken over
         self.assertEqual(run(a + ['unlock', 'me'], self.env).returncode, 2)                      # not the owner
-        self.assertEqual(run(a + ['touch'], self.env).returncode, 0)
+        self.assertEqual(run(a + ['touch', 'other'], self.env).returncode, 0)   # core 0.29.0: touch names the holder
         self.assertEqual(run(a + ['unlock', 'other'], self.env).returncode, 0)
         self.assertFalse((self.root / 'game.lock').exists())
         self.assertEqual(len(list((self.root / '_to_delete').glob('game.lock.released_other_*'))), 1)
@@ -233,8 +247,8 @@ class JobSh(unittest.TestCase):
         self.assertEqual(run(a + ['lock', 'new', 's', 'p'], self.env).returncode, 0)
         self.assertIn('owner=new ', (self.root / 'game.lock').read_text())
         self.assertEqual(len(list((self.root / '_to_delete').glob('game.lock.stale_old_*'))), 1)
-        self.assertEqual(run(a + ['lock', 'new', 's2', 'refresh'], self.env).returncode, 0)   # its own lock: rewritten in place
-        self.assertIn('session=s2 ', (self.root / 'game.lock').read_text())
+        self.assertEqual(run(a + ['lock', 'new', 's', 'refresh'], self.env).returncode, 0)   # its own lock (same owner AND session, core 0.29.0)
+        self.assertIn('purpose=refresh ', (self.root / 'game.lock').read_text())
 
     def test_status_reads_heartbeat(self):
         a = ['--adapter', str(self.adapter)]

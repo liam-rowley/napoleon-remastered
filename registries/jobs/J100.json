@@ -1,0 +1,12 @@
+{
+  "id": "J100",
+  "description": "Promote release/core (J38: the release builder, the installer scripts and the support bundle) to warscape-core with its host tests, the Napoleon release config staying in the adapter (rule 76: PROMOTIONS in tools/jobs_hooks.py names this row). Held until a second game ships: one consumer is no reason to move it. Beside J63 (upscale/core and viewer/core). Proof: a release built before and after the move is byte-identical (same sha256 per file); gates green in both repos. Core PR, tag, pin bump; delete the local copy. Queued by J94 (J38 review Later 3).",
+  "title": "Promote release/core to warscape-core",
+  "phase": 5,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": false,
+  "depends_on": [
+    "J63"
+  ]
+}
