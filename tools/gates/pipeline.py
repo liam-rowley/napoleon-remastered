@@ -1,6 +1,6 @@
 """Napoleon's rules for the job pipeline: the gate module warscape-core's `wsc jobs` and `wsc policy` load (`wsc.toml` [gates] dirs; napoleon J62, J64).
 
-purpose: the game-specific half of the job pipeline, as one gate module with the stages jobs, policy and view (warscape/gatemods.py): the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (on every branch kind, J73: a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58; J75: each counted line's committed evidence is unique and agrees with it, the ledger diff is append-only, base pass files are immutable, only ledger.jsonl is exempt, and the shas the pinned core names are required) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)
+purpose: the game-specific half of the job pipeline, as one gate module with the stages jobs, policy and view (warscape/gatemods.py): the found-path rule for briefs (row 80, J11) and its registry-gap count on the `jobs check` line, rule 76 (every core candidate folder has a promotion job), rule 79 (on every branch kind, J73: a change to proxy/ or harness/, or a core pin that changes the core's own proxy/ or harness/, needs 20 consecutive acceptance passes on the final build, J4, J44, J45, J58; J75: each counted line's committed evidence is unique and agrees with it, the ledger diff is append-only, base pass files are immutable, only ledger.jsonl is exempt, and the shas the pinned core names are required), the UI baseline and lock rules (J80: a change to uikit/napoleon/baseline.json or baseline/ needs the reviewer's `Baseline accepted: <sha>` line, and a job never writes LOCK.json) and the PC line of the status page (rule 75, J44; its usage half J49: Claude usage read from Claude Code's own local transcripts by tools/usage_reader.py, read-only, no conversation text, cost shown as an estimate)
 usage: not run by hand: `python3 core/wsc.py jobs check|view` and `python3 core/wsc.py policy --branch <branch>` call it; `python3 -m unittest tests.test_jobs_hooks` tests it
 when: automatic, through wsc.toml [gates] dirs; edit it when one of those rules changes (rules 76 and 79 in docs/plans/PLAN.md section 4, the J5 ledger)
 not-a-verb: a gate module, run by wsc gates
@@ -196,6 +196,9 @@ def pc_block(pc):
 
 
 # ------------------------------------------------------------------ rule 79 (J4, J44, J45, J58): acceptance passes for proxy/ and harness/
+UI_BASELINE = 'uikit/napoleon/baseline.json'
+UI_BASELINE_DIR = 'uikit/napoleon/baseline/'
+UI_LOCK = 'uikit/napoleon/LOCK.json'
 ACC_LEDGER = 'harness/acceptance/ledger.jsonl'
 ACC_BASELINE = 'harness/acceptance/baseline.json'
 ACC_NEEDED = 20
@@ -463,16 +466,51 @@ def collect_acceptance(root, facts):
             'runs_diff': [tuple(l.split('\t', 1)) for l in _git(repo, 'diff', '--name-status', '--no-renames', mb or base, head, '--', 'harness/runs').splitlines() if l]}
 
 
+def ui_baseline_path(path):
+    """The UI library's baseline (J80): the hashes and the reference PNGs. harness/acceptance/baseline.json is another file, under rule 79."""
+    return path == UI_BASELINE or path.startswith(UI_BASELINE_DIR)
+
+
+def ui_baseline_problems(repo, head, branch, changed):
+    """J80: a UI baseline change is accepted by someone other than its builder. On a job/<id> branch handed to review (report.md at `head`), review.md must hold the line
+    `Baseline accepted: <blob of baseline.json at head>`, so an edit after the review goes stale; the core refuses a review by the session that wrote the report.
+    plan/ and meta/ branches are Liam's (D50); any other branch has no reviewer. A reference PNG's pixels are tied to baseline.json by tests/test_uikit.py."""
+    files = [p for p in changed if ui_baseline_path(p)]
+    if not files or branch.startswith(('plan/', 'meta/')):
+        return []
+    if not branch.startswith('job/'):
+        return [f'ui baseline: {files[0]} changed on {branch}, which has no reviewer: a baseline change goes through a job/ branch']
+    jid = branch[len('job/'):]
+    if show(repo, head, f'jobs/{jid}/report.md') is None:
+        return []
+    try:
+        sha = _git(repo, 'rev-parse', f'{head}:{UI_BASELINE}').strip()
+    except subprocess.CalledProcessError:
+        return [f'ui baseline: {files[0]} changed and {UI_BASELINE} is not at HEAD: nothing a reviewer can accept']
+    review = show(repo, head, f'jobs/{jid}/review.md') or ''
+    if re.search(rf'^Baseline accepted: {sha}[ \t]*$', review, re.M):
+        return []
+    state = 'a stale' if re.search(r'^Baseline accepted: ', review, re.M) else 'no'
+    return [f'ui baseline: {files[0]} changed: jobs/{jid}/review.md has {state} acceptance line; the reviewer adds "Baseline accepted: {sha}" (the blob of {UI_BASELINE} at HEAD)']
+
+
+def ui_lock_problems(branch, changed):
+    """J80: LOCK.json records Liam's lock; plan/ and meta/ branches are his (D50), a job never writes it."""
+    return ["ui lock: LOCK.json is Liam's; a job never writes it"] if UI_LOCK in changed and branch.startswith('job/') else []
+
+
 def policy_rule(ctx, facts):
-    """Rule 79 on every branch kind (J73): acceptance_problems is the one authority on what needs passes. `facts['acceptance']` (the tests and
+    """The UI baseline and lock rules (J80), then rule 79 on every branch kind (J73): acceptance_problems is the one authority on what needs passes. `facts['acceptance']` (the tests and
     the J62 replay pass recorded inputs) replaces the git reads. Without it, a change that counts nothing (no proxy/ or harness/ path, no pin)
-    returns [] first, which is what acceptance_problems gives for exactly that input, so docs-only pull requests skip the git reads. The ledger
+    skips acceptance_problems, which gives [] for exactly that input, so docs-only pull requests skip the git reads. The ledger
     and pass files reach the git reads too (J75: the append-only and immutable-evidence rules judge them whatever else changed)."""
     changed = facts['changed']
+    branch = facts.get('branch', '')
+    ui = (ui_baseline_problems(facts['repo'], facts['head'], branch, changed) if any(ui_baseline_path(p) for p in changed) else []) + ui_lock_problems(branch, changed)
     acc = facts.get('acceptance')
     if not acc and not (any(rule79_path(p) or p == ACC_LEDGER or _PASS_FILE.match(p) for p in changed) or 'core' in changed):
-        return []
-    return acceptance_problems(changed, acc or collect_acceptance(ctx.root, facts))
+        return ui
+    return ui + acceptance_problems(changed, acc or collect_acceptance(ctx.root, facts))
 
 
 # ------------------------------------------------------------------ the gate module (core W13): one run(ctx) dispatching on the stage

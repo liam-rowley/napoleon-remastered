@@ -1,6 +1,11 @@
 {
  "_doc": "rgba_sha256 of each library screen at the four D19 corners; rewritten by uikit/napoleon/changes.py --accept",
  "wasm_sha256": "2bdc8a112021772a4e4ad08004bb3e096707f9fcbff95625073f217f478b0f78",
+ "tolerance": {
+  "channel_tolerance": 1,
+  "max_changed_pixels": 2e-05,
+  "max_delta": 8
+ },
  "screens": {
   "board": {
    "1080p_85": "590db96cd44cf0a886c85a476c8f7c515f2d84c7719370e309e7c98f866f9b27",

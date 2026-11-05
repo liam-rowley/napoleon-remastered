@@ -7,6 +7,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -38,6 +39,27 @@ class Pins(unittest.TestCase):
         proxy = load('fetch_lua', ROOT / 'core' / 'proxy' / 'tools' / 'fetch_lua.py')
         self.assertEqual(pins['lua']['sha256'], proxy.PIN['sha256'])
         self.assertEqual(pins['lua']['version'], proxy.PIN['version'])
+
+    def test_playwright_pin_is_the_literal_ci_installs(self):
+        # J80: Chromium's revision follows the Playwright version, so a PC and a CI render can only be compared under one pin; CI's text is rendered, so it keeps a literal
+        pin = json.loads((ROOT / 'viewer' / 'pins.json').read_text())['playwright']['version']
+        for f in ('ci/gates.yml.in', '.github/workflows/gates.yml'):
+            self.assertEqual(set(re.findall(r'playwright==([0-9][0-9.]*)', (ROOT / f).read_text(encoding='utf-8'))), {pin}, f)
+
+    def test_setup_fails_on_a_playwright_that_is_not_the_pin(self):
+        S = load('wsc_setup', ROOT / 'tools' / 'verbs' / 'setup.py')
+        pin = json.loads((ROOT / 'viewer' / 'pins.json').read_text())['playwright']['version']
+        real = S._run
+        self.addCleanup(setattr, S, '_run', real)
+        S._run = lambda cmd, cwd=None, timeout=60: (0, f'{pin}\n/x/chrome True')
+        ok, detail, fix = S.check_playwright(ROOT, False)
+        self.assertTrue(ok, detail)
+        self.assertIn(pin, detail)
+        S._run = lambda cmd, cwd=None, timeout=60: (0, '1.0.0\n/x/chrome True')
+        ok, detail, fix = S.check_playwright(ROOT, False)
+        self.assertFalse(ok)
+        self.assertIn('1.0.0', detail)
+        self.assertEqual(fix, f'python3 -m pip install playwright=={pin} && python3 -m playwright install chromium')
 
     def test_lua_number_patches_match_proxy(self):
         # J31 review: the viewer's luaconf.h edits are a copy of the proxy's; a drift would give the viewer other numbers than the host

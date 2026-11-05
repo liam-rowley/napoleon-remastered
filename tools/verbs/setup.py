@@ -231,11 +231,16 @@ def check_empire_clone(root, fix):
 
 
 def check_playwright(root, fix):
-    code = ('from playwright.sync_api import sync_playwright\nimport os\n'
+    """J80: the version must be the pin in viewer/pins.json: Chromium's revision follows it, so another version renders other pixels than CI for a reason nobody sees."""
+    pin = json.loads((Path(root) / 'viewer' / 'pins.json').read_text(encoding='utf-8'))['playwright']['version']
+    code = ('from importlib.metadata import version\nfrom playwright.sync_api import sync_playwright\nimport os\nprint(version("playwright"))\n'
             'with sync_playwright() as p: x = p.chromium.executable_path; print(x, os.path.exists(x))')
     rc, out = _run(['python3', '-c', code], timeout=90)
-    ok = rc == 0 and out.endswith('True')
-    return ok, out.splitlines()[-1][:120] if out else 'no output', 'python3 -m pip install playwright && python3 -m playwright install chromium'
+    lines = out.splitlines()
+    have = lines[0].strip() if rc == 0 and lines else None
+    ok = rc == 0 and out.endswith('True') and have == pin
+    detail = f'playwright {have} (pin {pin}): {lines[-1][:100]}' if have else lines[-1][:120] if lines else 'no output'
+    return ok, detail, f'python3 -m pip install playwright=={pin} && python3 -m playwright install chromium'
 
 
 def check_pillow(root, fix):
