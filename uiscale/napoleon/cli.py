@@ -444,6 +444,9 @@ def build(factor=2.0, work=None, no_art=False, no_fonts=False, limit=0, jobs=0, 
     tvan = open(tpath, 'rb').read()
     tst = {}
     tout, trep = scale.scale_templates_file(tvan, factor, stats=tst)
+    failed = [p for p in trep['passed'] if ': ' in p]      # J67: a swallowed error left 112 of 122 templates vanilla at 1.25x and 1.5x, and the build went on
+    if failed:
+        raise SystemExit(f'uiscale: {len(failed)} templates failed to scale at {factor:g}x and would stay vanilla: {failed[:8]}')
     tname = cfg['templates_name'].format(tag=tag)
     write_file(os.path.join(work, tname), tout)
     tmeta = {'file': tname, 'factor': factor, 'vanilla_sha256': sha(tvan), 'sha256': sha(tout), 'bytes': len(tout),

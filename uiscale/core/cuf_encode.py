@@ -402,6 +402,10 @@ def encode(face_path, vanilla_cuf_bytes, em, wght, keep_header=True, set_h2=None
     H[1] = out.glyphs[out.cmap[ord('H')]].top
     if set_h2 is not None:
         H[2] = set_h2
+    if not keep_header:
+        # h9 (cuf.py 'size2') is the glyph cell width: it equals the widest glyph in every vanilla file, and the engine draws no further, so a
+        # font scaled past its vanilla h9 loses the right of its wide glyphs (J67, run 2026-11-05_j67pc: "Tim" read "Tin" in the credits)
+        H[9] = max(g.w for g in out.glyphs)
     data = out.serialise()
     Cuf.parse(data)                                           # refuse to hand back anything the codec cannot read
     return data

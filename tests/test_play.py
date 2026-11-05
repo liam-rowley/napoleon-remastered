@@ -95,6 +95,21 @@ class Play(unittest.TestCase):
     def data(self):
         return sorted(os.listdir(os.path.join(self.game, 'data')))
 
+    def test_profile_active_reads_the_watcher_file(self):
+        p = os.path.join(self.state, 'watcher', 'profiles', '_active.json')
+        self.assertEqual(play.profile_active(self.state), '')
+        self.write(p, b'\xef\xbb\xbf{"name": "headless", "owner": "j67"}')
+        self.assertEqual(play.profile_active(self.state), 'headless')
+        self.write(p, b'null')
+        self.assertEqual(play.profile_active(self.state), '')
+
+    def test_uninstall_refuses_while_a_watcher_profile_is_active(self):
+        self.write(os.path.join(self.state, 'watcher', 'profiles', '_active.json'), b'{"name": "headless"}')
+        self.write(play.record_path(self.state), b'{"status": "installed"}')
+        with mock.patch.object(play.pc_deploy, 'running_check', return_value=''), self.assertRaises(play.Refused) as e:
+            play.uninstall(self.game, self.state)
+        self.assertIn('profile', str(e.exception))
+
     def test_install_then_uninstall_is_identical(self):
         self.assertEqual(self.run_play('install'), 0, self.out.getvalue())
         self.assertEqual(self.data(), ['data.pack'] + [f'ui_art_play_{r}.pack' for r in ('button_state', 'icon', 'panel_frame', 'ui_art')])

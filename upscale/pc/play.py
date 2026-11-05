@@ -70,6 +70,16 @@ def lock_holder(state):
     return line if age < 1200 else ''
 
 
+def profile_active(state):
+    """the active watcher profile's name, '' when none: `_active.json` holds it until the restore has run, and null or no file means none"""
+    p = Path(state) / 'watcher' / 'profiles' / '_active.json'
+    try:
+        d = json.loads(p.read_text(encoding='utf-8-sig'))
+    except (OSError, ValueError):
+        return ''
+    return str(d.get('name') or d.get('profile') or 'unnamed') if isinstance(d, dict) and d else ''
+
+
 def common_refusals(game, state, ident):
     """reasons not to touch the game folder now: a game running, an agent's game lock, a non-vanilla exe or a .git (pc_deploy's rules)"""
     why = pc_deploy.running_check(game, ident['mod_dir'], ident['exe_name'], state=state, other_exes=('Empire.exe',))
@@ -267,6 +277,11 @@ def uninstall(game, state):
     why = pc_deploy.running_check(game, ident['mod_dir'], ident['exe_name'], state=state, other_exes=('Empire.exe',))
     if why:
         raise Refused(why + ': close the game first')
+    active = profile_active(state)
+    if active:
+        # J67: the watcher's restore wrote the mod ini back after pc_deploy had removed it, and the uninstall ended "added napoleon_remastered.ini"
+        raise Refused(f'a watcher profile is still active ({active}): its restore writes the config files, so an uninstall now would not end '
+                      'identical. Release the lock and wait for job.sh status to show profile_active null')
     md = game / ident['mod_dir']
     dumps = sorted((md / 'dumps').glob('*.dmp')) if (md / 'dumps').is_dir() else []
     if dumps:

@@ -16,6 +16,11 @@ sys.path.insert(0, os.path.join(ROOT, 'uiscale', 'core'))
 sys.path.insert(0, os.path.join(ROOT, 'core', 'discovery'))
 
 import scale  # noqa: E402
+try:
+    import numpy  # noqa: F401
+    HAVE_NUMPY = True
+except ImportError:
+    HAVE_NUMPY = False
 import tpl  # noqa: E402
 import uic  # noqa: E402
 
@@ -223,6 +228,35 @@ def template_file(records):
     return bytes(out)
 
 
+class DateCell(unittest.TestCase):
+    """J67: a date cell in a list row on a Frontend slot gets its wrap width; an Ingame cell and anything outside a row keep theirs"""
+    @staticmethod
+    def tree(cell, font, parent='row_example', w=180):
+        return {'name': 'list_box', 'states': [], 'children': [{'name': parent, 'states': [], 'children': [
+            {'name': cell, 'states': [{'w': w, 'font': font}], 'children': []}]}]}
+
+    def width(self, t):
+        return t['children'][0]['children'][0]['states'][0]['w']
+
+    def test_widened_at_every_factor(self):
+        for f, want in ((1.25, 250), (1.5, 300), (2.0, 400)):
+            t = self.tree('save_date', 'Frontend 38, Normal', w=int(180 * f))
+            scale.date_cell_pass(t, f)
+            self.assertEqual(self.width(t), want)
+
+    def test_factor_1_ingame_and_other_cells_stay(self):
+        for args, f in ((('save_date', 'Frontend 18, Normal'), 1), (('date', 'Ingame 24, Normal'), 2.0),
+                        (('save_date', 'Frontend 38, Normal', 'headers'), 2.0), (('name', 'Frontend 38, Normal'), 2.0)):
+            t = self.tree(*args)
+            scale.date_cell_pass(t, f)
+            self.assertEqual(self.width(t), 180)
+
+    def test_a_wider_cell_is_not_narrowed(self):
+        t = self.tree('date', 'Frontend 38, Normal', w=500)
+        scale.date_cell_pass(t, 2.0)
+        self.assertEqual(self.width(t), 500)
+
+
 class Templates(unittest.TestCase):
     def record(self):
         child = comp(33, 'frame', 3, 5, [state(33, 8, 8, [(7, 0, 0, 8, 8), (8, 0, 0, 30, 4)])],
@@ -262,6 +296,26 @@ class Templates(unittest.TestCase):
         t = struct.pack('<BBBHHBHHHHBB', 0, 0, 2, 0, 0, 0, 0, 0, 2, 1, 32, 0x28) + bytes([1, 2, 3, 4, 5, 6, 7, 8])
         up = scale.upscale_tga(t, 2.0)
         self.assertEqual(up[18:], bytes([1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 7, 8, 5, 6, 7, 8]) * 2)
+
+    @unittest.skipUnless(HAVE_NUMPY, 'numpy missing (upscale/requirements.txt)')
+    def test_fractional_tga_is_resampled_at_the_ceil_size(self):
+        # J67: a non-integer factor raised, the record passed through, and 112 of 122 templates stayed vanilla at 1.25x and 1.5x
+        w, h = 11, 27
+        body = bytes([40, 80, 160, 255]) * (w * h)
+        t = struct.pack('<BBBHHBHHHHBB', 0, 0, 2, 0, 0, 0, 0, 0, w, h, 32, 0x08) + body + b'TRUEVISION'
+        for f, (nw, nh) in ((1.25, (14, 34)), (1.5, (17, 41))):
+            up = scale.upscale_tga(t, f)
+            self.assertEqual(struct.unpack_from('<HH', up, 12), (nw, nh))
+            px0 = up[18:22]
+            self.assertEqual(len(up), 18 + nw * nh * 4 + len(b'TRUEVISION'))
+            self.assertEqual(px0[3], 255)                                        # opaque stays opaque
+            self.assertLessEqual(max(abs(a - b) for a, b in zip(px0[:3], (40, 80, 160))), 1)    # a flat colour keeps its channels in BGR order
+            self.assertTrue(up.endswith(b'TRUEVISION'))
+
+    def test_a_tga_that_is_not_32_bit_refuses_a_fractional_factor(self):
+        t = struct.pack('<BBBHHBHHHHBB', 0, 0, 2, 0, 0, 0, 0, 0, 2, 1, 24, 0) + bytes(6)
+        with self.assertRaises(ValueError):
+            scale.upscale_tga(t, 1.5)
 
 
 def game_root():

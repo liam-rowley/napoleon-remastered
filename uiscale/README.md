@@ -35,6 +35,7 @@ then the default is 1.25. Whether all three ship or are built on the player's ma
 
 ## Code
 - `core/scale.py`: the layout and template rules (multiscale.md section 4 of the Empire branch), and Empire's long-form pass (J79): only a TextView's `Text` child keeps the spaced `Frontend 24` slot, every other user of it takes `Ingame 24`.
+  - **Date cells (J67):** a list row's `save_date` or `date` cell on a Frontend slot takes a 200 vanilla px wrap width (the slot is wider than a true factor): `date_cell_pass`.
   - **Geometry:** absolute edge snapping `px(x) = floor(x + 0.5)` on edges relative to the root. It covers component x/y, state w/h, image-use rects, V039 keyframe x/y/w/h, and textured image defs (`ceil(t * f)`).
   - **Left alone:** the image-use tail (9-slice stretch flags) and blank image defs.
   - **Fonts:** onto the slot files each context loads (Empire: `Ingame 24` Normal/Bold, `Frontend 24`, `Frontend 38`; the front end takes the nearest vanilla-named size), chosen as at 2x at every factor.
