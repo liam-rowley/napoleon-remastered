@@ -1,0 +1,17 @@
+2026-11-04T22:41:32Z start rect=2560,1440 3840x2160
+2026-11-04T22:41:32Z ---
+explorer pid=9420 title=[] rect=2560,3598,6400,3646
+explorer pid=9420 title=[Program Manager] rect=0,0,6400,3600
+2026-11-04T22:47:17Z ---
+explorer pid=9420 title=[] rect=2560,2489,4480,2537
+explorer pid=9420 title=[Program Manager] rect=0,0,4480,2520
+2026-11-04T22:47:19Z ---
+explorer pid=9420 title=[] rect=2560,2518,4480,2566
+explorer pid=9420 title=[Program Manager] rect=0,0,4480,2520
+2026-11-04T22:51:48Z ---
+explorer pid=9420 title=[] rect=2560,2518,4480,2566
+explorer pid=9420 title=[Program Manager] rect=0,0,6400,3600
+2026-11-04T22:51:50Z ---
+explorer pid=9420 title=[] rect=2560,3598,6400,3646
+explorer pid=9420 title=[Program Manager] rect=0,0,6400,3600
+2026-11-04T22:52:57Z stop

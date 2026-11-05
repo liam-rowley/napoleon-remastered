@@ -8,8 +8,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'tools'))
+sys.path.insert(0, str(ROOT / 'tools' / 'gates'))
 import usage_reader as ur   # noqa: E402
-import jobs_hooks as hk     # noqa: E402
+import pipeline as hk       # noqa: E402
 
 SECRET = 'SECRET-PROMPT-TEXT-do-not-render'
 

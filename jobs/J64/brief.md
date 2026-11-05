@@ -190,3 +190,12 @@ Answered 2026-11-04: Liam, "Follow recommendation" (question 1 put to him; 2 and
 Write `jobs/J64/report.md` (headings `## What was built`, `## Deviations from the brief and why`, `## Open questions`): the tag and its commit, the pin commit's contents, the verb collision and `[jobs] hooks` evidence (the `wsc` error lines before), the hook-to-gate move and its unchanged `jobs check` / `policy` / page lines,
 the designated-initialiser diff, the proof of a pure move (every result, the accepted effects-README difference with its diff), the test counts before and after, CI run ids and the `proxy` job time, the `ci check-settings` output, the kit update (version before and after, build id), the 20-pass run id, ledger range and the `policy` output,
 the overlap list of Napoleon tests the core now has, the proposed core row for the effects pass, and what rebase J29, J37, J60 and J67 and the briefs of J27 and J48 now need. Then `wsc reg set jobs J64 status=review report=jobs/J64/report.md`.
+
+## Re-scope (Liam, 2026-11-04)
+The target is the **newest warscape-core tag** at the start of the build (v0.30.0, commit 4d69d11, on 2026-11-04), not v0.22.0. Why: on v0.22.0 CI's
+`proxy` job fails in the core's `build.sh` smoke ("gesture: on: drag 6 px" not in the log, runs 41801657509 and 41804261931; the first session stopped
+at df7339a). The fix, core W37, is first in v0.28.0, and every tag from v0.24.0 on also brings W12 (`run_refs`), W23 (base-judged policy:
+`pull_request_target`, the policy stage reads the head by sha), W24 (the build id names one DLL; the pinned toolchain) and W10 (the lock is the
+session's; watcher 1.4.0). A local trial of v0.28.0 failed `ci_render` and `run_refs` (12 references). Liam chose the newest tag over a v0.22.1
+patch tag: J64 absorbs what that tag forces; the rest of J78 stays J78's. Every step above stands, read with the new tag: the CONSUMING.md notes
+from v0.10.0 to the target, 20 passes on the final build and the kit's watcher version, and a D line after D57 naming the new pin.

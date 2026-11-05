@@ -24,7 +24,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / 'discovery' / 'core'))
+sys.path.insert(0, str(ROOT / 'core' / 'discovery'))
 JUNCTION = 'db\\battles_to_battle_sky_types_junctions_tables\\battles_to_battle_sky_types_junctions'
 SKIES = 'db\\battle_sky_types_tables\\battle_sky_types'
 PACK = 'zz_napoleon_remastered_fixed_sky.pack'

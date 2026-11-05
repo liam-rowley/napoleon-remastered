@@ -1,6 +1,6 @@
 {
   "id": "napoleon.diff.layouts.v039",
-  "claim": "Layout Version039 = V033 plus a u32 default-state id after c_flag, a per-component animation list before the child count (name, empty string, u32 count, keyframes) and 18-byte state transitions (napoleon.diff.layouts.v039_transitions); all 136 V039 files round-trip byte for byte with discovery/core/uic.py",
+  "claim": "Layout Version039 = V033 plus a u32 default-state id after c_flag, a per-component animation list before the child count (name, empty string, u32 count, keyframes) and 18-byte state transitions (napoleon.diff.layouts.v039_transitions); all 136 V039 files round-trip byte for byte with core/discovery/uic.py",
   "state": "verified",
   "evidence": "discovery/diff/layouts.json",
   "date": "2026-11-02",

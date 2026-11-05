@@ -91,18 +91,18 @@ def bare_bash_problems(name, text, allowed=None):
 
 
 # J70: J12 moved proxy/core, harness/core and saves/core into the core, yet `wsc setup` kept running the old harness/core/job.sh (exit
-# 127 with the watcher up). The moved folders are the tools/jobs_hooks.py PROMOTIONS keys whose job is J12; a tool naming one, as a
+# 127 with the watcher up). The moved folders are the tools/gates/pipeline.py PROMOTIONS keys whose job is J12; a tool naming one, as a
 # slash path or a 'harness' / 'core' join, fails. jobs_hooks.py is the one exempt file: it names the old folders on purpose (rule 76,
 # and fallbacks for a base before J12).
 MOVED_GLOBS = ('tools/*.py', 'tools/**/*.py', 'tools/*.sh', 'tools/**/*.sh')
 MOVED_ALLOWED = {
-    'tools/jobs_hooks.py': 'PROMOTIONS (rule 76: the moved folder must stay gone) and the pre-J12 fallbacks for an older base',
+    'tools/gates/pipeline.py': 'PROMOTIONS (rule 76: the moved folder must stay gone) and the pre-J12 fallbacks for an older base',
 }
 
 
 def moved_folders():
     import importlib.util
-    spec = importlib.util.spec_from_file_location('jobs_hooks_for_rules', ROOT / 'tools' / 'jobs_hooks.py')
+    spec = importlib.util.spec_from_file_location('jobs_hooks_for_rules', ROOT / 'tools' / 'gates' / 'pipeline.py')
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
     return sorted(k for k, job in m.PROMOTIONS.items() if job == 'J12')

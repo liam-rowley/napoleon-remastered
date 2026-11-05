@@ -1,6 +1,6 @@
 """Scale Warscape UI layouts and uied.templates records by a fixed factor (J66, D40 stop-gap), ported from empire-remastered ui_scale_mod.
 
-purpose: rebuild a parsed layout (discovery/core/uic.py) or uied.templates record (tpl.py) at a factor: component x/y, state w/h, image-use rects, textured image defs, V039 keyframe geometry, the font name onto a slot the context loads, embedded TGAs with their image defs
+purpose: rebuild a parsed layout (core/discovery/uic.py) or uied.templates record (tpl.py) at a factor: component x/y, state w/h, image-use rects, textured image defs, V039 keyframe geometry, the font name onto a slot the context loads, embedded TGAs with their image defs
 usage: library: from scale import scale_layout, scale_templates_file, font_slot, px; scale_layout(doc, 2.0, context='campaign')   (driven by uiscale/napoleon/cli.py, `wsc uiscale build`)
 when: building the ui_scale_<f>x packs and the scaled uied.templates; host tests in tests/test_uiscale.py
 not-a-verb: a library used by uiscale/napoleon/cli.py, not a registry operation
@@ -25,7 +25,7 @@ import struct
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'discovery', 'core'))
+sys.path.insert(0, os.path.join(HERE, '..', '..', 'core', 'discovery'))
 import tpl  # noqa: E402
 import uic  # noqa: E402
 

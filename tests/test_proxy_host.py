@@ -236,7 +236,7 @@ class InputSet(unittest.TestCase):
         for f in ('tests/test_job_sh.py', 'tests/test_claude_hook.py', 'tests/test_setup.py', 'tests/test_proxy_host.py',
                   'tools/verbs/setup.py', 'tools/claude_hook.py', '.claude/settings.json'):
             self.assertEqual(ci.classify([f]), {'proxy': False, 'harness': True, 'viewer': False}, f)
-        self.assertEqual(ci.classify(['tests/test_jobs_hooks.py', 'tools/jobs_hooks.py']), {'proxy': False, 'harness': False, 'viewer': False})
+        self.assertEqual(ci.classify(['tests/test_jobs_hooks.py', 'tools/gates/pipeline.py']), {'proxy': False, 'harness': False, 'viewer': False})
 
     def test_viewer_set(self):
         # J31: viewer/ and its test build the viewer; viewer/runs/ is committed evidence

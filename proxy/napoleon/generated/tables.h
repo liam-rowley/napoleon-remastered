@@ -80,8 +80,9 @@ static const SiteDef kSites[kSiteCount + 1] = {   // id, kind, rva, anchorLen, a
     { nullptr, 0, 0, 0, { 0 }, 0, { 0 }, { 0 }, nullptr }   // sentinel (keeps the array non-empty)
 };
 
-static const size_t kKeyCount = 50;
+static const size_t kKeyCount = 51;
 static const KeySpec kKeys[kKeyCount + 1] = {
+    { "controls.gestures", kBool, "0" },
     { "dev.autostart", kStr, "" },
     { "dev.autostart_delay_ms", kInt, "1500" },
     { "dev.camera", kBool, "0" },

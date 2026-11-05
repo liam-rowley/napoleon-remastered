@@ -1,7 +1,7 @@
 """Host tests: play packs of the UI art upscaler (J53): entries at the vanilla paths, held-back outputs, the vanilla-path guard.
 
 Standard library only (no GPU, no game): a synthetic manifest and work folder, packs built by upscale/core/pack.py through the
-`wsc upscale pack --play` code path (upscale/napoleon/cli.py play_packs), re-read by the J7 reader (discovery/core/packfs.py).
+`wsc upscale pack --play` code path (upscale/napoleon/cli.py play_packs), re-read by the J7 reader (core/discovery/packfs.py).
 """
 import hashlib
 import json
@@ -12,7 +12,7 @@ import tempfile
 import unittest
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
-sys.path[:0] = [os.path.join(ROOT, 'upscale', 'core'), os.path.join(ROOT, 'discovery', 'core'), os.path.join(ROOT, 'upscale', 'napoleon')]
+sys.path[:0] = [os.path.join(ROOT, 'upscale', 'core'), os.path.join(ROOT, 'core', 'discovery'), os.path.join(ROOT, 'upscale', 'napoleon')]
 
 import pack  # noqa: E402
 import cli  # noqa: E402

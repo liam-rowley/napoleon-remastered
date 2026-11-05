@@ -1,5 +1,5 @@
 """Host tests for core/proxy/tools/build_id.py (J45): the DLL build id follows the inputs' content, not the history, and build.sh and rule 79
-(tools/jobs_hooks.py, rule 79) compute the same id. Each test runs on a throwaway git repository holding copies of the real id tool and build.sh."""
+(tools/gates/pipeline.py, rule 79) compute the same id. Each test runs on a throwaway git repository holding copies of the real id tool and build.sh."""
 import importlib.util
 import shutil
 import subprocess
@@ -19,7 +19,7 @@ def _load(name, rel):
 
 
 bi = _load('build_id', 'core/proxy/tools/build_id.py')
-pp = _load('jobs_hooks', 'tools/jobs_hooks.py')   # rule 79's build id moved with the hook module (J62)
+pp = _load('jobs_hooks', 'tools/gates/pipeline.py')   # rule 79's build id moved with the hook module (J62)
 sv = _load('setup_verb', 'tools/verbs/setup.py')
 
 
@@ -37,7 +37,7 @@ class Fixture(unittest.TestCase):
         self.write('proxy/tools/fetch_lua.py', '# lua\n')
         self.write('proxy/tools/fetch_ui.py', '# ui\n')   # core 0.10.0 (W2): the RmlUi host's fetcher and its pin file are DLL inputs
         self.write('viewer/pins.json', '{}\n')
-        for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py', 'proxy/tools/layout.py'):
+        for rel in ('proxy/tools/build.sh', 'proxy/tools/build_id.py', 'proxy/tools/layout.py', 'proxy/tools/toolchain.py'):   # toolchain.py: a DLL input since core 0.27.0 (W24)
             self.write(rel, (ROOT / 'core' / rel).read_bytes())   # the tools live in the core since J12; the fixture keeps the flat layout
         self.write('wsc.toml', '# the repo marker layout.py looks for' + chr(10))
         self.write('docs/x.md', 'x\n')
@@ -146,7 +146,8 @@ class MovedToTheCore(Fixture):
         for src, dst in (('proxy/core/a.cpp', 'proxy/src/a.cpp'), ('proxy/tools/build.sh', 'proxy/tools/build.sh'),
                          ('proxy/tools/build_id.py', 'proxy/tools/build_id.py'), ('proxy/tools/fetch_lua.py', 'proxy/tools/fetch_lua.py'),
                          ('proxy/tools/fetch_ui.py', 'proxy/tools/fetch_ui.py'),
-                         ('proxy/tools/layout.py', 'proxy/tools/layout.py'), ('wsc.toml', 'wsc.toml')):
+                         ('proxy/tools/layout.py', 'proxy/tools/layout.py'), ('proxy/tools/toolchain.py', 'proxy/tools/toolchain.py'),
+                         ('wsc.toml', 'wsc.toml')):
             (core / dst).parent.mkdir(parents=True, exist_ok=True)
             (core / dst).write_bytes((self.d / src).read_bytes())
         g('add', '-A'); g('commit', '-q', '-m', 'core')
@@ -203,7 +204,7 @@ class OneImplementation(Fixture):
 
     def test_neither_computes_its_own_id(self):
         sh = (ROOT / 'core/proxy/tools/build.sh').read_text(encoding='utf-8')
-        pol = (ROOT / 'tools/jobs_hooks.py').read_text(encoding='utf-8')
+        pol = (ROOT / 'tools/gates/pipeline.py').read_text(encoding='utf-8')
         self.assertIn('proxy/tools/build_id.py', sh)
         self.assertIn('proxy/tools/build_id.py', pol)
         for src in (sh, pol):
