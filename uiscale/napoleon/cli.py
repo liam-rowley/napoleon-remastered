@@ -2,7 +2,7 @@
 r"""Build Napoleon's UI scale stop-gap at a factor (J66, D40): every vanilla layout, uied.templates, the slot fonts and the UI art, as packs plus a templates file.
 
 purpose: write ui_scale_<f>x.pack (layouts + art), ui_scale_<f>x_fonts.pack, uied.templates.ui_scale_<f>x and the proxy rules file that redirects the loose templates to it, each with a .json (entries, sha256, held back, method), into <work> (default <state folder>\uiscale\work: tools/pc_state.py, the adapter's state_dir or $NAPOLEON_STATE_DIR)
-usage: python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [--no-fonts] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]
+usage: python3 core/wsc.py uiscale build [--factor 2] [--work DIR] [--no-art] [--no-fonts] [--limit N] [--jobs N]   |   ... uiscale status [--work DIR]   |   ... uiscale check-fonts [--factor 2] [--work DIR] (J37 slot check of a built fonts pack)   |   ... uiscale engine-text [--check] | licences [--check]
 when: before `python3 upscale/pc/play.py install --scale 2` (Liam's 4K play test) and before a J66/J67 PC run; re-running reuses the art cache and gives byte-identical packs
 not-a-verb: the build behind tools/verbs/uiscale.py (runs in the art_build Python: numpy, Pillow, freetype-py, uharfbuzz)
 
@@ -28,7 +28,9 @@ import tpl  # noqa: E402
 import uic  # noqa: E402
 
 CONFIG = os.path.join(HERE, 'config.json')
+SLOTS = os.path.join(HERE, 'font_slots.json')
 GAMES = os.path.join(REPO, 'discovery', 'napoleon', 'games.json')
+FONTS_DIFF = os.path.join(REPO, 'discovery', 'diff', 'fonts.json')
 
 
 def load(p):
@@ -193,6 +195,18 @@ def build_fonts(cfg, fs, names, work, f, log=print):
         raise SystemExit(f'uiscale: no Lora face at any of {cfg["font_faces"]}: vendor it at uiscale/fonts/Lora-Variable.ttf (D42)')
     log(f'font face: {face}')
     out = cuf_encode.render_set(sorted(names), lambda n: fs.read('font\\' + n), face)
+    # J37 engine text: files the exe opens by itself, rendered at the factor, and aliases where GetFont's clamp sends a list name elsewhere
+    import fontcheck
+    plan = fontcheck.plan_engine(load(SLOTS)['engine_text'], f, set(names))
+    eng = cuf_encode.render_scaled(sorted(plan['render']), lambda n: fs.read('font\\' + n), f, face)
+    for n in sorted(eng):
+        if n in out:
+            raise SystemExit(f'uiscale: {n} is both a layout slot and engine text at {f:g}x (font_slots.json engine_text)')
+        out[n] = eng[n]
+    for n, a in sorted(plan['alias'].items()):
+        out[n] = (out[a['of']][0], f'alias of {a["of"]} (GetFont clamp): {out[a["of"]][1]}')
+    for n, why in sorted(plan['skipped'].items()):
+        log(f'font: {n} engine text skipped: {why}')
     sub = f'fonts_{tag_of(f)}x'
     entries, notes = [], {}
     for n in sorted(out):
@@ -281,9 +295,40 @@ def status(work=None):
     return 0
 
 
+def vanilla_font_shas():
+    """{sha256: 'font\\<name>'} of every vanilla Napoleon .cuf (discovery/diff/fonts.json, J6): a pack must never carry one of them"""
+    d = load(FONTS_DIFF)['detail']['napoleon_files']
+    return {v['sha256']: k for k, v in d.items()}
+
+
+def check_fonts(factor=2.0, work=None, log=print):
+    """the slot check over a built fonts pack (<work>/ui_scale_<f>x_fonts.pack.json): returns the number of problems"""
+    import fontcheck
+    cfg = load(CONFIG)
+    work = work or str(pc_state.uiscale_work(REPO))
+    meta_p = os.path.join(work, cfg['fonts_pack_name'].format(tag=tag_of(factor)) + '.pack.json')
+    if not os.path.exists(meta_p):
+        log(f'check-fonts: no fonts pack manifest at {meta_p}: run `wsc uiscale build --factor {factor:g}` first')
+        return 1
+    meta = load(meta_p)
+    slots = load(SLOTS)
+    model = fontcheck.Model(slots['engine'])
+    names = dict(meta.get('slot_uses', {}))
+    files = {e['path'].lower().split('\\')[-1]: e['sha256'] for e in meta['files']}
+    plan = fontcheck.plan_engine(slots['engine_text'], factor, {scale.font_file(n) for n in names if scale.font_file(n)})
+    probs, notes = fontcheck.check(model, names, plan, files, vanilla_font_shas(), slots['engine']['fixed_opens'])
+    for n in notes:
+        log('check-fonts: note: ' + n)
+    for p in probs:
+        log('check-fonts: ' + p)
+    log(f'check-fonts {factor:g}x: {len(files)} files, {len(names)} layout names, {len(plan["render"])} engine renders, '
+        f'{len(plan["alias"])} aliases: {"ok" if not probs else f"{len(probs)} problem(s)"}')
+    return len(probs)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('action', choices=['build', 'status'])
+    ap.add_argument('action', choices=['build', 'status', 'check-fonts'])
     ap.add_argument('--factor', type=float, default=2.0)
     ap.add_argument('--work')
     ap.add_argument('--no-art', action='store_true')
@@ -293,6 +338,8 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if a.action == 'status':
         return status(a.work)
+    if a.action == 'check-fonts':
+        return 1 if check_fonts(a.factor, a.work) else 0
     build(a.factor, a.work, a.no_art, a.no_fonts, a.limit, a.jobs)
     return 0
 

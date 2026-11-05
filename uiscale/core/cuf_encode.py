@@ -452,6 +452,40 @@ def render_set(names, vanilla_reader, face_path=DEFAULT_FACE):
     return res
 
 
+def scaled_h2(van_h2, factor):
+    """h2 (line height) of an engine-text font rendered at `factor` (J37): the same round-half-up rule as the scaler"""
+    return max(1, int(van_h2 * factor + 0.5))
+
+
+def render_scaled(names, vanilla_reader, factor, face_path=DEFAULT_FACE):
+    """Engine-text fonts (J37): render each vanilla `name` as Lora at `factor` x its own size, under its own file name, because the exe opens
+    that file itself (a fixed GetFont size or the loading-quote loop) and no layout can point it at a bigger slot. The recipe is render_set's
+    (wght by family, em = 23/24 x h2, bold and wide faces fitted to 99 % of the vanilla width scaled by the factor); the header is scaled with
+    the glyphs and h2 = scaled_h2(h2, factor), so line pitch = h2 + 2 keeps its meaning. Returns {name: (bytes, note)}."""
+    res = {}
+    for name in names:
+        van_bytes = vanilla_reader(name)
+        van = Cuf.parse(van_bytes)
+        wght, fit = recipe(name)
+        h2 = scaled_h2(van.header[2], factor)
+        em = h2 * 23.0 / 24
+
+        def enc(e):
+            return encode(face_path, van_bytes, float(f'{e:.2f}'), wght, keep_header=False, set_h2=h2)
+        data = enc(em)
+        if fit:
+            wv = sample_width(van) * factor
+            for _ in range(12):
+                w = sample_width(Cuf.parse(data))
+                if w <= 0.99 * wv:
+                    break
+                em *= 0.99 * wv / w
+                data = enc(em)
+        res[name] = (data, f'engine text at {factor:g}x: wght {wght} em {float(f"{em:.2f}"):.2f} h2 {van.header[2]} -> {h2} '
+                           f'width {sample_width(Cuf.parse(data))}/{sample_width(van)} vanilla')
+    return res
+
+
 def compare_png(pairs, path, text='Line Infantry - Grand Campaign: Victory Conditions 0123'):
     """Stack vanilla over re-rendered sample lines for each (name, vanilla_bytes, new_bytes); writes a PNG."""
     from PIL import Image, ImageDraw
