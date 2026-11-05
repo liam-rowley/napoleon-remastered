@@ -36,7 +36,7 @@ TR = f' --trailer "Claude-Session: {SID}"'
 GITCONFIG = tempfile.NamedTemporaryFile('w', suffix='.gitconfig', delete=False)
 GITCONFIG.write('[user]\n\tname = x\n[alias]\n\tci = commit -v\n\tst = status\n')
 GITCONFIG.close()
-PRS = {'12': 'plan/x', '13': 'job/J76', 'https://github.com/o/r/pull/12': 'plan/x', None: 'meta/y', '77': 'brief/J76'}
+PRS = {'12': 'plan/x', '13': 'job/J76', '14': 'meta/y', 'https://github.com/o/r/pull/12': 'plan/x', 'https://github.com/o/r/pull/14': 'meta/y', None: 'meta/y', '77': 'brief/J76'}
 
 
 def short(p):
@@ -223,6 +223,8 @@ add('merge', [
     ('gh pr merge refs/heads/plan/x --squash', A),
     ('gh pr merge 12 --auto --squash', A),
     ('gh pr merge https://github.com/o/r/pull/12 --squash', A),
+    ('gh pr merge 14 --auto --squash', D),
+    ('gh pr merge https://github.com/o/r/pull/14 --squash', D),
     ('gh pr merge --auto --squash', D),
     ('gh pr merge 99 --auto --squash', D),
     ("bash -c 'gh pr merge meta/x --auto --squash'", D),
