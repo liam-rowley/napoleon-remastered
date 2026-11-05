@@ -2,7 +2,7 @@
   "id": "napoleon.fonts.getfont_rule",
   "claim": "The renderer's GetFont(family, size, bold) (vtable 0x140cc30 slot 0x220 -> 0x116cbb0) rounds the size down to even, clamps it to 6..32 and opens font/<family>_[b_]<n>.cuf, so the list name Frontend 38 opens frontend_32.cuf and no size above 32 is ever opened by it",
   "state": "open",
-  "evidence": "uiscale/runs/2026-11-03_j37_static/README.md",
-  "date": "2026-11-03",
-  "notes": "static RE (run 2026-11-03_j37_static): the clamp is unconditional at 0x116cc24; open until the PC file survey shows frontend_32.cuf opened and frontend_38.cuf not (uiscale/runs/2026-11-03_j37_static/pc_plan.md). If it holds, J66's 2x pack draws every Frontend 38 text with the vanilla frontend_32"
+  "evidence": "uiscale/runs/2026-11-05_j37pc/README.md",
+  "date": "2026-11-05",
+  "notes": "PC run 2026-11-05_j37pc: the file survey (dev.log_files, files.log) cannot settle this: it logged 0 rows naming font or .cuf in any of 9 launches (fonts are read through the pack index, not OS probes). Stays open; needs a proxy-side pack-read log (a DLL change, not this job)."
 }

@@ -1,0 +1,54 @@
+{
+  "verb": "state",
+  "status": "ok",
+  "reason": "",
+  "state": {
+    "launch_id": "20261105T183342Z-p26792",
+    "pid": 26792,
+    "frame": 110107,
+    "scene": "campaign",
+    "scene_s": 14.7,
+    "uptime_s": 147.8,
+    "written_utc": "2026-11-05T18:36:11.006Z",
+    "last_present_utc": "2026-11-05T18:36:11.005Z",
+    "lua": {
+      "loaded": true,
+      "context": "campaign",
+      "pump_age_s": 0.0
+    },
+    "battle": {
+      "naval": 0,
+      "deploy_panel": -1,
+      "age_s": 35.9
+    },
+    "load_target": "",
+    "autostart": "off",
+    "movies_refused": 3,
+    "movies_opened": 4,
+    "mem": {
+      "va_mb": 1879,
+      "commit_mb": 1274
+    },
+    "reports": {
+      "autostart.army_sides": "0u3s,0u3s",
+      "autostart.army_size": "0/5000",
+      "autostart.army_units": "3",
+      "autostart.campaign": "mp_eur_napoleon",
+      "autostart.faction": "austria",
+      "autostart.time_of_day": "2",
+      "autostart.weather": "dry/Dry"
+    }
+  },
+  "settle": {},
+  "check": {
+    "compared": "state.json readable",
+    "expected": "a scene and a frame",
+    "got": {
+      "scene": "campaign",
+      "frame": 110107
+    }
+  },
+  "evidence": {},
+  "start_utc": "2026-11-05T18:36:10.306Z",
+  "end_utc": "2026-11-05T18:36:11.861Z"
+}

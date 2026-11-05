@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.file_survey_blind_to_cuf",
+  "claim": "dev.log_files (files.log) records no font\\*.cuf path on Napoleon: 0 rows containing 'font' or 'cuf' in the front end, battle and campaign surveys at 1080p and 4K, vanilla and with the 2x packs. Which .cuf the engine opens cannot be read from the survey.",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j37pc/README.md",
+  "date": "2026-11-05",
+  "notes": "run 2026-11-05_j37pc; logs were 20000-row surveys, deleted from the repo (size)"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.fonts.factor_follows_install",
+  "claim": "Engine-drawn campaign map labels (settlement names) are drawn from the install-time fonts pack: with the J66+J37 2x fonts pack at 3840x2160 they are visibly about twice the vanilla size; they do not follow the D5 slider. Unit-banner text was not isolated (banners are art, napoleon.fonts.banner_text).",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-05_j37pc/README.md",
+  "date": "2026-11-05",
+  "notes": "by eye on the 1280px harness shots v4k/campaign.jpg vs x2_4k/campaign.jpg (camera poses differ, campaign pan); no pixel measurement"
+}
