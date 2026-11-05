@@ -3,9 +3,11 @@
   "description": "Liam, 2026-11-05 (D62, replacing D50's plan/ half), maximum priority. Cut to the hook: tools/claude_hook.py stops denying `gh pr merge` of a plan/ branch; meta/ stays denied, and the rest of the merge guard (a number or no target resolved with gh pr view, unresolvable denied) stays. Update the corpus in tests/test_claude_hook_corpus.py, the hook's header and message, and CLAUDE.md's D62 wording, and add to CLAUDE.md the step that a plan/ branch queues its own merge with `gh pr merge <branch> --auto --squash`, as brief/ does (D33). The audit's narrowed rules (automation 3) moved to J103; this job does not wait for J78.",
   "title": "plan/ merges itself on green CI: the hook stops denying it",
   "phase": 1,
-  "status": "queued",
+  "status": "done",
   "model": "sonnet",
   "needs_pc": false,
   "depends_on": [],
-  "brief": "jobs/J84/brief.md"
+  "brief": "jobs/J84/brief.md",
+  "report": "jobs/J84/report.md",
+  "review": "jobs/J84/review.md"
 }

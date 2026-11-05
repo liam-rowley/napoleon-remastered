@@ -36,7 +36,7 @@ TR = f' --trailer "Claude-Session: {SID}"'
 GITCONFIG = tempfile.NamedTemporaryFile('w', suffix='.gitconfig', delete=False)
 GITCONFIG.write('[user]\n\tname = x\n[alias]\n\tci = commit -v\n\tst = status\n')
 GITCONFIG.close()
-PRS = {'12': 'plan/x', '13': 'job/J76', 'https://github.com/o/r/pull/12': 'plan/x', None: 'meta/y', '77': 'brief/J76'}
+PRS = {'12': 'plan/x', '13': 'job/J76', '14': 'meta/y', 'https://github.com/o/r/pull/12': 'plan/x', 'https://github.com/o/r/pull/14': 'meta/y', None: 'meta/y', '77': 'brief/J76'}
 
 
 def short(p):
@@ -215,17 +215,21 @@ add('commit', [
     ('git st', A),
 ])
 add('merge', [
-    ('gh pr merge plan/x --auto --squash', D),
+    ('gh pr merge plan/x --auto --squash', A),
+    ('gh pr merge plan/J84 --auto --squash', A),
+    ('powershell -Command "gh pr merge plan/J84 --auto --squash"', A),
     ('gh pr merge meta/x --auto --squash', D),
     ('gh pr merge origin/meta/x --auto --squash', D),
-    ('gh pr merge refs/heads/plan/x --squash', D),
-    ('gh pr merge 12 --auto --squash', D),
-    ('gh pr merge https://github.com/o/r/pull/12 --squash', D),
+    ('gh pr merge refs/heads/plan/x --squash', A),
+    ('gh pr merge 12 --auto --squash', A),
+    ('gh pr merge https://github.com/o/r/pull/12 --squash', A),
+    ('gh pr merge 14 --auto --squash', D),
+    ('gh pr merge https://github.com/o/r/pull/14 --squash', D),
     ('gh pr merge --auto --squash', D),
     ('gh pr merge 99 --auto --squash', D),
     ("bash -c 'gh pr merge meta/x --auto --squash'", D),
     ('gh api -X PUT repos/o/r/pulls/1/merge', D),
-    ('gh pr merge plan/x -R liam-rowley/warscape-core --squash', D),
+    ('gh pr merge plan/x -R liam-rowley/warscape-core --squash', A),
     ('nice gh pr merge liam:meta/x --squash', D),
     ('gh api graphql -f query=\'mutation { mergePullRequest(input: {pullRequestId: "x"}) { clientMutationId } }\'', D),
     ('gh pr merge job/J76 --auto --squash', A),
@@ -448,7 +452,7 @@ class Messages(unittest.TestCase):
         want = [
             (f'echo x > "{NAPU}/a"', 'pc_deploy.py'), (f'echo x > "{NAPU}/a"', 'job.sh scratch'), (f'cd "{NAPU}" && git status', 'pc_deploy.py'),
             ('git commit -m x', f'--trailer "Claude-Session: {SID}"'), ('git commit -n -m x' + TR, 'pre-push hook'),
-            ('Start-Process Napoleon.exe', 'core/harness/job.sh'), ('gh pr merge plan/x --auto', 'D50'), ('gh pr merge plan/x --auto', 'Liam'),
+            ('Start-Process Napoleon.exe', 'core/harness/job.sh'), ('gh pr merge meta/x --auto', 'D50'), ('gh pr merge meta/x --auto', 'Liam'),
             ('git push origin --delete main', 'scratch/'), (f'echo x > "{APP}/save_games/a.esf"', 'stage_save.py'),
             (f'echo x > "{APP}/scripts/preferences.script.txt"', 'pc_deploy.py set'),
             (f'python3 -c "open(\'{NAPU}/a\', \'w\')"', 'pc_deploy.py'),

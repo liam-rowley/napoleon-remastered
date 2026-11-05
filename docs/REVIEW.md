@@ -23,5 +23,5 @@ this game's. Every `wsc ...` below is `python3 core/wsc.py ...`; the job steps (
   `Baseline accepted: <sha>` to `review.md`, with `<sha>` from `git rev-parse HEAD:uikit/napoleon/baseline.json`; the [hook](../tools/jobs_hooks.py) refuses a missing or stale line.
 - **Empire repeats (step 5).** Anything left as prose that Empire's history shows biting twice (a timing, a trap, a wrong default) and that could be a
   default, a guard or a gate is a finding. A *later* item for the core goes to warscape-core `docs/BACKLOG.md` through a warscape-core pull request.
-- **Merging.** Liam merges and tags warscape-core; a job branch is merged by its reviewer on green CI (D32); `plan/` and `meta/` branches by Liam.
+- **Merging.** Liam merges and tags warscape-core; a job branch is merged by its reviewer on green CI (D32); `meta/` branches by Liam (D50); `brief/` and `plan/` branches merge themselves on green CI (D33, D62).
   If a merge changes a rule that other open job branches must meet (J20's trailer rule stranded `job/J19`), say so in the review and in your reply.

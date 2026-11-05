@@ -474,7 +474,7 @@ def ui_baseline_path(path):
 def ui_baseline_problems(repo, head, branch, changed):
     """J80: a UI baseline change is accepted by someone other than its builder. On a job/<id> branch handed to review (report.md at `head`), review.md must hold the line
     `Baseline accepted: <blob of baseline.json at head>`, so an edit after the review goes stale; the core refuses a review by the session that wrote the report.
-    plan/ and meta/ branches are Liam's (D50); any other branch has no reviewer. A reference PNG's pixels are tied to baseline.json by tests/test_uikit.py."""
+    plan/ and meta/ branches never reach this path: their [policy] globs refuse it. Any other branch has no reviewer. A reference PNG's pixels are tied to baseline.json by tests/test_uikit.py."""
     files = [p for p in changed if ui_baseline_path(p)]
     if not files or branch.startswith(('plan/', 'meta/')):
         return []
@@ -495,7 +495,7 @@ def ui_baseline_problems(repo, head, branch, changed):
 
 
 def ui_lock_problems(branch, changed):
-    """J80: LOCK.json records Liam's lock; plan/ and meta/ branches are his (D50), a job never writes it."""
+    """J80: LOCK.json records Liam's lock; a job never writes it, and the [policy] globs of plan/ and meta/ branches refuse it."""
     return ["ui lock: LOCK.json is Liam's; a job never writes it"] if UI_LOCK in changed and branch.startswith('job/') else []
 
 
