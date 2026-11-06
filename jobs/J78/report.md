@@ -81,3 +81,65 @@ Two pull requests **after this bump merges**, not opened here. A pull request is
 - `CLAUDE.md`, `README.md` and the gates that name the file change here: grep for the old claim.
 
 Old rows keep their numbers; a new id is `D<yymmdd>-<4 hex>` from `python3 core/wsc.py reg add decisions --mint who=... decision=... reversible=yes|no`. Size today: 30,703 of 30,720 bytes.
+
+## Fix round 1
+Session `240bfc32-d735-4654-94bf-58d001513ec8`, from review round 1. No PC run, no launch, no `job.sh`. `build_id.py` said `96722f4b8d52` before, after every commit and after merging `main`. Earlier sections stay as written; **where this section differs, this section is right.**
+
+### Blockers
+**1. The D46 ending.** "Ends the D46 stop-gap" (What was built) overstated it. Corrected: the shipped ini no longer sets a dev key, and the ending is otherwise as follows.
+- `release/napoleon/release.json` sentence deleted and `release/README.md` corrected: `99794157`. No test added: `value_problems` already fails a dev key in a component and a stale `allowed_dev_keys` entry.
+- **`upscale/pc/play.py`, `tests/test_play.py`, `upscale/README.md`: not moved, on purpose.** W33 asked for the move; the brief keeps `dev.file_rules` for dev launches, and a play install is one (a kit install that also sets `dev.skip_intro`). No Napoleon launch has used `proxy.file_rules`, so moving it now would put Liam's only proven 2x route on an unproved one, and this round has no PC run. Those files stay true as they are. Revisit once J106 has passed.
+- **New deviation 8: the D line that supersedes D46's exception is not written.** `docs/DECISIONS.md` has no room. It waits for the row files, beside the Opus row: J105.
+- **New deviation 9: W33 record 3, the release-ini launch, was never run.** Every J78 launch had `proxy.file_rules` empty and `dev.file_rules` set, so **the 20 passes say nothing about the shipped route on Napoleon.** Core's smoke proves the mechanism on the stand-in only. It needs a PC launch before the next release: J106. Fact `napoleon.ui.templates_route` now says so (`c7ee5867`).
+
+**2. The decisions recipe.** "Judged by main's `meta` globs" was unchecked and wrong. The corrected recipe is below and replaces "Decisions as one file per row".
+
+### Should-fix
+**3. W33 records 1, 2 and 4.**
+- **Record 1, holds:** both dead launches and the last launch log `patch_engine: protections restored on 2 page(s): 0x00d27000=0x20 0x00d86000=0x20`, and none has a `left changed` line (`attempts/pass_14/attempt_1/proxy.log:131`, `attempts/pass_18/attempt_1/proxy.log:131`).
+- **Record 2, holds, one launch:** quoted here because that log will go; the copy into the repo was denied this session, so it is not committed. Last launch of the run, `_to_delete\uninstall_20261106T210043Z\napoleon_remastered\logs\proxy.log`:
+  ```
+  177: 2026-11-06T20:57:09.072Z [INFO ] [t26084] Direct3DCreate9(sdk=32) -> 0c094800 [dxvk]
+  192: 2026-11-06T20:57:09.075Z [INFO ] [t26084] thread: dev.state started (tid 21000)
+  193: 2026-11-06T20:57:09.075Z [INFO ] [t26084] thread: dev.ctl started (tid 19620)
+  ```
+- **Record 4, against run 20261103_j30acc2:** 12 deaths at `starting DllMain` in 17 passes there (10 retried in passes 1 to 16, 2 in a row failing pass 17), 2 in 20 here, both before the first `Direct3DCreate9`. **This does not show W33 helped.** J101's table has layout M at 0 of 4 launches and D at 7.4% for the period holding j30acc2, so that run was almost surely on D (inferred; its pass files hold no layout or launch count), and this one was on M. Fact updated: `c7ee5867`.
+
+**4. Display sizes.** Evidence's sizes were wrong. Right: DISPLAY1 3840x2160@240Hz, DISPLAY2 2560x1440@144Hz, DISPLAY10 3840x2160@60Hz, from the display tool in `attempts/pass_14/attempt_1/job_output.txt`. Still layout M. Run README fixed: `932a2773`.
+
+**5. Deviation 2's reason.** "It would be a new change after the run" was wrong: `release/` is not a DLL input. The real reason: no release is planned, and how a builder fetches the CI artifact is a design question. J108.
+
+**6. `doc_paths`.** "Cleared by fixing, no skip" overstated it. `[docs] path_ignore` also hides four paths that were this repo's and are gone: `tools/jobs_hooks.py`, `tools/pr_policy.py`, `docs/BACKLOG.md`, `uikit/napoleon/LOCK.json`. Left in place, repointing is J110.
+
+### Other claims the review named
+- **Dev threads (Evidence, point 4).** Corrected in the fact (`c7ee5867`) and the run README: no proxy thread of any kind existed in these two deaths, which is stronger than "dev threads". It also **does not clear the proxy**: its DllMain work ran on the dying thread, and non-proxy threads are unseen. "Counts against the leading suspect" holds for threads only and says nothing about init.
+- **"About 0.94 s".** One launch, and that figure is the wndproc guard line. That launch logs `Direct3DCreate9(` 1.06 s after `init done`.
+- **"724 host tests passed, 46 skipped".** 724 is the number run, skips included.
+- **Deliverable 5's comparison.** The brief named J64's 7 on 2026-11-04; the report used 1/127 and did not say why. The reason: 1/127 is run 20261105_j64pc7 on J78's layout, and 2026-11-04 falls where J101 has M at 0 of 4, so the 7 is a D figure. Same conclusion either way.
+- **Open question 7 (W42).** Out of date for the head the review read. This round changes `release/`, which starts `harness-windows`, so this head does not repeat that skip: read it on the pull request.
+- **Open questions 1 to 4.** Their rows are filed separately on `plan/` branches, not here (Liam's instruction). J105 to J110 landed on `main` in #224, merged here at `26689fcb` (rows only).
+
+### Left open
+- `gen_tables --exe` (J107), `d3d9.map` on releases (J108), the `tests` gate at the cap (J109), all as above. Review findings 7 and 8 are later rows.
+- No committed evidence for the preflight CPU figure, the 9-key ini diff or the 1564-file compare. Unchanged; the review says none decides anything.
+- J105's row cites "Decisions as one file per row"; it should be read with the corrected recipe below.
+
+### Decisions as one file per row, corrected: three `meta/` pull requests
+All after this bump merges, all Liam's to merge (D50), in this order, each cut from `main` after the one before it merged. A pull request is judged with its base's rules, so the glob has to be on `main` before a row file can be added.
+
+Checked 2026-11-06 on this branch, nothing committed: `policy.allowed` for each file list; `reg migrate` and `--check` (66 rows, every one found); `registries`, `doc_paths`, `doc_size` and `tools` gates after step 2; `doc_paths` and `tests.test_repo_rules` after step 3. The checks of step 3 are what added its last two bullets. Not checked: a real `policy` run on such a branch.
+
+**1. `meta/decisions-glob`.** Only `wsc.toml`: add `"registries/decisions/*"` to the `plan` and `meta` globs.
+
+**2. `meta/decisions-registry`.** Judged with the glob from step 1.
+- `python3 core/wsc.py reg migrate decisions --from-md docs/DECISIONS.md`, then the same with `--check`.
+- `wsc.toml`: `[registries] decisions = "core:decisions"`; `[storage] dir = [..., "decisions"]`; `[policy] decisions = "registry:decisions"`, `decisions_retired = "docs/DECISIONS.md"`.
+- Every row line of the Markdown file stays; its prose may change. From this merge `policy` refuses any change to the file's table on every branch, so a branch cut before it cannot land a row: merge `main` first.
+
+**3. `meta/decisions-retire`.** Judged with step 2's rules, which let the file go.
+- Delete `docs/DECISIONS.md` and the `decisions_retired` key.
+- Repoint `CLAUDE.md`, `README.md`, `docs/plans/PLAN.md` and `docs/plans/UI_PIPELINE.md`: `doc_paths` fails on each otherwise.
+- `design/napoleon/LANGUAGE.md:3` names the file too and `design/` is outside the `meta` globs, so add `docs/DECISIONS.md` to `[docs] path_ignore` here, or add that file to the `meta` globs in step 1.
+- `tests/test_repo_rules.py` `test_no_gate_silenced_without_a_decision` reads the file and errors without it: point it at the rows.
+
+Old rows keep their numbers; a new id is `D<yymmdd>-<4 hex>` from `python3 core/wsc.py reg add decisions --mint who=... decision=... reversible=yes|no`. The first new rows are the Opus row and the D46 line (J105). Size today: 30,703 of 30,720 bytes.
