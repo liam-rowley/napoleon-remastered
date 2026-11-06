@@ -1,0 +1,3 @@
+game.lock is held by 'j96' (session '685b4182-f0e0-46ca-9fb2-32e135a940ef'): j96 holds it
+shot: C:\napoleon_remastered_pc\_scratch\j96\shots_r1\frontend.jpg 1280 x 720 (from 1920 x 1080 at 2560,1440)
+[job j96-20261106T090900Z-211605784: ok exit=0]

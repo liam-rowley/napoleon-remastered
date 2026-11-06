@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.dxt_target_multiple_of_4",
+  "claim": "A DXT texture whose top level is not a multiple of 4 draws: DXT1 and DXT5 loading pictures at 4802x3002 fill the loading screen, so the upscaler's round-up to 4 was not needed for this class of file",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-06_j96/README.md",
+  "date": "2026-11-06",
+  "notes": "run 2026-11-06_j96 r1: ui\\loading_screen_pictures\\default_landbattle.dds (DXT5, land_small load) and 6.dds (DXT1, campaign_start load), solid colours, full chains, seen in grab.ps1 frames. Two files in one screen, a full-screen image. Not proven for the other five affected files: the seven DXT files of ui\\frontend ui\\loadingscreen drew no marker at aligned sizes either (run load), so they are not on that screen; the heading at 1154x382 proves nothing. The flags' large.dds at 1282x642 were not seen on any screen shot. The rule in upscale/core/rules.py stays: it is harmless and D3D9 documents the limit."
+}

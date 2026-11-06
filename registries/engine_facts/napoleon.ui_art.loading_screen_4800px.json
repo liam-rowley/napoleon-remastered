@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui_art.loading_screen_4800px",
+  "claim": "A 4800x3000 loading picture from the upscaler draws on the loading screen with no crash, so native_cap can stay tested on the source size",
+  "state": "verified",
+  "evidence": "uiscale/runs/2026-11-06_j96/README.md",
+  "date": "2026-11-06",
+  "notes": "run 2026-11-06_j96 art2: J51's outputs with a magenta band at every mip, seen filling the screen in the land_small load (default_landbattle.dds) and the campaign_start load (the picture that load chose; in run r1 it was 6.dds); all 23 were in the pack. At 1920x1080 only: 4K is not probed. The shot needs grab.ps1: a ctl or shot.sh shot is slower than the load (about 4 s)."
+}

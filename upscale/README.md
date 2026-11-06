@@ -56,8 +56,8 @@ the install does not touch the preferences. The loose `uied.templates` in `data\
 (`%APPDATA%\The Creative Assembly\Napoleon\ui_cache`) are moved to the play trash at install and at uninstall.
 
 ## Rules (code: `upscale/core/rules.py`, `resample.py`, `batch.py`)
-- Target = floor(2.5 x size + 0.5) per axis, and for a DXT source each axis then rounds up to a multiple of 4 (`rules.dxt_target_size`, J96: 460x152 -> 1152x380); a longest side at or above `native_cap` (2048) or a non-image file is skipped with a reason.
+- Target = floor(2.5 x size + 0.5) per axis, and for a DXT source each axis then rounds up to a multiple of 4 (`rules.dxt_target_size`, J96: 460x152 -> 1152x380; a precaution, the two files probed drew without it: `napoleon.ui_art.dxt_target_multiple_of_4`); a longest side at or above `native_cap` (2048) or a non-image file is skipped with a reason.
 - RGB goes through the model (x2) after dilation under A = 0, then Lanczos to the exact target; alpha never meets the model (Lanczos, cut at 128 when the vanilla alpha is a cut-out).
-- DDS keeps the vanilla format and header (size and mips change) with the full chain: RGB box in linear light, alpha plain box. TGA and JPG keep their container, no mips: a DDS at a `.tga` path was not drawn (fact `napoleon.ui_art.dds_at_tga_paths`, refuted in J50 on one probe whose DXT size was not a multiple of 4: see the fact's notes).
+- DDS keeps the vanilla format and header (size and mips change) with the full chain: RGB box in linear light, alpha plain box. TGA and JPG keep their container, no mips: a DDS at a `.tga` path is not drawn, 4-aligned or not (fact `napoleon.ui_art.dds_at_tga_paths`, J50 and J96).
 - Resume key = input sha256 + model sha256 + settings, and the output must have the current target size; a second run changes nothing. Pack entries sit under `ui_art_2x5\<vanilla path>`.
 - Models are pinned in `upscale/napoleon/models.json` (URL, sha256, licence) and fetched into the work folder, never committed.
