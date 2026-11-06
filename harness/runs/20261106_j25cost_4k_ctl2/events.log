@@ -1,0 +1,10 @@
+2026-11-06T03:31:25Z plan: 5 cells, scenarios ['land_40'], sizes 3840x2160, backends dxvk, variants []; start keys {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-06T03:31:25Z block ('3840x2160', 'dxvk', None): exit, set keys, relaunch
+2026-11-06T03:31:49Z cell dxvk_3840x2160_land_40_default_p0 ok: load 4.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-06T03:32:37Z cell dxvk_3840x2160_land_40_deploy_p1 ok: load 4.3 p50 2.298 p99 3.654 VA 1893/1899.2 commit 1254 vram 1324.0 
+2026-11-06T03:33:05Z cell dxvk_3840x2160_land_40_turned_p1 ok: load 4.3 p50 2.225 p99 3.592 VA 1893/1899.2 commit 1254 vram 1324.0 
+2026-11-06T03:33:54Z cell dxvk_3840x2160_land_40_deploy_p2 ok: load 4.4 p50 2.308 p99 3.692 VA 1904/1911.6 commit 1255 vram 1432.0 
+2026-11-06T03:34:22Z cell dxvk_3840x2160_land_40_turned_p2 ok: load 4.4 p50 2.248 p99 3.575 VA 1904/1911.6 commit 1255 vram 1432.0 
+2026-11-06T03:34:25Z exit: exit
+2026-11-06T03:34:27Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-06T03:34:27Z summary: 2 cell keys, 0 refused cells -> C:\Users\liamr\repos\napoleon-remastered\.claude\worktrees\J25-build\harness\runs\20261106_j25cost_4k_ctl2\summary.json

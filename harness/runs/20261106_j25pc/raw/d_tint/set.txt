@@ -1,0 +1,2 @@
+pc_deploy set: napoleon_remastered.ini: dev.capture=1, dev.capture_dir=C:\napoleon_remastered_pc\captures, dev.skip_intro=1, dev.cascade_proto=1, dev.cascade_count=1, dev.cascade_tint=1, dev.cascade_split=40, dev.cascade_dir=C:\napoleon_remastered_pc\_scratch\j25\swap
+pc_deploy set: exe: ok Napoleon.exe sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 is the vanilla build in the identity

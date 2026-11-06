@@ -1,0 +1,2 @@
+cell                                                 metric          base       now     delta   limit
+0 comparisons, 0 breach(es)

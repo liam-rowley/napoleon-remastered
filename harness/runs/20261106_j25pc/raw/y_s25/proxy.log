@@ -1,0 +1,711 @@
+2026-11-06T02:36:47.951Z [INFO ] [t16900] launch 20261106T023647Z-p6520: Napoleon: Total War proxy d3d9.dll build a005f6cccc17-dirty loaded into C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\Napoleon.exe (pid 6520, base 00e40000)
+2026-11-06T02:36:47.962Z [INFO ] [t16900] self_hash: sha256 1fe1d99c7afb6ebae4798a12a9680057832fa912b0144586d2bc3ead6de8d5ae bytes 4464640 build a005f6cccc17-dirty (hashed in 0 ms)
+2026-11-06T02:36:47.962Z [INFO ] [t16900] dll C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\d3d9.dll
+2026-11-06T02:36:47.962Z [INFO ] [t16900] config: C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered.ini read
+2026-11-06T02:36:47.962Z [INFO ] [t16900] config:   controls.gestures                  = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.autostart                      =             
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.autostart_delay_ms             = 1500        
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.camera                         = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.capture                        = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.capture_dir                    = C:\napoleon_remastered_pc\captures
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.cascade_count                  = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.cascade_dir                    = C:\napoleon_remastered_pc\_scratch\j25\swap
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.cascade_proto                  = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.cascade_size                   = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.cascade_skip_ps                =             
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.cascade_split                  = 25          
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.cascade_tint                   = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.console                        = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.ctl                            = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.ctl_dir                        = C:\napoleon_remastered_pc\ctl
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.file_rules                     = napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.log_files                      = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.lua_bridge                     = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.orders                         = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.perf                           = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.skip_intro                     = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.state_json                     = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   dev.timeline                       = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.grass_proof                    = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_crop_keep               = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_extrusion               = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_far_cap                 = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_fit_ortho               = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_focus                   = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_height_cutoff           = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_hw_force                = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_map_large               = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.shadow_near_scale              = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.ship_lod_proof                 = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.sprite_page_proof              = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.tree_lod_proof                 = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   gfx.unit_lod_proof                 = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   headless.display_name              = Virtual Display Driver
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   headless.enabled                   = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   headless.refuse_grace_ms           = 5000        
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   headless.settle_ms                 = 500         
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   headless.size                      = 1920x1080   
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   headless.test_dll_window_ms        = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   headless.test_off_thread           = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.backend                      = dxvk        
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.dxvk_path                    = napoleon_remastered\dxvk\d3d9_dxvk.dll
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.enabled                      = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.exe_guard                    = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.exe_guard_force_mismatch     = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.log_level                    = info        
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.minidump                     = 2           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   proxy.runtime_patches              = 1           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   ui.dir                             = napoleon_remastered\ui
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   ui.dump_dir                        = C:\napoleon_remastered_pc\ui_dumps
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   ui.enabled                         = 0           
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   ui.scale                           = 100         
+2026-11-06T02:36:47.963Z [INFO ] [t16900] config:   ui.show                            =             
+2026-11-06T02:36:47.963Z [INFO ] [t16900] crash: WER LocalDumps for Napoleon.exe: on, DumpType 2, folder %LOCALAPPDATA%\CrashDumps\napoleon_remastered
+2026-11-06T02:36:47.963Z [INFO ] [t16900] crash: minidump mode 2 (unhandled + first fatal first-chance), dumps go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dumps\
+2026-11-06T02:36:48.001Z [INFO ] [t16900] exe_guard: match - sha1 9aebcd2172f2878d781b079f7feb45b0e12e0250 TimeDateStamp 0x645e917f SizeOfImage 0x014eb000 -> engine features on (hashed in 47 ms)
+2026-11-06T02:36:48.001Z [INFO ] [t16900] plan: patches=1 engine_hooks=1 d3d_hooks=1 engine_reads=1
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine: image base 00e40000 (file ImageBase 0x00400000, delta 0x00a40000)
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   unit_lod.override_default        patch RVA 0x00015431 -> 00e55431: stock (key off) cur [00]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   unit_lod.imposter_distance_default patch RVA 0x000155a1 -> 00e555a1: stock (key off) cur [00 00 c8 42]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   ship_lod.knot_distance_default   patch RVA 0x00015631 -> 00e55631: stock (key off) cur [00 00 48 42]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   unit_lod.large_imposter_distance_default patch RVA 0x000156c1 -> 00e556c1: stock (key off) cur [00 00 48 43]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   ship_lod.rope_distance_default   patch RVA 0x000159c1 -> 00e559c1: stock (key off) cur [00 00 48 43]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   ship_lod.rope_distance_fadeout_default patch RVA 0x00015a11 -> 00e55a11: stock (key off) cur [00 00 16 43]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   battle.position_xyz              hook  RVA 0x0013fbe0 -> 00f7fbe0: stock cur [8d 81 b0 00 00 00 c3]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   battle.entity_has_order          hook  RVA 0x0015c2e0 -> 00f9c2e0: stock cur [83 b9 60 04 00 00 00 75 03 32 c0 c3 8b 81 60 04]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   battle.unit_entity_index         hook  RVA 0x0015c320 -> 00f9c320: stock cur [83 b9 e8 0a 00 00 00 74 17 8b 81 e8 0a 00 00 8b 8c 81 dc 0a 00 00]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   battle.order_formation_push      hook  RVA 0x0018d780 -> 00fcd780: stock cur [83 ec 10 53 56 51 54 8b f1]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   battle.order_move_push           hook  RVA 0x0018dc00 -> 00fcdc00: stock cur [83 ec 10 53 56 51 54 8b f1 e8 c2 03 00 00 83 c4]
+2026-11-06T02:36:48.534Z [INFO ] [t16900] patch_engine:   battle.order_formation_ctor      hook  RVA 0x00199320 -> 00fd9320: stock cur [56 8b 74 24 08 57 8b f9]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.order_move_ctor           hook  RVA 0x00199760 -> 00fd9760: stock cur [56 8b 74 24 08 57 8b f9 8d 46 04 50 8d 4f 08 c7 07 4c b6 32 01 c7 47 04 e8 b5 32 01 e8 af b6 eb]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.command_dtor              hook  RVA 0x001a95b0 -> 00fe95b0: stock cur [56 8b f1 8b 46 44 85 c0 74 09 50 e8 30 e9 a4 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.selection_dispatch        hook  RVA 0x001ae8a0 -> 00fee8a0: stock cur [0f b6 81 2b 04 00 00 f3 0f 10 44 24 08 50 8b 81 50 04 00 00 51 f3 0f 11 04 24 83 c0 20]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.selection_dispatch_b      hook  RVA 0x001ae8d0 -> 00fee8d0: stock cur [ff 74 24 08 8b 81 50 04 00 00 81 c1 54 04 00 00 ff 74 24 08 83 c0 20 50 e8 e3 00 03]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   guard.proxy_set_push             hook  RVA 0x001b04e0 -> 00ff04e0: stock cur [55 56 8b f1 8b 6e 18]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.camera_chain_read         hook  RVA 0x001ce998 -> 0100e998: stock cur [a1 8c 41 4a 01 83 c4 08 8b 80 f8 00 00 00 8b 80 b8 81 02 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.ui_queue_site             hook  RVA 0x001d0520 -> 01010520: stock cur [a1 8c 41 4a 01 51 54 8b 80 f8 00 00 00 8b b0 48 80 02 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   guard.men_inside_battle_bounds   hook  RVA 0x001dae50 -> 0101ae50: stock cur [55 8b ec 83 e4 f0]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.selection_command         hook  RVA 0x001ddd00 -> 0101dd00: stock cur [83 ec 64 53 8b d9 56 8b 03 8b 88 e4 81 02 00 85]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.camera_mode_read          hook  RVA 0x001fb0aa -> 0103b0aa: stock cur [8b 8e 00 08 00 00 ff 74 24 0c ff 74 24 0c 8b 01 ff 90 c0 00 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.camera_set_target_pos     hook  RVA 0x001fb320 -> 0103b320: stock cur [83 ec 08 53 56 8b 74 24 18 8b d9 57 8b 7c 24 18]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.unit_army_list            hook  RVA 0x00216c04 -> 01056c04: stock cur [8b 4e 04 33 f6 8b 81 ec 01 00 00 8b 90 f0 00 00 00 85 d2 74 52 8b 80 f4 00 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.unit_position_get         hook  RVA 0x00216d1f -> 01056d1f: stock cur [8b 46 04 83 c4 04 8b 88 dc 0a 00 00 8d 89 2c 06 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.unit_bearing_get          hook  RVA 0x00216d6c -> 01056d6c: stock cur [8b 46 04 83 c4 04 0f 57 c0 8b 80 dc 0a 00 00 5e 0f bf 80 4c 06 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.unit_men_get              hook  RVA 0x00216f5a -> 01056f5a: stock cur [8b 4e 04 ff b1 04 02 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.ground_chain              hook  RVA 0x00245851 -> 01085851: stock cur [a1 54 01 4d 01 f3 0f 10 44 24 18 6a 00 6a 01 8b 80 04 04 00 00 6a 00 8b 40 08 8b 88 b4 00 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.selection_ctor            hook  RVA 0x0028f580 -> 010cf580: stock cur [c7 01 e8 b5 32 01 8b c1]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.selection_add_unit        hook  RVA 0x002a0480 -> 010e0480: stock cur [56 8b 74 24 08 57 8b f9 8b ce e8 b1 bf eb ff 84 c0 74 11 8d 44 24 0c 89 74 24 0c 50 8d 4f 14 e8]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.ground_project            hook  RVA 0x003fcff0 -> 0123cff0: stock cur [83 ec 28 56 8b 74 24 30 57 8b f9 8b ce e8 8e de]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   battle.world_position_copy       hook  RVA 0x0040e9d0 -> 0124e9d0: stock cur [8b 41 10 85 c0 74 13 51]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   guard.nav_node_2d                hook  RVA 0x0041c050 -> 0125c050: stock cur [8b 44 24 08 85 c0]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   guard.nav_node_at_point          hook  RVA 0x0041c080 -> 0125c080: stock cur [83 ec 14 56 57]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   campaign.cli_ctor                hook  RVA 0x005011f0 -> 013411f0: stock (key off) cur [83 ec 0c 56 8b f1 8d 4c 24 04 68 e8 1b 36 01 e8]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   campaign.cli_ctor_tail           hook  RVA 0x00501240 -> 01341240: stock (key off) cur [8b 44 24 14 8b 00 89 46 28 8b c6 c7 06 c4 1b 36 01 5e 83 c4 0c c2 04 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   campaign.cli_execute             hook  RVA 0x00525200 -> 01365200: stock (key off) cur [51 53 55 56 57 89 4c 24 10 e8 42 07 00 00 ff 74]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   campaign.owner_selection_wiring  hook  RVA 0x0058c6b0 -> 013cc6b0: stock (key off) cur [8d 8b f4 00 00 00 c7 01 40 a5 36 01 8d bb fc 09 00 00 8b 45 00 89 41 04 89 7c 24 38 89 48 28]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   campaign.owner_global_read       hook  RVA 0x005dfecf -> 0141fecf: stock (key off) cur [8b 0d 38 49 5c 01 83 c4 04 8b d8 8b 89 fc 09 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   campaign.handler_gate_test       hook  RVA 0x006afa4b -> 014efa4b: stock (key off) cur [80 7f 54 00 74 64 83 7f 08 00 74 5e]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   guard.engine_free                hook  RVA 0x00bf7ef0 -> 01a37ef0: stock cur [8b 44 24 04 83 ec 08]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   guard.heap_serialize_setter      hook  RVA 0x00bf8890 -> 01a38890: stock cur [0f b6 44 24 04]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   console.handler_slot_test        hook  RVA 0x00c5612c -> 01a9612c: stock (key off) cur [83 3d b0 70 76 01 00 0f 84 fe fe ff ff]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   console.handler_slot_call        hook  RVA 0x00c56143 -> 01a96143: stock (key off) cur [8b 0d b0 70 76 01 8d 54 24 2c 83 c4 04 8b 01 52 8d 54 24 1c 52 8b 00 ff d0 84 c0]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.fit_warp_ortho            patch RVA 0x00d27625 -> 01b67625: stock (key off) cur [01 00 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.fit_crop_keep             patch RVA 0x00d27633 -> 01b67633: stock (key off) cur [01 01 01 01]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.fit_height_cutoff         patch RVA 0x00d276a2 -> 01b676a2: stock cur [00 00 c8 42]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.light_sweep               patch RVA 0x00d276ac -> 01b676ac: stock cur [00 00 96 c2]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.fit_focus                 patch RVA 0x00d27706 -> 01b67706: stock (key off) cur [33 33 33 3f]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.fit_near_scale            patch RVA 0x00d2774c -> 01b6774c: stock (key off) cur [00 00 80 3f]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.far_cap_q3                patch RVA 0x00d86976 -> 01bc6976: stock (key off) cur [00 00 fa 43]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.map_size_q34              patch RVA 0x00d86986 -> 01bc6986: stock (key off) cur [00 08 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.hw_force_setup            patch RVA 0x00d869ad -> 01bc69ad: stock (key off) cur [b6 00 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   shadow.hw_force_define           patch RVA 0x00da7e7d -> 01be7e7d: stock (key off) cur [26]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   trees.far_other                  patch RVA 0x00de14c6 -> 01c214c6: stock (key off) cur [00 00 48 42]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   trees.far_q3                     patch RVA 0x00de14dc -> 01c214dc: stock (key off) cur [00 00 48 43]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   trees.far_q2                     patch RVA 0x00de14f2 -> 01c214f2: stock (key off) cur [00 00 16 43]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   trees.far_q1                     patch RVA 0x00de14fc -> 01c214fc: stock (key off) cur [00 00 c8 42]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   sprite.page_q0                   patch RVA 0x00e400d4 -> 01c800d4: stock (key off) cur [00 00 00 44]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   sprite.page_q3                   patch RVA 0x00e400e5 -> 01c800e5: stock (key off) cur [00 00 80 44]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   sprite.page_q2                   patch RVA 0x00e40100 -> 01c80100: stock (key off) cur [00 00 80 44]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   sprite.page_q1                   patch RVA 0x00e40113 -> 01c80113: stock (key off) cur [00 00 80 44]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   grass.grid_q3                    patch RVA 0x01019ad8 -> 01e59ad8: stock (key off) cur [05 00 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine:   grass.grid_q4                    patch RVA 0x01019ae4 -> 01e59ae4: stock (key off) cur [05 00 00 00]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine: apply - 64 sites: 64 ok, 0 bad, 2 to write (4 bytes), 0 already patched, 38 hooks verified
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine: wrote shadow.fit_height_cutoff at 01b676a2: [00 00 c8 42] -> [00 00 48 43]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine: wrote shadow.light_sweep at 01b676ac: [00 00 96 c2] -> [00 00 16 c3]
+2026-11-06T02:36:48.535Z [INFO ] [t16900] patch_engine: 2 of 2 planned sites written
+2026-11-06T02:36:48.535Z [INFO ] [t16900] dev: timeline=1 log_files=0 skip_intro=1 state_json=1 lua_bridge=1 ctl=1 file_rules='napoleon_remastered\lua\fixed_sky_rules.txt' ctl_dir='C:\napoleon_remastered_pc\ctl' autostart='' delay=1500 ms
+2026-11-06T02:36:48.535Z [INFO ] [t16900] timeline: dllmain +605 ms
+2026-11-06T02:36:48.537Z [INFO ] [t16900] console: dev.console=0
+2026-11-06T02:36:48.537Z [INFO ] [t16900] camera: dev.camera=1
+2026-11-06T02:36:48.537Z [INFO ] [t16900] orders: dev.orders=1
+2026-11-06T02:36:48.537Z [INFO ] [t16900] cascade: prototype on: split 25 m, size 0 (0 = the engine map's), tint 0, count 1
+2026-11-06T02:36:48.538Z [INFO ] [t16900] cascade: 24 replacements from C:\napoleon_remastered_pc\_scratch\j25\swap\
+2026-11-06T02:36:48.538Z [INFO ] [t16900] redirect: 1 rules from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\lua\fixed_sky_rules.txt
+2026-11-06T02:36:48.538Z [INFO ] [t16900] redirect: rule movie fail movies\sega_logo_sting_hd.bik (dev.skip_intro)
+2026-11-06T02:36:48.538Z [INFO ] [t16900] redirect: rule movie fail movies\corei7_intro.bik (dev.skip_intro)
+2026-11-06T02:36:48.538Z [INFO ] [t16900] redirect: rule movie fail movies\ntw_intro.bik (dev.skip_intro)
+2026-11-06T02:36:48.538Z [INFO ] [t16900] redirect: rule movie fail movies\low_res\ntw_intro_lowres.bik (dev.skip_intro)
+2026-11-06T02:36:48.538Z [INFO ] [t16900] redirect: rule file add data\zz_napoleon_remastered_dev.pack -> napoleon_remastered\packs\zz_napoleon_remastered_dev.pack (dev.lua_bridge)
+2026-11-06T02:36:48.538Z [INFO ] [t16900] redirect: rule file add data\zz_napoleon_remastered_fixed_sky.pack -> napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack (rules line 3)
+2026-11-06T02:36:48.538Z [INFO ] [t16900] hook: iat KERNEL32.dll!CreateFileW slot 01d47170: 7664ea50 -> 722b8620
+2026-11-06T02:36:48.538Z [INFO ] [t16900] hook: iat KERNEL32.dll!CreateFileA slot 01d47188: 7664ea40 -> 722b8440
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat KERNEL32.dll!GetFileAttributesW slot 01d4722c: 7664ec70 -> 722b8340
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat KERNEL32.dll!GetFileAttributesExW slot 01d4728c: 7664ec60 -> 722b8220
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat KERNEL32.dll!GetFileAttributesExA slot 01d4724c: 7664ec50 -> 722b80b0
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat KERNEL32.dll!FindFirstFileExW slot 01d470cc: 7664eb30 -> 722b7ff0
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat KERNEL32.dll!FindFirstFileW slot 01d4721c: 7664eb50 -> 722b7f50
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat KERNEL32.dll!FindNextFileW slot 01d47220: 7664eba0 -> 722b4ff0
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat KERNEL32.dll!FindClose slot 01d47218: 7664ead0 -> 722b3be0
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat binkw32.dll!_BinkOpen@8 slot 01d47480: 1800d690 -> 722ba1d0
+2026-11-06T02:36:48.540Z [INFO ] [t16900] hook: iat binkw32.dll!_BinkClose@4 slot 01d47490: 1800f850 -> 722b4620
+2026-11-06T02:36:48.541Z [INFO ] [t16900] headless: on: target 'Virtual Display Driver' at exactly 1920x1080, settle 500 ms, refuse grace 5000 ms
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!CreateWindowExW slot 01d473b4: 7745e930 -> 722cfa40
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!ShowWindow slot 01d473b0: 7746b6a0 -> 722ca8f0
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!SetWindowPos slot 01d47310: 7746b5e0 -> 722ca270
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!MoveWindow slot 01d473ac: 7746ae90 -> 722c9d60
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!SetWindowLongW slot 01d47374: 77457570 -> 722caf40
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!ChangeDisplaySettingsW slot 01d47378: 774f5c30 -> 722c8250
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!MessageBoxW slot 01d47328: 774da5b0 -> 722c9e70
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!DialogBoxIndirectParamW slot 01d4730c: 774b11f0 -> 722c81e0
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat user32.dll!SetFocus slot 01d4739c: 7746b3e0 -> 722c9010
+2026-11-06T02:36:48.541Z [INFO ] [t16900] hook: iat dinput8.dll!DirectInput8Create slot 01d47024: 71d46fa0 -> 722c82e0
+2026-11-06T02:36:48.541Z [INFO ] [t16900] init done; the dxvk backend loads at the first d3d9 call
+2026-11-06T02:36:48.555Z [INFO ] [t8404] ctl: watching C:\napoleon_remastered_pc\ctl\ (37648 ids already used)
+2026-11-06T02:36:49.397Z [INFO ] [t16900] redirect: add data\zz_napoleon_remastered_dev.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_dev.pack; dev.lua_bridge)
+2026-11-06T02:36:49.397Z [INFO ] [t16900] redirect: add data\zz_napoleon_remastered_fixed_sky.pack (listed for data\*.pack, served from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\packs\zz_napoleon_remastered_fixed_sky.pack; rules line 3)
+2026-11-06T02:36:49.486Z [WARN ] [t16900] crash: top-level filter at first Direct3DCreate9: REPLACED by Napoleon.exe+0xe6f074 - mode 2 still dumps the first fatal first-chance exception
+2026-11-06T02:36:49.487Z [INFO ] [t16900] backend: DXVK_CONFIG_FILE=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\dxvk.conf
+2026-11-06T02:36:49.487Z [INFO ] [t16900] backend: DXVK_LOG_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-06T02:36:49.487Z [INFO ] [t16900] backend: DXVK_SHADER_CACHE_PATH=C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\cache
+2026-11-06T02:36:49.488Z [INFO ] [t16900] backend: dxvk d3d9 loaded from C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\d3d9_dxvk.dll (7856142 bytes); DXVK's log and caches go to C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\napoleon_remastered\dxvk\
+2026-11-06T02:36:49.488Z [INFO ] [t16900] backend: dxvk ready (Direct3DCreate9=70c71530)
+2026-11-06T02:36:49.625Z [INFO ] [t16900] Direct3DCreate9(sdk=32) -> 0bdc8fb8 [dxvk]
+2026-11-06T02:36:49.626Z [INFO ] [t16900] headless: 2 displays (physical pixels):
+2026-11-06T02:36:49.626Z [INFO ] [t16900] headless:   \\.\DISPLAY10 2560,1440 1920x1080 adapter='Virtual Display Driver' monitor='Generic PnP Monitor' dpi=96
+2026-11-06T02:36:49.626Z [INFO ] [t16900] headless:   \\.\DISPLAY2 0,0 2560x1440 PRIMARY adapter='NVIDIA GeForce RTX 4090' monitor='Dell S2721DGF (HDMI2)' dpi=120
+2026-11-06T02:36:49.626Z [INFO ] [t16900] headless: target 2560,1440 1920x1080 (\\.\DISPLAY10 matches 'Virtual Display Driver', is not the primary and is exactly 1920x1080); modes 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240; current 1920x1080@60
+2026-11-06T02:36:49.627Z [INFO ] [t16900] hook: vtable IDirect3D9::GetAdapterModeCount (headless) slot 7130e018 [6]: 70c71ee0 -> 722c8dc0
+2026-11-06T02:36:49.627Z [INFO ] [t16900] hook: vtable IDirect3D9::EnumAdapterModes (headless) slot 7130e01c [7]: 70c71f40 -> 722ca5f0
+2026-11-06T02:36:49.627Z [INFO ] [t16900] hook: vtable IDirect3D9::GetAdapterDisplayMode (headless) slot 7130e020 [8]: 70c71a20 -> 722c8c30
+2026-11-06T02:36:49.627Z [INFO ] [t16900] hook: vtable IDirect3D9::GetAdapterMonitor (headless) slot 7130e03c [15]: 70c71da0 -> 722c8a30
+2026-11-06T02:36:49.627Z [INFO ] [t16900] hook: vtable IDirect3D9::CreateDevice (headless) slot 7130e040 [16]: 70c72980 -> 722cb9d0
+2026-11-06T02:36:49.627Z [INFO ] [t16900] timeline: d3d_create +1697 ms
+2026-11-06T02:36:49.629Z [INFO ] [t16900] camera: install: owner global 01ee418c, battle +0xf8, controller +0x281b8, mode +0x800, SetTargetAndPosition 0103b320 (slot 47); sites battle.camera_chain_read battle.camera_mode_read battle.camera_set_target_pos
+2026-11-06T02:36:49.629Z [INFO ] [t16900] orders: install: owner global 01ee418c, battle +0xf8, queue +0x28048, ui selection [owner+0x450]+0x20, selection vector +0x14; UNIT: entities +0xadc, active +0xae8, army +0x1ec (count +0xf0, list +0xf4), men +0x204; entity: block +0x62c xyz +0xb0 frame +0x10, facing +0x64c, orders +0x460; front +0x310 width +0x324 (readback-proven); ground [[battle+0x8]+0xb4]; calls sel 010cf580 add 010e0480 move 00fd9760 push 00fcdc00 dtor 00fe95b0 free 01a37ef0 ground 0123cff0
+2026-11-06T02:36:49.629Z [INFO ] [t16900] hook: vtable IDirect3D9::CreateDevice slot 7130e040 [16]: 722cb9d0 -> 722a2e60
+2026-11-06T02:36:49.629Z [INFO ] [t16900] headless: GetAdapterDisplayMode(adapter 0) -> 1920x1080@60 (the target)
+2026-11-06T02:36:49.629Z [INFO ] [t16900] headless: GetAdapterMonitor(adapter 0) -> the target \\.\DISPLAY10
+2026-11-06T02:36:49.629Z [INFO ] [t16900] headless: GetAdapterDisplayMode(adapter 1) -> 1920x1080@60 (the target)
+2026-11-06T02:36:49.629Z [INFO ] [t16900] headless: GetAdapterMonitor(adapter 1) -> the target \\.\DISPLAY10
+2026-11-06T02:36:49.715Z [INFO ] [t16900] headless: GetAdapterModeCount(adapter 0, format 22) -> 6 from the target (the backend said 121)
+2026-11-06T02:36:49.715Z [INFO ] [t16900] headless: EnumAdapterModes(adapter 0, format 22) answered from the target: 1920x1080@60 1920x1080@240 2560x1440@60 2560x1440@240 3840x2160@60 3840x2160@240
+2026-11-06T02:36:49.717Z [INFO ] [t16900] headless: window 025a0086 'Total War: NAPOLEON' class 'Napoleon' asked 1938x1127 at 0,0 style 0x00ca0000 ex 0x00000000 -> hidden, borderless, no-activate, style 0x80000000 ex 0x08000080
+2026-11-06T02:36:49.717Z [INFO ] [t16900] headless: window 025a0086 placed at 2560,1440 1920x1080 (inside the target)
+2026-11-06T02:36:49.718Z [INFO ] [t16900] headless: SetFocus(025a0086) dropped (another process has the foreground; 1 so far)
+2026-11-06T02:36:49.718Z [INFO ] [t16900] headless: CreateDevice: back buffer 1920x1080, windowed, window 025a0086
+2026-11-06T02:36:49.758Z [INFO ] [t16900] headless: CreateDevice(adapter 0, flags 0x42) -> 0x00000000
+2026-11-06T02:36:49.758Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::Reset (headless) slot 7130d7f0 [16]: 70c9b9e0 -> 722cbb10
+2026-11-06T02:36:49.758Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::Present (headless) slot 7130d7f4 [17]: 70ca9dd0 -> 722d1450
+2026-11-06T02:36:49.758Z [INFO ] [t16900] timeline: device_created +1828 ms hr 0x00000000 flags 0x42
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::Present slot 7130d7f4 [17]: 722d1450 -> 722a3890
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::Reset (cascade) slot 7130d7f0 [16]: 722cbb10 -> 72291f40
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::CreateVertexBuffer (cascade) slot 7130d818 [26]: 70c9f2a0 -> 72292080
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::CreateIndexBuffer (cascade) slot 7130d81c [27]: 70c9f550 -> 72291fe0
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetRenderTarget (cascade) slot 7130d844 [37]: 70c95130 -> 72293610
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetDepthStencilSurface (cascade) slot 7130d84c [39]: 70c89800 -> 72291ee0
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::Clear (cascade) slot 7130d85c [43]: 70c90c30 -> 72291ef0
+2026-11-06T02:36:49.759Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetViewport (cascade) slot 7130d86c [47]: 70c80060 -> 72291f00
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetTexture (cascade) slot 7130d8b4 [65]: 70c85490 -> 72291f20
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetScissorRect (cascade) slot 7130d8dc [75]: 70c7f530 -> 72291f10
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawPrimitive (cascade) slot 7130d8f4 [81]: 70ca44c0 -> 72295ee0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawIndexedPrimitive (cascade) slot 7130d8f8 [82]: 70ca4810 -> 722957d0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawPrimitiveUP (cascade) slot 7130d8fc [83]: 70ca4b90 -> 722950e0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawIndexedPrimitiveUP (cascade) slot 7130d900 [84]: 70ca4f40 -> 722949b0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::CreateVertexShader (cascade) slot 7130d91c [91]: 70c9d100 -> 72298860
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetVertexShaderConstantF (cascade) slot 7130d928 [94]: 70ca6dd0 -> 72291f30
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::CreatePixelShader (cascade) slot 7130d958 [106]: 70c9d3d0 -> 722974b0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] cascade: 16 of 16 device slots hooked
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DStateBlock9::Capture slot 7130dd88 [4]: 70cce250 -> 72287750
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DStateBlock9::Apply slot 7130dd8c [5]: 70cce920 -> 7228d270
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::UpdateSurface slot 7130d828 [30]: 70ca2400 -> 72288c40
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::UpdateTexture slot 7130d82c [31]: 70ca2880 -> 7228af90
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::GetRenderTargetData slot 7130d830 [32]: 70c8c7f0 -> 72288630
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::StretchRect slot 7130d838 [34]: 70c8b520 -> 722895a0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::ColorFill slot 7130d83c [35]: 70c8ce60 -> 72288830
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetRenderTarget slot 7130d844 [37]: 72293610 -> 722881d0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetDepthStencilSurface slot 7130d84c [39]: 72291ee0 -> 72288370
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::BeginScene slot 7130d854 [41]: 70c7aeb0 -> 72287290
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::EndScene slot 7130d858 [42]: 70c93da0 -> 722874b0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::Clear slot 7130d85c [43]: 72291ef0 -> 72289870
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetTransform slot 7130d860 [44]: 70c815e0 -> 72288a40
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetViewport slot 7130d86c [47]: 72291f00 -> 72286110
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetRenderState slot 7130d894 [57]: 70c9a750 -> 72286bc0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::CreateStateBlock slot 7130d89c [59]: 70c97a80 -> 72288e60
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::BeginStateBlock slot 7130d8a0 [60]: 70c7fae0 -> 722873a0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::EndStateBlock slot 7130d8a4 [61]: 70c82aa0 -> 722878e0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetTexture slot 7130d8b4 [65]: 72291f20 -> 7228aeb0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetTextureStageState slot 7130d8bc [67]: 70c81100 -> 722869a0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetSamplerState slot 7130d8c4 [69]: 70c854e0 -> 722868a0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetScissorRect slot 7130d8dc [75]: 72291f10 -> 722859a0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawPrimitive slot 7130d8f4 [81]: 72295ee0 -> 72289090
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawIndexedPrimitive slot 7130d8f8 [82]: 722957d0 -> 72289c50
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawPrimitiveUP slot 7130d8fc [83]: 722950e0 -> 72289310
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawIndexedPrimitiveUP slot 7130d900 [84]: 722949b0 -> 7228a0c0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetVertexDeclaration slot 7130d90c [87]: 70c97490 -> 722871c0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetFVF slot 7130d914 [89]: 70c9fc20 -> 722875c0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetVertexShader slot 7130d920 [92]: 70c97720 -> 7228d540
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetVertexShaderConstantF slot 7130d928 [94]: 72291f30 -> 72285d20
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetVertexShaderConstantI slot 7130d930 [96]: 70ca69c0 -> 72285690
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetVertexShaderConstantB slot 7130d938 [98]: 70c82fe0 -> 72285310
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetStreamSource slot 7130d940 [100]: 70c89ea0 -> 72286580
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetStreamSourceFreq slot 7130d948 [102]: 70c7fd10 -> 72288440
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetIndices slot 7130d950 [104]: 70c90200 -> 722862a0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetPixelShader slot 7130d95c [107]: 70c97060 -> 7228d460
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetPixelShaderConstantF slot 7130d964 [109]: 70ca7f40 -> 72285c40
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetPixelShaderConstantI slot 7130d96c [111]: 70ca7250 -> 722855b0
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetPixelShaderConstantB slot 7130d974 [113]: 70c97990 -> 72285230
+2026-11-06T02:36:49.760Z [INFO ] [t16900] capture: 37 of 37 device slots, 2 of 2 state-block slots hooked (dev.capture=1, dir 'C:\napoleon_remastered_pc\captures\')
+2026-11-06T02:36:49.760Z [INFO ] [t16900] hook: vtable IDirect3DVertexBuffer9::Lock slot 7130e22c [11]: 710a0130 -> 72292200
+2026-11-06T02:36:49.761Z [INFO ] [t16900] hook: vtable IDirect3DIndexBuffer9::Lock slot 7130dfe4 [11]: 710a00d0 -> 722921b0
+2026-11-06T02:36:49.789Z [INFO ] [t16900] timeline: first_present +1859 ms
+2026-11-06T02:36:49.791Z [INFO ] [t16900] orders: threads: Present 16900, the game window's procedure 16900, the Lua pump 0 (0 = no pump yet)
+2026-11-06T02:36:49.792Z [INFO ] [t16900] headless: ON THE VIRTUAL DISPLAY: window 2560,1440 1920x1080 on \\.\DISPLAY10, first frame presented there at 1.2 s (client 1920x1080, back buffer 1920x1080)
+2026-11-06T02:36:52.151Z [INFO ] [t8404] ctl: j25-20261106T023652Z-151668003: waitfor frontend 180
+2026-11-06T02:36:54.189Z [INFO ] [t16900] hook: vtable IDirectInput8::CreateDevice (headless) slot 71d66270 [3]: 71d44b20 -> 722c8380
+2026-11-06T02:36:54.189Z [INFO ] [t16900] hook: vtable IDirectInputDevice8::SetCooperativeLevel (headless) slot 71d660a0 [13]: 71d4cdd0 -> 722c7f10
+2026-11-06T02:36:54.190Z [INFO ] [t16900] headless: DirectInput SetCooperativeLevel(2ae38c48, window 025a0086, flags 0x16) -> 0x6 (non-exclusive, foreground only): hr 0x00000000
+2026-11-06T02:36:55.326Z [INFO ] [t16900] wsp_sentinel: engine dummynode = 01e2d128 (sizearray 0, lsizenode 0)
+2026-11-06T02:36:55.326Z [INFO ] [t16900] luaopen_wsp: engine lua_State 051e2128, global state 0525e624 (thread 16900)
+2026-11-06T02:36:55.326Z [INFO ] [t16900] timeline: lua_bridge_loaded +7396 ms
+2026-11-06T02:36:55.328Z [INFO ] [t16900] lua: wsp.lua loaded (wsp 1)
+2026-11-06T02:36:55.365Z [INFO ] [t16900] packs: 11 packs, 86995 entries indexed (C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\*.pack)
+2026-11-06T02:36:55.369Z [INFO ] [t16900] lua: wrapper: frontend root InitState wrapped (main menu after a warm reset)
+2026-11-06T02:36:55.520Z [INFO ] [t16900] lua: wrapper: frontend pumps from OnUpdate
+2026-11-06T02:36:55.625Z [WARN ] [t16900] cascade: receiver badd6974f67fb8f4 has no replacement: stock
+2026-11-06T02:36:55.627Z [INFO ] [t16900] cascade: swapped 0ee0c3b570e58d91 (3484 -> 4048 bytes)
+2026-11-06T02:36:55.628Z [WARN ] [t16900] cascade: receiver badd6974f67fb8f4 has no replacement: stock
+2026-11-06T02:36:55.628Z [INFO ] [t16900] cascade: swapped 0ee0c3b570e58d91 (3484 -> 4048 bytes)
+2026-11-06T02:36:55.629Z [WARN ] [t16900] cascade: receiver badd6974f67fb8f4 has no replacement: stock
+2026-11-06T02:36:55.630Z [INFO ] [t16900] cascade: swapped 0ee0c3b570e58d91 (3484 -> 4048 bytes)
+2026-11-06T02:36:55.631Z [INFO ] [t16900] cascade: swapped 7385335d6760c7a3 (6864 -> 7452 bytes)
+2026-11-06T02:36:55.632Z [INFO ] [t16900] cascade: swapped 7385335d6760c7a3 (6864 -> 7452 bytes)
+2026-11-06T02:36:55.633Z [INFO ] [t16900] cascade: swapped 7385335d6760c7a3 (6864 -> 7452 bytes)
+2026-11-06T02:36:55.633Z [INFO ] [t16900] cascade: swapped 9333fd52726a33ed (6796 -> 7384 bytes)
+2026-11-06T02:36:55.633Z [INFO ] [t16900] cascade: swapped 9333fd52726a33ed (6796 -> 7384 bytes)
+2026-11-06T02:36:55.635Z [INFO ] [t16900] cascade: swapped 9333fd52726a33ed (6796 -> 7384 bytes)
+2026-11-06T02:36:55.635Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:36:55.637Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:36:55.637Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:36:55.638Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:36:55.639Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:36:55.639Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:36:55.639Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:36:55.639Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:36:55.652Z [INFO ] [t16900] cascade: swapped ebaec2b702032302 (5316 -> 5892 bytes)
+2026-11-06T02:36:55.655Z [WARN ] [t16900] cascade: receiver a1dd9076eaff8d7a has no replacement: stock
+2026-11-06T02:36:55.655Z [INFO ] [t16900] cascade: swapped 03a10d71d53688e4 (3452 -> 4028 bytes)
+2026-11-06T02:36:55.656Z [WARN ] [t16900] cascade: receiver 04698e52aecb7bb3 has no replacement: stock
+2026-11-06T02:36:55.657Z [INFO ] [t16900] cascade: swapped cec0b8199c137cac (4904 -> 5468 bytes)
+2026-11-06T02:36:55.657Z [WARN ] [t16900] cascade: receiver 61315097c70aa7c1 has no replacement: stock
+2026-11-06T02:36:55.658Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:36:55.659Z [WARN ] [t16900] cascade: receiver 61315097c70aa7c1 has no replacement: stock
+2026-11-06T02:36:55.659Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:36:55.660Z [WARN ] [t16900] cascade: receiver bd0637e07c3d3205 has no replacement: stock
+2026-11-06T02:36:55.662Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:36:55.667Z [WARN ] [t16900] cascade: receiver 0d1a00f3c42c1ca1 has no replacement: stock
+2026-11-06T02:36:55.667Z [WARN ] [t16900] cascade: receiver a58954e7496ddfcf has no replacement: stock
+2026-11-06T02:36:55.668Z [WARN ] [t16900] cascade: receiver bd0637e07c3d3205 has no replacement: stock
+2026-11-06T02:36:55.668Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:36:55.670Z [WARN ] [t16900] cascade: receiver 2da0c008a2289748 has no replacement: stock
+2026-11-06T02:36:55.671Z [INFO ] [t16900] cascade: swapped bd9d78f87a2ca71d (3028 -> 3592 bytes)
+2026-11-06T02:36:55.683Z [INFO ] [t16900] cascade: swapped 451a6dd9f507ef47 (4488 -> 5064 bytes)
+2026-11-06T02:36:55.689Z [INFO ] [t16900] cascade: swapped c6230c69ecd39b7d (5916 -> 6492 bytes)
+2026-11-06T02:36:55.690Z [INFO ] [t16900] cascade: swapped 41d710beff9ba0e3 (5604 -> 6168 bytes)
+2026-11-06T02:36:55.690Z [INFO ] [t16900] cascade: swapped bd6c152de0b01b8a (5884 -> 6460 bytes)
+2026-11-06T02:36:55.700Z [INFO ] [t16900] cascade: swapped 4900ada8ec3a7ba3 (7148 -> 7724 bytes)
+2026-11-06T02:36:55.701Z [INFO ] [t16900] cascade: swapped 4900ada8ec3a7ba3 (7148 -> 7724 bytes)
+2026-11-06T02:36:55.701Z [INFO ] [t16900] cascade: swapped 051f476527d39bbb (7116 -> 7692 bytes)
+2026-11-06T02:36:55.702Z [INFO ] [t16900] cascade: swapped 051f476527d39bbb (7116 -> 7692 bytes)
+2026-11-06T02:36:55.704Z [WARN ] [t16900] cascade: receiver 3263a6ff17f7c95b has no replacement: stock
+2026-11-06T02:36:55.706Z [WARN ] [t16900] cascade: receiver 3263a6ff17f7c95b has no replacement: stock
+2026-11-06T02:36:55.709Z [WARN ] [t16900] cascade: receiver 3263a6ff17f7c95b has no replacement: stock
+2026-11-06T02:36:55.709Z [WARN ] [t16900] cascade: receiver 43aaffa72002bfe2 has no replacement: stock
+2026-11-06T02:36:55.710Z [WARN ] [t16900] cascade: receiver 43aaffa72002bfe2 has no replacement: stock
+2026-11-06T02:36:55.710Z [WARN ] [t16900] cascade: receiver 43aaffa72002bfe2 has no replacement: stock
+2026-11-06T02:36:55.715Z [WARN ] [t16900] cascade: receiver 0986058ae14611b9 has no replacement: stock
+2026-11-06T02:36:55.717Z [WARN ] [t16900] cascade: receiver 546c9954ca94c8e3 has no replacement: stock
+2026-11-06T02:36:55.718Z [WARN ] [t16900] cascade: receiver 33c27e66783bb68d has no replacement: stock
+2026-11-06T02:36:55.719Z [WARN ] [t16900] cascade: receiver 33c27e66783bb68d has no replacement: stock
+2026-11-06T02:36:55.719Z [WARN ] [t16900] cascade: receiver 33c27e66783bb68d has no replacement: stock
+2026-11-06T02:36:55.719Z [WARN ] [t16900] cascade: receiver 4e5f0a33503139e6 has no replacement: stock
+2026-11-06T02:36:55.720Z [WARN ] [t16900] cascade: receiver 5c2b13a329d1b4de has no replacement: stock
+2026-11-06T02:36:55.721Z [WARN ] [t16900] cascade: receiver 5c2b13a329d1b4de has no replacement: stock
+2026-11-06T02:36:55.762Z [INFO ] [t16900] movies: BinkOpen movies\sega_logo_sting_hd.bik refused (dev.skip_intro) [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2275274857, flags 0x804400]
+2026-11-06T02:36:55.762Z [INFO ] [t16900] timeline: movie_refused +7832 ms movies\sega_logo_sting_hd.bik
+2026-11-06T02:36:55.765Z [INFO ] [t16900] cascade: stack at shadow pass begin: 1be785a 1b8bc87 1bc8c1b 1ccca2c f30377 1b98d52 1b98df8 1bc906c 1bd6eeb 1bc8f9b 1bc86c3 1bc924b 1ba3540 ec70e4 120007f 1040102 f04ca4
+2026-11-06T02:36:55.767Z [INFO ] [t16900] movies: BinkOpen movies\corei7_intro.bik refused (dev.skip_intro) [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 2257, flags 0x804400]
+2026-11-06T02:36:55.767Z [INFO ] [t16900] timeline: movie_refused +7837 ms movies\corei7_intro.bik
+2026-11-06T02:36:55.776Z [INFO ] [t16900] movies: BinkOpen movies\ntw_intro.bik refused (dev.skip_intro) [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 1810672977, flags 0x804400]
+2026-11-06T02:36:55.776Z [INFO ] [t16900] timeline: movie_refused +7846 ms movies\ntw_intro.bik
+2026-11-06T02:36:55.778Z [INFO ] [t16900] timeline: movie_open +7848 ms movies\frontend2.bik
+2026-11-06T02:36:55.781Z [INFO ] [t16900] movies: BinkOpen movies\frontend2.bik [handle 00000758 = \\?\C:\Program Files (x86)\Steam\steamapps\common\Napoleon Total War\data\media.pack @ 353827505, flags 0x804400] -> 3b3428e0
+2026-11-06T02:36:55.781Z [INFO ] [t16900] scene: intro -> frontend after 68230.0 s (uptime 7.2 s, frame 4, lua frontend)
+2026-11-06T02:36:55.784Z [INFO ] [t8404] ctl: j25-20261106T023652Z-151668003: ok
+2026-11-06T02:36:55.787Z [INFO ] [t16900] lua: first pump from context 'frontend' (thread 16900)
+2026-11-06T02:36:55.787Z [INFO ] [t16900] timeline: frontend_first_pump +7857 ms
+2026-11-06T02:36:55.787Z [INFO ] [t16900] orders: engine thread (the Lua pump) is 16900
+2026-11-06T02:36:55.789Z [INFO ] [t16900] timeline: first_present_after_ready +7859 ms frontend
+2026-11-06T02:36:55.896Z [INFO ] [t16900] cascade: frames 300 passes 298 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.009Z [INFO ] [t16900] cascade: frames 600 passes 598 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.122Z [INFO ] [t16900] cascade: frames 900 passes 898 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.212Z [INFO ] [t16900] cascade: frames 1200 passes 1198 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.306Z [INFO ] [t16900] cascade: frames 1500 passes 1498 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.404Z [INFO ] [t16900] cascade: frames 1800 passes 1798 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.509Z [INFO ] [t16900] cascade: frames 2100 passes 2098 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.589Z [INFO ] [t16900] cascade: frames 2400 passes 2398 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.672Z [INFO ] [t16900] cascade: frames 2700 passes 2698 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.767Z [INFO ] [t16900] cascade: frames 3000 passes 2998 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.767Z [INFO ] [t16900] cascade: stock receiver draws:; skipped draws 0
+2026-11-06T02:36:56.859Z [INFO ] [t16900] cascade: frames 3300 passes 3298 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:56.907Z [INFO ] [t8404] ctl: j25-20261106T023656Z-303504914: state
+2026-11-06T02:36:56.907Z [INFO ] [t8404] ctl: j25-20261106T023656Z-303504914: ok
+2026-11-06T02:36:56.935Z [INFO ] [t16900] cascade: frames 3600 passes 3598 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.004Z [INFO ] [t16900] cascade: frames 3900 passes 3898 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.076Z [INFO ] [t16900] cascade: frames 4200 passes 4198 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.147Z [INFO ] [t16900] cascade: frames 4500 passes 4498 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.218Z [INFO ] [t16900] cascade: frames 4800 passes 4798 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.289Z [INFO ] [t16900] cascade: frames 5100 passes 5098 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.359Z [INFO ] [t16900] cascade: frames 5400 passes 5398 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.434Z [INFO ] [t16900] cascade: frames 5700 passes 5698 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.511Z [INFO ] [t16900] cascade: frames 6000 passes 5998 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.511Z [INFO ] [t16900] cascade: stock receiver draws:; skipped draws 0
+2026-11-06T02:36:57.605Z [INFO ] [t16900] cascade: frames 6300 passes 6298 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.695Z [INFO ] [t16900] cascade: frames 6600 passes 6598 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.787Z [INFO ] [t16900] cascade: frames 6900 passes 6898 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.880Z [INFO ] [t16900] cascade: frames 7200 passes 7198 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:57.969Z [INFO ] [t16900] cascade: frames 7500 passes 7498 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:58.059Z [INFO ] [t16900] cascade: frames 7800 passes 7798 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:58.159Z [INFO ] [t16900] cascade: frames 8100 passes 8098 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:58.246Z [INFO ] [t16900] cascade: frames 8400 passes 8398 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:58.337Z [INFO ] [t16900] cascade: frames 8700 passes 8698 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:36:58.397Z [INFO ] [t8404] ctl: j25-20261106T023658Z-173591150: autostart battle:land_small 240
+2026-11-06T02:36:58.398Z [INFO ] [t8404] timeline: autostart_issued +10468 ms battle:land_small
+2026-11-06T02:36:58.550Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_syrian_ridge
+2026-11-06T02:36:58.550Z [INFO ] [t16900] lua report: battle.map_folder_ms = 
+2026-11-06T02:36:58.553Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_sunken_crater
+2026-11-06T02:36:58.556Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_siberian_plateau
+2026-11-06T02:36:58.559Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_mountain
+2026-11-06T02:36:58.562Z [INFO ] [t16900] lua report: battle.map_folder = welly_map_a
+2026-11-06T02:36:58.565Z [INFO ] [t16900] lua report: battle.map_folder = welly_map_c
+2026-11-06T02:36:58.568Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_prussian_hills
+2026-11-06T02:36:58.571Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_italian_grassland
+2026-11-06T02:36:58.575Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_homestead
+2026-11-06T02:36:58.578Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-06T02:36:58.580Z [INFO ] [t16900] lua report: autostart.map = NAP_MP_Grassy_Flatlands
+2026-11-06T02:36:58.580Z [INFO ] [t16900] lua report: autostart.map_folder = nap_mp_grassy_flatlands
+2026-11-06T02:36:58.580Z [INFO ] [t16900] lua report: autostart.weather = dry/Dry
+2026-11-06T02:36:58.580Z [INFO ] [t16900] lua report: autostart.time_of_day = 2
+2026-11-06T02:36:58.580Z [INFO ] [t16900] lua report: autostart.army_size = 0/5000
+2026-11-06T02:36:58.775Z [INFO ] [t16900] lua report: autostart.army_units = 9
+2026-11-06T02:36:58.775Z [INFO ] [t16900] lua report: autostart.army_sides = 9u0s,8u0s
+2026-11-06T02:36:58.778Z [INFO ] [t16900] movies: BinkClose movies\frontend2.bik
+2026-11-06T02:36:58.778Z [INFO ] [t16900] timeline: movie_close +10848 ms movies\frontend2.bik
+2026-11-06T02:36:58.783Z [INFO ] [t8404] autostart: lua ok: started battle NAP_MP_Grassy_Flatlands (classic, prefs .sp_default, button normal) weather=dry/Dry time_of_day=2
+2026-11-06T02:36:58.783Z [INFO ] [t8404] scene: frontend -> loading after 3.0 s (uptime 10.2 s, frame 8914, lua frontend)
+2026-11-06T02:36:58.933Z [INFO ] [t16900] lua report: battle.map_folder = nap_mp_grassy_flatlands
+2026-11-06T02:36:58.933Z [INFO ] [t16900] lua report: battle.map_folder_ms = 141
+2026-11-06T02:36:58.935Z [INFO ] [t16900] Direct3DCreate9(sdk=32) -> 330b4630 [dxvk]
+2026-11-06T02:36:58.935Z [INFO ] [t16900] headless: CreateDevice: back buffer 1x1, windowed, window 0001000c
+2026-11-06T02:36:58.935Z [INFO ] [t16900] headless: CreateDevice: a helper device (back buffer 1x1): allowed, it shows nothing
+2026-11-06T02:36:58.987Z [INFO ] [t16900] headless: CreateDevice(adapter 0, flags 0x22) -> 0x00000000
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetRenderTarget (cascade) slot 7130d844 [37]: already in the chain (now 722881d0): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetDepthStencilSurface (cascade) slot 7130d84c [39]: already in the chain (now 72288370): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::Clear (cascade) slot 7130d85c [43]: already in the chain (now 72289870): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetViewport (cascade) slot 7130d86c [47]: already in the chain (now 72286110): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetTexture (cascade) slot 7130d8b4 [65]: already in the chain (now 7228aeb0): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetScissorRect (cascade) slot 7130d8dc [75]: already in the chain (now 722859a0): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawPrimitive (cascade) slot 7130d8f4 [81]: already in the chain (now 72289090): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawIndexedPrimitive (cascade) slot 7130d8f8 [82]: already in the chain (now 72289c50): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawPrimitiveUP (cascade) slot 7130d8fc [83]: already in the chain (now 72289310): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::DrawIndexedPrimitiveUP (cascade) slot 7130d900 [84]: already in the chain (now 7228a0c0): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] hook: vtable IDirect3DDevice9::SetVertexShaderConstantF (cascade) slot 7130d928 [94]: already in the chain (now 72285d20): left alone
+2026-11-06T02:36:58.987Z [INFO ] [t16900] cascade: 16 of 16 device slots hooked
+2026-11-06T02:36:58.987Z [INFO ] [t16900] capture: 37 of 37 device slots, 2 of 2 state-block slots hooked (dev.capture=1, dir 'C:\napoleon_remastered_pc\captures\')
+2026-11-06T02:37:00.694Z [INFO ] [t16900] luaopen_wsp: engine lua_State 3dd1d278, global state 051e710c (thread 16900) (again)
+2026-11-06T02:37:00.694Z [INFO ] [t16900] lua: wsp.lua loaded (wsp 1)
+2026-11-06T02:37:00.703Z [INFO ] [t16900] lua: wrapper: battle pumps from OnUpdate
+2026-11-06T02:37:00.703Z [INFO ] [t16900] lua: wrapper: battle pumps from OnUpdatePulse
+2026-11-06T02:37:01.094Z [INFO ] [t16900] cascade: frames 9000 passes 8912 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 29 refused 0, draws swapped 0 stock 0; vs casters 23; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:37:01.094Z [INFO ] [t16900] cascade: stock receiver draws:; skipped draws 0
+2026-11-06T02:37:01.104Z [WARN ] [t16900] cascade: receiver badd6974f67fb8f4 has no replacement: stock
+2026-11-06T02:37:01.104Z [INFO ] [t16900] cascade: swapped 0ee0c3b570e58d91 (3484 -> 4048 bytes)
+2026-11-06T02:37:01.104Z [WARN ] [t16900] cascade: receiver badd6974f67fb8f4 has no replacement: stock
+2026-11-06T02:37:01.104Z [INFO ] [t16900] cascade: swapped 0ee0c3b570e58d91 (3484 -> 4048 bytes)
+2026-11-06T02:37:01.104Z [WARN ] [t16900] cascade: receiver badd6974f67fb8f4 has no replacement: stock
+2026-11-06T02:37:01.104Z [INFO ] [t16900] cascade: swapped 0ee0c3b570e58d91 (3484 -> 4048 bytes)
+2026-11-06T02:37:01.104Z [INFO ] [t16900] cascade: swapped 7385335d6760c7a3 (6864 -> 7452 bytes)
+2026-11-06T02:37:01.104Z [INFO ] [t16900] cascade: swapped 7385335d6760c7a3 (6864 -> 7452 bytes)
+2026-11-06T02:37:01.105Z [INFO ] [t16900] cascade: swapped 7385335d6760c7a3 (6864 -> 7452 bytes)
+2026-11-06T02:37:01.105Z [INFO ] [t16900] cascade: swapped 9333fd52726a33ed (6796 -> 7384 bytes)
+2026-11-06T02:37:01.105Z [INFO ] [t16900] cascade: swapped 9333fd52726a33ed (6796 -> 7384 bytes)
+2026-11-06T02:37:01.105Z [INFO ] [t16900] cascade: swapped 9333fd52726a33ed (6796 -> 7384 bytes)
+2026-11-06T02:37:01.105Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:37:01.105Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:37:01.106Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:37:01.106Z [WARN ] [t16900] cascade: receiver 75f6072781205dde has no replacement: stock
+2026-11-06T02:37:01.106Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:37:01.106Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:37:01.106Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:37:01.106Z [INFO ] [t16900] cascade: swapped e91f8f94b76c99cc (6812 -> 7400 bytes)
+2026-11-06T02:37:01.115Z [INFO ] [t16900] cascade: swapped ebaec2b702032302 (5316 -> 5892 bytes)
+2026-11-06T02:37:01.116Z [WARN ] [t16900] cascade: receiver a1dd9076eaff8d7a has no replacement: stock
+2026-11-06T02:37:01.116Z [INFO ] [t16900] cascade: swapped 03a10d71d53688e4 (3452 -> 4028 bytes)
+2026-11-06T02:37:01.116Z [WARN ] [t16900] cascade: receiver 04698e52aecb7bb3 has no replacement: stock
+2026-11-06T02:37:01.116Z [INFO ] [t16900] cascade: swapped cec0b8199c137cac (4904 -> 5468 bytes)
+2026-11-06T02:37:01.116Z [WARN ] [t16900] cascade: receiver 61315097c70aa7c1 has no replacement: stock
+2026-11-06T02:37:01.116Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:37:01.116Z [WARN ] [t16900] cascade: receiver 61315097c70aa7c1 has no replacement: stock
+2026-11-06T02:37:01.116Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:37:01.117Z [WARN ] [t16900] cascade: receiver bd0637e07c3d3205 has no replacement: stock
+2026-11-06T02:37:01.117Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:37:01.118Z [WARN ] [t16900] cascade: receiver 0d1a00f3c42c1ca1 has no replacement: stock
+2026-11-06T02:37:01.118Z [WARN ] [t16900] cascade: receiver a58954e7496ddfcf has no replacement: stock
+2026-11-06T02:37:01.118Z [WARN ] [t16900] cascade: receiver bd0637e07c3d3205 has no replacement: stock
+2026-11-06T02:37:01.118Z [INFO ] [t16900] cascade: swapped 119d8ec54df23cd3 (5360 -> 5936 bytes)
+2026-11-06T02:37:01.123Z [WARN ] [t16900] cascade: receiver 2da0c008a2289748 has no replacement: stock
+2026-11-06T02:37:01.123Z [INFO ] [t16900] cascade: swapped bd9d78f87a2ca71d (3028 -> 3592 bytes)
+2026-11-06T02:37:01.126Z [INFO ] [t16900] cascade: swapped 451a6dd9f507ef47 (4488 -> 5064 bytes)
+2026-11-06T02:37:01.127Z [INFO ] [t16900] cascade: swapped c6230c69ecd39b7d (5916 -> 6492 bytes)
+2026-11-06T02:37:01.127Z [INFO ] [t16900] cascade: swapped 41d710beff9ba0e3 (5604 -> 6168 bytes)
+2026-11-06T02:37:01.128Z [INFO ] [t16900] cascade: swapped bd6c152de0b01b8a (5884 -> 6460 bytes)
+2026-11-06T02:37:01.130Z [INFO ] [t16900] cascade: swapped 4900ada8ec3a7ba3 (7148 -> 7724 bytes)
+2026-11-06T02:37:01.131Z [INFO ] [t16900] cascade: swapped 4900ada8ec3a7ba3 (7148 -> 7724 bytes)
+2026-11-06T02:37:01.131Z [INFO ] [t16900] cascade: swapped 051f476527d39bbb (7116 -> 7692 bytes)
+2026-11-06T02:37:01.131Z [INFO ] [t16900] cascade: swapped 051f476527d39bbb (7116 -> 7692 bytes)
+2026-11-06T02:37:01.149Z [WARN ] [t16900] cascade: receiver 3263a6ff17f7c95b has no replacement: stock
+2026-11-06T02:37:01.150Z [WARN ] [t16900] cascade: receiver 3263a6ff17f7c95b has no replacement: stock
+2026-11-06T02:37:01.150Z [WARN ] [t16900] cascade: receiver 3263a6ff17f7c95b has no replacement: stock
+2026-11-06T02:37:01.150Z [WARN ] [t16900] cascade: receiver 43aaffa72002bfe2 has no replacement: stock
+2026-11-06T02:37:01.150Z [WARN ] [t16900] cascade: receiver 43aaffa72002bfe2 has no replacement: stock
+2026-11-06T02:37:01.150Z [WARN ] [t16900] cascade: receiver 43aaffa72002bfe2 has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 0986058ae14611b9 has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 546c9954ca94c8e3 has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 33c27e66783bb68d has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 33c27e66783bb68d has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 33c27e66783bb68d has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 4e5f0a33503139e6 has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 5c2b13a329d1b4de has no replacement: stock
+2026-11-06T02:37:01.152Z [WARN ] [t16900] cascade: receiver 5c2b13a329d1b4de has no replacement: stock
+2026-11-06T02:37:01.184Z [WARN ] [t16900] cascade: receiver cc212c49d69a88c1 has no replacement: stock
+2026-11-06T02:37:01.203Z [INFO ] [t16900] cascade: swapped 864e48250e8f510e (4372 -> 4948 bytes)
+2026-11-06T02:37:01.204Z [INFO ] [t16900] cascade: swapped 864e48250e8f510e (4372 -> 4948 bytes)
+2026-11-06T02:37:01.205Z [INFO ] [t16900] cascade: swapped 864e48250e8f510e (4372 -> 4948 bytes)
+2026-11-06T02:37:01.205Z [INFO ] [t16900] cascade: swapped 864e48250e8f510e (4372 -> 4948 bytes)
+2026-11-06T02:37:01.206Z [INFO ] [t16900] cascade: swapped 864e48250e8f510e (4372 -> 4948 bytes)
+2026-11-06T02:37:01.206Z [INFO ] [t16900] cascade: swapped 864e48250e8f510e (4372 -> 4948 bytes)
+2026-11-06T02:37:01.213Z [WARN ] [t16900] cascade: receiver 9b141127e15def9e has no replacement: stock
+2026-11-06T02:37:01.214Z [INFO ] [t16900] cascade: swapped bfc6fbb8361fbd83 (4260 -> 4836 bytes)
+2026-11-06T02:37:01.215Z [WARN ] [t16900] cascade: receiver 9b141127e15def9e has no replacement: stock
+2026-11-06T02:37:01.216Z [INFO ] [t16900] cascade: swapped bfc6fbb8361fbd83 (4260 -> 4836 bytes)
+2026-11-06T02:37:01.216Z [INFO ] [t16900] cascade: swapped bfc6fbb8361fbd83 (4260 -> 4836 bytes)
+2026-11-06T02:37:01.223Z [WARN ] [t16900] cascade: receiver b997435273118686 has no replacement: stock
+2026-11-06T02:37:01.225Z [INFO ] [t16900] cascade: swapped f8e4b1cffec734bc (4432 -> 5008 bytes)
+2026-11-06T02:37:01.225Z [WARN ] [t16900] cascade: receiver b997435273118686 has no replacement: stock
+2026-11-06T02:37:01.226Z [INFO ] [t16900] cascade: swapped f8e4b1cffec734bc (4432 -> 5008 bytes)
+2026-11-06T02:37:01.227Z [INFO ] [t16900] cascade: swapped f8e4b1cffec734bc (4432 -> 5008 bytes)
+2026-11-06T02:37:01.235Z [INFO ] [t16900] cascade: swapped 16ea3fe4b019ceb4 (4780 -> 5344 bytes)
+2026-11-06T02:37:01.236Z [INFO ] [t16900] cascade: swapped 16ea3fe4b019ceb4 (4780 -> 5344 bytes)
+2026-11-06T02:37:01.237Z [INFO ] [t16900] cascade: swapped 16ea3fe4b019ceb4 (4780 -> 5344 bytes)
+2026-11-06T02:37:02.107Z [INFO ] [t16900] cascade: frames 9300 passes 8912 casters seen 0 dup 0 unknown 0 nofit 0 () locks in pass discard 0 nooverwrite 0 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 0 stock 0; vs casters 60; fit r 0.000 texel 0.00000 c (0.000, 0.000) t 0.000
+2026-11-06T02:37:02.760Z [INFO ] [t16900] lua: first pump from context 'battle' (thread 16900)
+2026-11-06T02:37:02.760Z [INFO ] [t16900] scene: loading -> battle after 4.0 s (uptime 14.2 s, frame 9316, lua battle)
+2026-11-06T02:37:02.762Z [INFO ] [t16900] lua: battle details: FlagPath=data\ui\flags\austria, TotalTime=3600, Faction=Austria, IsMultiplayer=false, ElapsedTime=0, NavalBattle=false
+2026-11-06T02:37:02.762Z [INFO ] [t16900] scene: battle probe naval=0 deploy_panel=0
+2026-11-06T02:37:02.772Z [INFO ] [t16900] cascade: target 2048x2048 format 111 (engine map 2048x2048)
+2026-11-06T02:37:02.772Z [INFO ] [t16900] cascade: stack at first caster draw: 1c40104 1ba3485 1bd3da5 1bd4763 1000100 1bc8d00 1b9fc01 1bc8e69 1729dc9 1ccca2c f30377 1bc906c 1bd6eeb 1bc8f9b 1bc86c3 1bc924b 1ba3540 ec70e4 120007f
+2026-11-06T02:37:02.794Z [INFO ] [t16900] timeline: first_present_after_ready +14864 ms battle
+2026-11-06T02:37:02.834Z [INFO ] [t16900] scene: battle probe naval=0 deploy_panel=1
+2026-11-06T02:37:02.834Z [INFO ] [t16900] scene: battle -> battle_deploy after 0.1 s (uptime 14.3 s, frame 9321, lua battle)
+2026-11-06T02:37:02.837Z [INFO ] [t16900] timeline: first_present_after_ready +14907 ms battle_deploy
+2026-11-06T02:37:03.465Z [INFO ] [t16900] cascade: frames 9600 passes 9196 casters seen 13833 dup 13833 unknown 0 nofit 0 () locks in pass discard 1162 nooverwrite 12671 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 80007 stock 2280; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:03.775Z [INFO ] [t8404] ctl: j25-20261106T023658Z-173591150: ok
+2026-11-06T02:37:04.097Z [INFO ] [t16900] cascade: frames 9900 passes 9496 casters seen 28533 dup 28533 unknown 0 nofit 0 () locks in pass discard 2392 nooverwrite 26141 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 164607 stock 4680; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:04.823Z [INFO ] [t16900] cascade: frames 10200 passes 9796 casters seen 43233 dup 43233 unknown 0 nofit 0 () locks in pass discard 3620 nooverwrite 39613 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 249207 stock 7080; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:05.343Z [INFO ] [t8404] ctl: j25-20261106T023705Z-3401163: state
+2026-11-06T02:37:05.344Z [INFO ] [t8404] ctl: j25-20261106T023705Z-3401163: ok
+2026-11-06T02:37:05.547Z [INFO ] [t16900] cascade: frames 10500 passes 10096 casters seen 57933 dup 57933 unknown 0 nofit 0 () locks in pass discard 4849 nooverwrite 53084 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 333807 stock 9480; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:06.194Z [INFO ] [t16900] cascade: frames 10800 passes 10396 casters seen 72633 dup 72633 unknown 0 nofit 0 () locks in pass discard 6075 nooverwrite 66558 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 418407 stock 11880; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:06.829Z [INFO ] [t16900] cascade: frames 11100 passes 10696 casters seen 87333 dup 87333 unknown 0 nofit 0 () locks in pass discard 7301 nooverwrite 80032 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 503007 stock 14280; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:07.459Z [INFO ] [t8404] ctl: j25-20261106T023707Z-1812622410: state
+2026-11-06T02:37:07.459Z [INFO ] [t8404] ctl: j25-20261106T023707Z-1812622410: ok
+2026-11-06T02:37:07.573Z [INFO ] [t16900] cascade: frames 11400 passes 10996 casters seen 102033 dup 102033 unknown 0 nofit 0 () locks in pass discard 8525 nooverwrite 93508 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 587607 stock 16680; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:08.210Z [INFO ] [t16900] cascade: frames 11700 passes 11296 casters seen 116733 dup 116733 unknown 0 nofit 0 () locks in pass discard 9751 nooverwrite 106982 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 672207 stock 19080; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:08.995Z [INFO ] [t16900] cascade: frames 12000 passes 11596 casters seen 131433 dup 131433 unknown 0 nofit 0 () locks in pass discard 10978 nooverwrite 120455 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 756807 stock 21480; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:08.995Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=21480; skipped draws 0
+2026-11-06T02:37:09.740Z [INFO ] [t16900] cascade: frames 12300 passes 11896 casters seen 146133 dup 146133 unknown 0 nofit 0 () locks in pass discard 12207 nooverwrite 133926 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 841407 stock 23880; vs casters 60; fit r 35.706 texel 0.03487 c (-0.035, 270.409) t 25.000
+2026-11-06T02:37:10.002Z [INFO ] [t8404] ctl: j25-20261106T023709Z-69272187: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,0.0,-25.0
+2026-11-06T02:37:10.005Z [INFO ] [t16900] camera: set #1 pos (-0.080, 59.020, 446.140) yaw 0.000 pitch -25.000 -> target (-0.080, 16.758, 536.771) on mode 3d26c4e0
+2026-11-06T02:37:10.014Z [INFO ] [t8404] ctl: j25-20261106T023709Z-69272187: ok
+2026-11-06T02:37:10.262Z [INFO ] [t16900] cascade: frames 12600 passes 12196 casters seen 155919 dup 155919 unknown 0 nofit 0 () locks in pass discard 13421 nooverwrite 142498 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 921471 stock 26280; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:10.651Z [INFO ] [t16900] cascade: frames 12900 passes 12496 casters seen 162819 dup 162819 unknown 0 nofit 0 () locks in pass discard 14625 nooverwrite 148194 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 998871 stock 28680; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:11.090Z [INFO ] [t16900] cascade: frames 13200 passes 12796 casters seen 169719 dup 169719 unknown 0 nofit 0 () locks in pass discard 15829 nooverwrite 153890 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1076271 stock 31080; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:11.561Z [INFO ] [t16900] cascade: frames 13500 passes 13096 casters seen 176619 dup 176619 unknown 0 nofit 0 () locks in pass discard 17033 nooverwrite 159586 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1153671 stock 33480; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:11.837Z [INFO ] [t8404] ctl: j25-20261106T023711Z-214017172: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:37:11.849Z [INFO ] [t8404] ctl: j25-20261106T023711Z-214017172: ok
+2026-11-06T02:37:12.005Z [INFO ] [t16900] cascade: frames 13800 passes 13396 casters seen 183519 dup 183519 unknown 0 nofit 0 () locks in pass discard 18237 nooverwrite 165282 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1231071 stock 35880; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:12.404Z [INFO ] [t16900] cascade: frames 14100 passes 13696 casters seen 190419 dup 190419 unknown 0 nofit 0 () locks in pass discard 19441 nooverwrite 170978 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1308471 stock 38280; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:12.863Z [INFO ] [t16900] cascade: frames 14400 passes 13996 casters seen 197319 dup 197319 unknown 0 nofit 0 () locks in pass discard 20645 nooverwrite 176674 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1385871 stock 40680; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:13.364Z [INFO ] [t16900] cascade: frames 14700 passes 14296 casters seen 204219 dup 204219 unknown 0 nofit 0 () locks in pass discard 21850 nooverwrite 182369 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1463271 stock 43080; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:13.815Z [INFO ] [t16900] cascade: frames 15000 passes 14596 casters seen 211119 dup 211119 unknown 0 nofit 0 () locks in pass discard 23054 nooverwrite 188065 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1540671 stock 45480; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:13.815Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=45480; skipped draws 0
+2026-11-06T02:37:14.304Z [INFO ] [t16900] cascade: frames 15300 passes 14896 casters seen 218019 dup 218019 unknown 0 nofit 0 () locks in pass discard 24258 nooverwrite 193761 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1618071 stock 47880; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:14.787Z [INFO ] [t16900] cascade: frames 15600 passes 15196 casters seen 224919 dup 224919 unknown 0 nofit 0 () locks in pass discard 25462 nooverwrite 199457 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1695471 stock 50280; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:14.822Z [INFO ] [t8404] ctl: j25-20261106T023714Z-1929526720: capture j25_y_s25_y_0 1
+2026-11-06T02:37:14.918Z [INFO ] [t8404] ctl: j25-20261106T023714Z-1929526720: ok
+2026-11-06T02:37:15.279Z [INFO ] [t16900] cascade: frames 15900 passes 15496 casters seen 231819 dup 231819 unknown 0 nofit 0 () locks in pass discard 26666 nooverwrite 205153 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1772871 stock 52680; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:15.755Z [INFO ] [t16900] cascade: frames 16200 passes 15796 casters seen 238719 dup 238719 unknown 0 nofit 0 () locks in pass discard 27870 nooverwrite 210849 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1850271 stock 55080; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:16.228Z [INFO ] [t16900] cascade: frames 16500 passes 16096 casters seen 245619 dup 245619 unknown 0 nofit 0 () locks in pass discard 29074 nooverwrite 216545 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 1927671 stock 57480; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:16.754Z [INFO ] [t16900] cascade: frames 16800 passes 16396 casters seen 252519 dup 252519 unknown 0 nofit 0 () locks in pass discard 30278 nooverwrite 222241 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2005071 stock 59880; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 294.050) t 25.000
+2026-11-06T02:37:17.176Z [INFO ] [t8404] ctl: j25-20261106T023716Z-2511520925: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,45.0,-25.0
+2026-11-06T02:37:17.179Z [INFO ] [t16900] camera: set #2 pos (-0.080, 59.020, 446.140) yaw 45.000 pitch -25.000 -> target (64.006, 16.758, 510.226) on mode 3d26c4e0
+2026-11-06T02:37:17.188Z [INFO ] [t8404] ctl: j25-20261106T023716Z-2511520925: ok
+2026-11-06T02:37:17.221Z [INFO ] [t16900] cascade: frames 17100 passes 16696 casters seen 259338 dup 259338 unknown 0 nofit 0 () locks in pass discard 31483 nooverwrite 227855 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2080878 stock 62280; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:17.625Z [INFO ] [t16900] cascade: frames 17400 passes 16996 casters seen 265338 dup 265338 unknown 0 nofit 0 () locks in pass discard 32684 nooverwrite 232654 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2140578 stock 64680; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:18.061Z [INFO ] [t16900] cascade: frames 17700 passes 17296 casters seen 271338 dup 271338 unknown 0 nofit 0 () locks in pass discard 33884 nooverwrite 237454 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2200278 stock 67080; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:18.527Z [INFO ] [t16900] cascade: frames 18000 passes 17596 casters seen 277338 dup 277338 unknown 0 nofit 0 () locks in pass discard 35085 nooverwrite 242253 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2259978 stock 69480; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:18.527Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=69480; skipped draws 0
+2026-11-06T02:37:19.040Z [INFO ] [t16900] cascade: frames 18300 passes 17896 casters seen 283338 dup 283338 unknown 0 nofit 0 () locks in pass discard 36285 nooverwrite 247053 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2319678 stock 71880; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:19.158Z [INFO ] [t8404] ctl: j25-20261106T023719Z-3271020325: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:37:19.169Z [INFO ] [t8404] ctl: j25-20261106T023719Z-3271020325: ok
+2026-11-06T02:37:19.467Z [INFO ] [t16900] cascade: frames 18600 passes 18196 casters seen 289338 dup 289338 unknown 0 nofit 0 () locks in pass discard 37485 nooverwrite 251853 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2379378 stock 74280; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:19.889Z [INFO ] [t16900] cascade: frames 18900 passes 18496 casters seen 295338 dup 295338 unknown 0 nofit 0 () locks in pass discard 38685 nooverwrite 256653 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2439078 stock 76680; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:20.377Z [INFO ] [t16900] cascade: frames 19200 passes 18796 casters seen 301338 dup 301338 unknown 0 nofit 0 () locks in pass discard 39885 nooverwrite 261453 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2498778 stock 79080; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:20.861Z [INFO ] [t16900] cascade: frames 19500 passes 19096 casters seen 307338 dup 307338 unknown 0 nofit 0 () locks in pass discard 41086 nooverwrite 266252 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2558478 stock 81480; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:21.350Z [INFO ] [t16900] cascade: frames 19800 passes 19396 casters seen 313338 dup 313338 unknown 0 nofit 0 () locks in pass discard 42286 nooverwrite 271052 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2618178 stock 83880; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:21.825Z [INFO ] [t16900] cascade: frames 20100 passes 19696 casters seen 319338 dup 319338 unknown 0 nofit 0 () locks in pass discard 43486 nooverwrite 275852 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2677878 stock 86280; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:21.996Z [INFO ] [t8404] ctl: j25-20261106T023721Z-1154314282: capture j25_y_s25_y_45 1
+2026-11-06T02:37:22.077Z [INFO ] [t8404] ctl: j25-20261106T023721Z-1154314282: ok
+2026-11-06T02:37:22.325Z [INFO ] [t16900] cascade: frames 20400 passes 19996 casters seen 325338 dup 325338 unknown 0 nofit 0 () locks in pass discard 44688 nooverwrite 280650 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2737578 stock 88680; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:22.750Z [INFO ] [t16900] cascade: frames 20700 passes 20296 casters seen 331338 dup 331338 unknown 0 nofit 0 () locks in pass discard 45888 nooverwrite 285450 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2797278 stock 91080; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:23.224Z [INFO ] [t16900] cascade: frames 21000 passes 20596 casters seen 337338 dup 337338 unknown 0 nofit 0 () locks in pass discard 47088 nooverwrite 290250 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2856978 stock 93480; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:23.224Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=93480; skipped draws 0
+2026-11-06T02:37:23.712Z [INFO ] [t16900] cascade: frames 21300 passes 20896 casters seen 343338 dup 343338 unknown 0 nofit 0 () locks in pass discard 48288 nooverwrite 295050 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2916678 stock 95880; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:24.162Z [INFO ] [t16900] cascade: frames 21600 passes 21196 casters seen 349338 dup 349338 unknown 0 nofit 0 () locks in pass discard 49489 nooverwrite 299849 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 2976378 stock 98280; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 290.494) t 25.000
+2026-11-06T02:37:24.325Z [INFO ] [t8404] ctl: j25-20261106T023724Z-51526881: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,90.0,-25.0
+2026-11-06T02:37:24.327Z [INFO ] [t16900] camera: set #3 pos (-0.080, 59.020, 446.140) yaw 90.000 pitch -25.000 -> target (90.551, 16.758, 446.140) on mode 3d26c4e0
+2026-11-06T02:37:24.336Z [INFO ] [t8404] ctl: j25-20261106T023724Z-51526881: ok
+2026-11-06T02:37:24.633Z [INFO ] [t16900] cascade: frames 21900 passes 21496 casters seen 356138 dup 356138 unknown 0 nofit 0 () locks in pass discard 50693 nooverwrite 305445 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3033278 stock 100680; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:25.117Z [INFO ] [t16900] cascade: frames 22200 passes 21796 casters seen 363338 dup 363338 unknown 0 nofit 0 () locks in pass discard 51896 nooverwrite 311442 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3088778 stock 103080; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:25.635Z [INFO ] [t16900] cascade: frames 22500 passes 22096 casters seen 370538 dup 370538 unknown 0 nofit 0 () locks in pass discard 53102 nooverwrite 317436 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3144278 stock 105480; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:26.226Z [INFO ] [t16900] cascade: frames 22800 passes 22396 casters seen 377738 dup 377738 unknown 0 nofit 0 () locks in pass discard 54306 nooverwrite 323432 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3199778 stock 107880; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:26.305Z [INFO ] [t8404] ctl: j25-20261106T023726Z-1602323712: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:37:26.316Z [INFO ] [t8404] ctl: j25-20261106T023726Z-1602323712: ok
+2026-11-06T02:37:26.677Z [INFO ] [t16900] cascade: frames 23100 passes 22696 casters seen 384938 dup 384938 unknown 0 nofit 0 () locks in pass discard 55509 nooverwrite 329429 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3255278 stock 110280; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:27.168Z [INFO ] [t16900] cascade: frames 23400 passes 22996 casters seen 392138 dup 392138 unknown 0 nofit 0 () locks in pass discard 56711 nooverwrite 335427 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3310778 stock 112680; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:27.725Z [INFO ] [t16900] cascade: frames 23700 passes 23296 casters seen 399338 dup 399338 unknown 0 nofit 0 () locks in pass discard 57919 nooverwrite 341419 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3366278 stock 115080; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:28.302Z [INFO ] [t16900] cascade: frames 24000 passes 23596 casters seen 406538 dup 406538 unknown 0 nofit 0 () locks in pass discard 59127 nooverwrite 347411 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3421778 stock 117480; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:28.302Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=117480; skipped draws 0
+2026-11-06T02:37:28.850Z [INFO ] [t16900] cascade: frames 24300 passes 23896 casters seen 413738 dup 413738 unknown 0 nofit 0 () locks in pass discard 60333 nooverwrite 353405 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3477278 stock 119880; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:29.291Z [INFO ] [t8404] ctl: j25-20261106T023729Z-2818323097: capture j25_y_s25_y_90 1
+2026-11-06T02:37:29.388Z [INFO ] [t8404] ctl: j25-20261106T023729Z-2818323097: ok
+2026-11-06T02:37:29.504Z [INFO ] [t16900] cascade: frames 24600 passes 24196 casters seen 420938 dup 420938 unknown 0 nofit 0 () locks in pass discard 61540 nooverwrite 359398 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3532778 stock 122280; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:29.972Z [INFO ] [t16900] cascade: frames 24900 passes 24496 casters seen 428138 dup 428138 unknown 0 nofit 0 () locks in pass discard 62743 nooverwrite 365395 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3588278 stock 124680; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:30.529Z [INFO ] [t16900] cascade: frames 25200 passes 24796 casters seen 435338 dup 435338 unknown 0 nofit 0 () locks in pass discard 63946 nooverwrite 371392 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3643778 stock 127080; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:31.113Z [INFO ] [t16900] cascade: frames 25500 passes 25096 casters seen 442538 dup 442538 unknown 0 nofit 0 () locks in pass discard 65149 nooverwrite 377389 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3699278 stock 129480; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:31.641Z [INFO ] [t16900] cascade: frames 25800 passes 25396 casters seen 449738 dup 449738 unknown 0 nofit 0 () locks in pass discard 66357 nooverwrite 383381 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3754778 stock 131880; vs casters 60; fit r 35.706 texel 0.03487 c (22.595, 281.811) t 25.000
+2026-11-06T02:37:31.804Z [INFO ] [t8404] ctl: j25-20261106T023731Z-1233824105: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,135.0,-25.0
+2026-11-06T02:37:31.806Z [INFO ] [t16900] camera: set #4 pos (-0.080, 59.020, 446.140) yaw 135.000 pitch -25.000 -> target (64.006, 16.758, 382.054) on mode 3d26c4e0
+2026-11-06T02:37:31.815Z [INFO ] [t8404] ctl: j25-20261106T023731Z-1233824105: ok
+2026-11-06T02:37:32.183Z [INFO ] [t16900] cascade: frames 26100 passes 25696 casters seen 461138 dup 461138 unknown 0 nofit 0 () locks in pass discard 67563 nooverwrite 393575 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3819728 stock 134280; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:32.758Z [INFO ] [t16900] cascade: frames 26400 passes 25996 casters seen 474338 dup 474338 unknown 0 nofit 0 () locks in pass discard 68768 nooverwrite 405570 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3888728 stock 136680; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:33.490Z [INFO ] [t8404] ctl: j25-20261106T023733Z-319613258: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:37:33.502Z [INFO ] [t8404] ctl: j25-20261106T023733Z-319613258: ok
+2026-11-06T02:37:33.502Z [INFO ] [t16900] cascade: frames 26700 passes 26296 casters seen 487538 dup 487538 unknown 0 nofit 0 () locks in pass discard 69981 nooverwrite 417557 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 3957728 stock 139080; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:34.035Z [INFO ] [t16900] cascade: frames 27000 passes 26596 casters seen 500738 dup 500738 unknown 0 nofit 0 () locks in pass discard 71191 nooverwrite 429547 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4026728 stock 141480; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:34.036Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=141480; skipped draws 0
+2026-11-06T02:37:34.664Z [INFO ] [t16900] cascade: frames 27300 passes 26896 casters seen 513938 dup 513938 unknown 0 nofit 0 () locks in pass discard 72395 nooverwrite 441543 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4095728 stock 143880; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:35.413Z [INFO ] [t16900] cascade: frames 27600 passes 27196 casters seen 527138 dup 527138 unknown 0 nofit 0 () locks in pass discard 73595 nooverwrite 453543 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4164728 stock 146280; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:36.093Z [INFO ] [t16900] cascade: frames 27900 passes 27496 casters seen 540338 dup 540338 unknown 0 nofit 0 () locks in pass discard 74801 nooverwrite 465537 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4233728 stock 148680; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:36.440Z [INFO ] [t8404] ctl: j25-20261106T023736Z-1671715569: capture j25_y_s25_y_135 1
+2026-11-06T02:37:36.580Z [INFO ] [t8404] ctl: j25-20261106T023736Z-1671715569: ok
+2026-11-06T02:37:36.842Z [INFO ] [t16900] cascade: frames 28200 passes 27796 casters seen 553538 dup 553538 unknown 0 nofit 0 () locks in pass discard 76007 nooverwrite 477531 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4302728 stock 151080; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:37.406Z [INFO ] [t16900] cascade: frames 28500 passes 28096 casters seen 566738 dup 566738 unknown 0 nofit 0 () locks in pass discard 77218 nooverwrite 489520 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4371728 stock 153480; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:38.098Z [INFO ] [t16900] cascade: frames 28800 passes 28396 casters seen 579938 dup 579938 unknown 0 nofit 0 () locks in pass discard 78418 nooverwrite 501520 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4440728 stock 155880; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:38.795Z [INFO ] [t16900] cascade: frames 29100 passes 28696 casters seen 593138 dup 593138 unknown 0 nofit 0 () locks in pass discard 79625 nooverwrite 513513 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4509728 stock 158280; vs casters 60; fit r 35.706 texel 0.03487 c (15.935, 273.164) t 25.000
+2026-11-06T02:37:38.808Z [INFO ] [t8404] ctl: j25-20261106T023738Z-3139015557: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,180.0,-25.0
+2026-11-06T02:37:38.812Z [INFO ] [t16900] camera: set #5 pos (-0.080, 59.020, 446.140) yaw 180.000 pitch -25.000 -> target (-0.080, 16.758, 355.509) on mode 3d26c4e0
+2026-11-06T02:37:38.819Z [INFO ] [t8404] ctl: j25-20261106T023738Z-3139015557: ok
+2026-11-06T02:37:39.395Z [INFO ] [t16900] cascade: frames 29400 passes 28996 casters seen 607793 dup 607793 unknown 0 nofit 0 () locks in pass discard 80850 nooverwrite 526943 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4593860 stock 160680; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:40.091Z [INFO ] [t16900] cascade: frames 29700 passes 29296 casters seen 622493 dup 622493 unknown 0 nofit 0 () locks in pass discard 82082 nooverwrite 540411 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4678460 stock 163080; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:40.647Z [INFO ] [t8404] ctl: j25-20261106T023740Z-92371312: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:37:40.658Z [INFO ] [t8404] ctl: j25-20261106T023740Z-92371312: ok
+2026-11-06T02:37:40.818Z [INFO ] [t16900] cascade: frames 30000 passes 29596 casters seen 637193 dup 637193 unknown 0 nofit 0 () locks in pass discard 83312 nooverwrite 553881 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4763060 stock 165480; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:40.818Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=165480; skipped draws 0
+2026-11-06T02:37:41.441Z [INFO ] [t16900] cascade: frames 30300 passes 29896 casters seen 651893 dup 651893 unknown 0 nofit 0 () locks in pass discard 84538 nooverwrite 567355 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4847660 stock 167880; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:42.151Z [INFO ] [t16900] cascade: frames 30600 passes 30196 casters seen 666593 dup 666593 unknown 0 nofit 0 () locks in pass discard 85766 nooverwrite 580827 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 4932260 stock 170280; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:42.906Z [INFO ] [t16900] cascade: frames 30900 passes 30496 casters seen 681293 dup 681293 unknown 0 nofit 0 () locks in pass discard 86988 nooverwrite 594305 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5016860 stock 172680; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:43.633Z [INFO ] [t16900] cascade: frames 31200 passes 30796 casters seen 695993 dup 695993 unknown 0 nofit 0 () locks in pass discard 88214 nooverwrite 607779 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5101460 stock 175080; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:43.744Z [INFO ] [t8404] ctl: j25-20261106T023743Z-923722193: capture j25_y_s25_y_180 1
+2026-11-06T02:37:43.889Z [INFO ] [t8404] ctl: j25-20261106T023743Z-923722193: ok
+2026-11-06T02:37:44.404Z [INFO ] [t16900] cascade: frames 31500 passes 31096 casters seen 710693 dup 710693 unknown 0 nofit 0 () locks in pass discard 89445 nooverwrite 621248 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5186060 stock 177480; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:45.130Z [INFO ] [t16900] cascade: frames 31800 passes 31396 casters seen 725393 dup 725393 unknown 0 nofit 0 () locks in pass discard 90673 nooverwrite 634720 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5270660 stock 179880; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:45.901Z [INFO ] [t16900] cascade: frames 32100 passes 31696 casters seen 740093 dup 740093 unknown 0 nofit 0 () locks in pass discard 91896 nooverwrite 648197 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5355260 stock 182280; vs casters 60; fit r 35.706 texel 0.03487 c (-0.070, 269.572) t 25.000
+2026-11-06T02:37:46.139Z [INFO ] [t8404] ctl: j25-20261106T023745Z-185979197: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,225.0,-25.0
+2026-11-06T02:37:46.143Z [INFO ] [t16900] camera: set #6 pos (-0.080, 59.020, 446.140) yaw 225.000 pitch -25.000 -> target (-64.166, 16.758, 382.054) on mode 3d26c4e0
+2026-11-06T02:37:46.150Z [INFO ] [t8404] ctl: j25-20261106T023745Z-185979197: ok
+2026-11-06T02:37:46.540Z [INFO ] [t16900] cascade: frames 32400 passes 31996 casters seen 751909 dup 751909 unknown 0 nofit 0 () locks in pass discard 93128 nooverwrite 658781 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5444392 stock 184680; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:47.195Z [INFO ] [t16900] cascade: frames 32700 passes 32296 casters seen 762409 dup 762409 unknown 0 nofit 0 () locks in pass discard 94375 nooverwrite 668034 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5535592 stock 187080; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:47.970Z [INFO ] [t8404] ctl: j25-20261106T023747Z-272594388: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:37:47.982Z [INFO ] [t8404] ctl: j25-20261106T023747Z-272594388: ok
+2026-11-06T02:37:47.995Z [INFO ] [t16900] cascade: frames 33000 passes 32596 casters seen 772909 dup 772909 unknown 0 nofit 0 () locks in pass discard 95604 nooverwrite 677305 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5626792 stock 189480; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:47.995Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=189480; skipped draws 0
+2026-11-06T02:37:48.578Z [INFO ] [t16900] cascade: frames 33300 passes 32896 casters seen 783409 dup 783409 unknown 0 nofit 0 () locks in pass discard 96836 nooverwrite 686573 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5717992 stock 191880; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:49.303Z [INFO ] [t16900] cascade: frames 33600 passes 33196 casters seen 793909 dup 793909 unknown 0 nofit 0 () locks in pass discard 98063 nooverwrite 695846 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5809192 stock 194280; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:50.028Z [INFO ] [t16900] cascade: frames 33900 passes 33496 casters seen 804409 dup 804409 unknown 0 nofit 0 () locks in pass discard 99299 nooverwrite 705110 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5900392 stock 196680; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:50.777Z [INFO ] [t16900] cascade: frames 34200 passes 33796 casters seen 814909 dup 814909 unknown 0 nofit 0 () locks in pass discard 100525 nooverwrite 714384 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 5991592 stock 199080; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:50.784Z [INFO ] [t8404] ctl: j25-20261106T023750Z-1025828024: capture j25_y_s25_y_225 1
+2026-11-06T02:37:50.925Z [INFO ] [t8404] ctl: j25-20261106T023750Z-1025828024: ok
+2026-11-06T02:37:51.502Z [INFO ] [t16900] cascade: frames 34500 passes 34096 casters seen 825409 dup 825409 unknown 0 nofit 0 () locks in pass discard 101755 nooverwrite 723654 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6082792 stock 201480; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:52.261Z [INFO ] [t16900] cascade: frames 34800 passes 34396 casters seen 835909 dup 835909 unknown 0 nofit 0 () locks in pass discard 102979 nooverwrite 732930 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6173992 stock 203880; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:53.002Z [INFO ] [t16900] cascade: frames 35100 passes 34696 casters seen 846409 dup 846409 unknown 0 nofit 0 () locks in pass discard 104203 nooverwrite 742206 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6265192 stock 206280; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 273.164) t 25.000
+2026-11-06T02:37:53.167Z [INFO ] [t8404] ctl: j25-20261106T023753Z-200414084: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,270.0,-25.0
+2026-11-06T02:37:53.169Z [INFO ] [t16900] camera: set #7 pos (-0.080, 59.020, 446.140) yaw 270.000 pitch -25.000 -> target (-90.711, 16.758, 446.140) on mode 3d26c4e0
+2026-11-06T02:37:53.179Z [INFO ] [t8404] ctl: j25-20261106T023753Z-200414084: ok
+2026-11-06T02:37:53.568Z [INFO ] [t16900] cascade: frames 35400 passes 34996 casters seen 854902 dup 854902 unknown 0 nofit 0 () locks in pass discard 105418 nooverwrite 749484 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6363528 stock 208680; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:54.135Z [INFO ] [t16900] cascade: frames 35700 passes 35296 casters seen 862702 dup 862702 unknown 0 nofit 0 () locks in pass discard 106628 nooverwrite 756074 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6464328 stock 211080; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:54.857Z [INFO ] [t16900] cascade: frames 36000 passes 35596 casters seen 870502 dup 870502 unknown 0 nofit 0 () locks in pass discard 107841 nooverwrite 762661 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6565128 stock 213480; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:54.857Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=213480; skipped draws 0
+2026-11-06T02:37:55.138Z [INFO ] [t8404] ctl: j25-20261106T023755Z-103561248: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:37:55.149Z [INFO ] [t8404] ctl: j25-20261106T023755Z-103561248: ok
+2026-11-06T02:37:55.422Z [INFO ] [t16900] cascade: frames 36300 passes 35896 casters seen 878302 dup 878302 unknown 0 nofit 0 () locks in pass discard 109057 nooverwrite 769245 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6665928 stock 215880; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:56.009Z [INFO ] [t16900] cascade: frames 36600 passes 36196 casters seen 886102 dup 886102 unknown 0 nofit 0 () locks in pass discard 110269 nooverwrite 775833 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6766728 stock 218280; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:56.672Z [INFO ] [t16900] cascade: frames 36900 passes 36496 casters seen 893902 dup 893902 unknown 0 nofit 0 () locks in pass discard 111484 nooverwrite 782418 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6867528 stock 220680; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:57.334Z [INFO ] [t16900] cascade: frames 37200 passes 36796 casters seen 901702 dup 901702 unknown 0 nofit 0 () locks in pass discard 112695 nooverwrite 789007 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 6968328 stock 223080; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:57.952Z [INFO ] [t8404] ctl: j25-20261106T023757Z-2085930768: capture j25_y_s25_y_270 1
+2026-11-06T02:37:58.080Z [INFO ] [t8404] ctl: j25-20261106T023757Z-2085930768: ok
+2026-11-06T02:37:58.127Z [INFO ] [t16900] cascade: frames 37500 passes 37096 casters seen 909502 dup 909502 unknown 0 nofit 0 () locks in pass discard 113905 nooverwrite 795597 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7069128 stock 225480; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:58.676Z [INFO ] [t16900] cascade: frames 37800 passes 37396 casters seen 917302 dup 917302 unknown 0 nofit 0 () locks in pass discard 115117 nooverwrite 802185 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7169928 stock 227880; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:37:59.334Z [INFO ] [t16900] cascade: frames 38100 passes 37696 casters seen 925102 dup 925102 unknown 0 nofit 0 () locks in pass discard 116334 nooverwrite 808768 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7270728 stock 230280; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:38:00.001Z [INFO ] [t16900] cascade: frames 38400 passes 37996 casters seen 932902 dup 932902 unknown 0 nofit 0 () locks in pass discard 117549 nooverwrite 815353 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7371528 stock 232680; vs casters 60; fit r 35.706 texel 0.03487 c (-22.735, 281.811) t 25.000
+2026-11-06T02:38:00.319Z [INFO ] [t8404] ctl: j25-20261106T023800Z-72876356: lua napoleon_remastered/lua/ctl/cam_set.lua 20 -- -0.08,59.02,446.14,315.0,-25.0
+2026-11-06T02:38:00.321Z [INFO ] [t16900] camera: set #8 pos (-0.080, 59.020, 446.140) yaw 315.000 pitch -25.000 -> target (-64.166, 16.758, 510.226) on mode 3d26c4e0
+2026-11-06T02:38:00.330Z [INFO ] [t8404] ctl: j25-20261106T023800Z-72876356: ok
+2026-11-06T02:38:00.532Z [INFO ] [t16900] cascade: frames 38700 passes 38296 casters seen 940555 dup 940555 unknown 0 nofit 0 () locks in pass discard 118757 nooverwrite 821798 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7466595 stock 235080; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:01.023Z [INFO ] [t16900] cascade: frames 39000 passes 38596 casters seen 948055 dup 948055 unknown 0 nofit 0 () locks in pass discard 119964 nooverwrite 828091 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7555695 stock 237480; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:01.023Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=237480; skipped draws 0
+2026-11-06T02:38:01.502Z [INFO ] [t16900] cascade: frames 39300 passes 38896 casters seen 955555 dup 955555 unknown 0 nofit 0 () locks in pass discard 121171 nooverwrite 834384 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7644795 stock 239880; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:02.022Z [INFO ] [t16900] cascade: frames 39600 passes 39196 casters seen 963055 dup 963055 unknown 0 nofit 0 () locks in pass discard 122379 nooverwrite 840676 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7733895 stock 242280; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:02.151Z [INFO ] [t8404] ctl: j25-20261106T023801Z-2568118014: lua napoleon_remastered/lua/ctl/cam_read.lua 20
+2026-11-06T02:38:02.161Z [INFO ] [t8404] ctl: j25-20261106T023801Z-2568118014: ok
+2026-11-06T02:38:02.478Z [INFO ] [t16900] cascade: frames 39900 passes 39496 casters seen 970555 dup 970555 unknown 0 nofit 0 () locks in pass discard 123587 nooverwrite 846968 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7822995 stock 244680; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:02.949Z [INFO ] [t16900] cascade: frames 40200 passes 39796 casters seen 978055 dup 978055 unknown 0 nofit 0 () locks in pass discard 124794 nooverwrite 853261 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 7912095 stock 247080; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:03.454Z [INFO ] [t16900] cascade: frames 40500 passes 40096 casters seen 985555 dup 985555 unknown 0 nofit 0 () locks in pass discard 126001 nooverwrite 859554 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 8001195 stock 249480; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:04.009Z [INFO ] [t16900] cascade: frames 40800 passes 40396 casters seen 993055 dup 993055 unknown 0 nofit 0 () locks in pass discard 127208 nooverwrite 865847 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 8090295 stock 251880; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:04.528Z [INFO ] [t16900] cascade: frames 41100 passes 40696 casters seen 1000555 dup 1000555 unknown 0 nofit 0 () locks in pass discard 128415 nooverwrite 872140 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 8179395 stock 254280; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:05.023Z [INFO ] [t16900] cascade: frames 41400 passes 40996 casters seen 1008055 dup 1008055 unknown 0 nofit 0 () locks in pass discard 129621 nooverwrite 878434 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 8268495 stock 256680; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:05.248Z [INFO ] [t8404] ctl: j25-20261106T023805Z-1518621224: capture j25_y_s25_y_315 1
+2026-11-06T02:38:05.355Z [INFO ] [t8404] ctl: j25-20261106T023805Z-1518621224: ok
+2026-11-06T02:38:05.606Z [INFO ] [t16900] cascade: frames 41700 passes 41296 casters seen 1015555 dup 1015555 unknown 0 nofit 0 () locks in pass discard 130830 nooverwrite 884725 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 8357595 stock 259080; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:06.110Z [INFO ] [t16900] cascade: frames 42000 passes 41596 casters seen 1023055 dup 1023055 unknown 0 nofit 0 () locks in pass discard 132037 nooverwrite 891018 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 8446695 stock 261480; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000
+2026-11-06T02:38:06.110Z [INFO ] [t16900] cascade: stock receiver draws: cc212c49d69a88c1=261480; skipped draws 0
+2026-11-06T02:38:06.655Z [INFO ] [t16900] cascade: frames 42300 passes 41896 casters seen 1030555 dup 1030555 unknown 0 nofit 0 () locks in pass discard 133246 nooverwrite 897309 other 0 otherthread 0 receivers created swapped 73 refused 0, draws swapped 8535795 stock 263880; vs casters 60; fit r 35.706 texel 0.03487 c (-16.109, 290.494) t 25.000

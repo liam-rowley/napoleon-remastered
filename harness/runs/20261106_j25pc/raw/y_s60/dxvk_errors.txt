@@ -1,0 +1,4 @@
+      2 warn:  85c31227-3de5-4f00-9b3a-f11ac38c18b5
+      2 warn:  D3D9DeviceEx::QueryInterface: Unknown interface query
+      2 warn:  D3D9SwapChainEx::QueryInterface: Unknown interface query
+      2 warn:  fff32f81-d953-473a-9223-93d652aba93f

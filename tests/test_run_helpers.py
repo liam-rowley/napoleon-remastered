@@ -66,6 +66,56 @@ class ShadowDensity(unittest.TestCase):
         self.assertEqual([x.split('\t')[0] for x in lines[1:]], ['a', 'b'])
 
 
+class CascadeDensity(unittest.TestCase):
+    """J25: the near cascade's matrix through the catalogue's one metric, never a second one."""
+    ROWS = [[0.01, 0.0, 0.0, 0.5], [0.0, 0.0, -0.01, 0.5], [0.0, -0.0016, 0.0025, -0.06]]
+
+    def frame(self, t, rows, params):
+        vals = [0.0] * (224 * 4)
+        for i, r in enumerate(rows):
+            vals[(216 + i) * 4:(217 + i) * 4] = r
+        vals[220 * 4:221 * 4] = params
+        p = Path(t) / 'frame.txt'
+        p.write_text('CAPTURE x\nSTATE\nPC 0 224 ' + ' '.join(str(v) for v in vals) + '\nENDSTATE\nFRAME 1\nDIP 4 0 0 3 0 1\nFRAME 2\nPC 216 1 9 9 9 9\n', encoding='latin1')
+        return p
+
+    def test_rows_and_size_come_from_the_state_dump_of_frame_one(self):
+        with tempfile.TemporaryDirectory() as t:
+            rows, size = dens.cascade_rows(self.frame(t, self.ROWS, [1 / 2048, 2048.0, 0.05, 0.0]))
+            self.assertEqual(rows, self.ROWS)
+            self.assertEqual(size, 2048)
+
+    def test_a_capture_with_the_registers_cleared_gives_no_result(self):
+        # the run 20261106_j25pc raw/c_tint failure: D3DX zeroed them, and a zero matrix must read as nothing, not as a density of 0
+        with tempfile.TemporaryDirectory() as t:
+            self.assertIsNone(dens.cascade_rows(self.frame(t, [[0.0] * 4] * 3, [0.0] * 4)))
+
+    def test_the_cascade_goes_first_so_the_catalogue_metric_reads_it(self):
+        control = {'name': 'c', 'shaders': {'a': {'consts': {'shadow_map_projection_matrix': [[9.0] * 4] * 4}}}}
+        s = dens.cascade_summary(control, self.ROWS, 2048)
+        self.assertEqual(next(iter(s['shaders'])), 'cascade0')
+        self.assertEqual(control['shaders'].keys(), {'a'})   # the control's summary is not changed
+        self.assertEqual(s['shaders']['cascade0']['consts']['shadow_map_projection_matrix'][3], [0.0, 0.0, 0.0, 1.0])
+
+    def test_the_metric_gives_size_times_the_uv_rate(self):
+        # u and v change 0.01 per metre on the ground, so a 2048 map has 20.48 texels per metre whatever the view
+        ident = [[1.0, 0, 0, 0], [0, 1.0, 0, 0], [0, 0, 1.0, 0], [0, 0, 0, 1.0]]
+        control = {'shaders': {'a': {'consts': {'view_projection': ident, 'camera_position': [[0.0, 0.0, 0.0, 0.0]], 'shadow_map_projection_matrix': [[1.0] * 4] * 4,
+                                                'shadow_map_texture_size': [[8192.0, 0, 0, 0]]}}}}
+        d = dens.catalog().shadow_density(dens.cascade_summary(control, self.ROWS, 2048))
+        self.assertEqual(d['map'], 2048)
+        self.assertAlmostEqual(d['texels_per_m']['20m'], 20.48, places=2)
+
+    def test_the_table_is_kept_in_the_run_and_no_cascade_writes_nothing(self):
+        with tempfile.TemporaryDirectory() as t:
+            dens.write_cascade(Path(t), ['0', '45'], [])
+            self.assertFalse((Path(t) / 'density_cascade.txt').exists())
+            dens.write_cascade(Path(t), ['0', '45'], ['s40 cascade 0 | 13.18 | 13.18 | 13.18 | 1.0'])
+            lines = (Path(t) / 'density_cascade.txt').read_text(encoding='utf-8').splitlines()
+            self.assertTrue(lines[0].startswith('setting | y0 | y45 | worst'))
+            self.assertEqual(lines[1], 's40 cascade 0 | 13.18 | 13.18 | 13.18 | 1.0')
+
+
 class AcceptanceSummary(unittest.TestCase):
     def test_failed_steps_and_shot_margins(self):
         d = {'passed': False, 'build_id': 'b1', 'steps': {

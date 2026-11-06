@@ -1,0 +1,647 @@
+From 374c18104f72ea6ed1a2cf2fa54d31c647b24831 Mon Sep 17 00:00:00 2001
+From: Liam Rowley <liamsrowley@gmail.com>
+Date: Fri, 6 Nov 2026 01:50:36 +0000
+Subject: [PATCH 1/5] J25 spike: two-cascade prototype, route 1 variant (a)
+
+Claude-Session: 96a223bd-8ffd-4e4f-946a-17aeee2548ad
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ proxy/src/cascade.cpp        | 320 +++++++++++++++++++++++++++++++++++
+ proxy/src/cascade.h          | 127 ++++++++++++++
+ proxy/src/dev.cpp            |   7 +-
+ proxy/src/dev.h              |   8 +-
+ proxy/tests/test_cascade.cpp |  87 ++++++++++
+ 5 files changed, 545 insertions(+), 4 deletions(-)
+ create mode 100644 proxy/src/cascade.cpp
+ create mode 100644 proxy/src/cascade.h
+ create mode 100644 proxy/tests/test_cascade.cpp
+
+diff --git a/proxy/src/cascade.cpp b/proxy/src/cascade.cpp
+new file mode 100644
+index 0000000..28be359
+--- /dev/null
++++ b/proxy/src/cascade.cpp
+@@ -0,0 +1,320 @@
++// cascade.cpp - J25 spike, not for shipping: the device half of the two-cascade prototype behind dev.cascade_proto. Route 1 variant (a): every
++// caster draw of the engine's shadow pass is drawn a second time into a near cascade target, with the near matrix in that caster's own registers.
++// Decisions (the game repo's jobs/J25/brief.md and report.md):
++//   - The engine's state is never left changed: the registers, target, depth surface, viewport and scissor are put back after each duplicate.
++//   - The bound vertex shader is read at the draw (GetVertexShader), never tracked: the pass applies 60-75 state blocks, which no Set* hook sees.
++//   - Casters are found by their own CTAB at CreateVertexShader, so an unknown shader model or register needs no table.
++//   - Receivers are swapped by hash at CreatePixelShader from <dev.cascade_dir>\<hash>.ps, each through CtabGate (fail = stock, logged).
++//   - Install before the capture, so a capture sees the engine's calls and this module's own target switches stay out of the record. The cascade's
++//     constants go through the device's vtable on purpose: a capture then records them (the density metric reads them).
++#include "dev.h"
++#include "capture.h"
++#include "cascade.h"
++#include <map>
++
++namespace wsp {
++namespace {
++
++template <typename F> F Slot(void* o, int n) { return reinterpret_cast<F>((*reinterpret_cast<void***>(o))[n]); }
++void Rel(void* o) { if (o) Slot<ULONG(WINAPI*)(void*)>(o, 2)(o); }
++struct SurfDesc { uint32_t fmt, type, usage, pool, ms, msq, w, h; };
++struct Viewport { uint32_t x, y, w, h; float minZ, maxZ; };
++
++#define ORIG(name, ...) using T_##name = HRESULT(WINAPI*)(void*, __VA_ARGS__); T_##name o_##name
++ORIG(Reset, void*);
++ORIG(CreateVertexBuffer, UINT, DWORD, DWORD, DWORD, void**, void*);
++ORIG(CreateIndexBuffer, UINT, DWORD, DWORD, DWORD, void**, void*);
++ORIG(SetRenderTarget, DWORD, void*);
++ORIG(SetDepthStencilSurface, void*);
++ORIG(Clear, DWORD, const void*, DWORD, DWORD, float, DWORD);
++ORIG(SetViewport, const Viewport*);
++ORIG(SetScissorRect, const RECT*);
++ORIG(SetTexture, DWORD, void*);
++ORIG(DrawPrimitive, DWORD, UINT, UINT);
++ORIG(DrawIndexedPrimitive, DWORD, INT, UINT, UINT, UINT, UINT);
++ORIG(DrawPrimitiveUP, DWORD, UINT, const void*, UINT);
++ORIG(DrawIndexedPrimitiveUP, DWORD, UINT, UINT, UINT, const void*, DWORD, const void*, UINT);
++ORIG(CreateVertexShader, const DWORD*, void**);
++ORIG(CreatePixelShader, const DWORD*, void**);
++ORIG(SetVertexShaderConstantF, UINT, const float*, UINT);
++using T_Lock = HRESULT(WINAPI*)(void*, UINT, UINT, void**, DWORD);
++T_Lock o_VbLock, o_IbLock;
++
++struct Keys { bool tint = false, count = false; int split = 40, size = 0; float blend = 0.05f; std::wstring dir; } s_k;
++CRITICAL_SECTION s_cs;
++struct Lock { Lock() { EnterCriticalSection(&s_cs); } ~Lock() { LeaveCriticalSection(&s_cs); } };
++
++struct Caster { int m, lz; };
++std::map<void*, Caster> s_casters;       // vertex shader object -> its registers (under s_cs)
++std::map<void*, int> s_receivers;        // pixel shader object -> 1 swapped, 2 stock (under s_cs; only with dev.cascade_count)
++std::map<uint64_t, std::string> s_swap;  // stock hash -> replacement bytecode
++
++PassTracker s_pass;
++void* s_mapSurf = nullptr; void* s_mapDepth = nullptr;   // the pass's own target and depth, held from the first caster to the pass's end
++void* s_tex = nullptr; void* s_surf = nullptr; void* s_depth = nullptr;   // the near cascade (default pool: released at Reset)
++int s_texSize = 0; uint32_t s_texFmt = 0;
++bool s_frameReady = false;                // this pass has a fit and a cleared target
++bool s_noFit = false;                     // this pass could not fit: its casters are counted, not drawn
++CascadeFit s_fit;
++std::string s_fitWhy;
++DWORD s_renderTid = 0;
++bool s_tracedPass = false, s_tracedDraw = false;
++
++struct Counts { long long frames, passes, seen, dup, unknown, nofit, lockDiscard, lockNoOver, lockOther, lockOtherThread, swappedDraws, stockDraws, swapped, refused, casters; } s_n;
++
++// Every 4-byte value on the stack that points into the exe's image: the call chain, for question 3 (candidates, not a proper unwind).
++void TraceStack(const char* what) {
++    const uintptr_t base = (uintptr_t)GetModuleHandleW(nullptr);
++    const auto* dos = (const IMAGE_DOS_HEADER*)base;
++    const auto* nt = (const IMAGE_NT_HEADERS*)(base + dos->e_lfanew);
++    const uintptr_t lo = base + nt->OptionalHeader.BaseOfCode, hi = lo + nt->OptionalHeader.SizeOfCode;
++    const auto* sp = (const uintptr_t*)__builtin_frame_address(0);
++    std::string l; int n = 0;
++    for (int i = 0; i < 1024 && n < 28; ++i) {
++        const uintptr_t v = sp[i];
++        if (v >= lo && v < hi) { char b[16]; snprintf(b, sizeof b, " %lx", (unsigned long)(v - base + nt->OptionalHeader.ImageBase)); l += b; ++n; }
++    }
++    LOGI("cascade: stack at %s:%s", what, l.c_str());
++}
++
++void ReleaseCascade() { Rel(s_surf); Rel(s_depth); Rel(s_tex); s_surf = s_depth = s_tex = nullptr; s_texSize = 0; }
++void ReleasePassRefs() { Rel(s_mapSurf); Rel(s_mapDepth); s_mapSurf = s_mapDepth = nullptr; }
++
++bool EnsureTarget(void* d, const SurfDesc& map) {
++    const int want = s_k.size > 0 ? s_k.size : (int)map.w;
++    if (s_tex && s_texSize == want && s_texFmt == map.fmt) return true;
++    ReleaseCascade();
++    auto createTex = Slot<HRESULT(WINAPI*)(void*, UINT, UINT, UINT, DWORD, DWORD, DWORD, void**, void*)>(d, 23);
++    auto createDs = Slot<HRESULT(WINAPI*)(void*, UINT, UINT, DWORD, DWORD, DWORD, BOOL, void**, void*)>(d, 29);
++    if (FAILED(createTex(d, want, want, 1, 1 /* RENDERTARGET */, map.fmt, 0 /* DEFAULT */, &s_tex, nullptr)) || !s_tex) { s_fitWhy = "cannot create the cascade target"; return false; }
++    if (FAILED(Slot<HRESULT(WINAPI*)(void*, UINT, void**)>(s_tex, 18)(s_tex, 0, &s_surf)) || !s_surf) { s_fitWhy = "no cascade surface"; return false; }
++    if (FAILED(createDs(d, want, want, 77 /* D24X8 */, 0, 0, TRUE, &s_depth, nullptr)) || !s_depth) { s_fitWhy = "cannot create the cascade depth"; return false; }
++    s_texSize = want; s_texFmt = map.fmt;
++    LOGI("cascade: target %dx%d format %u (engine map %ux%u)", want, want, map.fmt, map.w, map.h);
++    return true;
++}
++
++// The cascade's constants and sampler. Zero matrix = every pixel outside the map = stock: the state before any fit, and of a frame with none.
++void BindConstants(void* d, const float* m) {
++    static const float zero[16] = {};
++    const float params[4] = { s_texSize ? 1.0f / (float)s_texSize : 1.0f, (float)s_texSize, s_k.blend, s_k.tint ? 1.0f : 0.0f };
++    auto setPc = Slot<HRESULT(WINAPI*)(void*, UINT, const float*, UINT)>(d, 109);
++    setPc(d, 216, m ? m : zero, 4); setPc(d, 220, params, 1);
++}
++void BindSampler(void* d) {
++    auto setSs = Slot<HRESULT(WINAPI*)(void*, DWORD, DWORD, DWORD)>(d, 69);
++    setSs(d, 15, 1, 4); setSs(d, 15, 2, 4); setSs(d, 15, 3, 4); setSs(d, 15, 4, 0xFFFFFFFF);   // BORDER on all axes, white: outside the map is lit
++    setSs(d, 15, 5, 1); setSs(d, 15, 6, 1); setSs(d, 15, 7, 0); setSs(d, 15, 11, 0);           // POINT, no mips, no sRGB
++}
++
++// The first caster of a pass: read the engine's linear-z row, fit, make and clear the target. Target left as the engine's.
++void BeginCascadeFrame(void* d, const Caster& c) {
++    s_noFit = true;
++    float cam[3], tgt[3], lz[12]; std::string why;
++    if (!CameraRead(8, 0x14, cam, tgt, why)) { s_fitWhy = why; return; }
++    if (FAILED(Slot<HRESULT(WINAPI*)(void*, UINT, float*, UINT)>(d, 95)(d, c.lz, lz, 3))) { s_fitWhy = "GetVertexShaderConstantF"; return; }
++    if (FAILED(Slot<HRESULT(WINAPI*)(void*, DWORD, void**)>(d, 38)(d, 0, &s_mapSurf)) || !s_mapSurf) { s_fitWhy = "GetRenderTarget"; return; }
++    if (FAILED(Slot<HRESULT(WINAPI*)(void*, void**)>(d, 40)(d, &s_mapDepth)) || !s_mapDepth) { s_fitWhy = "GetDepthStencilSurface"; return; }
++    SurfDesc md{};
++    if (FAILED(Slot<HRESULT(WINAPI*)(void*, SurfDesc*)>(s_mapSurf, 12)(s_mapSurf, &md)) || !EnsureTarget(d, md)) return;
++    const float tanHalfY = 0.70020753f, aspect = 16.0f / 9.0f;   // 70.0 degrees vertical (fact napoleon.battle.camera_route); 16:9 at every measured size
++    s_fit = FitCascade(cam, tgt, lz + 8, 0.0005f, tanHalfY, aspect, 1.0f, (float)s_k.split, s_texSize);
++    if (!s_fit.ok) { s_fitWhy = "FitCascade refused"; return; }
++    o_SetTexture(d, 15, nullptr);   // the target is about to be written: it must not stay bound as a texture
++    o_SetRenderTarget(d, 0, s_surf); o_SetDepthStencilSurface(d, s_depth);
++    o_Clear(d, 0, nullptr, 3, 0xFFFFFFFF, 1.0f, 0);
++    o_SetRenderTarget(d, 0, s_mapSurf); o_SetDepthStencilSurface(d, s_mapDepth);
++    s_noFit = false; s_fitWhy.clear();
++}
++
++template <class Draw> HRESULT Dup(void* d, Draw draw) {
++    const HRESULT hr = draw();
++    if (!s_pass.in) {
++        if (s_k.count) {
++            void* ps = nullptr;
++            if (SUCCEEDED(Slot<HRESULT(WINAPI*)(void*, void**)>(d, 108)(d, &ps)) && ps) {
++                { Lock l; auto it = s_receivers.find(ps); if (it != s_receivers.end()) ++(it->second == 1 ? s_n.swappedDraws : s_n.stockDraws); }
++                Rel(ps);
++            }
++        }
++        return hr;
++    }
++    ++s_n.seen;
++    void* vs = nullptr; Caster c{ -1, -1 };
++    if (SUCCEEDED(Slot<HRESULT(WINAPI*)(void*, void**)>(d, 93)(d, &vs)) && vs) {
++        { Lock l; auto it = s_casters.find(vs); if (it != s_casters.end()) c = it->second; }
++        Rel(vs);
++    }
++    if (c.m < 0) { ++s_n.unknown; return hr; }
++    if (!s_frameReady) { BeginCascadeFrame(d, c); s_frameReady = true; }
++    if (!s_tracedDraw && !s_noFit) { s_tracedDraw = true; TraceStack("first caster draw"); }
++    if (s_noFit) { ++s_n.nofit; return hr; }
++    Viewport vp{}; RECT sc{}; float saved[16];
++    Slot<HRESULT(WINAPI*)(void*, Viewport*)>(d, 48)(d, &vp);
++    Slot<HRESULT(WINAPI*)(void*, RECT*)>(d, 76)(d, &sc);
++    Slot<HRESULT(WINAPI*)(void*, UINT, float*, UINT)>(d, 95)(d, c.m, saved, 4);
++    o_SetRenderTarget(d, 0, s_surf); o_SetDepthStencilSurface(d, s_depth);
++    o_SetVertexShaderConstantF(d, c.m, s_fit.clip, 4);
++    if (SUCCEEDED(draw())) ++s_n.dup;
++    o_SetVertexShaderConstantF(d, c.m, saved, 4);
++    o_SetRenderTarget(d, 0, s_mapSurf); o_SetDepthStencilSurface(d, s_mapDepth);
++    o_SetViewport(d, &vp); o_SetScissorRect(d, &sc);
++    return hr;
++}
++
++HRESULT WINAPI hk_DrawPrimitive(void* d, DWORD t, UINT s, UINT n) { return Dup(d, [&] { return o_DrawPrimitive(d, t, s, n); }); }
++HRESULT WINAPI hk_DrawIndexedPrimitive(void* d, DWORD t, INT b, UINT mn, UINT nv, UINT si, UINT pc) { return Dup(d, [&] { return o_DrawIndexedPrimitive(d, t, b, mn, nv, si, pc); }); }
++HRESULT WINAPI hk_DrawPrimitiveUP(void* d, DWORD t, UINT n, const void* v, UINT st) { return Dup(d, [&] { return o_DrawPrimitiveUP(d, t, n, v, st); }); }
++HRESULT WINAPI hk_DrawIndexedPrimitiveUP(void* d, DWORD t, UINT mn, UINT nv, UINT pc, const void* ix, DWORD f, const void* v, UINT st) { return Dup(d, [&] { return o_DrawIndexedPrimitiveUP(d, t, mn, nv, pc, ix, f, v, st); }); }
++
++HRESULT WINAPI hk_SetRenderTarget(void* d, DWORD i, void* s) {
++    if (i == 0) {
++        bool isMap = false;
++        SurfDesc sd{};
++        if (s && SUCCEEDED(Slot<HRESULT(WINAPI*)(void*, SurfDesc*)>(s, 12)(s, &sd))) isMap = IsShadowMapDesc(sd.fmt, sd.usage, sd.w, sd.h);
++        const PassStep st = s_pass.OnRenderTarget0(isMap);
++        if (st == PassStep::begin) {
++            s_renderTid = GetCurrentThreadId(); s_frameReady = false; s_noFit = false; ++s_n.passes;
++            if (!s_tracedPass) { s_tracedPass = true; TraceStack("shadow pass begin"); }
++        } else if (st == PassStep::end) {
++            const bool drew = s_frameReady && !s_noFit;
++            ReleasePassRefs();
++            const HRESULT hr = o_SetRenderTarget(d, i, s);
++            if (drew) {
++                Slot<HRESULT(WINAPI*)(void*, DWORD, void*)>(d, 65)(d, 15, s_tex);
++                BindSampler(d); BindConstants(d, s_fit.recv);
++            } else BindConstants(d, nullptr);
++            return hr;
++        }
++    }
++    return o_SetRenderTarget(d, i, s);
++}
++HRESULT WINAPI hk_SetDepthStencilSurface(void* d, void* s) { return o_SetDepthStencilSurface(d, s); }
++HRESULT WINAPI hk_Clear(void* d, DWORD n, const void* r, DWORD f, DWORD c, float z, DWORD st) { return o_Clear(d, n, r, f, c, z, st); }
++HRESULT WINAPI hk_SetViewport(void* d, const Viewport* v) { return o_SetViewport(d, v); }
++HRESULT WINAPI hk_SetScissorRect(void* d, const RECT* r) { return o_SetScissorRect(d, r); }
++HRESULT WINAPI hk_SetTexture(void* d, DWORD st, void* t) { return o_SetTexture(d, st, t); }
++HRESULT WINAPI hk_SetVertexShaderConstantF(void* d, UINT s, const float* v, UINT n) { return o_SetVertexShaderConstantF(d, s, v, n); }
++
++HRESULT WINAPI hk_Reset(void* d, void* pp) {
++    ReleasePassRefs(); ReleaseCascade();   // default-pool resources: the Reset fails while any is alive
++    s_pass.in = false; s_frameReady = false;
++    const HRESULT hr = o_Reset(d, pp);
++    if (SUCCEEDED(hr)) BindConstants(d, nullptr);
++    LOGI("cascade: Reset hr 0x%08lx, the target is recreated at the next pass", (unsigned long)hr);
++    return hr;
++}
++
++HRESULT WINAPI hk_CreateVertexShader(void* d, const DWORD* code, void** out) {
++    const HRESULT hr = o_CreateVertexShader(d, code, out);
++    if (FAILED(hr) || !out || !*out) return hr;
++    const size_t len = ShaderLength(reinterpret_cast<const uint32_t*>(code), 1u << 20);
++    const auto t = ReadCtab(code, len);
++    const CtabEntry* m = FindConst(t, "shadow_map_projection_matrix");
++    const CtabEntry* z = FindConst(t, "linear_z_shadow_map_projection_matrix");
++    Lock l;
++    s_casters.erase(*out);   // an object address can be reused by a later shader
++    if (m && z) { s_casters[*out] = Caster{ (int)m->index, (int)z->index }; ++s_n.casters; }
++    return hr;
++}
++
++HRESULT WINAPI hk_CreatePixelShader(void* d, const DWORD* code, void** out) {
++    size_t len = 0; bool ok = false;
++    const uint64_t h = ShaderHash(code, 1u << 20, len, ok);
++    const std::string* repl = nullptr;
++    const auto stock = ok ? ReadCtab(code, len) : std::vector<CtabEntry>();
++    const bool receiver = FindConst(stock, "shadow_map_texture_sampler") != nullptr;
++    if (ok && receiver) {
++        auto it = s_swap.find(h);
++        if (it != s_swap.end()) {
++            std::string why;
++            if (CtabGate(stock, ReadCtab(it->second.data(), it->second.size()), why)) repl = &it->second;
++            else { ++s_n.refused; LOGE("cascade: swap refused for %s: %s", Hex64(h).c_str(), why.c_str()); }
++        } else LOGW("cascade: receiver %s has no replacement: stock", Hex64(h).c_str());
++    }
++    const HRESULT hr = o_CreatePixelShader(d, repl ? reinterpret_cast<const DWORD*>(repl->data()) : code, out);
++    if (SUCCEEDED(hr) && out && *out) {
++        Lock l;
++        s_receivers.erase(*out);
++        if (receiver) s_receivers[*out] = repl ? 1 : 2;
++        if (repl) { ++s_n.swapped; LOGI("cascade: swapped %s (%zu -> %zu bytes)", Hex64(h).c_str(), len, repl->size()); }
++    }
++    return hr;
++}
++
++void CountLock(DWORD flags) {
++    if (!s_pass.in) return;
++    if (GetCurrentThreadId() != s_renderTid) { ++s_n.lockOtherThread; return; }
++    ++(flags & 0x2000 ? s_n.lockDiscard : flags & 0x1000 ? s_n.lockNoOver : s_n.lockOther);
++}
++HRESULT WINAPI hk_VbLock(void* b, UINT o, UINT n, void** p, DWORD f) { CountLock(f); return o_VbLock(b, o, n, p, f); }
++HRESULT WINAPI hk_IbLock(void* b, UINT o, UINT n, void** p, DWORD f) { CountLock(f); return o_IbLock(b, o, n, p, f); }
++HRESULT WINAPI hk_CreateVertexBuffer(void* d, UINT n, DWORD u, DWORD f, DWORD p, void** o, void* h) {
++    const HRESULT hr = o_CreateVertexBuffer(d, n, u, f, p, o, h);
++    if (SUCCEEDED(hr) && o && *o && !o_VbLock) VtableHook(*(void***)*o, 11, (void*)hk_VbLock, (void**)&o_VbLock, "IDirect3DVertexBuffer9::Lock");
++    return hr;
++}
++HRESULT WINAPI hk_CreateIndexBuffer(void* d, UINT n, DWORD u, DWORD f, DWORD p, void** o, void* h) {
++    const HRESULT hr = o_CreateIndexBuffer(d, n, u, f, p, o, h);
++    if (SUCCEEDED(hr) && o && *o && !o_IbLock) VtableHook(*(void***)*o, 11, (void*)hk_IbLock, (void**)&o_IbLock, "IDirect3DIndexBuffer9::Lock");
++    return hr;
++}
++
++void LoadSwaps() {
++    if (s_k.dir.empty()) { LOGW("cascade: dev.cascade_dir is empty: no receiver is swapped"); return; }
++    std::wstring root = s_k.dir; if (root.back() != L'\\') root += L'\\';
++    WIN32_FIND_DATAW fd; HANDLE h = FindFirstFileW((root + L"*.ps").c_str(), &fd);
++    if (h == INVALID_HANDLE_VALUE) { LOGW("cascade: no replacements in %ls", root.c_str()); return; }
++    do {
++        const std::string name = Narrow(fd.cFileName);
++        std::string bytes;
++        if (name.size() == 19 && ReadFileBytes(root + fd.cFileName, bytes)) s_swap[strtoull(name.substr(0, 16).c_str(), nullptr, 16)] = bytes;
++    } while (FindNextFileW(h, &fd));
++    FindClose(h);
++    LOGI("cascade: %zu replacements from %ls", s_swap.size(), root.c_str());
++}
++
++} // namespace
++
++void CascadeInit() {
++    const Runtime& rt = Rt();
++    InitializeCriticalSection(&s_cs);
++    s_k.tint = rt.cfg.Bool("dev.cascade_tint"); s_k.count = rt.cfg.Bool("dev.cascade_count");
++    if (rt.cfg.Int("dev.cascade_split") > 0) s_k.split = (int)rt.cfg.Int("dev.cascade_split");
++    s_k.size = (int)rt.cfg.Int("dev.cascade_size");
++    s_k.dir = WidenUtf8(rt.cfg.Str("dev.cascade_dir"));
++    LOGI("cascade: prototype on: split %d m, size %d (0 = the engine map's), tint %d, count %d", s_k.split, s_k.size, s_k.tint, s_k.count);
++    LoadSwaps();
++}
++
++void CascadeInstall(void* dev) {
++    void** vt = *(void***)dev;
++    struct H { int slot; void* hk; void** orig; const char* name; } hs[] = {
++        { 16, (void*)hk_Reset, (void**)&o_Reset, "Reset" }, { 26, (void*)hk_CreateVertexBuffer, (void**)&o_CreateVertexBuffer, "CreateVertexBuffer" },
++        { 27, (void*)hk_CreateIndexBuffer, (void**)&o_CreateIndexBuffer, "CreateIndexBuffer" }, { 37, (void*)hk_SetRenderTarget, (void**)&o_SetRenderTarget, "SetRenderTarget" },
++        { 39, (void*)hk_SetDepthStencilSurface, (void**)&o_SetDepthStencilSurface, "SetDepthStencilSurface" }, { 43, (void*)hk_Clear, (void**)&o_Clear, "Clear" },
++        { 47, (void*)hk_SetViewport, (void**)&o_SetViewport, "SetViewport" }, { 65, (void*)hk_SetTexture, (void**)&o_SetTexture, "SetTexture" },
++        { 75, (void*)hk_SetScissorRect, (void**)&o_SetScissorRect, "SetScissorRect" }, { 81, (void*)hk_DrawPrimitive, (void**)&o_DrawPrimitive, "DrawPrimitive" },
++        { 82, (void*)hk_DrawIndexedPrimitive, (void**)&o_DrawIndexedPrimitive, "DrawIndexedPrimitive" }, { 83, (void*)hk_DrawPrimitiveUP, (void**)&o_DrawPrimitiveUP, "DrawPrimitiveUP" },
++        { 84, (void*)hk_DrawIndexedPrimitiveUP, (void**)&o_DrawIndexedPrimitiveUP, "DrawIndexedPrimitiveUP" }, { 91, (void*)hk_CreateVertexShader, (void**)&o_CreateVertexShader, "CreateVertexShader" },
++        { 94, (void*)hk_SetVertexShaderConstantF, (void**)&o_SetVertexShaderConstantF, "SetVertexShaderConstantF" }, { 106, (void*)hk_CreatePixelShader, (void**)&o_CreatePixelShader, "CreatePixelShader" },
++    };
++    int ok = 0;
++    for (const H& h : hs) {
++        char n[64]; snprintf(n, sizeof n, "IDirect3DDevice9::%s (cascade)", h.name);
++        if (vt[h.slot] == h.hk) { ++ok; continue; }
++        if (VtableHook(vt, h.slot, h.hk, *h.orig ? nullptr : h.orig, n)) ++ok;
++    }
++    BindConstants(dev, nullptr);
++    LOGI("cascade: %d of %d device slots hooked", ok, (int)(sizeof hs / sizeof hs[0]));
++}
++
++void CascadePresent() {
++    if (++s_n.frames % 300) return;
++    LOGI("cascade: frames %lld passes %lld casters seen %lld dup %lld unknown %lld nofit %lld (%s) locks in pass discard %lld nooverwrite %lld other %lld otherthread %lld "
++         "receivers created swapped %lld refused %lld, draws swapped %lld stock %lld; vs casters %lld; fit r %.3f texel %.5f c (%.3f, %.3f) t %.3f",
++         s_n.frames, s_n.passes, s_n.seen, s_n.dup, s_n.unknown, s_n.nofit, s_fitWhy.c_str(), s_n.lockDiscard, s_n.lockNoOver, s_n.lockOther, s_n.lockOtherThread,
++         s_n.swapped, s_n.refused, s_n.swappedDraws, s_n.stockDraws, s_n.casters, s_fit.radius, s_fit.texelM, s_fit.cx, s_fit.cy, s_fit.tSlice);
++}
++
++} // namespace wsp
+diff --git a/proxy/src/cascade.h b/proxy/src/cascade.h
+new file mode 100644
+index 0000000..929fd19
+--- /dev/null
++++ b/proxy/src/cascade.h
+@@ -0,0 +1,127 @@
++#pragma once
++// J25 spike, not for shipping: the pure half of the two-cascade prototype (no Windows headers; host tests in proxy/tests/test_cascade.cpp).
++//   - CTAB reader and the swap gate: a replacement keeps every stock constant and sampler in its stock register, or it is refused
++//   - the pass recogniser: which SetRenderTarget(0, ...) begins and ends the shadow pass
++//   - the near cascade's fit: a bounding sphere of the frustum slice, snapped to whole texels so it does not shimmer
++// Registers (read from the captures, run 20261106_j25pc): one register per output component, so c[base + i] is output i's row.
++#include <cmath>
++#include <cstdint>
++#include <cstring>
++#include <string>
++#include <vector>
++
++namespace wsp {
++
++struct CtabEntry { std::string name; unsigned set = 0, index = 0, count = 0; };   // set: 0 bool, 1 int, 2 float, 3 sampler
++
++// The constant table of a shader's bytecode; empty when it has none. Bounds-checked: bytecode comes from the engine or from a file.
++inline std::vector<CtabEntry> ReadCtab(const void* code, size_t bytes) {
++    std::vector<CtabEntry> out;
++    const auto* b = static_cast<const uint8_t*>(code);
++    auto u32 = [&](size_t o) { uint32_t v; memcpy(&v, b + o, 4); return v; };
++    auto u16 = [&](size_t o) { uint16_t v; memcpy(&v, b + o, 2); return v; };
++    size_t o = 4;
++    while (o + 8 <= bytes) {
++        const uint32_t tok = u32(o);
++        if ((tok & 0xFFFF) != 0xFFFE) break;
++        const size_t len = 4 * (size_t)((tok >> 16) & 0x7FFF);
++        if (o + 4 + len > bytes) break;
++        if (len >= 32 && memcmp(b + o + 4, "CTAB", 4) == 0) {
++            const size_t base = o + 8, end = o + 4 + len;
++            const uint32_t n = u32(base + 12), info = u32(base + 16);
++            for (uint32_t i = 0; i < n; ++i) {
++                const size_t e = base + info + 20 * (size_t)i;
++                if (e + 20 > end) break;
++                const size_t nm = base + u32(e);
++                if (nm >= end) break;
++                CtabEntry c;
++                for (size_t p = nm; p < end && b[p]; ++p) c.name += (char)b[p];
++                c.set = u16(e + 4); c.index = u16(e + 6); c.count = u16(e + 8);
++                out.push_back(c);
++            }
++            return out;
++        }
++        o += 4 + len;
++    }
++    return out;
++}
++
++inline const CtabEntry* FindConst(const std::vector<CtabEntry>& t, const char* name) {
++    for (const CtabEntry& c : t) if (c.name == name) return &c;
++    return nullptr;
++}
++
++// The brief's gate: fail = no swap. The engine uploads by the registers of its own stock compile, so a moved register reads garbage.
++inline bool CtabGate(const std::vector<CtabEntry>& stock, const std::vector<CtabEntry>& repl, std::string& why) {
++    if (stock.empty()) { why = "the stock shader has no CTAB"; return false; }
++    for (const CtabEntry& s : stock) {
++        const CtabEntry* r = FindConst(repl, s.name.c_str());
++        if (!r) { why = s.name + " is gone"; return false; }
++        if (r->set != s.set || r->index != s.index || r->count < s.count) { why = s.name + " moved"; return false; }
++    }
++    if (!FindConst(repl, "cascade0_matrix")) { why = "no cascade code in the replacement"; return false; }
++    for (const CtabEntry& r : repl)
++        if (!FindConst(stock, r.name.c_str()) && r.name.rfind("cascade0_", 0) != 0) { why = "new constant " + r.name; return false; }
++    return true;
++}
++
++// D3DFMT_R16F 111, D3DFMT_R32F 114: the software path's map (fact napoleon.shadow.map); square, and a render target.
++inline bool IsShadowMapDesc(uint32_t fmt, uint32_t usage, uint32_t w, uint32_t h) {
++    return (fmt == 111 || fmt == 114) && (usage & 1) && w == h && w >= 512;
++}
++
++enum class PassStep { none, begin, end };
++struct PassTracker {
++    bool in = false; long passes = 0;
++    PassStep OnRenderTarget0(bool isMap) {
++        if (isMap && !in) { in = true; ++passes; return PassStep::begin; }
++        if (!isMap && in) { in = false; return PassStep::end; }
++        return PassStep::none;
++    }
++};
++
++struct CascadeFit {
++    bool ok = false;
++    float clip[16] = {};   // caster: replaces shadow_map_projection_matrix; row 2 is unused (the shader writes linear z into position.z)
++    float recv[16] = {};   // receiver: world -> (u, v, linear z, 1)
++    float cx = 0, cy = 0, radius = 0, texelM = 0, tSlice = 0;
++};
++
++inline float Dot3(const float* a, const float* b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
++inline void Cross3(const float* a, const float* b, float* o) { o[0] = a[1] * b[2] - a[2] * b[1]; o[1] = a[2] * b[0] - a[0] * b[2]; o[2] = a[0] * b[1] - a[1] * b[0]; }
++inline bool Norm3(float* v) { const float l = std::sqrt(Dot3(v, v)); if (!(l > 1e-12f)) return false; v[0] /= l; v[1] /= l; v[2] /= l; return true; }
++
++// cam, target: the camera. lzRow2: the engine's linear-z row (world -> depth, its xyz is the light direction scaled, w the offset), read from the
++// casters' upload, so depth stays the engine's and the receivers' compare keeps its meaning. bias: the receivers' depth bias in that unit (the
++// receiver's row differs from the caster's by exactly this: 0.0005, field +0xf4). tanHalfY, aspect: the view; nearD, splitD: the slice in metres.
++// The radius depends only on the slice and the view, never on the camera's direction, so turning the camera cannot change the texel size.
++inline CascadeFit FitCascade(const float cam[3], const float target[3], const float lzRow2[4], float bias, float tanHalfY, float aspect, float nearD, float splitD, int size) {
++    CascadeFit f;
++    float fwd[3] = { target[0] - cam[0], target[1] - cam[1], target[2] - cam[2] };
++    float z[3] = { lzRow2[0], lzRow2[1], lzRow2[2] };
++    if (!Norm3(fwd) || !Norm3(z) || size < 2 || !(splitD > nearD) || !(tanHalfY > 0) || !(aspect > 0)) return f;
++    const float up[3] = { 0, 1, 0 };
++    float x[3], y[3];
++    Cross3(up, z, x);
++    if (!Norm3(x)) { const float alt[3] = { 1, 0, 0 }; Cross3(alt, z, x); if (!Norm3(x)) return f; }
++    Cross3(z, x, y);
++    const float tx = tanHalfY * aspect, k2 = tx * tx + tanHalfY * tanHalfY;
++    float t = 0.5f * (nearD + splitD) * (1 + k2);   // the smallest sphere through both end rings of the slice; past the far ring, the far ring's own
++    if (t > splitD) t = splitD;
++    const float dn = t - nearD, df = splitD - t;
++    const float r = std::sqrt(std::fmax(dn * dn + k2 * nearD * nearD, df * df + k2 * splitD * splitD));
++    const float c[3] = { cam[0] + fwd[0] * t, cam[1] + fwd[1] * t, cam[2] + fwd[2] * t };
++    const float texel = 2 * r / (float)size;
++    const float cx = std::round(Dot3(c, x) / texel) * texel, cy = std::round(Dot3(c, y) / texel) * texel;
++    const float half = 0.5f / (float)size;   // the map's texel centre: the engine's receiver matrix carries the same term
++    for (int i = 0; i < 3; ++i) {
++        f.clip[i] = x[i] / r; f.clip[4 + i] = y[i] / r;
++        f.recv[i] = 0.5f * x[i] / r; f.recv[4 + i] = -0.5f * y[i] / r; f.recv[8 + i] = lzRow2[i];
++    }
++    f.clip[3] = -cx / r; f.clip[7] = -cy / r; f.clip[15] = 1;
++    f.recv[3] = -0.5f * cx / r + 0.5f + half; f.recv[7] = 0.5f * cy / r + 0.5f + half; f.recv[11] = lzRow2[3] - bias; f.recv[15] = 1;
++    f.cx = cx; f.cy = cy; f.radius = r; f.texelM = texel; f.tSlice = t; f.ok = true;
++    return f;
++}
++
++} // namespace wsp
+diff --git a/proxy/src/dev.cpp b/proxy/src/dev.cpp
+index 27dac47..c9cc3b3 100644
+--- a/proxy/src/dev.cpp
++++ b/proxy/src/dev.cpp
+@@ -115,13 +115,14 @@ std::string StateJson() {   // s_cs held
+ using PFN_CreateDevice = HRESULT(WINAPI*)(void*, UINT, int, HWND, DWORD, void*, void**);
+ using PFN_Present = HRESULT(WINAPI*)(void*, const RECT*, const RECT*, HWND, const void*);
+ PFN_CreateDevice o_CreateDevice; PFN_Present o_Present;
+-HRESULT WINAPI hk_Present(void* dev, const RECT* a, const RECT* b, HWND w, const void* r) { DevPresent(); if (Dk().capture) CapturePresent(dev); if (Dk().orders) OrdersPresent(); return o_Present(dev, a, b, w, r); }
++HRESULT WINAPI hk_Present(void* dev, const RECT* a, const RECT* b, HWND w, const void* r) { DevPresent(); if (Dk().cascade) CascadePresent(); if (Dk().capture) CapturePresent(dev); if (Dk().orders) OrdersPresent(); return o_Present(dev, a, b, w, r); }
+ HRESULT WINAPI hk_CreateDevice(void* d3d, UINT ad, int type, HWND w, DWORD flags, void* pp, void** out) {
+     const HRESULT hr = o_CreateDevice(d3d, ad, type, w, flags, pp, out);
+     char d[80]; snprintf(d, sizeof d, "hr 0x%08lx flags 0x%lx", (unsigned long)hr, flags);
+     TlMarkOnce("device_created", d);
+     if (SUCCEEDED(hr) && out && *out) {
+         VtableHook(*(void***)*out, 17, (void*)hk_Present, (void**)&o_Present, "IDirect3DDevice9::Present");
++        if (Dk().cascade) CascadeInstall(*out);   // first: a capture then wraps it and records the engine's calls only
+         CaptureInstall(*out);   // no-op with dev.capture=0
+     }
+     return hr;
+@@ -625,6 +626,7 @@ void DevInit() {
+     k.camera = rt.cfg.Bool("dev.camera");
+     k.capture = rt.cfg.Bool("dev.capture");
+     k.orders = rt.cfg.Bool("dev.orders");
++    k.cascade = rt.cfg.Bool("dev.cascade_proto");
+     k.captureDir = WidenUtf8(rt.cfg.Str("dev.capture_dir"));
+     k.fileRules = WidenUtf8(rt.cfg.Str("dev.file_rules"));
+     k.ctlDir = WidenUtf8(rt.cfg.Str("dev.ctl_dir"));
+@@ -648,6 +650,7 @@ void DevInit() {
+     CameraInit(k.camera, Adapter().camera);
+     OrdersInit(k.orders, Adapter().orders);
+     if (k.capture) CaptureInit();
++    if (k.cascade) CascadeInit();
+ 
+     std::vector<FileRule> rules;
+     if (k.skipIntro) for (const char* const* m = ad->introMovies; m && *m; ++m) rules.push_back(MakeRule(RuleSpace::Movie, RuleAct::Fail, *m, "", "dev.skip_intro"));
+@@ -663,7 +666,7 @@ void DevInit() {
+         else { std::vector<std::string> w; auto more = ParseRules(text, w); for (auto& x : w) LOGW("redirect: %ls: %s", p.c_str(), x.c_str()); rules.insert(rules.end(), more.begin(), more.end()); LOGI("redirect: %zu rules from %ls", more.size(), p.c_str()); }
+     }
+     FilesInit(rules);
+-    s_frames = k.timeline || k.stateJson || k.ctl || k.capture || !k.autostart.empty();
++    s_frames = k.timeline || k.stateJson || k.ctl || k.capture || k.cascade || !k.autostart.empty();
+     if (k.autostart.size()) s_autostartStatus = "waiting for the front end";
+     if (HANDLE h = CreateThread(nullptr, 0, StateThread, nullptr, 0, nullptr)) CloseHandle(h);
+     if (k.ctl || !k.autostart.empty()) {
+diff --git a/proxy/src/dev.h b/proxy/src/dev.h
+index 5c153d4..67b65b1 100644
+--- a/proxy/src/dev.h
++++ b/proxy/src/dev.h
+@@ -11,11 +11,11 @@
+ namespace wsp {
+ 
+ struct DevKeys {
+-    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false, console = false, perf = false, camera = false, capture = false, orders = false;
++    bool timeline = false, logFiles = false, skipIntro = false, stateJson = false, luaBridge = false, ctl = false, console = false, perf = false, camera = false, capture = false, orders = false, cascade = false;
+     std::wstring fileRules, ctlDir, captureDir;
+     std::string autostart;
+     int autostartDelayMs = 1500;
+-    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || console || perf || camera || capture || orders || !fileRules.empty() || !autostart.empty(); }
++    bool Any() const { return timeline || logFiles || skipIntro || stateJson || luaBridge || ctl || console || perf || camera || capture || orders || cascade || !fileRules.empty() || !autostart.empty(); }
+ };
+ DevKeys& Dk();
+ bool DevActive();
+@@ -64,6 +64,10 @@ bool OrdersGroundAt(float x, float z, float& y, std::string& why);   // W6: the
+ std::string OrdersInfo();                             // install state, the owner path's pointers, the thread ids
+ 
+ // capture.cpp (J8): the frame capture behind dev.capture; decisions in its header
++// cascade.cpp (J25 spike): the two-cascade prototype behind dev.cascade_proto; decisions in its header
++void CascadeInit();                                   // DevInit
++void CascadeInstall(void* device);                    // every CreateDevice, before the capture
++void CascadePresent();                                // the render thread, every Present
+ void CaptureInit();                                   // DevInit: the capture folder
+ void CaptureInstall(void* device);                    // every CreateDevice: hooks the device's vtable slots (no-op with dev.capture=0)
+ void CapturePresent(void* device);                    // the render thread, every Present, before the real one
+diff --git a/proxy/tests/test_cascade.cpp b/proxy/tests/test_cascade.cpp
+new file mode 100644
+index 0000000..1ec9a37
+--- /dev/null
++++ b/proxy/tests/test_cascade.cpp
+@@ -0,0 +1,87 @@
++// test_cascade.cpp - J25 spike: host tests for the prototype's pure half: the CTAB reader and swap gate, the pass recogniser on the recorded call
++// shape of a captured frame, and the cascade fit (the texel snap, turning the camera, the receiver against the caster).
++#include "testkit.h"
++#include "cascade.h"
++#include <vector>
++
++using namespace wsp;
++
++// A minimal shader: version token, one CTAB comment, end token.
++static std::vector<uint32_t> Shader(const std::vector<CtabEntry>& cs) {
++    std::vector<uint8_t> t(28 + 20 * cs.size(), 0);
++    auto put = [&](size_t o, uint32_t v) { memcpy(&t[o], &v, 4); };
++    auto put16 = [&](size_t o, uint16_t v) { memcpy(&t[o], &v, 2); };
++    put(12, (uint32_t)cs.size()); put(16, 28);
++    for (size_t i = 0; i < cs.size(); ++i) {
++        const size_t e = 28 + 20 * i, nm = t.size();
++        put(e, (uint32_t)nm); put16(e + 4, (uint16_t)cs[i].set); put16(e + 6, (uint16_t)cs[i].index); put16(e + 8, (uint16_t)cs[i].count);
++        t.insert(t.end(), cs[i].name.begin(), cs[i].name.end()); t.push_back(0);
++    }
++    while (t.size() % 4) t.push_back(0);
++    std::vector<uint32_t> s; s.push_back(0xFFFF0300);
++    s.push_back(0xFFFE | (uint32_t)((t.size() / 4 + 1) << 16)); s.push_back(0x42415443);   // 'CTAB'
++    const size_t at = s.size(); s.resize(at + t.size() / 4); memcpy(&s[at], t.data(), t.size());
++    s.push_back(0x0000FFFF);
++    return s;
++}
++static std::vector<CtabEntry> Read(const std::vector<uint32_t>& s) { return ReadCtab(s.data(), s.size() * 4); }
++
++int main() {
++    const std::vector<CtabEntry> stock = { { "camera_position", 2, 11, 1 }, { "shadow_map_texture_sampler", 3, 1, 1 } };
++    auto parsed = Read(Shader(stock));
++    tk::Check(parsed.size() == 2 && parsed[0].name == "camera_position" && parsed[0].index == 11 && parsed[1].set == 3, "CTAB read back");
++    tk::Check(ReadCtab(Shader(stock).data(), 8).empty(), "a cut stream gives no table, and no read past it");
++
++    auto with = stock; with.push_back({ "cascade0_matrix", 2, 216, 4 }); with.push_back({ "cascade0_sampler", 3, 15, 1 });
++    std::string why;
++    tk::Check(CtabGate(Read(Shader(stock)), Read(Shader(with)), why), "a replacement keeping every register passes");
++    auto moved = with; moved[0].index = 12;
++    tk::Check(!CtabGate(Read(Shader(stock)), Read(Shader(moved)), why) && why == "camera_position moved", "a moved constant is refused");
++    auto gone = with; gone.erase(gone.begin());
++    tk::Check(!CtabGate(Read(Shader(stock)), Read(Shader(gone)), why), "a lost constant is refused");
++    tk::Check(!CtabGate(Read(Shader(stock)), Read(Shader(stock)), why) && why == "no cascade code in the replacement", "a replacement the macro never reached is refused");
++    auto extra = with; extra.push_back({ "something_else", 2, 100, 1 });
++    tk::Check(!CtabGate(Read(Shader(stock)), Read(Shader(extra)), why), "an unknown new constant is refused");
++
++    tk::Check(IsShadowMapDesc(111, 1, 2048, 2048) && IsShadowMapDesc(114, 1, 8192, 8192), "R16F and R32F square targets are the map");
++    tk::Check(!IsShadowMapDesc(21, 1, 2048, 2048) && !IsShadowMapDesc(111, 0, 2048, 2048) && !IsShadowMapDesc(111, 1, 1920, 1080), "other targets are not");
++
++    // the recorded shape (run 20261106_j25pc): map, then the 960 reflection target, then the back buffer chain; a repeated set is not a new pass
++    PassTracker p;
++    tk::Check(p.OnRenderTarget0(false) == PassStep::none, "before the pass");
++    tk::Check(p.OnRenderTarget0(true) == PassStep::begin && p.OnRenderTarget0(true) == PassStep::none, "the pass begins once");
++    tk::Check(p.OnRenderTarget0(false) == PassStep::end && p.OnRenderTarget0(false) == PassStep::none, "the pass ends once");
++    tk::Check(p.OnRenderTarget0(true) == PassStep::begin && p.passes == 2, "the next frame's pass");
++
++    const float lz[4] = { 5.99e-11f, -0.00161340262f, 0.0025127253f, -0.0627065003f };   // captured, land_40 deploy
++    const float cam[3] = { -0.08f, 61.39f, 451.38f }, tgt[3] = { -0.08f, 40.0f, 405.0f };
++    const float th = 0.70020753f, as = 16.0f / 9.0f;
++    CascadeFit f = FitCascade(cam, tgt, lz, 0.0005f, th, as, 1, 40, 2048);
++    tk::Check(f.ok && f.radius > 50 && f.radius < 60, "a 40 m slice at 70 degrees has a radius near 57 m");
++    tk::Check(std::fabs(f.texelM - 2 * f.radius / 2048) < 1e-6f, "the texel is the diameter over the size");
++
++    // the world point at the fit's centre lands mid-map, and the receiver is the caster plus the texel-centre term
++    auto apply = [](const float* m, int row, const float* w) { return m[4 * row] * w[0] + m[4 * row + 1] * w[1] + m[4 * row + 2] * w[2] + m[4 * row + 3]; };
++    const float w[3] = { 3.0f, 20.0f, 420.0f };
++    const float nx = apply(f.clip, 0, w), ny = apply(f.clip, 1, w), u = apply(f.recv, 0, w), v = apply(f.recv, 1, w);
++    tk::Check(std::fabs(u - (0.5f * nx + 0.5f + 0.5f / 2048)) < 1e-5f && std::fabs(v - (-0.5f * ny + 0.5f + 0.5f / 2048)) < 1e-5f, "receiver uv is the caster's clip position");
++    const float zc = lz[0] * w[0] + lz[1] * w[1] + lz[2] * w[2] + lz[3];
++    tk::Check(std::fabs(apply(f.recv, 2, w) - (zc - 0.0005f)) < 1e-6f, "receiver depth is the engine's row less the bias");
++    tk::Check(f.clip[15] == 1 && f.clip[12] == 0 && f.clip[13] == 0 && f.clip[14] == 0, "orthographic: w is 1");
++
++    // shimmer: the snapped centre stays on the texel grid while the camera slides, and moves by whole texels only
++    for (int i = 0; i < 200; ++i) {
++        const float c2[3] = { cam[0] + 0.0137f * (float)i, cam[1], cam[2] - 0.0071f * (float)i }, t2[3] = { tgt[0] + 0.0137f * (float)i, tgt[1], tgt[2] - 0.0071f * (float)i };
++        const CascadeFit g = FitCascade(c2, t2, lz, 0.0005f, th, as, 1, 40, 2048);
++        const float a = g.cx / g.texelM, b = g.cy / g.texelM;
++        tk::Check(std::fabs(a - std::round(a)) < 2e-2f && std::fabs(b - std::round(b)) < 2e-2f, "the centre is on the texel grid");
++    }
++    // turning the camera never changes the texel size: the density cannot depend on yaw
++    for (int y = 0; y < 8; ++y) {
++        const float a = 0.785398f * (float)y, t2[3] = { cam[0] + std::sin(a), cam[1] - 0.4f, cam[2] + std::cos(a) };
++        tk::Check(std::fabs(FitCascade(cam, t2, lz, 0.0005f, th, as, 1, 40, 2048).texelM - f.texelM) < 1e-6f, "same texel at every yaw");
++    }
++    tk::Check(!FitCascade(cam, cam, lz, 0.0005f, th, as, 1, 40, 2048).ok, "no view direction, no fit");
++    tk::Check(!FitCascade(cam, tgt, lz, 0.0005f, th, as, 40, 40, 2048).ok, "an empty slice, no fit");
++    return tk::Done("test_cascade");
++}
+-- 
+2.55.0.windows.5
+

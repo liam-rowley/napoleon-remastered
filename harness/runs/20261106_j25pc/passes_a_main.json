@@ -1,0 +1,1905 @@
+{
+ "j25_a_main_l40_deploy": {
+  "sha256": "8b1a8a03fa706c49ac8c0d84fb109c64c1099375224e2bd64ca6048309d83f16",
+  "passes": 11,
+  "passes_with_draws": 6,
+  "shadow_passes": [
+   0
+  ],
+  "first_draw_pass": 0,
+  "pass_list": [
+   {
+    "i": 0,
+    "rt": {
+     "w": "8192",
+     "h": "8192",
+     "fmt": "111"
+    },
+    "draws": 61
+   },
+   {
+    "i": 2,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 76
+   },
+   {
+    "i": 3,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 13
+   },
+   {
+    "i": 4,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "21"
+    },
+    "draws": 505
+   },
+   {
+    "i": 5,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 6
+   },
+   {
+    "i": 8,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 125
+   }
+  ],
+  "shadow": {
+   "rt": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "111",
+    "usage": "1",
+    "tex": "3c16f6c8"
+   },
+   "ds": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "77",
+    "usage": "2",
+    "tex": "0"
+   },
+   "clears": [
+    "CLEAR 1 3 ffffffff 1 0"
+   ],
+   "draws": 61,
+   "kinds": {
+    "DIP": 51,
+    "DP": 10
+   },
+   "casters": [
+    {
+     "vs": "b010a9201a285d06 vs_3_0 imposter.fx shadow_imposter_sm3",
+     "draws": 13,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "50504571221e0203 ps_3_0 imposter.fx shadow_imposter_sm3"
+     ]
+    },
+    {
+     "vs": "76560bb87f2049f8 vs_3_0 variantmesh.fx variant_shadow_map_weighted_stream_instancing_sm3",
+     "draws": 11,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "9ccfa80f3501175c vs_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2",
+     "draws": 10,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "9529abc700850c44 ps_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2"
+     ]
+    },
+    {
+     "vs": "3d06d9c76f149854 vs_2_0 vegetation_billboard.fx b360_shadowmap_sm2",
+     "draws": 5,
+     "M": "c13",
+     "Lz": "c17",
+     "ps": [
+      "c55726c50ad3fd2e ps_2_0 vegetation_billboard.fx b360_shadowmap_sm2"
+     ]
+    },
+    {
+     "vs": "d2a095afcbb9809d vs_3_0 vegetation_branch.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 5,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "3d2db53ed027ca36 vs_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 5,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "e57bd5ed3171675f vs_3_0 vegetation_leaf_mesh.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 4,
+     "M": "c32",
+     "Lz": "c36",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "5f88a1e35cb95ab8 vs_3_0 weighted.fx weighted_shadow_map_sm3",
+     "draws": 4,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "83d84232fa49ce4e vs_3_0 vegetation_leaf_card.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 2,
+     "M": "c32",
+     "Lz": "c36",
+     "ps": [
+      "c67c28c69195dcd6 ps_3_0 vegetation_leaf_card.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "07d6af67d0eb3351 vs_3_0 variantmesh.fx variant_shadow_map_rigid_stream_instancing_sm3",
+     "draws": 2,
+     "M": "c28",
+     "Lz": "c32",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    }
+   ],
+   "other": {
+    "SBCAPTURE": 60,
+    "SBAPPLY": 60
+   },
+   "streams": 15,
+   "freq": {
+    "1": 4,
+    "4000000e": 8,
+    "80000001": 52,
+    "40000004": 4,
+    "40000003": 8,
+    "4000000d": 4,
+    "40000033": 4,
+    "40000011": 4,
+    "40000013": 4,
+    "40000006": 7,
+    "40000026": 1,
+    "4000000a": 5,
+    "40000002": 7,
+    "40000001": 5,
+    "4000000c": 9
+   },
+   "unknown_vs": [],
+   "M_rows": [
+    [
+     0.0140446611,
+     5.23225535e-05,
+     3.35955992e-05,
+     -0.0188647117
+    ],
+    [
+     -1.73599728e-05,
+     0.0362964533,
+     0.0233056899,
+     -10.0305214
+    ],
+    [
+     9.50994308e-06,
+     -0.0214967895,
+     -0.0102542536,
+     7.90948963
+    ],
+    [
+     9.50988306e-06,
+     -0.0198833868,
+     -0.0127669787,
+     7.97219563
+    ]
+   ],
+   "Lz_rows": [
+    [
+     -0.00515595172,
+     -1.91511612e-10,
+     0.0,
+     0.000730720232
+    ],
+    [
+     -3.29668987e-10,
+     0.00887547899,
+     0.00569888065,
+     -2.1122303
+    ],
+    [
+     5.9927896e-11,
+     -0.00161340262,
+     0.0025127253,
+     -0.0627065003
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "receivers": [
+   {
+    "pass": 4,
+    "ps": "bd9d78f87a2ca71d ps_3_0 grass.fx grass_sm3",
+    "vs": "f946a7bff44662b6 vs_3_0 grass.fx grass_sm3",
+    "draws": 94
+   },
+   {
+    "pass": 2,
+    "ps": "cec0b8199c137cac ps_3_0 grid.fx grid_reflection_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 69
+   },
+   {
+    "pass": 4,
+    "ps": "119d8ec54df23cd3 ps_3_0 grid.fx grid_far_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 69
+   },
+   {
+    "pass": 4,
+    "ps": "451a6dd9f507ef47 ps_3_0 imposter.fx imposter_sm3",
+    "vs": "7fc71eea48ef11c1 vs_3_0 imposter.fx imposter_sm3",
+    "draws": 13
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "df79c48809471325 vs_3_0 variantmesh.fx variant_imposter_weighted_sm3",
+    "draws": 11
+   },
+   {
+    "pass": 3,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 10
+   },
+   {
+    "pass": 4,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 10
+   },
+   {
+    "pass": 4,
+    "ps": "e91f8f94b76c99cc ps_3_0 textured_rigid.fx textured_full_dip_batch_t0",
+    "vs": "9263bf8f511efc0b vs_3_0 textured_rigid.fx campaign_trader_textured_full_dip_batch_t0",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "864e48250e8f510e ps_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "vs": "b078ec1f08b791ed vs_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "bfc6fbb8361fbd83 ps_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "vs": "ea4aeb5c8be28184 vs_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "f8e4b1cffec734bc ps_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "vs": "608238d2ff7d5a91 vs_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "bd6c152de0b01b8a ps_3_0 weighted.fx weighted_sm3",
+    "vs": "b6acedbf1aadabb8 vs_3_0 weighted.fx imposter_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 3,
+    "ps": "03a10d71d53688e4 ps_3_0 grid.fx grid_refraction_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 3
+   },
+   {
+    "pass": 4,
+    "ps": "16ea3fe4b019ceb4 ps_3_0 vegetation_leaf_card.fx instanced_30_t0_sm3",
+    "vs": "efaf4eba5c59e9ce vs_3_0 vegetation_leaf_card.fx instanced_30_t0_sm3",
+    "draws": 2
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "7297978905e59c76 vs_3_0 variantmesh.fx variant_imposter_rigid_stream_instancing_sm3",
+    "draws": 2
+   },
+   {
+    "pass": 4,
+    "ps": "ebaec2b702032302 ps_3_0 grid.fx None",
+    "vs": "6c183673088d471a vs_3_0 grid.fx None",
+    "draws": 1
+   }
+  ],
+  "other_draws": [
+   {
+    "pass": 4,
+    "ps": "6adc9aded3d67c62 ps_3_0 vegetation_billboard.fx b360static_sm3",
+    "draws": 221
+   },
+   {
+    "pass": 8,
+    "ps": "36689f7a41908277 ps_2_0 sprite.fx None",
+    "draws": 83
+   },
+   {
+    "pass": 4,
+    "ps": "9557834f08179f34 ps_3_0 sprite.fx None",
+    "draws": 21
+   },
+   {
+    "pass": 8,
+    "ps": "9fdba5a0a1189aa4 ps_2_0 sprite.fx None",
+    "draws": 21
+   },
+   {
+    "pass": 4,
+    "ps": "dd9633ccc289598c ps_3_0 sprite.fx None",
+    "draws": 20
+   },
+   {
+    "pass": 8,
+    "ps": "b767fec19ff76a0d ps_2_0 sprite.fx None",
+    "draws": 15
+   },
+   {
+    "pass": 2,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 8,
+    "ps": "cad5c3ef32c1bfcb ps_3_0 custom_sprite.fx custom_sprite_radar_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "d2eefbbb79167feb ps_3_0 particle.fx render_alpha_20_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "c06e81d3dfa4f93e ps_2_0 grid_spline.fx deployment_border_sm2",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "b877991af8c3bc82 ps_2_0 grid_spline.fx battlefield_border_sm2",
+    "draws": 2
+   },
+   {
+    "pass": 2,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 2,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "d191918bdb3c994a ps_2_0 sun.fx sun_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9bba0ec0180bf35b ps_3_0 hdr_to_screen.fx t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "d0a2334c7fc7313d ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "394270c8d36a43f2 ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "35ee54727b36c1ef ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "f7612f60da6bd46f ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9c481f4711222c82 ps_3_0 lenseflare.fx lense_flare_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 8,
+    "ps": "f25c328cf894fda4 ps_3_0 custom_sprite.fx custom_sprite_land_radar_t0_sm3",
+    "draws": 1
+   }
+  ]
+ },
+ "j25_a_main_l40_turned": {
+  "sha256": "bf9c68e2e2a80c40084e3ba5271fe8c267a1b317fd59fccb153fe277bdb7ddf3",
+  "passes": 11,
+  "passes_with_draws": 6,
+  "shadow_passes": [
+   0
+  ],
+  "first_draw_pass": 0,
+  "pass_list": [
+   {
+    "i": 0,
+    "rt": {
+     "w": "8192",
+     "h": "8192",
+     "fmt": "111"
+    },
+    "draws": 55
+   },
+   {
+    "i": 2,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 93
+   },
+   {
+    "i": 3,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 14
+   },
+   {
+    "i": 4,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "21"
+    },
+    "draws": 479
+   },
+   {
+    "i": 5,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 6
+   },
+   {
+    "i": 8,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 125
+   }
+  ],
+  "shadow": {
+   "rt": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "111",
+    "usage": "1",
+    "tex": "3c16f6c8"
+   },
+   "ds": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "77",
+    "usage": "2",
+    "tex": "0"
+   },
+   "clears": [
+    "CLEAR 1 3 ffffffff 1 0"
+   ],
+   "draws": 55,
+   "kinds": {
+    "DIP": 45,
+    "DP": 10
+   },
+   "casters": [
+    {
+     "vs": "b010a9201a285d06 vs_3_0 imposter.fx shadow_imposter_sm3",
+     "draws": 12,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "50504571221e0203 ps_3_0 imposter.fx shadow_imposter_sm3"
+     ]
+    },
+    {
+     "vs": "9ccfa80f3501175c vs_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2",
+     "draws": 10,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "9529abc700850c44 ps_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2"
+     ]
+    },
+    {
+     "vs": "3d2db53ed027ca36 vs_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 6,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "3d06d9c76f149854 vs_2_0 vegetation_billboard.fx b360_shadowmap_sm2",
+     "draws": 5,
+     "M": "c13",
+     "Lz": "c17",
+     "ps": [
+      "c55726c50ad3fd2e ps_2_0 vegetation_billboard.fx b360_shadowmap_sm2"
+     ]
+    },
+    {
+     "vs": "d2a095afcbb9809d vs_3_0 vegetation_branch.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 5,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "83d84232fa49ce4e vs_3_0 vegetation_leaf_card.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 4,
+     "M": "c32",
+     "Lz": "c36",
+     "ps": [
+      "c67c28c69195dcd6 ps_3_0 vegetation_leaf_card.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "e57bd5ed3171675f vs_3_0 vegetation_leaf_mesh.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 4,
+     "M": "c32",
+     "Lz": "c36",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "5f88a1e35cb95ab8 vs_3_0 weighted.fx weighted_shadow_map_sm3",
+     "draws": 4,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "76560bb87f2049f8 vs_3_0 variantmesh.fx variant_shadow_map_weighted_stream_instancing_sm3",
+     "draws": 3,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "07d6af67d0eb3351 vs_3_0 variantmesh.fx variant_shadow_map_rigid_stream_instancing_sm3",
+     "draws": 2,
+     "M": "c28",
+     "Lz": "c32",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    }
+   ],
+   "other": {
+    "SBCAPTURE": 75,
+    "SBAPPLY": 75
+   },
+   "streams": 15,
+   "freq": {
+    "1": 4,
+    "40000001": 27,
+    "80000001": 67,
+    "4000000d": 8,
+    "40000009": 4,
+    "40000013": 4,
+    "40000014": 4,
+    "40000004": 11,
+    "40000026": 4,
+    "40000038": 4,
+    "40000003": 4,
+    "40000012": 4,
+    "4000000c": 9,
+    "40000002": 1
+   },
+   "unknown_vs": [],
+   "M_rows": [
+    [
+     0.0135853114,
+     -0.0092829559,
+     -0.00596051896,
+     2.93489408
+    ],
+    [
+     0.0205784719,
+     0.00958463922,
+     0.0061542266,
+     -2.21644187
+    ],
+    [
+     -0.0109308446,
+     -0.00602591597,
+     -0.00181318983,
+     2.84986925
+    ],
+    [
+     -0.0109308446,
+     -0.00509115495,
+     -0.00326899323,
+     2.77835321
+    ]
+   ],
+   "Lz_rows": [
+    [
+     -0.00729494356,
+     -2.70961892e-10,
+     0.0,
+     -0.891545177
+    ],
+    [
+     -1.93745006e-10,
+     0.00521608023,
+     0.00334920711,
+     -1.25159323
+    ],
+    [
+     3.47205632e-11,
+     -0.000934760785,
+     0.0014558034,
+     0.071516268
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "receivers": [
+   {
+    "pass": 4,
+    "ps": "bd9d78f87a2ca71d ps_3_0 grass.fx grass_sm3",
+    "vs": "f946a7bff44662b6 vs_3_0 grass.fx grass_sm3",
+    "draws": 97
+   },
+   {
+    "pass": 2,
+    "ps": "cec0b8199c137cac ps_3_0 grid.fx grid_reflection_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 86
+   },
+   {
+    "pass": 4,
+    "ps": "119d8ec54df23cd3 ps_3_0 grid.fx grid_far_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 86
+   },
+   {
+    "pass": 4,
+    "ps": "451a6dd9f507ef47 ps_3_0 imposter.fx imposter_sm3",
+    "vs": "7fc71eea48ef11c1 vs_3_0 imposter.fx imposter_sm3",
+    "draws": 12
+   },
+   {
+    "pass": 3,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 10
+   },
+   {
+    "pass": 4,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 10
+   },
+   {
+    "pass": 4,
+    "ps": "bfc6fbb8361fbd83 ps_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "vs": "ea4aeb5c8be28184 vs_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "draws": 6
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "df79c48809471325 vs_3_0 variantmesh.fx variant_imposter_weighted_sm3",
+    "draws": 6
+   },
+   {
+    "pass": 4,
+    "ps": "864e48250e8f510e ps_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "vs": "b078ec1f08b791ed vs_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 3,
+    "ps": "03a10d71d53688e4 ps_3_0 grid.fx grid_refraction_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "e91f8f94b76c99cc ps_3_0 textured_rigid.fx textured_full_dip_batch_t0",
+    "vs": "9263bf8f511efc0b vs_3_0 textured_rigid.fx campaign_trader_textured_full_dip_batch_t0",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "16ea3fe4b019ceb4 ps_3_0 vegetation_leaf_card.fx instanced_30_t0_sm3",
+    "vs": "efaf4eba5c59e9ce vs_3_0 vegetation_leaf_card.fx instanced_30_t0_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "f8e4b1cffec734bc ps_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "vs": "608238d2ff7d5a91 vs_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "bd6c152de0b01b8a ps_3_0 weighted.fx weighted_sm3",
+    "vs": "b6acedbf1aadabb8 vs_3_0 weighted.fx imposter_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "7297978905e59c76 vs_3_0 variantmesh.fx variant_imposter_rigid_stream_instancing_sm3",
+    "draws": 2
+   },
+   {
+    "pass": 4,
+    "ps": "ebaec2b702032302 ps_3_0 grid.fx None",
+    "vs": "6c183673088d471a vs_3_0 grid.fx None",
+    "draws": 1
+   }
+  ],
+  "other_draws": [
+   {
+    "pass": 4,
+    "ps": "6adc9aded3d67c62 ps_3_0 vegetation_billboard.fx b360static_sm3",
+    "draws": 193
+   },
+   {
+    "pass": 8,
+    "ps": "36689f7a41908277 ps_2_0 sprite.fx None",
+    "draws": 83
+   },
+   {
+    "pass": 8,
+    "ps": "9fdba5a0a1189aa4 ps_2_0 sprite.fx None",
+    "draws": 21
+   },
+   {
+    "pass": 8,
+    "ps": "b767fec19ff76a0d ps_2_0 sprite.fx None",
+    "draws": 15
+   },
+   {
+    "pass": 4,
+    "ps": "9557834f08179f34 ps_3_0 sprite.fx None",
+    "draws": 14
+   },
+   {
+    "pass": 4,
+    "ps": "dd9633ccc289598c ps_3_0 sprite.fx None",
+    "draws": 13
+   },
+   {
+    "pass": 2,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 8,
+    "ps": "cad5c3ef32c1bfcb ps_3_0 custom_sprite.fx custom_sprite_radar_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "d2eefbbb79167feb ps_3_0 particle.fx render_alpha_20_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "c06e81d3dfa4f93e ps_2_0 grid_spline.fx deployment_border_sm2",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "b877991af8c3bc82 ps_2_0 grid_spline.fx battlefield_border_sm2",
+    "draws": 2
+   },
+   {
+    "pass": 2,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 2,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "d191918bdb3c994a ps_2_0 sun.fx sun_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9bba0ec0180bf35b ps_3_0 hdr_to_screen.fx t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "d0a2334c7fc7313d ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "394270c8d36a43f2 ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "35ee54727b36c1ef ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "f7612f60da6bd46f ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9c481f4711222c82 ps_3_0 lenseflare.fx lense_flare_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 8,
+    "ps": "f25c328cf894fda4 ps_3_0 custom_sprite.fx custom_sprite_land_radar_t0_sm3",
+    "draws": 1
+   }
+  ]
+ },
+ "j25_a_main_ls_deploy": {
+  "sha256": "27cf07e08a9533040c1b957ca259e53c3fd7e6db3a6d790b14239907da4709a3",
+  "passes": 11,
+  "passes_with_draws": 6,
+  "shadow_passes": [
+   0
+  ],
+  "first_draw_pass": 0,
+  "pass_list": [
+   {
+    "i": 0,
+    "rt": {
+     "w": "8192",
+     "h": "8192",
+     "fmt": "111"
+    },
+    "draws": 49
+   },
+   {
+    "i": 2,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 75
+   },
+   {
+    "i": 3,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 7
+   },
+   {
+    "i": 4,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "21"
+    },
+    "draws": 470
+   },
+   {
+    "i": 5,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 6
+   },
+   {
+    "i": 8,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 65
+   }
+  ],
+  "shadow": {
+   "rt": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "111",
+    "usage": "1",
+    "tex": "57f3a2d8"
+   },
+   "ds": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "77",
+    "usage": "2",
+    "tex": "0"
+   },
+   "clears": [
+    "CLEAR 1 3 ffffffff 1 0"
+   ],
+   "draws": 49,
+   "kinds": {
+    "DIP": 45,
+    "DP": 4
+   },
+   "casters": [
+    {
+     "vs": "b010a9201a285d06 vs_3_0 imposter.fx shadow_imposter_sm3",
+     "draws": 9,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "50504571221e0203 ps_3_0 imposter.fx shadow_imposter_sm3"
+     ]
+    },
+    {
+     "vs": "d2a095afcbb9809d vs_3_0 vegetation_branch.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 6,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "3d2db53ed027ca36 vs_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 6,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "76560bb87f2049f8 vs_3_0 variantmesh.fx variant_shadow_map_weighted_stream_instancing_sm3",
+     "draws": 6,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "3d06d9c76f149854 vs_2_0 vegetation_billboard.fx b360_shadowmap_sm2",
+     "draws": 5,
+     "M": "c13",
+     "Lz": "c17",
+     "ps": [
+      "c55726c50ad3fd2e ps_2_0 vegetation_billboard.fx b360_shadowmap_sm2"
+     ]
+    },
+    {
+     "vs": "e57bd5ed3171675f vs_3_0 vegetation_leaf_mesh.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 4,
+     "M": "c32",
+     "Lz": "c36",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "5f88a1e35cb95ab8 vs_3_0 weighted.fx weighted_shadow_map_sm3",
+     "draws": 4,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "9ccfa80f3501175c vs_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2",
+     "draws": 4,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "9529abc700850c44 ps_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2"
+     ]
+    },
+    {
+     "vs": "83d84232fa49ce4e vs_3_0 vegetation_leaf_card.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 3,
+     "M": "c32",
+     "Lz": "c36",
+     "ps": [
+      "c67c28c69195dcd6 ps_3_0 vegetation_leaf_card.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "07d6af67d0eb3351 vs_3_0 variantmesh.fx variant_shadow_map_rigid_stream_instancing_sm3",
+     "draws": 2,
+     "M": "c28",
+     "Lz": "c32",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    }
+   ],
+   "other": {
+    "SBCAPTURE": 69,
+    "SBAPPLY": 69
+   },
+   "streams": 9,
+   "freq": {
+    "1": 4,
+    "4000000b": 4,
+    "80000001": 61,
+    "40000003": 11,
+    "4000000c": 4,
+    "40000001": 13,
+    "40000002": 14,
+    "40000032": 4,
+    "4000000e": 9,
+    "40000011": 4,
+    "40000013": 4,
+    "40000005": 7,
+    "40000022": 1,
+    "40000009": 4,
+    "4000000f": 1,
+    "40000004": 1
+   },
+   "unknown_vs": [],
+   "M_rows": [
+    [
+     0.0155762276,
+     -0.00101977924,
+     -0.000654793228,
+     0.402464062
+    ],
+    [
+     -1.44097412e-09,
+     0.0387944765,
+     0.0249096528,
+     -10.4324389
+    ],
+    [
+     8.26853142e-10,
+     -0.0222608689,
+     -0.010668911,
+     8.03572178
+    ],
+    [
+     7.65642605e-10,
+     -0.0206129346,
+     -0.0132354153,
+     8.10987663
+    ]
+   ],
+   "Lz_rows": [
+    [
+     -0.00534650078,
+     -1.98589326e-10,
+     0.0,
+     -0.000427566702
+    ],
+    [
+     -3.42055079e-10,
+     0.00920894276,
+     0.00591299497,
+     -2.17637634
+    ],
+    [
+     6.12105089e-11,
+     -0.00164793362,
+     0.00256650406,
+     -0.0741546601
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "receivers": [
+   {
+    "pass": 4,
+    "ps": "bd9d78f87a2ca71d ps_3_0 grass.fx grass_sm3",
+    "vs": "f946a7bff44662b6 vs_3_0 grass.fx grass_sm3",
+    "draws": 97
+   },
+   {
+    "pass": 2,
+    "ps": "cec0b8199c137cac ps_3_0 grid.fx grid_reflection_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 68
+   },
+   {
+    "pass": 4,
+    "ps": "119d8ec54df23cd3 ps_3_0 grid.fx grid_far_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 68
+   },
+   {
+    "pass": 4,
+    "ps": "451a6dd9f507ef47 ps_3_0 imposter.fx imposter_sm3",
+    "vs": "7fc71eea48ef11c1 vs_3_0 imposter.fx imposter_sm3",
+    "draws": 9
+   },
+   {
+    "pass": 4,
+    "ps": "864e48250e8f510e ps_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "vs": "b078ec1f08b791ed vs_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "draws": 6
+   },
+   {
+    "pass": 4,
+    "ps": "bfc6fbb8361fbd83 ps_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "vs": "ea4aeb5c8be28184 vs_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "draws": 6
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "df79c48809471325 vs_3_0 variantmesh.fx variant_imposter_weighted_sm3",
+    "draws": 6
+   },
+   {
+    "pass": 4,
+    "ps": "e91f8f94b76c99cc ps_3_0 textured_rigid.fx textured_full_dip_batch_t0",
+    "vs": "9263bf8f511efc0b vs_3_0 textured_rigid.fx campaign_trader_textured_full_dip_batch_t0",
+    "draws": 5
+   },
+   {
+    "pass": 3,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "f8e4b1cffec734bc ps_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "vs": "608238d2ff7d5a91 vs_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "bd6c152de0b01b8a ps_3_0 weighted.fx weighted_sm3",
+    "vs": "b6acedbf1aadabb8 vs_3_0 weighted.fx imposter_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 3,
+    "ps": "03a10d71d53688e4 ps_3_0 grid.fx grid_refraction_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 3
+   },
+   {
+    "pass": 4,
+    "ps": "16ea3fe4b019ceb4 ps_3_0 vegetation_leaf_card.fx instanced_30_t0_sm3",
+    "vs": "efaf4eba5c59e9ce vs_3_0 vegetation_leaf_card.fx instanced_30_t0_sm3",
+    "draws": 3
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "7297978905e59c76 vs_3_0 variantmesh.fx variant_imposter_rigid_stream_instancing_sm3",
+    "draws": 2
+   },
+   {
+    "pass": 4,
+    "ps": "ebaec2b702032302 ps_3_0 grid.fx None",
+    "vs": "6c183673088d471a vs_3_0 grid.fx None",
+    "draws": 1
+   }
+  ],
+  "other_draws": [
+   {
+    "pass": 4,
+    "ps": "6adc9aded3d67c62 ps_3_0 vegetation_billboard.fx b360static_sm3",
+    "draws": 218
+   },
+   {
+    "pass": 8,
+    "ps": "36689f7a41908277 ps_2_0 sprite.fx None",
+    "draws": 42
+   },
+   {
+    "pass": 4,
+    "ps": "9557834f08179f34 ps_3_0 sprite.fx None",
+    "draws": 10
+   },
+   {
+    "pass": 8,
+    "ps": "9fdba5a0a1189aa4 ps_2_0 sprite.fx None",
+    "draws": 10
+   },
+   {
+    "pass": 4,
+    "ps": "dd9633ccc289598c ps_3_0 sprite.fx None",
+    "draws": 9
+   },
+   {
+    "pass": 8,
+    "ps": "b767fec19ff76a0d ps_2_0 sprite.fx None",
+    "draws": 7
+   },
+   {
+    "pass": 2,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 8,
+    "ps": "cad5c3ef32c1bfcb ps_3_0 custom_sprite.fx custom_sprite_radar_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "d2eefbbb79167feb ps_3_0 particle.fx render_alpha_20_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "c06e81d3dfa4f93e ps_2_0 grid_spline.fx deployment_border_sm2",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "b877991af8c3bc82 ps_2_0 grid_spline.fx battlefield_border_sm2",
+    "draws": 2
+   },
+   {
+    "pass": 2,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 2,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "d191918bdb3c994a ps_2_0 sun.fx sun_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9bba0ec0180bf35b ps_3_0 hdr_to_screen.fx t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "d0a2334c7fc7313d ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "394270c8d36a43f2 ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "35ee54727b36c1ef ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "f7612f60da6bd46f ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9c481f4711222c82 ps_3_0 lenseflare.fx lense_flare_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 8,
+    "ps": "f25c328cf894fda4 ps_3_0 custom_sprite.fx custom_sprite_land_radar_t0_sm3",
+    "draws": 1
+   }
+  ]
+ },
+ "j25_a_main_s1": {
+  "sha256": "58cf9a6549fbd3bad0f99c7b5a9ebe5d40759533b8f1474530af8fb4beca95d7",
+  "passes": 11,
+  "passes_with_draws": 6,
+  "shadow_passes": [
+   0
+  ],
+  "first_draw_pass": 0,
+  "pass_list": [
+   {
+    "i": 0,
+    "rt": {
+     "w": "8192",
+     "h": "8192",
+     "fmt": "111"
+    },
+    "draws": 47
+   },
+   {
+    "i": 2,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 95
+   },
+   {
+    "i": 3,
+    "rt": {
+     "w": "960",
+     "h": "540",
+     "fmt": "21"
+    },
+    "draws": 34
+   },
+   {
+    "i": 4,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "21"
+    },
+    "draws": 374
+   },
+   {
+    "i": 5,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 6
+   },
+   {
+    "i": 8,
+    "rt": {
+     "w": "1920",
+     "h": "1080",
+     "fmt": "22"
+    },
+    "draws": 67
+   }
+  ],
+  "shadow": {
+   "rt": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "111",
+    "usage": "1",
+    "tex": "57f3eb38"
+   },
+   "ds": {
+    "w": "8192",
+    "h": "8192",
+    "fmt": "77",
+    "usage": "2",
+    "tex": "0"
+   },
+   "clears": [
+    "CLEAR 1 3 ffffffff 1 0"
+   ],
+   "draws": 47,
+   "kinds": {
+    "DIP": 42,
+    "DP": 5
+   },
+   "casters": [
+    {
+     "vs": "b010a9201a285d06 vs_3_0 imposter.fx shadow_imposter_sm3",
+     "draws": 10,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "50504571221e0203 ps_3_0 imposter.fx shadow_imposter_sm3"
+     ]
+    },
+    {
+     "vs": "5f88a1e35cb95ab8 vs_3_0 weighted.fx weighted_shadow_map_sm3",
+     "draws": 9,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "76560bb87f2049f8 vs_3_0 variantmesh.fx variant_shadow_map_weighted_stream_instancing_sm3",
+     "draws": 6,
+     "M": "c123",
+     "Lz": "c127",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "3d2db53ed027ca36 vs_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 5,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    },
+    {
+     "vs": "9ccfa80f3501175c vs_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2",
+     "draws": 5,
+     "M": "c0",
+     "Lz": "c4",
+     "ps": [
+      "9529abc700850c44 ps_2_0 cloth.fx non_instanced_navalsail_shadow_map_t0_sm2"
+     ]
+    },
+    {
+     "vs": "3d06d9c76f149854 vs_2_0 vegetation_billboard.fx b360_shadowmap_sm2",
+     "draws": 4,
+     "M": "c13",
+     "Lz": "c17",
+     "ps": [
+      "c55726c50ad3fd2e ps_2_0 vegetation_billboard.fx b360_shadowmap_sm2"
+     ]
+    },
+    {
+     "vs": "d2a095afcbb9809d vs_3_0 vegetation_branch.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 3,
+     "M": "c24",
+     "Lz": "c28",
+     "ps": [
+      "359b291134ec94c7 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "07d6af67d0eb3351 vs_3_0 variantmesh.fx variant_shadow_map_rigid_stream_instancing_sm3",
+     "draws": 3,
+     "M": "c28",
+     "Lz": "c32",
+     "ps": [
+      "68f91769ac3dba36 ps_3_0 navalship.fx instanced_30_navalship_shadow_map_t0_sm3"
+     ]
+    },
+    {
+     "vs": "e57bd5ed3171675f vs_3_0 vegetation_leaf_mesh.fx shadow_map_instanced_30_t0_sm3",
+     "draws": 2,
+     "M": "c32",
+     "Lz": "c36",
+     "ps": [
+      "0ae2721ac3a58861 ps_3_0 vegetation_frond.fx shadow_map_instanced_30_t0_sm3"
+     ]
+    }
+   ],
+   "other": {
+    "SBCAPTURE": 42,
+    "SBAPPLY": 42
+   },
+   "streams": 10,
+   "freq": {
+    "1": 4,
+    "40000043": 4,
+    "80000001": 34,
+    "40000007": 1,
+    "4000003c": 4,
+    "40000002": 8,
+    "40000005": 4,
+    "40000003": 10,
+    "40000022": 7,
+    "40000001": 4,
+    "4000000f": 1,
+    "4000000e": 2,
+    "4000000a": 8
+   },
+   "unknown_vs": [],
+   "M_rows": [
+    [
+     -0.0053464477,
+     -1.32382594e-09,
+     -7.22507498e-10,
+     -4.53692195e-07
+    ],
+    [
+     8.25495672e-10,
+     -0.0107727367,
+     -0.00691709621,
+     -3.91416817
+    ],
+    [
+     -1.4273846e-10,
+     0.000970727415,
+     0.00443095714,
+     4.93463182
+    ],
+    [
+     -2.07039871e-10,
+     0.00270187529,
+     0.00173485454,
+     2.23250675
+    ]
+   ],
+   "Lz_rows": [
+    [
+     -0.00534644583,
+     -1.98587286e-10,
+     0.0,
+     0.0
+    ],
+    [
+     -2.99782282e-10,
+     0.00807085726,
+     0.00518223923,
+     2.68166018
+    ],
+    [
+     6.43014045e-11,
+     -0.00173114787,
+     0.00269610249,
+     2.70212507
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "receivers": [
+   {
+    "pass": 4,
+    "ps": "e91f8f94b76c99cc ps_3_0 textured_rigid.fx textured_full_dip_batch_t0",
+    "vs": "9263bf8f511efc0b vs_3_0 textured_rigid.fx campaign_trader_textured_full_dip_batch_t0",
+    "draws": 101
+   },
+   {
+    "pass": 4,
+    "ps": "bd9d78f87a2ca71d ps_3_0 grass.fx grass_sm3",
+    "vs": "f946a7bff44662b6 vs_3_0 grass.fx grass_sm3",
+    "draws": 86
+   },
+   {
+    "pass": 2,
+    "ps": "cec0b8199c137cac ps_3_0 grid.fx grid_reflection_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 77
+   },
+   {
+    "pass": 4,
+    "ps": "119d8ec54df23cd3 ps_3_0 grid.fx grid_far_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 77
+   },
+   {
+    "pass": 3,
+    "ps": "03a10d71d53688e4 ps_3_0 grid.fx grid_refraction_sm3",
+    "vs": "3d96bea8aca31bbe vs_3_0 grid.fx grid_far_sm3",
+    "draws": 29
+   },
+   {
+    "pass": 4,
+    "ps": "451a6dd9f507ef47 ps_3_0 imposter.fx imposter_sm3",
+    "vs": "7fc71eea48ef11c1 vs_3_0 imposter.fx imposter_sm3",
+    "draws": 10
+   },
+   {
+    "pass": 4,
+    "ps": "bd6c152de0b01b8a ps_3_0 weighted.fx weighted_sm3",
+    "vs": "b6acedbf1aadabb8 vs_3_0 weighted.fx imposter_sm3",
+    "draws": 9
+   },
+   {
+    "pass": 2,
+    "ps": "9333fd52726a33ed ps_3_0 textured_rigid.fx textured_reflection_full_instanced_t0_sm3",
+    "vs": "9263bf8f511efc0b vs_3_0 textured_rigid.fx campaign_trader_textured_full_dip_batch_t0",
+    "draws": 8
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "df79c48809471325 vs_3_0 variantmesh.fx variant_imposter_weighted_sm3",
+    "draws": 7
+   },
+   {
+    "pass": 3,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "bfc6fbb8361fbd83 ps_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "vs": "ea4aeb5c8be28184 vs_3_0 vegetation_frond.fx instanced_30_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "cc212c49d69a88c1 ps_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "vs": "c20152f58549bd1e vs_3_0 cloth.fx non_instanced_navalsail_default_t0_sm3",
+    "draws": 5
+   },
+   {
+    "pass": 4,
+    "ps": "864e48250e8f510e ps_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "vs": "b078ec1f08b791ed vs_3_0 vegetation_branch.fx instanced_30_t0_sm3",
+    "draws": 3
+   },
+   {
+    "pass": 4,
+    "ps": "051f476527d39bbb ps_3_0 variantmesh.fx variant_rigid_stream_instancing_sm3",
+    "vs": "7297978905e59c76 vs_3_0 variantmesh.fx variant_imposter_rigid_stream_instancing_sm3",
+    "draws": 3
+   },
+   {
+    "pass": 4,
+    "ps": "f8e4b1cffec734bc ps_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "vs": "608238d2ff7d5a91 vs_3_0 vegetation_leaf_mesh.fx instanced_30_t0_sm3",
+    "draws": 2
+   },
+   {
+    "pass": 4,
+    "ps": "ebaec2b702032302 ps_3_0 grid.fx None",
+    "vs": "6c183673088d471a vs_3_0 grid.fx None",
+    "draws": 1
+   }
+  ],
+  "other_draws": [
+   {
+    "pass": 8,
+    "ps": "36689f7a41908277 ps_2_0 sprite.fx None",
+    "draws": 42
+   },
+   {
+    "pass": 4,
+    "ps": "6adc9aded3d67c62 ps_3_0 vegetation_billboard.fx b360static_sm3",
+    "draws": 28
+   },
+   {
+    "pass": 4,
+    "ps": "9557834f08179f34 ps_3_0 sprite.fx None",
+    "draws": 10
+   },
+   {
+    "pass": 8,
+    "ps": "9fdba5a0a1189aa4 ps_2_0 sprite.fx None",
+    "draws": 10
+   },
+   {
+    "pass": 4,
+    "ps": "dd9633ccc289598c ps_3_0 sprite.fx None",
+    "draws": 9
+   },
+   {
+    "pass": 8,
+    "ps": "b767fec19ff76a0d ps_2_0 sprite.fx None",
+    "draws": 7
+   },
+   {
+    "pass": 8,
+    "ps": "cad5c3ef32c1bfcb ps_3_0 custom_sprite.fx custom_sprite_radar_t0_sm3",
+    "draws": 7
+   },
+   {
+    "pass": 2,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 2,
+    "ps": "178284fec1db529f ps_3_0 campaignflag.fx campaign_flag_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "6d0a8f4ab3b1bfa3 ps_3_0 vegetation_billboard.fx b360_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "178284fec1db529f ps_3_0 campaignflag.fx campaign_flag_sm3",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "c06e81d3dfa4f93e ps_2_0 grid_spline.fx deployment_border_sm2",
+    "draws": 4
+   },
+   {
+    "pass": 4,
+    "ps": "b877991af8c3bc82 ps_2_0 grid_spline.fx battlefield_border_sm2",
+    "draws": 2
+   },
+   {
+    "pass": 2,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 2,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "b938fd0e933ed489 ps_2_0 sky.fx t0_envmap_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "d191918bdb3c994a ps_2_0 sun.fx sun_sm2",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "229635aa6bcefbe4 ps_3_0 cloud_plane.fx instanced_30_t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 4,
+    "ps": "d2eefbbb79167feb ps_3_0 particle.fx render_alpha_20_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9bba0ec0180bf35b ps_3_0 hdr_to_screen.fx t0_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "d0a2334c7fc7313d ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "394270c8d36a43f2 ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "35ee54727b36c1ef ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "f7612f60da6bd46f ps_3_0 lenseflare.fx lense_flare_no_vignette_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 5,
+    "ps": "9c481f4711222c82 ps_3_0 lenseflare.fx lense_flare_sm3",
+    "draws": 1
+   },
+   {
+    "pass": 8,
+    "ps": "f25c328cf894fda4 ps_3_0 custom_sprite.fx custom_sprite_land_radar_t0_sm3",
+    "draws": 1
+   }
+  ]
+ }
+}

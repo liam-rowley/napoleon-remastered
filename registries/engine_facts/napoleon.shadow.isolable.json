@@ -1,7 +1,7 @@
 {
   "id": "napoleon.shadow.isolable",
-  "claim": "The shadow pass is the first draw pass of every captured frame and one contiguous block: SetRenderTarget(0, R16F|R32F map), SetDepthStencilSurface(D24X8), Clear(target|z, 0xffffffff, 1.0), the casters, then the next SetRenderTarget; no D3DPERF event marks it",
+  "claim": "The shadow pass is the first draw pass of every captured frame and one contiguous block: SetRenderTarget(0, R16F|R32F map), SetDepthStencilSurface(D24X8), Clear(target|z, 0xffffffff, 1.0), the casters, then the next SetRenderTarget; no D3DPERF event marks it. Same shape in land_40 at both poses and in siege_small, at 8192 with the release values on: the first draw pass, one block, 47-61 draws, no D3DPERF event. The receivers run in three later targets: 960 reflection, 960 refraction, the main 1920 pass",
   "state": "verified",
-  "evidence": "harness/runs/20261101_j8pc/README.md",
-  "date": "2026-11-01"
+  "evidence": "harness/runs/20261106_j25pc/README.md",
+  "date": "2026-11-06"
 }

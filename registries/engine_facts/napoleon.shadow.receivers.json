@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.receivers",
+  "claim": "28 catalogue pixel shaders sample the map, all ps_3_0 (stock maximum c41, s10; ps_3_0 has c223 and s15, so room is no constraint and no shader model change is needed). Every sm3 receiver has world_position in the pixel shader through CALC_DISTANCE, so a near cascade needs a pixel shader swap only, no vertex shader and no new interpolator. 24 compile with the modified fragment with every stock constant in its register. 3 call shadow_map_occlusion directly and stay stock until their fx is changed: cloth.fx, navalsail.fx, ocean.fx (cloth is the only one drawn on land: 3.4 percent of receiver draws). campaigntree.fx fails the gate (9 constants move; not in a battle). 18 further receiver hashes are created but were never drawn in land_40, land_small or siege_small. Terrain in a land battle is grid.fx grid_far_sm3, not supertexturetile. A replacement must also carry the stock CTAB: D3DX reads the table back from the shader object and takes every name in it as its own parameter, uploading cascade0_* as zero at each pass and clearing the sampler (raw/c_tint). A name can have an entry per register set (flat_shading), so a gate matches on name and set",
+  "state": "verified",
+  "evidence": "harness/runs/20261106_j25pc/README.md",
+  "date": "2026-11-06",
+  "notes": "owner J25"
+}

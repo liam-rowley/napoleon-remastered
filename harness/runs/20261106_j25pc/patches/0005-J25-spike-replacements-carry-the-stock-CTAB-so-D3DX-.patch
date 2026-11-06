@@ -1,0 +1,117 @@
+From 3b9134a330bc702c780c2ebb9caa171d70c19439 Mon Sep 17 00:00:00 2001
+From: Liam Rowley <liamsrowley@gmail.com>
+Date: Fri, 6 Nov 2026 02:19:34 +0000
+Subject: [PATCH 5/5] J25 spike: replacements carry the stock CTAB, so D3DX
+ leaves the cascade registers alone
+
+Claude-Session: 96a223bd-8ffd-4e4f-946a-17aeee2548ad
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ proxy/src/cascade.cpp        | 11 ++++++++---
+ proxy/src/cascade.h          | 29 +++++++++++++++++++++++++++++
+ proxy/tests/test_cascade.cpp | 14 ++++++++++++++
+ 3 files changed, 51 insertions(+), 3 deletions(-)
+
+diff --git a/proxy/src/cascade.cpp b/proxy/src/cascade.cpp
+index 5e78a75..cfc3b62 100644
+--- a/proxy/src/cascade.cpp
++++ b/proxy/src/cascade.cpp
+@@ -4,7 +4,8 @@
+ //   - The engine's state is never left changed: the registers, target, depth surface, viewport and scissor are put back after each duplicate.
+ //   - The bound vertex shader is read at the draw (GetVertexShader), never tracked: the pass applies 60-75 state blocks, which no Set* hook sees.
+ //   - Casters are found by their own CTAB at CreateVertexShader, so an unknown shader model or register needs no table.
+-//   - Receivers are swapped by hash at CreatePixelShader from <dev.cascade_dir>\<hash>.ps, each through CtabGate (fail = stock, logged).
++//   - Receivers are swapped by hash at CreatePixelShader from <dev.cascade_dir>\<hash>.ps, each through CtabGate (fail = stock, logged), then given the
++//     stock constant table (SpliceCtab): D3DX would otherwise own the cascade0_ names and clear them at every pass.
+ //   - Install before the capture, so a capture sees the engine's calls and this module's own target switches stay out of the record. The cascade's
+ //     constants go through the device's vtable on purpose: a capture then records them (the density metric reads them).
+ #include "dev.h"
+@@ -230,14 +231,18 @@ HRESULT WINAPI hk_CreatePixelShader(void* d, const DWORD* code, void** out) {
+     size_t len = 0; bool ok = false;
+     const uint64_t h = ShaderHash(code, 1u << 20, len, ok);
+     const std::string* repl = nullptr;
++    std::string spliced;
+     const auto stock = ok ? ReadCtab(code, len) : std::vector<CtabEntry>();
+     const bool receiver = FindConst(stock, "shadow_map_texture_sampler") != nullptr;
+     if (ok && receiver) {
+         auto it = s_swap.find(h);
+         if (it != s_swap.end()) {
+             std::string why;
+-            if (CtabGate(stock, ReadCtab(it->second.data(), it->second.size()), why)) repl = &it->second;
+-            else { ++s_n.refused; LOGE("cascade: swap refused for %s: %s", Hex64(h).c_str(), why.c_str()); }
++            if (CtabGate(stock, ReadCtab(it->second.data(), it->second.size()), why)) {
++                spliced = SpliceCtab(code, len, it->second.data(), it->second.size());
++                if (!spliced.empty()) repl = &spliced;
++                else { ++s_n.refused; LOGE("cascade: no CTAB to splice for %s", Hex64(h).c_str()); }
++            } else { ++s_n.refused; LOGE("cascade: swap refused for %s: %s", Hex64(h).c_str(), why.c_str()); }
+         } else LOGW("cascade: receiver %s has no replacement: stock", Hex64(h).c_str());
+     }
+     const HRESULT hr = o_CreatePixelShader(d, repl ? reinterpret_cast<const DWORD*>(repl->data()) : code, out);
+diff --git a/proxy/src/cascade.h b/proxy/src/cascade.h
+index ecbf3ed..8f49579 100644
+--- a/proxy/src/cascade.h
++++ b/proxy/src/cascade.h
+@@ -71,6 +71,35 @@ inline bool CtabGate(const std::vector<CtabEntry>& stock, const std::vector<Ctab
+     return true;
+ }
+ 
++// [a, b): the CTAB comment token and its body. False when the stream has none.
++inline bool CtabSpan(const void* code, size_t bytes, size_t& a, size_t& b) {
++    const auto* p = static_cast<const uint8_t*>(code);
++    size_t o = 4;
++    while (o + 8 <= bytes) {
++        uint32_t tok; memcpy(&tok, p + o, 4);
++        if ((tok & 0xFFFF) != 0xFFFE) return false;
++        const size_t len = 4 * (size_t)((tok >> 16) & 0x7FFF);
++        if (o + 4 + len > bytes) return false;
++        if (len >= 4 && memcmp(p + o + 4, "CTAB", 4) == 0) { a = o; b = o + 4 + len; return true; }
++        o += 4 + len;
++    }
++    return false;
++}
++
++// The replacement's code under the stock shader's constant table. D3DX reads the table back from the shader it is given and treats every name in
++// it as its own parameter: left in, cascade0_* are uploaded as zero at each pass and the sampler is cleared (run 20261106_j25pc, raw/c_tint: PC 216 3
++// and PC 220 1, all zero, from the effect, c219 untouched because the compiler kept three rows). The gate reads the compiled table first; only then this.
++inline std::string SpliceCtab(const void* stock, size_t stockBytes, const void* repl, size_t replBytes) {
++    size_t sa = 0, sb = 0, ra = 0, rb = 0;
++    if (!CtabSpan(stock, stockBytes, sa, sb) || !CtabSpan(repl, replBytes, ra, rb)) return std::string();
++    const auto* s = static_cast<const char*>(stock);
++    const auto* r = static_cast<const char*>(repl);
++    std::string o(r, ra);
++    o.append(s + sa, sb - sa);
++    o.append(r + rb, replBytes - rb);
++    return o;
++}
++
+ // D3DFMT_R16F 111, D3DFMT_R32F 114: the software path's map (fact napoleon.shadow.map); square, and a render target.
+ inline bool IsShadowMapDesc(uint32_t fmt, uint32_t usage, uint32_t w, uint32_t h) {
+     return (fmt == 111 || fmt == 114) && (usage & 1) && w == h && w >= 512;
+diff --git a/proxy/tests/test_cascade.cpp b/proxy/tests/test_cascade.cpp
+index f99b772..4698549 100644
+--- a/proxy/tests/test_cascade.cpp
++++ b/proxy/tests/test_cascade.cpp
+@@ -53,6 +53,20 @@ int main(int argc, char** argv) {
+     twoNew[0].index = 30; twoNew.erase(twoNew.begin() + 1);
+     CHECK(!CtabGate(Read(Shader(two)), Read(Shader(twoNew)), why) && why == "flat_shading is gone");
+ 
++    {   // the splice: the replacement's instructions under the stock table, so the effect never sees a cascade0_ name
++        auto st = Shader(stock), rp = Shader(with);
++        rp.insert(rp.end() - 1, 0x12345678u);   // an instruction token the splice must keep
++        const std::string sp = SpliceCtab(st.data(), st.size() * 4, rp.data(), rp.size() * 4);
++        const auto t = ReadCtab(sp.data(), sp.size());
++        CHECK(sp.size() % 4 == 0 && t.size() == stock.size() && !FindConst(t, "cascade0_matrix"));
++        uint32_t tail[2]; memcpy(tail, sp.data() + sp.size() - 8, 8);
++        CHECK(tail[0] == 0x12345678u && tail[1] == 0x0000FFFFu);
++        uint32_t head; memcpy(&head, sp.data(), 4);
++        CHECK(head == 0xFFFF0300u);
++        const uint32_t none[2] = { 0xFFFF0300u, 0x0000FFFFu };
++        CHECK(SpliceCtab(none, 8, rp.data(), rp.size() * 4).empty());
++    }
++
+     CHECK(IsShadowMapDesc(111, 1, 2048, 2048) && IsShadowMapDesc(114, 1, 8192, 8192));
+     CHECK(!IsShadowMapDesc(21, 1, 2048, 2048) && !IsShadowMapDesc(111, 0, 2048, 2048) && !IsShadowMapDesc(111, 1, 1920, 1080));
+ 
+-- 
+2.55.0.windows.5
+

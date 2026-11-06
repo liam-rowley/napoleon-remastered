@@ -1,0 +1,27 @@
+{
+ "run": "20261106_j25cost_4k_pro2",
+ "sittings": [
+  {
+   "run": "20261106_j25cost_4k_pro2",
+   "start_utc": "2026-11-06T03:34:28Z",
+   "plan_cells": 5,
+   "scenarios": [
+    "land_40"
+   ],
+   "blocks": [
+    {
+     "size": "3840x2160",
+     "backend": "dxvk",
+     "variant": null,
+     "start_utc": "2026-11-06T03:34:28Z",
+     "end_utc": "2026-11-06T03:37:25Z"
+    }
+   ],
+   "restore_keys": {
+    "proxy.backend": "dxvk",
+    "proxy.dxvk_path": "napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "end_utc": "2026-11-06T03:37:30Z"
+  }
+ ]
+}
