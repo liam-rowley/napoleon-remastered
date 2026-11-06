@@ -1,6 +1,6 @@
 {
   "id": "napoleon.ui.route_a.popup",
-  "claim": "Route A, popup: the start event_message (about 35 s after the campaign scene) and UnitInfoPopup both hide with SetVisible, keep their text (0 of 137 rows changed), take no pointer, cost nothing measurable (unit 1.04 open, 0.86 ms hidden) and close through their own handler while hidden (OnOk, ClosePopup)",
+  "claim": "Route A, popup: the start event_message (about 35 s after the campaign scene) and UnitInfoPopup both hide with SetVisible, keep their text (0 of 138 rows changed), take no pointer, cost nothing measurable (unit 1.04 open, 0.86 ms hidden) and close through their own handler while hidden (OnOk, ClosePopup)",
   "state": "verified",
   "evidence": "proxy/runs/20261106_j32pc/README.md",
   "date": "2026-11-06",

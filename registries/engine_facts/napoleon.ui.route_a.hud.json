@@ -1,8 +1,8 @@
 {
   "id": "napoleon.ui.route_a.hud",
-  "claim": "Route A, HUD (veneer_DY/orders, Dresden deployment): with the bar hidden, BattleUI.SelectAllInfantry changed 20 rows of it: the engine pushes button states into hidden components (ability buttons Inactive to Selected or Unselected). No frame saving (4.2 ms p50 open, 4.3-4.5 hidden, within noise). Current_Selection_Halt returned cleanly with the bar hidden but changed nothing observable in deployment",
+  "claim": "Route A, HUD (veneer_DY/orders, Dresden deployment): with the bar hidden, BattleUI.SelectAllInfantry changed 10 of its 50 rows: the engine pushes button states into hidden components (ability buttons Inactive to Selected or Unselected). No frame saving (4.2 ms p50 open, 4.3-4.5 hidden, within noise). Current_Selection_Halt returned cleanly with the bar hidden but changed nothing observable in deployment",
   "state": "verified",
   "evidence": "proxy/runs/20261106_j32pc/README.md",
   "date": "2026-11-06",
-  "notes": "s4.jsonl battle"
+  "notes": "s4.jsonl battle; rows in j32snap.txt"
 }
