@@ -1,0 +1,570 @@
+{"utc": "2026-11-06T07:36:50Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 21.4, "retried_after": "[job j32-20261106T073628Z-1338113785: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]"}}
+{"utc": "2026-11-06T07:37:07Z", "step": "scene", "r": "ok"}
+{"utc": "2026-11-06T07:37:30Z", "step": "lua", "args": "top", "ok": true, "result": "label13 label5 label12 label12 label10 label10 label13 label10 label3 label10 label8 label1 label8 label7 label8 label2 label2 label8 label6 veneer_DY menu_bar advice_interface"}
+{"utc": "2026-11-06T07:37:33Z", "step": "lua", "args": "snap popup_before event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:37:46Z", "step": "shot", "name": "popup_open", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_popup_open.jpg", "reason": ""}
+{"utc": "2026-11-06T07:37:48Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:37:51Z", "step": "lua", "args": "vis event_message 0", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:38:03Z", "step": "shot", "name": "popup_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_popup_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:38:05Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "328 -1 624 720 true true"}
+{"utc": "2026-11-06T07:38:07Z", "step": "lua", "args": "snap popup_hidden event_message", "ok": true, "result": "popup_hidden nodes=25 texts=3 len=496"}
+{"utc": "2026-11-06T07:38:15Z", "step": "perf", "tag": "popup_hidden", "run": 1, "ok": true, "frame_ms": {"p50": 1.0, "p99": 4.207, "max": 14.431, "mean": 1.152}, "frames": 4342}
+{"utc": "2026-11-06T07:38:17Z", "step": "lua", "args": "call event_message OnOk", "ok": true, "result": "call event_message OnOk true nil"}
+{"utc": "2026-11-06T07:38:23Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:38:26Z", "step": "lua", "args": "top", "ok": true, "result": "veneer_DY menu_bar advice_interface"}
+{"utc": "2026-11-06T07:38:28Z", "step": "lua", "args": "", "ok": true, "result": "none"}
+{"utc": "2026-11-06T07:38:35Z", "step": "lua", "args": "", "ok": true, "result": "none"}
+{"utc": "2026-11-06T07:38:42Z", "step": "lua", "args": "", "ok": true, "result": "none"}
+{"utc": "2026-11-06T07:38:49Z", "step": "lua", "args": "", "ok": true, "result": "none"}
+{"utc": "2026-11-06T07:39:02Z", "step": "shot", "name": "hud", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud.jpg", "reason": ""}
+{"utc": "2026-11-06T07:39:10Z", "step": "perf", "tag": "hud_closed", "run": 1, "ok": true, "frame_ms": {"p50": 0.903, "p99": 4.552, "max": 22.173, "mean": 1.067}, "frames": 4685}
+{"utc": "2026-11-06T07:39:17Z", "step": "perf", "tag": "hud_closed", "run": 2, "ok": true, "frame_ms": {"p50": 0.854, "p99": 3.45, "max": 20.097, "mean": 0.977}, "frames": 5117}
+{"utc": "2026-11-06T07:39:20Z", "step": "lua", "args": "ccost 20", "ok": true, "result": "n=20 forces=12 regions=9 agents=2 getters_ms=27.949523925781 flatten_ms=0.15029907226563 bytes=7443"}
+{"utc": "2026-11-06T07:39:23Z", "step": "lua", "args": "clock 2000", "ok": true, "result": "n=2000 component_us=0 bridge_us=0"}
+{"utc": "2026-11-06T07:39:25Z", "step": "lua", "args": "ToggleEntityLists", "ok": true, "result": "ToggleEntityLists|true|nil"}
+{"utc": "2026-11-06T07:39:33Z", "step": "lua", "args": "snap lists_open entity_lists", "ok": true, "result": "lists_open nodes=439 texts=64 len=566"}
+{"utc": "2026-11-06T07:39:43Z", "step": "shot", "name": "lists_open", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_open.jpg", "reason": ""}
+{"utc": "2026-11-06T07:39:50Z", "step": "perf", "tag": "lists_open", "run": 1, "ok": true, "frame_ms": {"p50": 1.082, "p99": 3.614, "max": 14.354, "mean": 1.203}, "frames": 4155}
+{"utc": "2026-11-06T07:39:57Z", "step": "perf", "tag": "lists_open", "run": 2, "ok": true, "frame_ms": {"p50": 1.077, "p99": 3.461, "max": 17.624, "mean": 1.197}, "frames": 4176}
+{"utc": "2026-11-06T07:40:00Z", "step": "lua", "args": "vis entity_lists 0", "ok": true, "result": "vis entity_lists 0 now visible=false"}
+{"utc": "2026-11-06T07:40:13Z", "step": "shot", "name": "lists_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:40:20Z", "step": "perf", "tag": "lists_hidden", "run": 1, "ok": true, "frame_ms": {"p50": 0.977, "p99": 4.03, "max": 14.821, "mean": 1.129}, "frames": 4427}
+{"utc": "2026-11-06T07:40:28Z", "step": "perf", "tag": "lists_hidden", "run": 2, "ok": true, "frame_ms": {"p50": 0.997, "p99": 3.523, "max": 16.179, "mean": 1.175}, "frames": 4255}
+{"utc": "2026-11-06T07:40:31Z", "step": "lua", "args": "snap lists_hidden entity_lists", "ok": true, "result": "lists_hidden nodes=439 texts=64 len=566"}
+{"utc": "2026-11-06T07:40:34Z", "step": "lua", "args": "army", "ok": true, "result": "Abilities=table ActionPoints=number ActionPointsPerTurn=number Address=userdata Age=number AgentType=string Ancillaries=table Attributes=table CardImage=string CommandedUnit=table CommanderType=number Effects=table FactionColour=table Flag=string InfoImage=string IsGuerilla=boolean IsMilitary=boolean IsNaval=boolean Location=string MaskImage=string Name=string Playable=boolean PosX=number PosY=number ShowAsCharacter=boolean SmallFlag=string Soldiers=number TechImage=string Title=string Traits=table Transitioning=boolean UniformColour=table Units=number"}
+{"utc": "2026-11-06T07:40:36Z", "step": "select", "ok": true, "result": "agent|true|ActionPoints=31 ActionPointsPerTurn=31 Age=43 AgentType=Spy CardImage=data/ui/portraits/european/Cards/rake/young/036.tga CommanderType=0 Flag=data\\ui\\flags\\austria/portrait_flags.tga InfoImage=data/ui/portraits/european/Info/rake/young/036.jpg IsGuerilla=false IsMilitary=false IsNaval=false Location=Venetia MaskImage= Name=Adolf Holzer Playable=true PosX=-82 PosY=-42 ShowAsCharacter=true SmallFlag=data\\ui\\flags\\austria/small.tga TechImage= Title= "}
+{"utc": "2026-11-06T07:40:45Z", "step": "lua", "args": "snap lists_after_select entity_lists", "ok": true, "result": "lists_after_select nodes=439 texts=64 len=566"}
+{"utc": "2026-11-06T07:40:48Z", "step": "lua", "args": "call agents LClick", "ok": true, "result": "call agents LClick true nil"}
+{"utc": "2026-11-06T07:40:52Z", "step": "lua", "args": "snap lists_after_tab entity_lists", "ok": true, "result": "lists_after_tab nodes=455 texts=68 len=628"}
+{"utc": "2026-11-06T07:40:55Z", "step": "lua", "args": "vis entity_lists 1", "ok": true, "result": "vis entity_lists 1 now visible=true"}
+{"utc": "2026-11-06T07:41:07Z", "step": "shot", "name": "lists_back", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_back.jpg", "reason": ""}
+{"utc": "2026-11-06T07:41:10Z", "step": "lua", "args": "pos button_close", "ok": true, "result": "1229 676 45 45 true true"}
+{"utc": "2026-11-06T07:41:13Z", "step": "lua", "args": "vis entity_lists 0", "ok": true, "result": "vis entity_lists 0 now visible=false"}
+{"utc": "2026-11-06T07:41:25Z", "step": "shot", "name": "lists_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:41:28Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 false true"}
+{"utc": "2026-11-06T07:41:31Z", "step": "click", "tag": "lists_vis", "at": [1876, 785], "ok": true, "delta": {"move": [0, 1], "down": [0, 1], "up": [0, 1], "wheel": [0, 0], "key": [0, 0], "char": [0, 0]}}
+{"utc": "2026-11-06T07:41:35Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 false true"}
+{"utc": "2026-11-06T07:41:38Z", "step": "lua", "args": "vis entity_lists 1", "ok": true, "result": "vis entity_lists 1 now visible=true"}
+{"utc": "2026-11-06T07:41:42Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:41:45Z", "step": "lua", "args": "pvis entity_lists 0", "ok": true, "result": "pvis entity_lists 0 now visible=false"}
+{"utc": "2026-11-06T07:41:57Z", "step": "shot", "name": "lists_pvis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_pvis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:41:59Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 false true"}
+{"utc": "2026-11-06T07:42:02Z", "step": "click", "tag": "lists_pvis", "at": [1876, 785], "ok": true, "delta": {"move": [0, 1], "down": [0, 1], "up": [0, 1], "wheel": [0, 0], "key": [0, 0], "char": [0, 0]}}
+{"utc": "2026-11-06T07:42:06Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 false true"}
+{"utc": "2026-11-06T07:42:08Z", "step": "lua", "args": "pvis entity_lists 1", "ok": true, "result": "pvis entity_lists 1 now visible=true"}
+{"utc": "2026-11-06T07:42:12Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:42:14Z", "step": "lua", "args": "alpha entity_lists 0", "ok": true, "result": "alpha entity_lists 0"}
+{"utc": "2026-11-06T07:42:26Z", "step": "shot", "name": "lists_alpha", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_alpha.jpg", "reason": ""}
+{"utc": "2026-11-06T07:42:28Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:42:31Z", "step": "click", "tag": "lists_alpha", "at": [1876, 785], "ok": true, "delta": {"move": [0, 1], "down": [0, 1], "up": [0, 1], "wheel": [0, 0], "key": [0, 0], "char": [0, 0]}}
+{"utc": "2026-11-06T07:42:34Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:42:37Z", "step": "lua", "args": "alpha entity_lists 255", "ok": true, "result": "alpha entity_lists 255"}
+{"utc": "2026-11-06T07:42:40Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:42:42Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:42:44Z", "step": "lua", "args": "move entity_lists -5000 -5000", "ok": true, "result": "move entity_lists was 648,-1 now -5000,-5000"}
+{"utc": "2026-11-06T07:42:55Z", "step": "shot", "name": "lists_move", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_move.jpg", "reason": ""}
+{"utc": "2026-11-06T07:42:57Z", "step": "click", "tag": "lists_move", "at": [1876, 785], "ok": true, "delta": {"move": [0, 1], "down": [0, 1], "up": [0, 1], "wheel": [0, 0], "key": [0, 0], "char": [0, 0]}}
+{"utc": "2026-11-06T07:43:01Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "-5000 -5000 624 720 true true"}
+{"utc": "2026-11-06T07:43:04Z", "step": "lua", "args": "move entity_lists 648 -1", "ok": true, "result": "move entity_lists was -5000,-5000 now 648,-1"}
+{"utc": "2026-11-06T07:43:06Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:43:08Z", "step": "lua", "args": "close", "ok": true, "result": "close|true|nil"}
+{"utc": "2026-11-06T07:43:11Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T07:43:12Z", "step": "end", "how": "not running"}
+{"utc": "2026-11-06T07:48:38Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 13.9}}
+{"utc": "2026-11-06T07:48:52Z", "step": "scene", "r": "ok"}
+{"utc": "2026-11-06T07:48:54Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:00Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:05Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:11Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:16Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:22Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:28Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:33Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:39Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:45Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:49:51Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "328 -1 624 720 true true"}
+{"utc": "2026-11-06T07:49:54Z", "step": "lua", "args": "snap popup_before event_message", "ok": true, "result": "popup_before nodes=25 texts=3 len=496"}
+{"utc": "2026-11-06T07:50:05Z", "step": "shot", "name": "popup_open", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_popup_open.jpg", "reason": ""}
+{"utc": "2026-11-06T07:50:12Z", "step": "perf", "tag": "popup_open", "run": 1, "ok": true, "frame_ms": {"p50": 0.942, "p99": 2.447, "max": 17.513, "mean": 1.03}, "frames": 4854}
+{"utc": "2026-11-06T07:50:18Z", "step": "lua", "args": "over", "ok": true, "result": "over=textpanel cursor=960,400 root=1280,960"}
+{"utc": "2026-11-06T07:50:19Z", "step": "hover", "tag": "popup_visible", "at": [960, 400], "result": "over=textpanel cursor=960,400 root=1280,960"}
+{"utc": "2026-11-06T07:50:22Z", "step": "lua", "args": "vis event_message 0", "ok": true, "result": "vis event_message 0 now visible=false"}
+{"utc": "2026-11-06T07:50:33Z", "step": "shot", "name": "popup_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_popup_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:50:36Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "328 -1 624 720 false true"}
+{"utc": "2026-11-06T07:50:38Z", "step": "lua", "args": "snap popup_hidden event_message", "ok": true, "result": "popup_hidden nodes=25 texts=3 len=496"}
+{"utc": "2026-11-06T07:50:46Z", "step": "perf", "tag": "popup_hidden", "run": 1, "ok": true, "frame_ms": {"p50": 0.871, "p99": 3.428, "max": 16.627, "mean": 0.984}, "frames": 5081}
+{"utc": "2026-11-06T07:50:51Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=960,400 root=1280,960"}
+{"utc": "2026-11-06T07:50:52Z", "step": "hover", "tag": "popup_hidden", "at": [960, 400], "result": "over=nil cursor=960,400 root=1280,960"}
+{"utc": "2026-11-06T07:50:54Z", "step": "lua", "args": "call event_message OnOk", "ok": true, "result": "call event_message OnOk true nil"}
+{"utc": "2026-11-06T07:51:00Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T07:51:02Z", "step": "lua", "args": "top", "ok": true, "result": "veneer_DY menu_bar advice_interface"}
+{"utc": "2026-11-06T07:51:05Z", "step": "lua", "args": "clock 200000", "ok": true, "result": "n=200000 component_us=0.069961547851563 bridge_us=0.045013427734375"}
+{"utc": "2026-11-06T07:51:07Z", "step": "lua", "args": "ToggleEntityLists", "ok": true, "result": "ToggleEntityLists|true|nil"}
+{"utc": "2026-11-06T07:51:17Z", "step": "lua", "args": "over", "ok": true, "result": "over=item8 cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:18Z", "step": "hover", "tag": "lists_visible", "at": [1500, 300], "result": "over=item8 cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:21Z", "step": "lua", "args": "vis entity_lists 0", "ok": true, "result": "vis entity_lists 0 now visible=false"}
+{"utc": "2026-11-06T07:51:27Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:28Z", "step": "hover", "tag": "lists_vis", "at": [1500, 300], "result": "over=nil cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:30Z", "step": "lua", "args": "vis entity_lists 1", "ok": true, "result": "vis entity_lists 1 now visible=true"}
+{"utc": "2026-11-06T07:51:34Z", "step": "lua", "args": "pvis entity_lists 0", "ok": true, "result": "pvis entity_lists 0 now visible=false"}
+{"utc": "2026-11-06T07:51:40Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:41Z", "step": "hover", "tag": "lists_pvis", "at": [1500, 300], "result": "over=nil cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:43Z", "step": "lua", "args": "pvis entity_lists 1", "ok": true, "result": "pvis entity_lists 1 now visible=true"}
+{"utc": "2026-11-06T07:51:46Z", "step": "lua", "args": "alpha entity_lists 0", "ok": true, "result": "alpha entity_lists 0"}
+{"utc": "2026-11-06T07:51:53Z", "step": "lua", "args": "over", "ok": true, "result": "over=item8 cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:54Z", "step": "hover", "tag": "lists_alpha", "at": [1500, 300], "result": "over=item8 cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:51:56Z", "step": "lua", "args": "alpha entity_lists 255", "ok": true, "result": "alpha entity_lists 255"}
+{"utc": "2026-11-06T07:51:59Z", "step": "lua", "args": "move entity_lists -5000 -5000", "ok": true, "result": "move entity_lists was 648,-1 now -5000,-5000"}
+{"utc": "2026-11-06T07:52:06Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:52:07Z", "step": "hover", "tag": "lists_move", "at": [1500, 300], "result": "over=nil cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:52:09Z", "step": "lua", "args": "move entity_lists 648 -1", "ok": true, "result": "move entity_lists was -5000,-5000 now 648,-1"}
+{"utc": "2026-11-06T07:52:16Z", "step": "lua", "args": "over", "ok": true, "result": "over=item8 cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:52:17Z", "step": "hover", "tag": "lists_restored", "at": [1500, 300], "result": "over=item8 cursor=1500,300 root=1280,960"}
+{"utc": "2026-11-06T07:52:19Z", "step": "click", "tag": "control_close_visible", "at": [1890, 759], "ok": true, "delta": {"move": [0, 1], "down": [0, 1], "up": [0, 1], "wheel": [0, 0], "key": [0, 0], "char": [0, 0]}}
+{"utc": "2026-11-06T07:52:24Z", "step": "lua", "args": "pos entity_lists", "ok": true, "result": "648 -1 624 720 true true"}
+{"utc": "2026-11-06T07:52:26Z", "step": "lua", "args": "close", "ok": true, "result": "close|true|nil"}
+{"utc": "2026-11-06T07:52:31Z", "step": "lua", "args": "unitkeys", "ok": true, "result": "Accuracy=number ActionPoints=number Address=userdata Ammunition=number Charge=number CommanderType=number CommandersName=string Defence=number Description=string DisplayAsUnit=boolean EstimatedMenAsUnary=number ExistingUnit=boolean Experience=number FactionColour=table Firepower=number Guns=number HullStrength=number Icon=string Id=string InTransit=boolean InfoPic=string IsArtillery=boolean IsFixedArtillery=boolean IsNaval=boolean LongDescription=string Manoeuvrability=string Melee=number Men=number MenAsPercent=number Morale=number Name=string NeedsRepair=boolean Portrait=string PromotionCost=number Range=number RecruitCost=number RegimentName=string Reloading=number RepairCost=number Replenishable=boolean Replenished=boolean ReplenishmentLevel=number ShowAsCharacter=boolean Speed=number SufferingAttrition=boolean Traits=table UniformColour=table UnitLimit=number UnitRecord=table UpkeepCost=number knowledge_mask=number spying_data_level=number"}
+{"utc": "2026-11-06T07:52:33Z", "step": "lua", "args": "unitopen", "ok": true, "result": "ShowUnitInfo true nil"}
+{"utc": "2026-11-06T07:52:40Z", "step": "lua", "args": "top", "ok": true, "result": "veneer_DY UnitInfoPopup entity_lists menu_bar advice_interface"}
+{"utc": "2026-11-06T07:52:42Z", "step": "lua", "args": "pos UnitInfoPopup", "ok": true, "result": "8 -1 624 720 true true"}
+{"utc": "2026-11-06T07:52:45Z", "step": "lua", "args": "pos unit_information", "ok": true, "result": "absent unit_information"}
+{"utc": "2026-11-06T07:52:54Z", "step": "shot", "name": "unit_popup", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_unit_popup.jpg", "reason": ""}
+{"utc": "2026-11-06T07:52:57Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T07:52:58Z", "step": "end", "how": "not running"}
+{"utc": "2026-11-06T07:53:52Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 16.4, "retried_after": "[job j32-20261106T075335Z-3149012763: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]"}}
+{"utc": "2026-11-06T07:54:10Z", "step": "scene", "r": "ok"}
+{"utc": "2026-11-06T07:54:18Z", "step": "lua", "args": "top", "ok": true, "result": "3D_unit_id21 3D_unit_id23 3D_unit_id17 3D_unit_id22 3D_unit_id18 3D_unit_id15 3D_unit_id25 3D_unit_id24 3D_unit_id20 3D_unit_id13 3D_unit_id16 3D_unit_id12 3D_unit_id19 3D_unit_id14 3D_unit_id28 3D_unit_id37 3D_unit_id33 3D_unit_id32 3D_unit_id34 3D_unit_id36 3D_unit_id35 3D_unit_id27 3D_unit_id29 3D_unit_id26 3D_unit_id39 3D_unit_id31 3D_unit_id30 3D_unit_id38 3D_unit_id11 3D_unit_id10 3D_unit_id3 3D_unit_id2 3D_unit_id4 3D_unit_id9 3D_unit_id8 3D_unit_id1 3D_unit_id7 3D_unit_id6 3D_unit_id5 3D_unit_id0 radar_group veneer_DY menu_bar finish_deployment"}
+{"utc": "2026-11-06T07:54:21Z", "step": "lua", "args": "snap hud_before orders", "ok": true, "result": "hud_before nodes=49 texts=5 len=10"}
+{"utc": "2026-11-06T07:54:31Z", "step": "shot", "name": "hud_open", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_open.jpg", "reason": ""}
+{"utc": "2026-11-06T07:54:39Z", "step": "perf", "tag": "hud_open", "run": 1, "ok": true, "frame_ms": {"p50": 4.175, "p99": 12.881, "max": 25.164, "mean": 4.793}, "frames": 1042}
+{"utc": "2026-11-06T07:54:47Z", "step": "perf", "tag": "hud_open", "run": 2, "ok": true, "frame_ms": {"p50": 4.186, "p99": 13.396, "max": 29.66, "mean": 4.919}, "frames": 1016}
+{"utc": "2026-11-06T07:54:49Z", "step": "lua", "args": "vis orders 0", "ok": true, "result": "vis orders 0 now visible=false"}
+{"utc": "2026-11-06T07:55:02Z", "step": "shot", "name": "hud_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:55:09Z", "step": "perf", "tag": "hud_hidden", "run": 1, "ok": true, "frame_ms": {"p50": 4.322, "p99": 13.047, "max": 19.772, "mean": 5.075}, "frames": 985}
+{"utc": "2026-11-06T07:55:17Z", "step": "perf", "tag": "hud_hidden", "run": 2, "ok": true, "frame_ms": {"p50": 4.504, "p99": 13.871, "max": 23.886, "mean": 5.296}, "frames": 942}
+{"utc": "2026-11-06T07:55:20Z", "step": "lua", "args": "snap hud_hidden orders", "ok": true, "result": "hud_hidden nodes=49 texts=5 len=10"}
+{"utc": "2026-11-06T07:55:23Z", "step": "lua", "args": "bsel", "ok": true, "result": "SelectAllInfantry true nil"}
+{"utc": "2026-11-06T07:55:29Z", "step": "lua", "args": "snap hud_after_select orders", "ok": true, "result": "hud_after_select nodes=49 texts=5 len=10"}
+{"utc": "2026-11-06T07:55:41Z", "step": "shot", "name": "hud_selected_hidden", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_selected_hidden.jpg", "reason": ""}
+{"utc": "2026-11-06T07:55:43Z", "step": "lua", "args": "bhalt", "ok": true, "result": "Current_Selection_Halt true nil"}
+{"utc": "2026-11-06T07:55:47Z", "step": "lua", "args": "snap hud_after_halt orders", "ok": true, "result": "hud_after_halt nodes=49 texts=5 len=10"}
+{"utc": "2026-11-06T07:55:50Z", "step": "lua", "args": "vis orders 1", "ok": true, "result": "vis orders 1 now visible=true"}
+{"utc": "2026-11-06T07:56:03Z", "step": "shot", "name": "hud_selected_back", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_selected_back.jpg", "reason": ""}
+{"utc": "2026-11-06T07:56:05Z", "step": "lua", "args": "clock 2000", "ok": true, "result": "n=2000 component_us=0.5035400390625 bridge_us=0"}
+{"utc": "2026-11-06T07:56:07Z", "step": "lua", "args": "vis orders 0", "ok": true, "result": "vis orders 0 now visible=false"}
+{"utc": "2026-11-06T07:56:18Z", "step": "shot", "name": "hud_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:56:21Z", "step": "lua", "args": "pos orders", "ok": true, "result": "3 749 1280 105 false true"}
+{"utc": "2026-11-06T07:56:23Z", "step": "lua", "args": "vis orders 1", "ok": true, "result": "vis orders 1 now visible=true"}
+{"utc": "2026-11-06T07:56:27Z", "step": "lua", "args": "pvis orders 0", "ok": true, "result": "pvis orders 0 now visible=false"}
+{"utc": "2026-11-06T07:56:38Z", "step": "shot", "name": "hud_pvis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_pvis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:56:41Z", "step": "lua", "args": "pos orders", "ok": true, "result": "3 749 1280 105 false true"}
+{"utc": "2026-11-06T07:56:43Z", "step": "lua", "args": "pvis orders 1", "ok": true, "result": "pvis orders 1 now visible=true"}
+{"utc": "2026-11-06T07:56:47Z", "step": "lua", "args": "alpha orders 0", "ok": true, "result": "alpha orders 0"}
+{"utc": "2026-11-06T07:56:58Z", "step": "shot", "name": "hud_alpha", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_alpha.jpg", "reason": ""}
+{"utc": "2026-11-06T07:57:01Z", "step": "lua", "args": "pos orders", "ok": true, "result": "3 749 1280 105 true true"}
+{"utc": "2026-11-06T07:57:04Z", "step": "lua", "args": "alpha orders 255", "ok": true, "result": "alpha orders 255"}
+{"utc": "2026-11-06T07:57:08Z", "step": "lua", "args": "pos orders", "ok": true, "result": "3 749 1280 105 true true"}
+{"utc": "2026-11-06T07:57:11Z", "step": "lua", "args": "move orders -5000 -5000", "ok": true, "result": "move orders was 3,749 now -5000,-5000"}
+{"utc": "2026-11-06T07:57:24Z", "step": "shot", "name": "hud_move", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud_move.jpg", "reason": ""}
+{"utc": "2026-11-06T07:57:27Z", "step": "lua", "args": "pos orders", "ok": true, "result": "-5000 -5000 1280 105 true true"}
+{"utc": "2026-11-06T07:57:29Z", "step": "lua", "args": "move orders 3 749", "ok": true, "result": "move orders was -5000,-5000 now 3,749"}
+{"utc": "2026-11-06T07:57:33Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T07:57:34Z", "step": "end", "how": "not running"}
+{"utc": "2026-11-06T07:58:34Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 9.9}}
+{"utc": "2026-11-06T07:58:36Z", "step": "lua", "args": "visible", "ok": true, "result": "entered=true page=0,0,1280,960 visible=true button_battle=488,487,305,47 back main_visible=true"}
+{"utc": "2026-11-06T08:00:40Z", "step": "shot", "name": "fe_main", "status": "failed", "file": null, "reason": "step settle: {\"waited_for\": \"scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable\", \"waited_s\": 122.33, \"scene\": \"frontend\", \"settled\": false}"}
+{"utc": "2026-11-06T08:00:43Z", "step": "lua", "args": "handler vis", "ok": true, "result": "entered=true page=0,0,1280,960 visible=true button_battle=488,487,305,47 undrawn=vis visible=false back=true nil main_visible=true"}
+{"utc": "2026-11-06T08:01:24Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 16.2}}
+{"utc": "2026-11-06T08:01:27Z", "step": "lua", "args": "visible", "ok": true, "result": "entered=true page=0,0,1280,960 visible=true button_battle=488,487,305,47 back main_visible=true"}
+{"utc": "2026-11-06T08:01:30Z", "step": "shot", "name": "fe_main", "status": "ok", "file": "C:\\napoleon_remastered_pc\\ui_dumps\\j32_fe_main.png", "reason": ""}
+{"utc": "2026-11-06T08:01:34Z", "step": "lua", "args": "handler vis", "ok": true, "result": "entered=true page=0,0,1280,960 visible=true button_battle=488,487,305,47 undrawn=vis visible=false back=true nil main_visible=true"}
+{"utc": "2026-11-06T08:01:37Z", "step": "shot", "name": "fe_after_handler", "status": "ok", "file": "C:\\napoleon_remastered_pc\\ui_dumps\\j32_fe_after_handler.png", "reason": ""}
+{"utc": "2026-11-06T08:01:54Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 12.0}}
+{"utc": "2026-11-06T08:01:57Z", "step": "lua", "args": "hide vis", "ok": true, "result": "entered=true page=0,0,1280,960 visible=true button_battle=488,487,305,47 undrawn=vis visible=false"}
+{"utc": "2026-11-06T08:02:02Z", "step": "shot", "name": "fe_hidden_vis", "status": "ok", "file": "C:\\napoleon_remastered_pc\\ui_dumps\\j32_fe_hidden_vis.png", "reason": ""}
+{"utc": "2026-11-06T08:02:10Z", "step": "perf", "tag": "fe_hidden_vis", "frame_ms": {"p50": 0.514, "p99": 9.87, "max": 106.643, "mean": 1.051}}
+{"utc": "2026-11-06T08:02:39Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 22.8}}
+{"utc": "2026-11-06T08:02:43Z", "step": "lua", "args": "hide alpha", "ok": true, "result": "entered=true page=0,0,1280,960 visible=true button_battle=488,487,305,47 undrawn=alpha visible=true"}
+{"utc": "2026-11-06T08:02:49Z", "step": "shot", "name": "fe_hidden_alpha", "status": "ok", "file": "C:\\napoleon_remastered_pc\\ui_dumps\\j32_fe_hidden_alpha.png", "reason": ""}
+{"utc": "2026-11-06T08:02:57Z", "step": "perf", "tag": "fe_hidden_alpha", "frame_ms": {"p50": 0.289, "p99": 1.298, "max": 17.49, "mean": 0.345}}
+{"utc": "2026-11-06T08:03:15Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 12.0}}
+{"utc": "2026-11-06T08:03:19Z", "step": "lua", "args": "hide move", "ok": true, "result": "entered=true page=0,0,1280,960 visible=true button_battle=488,487,305,47 undrawn=move visible=true"}
+{"utc": "2026-11-06T08:03:24Z", "step": "shot", "name": "fe_hidden_move", "status": "ok", "file": "C:\\napoleon_remastered_pc\\ui_dumps\\j32_fe_hidden_move.png", "reason": ""}
+{"utc": "2026-11-06T08:03:33Z", "step": "perf", "tag": "fe_hidden_move", "frame_ms": {"p50": 0.271, "p99": 1.235, "max": 31.222, "mean": 0.326}}
+{"utc": "2026-11-06T08:03:37Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T08:03:38Z", "step": "end", "how": "not running"}
+{"utc": "2026-11-06T08:18:18Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": ["dev.camera", "dev.ctl", "dev.file_rules", "dev.lua_bridge", "dev.orders", "dev.perf", "dev.skip_intro", "dev.state_json", "dev.timeline"], "launch_s": 10.0}}
+{"utc": "2026-11-06T08:18:21Z", "step": "lua", "args": "pos main", "ok": true, "result": "-1 0 1280 960 true true"}
+{"utc": "2026-11-06T08:18:24Z", "step": "lua", "args": "vis main 0", "ok": true, "result": "vis main 0 now visible=false"}
+{"utc": "2026-11-06T08:18:30Z", "step": "shot", "name": "fe_main_hidden", "status": "ok", "file": "C:\\napoleon_remastered_pc\\ui_dumps\\j32_fe_main_hidden.png", "reason": ""}
+{"utc": "2026-11-06T08:18:33Z", "step": "lua", "args": "pos main", "ok": true, "result": "-1 0 1280 960 false true"}
+{"utc": "2026-11-06T08:18:34Z", "step": "pump", "answered_with_main_hidden": true}
+{"utc": "2026-11-06T08:18:36Z", "step": "lua", "args": "clock 200000", "ok": true, "result": "n=200000 component_us=0.069999694824219 bridge_us=0.045003890991211"}
+{"utc": "2026-11-06T08:18:39Z", "step": "lua", "args": "vis main 1", "ok": true, "result": "vis main 1 now visible=true"}
+{"utc": "2026-11-06T08:18:44Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T08:18:45Z", "step": "end", "how": "not running"}
+{"utc": "2026-11-06T08:18:58Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 9.9}}
+{"utc": "2026-11-06T08:19:12Z", "step": "scene", "r": "ok"}
+{"utc": "2026-11-06T08:19:15Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:20Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:25Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:31Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:36Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:42Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:48Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:53Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:19:59Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:20:04Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "absent event_message"}
+{"utc": "2026-11-06T08:20:10Z", "step": "lua", "args": "pos event_message", "ok": true, "result": "328 -1 624 720 true true"}
+{"utc": "2026-11-06T08:20:13Z", "step": "lua", "args": "call event_message OnOk", "ok": true, "result": "call event_message OnOk true nil"}
+{"utc": "2026-11-06T08:20:19Z", "step": "lua", "args": "unitopen", "ok": true, "result": "ShowUnitInfo true nil"}
+{"utc": "2026-11-06T08:20:26Z", "step": "lua", "args": "top", "ok": true, "result": "veneer_DY UnitInfoPopup menu_bar advice_interface"}
+{"utc": "2026-11-06T08:20:28Z", "step": "lua", "args": "snap unit_open UnitInfoPopup", "ok": true, "result": "unit_open nodes=138 texts=70 len=1702"}
+{"utc": "2026-11-06T08:20:38Z", "step": "shot", "name": "unit_open", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_unit_open.jpg", "reason": ""}
+{"utc": "2026-11-06T08:20:47Z", "step": "perf", "tag": "unit_open", "run": 1, "ok": true, "frame_ms": {"p50": 1.036, "p99": 2.734, "max": 17.589, "mean": 1.138}, "frames": 4395}
+{"utc": "2026-11-06T08:20:53Z", "step": "lua", "args": "over", "ok": true, "result": "over=portrait_frame cursor=300,400 root=1280,960"}
+{"utc": "2026-11-06T08:20:53Z", "step": "hover", "tag": "unit_visible", "at": [300, 400], "result": "over=portrait_frame cursor=300,400 root=1280,960"}
+{"utc": "2026-11-06T08:20:56Z", "step": "lua", "args": "vis UnitInfoPopup 0", "ok": true, "result": "vis UnitInfoPopup 0 now visible=false"}
+{"utc": "2026-11-06T08:21:09Z", "step": "shot", "name": "unit_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_unit_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T08:21:17Z", "step": "perf", "tag": "unit_hidden", "run": 1, "ok": true, "frame_ms": {"p50": 0.859, "p99": 2.413, "max": 23.832, "mean": 0.973}, "frames": 5138}
+{"utc": "2026-11-06T08:21:22Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,400 root=1280,960"}
+{"utc": "2026-11-06T08:21:23Z", "step": "hover", "tag": "unit_hidden", "at": [300, 400], "result": "over=nil cursor=300,400 root=1280,960"}
+{"utc": "2026-11-06T08:21:26Z", "step": "lua", "args": "snap unit_hidden UnitInfoPopup", "ok": true, "result": "unit_hidden nodes=138 texts=70 len=1702"}
+{"utc": "2026-11-06T08:21:28Z", "step": "lua", "args": "call UnitInfoPopup ClosePopup", "ok": true, "result": "call UnitInfoPopup ClosePopup true nil"}
+{"utc": "2026-11-06T08:21:34Z", "step": "lua", "args": "top", "ok": true, "result": "veneer_DY menu_bar advice_interface"}
+{"utc": "2026-11-06T08:21:36Z", "step": "lua", "args": "close", "ok": true, "result": "close|true|nil"}
+{"utc": "2026-11-06T08:21:41Z", "step": "lua", "args": "top", "ok": true, "result": "veneer_DY menu_bar advice_interface"}
+{"utc": "2026-11-06T08:21:44Z", "step": "lua", "args": "ToggleEntityLists", "ok": true, "result": "ToggleEntityLists|true|nil"}
+{"utc": "2026-11-06T08:21:54Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1824,785 root=1280,960"}
+{"utc": "2026-11-06T08:21:54Z", "step": "hover", "tag": "close_tick", "at": [1876, 785], "result": "over=nil cursor=1824,785 root=1280,960"}
+{"utc": "2026-11-06T08:22:00Z", "step": "lua", "args": "over", "ok": true, "result": "over=paper_pane cursor=1824,759 root=1280,960"}
+{"utc": "2026-11-06T08:22:00Z", "step": "hover", "tag": "close_tick", "at": [1890, 759], "result": "over=paper_pane cursor=1824,759 root=1280,960"}
+{"utc": "2026-11-06T08:22:05Z", "step": "lua", "args": "over", "ok": true, "result": "over=entity_lists cursor=1824,770 root=1280,960"}
+{"utc": "2026-11-06T08:22:06Z", "step": "hover", "tag": "close_tick", "at": [1880, 770], "result": "over=entity_lists cursor=1824,770 root=1280,960"}
+{"utc": "2026-11-06T08:22:08Z", "step": "click", "tag": "control_close_visible", "at": [1880, 770], "ok": true, "delta": {"move": [0, 1], "down": [0, 1], "up": [0, 1], "wheel": [0, 0], "key": [0, 0], "char": [0, 0]}}
+{"utc": "2026-11-06T08:22:13Z", "step": "lua", "args": "top", "ok": true, "result": "veneer_DY entity_lists menu_bar advice_interface"}
+{"utc": "2026-11-06T08:22:16Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T08:22:17Z", "step": "end", "how": "not running"}
+{"utc": "2026-11-06T09:19:38Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": ["dev.camera", "dev.ctl", "dev.file_rules", "dev.lua_bridge", "dev.orders", "dev.perf", "dev.skip_intro", "dev.state_json", "dev.timeline"], "launch_s": 14.7}}
+{"utc": "2026-11-06T09:20:01Z", "step": "scene", "r": "ok"}
+{"utc": "2026-11-06T09:20:08Z", "step": "lua", "args": "pos orders", "ok": true, "result": "3 749 1280 105 true true"}
+{"utc": "2026-11-06T09:20:14Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:15Z", "step": "hover", "tag": "hud_scan", "at": [300, 800], "result": "over=nil cursor=300,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:20Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:21Z", "step": "hover", "tag": "hud_scan", "at": [500, 800], "result": "over=nil cursor=499,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:26Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=700,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:27Z", "step": "hover", "tag": "hud_scan", "at": [700, 800], "result": "over=nil cursor=700,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:33Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=900,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:34Z", "step": "hover", "tag": "hud_scan", "at": [900, 800], "result": "over=nil cursor=900,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:40Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:41Z", "step": "hover", "tag": "hud_scan", "at": [1100, 800], "result": "over=nil cursor=1100,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:47Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1300,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:49Z", "step": "hover", "tag": "hud_scan", "at": [1300, 800], "result": "over=nil cursor=1300,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:54Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1500,800 root=1280,960"}
+{"utc": "2026-11-06T09:20:55Z", "step": "hover", "tag": "hud_scan", "at": [1500, 800], "result": "over=nil cursor=1500,800 root=1280,960"}
+{"utc": "2026-11-06T09:21:02Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:04Z", "step": "hover", "tag": "hud_scan", "at": [300, 834], "result": "over=nil cursor=300,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:10Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:12Z", "step": "hover", "tag": "hud_scan", "at": [500, 834], "result": "over=nil cursor=499,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:18Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=700,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:19Z", "step": "hover", "tag": "hud_scan", "at": [700, 834], "result": "over=nil cursor=700,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:25Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=900,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:26Z", "step": "hover", "tag": "hud_scan", "at": [900, 834], "result": "over=nil cursor=900,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:32Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:33Z", "step": "hover", "tag": "hud_scan", "at": [1100, 834], "result": "over=nil cursor=1100,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:38Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1300,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:39Z", "step": "hover", "tag": "hud_scan", "at": [1300, 834], "result": "over=nil cursor=1300,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:45Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1500,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:46Z", "step": "hover", "tag": "hud_scan", "at": [1500, 834], "result": "over=nil cursor=1500,834 root=1280,960"}
+{"utc": "2026-11-06T09:21:52Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,868 root=1280,960"}
+{"utc": "2026-11-06T09:21:53Z", "step": "hover", "tag": "hud_scan", "at": [300, 868], "result": "over=nil cursor=300,868 root=1280,960"}
+{"utc": "2026-11-06T09:21:59Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:00Z", "step": "hover", "tag": "hud_scan", "at": [500, 868], "result": "over=orders cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:06Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=700,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:07Z", "step": "hover", "tag": "hud_scan", "at": [700, 868], "result": "over=orders cursor=700,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:12Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=900,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:13Z", "step": "hover", "tag": "hud_scan", "at": [900, 868], "result": "over=orders cursor=900,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:18Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:20Z", "step": "hover", "tag": "hud_scan", "at": [1100, 868], "result": "over=orders cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:24Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1300,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:25Z", "step": "hover", "tag": "hud_scan", "at": [1300, 868], "result": "over=orders cursor=1300,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:30Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1500,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:31Z", "step": "hover", "tag": "hud_scan", "at": [1500, 868], "result": "over=orders cursor=1500,868 root=1280,960"}
+{"utc": "2026-11-06T09:22:36Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,902 root=1280,960"}
+{"utc": "2026-11-06T09:22:37Z", "step": "hover", "tag": "hud_scan", "at": [300, 902], "result": "over=nil cursor=300,902 root=1280,960"}
+{"utc": "2026-11-06T09:22:42Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:22:43Z", "step": "hover", "tag": "hud_scan", "at": [500, 902], "result": "over=orders cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:22:48Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=700,902 root=1280,960"}
+{"utc": "2026-11-06T09:22:49Z", "step": "hover", "tag": "hud_scan", "at": [700, 902], "result": "over=orders cursor=700,902 root=1280,960"}
+{"utc": "2026-11-06T09:22:55Z", "step": "lua", "args": "over", "ok": true, "result": "over=UC_frame cursor=900,902 root=1280,960"}
+{"utc": "2026-11-06T09:22:55Z", "step": "hover", "tag": "hud_scan", "at": [900, 902], "result": "over=UC_frame cursor=900,902 root=1280,960"}
+{"utc": "2026-11-06T09:23:01Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:23:01Z", "step": "hover", "tag": "hud_scan", "at": [1100, 902], "result": "over=orders cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:23:07Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1300,902 root=1280,960"}
+{"utc": "2026-11-06T09:23:08Z", "step": "hover", "tag": "hud_scan", "at": [1300, 902], "result": "over=orders cursor=1300,902 root=1280,960"}
+{"utc": "2026-11-06T09:23:14Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1500,902 root=1280,960"}
+{"utc": "2026-11-06T09:23:14Z", "step": "hover", "tag": "hud_scan", "at": [1500, 902], "result": "over=orders cursor=1500,902 root=1280,960"}
+{"utc": "2026-11-06T09:23:20Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:21Z", "step": "hover", "tag": "hud_scan", "at": [300, 936], "result": "over=nil cursor=300,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:26Z", "step": "lua", "args": "over", "ok": true, "result": "over=kill_ratio_PH cursor=499,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:27Z", "step": "hover", "tag": "hud_scan", "at": [500, 936], "result": "over=kill_ratio_PH cursor=499,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:33Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_melee cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:34Z", "step": "hover", "tag": "hud_scan", "at": [700, 936], "result": "over=button_melee cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:39Z", "step": "lua", "args": "over", "ok": true, "result": "over=UC_button_turn_left cursor=900,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:40Z", "step": "hover", "tag": "hud_scan", "at": [900, 936], "result": "over=UC_button_turn_left cursor=900,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:46Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders_LB cursor=1100,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:47Z", "step": "hover", "tag": "hud_scan", "at": [1100, 936], "result": "over=orders_LB cursor=1100,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:52Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_stripR cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:53Z", "step": "hover", "tag": "hud_scan", "at": [1300, 936], "result": "over=button_stripR cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:58Z", "step": "lua", "args": "over", "ok": true, "result": "over=slow_mo cursor=1500,936 root=1280,960"}
+{"utc": "2026-11-06T09:23:59Z", "step": "hover", "tag": "hud_scan", "at": [1500, 936], "result": "over=slow_mo cursor=1500,936 root=1280,960"}
+{"utc": "2026-11-06T09:24:04Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:05Z", "step": "hover", "tag": "hud_scan", "at": [300, 970], "result": "over=nil cursor=300,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:09Z", "step": "lua", "args": "over", "ok": true, "result": "over=kill_ratio_PH cursor=499,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:10Z", "step": "hover", "tag": "hud_scan", "at": [500, 970], "result": "over=kill_ratio_PH cursor=499,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:15Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_melee cursor=700,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:16Z", "step": "hover", "tag": "hud_scan", "at": [700, 970], "result": "over=button_melee cursor=700,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:21Z", "step": "lua", "args": "over", "ok": true, "result": "over=UC_button_increase_rank cursor=900,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:22Z", "step": "hover", "tag": "hud_scan", "at": [900, 970], "result": "over=UC_button_increase_rank cursor=900,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:27Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders_LB cursor=1100,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:28Z", "step": "hover", "tag": "hud_scan", "at": [1100, 970], "result": "over=orders_LB cursor=1100,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:35Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1300,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:36Z", "step": "hover", "tag": "hud_scan", "at": [1300, 970], "result": "over=orders cursor=1300,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:41Z", "step": "lua", "args": "over", "ok": true, "result": "over=stopwatch cursor=1500,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:42Z", "step": "hover", "tag": "hud_scan", "at": [1500, 970], "result": "over=stopwatch cursor=1500,969 root=1280,960"}
+{"utc": "2026-11-06T09:24:48Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,1004 root=1280,960"}
+{"utc": "2026-11-06T09:24:49Z", "step": "hover", "tag": "hud_scan", "at": [300, 1004], "result": "over=nil cursor=300,1004 root=1280,960"}
+{"utc": "2026-11-06T09:24:54Z", "step": "lua", "args": "over", "ok": true, "result": "over=3 cursor=499,1004 root=1280,960"}
+{"utc": "2026-11-06T09:24:55Z", "step": "hover", "tag": "hud_scan", "at": [500, 1004], "result": "over=3 cursor=499,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:01Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=700,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:01Z", "step": "hover", "tag": "hud_scan", "at": [700, 1004], "result": "over=review_DY cursor=700,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:06Z", "step": "lua", "args": "over", "ok": true, "result": "over=10 cursor=900,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:07Z", "step": "hover", "tag": "hud_scan", "at": [900, 1004], "result": "over=10 cursor=900,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:14Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1100,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:15Z", "step": "hover", "tag": "hud_scan", "at": [1100, 1004], "result": "over=review_DY cursor=1100,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:21Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1300,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:21Z", "step": "hover", "tag": "hud_scan", "at": [1300, 1004], "result": "over=review_DY cursor=1300,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:26Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1500,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:27Z", "step": "hover", "tag": "hud_scan", "at": [1500, 1004], "result": "over=review_DY cursor=1500,1004 root=1280,960"}
+{"utc": "2026-11-06T09:25:32Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:33Z", "step": "hover", "tag": "hud_scan", "at": [300, 1038], "result": "over=nil cursor=300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:38Z", "step": "lua", "args": "over", "ok": true, "result": "over=3 cursor=499,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:38Z", "step": "hover", "tag": "hud_scan", "at": [500, 1038], "result": "over=3 cursor=499,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:44Z", "step": "lua", "args": "over", "ok": true, "result": "over=7 cursor=700,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:44Z", "step": "hover", "tag": "hud_scan", "at": [700, 1038], "result": "over=7 cursor=700,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:50Z", "step": "lua", "args": "over", "ok": true, "result": "over=10 cursor=900,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:50Z", "step": "hover", "tag": "hud_scan", "at": [900, 1038], "result": "over=10 cursor=900,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:56Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1100,1026 root=1280,960"}
+{"utc": "2026-11-06T09:25:57Z", "step": "hover", "tag": "hud_scan", "at": [1100, 1038], "result": "over=review_DY cursor=1100,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:03Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:04Z", "step": "hover", "tag": "hud_scan", "at": [1300, 1038], "result": "over=review_DY cursor=1300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:09Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1500,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:10Z", "step": "hover", "tag": "hud_scan", "at": [1500, 1038], "result": "over=review_DY cursor=1500,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:15Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:16Z", "step": "hover", "tag": "hud_scan", "at": [300, 1072], "result": "over=nil cursor=300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:21Z", "step": "lua", "args": "over", "ok": true, "result": "over=3 cursor=499,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:21Z", "step": "hover", "tag": "hud_scan", "at": [500, 1072], "result": "over=3 cursor=499,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:26Z", "step": "lua", "args": "over", "ok": true, "result": "over=7 cursor=700,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:27Z", "step": "hover", "tag": "hud_scan", "at": [700, 1072], "result": "over=7 cursor=700,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:32Z", "step": "lua", "args": "over", "ok": true, "result": "over=10 cursor=900,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:33Z", "step": "hover", "tag": "hud_scan", "at": [900, 1072], "result": "over=10 cursor=900,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:37Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1100,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:38Z", "step": "hover", "tag": "hud_scan", "at": [1100, 1072], "result": "over=review_DY cursor=1100,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:43Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:44Z", "step": "hover", "tag": "hud_scan", "at": [1300, 1072], "result": "over=review_DY cursor=1300,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:49Z", "step": "lua", "args": "over", "ok": true, "result": "over=review_DY cursor=1500,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:50Z", "step": "hover", "tag": "hud_scan", "at": [1500, 1072], "result": "over=review_DY cursor=1500,1026 root=1280,960"}
+{"utc": "2026-11-06T09:26:51Z", "step": "hud_points", "n": 20, "points": [[500, 868], [700, 868], [900, 868], [1100, 868], [1300, 868], [1500, 868], [500, 902], [700, 902], [900, 902], [1100, 902], [1300, 902], [1500, 902], [700, 936], [900, 936], [1100, 936], [1300, 936], [700, 970], [900, 970], [1100, 970], [1300, 970]]}
+{"utc": "2026-11-06T09:26:54Z", "step": "lua", "args": "vis orders 0", "ok": true, "result": "vis orders 0 now visible=false"}
+{"utc": "2026-11-06T09:27:02Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:27:02Z", "step": "hover", "tag": "hud_vis", "at": [500, 868], "result": "over=nil cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:27:07Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:27:08Z", "step": "hover", "tag": "hud_vis", "at": [1100, 868], "result": "over=nil cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:27:13Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:27:14Z", "step": "hover", "tag": "hud_vis", "at": [500, 902], "result": "over=nil cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:27:19Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:27:20Z", "step": "hover", "tag": "hud_vis", "at": [1100, 902], "result": "over=nil cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:27:25Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:27:27Z", "step": "hover", "tag": "hud_vis", "at": [700, 936], "result": "over=nil cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:27:33Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:27:34Z", "step": "hover", "tag": "hud_vis", "at": [1300, 936], "result": "over=nil cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:27:37Z", "step": "lua", "args": "vis orders 1", "ok": true, "result": "vis orders 1 now visible=true"}
+{"utc": "2026-11-06T09:27:41Z", "step": "lua", "args": "pvis orders 0", "ok": true, "result": "pvis orders 0 now visible=false"}
+{"utc": "2026-11-06T09:27:48Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:27:49Z", "step": "hover", "tag": "hud_pvis", "at": [500, 868], "result": "over=nil cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:27:54Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:27:55Z", "step": "hover", "tag": "hud_pvis", "at": [1100, 868], "result": "over=nil cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:28:00Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:01Z", "step": "hover", "tag": "hud_pvis", "at": [500, 902], "result": "over=nil cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:06Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:06Z", "step": "hover", "tag": "hud_pvis", "at": [1100, 902], "result": "over=nil cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:11Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:28:12Z", "step": "hover", "tag": "hud_pvis", "at": [700, 936], "result": "over=nil cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:28:17Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:28:18Z", "step": "hover", "tag": "hud_pvis", "at": [1300, 936], "result": "over=nil cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:28:21Z", "step": "lua", "args": "pvis orders 1", "ok": true, "result": "pvis orders 1 now visible=true"}
+{"utc": "2026-11-06T09:28:24Z", "step": "lua", "args": "alpha orders 0", "ok": true, "result": "alpha orders 0"}
+{"utc": "2026-11-06T09:28:31Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:28:31Z", "step": "hover", "tag": "hud_alpha", "at": [500, 868], "result": "over=orders cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:28:37Z", "step": "lua", "args": "over", "ok": true, "result": "over=TripleLineIntegratedArtillery cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:28:37Z", "step": "hover", "tag": "hud_alpha", "at": [1100, 868], "result": "over=TripleLineIntegratedArtillery cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:28:42Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:43Z", "step": "hover", "tag": "hud_alpha", "at": [500, 902], "result": "over=orders cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:48Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:49Z", "step": "hover", "tag": "hud_alpha", "at": [1100, 902], "result": "over=orders cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:28:54Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_melee cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:28:55Z", "step": "hover", "tag": "hud_alpha", "at": [700, 936], "result": "over=button_melee cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:29:00Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_ability5_DY cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:29:01Z", "step": "hover", "tag": "hud_alpha", "at": [1300, 936], "result": "over=button_ability5_DY cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:29:03Z", "step": "lua", "args": "alpha orders 255", "ok": true, "result": "alpha orders 255"}
+{"utc": "2026-11-06T09:29:07Z", "step": "lua", "args": "move orders -5000 -5000", "ok": true, "result": "move orders was 3,749 now -5000,-5000"}
+{"utc": "2026-11-06T09:29:13Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:29:14Z", "step": "hover", "tag": "hud_move", "at": [500, 868], "result": "over=nil cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:29:19Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:29:20Z", "step": "hover", "tag": "hud_move", "at": [1100, 868], "result": "over=nil cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:29:25Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:29:26Z", "step": "hover", "tag": "hud_move", "at": [500, 902], "result": "over=nil cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:29:32Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:29:33Z", "step": "hover", "tag": "hud_move", "at": [1100, 902], "result": "over=nil cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:29:38Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:29:39Z", "step": "hover", "tag": "hud_move", "at": [700, 936], "result": "over=nil cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:29:44Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:29:45Z", "step": "hover", "tag": "hud_move", "at": [1300, 936], "result": "over=nil cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:29:47Z", "step": "lua", "args": "move orders 3 749", "ok": true, "result": "move orders was -5000,-5000 now 3,749"}
+{"utc": "2026-11-06T09:29:53Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:29:54Z", "step": "hover", "tag": "hud_restored", "at": [500, 868], "result": "over=orders cursor=499,868 root=1280,960"}
+{"utc": "2026-11-06T09:29:59Z", "step": "lua", "args": "over", "ok": true, "result": "over=TripleLineIntegratedArtillery cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:30:00Z", "step": "hover", "tag": "hud_restored", "at": [1100, 868], "result": "over=TripleLineIntegratedArtillery cursor=1100,868 root=1280,960"}
+{"utc": "2026-11-06T09:30:05Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:30:06Z", "step": "hover", "tag": "hud_restored", "at": [500, 902], "result": "over=orders cursor=499,902 root=1280,960"}
+{"utc": "2026-11-06T09:30:11Z", "step": "lua", "args": "over", "ok": true, "result": "over=orders cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:30:12Z", "step": "hover", "tag": "hud_restored", "at": [1100, 902], "result": "over=orders cursor=1100,902 root=1280,960"}
+{"utc": "2026-11-06T09:30:17Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_melee cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:30:17Z", "step": "hover", "tag": "hud_restored", "at": [700, 936], "result": "over=button_melee cursor=700,936 root=1280,960"}
+{"utc": "2026-11-06T09:30:23Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_ability5_DY cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:30:23Z", "step": "hover", "tag": "hud_restored", "at": [1300, 936], "result": "over=button_ability5_DY cursor=1300,936 root=1280,960"}
+{"utc": "2026-11-06T09:30:29Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T09:30:30Z", "step": "end", "how": "not running"}
+{"utc": "2026-11-06T09:31:01Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 18.0, "retried_after": "[job j32-20261106T093043Z-902328: failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)]"}}
+{"utc": "2026-11-06T09:31:04Z", "step": "lua", "args": "pos main", "ok": true, "result": "-1 0 1280 960 true true"}
+{"utc": "2026-11-06T09:31:09Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:10Z", "step": "hover", "tag": "main_scan", "at": [200, 150], "result": "over=nil cursor=200,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:15Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:16Z", "step": "hover", "tag": "main_scan", "at": [510, 150], "result": "over=main cursor=510,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:21Z", "step": "lua", "args": "over", "ok": true, "result": "over=logo cursor=820,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:22Z", "step": "hover", "tag": "main_scan", "at": [820, 150], "result": "over=logo cursor=820,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:27Z", "step": "lua", "args": "over", "ok": true, "result": "over=logo cursor=1130,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:28Z", "step": "hover", "tag": "main_scan", "at": [1130, 150], "result": "over=logo cursor=1130,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:33Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:34Z", "step": "hover", "tag": "main_scan", "at": [1440, 150], "result": "over=main cursor=1440,150 root=1280,960"}
+{"utc": "2026-11-06T09:31:39Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,235 root=1280,960"}
+{"utc": "2026-11-06T09:31:40Z", "step": "hover", "tag": "main_scan", "at": [200, 235], "result": "over=nil cursor=200,235 root=1280,960"}
+{"utc": "2026-11-06T09:31:45Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,235 root=1280,960"}
+{"utc": "2026-11-06T09:31:45Z", "step": "hover", "tag": "main_scan", "at": [510, 235], "result": "over=main cursor=510,235 root=1280,960"}
+{"utc": "2026-11-06T09:31:51Z", "step": "lua", "args": "over", "ok": true, "result": "over=logo cursor=820,235 root=1280,960"}
+{"utc": "2026-11-06T09:31:52Z", "step": "hover", "tag": "main_scan", "at": [820, 235], "result": "over=logo cursor=820,235 root=1280,960"}
+{"utc": "2026-11-06T09:31:57Z", "step": "lua", "args": "over", "ok": true, "result": "over=logo cursor=1130,235 root=1280,960"}
+{"utc": "2026-11-06T09:31:57Z", "step": "hover", "tag": "main_scan", "at": [1130, 235], "result": "over=logo cursor=1130,235 root=1280,960"}
+{"utc": "2026-11-06T09:32:03Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,235 root=1280,960"}
+{"utc": "2026-11-06T09:32:04Z", "step": "hover", "tag": "main_scan", "at": [1440, 235], "result": "over=main cursor=1440,235 root=1280,960"}
+{"utc": "2026-11-06T09:32:08Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:09Z", "step": "hover", "tag": "main_scan", "at": [200, 320], "result": "over=nil cursor=200,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:14Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:15Z", "step": "hover", "tag": "main_scan", "at": [510, 320], "result": "over=main cursor=510,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:20Z", "step": "lua", "args": "over", "ok": true, "result": "over=button_group_default cursor=820,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:20Z", "step": "hover", "tag": "main_scan", "at": [820, 320], "result": "over=button_group_default cursor=820,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:25Z", "step": "lua", "args": "over", "ok": true, "result": "over=continue_campaign cursor=1130,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:26Z", "step": "hover", "tag": "main_scan", "at": [1130, 320], "result": "over=continue_campaign cursor=1130,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:31Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:31Z", "step": "hover", "tag": "main_scan", "at": [1440, 320], "result": "over=main cursor=1440,320 root=1280,960"}
+{"utc": "2026-11-06T09:32:36Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:36Z", "step": "hover", "tag": "main_scan", "at": [200, 405], "result": "over=nil cursor=200,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:41Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:41Z", "step": "hover", "tag": "main_scan", "at": [510, 405], "result": "over=main cursor=510,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:46Z", "step": "lua", "args": "over", "ok": true, "result": "over=single_player cursor=820,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:47Z", "step": "hover", "tag": "main_scan", "at": [820, 405], "result": "over=single_player cursor=820,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:52Z", "step": "lua", "args": "over", "ok": true, "result": "over=single_player cursor=1130,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:53Z", "step": "hover", "tag": "main_scan", "at": [1130, 405], "result": "over=single_player cursor=1130,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:58Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,405 root=1280,960"}
+{"utc": "2026-11-06T09:32:59Z", "step": "hover", "tag": "main_scan", "at": [1440, 405], "result": "over=main cursor=1440,405 root=1280,960"}
+{"utc": "2026-11-06T09:33:04Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:04Z", "step": "hover", "tag": "main_scan", "at": [200, 490], "result": "over=nil cursor=200,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:09Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:10Z", "step": "hover", "tag": "main_scan", "at": [510, 490], "result": "over=main cursor=510,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:15Z", "step": "lua", "args": "over", "ok": true, "result": "over=options cursor=820,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:15Z", "step": "hover", "tag": "main_scan", "at": [820, 490], "result": "over=options cursor=820,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:20Z", "step": "lua", "args": "over", "ok": true, "result": "over=options cursor=1130,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:21Z", "step": "hover", "tag": "main_scan", "at": [1130, 490], "result": "over=options cursor=1130,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:26Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:26Z", "step": "hover", "tag": "main_scan", "at": [1440, 490], "result": "over=main cursor=1440,490 root=1280,960"}
+{"utc": "2026-11-06T09:33:31Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:31Z", "step": "hover", "tag": "main_scan", "at": [200, 575], "result": "over=nil cursor=200,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:36Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:37Z", "step": "hover", "tag": "main_scan", "at": [510, 575], "result": "over=main cursor=510,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:42Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=820,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:42Z", "step": "hover", "tag": "main_scan", "at": [820, 575], "result": "over=main cursor=820,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:47Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1130,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:48Z", "step": "hover", "tag": "main_scan", "at": [1130, 575], "result": "over=main cursor=1130,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:53Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:53Z", "step": "hover", "tag": "main_scan", "at": [1440, 575], "result": "over=main cursor=1440,575 root=1280,960"}
+{"utc": "2026-11-06T09:33:58Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,660 root=1280,960"}
+{"utc": "2026-11-06T09:33:59Z", "step": "hover", "tag": "main_scan", "at": [200, 660], "result": "over=nil cursor=200,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:04Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:04Z", "step": "hover", "tag": "main_scan", "at": [510, 660], "result": "over=main cursor=510,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:08Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=820,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:09Z", "step": "hover", "tag": "main_scan", "at": [820, 660], "result": "over=main cursor=820,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:14Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1130,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:15Z", "step": "hover", "tag": "main_scan", "at": [1130, 660], "result": "over=main cursor=1130,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:22Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:22Z", "step": "hover", "tag": "main_scan", "at": [1440, 660], "result": "over=main cursor=1440,660 root=1280,960"}
+{"utc": "2026-11-06T09:34:27Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:28Z", "step": "hover", "tag": "main_scan", "at": [200, 745], "result": "over=nil cursor=200,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:32Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:33Z", "step": "hover", "tag": "main_scan", "at": [510, 745], "result": "over=main cursor=510,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:38Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=820,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:39Z", "step": "hover", "tag": "main_scan", "at": [820, 745], "result": "over=main cursor=820,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:44Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1130,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:45Z", "step": "hover", "tag": "main_scan", "at": [1130, 745], "result": "over=main cursor=1130,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:50Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:51Z", "step": "hover", "tag": "main_scan", "at": [1440, 745], "result": "over=main cursor=1440,745 root=1280,960"}
+{"utc": "2026-11-06T09:34:56Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,830 root=1280,960"}
+{"utc": "2026-11-06T09:34:57Z", "step": "hover", "tag": "main_scan", "at": [200, 830], "result": "over=nil cursor=200,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:02Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:03Z", "step": "hover", "tag": "main_scan", "at": [510, 830], "result": "over=main cursor=510,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:08Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=820,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:09Z", "step": "hover", "tag": "main_scan", "at": [820, 830], "result": "over=main cursor=820,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:14Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1130,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:15Z", "step": "hover", "tag": "main_scan", "at": [1130, 830], "result": "over=main cursor=1130,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:20Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1440,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:20Z", "step": "hover", "tag": "main_scan", "at": [1440, 830], "result": "over=main cursor=1440,830 root=1280,960"}
+{"utc": "2026-11-06T09:35:26Z", "step": "lua", "args": "over", "ok": true, "result": "over=nil cursor=200,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:26Z", "step": "hover", "tag": "main_scan", "at": [200, 915], "result": "over=nil cursor=200,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:32Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:32Z", "step": "hover", "tag": "main_scan", "at": [510, 915], "result": "over=main cursor=510,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:38Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=820,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:39Z", "step": "hover", "tag": "main_scan", "at": [820, 915], "result": "over=main cursor=820,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:44Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1130,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:45Z", "step": "hover", "tag": "main_scan", "at": [1130, 915], "result": "over=main cursor=1130,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:50Z", "step": "lua", "args": "over", "ok": true, "result": "over=text_area cursor=1440,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:51Z", "step": "hover", "tag": "main_scan", "at": [1440, 915], "result": "over=text_area cursor=1440,915 root=1280,960"}
+{"utc": "2026-11-06T09:35:52Z", "step": "main_points", "n": 40, "points": [[510, 150], [820, 150], [1130, 150], [1440, 150], [510, 235], [820, 235], [1130, 235], [1440, 235], [510, 320], [820, 320], [1130, 320], [1440, 320], [510, 405], [820, 405], [1130, 405], [1440, 405], [510, 490], [820, 490], [1130, 490], [1440, 490], [510, 575], [820, 575], [1130, 575], [1440, 575], [510, 660], [820, 660], [1130, 660], [1440, 660], [510, 745], [820, 745], [1130, 745], [1440, 745], [510, 830], [820, 830], [1130, 830], [1440, 830], [510, 915], [820, 915], [1130, 915], [1440, 915]]}
+{"utc": "2026-11-06T09:35:54Z", "step": "lua", "args": "vis main 0", "ok": true, "result": "vis main 0 now visible=false"}
+{"utc": "2026-11-06T09:36:02Z", "step": "lua", "args": "over", "ok": true, "result": "over=movie_bg cursor=510,150 root=1280,960"}
+{"utc": "2026-11-06T09:36:02Z", "step": "hover", "tag": "main_vis", "at": [510, 150], "result": "over=movie_bg cursor=510,150 root=1280,960"}
+{"utc": "2026-11-06T09:36:07Z", "step": "lua", "args": "over", "ok": true, "result": "over=movie_bg cursor=1130,320 root=1280,960"}
+{"utc": "2026-11-06T09:36:08Z", "step": "hover", "tag": "main_vis", "at": [1130, 320], "result": "over=movie_bg cursor=1130,320 root=1280,960"}
+{"utc": "2026-11-06T09:36:13Z", "step": "lua", "args": "over", "ok": true, "result": "over=movie_bg cursor=510,575 root=1280,960"}
+{"utc": "2026-11-06T09:36:14Z", "step": "hover", "tag": "main_vis", "at": [510, 575], "result": "over=movie_bg cursor=510,575 root=1280,960"}
+{"utc": "2026-11-06T09:36:19Z", "step": "lua", "args": "over", "ok": true, "result": "over=movie_bg cursor=1130,745 root=1280,960"}
+{"utc": "2026-11-06T09:36:20Z", "step": "hover", "tag": "main_vis", "at": [1130, 745], "result": "over=movie_bg cursor=1130,745 root=1280,960"}
+{"utc": "2026-11-06T09:36:22Z", "step": "lua", "args": "vis main 1", "ok": true, "result": "vis main 1 now visible=true"}
+{"utc": "2026-11-06T09:36:29Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,150 root=1280,960"}
+{"utc": "2026-11-06T09:36:29Z", "step": "hover", "tag": "main_restored", "at": [510, 150], "result": "over=main cursor=510,150 root=1280,960"}
+{"utc": "2026-11-06T09:36:34Z", "step": "lua", "args": "over", "ok": true, "result": "over=continue_campaign cursor=1130,320 root=1280,960"}
+{"utc": "2026-11-06T09:36:35Z", "step": "hover", "tag": "main_restored", "at": [1130, 320], "result": "over=continue_campaign cursor=1130,320 root=1280,960"}
+{"utc": "2026-11-06T09:36:40Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=510,575 root=1280,960"}
+{"utc": "2026-11-06T09:36:41Z", "step": "hover", "tag": "main_restored", "at": [510, 575], "result": "over=main cursor=510,575 root=1280,960"}
+{"utc": "2026-11-06T09:36:46Z", "step": "lua", "args": "over", "ok": true, "result": "over=main cursor=1130,745 root=1280,960"}
+{"utc": "2026-11-06T09:36:47Z", "step": "hover", "tag": "main_restored", "at": [1130, 745], "result": "over=main cursor=1130,745 root=1280,960"}
+{"utc": "2026-11-06T09:36:50Z", "step": "exit", "how": "exit"}
+{"utc": "2026-11-06T09:36:51Z", "step": "end", "how": "not running"}

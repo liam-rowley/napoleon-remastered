@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.undraw_means",
+  "claim": "Undrawing a vanilla screen from Lua: SetVisible(false) on its root, PropagateVisibility(false) and MoveTo(-5000, -5000) each leave nothing of it under the engine's hit test (Component.MouseOver), tested per means on the panel and the order bar (6 points that answered visible, all nil, all answering again once restored); SetVisible alone was tested on both popups and the main menu. PropagateOpacity(0) stops it drawing but it still takes the pointer, on the panel (over=item8) and the order bar (all 6 points), so opacity is not a route. A page's hit test cannot be read: no Lua runs there after the call. The test is the hit test, not a real click, and keys were not tried. No DLL draw-skip is needed",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "s4.jsonl camp2, camp3, battle2, fe3"
+}

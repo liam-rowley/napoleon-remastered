@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.script_src_absolute_path",
+  "claim": "An RML <script src> cannot load in the host: the host loads documents by absolute path, RmlUi keeps the drive as C|/ in URLs and Interpreter::LoadFile passes that straight to the file interface (LoadFile: Unable to open file: C|/...), so board.lua never ran and its data model was missing. Inline <script> works (RmlUi reads it as CDATA; a CDATA wrapper reaches Lua as text). The viewer's paths have no drive, so it never shows there. J35 needs a host FileInterface that maps | back to :; until then game copies inline their scripts",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "results.jsonl first sitting; proxy.log rml: lines"
+}

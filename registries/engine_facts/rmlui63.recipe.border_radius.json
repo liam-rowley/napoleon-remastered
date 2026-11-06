@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.border_radius",
+  "claim": "border-radius: the game draws it, same shape; curve edges differ by up to 100 levels on 0.7-2.2 % of the cell (the viewer's WebGL edge smoothing against the game's edge)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json border-radius"
+}

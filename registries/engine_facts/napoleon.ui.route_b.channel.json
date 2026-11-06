@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.route_b.channel",
+  "claim": "The channel from the game's Lua to the host: package.loadlib of a proxy export is the dev bridge's own route, so release needs that export and one wrapper in a pack, once, not per screen. Measured on the existing bridge: a C call about 0.05 us, a component read 0.07 us. A panel feed is dominated by the getters: 28 ms for one fetch of forces, regions and agents (12, 9 and 2 entries), 0.15 ms to flatten to 7.4 KB. So feed on open and on events, never per frame. The new export itself was not built",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "s4.jsonl camp, camp2 ccost and clock"
+}

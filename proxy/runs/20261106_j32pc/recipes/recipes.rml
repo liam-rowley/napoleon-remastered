@@ -1,0 +1,27 @@
+<rml>
+<head>
+	<title>S3 recipes (J32)</title>
+	<link type="text/rcss" href="recipes.rcss"/>
+</head>
+<!-- J32 S3: one cell per recipe the brief names, each at a fixed dp box, on an opaque body. onload focuses #r_focus with focus-visible when the binding allows it. -->
+<body id="recipes" class="fac-a" onload="local e = document:GetElementById('r_focus'); if e then e:Focus(true) end">
+	<div class="cell" style="left: 20dp; top: 20dp;"><img class="tint" src="glyph.png"/></div>
+	<div class="cell" style="left: 160dp; top: 20dp;"><div class="fill up"/></div>
+	<div class="cell" style="left: 300dp; top: 20dp;"><div class="round"/></div>
+	<div class="cell" style="left: 440dp; top: 20dp;"><div class="fill sh_blur"/></div>
+	<div class="cell" style="left: 580dp; top: 20dp;"><div class="fill sh_alpha"/></div>
+	<div class="cell" style="left: 720dp; top: 20dp;"><div class="nobg sh_hard"/></div>
+	<div class="cell" style="left: 20dp; top: 160dp;"><div class="fill tinted"/></div>
+	<div class="cell" style="left: 160dp; top: 160dp;"><div id="r_focus" class="fill foc" tabindex="0"/></div>
+	<div class="cell" style="left: 300dp; top: 160dp;"><div class="fill lin"/></div>
+	<div class="cell" style="left: 440dp; top: 160dp;"><div class="fill hatch"/></div>
+	<div class="cell" style="left: 580dp; top: 160dp;"><div class="clip"><div class="big"/></div></div>
+	<div class="cell" style="left: 720dp; top: 160dp;"><div class="fill layer"><div class="inner"/></div></div>
+	<div class="cell" style="left: 20dp; top: 300dp;"><div class="fill filt"/></div>
+	<div class="cell" style="left: 160dp; top: 300dp;">
+		<div class="hair" style="top: 0dp;"/><div class="hair" style="top: 3dp;"/><div class="hair" style="top: 7dp;"/><div class="hair" style="top: 12dp;"/>
+		<div class="hb" style="top: 30dp;"/><div class="hb" style="top: 33dp;"/><div class="hb" style="top: 37dp;"/><div class="hb" style="top: 42dp;"/>
+	</div>
+	<div class="cell" style="left: 300dp; top: 300dp;"><div class="txt t14">Hamburg 14</div><div class="txt t18">Hamburg 18</div></div>
+</body>
+</rml>

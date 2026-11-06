@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.gradients",
+  "claim": "linear-gradient and repeating-linear-gradient decorators: game equals viewer within 1 level at all four cells",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json linear-gradient, repeating gradient"
+}

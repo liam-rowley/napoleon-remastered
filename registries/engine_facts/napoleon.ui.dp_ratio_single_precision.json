@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.dp_ratio_single_precision",
+  "claim": "The host's dp ratio is one float step high at some sizes: D3D9 leaves the render thread's x87 in 24-bit precision, so UiDpRatio's double maths rounds at every step and 1440p x 100 gives 1.33333349 where the correctly rounded value is 1.33333337 (a float32 simulation of the three steps puts 41 of 108 cells of 12 heights and 9 scales off, 1440p at 95, 100, 115 and 125 %, 1200 x 90 at 1.0000001, 1080p and 4K at none: `tools/ui_hosttest.py dp-ratio <height> <percent>` gives any cell). That is the only layout difference between the viewer and the game: a board button sat 1 px off at 1440p, and with the viewer at 1.33333349 all 507 div boxes equal the game's and parity reports no moved tile. Fix proposed for J35: compute it from integers, (float)(h * percent) / 108000.0f, exact in any x87 mode",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "boxes.py; a float32 simulation of the three steps gives the same value"
+}

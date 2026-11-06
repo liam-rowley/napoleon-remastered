@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.text_4k_height",
+  "claim": "The 4K x 125 % text height miss (14 dp H ink 26 rows against a 24.2 px cap height) is not the host's: the viewer draws the same pixels (host test at that cell: max delta 1). It comes from FreeType and the font at 35 px",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "parity.jsonl hosttest_frontend_2160_125"
+}

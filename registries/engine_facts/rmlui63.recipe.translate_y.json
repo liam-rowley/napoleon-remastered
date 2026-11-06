@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.translate_y",
+  "claim": "transform: translateY: game equals viewer at whole-pixel offsets; at 1080p x 85 and 1440p the shifted box's edges differ by up to 28 levels on 1 % of the cell (filtering)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json translateY"
+}

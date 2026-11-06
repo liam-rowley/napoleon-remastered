@@ -1,0 +1,32 @@
+/* J32 S3 recipes: one fixed cell each, every length in dp (D19). */
+body, div, span, img { display: block; }
+body {
+	position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+	background-color: #1b2433; color: #ffffff;
+	font-family: "IM FELL English"; font-size: 16dp;
+	--fac: #094f96; --on-fac: #ffffff;
+}
+.cell { position: absolute; width: 120dp; height: 120dp; background-color: #d8d0c0; }
+.fill { position: absolute; left: 20dp; top: 20dp; width: 80dp; height: 80dp; background-color: #c8a050; }
+.tint { position: absolute; left: 28dp; top: 28dp; width: 64dp; height: 64dp; image-color: #094f96; }
+.up { transform: translateY(-8dp); }
+.round { position: absolute; left: 20dp; top: 20dp; width: 80dp; height: 80dp; background-color: #c8a050; border: 2dp #101820; border-radius: 40dp; }
+.sh_blur { box-shadow: #000000 0dp 4dp 12dp 0dp; }
+.sh_alpha { box-shadow: #00000080 6dp 6dp 0dp 0dp; }
+.nobg { position: absolute; left: 20dp; top: 20dp; width: 80dp; height: 80dp; }
+.sh_hard { box-shadow: #094f96 6dp 6dp 0dp 0dp; }
+.tinted { background-color: var(--fac); }
+.foc { tab-index: auto; focus: auto; nav: auto; }
+.foc:focus-visible { border: 3dp #ff00ff; }
+.lin { decorator: linear-gradient(to bottom, #094f96, #c8a050); }
+.hatch { decorator: repeating-linear-gradient(45deg, #c8a050 0dp, #c8a050 4dp, #101820 4dp, #101820 8dp); }
+.clip { position: absolute; left: 20dp; top: 20dp; width: 80dp; height: 80dp; overflow: hidden; border-radius: 24dp; background-color: #101820; }
+.big { position: absolute; left: -10dp; top: 30dp; width: 120dp; height: 30dp; background-color: #c8a050; }
+.layer { opacity: 0.5; }
+.inner { position: absolute; left: 20dp; top: 20dp; width: 40dp; height: 40dp; background-color: #094f96; }
+.filt { filter: blur(3dp); }
+.hair { position: absolute; left: 10dp; width: 100dp; height: 1dp; background-color: #101820; }
+.hb { position: absolute; left: 10dp; width: 100dp; height: 0dp; border-top: 1dp #101820; }
+.txt { position: absolute; left: 8dp; color: #101820; white-space: nowrap; }
+.t14 { top: 20dp; font-size: 14dp; }
+.t18 { top: 60dp; font-size: 18dp; }

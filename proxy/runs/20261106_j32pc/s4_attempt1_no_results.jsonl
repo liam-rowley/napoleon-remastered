@@ -1,0 +1,29 @@
+{"utc": "2026-11-06T07:32:37Z", "step": "launch", "res": {"size": "1920x1080", "keys_set": [], "launch_s": 16.4}}
+{"utc": "2026-11-06T07:32:56Z", "step": "scene", "r": "ok"}
+{"utc": "2026-11-06T07:33:19Z", "step": "lua", "args": "top", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:33:22Z", "step": "lua", "args": "snap popup_before event_message", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:33:32Z", "step": "shot", "name": "popup_open", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_popup_open.jpg", "reason": ""}
+{"utc": "2026-11-06T07:33:35Z", "step": "lua", "args": "pos event_message", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:33:37Z", "step": "lua", "args": "vis event_message 0", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:33:49Z", "step": "shot", "name": "popup_vis", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_popup_vis.jpg", "reason": ""}
+{"utc": "2026-11-06T07:33:52Z", "step": "lua", "args": "pos event_message", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:33:55Z", "step": "lua", "args": "snap popup_hidden event_message", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:02Z", "step": "perf", "tag": "popup_hidden", "run": 1, "ok": true, "frame_ms": {"p50": 1.058, "p99": 3.838, "max": 17.922, "mean": 1.193}, "frames": 4188}
+{"utc": "2026-11-06T07:34:05Z", "step": "lua", "args": "call event_message OnOk", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:11Z", "step": "lua", "args": "pos event_message", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:14Z", "step": "lua", "args": "top", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:17Z", "step": "lua", "args": "", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:24Z", "step": "lua", "args": "", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:31Z", "step": "lua", "args": "", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:37Z", "step": "lua", "args": "", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:34:54Z", "step": "shot", "name": "hud", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_hud.jpg", "reason": ""}
+{"utc": "2026-11-06T07:35:01Z", "step": "perf", "tag": "hud_closed", "run": 1, "ok": true, "frame_ms": {"p50": 0.812, "p99": 1.867, "max": 10.024, "mean": 0.877}, "frames": 5698}
+{"utc": "2026-11-06T07:35:08Z", "step": "perf", "tag": "hud_closed", "run": 2, "ok": true, "frame_ms": {"p50": 0.84, "p99": 1.977, "max": 12.152, "mean": 0.921}, "frames": 5426}
+{"utc": "2026-11-06T07:35:11Z", "step": "lua", "args": "ccost 20", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:35:14Z", "step": "lua", "args": "clock 2000", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:35:16Z", "step": "lua", "args": "ToggleEntityLists", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:35:24Z", "step": "lua", "args": "snap lists_open entity_lists", "ok": true, "result": ""}
+{"utc": "2026-11-06T07:35:35Z", "step": "shot", "name": "lists_open", "status": "ok", "file": "C:\\Users\\liamr\\repos\\napoleon-remastered\\.claude\\worktrees\\J32\\build\\j32\\s4\\j32_lists_open.jpg", "reason": ""}
+{"utc": "2026-11-06T07:35:43Z", "step": "perf", "tag": "lists_open", "run": 1, "ok": true, "frame_ms": {"p50": 1.119, "p99": 2.731, "max": 15.175, "mean": 1.226}, "frames": 4077}
+{"utc": "2026-11-06T07:35:50Z", "step": "perf", "tag": "lists_open", "run": 2, "ok": true, "frame_ms": {"p50": 1.105, "p99": 2.638, "max": 9.429, "mean": 1.202}, "frames": 4161}
+{"utc": "2026-11-06T07:35:52Z", "step": "lua", "args": "vis entity_lists 0", "ok": true, "result": ""}

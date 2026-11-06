@@ -1,0 +1,7 @@
+{
+  "title": "S3 recipes (J32)",
+  "document": "recipes.rml",
+  "files": ["recipes.rml", "recipes.rcss", "glyph.png"],
+  "fonts": ["IMFeENrm28P.ttf"],
+  "probe": {"focus": "r_focus"}
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.host_lua_libs",
+  "claim": "The host's Lua state has base, table, string, math and debug only: no io and no os (core/proxy/src/ui_lua.cpp); print reaches the proxy log as an rml: line. The viewer keeps Lua's standard libraries, so a view script using io works in the viewer and fails in game",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "boxes.py, attempt with io.open"
+}

@@ -95,6 +95,11 @@ page; agents pick up the comments, change the source and republish. Status chang
 - **S2: result (2026-10-31, J31):** a private Artifact hosts the viewer: wasm served as `application/wasm` and instantiated, WebGL2, TTF and PNG
   load, input works (touch after a host fix). Art must be a web image type (`.tga` is refused); RML, RCSS and Lua go as `text/plain`. The engine
   uses about 2.4 MB of the 64 MB per publish. Evidence: as S1, and https://claude.ai/artifact/EoCR1JcPZH7Rnix9JoKZea (Liam's phone check).
+- **S3: result (2026-11-06, J32, run 20261106_j32pc):** rasterising only, after one explained cause: the host's dp ratio is one float step high at 1440p
+  (`napoleon.ui.dp_ratio_single_precision`). The viewer's black shadows are a viewer bug (`viewer.clear_order_layers`); the game draws them correctly. Proposed `verified`
+  threshold: tolerance 8, share at most 0.023, no moved tile (`viewer.parity.numbers`). Evidence: `jobs/J32/report.md`.
+- **S4: result (2026-11-06, J32, run 20261106_j32pc):** neither route needs per-screen plumbing. Proposed: panel and front end on getters, popup and HUD alive but undrawn with
+  `SetVisible(false)`; the decision row waits on Liam. Evidence: `jobs/J32/report.md`, `engine_facts` `napoleon.ui.route_a.*`, `napoleon.ui.route_b.*`.
 
 ## 5. Open questions for Liam
 

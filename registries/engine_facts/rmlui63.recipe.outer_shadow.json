@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.outer_shadow",
+  "claim": "Blurred, alpha and no-background outer box-shadows draw correctly in game; the viewer paints them black only because of viewer.clear_order_layers (with the fix: within 10 levels). This answers J69's shadow question: a blurred plate shadow works in game, and lint rule 6 can relax once the viewer is fixed",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json blur shadow, alpha shadow, no-background shadow"
+}

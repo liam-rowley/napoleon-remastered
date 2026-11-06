@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.art_mip_filtering",
+  "claim": "Images differ between the renderers by design: the host builds a mip chain and samples trilinear, the viewer does not, so art drawn below its master size is softer in game and fine detail averages out where the viewer aliases (host test art at 1080p: max delta 134). At the master's own scale (4K x 125) the host test is the same to 1 level. This is filtering, not layout, and it is most of the host test's share",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "crops/parity/hosttest_frontend_1080_100_0.png"
+}

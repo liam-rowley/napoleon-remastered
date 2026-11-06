@@ -1,0 +1,8 @@
+{
+  "id": "viewer.parity.numbers",
+  "claim": "Viewer against game, run 20261106_j32pc, share of pixels more than 8 levels off in any channel, largest of the two scenes (board and recipes battle dumps are byte-identical to the front end dumps; the host test shows the scene round its body, so its dumps are identical only inside the compared rect; DLL a005f6cccc17, DXVK). Viewer with the clear-order fix, at the game's dp ratio: board 0 (1080p x 100, max delta 2), 0.018083 (1080p x 85), 0.010384 (1440p x 100), 0.003953 (4K x 125); host test 0.005533, 0.005777, 0.004087, 0 (max delta 1); recipes 0.000995, 0.000291, 0.000354, 0.001868. Proposed `verified` threshold: per-channel tolerance 8, share beyond it at most 0.023 (the largest seen plus 25 %), and no moved tile (tools/ui_hosttest.py parity kind not layout: a tile names a move up to 32 px, and a tile with half its pixels 64 levels off is layout at any distance; thin, faint or small content moved beyond 32 px (J32 review round 2: a 2 px rule at 33 px, a text line or a solid 16 px icon at 100 px all read raster), and the share of a screen smaller than the compared area, are not bounded by it, so compare element boxes for those). All 12 cells rerun through that check: no moved tile (parity_gate.jsonl). Noise is zero inside the compared areas (same pixels across scenes, and with RmlUi built for SSE: ui_host.cpp stayed x87, so that build tests RmlUi's arithmetic, not UiDpRatio), so the margin only covers documents denser in rules and art than the board",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "parity.jsonl, parity_fixed.jsonl; the 1440p board with the game ratio: moved 0"
+}

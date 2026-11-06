@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.unit_popup_route",
+  "claim": "A safe route to common.unit_information: root:LuaCall(\"ShowUnitInfo\", list[1].CommandedUnit.Address) with list = CampaignUI.RetrieveFactionMilitaryForceLists(faction, true), the row template's own call; it opens as UnitInfoPopup (137 rows, 70 texts) and closes with ClosePopup. Ran twice, no crash",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "s4.jsonl camp2, camp3"
+}
