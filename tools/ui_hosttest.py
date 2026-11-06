@@ -197,10 +197,14 @@ def check(path, dp, crops=None):
 
 # ---- parity: a viewer render against an in-game dump --------------------------------------------------------------------------
 TILE = 32            # px: moved content is looked for tile by tile, so one moved box shows however clean the rest of the image is
-SEARCH = 2           # px each way: the shifts tried, for the whole image and per tile
+SEARCH = 2           # px each way: the shifts tried for the whole image
+TILE_SEARCH = 32     # px each way: the shifts tried per tile, so this bounds the moves a tile can name
+SOLID_DELTA = 64     # a tile with SOLID_SHARE of its pixels this far off is no blended edge: content moved further than TILE_SEARCH, or one image lacks it
+SOLID_SHARE = 0.5    # J32's 12 cells reach 0.23 at this delta, on the host test's art (0.48 at 32 levels, so a lower delta calls filtering layout). Thin or faint content moved further shows only in element boxes
+TILE_SAMPLE = 48     # differing pixels of a tile tried against every shift; only the shifts they allow get a full count
 MOVED_GAIN = 0.6     # a shift must remove this share of a tile's differing pixels: blending does not follow a shift, moved content does
 MOVED_MIN_PX = 8     # fewer differing pixels than this in a tile say nothing
-MOVED_MIN_DELTA = 32  # a tile whose worst pixel is under this is shading, not an edge
+MOVED_MIN_DELTA = 32  # a tile whose worst pixel is under this is shading, not an edge; a tile of the first image with less contrast has nothing a shift could find again
 
 
 def gray(img):
@@ -208,18 +212,19 @@ def gray(img):
 
 
 def count_off(ga, gb, x0, y0, x1, y1, dx, dy, tol):
-    """Pixels of the box in `ga` differing beyond tol from `gb` read at (x + dx, y + dy); pixels shifted off `gb` are not counted."""
+    """-> (pixels of the box in `ga` differing beyond tol from `gb` read at (x + dx, y + dy), pixels compared). A shift drops the pixels it moves off `gb`, so compare shifts by the rate, never the count."""
     n, hb, wb = 0, len(gb), len(gb[0])
     xa, xb = max(x0, -dx), min(x1, wb - dx)
-    for y in range(max(y0, -dy), min(y1, hb - dy)):
+    ya, yb = max(y0, -dy), min(y1, hb - dy)
+    for y in range(ya, yb):
         ra, rb = ga[y][xa:xb], gb[y + dy][xa + dx:xb + dx]
         if ra != rb:
             n += sum(1 for p, q in zip(ra, rb) if abs(p - q) > tol)
-    return n
+    return n, max(0, xb - xa) * max(0, yb - ya)
 
 
-def shifts():
-    return sorted(((dx, dy) for dx in range(-SEARCH, SEARCH + 1) for dy in range(-SEARCH, SEARCH + 1)), key=lambda s: abs(s[0]) + abs(s[1]))
+def shifts(reach=SEARCH):
+    return sorted(((dx, dy) for dx in range(-reach, reach + 1) for dy in range(-reach, reach + 1)), key=lambda s: abs(s[0]) + abs(s[1]))
 
 
 def align(ga, gb, box, tol):
@@ -228,18 +233,57 @@ def align(ga, gb, box, tol):
     rows = list(range(y0, y1, 4))
     best, off, base = None, (0, 0), 0
     for dx, dy in shifts():
-        n = 0
+        n = c = 0
         xa, xb = max(x0, -dx), min(x1, len(gb[0]) - dx)
         for y in rows:
             if 0 <= y + dy < len(gb):
                 pa, pb = ga[y][xa:xb], gb[y + dy][xa + dx:xb + dx]
+                c += len(pa)
                 if pa != pb:
                     n += sum(1 for p, q in zip(pa, pb) if abs(p - q) > tol)
+        n = n / c if c else 1.0
         if best is None:
             base = n
         if best is None or n < best:
             best, off = n, (dx, dy)
-    return off if best <= base * (1 - MOVED_GAIN) else (0, 0)
+    if off == (0, 0) or best > base * (1 - MOVED_GAIN):
+        return (0, 0)
+    n0, c0 = count_off(ga, gb, *box, 0, 0, tol)       # the sample can skip a rule only one image has: the shift must hold on every row
+    n1, c1 = count_off(ga, gb, *box, *off, tol)
+    return off if c1 and n1 / c1 <= n0 / c0 * (1 - MOVED_GAIN) else (0, 0)
+
+
+def tile_shift(ga, gb, box, ox, oy, tol):
+    """The shift (from the aligned position) that best explains a tile's difference as moved content, or None.
+    Blending does not follow a shift and neither does a mark that only one image has: the tile must hold contrast in `ga`, and `gb` must show it again elsewhere."""
+    x0, y0, x1, y1 = box
+    wb, hb = len(gb[0]), len(gb)
+    if max(max(ga[y][x0:x1]) for y in range(y0, y1)) - min(min(ga[y][x0:x1]) for y in range(y0, y1)) < MOVED_MIN_DELTA:
+        return None
+    here, area = count_off(ga, gb, x0, y0, x1, y1, ox, oy, tol)
+    if not area:
+        return None
+    pts = [(x, y, ga[y][x]) for y in range(y0, y1) for x in range(x0, x1)
+           if not (0 <= y + oy < hb and 0 <= x + ox < wb) or abs(ga[y][x] - gb[y + oy][x + ox]) > tol]
+    pts = pts[::max(1, len(pts) // TILE_SAMPLE)]
+    allowed = int(len(pts) * (1 - MOVED_GAIN))
+    best, rate = None, here / area * (1 - MOVED_GAIN)
+    for s in shifts(TILE_SEARCH):
+        if s == (0, 0):
+            continue
+        dx, dy = ox + s[0], oy + s[1]
+        miss = 0
+        for x, y, v in pts:
+            if not (0 <= y + dy < hb and 0 <= x + dx < wb) or abs(v - gb[y + dy][x + dx]) > tol:
+                miss += 1
+                if miss > allowed:
+                    break
+        if miss > allowed:
+            continue
+        n, c = count_off(ga, gb, x0, y0, x1, y1, dx, dy, tol)
+        if c * 2 >= area and n / c <= rate and (best is None or n / c < rate):
+            best, rate = s, n / c
+    return best
 
 
 def merge_tiles(tiles):
@@ -263,7 +307,7 @@ def merge_tiles(tiles):
 
 
 def parity_images(a, b, rect=None, tol=8):
-    """Compare two images (rows of RGB tuples). -> the numbers, `moved` (boxes whose content a shift explains: layout) and `worst` (tiles by differing pixels)."""
+    """Compare two images (rows of RGB tuples). -> the numbers, `moved` (boxes whose content a shift explains, or solid difference with shift []: layout) and `worst` (tiles by differing pixels)."""
     h, w = len(a), len(a[0])
     if (len(b), len(b[0])) != (h, w):
         return {'ok': False, 'reason': f'sizes differ: {w}x{h} and {len(b[0])}x{len(b)}'}
@@ -285,19 +329,20 @@ def parity_images(a, b, rect=None, tol=8):
                 total += d
                 if d > tol:
                     t = (x // TILE, y // TILE)
-                    c = over.get(t, (0, 0))
-                    over[t] = (c[0] + 1, max(c[1], d))
+                    c = over.get(t, (0, 0, 0))
+                    over[t] = (c[0] + 1, max(c[1], d), c[2] + (d > SOLID_DELTA))
     px = (x1 - x0) * (y1 - y0)
     beyond = sum(hist[tol + 1:])
     moved = {}
-    for (tx, ty), (n, d) in over.items():
+    for (tx, ty), (n, d, far) in over.items():
         if n < MOVED_MIN_PX or d < MOVED_MIN_DELTA:
             continue
         box = (max(x0, tx * TILE), max(y0, ty * TILE), min(x1, (tx + 1) * TILE), min(y1, (ty + 1) * TILE))
-        here = count_off(ga, gb, *box, ox, oy, tol)
-        best = min(shifts(), key=lambda s: count_off(ga, gb, *box, ox + s[0], oy + s[1], tol))
-        if best != (0, 0) and count_off(ga, gb, *box, ox + best[0], oy + best[1], tol) <= here * (1 - MOVED_GAIN):
+        best = tile_shift(ga, gb, box, ox, oy, tol)
+        if best:
             moved[(tx, ty)] = best
+        elif far >= SOLID_SHARE * (box[2] - box[0]) * (box[3] - box[1]):
+            moved[(tx, ty)] = ()      # shift [] in the result: no shift names it
     worst = sorted(over.items(), key=lambda kv: (-kv[1][0], kv[0]))[:6]
     return {'ok': True, 'size': [w, h], 'rect': [x0, y0, x1 - x0, y1 - y0], 'offset': [ox, oy], 'pixels': px, 'tolerance': tol, 'differing': sum(hist[1:]), 'beyond': beyond,
             'share_beyond': round(beyond / px, 7) if px else 0, 'max_delta': max((i for i, n in enumerate(hist) if n), default=0), 'mean_delta': round(total / px, 4) if px else 0,

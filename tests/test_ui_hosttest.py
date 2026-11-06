@@ -67,6 +67,49 @@ class Parity(unittest.TestCase):
         self.assertEqual(r['kind'], 'layout')
         self.assertEqual(r['beyond'], 0)
 
+    def test_a_box_moved_further_than_the_whole_image_search_is_still_layout(self):
+        for n in (3, 4, 8, 20):
+            a = box(canvas(320, 200), 60, 60, 120, 40)
+            b = box(canvas(320, 200), 60 + n, 60 + n, 120, 40)
+            r = H.parity_images(a, b)
+            self.assertEqual(r['kind'], 'layout', n)
+            self.assertIn([n, n], [m['shift'] for m in r['moved']], n)
+
+    def test_a_box_moved_beyond_the_tile_search_shows_as_solid_difference(self):
+        r = H.parity_images(box(canvas(400, 240), 40, 60, 200, 60), box(canvas(400, 240), 140, 160, 200, 60))
+        self.assertEqual(r['kind'], 'layout')
+        self.assertIn([], [m['shift'] for m in r['moved']])
+
+    def test_a_box_only_one_image_has_is_layout_not_blending(self):
+        self.assertEqual(H.parity_images(canvas(320, 200), box(canvas(320, 200), 60, 60, 120, 40))['kind'], 'layout')
+
+    def test_a_move_along_one_axis_is_layout(self):
+        r = H.parity_images(box(canvas(320, 200), 60, 60, 120, 40), box(canvas(320, 200), 80, 60, 120, 40))
+        self.assertEqual(r['kind'], 'layout')
+
+    def test_a_box_moved_at_the_image_edge_is_layout(self):
+        for x, y, n in ((280, 150, -8), (0, 0, 8), (200, 170, 8)):   # the last one is clipped by the bottom of the image
+            a = box(canvas(320, 200), x, y, 40, 30)
+            b = canvas(320, 200)
+            box(b, max(0, x + n), max(0, y + n), 40, min(30, 200 - y - n))
+            self.assertEqual(H.parity_images(a, b)['kind'], 'layout', (x, y, n))
+
+    def test_a_column_differing_to_the_bottom_edge_is_not_explained_by_rows_falling_off(self):
+        a, b = canvas(128, 80), canvas(128, 80)
+        box(a, 40, 64, 30, 16, MID)
+        box(b, 40, 64, 30, 16, MID)
+        box(b, 50, 64, 1, 16, FG)     # J32 review: the 4K tile at 1504,2144, a pixel column differing in all 16 rows of a cut tile
+        self.assertEqual(H.parity_images(a, b)['kind'], 'raster')
+
+    def test_a_mark_only_one_image_has_is_not_moved_by_shifting_it_away(self):
+        b = box(canvas(), 20, 40, 60, 1)
+        self.assertEqual(H.parity_images(canvas(), b)['kind'], 'raster')
+
+    def test_a_soft_edge_on_a_wide_search_stays_rasterising(self):
+        a = box(canvas(320, 200), 60, 60, 120, 40)
+        b = box(box(canvas(320, 200), 60, 60, 120, 40), 59, 59, 122, 1, MID)
+        self.assertEqual(H.parity_images(a, b)['kind'], 'raster')
+
     def test_rect_limits_the_comparison(self):
         b = box(scene(), 100, 5, 10, 10, (200, 0, 0))
         self.assertEqual(H.parity_images(scene(), b, rect=(0, 0, 90, 96))['kind'], 'same')
