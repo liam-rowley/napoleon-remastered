@@ -116,6 +116,6 @@ Everything below replaces the earlier sections where they differ. Those sections
 - **Left for J80:** which area a share is of, for a popup. It is a gate design question.
 - **Left:** "no frame cost measured" should read measured, no saving (4.18 open, 4.32 to 4.50 hidden, 2 runs each). The fact already says so.
 
-**Merged tree.** See the last line of this section.
+**Merged tree, repeated.** Against the latest main `36923c6e`, unchanged since round 1, trial merge clean, tree `5997604a`. `wsc gates` on it as throwaway commit `67111f11`, 2026-11-06: 12 ok, 3 warn, 0 failed, 683 host tests passed, 40 skipped. The review's two warnings, plus `hooks`, which says this clone's `core.hooksPath` is an absolute path. This holds for main at `36923c6e` only. The commit carrying this line changes only this report.
 
 PC end state, 2026-11-06 09:37 UTC: no lock, nothing installed, game folder identical to the snapshot (1564 files), exe vanilla, prefs sha256 `83b9b32b...` restored byte-identical.
