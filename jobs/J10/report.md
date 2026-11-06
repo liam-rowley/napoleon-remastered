@@ -32,7 +32,7 @@ folder ended identical to the pre-install snapshot (1,564 files). Re-runs give b
 | `uied.templates` records read | 117 of 126 | 124 of 126 |
 
 The two unread template records are v4 records (`InputWindow`, `BattleEditor`) from the UI editor. Empire's reader fails on them too, and no
-screen uses them. Facts updated: `napoleon.diff.layouts.v039` and `napoleon.diff.layouts.v039_transitions` (both verified),
+screen uses them. Facts updated: `napoleon.diff.layouts.v039` and `napoleon.diff.layouts.v039_transitions` (both verified 2026-11-02),
 `napoleon.diff.layouts.template_records` and `napoleon.diff.layouts.versions`.
 
 ### Items 2 and 3: static atlas, rows and coverage

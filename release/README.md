@@ -5,7 +5,7 @@ redacted bundle. It builds files only: publishing (GitHub, Nexus, ModDB) is Liam
 
 | Where | What |
 |---|---|
-| `release/core/` | game-agnostic (a core candidate, rule 76): `build_release.py` (builder and `--check`), `gen_licenses.py`, `installer/rr.ps1` (install, uninstall, repair, check, support) |
+| `release/core/` | game-agnostic (a core candidate, rule 76): `build_release.py` (builder and `--check`), `gen_licenses.py`, `core/installer/rr.ps1` (install, uninstall, repair, check, support) |
 | `release/napoleon/` | this game's data: `VERSION`, `release.json` (names, player-ini and release-value rules, known limits), `components.json` (one row per component), `licenses.json`, `releases.json` (what was handed out) |
 | `release/runs/` | dated PC run reports (`<date>_j38pc/`) |
 

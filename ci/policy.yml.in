@@ -10,14 +10,10 @@
 # merges at once when the checks have passed), so the pushed head gets a real `policy` run. The ready_for_review run on the old head has no
 # merge verdict and is red by design: the push cancels it (concurrency below), and `notify` stays silent for it.
 name: policy
-# Core W23 (0.26.0): pull_request_target, so GitHub runs main's copy of this workflow and a branch cannot edit its own check. The pull_request
-# trigger is the bootstrap for J64's own pull request (main's copy has no pull_request_target yet); remove it in the next change to this template.
+# Core W23 (0.26.0): pull_request_target, so GitHub runs main's copy of this workflow and a branch cannot edit its own check.
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review]
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    paths: ['jobs/J64/report.md']
 permissions:
   contents: read
 concurrency:

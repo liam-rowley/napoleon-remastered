@@ -4,8 +4,8 @@ RmlUi, FreeType and Lua 5.1.1 with the engine's float32 numbers, compiled to Web
 for the gates' PNGs (`docs/plans/UI_PIPELINE.md` section 2.4). Built in J31 (S1, S2 spikes: `jobs/J31/report.md`).
 
 - `pins.json`: the versions (RmlUi, FreeType, Lua, stb_image, the emsdk image), each by commit or sha256. J30's in-game host reads it.
-- `core/` (game-agnostic, core candidate): `fetch_sources.py`, `CMakeLists.txt`, `build.sh`, `src/viewer.cpp` (wasm entry points),
-  `web/` (host page and glue), `render.py` (headless PNGs), `tests/lua_numbers.mjs` (float32 proof under Node).
+- `core/` (game-agnostic, core candidate): `fetch_sources.py`, `CMakeLists.txt`, `build.sh`, `core/src/viewer.cpp` (wasm entry points),
+  `web/` (host page and glue), `render.py` (headless PNGs), `core/tests/lua_numbers.mjs` (float32 proof under Node).
 - `napoleon/`: fonts (each with its licence) and screens (`hello/` is the J31 test screen; `screen.json` lists a screen's files).
 
 ## Build
