@@ -1,5 +1,49 @@
 # J78 review
 
+## Round 2 (2026-11-06, branch job/J78 at 1fa1687417f1970170f0cf75af88ad4cafcda83f)
+
+**Verdict: merge.**
+
+Fix round 1 answers both blockers and all four should-fix items of round 1, and what it says checks out against the logs and the tree. The 20 passes still count. Nothing below needs a code change, a PC run or a new build. No launch and no `job.sh` in this round; PC files were only read.
+
+### Machines
+- **Build id:** `build_id.py` says `96722f4b8d52` on this head, the id on all 20 ledger lines. `origin/main` is `888aa568`, the merge base, so this head is also the merge result: `git log HEAD..origin/main` and `git diff --stat HEAD...origin/main -- core proxy viewer/pins.json` are both empty.
+- **CI on `1fa16874`, run 42301747954 (push):** `gates` success (684 host tests passed, 27 skipped), `harness-windows` success, `changes` success. `proxy` and `viewer` skipped: their inputs did not change, and the id is the one proxy passed for in run 42293279467.
+- **`policy` in CI: skipped, the pull request is a draft. That is not a pass.** It has still judged nothing here; the real run is on the head this review pushes, after `gh pr ready`.
+- **`policy` locally, before this round:** refused only for the old verdict and the row not being `done`. Rule 79 not named.
+- **`wsc gates` locally:** 14 ok, 1 warn (`hooks`, this worktree's path form), 1 failed: `tests` timed out at 600 s, as the report says. The same discovery with no cap, on the same head: 724 tests, OK, 47 skipped, 545.1 s, exit 0. So no test fails, including the Windows ones CI skips (`Play`, `InstallPacks`). See later item 3 for the time.
+- **Ledger:** the diff against `main` is 20 added lines, nothing removed; `harness/acceptance/baseline.json` and `shots/` unchanged. Nothing under `harness/acceptance/` moved in the fix round.
+
+### Round 1's findings
+1. **D46, answered.** `release/napoleon/release.json` and `release/README.md` are corrected, and no other "until a DLL job" sentence is left in `release/`. Deviations 8 and 9 name the missing D line and the missing release-ini launch; `release/napoleon/components.json` sets `proxy.file_rules`; `allowed_dev_keys` is `{}`, held by `tests/test_release.py`. The fact `napoleon.ui.templates_route` now says no Napoleon launch has used the key. J105 carries the D line and J106 the launch.
+2. **Decisions recipe, answered, and now run for real.** The report says a real `policy` run was not done, so I did it on throwaway local branches, never pushed and since deleted, each judged with the step before as its base: step 1 ok (1 file), step 2 ok (67 files: `wsc.toml` and 66 rows, `--check` finds all 66), step 3 ok with the file and the key gone. Later item 2 is the one slip.
+3. **W33 records 1, 2, 4, answered.** Record 1: `protections restored` at line 131 of both attempt logs and line 131 of the last launch's, no `left changed`. Record 2: the three lines quoted in the report match the log under `_to_delete\uninstall_20261106T210043Z` exactly, read today. Record 4: J101's table has M at 0/4 and D at 7.4% for that period, so "not W33's to claim" is the right reading, and it is marked as inferred.
+4. **Display sizes, answered.** They match `attempts/pass_14/attempt_1/job_output.txt` lines 4 to 6.
+5. **Deviation 2's reason, answered.** J108 owns it.
+6. **`doc_paths`, answered.** The four paths are named, and J110 owns repointing them.
+
+Round 1's other claims: 1.06 s and 0.94 s match the log (0.940 and 1.063 s after `init done`); 1/127 is J64's run, and J67 ran on D as J101 says.
+
+### The points raised for this round
+- **`play.py` left on `dev.file_rules` until J106: a fair answer.** The brief keeps that key for dev launches, while W33's report asks for the move, so the two disagree and the report says which it took and why. It costs nothing: `upscale/pc/play.py:251` is a kit install that normally sets `dev.skip_intro` too, so the dev side is on anyway, and since W33 its threads start at `Direct3DCreate9` either way. The audit's C4 risk was the release, and the shipped ini no longer sets a dev key. Moving Liam's only proven 2x route onto a key no Napoleon launch has used, in a round with no PC, would be the worse order. Later item 1 is the gap.
+- **Report sections above "## Fix round 1": acceptable.** The procedure has a fix session append, not rewrite, and the section says at its top that it wins. I checked each false claim round 1 listed, and each has its correction there. The cost is that the top of the report still reads "ends the D46 stop-gap" and carries the two-pull-request recipe. J105's row already states three pull requests, so the recipe cannot mislead through the queue.
+- **Local `tests` gate over the cap: not a blocker.** `gates` is the required check and is green on this head. Its local failure is time only, shown by the uncapped run above. J109 owns it; the cap is not edited.
+
+### Blockers
+None.
+
+### Should-fix
+None.
+
+### Later
+1. **"Revisit once J106 has passed" has no owner.** `jobs/J78/report.md`, Fix round 1, leaves `upscale/pc/play.py:251`, `tests/test_play.py` and `upscale/README.md` to J106, but `registries/jobs/J106.json` does not mention them, and this report stops being read at `done`. Fix: a `plan/` row edit adding the move to J106. It is outside this job's row, so not done here.
+2. **Recipe step 2 lists its commands in an order that refuses.** `wsc reg migrate decisions` run first says `unknown registry decisions`; the `[registries]` line in `wsc.toml` has to come first. The error is clear and nothing is harmed. J105's brief should give the right order.
+3. **J109's row is out of date, and the report overstates it the other way.** Its figures are 542 s and 577.7 s. Since then: 602.8 s (fix session) and 545.1 s (here), with a capped gate run timing out on the same head. So "no longer fits the cap at all" is too strong: the time swings by about 60 s around the cap. J109 should measure that spread first.
+4. **"Must land before the next release" (J106) is prose.** Nothing stops `build_release.py --record` before J106 has passed. Worth pairing with J108's refusal.
+
+### If this merges
+It changes rules other branches meet: `commit_msg_hook`, W9's rule 79 and base-judged policy. `job/J78` is the only open pull request, so nothing is stranded today.
+
 ## Round 1 (2026-11-06, branch job/J78 at 4c3dbd7efc92fc811ca5e6256924015cce2d0968)
 
 **Verdict: merge after fixes.**

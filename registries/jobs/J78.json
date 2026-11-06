@@ -3,7 +3,7 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) carries P1, P2, C1, C3, C4, H2, H4, H5 and H10 to napoleon: the pin bump to the first core tag that holds W22, W23, W24, W9, W10, W25, W30 and W33 (and the queued W20 and W18 if merged by then). In the same job, so they share its 20-pass run: R4's two Lua items (the J9 probes move into proxy/napoleon/lua/probes/; J46's dead loop at autostart.lua:139). Opt into the core's commit-msg trailer hook (W12); from this bump on, the policy check judges with the base's rules (W23). Run wsc ci check-settings; record whether fact napoleon.proxy.init_heap_corruption still reproduces once W33 starts the dev threads off DllMain. Rule 79: 20 passes, counted with W9's flake rule and preflight. After the decision row files land, the first new row records Liam's 2026-11-06 'Opus across the board' (builds, reviews, fixes and briefs), replacing D52; docs/DECISIONS.md has no room for it today.",
   "title": "Pin bump to the core's audit train 1",
   "phase": 1,
-  "status": "review",
+  "status": "done",
   "model": "opus",
   "needs_pc": true,
   "depends_on": [
