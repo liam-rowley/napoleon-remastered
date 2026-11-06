@@ -106,6 +106,15 @@ class CascadeDensity(unittest.TestCase):
         self.assertEqual(d['map'], 2048)
         self.assertAlmostEqual(d['texels_per_m']['20m'], 20.48, places=2)
 
+    def test_the_table_is_kept_in_the_run_and_no_cascade_writes_nothing(self):
+        with tempfile.TemporaryDirectory() as t:
+            dens.write_cascade(Path(t), ['0', '45'], [])
+            self.assertFalse((Path(t) / 'density_cascade.txt').exists())
+            dens.write_cascade(Path(t), ['0', '45'], ['s40 cascade 0 | 13.18 | 13.18 | 13.18 | 1.0'])
+            lines = (Path(t) / 'density_cascade.txt').read_text(encoding='utf-8').splitlines()
+            self.assertTrue(lines[0].startswith('setting | y0 | y45 | worst'))
+            self.assertEqual(lines[1], 's40 cascade 0 | 13.18 | 13.18 | 13.18 | 1.0')
+
 
 class AcceptanceSummary(unittest.TestCase):
     def test_failed_steps_and_shot_margins(self):

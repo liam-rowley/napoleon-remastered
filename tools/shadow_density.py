@@ -118,6 +118,13 @@ def cascade_table(here, captures, prefix, yaws, pairs):
     return lines
 
 
+def write_cascade(here, yaws, lines):
+    """The cascade table beside density.tsv: its raw frame.txt never enters the repo, so a table left on stdout has no evidence (J25 review)."""
+    if lines:
+        head = 'setting | ' + ' | '.join(f'y{y}' for y in yaws) + ' | worst | best/worst   (texels/m at 20 m)'
+        (here / 'density_cascade.txt').write_text('\n'.join([head, *lines]) + '\n', encoding='utf-8', newline='\n')
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--run', required=True, help='run id under harness/runs/ (shader_catalog.py import takes the id, not a path)')
@@ -150,8 +157,10 @@ def main(argv=None):
         r = setting_row(dens, a.prefix, tag, yaws, poses)
         print(f'{tag} | ' + ' | '.join(str(x) for x in r['yaws']) + f" | {r['worst']} | {r['best_worst']} | "
               + ' | '.join(str(x) for x in r['poses']) + f"   farz {r['farz']}")
-    for line in cascade_table(here, a.captures, a.prefix, yaws, a.cascade):
+    cascade = cascade_table(here, a.captures, a.prefix, yaws, a.cascade)
+    for line in cascade:
         print(line)
+    write_cascade(here, yaws, cascade)
     return 0
 
 
