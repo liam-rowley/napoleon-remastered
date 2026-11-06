@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """The J30 host test document's art master and the crispness checks of its in-game dumps.
 
-purpose: write the host test's 2.5x art master (deterministic PNG), check a `ctl ui dump` PNG of viewer/napoleon/hosttest (1 dp rules solid with no blended rows, box edges on whole pixels, H ink height = cap height x size x dp ratio within 1 px; writes crops for review), and compare a viewer render with an in-game dump of any document (parity: alignment, per-pixel difference, share beyond a tolerance, tiles whose content moved as distinct from edge blending, crops of the worst areas)
-usage: python3 tools/ui_hosttest.py art [--out viewer/napoleon/hosttest/art_master.png] | check <dump.png> --dp <ratio> [--crops DIR] [--json OUT] | parity <viewer.png> <game.png> [--rect x,y,w,h] [--tolerance N] [--crops DIR] [--json OUT]
+purpose: write the host test's 2.5x art master (deterministic PNG), check a `ctl ui dump` PNG of viewer/napoleon/hosttest (1 dp rules solid with no blended rows, box edges on whole pixels, H ink height = cap height x size x dp ratio within 1 px; writes crops for review), give the game's dp ratio for a height and scale (dp-ratio: one float step above the true value at some cells), and compare a viewer render with an in-game dump of any document (parity: alignment, per-pixel difference, share beyond a tolerance, tiles whose content moved up to 32 px, or that are solid difference, as distinct from edge blending, crops of the worst areas)
+usage: python3 tools/ui_hosttest.py art [--out viewer/napoleon/hosttest/art_master.png] | check <dump.png> --dp <ratio> [--crops DIR] [--json OUT] | dp-ratio <height> <percent> | parity <viewer.png> <game.png> [--rect x,y,w,h] [--tolerance N] [--crops DIR] [--json OUT]
 when: art once (committed); check on every in-game dump of the host test (J30 PC step b), the numbers go in the run README; the crispness verdict stays Liam's, from the crops; parity on every viewer and game pair (J32 S3; exit 1 when content moved)
 not-a-verb: a test helper for one document's PNGs, not a registry operation
 
