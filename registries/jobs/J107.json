@@ -1,0 +1,12 @@
+{
+  "id": "J107",
+  "description": "J78 deviation 1: `python3 core/proxy/tools/gen_tables.py --check --exe <copy>` was not run because copying the exe out of the game folder was denied. The review found this does not block J78 (exe sha1 pinned, engine_sites unchanged, every launch checks the sites live) but the check still needs an owner. Needs a staged copy Liam allows; fold into the next PC job. Raised: J78 review round 1, 2026-11-06.",
+  "title": "gen_tables --exe against a staged exe copy",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J78"
+  ]
+}

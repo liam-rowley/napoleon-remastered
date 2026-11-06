@@ -1,0 +1,12 @@
+{
+  "id": "J106",
+  "description": "W33 record 3, not run in J78: every J78 launch had proxy.file_rules empty and dev.file_rules set, so the 20 passes say nothing about the shipped route on Napoleon. One launch from the rendered player ini: no `dev:` line, no `thread:` line, `redirect: 1 rules from ... (proxy.file_rules)`, and the 2x UI on screen. Must land before the next release. Fold in the `gen_tables --exe` check if J107 is still open. Raised: J78 review round 1, 2026-11-06.",
+  "title": "Release-ini launch on Napoleon: the proxy.file_rules route in game",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": true,
+  "depends_on": [
+    "J78"
+  ]
+}
