@@ -10,6 +10,7 @@ core/discovery/briefpaths.py (the core's since J64), harness/napoleon/adapter.js
 The legacy id sets that exempt old jobs from two rules are data (`jobs/legacy.json`, read by the core), not code.
 """
 import ast
+import hashlib
 import json
 import re
 import subprocess
@@ -202,6 +203,7 @@ UI_LOCK = 'uikit/napoleon/LOCK.json'
 ACC_LEDGER = 'harness/acceptance/ledger.jsonl'
 ACC_BASELINE = 'harness/acceptance/baseline.json'
 ACC_NEEDED = 20
+ACC_MAX_FLAKES = 3   # core W9: a line's flakes_allowed never counts above this
 ACC_CHECKERS = ('core/harness/acceptance.py', 'harness/core/acceptance.py')   # after J12, then before it (an older base)
 ACC_SHA_NAME = 'LEDGER_SHA_FIELDS'   # core W9's tuple of the sha fields a ledger line and its pass file carry (J75 Decision 5)
 _PASS_FILE = re.compile(r'^harness/runs/.+/pass_[^/]*\.json$')
@@ -411,10 +413,20 @@ def acceptance_problems(changed, acc):
     read, shas = acc.get('read'), acc.get('sha_fields')
     shots = [k for k in shas or () if 'shot' in k]
     n, unproved, foreign, bad, used, last = 0, None, None, None, {}, None
+    flakes, dll, wsha = 0, None, acc.get('watcher_sha')
     for line in reversed([l for l in (acc.get('ledger') or '').splitlines() if l.strip()]):
         r = json.loads(line)
-        if not (r.get('result') == 'pass' and r.get('build_id') == acc['build_id'] and r.get('watcher') == acc['watcher']):
+        if r.get('result') == 'flake' and r.get('build_id') == acc['build_id'] and flakes < min(r.get('flakes_allowed') or 0, ACC_MAX_FLAKES):
+            flakes += 1   # core W9: an allowed flake is never a pass; it neither counts nor ends the streak
+            last = r
+            continue
+        same_watcher = r.get('watcher_sha') == wsha if wsha else r.get('watcher') == acc['watcher']   # core W9: the watcher is its bytes
+        if not (r.get('result') == 'pass' and r.get('build_id') == acc['build_id'] and same_watcher):
             break
+        if wsha and dll is not None and r.get('dll_sha256') != dll:
+            bad = f"{r.get('evidence')}: dll_sha256 {r.get('dll_sha256')} is not the streak's {dll}"
+            break
+        dll = r.get('dll_sha256') if wsha else None
         if r.get('branch') != acc.get('branch'):
             # J44 review: harness/ is not in the build id, so a branch changing only harness/ would inherit the previous branch's passes
             foreign = f"pass {r.get('pass')} was run for {r.get('branch') or 'no branch'}"
@@ -422,7 +434,7 @@ def acceptance_problems(changed, acc):
         if not (r.get('run') and r.get('evidence') and exists(r['evidence'])):
             unproved = r.get('evidence') or f"pass {r.get('pass')} names no evidence file"
             break
-        bad = streak_problem(r, last, used, read, shas, shots)
+        bad = streak_problem(r, last, used, read, shas, shots) or (wsha and read is not None and evidence_sha_problem(r, read))
         if bad:
             break
         used[r['evidence']] = r
@@ -451,6 +463,13 @@ def streak_problem(r, last, used, read, shas, shots):
     return f'{ev}: {dup} {r.get(dup)} is already counted by {_where(used[("shot", r.get(dup))])}' if dup else None
 
 
+def evidence_sha_problem(r, read):
+    """Core W9: the line's evidence_sha256 is the sha256 of the committed pass file, as acceptance.py hashed it."""
+    text = read(r['evidence'])
+    got = hashlib.sha256((text or '').encode('utf-8')).hexdigest()
+    return None if got == r.get('evidence_sha256') else f"{r['evidence']}: its sha256 is {got}, the line says {r.get('evidence_sha256')}"
+
+
 def collect_acceptance(root, facts):
     """The inputs of rule 79 for the branch in `facts` (the core's `run_check` facts plus 'kind'), read from git: what the old `pr_policy.main` gathered.
     Core W23 (0.26.0): `root` is the base's rule inputs (a temporary folder, never a git cwd); git runs at the clone `facts['repo']` with the
@@ -460,6 +479,7 @@ def collect_acceptance(root, facts):
     wm = re.search(r"^\$Version\s*=\s*'([^']+)'", wsrc, re.M)
     return {'active': acceptance_active(show(repo, base, ACC_LEDGER), show(repo, base, ACC_BASELINE), show_first(repo, base, *ACC_CHECKERS), root),
             'ledger': show(repo, head, ACC_LEDGER), 'build_id': dll_build_id(repo, head, tool_root=root), 'watcher': wm.group(1) if wm else '?',
+            'watcher_sha': hashlib.sha256(wsrc.replace('\r\n', '\n').encode('utf-8')).hexdigest() if wsrc and 'watcher_sha' in (show_first(repo, head, *ACC_CHECKERS) or '') else None,   # only while the pinned core writes it (W9)
             'branch': facts['branch'], 'exists': lambda p: show(repo, head, p) is not None,
             'core_diff': core_pin_diff(mb, head, repo) if 'core' in changed else None,
             'read': lambda p: show(repo, head, p), 'base_ledger': show(repo, mb or base, ACC_LEDGER), 'sha_fields': acc_sha_fields(repo, rev=head),
