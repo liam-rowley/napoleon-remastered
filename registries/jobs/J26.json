@@ -1,6 +1,6 @@
 {
   "id": "J26",
-  "description": "Cascades are wanted (D63): cascades built to J25's design, cascade count and split distances as config keys with release values, receiving shaders for every shadowed material (units, terrain, trees, buildings, ships), no slicing artefacts and no sun-behind collapse across the scenario set (D12, D63), within the J23 budget. Liam judges the look at fixed poses.",
+  "description": "Cascades are wanted (D63): cascades built to J25's design, cascade count and split distances as config keys with release values, receiving shaders for every shadowed material (units, terrain, trees, buildings, ships), no slicing artefacts and no sun-behind collapse across the scenario set (D12, D63), within the agreed budget (D64), whose row in perf/budgets.json this job marks agreed. Liam judges the look at fixed poses.",
   "title": "Cascaded shadows build",
   "phase": 3,
   "status": "needs_brief",
