@@ -8,7 +8,7 @@ sittings start from what vanilla looks like (D55).
 | File | What |
 |---|---|
 | `inventory.py` | writes `components.json` from the atlas and the assets registry; `--check` compares a rebuild, `--stats` prints the counts |
-| `components.json` | one line per kind: sizes, states with `assets` ids, use count, surfaces, `ui_elements` ids and `library`, the proposed J34 class or `gap` (`uncertain: true` where it is a guess). Ids, keys, sizes and counts only (J7) |
+| `components.json` | one line per kind: sizes, states with `assets` ids, use count, surfaces, `ui_elements` ids and `library`, the proposed J34 class or `gap` (`uncertain: true` where it is a guess). A button kind is one family of art: all the state words that end a file name go to its states, and its `surfaces` are the ones whose components draw that art. Ids, keys, sizes and counts only (J7) |
 | `gallery.py` | the composites, the state strips, the twins and the staged page |
 | `page.html` | the page itself; it reads `data.json` beside it |
 
@@ -27,7 +27,7 @@ python3 uikit/napoleon/vanilla/gallery.py page        # checks the J10 shots' sh
 ```
 
 Publish `_scratch/j99/vanilla_ui_reference.html` with the Artifact tool, `url` the page above, `root` `_scratch/j99`, and the other files in `files`. One publish takes at
-most 255 files and 64 MB and the site is 348 files, 67 MB, so it goes in three publishes; files a publish leaves out are kept. An artifact holds at most 511 files, which is why strips are sprite
+most 255 files and 64 MB and the site is 348 files, 67 MB, so it goes in three publishes; files a publish leaves out are kept. When only `components.json` changed, rerun `strips` and `page` and publish the page, `data.json` and the `s1_`/`s2_` sheets (18 files, 56 MB) in one go; check `sheets/` holds the same names first, and pass `null` for any sheet that went away. An artifact holds at most 511 files, which is why strips are sprite
 sheets. If Docker cannot fetch the viewer's sources, take `viewer-wasm` from the newest run that built it and compare `viewer.wasm` with `baseline.json` `wasm_sha256`.
 
 ## How a composite is drawn

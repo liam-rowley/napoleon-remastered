@@ -91,3 +91,39 @@ This was a judgement by eye, not a measurement.
 - **2x strips from masters or nearest-neighbour?** Default stands: both, labelled.
 - **Does the gallery join the D17 review page?** Default stands: yes, later, when J35 builds it.
 - **States beyond the default on the Screens view?** Default stands: no.
+
+## Fix round 1
+
+Both should-fix items are done and the page is republished to the same URL as version 5 (https://claude.ai/artifact/UjDeJAHtEQts6c9WG1rk67). No PC sitting: no game launch, only reads of the packs and masters. The counts here replace the kind counts in the first paragraph and in Counts above, which stay as written.
+
+| Finding | What changed | Commit |
+|---|---|---|
+| S1, button families split by state | `split_state` takes a whole state: an action with an optional selection before it and a mouse-off, roll or selection end after it, a selection, or one lone word. Judged from all 2,015 file names, which added `roll_down`, `down_selected` and `selected_off` to the reviewer's list. Up and down on an arrow stay its direction (`varrow_up_inactive` is family `varrow_up`). Masters per kind rise from 12 to 14, because the largest family now has 13 pieces. | 8de8d47b |
+| S2, a screen's kinds link never showed a button | A button kind's `surfaces` now comes from the atlas: the surfaces whose components draw its art. I used this rather than the `ui_elements` route because a unit can span layouts that do not draw the art. | 469f98a2 |
+
+Tests: `test_split_state_takes_the_whole_state`, `test_up_and_down_on_an_arrow_are_its_direction`, `test_no_family_is_a_sibling_plus_a_state`, `test_the_states_of_a_family_share_its_card` and `test_a_used_button_names_its_screens`. `tests/test_uikit_vanilla.py` now has 25, all passing.
+
+| Kinds | Total | Sure | Uncertain | Gap |
+|---|---|---|---|---|
+| Template | 141 | 8 | 101 | 32 |
+| 9-slice frame | 7 | 3 | 4 | 0 |
+| Frame in one component | 60 | 0 | 60 | 0 |
+| Button family | 572 | 0 | 572 | 0 |
+| **All** | **780** | **11** | **737** | **32** |
+
+- **Strips:** 778 kinds have one and 697 have 2x art. The same 2 `#arg` names have none.
+- **One-state families:** 166 of 572 remain (663 of 1,130 before). The test finds no stem that is a sibling plus a state word, so these are art with one file, such as `pin` or `radio`.
+- **Screens:** 372 button kinds name at least one screen. Every button with `ui_elements` has `surfaces`; 3 kinds have surfaces but no `ui_elements` row (`button_duel`, `button_delete`, `kick`). 52 surfaces list no kind at all.
+- **Unchanged:** the 300 screens, composites, shots and twins, so `baseline.json` does not change and round 2 has nothing new to accept. `campaign.entity_lists` composited again equals the staged file byte for byte.
+
+**How it was published.** One publish of the page, `data.json` and the 16 `s1_`/`s2_` sheets; the sheet names did not change, so no file went stale. The site is still 348 files, 67.0 MB. The published `data.json` has the same sha256 as the staged one (4fc6dea1...). `components.json` sha256 starts d35057a7.
+
+**Checked in a browser, on the staged page in headless Chromium, not on the claude.ai page.** `campaign.entity_lists`'s link reads "24 component kinds". Following it with Type set to Button family shows 10 cards, where it was empty before. `button:ui/campaign_ui/skins/button_advice` shows `depress, inactive, normal, roll` on one card, and there were no page errors.
+
+**Left as they are:**
+- `arrow_roll` stays alone in family `arrow`, beside `arrow_up` and `arrow_down`: the name does not say which arrow it belongs to.
+- `button_shot_normal` is named in the sibling test as an exception: the word is the shot type, beside grape and chain, not a state.
+- Art that a template draws is listed on the template's own record, not on every layout that uses the template, so a layout's link can show fewer buttons than the screen has on it. The `template` kinds cover those.
+- `uc_button_speed-` holds two art ids per state name, because the registry has two copies of that file with different content. This was already so and does not lose art.
+- L1 to L5 are the reviewer's later items and are outside this round.
+- The review asks to correct the counts in the report; the fix steps forbid editing earlier sections, so they are corrected here.
