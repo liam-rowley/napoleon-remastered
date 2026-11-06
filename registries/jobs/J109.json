@@ -1,0 +1,12 @@
+{
+  "id": "J109",
+  "description": "Warm `tests` took 542 s for J78's builder and 577.7 s uncapped for its reviewer, and two of two full local sessions hit the cap in `wsc gates`, so it will stop other agents. Do not raise the cap: shorten or split the slow tests. tests/test_proxy_host.py is the suspect, unproved: measure first. Raised: J78 review round 1, 2026-11-06.",
+  "title": "The local tests gate sits at the 600 s cap",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": false,
+  "depends_on": [
+    "J78"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "J108",
+  "description": "Core 0.38.0 leaves attaching the proxy map to the consumer's release builder and nothing in release/ does. CI keeps proxy-map-<build id> for 90 days. How the builder fetches the artifact is the design question; ideally `build_release.py --record` refuses a release with no map. release/ is not a DLL input, so no new 20-pass run. Raised: J78 review round 1, 2026-11-06.",
+  "title": "d3d9.map on releases",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": false,
+  "depends_on": [
+    "J78"
+  ]
+}
