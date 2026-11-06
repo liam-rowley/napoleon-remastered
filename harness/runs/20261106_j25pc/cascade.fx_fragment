@@ -19,7 +19,7 @@ float cascade0_taps(float3 c)
 
 float cascade_occlusion(float4 shadow_tex, float3 world_pos, float frame_buffer_depth)
 {
-	float3 c = mul(float4(world_pos, 1), transpose(cascade0_matrix)).xyz;
+	float3 c = mul(float4(world_pos, 1), cascade0_matrix).xyz;
 	float2 edge = min(c.xy, 1 - c.xy);
 	float pick = saturate(min(edge.x, edge.y) / cascade0_params.z);
 	float far_map = shadow_map_occlusion(shadow_tex, frame_buffer_depth);

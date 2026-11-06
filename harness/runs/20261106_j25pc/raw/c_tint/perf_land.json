@@ -1,0 +1,130 @@
+{
+  "verb": "perf",
+  "status": "ok",
+  "reason": "",
+  "frame_ms": {
+    "p50": 2.109,
+    "p99": 3.785,
+    "max": 16.284,
+    "mean": 2.197
+  },
+  "frames": 4551,
+  "mem": {
+    "va_used_mb": 1938,
+    "va_total_mb": 4096,
+    "va_free_mb": 2158,
+    "commit_mb": 1262,
+    "working_set_mb": 1016,
+    "peak_working_set_mb": 1063
+  },
+  "vram": {
+    "source": "Windows counter \\GPU Process Memory(pid_<pid>_*)\\Dedicated Usage (per process) + nvidia-smi memory.used (device)",
+    "process_dedicated_mb": 1454.9,
+    "device_used_mb": 2417.0,
+    "device_total_mb": 24564.0
+  },
+  "build": "a005f6cccc17-dirty",
+  "kit": "kit_20261106T020245Z_54413755d6d2",
+  "backend": "dxvk",
+  "size": "1920x1080",
+  "dll_sha256": "ab70b8d131c90230998048024f0a895fa8faa5b46be70d2ca7035d59b13f97ee",
+  "settle": {},
+  "check": {
+    "compared": "frames recorded and a positive median",
+    "expected": "frames > 0, p50 > 0",
+    "got": {
+      "frames": 4551,
+      "p50": 2.109
+    },
+    "ok": true,
+    "vram": {
+      "expected": "the game process has dedicated GPU memory",
+      "got": 1454.9
+    }
+  },
+  "evidence": {
+    "ctl": {
+      "id": "j25-20261106T021644Z-291891528",
+      "request": "perf 10",
+      "status": "ok",
+      "reason": "",
+      "start_utc": "2026-11-06T02:16:44.285Z",
+      "end_utc": "2026-11-06T02:16:54.285Z",
+      "launch_id": "20261106T021346Z-p26708",
+      "seconds": 10,
+      "frames": 4551,
+      "frame_ms": {
+        "p50": 2.109,
+        "p99": 3.785,
+        "max": 16.284,
+        "mean": 2.197
+      },
+      "mem": {
+        "va_used_mb": 1938,
+        "va_total_mb": 4096,
+        "va_free_mb": 2158,
+        "commit_mb": 1262,
+        "working_set_mb": 1016,
+        "peak_working_set_mb": 1063
+      },
+      "state_at_end": {
+        "launch_id": "20261106T021346Z-p26708",
+        "pid": 26708,
+        "frame": 62311,
+        "scene": "battle_deploy",
+        "scene_s": 117.3,
+        "uptime_s": 187.5,
+        "written_utc": "2026-11-06T02:16:54.285Z",
+        "last_present_utc": "2026-11-06T02:16:54.284Z",
+        "lua": {
+          "loaded": true,
+          "context": "battle",
+          "pump_age_s": 0.0
+        },
+        "battle": {
+          "naval": 0,
+          "deploy_panel": 1,
+          "age_s": 0.0
+        },
+        "load_target": "",
+        "autostart": "off",
+        "movies_refused": 3,
+        "movies_opened": 2,
+        "mem": {
+          "va_mb": 1938,
+          "commit_mb": 1262
+        },
+        "reports": {
+          "autostart.army_sides": "9u0s,8u0s",
+          "autostart.army_size": "0/5000",
+          "autostart.army_units": "9",
+          "autostart.map": "NAP_MP_Grassy_Flatlands",
+          "autostart.map_folder": "nap_mp_grassy_flatlands",
+          "autostart.time_of_day": "2",
+          "autostart.weather": "dry/Dry",
+          "battle.map_folder": "nap_mp_grassy_flatlands",
+          "battle.map_folder_ms": "688"
+        }
+      },
+      "log": [
+        "2026-11-06T02:16:44.590Z [INFO ] [t27336] cascade: frames 57900 passes 57091 casters seen 4793882 dup 4793882 unknown 0 nofit 0 () locks in pass discard 246780 nooverwrite 4547102 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13230440 stock 696414; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:45.208Z [INFO ] [t27336] cascade: frames 58200 passes 57391 casters seen 4804982 dup 4804982 unknown 0 nofit 0 () locks in pass discard 248001 nooverwrite 4556981 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13298540 stock 700314; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:45.943Z [INFO ] [t27336] cascade: frames 58500 passes 57691 casters seen 4816082 dup 4816082 unknown 0 nofit 0 () locks in pass discard 249222 nooverwrite 4566860 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13366640 stock 704214; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:46.638Z [INFO ] [t27336] cascade: frames 58800 passes 57991 casters seen 4827182 dup 4827182 unknown 0 nofit 0 () locks in pass discard 250434 nooverwrite 4576748 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13434740 stock 708114; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:47.269Z [INFO ] [t27336] cascade: frames 59100 passes 58291 casters seen 4838282 dup 4838282 unknown 0 nofit 0 () locks in pass discard 251644 nooverwrite 4586638 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13502840 stock 712014; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:47.911Z [INFO ] [t27336] cascade: frames 59400 passes 58591 casters seen 4849382 dup 4849382 unknown 0 nofit 0 () locks in pass discard 252854 nooverwrite 4596528 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13570940 stock 715914; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:48.643Z [INFO ] [t27336] cascade: frames 59700 passes 58891 casters seen 4860482 dup 4860482 unknown 0 nofit 0 () locks in pass discard 254063 nooverwrite 4606419 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13639040 stock 719814; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:49.269Z [INFO ] [t27336] cascade: frames 60000 passes 59191 casters seen 4871582 dup 4871582 unknown 0 nofit 0 () locks in pass discard 255278 nooverwrite 4616304 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13707140 stock 723714; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:49.897Z [INFO ] [t27336] cascade: frames 60300 passes 59491 casters seen 4882682 dup 4882682 unknown 0 nofit 0 () locks in pass discard 256499 nooverwrite 4626183 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13775240 stock 727614; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:50.493Z [INFO ] [t27336] cascade: frames 60600 passes 59791 casters seen 4893782 dup 4893782 unknown 0 nofit 0 () locks in pass discard 257722 nooverwrite 4636060 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13843340 stock 731514; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:51.184Z [INFO ] [t27336] cascade: frames 60900 passes 60091 casters seen 4904882 dup 4904882 unknown 0 nofit 0 () locks in pass discard 258944 nooverwrite 4645938 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13911440 stock 735414; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:51.872Z [INFO ] [t27336] cascade: frames 61200 passes 60391 casters seen 4915982 dup 4915982 unknown 0 nofit 0 () locks in pass discard 260169 nooverwrite 4655813 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 13979540 stock 739314; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:52.530Z [INFO ] [t27336] cascade: frames 61500 passes 60691 casters seen 4927082 dup 4927082 unknown 0 nofit 0 () locks in pass discard 261397 nooverwrite 4665685 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 14047640 stock 743214; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:53.202Z [INFO ] [t27336] cascade: frames 61800 passes 60991 casters seen 4938182 dup 4938182 unknown 0 nofit 0 () locks in pass discard 262616 nooverwrite 4675566 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 14115740 stock 747114; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000",
+        "2026-11-06T02:16:53.814Z [INFO ] [t27336] cascade: frames 62100 passes 61291 casters seen 4949282 dup 4949282 unknown 0 nofit 0 () locks in pass discard 263831 nooverwrite 4685451 other 0 otherthread 0 receivers created swapped 106 refused 40, draws swapped 14183840 stock 751014; vs casters 120; fit r 57.129 texel 0.01395 c (-0.084, 302.091) t 40.000"
+      ]
+    }
+  },
+  "start_utc": "2026-11-06T02:16:43.292Z",
+  "end_utc": "2026-11-06T02:16:57.259Z"
+}
