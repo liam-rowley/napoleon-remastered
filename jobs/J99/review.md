@@ -1,5 +1,48 @@
 # J99 review
 
+## Round 2 (2026-11-06, branch job/J99 at bdfb443)
+
+**Verdict: merge.**
+
+Both round 1 findings are fixed, and the published gallery matches the branch: I rebuilt it from `bdfb443` into my own folder, and `data.json` and all 17 sheets equal the published files byte for byte. There are no blockers and no should-fix items. Three later notes follow; none changes code on this branch.
+
+### Machines
+- **`wsc gates`:** 12 ok, 3 warn, 0 failed; 720 host tests passed, 47 skipped. The warnings are not this branch's: the hook path in my worktree, the known `ci_render` note, and the skips.
+- **`wsc policy` before this review:** refused only for the verdict and the row, which this round supplies.
+- **`tests/test_uikit_vanilla.py`:** 25 passed, none skipped, with the game present.
+- **CI on `bdfb443`:** all 9 checks passed or were skipped (`wsc jobs review`). `gates` and `viewer` are green. `policy` is skipped while the pull request is a draft, so its real run comes on this commit.
+- **Against the latest main:** `origin/main` is `50905a26`, fetched again before this verdict, and it is the branch's merge base, so the branch holds all of it. Pull request 222 reads MERGEABLE.
+- **Rule 79** does not apply: no `proxy/` change and no core pin move, and `policy` raises nothing.
+- **UI baseline:** `baseline.json` did not change in the fix round. Its blob at this head is still `741c65d58c538a2b782c65dd11617c22fc13b36f`, the sha round 1 accepted, so nothing new needs accepting.
+
+### Round 1 findings
+- **S1, fixed.** `inventory.py --check` is clean, and `components.json` sha256 starts d35057a7, as the report says. My own measurement: 780 kinds, 572 button families, 166 with one state, and all 2,015 `button_state` assets on a card.
+  - No family's stem is a sibling plus an action or selection word. The 36 families holding both `up` and `down` are button states, such as `table_header` and `dropdown_button_*`, so the new split did not merge two directions into one card.
+  - `button_advice` now shows `depress, inactive, normal, roll` on one card, and the art lines up with its labels in the 1x and 2x strips.
+  - One small remainder is L6.
+- **S2, fixed.** 372 button kinds name a surface: 369 with `ui_elements` plus the 3 the report names. `campaign.entity_lists` links to 24 kinds, and Type set to Button family shows 10, among them `button_advice`, `tab_c` and `table_header`. 52 surfaces list no kind, as reported.
+- **Report counts:** every number in Fix round 1 that I checked holds. Fix round 1 corrects the old counts rather than editing the first section, which the fix steps require.
+
+### The gallery against the branch
+- **Rebuild:** `compose`, `strips` and `page` from `bdfb443` into my own folder: 348 files, 67.03 MB, and the same stats as the report. I did not rerun `twins`: the twin screen did not change, so I took `twins.json` from the fix round's staged folder and `twins.png` from the artifact.
+- **Published, version 1793977554-b64b, 348 files:**
+  - `data.json` equals my rebuild (sha256 4fc6dea1...).
+  - All 16 `s1_`/`s2_` sheets equal my rebuild. `twins.png` also equals the staged copy, so that one is not independently rebuilt.
+  - The page body in `index.html` contains `page.html` from the branch.
+  - Five composites and two shots I downloaded equal my rebuild, among them `entity_lists`, `single_player` and `land_battle_orders`.
+  - All 298 composites and 31 shots in my rebuild equal the fix round's staged set. The other 293 composites and 29 shots were not compared with the published copies one by one; they did not change in this round.
+- **Data against `components.json`:** the same kind ids, and no difference in `surfaces`, `ui_elements`, `library` or `use_count`. No button has fewer cells than states, and no cell falls outside its sheet.
+- **In a browser:** the Chrome extension was not connected, so I did not open the claude.ai page itself. I drove the published `index.html` over my byte-compared data and sheets in headless Chromium: no page errors and no failed requests, and the header reads 300 screens, 213 clean, 46 live, 780 kinds, 32 gaps, 737 uncertain.
+
+### Risk-first reading
+I picked `split_state` and `art_surfaces` in `inventory.py`, because J69 trusts these cards and a wrong split hides or merges art. `art_surfaces` only reads the atlas. Nothing in the fix round writes outside the repo or `--out`, and `gallery.py` changed by one constant.
+
+### Later
+- **L6.** `checkbox_inactive_empty` stays a one-state family beside `checkbox`, in `campaign_ui` and `spanish_skin`. It may be a checkbox state (inactive and unticked), so J69 should look for it there. `inactive_empty` is the only state-like tail I found left, and the report's "art with one file" is true of it literally.
+- **L7.** `harness/runs/20261106_j99pc/README.md` still gives `components.json` sha256 as 9c7aafabedf00601. That is right for that run's first build, and Fix round 1 records the new hash, so anyone rebuilding should read the report.
+- **L8.** Round 1's L2 stands: `wsc.toml` `harness` input still has no `runs/` exception. Round 1 did not file L1 with warscape-core, and neither did I; I did not check whether anyone else has.
+- **For open branches.** Round 1's note stands: `vanilla_ref` is now a library screen, so a branch that changes library classes or tokens (J35, J69) must also get its corners accepted.
+
 ## Round 1 (2026-11-06, branch job/J99 at 9db7896)
 
 **Verdict: merge after fixes.**
