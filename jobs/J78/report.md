@@ -143,3 +143,8 @@ Checked 2026-11-06 on this branch, nothing committed: `policy.allowed` for each 
 - `tests/test_repo_rules.py` `test_no_gate_silenced_without_a_decision` reads the file and errors without it: point it at the rows.
 
 Old rows keep their numbers; a new id is `D<yymmdd>-<4 hex>` from `python3 core/wsc.py reg add decisions --mint who=... decision=... reversible=yes|no`. The first new rows are the Opus row and the D46 line (J105). Size today: 30,703 of 30,720 bytes.
+
+### Machines, on `c8a6a0d9`
+- `wsc gates`: 14 ok, 1 warn (`hooks`, this worktree's path form), **1 failed: `tests` timed out at the 600 s cap.** The same discovery with no cap: 724 tests, OK, 47 skipped, 602.8 s, so no test failed and this head no longer fits the cap at all. The cap was not edited: J109.
+- `policy --branch job/J78 --base origin/main` (`888aa568`): refuses only for the verdict not being `merge` and the row not being `done`. Rule 79 is not named.
+- `jobs check`: 110 rows, ok. `build_id.py`: `96722f4b8d52`.
