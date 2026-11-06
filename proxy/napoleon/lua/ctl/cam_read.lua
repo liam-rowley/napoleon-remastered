@@ -1,6 +1,6 @@
 -- ctl/cam_read.lua - dev (J43): the battle camera's pose from BattleUI.BackProjectPosition, the readback ctl cam checks against
 -- purpose: read the battle camera back: trilaterate its position from the camera distances BackProjectPosition returns for four fixed
---          points, then project points around it so the host fits yaw, pitch and the field of view (harness/core/campose.py)
+--          points, then project points around it so the host fits yaw, pitch and the field of view (core/harness/campose.py)
 -- usage: job.sh ctl <owner> "lua napoleon_remastered/lua/ctl/cam_read.lua" in a battle; ctl.py cam runs it
 -- when: every ctl cam (the readback and its check) and any probe that needs the battle camera's pose
 -- not-a-verb: runs inside the game's own Lua, not on a host

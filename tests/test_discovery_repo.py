@@ -59,6 +59,13 @@ class CommittedResults(unittest.TestCase):
     def test_probe_safe_list_is_current(self):
         self.assertEqual(engine_api.main(['probe-safe', '--check']), 0, 'discovery/napoleon/probe_safe.json is stale: rerun probe-safe')
 
+    def test_probe_safe_lua_is_current(self):
+        # J89: the list getters.lua loads cannot drift from probe_safe.json; only the tools header lines are the file's own
+        path = Path(engine_api.REPO) / 'proxy/napoleon/lua/probes/probe_safe_list.lua'
+        lines = path.read_text(encoding='utf-8').splitlines(keepends=True)
+        body = ''.join(x for x in lines if not x.startswith(('-- purpose:', '-- usage:', '-- when:', '-- not-a-verb:')))
+        self.assertEqual(body, engine_api.safe_lua(engine_api.probe_safe()), 'probe_safe_list.lua is stale: regenerate it with probe-safe --lua')
+
     def test_engine_api_table_is_current(self):
         out = Path(engine_api.OUT)
         doc = json.loads(out.read_text(encoding='utf-8'))

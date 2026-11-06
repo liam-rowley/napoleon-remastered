@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.camp_panel",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/camp_panel.lua",
+  "purpose": "open a campaign panel through the campaign root's own function, or close them all (J9)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/camp_panel.lua -- <root function> | close\" in the campaign",
+  "when": "reaching a campaign panel state for a surface probe",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-06"
+}

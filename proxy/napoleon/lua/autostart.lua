@@ -135,11 +135,8 @@ local function battle()
 		local counts = {}
 		pcall(function()
 			local lc2 = s3:Find("army_box", false)
-			local k = 0
-			while lc2 ~= nil and k < 4 do
+			if lc2 ~= nil then
 				counts[#counts + 1] = tostring(UIComponent(lc2):LuaCall("TotalUnits"))
-				k = k + 1
-				lc2 = nil
 			end
 		end)
 		wsp.report("autostart.army_units", table.concat(counts, ","))

@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.getters",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/getters.lua",
+  "purpose": "call the committed probe-safe getters once each and log a sample of what they return (J9)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/getters.lua -- napoleon_remastered/lua/probes/probe_safe_list.lua\" in any context",
+  "when": "sampling engine getters for discovery/core/engine_api.py",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-06"
+}
