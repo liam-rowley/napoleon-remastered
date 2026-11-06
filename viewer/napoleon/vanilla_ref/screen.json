@@ -1,0 +1,9 @@
+{
+  "title": "Vanilla reference twins (J99)",
+  "document": "vanilla_ref.rml",
+  "library": true,
+  "prefix": "vr-",
+  "files": ["vanilla_ref.rml", "vanilla_ref.rcss", "test_ring.png"],
+  "fonts": ["LibreBaskerville-Regular.ttf", "LibreBaskerville-Bold.ttf", "PublicSans-Regular.ttf", "PublicSans-SemiBold.ttf"],
+  "lengths": {"vr_cell_w": 240, "vr_cell_h": 120, "vr_pad": 8, "vr_scroll_h": 96, "vr_glyph_pad": 15}
+}

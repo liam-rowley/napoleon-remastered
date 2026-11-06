@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.frontend_skin",
+  "claim": "On J10's shots the live front end shows the red art of ui\\frontend ui\\skins\\spanish_skin, while the layouts name the blue files in ui\\frontend ui\\skins (run 20261106_j99pc: main and single_player composites match their shots with the red art, not with the blue)",
+  "state": "verified",
+  "evidence": "harness/runs/20261106_j99pc/README.md",
+  "date": "2026-11-06",
+  "notes": "only what the shots show, on one install: what triggers the swap is not known (no script names a skin call), nor whether it depends on the install; jobs/J99/report.md open questions"
+}

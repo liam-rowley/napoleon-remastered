@@ -1,0 +1,37 @@
+/* The twin grid of the vanilla reference page (J99, prefix vr-): one library class in one state per cell. The RML is written by uikit/napoleon/vanilla/gallery.py twins. */
+body {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $bg_deep;
+}
+#vr-scroll-page {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	overflow-y: auto;
+}
+.vr-cell {
+	width: $vr_cell_w;
+	height: $vr_cell_h;
+	padding: $vr_pad;
+	overflow: hidden;
+}
+.vr-scroll {
+	height: $vr_scroll_h;
+	overflow-y: auto;
+}
+.vr-glyph {
+	display: block;
+	width: $icon_l;
+	height: $icon_l;
+	margin: $vr_glyph_pad;
+	image-color: $text;
+}

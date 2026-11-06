@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.vanilla.gallery",
+  "kind": "script",
+  "path": "uikit/napoleon/vanilla/gallery.py",
+  "purpose": "draw static composites of all atlas surfaces (art, 9-slice uses, tiling, .cuf text) and the component state strips, and stage the \"Vanilla UI reference\" page",
+  "usage": "python3 uikit/napoleon/vanilla/gallery.py compose [--only WORD ...] | strips | twins | page   [--out DIR]   (in that order; README.md)",
+  "when": "after the atlas, the inventory or the library changes, before publishing the page (README.md beside this file); reads the game's packs in place, so it runs on the PC",
+  "not_a_verb": "a one-page generator beside its inventory, like uikit/napoleon/build.py; composites and shots go to the page, never to git (J7)",
+  "status": "live",
+  "last_used": "2026-11-06"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.layout_flag_visible",
+  "claim": "A layout component's flag byte 3 is its default visibility: against live Visible() on 816 components, 795 agree; of the 21 that differ, 20 are set in the layout and hidden at run time, 1 the reverse (run 20261106_j99pc, over J10's trees)",
+  "state": "verified",
+  "evidence": "harness/runs/20261106_j99pc/README.md",
+  "date": "2026-11-06",
+  "notes": "the difference is what scripts do after load; uikit/napoleon/vanilla/gallery.py visible()"
+}
