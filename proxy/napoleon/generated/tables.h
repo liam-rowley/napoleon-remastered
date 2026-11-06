@@ -80,7 +80,7 @@ static const SiteDef kSites[kSiteCount + 1] = {   // id, kind, rva, anchorLen, a
     { nullptr, 0, 0, 0, { 0 }, 0, { 0 }, { 0 }, nullptr }   // sentinel (keeps the array non-empty)
 };
 
-static const size_t kKeyCount = 51;
+static const size_t kKeyCount = 53;
 static const KeySpec kKeys[kKeyCount + 1] = {
     { "controls.gestures", kBool, "0" },
     { "dev.autostart", kStr, "" },
@@ -122,9 +122,11 @@ static const KeySpec kKeys[kKeyCount + 1] = {
     { "headless.test_off_thread", kBool, "0" },
     { "proxy.backend", kStr, "dxvk" },
     { "proxy.dxvk_path", kStr, "napoleon_remastered\\dxvk\\d3d9_dxvk.dll" },
+    { "proxy.dxvk_wndproc_fix", kBool, "1" },
     { "proxy.enabled", kBool, "1" },
     { "proxy.exe_guard", kInt, "1" },
     { "proxy.exe_guard_force_mismatch", kInt, "0" },
+    { "proxy.file_rules", kStr, "" },
     { "proxy.log_level", kStr, "info" },
     { "proxy.minidump", kInt, "2" },
     { "proxy.runtime_patches", kBool, "1" },

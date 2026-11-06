@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.vis",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/vis.lua",
+  "purpose": "log the visible top-level UI components (J9)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/vis.lua\" in any context",
+  "when": "showing which panel or popup is on screen during a probe step",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-06"
+}

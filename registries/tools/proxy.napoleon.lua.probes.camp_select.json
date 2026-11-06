@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.camp_select",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/camp_select.lua",
+  "purpose": "select one of the player's armies, fleets, agents or settlements on the campaign map (J9)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/camp_select.lua -- army|fleet|agent|settlement\" in the campaign",
+  "when": "reaching a selection state, then reading the surface with api_surface.lua",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-06"
+}

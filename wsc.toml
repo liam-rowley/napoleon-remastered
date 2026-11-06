@@ -14,13 +14,18 @@ engine_facts = "core:engine_facts"
 jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
 
 [core]
-version = "v0.30.0"
+version = "v0.47.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
 
 [docs]
 max_kb = 30
+# doc_paths gate (core W28): tokens that look like a path but are not this repo's: branch prefixes, other repos, pack paths, install layouts, verbs, dated audit names
+path_ignore = ["plan/", "brief/", "meta/", "job/", "release/", "rml_mod/**", "ui_scale_mod/**", "empire-remastered/**", "warscape-core/**", "dxvk_fork/**", "ui/**", "discovery/core/**",
+               "docs/learnings/", "docs/learnings/**", "docs/plans/PIPELINE_V2.md", "docs/plans/STATE_CONTROL.md", "docs/BACKLOG.md", "tools/jobs_hooks.py", "tools/pr_policy.py",
+               "tools/verbs/discovery.py", "ctl/", "play/", "data/", "ai/", "effects/", "dist/", "web/", "hello/", "recipes/", "sheets/", "shots/", "uikit/core/",
+               "uikit/base.rcss", "uikit/library.rcss", "uikit/factions_synthetic.rcss", "uikit/napoleon/LOCK.json", "emscripten/emsdk:4.0.10"]
 
 [cli]
 verb_dirs = ["tools/verbs"]   # game-specific verbs (same contract as core/warscape/verbs/); the `jobs` verb is the core's since J62
@@ -67,9 +72,15 @@ brief_notes = '''How a brief cites (row 80, J11): game-side things by registry i
 decisions = "docs/DECISIONS.md"
 decision_prefix = "D"
 session_trailer = "Claude-Session"
+commit_msg_hook = true                 # core W12: the commit-msg hook refuses a commit with no session trailer
 plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md"]
 meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
         "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules"]
+
+[agent_settings]
+safe = ["Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)", "Bash(git show:*)", "Bash(python3 core/wsc.py find:*)",
+        "Bash(python3 core/wsc.py jobs view:*)", "Bash(gh pr view:*)", "Bash(gh pr checks:*)", "Bash(gh run view:*)"]
+exact_only = true                      # core W35: only these rules
 
 [ci]
 salt = "1"                              # bump to invalidate every CI pass marker (J54)

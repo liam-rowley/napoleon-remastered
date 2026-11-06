@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.probe_safe_list",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/probe_safe_list.lua",
+  "purpose": "the probe-safe getters as the Lua list getters.lua loads, generated from discovery/napoleon/probe_safe.json (J89)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/getters.lua -- napoleon_remastered/lua/probes/probe_safe_list.lua",
+  "when": "only as the argument of getters.lua; tests/test_discovery_repo.py fails when it drifts from the JSON list",
+  "not_a_verb": "a data chunk the game's own Lua loads",
+  "status": "live",
+  "last_used": "2026-11-06"
+}

@@ -12,8 +12,8 @@ orders; `wsc.toml` `[discovery] adapter`), `carry_over.json` (one verdict per Em
 | Old path | Now |
 |---|---|
 | `discovery/core/<module>.py` (31 modules) | `core/discovery/<module>.py` (the core's, pinned by `[core] version`) |
-| `discovery/core/effects.py` | `discovery/napoleon/effects.py` (this repo's: no core pass yet) |
-| `tools/verbs/discovery.py` (`wsc discovery`) | the core verb of the same name |
+| `discovery/napoleon/effects.py` | `discovery/napoleon/effects.py` (this repo's: no core pass yet) |
+| `core/warscape/verbs/discovery.py` (`wsc discovery`) | the core verb of the same name |
 | `discovery/requirements.txt` | `core/discovery/requirements.txt` |
 | `proxy/tools/exe_info.py` | `core/proxy/tools/exe_info.py` |
 | `tests/test_discovery*.py`, `test_engine_api.py`, `test_exe_strings.py`, `test_x86re.py` | the core's `core/discovery/tests/` (logic); `tests/test_discovery_repo.py` (this repo's data) |

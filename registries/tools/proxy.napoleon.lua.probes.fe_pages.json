@@ -1,0 +1,11 @@
+{
+  "id": "proxy.napoleon.lua.probes.fe_pages",
+  "kind": "script",
+  "path": "proxy/napoleon/lua/probes/fe_pages.lua",
+  "purpose": "list the front-end pages and count what an enumeration probe reaches on each (J9)",
+  "usage": "job.sh ctl <owner> \"lua napoleon_remastered/lua/probes/fe_pages.lua\" from the main menu pump",
+  "when": "asking which front-end screens can be probed",
+  "not_a_verb": "runs inside the game's own Lua, not on a host",
+  "status": "live",
+  "last_used": "2026-11-06"
+}

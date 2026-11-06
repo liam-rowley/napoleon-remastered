@@ -88,7 +88,9 @@ jobs:
           sudo apt-get install -y -q --no-install-recommends $(python3 core/proxy/tools/toolchain.py apt)
           dpkg-query -W -f '${Package}=${Version}\n' '*mingw-w64*'
 {{wsc fetch_cache}}
-      - run: core/proxy/tools/build.sh all
+      - id: dll
+        run: core/proxy/tools/build.sh all
+{{wsc proxy_map step=dll}}
       - name: the DLL is byte-identical when built from another checkout path
         run: core/proxy/tools/build.sh repro
       - name: smoke test the DLL under wine (a stand-in exe loads it; guard verdicts, config, log, clean detach)

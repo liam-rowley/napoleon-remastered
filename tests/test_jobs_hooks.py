@@ -467,6 +467,38 @@ class Rule79Repo(unittest.TestCase):
         acc = hk.collect_acceptance(self.d, {'base': 'main', 'merge_base': self.base, 'head': head, 'repo': str(self.d), 'changed': changed, 'branch': 'job/J9'})
         return acc, hk.acceptance_problems(changed, dict(acc, active=True))
 
+    def w9(self, n=20, flake_at=None, allowed=1):
+        """Schema 2 lines (core W9): (lines, files) with watcher_sha, dll_sha256 and evidence_sha256; a `flake_at` pass is a flake line."""
+        lines, files = Rule79Evidence.valid(n)
+        for r in lines:
+            text = json.dumps(files[r['evidence']])
+            r.update(watcher_sha='w' * 8, dll_sha256='d' * 8, evidence_sha256=hashlib.sha256(text.encode()).hexdigest(), flakes_allowed=allowed)
+            if r['pass'] == flake_at:
+                r['result'] = 'flake'
+        return lines, files
+
+    def test_w9_twenty_passes_on_the_watcher_bytes_count(self):
+        lines, files = self.w9()
+        self.assertEqual(hk.acceptance_problems(Rule79Evidence.C, Rule79Evidence.acc(lines, files, watcher_sha='w' * 8)), [])
+        msg = hk.acceptance_problems(Rule79Evidence.C, Rule79Evidence.acc(lines, files, watcher_sha='x' * 8))
+        self.assertTrue(msg and 'holds 0 consecutive' in msg[-1], msg)   # same $Version, other bytes
+
+    def test_w9_an_allowed_flake_neither_counts_nor_ends_the_streak(self):
+        lines, files = self.w9(21, flake_at=5)
+        self.assertEqual(hk.acceptance_problems(Rule79Evidence.C, Rule79Evidence.acc(lines, files, watcher_sha='w' * 8)), [])
+        lines, files = self.w9(20, flake_at=5)
+        self.assertTrue(hk.acceptance_problems(Rule79Evidence.C, Rule79Evidence.acc(lines, files, watcher_sha='w' * 8)))   # 19 passes: a flake is never a pass
+        lines, files = self.w9(21, flake_at=5, allowed=0)
+        self.assertTrue(hk.acceptance_problems(Rule79Evidence.C, Rule79Evidence.acc(lines, files, watcher_sha='w' * 8)))
+
+    def test_failing_fixture_w9_one_dll_and_the_committed_file_sha(self):
+        lines, files = self.w9()
+        lines[3]['dll_sha256'] = 'e' * 8
+        self.assertTrue(hk.acceptance_problems(Rule79Evidence.C, Rule79Evidence.acc(lines, files, watcher_sha='w' * 8)))
+        lines, files = self.w9()
+        lines[-1]['evidence_sha256'] = '0' * 64
+        self.assertTrue(hk.acceptance_problems(Rule79Evidence.C, Rule79Evidence.acc(lines, files, watcher_sha='w' * 8)))
+
     def test_failing_fixture_a_base_pass_file_is_immutable(self):
         self.write({'harness/runs/r/pass_01.json': '{"pass": 1, "passed": true}\n'})
         errs = self.problems(['harness/runs/r/pass_01.json'])[1]

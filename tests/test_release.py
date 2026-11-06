@@ -248,8 +248,8 @@ class IniSetGate(unittest.TestCase):
 
     def test_real_release_is_clean(self):
         ini_set = br.component_ini_set(COMPS)
-        self.assertEqual(list(ini_set), ['dev.file_rules'])
-        self.assertEqual(list(REL['release_values']['allowed_dev_keys']), ['dev.file_rules'])
+        self.assertEqual(list(ini_set), ['proxy.file_rules'])   # core W33: the shipped rules left dev.file_rules, so the player ini sets no dev key
+        self.assertEqual(REL['release_values']['allowed_dev_keys'], {})
         self.assertEqual(br.value_problems(KEYS, REL, ini_set=ini_set), [])
         self.assertEqual(br.shipped_ini_problems(br.player_ini(KEYS, REL, IDENT, ini_set), REL), [])
 

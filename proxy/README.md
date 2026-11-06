@@ -8,8 +8,8 @@ the DLL installed the game must look and behave exactly like vanilla. PC results
 
 | Path | What | Moves to warscape-core at the end of phase 1 |
 |---|---|---|
-| `core/pe.h`, `sha1.h`, `guard.h`, `patch_engine.h`, `config.h`, `display_guard.h` | pure logic, no Windows headers, host-tested | yes |
-| `core/dllmain.cpp`, `log.cpp`, `crash.cpp`, `guard_driver.cpp`, `patch_driver.cpp`, `backend.cpp`, `headless.cpp`, `runtime.h`, `adapter.h`, `d3d9.def` | in-process drivers, game-agnostic | yes |
+| `core/proxy/src/pe.h`, `sha1.h`, `guard.h`, `patch_engine.h`, `config.h`, `display_guard.h` | pure logic, no Windows headers, host-tested | yes |
+| `core/proxy/src/dllmain.cpp`, `log.cpp`, `crash.cpp`, `guard_driver.cpp`, `patch_driver.cpp`, `backend.cpp`, `headless.cpp`, `runtime.h`, `adapter.h`, `d3d9.def` | in-process drivers, game-agnostic | yes |
 | `napoleon/identity.json` | the exe pin, config file and mod folder names | no (adapter) |
 | `napoleon/adapter.cpp`, `napoleon/generated/tables.h`, `napoleon/napoleon_remastered.ini` | adapter; the last two are GENERATED | no (generator moves) |
 | `tests/` | host tests (`g++`, synthetic PE images) | yes |
@@ -49,7 +49,7 @@ that it is CI-only; J42). With neither toolchain it is a skip naming the suites 
 
 ## Start-up and the pass-through contract
 
-DllMain (`core/dllmain.cpp`), in order: folders, config, launch id, log -> crash capture -> **exe-identity guard, once** ->
+DllMain (`core/proxy/src/dllmain.cpp`), in order: folders, config, launch id, log -> crash capture -> **exe-identity guard, once** ->
 `PlanEngine` -> patch engine (only if `plan.patches`). The backend loads at the first export call, never under the loader lock.
 
 `guard.h` `PlanEngine(enabled, engineOk)` is the only switch engine-side code may ask (same contract as empire-remastered
@@ -75,7 +75,7 @@ The notice is rewritten at every pass-through start and removed at the next acce
 
 ## Runtime patch engine
 
-Sites live in the `engine_sites` registry; `tools/gen_tables.py` turns them into `napoleon/generated/tables.h` (`--check` runs in the
+Sites live in the `engine_sites` registry; `core/proxy/tools/gen_tables.py` turns them into `napoleon/generated/tables.h` (`--check` runs in the
 gates). **Byte layout** (the registry has one RVA): `anchor_bytes` start at `rva`; `stock_bytes` follow immediately at
 `rva + len(anchor)`; a patch replaces exactly the stock bytes with `patch_bytes`, a hook detours at `rva + len(anchor)` (at least
 5 stock bytes). A function-entry hook anchors on the bytes before the entry (padding or the previous `ret`).
@@ -83,7 +83,7 @@ Checks per site after rebasing (`patch_engine.h`): inside one section's file-bac
 stock equal after taking the load delta off every relocated dword; a patch's own bytes carry no relocation; no overlap. The load delta is the actual base minus the exe FILE's ImageBase (read by the guard while hashing): the loader rewrites
 ImageBase in the mapped header, so a delta from memory is always 0 (`pe.h` `LoadDelta`, PC run `20261028_pctest`). Already
 patched counts as done. **Any bad site -> nothing is written**, every site still logged. A site with a `config_key` (a boolean key) is
-checked always and written only when the key is on. No real sites yet: `tests/test_patch_engine.cpp` proves the engine on a synthetic
+checked always and written only when the key is on. No real sites yet: `core/proxy/tests/test_patch_engine.cpp` proves the engine on a synthetic
 image with Napoleon's section layout at three load bases.
 
 Adding a site: `python3 core/wsc.py reg add engine_sites ...` (with `exe=sha1:<pin>`), `python3 core/proxy/tools/gen_tables.py`, rebuild,
@@ -112,12 +112,12 @@ stepping a value means one build per value until the core has a numeric key. Rou
 
 ## DXVK
 
-Stock, latest stable release, pinned by version and three sha256 (tarball, `x32/d3d9.dll`, LICENSE) in `tools/fetch_dxvk.py`
+Stock, latest stable release, pinned by version and three sha256 (tarball, `x32/d3d9.dll`, LICENSE) in `core/proxy/tools/fetch_dxvk.py`
 (3.1.1). Never committed. Shipped as `napoleon_remastered\dxvk\d3d9_dxvk.dll`. The proxy sets `DXVK_CONFIG_FILE`, `DXVK_LOG_PATH`
 and the cache paths into that folder unless already set: DXVK's defaults write into the working folder (the game folder), which would
 break the byte-exact uninstall.
 
-## PC install and uninstall (`tools/pc_deploy.py`)
+## PC install and uninstall (`core/proxy/tools/pc_deploy.py`)
 
 The game folder is a deploy target; everything runs in Git Bash in the repo.
 1. `core/proxy/tools/build.sh --docker all && python3 core/proxy/tools/pc_deploy.py kit` -> `build/kits/kit_<utc>_<build>/`: `manifest.json`,
@@ -135,10 +135,10 @@ process list when it is alive, else `tasklist`.
 
 ## Hooks (J3, D26)
 
-`core/hooks.cpp`: `IatHook` swaps one import-table slot of the game exe (validated as snapped first; a slot not yet snapped at
+`core/proxy/src/hooks.cpp`: `IatHook` swaps one import-table slot of the game exe (validated as snapped first; a slot not yet snapped at
 DllMain is retried at the first `Direct3DCreate9`), `VtableHook` one slot of a D3D object (`IDirect3D9::CreateDevice` [16],
 `IDirect3DDevice9::Present` [17]). Every hook is logged (`hook: iat|vtable ... slot old -> new`). Only the dev side installs hooks,
-only with a dev key on and the guard's plan allowing them (`DevInit`; `tests/test_dev.cpp` lints it). Headless (below) hooks the
+only with a dev key on and the guard's plan allowing them (`DevInit`; `core/proxy/tests/test_dev.cpp` lints it). Headless (below) hooks the
 exe's user32 window imports and more `IDirect3D9` slots the same way, each slot once (a recreated `IDirect3D9` shares the vtable).
 
 ## Dev control channel (J3)
@@ -146,13 +146,13 @@ exe's user32 window imports and more `IDirect3D9` slots the same way, each slot 
 All `[dev]` keys default off with release value off (`registries/config_keys.jsonl`); with none set the proxy is the skeleton.
 - `dev.timeline`: `napoleon_remastered\logs\timeline.json` (phases, UTC ms, t from process creation); `core/proxy/tools/timeline_table.py`.
 - `dev.log_files`: the file survey `logs\files.log` (every distinct open, check and listing); `core/proxy/tools/survey_table.py`.
-- `dev.skip_intro`, `dev.file_rules`: movie and file rules (`core/filerules.h`: redirect, fail, add, movie-fail, movie-redirect).
+- `dev.skip_intro`, `dev.file_rules`: movie and file rules (`core/proxy/src/filerules.h`: redirect, fail, add, movie-fail, movie-redirect).
 - `dev.state_json`: `napoleon_remastered\state.json` ~2/s (scene, frame, Lua context, battle probe, memory, Lua reports); in the
   adapter's `heartbeat_files`, so a watcher launch can wait on `"scene": "frontend"` (`wait_log` regex). For a consistent
   snapshot read the state with ctl `state` (the file is replaced by rename about twice a second).
-- `dev.lua_bridge`: the wrappers listed in `napoleon/lua/wrappers.txt` (`tools/build_dev_pack.py`) are served by a virtual pack and
-  load `napoleon_remastered\lua\wsp.lua`, which loads the bridge (`core/luabridge.cpp`, Lua 5.1.1 core from `tools/fetch_lua.py`).
-  Scenes: `core/devcore.h` SceneTracker. Only the main menu pumps in the front end (fact `napoleon.lua.update_callbacks`).
+- `dev.lua_bridge`: the wrappers listed in `napoleon/lua/wrappers.txt` (`core/proxy/tools/build_dev_pack.py`) are served by a virtual pack and
+  load `napoleon_remastered\lua\wsp.lua`, which loads the bridge (`core/proxy/src/luabridge.cpp`, Lua 5.1.1 core from `core/proxy/tools/fetch_lua.py`).
+  Scenes: `core/proxy/src/devcore.h` SceneTracker. Only the main menu pumps in the front end (fact `napoleon.lua.update_callbacks`).
 - `dev.ctl` + `dev.ctl_dir`: requests `<dir>\<id>.cmd` (one line), results `<id>.done` (JSON written last: `status` ok | failed |
   timeout | refused, `reason`, `start_utc`, `end_utc`, verb fields, `state_at_end`, `log` = every proxy log line written meanwhile).
   Ids: 1-64 of `A-Za-z0-9._-`, never reused (`_ids.txt`). FIFO, one at a time. From Git Bash: `job.sh ctl <owner> '<line>' [wait_s]`; with no answer it
@@ -177,7 +177,7 @@ All `[dev]` keys default off with release value off (`registries/config_keys.jso
 
 Targets: `frontend`, `battle:<preset>` (`napoleon/lua/battles/<preset>.txt`: type, map key, prefs), `campaign:continue`,
 `campaign:<save>`, `campaign:new:<campaign>:<faction>`. `<campaign>` must be a key a main-menu button carries (`grand` = the grand
-campaign's, `mp_eur_napoleon`; `probes/campaign_keys.lua` lists them): an unknown key is an engine AV, so autostart refuses it.
+campaign's, `mp_eur_napoleon`; `proxy/napoleon/lua/probes/campaign_keys.lua` lists them): an unknown key is an engine AV, so autostart refuses it.
 Run on the PC (`proxy/runs/20261029_j3pc2`): every battle preset and `campaign:new`; `continue`/`<save>` need a save (none yet).
 Warm reset works from a battle; from a campaign it is open (fact `napoleon.campaign.quit_to_menu`): use a relaunch.
 
@@ -204,7 +204,7 @@ The kit manifest's `fixed_sky` says whether the pack is in the kit (`present` wi
 `dev.camera` (default and release value off) adds `wsp.cam_set(x, y, z, yaw, pitch)` to the dev Lua bridge: on the engine thread (the
 battle pump) it calls the active camera mode's own `SetTargetAndPosition(target, position)` (vtable slot 0xbc, an engine call, no detour);
 the mode comes from a pointer chain (battle owner global, +0xf8, +0x281b8, +0x800, engine_sites `battle.camera_*`) and its vtable slot is
-compared with the checked site before every call. Pure parts in `core/camera.h` (`tests/test_camera.cpp`), driver `core/camera.cpp`.
+compared with the checked site before every call. Pure parts in `core/proxy/src/camera.h` (`core/proxy/tests/test_camera.cpp`), driver `core/proxy/src/camera.cpp`.
 The chunks `napoleon/lua/ctl/cam_set.lua`, `cam_read.lua` (readback through `BattleUI.BackProjectPosition`) and `speed.lua` (RequestSpeed)
 are what `core/harness/ctl.py` `cam`, `pause` and `speed` run; facts `napoleon.battle.camera_route`, `napoleon.battle.speed_route`.
 Engine Lua never calls `string.find`, `string.sub` or `gmatch`: one call stops the battle pump (fact `napoleon.lua.string_find_stalls_pump`,
@@ -225,7 +225,7 @@ function with missing arguments from a chunk: the engine's Lua error stops the b
 ## Frame capture (J8)
 
 `dev.capture=1` (default and release off) hooks 37 `IDirect3DDevice9` and 2 `IDirect3DStateBlock9` vtable slots at `CreateDevice` (core 0.21.0, W19; `core/proxy/src/capture.cpp`; pure parts and the hash in
-`core/capture.h`, `tests/test_capture.cpp`); with it off nothing is hooked, and with it on and no capture running each hook is one flag test.
+`core/proxy/src/capture.h`, `core/proxy/tests/test_capture.cpp`); with it off nothing is hooked, and with it on and no capture running each hook is one flag test.
 ctl `capture <name> [frames]` (1 to 8 frames, a new name each time) records every device call of the next frames to
 `<dev.capture_dir>\<name>\frame.txt` and each shader's bytecode once per hash to `<dev.capture_dir>\shaders\<hash>.vs|ps`; `dev.capture_dir`
 is outside the game folder (D25; empty refuses). Result fields: `dir`, `file`, `shader_dir`, `frames`, `bytes`, `lines`, `draws`, `shaders`,
@@ -248,8 +248,8 @@ belongs to) | `TEX ptr type levels w h d fmt usage pool` | `DECL ptr n s.off.typ
 ## Campaign console (J15)
 
 `dev.console=1` (default and release off): at the first `Direct3DCreate9` the proxy checks the 8 console `engine_sites`, takes the slot address
-from the executor's own instruction and claims the slot only if it holds 0 (never a foreign value). The forwarder (`core/console.cpp`, pure rules in
-`console.h`, `tests/test_console.cpp`) refuses unless the key is on, the scene is `campaign` and the pointer chain to the live campaign context
+from the executor's own instruction and claims the slot only if it holds 0 (never a foreign value). The forwarder (`core/proxy/src/console.cpp`, pure rules in
+`console.h`, `core/proxy/tests/test_console.cpp`) refuses unless the key is on, the scene is `campaign` and the pointer chain to the live campaign context
 holds; then it builds a CampaignCLI with the exe's ctor (no detour) and calls `Execute`, with the context's gate byte set for that one call if it
 was 0 (Liam 2026-10-29). Every forwarded or refused line is logged, from the verb and from game Lua's `CliExecute` alike. The verb runs lines
 through Lua `CliExecute` and refuses `;`, `#`, quotes, a name that is a file in the game folder (the executor would run it first) and the no-ops
@@ -259,8 +259,8 @@ of `runs/20261029_j15re/campaign_commands.tsv` (generated `napoleon/generated/co
 
 `headless.enabled=1` (default and release value off; the watcher sets it for every launch that is not `visible=1`, `harness/README.md`)
 puts every game window on the virtual display and never on a real monitor. Fail closed: there is no path that shows a window on a
-real monitor. Decisions are pure functions in `core/display_guard.h` (`tests/test_display_guard.cpp`, including a millisecond
-simulation of the display changes Empire hit); the driver is `core/headless.cpp`. Both are core candidates (J12).
+real monitor. Decisions are pure functions in `core/proxy/src/display_guard.h` (`core/proxy/tests/test_display_guard.cpp`, including a millisecond
+simulation of the display changes Empire hit); the driver is `core/proxy/src/headless.cpp`. Both are core candidates (J12).
 - **Target**: the one attached, non-primary display whose adapter or monitor string contains `headless.display_name` and whose rect is
   exactly `headless.size` (physical pixels, per-monitor DPI aware V2 around every query and move). Never an index, a `DISPLAYn` name or
   an assumed origin. Resolved at the first `Direct3DCreate9` or the first game window; the monitor list is logged every launch.
@@ -275,18 +275,21 @@ simulation of the display changes Empire hit); the driver is `core/headless.cpp`
   `SetFocus` on a game window is dropped while another process has the foreground (it activates even a no-activate window, fact
   `napoleon.window.setfocus_activates`); the game keeps rendering unfocused (`napoleon.window.background_render`).
   `ChangeDisplaySettingsW` is never applied; `MessageBoxW` is logged and answered with its safe button; `DialogBoxIndirectParamW` -1.
+  A window a DLL shows after start-up is hidden at show time by a WinEvent hook on `EVENT_OBJECT_SHOW`; the 250 ms sweep stays as the backstop (core W18).
 - **Topology guard**: a thread polls the virtual-screen metrics (~4 ms), the target's live rect and the layout signature; with the main
   window's `WM_DISPLAYCHANGE`/`WM_DPICHANGED`/`WM_SETTINGCHANGE`/`WM_DEVICECHANGE` any change cloaks the window first (`DWMWA_CLOAK`),
   the render thread re-resolves by name and size at the next Present, moves and verifies, and the window is uncloaked after
   `headless.settle_ms` of quiet. No target for `headless.refuse_grace_ms`: refusal. Every Present post-checks the windows.
+  The guard knows its own move by the physical rect or, on a scaled target, the logical rect the window's thread sees (each edge within 1 px); a position message
+  matching neither logs one near-miss line per arming (core W18; the logical map is measured with a probe window, not yet with the game on a scaled target).
   Left out of Empire's guard: the blocked-poll watchdog and the WndProc chain ping (no other module subclasses the window here).
 - **Refusal**: ERROR `headless: REFUSED: <why>`, every window of the process cloaked and hidden, status `refused`, **exit code 2160**.
   Causes: no unique target at the size; a fullscreen or wrong-size device; the guard in pass-through (no hooks) or `proxy.enabled=0`;
   an essential user32 import missing or never snapped; the target gone after a change.
 - **Status** `napoleon_remastered\headless_status.json` (rewritten by rename, in the adapter's heartbeat files): `pid`, `launch_id`,
   `state` starting | target_ok | on_virtual | refused, `detail`, `target` {device, adapter, monitor, rect}, `window`, `client`,
-  `backbuffer`, `exit_code`, `written_utc`. `on_virtual` = the device exists and a frame was presented with the main window visible
-  inside the target.
+  `backbuffer`, `exit_code`, `written_utc`, `relocations` (0 until the first; the file is rewritten after each verified relocation, `state` unchanged).
+  `on_virtual` = the device exists and a frame was presented with the main window visible inside the target.
 
 ## Open questions
 
