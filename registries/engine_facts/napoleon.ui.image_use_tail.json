@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.image_use_tail",
+  "claim": "In a layout's image use, tail[0] tiles the art over the use's rect (else it stretches), tail[1] and tail[2] mirror it on x and y; tail[3] (9-slice slot) and tail[7], tail[8] (stretch with the component) are as in Empire. A use whose image path is empty draws a flat rect in the use's ARGB colour. Ten composites drawn on this rule match their live shots by eye (run 20261106_j99pc)",
+  "state": "verified",
+  "evidence": "harness/runs/20261106_j99pc/README.md",
+  "date": "2026-11-06",
+  "notes": "the atlas keeps art ids per state, not these fields: a reader that draws must parse the layout (uikit/napoleon/vanilla/gallery.py); the tile reading rests on the look of tiled fills, not on an engine read"
+}

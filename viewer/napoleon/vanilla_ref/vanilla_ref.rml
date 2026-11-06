@@ -1,0 +1,53 @@
+<rml>
+<head>
+	<title>Vanilla reference twins (J99)</title>
+	<link type="text/rcss" href="uikit/base.rcss"/>
+	<link type="text/rcss" href="uikit/library.rcss"/>
+	<link type="text/rcss" href="uikit/factions_synthetic.rcss"/>
+	<link type="text/rcss" href="vanilla_ref.rcss"/>
+</head>
+<body id="root">
+	<div id="vr-scroll-page">
+		<div class="vr-cell"><div class="btn">Recruit</div></div>
+		<div class="vr-cell"><div class="btn is-hover">Recruit</div></div>
+		<div class="vr-cell"><div class="btn is-pressed">Recruit</div></div>
+		<div class="vr-cell"><div class="btn is-selected">Recruit</div></div>
+		<div class="vr-cell"><div class="btn is-disabled">Recruit</div></div>
+		<div class="vr-cell"><div class="btn is-focus">Recruit</div></div>
+		<div class="vr-cell"><div class="tab-group"><div class="tab">Buildings</div></div></div>
+		<div class="vr-cell"><div class="tab-group"><div class="tab is-hover">Buildings</div></div></div>
+		<div class="vr-cell"><div class="tab-group"><div class="tab is-pressed">Buildings</div></div></div>
+		<div class="vr-cell"><div class="tab-group"><div class="tab is-selected">Buildings</div></div></div>
+		<div class="vr-cell"><div class="tab-group"><div class="tab is-disabled">Buildings</div></div></div>
+		<div class="vr-cell"><div class="tab-group"><div class="tab is-focus">Buildings</div></div></div>
+		<div class="vr-cell"><div class="tab-group"><div class="tab is-selected">Overview</div><div class="tab">Trade</div></div></div>
+		<div class="vr-cell"><div class="check"><div class="check-mark"></div></div></div>
+		<div class="vr-cell"><div class="check is-hover"><div class="check-mark"></div></div></div>
+		<div class="vr-cell"><div class="check is-pressed"><div class="check-mark"></div></div></div>
+		<div class="vr-cell"><div class="check is-checked"><div class="check-mark"></div></div></div>
+		<div class="vr-cell"><div class="check is-disabled"><div class="check-mark"></div></div></div>
+		<div class="vr-cell"><div class="check is-focus"><div class="check-mark"></div></div></div>
+		<div class="vr-cell"><div class="order-btn"><img class="vr-glyph" src="test_ring.png"/></div></div>
+		<div class="vr-cell"><div class="order-btn is-hover"><img class="vr-glyph" src="test_ring.png"/></div></div>
+		<div class="vr-cell"><div class="order-btn is-pressed"><img class="vr-glyph" src="test_ring.png"/></div></div>
+		<div class="vr-cell"><div class="order-btn is-selected"><img class="vr-glyph" src="test_ring.png"/></div></div>
+		<div class="vr-cell"><div class="order-btn is-disabled"><img class="vr-glyph" src="test_ring.png"/></div></div>
+		<div class="vr-cell"><div class="order-btn is-focus"><img class="vr-glyph" src="test_ring.png"/></div></div>
+		<div class="vr-cell"><div class="list-hatch"><div class="list-row">Imperial barracks</div></div></div>
+		<div class="vr-cell"><div class="list-hatch"><div class="list-row is-hover">Imperial barracks</div></div></div>
+		<div class="vr-cell"><div class="list-hatch"><div class="list-row is-selected">Imperial barracks</div></div></div>
+		<div class="vr-cell"><div class="list-hatch"><div class="list-row is-disabled">Imperial barracks</div></div></div>
+		<div class="vr-cell"><div class="section-head">Garrison</div></div>
+		<div class="vr-cell"><div class="panel"><div class="panel-head"><div class="t-title">Lombardy</div></div><div class="panel-body"><div class="t-body">Plate</div></div></div></div>
+		<div class="vr-cell"><div class="tooltip is-shown"><div class="tooltip-title">Heavy cavalry</div>Charge hard.</div></div>
+		<div class="vr-cell"><div class="bar"><div class="bar-fill" style="width: 0%;"></div></div></div>
+		<div class="vr-cell"><div class="bar"><div class="bar-fill" style="width: 35%;"></div></div></div>
+		<div class="vr-cell"><div class="bar"><div class="bar-fill" style="width: 100%;"></div></div></div>
+		<div class="vr-cell"><div class="card"><div class="card-top"></div><div class="card-body"><div class="t-label">Old Guard</div></div></div></div>
+		<div class="vr-cell"><img class="icon icon-m" src="test_ring.png"/></div>
+		<div class="vr-cell"><div class="flag-slot"></div></div>
+		<div class="vr-cell"><div class="t-body">Cuirassiers charge hard but tire quickly.</div></div>
+		<div class="vr-cell"><div class="vr-scroll"><div class="t-body">One</div><div class="t-body">Two</div><div class="t-body">Three</div><div class="t-body">Four</div><div class="t-body">Five</div><div class="t-body">Six</div></div></div>
+	</div>
+</body>
+</rml>

@@ -2,7 +2,7 @@
 """Composite every vanilla UI surface from its layout and the game's art, and build the private reference page (J99).
 
 purpose: draw static composites of all atlas surfaces (art, 9-slice uses, tiling, .cuf text) and the component state strips, and stage the "Vanilla UI reference" page
-usage: python3 uikit/napoleon/vanilla/gallery.py compose [--only WORD ...] [--out DIR]
+usage: python3 uikit/napoleon/vanilla/gallery.py compose [--only WORD ...] | strips | twins | page   [--out DIR]   (in that order; README.md)
 when: after the atlas, the inventory or the library changes, before publishing the page (README.md beside this file); reads the game's packs in place, so it runs on the PC
 not-a-verb: a one-page generator beside its inventory, like uikit/napoleon/build.py; composites and shots go to the page, never to git (J7)
 
@@ -16,6 +16,8 @@ import gzip
 import hashlib
 import json
 import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -46,6 +48,9 @@ BIG_LIMIT = 1024                     # a cell is cut to this: a 10000-wide strip
 MAX_MASTERS = 12                     # art pieces per kind shown from their masters
 MASTER_MAX = 256                     # art larger than this at 1x stays out of the 2x sheets: fills and pictures, not components
 MASTERS = 'C:/napoleon_remastered_pc/upscale/work/packs'
+LIVE_RUN = '20261102_j10pc'
+FE_SKINS, FE_SKIN = 'ui\\frontend ui\\skins\\', 'spanish_skin\\'     # the game swaps these at run time; what triggers it is not known (report)
+TWIN_COLS, TWIN_W, TWIN_H = 8, 240, 120     # the twin screen's grid at 1920x1080 x 100 % (screen.json lengths vr_cell_w and vr_cell_h)
 
 
 def surfaces():
@@ -131,14 +136,17 @@ class Game:
     """Read-only view of the art, fonts and loc text, cached."""
 
     def __init__(self):
-        games = json.load(open(ROOT / 'discovery' / 'napoleon' / 'games.json', encoding='utf-8'))
-        self.fs = PackFS.from_games(games, GAME)
+        with open(ROOT / 'discovery' / 'napoleon' / 'games.json', encoding='utf-8') as f:
+            self.fs = PackFS.from_games(json.load(f), GAME)
         self._art, self._fonts, self._loc, self._tpl = {}, {}, None, None
 
-    def art(self, path):
+    def art(self, path, skinned=False):
+        """The decoded art, or None. skinned: a front-end surface, which the live shots show in the red skin its layouts do not name."""
         k = art_key(path)
         if k is None:
             return None
+        if skinned and k.startswith(FE_SKINS) and self.fs.stat(FE_SKINS + FE_SKIN + k[len(FE_SKINS):]):
+            k = FE_SKINS + FE_SKIN + k[len(FE_SKINS):]
         if k not in self._art:
             img = None
             if self.fs.stat(k):
@@ -180,8 +188,8 @@ class Game:
 
 
 class Canvas:
-    def __init__(self, game, w, h, bg=BG):
-        self.game, self.img, self.d = game, Image.new('RGBA', (max(w, 1), max(h, 1)), bg), None
+    def __init__(self, game, w, h, bg=BG, skinned=False):
+        self.game, self.img, self.d, self.skinned = game, Image.new('RGBA', (max(w, 1), max(h, 1)), bg), None, skinned
         self.d = ImageDraw.Draw(self.img)
         self.stats = {'components': 0, 'drawn': 0, 'hatched': 0, 'standin': 0, 'dynamic': 0}
         self.hidden = []
@@ -209,7 +217,7 @@ class Canvas:
             if not root and c >> 24:
                 self.put(Image.new('RGBA', (w, h), ((c >> 16) & 255, (c >> 8) & 255, c & 255, c >> 24)), x + u['x'], y + u['y'])
             return
-        art = self.game.art(im['path'])
+        art = self.game.art(im['path'], self.skinned)
         if art is None:
             self.hatch(x + u['x'], y + u['y'], w, h, im['path'])
             return
@@ -311,7 +319,7 @@ def compose(game, path, rec):
     w, h = rec.get('base') or (0, 0)
     if not w or not h:
         w, h = (st['w'], st['h']) if st else (256, 256)
-    cv = Canvas(game, w, h)
+    cv = Canvas(game, w, h, skinned=rec.get('context') == 'frontend')
     cv.component(root, 0, 0, root=True)
     return cv.img.convert('RGB'), cv.stats, cv.hidden
 
@@ -485,6 +493,131 @@ def cmd_strips(a):
     return 0
 
 
+def twin_cells():
+    """[(library class, state, markup)]: each mapped class in each of its states, in grid order."""
+    out = []
+
+    def add(cls, states, markup):
+        out.extend((cls, s or 'default', markup.replace('{s}', s and f' is-{s}')) for s in states)
+
+    add('.btn', ('', 'hover', 'pressed', 'selected', 'disabled', 'focus'), '<div class="btn{s}">Recruit</div>')
+    add('.tab', ('', 'hover', 'pressed', 'selected', 'disabled', 'focus'), '<div class="tab-group"><div class="tab{s}">Buildings</div></div>')
+    add('.tab-group', ('',), '<div class="tab-group"><div class="tab is-selected">Overview</div><div class="tab">Trade</div></div>')
+    add('.check', ('', 'hover', 'pressed', 'checked', 'disabled', 'focus'), '<div class="check{s}"><div class="check-mark"></div></div>')
+    add('.order-btn', ('', 'hover', 'pressed', 'selected', 'disabled', 'focus'), '<div class="order-btn{s}"><img class="vr-glyph" src="test_ring.png"/></div>')
+    add('.list-row', ('', 'hover', 'selected', 'disabled'), '<div class="list-hatch"><div class="list-row{s}">Imperial barracks</div></div>')
+    add('.section-head', ('',), '<div class="section-head">Garrison</div>')
+    add('.panel', ('',), '<div class="panel"><div class="panel-head"><div class="t-title">Lombardy</div></div><div class="panel-body"><div class="t-body">Plate</div></div></div>')
+    add('.tooltip', ('shown',), '<div class="tooltip{s}"><div class="tooltip-title">Heavy cavalry</div>Charge hard.</div>')
+    out.extend(('.bar', f'{p} percent', f'<div class="bar"><div class="bar-fill" style="width: {p}%;"></div></div>') for p in (0, 35, 100))
+    add('.card', ('',), '<div class="card"><div class="card-top"></div><div class="card-body"><div class="t-label">Old Guard</div></div></div>')
+    add('.icon', ('',), '<img class="icon icon-m" src="test_ring.png"/>')
+    add('.flag-slot', ('',), '<div class="flag-slot"></div>')
+    add('.t-body', ('',), '<div class="t-body">Cuirassiers charge hard but tire quickly.</div>')
+    add('scrollbarvertical', ('',), '<div class="vr-scroll"><div class="t-body">One</div><div class="t-body">Two</div><div class="t-body">Three</div>'
+        '<div class="t-body">Four</div><div class="t-body">Five</div><div class="t-body">Six</div></div>')
+    return out
+
+
+def twin_rml():
+    cells = '\n'.join(f'\t\t<div class="vr-cell">{m}</div>' for _, _, m in twin_cells())
+    return ('<rml>\n<head>\n\t<title>Vanilla reference twins (J99)</title>\n\t<link type="text/rcss" href="uikit/base.rcss"/>\n'
+            '\t<link type="text/rcss" href="uikit/library.rcss"/>\n\t<link type="text/rcss" href="uikit/factions_synthetic.rcss"/>\n'
+            '\t<link type="text/rcss" href="vanilla_ref.rcss"/>\n</head>\n<body id="root">\n\t<div id="vr-scroll-page">\n'
+            f'{cells}\n\t</div>\n</body>\n</rml>\n')
+
+
+def cmd_twins(a):
+    """Write the twin screen's RML from twin_cells(), render it, and record each cell's rect on the render."""
+    screen = ROOT / 'viewer' / 'napoleon' / 'vanilla_ref'
+    (screen / 'vanilla_ref.rml').write_text(twin_rml(), encoding='utf-8', newline='\n')
+    out = Path(a.out) / 'sheets'
+    out.mkdir(parents=True, exist_ok=True)
+    subprocess.run([sys.executable, str(ROOT / 'viewer' / 'core' / 'render.py'), str(screen), '--size', '1920x1080', '--dp-ratio', '1.0',
+                    '--out', str(out / 'twins.png'), '--wasm', a.wasm], check=True)
+    cells = [{'library': c, 'state': s, 'rect': [i % TWIN_COLS * TWIN_W, i // TWIN_COLS * TWIN_H, TWIN_W, TWIN_H]} for i, (c, s, _) in enumerate(twin_cells())]
+    (Path(a.out) / 'twins.json').write_text(json.dumps(cells, sort_keys=True), encoding='utf-8')
+    print(len(cells), 'twin cells over', len({c['library'] for c in cells}), 'classes')
+    return 0
+
+
+def jsonl(path):
+    with open(path, encoding='utf-8') as f:
+        return [json.loads(line) for line in f if line.strip()]
+
+
+def live_shots(out):
+    """{unit id: [{state, file}]}: J10's shots, copied to the site after their sha256 is checked against shots.json."""
+    run = ROOT / 'harness' / 'runs' / LIVE_RUN
+    shots = json.load(open(run / 'shots.json', encoding='utf-8'))['shots']
+    (out / 'shots').mkdir(parents=True, exist_ok=True)
+    units = {}
+    for s in shots:
+        data = Path(s['file']).read_bytes()
+        if hashlib.sha256(data).hexdigest() != s['sha256']:
+            raise SystemExit(f"{s['file']}: sha256 differs from shots.json: the shots are not J10's, run a sitting (brief)")
+        name = Path(s['file']).name
+        (out / 'shots' / name).write_bytes(data)
+        for u in s['units']:
+            units.setdefault(u, []).append({'state': s['state'], 'file': name})
+    return units, len(shots)
+
+
+def cmd_page(a):
+    """Stage the page: data.json and the shots beside the composites and sheets the other commands wrote."""
+    out = Path(a.out)
+    surf = surfaces()
+    comp = json.load(open(out / 'composites.json', encoding='utf-8'))
+    strips = json.load(open(out / 'strips.json', encoding='utf-8'))
+    twins = json.load(open(out / 'twins.json', encoding='utf-8'))
+    kinds = json.load(open(HERE / 'components.json', encoding='utf-8'))
+    rows = jsonl(ROOT / 'registries' / 'ui_elements.jsonl')
+    reach = json.load(open(ROOT / 'discovery' / 'ui' / 'reach.json', encoding='utf-8'))['units_reach']
+    shots, n_shots = live_shots(out)
+    by_id = {r['id']: r for r in rows}
+    idx = {}
+    for r in rows:
+        lay = (r.get('vanilla_source') or {}).get('layout')
+        if lay:
+            idx.setdefault(lay.replace('\\', '/').lower(), []).append(r['id'])
+        if r['id'].startswith('template.'):
+            idx.setdefault('uied.templates/' + r['id'][len('template.'):], []).append(r['id'])
+    on_surface = {}
+    for k in kinds:
+        for p in k['surfaces']:
+            on_surface[p] = on_surface.get(p, 0) + 1
+    table = []
+    for path, rec in sorted(surf.items()):
+        c = comp[path]
+        units = sorted(idx.get(path.lower(), []))
+        seen, mine = set(), []
+        for u in units:
+            for s in shots.get(u, []):
+                if s['file'] not in seen:
+                    seen.add(s['file'])
+                    mine.append(s)
+        unread = bool(c.get('unread'))
+        table.append({'path': path, 'id': units[0] if units else path, 'units': units, 'ctx': rec['context'], 'kind': rec['kind'], 'unread': unread,
+                      'live': any(reach.get(u, {}).get('reach') == 'reached' for u in units), 'shots': mine, 'file': None if unread else f'{slug(path)}.jpg',
+                      'size': c.get('size'), 'components': len(rec.get('components', [])), 'interactions': sum(len(by_id[u].get('interactions', [])) for u in units),
+                      'hatched': c.get('hatched', 0), 'hidden': c.get('hidden', []), 'kinds': on_surface.get(path, 0)})
+    table.sort(key=lambda s: (not s['live'], s['ctx'], s['id']))
+    slim = [{**{f: k.get(f) for f in ('id', 'kind', 'use_count', 'instances', 'sizes', 'sizes_total', 'library', 'uncertain', 'surfaces', 'ui_elements')},
+             **strips['kinds'][k['id']]} for k in kinds]
+    done = [s for s in table if not s['unread']]
+    stats = {'surfaces': len(table), 'clean': sum(not s['hatched'] for s in done), 'hatched_surfaces': sum(bool(s['hatched']) for s in done),
+             'hatched_uses': sum(s['hatched'] for s in done), 'unread': len(table) - len(done), 'live': sum(s['live'] for s in table), 'shots': n_shots,
+             'kinds': len(kinds), 'gaps': sum(k['library'] == 'gap' for k in kinds), 'uncertain': sum(bool(k.get('uncertain')) for k in kinds),
+             'standin': sum(c.get('standin', 0) for c in comp.values())}
+    (out / 'data.json').write_text(json.dumps({'stats': stats, 'surfaces': table, 'kinds': slim, 'one': strips['one'], 'two': strips['two'], 'twins': twins},
+                                              separators=(',', ':')), encoding='utf-8')
+    shutil.copy(HERE / 'page.html', out / 'vanilla_ui_reference.html')
+    files = [p for d in ('composites', 'shots', 'sheets') for p in sorted((out / d).iterdir())] + [out / 'data.json', out / 'vanilla_ui_reference.html']
+    print(json.dumps(stats))
+    print(f'{len(files)} files, {sum(p.stat().st_size for p in files) / 1e6:.1f} MB')
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -494,8 +627,13 @@ def main(argv=None):
     s = sub.add_parser('strips', help='draw every kind\'s state strip and 2x masters into sprite sheets')
     s.add_argument('--out', default=str(ROOT / '_scratch' / 'j99'))
     s.add_argument('--masters', default=MASTERS)
+    t = sub.add_parser('twins', help='write the twin screen and render it')
+    t.add_argument('--out', default=str(ROOT / '_scratch' / 'j99'))
+    t.add_argument('--wasm', default=str(ROOT / 'build' / 'viewer' / 'out'))
+    p = sub.add_parser('page', help='stage the page beside the composites and sheets')
+    p.add_argument('--out', default=str(ROOT / '_scratch' / 'j99'))
     a = ap.parse_args(argv)
-    return {'compose': cmd_compose, 'strips': cmd_strips}[a.cmd](a)
+    return {'compose': cmd_compose, 'strips': cmd_strips, 'twins': cmd_twins, 'page': cmd_page}[a.cmd](a)
 
 
 if __name__ == '__main__':

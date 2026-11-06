@@ -1,0 +1,228 @@
+<title>Vanilla UI reference</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Public+Sans:wght@400;600&display=swap">
+<style>
+/* Layout: one working sheet, a plate header with the game's double rule, then a filter bar over a card grid (Screens) or a kind list (Components).
+   Colours follow the Engraved Plate tokens (uikit/napoleon/tokens.json); the dark set is the same slate, inverted by hand. */
+:root {
+  --bg: #c9d0d8; --surface: #f1f3f5; --raised: #e1e6eb; --ink: #1a2230; --dim: #4a586b; --accent: #1f4b8a; --on-accent: #ffffff;
+  --well: #3a4048; --dynamic: #a3127f; --hatch: #8a6400; --live: #1d6b45; --line: #9aa6b3;
+  --display: "Libre Baskerville", Georgia, serif; --body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141a22; --surface: #1d2530; --raised: #27313e; --ink: #e7ebf0; --dim: #9aa7b6; --accent: #86aee0; --on-accent: #0b0f16;
+  --well: #2a3038; --dynamic: #ff7ade; --hatch: #ffc400; --live: #6fd3a2; --line: #47556a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141a22; --surface: #1d2530; --raised: #27313e; --ink: #e7ebf0; --dim: #9aa7b6; --accent: #86aee0; --on-accent: #0b0f16;
+  --well: #2a3038; --dynamic: #ff7ade; --hatch: #ffc400; --live: #6fd3a2; --line: #47556a; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 48px }
+h1 { font: 700 26px/1.2 var(--display); margin: 0; text-wrap: balance }
+.head { border-bottom: 1px solid var(--ink); padding-bottom: 3px; box-shadow: 0 1px 0 var(--bg), 0 2px 0 var(--ink); display: flex; flex-wrap: wrap; gap: 4px 20px; align-items: baseline }
+.sum { color: var(--dim); font-variant-numeric: tabular-nums; min-width: 0 }
+.key { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--dim); margin-block: 10px }
+.key b { font-weight: 600 } .k-dyn { color: var(--dynamic) } .k-hat { color: var(--hatch) } .k-live { color: var(--live) }
+nav { display: flex; gap: 4px; margin-block: 14px 0; border-bottom: 1px solid var(--line) }
+nav a { padding: 7px 16px; color: var(--ink); text-decoration: none; font-weight: 600; border: 1px solid var(--line); border-bottom: 0; background: var(--raised) }
+nav a[aria-current="page"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent) }
+.bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding-block: 12px }
+.bar label { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--dim) }
+select, input[type=search], button { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); padding: 4px 8px; max-width: 100% }
+button { cursor: pointer } button:hover { background: var(--raised) }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px }
+.count { color: var(--dim); font-size: 13px; font-variant-numeric: tabular-nums }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 14px }
+.card { background: var(--surface); border: 1px solid var(--line); padding: 8px; display: flex; flex-direction: column; gap: 6px; min-width: 0 }
+.card h3 { font: 600 14px/1.3 var(--body); margin: 0; overflow-wrap: anywhere }
+.pics { display: grid; grid-template-columns: 1fr; gap: 4px }
+.pics.two { grid-template-columns: 1fr 1fr }
+.pic { position: relative; display: block; padding: 0; border: 0; background: var(--well); width: 100%; overflow: hidden; cursor: zoom-in }
+.pic img { display: block; width: 100%; height: auto }
+.pic .tag { position: absolute; left: 0; top: 0; font-size: 11px; background: var(--surface); color: var(--ink); padding: 0 4px }
+.hid { position: absolute; border: 1px dashed var(--dynamic); pointer-events: none }
+.meta { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12.5px; color: var(--dim); font-variant-numeric: tabular-nums }
+.link { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; font-size: 12.5px; align-self: flex-start }
+.none { background: var(--raised); color: var(--dim); padding: 24px 8px; text-align: center; font-size: 13px }
+.kind { background: var(--surface); border: 1px solid var(--line); padding: 10px; margin-bottom: 12px; display: grid; gap: 8px; min-width: 0 }
+.kind h3 { font: 600 14.5px/1.3 var(--body); margin: 0; overflow-wrap: anywhere }
+.lib { font-size: 13px } .lib code { font-weight: 600 } .gap { color: var(--dynamic); font-weight: 600 }
+.row { display: grid; gap: 3px; min-width: 0 }
+.row > span { font-size: 12px; color: var(--dim) }
+.strip { display: flex; gap: 8px; overflow-x: auto; background: var(--well); padding: 8px; align-items: flex-end; min-width: 0 }
+.strip.twin { background: var(--raised) }
+.cell { flex: none; display: grid; gap: 2px; justify-items: center }
+.cell i { display: block; background-repeat: no-repeat }
+.cell.px i { image-rendering: pixelated }
+.cell small { color: #d5dbe2; font-size: 11px; max-width: 160px; overflow-wrap: anywhere; text-align: center }
+.twin .cell small { color: var(--dim) }
+dialog { max-width: min(96vw, 1800px); width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--ink); padding: 10px }
+dialog::backdrop { background: rgba(10, 14, 20, .7) }
+.dlg { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)) }
+.dlg .pic { cursor: default }
+.dh { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; align-items: baseline }
+.more { display: flex; justify-content: center; padding: 14px }
+</style>
+
+<header class="head"><h1>Vanilla UI reference</h1><span class="sum" id="sum">Loading the gallery data</span></header>
+<div class="key">
+  <span><b class="k-dyn">Pink text</b>: a field the game fills at run time, shown by its key</span>
+  <span><b class="k-hat">Hatched box</b>: art the game does not ship at that path</span>
+  <span><b class="k-live">Live</b>: J10 reached it in game; the shot is the truth, the composite a static reference</span>
+</div>
+<nav><a href="#screens" id="t-screens">Screens</a><a href="#components" id="t-components">Components</a></nav>
+
+<section id="v-screens">
+  <div class="bar">
+    <label>Context <select id="f-ctx"><option value="">All</option></select></label>
+    <label>Kind <select id="f-kind"><option value="">All</option><option value="layout">Layout</option><option value="uied_template">Template record</option></select></label>
+    <label>Reach <select id="f-reach"><option value="">All</option><option value="live">Live</option><option value="static">Static</option></select></label>
+    <label>Find <input type="search" id="f-find" placeholder="unit or path"></label>
+    <label><input type="checkbox" id="f-hidden"> Outline hidden components</label>
+    <span class="count" id="c-screens"></span>
+  </div>
+  <div class="grid" id="screens"></div>
+  <div class="more"><button id="m-screens" type="button">Show more screens</button></div>
+</section>
+
+<section id="v-components" hidden>
+  <div class="bar">
+    <label>Type <select id="g-kind"><option value="">All</option><option value="template">Template</option><option value="frame">9-slice frame</option><option value="state_frame">Frame in one component</option><option value="button">Button family</option></select></label>
+    <label>Library <select id="g-lib"><option value="">All</option><option value="gap">Gaps</option><option value="sure">Mapped</option><option value="unsure">Uncertain match</option></select></label>
+    <label>Find <input type="search" id="g-find" placeholder="kind or class"></label>
+    <label><input type="checkbox" id="g-2x"> Vanilla strips at 2x</label>
+    <button class="link" id="g-clear" type="button" hidden></button>
+    <span class="count" id="c-components"></span>
+  </div>
+  <div id="kinds"></div>
+  <div class="more"><button id="m-kinds" type="button">Show more kinds</button></div>
+</section>
+
+<dialog id="dlg"><div class="dh"><strong id="d-title"></strong><button id="d-close" type="button">Close</button></div><div class="dlg" id="d-body"></div></dialog>
+
+<script>
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const PAGE_S = 48, PAGE_K = 40;
+let D, shownS = PAGE_S, shownK = PAGE_K, onlySurface = '';
+
+function pic(src, tag, size, hidden) {
+  const b = el('button', 'pic'); b.type = 'button';
+  const i = el('img'); i.loading = 'lazy'; i.src = src; i.alt = tag || ''; if (size) { i.width = size[0]; i.height = size[1]; }
+  b.append(i);
+  if (tag) b.append(el('span', 'tag', tag));
+  if (hidden && size && $('f-hidden').checked) for (const [x, y, w, h, n] of hidden) {
+    const r = el('span', 'hid'); r.title = n;
+    r.style.cssText = `left:${x / size[0] * 100}%;top:${y / size[1] * 100}%;width:${w / size[0] * 100}%;height:${h / size[1] * 100}%`;
+    b.append(r);
+  }
+  return b;
+}
+
+function open(s) {
+  $('d-title').textContent = s.id; const body = $('d-body'); body.replaceChildren();
+  if (s.file) body.append(pic('composites/' + s.file, 'composite', s.size, s.hidden));
+  for (const sh of s.shots) body.append(pic('shots/' + sh.file, 'live: ' + sh.state, [1280, 720]));
+  $('dlg').showModal();
+}
+
+function card(s) {
+  const c = el('article', 'card');
+  c.append(el('h3', '', s.id));
+  if (s.unread) c.append(el('div', 'none', 'This template record uses a version nothing reads yet, and no screen uses it.'));
+  else {
+    const p = el('div', 'pics' + (s.shots.length ? ' two' : ''));
+    const a = pic('composites/' + s.file, s.shots.length ? 'composite' : '', s.size, s.hidden); a.onclick = () => open(s); p.append(a);
+    if (s.shots.length) { const b = pic('shots/' + s.shots[0].file, 'live', [1280, 720]); b.onclick = () => open(s); p.append(b); }
+    c.append(p);
+  }
+  const m = el('div', 'meta');
+  m.append(el('span', '', s.ctx), el('span', '', s.kind === 'layout' ? 'layout' : 'template record'));
+  const r = el('span', s.live ? 'k-live' : '', s.live ? `live, ${s.shots.length} shot${s.shots.length === 1 ? '' : 's'}` : 'static'); m.append(r);
+  m.append(el('span', '', `${s.components} components`), el('span', '', `${s.interactions} interactions`));
+  if (s.hatched) m.append(el('span', 'k-hat', `${s.hatched} hatched`));
+  c.append(m);
+  if (s.kinds) { const l = el('button', 'link', `${s.kinds} component kind${s.kinds === 1 ? '' : 's'}`); l.type = 'button'; l.onclick = () => { onlySurface = s.path; shownK = PAGE_K; location.hash = 'components'; drawKinds(); }; c.append(l); }
+  return c;
+}
+
+function drawScreens() {
+  const ctx = $('f-ctx').value, kind = $('f-kind').value, reach = $('f-reach').value, q = $('f-find').value.toLowerCase();
+  const list = D.surfaces.filter(s => (!ctx || s.ctx === ctx) && (!kind || s.kind === kind) && (!reach || (reach === 'live') === s.live) && (!q || (s.id + s.path).toLowerCase().includes(q)));
+  $('c-screens').textContent = `${list.length} of ${D.surfaces.length} screens`;
+  $('screens').replaceChildren(...list.slice(0, shownS).map(card));
+  $('m-screens').hidden = list.length <= shownS;
+}
+
+function cell(sheetList, c, scale, px) {
+  const [label, sheet, x, y, w, h] = c, s = sheetList[sheet];
+  const d = el('div', 'cell' + (px ? ' px' : '')), i = el('i');
+  i.style.cssText = `width:${w * scale}px;height:${h * scale}px;background-image:url(sheets/${s.file});background-position:-${x * scale}px -${y * scale}px;background-size:${s.size[0] * scale}px ${s.size[1] * scale}px`;
+  d.append(i, el('small', '', label));
+  return d;
+}
+
+function twinCell(t) {
+  const d = el('div', 'cell'), i = el('i'), [x, y, w, h] = t.rect;
+  i.style.cssText = `width:${w}px;height:${h}px;background-image:url(sheets/twins.png);background-position:-${x}px -${y}px`;
+  d.append(i, el('small', '', t.state));
+  return d;
+}
+
+function row(title, strip) { const r = el('div', 'row'); r.append(el('span', '', title), strip); return r; }
+
+function kindRow(k) {
+  const a = el('article', 'kind');
+  a.append(el('h3', '', k.id));
+  const m = el('div', 'meta');
+  m.append(el('span', '', `used by ${k.use_count}`), el('span', '', `${k.instances} instances`));
+  if (k.sizes.length) m.append(el('span', '', k.sizes.slice(0, 4).map(s => s.join('x')).join(', ') + (k.sizes_total > 4 ? ` (+${k.sizes_total - 4} sizes)` : '')));
+  a.append(m);
+  const big = $('g-2x').checked;
+  if (k.cells.length) { const s = el('div', 'strip'); s.append(...k.cells.map(c => cell(D.one, c, big ? 2 : 1, big))); a.append(row(big ? 'Vanilla states at 2x, nearest neighbour' : 'Vanilla states at 1x', s)); }
+  else a.append(el('div', 'none', 'No art to draw: the atlas has no instance of this kind.'));
+  if (k.masters.length) { const s = el('div', 'strip'); s.append(...k.masters.map(c => cell(D.two, c, 1))); a.append(row('Art at 2x from the upscaled masters', s)); }
+  const lib = el('div', 'lib');
+  if (k.library === 'gap') lib.append(el('span', 'gap', 'No library component yet'));
+  else { lib.append('Library: ', el('code', '', k.library)); if (k.uncertain) lib.append(' (uncertain match, for J69 to judge)'); }
+  a.append(lib);
+  const tw = D.twins.filter(t => t.library === k.library);
+  if (tw.length) { const s = el('div', 'strip twin'); s.append(...tw.map(twinCell)); a.append(row('Library twin at 1080p, 100 %', s)); }
+  if (k.ui_elements.length) a.append(el('div', 'meta', 'Screens: ' + k.ui_elements.slice(0, 12).join(', ') + (k.ui_elements.length > 12 ? ` and ${k.ui_elements.length - 12} more` : '')));
+  return a;
+}
+
+function drawKinds() {
+  const kind = $('g-kind').value, lib = $('g-lib').value, q = $('g-find').value.toLowerCase();
+  const list = D.kinds.filter(k => (!kind || k.kind === kind) && (!q || (k.id + k.library).toLowerCase().includes(q))
+    && (!lib || (lib === 'gap' ? k.library === 'gap' : lib === 'unsure' ? k.uncertain : k.library !== 'gap' && !k.uncertain))
+    && (!onlySurface || k.surfaces.includes(onlySurface)));
+  $('g-clear').hidden = !onlySurface; $('g-clear').textContent = `Showing kinds on ${onlySurface}: show all`;
+  $('c-components').textContent = `${list.length} of ${D.kinds.length} kinds`;
+  $('kinds').replaceChildren(...list.slice(0, shownK).map(kindRow));
+  $('m-kinds').hidden = list.length <= shownK;
+}
+
+function route() {
+  const comp = location.hash === '#components';
+  $('v-components').hidden = !comp; $('v-screens').hidden = comp;
+  $('t-components').setAttribute('aria-current', comp ? 'page' : 'false'); $('t-screens').setAttribute('aria-current', comp ? 'false' : 'page');
+}
+
+async function start() {
+  route(); addEventListener('hashchange', route);
+  try { D = await (await fetch('data.json')).json(); }
+  catch (e) { $('sum').textContent = 'The gallery data did not load. Reload the page.'; return; }
+  const n = D.stats;
+  $('sum').textContent = `${n.surfaces} screens, ${n.clean} drawn clean, ${n.live} live; ${n.kinds} component kinds, ${n.gaps} gaps, ${n.uncertain} uncertain`;
+  for (const c of [...new Set(D.surfaces.map(s => s.ctx))].sort()) { const o = el('option', '', c); o.value = c; $('f-ctx').append(o); }
+  for (const id of ['f-ctx', 'f-kind', 'f-reach', 'f-find', 'f-hidden']) $(id).addEventListener('input', () => { shownS = PAGE_S; drawScreens(); });
+  for (const id of ['g-kind', 'g-lib', 'g-find', 'g-2x']) $(id).addEventListener('input', () => { shownK = PAGE_K; drawKinds(); });
+  $('m-screens').onclick = () => { shownS += PAGE_S; drawScreens(); };
+  $('m-kinds').onclick = () => { shownK += PAGE_K; drawKinds(); };
+  $('g-clear').onclick = () => { onlySurface = ''; drawKinds(); };
+  $('d-close').onclick = () => $('dlg').close();
+  drawScreens(); drawKinds();
+}
+start();
+</script>
