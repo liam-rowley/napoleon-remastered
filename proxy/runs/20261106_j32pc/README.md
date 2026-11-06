@@ -51,5 +51,7 @@ Fix round 1 rows are at the end of `s4.jsonl`, from 09:19 UTC (tags `hud_*` and 
 ## PC end state after fix round 1 (2026-11-06 09:37 UTC)
 `job.sh status`: no lock, no job. `pc_deploy.py uninstall`: identical to the snapshot (1564 files). `pc_deploy.py status`: not installed, exe vanilla (sha1 `9aebcd21...`), no `.git`. Prefs sha256 `83b9b32b...`, restored byte-identical by the watcher at lock release.
 
+**Erratum (J32 review round 2, 2026-11-06).** "Identical" held for 3 seconds. The uninstall ran at 09:37:18 with the lock held and the `headless` profile active; the lock was released after it, and at 09:37:21 the watcher's restore wrote the saved `mod_ini` back into the game folder. So this sitting left `napoleon_remastered.ini` (10957 bytes, sha256 `aa3e7149...`, mtime 09:19:23) there, with nothing installed. `pc_deploy.py status` does not look for it at core 0.30.0. Evidence: `watcher.log` lines at 09:37:21, `watcher\profiles\_saved\20261106T091927Z_j32` (`manifest.json`, `restored.json`), `snapshots\pre_install_20261106T091916Z.json` (no ini) against `pre_install_20261106T093821Z.json` (the ini, same sha and mtime). `jobs/J32/review.md` round 2 has the whole chain.
+
 ## PC end state (2026-11-06 08:21 UTC)
 `job.sh status`: no lock, no active profile, game not running. `pc_deploy.py uninstall`: identical to the snapshot (1564 files). `pc_deploy.py status`: not installed, exe vanilla (sha1 `9aebcd21...`), no `.git`. Prefs sha256 `83b9b32b...` unchanged. Scratch left on the PC: `_scratch\j32\ui` and the two kits.
