@@ -1,8 +1,8 @@
 {
   "id": "napoleon.ui.route_a.front_end",
-  "claim": "Route A, front end (frontend.single_player): the page hides with all three means and TransitionBack works from a hidden page in the same call, but no Lua runs on a page after that call (napoleon.lua.update_callbacks), so a hidden page can neither update nor act. The main menu is different: hidden with SetVisible it still answers ctl lua",
+  "claim": "Route A, front end (frontend.single_player): the page hides with all three means and TransitionBack works from a hidden page in the same call, but no Lua runs on a page after that call (napoleon.lua.update_callbacks), so a hidden page can neither update nor act. The main menu is different: hidden with SetVisible it still answers ctl lua, and its own components leave the hit test, but movie_bg then answers it at all 4 points tried (not nil), so a screen over the hidden menu sits on a live background component; whether that takes a click was not tested",
   "state": "verified",
   "evidence": "proxy/runs/20261106_j32pc/README.md",
   "date": "2026-11-06",
-  "notes": "s4.jsonl fe, fe2"
+  "notes": "s4.jsonl fe, fe2, fe3"
 }
