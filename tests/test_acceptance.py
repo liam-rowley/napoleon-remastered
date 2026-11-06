@@ -28,7 +28,7 @@ class FakeCtl:
         self.calls.append((verb, args))
         if self.fail == verb:
             return {'status': 'refused', 'reason': f'{verb} refused', 'check': {}}
-        return {'status': 'ok', 'reason': '', 'check': {'k': 1}, 'load_s': self.load_s}
+        return {'status': 'ok', 'reason': '', 'check': {'k': 1}, 'load_s': self.load_s, 'shot': __file__}   # core W9 hashes the shot: any real file
 
 
 def env(ctl, exe='pin', settings_after=None):

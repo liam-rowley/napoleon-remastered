@@ -18,7 +18,7 @@
  "player_ini": {
   "_note": "The player's ini lists only the keys a player may change. It omits the dev, headless and proof keys and the exe-guard keys; the gate (tests/test_release.py) proves every omitted key's DLL default equals its release value, so omitting is safe. A component's ini_set keys are added and gated like the registry's release values (build_release.value_problems; a dev, proof or test key needs an allowed_dev_keys entry below that cites a decision; the rendered ini is checked again) (the UI scale stop-gap sets dev.file_rules until a DLL job gives it a player key). keep_ids are listed although an omit prefix matches: the J24 shadow keys a player may turn off (their release value differs from the DLL default, so they must be listed). The RmlUi host's ui.* keys are omitted while ui.enabled is 0 in release (J30); J35 lists the ones a player sets when it turns the host on.",
   "omit_prefixes": ["dev.", "headless.", "gfx.", "ui."],
-  "omit_ids": ["proxy.exe_guard", "proxy.exe_guard_force_mismatch", "controls.gestures"],
+  "omit_ids": ["proxy.exe_guard", "proxy.exe_guard_force_mismatch", "controls.gestures", "proxy.dxvk_wndproc_fix", "proxy.file_rules"],
   "keep_ids": ["gfx.shadow_extrusion", "gfx.shadow_height_cutoff", "gfx.shadow_map_large"]
  },
  "release_values": {

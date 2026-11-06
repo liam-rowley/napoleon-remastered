@@ -7,7 +7,7 @@ recomputed from its inputs, and the gaps said out loud. Run `python3 core/wsc.py
 `--install` adds the PC comparison with the installed packs and exe; `--json OUT` writes the report for CI.
 
 - Floors, the ratchet and the pinned index sha256: `discovery/napoleon/gate.json` (hand-edited; a floor moves only in a commit that says why).
-- Code: `core/discovery/gate.py`; the brief rule it sits beside: `core/discovery/briefpaths.py` (run by `wsc jobs check`).
+- Code: `discovery/core/gate.py`; the brief rule it sits beside: `discovery/core/briefpaths.py` (run by `wsc jobs check`).
 - Reading a finding: a line `FAIL` is red and names the registry and row; a gap is a warning with an owner, and fails only when it grows past its ratchet number.
 
 Index pinned: sha256 `03b857fe823f7f25...`, 88415 rows, built 2026-10-29.
