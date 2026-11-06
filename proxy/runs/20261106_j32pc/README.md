@@ -6,7 +6,7 @@ PC, 2026-11-06 07:17 to 08:21 UTC, game lock `j32`, session `1f457253-79f1-49ab-
 | what | id | sha256 |
 |---|---|---|
 | acceptance kit `kit_20261106T071945Z_b5a7ccec7f29` | DLL build `a005f6cccc17` (main at bca3b99, no DLL input changed) | d3d9.dll `dada8d8237167718ae80e6a9472a473f0e6ac33d8e4c75265258576c73584676` |
-| scratch kit `kit_20261106T080617Z_af482d0562e0` | the same sources, RmlUi and host objects with `-msse2 -mfpmath=sse` | d3d9.dll `e4cc67808689258ce68f2cc24dbd63176b741c4915b7f2d3f199bb7c5cab8079` |
+| scratch kit `kit_20261106T080617Z_af482d0562e0` | the same sources, the RmlUi objects and `ui_lua.cpp` with `-msse2 -mfpmath=sse`; the rest of the host, `ui_host.cpp` with `UiDpRatio` among it, stayed x87 (J32 review: `ApplyScale` in this DLL is still `fild`/`fdiv`), which is why its dp ratio did not change | d3d9.dll `e4cc67808689258ce68f2cc24dbd63176b741c4915b7f2d3f199bb7c5cab8079` |
 | viewer (pinned) | CI run 42058592470 `viewer-wasm`, the baseline's | viewer.wasm `2bdc8a112021772a4e4ad08004bb3e096707f9fcbff95625073f217f478b0f78` |
 | viewer (scratch, Clear before BeginFrame) | Docker build, source put back | viewer.wasm `41675bac46743ce4a46e2d63cf6be21cf4907b3ae0d9aa6ce589229d27edf32c` |
 
@@ -30,7 +30,7 @@ The scratch DLL was installed 08:07 to 08:17 UTC for one sitting and `boxes.py`,
 No crash and no hang in any sitting. Every game dump's sha256 is in `results.jsonl`. Full PNGs are in `C:\napoleon_remastered_pc\ui_dumps`, not committed; `crops/` has the worst tiles (viewer, game, difference x 8).
 
 ## S3 numbers (share of pixels more than 8 levels off, max delta)
-Front end; every battle dump is byte-identical to its front-end dump.
+Front end; every board and recipes battle dump is byte-identical to its front-end dump. The host test covers only part of the screen, so its dumps differ outside its body, where the scene shows; inside the compared rect they are identical (J32 review, all four cells).
 
 | cell | board pinned | board fixed viewer | host test | recipes pinned | recipes fixed viewer |
 |---|---|---|---|---|---|
