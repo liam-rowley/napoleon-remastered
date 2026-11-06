@@ -373,6 +373,13 @@ def _unpremultiply(rgba):
     return out
 
 
+def premultiplied_excess(data, w, h, tol):
+    """texels of one DXT2 level whose colour is above its alpha by more than tol: decoded as DXT3, so raw, not unpremultiplied (J96).
+    A block has two colour endpoints, so a harsh gradient inside 4x4 texels can pass any tolerance honestly; the one real DXT2 (ui\\flags\\spain\\large.dds) has no texel above alpha at any level"""
+    raw = decode_level(data, 'DXT3', w, h).astype(np.int32)
+    return int((raw[..., :3].max(-1) > raw[..., 3] + tol).sum())
+
+
 def _premultiply(rgba):
     out = np.array(rgba, np.float32)
     out[..., :3] = np.round(out[..., :3] * out[..., 3:4] / 255.0)

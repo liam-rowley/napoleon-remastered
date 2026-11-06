@@ -1,8 +1,8 @@
 ﻿r"""Napoleon driver of the UI art upscaler (J36): plan, run, verify, sheets, pack over the assets registry, in the art_build Python.
 
 purpose: run the game-agnostic upscale/core over the Napoleon UI art roles (registry rows, files read through the J7 PackFS) and write results to the work folder, the assets registry and the sheets
-usage: <work>\art_build\py\python.exe upscale/napoleon/cli.py <plan|run|verify|sheets|pack> --work <dir> [--roles a,b] [--sample N] [--limit N] [--model NAME] [--device cuda|cpu] [--registry] [--play] ; normally started by `python3 core/wsc.py upscale <verb>`
-when: any upscale step; the host tests call the same functions with the 'lanczos' stand-in
+usage: <work>\art_build\py\python.exe upscale/napoleon/cli.py <plan|run|verify|sheets|pack> --work <dir> [--roles a,b] [--sample N] [--limit N] [--model NAME] [--device cuda|cpu] [--registry] [--play] [--force-disk] ; normally started by `python3 core/wsc.py upscale <verb>`
+when: any upscale step; the host tests call the same functions with the 'lanczos' stand-in. plan reports the estimated output bytes and the free space left; run refuses (exit 2) when the work drive would keep under 20 percent free
 not-a-verb: runs inside the embeddable Python of art_build (no wsc there); `wsc upscale` is the verb that starts it
 
 Reads the game folder and writes only under --work (and, with --registry, registries/assets.jsonl of this repo). The game folder is never written.
@@ -78,6 +78,7 @@ def main(argv=None):
     ap.add_argument('--registry', action='store_true', help='write upscale_status / upscale_method into registries/assets.jsonl')
     ap.add_argument('--out', help='pack: output folder (default <work>\\packs, or <work>\\packs_play with --play)')
     ap.add_argument('--play', action='store_true', help='pack: play packs (J53): entries at the vanilla paths, held-back outputs left out')
+    ap.add_argument('--force-disk', action='store_true', help='run: go on below the 20 percent free-disk floor (logged in <work>\\run.log)')
     a = ap.parse_args(argv)
 
     cfg = load_json(os.path.join(HERE, 'config.json'))
@@ -99,8 +100,8 @@ def main(argv=None):
 
     if a.action == 'plan':
         import batch
-        per, rows = batch.plan(items, role_cfgs, cfg)
-        res = {'roles': per, 'total': len(items), 'run': sum(1 for r in rows if r['decision'] == 'run')}
+        per, rows = batch.plan(items, role_cfgs, cfg, work)
+        res = {'roles': per, 'total': len(items), 'run': sum(1 for r in rows if r['decision'] == 'run'), 'disk': batch.disk_after(rows, work)}
         json.dump(res, open(os.path.join(work, 'plan.json'), 'w'), indent=1, sort_keys=True)
         print(json.dumps(res, indent=1, sort_keys=True))
         if a.registry:
@@ -119,10 +120,16 @@ def main(argv=None):
     if a.action == 'run':
         import batch
         import model as modelmod
+        refusal = batch.disk_refusal(batch.disk_after(batch.plan(items, role_cfgs, cfg, work)[1], work))
+        if refusal and not a.force_disk:
+            print(refusal)
+            return 2
+        if refusal:
+            print(refusal.replace('refused', 'going on with --force-disk', 1))
         dev = a.device or cfg['run']['device']
         cfg['encoder'] = cfg.get('encoder', 'python')
         read_fs = _packfs(a.games)
-        man = batch.run(items, lambda it: read_fs.read(it['path']), work, cfg, pins, models_dir, role_cfgs, a.limit, dev, model_override=a.model)
+        man = batch.run(items, lambda it: read_fs.read(it['path']), work, cfg, pins, models_dir, role_cfgs, a.limit, dev, model_override=a.model, force_disk=a.force_disk)
         if a.registry:
             apply_registry(registry_updates(man, items))
         return 0

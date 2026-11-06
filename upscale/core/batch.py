@@ -1,17 +1,18 @@
 ﻿"""Resumable batch of the UI art upscaler (J36): plan, run, verify (needs numpy, Pillow; torch for real models).
 
-purpose: turn a list of UI images into 2.5x master images (model x2, Lanczos to the exact size, alpha by Lanczos only, full mip chain), with a per-asset manifest, resume by input hash, and a per-asset verify
+purpose: turn a list of UI images into 2.5x master images (model x2, Lanczos to the exact size, alpha by Lanczos only, full mip chain), with a per-asset manifest, resume by input hash, a per-asset verify, an output size estimate for the free-disk guard, and a run log
 usage: library (upscale/core), driven by `python3 core/wsc.py upscale plan|run|verify|sheets|pack`; run() takes items [{id, path, role, fmt, w, h}] and a read(item) -> bytes function
 when: an upscale run on the PC; host tests with the 'lanczos' stand-in model
 not-a-verb: a library used by tools/verbs/upscale.py, not a registry operation
 
 Per asset: decode -> alpha class (none | binary | soft) -> dilate RGB under A = 0 -> model -> Lanczos to the target -> alpha by Lanczos (cut at 128 if binary)
 -> DDS: full mip chain (RGB box in linear light, alpha plain box), vanilla header and format; TGA/JPG: same container, no mips (the UI host builds them).
-Outputs sit under <work>/out/<vanilla path>; <work>/manifest.json holds every asset's status, hashes, method and timing.
+Outputs sit under <work>/out/<vanilla path>; <work>/manifest.json holds every asset's status, hashes, method and timing; <work>/run.log gets one line per run (J96).
 """
 import hashlib
 import json
 import os
+import shutil
 import sys
 import time
 
@@ -24,6 +25,11 @@ import resample
 import rules
 
 MANIFEST_VERSION = 2
+MIN_FREE_PCT = 20         # J51 review: run refuses when the work drive would keep less than this
+PREMULT_TOL = 12          # of 255: DXT2 colour may sit this far above alpha: 4-bit alpha rounds by 8.5, 5:6:5 colour by 4 (J96: an honest alpha ramp fails at 8)
+JPG_BYTES_PER_PX = 0.259  # J51 manifest: 665 JPG outputs, 63360947 bytes over 244675200 target pixels. TGA and DDS sizes are exact.
+PNG_BYTES_PER_PX = 4      # no PNG in a J51 run: the raw size, an upper bound
+DDS_RAW = {'bgra8': 'A8R8G8B8', 'bgr8': 'R8G8B8'}   # registry word -> dds.py format; anything unknown counts as 4 bytes a texel
 
 
 def _sha(b):
@@ -90,8 +96,9 @@ def process(src, target, mdl, cfg, encoder_path=None):
     return blob, info
 
 
-def run(items, read, work, cfg, pins, models_dir, role_cfgs, limit=0, device='cuda', log=print, encoder_path=None, model_override=None):
-    """Process items (resume by input hash). Returns the manifest dict. model_override forces one model for all roles (host tests, sample runs)."""
+def run(items, read, work, cfg, pins, models_dir, role_cfgs, limit=0, device='cuda', log=print, encoder_path=None, model_override=None, force_disk=False):
+    """Process items (resume by input hash and target size). Returns the manifest dict. model_override forces one model for all roles (host tests, sample runs);
+    force_disk only goes into the run log: the guard itself is disk_refusal, before the run."""
     os.makedirs(os.path.join(work, 'out'), exist_ok=True)
     man = load_manifest(work)
     run_cfg = cfg.get('run', {})
@@ -102,7 +109,7 @@ def run(items, read, work, cfg, pins, models_dir, role_cfgs, limit=0, device='cu
         if limit and fresh >= limit:
             break
         rc = role_cfgs.get(it['role'], {})
-        verdict, val = rules.decide(it['w'], it['h'], it['fmt'].split()[0], rc, cfg.get('scale', rules.MASTER_SCALE))
+        verdict, val = rules.decide(it['w'], it['h'], it['fmt'], rc, cfg.get('scale', rules.MASTER_SCALE))
         if verdict == 'skip':
             man['entries'][it['id']] = {'id': it['id'], 'path': it['path'], 'role': it['role'], 'status': rules.skipped(val)}
             skipped += 1
@@ -118,7 +125,8 @@ def run(items, read, work, cfg, pins, models_dir, role_cfgs, limit=0, device='cu
             key = rules.input_key(_sha(data), rules.cfg_signature(s))
             old = man['entries'].get(it['id'])
             op = out_path(work, it['path'])
-            if old and old.get('status') == rules.DONE and old.get('key') == key and os.path.exists(op) and _sha(open(op, 'rb').read()) == old['out']['sha256']:
+            same_size = old and old.get('status') == rules.DONE and (old['out']['w'], old['out']['h']) == tuple(val)   # a size rule change is not in the key
+            if same_size and old.get('key') == key and os.path.exists(op) and _sha(open(op, 'rb').read()) == old['out']['sha256']:
                 done += 1
                 continue
             src = imageio.load(data, os.path.splitext(it['path'])[1])
@@ -147,8 +155,18 @@ def run(items, read, work, cfg, pins, models_dir, role_cfgs, limit=0, device='cu
             log('%d/%d  fresh %d  skipped %d  failed %d  %.0fs' % (i + 1, len(items), fresh, skipped, failed, time.time() - t0))
     man['models'] = {n: m.sha256 for n, m in models.items()} or man.get('models', {})
     save_manifest(work, man, cfg, models)
-    log('run: done %d (fresh %d), skipped %d, failed %d, %.1fs' % (done, fresh, skipped, failed, time.time() - t0))
+    secs = time.time() - t0
+    log('run: done %d (fresh %d), skipped %d, failed %d, %.1fs' % (done, fresh, skipped, failed, secs))
+    append_run_log(work, items, done, fresh, skipped, failed, secs, force_disk)
     return man
+
+
+def append_run_log(work, items, done, fresh, skipped, failed, seconds, force_disk):
+    """one line per run in <work>/run.log, so a resume pass leaves its numbers too (J51 review)"""
+    roles = ','.join(dict.fromkeys(it['role'] for it in items))
+    with open(os.path.join(work, 'run.log'), 'a', encoding='utf-8', newline='\n') as f:
+        f.write('%s roles=%s done=%d fresh=%d skipped=%d failed=%d seconds=%.1f force_disk=%d\n' % (
+            time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), roles, done, fresh, skipped, failed, seconds, 1 if force_disk else 0))
 
 
 def load_manifest(work):
@@ -170,20 +188,58 @@ def save_manifest(work, man, cfg, models):
     os.replace(p + '.tmp', p)
 
 
-def plan(items, role_cfgs, cfg):
-    """Decisions without running anything: {role: {run: n, skip:reason: n}} and the per-item list."""
+def estimate_bytes(fmt, tw, th):
+    """output bytes of one asset from its registry format and target: the exact DDS chain (the 4/3 mip factor, summed level by level) and TGA size, a measured ratio for JPG"""
+    words = fmt.split()
+    kind, sub = words[0], (words[1] if len(words) > 1 else '')
+    if kind == 'dds':
+        f = sub.upper() if rules.is_dxt(sub) else DDS_RAW.get(sub, 'A8R8G8B8')
+        return 128 + dds.chain_size(f, tw, th, dds.full_mips(tw, th))
+    if kind == 'tga':
+        return 18 + tw * th * (3 if sub.startswith('bgr8') else 4)
+    return int(tw * th * (PNG_BYTES_PER_PX if kind == 'png' else JPG_BYTES_PER_PX))
+
+
+def plan(items, role_cfgs, cfg, work=None):
+    """Decisions without running anything: {role: {run: n, skip:reason: n, bytes: n}} and the per-item list. bytes = estimated output size of the role;
+    with work, a row's new_bytes leaves out what its output file there already holds (a resume or a rerun replaces that file)."""
     out, per = [], {}
     for it in sorted(items, key=lambda x: x['id']):
-        v, val = rules.decide(it['w'], it['h'], it['fmt'].split()[0], role_cfgs.get(it['role'], {}), cfg.get('scale', rules.MASTER_SCALE))
+        v, val = rules.decide(it['w'], it['h'], it['fmt'], role_cfgs.get(it['role'], {}), cfg.get('scale', rules.MASTER_SCALE))
         key = 'run' if v == 'run' else 'skip:' + val
-        per.setdefault(it['role'], {}).setdefault(key, 0)
-        per[it['role']][key] += 1
-        out.append({'id': it['id'], 'decision': key, 'target': list(val) if v == 'run' else None})
+        role = per.setdefault(it['role'], {'bytes': 0})
+        role[key] = role.get(key, 0) + 1
+        est = estimate_bytes(it['fmt'], *val) if v == 'run' else 0
+        role['bytes'] += est
+        have = 0
+        if est and work and os.path.exists(out_path(work, it['path'])):
+            have = os.path.getsize(out_path(work, it['path']))
+        out.append({'id': it['id'], 'decision': key, 'target': list(val) if v == 'run' else None, 'bytes': est, 'new_bytes': max(0, est - have)})
     return per, out
 
 
+def disk_usage(path):
+    """(total, used, free) of the drive holding path; the tests stub this"""
+    return shutil.disk_usage(path)
+
+
+def disk_after(rows, work):
+    """the plan's rows against the work drive: bytes (all outputs), new_bytes (what the run adds), free, total, free_pct_after"""
+    total, _, free = disk_usage(work)
+    new = sum(r['new_bytes'] for r in rows)
+    return {'bytes': sum(r['bytes'] for r in rows), 'new_bytes': new, 'free': free, 'total': total, 'free_pct_after': round(100.0 * (free - new) / total, 1)}
+
+
+def disk_refusal(disk):
+    """the one-line refusal when the run would leave the work drive under MIN_FREE_PCT free, else ''"""
+    if disk['free_pct_after'] >= MIN_FREE_PCT:
+        return ''
+    return 'run: refused: the work drive would keep %.1f %% free, the floor is %d %% (free %.1f GB of %.1f GB, the run adds %.1f GB); --force-disk overrides' % (
+        disk['free_pct_after'], MIN_FREE_PCT, disk['free'] / 1e9, disk['total'] / 1e9, disk['new_bytes'] / 1e9)
+
+
 def verify_entry(e, work, tol=0.02):
-    """Problems of one finished asset (empty = fine): exact size, mips, format, alpha coverage at each mip, NaN or flat, sha."""
+    """Problems of one finished asset (empty = fine): exact size, mips, format, DXT2 premultiplied, alpha coverage at each mip, NaN or flat, sha."""
     if e.get('status') != rules.DONE:
         return []
     probs = []
@@ -195,8 +251,9 @@ def verify_entry(e, work, tol=0.02):
         probs.append('sha256 differs from the manifest')
     tw, th = e['out']['w'], e['out']['h']
     sw, sh = e['src']['w'], e['src']['h']
-    if (tw, th) != rules.target_size(sw, sh):
-        probs.append('manifest target %dx%d is not the size rule %s' % (tw, th, rules.target_size(sw, sh)))
+    want_size = rules.dxt_target_size(sw, sh, e['src']['fmt'])
+    if (tw, th) != want_size:
+        probs.append('manifest target %dx%d is not the size rule %s' % (tw, th, want_size))
     levels = []
     try:
         if e['src']['kind'] == 'dds':
@@ -209,6 +266,10 @@ def verify_entry(e, work, tol=0.02):
             if d.fmt != sfmt and not (d.fmt == 'X8R8G8B8' and sfmt == 'A8R8G8B8'):
                 probs.append('format %s, vanilla %s' % (d.fmt, sfmt))
             levels = [d.decode(k) for k in range(d.mips)]
+            if d.fmt == 'DXT2':
+                over = sum(dds.premultiplied_excess(d.levels[k], *d.dims(k), tol=PREMULT_TOL) for k in range(d.mips))
+                if over:
+                    probs.append('DXT2 not premultiplied: %d texels with colour above alpha + %d' % (over, PREMULT_TOL))
         else:
             src = imageio.load(data, os.path.splitext(e['path'])[1])
             if src.size != (tw, th):
