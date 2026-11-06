@@ -1,0 +1,412 @@
+2026-11-06T17:55:44Z start rect=3839,2160 3840x2160
+2026-11-06T17:55:44Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T17:55:45Z load free_gb=8.5 cpu_pct=30
+2026-11-06T17:56:47Z load free_gb=7.7 cpu_pct=30
+2026-11-06T17:57:48Z load free_gb=7.8 cpu_pct=26
+2026-11-06T17:58:49Z load free_gb=7.8 cpu_pct=33
+2026-11-06T17:59:51Z load free_gb=8.2 cpu_pct=3
+2026-11-06T18:00:52Z load free_gb=8.2 cpu_pct=56
+2026-11-06T18:01:54Z load free_gb=8.3 cpu_pct=17
+2026-11-06T18:02:55Z load free_gb=7.9 cpu_pct=10
+2026-11-06T18:03:57Z load free_gb=7.9 cpu_pct=38
+2026-11-06T18:04:58Z load free_gb=7.8 cpu_pct=16
+2026-11-06T18:06:00Z load free_gb=7.8 cpu_pct=26
+2026-11-06T18:07:01Z load free_gb=6.5 cpu_pct=12
+2026-11-06T18:07:29Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+Empire.exe pid=1980 started=2026-11-06T18:07:29Z parent=23840
+2026-11-06T18:07:31Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:08:02Z load free_gb=8.3 cpu_pct=20
+2026-11-06T18:09:04Z load free_gb=8.4 cpu_pct=29
+2026-11-06T18:10:05Z load free_gb=8.7 cpu_pct=2
+2026-11-06T18:11:07Z load free_gb=8.9 cpu_pct=3
+2026-11-06T18:12:08Z load free_gb=9.2 cpu_pct=3
+2026-11-06T18:13:10Z load free_gb=9.3 cpu_pct=2
+2026-11-06T18:14:11Z load free_gb=9.5 cpu_pct=15
+2026-11-06T18:14:29Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:14:31Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:15:13Z load free_gb=8.3 cpu_pct=100
+2026-11-06T18:16:14Z load free_gb=8.5 cpu_pct=100
+2026-11-06T18:17:16Z load free_gb=9.1 cpu_pct=88
+2026-11-06T18:18:17Z load free_gb=8.9 cpu_pct=100
+2026-11-06T18:19:19Z load free_gb=9 cpu_pct=100
+2026-11-06T18:20:21Z load free_gb=9.1 cpu_pct=100
+2026-11-06T18:21:22Z load free_gb=9.1 cpu_pct=100
+2026-11-06T18:22:19Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:22:24Z load free_gb=10.2 cpu_pct=1
+2026-11-06T18:22:36Z ---
+explorer pid=9176 title=[] rect=3839,3219,5759,3267
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:22:38Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:23:25Z load free_gb=8.9 cpu_pct=100
+2026-11-06T18:24:27Z load free_gb=10.3 cpu_pct=36
+2026-11-06T18:25:28Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:26:30Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:27:31Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:28:33Z load free_gb=9.5 cpu_pct=96
+2026-11-06T18:29:34Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:30:27Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:30:29Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:30:36Z load free_gb=10.5 cpu_pct=27
+2026-11-06T18:30:38Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:30:40Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:31:38Z load free_gb=9.3 cpu_pct=100
+2026-11-06T18:32:39Z load free_gb=10 cpu_pct=93
+2026-11-06T18:33:41Z load free_gb=9.6 cpu_pct=100
+2026-11-06T18:34:42Z load free_gb=9.8 cpu_pct=99
+2026-11-06T18:35:44Z load free_gb=9.7 cpu_pct=100
+2026-11-06T18:36:45Z load free_gb=9.6 cpu_pct=100
+2026-11-06T18:37:47Z load free_gb=9.6 cpu_pct=100
+2026-11-06T18:38:31Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:38:33Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:38:48Z load free_gb=10.7 cpu_pct=54
+2026-11-06T18:38:50Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:39:50Z load free_gb=10.6 cpu_pct=10
+2026-11-06T18:40:51Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:41:53Z load free_gb=10.7 cpu_pct=21
+2026-11-06T18:42:55Z load free_gb=9.6 cpu_pct=100
+2026-11-06T18:43:56Z load free_gb=9.7 cpu_pct=96
+2026-11-06T18:44:58Z load free_gb=9.3 cpu_pct=100
+2026-11-06T18:45:59Z load free_gb=9.5 cpu_pct=100
+2026-11-06T18:46:35Z ---
+explorer pid=9176 title=[] rect=3839,4299,7679,4347
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:46:37Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:46:52Z ---
+explorer pid=9176 title=[] rect=3839,4308,7679,4356
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:46:54Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:47:01Z load free_gb=10 cpu_pct=79
+2026-11-06T18:48:02Z load free_gb=9.8 cpu_pct=93
+2026-11-06T18:49:04Z load free_gb=9.3 cpu_pct=100
+2026-11-06T18:50:05Z load free_gb=10.3 cpu_pct=99
+2026-11-06T18:51:07Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:52:08Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:53:10Z load free_gb=9.4 cpu_pct=100
+2026-11-06T18:54:12Z load free_gb=9.3 cpu_pct=85
+2026-11-06T18:54:38Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:54:40Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T18:54:56Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:54:58Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T18:55:13Z load free_gb=9.9 cpu_pct=88
+2026-11-06T18:56:15Z load free_gb=9.5 cpu_pct=100
+2026-11-06T18:57:16Z load free_gb=9.3 cpu_pct=100
+2026-11-06T18:58:18Z load free_gb=9.6 cpu_pct=100
+2026-11-06T18:59:19Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:00:21Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:01:22Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:02:24Z load free_gb=10.5 cpu_pct=41
+2026-11-06T19:02:38Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:02:40Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:02:56Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:02:58Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:03:26Z load free_gb=9.2 cpu_pct=97
+2026-11-06T19:04:27Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:05:29Z load free_gb=10.3 cpu_pct=12
+2026-11-06T19:06:30Z load free_gb=9.5 cpu_pct=100
+2026-11-06T19:07:32Z load free_gb=9.5 cpu_pct=100
+2026-11-06T19:08:33Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:09:35Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:10:36Z load free_gb=9.9 cpu_pct=97
+2026-11-06T19:10:44Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:11:01Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:11:03Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:11:38Z load free_gb=9.2 cpu_pct=100
+2026-11-06T19:12:39Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:13:41Z load free_gb=9.3 cpu_pct=47
+2026-11-06T19:14:43Z load free_gb=9.5 cpu_pct=100
+2026-11-06T19:15:44Z load free_gb=9.6 cpu_pct=100
+2026-11-06T19:16:46Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:17:47Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:18:49Z load free_gb=10.3 cpu_pct=34
+2026-11-06T19:19:03Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:19:05Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:19:15Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:19:17Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:19:50Z load free_gb=9.1 cpu_pct=100
+2026-11-06T19:20:52Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:21:54Z load free_gb=10.3 cpu_pct=25
+2026-11-06T19:22:55Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:23:57Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:24:58Z load free_gb=9.2 cpu_pct=100
+2026-11-06T19:26:00Z load free_gb=9.2 cpu_pct=100
+2026-11-06T19:27:01Z load free_gb=9.9 cpu_pct=84
+2026-11-06T19:27:09Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:27:12Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:27:22Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:27:24Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:28:03Z load free_gb=9.1 cpu_pct=100
+2026-11-06T19:29:04Z load free_gb=10.3 cpu_pct=51
+2026-11-06T19:30:06Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:31:08Z load free_gb=9.4 cpu_pct=99
+2026-11-06T19:32:09Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:33:11Z load free_gb=9.5 cpu_pct=99
+2026-11-06T19:34:12Z load free_gb=9.2 cpu_pct=100
+2026-11-06T19:35:11Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:35:13Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:35:14Z load free_gb=10.2 cpu_pct=2
+2026-11-06T19:35:22Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:35:24Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:36:15Z load free_gb=9 cpu_pct=100
+2026-11-06T19:37:17Z load free_gb=9.9 cpu_pct=71
+2026-11-06T19:38:19Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:39:20Z load free_gb=9.6 cpu_pct=100
+2026-11-06T19:40:22Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:41:23Z load free_gb=9.2 cpu_pct=100
+2026-11-06T19:42:25Z load free_gb=9.2 cpu_pct=100
+2026-11-06T19:43:13Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:43:15Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:43:25Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:43:26Z load free_gb=10.1 cpu_pct=1
+2026-11-06T19:44:28Z load free_gb=10 cpu_pct=99
+2026-11-06T19:45:30Z load free_gb=9 cpu_pct=100
+2026-11-06T19:46:31Z load free_gb=9.2 cpu_pct=100
+2026-11-06T19:47:33Z load free_gb=9.1 cpu_pct=100
+2026-11-06T19:48:34Z load free_gb=9.5 cpu_pct=99
+2026-11-06T19:49:36Z load free_gb=9.1 cpu_pct=100
+2026-11-06T19:50:37Z load free_gb=9.1 cpu_pct=100
+2026-11-06T19:51:18Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:51:20Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:51:30Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:51:32Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:51:39Z load free_gb=10.1 cpu_pct=97
+2026-11-06T19:52:40Z load free_gb=9.6 cpu_pct=73
+2026-11-06T19:53:42Z load free_gb=8.9 cpu_pct=100
+2026-11-06T19:54:43Z load free_gb=10.1 cpu_pct=20
+2026-11-06T19:55:45Z load free_gb=9.1 cpu_pct=100
+2026-11-06T19:56:47Z load free_gb=9.4 cpu_pct=100
+2026-11-06T19:57:48Z load free_gb=9.1 cpu_pct=100
+2026-11-06T19:58:50Z load free_gb=9.3 cpu_pct=100
+2026-11-06T19:59:24Z ---
+explorer pid=9176 title=[] rect=3839,4282,7679,4330
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:59:26Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T19:59:42Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:59:44Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T19:59:51Z load free_gb=9.9 cpu_pct=1
+2026-11-06T20:00:53Z load free_gb=8.8 cpu_pct=100
+2026-11-06T20:01:54Z load free_gb=9.5 cpu_pct=94
+2026-11-06T20:02:56Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:03:57Z load free_gb=9.4 cpu_pct=100
+2026-11-06T20:04:59Z load free_gb=9.2 cpu_pct=100
+2026-11-06T20:06:00Z load free_gb=9 cpu_pct=100
+2026-11-06T20:07:02Z load free_gb=9 cpu_pct=100
+2026-11-06T20:07:54Z ---
+explorer pid=9176 title=[] rect=3839,4282,7679,4330
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:07:56Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:08:04Z load free_gb=10 cpu_pct=20
+2026-11-06T20:08:06Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:08:08Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:09:05Z load free_gb=8.7 cpu_pct=100
+2026-11-06T20:10:07Z load free_gb=9.3 cpu_pct=97
+2026-11-06T20:11:08Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:12:10Z load free_gb=9.1 cpu_pct=97
+2026-11-06T20:13:11Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:14:13Z load free_gb=9 cpu_pct=100
+2026-11-06T20:15:14Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:15:59Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:16:15Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:16:16Z load free_gb=9.9 cpu_pct=15
+2026-11-06T20:16:18Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:17:18Z load free_gb=10 cpu_pct=7
+2026-11-06T20:18:19Z load free_gb=9.2 cpu_pct=82
+2026-11-06T20:19:21Z load free_gb=9 cpu_pct=100
+2026-11-06T20:20:22Z load free_gb=9 cpu_pct=99
+2026-11-06T20:21:24Z load free_gb=9 cpu_pct=100
+2026-11-06T20:22:25Z load free_gb=9 cpu_pct=100
+2026-11-06T20:23:27Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:24:13Z ---
+explorer pid=9176 title=[] rect=3839,4289,7679,4337
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:24:15Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:24:23Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:24:25Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:24:28Z load free_gb=9.9 cpu_pct=12
+2026-11-06T20:25:30Z load free_gb=9.9 cpu_pct=14
+2026-11-06T20:26:32Z load free_gb=9.3 cpu_pct=99
+2026-11-06T20:27:33Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:28:35Z load free_gb=9.1 cpu_pct=96
+2026-11-06T20:29:36Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:30:38Z load free_gb=9 cpu_pct=100
+2026-11-06T20:31:40Z load free_gb=9 cpu_pct=100
+2026-11-06T20:32:28Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:32:41Z load free_gb=10 cpu_pct=9
+2026-11-06T20:32:45Z ---
+explorer pid=9176 title=[] rect=3839,3206,5759,3254
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:32:47Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:33:43Z load free_gb=8.7 cpu_pct=100
+2026-11-06T20:34:44Z load free_gb=9.8 cpu_pct=88
+2026-11-06T20:35:46Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:36:47Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:37:49Z load free_gb=9.2 cpu_pct=97
+2026-11-06T20:38:51Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:39:52Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:40:54Z load free_gb=9.7 cpu_pct=63
+2026-11-06T20:41:06Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:41:08Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:41:24Z ---
+explorer pid=9176 title=[] rect=3839,3209,5759,3257
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:41:26Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:41:55Z load free_gb=8.7 cpu_pct=100
+2026-11-06T20:42:57Z load free_gb=9 cpu_pct=100
+2026-11-06T20:43:58Z load free_gb=9.8 cpu_pct=19
+2026-11-06T20:45:00Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:46:01Z load free_gb=9.2 cpu_pct=100
+2026-11-06T20:47:03Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:48:05Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:49:06Z load free_gb=10 cpu_pct=54
+2026-11-06T20:49:20Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:49:30Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:49:32Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T20:50:08Z load free_gb=8.7 cpu_pct=100
+2026-11-06T20:51:09Z load free_gb=9 cpu_pct=100
+2026-11-06T20:52:11Z load free_gb=9.7 cpu_pct=60
+2026-11-06T20:53:12Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:54:14Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:55:15Z load free_gb=9.1 cpu_pct=100
+2026-11-06T20:56:17Z load free_gb=8.9 cpu_pct=100
+2026-11-06T20:57:18Z load free_gb=10 cpu_pct=21
+2026-11-06T20:57:22Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:57:25Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T20:58:20Z load free_gb=9.8 cpu_pct=29
+2026-11-06T20:59:21Z load free_gb=9.8 cpu_pct=10
+2026-11-06T21:00:23Z load free_gb=9.8 cpu_pct=37
+2026-11-06T21:00:25Z stop
