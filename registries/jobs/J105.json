@@ -9,5 +9,6 @@
   "depends_on": [
     "J78"
   ],
-  "brief": "jobs/J105/brief.md"
+  "brief": "jobs/J105/brief.md",
+  "report": "jobs/J105/report.md"
 }
