@@ -106,7 +106,7 @@ Preflight, in order, each result in the report:
    watcher version the target needs (update it first: see Target facts), `not_running`, no `game.lock`. The game is launched and killed **only through `job.sh`**.
 2. **Quiet PC.** Ask whoever started you that nothing else runs for the whole run: no other sessions, no Docker work, J32 and J101 not running. Wait 5 minutes after an install.
 3. **Display layout (changed 2026-11-05).** Windows lists the MSI as the primary display at 0,0 even while it is on another input, with the virtual display at 3839,2160. A
-   foreign-window observer therefore needs `-X 3839 -Y 2160` (J64's `harness/runs/20261104_j64pc5/foreign_windows.ps1`, rect `-X -Y -W -H`). If that display drops off mid-run, the headless guard
+   foreign-window observer therefore needs `-X 3839 -Y 2160` (the observer in J64's run 20261104_j64pc5, rect `-X -Y -W -H`). If that display drops off mid-run, the headless guard
    refuses with **exit 2160**: that is a flake, not a failure of the DLL; stop at the first such stop, keep the evidence, report it and say the layout. Anything else on the display:
    stop and ask Liam to move it, never move a window yourself.
 4. Build `bash core/proxy/tools/build.sh --docker all` (retry once on a network fetch error); `build_id.py` names the id; `pc_deploy.py kit --what proxy`, `send`, `install`; then
@@ -144,5 +144,3 @@ Write `jobs/J78/report.md` with `## What was built` (target tag and what each UP
 the display layout, CI run ids, `ci check-settings` output, the `DECISIONS.md` byte count), `## Deviations from the brief and why`, `## Open questions`, then `wsc jobs usage J78 --write`
 where it applies. Then `wsc reg set jobs J78 status=review report=jobs/J78/report.md`. Never mark `done`, never merge, never `--no-verify`.
 
-## Registry gaps
-- path: harness/runs/20261104_j64pc5/foreign_windows.ps1; owner: J78; reason: a run-folder script of J64's, cited as the observer to reuse; promote it to a tool row if J78 reuses it.
