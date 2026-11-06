@@ -85,3 +85,37 @@ Mixed routes follow the brief's default. In each case the per-screen part is a l
 7. **`RMLUI_ASSERT(num_allocated_objects == 0)`** is logged as an error at every exit with the host on. Harmless so far, but it should be looked at.
 8. **`ui_elements` still says** `common.unit_information` has no safe route. That row is generated, so the next atlas run should pick up the new fact.
 9. **Default still standing:** mixed routes are used, per the brief's default.
+
+## Fix round 1
+Everything below replaces the earlier sections where they differ. Those sections stay as written. Run ids: `20261106_j32pc`, sittings `battle2` (09:19 UTC) and `fe3` (09:31 UTC) on the acceptance kit `kit_20261106T071945Z_b5a7ccec7f29`.
+
+**B1, moved boxes (aac278c).** Fixed. A tile now searches 32 px each way and compares shifts by rate, so rows falling off the image gain nothing. The tile must hold contrast in the viewer image, or a shift could only find flat ground. A tile with half its pixels over 64 levels off is `layout` at any distance, with shift `[]`. Tests at 3, 4, 8 and 20 px, along one axis, at three image edges, beyond the search, and for the 4K cut tile.
+- The review's box, 200 x 60 on 1920 x 1080: `layout` at every n tried from 1 to 100. Real board content cut from the game dump and moved 4 to 60 px, two boxes: all `layout`.
+- The 12 cells rerun (`parity_gate.jsonl`): shares unchanged, no moved tile, and the 4K artefact is gone. The 1440p board at the correct ratio still reports its button row, so the check did not go blind.
+- **The gate's bound:** thin or faint content moved more than 32 px can pass, as can a thin mark only one image has. Those need element boxes (`boxes.py`). The 64-level limit is measured: real rasterising reaches 0.23 of a tile at 64 levels but 0.48 at 32, so a 32-level limit called the host test's art layout. That was tried and dropped.
+- **One bug the new tests found:** `align` sampled every 4th row, so a rule on a sampled row gave a false whole-image offset. A chosen offset must now hold on every row.
+
+**B2, route A input (80b98e34, 57ccf9aa; sittings `battle2`, `fe3`).** Run, not downgraded.
+- **HUD:** 20 points of the bar answered with its own components while visible. Of the 6 kept, `SetVisible`, `PropagateVisibility` and move all read nil, opacity 0 all still answered, and all answered again once restored. Route A's verdict for the HUD stands, and the report's "Works" now has its input check.
+- **Front end:** a page's hit test cannot be read, because no Lua runs there after the call. It is untested, and that does not touch the verdict, which is route B. I tested what route B depends on instead, the hidden main menu: its buttons leave the hit test, but `movie_bg` answers at all 4 points tried, not nil. **New for J35:** a rebuilt front end sits on a live background component. Whether it takes a click was not tested.
+- `napoleon.ui.undraw_means` is narrowed to what ran, per means and per kind. It is still the hit test, not a real click, and keys were not tried: open question 1 stands.
+
+**S1, panel fields (a977fd7).** All 40 are view state: 12 sort order, 12 tab bookkeeping, 15 template layout arguments and headers, 1 camera constant. None is engine data. On the popups 51 of the unit popup's 62 are details its caller hands it, and nearly all of `event_message`'s 130 are event details the engine passes to its handlers, which no getter returns. So one rule covers every kind: a field counts against route B when it is engine data with no getter. In `napoleon.ui.route_b.coverage`.
+
+**S2, row count (24acccd).** 10 of 50 rows, in the report's terms too: read "10 rows" for "20 rows" in the S4 table.
+
+**S3, row evidence (24acccd).** `j32snap.txt` in the run folder, 135 lines. "137 rows" is 138, corrected in `napoleon.ui.route_a.popup`.
+
+**S4, dp ratio (cd8f8ff).** The rule is now code: `tools/ui_hosttest.py dp-ratio <height> <percent>` gives the game's value for any cell, and reproduces the review's 41 of 108. It replaces the report's one 1440p value. `viewer/core/render.py` still takes the ratio from its caller, so **J80 has to call this** until J35's fix lands. I did not change the viewer here, as that would bring rule 79 in.
+
+**S5, scope (3fdc1a0).** "Byte-identical" holds for the board and recipes; the host test matches only inside the compared rect. The SSE build tested RmlUi's arithmetic, not `UiDpRatio`. `viewer.parity.numbers` says both.
+
+**Later items.**
+- `tools.ui_hosttest` `last_used` is updated.
+- **Corrected:** the report's "no crash or hang" does not cover launches. One launch died in `DllMain` at 07:36 and another at 09:30 in this round, retried both times by `ctl.py`. The 09:30 one left a dump with code `c0000374`, the known `napoleon.proxy.init_heap_corruption`. The 07:36 cause is still not shown, though it has the same symptom.
+- **Left for J80:** which area a share is of, for a popup. It is a gate design question.
+- **Left:** "no frame cost measured" should read measured, no saving (4.18 open, 4.32 to 4.50 hidden, 2 runs each). The fact already says so.
+
+**Merged tree.** See the last line of this section.
+
+PC end state, 2026-11-06 09:37 UTC: no lock, nothing installed, game folder identical to the snapshot (1564 files), exe vanilla, prefs sha256 `83b9b32b...` restored byte-identical.
