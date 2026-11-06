@@ -33,7 +33,7 @@ Picked the device-path code (`patches/0001`, `0005`) and the receiver fragment, 
 
 **Should-fix, done on the branch**
 1. `tools/shadow_density.py`: the cascade table went to stdout only, so the report's density rows, the heart of criterion 3, were in no committed file (`density.tsv` has control rows only, and raw `frame.txt` stays off the repo). The tool now writes `density_cascade.txt`, with a test. The run folder has the table and `density_cascade_frames.sha256`, the sha256 of the 24 frames (the brief's J8 rule). Commit "the cascade density table is kept in the run".
-2. `registries/engine_facts/napoleon.shadow.blob.json`: "the near cascade removes" the sun-behind collapse was stated as verified, but the evidence is a density of 1.0 that is true by construction, at a point in the air. No shot shows it: the crops at p1 to p4 cannot be told apart by eye. The fact now says that. **The report's Blob section and its Liam question still use the stronger wording: read "removes it" as "no yaw dependence by the metric".**
+2. `registries/engine_facts/napoleon.shadow.blob.json`: "the near cascade removes" the sun-behind collapse was stated as settled, but the evidence is a density of 1.0 that is true by construction, at a point in the air. No shot shows it: the crops at p1 to p4 cannot be told apart by eye. The fact now says that. **The report's Blob section and its Liam question still use the stronger wording: read "removes it" as "no yaw dependence by the metric".**
 
 **Should-fix, corrections to the report (recorded here: a reviewer who edits `report.md` fails the own-review check)**
 
