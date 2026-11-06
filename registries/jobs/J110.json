@@ -1,0 +1,12 @@
+{
+  "id": "J110",
+  "description": "wsc.toml `[docs] path_ignore` hides four paths that were this repo's and are gone: tools/jobs_hooks.py, tools/pr_policy.py, docs/BACKLOG.md, uikit/napoleon/LOCK.json. docs/REVIEW.md links the first and tools/gates/pipeline.py still names UI_LOCK. UPGRADING keeps that list for tokens that are not this repo's paths: repoint or mark them, then remove them from the list. Raised: J78 review round 1, 2026-11-06.",
+  "title": "Repoint the paths doc_paths now hides",
+  "phase": 1,
+  "status": "needs_brief",
+  "model": "opus",
+  "needs_pc": false,
+  "depends_on": [
+    "J78"
+  ]
+}
