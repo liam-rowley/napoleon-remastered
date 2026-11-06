@@ -24,7 +24,7 @@
    "optional": false,
    "requires": ["proxy"],
    "licences": ["lora_font", "model_hfa2k_compact", "model_nomos_esrgan"],
-   "ini_set": {"dev.file_rules": "napoleon_remastered\\ui\\ui_scale_2x.rules"},
+   "ini_set": {"proxy.file_rules": "napoleon_remastered\\ui\\ui_scale_2x.rules"},
    "texts": {
     "rules": "# UI scale stop-gap 2x (J66): the loose templates the engine opens come from the scaled file (proxy file rule, config only)\nredirect data\\ui\\templates\\uied.templates -> napoleon_remastered\\ui\\uied.templates.ui_scale_2x\n"
    },

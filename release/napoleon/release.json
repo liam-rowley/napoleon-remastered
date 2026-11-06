@@ -28,7 +28,7 @@
   "off_ids": ["headless.enabled", "proxy.exe_guard_force_mismatch"],
   "off_patterns": ["headless.test_"],
   "inert_parameters": ["dev.autostart_delay_ms", "dev.capture_dir", "dev.ctl_dir"],
-  "allowed_dev_keys": {"dev.file_rules": "D46: the UI scale stop-gap (J66) needs it until core W33 gives it a player key"},
+  "allowed_dev_keys": {},
   "required": {"proxy.exe_guard": 1, "proxy.minidump": 2, "proxy.enabled": true, "proxy.runtime_patches": true, "proxy.backend": "dxvk"}
  },
  "acceptance": {"_note": "J74: a release is built only from a DLL whose build id has this many consecutive acceptance passes (with committed evidence) at the end of the ledger; --allow-dirty skips only this count.", "ledger": "harness/acceptance/ledger.jsonl", "passes": 20},
