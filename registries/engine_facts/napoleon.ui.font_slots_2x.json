@@ -2,7 +2,7 @@
   "id": "napoleon.ui.font_slots_2x",
   "claim": "The four Empire 2x slot fonts (ingame_24, ingame_b_24, frontend_24, frontend_38) and ingame_18, re-rendered as Lora and shipped in a movie pack, draw at full size in the front end, the campaign and a land battle: no tiny fallback text in the shots of the scaled layouts",
   "state": "verified",
-  "evidence": "uiscale/runs/2026-11-02_j66/README.md",
-  "date": "2026-11-02",
-  "notes": "run 2026-11-02_j66, ui_scale_2x_fonts.pack f699ca5db25b9cb9; checked by eye on the advisor panels, HUD labels, unit-card counts and the front-end buttons. Not probed: which other sizes each context loads (Empire: Ingame 18 and Frontend 32 fail outside the front end); the scaler keeps to the Empire-proven slots"
+  "evidence": "uiscale/runs/2026-11-06_j96/README.md",
+  "date": "2026-11-06",
+  "notes": "run 2026-11-06_j96 font, per-context probe at 3840x2160 on J67's 2x set, each slot re-rendered at its own multiple (frontend_24 0.6, frontend_38 0.8, ingame_18 1.3, ingame_24 0.7, ingame_b_24 1.5), compared with J67's shots. ingame_18 is the body text in all three contexts: the front-end New content box, the battle advisor and the campaign advisor all grew, so Empire's 'Ingame 18 fails outside the front end' does not hold here. The battle unit-card counts and the campaign date and treasury shrank to about 0.67 (ingame_24 at 0.7 is the nearest in that family; frontend_24 at 0.6 is not excluded by the measure). Menu buttons and panel titles did not change: not read. The ingame_b_24 candidate is no test, because the bold recipe fits it to the vanilla width (em 21.67 at 1.5, 21.63 at 1.0), so those may be ingame_b_24 or a file outside the five. frontend_24 and frontend_38 were not positively seen. No slot was seen wrong and no text fell back to a tiny size. Shots are 1280 wide. Earlier note: run 2026-11-02_j66, ui_scale_2x_fonts.pack f699ca5db25b9cb9; checked by eye on the advisor panels, HUD labels, unit-card counts and the front-end buttons. Not probed: which other sizes each context loads (Empire: Ingame 18 and Frontend 32 fail outside the front end); the scaler keeps to the Empire-proven slots"
 }

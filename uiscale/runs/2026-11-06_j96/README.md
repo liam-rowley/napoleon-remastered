@@ -39,5 +39,23 @@ Limit: the other five affected files stay unproven. `load` gave all seven DXT fi
 Marker 1 (`r1`, `r2`): every `data\UI\*.tga` path in the file renamed, at the same length, to a file only the pack holds. No magenta on either route though the redirect hit, so it decides nothing: this is why the control launch exists.
 Marker 2 (`t1`, `t2`): J67's 2x templates file on vanilla layouts, field army selected. Route 2 (`proxy.log`: 1 redirect hit) draws the Army and Recruitment tabs at about twice their size; route 1 leaves them vanilla (`raw/evidence/t2_route2_camp_field.jpg`, `t1_route1_camp_field.jpg`). Fact `napoleon.ui.templates_route`.
 
+## Probe 5: fonts per context: partly read
+`font`, 3840x2160, J67's `ui_scale_2x.pack` and `ui_scale_2x_fonts.pack` plus `zz_j96_fonts`: frontend_24 x0.6, frontend_38 x0.8, ingame_18 x1.3, ingame_24 x0.7, ingame_b_24 x1.5 of the J66 size. Crops against J67's shots: `raw/evidence/font_crops.jpg` (`font_crops.py`).
+
+| Text | Context | Against J67 | Reading |
+|---|---|---|---|
+| New content box body | front end | larger, wider pitch | `ingame_18` |
+| Advisor body | battle, campaign | larger, wider pitch | `ingame_18` |
+| Unit-card counts | battle | about 0.67 | `ingame_24` by family; `frontend_24` not excluded |
+| Date, treasury | campaign | about 0.67 | the same |
+| Menu buttons, panel and advisor titles, Start Battle | all | unchanged | not read |
+
+The bold candidate was no test: the recipe fits `ingame_b_24` to the vanilla width, em 21.67 at x1.5 against 21.63 at x1.0. Unchanged text may be that slot or a file outside the five. No slot was seen wrong, no tiny fallback. Fact `napoleon.ui.font_slots_2x`.
+This cell went through `pc_deploy install` and `install_packs.ps1`, not `play.py`: see End state.
+
+## End state
+Kit and packs out, lock released, `profile_active` null, no `zz_j96` or `ui_scale` pack in `data\`. `snap_end` against `snap_after_j32`: identical. `snap_end` against `snap_start`: one file, `napoleon_remastered.ini` added.
+That ini is not this job's: `pc_deploy uninstall` ended at 1564 files, identical, before J32's sitting; afterwards it was there, dated 09:19 UTC, with no proxy installed, and the watcher had just restored J32's profile (09:37:21). It is the race J67 reported. It was left as found.
+
 ## Crashes
 Two first-launch deaths, `20261106T090629Z-p23456` and `20261106T090810Z-p25364`, both `c0000374` with last status `starting DllMain`, before any pack is read; `ctl` relaunched each and the scene passed (`raw/load`, `raw/r1` `ctl_scene_land_small.json`). The known `napoleon.proxy.init_heap_corruption`, with different packs each time. No hang. `ui_cache` stayed empty after every launch.
