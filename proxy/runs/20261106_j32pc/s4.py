@@ -2,7 +2,7 @@
 """J32 S4 route A sittings: per screen kind open the vanilla screen as the game does, undraw it with each Lua means, and check data, handlers, input and cost.
 
 The game lock is the caller's. One driver at a time (s3.py's pid file rule). No click goes near a destructive popup: the only clicks are on a panel's close button and a page's button.
-usage: python3 proxy/runs/20261106_j32pc/s4.py camp | battle | fe [--size 1920x1080]
+usage: python3 proxy/runs/20261106_j32pc/s4.py camp | camp2 | camp3 | battle | battle2 | fe | fe2 | fe3 [--size 1920x1080]
 Writes s4.jsonl beside this file, shots under build/j32/s4/, and keeps proxy.log as build/j32/s4_<sitting>_proxy.log (j32snap lines).
 """
 import argparse
@@ -339,9 +339,79 @@ def fe2(s):
     s.finish('fe2')
 
 
+def bar_ids():
+    """Every component id under `orders`, from the first battle sitting's own snapshot."""
+    ids = {'orders'}
+    for line in (HERE / 'j32snap.txt').read_text(encoding='utf-8').splitlines():
+        if line.startswith('battle j32snap hud_before '):
+            for row in line.split(': ', 1)[1].split(';'):
+                ids.update(row.split('|')[0].split('/'))
+    return ids - {''}
+
+
+def over_at(s, x, y, tag):
+    ok, r = s.pc.ctl(f'ui click {x} {y} left move', 30)
+    time.sleep(0.6)
+    res = str(s.lua('over')['result'])
+    log('hover', tag=tag, at=[x, y], result=res)
+    return res.split(' ')[0].partition('=')[2]
+
+
+def means_scan(s, comp, tag, points, restore_move):
+    """The same points with `comp` visible, under each means, and restored: nothing of `comp` may answer while it is undrawn, and it must answer again after."""
+    for name, off, on in MEANS + [('move', f'move {comp} -5000 -5000', restore_move)]:
+        s.lua(off.format(c=comp))
+        time.sleep(1.5)
+        for x, y in points:
+            over_at(s, x, y, f'{tag}_{name}')
+        s.lua(on.format(c=comp))
+        time.sleep(1)
+    for x, y in points:
+        over_at(s, x, y, f'{tag}_restored')
+
+
+def battle2(s):
+    """J32 review B2: does the undrawn order bar take the pointer? Scan the bottom of the screen with it visible, keep the points its own components answer, repeat them under each means."""
+    s.launch()
+    log('scene', r=s.ctlpy('scene', 'hist_dresden').get('status'))
+    time.sleep(5)
+    s.lua('pos orders')
+    ids, hits = bar_ids(), []
+    for y in range(800, 1075, 34):
+        for x in range(300, 1700, 200):
+            if over_at(s, x, y, 'hud_scan') in ids:
+                hits.append((x, y))
+    log('hud_points', n=len(hits), points=hits)
+    if hits:
+        means_scan(s, 'orders', 'hud', hits[::max(1, len(hits) // 6)][:6], 'move orders 3 749')
+    s.finish('battle2')
+
+
+def fe3(s):
+    """J32 review B2, front end: route B sits over the hidden main menu, and the main menu is the page that pumps, so its hit test can be read. A page cannot: no Lua runs there after the call."""
+    s.launch()
+    s.lua('pos main')
+    hits = []
+    for y in range(150, 1000, 85):
+        for x in range(200, 1750, 310):
+            if over_at(s, x, y, 'main_scan') not in ('nil', ''):
+                hits.append((x, y))
+    log('main_points', n=len(hits), points=hits)
+    pts = hits[::max(1, len(hits) // 4)][:4]
+    s.lua('vis main 0')
+    time.sleep(2)
+    for x, y in pts:
+        over_at(s, x, y, 'main_vis')
+    s.lua('vis main 1')
+    time.sleep(1)
+    for x, y in pts:
+        over_at(s, x, y, 'main_restored')
+    s.finish('fe3')
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('sitting', choices=['camp', 'camp2', 'camp3', 'battle', 'fe', 'fe2'])
+    ap.add_argument('sitting', choices=['camp', 'camp2', 'camp3', 'battle', 'battle2', 'fe', 'fe2', 'fe3'])
     ap.add_argument('--size', default='1920x1080')
     a = ap.parse_args()
     if PID.exists():
@@ -349,7 +419,7 @@ def main():
     PID.write_text(str(os.getpid()))
     s = S(a.size)
     try:
-        {'camp': camp, 'camp2': camp2, 'camp3': camp3, 'battle': battle, 'fe': fe, 'fe2': fe2}[a.sitting](s)
+        {'camp': camp, 'camp2': camp2, 'camp3': camp3, 'battle': battle, 'battle2': battle2, 'fe': fe, 'fe2': fe2, 'fe3': fe3}[a.sitting](s)
     finally:
         try:
             log('end', how=s.pc.exit())
