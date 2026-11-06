@@ -1,0 +1,11 @@
+{
+  "id": "uikit.napoleon.vanilla.inventory",
+  "kind": "script",
+  "path": "uikit/napoleon/vanilla/inventory.py",
+  "purpose": "build the vanilla component inventory from the UI atlas and the assets registry: templates, frames and button art families, each mapped to a J34 library class or marked a gap",
+  "usage": "python3 uikit/napoleon/vanilla/inventory.py [--check] [--stats]",
+  "when": "after the atlas or the assets registry changes (the tests run --check); J69 walks the result with Liam",
+  "not_a_verb": "one generator for one committed file, like uikit/napoleon/build.py; gallery.py reads what it writes",
+  "status": "live",
+  "last_used": "2026-11-06"
+}

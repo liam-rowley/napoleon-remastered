@@ -39,6 +39,13 @@ HATCH = (255, 196, 0, 255)           # art the game does not ship under that pat
 DEFAULT_FONT = 'Ingame 12, Normal'
 TAGS = re.compile(r'\[\[.*?\]\]')
 JPEG_QUALITY = 80
+SHEET_W, SHEET_H = 2048, 4096        # sprite sheet size
+MAX_STATES = 14                      # states drawn per kind (the most any template has is 13 distinct ones)
+BIG_CELL = 256                       # above this a kind shows its default state only
+BIG_LIMIT = 1024                     # a cell is cut to this: a 10000-wide strip is a stretched rule
+MAX_MASTERS = 12                     # art pieces per kind shown from their masters
+MASTER_MAX = 256                     # art larger than this at 1x stays out of the 2x sheets: fills and pictures, not components
+MASTERS = 'C:/napoleon_remastered_pc/upscale/work/packs'
 
 
 def surfaces():
@@ -333,14 +340,162 @@ def cmd_compose(a):
     return 0
 
 
+class Sheets:
+    """Shelf-packs small images into PNG sprite sheets: an artifact holds at most 511 files, the page shows thousands of cells."""
+
+    def __init__(self, out, prefix, width=SHEET_W, height=SHEET_H):
+        self.out, self.prefix, self.w, self.h = Path(out), prefix, width, height
+        self.names, self.sizes = [], {}
+        self.cur = None
+
+    def _new(self):
+        self._flush()
+        self.cur = Image.new('RGBA', (self.w, self.h), (0, 0, 0, 0))
+        self.x = self.y = self.row = 0
+
+    def _flush(self):
+        if self.cur is not None:
+            used = self.y + self.row
+            name = f'{self.prefix}_{len(self.names):02d}.png'
+            img = self.cur.crop((0, 0, self.w, max(used, 1)))
+            img.save(self.out / name, optimize=True)
+            self.names.append(name)
+            self.sizes[name] = list(img.size)
+            self.cur = None
+
+    def add(self, img):
+        """Place img; returns [sheet index, x, y, w, h]."""
+        if img.width > self.w:
+            img = img.crop((0, 0, self.w, img.height))
+        if img.height > self.h:
+            img = img.crop((0, 0, img.width, self.h))
+        if self.cur is None:
+            self._new()
+        if self.x + img.width > self.w:
+            self.x, self.y, self.row = 0, self.y + self.row + 1, 0
+        if self.y + img.height > self.h:
+            self._new()
+        self.cur.paste(img, (self.x, self.y))
+        at = [len(self.names), self.x, self.y, img.width, img.height]
+        self.x += img.width + 1
+        self.row = max(self.row, img.height)
+        return at
+
+    def close(self):
+        self._flush()
+        return [{'file': n, 'size': self.sizes[n]} for n in self.names]
+
+
+def find(comp, path):
+    """The component at an atlas path ('root/a/b') under a root."""
+    for name in path.split('/')[1:]:
+        comp = next((k for k in comp['children'] if k['name'] == name), None)
+        if comp is None:
+            return None
+    return comp
+
+
+def asset_path(game, asset, rows):
+    return rows.get(asset, {}).get('path') or asset
+
+
+def state_cells(game, kind, docs):
+    """[(label, RGBA image)] for a kind's vanilla states at 1x."""
+    s = kind.get('sample')
+    rows = game.rows
+    if kind['kind'] == 'button':
+        out = []
+        for st in kind['states']:
+            art = game.art(asset_path(game, st['assets'][0], rows))
+            if art is not None:
+                out.append((st['name'], art))
+        return out
+    if not s:
+        return []
+    if s['surface'] not in docs:
+        docs[s['surface']] = game.doc(s['surface'], game.surf[s['surface']])
+    comp = find(docs[s['surface']], s['path'])
+    if comp is None or not comp['states']:
+        return []
+    default = default_state(comp)
+    want = [st for st in comp['states'] if st['name'] == s['state']] if s.get('state') else list(comp['states'])
+    big = max(default['w'], default['h']) > BIG_CELL
+    if big:                                       # a whole list or panel: its other states differ little and the sheets are what the publish pays for
+        want = [default] if not s.get('state') else want[:1]
+    out, seen = [], set()
+    for st in want[:MAX_STATES]:
+        if not st['w'] or not st['h']:
+            continue
+        cv = Canvas(game, min(st['w'], BIG_LIMIT), min(st['h'], BIG_LIMIT), bg=(0, 0, 0, 0))
+        cv.component(comp, 0, 0, state=st, root=True)
+        sig = cv.img.tobytes()
+        if sig in seen:                           # states that draw the same pixels (click down mouse off and the like) keep one cell, named by the first
+            continue
+        seen.add(sig)
+        out.append((st['name'], cv.img))
+    return out
+
+
+def master(game, asset, rows):
+    """The 2x image of an art id from its 2.5x master, or None."""
+    p = rows.get(asset, {}).get('path')
+    if not p:
+        return None
+    c = game.masters.stat('ui_art_2x5\\' + p)
+    if c is None:
+        return None
+    src = game.art(p)
+    if src is None or max(src.size) > MASTER_MAX:
+        return None
+    import io
+    img = Image.open(io.BytesIO(game.masters.read(c))).convert('RGBA')
+    return img.resize((src.width * 2, src.height * 2), Image.LANCZOS)
+
+
+def cmd_strips(a):
+    game = Game()
+    game.surf = surfaces()
+    game.rows = {}
+    with open(ROOT / 'registries' / 'assets.jsonl', encoding='utf-8') as f:
+        for line in f:
+            r = json.loads(line)
+            game.rows[r['id']] = r
+    game.masters = PackFS(a.masters)
+    out = Path(a.out)
+    (out / 'sheets').mkdir(parents=True, exist_ok=True)
+    one, two = Sheets(out / 'sheets', 's1'), Sheets(out / 'sheets', 's2')
+    kinds = json.load(open(HERE / 'components.json', encoding='utf-8'))
+    table, docs = {}, {}
+    for k in kinds:
+        cells = [[label] + one.add(img) for label, img in state_cells(game, k, docs)]
+        arts = []
+        for st in k['states']:
+            arts.extend(x for x in st['assets'] if x not in arts)
+        ms = []
+        for art in arts[:MAX_MASTERS]:
+            img = master(game, art, game.rows)
+            if img is not None:
+                ms.append([art.rsplit('/', 1)[-1]] + two.add(img))
+        table[k['id']] = {'cells': cells, 'masters': ms}
+    data = {'kinds': table, 'one': one.close(), 'two': two.close()}
+    (out / 'strips.json').write_text(json.dumps(data, sort_keys=True), encoding='utf-8')
+    mb = sum((out / 'sheets' / s['file']).stat().st_size for s in data['one'] + data['two']) / 1e6
+    print(f"{len(table)} kinds, {sum(bool(v['cells']) for v in table.values())} with a strip, {sum(bool(v['masters']) for v in table.values())} with masters, "
+          f"{len(data['one'])}+{len(data['two'])} sheets, {mb:.1f} MB")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest='cmd', required=True)
     c = sub.add_parser('compose', help='draw the composites')
     c.add_argument('--only', nargs='*', help='surfaces whose path holds one of these words')
     c.add_argument('--out', default=str(ROOT / '_scratch' / 'j99'))
+    s = sub.add_parser('strips', help='draw every kind\'s state strip and 2x masters into sprite sheets')
+    s.add_argument('--out', default=str(ROOT / '_scratch' / 'j99'))
+    s.add_argument('--masters', default=MASTERS)
     a = ap.parse_args(argv)
-    return {'compose': cmd_compose}[a.cmd](a)
+    return {'compose': cmd_compose, 'strips': cmd_strips}[a.cmd](a)
 
 
 if __name__ == '__main__':
