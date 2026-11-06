@@ -24,14 +24,14 @@ At most 2 subagents, only for independent host work, never for the PC run (D59: 
 - `git fetch --tags` in `core/`, then `python3 core/wsc.py core bump vX.Y.Z` (from 0.36.0 on this is one commit of `core`, `wsc.toml` and the workflows, B9; a bump
   across it still needs the hand steps below). Read **every `docs/UPGRADING.md` section between v0.30.0 and the target** in a `warscape-core` clone beside this repo
   (`../warscape-core`, read only) and the core's `docs/CONSUMING.md` "Upgrading and releasing". What each one forces is under Target facts.
-- Check each Target fact again before relying on it; record anything verified as a registry row with date and run id.
+- Check each Target fact again before relying on it; record anything you prove as a registry row with its date and run id.
 
 ## Target facts
 Read on 2026-11-06 from the core's `docs/UPGRADING.md`; check each again against the target tag.
 - **0.24.0 commit-msg hook, `run_refs` gate (C23, W12).** Opt in: `[policy] commit_msg_hook = true` (the row asks for it). `run_refs_since` is already set by J64; leave it.
 - **0.26.0 base-judged policy (W23, C24).** J64 did the steps (`pull_request_target`, the bootstrap `pull_request` trigger limited to `jobs/<id>/report.md`, extra steps from `env:`,
-  the gate module reading the head by sha). **Check them again; do not assume.** This bump's own pull request is judged with `main`'s rules, so the bootstrap trigger from the
-  UPGRADING note is only needed if J64's has already been removed; the template warns (`ci_render`) until a template change drops it.
+  the gate module reading the head by sha). **Check them again; do not assume.** This bump's own pull request is judged with `main`'s rules, so remove J64's bootstrap `pull_request` trigger
+  from `ci/policy.yml.in` in this bump's first template change (`ci_render` warns until it is gone) and re-render.
 - **0.27.0 build id (W24).** J64 did the toolchain apt step; check it still holds.
 - **W36 (`[policy] bases`, `workflow_paths`).** Defaults apply; this job changes CI files, so **this brief names each**: `ci/gates.yml.in`, `.github/workflows/gates.yml`,
   `ci/policy.yml.in`, `.github/workflows/policy.yml`. A changed workflow path the brief does not name is a policy warning.
