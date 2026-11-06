@@ -73,9 +73,9 @@ decisions = "docs/DECISIONS.md"
 decision_prefix = "D"
 session_trailer = "Claude-Session"
 commit_msg_hook = true                 # core W12: the commit-msg hook refuses a commit with no session trailer
-plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md"]
-meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
-        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules"]
+plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "registries/decisions/*", "README.md", "CLAUDE.md"]
+meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "registries/decisions/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
+        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules", "design/napoleon/LANGUAGE.md"]
 
 [agent_settings]
 safe = ["Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)", "Bash(git show:*)", "Bash(python3 core/wsc.py find:*)",
