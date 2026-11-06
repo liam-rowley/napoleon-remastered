@@ -8,7 +8,7 @@ not-a-verb: one generator for one committed file, like uikit/napoleon/build.py; 
 
 Kinds (`kind`): `template` (a name in a surface's templates_used: `script:<name>` or `template:<record>`), `frame` (a 9-slice frame group of sibling
 components), `state_frame` (a frame drawn by one component: eight or more image uses in one state, which the atlas's frame groups do not see), `button`
-(a family of `button_state` art, split on the state words that end the file name). Committed data holds ids, keys, sizes and counts only (J7): no loc text.
+(a family of `button_state` art, split on the state words that end the file name; `surfaces` are those whose components draw the art). Committed data holds ids, keys, sizes and counts only (J7): no loc text.
 `library` is a proposal for J69: a J34 class or `gap`, with `uncertain: true` where the match is a guess.
 """
 import argparse
@@ -219,7 +219,19 @@ def split_state(stem):
     return base, state
 
 
-def button_kinds(assets):
+def art_surfaces(surf):
+    """{art id: surfaces whose components draw it in a state}: the atlas names the art itself, so this is exact where a unit's layouts would be a guess."""
+    out = collections.defaultdict(set)
+    for path, rec in surf.items():
+        for c in rec.get('components', []):
+            for st in c['states']:
+                for art in st['images']:
+                    out[art].add(path)
+    return out
+
+
+def button_kinds(assets, surf):
+    used = art_surfaces(surf)
     fams = collections.defaultdict(list)
     for r in assets:
         if r.get('role') != 'button_state':
@@ -239,14 +251,14 @@ def button_kinds(assets):
         states = sorted({(n, r['id']) for n, r in members})
         out.append({'id': 'button:' + fam, 'kind': 'button', 'sizes': size_list(sizes), 'sizes_total': len(sizes),
                     'states': [{'name': n, 'assets': [i]} for n, i in states], 'use_count': len(units), 'instances': len(members),
-                    'surfaces': [], 'ui_elements': units, **mapped(fam, BUTTON_MAP)})
+                    'surfaces': sorted({p for _, r in members for p in used.get(r['id'], ())}), 'ui_elements': units, **mapped(fam, BUTTON_MAP)})
     return out
 
 
 def build():
     surf = surfaces()
     idx = unit_index(jsonl(ROOT / 'registries' / 'ui_elements.jsonl'))
-    kinds = template_kinds(surf, idx) + frame_kinds(surf, idx) + state_frame_kinds(surf, idx) + button_kinds(jsonl(ROOT / 'registries' / 'assets.jsonl'))
+    kinds = template_kinds(surf, idx) + frame_kinds(surf, idx) + state_frame_kinds(surf, idx) + button_kinds(jsonl(ROOT / 'registries' / 'assets.jsonl'), surf)
     kinds.sort(key=lambda e: (-e['use_count'], e['id']))
     return kinds
 

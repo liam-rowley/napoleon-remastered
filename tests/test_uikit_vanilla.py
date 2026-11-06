@@ -93,6 +93,18 @@ class Inventory(unittest.TestCase):
         self.assertEqual(names, {'depress', 'inactive', 'normal', 'roll'})
         self.assertLessEqual({'default', 'down', 'down_off', 'roll'}, {s['name'] for s in kinds['button:ui/frontend_ui/skins/button_left']['states']})
 
+    def test_a_used_button_names_its_screens(self):
+        """A screen's kinds link filters on `surfaces`, so a button the atlas draws has to carry them (J99 round 1, S2)."""
+        surf = inventory.surfaces()
+        buttons = [k for k in self.kinds if k['kind'] == 'button']
+        self.assertEqual([k['id'] for k in buttons if k['ui_elements'] and not k['surfaces']], [])
+        self.assertFalse({p for k in buttons for p in k['surfaces']} - set(surf))
+        for k in buttons:
+            arts = {a for s in k['states'] for a in s['assets']}
+            for p in k['surfaces']:
+                drawn = {i for c in surf[p]['components'] for st in c['states'] for i in st['images']}
+                self.assertTrue(arts & drawn, (k['id'], p))
+
     def test_order_is_by_use_and_the_scrollbar_leads(self):
         uses = [k['use_count'] for k in self.kinds]
         self.assertEqual(uses, sorted(uses, reverse=True))
