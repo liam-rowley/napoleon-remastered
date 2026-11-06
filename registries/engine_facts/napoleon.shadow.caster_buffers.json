@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.caster_buffers",
+  "claim": "The casters' buffers are not stable for the pass: per launch about 350 thousand DISCARD and 5.2 million NOOVERWRITE vertex or index buffer locks fall between the pass's first and last draw (about 3.8 and 56 a pass), all on the render thread; instancing streams are in use (FREQ 0x4000xxxx and 0x80000001), and 60-75 state blocks are captured and applied inside the pass, so a Set* hook does not see every bound shader. Replay after the pass (route 1 variant b) would read overwritten data: only inline duplication at each draw is correct, and the bound shader must be read at the draw",
+  "state": "verified",
+  "evidence": "harness/runs/20261106_j25pc/README.md",
+  "date": "2026-11-06",
+  "notes": "owner J25"
+}

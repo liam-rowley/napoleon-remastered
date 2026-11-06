@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.casters",
+  "claim": "land_40 at both poses, land_small and siege_small (run 20261106_j25pc, release values on): 47-61 caster draws in the pass, DIP and DP, every vertex shader in the catalogue: imposter.fx shadow_imposter_sm3 (M c0, Lz c4), variantmesh.fx weighted (c123, c127) and rigid (c28, c32), cloth.fx (c0, c4), vegetation_billboard (c13, c17), vegetation_branch and frond (c24, c28), leaf_mesh and leaf_card (c32, c36), weighted.fx (c123, c127). One register per output component: c[base + i] is output i. The registers differ per shader, so a module reads them from each shader's CTAB at CreateVertexShader: 180 caster objects found that way, 0 unknown across about 5.6 million caster draws per launch",
+  "state": "verified",
+  "evidence": "harness/runs/20261106_j25pc/README.md",
+  "date": "2026-11-06",
+  "notes": "owner J25"
+}

@@ -85,6 +85,8 @@ A `land_small` capture at 2560x1440 (`w1440_land_small`) against 1920x1080: **ev
   0.96 and alpha-tested, a few texels at about 12 cm per texel (captures `b_near`, `b_deploy`, `b_d700`..`b_d1400`). The switch distance
   is an engine setting (J9).
 
+- **J25 (run 20261106_j25pc):** the pass, its buffers and the receivers: facts `napoleon.shadow.pass_call`, `.caster_buffers`, `.receivers`. Battle terrain is `grid.fx` `grid_far_sm3`.
+
 ## Shadow texel density
 Every capture with a shadow map; the metric is `shader_catalog.py` `shadow_density` (docstring).
 <!-- gen:shadow_density -->

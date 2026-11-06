@@ -1,0 +1,28 @@
+{
+ "run": "20261106_j25cost_1080_ctl1",
+ "sittings": [
+  {
+   "run": "20261106_j25cost_1080_ctl1",
+   "start_utc": "2026-11-06T02:58:52Z",
+   "plan_cells": 10,
+   "scenarios": [
+    "land_40",
+    "hist_dresden"
+   ],
+   "blocks": [
+    {
+     "size": "1920x1080",
+     "backend": "dxvk",
+     "variant": null,
+     "start_utc": "2026-11-06T02:58:52Z",
+     "end_utc": "2026-11-06T03:05:11Z"
+    }
+   ],
+   "restore_keys": {
+    "proxy.backend": "dxvk",
+    "proxy.dxvk_path": "napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+   },
+   "end_utc": "2026-11-06T03:05:16Z"
+  }
+ ]
+}

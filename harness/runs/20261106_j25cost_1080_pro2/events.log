@@ -1,0 +1,15 @@
+2026-11-06T03:18:31Z plan: 10 cells, scenarios ['land_40', 'hist_dresden'], sizes 1920x1080, backends dxvk, variants []; start keys {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-06T03:18:32Z block ('1920x1080', 'dxvk', None): exit, set keys, relaunch
+2026-11-06T03:19:05Z cell dxvk_1920x1080_land_40_default_p0 ok: load 4.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-06T03:19:28Z cell dxvk_1920x1080_hist_dresden_default_p0 ok: load 7.2 p50 None p99 None VA None/None commit None vram None 
+2026-11-06T03:20:30Z cell dxvk_1920x1080_land_40_deploy_p1 ok: load 4.2 p50 2.352 p99 3.6 VA 1891/1916.8 commit 1256 vram 1359.0 
+2026-11-06T03:20:58Z cell dxvk_1920x1080_land_40_turned_p1 ok: load 4.2 p50 2.333 p99 3.618 VA 1888/1917.5 commit 1256 vram 1359.0 
+2026-11-06T03:21:51Z cell dxvk_1920x1080_hist_dresden_deploy_p1 ok: load 7.3 p50 3.926 p99 5.764 VA 2081/2132.2 commit 1453 vram 1583.1 
+2026-11-06T03:22:21Z cell dxvk_1920x1080_hist_dresden_turned_p1 ok: load 7.3 p50 3.728 p99 5.516 VA 2076/2132.2 commit 1449 vram 1583.1 
+2026-11-06T03:23:21Z cell dxvk_1920x1080_land_40_deploy_p2 ok: load 4.2 p50 2.387 p99 3.941 VA 1891/1916.8 commit 1259 vram 1359.0 
+2026-11-06T03:23:49Z cell dxvk_1920x1080_land_40_turned_p2 ok: load 4.2 p50 2.36 p99 3.64 VA 1887/1916.6 commit 1259 vram 1359.0 
+2026-11-06T03:24:42Z cell dxvk_1920x1080_hist_dresden_deploy_p2 ok: load 7.1 p50 3.934 p99 5.836 VA 2081/2113.0 commit 1456 vram 1583.1 
+2026-11-06T03:25:11Z cell dxvk_1920x1080_hist_dresden_turned_p2 ok: load 7.1 p50 3.745 p99 5.631 VA 2076/2113.0 commit 1455 vram 1583.1 
+2026-11-06T03:25:14Z exit: exit
+2026-11-06T03:25:16Z released; keys now {'proxy.backend': 'dxvk', 'proxy.dxvk_path': 'napoleon_remastered\\dxvk\\d3d9_dxvk.dll'}
+2026-11-06T03:25:16Z summary: 4 cell keys, 0 refused cells -> C:\Users\liamr\repos\napoleon-remastered\.claude\worktrees\J25-build\harness\runs\20261106_j25cost_1080_pro2\summary.json

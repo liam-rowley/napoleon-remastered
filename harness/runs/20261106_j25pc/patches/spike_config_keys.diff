@@ -1,0 +1,15 @@
+diff --git a/registries/config_keys.jsonl b/registries/config_keys.jsonl
+index d9223f5..fe7b2da 100644
+--- a/registries/config_keys.jsonl
++++ b/registries/config_keys.jsonl
+@@ -49,3 +49,10 @@
+ {"id": "ui.enabled", "description": "the RmlUi host (J30): RmlUi drawn from the Present chain on the main device, input routing, ctl ui; with 0 nothing is hooked, loaded or allocated (proxy/README.md \"RmlUi host\"; J35 turns it on with the first screen)", "default": false, "release_value": false, "owner": "proxy"}
+ {"id": "ui.scale", "description": "UI scale slider in percent (D19): dp ratio = back-buffer height / 1080 x ui.scale / 100; 85-125 in steps of 5, out of range or off the grid clamped and logged", "default": 100, "release_value": 100, "owner": "proxy"}
+ {"id": "ui.show", "description": "dev: a document under ui.dir shown once the main device is ready (J30 host test: hosttest/hosttest.rml); empty shows nothing", "default": "", "release_value": "", "owner": "proxy"}
++{"id": "dev.cascade_proto", "description": "J25 spike: the two-cascade prototype; with 0 nothing is hooked", "default": false, "release_value": false, "owner": "proxy"}
++{"id": "dev.cascade_tint", "description": "J25 spike: the receivers show the pick instead of the shadow", "default": false, "release_value": false, "owner": "proxy"}
++{"id": "dev.cascade_count", "description": "J25 spike: count swapped and stock receiver draws (one GetPixelShader per draw: off in the cost arms)", "default": false, "release_value": false, "owner": "proxy"}
++{"id": "dev.cascade_split", "description": "J25 spike: the near cascade slice in metres", "default": 40, "release_value": 40, "owner": "proxy"}
++{"id": "dev.cascade_size", "description": "J25 spike: the near cascade edge; 0 = the engine map size", "default": 0, "release_value": 0, "owner": "proxy"}
++{"id": "dev.cascade_dir", "description": "J25 spike: folder of <stock hash>.ps replacements", "default": "", "release_value": "", "owner": "proxy"}
++{"id": "dev.cascade_skip_ps", "description": "J25 spike: the draws of this pixel shader hash are not made (question 6: what a draw is)", "default": "", "release_value": "", "owner": "proxy"}

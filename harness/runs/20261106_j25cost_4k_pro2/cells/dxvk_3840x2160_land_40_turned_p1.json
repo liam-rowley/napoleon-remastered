@@ -1,0 +1,134 @@
+{
+ "size": "3840x2160",
+ "backend": "dxvk",
+ "variant": null,
+ "pass": 1,
+ "scenario": "land_40",
+ "pose": "turned",
+ "measure": true,
+ "start_utc": "2026-11-06T03:35:40Z",
+ "scene": {
+  "status": "ok",
+  "reason": "",
+  "load_s": 4.3,
+  "path": {
+   "launch": null,
+   "via": "reset"
+  },
+  "settle": {
+   "waited_for": "scene in ['battle', 'battle_deploy', 'campaign', 'naval'] + 30 frames + 2000 ms stable",
+   "waited_s": 3.25,
+   "frames": 676,
+   "scene": "battle_deploy",
+   "settled": true
+  },
+  "reused": true
+ },
+ "status": "ok",
+ "reason": "",
+ "perf": {
+  "frame_ms": {
+   "p50": 2.359,
+   "p99": 3.721,
+   "max": 8.066,
+   "mean": 2.45
+  },
+  "frames": 8164,
+  "mem": {
+   "va_used_mb": 1894,
+   "va_total_mb": 4096,
+   "va_free_mb": 2202,
+   "commit_mb": 1261,
+   "working_set_mb": 1047,
+   "peak_working_set_mb": 1067
+  },
+  "vram": {
+   "source": "Windows counter \\GPU Process Memory(pid_<pid>_*)\\Dedicated Usage (per process) + nvidia-smi memory.used (device)",
+   "process_dedicated_mb": 1717.7,
+   "device_used_mb": 2798.0,
+   "device_total_mb": 24564.0
+  },
+  "build": "a005f6cccc17-dirty",
+  "backend": "dxvk",
+  "size": "3840x2160"
+ },
+ "host_mem": {
+  "virtual_mb": 1894.1,
+  "peak_virtual_mb": 1916.3,
+  "private_mb": 1260.8,
+  "peak_private_mb": 1282.4,
+  "source": "Get-Process VirtualMemorySize64/PeakVirtualMemorySize64/PagedMemorySize64/PeakPagedMemorySize64"
+ },
+ "va_peak_mb": 1916.2,
+ "pins": {
+  "build": "a005f6cccc17-dirty",
+  "kit": "kit_20261106T022314Z_54413755d6d2",
+  "watcher": "1.4.0",
+  "backend": "dxvk",
+  "size": "3840x2160",
+  "dxvk": {
+   "version": "3.1.1",
+   "sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+   "pinned_sha256": "265888c31ca78dffa290c39cb7e50bfb02762590e41927906e46fb32f01497fa",
+   "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Napoleon Total War\\napoleon_remastered\\dxvk\\d3d9_dxvk.dll"
+  },
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "driver": "617.14",
+  "dxvk_conf_sha256": "absent",
+  "dxvk_conf": "",
+  "dxvk_conf_read": {
+   "found": false,
+   "effective": {},
+   "log": "Napoleon_d3d9.log"
+  },
+  "prefs_gfx": {
+   "x_res": "3840",
+   "y_res": "2160",
+   "gfx_first_run": "false",
+   "gfx_video_memory": "0",
+   "gfx_fullscreen": "false",
+   "gfx_vsync": "false",
+   "gfx_hdr": "false",
+   "gfx_low_quality_shaders": "false",
+   "gfx_shadermodel": "1",
+   "gfx_aa": "0",
+   "gfx_texture_filtering": "1",
+   "gfx_texture_quality": "2",
+   "gfx_volumetric_effect": "false",
+   "gfx_ssao": "false",
+   "gfx_distortion": "false",
+   "gfx_depth_of_field": "false",
+   "gfx_hardware_shadows": "false",
+   "gfx_sky_quality": "2",
+   "gfx_unit_quality": "2",
+   "gfx_ship_quality": "2",
+   "gfx_building_quality": "2",
+   "gfx_water_quality": "2",
+   "gfx_unit_scale": "2",
+   "gfx_shadow_quality": "3",
+   "gfx_tree_quality": "2",
+   "gfx_grass_quality": "3",
+   "gfx_terrain_quality": "0",
+   "gfx_gamma_setting": "2",
+   "gfx_brightness_setting": "1.2",
+   "gfx_disable_terrain_ao_gpu": "false",
+   "gfx_screenshot_folder": "./screenshots",
+   "gfx_fixed_env_map": "",
+   "gfx_effects_quality": "2",
+   "gfx_vignette": "true",
+   "gfx_picture_in_picture": "true",
+   "gfx_frame_rate": "60"
+  },
+  "frame_cap": {
+   "gfx_vsync": "false",
+   "gfx_frame_rate": "60",
+   "d3d9.presentInterval": "default",
+   "d3d9.maxFrameRate": "default",
+   "dxvk.maxFrameRate": "default",
+   "present": "headless: windowed borderless on the virtual display"
+  },
+  "date": "2026-11-06",
+  "run": "20261106_j25cost_4k_pro2"
+ },
+ "end_utc": "2026-11-06T03:36:08Z"
+}

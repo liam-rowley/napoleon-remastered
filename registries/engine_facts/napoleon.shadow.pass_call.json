@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.shadow.pass_call",
+  "claim": "0x114b440 (renderer slot 22) draws nothing: it builds the matrices and uploads effect parameters (0x11a29e0, 0x11a2b00), as does slot 25 0x11433b0 with 0x11a8920. The pass is 0x1188b30 (called from 0x1188fb0): the shadow target is set through 0x114bc60 -> 0x11a7830 -> [eax+0x94], then slot 22 at 0x1188c5a and slot 25 at 0x1188c61, and the casters are drawn much later by the generic render queue flush 0x1193db0 on *[0x182eb24] at 0x1188e64 (stack at the first caster draw: 0x12000d0, 0x1163370, 0x1193d70, 0x1193db0), followed by 0x11570d0. So calling slot 22 twice recomputes matrices and draws nothing: the brief's route 2 cannot work as written. A route 2 would have to run 0x1193db0 twice: that was not tested, so nothing here says it is safe or whether 0x11570d0 consumes the queue",
+  "state": "verified",
+  "evidence": "harness/runs/20261106_j25pc/README.md",
+  "date": "2026-11-06",
+  "notes": "owner J25; route 1 had full caster coverage, so route 2 was not prototyped; the second flush is an open question in jobs/J25/report.md for J26, if it ever needs route 2"
+}
