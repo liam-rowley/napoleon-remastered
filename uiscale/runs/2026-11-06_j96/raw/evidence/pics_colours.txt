@@ -1,0 +1,12 @@
+ui\loading_screen_pictures\1.dds dxt1 1920x1200 colour fc00
+ui\loading_screen_pictures\2.dds dxt1 1921x1200 colour 07e0
+ui\loading_screen_pictures\3.dds dxt1 1920x1200 colour 07ff
+ui\loading_screen_pictures\4.dds dxt1 1920x1200 colour ffe0
+ui\loading_screen_pictures\5.dds dxt1 1920x1200 colour f81f
+ui\loading_screen_pictures\6.dds dxt1 1920x1200 colour 001f
+ui\loading_screen_pictures\ambush14.dds dxt1 1920x1200 colour ffff
+ui\loading_screen_pictures\barcos_december.dds dxt1 1920x1200 colour f800
+ui\loading_screen_pictures\default_landbattle.dds dxt5 1920x1200 colour 8010
+ui\loading_screen_pictures\default_seabattle.dds dxt1 1920x1200 colour 0410
+ui\loading_screen_pictures\fireships_september.dds dxt1 1920x1200 colour 8400
+ui\loading_screen_pictures\mortars_september.dds dxt1 1920x1200 colour 4208

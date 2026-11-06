@@ -1,0 +1,87 @@
+﻿2026-11-06T08:55:18Z start rect=3839,2160 3840x2160
+2026-11-06T08:55:18Z ---
+explorer pid=9176 title=[] rect=2560,3598,6400,3646
+explorer pid=9176 title=[Program Manager] rect=0,0,6400,3600
+2026-11-06T08:55:20Z load free_gb=13.2 cpu_pct=51
+2026-11-06T08:55:38Z ---
+explorer pid=9176 title=[] rect=2560,3598,6400,3646
+explorer pid=9176 title=[Program Manager] rect=0,0,4480,2520
+2026-11-06T08:55:40Z ---
+explorer pid=9176 title=[] rect=2560,2518,4480,2566
+explorer pid=9176 title=[Program Manager] rect=0,0,4480,2520
+2026-11-06T08:56:22Z load free_gb=11.5 cpu_pct=100
+2026-11-06T08:57:23Z load free_gb=10.7 cpu_pct=100
+2026-11-06T08:58:25Z load free_gb=12.4 cpu_pct=100
+2026-11-06T08:59:26Z load free_gb=12 cpu_pct=100
+2026-11-06T09:00:28Z load free_gb=12 cpu_pct=100
+2026-11-06T09:01:29Z load free_gb=13 cpu_pct=58
+2026-11-06T09:02:31Z load free_gb=12.4 cpu_pct=54
+2026-11-06T09:03:32Z load free_gb=11.9 cpu_pct=100
+2026-11-06T09:04:34Z load free_gb=12.1 cpu_pct=100
+2026-11-06T09:05:35Z load free_gb=13.5 cpu_pct=40
+2026-11-06T09:06:37Z load free_gb=11.9 cpu_pct=59
+2026-11-06T09:07:38Z load free_gb=13 cpu_pct=56
+2026-11-06T09:08:40Z load free_gb=11.4 cpu_pct=100
+2026-11-06T09:09:41Z load free_gb=11.9 cpu_pct=100
+2026-11-06T09:10:43Z load free_gb=12.1 cpu_pct=96
+2026-11-06T09:11:44Z load free_gb=12.2 cpu_pct=100
+2026-11-06T09:12:46Z load free_gb=13.2 cpu_pct=42
+2026-11-06T09:12:48Z ---
+explorer pid=9176 title=[] rect=2560,2518,4480,2566
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T09:12:50Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T09:13:35Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T09:13:37Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T09:13:48Z load free_gb=12.6 cpu_pct=94
+2026-11-06T09:14:49Z load free_gb=12.2 cpu_pct=100
+2026-11-06T09:15:51Z load free_gb=12 cpu_pct=100
+2026-11-06T09:16:45Z ---
+explorer pid=9176 title=[] rect=3839,4272,7679,4320
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T09:16:47Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T09:16:52Z load free_gb=12.9 cpu_pct=57
+2026-11-06T09:17:54Z load free_gb=13 cpu_pct=34
+2026-11-06T09:18:55Z load free_gb=13.2 cpu_pct=31
+2026-11-06T09:19:25Z ---
+explorer pid=9176 title=[] rect=3839,3192,5759,3240
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T09:19:27Z ---
+explorer pid=9176 title=[] rect=3839,3238,5759,3286
+explorer pid=9176 title=[Program Manager] rect=-2560,0,5759,3240
+2026-11-06T09:19:57Z load free_gb=11.7 cpu_pct=100
+2026-11-06T09:20:58Z load free_gb=11.6 cpu_pct=100
+2026-11-06T09:22:00Z load free_gb=11.6 cpu_pct=100
+2026-11-06T09:23:01Z load free_gb=11.1 cpu_pct=100
+2026-11-06T09:24:03Z load free_gb=12 cpu_pct=100
+2026-11-06T09:25:05Z load free_gb=12 cpu_pct=100
+2026-11-06T09:26:06Z load free_gb=12.1 cpu_pct=100
+2026-11-06T09:27:08Z load free_gb=12.2 cpu_pct=100
+2026-11-06T09:28:09Z load free_gb=12.1 cpu_pct=100
+2026-11-06T09:29:11Z load free_gb=12.3 cpu_pct=100
+2026-11-06T09:30:13Z load free_gb=12.4 cpu_pct=100
+2026-11-06T09:31:14Z load free_gb=12.6 cpu_pct=94
+2026-11-06T09:32:16Z load free_gb=12.8 cpu_pct=97
+2026-11-06T09:33:17Z load free_gb=12.8 cpu_pct=96
+2026-11-06T09:34:19Z load free_gb=12.8 cpu_pct=97
+2026-11-06T09:35:20Z load free_gb=12.6 cpu_pct=94
+2026-11-06T09:36:22Z load free_gb=12.6 cpu_pct=90
+2026-11-06T09:37:22Z ---
+explorer pid=9176 title=[] rect=3839,3217,5759,3265
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T09:37:23Z load free_gb=13 cpu_pct=60
+2026-11-06T09:37:25Z ---
+explorer pid=9176 title=[] rect=3839,4318,7679,4366
+explorer pid=9176 title=[Program Manager] rect=-2560,0,7679,4320
+2026-11-06T09:38:25Z load free_gb=13 cpu_pct=45
+2026-11-06T09:39:26Z load free_gb=11.6 cpu_pct=100
+2026-11-06T09:40:28Z load free_gb=11.6 cpu_pct=100
+2026-11-06T09:41:29Z load free_gb=11.8 cpu_pct=100
+2026-11-06T09:42:31Z load free_gb=13.2 cpu_pct=41

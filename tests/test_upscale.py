@@ -11,6 +11,7 @@ import struct
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 sys.path[:0] = [os.path.join(ROOT, 'upscale', 'core'), os.path.join(ROOT, 'core', 'discovery')]
@@ -45,6 +46,17 @@ class SizeRule(unittest.TestCase):
         self.assertEqual(rules.decide(0, 0, 'tga', cfg), ('skip', 'no_header'))
         self.assertEqual(rules.decide(32, 32, 'cur', cfg), ('skip', 'not_an_image_file'))
         self.assertEqual(rules.decide(32, 32, 'tga', cfg, scale=1.5), ('skip', 'under_2x'))
+
+    def test_dxt_targets_round_up_to_a_multiple_of_4(self):
+        self.assertEqual(rules.dxt_target_size(460, 152, 'dds dxt3'), (1152, 380))
+        self.assertEqual(rules.dxt_target_size(232, 284, 'DXT1'), (580, 712))
+        self.assertEqual(rules.dxt_target_size(64, 48, 'dds dxt5'), (160, 120))      # already aligned
+        self.assertEqual(rules.dxt_target_size(460, 152, 'tga bgra8'), (1150, 380))  # not a DXT: the plain rule
+        self.assertEqual(rules.dxt_target_size(460, 152, 'dds bgra8'), (1150, 380))
+        self.assertEqual(rules.dxt_target_size(460, 152, ''), (1150, 380))
+        self.assertEqual(rules.target_size(460, 152), (1150, 380))                   # target_size stays the plain 2.5x
+        self.assertEqual(rules.decide(460, 152, 'dds dxt3', {}), ('run', (1152, 380)))
+        self.assertEqual(rules.decide(460, 152, 'dds bgr8', {}), ('run', (1150, 380)))
 
     def test_parse_format(self):
         self.assertEqual(rules.parse_format('dds dxt3 128x64 m3'), ('dds', 'dxt3', 128, 64, 3))
@@ -270,6 +282,149 @@ class Images(unittest.TestCase):
         vis = img[..., 3] >= 128
         self.assertLess(np.abs(d[..., :3] - img[..., :3])[vis].mean(), 8)
         self.assertLess(np.abs(d[..., 3] - img[..., 3]).max(), 9)
+
+
+@unittest.skipUnless(HAVE, 'numpy and Pillow are not installed here (upscale/requirements.txt)')
+class Guards(unittest.TestCase):
+    """J96: the DXT size rule through run and verify, the DXT2 invariant, the free-disk guard, the run log"""
+
+    def _dds(self, fmt, w=10, h=12, alpha='soft', name='a'):
+        img = _rgba(w, h, alpha)
+        blob = dds.make_header(fmt, w, h, 1) + dds.encode_python(img, fmt)
+        p = 'ui\\%s.dds' % name
+        return {'id': 'ui/%s.dds' % name, 'path': p, 'role': 'icon', 'fmt': 'dds ' + fmt.lower(), 'w': w, 'h': h}, {p: blob}
+
+    def _run(self, d, items, files, **kw):
+        return batch.run(items, lambda it: files[it['path']], d, {'scale': 2.5}, {}, '', {'icon': {'model': 'lanczos'}},
+                         log=lambda *a: None, model_override='lanczos', **kw)
+
+    def _put(self, d, e, blob):
+        with open(os.path.join(d, e['out']['file']), 'wb') as f:
+            f.write(blob)
+        e['out']['sha256'] = hashlib.sha256(blob).hexdigest()
+
+    def test_verify_takes_a_rounded_dxt_output_and_refuses_a_plain_one(self):
+        d = tempfile.mkdtemp()
+        it, files = self._dds('DXT5')
+        e = self._run(d, [it], files)['entries'][it['id']]
+        self.assertEqual((e['out']['w'], e['out']['h']), (28, 32))                   # 10x12 -> 25x30 -> 28x32
+        self.assertEqual(dds.read_dds(os.path.join(d, e['out']['file'])).dims(), (28, 32))
+        self.assertEqual(batch.verify_entry(e, d), [])
+        e['out']['w'], e['out']['h'] = 25, 30                                        # a J51 manifest row: the plain 2.5x
+        self.assertTrue(any('size rule' in x for x in batch.verify_entry(e, d)))
+
+    def test_a_non_dxt_output_keeps_the_plain_size(self):
+        d = tempfile.mkdtemp()
+        img = _rgba(10, 12, 'none')
+        files = {'ui\\t.tga': imageio.encode_tga(img, with_alpha=False)}
+        it = {'id': 'ui/t.tga', 'path': 'ui\\t.tga', 'role': 'icon', 'fmt': 'tga bgr8', 'w': 10, 'h': 12}
+        e = self._run(d, [it], files)['entries'][it['id']]
+        self.assertEqual((e['out']['w'], e['out']['h']), (25, 30))
+        self.assertEqual(batch.verify_entry(e, d), [])
+
+    def test_resume_redoes_an_output_at_the_old_plain_size(self):
+        d = tempfile.mkdtemp()
+        it, files = self._dds('DXT3')
+        with mock.patch.object(rules, 'dxt_target_size', lambda w, h, fmt, scale=2.5: rules.target_size(w, h, scale)):
+            old = self._run(d, [it], files)['entries'][it['id']]
+        self.assertEqual((old['out']['w'], old['out']['h']), (25, 30))
+        new = self._run(d, [it], files)['entries'][it['id']]
+        self.assertEqual((new['out']['w'], new['out']['h']), (28, 32))
+        self.assertEqual(batch.verify_entry(new, d), [])
+
+    def test_verify_checks_the_premultiplied_invariant_of_dxt2_only(self):
+        d = tempfile.mkdtemp()
+        it, files = self._dds('DXT2', 64, 64)                                        # smooth, like the one real DXT2 (a harsh gradient in a 4x4 block can pass any tolerance)
+        e = self._run(d, [it], files)['entries'][it['id']]
+        self.assertEqual(e['src']['fmt'], 'DXT2')
+        self.assertEqual(batch.verify_entry(e, d), [])
+        w, h, n = e['out']['w'], e['out']['h'], e['out']['mips']
+        white = np.full((h, w, 4), 255, np.uint8)
+        white[..., 3] = 0                                                            # colour far above alpha: not premultiplied
+        data = b''.join(dds.encode_python(lv, 'DXT3') for lv in [white[:max(1, h >> k), :max(1, w >> k)] for k in range(n)])
+        self._put(d, e, dds.make_header('DXT2', w, h, n) + data)
+        self.assertTrue(any('premultiplied' in x for x in batch.verify_entry(e, d)))
+        e['src']['fmt'] = 'DXT3'                                                     # the same bytes as a DXT3: not this check's business
+        self._put(d, e, dds.make_header('DXT3', w, h, n) + data)
+        self.assertFalse(any('premultiplied' in x for x in batch.verify_entry(e, d)))
+
+    def test_an_honest_alpha_ramp_stays_inside_the_tolerance(self):
+        ramp = np.full((256, 256, 4), 255, np.uint8)
+        ramp[..., 3] = np.arange(256, dtype=np.uint8)[None, :]
+        blob = dds.encode_python(ramp, 'DXT2')
+        self.assertEqual(dds.premultiplied_excess(blob, 256, 256, batch.PREMULT_TOL), 0)
+        self.assertGreater(dds.premultiplied_excess(blob, 256, 256, 8), 0)           # why the tolerance is not 8
+
+    def test_estimate_bytes(self):
+        self.assertEqual(batch.estimate_bytes('dds dxt3', 8, 8), 128 + 64 + 16 + 16 + 16)
+        self.assertEqual(batch.estimate_bytes('dds dxt1', 8, 8), 128 + 32 + 8 + 8 + 8)
+        self.assertEqual(batch.estimate_bytes('dds bgra8', 2, 2), 128 + 16 + 4)
+        self.assertEqual(batch.estimate_bytes('dds bgr8', 2, 2), 128 + 12 + 3)
+        self.assertEqual(batch.estimate_bytes('dds ?', 2, 2), 128 + 16 + 4)
+        self.assertEqual(batch.estimate_bytes('tga bgra8_rle', 10, 10), 18 + 400)
+        self.assertEqual(batch.estimate_bytes('tga bgr8_rle', 10, 10), 18 + 300)
+        self.assertEqual(batch.estimate_bytes('jpg ycc8', 1000, 1000), 259000)
+
+    def test_estimate_matches_a_real_output_and_a_resume_needs_no_new_bytes(self):
+        d = tempfile.mkdtemp()
+        it, files = self._dds('DXT3')
+        per, rows = batch.plan([it], {'icon': {}}, {'scale': 2.5}, d)
+        self.assertEqual(per['icon']['bytes'], rows[0]['new_bytes'])
+        e = self._run(d, [it], files)['entries'][it['id']]
+        self.assertEqual(rows[0]['bytes'], e['out']['bytes'])
+        self.assertEqual(batch.plan([it], {'icon': {}}, {'scale': 2.5}, d)[1][0]['new_bytes'], 0)
+
+    def test_disk_floor(self):
+        rows = [{'bytes': 100, 'new_bytes': 100}]
+        with mock.patch.object(batch, 'disk_usage', lambda p: (1000, 0, 300)):
+            disk = batch.disk_after(rows, 'w')
+            self.assertEqual(disk['free_pct_after'], 20.0)
+            self.assertEqual(batch.disk_refusal(disk), '')                           # exactly the floor is allowed
+        with mock.patch.object(batch, 'disk_usage', lambda p: (1000, 0, 299)):
+            line = batch.disk_refusal(batch.disk_after(rows, 'w'))
+            self.assertIn('19.9', line)
+            self.assertIn('--force-disk', line)
+            self.assertNotIn('\n', line)
+
+    def _cli(self):
+        sys.path.insert(0, os.path.join(ROOT, 'upscale', 'napoleon'))
+        import cli
+        return cli
+
+    def test_cli_run_refuses_below_the_floor_and_force_disk_goes_on(self):
+        cli = self._cli()
+        d = tempfile.mkdtemp()
+        args = ['run', '--work', d, '--roles', 'icon']
+        with mock.patch.object(batch, 'disk_usage', lambda p: (10 ** 12, 0, 10 ** 6)), \
+                mock.patch.object(batch, 'run') as run, mock.patch.object(cli, '_packfs') as fs, mock.patch('builtins.print') as out:
+            self.assertEqual(cli.main(args), 2)
+            run.assert_not_called()
+            fs.assert_not_called()
+            self.assertEqual(out.call_count, 1)
+            self.assertIn('refused', out.call_args[0][0])
+            self.assertEqual(cli.main(args + ['--force-disk']), 0)
+            self.assertIs(run.call_args[1]['force_disk'], True)
+
+    def test_cli_plan_reports_bytes_and_disk(self):
+        cli = self._cli()
+        d = tempfile.mkdtemp()
+        with mock.patch.object(batch, 'disk_usage', lambda p: (10 ** 12, 0, 5 * 10 ** 11)), mock.patch('builtins.print'):
+            self.assertEqual(cli.main(['plan', '--work', d, '--roles', 'icon']), 0)
+        res = json.load(open(os.path.join(d, 'plan.json')))
+        self.assertGreater(res['roles']['icon']['bytes'], 0)
+        self.assertEqual(res['disk']['bytes'], res['roles']['icon']['bytes'])
+        self.assertEqual(res['disk']['free'], 5 * 10 ** 11)
+        self.assertEqual(res['disk']['new_bytes'], res['disk']['bytes'])             # an empty work folder: every output is new
+
+    def test_every_run_leaves_a_line_in_the_run_log(self):
+        d = tempfile.mkdtemp()
+        it, files = self._dds('DXT3')
+        self._run(d, [it], files)
+        self._run(d, [it], files, force_disk=True)
+        lines = open(os.path.join(d, 'run.log'), encoding='utf-8').read().splitlines()
+        self.assertEqual(len(lines), 2)
+        self.assertRegex(lines[0], r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ roles=icon done=1 fresh=1 skipped=0 failed=0 seconds=[\d.]+ force_disk=0$')
+        self.assertRegex(lines[1], r' done=1 fresh=0 .* force_disk=1$')
 
 
 class Bootstrap(unittest.TestCase):

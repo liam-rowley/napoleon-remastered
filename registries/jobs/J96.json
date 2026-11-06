@@ -3,9 +3,11 @@
   "description": "Later sweep 2026-11-04 (docs/audits/LATER_TRIAGE_2026-11-04.md, job J82, audit R4). Built to the brief's defaults for its open questions (open for Liam). Liam decides: (1) cursors (179 .cur, 1 .ani) stay out until Liam decides whether the RmlUi host draws its own (J36 Later 2); (2) the order of the remaining 5954 todo assets (J36 Later 4); (3) native_cap is tested on the source size so 23 loading screens are 4800 px wide: if the engine refuses them, cap the target instead (D35, J51 Later 3). Then: re-probe dds_at_tga_paths with a DXT5 at a 4-aligned TGA path that is on screen (one launch, J50 Later 1); the 6 UI DXT outputs with a 2.5x target that is not a multiple of 4 (460x152 to 1150x380) may fail to draw: add a round-up-to-4 rule in upscale/core/rules.py if the D3D9 constraint holds (J50 Later 2); upscale/napoleon/cli.py plan reports no output size, so run cannot refuse below 20 percent free disk (J51 Later 1); batch.py verify does not check the premultiplied invariant for DXT2 (J51 Later 2); run should append its summary to a log in the work folder (J51 Later 4); the uiscale template route-1 probe and the per-context font-size probe (J66 Later 4). Bullets: J36 review Later 2, 4; J50 review Later 1, 2; J51 review Later 1, 2, 3, 4; J66 review Later 4. Why now: the next upscaled pack run would hit them.",
   "title": "Upscaler guards, DXT target checks and the uiscale probes",
   "phase": 5,
-  "status": "queued",
+  "status": "done",
   "model": "opus",
   "needs_pc": true,
   "depends_on": [],
-  "brief": "jobs/J96/brief.md"
+  "brief": "jobs/J96/brief.md",
+  "report": "jobs/J96/report.md",
+  "review": "jobs/J96/review.md"
 }
