@@ -8,7 +8,7 @@ not-a-verb: one generator for one committed file, like uikit/napoleon/build.py; 
 
 Kinds (`kind`): `template` (a name in a surface's templates_used: `script:<name>` or `template:<record>`), `frame` (a 9-slice frame group of sibling
 components), `state_frame` (a frame drawn by one component: eight or more image uses in one state, which the atlas's frame groups do not see), `button`
-(a family of `button_state` art, split on the state suffix of the file name). Committed data holds ids, keys, sizes and counts only (J7): no loc text.
+(a family of `button_state` art, split on the state words that end the file name). Committed data holds ids, keys, sizes and counts only (J7): no loc text.
 `library` is a proposal for J69: a J34 class or `gap`, with `uncertain: true` where the match is a guess.
 """
 import argparse
@@ -57,7 +57,13 @@ BUTTON_MAP = (
     (r'check', '.check', True),
     (r'', '.btn', True),
 )
-SUFFIX = re.compile(r'^(.*?)[_ ](selected_roll|selected_down|normal|active|inactive|selected|roll|hover|down|up|off|locked)$', re.I)
+# A button file name ends in one state: an action with an optional selection before it and a mouse-off, roll or selection end after it (`selected_depress`,
+# `unselect_depress_rolloff`, `down_off`, `up_roll`, `roll_down`, `down_selected`), a selection (`selected_off`), or one lone word. The words come from the 2,015
+# `button_state` names (J99 round 1); a new word fails test_no_family_is_a_sibling_plus_a_state.
+SELECTION = r'(?:un)?select(?:ed)?'
+ACTION = rf'(?:{SELECTION}[_ ])?(?:roll|depress|down|up|hover)(?:[_ ](?:off|rolloff|roll|down))?(?:[_ ]{SELECTION})?'
+STATE = re.compile(rf'^(.*?)[_ ]({ACTION}|{SELECTION}(?:[_ ]off)?|normal|active|inactive|locked|off)$', re.I)
+ARROW = re.compile(r'(?:^|[_ ])(?:v?arrow|popularity)$', re.I)   # here up and down say which way the art points: `varrow_up_inactive` is family `varrow_up`
 
 
 def surfaces():
@@ -201,6 +207,18 @@ def state_frame_kinds(surf, idx):
     return unique_ids(out)
 
 
+def split_state(stem):
+    """(family stem, state) of a button file stem; a stem with no state word is the family's `default`."""
+    m = STATE.match(stem)
+    if not m:
+        return stem, 'default'
+    base, state = m.group(1), m.group(2).lower().replace(' ', '_')
+    way = re.match(r'(up|down)(?:_(.+))?$', state)
+    if way and ARROW.search(base):
+        return f'{base}_{way.group(1)}', way.group(2) or 'default'
+    return base, state
+
+
 def button_kinds(assets):
     fams = collections.defaultdict(list)
     for r in assets:
@@ -208,8 +226,8 @@ def button_kinds(assets):
             continue
         d, base = posixpath.split(r['id'])
         stem = base.rsplit('.', 1)[0]
-        m = SUFFIX.match(stem)
-        fams[f'{d}/{m.group(1) if m else stem}'].append((m.group(2).lower() if m else 'default', r))
+        family, state = split_state(stem)
+        fams[f'{d}/{family}'].append((state, r))
     out = []
     for fam, members in fams.items():
         sizes = collections.Counter()

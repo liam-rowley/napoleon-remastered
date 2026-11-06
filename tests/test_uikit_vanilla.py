@@ -56,6 +56,43 @@ class Inventory(unittest.TestCase):
         got = {a for k in self.kinds if k['kind'] == 'button' for s in k['states'] for a in s['assets']}
         self.assertEqual(want, got)
 
+    def test_split_state_takes_the_whole_state(self):
+        for stem, want in (('button_advice_depress', ('button_advice', 'depress')), ('button_left_down_off', ('button_left', 'down_off')),
+                           ('x_unselected_roll', ('x', 'unselected_roll')), ('x_selected_depress', ('x', 'selected_depress')),
+                           ('x_unselect_depress_rolloff', ('x', 'unselect_depress_rolloff')), ('textbutton_center_up_roll', ('textbutton_center', 'up_roll')),
+                           ('table_head_roll_down', ('table_head', 'roll_down')), ('x_ok_down_selected', ('x_ok', 'down_selected')),
+                           ('table_header_selected_off', ('table_header', 'selected_off')), ('button_shot_normal_inactive', ('button_shot_normal', 'inactive')),
+                           ('button_large_ok', ('button_large_ok', 'default'))):
+            self.assertEqual(inventory.split_state(stem), want)
+
+    def test_up_and_down_on_an_arrow_are_its_direction(self):
+        self.assertEqual(inventory.split_state('varrow_up_inactive'), ('varrow_up', 'inactive'))
+        self.assertEqual(inventory.split_state('varrow_up'), ('varrow_up', 'default'))
+        self.assertEqual(inventory.split_state('arrow_down_roll'), ('arrow_down', 'roll'))
+        self.assertEqual(inventory.split_state('popularity_down'), ('popularity_down', 'default'))
+
+    def test_no_family_is_a_sibling_plus_a_state(self):
+        """One family's states stay on one card: no family's stem is another's plus a state word, or a compound state's start (J99 round 1, S1)."""
+        fams = {k['id'] for k in self.kinds if k['kind'] == 'button'}
+        split = []
+        for f in sorted(fams):
+            d, stem = f.rsplit('/', 1)
+            base, state = inventory.split_state(stem)
+            if state != 'default' and stem != 'button_shot_normal':    # the normal shot, beside grape and chain: a name, not a state
+                split.append(f)
+            words = stem.split('_')
+            for i in range(1, len(words)):
+                head, tail = '_'.join(words[:i]), '_'.join(words[i:])
+                if f'{d}/{head}' in fams and inventory.split_state(f'x_{tail}')[1] != 'default' and not inventory.ARROW.search(head):
+                    split.append(f)
+        self.assertEqual(split, [])
+
+    def test_the_states_of_a_family_share_its_card(self):
+        kinds = {k['id']: k for k in self.kinds}
+        names = {s['name'] for s in kinds['button:ui/campaign_ui/skins/button_advice']['states']}
+        self.assertEqual(names, {'depress', 'inactive', 'normal', 'roll'})
+        self.assertLessEqual({'default', 'down', 'down_off', 'roll'}, {s['name'] for s in kinds['button:ui/frontend_ui/skins/button_left']['states']})
+
     def test_order_is_by_use_and_the_scrollbar_leads(self):
         uses = [k['use_count'] for k in self.kinds]
         self.assertEqual(uses, sorted(uses, reverse=True))
