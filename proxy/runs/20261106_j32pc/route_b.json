@@ -1,0 +1,197 @@
+{
+ "panel": {
+  "unit": "campaign.entity_lists",
+  "state": "campaign_show_lists",
+  "ui": [
+   "Component.Call",
+   "Component.CallByAddress",
+   "Component.CreateComponentFromTemplate",
+   "Component.GetProperty",
+   "Component.KeyboardModifiersHeld",
+   "Component.SetProperty"
+  ],
+  "read": [
+   "CampaignUI.PlayerFactionId",
+   "CampaignUI.RetrieveFactionAgentsList",
+   "CampaignUI.RetrieveFactionMilitaryForceLists",
+   "CampaignUI.RetrieveFactionRegionList"
+  ],
+  "act": [
+   "CampaignUI.SelectAndZoomToCharacter",
+   "CampaignUI.SelectAndZoomToRegion"
+  ],
+  "other": [],
+  "missing": [],
+  "unresolved": {
+   "parameter": 11,
+   "upvalue": 29
+  },
+  "field_sources": {
+   "getter": 4,
+   "loc": 37
+  },
+  "interactions": 32,
+  "interactions_engine": 0,
+  "interactions_lua_only": 32
+ },
+ "popup": {
+  "unit": "common.unit_information",
+  "state": "campaign",
+  "ui": [
+   "Component.Call",
+   "Component.CallByAddress",
+   "Component.CreateComponentFromTemplate",
+   "Component.Destroy",
+   "Component.GetProperty",
+   "Component.KeyboardModifiersHeld",
+   "Component.MouseOver",
+   "Component.Root",
+   "Component.SetProperty"
+  ],
+  "read": [
+   "CampaignUI.BattleSetupShip",
+   "CampaignUI.BattleSetupShipFromRecord",
+   "CampaignUI.BattleSetupUnit",
+   "CampaignUI.BattleSetupUnitFromRecord",
+   "CampaignUI.PlayerOwnedUnit"
+  ],
+  "act": [
+   "CampaignUI.SetMyUnitName"
+  ],
+  "other": [],
+  "missing": [],
+  "unresolved": {
+   "parameter": 62,
+   "upvalue": 2,
+   "text_key": 36
+  },
+  "field_sources": {
+   "getter": 11,
+   "loc": 61
+  },
+  "interactions": 14,
+  "interactions_engine": 0,
+  "interactions_lua_only": 14
+ },
+ "popup_event": {
+  "unit": "campaign.event_message",
+  "state": "campaign",
+  "ui": [
+   "Component.CreateComponentFromTemplate",
+   "Component.CreateFromLayout",
+   "Component.Destroy",
+   "Component.LockPriority"
+  ],
+  "read": [
+   "CampaignUI.IsPlayersTurn",
+   "CampaignUI.IsTimedMultiplayer",
+   "CampaignUI.IsTimedMultiplayerGame",
+   "CampaignUI.PlayerFactionId",
+   "CampaignUI.PlayersCulture"
+  ],
+  "act": [
+   "CampaignUI.SetCameraTarget",
+   "CampaignUI.StopMovieInComponent"
+  ],
+  "other": [
+   "BattleUI.CameraZoomTo",
+   "CampaignUI.AttachMovieToComponent",
+   "CampaignUI.DeclineSidingWithAlly",
+   "CampaignUI.FormatString",
+   "CampaignUI.GovernorshipList",
+   "CampaignUI.HomeTheatre",
+   "CampaignUI.SideWithAlly",
+   "CampaignUI.Time",
+   "CampaignUI.UILocalisationString"
+  ],
+  "missing": [
+   "BattleUI.CameraZoomTo"
+  ],
+  "unresolved": {
+   "parameter": 130,
+   "upvalue": 25
+  },
+  "field_sources": {
+   "getter": 3,
+   "loc": 8
+  },
+  "interactions": 7,
+  "interactions_engine": 0,
+  "interactions_lua_only": 7
+ },
+ "hud": {
+  "unit": "battle.land_battle_orders",
+  "state": "land",
+  "ui": [
+   "Component.Root"
+  ],
+  "read": [],
+  "act": [
+   "BattleUI.Column_Infantry_Vanguard",
+   "BattleUI.Current_Selection_Enable_Guard",
+   "BattleUI.Current_Selection_Enable_Melee",
+   "BattleUI.Current_Selection_Halt",
+   "BattleUI.Current_Selection_Increase_File",
+   "BattleUI.Current_Selection_Increase_File_Proxy",
+   "BattleUI.Current_Selection_Increase_Rank",
+   "BattleUI.Current_Selection_Increase_Rank_Proxy",
+   "BattleUI.Current_Selection_Move_Backwards",
+   "BattleUI.Current_Selection_Move_Backwards_Proxy",
+   "BattleUI.Current_Selection_Move_Forwards",
+   "BattleUI.Current_Selection_Move_Forwards_Proxy",
+   "BattleUI.Current_Selection_Runs",
+   "BattleUI.Current_Selection_Special_ability",
+   "BattleUI.Current_Selection_Start_Firing_At_Will",
+   "BattleUI.Current_Selection_Stop_Firing_At_Will",
+   "BattleUI.Current_Selection_Walks",
+   "BattleUI.Double_Line_Screened",
+   "BattleUI.Double_Line_Standard",
+   "BattleUI.Single_Line_Cavalry_Left_Flank",
+   "BattleUI.Single_Line_Cavalry_Right_Flank",
+   "BattleUI.Single_Line_Standard",
+   "BattleUI.Triple_Line_Grand_Battery",
+   "BattleUI.Triple_Line_Integrated_Artillery",
+   "BattleUI.Triple_Line_Standard"
+  ],
+  "other": [
+   "BattleUI.Land_Unit_Withdraw",
+   "BattleUI.LocalisationString",
+   "BattleUI.Time"
+  ],
+  "missing": [
+   "BattleUI.Current_Selection_Start_Firing_At_Will",
+   "BattleUI.Current_Selection_Stop_Firing_At_Will"
+  ],
+  "unresolved": {
+   "parameter": 4,
+   "upvalue": 4,
+   "text_key": 5,
+   "dynamic_text": 6
+  },
+  "field_sources": {
+   "getter": 1,
+   "loc": 27
+  },
+  "interactions": 29,
+  "interactions_engine": 24,
+  "interactions_lua_only": 5
+ },
+ "front_end": {
+  "unit": "frontend.single_player",
+  "state": "frontend",
+  "ui": [],
+  "read": [],
+  "act": [],
+  "other": [],
+  "missing": [],
+  "unresolved": {
+   "text_key": 3
+  },
+  "field_sources": {
+   "loc": 4
+  },
+  "interactions": 6,
+  "interactions_engine": 0,
+  "interactions_lua_only": 6
+ }
+}

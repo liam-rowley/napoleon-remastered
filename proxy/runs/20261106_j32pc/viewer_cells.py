@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 CELLS = [(1920, 1080, 100), (1920, 1080, 85), (2560, 1440, 100), (3840, 2160, 125)]
-DOCS = ['hosttest', 'board']
+DOCS = {'hosttest': ROOT / 'viewer/napoleon/hosttest', 'board': ROOT / 'viewer/napoleon/board', 'recipes': Path(__file__).resolve().parent / 'recipes'}
 
 
 def main():
@@ -22,11 +22,11 @@ def main():
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     bad = 0
-    for doc in DOCS:
+    for doc, src in DOCS.items():
         for w, h, pct in CELLS:
             ratio = h / 1080 * pct / 100   # UiDpRatio (core/proxy/src/ui_core.h)
             tag = f'{doc}_{h}_{pct}'
-            p = subprocess.run([sys.executable, str(ROOT / 'viewer' / 'core' / 'render.py'), str(ROOT / 'viewer' / 'napoleon' / doc), '--size', f'{w}x{h}',
+            p = subprocess.run([sys.executable, str(ROOT / 'viewer' / 'core' / 'render.py'), str(src), '--size', f'{w}x{h}',
                                 '--dp-ratio', repr(ratio), '--site', str(ROOT / 'build' / 'viewer' / f'site_{doc}'), '--out', str(out / f'{tag}.png'), '--json'],
                                capture_output=True, text=True, cwd=ROOT)
             if p.returncode:
