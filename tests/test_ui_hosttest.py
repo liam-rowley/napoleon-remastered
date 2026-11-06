@@ -142,3 +142,19 @@ class Parity(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class GameDpRatio(unittest.TestCase):
+    def test_the_measured_cells(self):
+        self.assertEqual(H.game_dp_ratio(1440, 100), 1.3333334922790527)    # the run's boxes: 0 of 507 differ at this value
+        self.assertEqual(H.game_dp_ratio(1080, 100), 1.0)
+        self.assertEqual(H.game_dp_ratio(2160, 125), 2.5)
+
+    def test_it_is_one_float_step_at_most_from_the_true_ratio(self):
+        for h in (720, 900, 1050, 1080, 1200, 1440, 1600, 2160):
+            for pct in range(75, 151, 5):
+                self.assertLess(abs(H.game_dp_ratio(h, pct) - h / 1080 * pct / 100), 4e-7, (h, pct))
+
+    def test_the_review_cells_off_the_true_float(self):
+        self.assertNotEqual(H.game_dp_ratio(1200, 90), H.f32(1.0))
+        self.assertEqual(H.game_dp_ratio(1080, 85), H.f32(0.85))

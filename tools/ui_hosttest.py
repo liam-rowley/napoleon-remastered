@@ -382,6 +382,16 @@ def parity(pa, pb, rect=None, tol=8, crops=None):
     return res
 
 
+def f32(v):
+    return struct.unpack('<f', struct.pack('<f', v))[0]
+
+
+def game_dp_ratio(height, percent):
+    """The dp ratio the game's host really gets: D3D9 leaves the x87 in 24-bit precision, so UiDpRatio's doubles round to a float at each of its three steps (fact napoleon.ui.dp_ratio_single_precision).
+    At some sizes this is one float step above height / 1080 x percent / 100, and a viewer render at the true value moves rows the game does not. Render for `verified` at this value until the core's UiDpRatio fix lands."""
+    return f32(f32(f32(height / 1080.0) * percent) / 100.0)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -392,6 +402,9 @@ def main(argv=None):
     c.add_argument('--dp', type=float, required=True)
     c.add_argument('--crops')
     c.add_argument('--json')
+    d = sub.add_parser('dp-ratio', help="the game's dp ratio for a back-buffer height and ui.scale percent, to pass to viewer/core/render.py --dp-ratio")
+    d.add_argument('height', type=int)
+    d.add_argument('percent', type=int)
     q = sub.add_parser('parity')
     q.add_argument('viewer')
     q.add_argument('game')
@@ -402,6 +415,9 @@ def main(argv=None):
     o = ap.parse_args(argv)
     if o.cmd == 'art':
         make_art(o.out)
+        return 0
+    if o.cmd == 'dp-ratio':
+        print(repr(game_dp_ratio(o.height, o.percent)))
         return 0
     if o.cmd == 'parity':
         r = parity(o.viewer, o.game, tuple(int(v) for v in o.rect.split(',')) if o.rect else None, o.tolerance, o.crops)
