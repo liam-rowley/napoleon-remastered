@@ -125,6 +125,29 @@ elseif verb == "ccost" then
 	end
 	local t2 = os.clock()
 	return "n=" .. n .. " forces=" .. #forces .. " regions=" .. #regions .. " agents=" .. #agents .. " getters_ms=" .. tostring((t1 - t0) / n * 1000) .. " flatten_ms=" .. tostring((t2 - t1) / n * 1000) .. " bytes=" .. size
+elseif verb == "over" then
+	-- what the engine's own hit test says is under the pointer
+	local m = Component.MouseOver()
+	local x, y = Component.CursorPosition()
+	local w, h = Component.RootDimensions()
+	local name = "nil"
+	if m ~= nil then name = tostring(UIComponent(m):Id()) end
+	return "over=" .. name .. " cursor=" .. tostring(x) .. "," .. tostring(y) .. " root=" .. tostring(w) .. "," .. tostring(h)
+elseif verb == "unitkeys" then
+	local list = CampaignUI.RetrieveFactionMilitaryForceLists(CampaignUI.PlayerFactionId(), true) or {}
+	local u = list[1] and list[1].CommandedUnit
+	if type(u) ~= "table" then return "no CommandedUnit" end
+	local ks = {}
+	for k, v in pairs(u) do ks[#ks + 1] = tostring(k) .. "=" .. type(v) end
+	table.sort(ks)
+	return table.concat(ks, " ")
+elseif verb == "unitopen" then
+	-- the row template's own route: root LuaCall ShowUnitInfo with the unit (Component.CallByAddress(Root, 'LuaCall', 'ShowUnitInfo', m_unit))
+	local list = CampaignUI.RetrieveFactionMilitaryForceLists(CampaignUI.PlayerFactionId(), true) or {}
+	local u = list[1] and list[1].CommandedUnit
+	if type(u) ~= "table" or u.Address == nil then return "no unit address" end
+	local ok, r = pcall(function() return root:LuaCall("ShowUnitInfo", u.Address) end)
+	return "ShowUnitInfo " .. tostring(ok) .. " " .. tostring(r)
 elseif verb == "army" then
 	local fid = CampaignUI.PlayerFactionId()
 	local list = CampaignUI.RetrieveFactionMilitaryForceLists(fid, true) or {}

@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.image_color",
+  "claim": "image-color on img: game equals viewer within 1 level (10 at 1080p x 85, edge pixels)",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json image-color"
+}

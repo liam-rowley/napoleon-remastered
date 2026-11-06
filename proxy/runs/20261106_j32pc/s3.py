@@ -52,7 +52,7 @@ def stage():
         # the host cannot load <script src> (fact napoleon.ui.script_src_absolute_path): the game's copy carries the scripts inline
         for rml in dst.glob('*.rml'):
             t = rml.read_text(encoding='utf-8')
-            t2 = re.sub(r'<script src="([^"]+)"></script>', lambda m: '<script><![CDATA[\n' + (dst / m.group(1)).read_text(encoding='utf-8') + '\n]]></script>', t)
+            t2 = re.sub(r'<script src="([^"]+)"></script>', lambda m: '<script>\n' + (dst / m.group(1)).read_text(encoding='utf-8') + '\n</script>', t)   # RmlUi reads <script> as CDATA: a wrapper would reach Lua as text
             if t2 != t:
                 rml.write_text(t2, encoding='utf-8', newline='\n')
         (SCRATCH_UI / 'fonts').mkdir(parents=True, exist_ok=True)
@@ -82,7 +82,7 @@ class Run:
             return {'status': 'failed', 'reason': (p.stdout + p.stderr)[-400:]}
 
 
-def sit(sizes, scenes):
+def sit(sizes, scenes, docs=None):
     GAME_OUT.mkdir(parents=True, exist_ok=True)
     r = Run()
     try:
@@ -98,6 +98,8 @@ def sit(sizes, scenes):
                     if g.get('status') != 'ok':
                         continue
                 for doc, path in DOCS.items():
+                    if docs and doc not in docs:
+                        continue
                     ok, res = r.ui(f'show {path}')
                     log('show', doc=doc, ok=ok, reason=res.get('reason'))
                     time.sleep(2)
@@ -127,22 +129,22 @@ def rect_of(doc, h, pct):
     return f'{round(40 * dp)},{round(40 * dp)},{round(560 * dp)},{round(640 * dp)}'
 
 
-def parity(only=None):
+def parity(only=None, view=VIEW_OUT, out='parity', tol=8):
     (HERE / 'crops').mkdir(exist_ok=True)
     for g in sorted(GAME_OUT.glob('*.png')):
         doc, scene, h, pct = g.stem.split('_')
-        if only and only not in g.stem:
+        if (only and only not in g.stem) or scene != 'frontend':   # battle dumps are byte-identical to the front end's for these opaque documents
             continue
-        v = VIEW_OUT / f'{doc}_{h}_{pct}.png'
-        js = ROOT / 'build' / 'j32' / f'parity_{g.stem}.json'
-        cmd = [sys.executable, str(ROOT / 'tools/ui_hosttest.py'), 'parity', str(v), str(g), '--json', str(js), '--crops', str(HERE / 'crops')]
+        v = Path(view) / f'{doc}_{h}_{pct}.png'
+        js = ROOT / 'build' / 'j32' / f'{out}_{g.stem}.json'
+        cmd = [sys.executable, str(ROOT / 'tools/ui_hosttest.py'), 'parity', str(v), str(g), '--tolerance', str(tol), '--json', str(js), '--crops', str(HERE / 'crops' / out)]
         rect = rect_of(doc, int(h), int(pct))
         if rect:
             cmd += ['--rect', rect]
         p = subprocess.run(cmd, capture_output=True, text=True)
         d = json.loads(js.read_text(encoding='utf-8'))
         row = {'name': g.stem, **{k: d.get(k) for k in ('kind', 'offset', 'pixels', 'tolerance', 'beyond', 'share_beyond', 'max_delta', 'mean_delta', 'moved_tiles', 'moved', 'worst')}}
-        with open(HERE / 'parity.jsonl', 'a', encoding='utf-8') as f:
+        with open(HERE / f'{out}.jsonl', 'a', encoding='utf-8') as f:
             f.write(json.dumps(row) + '\n')
         print(p.stdout.strip()[:200], g.stem, flush=True)
 
@@ -153,17 +155,21 @@ def main():
     ap.add_argument('--sizes', default='1920x1080,2560x1440,3840x2160')
     ap.add_argument('--scenes', default='frontend,battle')
     ap.add_argument('--only')
+    ap.add_argument('--view', default=str(VIEW_OUT), help='parity: the folder of viewer renders')
+    ap.add_argument('--out', default='parity', help='parity: name of the .jsonl and crops folder')
+    ap.add_argument('--tolerance', type=int, default=8)
+    ap.add_argument('--docs', default='', help='sit: only these documents')
     a = ap.parse_args()
     if a.phase == 'stage':
         return stage()
     if a.phase == 'parity':
-        return parity(a.only)
+        return parity(a.only, a.view, a.out, a.tolerance)
     PID.parent.mkdir(parents=True, exist_ok=True)
     if PID.exists():
         sys.exit(f'driver {PID.read_text()} may be running: remove {PID} once it is gone')
     PID.write_text(str(os.getpid()))
     try:
-        sit(a.sizes.split(','), a.scenes.split(','))
+        sit(a.sizes.split(','), a.scenes.split(','), {x for x in a.docs.split(',') if x})
     finally:
         PID.unlink()
 

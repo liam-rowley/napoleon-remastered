@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.route_a.front_end",
+  "claim": "Route A, front end (frontend.single_player): the page hides with all three means and TransitionBack works from a hidden page in the same call, but no Lua runs on a page after that call (napoleon.lua.update_callbacks), so a hidden page can neither update nor act. The main menu is different: hidden with SetVisible it still answers ctl lua",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "s4.jsonl fe, fe2"
+}

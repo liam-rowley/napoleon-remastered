@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.layers",
+  "claim": "opacity layers: game equals viewer exactly at all four cells. filter: blur works in game; with the viewer fix the difference is at most 19 levels",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json layer opacity, filter blur"
+}

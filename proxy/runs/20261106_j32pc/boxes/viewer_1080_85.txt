@@ -1,0 +1,507 @@
+J32BOX 1 bd-scroll  nil nil 0 0 1920 1080
+J32BOX 2  t-title nil nil 23.8 20.4 1862.2 23.8
+J32BOX 3  t-body bd-note nil nil 23.8 44.2 1862.2 17.85
+J32BOX 4 sec-faction bd-sec nil nil 23.8 72.25 1862.2 119.45
+J32BOX 5 sec-plate bd-sec nil nil 23.8 215.5 1862.2 425.2
+J32BOX 6 sec-buttons bd-sec nil nil 23.8 664.5001 1862.2 173
+J32BOX 7 sec-tabs bd-sec nil nil 23.8 861.3 1862.2 114.5
+J32BOX 8 sec-rows bd-sec nil nil 23.8 999.6 1862.2 239.3001
+J32BOX 9 sec-tooltip bd-sec nil nil 23.8 1262.7 1862.2 154.6001
+J32BOX 10 sec-bars bd-sec nil nil 23.8 1441.1 1862.2 130.5
+J32BOX 11 sec-card bd-sec nil nil 23.8 1595.4 1862.2 175.8501
+J32BOX 12 sec-slots bd-sec nil nil 23.8 1795.051 1862.2 248.8251
+J32BOX 13 sec-icons bd-sec nil nil 23.8 2067.676 1862.2 115.5
+J32BOX 14 sec-text bd-sec nil nil 23.8 2206.976 1862.2 207.8503
+J32BOX 15 sec-tokens bd-sec nil nil 23.8 2438.626 1862.2 716.601
+J32BOX 16 sec-stress bd-sec nil nil 23.8 3179.027 1862.2 199.5002
+J32BOX 17  section-head nil nil 12.9 7.800003 1836.4 23.1
+J32BOX 18  bd-grid nil nil 12.9 41.10001 1836.4 40.8
+J32BOX 19  t-body bd-faction-readout nil nil 12.9 88.70001 1836.4 17.85
+J32BOX 20  section-head nil nil 12.9 7.800003 1836.4 23.1
+J32BOX 21  bd-w-panel nil nil 12.9 41.10001 595 371.2
+J32BOX 22  section-head nil nil 12.9 7.799988 1836.4 23.1
+J32BOX 23  bd-grid nil nil 12.9 41.09998 1836.4 59.5
+J32BOX 24  bd-grid nil nil 12.9 100.6 1836.4 59.5
+J32BOX 25  section-head nil nil 12.9 7.799988 1836.4 23.1
+J32BOX 26  bd-grid nil nil 12.9 41.09998 1836.4 60.5
+J32BOX 27  section-head nil nil 12.9 7.799988 1836.4 23.1
+J32BOX 28  bd-grid nil nil 12.9 41.10004 1836.4 185.3
+J32BOX 29  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 30  bd-grid nil nil 12.9 41.1001 1836.4 100.6
+J32BOX 31  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 32  bd-grid nil nil 12.9 41.1001 1836.4 76.5
+J32BOX 33  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 34  bd-grid nil nil 12.9 41.1001 1836.4 121.85
+J32BOX 35  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 36  bd-grid nil nil 12.9 41.1001 1836.4 80.925
+J32BOX 37  bd-grid nil nil 12.9 122.0251 1836.4 113.9
+J32BOX 38  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 39  bd-grid nil nil 12.9 41.1001 1836.4 61.5
+J32BOX 40  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 41  bd-w-wide nil nil 12.9 41.1001 544 153.8503
+J32BOX 42  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 43  bd-grid nil nil 12.9 41.1001 1836.4 129.2
+J32BOX 44  bd-mt nil nil 12.9 180.5 1836.4 523.201
+J32BOX 45  section-head nil nil 12.9 7.800049 1836.4 23.1
+J32BOX 46  bd-stress nil nil 12.9 41.1001 595 145.5002
+J32BOX 47 default btn bd-cell is-selected nil nil 0 0 126.2 30.6
+J32BOX 48 france btn bd-cell nil nil 136.4 0 64.2 30.6
+J32BOX 49 britain btn bd-cell nil nil 210.8 0 62.2 30.6
+J32BOX 50 synth_light btn bd-cell nil nil 283.2 0 95.2 30.6
+J32BOX 51 synth_dark btn bd-cell nil nil 388.6 0 95.2 30.6
+J32BOX 52 synth_worst btn bd-cell nil nil 494 0 170.2 30.6
+J32BOX 53  btn bd-cell nil nil 0 0 0 0
+J32BOX 54 plate panel nil nil 0 0 595 371.2
+J32BOX 55  bd-cell nil nil 0 0 66.2 49.3
+J32BOX 56  bd-cell nil nil 76.39999 0 59.2 49.3
+J32BOX 57  bd-cell nil nil 145.8 0 71.2 49.3
+J32BOX 58  bd-cell nil nil 227.2 0 75.2 49.3
+J32BOX 59  bd-cell nil nil 312.6 0 72.2 49.3
+J32BOX 60  bd-cell nil nil 395 0 66 49.3
+J32BOX 61  bd-cell nil nil 471.2 0 86.2 49.3
+J32BOX 62  bd-cell nil nil 0 0 66.2 49.3
+J32BOX 63  bd-cell nil nil 76.39999 0 59.2 49.3
+J32BOX 64  bd-cell nil nil 145.8 0 71.2 49.3
+J32BOX 65  bd-cell nil nil 227.2 0 75.2 49.3
+J32BOX 66  bd-cell nil nil 312.6 0 66 49.3
+J32BOX 67  bd-cell nil nil 388.8 0 93.2 49.3
+J32BOX 68  bd-cell nil nil 0 0 73 50.3
+J32BOX 69  bd-cell nil nil 83.2 0 66 50.3
+J32BOX 70  bd-cell nil nil 159.4 0 78 50.3
+J32BOX 71  bd-cell nil nil 247.6 0 82 50.3
+J32BOX 72  bd-cell nil nil 339.8 0 82 50.3
+J32BOX 73  bd-cell nil nil 432 0 67 50.3
+J32BOX 74  bd-cell nil nil 509.2 0 243 50.3
+J32BOX 75  bd-cell bd-w-rows nil nil 0 0 306 44.2
+J32BOX 76  bd-cell bd-w-rows nil nil 316.2 0 306 44.2
+J32BOX 77  bd-cell bd-w-rows nil nil 632.4 0 306 44.2
+J32BOX 78  bd-cell bd-w-rows nil nil 948.6 0 306 44.2
+J32BOX 79  bd-cell bd-w-rows nil nil 1264.8 0 306 44.2
+J32BOX 80  bd-cell bd-w-rows nil nil 0 54.4 306 44.2
+J32BOX 81  bd-cell bd-w-rows nil nil 316.2 54.4 306 44.2
+J32BOX 82  bd-cell bd-w-rows nil nil 632.4 54.4 306 120.7
+J32BOX 83  bd-cell nil nil 0 0 289 90.40001
+J32BOX 84  bd-cell nil nil 299.2 0 135 49.3
+J32BOX 85  bd-cell bd-w-card nil nil 0 0 272 28.9
+J32BOX 86  bd-cell bd-w-card nil nil 282.2 0 272 28.9
+J32BOX 87  bd-cell bd-w-card nil nil 564.4 0 272 28.9
+J32BOX 88  bd-cell bd-w-card nil nil 846.6 0 272 28.9
+J32BOX 89  bd-cell bd-w-card nil nil 1128.8 0 272 28.9
+J32BOX 90  bd-cell bd-w-card nil nil 1411 0 272 28.9
+J32BOX 91  bd-cell nil nil 1693.2 0 91 27.2
+J32BOX 92  bd-cell nil nil 0 39.1 105 27.2
+J32BOX 93  bd-cell bd-w-card nil nil 0 0 272 111.65
+J32BOX 94  bd-cell nil nil 282.2 0 148 37.4
+J32BOX 95  bd-cell nil nil 440.4 0 35 41.825
+J32BOX 96  bd-cell nil nil 485.6 0 28 41.825
+J32BOX 97  bd-cell nil nil 523.8 0 42 41.825
+J32BOX 98  bd-cell nil nil 576.0001 0 43 41.825
+J32BOX 99  bd-cell nil nil 629.2001 0 45 41.825
+J32BOX 100  bd-cell nil nil 684.4001 0 66 41.825
+J32BOX 101  bd-cell nil nil 760.6001 0 18.7 41.825
+J32BOX 102  bd-cell nil nil 0 0 68 70.72501
+J32BOX 103  bd-cell nil nil 78.2 0 47.6 70.72501
+J32BOX 104  bd-cell nil nil 136 0 47.6 70.72501
+J32BOX 105  bd-cell nil nil 193.8 0 47.6 70.72501
+J32BOX 106  bd-cell nil nil 251.6 0 47.6 70.72501
+J32BOX 107  bd-cell nil nil 309.4 0 66 70.72501
+J32BOX 108  bd-cell nil nil 385.6 0 47.6 70.72501
+J32BOX 109  bd-cell nil nil 0 0 73 70.72501
+J32BOX 110  bd-cell nil nil 83.2 0 47.6 70.72501
+J32BOX 111  bd-cell nil nil 141 0 47.6 70.72501
+J32BOX 112  bd-cell nil nil 198.8 0 47.6 70.72501
+J32BOX 113  bd-cell nil nil 256.6 0 47.6 70.72501
+J32BOX 114  bd-cell nil nil 314.4 0 66 70.72501
+J32BOX 115  bd-cell nil nil 390.6 0 97 60.52501
+J32BOX 116  bd-cell nil nil 497.8 0 44 60.52501
+J32BOX 117  bd-cell nil nil 552.0001 0 42 50.325
+J32BOX 118  bd-cell nil nil 604.2001 0 136 103.7
+J32BOX 119  bd-cell nil nil 0 0 102 42.5
+J32BOX 120  bd-cell nil nil 112.2 0 130 51.3
+J32BOX 121  bd-cell nil nil 252.4 0 102 42.5
+J32BOX 122  bd-cell nil nil 364.6 0 112 39.1
+J32BOX 123  t-title nil nil 0 0 544 23.8
+J32BOX 124  t-section nil nil 0 23.80005 544 18.7
+J32BOX 125  t-body nil nil 0 42.5 544 17.85
+J32BOX 126  t-label nil nil 0 60.3501 544 15.3
+J32BOX 127  t-desc nil nil 0 75.65015 544 17.85
+J32BOX 128  t-numeral nil nil 0 93.50024 544 17
+J32BOX 129  t-big nil nil 0 110.5002 544 25.5
+J32BOX 130  t-body nil nil 0 136.0002 544 17.85
+J32BOX 131  bd-sw nil nil 0 0 255 28.9
+J32BOX 132  bd-sw nil nil 265.2 0 255 28.9
+J32BOX 133  bd-sw nil nil 530.4 0 255 28.9
+J32BOX 134  bd-sw nil nil 795.6 0 255 28.9
+J32BOX 135  bd-sw nil nil 1060.8 0 255 28.9
+J32BOX 136  bd-sw nil nil 1326 0 255 28.9
+J32BOX 137  bd-sw nil nil 0 32.3 255 28.9
+J32BOX 138  bd-sw nil nil 265.2 32.3 255 28.9
+J32BOX 139  bd-sw nil nil 530.4 32.3 255 28.9
+J32BOX 140  bd-sw nil nil 795.6 32.3 255 28.9
+J32BOX 141  bd-sw nil nil 1060.8 32.3 255 28.9
+J32BOX 142  bd-sw nil nil 1326 32.3 255 28.9
+J32BOX 143  bd-sw nil nil 0 64.60001 255 28.9
+J32BOX 144  bd-sw nil nil 265.2 64.60001 255 28.9
+J32BOX 145  bd-sw nil nil 530.4 64.60001 255 28.9
+J32BOX 146  bd-sw nil nil 795.6 64.60001 255 28.9
+J32BOX 147  bd-sw nil nil 1060.8 64.60001 255 28.9
+J32BOX 148  bd-sw nil nil 1326 64.60001 255 28.9
+J32BOX 149  bd-sw nil nil 0 96.90001 255 28.9
+J32BOX 150  bd-sw nil nil 265.2 96.90001 255 28.9
+J32BOX 151  bd-sw nil nil 530.4 96.90001 255 28.9
+J32BOX 152  bd-sw nil nil 0 0 0 0
+J32BOX 153  bd-pair nil nil 0 0 544 18
+J32BOX 154  bd-pair nil nil 0 18 544 31.6
+J32BOX 155  bd-pair nil nil 0 49.6001 544 31.6
+J32BOX 156  bd-pair nil nil 0 81.2002 544 31.6
+J32BOX 157  bd-pair nil nil 0 112.8003 544 31.6
+J32BOX 158  bd-pair nil nil 0 144.4004 544 31.6
+J32BOX 159  bd-pair nil nil 0 176.0005 544 18
+J32BOX 160  bd-pair nil nil 0 194.0005 544 31.6
+J32BOX 161  bd-pair nil nil 0 225.6006 544 31.6
+J32BOX 162  bd-pair nil nil 0 257.2007 544 18
+J32BOX 163  bd-pair nil nil 0 275.2007 544 18
+J32BOX 164  bd-pair nil nil 0 293.2007 544 18
+J32BOX 165  bd-pair nil nil 0 311.2007 544 18
+J32BOX 166  bd-pair nil nil 0 329.2007 544 31.6
+J32BOX 167  bd-pair nil nil 0 360.8008 544 18
+J32BOX 168  bd-pair nil nil 0 378.8008 544 31.6
+J32BOX 169  bd-pair nil nil 0 410.4009 544 31.6
+J32BOX 170  bd-pair nil nil 0 442.001 544 18
+J32BOX 171  bd-pair nil nil 0 460.001 544 31.6
+J32BOX 172  bd-pair nil nil 0 491.6011 544 31.6
+J32BOX 173  bd-pair nil nil 0 0 0 0
+J32BOX 174  tab-group nil nil 0 0 595 31.6
+J32BOX 175  list-hatch nil nil 0 31.6001 595 51
+J32BOX 176  stat-row nil nil 0 82.6001 595 25.5
+J32BOX 177  flex-row bd-mt-gap nil nil 0 114.9001 595 30.6
+J32BOX 178  panel-head flex-row nil nil 1 1 593 38.4
+J32BOX 179  panel-body nil nil 1 39.39999 593 330.8
+J32BOX 180  btn nil nil 0 0 66.2 30.6
+J32BOX 181  bd-cap nil nil 0 34 66.2 15.3
+J32BOX 182  btn is-hover nil nil 0 0 59.2 30.6
+J32BOX 183  bd-cap nil nil 0 34 59.2 15.3
+J32BOX 184  btn is-pressed nil nil 0 0 71.2 30.6
+J32BOX 185  bd-cap nil nil 0 34 71.2 15.3
+J32BOX 186  btn is-disabled nil nil 0 0 75.2 30.6
+J32BOX 187  bd-cap nil nil 0 34 75.2 15.3
+J32BOX 188  btn is-selected nil nil 0 0 72.2 30.6
+J32BOX 189  bd-cap nil nil 0 34 72.2 15.3
+J32BOX 190  btn is-focus nil nil 0 0 60.2 30.6
+J32BOX 191  bd-cap nil nil 0 34 66 15.3
+J32BOX 192 live-btn btn nil nil 0 0 86.2 30.6
+J32BOX 193  bd-cap nil nil 0 34 86.2 15.3
+J32BOX 194  btn btn-primary nil nil 0 0 66.2 30.6
+J32BOX 195  bd-cap nil nil 0 34 66.2 15.3
+J32BOX 196  btn btn-primary is-hover nil nil 0 0 59.2 30.6
+J32BOX 197  bd-cap nil nil 0 34 59.2 15.3
+J32BOX 198  btn btn-primary is-pressed nil nil 0 0 71.2 30.6
+J32BOX 199  bd-cap nil nil 0 34 71.2 15.3
+J32BOX 200  btn btn-primary is-disabled nil nil 0 0 75.2 30.6
+J32BOX 201  bd-cap nil nil 0 34 75.2 15.3
+J32BOX 202  btn btn-primary is-focus nil nil 0 0 60.2 30.6
+J32BOX 203  bd-cap nil nil 0 34 66 15.3
+J32BOX 204  btn btn-primary nil nil 0 0 93.2 30.6
+J32BOX 205  bd-cap nil nil 0 34 93.2 15.3
+J32BOX 206  tab-group nil nil 0 0 73 31.6
+J32BOX 207  bd-cap nil nil 0 35 73 15.3
+J32BOX 208  tab-group nil nil 0 0 66 31.6
+J32BOX 209  bd-cap nil nil 0 35 66 15.3
+J32BOX 210  tab-group nil nil 0 0 78 31.6
+J32BOX 211  bd-cap nil nil 0 35 78 15.3
+J32BOX 212  tab-group nil nil 0 0 82 31.6
+J32BOX 213  bd-cap nil nil 0 35 82 15.3
+J32BOX 214  tab-group nil nil 0 0 82 31.6
+J32BOX 215  bd-cap nil nil 0 35 82 15.3
+J32BOX 216  tab-group nil nil 0 0 67 31.6
+J32BOX 217  bd-cap nil nil 0 35 67 15.3
+J32BOX 218  tab-group nil nil 0 0 243 31.6
+J32BOX 219  bd-cap nil nil 0 35 243 15.3
+J32BOX 220  list-row nil nil 0 0 306 25.5
+J32BOX 221  bd-cap nil nil 0 28.9 306 15.3
+J32BOX 222  list-row is-hatch nil nil 0 0 306 25.5
+J32BOX 223  bd-cap nil nil 0 28.9 306 15.3
+J32BOX 224  list-row is-hover nil nil 0 0 306 25.5
+J32BOX 225  bd-cap nil nil 0 28.9 306 15.3
+J32BOX 226  list-row is-pressed nil nil 0 0 306 25.5
+J32BOX 227  bd-cap nil nil 0 28.9 306 15.3
+J32BOX 228  list-row is-selected nil nil 0 0 306 25.5
+J32BOX 229  bd-cap nil nil 0 28.9 306 15.3
+J32BOX 230  list-row is-disabled nil nil 0 0 306 25.5
+J32BOX 231  bd-cap nil nil 0 28.9 306 15.3
+J32BOX 232  list-row is-focus nil nil 0 0 306 25.5
+J32BOX 233  bd-cap nil nil 0 28.9 306 15.3
+J32BOX 234 live-list bd-scrollbox list-hatch nil nil 0 0 306 102
+J32BOX 235  bd-cap nil nil 0 105.4 306 15.3
+J32BOX 236  tooltip is-shown nil nil 0 0 289 71.7
+J32BOX 237  bd-cap nil nil 0 75.1 289 15.3
+J32BOX 238  bd-tip-host nil nil 0 0 121.2 30.6
+J32BOX 239  bd-cap nil nil 0 34 135 15.3
+J32BOX 240  bar nil nil 0 0 272 10.2
+J32BOX 241  bd-cap nil nil 0 13.6 272 15.3
+J32BOX 242  bar nil nil 0 0 272 10.2
+J32BOX 243  bd-cap nil nil 0 13.6 272 15.3
+J32BOX 244  bar nil nil 0 0 272 10.2
+J32BOX 245  bd-cap nil nil 0 13.6 272 15.3
+J32BOX 246  bar nil nil 0 0 272 10.2
+J32BOX 247  bd-cap nil nil 0 13.6 272 15.3
+J32BOX 248  bar nil nil 0 0 272 10.2
+J32BOX 249  bd-cap nil nil 0 13.6 272 15.3
+J32BOX 250  bar nil nil 0 0 272 10.2
+J32BOX 251  bd-cap nil nil 0 13.6 272 15.3
+J32BOX 252  seg nil nil 0 0 91 8.5
+J32BOX 253  bd-cap nil nil 0 11.9 91 15.3
+J32BOX 254  seg nil nil 0 0 105 8.5
+J32BOX 255  bd-cap nil nil 0 11.9 105 15.3
+J32BOX 256  card nil nil 0 0 272 92.95
+J32BOX 257  bd-cap nil nil 0 96.35001 272 15.3
+J32BOX 258  badge nil nil 0 0 19.2 18.7
+J32BOX 259  badge nil nil 19.2 0 31.2 18.7
+J32BOX 260  badge is-negative nil nil 50.4 0 23.2 18.7
+J32BOX 261  bd-cap nil nil 0 22.1 148 15.3
+J32BOX 262  check nil nil 0 0 18.7 18.7
+J32BOX 263  bd-cap nil nil 0 26.525 35 15.3
+J32BOX 264  check is-hover nil nil 0 0 18.7 18.7
+J32BOX 265  bd-cap nil nil 0 26.525 28 15.3
+J32BOX 266  check is-pressed nil nil 0 0 18.7 18.7
+J32BOX 267  bd-cap nil nil 0 26.525 42 15.3
+J32BOX 268  check is-checked nil nil 0 0 18.7 18.7
+J32BOX 269  bd-cap nil nil 0 26.525 43 15.3
+J32BOX 270  check is-disabled nil nil 0 0 18.7 18.7
+J32BOX 271  bd-cap nil nil 0 26.525 45 15.3
+J32BOX 272  check is-focus nil nil 0 0 18.7 18.7
+J32BOX 273  bd-cap nil nil 0 26.525 66 15.3
+J32BOX 274  check nil nil 0 0 18.7 18.7
+J32BOX 275  bd-cap nil nil 0 26.525 18.7 15.3
+J32BOX 276  order-btn nil nil 0 0 47.6 47.6
+J32BOX 277  bd-cap nil nil 0 55.425 68 15.3
+J32BOX 278  order-btn is-hover nil nil 0 0 47.6 47.6
+J32BOX 279  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 280  order-btn is-pressed nil nil 0 0 47.6 47.6
+J32BOX 281  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 282  order-btn is-selected nil nil 0 0 47.6 47.6
+J32BOX 283  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 284  order-btn is-disabled nil nil 0 0 47.6 47.6
+J32BOX 285  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 286  order-btn is-focus nil nil 0 0 47.6 47.6
+J32BOX 287  bd-cap nil nil 0 55.425 66 15.3
+J32BOX 288  order-btn nil nil 0 0 47.6 47.6
+J32BOX 289  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 290  ability-slot nil nil 0 0 47.6 47.6
+J32BOX 291  bd-cap nil nil 0 55.425 73 15.3
+J32BOX 292  ability-slot is-hover nil nil 0 0 47.6 47.6
+J32BOX 293  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 294  ability-slot is-pressed nil nil 0 0 47.6 47.6
+J32BOX 295  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 296  ability-slot is-selected nil nil 0 0 47.6 47.6
+J32BOX 297  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 298  ability-slot is-disabled nil nil 0 0 47.6 47.6
+J32BOX 299  bd-cap nil nil 0 55.425 47.6 15.3
+J32BOX 300  ability-slot is-focus nil nil 0 0 47.6 47.6
+J32BOX 301  bd-cap nil nil 0 55.425 66 15.3
+J32BOX 302  manoeuvre-btn nil nil 0 0 37.4 37.4
+J32BOX 303  bd-cap nil nil 0 45.225 97 15.3
+J32BOX 304  manoeuvre-btn is-selected nil nil 0 0 37.4 37.4
+J32BOX 305  bd-cap nil nil 0 45.225 44 15.3
+J32BOX 306  flag-slot nil nil 0 0 40.8 27.2
+J32BOX 307  bd-cap nil nil 0 35.025 42 15.3
+J32BOX 308  frame-slot bd-preview nil nil 0 0 136 85
+J32BOX 309  bd-cap nil nil 0 88.4 136 15.3
+J32BOX 310  bd-glyph-row nil nil 0 0 102 23.8
+J32BOX 311  bd-cap nil nil 0 27.2 102 15.3
+J32BOX 312  bd-glyph-row bd-chip nil nil 0 0 123.2 32.6
+J32BOX 313  bd-cap nil nil 0 36 130 15.3
+J32BOX 314  bd-glyph-row nil nil 0 0 102 23.8
+J32BOX 315  bd-cap nil nil 0 27.2 102 15.3
+J32BOX 316  bd-glyph-row nil nil 0 0 112 20.4
+J32BOX 317  bd-cap nil nil 0 23.8 112 15.3
+J32BOX 318  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 319  t-label nil nil 54.4 6.800002 97 15.3
+J32BOX 320  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 321  t-label nil nil 54.4 6.800002 69 15.3
+J32BOX 322  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 323  t-label nil nil 54.4 6.800002 113 15.3
+J32BOX 324  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 325  t-label nil nil 54.4 6.800002 68 15.3
+J32BOX 326  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 327  t-label nil nil 54.4 6.800002 126 15.3
+J32BOX 328  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 329  t-label nil nil 54.4 6.800002 69 15.3
+J32BOX 330  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 331  t-label nil nil 54.4 6.800002 97 15.3
+J32BOX 332  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 333  t-label nil nil 54.4 6.800002 98 15.3
+J32BOX 334  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 335  t-label nil nil 54.4 6.800002 108 15.3
+J32BOX 336  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 337  t-label nil nil 54.4 6.800002 86 15.3
+J32BOX 338  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 339  t-label nil nil 54.4 6.800002 92 15.3
+J32BOX 340  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 341  t-label nil nil 54.4 6.800002 91 15.3
+J32BOX 342  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 343  t-label nil nil 54.4 6.800002 103 15.3
+J32BOX 344  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 345  t-label nil nil 54.4 6.800002 129 15.3
+J32BOX 346  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 347  t-label nil nil 54.4 6.800002 116 15.3
+J32BOX 348  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 349  t-label nil nil 54.4 6.800002 77 15.3
+J32BOX 350  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 351  t-label nil nil 54.4 6.800002 92 15.3
+J32BOX 352  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 353  t-label nil nil 54.4 6.800002 114 15.3
+J32BOX 354  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 355  t-label nil nil 54.4 6.800002 99 15.3
+J32BOX 356  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 357  t-label nil nil 54.4 6.800002 90 15.3
+J32BOX 358  bd-sw-chip nil nil 0 9.536743e-07 47.6 28.9
+J32BOX 359  t-label nil nil 54.4 6.800002 115 15.3
+J32BOX 360  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 361  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 362  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 363  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 364  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 365  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 366  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 367  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 368  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 369  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 370  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 371  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 372  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 373  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 374  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 375  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 376  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 377  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 378  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 379  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 380  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 381  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 382  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 383  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 384  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 385  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 386  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 387  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 388  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 389  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 390  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 391  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 392  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 393  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 394  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 395  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 396  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 397  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 398  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 399  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 400  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 401  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 402  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 403  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 404  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 405  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 406  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 407  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 408  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 409  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 410  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 411  bd-pair-name t-label nil nil 0 0 289 17
+J32BOX 412  bd-pair-ratio nil nil 289 0 85 17
+J32BOX 413  bd-pair-what t-label nil nil 380.8 0 163.2 17
+J32BOX 414  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 415  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 416  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 417  bd-pair-name t-label nil nil 0 0 289 30.6
+J32BOX 418  bd-pair-ratio nil nil 289 0 85 30.6
+J32BOX 419  bd-pair-what t-label nil nil 380.8 0 163.2 30.6
+J32BOX 420  tab is-selected nil nil 0 0 225.6 30.6
+J32BOX 421  tab nil nil 229 0 75.6 30.6
+J32BOX 422  list-row nil nil 0 0 595 25.5
+J32BOX 423  list-row nil nil 0 25.5 595 25.5
+J32BOX 424  stat-label nil nil 0 6.8 305 15.3
+J32BOX 425  stat-gap nil nil 311.8 17.85 223.4 0.8499999
+J32BOX 426  stat-val nil nil 542 5.1 53 17
+J32BOX 427  btn btn-primary nil nil 0 0 247.2 30.6
+J32BOX 428  t-title grow nil nil 11.9 6.8 545 23.8
+J32BOX 429  badge nil nil 556.9 6.8 24.2 18.7
+J32BOX 430  tab-group nil nil 11.9 11.89999 569.2 31.6
+J32BOX 431  list-hatch bd-mt nil nil 11.9 53.70001 569.2 127.5
+J32BOX 432  bar bd-mt nil nil 11.9 191.4 569.2 10.2
+J32BOX 433  stat-row nil nil 11.9 201.6 569.2 25.5
+J32BOX 434  stat-row nil nil 11.9 227.1 569.2 25.5
+J32BOX 435  stat-row nil nil 11.9 252.6 569.2 25.5
+J32BOX 436  flex-row bd-mt nil nil 11.9 288.3 569.2 30.6
+J32BOX 437  tab nil nil 0 0 69.6 30.6
+J32BOX 438  tab is-hover nil nil 0 0 62.6 30.6
+J32BOX 439  tab is-pressed nil nil 0 0 74.6 30.6
+J32BOX 440  tab is-disabled nil nil 0 0 78.6 30.6
+J32BOX 441  tab is-selected nil nil 0 0 78.6 30.6
+J32BOX 442  tab is-focus nil nil 0 0 63.6 30.6
+J32BOX 443  tab is-selected nil nil 0 0 74.6 30.6
+J32BOX 444  tab nil nil 78 0 75.6 30.6
+J32BOX 445  tab nil nil 157 0 82.6 30.6
+J32BOX 446  list-row nil nil 1 1 293.8 25.5
+J32BOX 447  list-row nil nil 1 26.5 293.8 25.5
+J32BOX 448  list-row nil nil 1 52 293.8 25.5
+J32BOX 449  list-row nil nil 1 77.5 293.8 25.5
+J32BOX 450  list-row nil nil 1 103 293.8 25.5
+J32BOX 451  list-row nil nil 1 128.5 293.8 25.5
+J32BOX 452  list-row nil nil 1 154 293.8 25.5
+J32BOX 453  tooltip-title nil nil 12.9 11.2 263.2 17
+J32BOX 454 tip-target btn nil nil 0 0 121.2 30.6
+J32BOX 455 tip tooltip bd-tip-pos nil nil 0 0 0 0
+J32BOX 456  bar-fill nil nil 1 1 0 8.200001
+J32BOX 457  bar-fill nil nil 1 1 94.5 8.200001
+J32BOX 458  bar-fill nil nil 1 1 270 8.200001
+J32BOX 459  bar-fill is-positive nil nil 1 1 189 8.200001
+J32BOX 460  bar-fill is-negative nil nil 1 1 121.5 8.200001
+J32BOX 461  bar-fill is-warning nil nil 1 1 148.5 8.200001
+J32BOX 462  seg-cell is-on nil nil 0 0 10.2 8.5
+J32BOX 463  seg-cell is-on nil nil 13.6 0 10.2 8.5
+J32BOX 464  seg-cell is-on nil nil 27.2 0 10.2 8.5
+J32BOX 465  seg-cell nil nil 40.8 0 10.2 8.5
+J32BOX 466  seg-cell nil nil 54.4 0 10.2 8.5
+J32BOX 467  seg-cell nil nil 68 0 10.2 8.5
+J32BOX 468  seg-cell is-on is-positive nil nil 0 0 10.2 8.5
+J32BOX 469  seg-cell is-on is-positive nil nil 13.6 0 10.2 8.5
+J32BOX 470  seg-cell is-on is-positive nil nil 27.2 0 10.2 8.5
+J32BOX 471  seg-cell is-on is-positive nil nil 40.8 0 10.2 8.5
+J32BOX 472  seg-cell is-on is-positive nil nil 54.4 0 10.2 8.5
+J32BOX 473  seg-cell is-on is-positive nil nil 68 0 10.2 8.5
+J32BOX 474  card-top nil nil 1 1 270 3.4
+J32BOX 475  card-body nil nil 1 4.4 270 87.55
+J32BOX 476  check-mark nil nil 0 0 0 0
+J32BOX 477  check-mark nil nil 0 0 0 0
+J32BOX 478  check-mark nil nil 0 0 0 0
+J32BOX 479  check-mark nil nil 5.25 5.25 8.5 8.5
+J32BOX 480  check-mark nil nil 0 0 0 0
+J32BOX 481  check-mark nil nil 0 0 0 0
+J32BOX 482  check-mark nil nil 0 0 0 0
+J32BOX 483  tab is-selected nil nil 0 0 80.6 30.6
+J32BOX 484  tab nil nil 84 0 80.6 30.6
+J32BOX 485  tab nil nil 168 0 75.6 30.6
+J32BOX 486  tab is-disabled nil nil 247 0 62.6 30.6
+J32BOX 487  list-row is-selected nil nil 0 0 569.2 25.5
+J32BOX 488  list-row nil nil 0 25.5 569.2 25.5
+J32BOX 489  list-row nil nil 0 51 569.2 25.5
+J32BOX 490  list-row nil nil 0 76.5 569.2 25.5
+J32BOX 491  list-row is-disabled nil nil 0 102 569.2 25.5
+J32BOX 492  bar-fill nil nil 1 1 351.664 8.200001
+J32BOX 493  stat-label nil nil 0 6.8 62 15.3
+J32BOX 494  stat-gap nil nil 68.8 17.85 479.6 0.8499999
+J32BOX 495  stat-val nil nil 555.2 5.1 14 17
+J32BOX 496  stat-label nil nil 0 6.8 42 15.3
+J32BOX 497  stat-gap is-ruled nil nil 48.8 17.85 492.6 0.8499999
+J32BOX 498  stat-val nil nil 548.2 5.1 21 17
+J32BOX 499  stat-label nil nil 0 6.8 54 15.3
+J32BOX 500  stat-gap nil nil 60.8 17.85 462.6 0.8499999
+J32BOX 501  stat-val nil nil 530.2 5.1 39 17
+J32BOX 502  btn btn-primary bd-mr nil nil 0 0 66.2 30.6
+J32BOX 503  btn nil nil 73 0 58.2 30.6
+J32BOX 504  tooltip-title nil nil 0 0 0 0
+J32BOX 505  t-label nil nil 10.2 10.2 249.6 15.3
+J32BOX 506  divider bd-divider-m nil nil 10.2 32.3 249.6 2.55
+J32BOX 507  t-body nil nil 10.2 41.65 249.6 35.7

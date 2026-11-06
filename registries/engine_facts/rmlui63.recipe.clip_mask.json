@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.clip_mask",
+  "claim": "A rounded overflow: hidden clip mask works in game; only the curve edge differs, up to 100 levels on 0.2-0.7 % of the cell, as border-radius",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json clip mask"
+}

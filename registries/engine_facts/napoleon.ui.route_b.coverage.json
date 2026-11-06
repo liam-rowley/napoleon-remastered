@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.route_b.coverage",
+  "claim": "Route B getter coverage from the atlas and the API per state: entity_lists 4 reads and 2 actions, none missing; unit_information 5 and 1, none missing, but 62 parameter fields unresolved; event_message 5 reads, 130 parameter fields unresolved; land_battle_orders no read getter at all, 25 actions, 2 names missing (Start and Stop_Firing_At_Will); single_player no engine call, only root LuaCalls and loc text. The vanilla scripts' interactions are mostly Lua, which a rebuilt screen replaces with its own view logic",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "route_b.json"
+}

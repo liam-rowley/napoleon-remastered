@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.shadow_rings_fractional",
+  "claim": "The library's box-shadow rings (double rules, focus rings) are the board's largest difference at fractional dp ratios: crisp in game, softened in the viewer, while their boxes are equal (0 of 507 boxes differ at 1080p x 85). Rasterising, and it sets the threshold. The game's result is the better one; a review in the viewer shows these rules softer than they ship",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "parity_fixed.jsonl board_frontend_1080_85"
+}

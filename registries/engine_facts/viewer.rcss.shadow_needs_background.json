@@ -4,5 +4,5 @@
   "state": "verified",
   "evidence": "uikit/napoleon/runs/20261102_j34/README.md",
   "date": "2026-11-02",
-  "notes": "spike probes q_a to q_e; LANGUAGE.md's 0 12 36 black 45 percent drop shadow on the plate is replaced by a hard 6 dp offset in an opaque colour (README: recipe differences)"
+  "notes": "J32 run 20261106_j32pc: a viewer bug, not a limit of the recipe (viewer.clear_order_layers); the game draws these shadows correctly (rmlui63.recipe.outer_shadow)"
 }

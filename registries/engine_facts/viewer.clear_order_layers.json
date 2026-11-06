@@ -1,0 +1,8 @@
+{
+  "id": "viewer.clear_order_layers",
+  "claim": "The viewer's black shadows and filters are a viewer bug: viewer_frame calls BeginFrame then Clear, RmlUi's GL3 Clear leaves glClearColor (0, 0, 0, 1), so every layer starts opaque black. Swapping the two calls (scratch build, not merged) makes the blur, alpha and no-background shadow cells match the game within 10 levels at every cell and takes filter blur from 196-216 to 10-19; it also changes the board's pixels at 1080p x 85, 1440p and 4K x 125, so the baseline needs a reviewed re-accept",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json; viewer_fix wasm sha256 41675bac46743ce4..."
+}

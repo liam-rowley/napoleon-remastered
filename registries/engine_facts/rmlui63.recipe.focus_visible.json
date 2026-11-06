@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.focus_visible",
+  "claim": "The live :focus-visible state cannot be reached in game today: it needs a Tab key, the host gives RmlUi keys only while a text field has focus, and Lua Focus() does not set it (not in the viewer either). The board's forced focus twin draws the same in both. J35 key routing owns the live state",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json focus cell; core/docs/PROXY_UI.md Input"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.route_a.panel",
+  "claim": "Route A, panel (campaign.entity_lists, ToggleEntityLists): with the root hidden its 439 components keep their text and state, its own handler still works (agents:LuaCall LClick built the agents table while hidden: 455 nodes, 68 texts), the pointer reaches nothing, and it costs about 0.1 ms p50 over closed (hud 0.85-0.90, hidden 0.98-1.00, open 1.08 ms). A selection from outside changed nothing in it, so that was not a data update test",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "s4.jsonl camp"
+}

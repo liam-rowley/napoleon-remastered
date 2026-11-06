@@ -62,11 +62,18 @@ class S:
             return {'status': 'failed', 'reason': (p.stdout + p.stderr)[-300:]}
 
     def lua(self, args, wait=30, path=PROBE):
-        ok, r = self.pc.ctl(f'lua {path} -- {args}' if args else f'lua {path}', wait)
+        ok, r = self.pc.ctl(f'lua {path} {wait} -- {args}' if args else f'lua {path} {wait}', wait + 10)
         r = r or {}
-        return log('lua', args=args, ok=ok, result=r.get('result', r.get('reason', r)))
+        return log('lua', args=args, ok=ok and r.get('status') == 'ok', result=r.get('chunk', r.get('reason', r)))
 
     def shot(self, name):
+        if name.startswith('fe_'):   # ctl.py shot settles on a battle or campaign scene and never settles in the front end: the host's dump needs no scene
+            ok, r = self.pc.ctl(f'ui dump j32_{name}', 60)
+            d = (r or {}).get('dump') or {}
+            if ok and d.get('file'):
+                shutil.copy2(d['file'], SHOTS / Path(d['file']).name)
+            log('shot', name=name, status='ok' if ok else 'failed', file=d.get('file'), reason=(r or {}).get('reason'))
+            return
         r = self.ctlpy('shot', 'j32_' + name)
         log('shot', name=name, status=r.get('status'), file=r.get('file') or r.get('shot'), reason=r.get('reason'))
 
@@ -162,7 +169,7 @@ def camp(s):
     s.lua('snap lists_hidden entity_lists')
     s.lua('army', 20)
     ok, r = s.pc.ctl('lua napoleon_remastered/lua/probes/campaign_select.lua', 30)
-    log('select', ok=ok, result=(r or {}).get('result'))
+    log('select', ok=ok, result=(r or {}).get('chunk'))
     time.sleep(6)
     s.lua('snap lists_after_select entity_lists')
     s.lua('call agents LClick')          # the tab's own handler while hidden
@@ -176,6 +183,63 @@ def camp(s):
     s.lua('pos entity_lists')
     s.lua('close', path=J9 + '/camp_panel.lua')
     s.finish('camp')
+
+
+def hover(s, x, y, tag):
+    """Pointer to pixel (x, y); the engine's own hit test reads what is under it."""
+    ok, r = s.pc.ctl(f'ui click {x} {y} left move', 30)
+    time.sleep(1)
+    log('hover', tag=tag, at=[x, y], result=s.lua('over')['result'])
+
+
+def camp2(s):
+    """The popup while it is really up (it appears about 35 s after the scene), then the input controls the first sitting lacked, then the unit popup."""
+    s.launch()
+    log('scene', r=s.ctlpy('scene', 'campaign_start').get('status'))
+    for i in range(30):
+        if 'absent' not in str(s.lua('pos event_message')['result']):
+            break
+        time.sleep(3)
+    s.lua('snap popup_before event_message')
+    s.shot('popup_open')
+    s.perf('popup_open', runs=1)
+    hover(s, 960, 400, 'popup_visible')
+    s.lua('vis event_message 0')
+    time.sleep(1.5)
+    s.shot('popup_vis')
+    s.lua('pos event_message')
+    s.lua('snap popup_hidden event_message')
+    s.perf('popup_hidden', runs=1)
+    hover(s, 960, 400, 'popup_hidden')
+    s.lua('call event_message OnOk')   # the handler, called while it is hidden
+    time.sleep(3)
+    s.lua('pos event_message')
+    s.lua('top')
+    s.lua('clock 200000')
+    s.lua('ToggleEntityLists', path=J9 + '/camp_panel.lua')
+    time.sleep(5)
+    hover(s, 1500, 300, 'lists_visible')
+    for name, off, on in MEANS + [('move', 'move entity_lists -5000 -5000', 'move entity_lists 648 -1')]:
+        s.lua(off.format(c='entity_lists'))
+        time.sleep(1.5)
+        hover(s, 1500, 300, f'lists_{name}')
+        s.lua(on.format(c='entity_lists'))
+        time.sleep(1)
+    hover(s, 1500, 300, 'lists_restored')
+    # control: a real click on the close tick of the visible panel must close it (pixel from the first sitting's shot)
+    s.click_base(1890 * BASE[0] / s.W, 759 * BASE[1] / s.H, 'control_close_visible')
+    time.sleep(2)
+    s.lua('pos entity_lists')
+    s.lua('close', path=J9 + '/camp_panel.lua')
+    time.sleep(2)
+    s.lua('unitkeys')
+    s.lua('unitopen')
+    time.sleep(4)
+    s.lua('top')
+    s.lua('pos UnitInfoPopup')
+    s.lua('pos unit_information')
+    s.shot('unit_popup')
+    s.finish('camp2')
 
 
 def battle(s):
@@ -222,9 +286,62 @@ def fe(s):
     s.finish('fe')
 
 
+def camp3(s):
+    """The proving popup, route A: open it through the row's own route, undraw it, read it, hit test it; then the click control on the panel's close button."""
+    s.launch()
+    log('scene', r=s.ctlpy('scene', 'campaign_start').get('status'))
+    for i in range(30):
+        if 'absent' not in str(s.lua('pos event_message')['result']):
+            break
+        time.sleep(3)
+    s.lua('call event_message OnOk')
+    time.sleep(3)
+    s.lua('unitopen')
+    time.sleep(4)
+    s.lua('top')
+    s.lua('snap unit_open UnitInfoPopup')
+    s.shot('unit_open')
+    s.perf('unit_open', runs=1)
+    hover(s, 300, 400, 'unit_visible')
+    s.lua('vis UnitInfoPopup 0')
+    time.sleep(1.5)
+    s.shot('unit_vis')
+    s.perf('unit_hidden', runs=1)
+    hover(s, 300, 400, 'unit_hidden')
+    s.lua('snap unit_hidden UnitInfoPopup')
+    s.lua('call UnitInfoPopup ClosePopup')
+    time.sleep(3)
+    s.lua('top')
+    s.lua('close', path=J9 + '/camp_panel.lua')
+    time.sleep(2)
+    s.lua('top')
+    s.lua('ToggleEntityLists', path=J9 + '/camp_panel.lua')
+    time.sleep(5)
+    for x, y in ((1876, 785), (1890, 759), (1880, 770)):
+        hover(s, x, y, 'close_tick')
+    s.click_base(1880 * BASE[0] / s.W, 770 * BASE[1] / s.H, 'control_close_visible')
+    time.sleep(2)
+    s.lua('top')
+    s.finish('camp3')
+
+
+def fe2(s):
+    """Does the main menu keep pumping with the vanilla menu undrawn? Then a rebuilt front end can sit over it and reach Lua; the pages cannot (no pump)."""
+    s.launch()
+    s.lua('pos main')
+    s.lua('vis main 0')
+    time.sleep(3)
+    s.shot('fe_main_hidden')
+    r = s.lua('pos main')
+    log('pump', answered_with_main_hidden=bool(r['ok']))
+    s.lua('clock 200000')
+    s.lua('vis main 1')
+    s.finish('fe2')
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('sitting', choices=['camp', 'battle', 'fe'])
+    ap.add_argument('sitting', choices=['camp', 'camp2', 'camp3', 'battle', 'fe', 'fe2'])
     ap.add_argument('--size', default='1920x1080')
     a = ap.parse_args()
     if PID.exists():
@@ -232,7 +349,7 @@ def main():
     PID.write_text(str(os.getpid()))
     s = S(a.size)
     try:
-        {'camp': camp, 'battle': battle, 'fe': fe}[a.sitting](s)
+        {'camp': camp, 'camp2': camp2, 'camp3': camp3, 'battle': battle, 'fe': fe, 'fe2': fe2}[a.sitting](s)
     finally:
         try:
             log('end', how=s.pc.exit())

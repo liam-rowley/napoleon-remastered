@@ -1,0 +1,8 @@
+{
+  "id": "napoleon.ui.ctl_click_cursor_clamp",
+  "claim": "In a headless launch at 1920x1080 the engine cursor stopped at x=1824 (Component.CursorPosition) when ctl ui moved it further right, so a ctl click cannot reach the entity_lists close button at about x=1876. The cause was not looked for; hit tests left of x=1824 work",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "s4.jsonl camp3"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "rmlui63.recipe.hairline_low_dp",
+  "claim": "The 1 dp rule at dp below 1 behaves the same in viewer and game (hairline cell identical at 1080p x 85): rmlui63.sub_pixel_rule is RmlUi's, so the viewer shows the vanishing rule before it ships",
+  "state": "verified",
+  "evidence": "proxy/runs/20261106_j32pc/README.md",
+  "date": "2026-11-06",
+  "notes": "recipes_table.json hairlines"
+}
