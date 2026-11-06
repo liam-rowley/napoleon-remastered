@@ -3,10 +3,11 @@
   "description": "After J78 merges. jobs/J78/report.md \"Decisions as one file per row\", corrected by J78 review blocker 2: a pull request is judged with its base's rules and main's `meta` globs do not match `registries/decisions/*`, so three `meta/` pull requests, all Liam's to merge (D50): first one that only adds the glob to `plan` and `meta` in wsc.toml; then the migration; then the removal of docs/DECISIONS.md. The first new rows after that: \"Opus across the board, replacing D52\" (Liam, 2026-11-06) and the line that supersedes D46's exception now that the shipped UI rules are in proxy.file_rules. docs/DECISIONS.md has 17 bytes left, so no decision row can be added until this lands. Raised: J78 review round 1, 2026-11-06.",
   "title": "Decisions as one file per row: three meta/ pull requests",
   "phase": 1,
-  "status": "needs_brief",
+  "status": "queued",
   "model": "opus",
   "needs_pc": false,
   "depends_on": [
     "J78"
-  ]
+  ],
+  "brief": "jobs/J105/brief.md"
 }
