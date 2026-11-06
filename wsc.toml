@@ -14,7 +14,7 @@ engine_facts = "core:engine_facts"
 jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
 
 [core]
-version = "v0.30.0"
+version = "v0.47.0"
 
 [tools]
 exempt = ["tests/**", "**/runs/**"]
