@@ -10,7 +10,7 @@ Display: `foreign_windows.ps1 -X 3839 -Y 2160` watched the virtual display from 
 |---|---|---|---|
 | `art` | 1080p | `zz_j96_art` | Unreadable alone: no in-pack control, no load caught. Superseded by `art2`. |
 | `art2` | 1080p | `zz_j96_art` + TGA controls | Probes 1 and 3 |
-| `load` | 1080p | `zz_j96_load` | The loading-screen DXT files are not on that screen |
+| `load` | 1080p | `zz_j96_load` | The loading-screen DXT files are on that screen, but the markers did not reach it (corrected in review) |
 | `r1` | 1080p | `zz_j96_tpl_r1`, `zz_j96_pics` | Probe 2; first template marker: no marker |
 | `r2` | 1080p | `zz_j96_tpl_tex`, `dev.file_rules` | First template marker failed its control |
 | `t1` | 1080p | `zz_j96_tpl2x_r1` | Route 1: vanilla tabs |
@@ -30,14 +30,14 @@ J50's confound is gone: blank at 500x153 and at 148x24. `napoleon.ui_art.dds_at_
 - `land_small` load: solid `0x8010` = `default_landbattle.dds`, DXT5 (`raw/evidence/r1_load_land_4802x3002_dxt5.jpg`).
 - `campaign_start` load: solid `0x001f` = `6.dds`, DXT1 (`raw/evidence/r1_load_camp_4802x3002_dxt1.jpg`).
 
-Limit: the other five affected files stay unproven. `load` gave all seven DXT files of `ui\frontend ui\loadingscreen` their own colour, six at aligned sizes and the heading at 1154x382, and none showed (`raw/evidence/load_land_markers_absent.jpg`), so they are not on that screen. The 82 flags' `large.dds` at 1282x642 were not seen in any shot. Fact `napoleon.ui_art.dxt_target_multiple_of_4`.
+Limit: the other five affected files stay unproven. `load` gave all seven DXT files of `ui\frontend ui\loadingscreen` their own colour, six at aligned sizes and the heading at 1154x382, and none showed (`raw/evidence/load_land_markers_absent.jpg`). Corrected in review (J96 round 1): the art is on that screen, because the plaque, the blue and red boxes and the bar in the shot are these vanilla files, whose only copy in any pack is `boot.pack` (header type 0). `raw/load/proxy.log` indexes the pack (87002 entries against 86995 with no pack, so all seven), yet the engine drew vanilla: a movie-pack entry did not replace them. Why is not proven. The 82 flags' `large.dds` at 1282x642 were not seen in any shot. Fact `napoleon.ui_art.dxt_target_multiple_of_4`.
 
 ## Probe 3: 4800 px loading pictures: drawn
 `art2`: all 23 of J51's 4800 px outputs with a magenta band at every mip. The band fills the screen in the land load and the campaign load (`raw/evidence/art2_load_land_4800.jpg`, `art2_load_camp_4800.jpg`), with no crash. A shot through the watcher takes about 3 s and missed the load in `art`; `grab.ps1` caught it. At 1920x1080 only. Fact `napoleon.ui_art.loading_screen_4800px`.
 
 ## Probe 4: templates by a pack entry: refused
 Marker 1 (`r1`, `r2`): every `data\UI\*.tga` path in the file renamed, at the same length, to a file only the pack holds. No magenta on either route though the redirect hit, so it decides nothing: this is why the control launch exists.
-Marker 2 (`t1`, `t2`): J67's 2x templates file on vanilla layouts, field army selected. Route 2 (`proxy.log`: 1 redirect hit) draws the Army and Recruitment tabs at about twice their size; route 1 leaves them vanilla (`raw/evidence/t2_route2_camp_field.jpg`, `t1_route1_camp_field.jpg`). Fact `napoleon.ui.templates_route`.
+Marker 2 (`t1`, `t2`): J67's 2x templates file on vanilla layouts, field army selected. Route 2 (`proxy.log`: 1 redirect hit) draws the Army and Recruitment tabs at about twice their size; route 1 leaves them vanilla (`raw/evidence/t2_route2_camp_field.jpg`, `t1_route1_camp_field.jpg`). The pack was there: `raw/t1/proxy.log` indexes 12 packs and 86996 entries, `raw/t2/proxy.log` 11 and 86995. Fact `napoleon.ui.templates_route`.
 
 ## Probe 5: fonts per context: partly read
 `font`, 3840x2160, J67's `ui_scale_2x.pack` and `ui_scale_2x_fonts.pack` plus `zz_j96_fonts`: frontend_24 x0.6, frontend_38 x0.8, ingame_18 x1.3, ingame_24 x0.7, ingame_b_24 x1.5 of the J66 size. Crops against J67's shots: `raw/evidence/font_crops.jpg` (`font_crops.py`).
