@@ -1,6 +1,6 @@
 {
   "id": "J106",
-  "description": "W33 record 3, not run in J78: every J78 launch had proxy.file_rules empty and dev.file_rules set, so the 20 passes say nothing about the shipped route on Napoleon. One launch from the rendered player ini: no `dev:` line, no `thread:` line, `redirect: 1 rules from ... (proxy.file_rules)`, and the 2x UI on screen. Must land before the next release. Fold in the `gen_tables --exe` check if J107 is still open. Raised: J78 review round 1, 2026-11-06.",
+  "description": "W33 record 3, not run in J78: every J78 launch had proxy.file_rules empty and dev.file_rules set, so the 20 passes say nothing about the shipped route on Napoleon. One launch from the rendered player ini: no `dev:` line, no `thread:` line, `redirect: 1 rules from ... (proxy.file_rules)`, and the 2x UI on screen. Must land before the next release. Fold in the `gen_tables --exe` check if J107 is still open. Raised: J78 review round 1, 2026-11-06. After the proof, move upscale/pc/play.py, its docs and tests/test_play.py from dev.file_rules to proxy.file_rules (W33 asked for it; J78 left it because no Napoleon launch had used that key). Nothing yet stops `build_release.py --record` before this passes: pair that refusal with J108's (J78 review round 2).",
   "title": "Release-ini launch on Napoleon: the proxy.file_rules route in game",
   "phase": 1,
   "status": "needs_brief",
