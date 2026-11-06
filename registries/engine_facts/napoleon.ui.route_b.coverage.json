@@ -1,8 +1,8 @@
 {
   "id": "napoleon.ui.route_b.coverage",
-  "claim": "Route B getter coverage from the atlas and the API per state: entity_lists 4 reads and 2 actions, none missing; unit_information 5 and 1, none missing, but 62 parameter fields unresolved; event_message 5 reads, 130 parameter fields unresolved; land_battle_orders no read getter at all, 25 actions, 2 names missing (Start and Stop_Firing_At_Will); single_player no engine call, only root LuaCalls and loc text. The vanilla scripts' interactions are mostly Lua, which a rebuilt screen replaces with its own view logic",
+  "claim": "Route B getter coverage from the atlas and the API per state: entity_lists 4 reads and 2 actions, none missing, 11 parameter and 29 upvalue fields unresolved, all 40 view state (12 sort order, 12 tab bookkeeping, 15 template layout arguments and headers, 1 camera constant): none is engine data; unit_information 5 and 1, none missing, but 62 parameter fields unresolved, 51 of them on the screen itself: the details the caller hands it (g_details, the Init functions), 11 template layout; event_message 5 reads, 130 parameter fields unresolved, nearly all the event details the engine passes to its Initialise handlers, which no getter returns; land_battle_orders no read getter at all, 25 actions, 2 names missing (Start and Stop_Firing_At_Will); single_player no engine call, only root LuaCalls and loc text. The vanilla scripts' interactions are mostly Lua, which a rebuilt screen replaces with its own view logic",
   "state": "verified",
   "evidence": "proxy/runs/20261106_j32pc/README.md",
   "date": "2026-11-06",
-  "notes": "route_b.json"
+  "notes": "route_b.json; the same rule for every kind: a field counts against route B when it is engine data with no getter, and view state does not"
 }
