@@ -1,5 +1,48 @@
 # J32 review
 
+## Round 2 (2026-11-06, branch job/J32 at ea7f8d4)
+
+**Verdict: merge.**
+
+Both blockers and all five should-fix items are answered, and the fixes hold when tried independently. One new finding: the report's 09:37 end state is wrong, because J32 left the stray ini in the game folder. It changes no J32 result and the brief's PC test still passes as worded, so it is a should-fix, corrected by erratum. Liam still has to clear the file (below).
+
+### Machines
+- At the head `ea7f8d4`: CI, 9 checks passed or skipped (`wsc jobs review`). `wsc policy` refused only for round 1's verdict and the row status, as it should before this review.
+- **Against the latest main (`36923c6`, fetched again for this round).** Trial merge: clean, tree `c92f72f5`. `wsc gates` on it as throwaway commit `d99b40d3`, never pushed: 13 ok, 2 warn, 0 failed, 683 host tests passed, 37 skipped. The warnings are `ci_render`'s template note and the skipped tests, as in round 1. This holds for main at `36923c6` only.
+- Rule 79 does not apply: no `proxy/` change outside `proxy/runs/`, no `harness/`, `core/`, `viewer/` or `uikit/` change. No UI baseline change.
+
+### Round 1 findings
+- **B1, fixed.** My own pairs through `parity_images` on 1920 x 1080: a 200 x 60 box reads `layout` at 1, 3, 4, 8, 20, 32, 33, 40 and 100 px. A text-like line reads `layout` up to 40 px, a 2 px rule up to 32 px, a 16 px icon up to 33 px. A blended edge stays `raster`. `parity_gate.jsonl` has 12 rows: 10 `raster`, 2 `same`, no moved tile.
+- **B2, fixed by running it.** `s4.jsonl` from 09:19 UTC, tallied: 20 `hud_points`; of the 6 kept, `hud_vis`, `hud_pvis` and `hud_move` all nil; `hud_alpha` and `hud_restored` all answer. `main_vis` gives `movie_bg` at all 4 points. `napoleon.ui.undraw_means` and `napoleon.ui.route_a.hud` now say what ran. It is still the hit test, not a real click, and open question 1 says so.
+- **S1, answered.** The rule and the 40 fields are in `napoleon.ui.route_b.coverage`. The counts add up, but `route_b.json` keeps counts only, so I did not reproduce the 12, 12, 15, 1 split.
+- **S2, S3, S5, answered.** 10 of 50 rows and 138 rows are in the facts; `j32snap.txt` has its 135 lines; `viewer.parity.numbers` carries the scope.
+- **S4, answered.** `ui_hosttest.py dp-ratio` gives 1.3333334922790527 at 1440 x 100, and off-by-one-step cells at 1440 x 95, 100, 115, 125, as round 1 found. The report rightly says J80 has to call it.
+- **Later items:** the launch correction and `last_used` are done; the rest are named as left.
+
+### Should-fix
+
+**S6. The report's PC end state is wrong: J32 left `napoleon_remastered.ini` in the game folder.** `jobs/J32/report.md`, last line of Fix round 1, and the run README.
+- **Which step wrote it.** `pc_deploy.py install` put the kit's ini down at 09:19:16 (10914 bytes, sha256 `1cfe08a3...`; `pre_install_20261106T091916Z.json` has no ini). The launch step of `s4.py battle2`, `ctl.py` through `pc_deploy.py set`, added the launch keys at 09:19:23 (10957 bytes, sha256 `aa3e7149...`), which is the file's date. The watcher's `headless` overlay at 09:19:27 saved that file as `mod_ini` in `_saved61106T091927Z_j32`, with the same date and sha.
+- **Why nothing removed it.** The fix session ran the steps in the wrong order, in one command: `pc_deploy.py uninstall`, `status`, then `job.sh unlock`. The uninstall at 09:37:18 moved the ini out and said identical, while the profile was active. The lock came free afterwards, and at 09:37:21 the watcher restored the configs it had saved, ini included (`watcher.log`; `restored.json`, 0 mismatches). The restore is doing its job: it puts back what existed when the overlay was applied. An ini was there then, because the kit was installed first. Nothing ran after that to remove it. `play.py` refuses this order (J67), but this was `pc_deploy.py`, which does not (core W94, `needs_brief`). The first end state had it right: lock free 08:22:28, uninstall 08:22:44.
+- **Why nobody saw it.** The session's `pc_deploy.py status` ran before the restore, and at core 0.30.0 that command does not look for the ini when nothing is installed. Its prefs read in the same command gave `b7c37858...`, the overlay, so it rechecked the prefs after the restore and not the folder. The report's "game folder identical" is a 09:37:18 reading stated as the state at 09:37 with no lock.
+- **Why it is still there.** J96's install at 09:38:21 snapshotted it as vanilla (`pre_install_20261106T093821Z.json`, same sha, same mtime, the 155 extra bytes in that file) and backed it up, and J96's uninstall put it back with its date intact. J96's report is right that it is J32's.
+- **Why not a blocker.** The brief's PC test passes as worded: no lock, game not running, `status` clean, exe vanilla, prefs unchanged. No J32 result rests on it.
+- Fixed by me as a run-folder erratum. `report.md` stays as written, because policy would count this session as one of its authors: read this finding in place of its last line.
+
+**S7. The gate's stated bound was too narrow.** `viewer.parity.numbers` said "thin or faint"; a solid 16 px icon and a text line at 100 px also read `raster`, because they fill under half a tile. Fixed by me in the fact. The same words remain in `tools/ui_hosttest.py:203` and the report. J80 should compare element boxes, as the fact says.
+
+### Later
+- **Three bites now (J43, J67, J32):** core W94 should stop waiting for a brief. Core W25's `status` stray line (0.33.0, through J78) would have shown this one.
+- **For Liam:** the ini has to be moved out by hand or at J78's `--move-stray`. `play.py install` refuses until then, and any `pc_deploy.py install` snapshots it as vanilla: uninstalls will say identical with it present.
+- `route_b.json` could keep the per-field split for S1.
+
+### Checked and sound
+- Risk-first reading: `tile_shift`, `align` and `parity_images`, since they become the gate, and the PC end state, since it touches the game folder. No install or persistent-data code changed on this branch.
+- `dp-ratio`'s three float32 steps match round 1's reading of `ApplyScale`.
+
+### For anyone merging
+No rule changes here, so no other open branch is affected.
+
 ## Round 1 (2026-11-06, branch job/J32 at 8a1b978)
 
 **Verdict: merge after fixes.**
