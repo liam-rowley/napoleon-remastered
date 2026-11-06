@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """The J30 host test document's art master and the crispness checks of its in-game dumps.
 
-purpose: write the host test's 2.5x art master (deterministic PNG), and check a `ctl ui dump` PNG of viewer/napoleon/hosttest: 1 dp rules solid with no blended rows, box edges on whole pixels, H ink height = cap height x size x dp ratio within 1 px; writes crops for review
-usage: python3 tools/ui_hosttest.py art [--out viewer/napoleon/hosttest/art_master.png] | check <dump.png> --dp <ratio> [--crops DIR] [--json OUT]
-when: art once (committed); check on every in-game dump of the host test (J30 PC step b), the numbers go in the run README; the crispness verdict stays Liam's, from the crops
+purpose: write the host test's 2.5x art master (deterministic PNG), check a `ctl ui dump` PNG of viewer/napoleon/hosttest (1 dp rules solid with no blended rows, box edges on whole pixels, H ink height = cap height x size x dp ratio within 1 px; writes crops for review), and compare a viewer render with an in-game dump of any document (parity: alignment, per-pixel difference, share beyond a tolerance, tiles whose content moved as distinct from edge blending, crops of the worst areas)
+usage: python3 tools/ui_hosttest.py art [--out viewer/napoleon/hosttest/art_master.png] | check <dump.png> --dp <ratio> [--crops DIR] [--json OUT] | parity <viewer.png> <game.png> [--rect x,y,w,h] [--tolerance N] [--crops DIR] [--json OUT]
+when: art once (committed); check on every in-game dump of the host test (J30 PC step b), the numbers go in the run README; the crispness verdict stays Liam's, from the crops; parity on every viewer and game pair (J32 S3; exit 1 when content moved)
 not-a-verb: a test helper for one document's PNGs, not a registry operation
 
 Positions mirror viewer/napoleon/hosttest/hosttest.rcss (body at 40,40 dp; keep the two in step). Standard library only: the PNG reader
@@ -56,7 +56,7 @@ def png_read(path):
     for y in range(h):
         f = raw[y * (stride + 1)]
         line = bytearray(raw[y * (stride + 1) + 1:(y + 1) * (stride + 1)])
-        for i in range(stride):
+        for i in range(stride if f else 0):
             a = line[i - ch] if i >= ch else 0
             b = prev[i]
             c = prev[i - ch] if i >= ch else 0
@@ -195,6 +195,148 @@ def check(path, dp, crops=None):
     return res
 
 
+# ---- parity: a viewer render against an in-game dump --------------------------------------------------------------------------
+TILE = 32            # px: moved content is looked for tile by tile, so one moved box shows however clean the rest of the image is
+SEARCH = 2           # px each way: the shifts tried, for the whole image and per tile
+MOVED_GAIN = 0.6     # a shift must remove this share of a tile's differing pixels: blending does not follow a shift, moved content does
+MOVED_MIN_PX = 8     # fewer differing pixels than this in a tile say nothing
+MOVED_MIN_DELTA = 32  # a tile whose worst pixel is under this is shading, not an edge
+
+
+def gray(img):
+    return [bytes((p[0] + 2 * p[1] + p[2]) >> 2 for p in row) for row in img]
+
+
+def count_off(ga, gb, x0, y0, x1, y1, dx, dy, tol):
+    """Pixels of the box in `ga` differing beyond tol from `gb` read at (x + dx, y + dy); pixels shifted off `gb` are not counted."""
+    n, hb, wb = 0, len(gb), len(gb[0])
+    xa, xb = max(x0, -dx), min(x1, wb - dx)
+    for y in range(max(y0, -dy), min(y1, hb - dy)):
+        ra, rb = ga[y][xa:xb], gb[y + dy][xa + dx:xb + dx]
+        if ra != rb:
+            n += sum(1 for p, q in zip(ra, rb) if abs(p - q) > tol)
+    return n
+
+
+def shifts():
+    return sorted(((dx, dy) for dx in range(-SEARCH, SEARCH + 1) for dy in range(-SEARCH, SEARCH + 1)), key=lambda s: abs(s[0]) + abs(s[1]))
+
+
+def align(ga, gb, box, tol):
+    """The whole-image shift of b that fits a best (every 4th row); (0, 0) unless the shift removes MOVED_GAIN of the difference."""
+    x0, y0, x1, y1 = box
+    rows = list(range(y0, y1, 4))
+    best, off, base = None, (0, 0), 0
+    for dx, dy in shifts():
+        n = 0
+        xa, xb = max(x0, -dx), min(x1, len(gb[0]) - dx)
+        for y in rows:
+            if 0 <= y + dy < len(gb):
+                pa, pb = ga[y][xa:xb], gb[y + dy][xa + dx:xb + dx]
+                if pa != pb:
+                    n += sum(1 for p, q in zip(pa, pb) if abs(p - q) > tol)
+        if best is None:
+            base = n
+        if best is None or n < best:
+            best, off = n, (dx, dy)
+    return off if best <= base * (1 - MOVED_GAIN) else (0, 0)
+
+
+def merge_tiles(tiles):
+    """Tiles {(tx, ty): shift} -> boxes of touching tiles that moved the same way."""
+    seen, out = set(), []
+    for t, s in sorted(tiles.items()):
+        if t in seen:
+            continue
+        stack, group = [t], []
+        seen.add(t)
+        while stack:
+            c = stack.pop()
+            group.append(c)
+            for n in ((c[0] + 1, c[1]), (c[0] - 1, c[1]), (c[0], c[1] + 1), (c[0], c[1] - 1)):
+                if n in tiles and n not in seen and tiles[n] == s:
+                    seen.add(n)
+                    stack.append(n)
+        xs, ys = [g[0] for g in group], [g[1] for g in group]
+        out.append({'box': [min(xs) * TILE, min(ys) * TILE, (max(xs) - min(xs) + 1) * TILE, (max(ys) - min(ys) + 1) * TILE], 'shift': list(s), 'tiles': len(group)})
+    return out
+
+
+def parity_images(a, b, rect=None, tol=8):
+    """Compare two images (rows of RGB tuples). -> the numbers, `moved` (boxes whose content a shift explains: layout) and `worst` (tiles by differing pixels)."""
+    h, w = len(a), len(a[0])
+    if (len(b), len(b[0])) != (h, w):
+        return {'ok': False, 'reason': f'sizes differ: {w}x{h} and {len(b[0])}x{len(b)}'}
+    x0, y0, rw, rh = rect or (0, 0, w, h)
+    x1, y1 = min(w, x0 + rw), min(h, y0 + rh)
+    ga, gb = gray(a), gray(b)
+    ox, oy = align(ga, gb, (x0, y0, x1, y1), tol)
+    hist, total, over = [0] * 256, 0, {}
+    for y in range(y0, y1):
+        yb = y + oy
+        if not 0 <= yb < h:
+            continue
+        ra, rb = a[y], b[yb]
+        for x in range(max(x0, -ox), min(x1, w - ox)):
+            p, q = ra[x], rb[x + ox]
+            if p != q:
+                d = max(abs(p[0] - q[0]), abs(p[1] - q[1]), abs(p[2] - q[2]))
+                hist[d] += 1
+                total += d
+                if d > tol:
+                    t = (x // TILE, y // TILE)
+                    c = over.get(t, (0, 0))
+                    over[t] = (c[0] + 1, max(c[1], d))
+    px = (x1 - x0) * (y1 - y0)
+    beyond = sum(hist[tol + 1:])
+    moved = {}
+    for (tx, ty), (n, d) in over.items():
+        if n < MOVED_MIN_PX or d < MOVED_MIN_DELTA:
+            continue
+        box = (max(x0, tx * TILE), max(y0, ty * TILE), min(x1, (tx + 1) * TILE), min(y1, (ty + 1) * TILE))
+        here = count_off(ga, gb, *box, ox, oy, tol)
+        best = min(shifts(), key=lambda s: count_off(ga, gb, *box, ox + s[0], oy + s[1], tol))
+        if best != (0, 0) and count_off(ga, gb, *box, ox + best[0], oy + best[1], tol) <= here * (1 - MOVED_GAIN):
+            moved[(tx, ty)] = best
+    worst = sorted(over.items(), key=lambda kv: (-kv[1][0], kv[0]))[:6]
+    return {'ok': True, 'size': [w, h], 'rect': [x0, y0, x1 - x0, y1 - y0], 'offset': [ox, oy], 'pixels': px, 'tolerance': tol, 'differing': sum(hist[1:]), 'beyond': beyond,
+            'share_beyond': round(beyond / px, 7) if px else 0, 'max_delta': max((i for i, n in enumerate(hist) if n), default=0), 'mean_delta': round(total / px, 4) if px else 0,
+            'moved': merge_tiles(moved), 'moved_tiles': len(moved), 'kind': 'layout' if moved or (ox, oy) != (0, 0) else ('raster' if beyond else 'same'),
+            'worst': [{'box': [t[0] * TILE, t[1] * TILE, TILE, TILE], 'beyond': v[0], 'max_delta': v[1]} for t, v in worst]}
+
+
+def parity_crops(a, b, res, out, stem, zoom=4):
+    """Each worst tile as viewer | game | difference (x 8), a pad of 8 px round it, zoomed."""
+    Path(out).mkdir(parents=True, exist_ok=True)
+    h, w = len(a), len(a[0])
+    ox, oy = res['offset']
+    for i, t in enumerate(res['worst']):
+        x, y, s, _ = t['box']
+        xs = range(max(0, x - 8), min(w, x + s + 8))
+        rows = []
+        for yy in range(max(0, y - 8), min(h, y + s + 8)):
+            yb = min(h - 1, max(0, yy + oy))
+            line = []
+            for panel in (0, 1, 2):
+                for xx in xs:
+                    p, q = a[yy][xx], b[yb][min(w - 1, max(0, xx + ox))]
+                    v = p if panel == 0 else q if panel == 1 else tuple(min(255, abs(m - n) * 8) for m, n in zip(p, q))
+                    line.extend(list(v) * zoom)
+                line.extend([255, 0, 255] * 2)
+            rows.extend([line] * zoom)
+        png_write(Path(out) / f'{stem}_{i}.png', len(rows[0]) // 3, len(rows), rows, 3)
+
+
+def parity(pa, pb, rect=None, tol=8, crops=None):
+    _, _, a = png_read(pa)
+    _, _, b = png_read(pb)
+    res = {'viewer': str(pa), 'game': str(pb), **parity_images(a, b, rect, tol)}
+    if crops and res['ok']:
+        parity_crops(a, b, res, crops, Path(pb).stem)
+        res['crops'] = str(crops)
+    return res
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -205,10 +347,23 @@ def main(argv=None):
     c.add_argument('--dp', type=float, required=True)
     c.add_argument('--crops')
     c.add_argument('--json')
+    q = sub.add_parser('parity')
+    q.add_argument('viewer')
+    q.add_argument('game')
+    q.add_argument('--rect', help='x,y,w,h in pixels: compare only this box (a document that does not cover the screen)')
+    q.add_argument('--tolerance', type=int, default=8, help='per-channel difference that counts (default 8)')
+    q.add_argument('--crops')
+    q.add_argument('--json')
     o = ap.parse_args(argv)
     if o.cmd == 'art':
         make_art(o.out)
         return 0
+    if o.cmd == 'parity':
+        r = parity(o.viewer, o.game, tuple(int(v) for v in o.rect.split(',')) if o.rect else None, o.tolerance, o.crops)
+        if o.json:
+            Path(o.json).write_text(json.dumps(r, indent=1) + '\n', encoding='utf-8')
+        print(json.dumps({k: r.get(k) for k in ('ok', 'reason', 'kind', 'offset', 'share_beyond', 'max_delta', 'mean_delta', 'moved_tiles') if k in r}))
+        return 0 if r['ok'] and r['kind'] != 'layout' else 1
     r = check(o.png, o.dp, o.crops)
     text = json.dumps(r, indent=1)
     if o.json:
