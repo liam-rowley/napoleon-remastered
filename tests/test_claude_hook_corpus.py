@@ -384,7 +384,8 @@ class PipelineIsNeverBlocked(unittest.TestCase):
         self.assertEqual(denied, [])
 
     def test_commands_printed_by_the_job_steps(self):
-        p = subprocess.run([sys.executable, str(ROOT / 'core' / 'wsc.py'), 'jobs', 'next'], cwd=ROOT, capture_output=True, text=True, timeout=120)
+        # --peek, never a bare `jobs next`: since core W26 that pushes a claim branch to the real origin, so each gates run took a job from the queue (J88)
+        p = subprocess.run([sys.executable, str(ROOT / 'core' / 'wsc.py'), 'jobs', 'next', '--peek'], cwd=ROOT, capture_output=True, text=True, timeout=120)
         if p.returncode != 0 or not p.stdout.strip():
             self.skipTest('the queue has nothing to print')
         found = re.findall(r'(?:git (?:checkout|push|pull|commit)|gh pr (?:view|create|ready|merge)|python3 core/wsc\.py)[^\n;,]*?(?=\.?\s*(?:$|\n|,|;| then| and ))',
