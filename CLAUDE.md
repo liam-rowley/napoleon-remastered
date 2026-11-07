@@ -83,6 +83,6 @@
 - Never edit generated copies: the claude.ai Project docs, review pages and anything a generator writes. Change the source and regenerate.
 
 ## Usage (D15, D59)
-Sonnet medium by default; Opus only with a reason in the brief (reverse engineering, shaders, DLL, crashes, independent checks);
+Opus across the board, at medium effort unless a brief asks for more (`D261107-5dc6`);
 at most 4 background sessions or subagents at once, a PC job counting as one, and finished ones stopped (D59); every job brief states a call budget and a kill criterion (`wsc jobs check`); waiting and polling belong to the harness, not
 to an agent making repeated calls.
