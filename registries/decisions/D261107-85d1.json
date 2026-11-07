@@ -1,0 +1,10 @@
+{
+  "id": "D261107-85d1",
+  "date": "2026-11-07",
+  "who": "J105 (recording core W33 and J78), for Liam's review",
+  "decision": "**The exception in D46 is over; the rest of D46 stands.** The player ini still omits the dev keys, and now without exception: the shipped UI rules are in `proxy.file_rules` (core W33, J78), so no component sets `dev.file_rules` and `allowed_dev_keys` is empty. `upscale/pc/play.py` stays on `dev.file_rules`, a dev launch, until J106 has passed. No Napoleon launch has used `proxy.file_rules` yet (fact `napoleon.ui.templates_route`); J106 must run one before the next release.",
+  "reversible": "yes",
+  "replaces": [
+    "D46"
+  ]
+}
