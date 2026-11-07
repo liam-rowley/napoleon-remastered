@@ -39,8 +39,7 @@ Check each again before relying on it; the pin may have moved (J88).
 - **`job/*` branches are never deleted.** `git ls-remote` lists every job ever built, so "any branch whose rule 79 fails" cannot be read literally.
 - **Autopilot:** `auto_tick` starts no `needs_pc` session while an acceptance lock is held. It reads the lock, which is free between passes, and it does not hold back a non-PC session at all.
 - **A window on the virtual display fails a pass:** J64 lost a pass to a Windows Terminal window over the game (`jobs/J64/report.md`, run 20261104_j64pc4). The observer is `harness/runs/20261104_j64pc5/foreign_windows.ps1`.
-- **Layouts:** J101 names D and M and tabulates deaths per launch, and says M looks like daytime and D evenings and nights. Read that table. J78's 20 passes ran on M with 2 deaths in 122 launches. **At D's latest rate,
-  two lost launches in a row come up several times in a run of about 120 launches, and the allowance is `acceptance.max_flakes`: a run on D cannot be expected to pass, whatever the DLL.**
+- **Layouts:** J101 names D and M and tabulates deaths per launch, and says M looks like daytime and D evenings and nights. Read that table. J78's 20 passes ran on M with 2 deaths in 122 launches. **The gap is a correlation, not a cause:** nothing in the harness needs the MSI (it finds the virtual display by name and reads its position at run time), both of J78's deaths came before the first `Direct3DCreate9`, and D has never been measured on a quiet PC. At D's latest rate two lost launches in a row would come up several times in about 120 launches, against an allowance of `acceptance.max_flakes`, so a run on D may fail whatever the DLL does. That is a result, not a fault in the runner.
 - **Free memory:** J64's run 20261104_j64pc5 failed a load with 5.9 GB free. Core row W105 (a floor in the runner) is `later`.
 - **Not known, find out in step 1 of the PC test and put in the report:** whether anything in a pass moves `GetLastInputInfo` with nobody there (`ctl` has no OS-level input, but the display tool calls `SetCursorPos`);
   which Python and `PATH` a scheduled task gets (Pillow is needed, `python3` may not resolve, and `git push` needs Liam's credentials, so the task must run in his logon session: `GetLastInputInfo` needs that session too);
@@ -55,7 +54,7 @@ Check each again before relying on it; the pin may have moved (J88).
    and ends. A `request` verb writes the file. A tick takes a branch only if: the row on `main` is not `done`, the row on the branch is `queued` or `fix` (so the autopilot starts no review before the passes), head's `build_id.py` equals the
    request, and `acceptance_problems` still reports rule 79 for it. Oldest request first, one run at a time.
 4. **Every tick checks these in order, cheapest first. A refusal is one log line, exit 0, nothing touched:** `<state>/liam_present` exists; idle under the threshold (open question 2); `job.sh status` shows a lock or a profile;
-   `pc_deploy.py status` says the exe is not vanilla, or shows foreign files or a kit this tool did not install; a session is `working` in `claude agents --json`; free memory under 8 GB; the layout is not M (open question 3); and,
+   `pc_deploy.py status` says the exe is not vanilla, or shows foreign files or a kit this tool did not install; a session is `working` in `claude agents --json`; free memory under 8 GB; and,
    only when a build is needed, Docker does not answer. Starting Docker or changing a display is never this tool's job.
 5. **The watcher follows HEAD before anything is built.** Compare the installed files with the checkout's core, as `acceptance.py` does. If only `update` files differ: `pc_deploy.py kit --what harness`, `send`, `job.sh ... update kit=<id>`, and go on only on
    `CONFIRMED`. If `watch.cmd` differs: refuse and log that `Install watcher.cmd` is Liam's. No change to `watcher.ps1`: the row's "the watcher updating itself" is this step.
@@ -83,15 +82,15 @@ Check each again before relying on it; the pin may have moved (J88).
 5. `python3 core/wsc.py gates` green, `build_id.py` the same before and after.
 
 ## PC test
-Needs Liam: a window with nothing else running, on layout M. The proof branch is `scratch/j85-proof`, cut from `job/J85` with one harmless change under `harness/` so rule 79 fails on it, and a request on it. **Its ledger lines never reach `job/J85`, and the branch stays until review.**
+Needs Liam: a window with nothing else running, on either layout (open question 3). Record the layout at the start of every run, from the monitor names. The proof branch is `scratch/j85-proof`, cut from `job/J85` with one harmless change under `harness/` so rule 79 fails on it, and a request on it. **Its ledger lines never reach `job/J85`, and the branch stays until review.**
 A `--passes N` and `--branch` override exist for this proof only. Preflight first, each result in the report:
 1. `python3 core/proxy/tools/pc_deploy.py status` (exe vanilla, no foreign files, nothing installed from another job) and `bash core/harness/job.sh status` (watcher matches the core, `not_running`, no lock). `python3 core/wsc.py find <scenario>` for the rows in the adapter's `acceptance.order`.
    The game is launched and killed only through `job.sh`. Answer the three "not known" facts above; **a wrong answer changes the guards, so settle them before step 2.**
 2. `tick --dry-run` from Git Bash, then with a test `--present-file` under the scratch folder: it refuses and nothing changes.
-3. `task install` (it stays disabled and you never enable it), `task install --proof`, then fire the proof task with `Start-ScheduledTask`, with the observer running (J78's rect for M). A 3-pass run on the proof branch, fired by the scheduler and not by a shell, because its environment is the thing under test. **The observer must show no window from the runner.** Log the idle reading once a minute: this answers the `SetCursorPos` question.
+3. `task install` (it stays disabled and you never enable it), `task install --proof`, then fire the proof task with `Start-ScheduledTask`, with the observer running, on the virtual display's rect as read at that moment (it differs between layouts). A 3-pass run on the proof branch, fired by the scheduler and not by a shell, because its environment is the thing under test. **The observer must show no window from the runner.** Log the idle reading once a minute: this answers the `SetCursorPos` question.
 4. Stop and resume: put the test present file down during pass 2. It must stop after that pass's line, leave no game, lock or active profile, and uninstall. Remove the file, fire again: same kit, `dll_sha256` unchanged, the streak continues.
 5. `update kit=<id>` with a kit equal to the installed watcher: exit 4, nothing to do. A real update only if the versions differ by then.
-6. **One full run, 20 passes, unattended, on the proof branch, ending in `acceptance.py streak` saying 20.** This is the row's title. Leave it to the task and end your turn; a background shell brings you back. Say which layout held, and look at the shots of at least one pass and say so.
+6. **One full run, 20 passes, unattended, on the proof branch, ending in `acceptance.py streak` saying 20.** This is the row's title. Leave it to the task and end your turn; a background shell brings you back. Say which layout held, give deaths per launch counted from `watcher.log` with the PC's load during the run, and look at the shots of at least one pass and say so. J101 has never had this number for D on a quiet PC: it is what this run is for, whichever way it ends. If the run fails on start-up deaths, J85 still needs one passing run before review.
 7. At the end: `task remove --proof`, the real task still disabled, `pc_deploy.py status` says vanilla, no lock. Every `failed` ctl result in a cited run is named under `## Deviations`.
 
 ## Out of scope
@@ -99,10 +98,10 @@ Any change under `core/`, including a stop flag for `acceptance.py` or the autop
 Starting a finish session after a green run (W46's area). Real job branches: no run for a real job in this job.
 
 ## Open questions
-All four answered by Liam on 2026-11-07, "Yes follow recs". They are recorded here because `docs/DECISIONS.md` has no room until J105 brings row files. Start on these; none is open.
+All four answered by Liam on 2026-11-07, "Yes follow recs"; he changed question 3 later that day. They are recorded here because `docs/DECISIONS.md` has no room until J105 brings row files. Start on these; none is open.
 1. The row says any branch whose rule 79 fails. **Answer: a run needs the request file**, because a branch still being built would waste a 2.7-hour run and most `job/*` branches are long merged.
 2. How long must Liam be idle before a run starts? **Answer: 30 minutes, a constant in the tool.**
-3. Should a run start on layout D? **Answer: no, refuse D until J101 reports**, because a failure there says nothing about the DLL. Nights look like D, so the hours the task can run may be few: the report's refused-tick count is what shows this.
+3. Should a run start on layout D? **Answer: yes, on either layout (Liam, 2026-11-07, replacing his earlier answer).** Nothing technical needs the MSI, and the gap in J101's table may come from load or time of day. The tool records the layout and stops on a change mid-run; it does not refuse a layout. A run lost to start-up deaths on D is evidence for J101, not a fault in the runner.
 4. Registering the task, and enabling it. **Answer: register it disabled; Liam alone runs `task enable`, after reading the report.** The proof runs on its own on-demand task (decision 12).
 
 ## Kill criteria
@@ -112,7 +111,7 @@ All four answered by Liam on 2026-11-07, "Yes follow recs". They are recorded he
 - After step 3 or 4, `foreign_windows.log` shows a window from the runner on the virtual display and a second attempt at the hidden console shows one too: stop and report.
 - Step 4 leaves a lock, an active profile or a game up after the stop path has run: stop, clear it through `job.sh`, report; no second try without changing the path.
 - `pc_deploy.py status` is not vanilla after any `uninstall`: stop and report before anything else.
-- Layout is D, or exit 2160, during a proof pass: stop at that point, keep the evidence, say the layout. Do not wait out a night in this session.
+- The layout changes, or exit 2160, during a proof pass: stop at that point, keep the evidence, say both layouts. Do not wait out a night in this session.
 - A proof pass ends `fail`: stop, keep the evidence, no retry, except the tool's own retry of a start-up exit. Row `blocked` if it is not the runner's fault and needs J101.
 - Over about 200 tool calls: stop, commit, report what is left.
 
