@@ -7,9 +7,9 @@ J28's route. This job is the Napoleon half: the adapter, the bindings, the proof
 gesture state machine with its host tests, the window-message hook, the overlay drawing) is a warscape-core job, `W<n>` below, and
 this job starts only when that job's tag is pinned here.
 
-Model: Sonnet, medium effort (the D15 default). The reverse engineering is done (J28, J43) and the heavy C++ is in the core job;
+Model: Opus, medium effort, reason: Liam's Opus across the board (`D261107-5dc6`). The reverse engineering is done (J28, J43) and the heavy C++ is in the core job;
 what is left is an adapter over known offsets, registry rows, a harness walk and the 20-pass run. An adapter step that needs new
-engine reverse engineering stops at a kill criterion and is proposed as an Opus job. Budget about 200 tool calls; at the cap, stop,
+engine reverse engineering stops at a kill criterion and is proposed as its own job. Budget about 200 tool calls; at the cap, stop,
 commit, report what is left. Subagents are not needed (one read-only one to read Empire's tests is fine). Waiting belongs to the
 harness: `job.sh`, ctl requests and the acceptance runner block or run in the background inside one call; never poll with repeated calls.
 

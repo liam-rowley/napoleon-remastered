@@ -12,7 +12,7 @@ added the larger battles and changed naval_small and naval_storm from 10 ships t
 This job re-runs `tools/perf_baseline.py` on the current build over the J46 library, extends `perf/baseline.json`, and re-proposes the per-feature
 budgets against the 40-unit numbers for Liam to agree (D38). No feature work, no proxy change, nothing shipped as agreed.
 
-Model: Sonnet, medium effort (D15 default: a driver already exists, PC runs go through the harness, the rest is writing up numbers; no DLL, shader or
+Model: Opus, medium effort, reason: Liam's Opus across the board (`D261107-5dc6`) (the work itself is light: a driver already exists, PC runs go through the harness, the rest is writing up numbers; no DLL, shader or
 reverse engineering). Budget about 110 tool calls; at the cap, stop, commit, report what is left. No subagents needed. Waiting belongs to the
 harness: the matrix runs in the background inside one call and you read its summary; never poll with repeated calls.
 

@@ -4,7 +4,7 @@
   "title": "Liam decides: player install on the real folder, and the held-back screens",
   "phase": 5,
   "status": "queued",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [],
   "brief": "jobs/J93/brief.md"

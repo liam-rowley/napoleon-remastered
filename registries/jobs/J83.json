@@ -4,7 +4,7 @@
   "title": "0.1.0 release sitting on the PC",
   "phase": 6,
   "status": "needs_brief",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J74",

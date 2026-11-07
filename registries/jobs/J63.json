@@ -4,7 +4,7 @@
   "title": "Promote upscale/core and viewer/core to warscape-core",
   "phase": 5,
   "status": "needs_brief",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J50",

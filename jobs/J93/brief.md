@@ -5,7 +5,7 @@ Later 1, 3 and 4). `upscale/pc/play.py` (J53, scale mode J66) has only run on a 
 next thing Liam does by hand and nothing else waits on it. The watcher-side hazard (a forgotten play install is picked up by the next agent
 job) is core BACKLOG line B79 and is not this job.
 
-Model: Sonnet, reason: Python edit and a guided PC sitting, no engine work (D52). Budget about 120 tool calls; at the cap, stop, commit,
+Model: Opus, reason: Liam's Opus across the board (`D261107-5dc6`); Python edit and a guided PC sitting, no engine work. Budget about 120 tool calls; at the cap, stop, commit,
 push, report what is left. No subagents. Waiting and polling belong to the harness.
 
 ## Start

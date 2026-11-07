@@ -4,7 +4,7 @@
   "title": "Napoleon harness adapter follow-ups: prefs mute, load_save poll limit, per-launch save restore",
   "phase": 1,
   "status": "needs_brief",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J78"
