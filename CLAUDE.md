@@ -47,7 +47,7 @@
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
   the docstring of `core/warscape/policy.py`, which `python3 core/wsc.py policy` (CI's `policy` check) runs (run it locally before opening a pull request). Work Liam asks
-  for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself.
+  for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself. A `merge` over such a fix needs a newer round from a fresh session (core rule A, `reviewer_code`).
 - **Rule 79 and history edits (J45):** the DLL build id is a hash of the DLL inputs' content (`core/proxy/tools/build_id.py`), so a reword,
   rebase or merge of `main` after the 20-pass run keeps the passes when it leaves those inputs unchanged; when `main` brings in a
   change to them, the branch needs a new run either way. Rebase or merge as you like.

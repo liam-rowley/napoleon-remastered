@@ -3,11 +3,13 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) carries the core's process fixes to napoleon: the first tag holding W26, W27, W28, W29, W31, W32 and W35. Rule 79 judges the core's own diff (jobs_hooks core_pin_diff), so when the core's proxy/ and harness/ are unchanged since J78's tag this bump needs no acceptance run; if they changed (W35, or W34 merged in the meantime), set needs_pc when briefing and run 20 passes (J85 can run them). Opt into W27's review rules, W28's skip warnings and W31's Usage: rule (J87 wires the reader). Use W29's wsc core bump verb if it exists. Also carries J95 item 10, the pin bump D56 asks for (J95 review round 1): the target tag must hold core W141 (core PR #185, the seven discovery fixes), so v0.50.1 or later, never an earlier tag. At the bump, as the core's UPGRADING section for W141 says: wsc discovery render and wsc discovery check, commit what changes (the db README gains the empty tables column and section), and paste the check lines and the README diff in the report. The render does not re-run exe.py, so re-run it too (it reads both exes in place, no launch) and commit discovery/diff/exe.json: W141's review counted 26 signatures that lose a candidate class (J95's report counted only the 19 unique, not the 7 shared), none within 32 bytes of an engine_sites row. Check that again on the new file against engine_sites and engine_facts, and name in the report any row that rests on a lost hit.",
   "title": "Pin bump to the core's process train",
   "phase": 1,
-  "status": "queued",
+  "status": "done",
   "model": "opus",
   "needs_pc": false,
   "depends_on": [
     "J78"
   ],
-  "brief": "jobs/J88/brief.md"
+  "brief": "jobs/J88/brief.md",
+  "report": "jobs/J88/report.md",
+  "review": "jobs/J88/review.md"
 }
