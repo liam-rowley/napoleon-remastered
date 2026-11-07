@@ -1,6 +1,6 @@
 # UI pipeline: from concept to proven in game
 
-Draft 2026-10-28, for Liam's review. Rests on D5-D9 (`docs/DECISIONS.md`): every screen is RmlUi, own design language, a scale
+Draft 2026-10-28, for Liam's review. Rests on D5-D9 (`registries/decisions/`): every screen is RmlUi, own design language, a scale
 slider, Liam reviews by playing designs, agents own the source.
 
 ## 1. What changes from Empire, and why

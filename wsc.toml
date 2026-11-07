@@ -72,7 +72,6 @@ brief_notes = '''How a brief cites (row 80, J11): game-side things by registry i
 
 [policy]
 decisions = "registry:decisions"
-decisions_retired = "docs/DECISIONS.md"
 decision_prefix = "D"
 session_trailer = "Claude-Session"
 commit_msg_hook = true                 # core W12: the commit-msg hook refuses a commit with no session trailer
@@ -80,7 +79,7 @@ decisions_cite_job = true              # core W27 rule F (J88): a decisions row 
 reviewer_code = "error"                # core W27 rule A, W40 (J88, Liam 2026-11-07): a `merge` over a reviewer's own change needs a newer round from a fresh session
 plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "registries/decisions/*", "README.md", "CLAUDE.md"]
 meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "registries/decisions/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
-        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules", "design/napoleon/LANGUAGE.md"]
+        "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules"]
 
 [agent_settings]
 safe = ["Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)", "Bash(git show:*)", "Bash(python3 core/wsc.py find:*)",
