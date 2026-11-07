@@ -137,6 +137,13 @@ def commit_message(job, run_id, outcome, session):
     return f'{job}: acceptance run {run_id}, {outcome}\n\nClaude-Session: {session}\n'
 
 
+def enable_problem(arguments):
+    """Why `task enable` refuses, or None, from the registered action's arguments: a task run from a linked worktree stops working when that worktree goes, and nothing logs it (the tool itself is what would)."""
+    if re.search(r'[\\/]\.claude[\\/]worktrees[\\/]', arguments):
+        return f'the task runs from a worktree ({arguments.strip()}): run `task install` from the main checkout first'
+    return None
+
+
 def task_script(action, name, python, tool, args, root):
     """The PowerShell for `task <action>`. install: the current user, interactive logon, no admin, created disabled, every 30 minutes (a proof task has no time trigger)."""
     q = lambda s: "'" + str(s).replace("'", "''") + "'"
@@ -923,6 +930,12 @@ def cmd_task(s, a):
     if a.proof and a.action in ('enable', 'disable'):
         print('task: refused: the proof task has no time trigger: it is fired by hand and removed', file=sys.stderr)
         return 2
+    if a.action == 'enable':
+        rc, out = s.powershell(f"(Get-ScheduledTask -TaskName '{TASK}' -ErrorAction Stop).Actions[0].Arguments")
+        why = f'the task cannot be read: {out.strip()[-200:]}' if rc else enable_problem(out)
+        if why:
+            print(f'task: refused: {why}', file=sys.stderr)
+            return 2
     args = proof_args(a, s) if a.proof else ['tick']
     py = Path(sys.executable).with_name('pythonw.exe')
     rc, out = s.powershell(task_script(a.action, name, py, Path(__file__).resolve(), args, s.root))

@@ -792,6 +792,30 @@ class CrashCleanup(Base):
         self.assertEqual(f.acts, [])
 
 
+class TaskEnable(unittest.TestCase):
+    """`task enable` reads the registered action first: one in a worktree stops working when the worktree goes."""
+    def enable(self, read):
+        calls = []
+
+        class S:
+            root = Path('/repo')
+
+            def powershell(self, script):
+                calls.append(script)
+                return read if script.startswith('(Get-ScheduledTask') else (0, '')
+        rc = auto.cmd_task(S(), argparse.Namespace(action='enable', proof=False, passes=None))
+        return rc, any('Enable-ScheduledTask' in c for c in calls)
+
+    def test_an_action_in_a_worktree_is_refused(self):
+        self.assertEqual(self.enable((0, r'C:\repos\n\.claude\worktrees\J85\tools\acceptance_auto.py launch tick')), (2, False))
+
+    def test_a_task_that_cannot_be_read_is_refused(self):
+        self.assertEqual(self.enable((1, 'No MSFT_ScheduledTask objects found')), (2, False))
+
+    def test_an_action_in_the_main_checkout_is_enabled(self):
+        self.assertEqual(self.enable((0, r'C:\repos\n\tools\acceptance_auto.py launch tick')), (0, True))
+
+
 class Pure(unittest.TestCase):
     def test_the_streak_is_read_from_the_gates_own_words(self):
         """Holds the regex to the one reader: a real acceptance_problems message."""
