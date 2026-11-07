@@ -1,0 +1,748 @@
+[2026-11-07T16:06:43Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=pc_deploy-install
+[2026-11-07T16:06:45Z] lock: free
+[2026-11-07T16:11:48Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:11:48Z] job acceptance-auto-20261107t160642z-20261107T161147Z-2723227007 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:11:51Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161151Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:11:51Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161147Z-2723227007 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22148
+[2026-11-07T16:11:53Z] job acceptance-auto-20261107t160642z-20261107T161147Z-2723227007 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:12:22Z] job acceptance-auto-20261107t160642z-20261107T161222Z-1504737 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:12:23Z] job acceptance-auto-20261107t160642z-20261107T161222Z-1504737 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:12:30Z] job acceptance-auto-20261107t160642z-20261107T161229Z-1763121527 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:12:31Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161151Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:12:31Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161229Z-1763121527 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 17264
+[2026-11-07T16:12:33Z] job acceptance-auto-20261107t160642z-20261107T161229Z-1763121527 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:12:59Z] job acceptance-auto-20261107t160642z-20261107T161258Z-303168876 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:13:00Z] job acceptance-auto-20261107t160642z-20261107T161258Z-303168876 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:13:08Z] job acceptance-auto-20261107t160642z-20261107T161307Z-680720703 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:13:09Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161151Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:13:09Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161307Z-680720703 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 5480
+[2026-11-07T16:13:11Z] job acceptance-auto-20261107t160642z-20261107T161307Z-680720703 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:13:38Z] job acceptance-auto-20261107t160642z-20261107T161337Z-1525115230 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:13:39Z] job acceptance-auto-20261107t160642z-20261107T161337Z-1525115230 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:13:45Z] job acceptance-auto-20261107t160642z-20261107T161345Z-2582531347 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:13:46Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161151Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:13:46Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161345Z-2582531347 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20684
+[2026-11-07T16:13:48Z] job acceptance-auto-20261107t160642z-20261107T161345Z-2582531347 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:14:06Z] job acceptance-auto-20261107t160642z-20261107T161405Z-1910912302 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:14:07Z] job acceptance-auto-20261107t160642z-20261107T161405Z-1910912302 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:14:15Z] job acceptance-auto-20261107t160642z-20261107T161414Z-2718220988 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:14:15Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161151Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:14:15Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161414Z-2718220988 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21880
+[2026-11-07T16:14:17Z] job acceptance-auto-20261107t160642z-20261107T161414Z-2718220988 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:14:41Z] job acceptance-auto-20261107t160642z-20261107T161440Z-150913884 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:14:42Z] job acceptance-auto-20261107t160642z-20261107T161440Z-150913884 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:15:07Z] job acceptance-auto-20261107t160642z-20261107T161507Z-131312869 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:15:08Z] job acceptance-auto-20261107t160642z-20261107T161507Z-131312869 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:15:32Z] job acceptance-auto-20261107t160642z-20261107T161532Z-2021525569 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:15:33Z] job acceptance-auto-20261107t160642z-20261107T161532Z-2021525569 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:16:04Z] job acceptance-auto-20261107t160642z-20261107T161603Z-323411650 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:16:05Z] job acceptance-auto-20261107t160642z-20261107T161603Z-323411650 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:16:34Z] job acceptance-auto-20261107t160642z-20261107T161634Z-316315804 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:16:35Z] job acceptance-auto-20261107t160642z-20261107T161634Z-316315804 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:17:05Z] job acceptance-auto-20261107t160642z-20261107T161704Z-160257749 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:17:06Z] job acceptance-auto-20261107t160642z-20261107T161704Z-160257749 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:17:44Z] job acceptance-auto-20261107t160642z-20261107T161743Z-953827813 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:17:45Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161151Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:17:45Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161743Z-953827813 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 5404
+[2026-11-07T16:17:47Z] job acceptance-auto-20261107t160642z-20261107T161743Z-953827813 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:17:55Z] lock: free
+[2026-11-07T16:17:56Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T16:17:56Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T16:17:58Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T16:17:59Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:17:59Z] job acceptance-auto-20261107t160642z-20261107T161758Z-36614464 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:18:02Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161801Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:18:02Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161758Z-36614464 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 4004
+[2026-11-07T16:18:04Z] job acceptance-auto-20261107t160642z-20261107T161758Z-36614464 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:18:34Z] job acceptance-auto-20261107t160642z-20261107T161833Z-2840311699 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:18:35Z] job acceptance-auto-20261107t160642z-20261107T161833Z-2840311699 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:18:42Z] job acceptance-auto-20261107t160642z-20261107T161842Z-752326817 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:18:43Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161801Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:18:43Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161842Z-752326817 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 2828
+[2026-11-07T16:18:45Z] job acceptance-auto-20261107t160642z-20261107T161842Z-752326817 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:19:11Z] job acceptance-auto-20261107t160642z-20261107T161910Z-2589231787 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:19:12Z] job acceptance-auto-20261107t160642z-20261107T161910Z-2589231787 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:19:18Z] job acceptance-auto-20261107t160642z-20261107T161917Z-157176776 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:19:19Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161801Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:19:19Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161917Z-157176776 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 7468
+[2026-11-07T16:19:21Z] job acceptance-auto-20261107t160642z-20261107T161917Z-157176776 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:19:48Z] job acceptance-auto-20261107t160642z-20261107T161947Z-1278718366 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:19:49Z] job acceptance-auto-20261107t160642z-20261107T161947Z-1278718366 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:19:57Z] job acceptance-auto-20261107t160642z-20261107T161956Z-2899013970 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:19:58Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161801Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:19:58Z] launch: launch job acceptance-auto-20261107t160642z-20261107T161956Z-2899013970 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 7632
+[2026-11-07T16:20:00Z] job acceptance-auto-20261107t160642z-20261107T161956Z-2899013970 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:20:18Z] job acceptance-auto-20261107t160642z-20261107T162017Z-10636772 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:20:19Z] job acceptance-auto-20261107t160642z-20261107T162017Z-10636772 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:20:26Z] job acceptance-auto-20261107t160642z-20261107T162025Z-1889430769 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:20:26Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161801Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:20:27Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162025Z-1889430769 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 1820
+[2026-11-07T16:20:29Z] job acceptance-auto-20261107t160642z-20261107T162025Z-1889430769 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:20:53Z] job acceptance-auto-20261107t160642z-20261107T162051Z-1366914638 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:20:54Z] job acceptance-auto-20261107t160642z-20261107T162051Z-1366914638 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:21:18Z] job acceptance-auto-20261107t160642z-20261107T162118Z-1968221911 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:21:20Z] job acceptance-auto-20261107t160642z-20261107T162118Z-1968221911 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:21:43Z] job acceptance-auto-20261107t160642z-20261107T162143Z-2738416567 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:21:44Z] job acceptance-auto-20261107t160642z-20261107T162143Z-2738416567 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:22:10Z] job acceptance-auto-20261107t160642z-20261107T162210Z-51820458 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:22:11Z] job acceptance-auto-20261107t160642z-20261107T162210Z-51820458 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:22:40Z] job acceptance-auto-20261107t160642z-20261107T162240Z-1520223641 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:22:41Z] job acceptance-auto-20261107t160642z-20261107T162240Z-1520223641 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:23:06Z] job acceptance-auto-20261107t160642z-20261107T162305Z-2207824005 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:23:07Z] job acceptance-auto-20261107t160642z-20261107T162305Z-2207824005 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:23:40Z] job acceptance-auto-20261107t160642z-20261107T162339Z-165807741 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:23:41Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T161801Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:23:41Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162339Z-165807741 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22884
+[2026-11-07T16:23:43Z] job acceptance-auto-20261107t160642z-20261107T162339Z-165807741 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:23:51Z] lock: free
+[2026-11-07T16:23:51Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T16:23:51Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T16:23:53Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T16:23:55Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:23:55Z] job acceptance-auto-20261107t160642z-20261107T162354Z-1525218022 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:23:57Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162357Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:23:58Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162354Z-1525218022 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 15080
+[2026-11-07T16:24:00Z] job acceptance-auto-20261107t160642z-20261107T162354Z-1525218022 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:24:29Z] job acceptance-auto-20261107t160642z-20261107T162429Z-1401629111 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:24:30Z] job acceptance-auto-20261107t160642z-20261107T162429Z-1401629111 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:24:36Z] job acceptance-auto-20261107t160642z-20261107T162436Z-1476319673 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:24:37Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162357Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:24:37Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162436Z-1476319673 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 3612
+[2026-11-07T16:24:39Z] job acceptance-auto-20261107t160642z-20261107T162436Z-1476319673 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:25:05Z] job acceptance-auto-20261107t160642z-20261107T162504Z-12102747 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:25:06Z] job acceptance-auto-20261107t160642z-20261107T162504Z-12102747 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:25:12Z] job acceptance-auto-20261107t160642z-20261107T162512Z-2254517467 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:25:13Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162357Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:25:13Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162512Z-2254517467 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 16004
+[2026-11-07T16:25:15Z] job acceptance-auto-20261107t160642z-20261107T162512Z-2254517467 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:25:42Z] job acceptance-auto-20261107t160642z-20261107T162541Z-2416626194 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:25:43Z] job acceptance-auto-20261107t160642z-20261107T162541Z-2416626194 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:25:50Z] job acceptance-auto-20261107t160642z-20261107T162550Z-2347121154 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:25:51Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162357Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:25:51Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162550Z-2347121154 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 10908
+[2026-11-07T16:25:53Z] job acceptance-auto-20261107t160642z-20261107T162550Z-2347121154 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:26:11Z] job acceptance-auto-20261107t160642z-20261107T162610Z-972523151 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:26:12Z] job acceptance-auto-20261107t160642z-20261107T162610Z-972523151 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:26:19Z] job acceptance-auto-20261107t160642z-20261107T162618Z-245996832 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:26:20Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162357Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:26:20Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162618Z-245996832 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 12184
+[2026-11-07T16:26:22Z] job acceptance-auto-20261107t160642z-20261107T162618Z-245996832 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:26:45Z] job acceptance-auto-20261107t160642z-20261107T162645Z-2890621558 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:26:46Z] job acceptance-auto-20261107t160642z-20261107T162645Z-2890621558 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:27:12Z] job acceptance-auto-20261107t160642z-20261107T162711Z-2016228836 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:27:13Z] job acceptance-auto-20261107t160642z-20261107T162711Z-2016228836 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:27:42Z] job acceptance-auto-20261107t160642z-20261107T162741Z-2672925389 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:27:43Z] job acceptance-auto-20261107t160642z-20261107T162741Z-2672925389 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:28:09Z] job acceptance-auto-20261107t160642z-20261107T162808Z-244830519 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:28:10Z] job acceptance-auto-20261107t160642z-20261107T162808Z-244830519 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:28:33Z] job acceptance-auto-20261107t160642z-20261107T162833Z-3130926334 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:28:35Z] job acceptance-auto-20261107t160642z-20261107T162833Z-3130926334 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:28:59Z] job acceptance-auto-20261107t160642z-20261107T162859Z-27955894 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:29:00Z] job acceptance-auto-20261107t160642z-20261107T162859Z-27955894 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:29:35Z] job acceptance-auto-20261107t160642z-20261107T162934Z-121043936 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:29:35Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162357Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:29:35Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162934Z-121043936 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 4852
+[2026-11-07T16:29:37Z] job acceptance-auto-20261107t160642z-20261107T162934Z-121043936 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:29:46Z] lock: free
+[2026-11-07T16:29:46Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T16:29:46Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T16:29:48Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T16:29:49Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:29:49Z] job acceptance-auto-20261107t160642z-20261107T162949Z-1464921226 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:29:52Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162952Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:29:52Z] launch: launch job acceptance-auto-20261107t160642z-20261107T162949Z-1464921226 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 15732
+[2026-11-07T16:29:54Z] job acceptance-auto-20261107t160642z-20261107T162949Z-1464921226 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:30:24Z] job acceptance-auto-20261107t160642z-20261107T163023Z-881526252 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:30:25Z] job acceptance-auto-20261107t160642z-20261107T163023Z-881526252 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:30:33Z] job acceptance-auto-20261107t160642z-20261107T163032Z-36048481 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:30:33Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162952Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:30:34Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163032Z-36048481 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 23528
+[2026-11-07T16:30:36Z] job acceptance-auto-20261107t160642z-20261107T163032Z-36048481 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:31:01Z] job acceptance-auto-20261107t160642z-20261107T163101Z-2746026583 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:31:02Z] job acceptance-auto-20261107t160642z-20261107T163101Z-2746026583 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:31:10Z] job acceptance-auto-20261107t160642z-20261107T163109Z-67539125 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:31:10Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162952Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:31:11Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163109Z-67539125 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 3596
+[2026-11-07T16:31:13Z] job acceptance-auto-20261107t160642z-20261107T163109Z-67539125 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:31:41Z] job acceptance-auto-20261107t160642z-20261107T163140Z-284319419 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:31:42Z] job acceptance-auto-20261107t160642z-20261107T163140Z-284319419 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:31:50Z] job acceptance-auto-20261107t160642z-20261107T163149Z-845531613 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:31:50Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162952Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:31:51Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163149Z-845531613 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 13504
+[2026-11-07T16:31:53Z] job acceptance-auto-20261107t160642z-20261107T163149Z-845531613 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:32:11Z] job acceptance-auto-20261107t160642z-20261107T163211Z-20629043 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:32:12Z] job acceptance-auto-20261107t160642z-20261107T163211Z-20629043 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:32:19Z] job acceptance-auto-20261107t160642z-20261107T163218Z-1270516160 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:32:19Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162952Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:32:19Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163218Z-1270516160 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 12560
+[2026-11-07T16:32:21Z] job acceptance-auto-20261107t160642z-20261107T163218Z-1270516160 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:32:46Z] job acceptance-auto-20261107t160642z-20261107T163245Z-228093681 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:32:47Z] job acceptance-auto-20261107t160642z-20261107T163245Z-228093681 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:33:18Z] job acceptance-auto-20261107t160642z-20261107T163317Z-2606313709 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:33:19Z] job acceptance-auto-20261107t160642z-20261107T163317Z-2606313709 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:33:48Z] job acceptance-auto-20261107t160642z-20261107T163348Z-143318730 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:33:49Z] job acceptance-auto-20261107t160642z-20261107T163348Z-143318730 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:34:21Z] job acceptance-auto-20261107t160642z-20261107T163420Z-2357428904 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:34:22Z] job acceptance-auto-20261107t160642z-20261107T163420Z-2357428904 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:34:51Z] job acceptance-auto-20261107t160642z-20261107T163451Z-62496266 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:34:52Z] job acceptance-auto-20261107t160642z-20261107T163451Z-62496266 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:35:22Z] job acceptance-auto-20261107t160642z-20261107T163522Z-2810611612 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:35:23Z] job acceptance-auto-20261107t160642z-20261107T163522Z-2810611612 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:36:02Z] job acceptance-auto-20261107t160642z-20261107T163602Z-781112350 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:36:03Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T162952Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:36:03Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163602Z-781112350 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 1896
+[2026-11-07T16:36:05Z] job acceptance-auto-20261107t160642z-20261107T163602Z-781112350 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:36:15Z] lock: free
+[2026-11-07T16:36:15Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T16:36:15Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T16:36:18Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T16:36:19Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:36:19Z] job acceptance-auto-20261107t160642z-20261107T163618Z-499622738 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:36:22Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T163621Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:36:22Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163618Z-499622738 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 9808
+[2026-11-07T16:36:24Z] job acceptance-auto-20261107t160642z-20261107T163618Z-499622738 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:36:55Z] job acceptance-auto-20261107t160642z-20261107T163654Z-1668912521 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:36:56Z] job acceptance-auto-20261107t160642z-20261107T163654Z-1668912521 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:37:02Z] job acceptance-auto-20261107t160642z-20261107T163702Z-1185813661 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:37:03Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T163621Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:37:03Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163702Z-1185813661 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 17044
+[2026-11-07T16:37:05Z] job acceptance-auto-20261107t160642z-20261107T163702Z-1185813661 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:37:32Z] job acceptance-auto-20261107t160642z-20261107T163732Z-843028474 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:37:33Z] job acceptance-auto-20261107t160642z-20261107T163732Z-843028474 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:37:41Z] job acceptance-auto-20261107t160642z-20261107T163741Z-3046916895 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:37:42Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T163621Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:37:42Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163741Z-3046916895 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20552
+[2026-11-07T16:37:44Z] job acceptance-auto-20261107t160642z-20261107T163741Z-3046916895 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:38:12Z] job acceptance-auto-20261107t160642z-20261107T163812Z-943916871 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:38:13Z] job acceptance-auto-20261107t160642z-20261107T163812Z-943916871 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:38:21Z] job acceptance-auto-20261107t160642z-20261107T163821Z-2347928483 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:38:22Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T163621Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:38:22Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163821Z-2347928483 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21824
+[2026-11-07T16:38:24Z] job acceptance-auto-20261107t160642z-20261107T163821Z-2347928483 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:38:43Z] job acceptance-auto-20261107t160642z-20261107T163842Z-8970256 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:38:44Z] job acceptance-auto-20261107t160642z-20261107T163842Z-8970256 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:38:50Z] job acceptance-auto-20261107t160642z-20261107T163850Z-1396630420 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:38:51Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T163621Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:38:51Z] launch: launch job acceptance-auto-20261107t160642z-20261107T163850Z-1396630420 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 23456
+[2026-11-07T16:38:53Z] job acceptance-auto-20261107t160642z-20261107T163850Z-1396630420 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:39:18Z] job acceptance-auto-20261107t160642z-20261107T163917Z-2128311606 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:39:19Z] job acceptance-auto-20261107t160642z-20261107T163917Z-2128311606 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:39:50Z] job acceptance-auto-20261107t160642z-20261107T163949Z-189554719 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:39:51Z] job acceptance-auto-20261107t160642z-20261107T163949Z-189554719 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:40:20Z] job acceptance-auto-20261107t160642z-20261107T164020Z-2547327376 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:40:21Z] job acceptance-auto-20261107t160642z-20261107T164020Z-2547327376 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:40:53Z] job acceptance-auto-20261107t160642z-20261107T164052Z-94714134 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:40:54Z] job acceptance-auto-20261107t160642z-20261107T164052Z-94714134 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:41:23Z] job acceptance-auto-20261107t160642z-20261107T164123Z-165894530 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:41:24Z] job acceptance-auto-20261107t160642z-20261107T164123Z-165894530 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:41:54Z] job acceptance-auto-20261107t160642z-20261107T164153Z-948219383 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:41:55Z] job acceptance-auto-20261107t160642z-20261107T164153Z-948219383 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:42:35Z] job acceptance-auto-20261107t160642z-20261107T164235Z-428712553 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:42:36Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T163621Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:42:36Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164235Z-428712553 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 19092
+[2026-11-07T16:42:38Z] job acceptance-auto-20261107t160642z-20261107T164235Z-428712553 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:42:49Z] lock: free
+[2026-11-07T16:42:49Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T16:42:49Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T16:42:51Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T16:42:52Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:42:52Z] job acceptance-auto-20261107t160642z-20261107T164251Z-2496524502 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:42:55Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164255Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:42:55Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164251Z-2496524502 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21472
+[2026-11-07T16:42:57Z] job acceptance-auto-20261107t160642z-20261107T164251Z-2496524502 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:43:28Z] job acceptance-auto-20261107t160642z-20261107T164328Z-778214210 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:43:29Z] job acceptance-auto-20261107t160642z-20261107T164328Z-778214210 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:43:37Z] job acceptance-auto-20261107t160642z-20261107T164336Z-1298622582 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:43:38Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164255Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:43:38Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164336Z-1298622582 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22616
+[2026-11-07T16:43:40Z] job acceptance-auto-20261107t160642z-20261107T164336Z-1298622582 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:44:07Z] job acceptance-auto-20261107t160642z-20261107T164406Z-2229626049 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:44:08Z] job acceptance-auto-20261107t160642z-20261107T164406Z-2229626049 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:44:16Z] job acceptance-auto-20261107t160642z-20261107T164415Z-978631365 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:44:16Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164255Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:44:17Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164415Z-978631365 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 3720
+[2026-11-07T16:44:19Z] job acceptance-auto-20261107t160642z-20261107T164415Z-978631365 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:44:47Z] job acceptance-auto-20261107t160642z-20261107T164447Z-2153323654 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:44:48Z] job acceptance-auto-20261107t160642z-20261107T164447Z-2153323654 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:44:55Z] job acceptance-auto-20261107t160642z-20261107T164454Z-375332334 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:44:55Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164255Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:44:56Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164454Z-375332334 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 18192
+[2026-11-07T16:44:58Z] job acceptance-auto-20261107t160642z-20261107T164454Z-375332334 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:45:16Z] job acceptance-auto-20261107t160642z-20261107T164516Z-56710301 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:45:18Z] job acceptance-auto-20261107t160642z-20261107T164516Z-56710301 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:45:25Z] job acceptance-auto-20261107t160642z-20261107T164525Z-2475323510 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:45:25Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164255Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:45:26Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164525Z-2475323510 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 16192
+[2026-11-07T16:45:28Z] job acceptance-auto-20261107t160642z-20261107T164525Z-2475323510 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:45:53Z] job acceptance-auto-20261107t160642z-20261107T164552Z-869830089 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:45:54Z] job acceptance-auto-20261107t160642z-20261107T164552Z-869830089 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:46:25Z] job acceptance-auto-20261107t160642z-20261107T164624Z-2900615205 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:46:26Z] job acceptance-auto-20261107t160642z-20261107T164624Z-2900615205 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:46:55Z] job acceptance-auto-20261107t160642z-20261107T164654Z-789126843 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:46:56Z] job acceptance-auto-20261107t160642z-20261107T164654Z-789126843 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:47:27Z] job acceptance-auto-20261107t160642z-20261107T164727Z-156341200 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:47:28Z] job acceptance-auto-20261107t160642z-20261107T164727Z-156341200 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:47:58Z] job acceptance-auto-20261107t160642z-20261107T164757Z-1956420378 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:47:59Z] job acceptance-auto-20261107t160642z-20261107T164757Z-1956420378 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:48:29Z] job acceptance-auto-20261107t160642z-20261107T164828Z-1017310312 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:48:30Z] job acceptance-auto-20261107t160642z-20261107T164828Z-1017310312 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:49:10Z] job acceptance-auto-20261107t160642z-20261107T164910Z-181682893 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:49:11Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164255Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:49:11Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164910Z-181682893 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 16888
+[2026-11-07T16:49:13Z] job acceptance-auto-20261107t160642z-20261107T164910Z-181682893 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:49:23Z] lock: free
+[2026-11-07T16:49:23Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T16:49:23Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T16:49:25Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T16:49:26Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:49:26Z] job acceptance-auto-20261107t160642z-20261107T164926Z-2287912587 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:49:30Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164929Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:49:30Z] launch: launch job acceptance-auto-20261107t160642z-20261107T164926Z-2287912587 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21096
+[2026-11-07T16:49:32Z] job acceptance-auto-20261107t160642z-20261107T164926Z-2287912587 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:50:03Z] job acceptance-auto-20261107t160642z-20261107T165003Z-1303013641 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:50:04Z] job acceptance-auto-20261107t160642z-20261107T165003Z-1303013641 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:50:11Z] job acceptance-auto-20261107t160642z-20261107T165010Z-2396529667 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:50:12Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164929Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:50:12Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165010Z-2396529667 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 4112
+[2026-11-07T16:50:14Z] job acceptance-auto-20261107t160642z-20261107T165010Z-2396529667 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:50:41Z] job acceptance-auto-20261107t160642z-20261107T165041Z-789317421 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:50:42Z] job acceptance-auto-20261107t160642z-20261107T165041Z-789317421 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:50:49Z] job acceptance-auto-20261107t160642z-20261107T165048Z-831625472 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:50:50Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164929Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:50:50Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165048Z-831625472 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 12812
+[2026-11-07T16:50:52Z] job acceptance-auto-20261107t160642z-20261107T165048Z-831625472 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:51:20Z] job acceptance-auto-20261107t160642z-20261107T165120Z-31707062 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:51:21Z] job acceptance-auto-20261107t160642z-20261107T165120Z-31707062 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:51:30Z] job acceptance-auto-20261107t160642z-20261107T165129Z-21493709 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:51:30Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164929Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:51:30Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165129Z-21493709 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 3856
+[2026-11-07T16:51:32Z] job acceptance-auto-20261107t160642z-20261107T165129Z-21493709 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:51:51Z] job acceptance-auto-20261107t160642z-20261107T165150Z-968625719 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:51:52Z] job acceptance-auto-20261107t160642z-20261107T165150Z-968625719 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:51:58Z] job acceptance-auto-20261107t160642z-20261107T165158Z-847314642 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:51:59Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164929Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:51:59Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165158Z-847314642 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21984
+[2026-11-07T16:52:01Z] job acceptance-auto-20261107t160642z-20261107T165158Z-847314642 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:52:26Z] job acceptance-auto-20261107t160642z-20261107T165225Z-884126794 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:52:27Z] job acceptance-auto-20261107t160642z-20261107T165225Z-884126794 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:52:58Z] job acceptance-auto-20261107t160642z-20261107T165257Z-323511620 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:52:59Z] job acceptance-auto-20261107t160642z-20261107T165257Z-323511620 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:53:28Z] job acceptance-auto-20261107t160642z-20261107T165327Z-17919080 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:53:29Z] job acceptance-auto-20261107t160642z-20261107T165327Z-17919080 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:54:00Z] job acceptance-auto-20261107t160642z-20261107T165400Z-269775600 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:54:01Z] job acceptance-auto-20261107t160642z-20261107T165400Z-269775600 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:54:31Z] job acceptance-auto-20261107t160642z-20261107T165430Z-578914169 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:54:32Z] job acceptance-auto-20261107t160642z-20261107T165430Z-578914169 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:55:02Z] job acceptance-auto-20261107t160642z-20261107T165501Z-2277323721 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:55:03Z] job acceptance-auto-20261107t160642z-20261107T165501Z-2277323721 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:55:42Z] job acceptance-auto-20261107t160642z-20261107T165541Z-734222495 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:55:43Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T164929Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:55:43Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165541Z-734222495 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 12132
+[2026-11-07T16:55:45Z] job acceptance-auto-20261107t160642z-20261107T165541Z-734222495 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:55:55Z] lock: free
+[2026-11-07T16:55:55Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T16:55:55Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T16:55:57Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T16:55:58Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T16:55:58Z] job acceptance-auto-20261107t160642z-20261107T165558Z-264183288 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:56:02Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T165601Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:56:02Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165558Z-264183288 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 18512
+[2026-11-07T16:56:04Z] job acceptance-auto-20261107t160642z-20261107T165558Z-264183288 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:56:35Z] job acceptance-auto-20261107t160642z-20261107T165635Z-363313777 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:56:36Z] job acceptance-auto-20261107t160642z-20261107T165635Z-363313777 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:56:43Z] job acceptance-auto-20261107t160642z-20261107T165642Z-2520221857 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:56:44Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T165601Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:56:44Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165642Z-2520221857 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22996
+[2026-11-07T16:56:46Z] job acceptance-auto-20261107t160642z-20261107T165642Z-2520221857 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:57:13Z] job acceptance-auto-20261107t160642z-20261107T165713Z-1159111985 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:57:14Z] job acceptance-auto-20261107t160642z-20261107T165713Z-1159111985 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:57:22Z] job acceptance-auto-20261107t160642z-20261107T165722Z-2324917814 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:57:23Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T165601Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:57:23Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165722Z-2324917814 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 13288
+[2026-11-07T16:57:25Z] job acceptance-auto-20261107t160642z-20261107T165722Z-2324917814 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:57:53Z] job acceptance-auto-20261107t160642z-20261107T165753Z-177448456 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:57:54Z] job acceptance-auto-20261107t160642z-20261107T165753Z-177448456 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:58:01Z] job acceptance-auto-20261107t160642z-20261107T165800Z-26293424 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:58:02Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T165601Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:58:02Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165800Z-26293424 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 444
+[2026-11-07T16:58:04Z] job acceptance-auto-20261107t160642z-20261107T165800Z-26293424 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:58:23Z] job acceptance-auto-20261107t160642z-20261107T165822Z-1925126203 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:58:24Z] job acceptance-auto-20261107t160642z-20261107T165822Z-1925126203 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:58:30Z] job acceptance-auto-20261107t160642z-20261107T165830Z-370121589 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:58:31Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T165601Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T16:58:31Z] launch: launch job acceptance-auto-20261107t160642z-20261107T165830Z-370121589 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 18140
+[2026-11-07T16:58:33Z] job acceptance-auto-20261107t160642z-20261107T165830Z-370121589 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:58:58Z] job acceptance-auto-20261107t160642z-20261107T165857Z-151630988 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:58:59Z] job acceptance-auto-20261107t160642z-20261107T165857Z-151630988 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T16:59:30Z] job acceptance-auto-20261107t160642z-20261107T165929Z-3200513959 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T16:59:31Z] job acceptance-auto-20261107t160642z-20261107T165929Z-3200513959 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:00:00Z] job acceptance-auto-20261107t160642z-20261107T165959Z-217365271 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:00:01Z] job acceptance-auto-20261107t160642z-20261107T165959Z-217365271 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:00:32Z] job acceptance-auto-20261107t160642z-20261107T170032Z-193124714 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:00:33Z] job acceptance-auto-20261107t160642z-20261107T170032Z-193124714 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:01:03Z] job acceptance-auto-20261107t160642z-20261107T170102Z-1762025409 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:01:04Z] job acceptance-auto-20261107t160642z-20261107T170102Z-1762025409 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:01:34Z] job acceptance-auto-20261107t160642z-20261107T170134Z-138264220 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:01:35Z] job acceptance-auto-20261107t160642z-20261107T170134Z-138264220 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:02:15Z] job acceptance-auto-20261107t160642z-20261107T170215Z-3200131067 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:02:16Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T165601Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:02:16Z] launch: launch job acceptance-auto-20261107t160642z-20261107T170215Z-3200131067 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21688
+[2026-11-07T17:05:17Z] job acceptance-auto-20261107t160642z-20261107T170215Z-3200131067 [launch owner=acceptance-auto-20261107t160642z] failed exit=1 - HEADLESS FAILED: no on_virtual status for pid 21688 within 180 s (last: (no status yet)); the game was killed (fail closed)
+[2026-11-07T17:05:30Z] job acceptance-auto-20261107t160642z-20261107T170529Z-1808610484 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:05:30Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T165601Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:05:31Z] virtualstore: moved 1 stale file(s) of napoleon_remastered aside to C:\napoleon_remastered_pc\watcher\_to_delete\virtualstore_20261107T170531Z: headless_status.json
+[2026-11-07T17:05:31Z] launch: launch job acceptance-auto-20261107t160642z-20261107T170529Z-1808610484 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 3160
+[2026-11-07T17:05:33Z] job acceptance-auto-20261107t160642z-20261107T170529Z-1808610484 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:05:42Z] lock: free
+[2026-11-07T17:05:42Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:05:42Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:05:44Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:05:45Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T17:05:45Z] job acceptance-auto-20261107t160642z-20261107T170545Z-66143314 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:05:48Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T170548Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:05:49Z] launch: launch job acceptance-auto-20261107t160642z-20261107T170545Z-66143314 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 18160
+[2026-11-07T17:05:51Z] job acceptance-auto-20261107t160642z-20261107T170545Z-66143314 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:06:23Z] job acceptance-auto-20261107t160642z-20261107T170622Z-190013546 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:06:24Z] job acceptance-auto-20261107t160642z-20261107T170622Z-190013546 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:06:31Z] job acceptance-auto-20261107t160642z-20261107T170631Z-2943916990 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:06:31Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T170548Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:06:32Z] launch: launch job acceptance-auto-20261107t160642z-20261107T170631Z-2943916990 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20180
+[2026-11-07T17:06:34Z] job acceptance-auto-20261107t160642z-20261107T170631Z-2943916990 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:07:01Z] job acceptance-auto-20261107t160642z-20261107T170700Z-12716953 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:07:02Z] job acceptance-auto-20261107t160642z-20261107T170700Z-12716953 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:07:10Z] job acceptance-auto-20261107t160642z-20261107T170709Z-284730408 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:07:11Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T170548Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:07:11Z] launch: launch job acceptance-auto-20261107t160642z-20261107T170709Z-284730408 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 8904
+[2026-11-07T17:07:13Z] job acceptance-auto-20261107t160642z-20261107T170709Z-284730408 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:07:41Z] job acceptance-auto-20261107t160642z-20261107T170740Z-351311165 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:07:42Z] job acceptance-auto-20261107t160642z-20261107T170740Z-351311165 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:07:49Z] job acceptance-auto-20261107t160642z-20261107T170749Z-564019201 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:07:50Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T170548Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:07:50Z] launch: launch job acceptance-auto-20261107t160642z-20261107T170749Z-564019201 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 16104
+[2026-11-07T17:07:52Z] job acceptance-auto-20261107t160642z-20261107T170749Z-564019201 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:08:11Z] job acceptance-auto-20261107t160642z-20261107T170810Z-282332694 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:08:12Z] job acceptance-auto-20261107t160642z-20261107T170810Z-282332694 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:08:20Z] job acceptance-auto-20261107t160642z-20261107T170819Z-1428713373 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:08:20Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T170548Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:08:21Z] launch: launch job acceptance-auto-20261107t160642z-20261107T170819Z-1428713373 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 2060
+[2026-11-07T17:08:23Z] job acceptance-auto-20261107t160642z-20261107T170819Z-1428713373 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:08:48Z] job acceptance-auto-20261107t160642z-20261107T170847Z-2050020042 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:08:49Z] job acceptance-auto-20261107t160642z-20261107T170847Z-2050020042 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:09:20Z] job acceptance-auto-20261107t160642z-20261107T170919Z-2120229374 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:09:21Z] job acceptance-auto-20261107t160642z-20261107T170919Z-2120229374 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:09:50Z] job acceptance-auto-20261107t160642z-20261107T170949Z-3185410052 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:09:51Z] job acceptance-auto-20261107t160642z-20261107T170949Z-3185410052 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:10:23Z] job acceptance-auto-20261107t160642z-20261107T171022Z-2604016782 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:10:24Z] job acceptance-auto-20261107t160642z-20261107T171022Z-2604016782 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:10:53Z] job acceptance-auto-20261107t160642z-20261107T171053Z-781220123 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:10:54Z] job acceptance-auto-20261107t160642z-20261107T171053Z-781220123 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:11:24Z] job acceptance-auto-20261107t160642z-20261107T171124Z-1175422687 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:11:25Z] job acceptance-auto-20261107t160642z-20261107T171124Z-1175422687 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:12:05Z] job acceptance-auto-20261107t160642z-20261107T171205Z-31728073 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:12:06Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T170548Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:12:06Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171205Z-31728073 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 18516
+[2026-11-07T17:12:08Z] job acceptance-auto-20261107t160642z-20261107T171205Z-31728073 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:12:17Z] lock: free
+[2026-11-07T17:12:17Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:12:17Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:12:19Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:12:21Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T17:12:21Z] job acceptance-auto-20261107t160642z-20261107T171220Z-2886732213 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:12:24Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171224Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:12:24Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171220Z-2886732213 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 2816
+[2026-11-07T17:12:28Z] job acceptance-auto-20261107t160642z-20261107T171220Z-2886732213 [launch owner=acceptance-auto-20261107t160642z] failed exit=1 - HEADLESS FAILED: the game exited before reporting on_virtual (last status: starting DllMain)
+[2026-11-07T17:12:41Z] job acceptance-auto-20261107t160642z-20261107T171239Z-146742206 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:12:41Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171224Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:12:41Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171239Z-146742206 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 11908
+[2026-11-07T17:12:43Z] job acceptance-auto-20261107t160642z-20261107T171239Z-146742206 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:13:15Z] job acceptance-auto-20261107t160642z-20261107T171314Z-164363124 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:13:17Z] job acceptance-auto-20261107t160642z-20261107T171314Z-164363124 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:13:23Z] job acceptance-auto-20261107t160642z-20261107T171322Z-33466448 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:13:23Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171224Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:13:24Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171322Z-33466448 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22416
+[2026-11-07T17:13:26Z] job acceptance-auto-20261107t160642z-20261107T171322Z-33466448 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:13:52Z] job acceptance-auto-20261107t160642z-20261107T171352Z-2437024337 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:13:54Z] job acceptance-auto-20261107t160642z-20261107T171352Z-2437024337 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:14:02Z] job acceptance-auto-20261107t160642z-20261107T171401Z-3276211284 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:14:02Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171224Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:14:03Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171401Z-3276211284 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 14904
+[2026-11-07T17:14:05Z] job acceptance-auto-20261107t160642z-20261107T171401Z-3276211284 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:14:34Z] job acceptance-auto-20261107t160642z-20261107T171432Z-521717245 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:14:35Z] job acceptance-auto-20261107t160642z-20261107T171432Z-521717245 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:14:42Z] job acceptance-auto-20261107t160642z-20261107T171441Z-2765727808 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:14:42Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171224Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:14:43Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171441Z-2765727808 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 5004
+[2026-11-07T17:14:45Z] job acceptance-auto-20261107t160642z-20261107T171441Z-2765727808 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:15:03Z] job acceptance-auto-20261107t160642z-20261107T171503Z-2824832066 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:15:04Z] job acceptance-auto-20261107t160642z-20261107T171503Z-2824832066 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:15:11Z] job acceptance-auto-20261107t160642z-20261107T171510Z-2959011419 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:15:11Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171224Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:15:12Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171510Z-2959011419 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 12744
+[2026-11-07T17:15:14Z] job acceptance-auto-20261107t160642z-20261107T171510Z-2959011419 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:15:39Z] job acceptance-auto-20261107t160642z-20261107T171538Z-133235553 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:15:40Z] job acceptance-auto-20261107t160642z-20261107T171538Z-133235553 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:16:11Z] job acceptance-auto-20261107t160642z-20261107T171610Z-323554556 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:16:12Z] job acceptance-auto-20261107t160642z-20261107T171610Z-323554556 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:16:41Z] job acceptance-auto-20261107t160642z-20261107T171641Z-119025884 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:16:42Z] job acceptance-auto-20261107t160642z-20261107T171641Z-119025884 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:17:14Z] job acceptance-auto-20261107t160642z-20261107T171713Z-2307710514 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:17:15Z] job acceptance-auto-20261107t160642z-20261107T171713Z-2307710514 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:17:45Z] job acceptance-auto-20261107t160642z-20261107T171744Z-2144527535 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:17:46Z] job acceptance-auto-20261107t160642z-20261107T171744Z-2144527535 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:18:16Z] job acceptance-auto-20261107t160642z-20261107T171815Z-359528824 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:18:17Z] job acceptance-auto-20261107t160642z-20261107T171815Z-359528824 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:18:55Z] job acceptance-auto-20261107t160642z-20261107T171855Z-429913226 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:18:56Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171224Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:18:56Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171855Z-429913226 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 10912
+[2026-11-07T17:18:58Z] job acceptance-auto-20261107t160642z-20261107T171855Z-429913226 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:19:06Z] lock: free
+[2026-11-07T17:19:07Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:19:07Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:19:09Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:19:10Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T17:19:11Z] job acceptance-auto-20261107t160642z-20261107T171910Z-428430188 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:19:14Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171914Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:19:14Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171910Z-428430188 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20856
+[2026-11-07T17:19:16Z] job acceptance-auto-20261107t160642z-20261107T171910Z-428430188 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:19:48Z] job acceptance-auto-20261107t160642z-20261107T171947Z-2531712616 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:19:49Z] job acceptance-auto-20261107t160642z-20261107T171947Z-2531712616 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:19:56Z] job acceptance-auto-20261107t160642z-20261107T171956Z-205053920 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:19:57Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171914Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:19:57Z] launch: launch job acceptance-auto-20261107t160642z-20261107T171956Z-205053920 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 10224
+[2026-11-07T17:19:59Z] job acceptance-auto-20261107t160642z-20261107T171956Z-205053920 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:20:26Z] job acceptance-auto-20261107t160642z-20261107T172026Z-115791170 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:20:27Z] job acceptance-auto-20261107t160642z-20261107T172026Z-115791170 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:20:35Z] job acceptance-auto-20261107t160642z-20261107T172035Z-1720515847 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:20:36Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171914Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:20:36Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172035Z-1720515847 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 5560
+[2026-11-07T17:20:38Z] job acceptance-auto-20261107t160642z-20261107T172035Z-1720515847 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:21:06Z] job acceptance-auto-20261107t160642z-20261107T172106Z-227324445 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:21:07Z] job acceptance-auto-20261107t160642z-20261107T172106Z-227324445 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:21:16Z] job acceptance-auto-20261107t160642z-20261107T172115Z-1160332415 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:21:16Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171914Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:21:17Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172115Z-1160332415 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20300
+[2026-11-07T17:21:19Z] job acceptance-auto-20261107t160642z-20261107T172115Z-1160332415 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:21:37Z] job acceptance-auto-20261107t160642z-20261107T172137Z-2851016216 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:21:38Z] job acceptance-auto-20261107t160642z-20261107T172137Z-2851016216 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:21:46Z] job acceptance-auto-20261107t160642z-20261107T172146Z-80015305 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:21:47Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171914Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:21:47Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172146Z-80015305 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22664
+[2026-11-07T17:21:49Z] job acceptance-auto-20261107t160642z-20261107T172146Z-80015305 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:22:14Z] job acceptance-auto-20261107t160642z-20261107T172213Z-1593932633 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:22:15Z] job acceptance-auto-20261107t160642z-20261107T172213Z-1593932633 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:22:46Z] job acceptance-auto-20261107t160642z-20261107T172246Z-2973716954 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:22:47Z] job acceptance-auto-20261107t160642z-20261107T172246Z-2973716954 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:23:17Z] job acceptance-auto-20261107t160642z-20261107T172316Z-1463125906 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:23:18Z] job acceptance-auto-20261107t160642z-20261107T172316Z-1463125906 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:23:49Z] job acceptance-auto-20261107t160642z-20261107T172349Z-2413821074 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:23:50Z] job acceptance-auto-20261107t160642z-20261107T172349Z-2413821074 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:24:20Z] job acceptance-auto-20261107t160642z-20261107T172420Z-602822032 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:24:21Z] job acceptance-auto-20261107t160642z-20261107T172420Z-602822032 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:24:51Z] job acceptance-auto-20261107t160642z-20261107T172451Z-176154349 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:24:52Z] job acceptance-auto-20261107t160642z-20261107T172451Z-176154349 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:25:33Z] job acceptance-auto-20261107t160642z-20261107T172532Z-2873129080 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:25:34Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T171914Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:25:34Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172532Z-2873129080 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 14676
+[2026-11-07T17:25:36Z] job acceptance-auto-20261107t160642z-20261107T172532Z-2873129080 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:25:46Z] lock: free
+[2026-11-07T17:25:46Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:25:46Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:25:49Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:25:50Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T17:25:50Z] job acceptance-auto-20261107t160642z-20261107T172549Z-151247504 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:25:53Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T172552Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:25:53Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172549Z-151247504 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22600
+[2026-11-07T17:25:55Z] job acceptance-auto-20261107t160642z-20261107T172549Z-151247504 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:26:26Z] job acceptance-auto-20261107t160642z-20261107T172626Z-184711052 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:26:27Z] job acceptance-auto-20261107t160642z-20261107T172626Z-184711052 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:26:34Z] job acceptance-auto-20261107t160642z-20261107T172633Z-2488910946 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:26:35Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T172552Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:26:35Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172633Z-2488910946 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 3604
+[2026-11-07T17:26:37Z] job acceptance-auto-20261107t160642z-20261107T172633Z-2488910946 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:27:04Z] job acceptance-auto-20261107t160642z-20261107T172704Z-200512701 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:27:05Z] job acceptance-auto-20261107t160642z-20261107T172704Z-200512701 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:27:13Z] job acceptance-auto-20261107t160642z-20261107T172713Z-1269915237 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:27:14Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T172552Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:27:14Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172713Z-1269915237 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 16592
+[2026-11-07T17:27:16Z] job acceptance-auto-20261107t160642z-20261107T172713Z-1269915237 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:27:44Z] job acceptance-auto-20261107t160642z-20261107T172744Z-3032612464 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:27:45Z] job acceptance-auto-20261107t160642z-20261107T172744Z-3032612464 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:27:52Z] job acceptance-auto-20261107t160642z-20261107T172751Z-2009419754 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:27:53Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T172552Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:27:53Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172751Z-2009419754 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21976
+[2026-11-07T17:27:55Z] job acceptance-auto-20261107t160642z-20261107T172751Z-2009419754 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:28:14Z] job acceptance-auto-20261107t160642z-20261107T172814Z-133092299 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:28:15Z] job acceptance-auto-20261107t160642z-20261107T172814Z-133092299 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:28:22Z] job acceptance-auto-20261107t160642z-20261107T172821Z-1006426936 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:28:23Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T172552Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:28:23Z] launch: launch job acceptance-auto-20261107t160642z-20261107T172821Z-1006426936 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 9076
+[2026-11-07T17:28:25Z] job acceptance-auto-20261107t160642z-20261107T172821Z-1006426936 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:28:50Z] job acceptance-auto-20261107t160642z-20261107T172849Z-399116602 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:28:51Z] job acceptance-auto-20261107t160642z-20261107T172849Z-399116602 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:29:22Z] job acceptance-auto-20261107t160642z-20261107T172922Z-2991931298 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:29:23Z] job acceptance-auto-20261107t160642z-20261107T172922Z-2991931298 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:29:53Z] job acceptance-auto-20261107t160642z-20261107T172952Z-1875128722 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:29:54Z] job acceptance-auto-20261107t160642z-20261107T172952Z-1875128722 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:30:25Z] job acceptance-auto-20261107t160642z-20261107T173025Z-3016829510 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:30:26Z] job acceptance-auto-20261107t160642z-20261107T173025Z-3016829510 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:30:56Z] job acceptance-auto-20261107t160642z-20261107T173056Z-236343620 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:30:57Z] job acceptance-auto-20261107t160642z-20261107T173056Z-236343620 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:31:27Z] job acceptance-auto-20261107t160642z-20261107T173127Z-230394603 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:31:28Z] job acceptance-auto-20261107t160642z-20261107T173127Z-230394603 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:32:09Z] job acceptance-auto-20261107t160642z-20261107T173208Z-21924502 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:32:09Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T172552Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:32:10Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173208Z-21924502 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 5772
+[2026-11-07T17:32:12Z] job acceptance-auto-20261107t160642z-20261107T173208Z-21924502 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:32:22Z] lock: free
+[2026-11-07T17:32:22Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:32:22Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:32:24Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:32:25Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T17:32:25Z] job acceptance-auto-20261107t160642z-20261107T173225Z-1892215613 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:32:28Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173228Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:32:28Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173225Z-1892215613 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 11896
+[2026-11-07T17:32:30Z] job acceptance-auto-20261107t160642z-20261107T173225Z-1892215613 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:33:02Z] job acceptance-auto-20261107t160642z-20261107T173302Z-147532283 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:33:03Z] job acceptance-auto-20261107t160642z-20261107T173302Z-147532283 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:33:11Z] job acceptance-auto-20261107t160642z-20261107T173311Z-98126861 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:33:11Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173228Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:33:12Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173311Z-98126861 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 6500
+[2026-11-07T17:33:14Z] job acceptance-auto-20261107t160642z-20261107T173311Z-98126861 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:33:41Z] job acceptance-auto-20261107t160642z-20261107T173340Z-3313942 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:33:42Z] job acceptance-auto-20261107t160642z-20261107T173340Z-3313942 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:33:50Z] job acceptance-auto-20261107t160642z-20261107T173349Z-26864969 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:33:50Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173228Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:33:51Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173349Z-26864969 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 19736
+[2026-11-07T17:33:53Z] job acceptance-auto-20261107t160642z-20261107T173349Z-26864969 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:34:21Z] job acceptance-auto-20261107t160642z-20261107T173420Z-29579368 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:34:22Z] job acceptance-auto-20261107t160642z-20261107T173420Z-29579368 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:34:30Z] job acceptance-auto-20261107t160642z-20261107T173429Z-454521718 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:34:30Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173228Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:34:31Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173429Z-454521718 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 21720
+[2026-11-07T17:34:33Z] job acceptance-auto-20261107t160642z-20261107T173429Z-454521718 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:34:51Z] job acceptance-auto-20261107t160642z-20261107T173451Z-195088915 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:34:53Z] job acceptance-auto-20261107t160642z-20261107T173451Z-195088915 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:35:00Z] job acceptance-auto-20261107t160642z-20261107T173459Z-315387940 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:35:00Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173228Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:35:01Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173459Z-315387940 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 19604
+[2026-11-07T17:35:03Z] job acceptance-auto-20261107t160642z-20261107T173459Z-315387940 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:35:28Z] job acceptance-auto-20261107t160642z-20261107T173527Z-1982026627 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:35:29Z] job acceptance-auto-20261107t160642z-20261107T173527Z-1982026627 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:36:00Z] job acceptance-auto-20261107t160642z-20261107T173559Z-312121272 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:36:01Z] job acceptance-auto-20261107t160642z-20261107T173559Z-312121272 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:36:31Z] job acceptance-auto-20261107t160642z-20261107T173630Z-907719570 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:36:32Z] job acceptance-auto-20261107t160642z-20261107T173630Z-907719570 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:37:05Z] job acceptance-auto-20261107t160642z-20261107T173704Z-2914521708 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:37:06Z] job acceptance-auto-20261107t160642z-20261107T173704Z-2914521708 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:37:35Z] job acceptance-auto-20261107t160642z-20261107T173734Z-731815486 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:37:36Z] job acceptance-auto-20261107t160642z-20261107T173734Z-731815486 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:38:07Z] job acceptance-auto-20261107t160642z-20261107T173806Z-3117223611 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:38:08Z] job acceptance-auto-20261107t160642z-20261107T173806Z-3117223611 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:38:46Z] job acceptance-auto-20261107t160642z-20261107T173846Z-714026317 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:38:47Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173228Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:38:47Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173846Z-714026317 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 19560
+[2026-11-07T17:38:49Z] job acceptance-auto-20261107t160642z-20261107T173846Z-714026317 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:38:58Z] lock: free
+[2026-11-07T17:38:58Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:38:58Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:39:00Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:39:01Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T17:39:01Z] job acceptance-auto-20261107t160642z-20261107T173901Z-2569813176 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:39:04Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173904Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:39:05Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173901Z-2569813176 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 19672
+[2026-11-07T17:39:07Z] job acceptance-auto-20261107t160642z-20261107T173901Z-2569813176 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:39:38Z] job acceptance-auto-20261107t160642z-20261107T173938Z-1010121270 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:39:39Z] job acceptance-auto-20261107t160642z-20261107T173938Z-1010121270 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:39:47Z] job acceptance-auto-20261107t160642z-20261107T173947Z-2808217531 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:39:48Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173904Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:39:48Z] launch: launch job acceptance-auto-20261107t160642z-20261107T173947Z-2808217531 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 19072
+[2026-11-07T17:39:50Z] job acceptance-auto-20261107t160642z-20261107T173947Z-2808217531 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:40:18Z] job acceptance-auto-20261107t160642z-20261107T174017Z-2960912785 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:40:19Z] job acceptance-auto-20261107t160642z-20261107T174017Z-2960912785 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:40:25Z] job acceptance-auto-20261107t160642z-20261107T174025Z-752329188 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:40:26Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173904Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:40:26Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174025Z-752329188 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22152
+[2026-11-07T17:40:28Z] job acceptance-auto-20261107t160642z-20261107T174025Z-752329188 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:40:56Z] job acceptance-auto-20261107t160642z-20261107T174056Z-188929413 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:40:57Z] job acceptance-auto-20261107t160642z-20261107T174056Z-188929413 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:41:05Z] job acceptance-auto-20261107t160642z-20261107T174105Z-1539712685 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:41:06Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173904Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:41:06Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174105Z-1539712685 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 2916
+[2026-11-07T17:41:08Z] job acceptance-auto-20261107t160642z-20261107T174105Z-1539712685 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:41:27Z] job acceptance-auto-20261107t160642z-20261107T174127Z-213819527 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:41:28Z] job acceptance-auto-20261107t160642z-20261107T174127Z-213819527 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:41:36Z] job acceptance-auto-20261107t160642z-20261107T174136Z-3263625488 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:41:37Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173904Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:41:37Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174136Z-3263625488 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20908
+[2026-11-07T17:41:39Z] job acceptance-auto-20261107t160642z-20261107T174136Z-3263625488 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:42:04Z] job acceptance-auto-20261107t160642z-20261107T174203Z-1660110023 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:42:05Z] job acceptance-auto-20261107t160642z-20261107T174203Z-1660110023 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:42:36Z] job acceptance-auto-20261107t160642z-20261107T174236Z-310307404 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:42:37Z] job acceptance-auto-20261107t160642z-20261107T174236Z-310307404 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:43:07Z] job acceptance-auto-20261107t160642z-20261107T174307Z-1269311082 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:43:08Z] job acceptance-auto-20261107t160642z-20261107T174307Z-1269311082 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:43:40Z] job acceptance-auto-20261107t160642z-20261107T174339Z-860027066 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:43:41Z] job acceptance-auto-20261107t160642z-20261107T174339Z-860027066 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:44:10Z] job acceptance-auto-20261107t160642z-20261107T174410Z-1329030574 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:44:11Z] job acceptance-auto-20261107t160642z-20261107T174410Z-1329030574 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:44:43Z] job acceptance-auto-20261107t160642z-20261107T174441Z-16016311 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:44:44Z] job acceptance-auto-20261107t160642z-20261107T174441Z-16016311 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:45:22Z] job acceptance-auto-20261107t160642z-20261107T174522Z-246176415 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:45:23Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T173904Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:45:23Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174522Z-246176415 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 23128
+[2026-11-07T17:45:25Z] job acceptance-auto-20261107t160642z-20261107T174522Z-246176415 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:45:35Z] lock: free
+[2026-11-07T17:45:35Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:45:35Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:45:38Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:45:39Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=acceptance pass
+[2026-11-07T17:45:40Z] job acceptance-auto-20261107t160642z-20261107T174538Z-14586663 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:45:43Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T174543Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:45:43Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174538Z-14586663 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20412
+[2026-11-07T17:45:45Z] job acceptance-auto-20261107t160642z-20261107T174538Z-14586663 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:46:17Z] job acceptance-auto-20261107t160642z-20261107T174616Z-204304171 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:46:18Z] job acceptance-auto-20261107t160642z-20261107T174616Z-204304171 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:46:24Z] job acceptance-auto-20261107t160642z-20261107T174624Z-1702917453 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:46:25Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T174543Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:46:25Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174624Z-1702917453 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 11176
+[2026-11-07T17:46:27Z] job acceptance-auto-20261107t160642z-20261107T174624Z-1702917453 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:46:55Z] job acceptance-auto-20261107t160642z-20261107T174654Z-2484011056 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:46:56Z] job acceptance-auto-20261107t160642z-20261107T174654Z-2484011056 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:47:02Z] job acceptance-auto-20261107t160642z-20261107T174702Z-1103416624 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:47:03Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T174543Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:47:03Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174702Z-1103416624 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 20196
+[2026-11-07T17:47:05Z] job acceptance-auto-20261107t160642z-20261107T174702Z-1103416624 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:47:33Z] job acceptance-auto-20261107t160642z-20261107T174733Z-2595717618 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:47:34Z] job acceptance-auto-20261107t160642z-20261107T174733Z-2595717618 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:47:43Z] job acceptance-auto-20261107t160642z-20261107T174742Z-2758718440 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:47:43Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T174543Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:47:43Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174742Z-2758718440 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 22572
+[2026-11-07T17:47:45Z] job acceptance-auto-20261107t160642z-20261107T174742Z-2758718440 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:48:04Z] job acceptance-auto-20261107t160642z-20261107T174803Z-180166626 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:48:05Z] job acceptance-auto-20261107t160642z-20261107T174803Z-180166626 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:48:12Z] job acceptance-auto-20261107t160642z-20261107T174812Z-1378023470 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:48:13Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T174543Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:48:13Z] launch: launch job acceptance-auto-20261107t160642z-20261107T174812Z-1378023470 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 4736
+[2026-11-07T17:48:15Z] job acceptance-auto-20261107t160642z-20261107T174812Z-1378023470 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:48:40Z] job acceptance-auto-20261107t160642z-20261107T174839Z-986512843 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:48:41Z] job acceptance-auto-20261107t160642z-20261107T174839Z-986512843 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:49:12Z] job acceptance-auto-20261107t160642z-20261107T174912Z-2937212426 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:49:13Z] job acceptance-auto-20261107t160642z-20261107T174912Z-2937212426 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:49:43Z] job acceptance-auto-20261107t160642z-20261107T174943Z-2315230173 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:49:44Z] job acceptance-auto-20261107t160642z-20261107T174943Z-2315230173 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:50:17Z] job acceptance-auto-20261107t160642z-20261107T175015Z-192673231 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:50:18Z] job acceptance-auto-20261107t160642z-20261107T175015Z-192673231 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:50:47Z] job acceptance-auto-20261107t160642z-20261107T175046Z-170721878 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:50:48Z] job acceptance-auto-20261107t160642z-20261107T175046Z-170721878 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:51:19Z] job acceptance-auto-20261107t160642z-20261107T175118Z-1262524526 [ps1 owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:51:20Z] job acceptance-auto-20261107t160642z-20261107T175118Z-1262524526 [ps1 owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:52:00Z] job acceptance-auto-20261107t160642z-20261107T175159Z-133031609 [launch owner=acceptance-auto-20261107t160642z] started
+[2026-11-07T17:52:01Z] headless: overlay applied for owner=acceptance-auto-20261107t160642z (snapshot 20261107T174543Z_acceptance-auto-20261107t160642z): 1920 x 1080
+[2026-11-07T17:52:01Z] launch: launch job acceptance-auto-20261107t160642z-20261107T175159Z-133031609 owner=acceptance-auto-20261107t160642z headless 1920x1080 -> pid 17952
+[2026-11-07T17:52:03Z] job acceptance-auto-20261107t160642z-20261107T175159Z-133031609 [launch owner=acceptance-auto-20261107t160642z] ok exit=0
+[2026-11-07T17:52:13Z] lock: free
+[2026-11-07T17:52:13Z] profile: restored the pre-'headless' configs of owner=acceptance-auto-20261107t160642z (auto: game.lock of owner=acceptance-auto-20261107t160642z was released or expired), 0 mismatches
+[2026-11-07T17:52:13Z] profile: AUTO-RESTORE under owner=acceptance-auto-20261107t160642z of 'headless' (game.lock of owner=acceptance-auto-20261107t160642z was released or expired): restored prefs  sha256 83b9b32b2b73 OK (byte-identical) | restored keys  sha256 adc99cc410b6 OK (unchanged) | restored battle_prefs  sha256 36642c2b5ec7 OK (byte-identical) | restored mod_ini  sha256 5bf5426c22f4 OK (byte-identical) | restored dxvk_conf  absent, as recorded
+[2026-11-07T17:52:15Z] vdisplay: previous mode restored (the game has exited and the lock is released): VIRTUAL RESTORED: \\.\DISPLAY10 back at 3840x2160@60 at 2560,1440 (display tool exit 0)
+[2026-11-07T17:52:18Z] lock: held by owner=acceptance-auto-20261107t160642z purpose=pc_deploy-uninstall
+[2026-11-07T17:52:19Z] lock: free

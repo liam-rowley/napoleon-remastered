@@ -1,0 +1,8 @@
+2026-11-07T15:19:23Z run 20261107_j85auto1 on scratch/j85-proof d5c6378c11aa: 3 passes after a streak of 0, kit kit_20261107T151922Z_d5c6378c11aa (built), layout D, owner acceptance-auto-20261107t151348z
+2026-11-07T15:30:57Z stop wanted: C:\napoleon_remastered_pc\_scratch\acceptance-auto\test_present exists; waiting for the next pass line
+2026-11-07T15:36:34Z stop after: acceptance pass 2: pass (harness/runs/20261107_j85auto1/pass_02.json)
+2026-11-07T15:37:12Z pushed 20261107_j85auto1 to scratch/j85-proof
+2026-11-07T15:37:12Z stopped: C:\napoleon_remastered_pc\_scratch\acceptance-auto\test_present exists
+2026-11-07T15:37:37Z run 20261107_j85auto2 on scratch/j85-proof 63d67e815529: 3 passes after a streak of 2, kit kit_20261107T151922Z_d5c6378c11aa (reused), layout D, owner acceptance-auto-20261107t153737z
+2026-11-07T16:00:54Z pushed 20261107_j85auto2 to scratch/j85-proof
+2026-11-07T16:00:54Z complete: every pass ran

@@ -1,0 +1,14 @@
+{
+ "utc": "2026-11-07T17:52:29Z",
+ "action": "complete",
+ "reason": "every pass ran",
+ "run": "20261107_j85auto3",
+ "branch": "scratch/j85-proof",
+ "build_id": "96722f4b8d52",
+ "kit": "kit_20261107T151922Z_d5c6378c11aa",
+ "layout": "D",
+ "vanilla": true,
+ "clean": true,
+ "pushed": true,
+ "notes": []
+}
