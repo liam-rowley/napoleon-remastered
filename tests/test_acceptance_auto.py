@@ -778,6 +778,18 @@ class Pure(unittest.TestCase):
         self.assertEqual(auto.rule79_reading([problems[0].replace('holds 0 ', 'holds 12 ')]), (True, 12, []))
         self.assertEqual(auto.rule79_reading([]), (False, None, []))
 
+    def test_the_update_job_and_log_as_the_watcher_writes_them(self):
+        """Lines of the real step 5 (run 20261107_j85pc): the job's output names the log, the log names the verdict."""
+        job = 'update started detached (rc=0 pid=5512); log: C:\\napoleon_remastered_pc\\watcher\\update\\run_20261107T114536Z\\update.log and watcher.log ([update] lines). Watch watcher.status version.'
+        self.assertEqual(auto.UPDATE_LOG_RX.search(job).group(1), 'C:\\napoleon_remastered_pc\\watcher\\update\\run_20261107T114536Z\\update.log')
+        begin = '[2026-11-07T11:45:36Z] [update] begin (pid 5512): kit C:\\k, noop window 60 s, healthy window 90 s, stable window 30 s'
+        self.assertEqual(auto.UPDATE_VERDICT.findall(begin), [])
+        self.assertEqual(auto.UPDATE_VERDICT.findall('[x] [update] NOTHING TO DO: every file of kit k is already in place (sha256) - no backup, no restart'), ['NOTHING TO DO'])
+
+    def test_the_kit_line_as_pc_deploy_writes_it(self):
+        line = 'pc_deploy kit: C:\\repo\\build\\kits\\harness_20261107T114520Z_1ec1b6b0c5fa (48 files + 5 kit files; watcher 1.5.0)'
+        self.assertEqual(auto.KIT_RX.search(line).group(1), 'C:\\repo\\build\\kits\\harness_20261107T114520Z_1ec1b6b0c5fa')
+
     def test_layouts(self):
         d = [{'hw': 'DEL41DB', 'primary': True}, {'hw': 'MTT1337'}]
         m = [{'hw': 'MSI3CB0', 'primary': True}, {'hw': 'DEL41DB'}, {'hw': 'MTT1337'}]
