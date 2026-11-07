@@ -4,7 +4,7 @@
   "title": "Watcher: a virtual display restore whose position is gone",
   "phase": 1,
   "status": "queued",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J18",

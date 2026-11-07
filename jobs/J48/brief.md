@@ -6,7 +6,7 @@ guard "to J18", which did not build it: J18 report, nothing on restores). Target
 stale record never blocks a launch. The fix is in the core (`harness/vdisplay_probe.ps1`, `harness/watcher.ps1`): a warscape-core PR, a tag
 Liam cuts, a pin bump here.
 
-Model: Sonnet (medium, the D15 default); PowerShell with host tests, no reverse engineering. Budget about 120 tool calls; at the cap, stop,
+Model: Opus (medium), reason: Liam's Opus across the board (`D261107-5dc6`); PowerShell with host tests, no reverse engineering. Budget about 120 tool calls; at the cap, stop,
 commit, report what is left. Subagents are not needed. Waiting belongs to the harness: the 20-pass run goes in the background inside one call.
 
 ## Start

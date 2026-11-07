@@ -4,7 +4,7 @@
   "title": "plan/ narrowed rules",
   "phase": 1,
   "status": "needs_brief",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": false,
   "depends_on": [
     "J78",

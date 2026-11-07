@@ -4,7 +4,7 @@
   "title": "Alt-drag move and Alt+Ctrl-drag rotate",
   "phase": 4,
   "status": "queued",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J21",

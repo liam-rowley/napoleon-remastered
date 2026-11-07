@@ -4,7 +4,7 @@
   "title": "Orders route follow-ups: shared blocks, wedge, g2 re-run, scene camera, scenario gaps",
   "phase": 4,
   "status": "needs_brief",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J29"

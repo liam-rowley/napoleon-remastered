@@ -4,7 +4,7 @@
   "title": "Nightly visual regression on the golden scenes",
   "phase": 3,
   "status": "needs_brief",
-  "model": "sonnet",
+  "model": "opus",
   "needs_pc": true,
   "depends_on": [
     "J85"
