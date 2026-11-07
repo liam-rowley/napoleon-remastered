@@ -1,6 +1,6 @@
 # Plan
 
-Draft 2026-10-28, for Liam's review. Decisions it rests on are in `docs/DECISIONS.md` (D-numbers below). The evidence behind most
+Draft 2026-10-28, for Liam's review. Decisions it rests on are in `registries/decisions/` (D-numbers below). The evidence behind most
 choices is Empire's: `empire-remastered/docs/plans/PIPELINE_V2.md` (the "start again" plan written for this game),
 `docs/learnings/RETRO_2026-10-23.md` and `docs/learnings/LEARNINGS*.md`. This doc says what we do differently, not why Empire did
 what it did.

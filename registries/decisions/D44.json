@@ -1,0 +1,7 @@
+{
+  "id": "D44",
+  "date": "2026-11-02",
+  "who": "J62 (as its brief requires; the brief called it D43, which J66 took first)",
+  "decision": "**The job pipeline lives in warscape-core v0.9.0.** `jobs` (next, review, fix, check, view, the launch server, `--auto`), the pull-request `policy`, `ci inputs`, `ci notify` and `ci render`, the `core:jobs` schema and the commit-trailer rule are the core's (its C18). This repo keeps configuration (`wsc.toml` `[jobs]`, `[jobs.text]`, `[policy]`, `[ci]`), `jobs/legacy.json` (the frozen id sets of D36 and J11) and one hook module, `tools/jobs_hooks.py` (found-path rule, rule 76, rule 79, the PC line), plus the game-folder guards in `tools/claude_hook.py`. Commands change: `python3 tools/pr_policy.py ...` is `python3 core/wsc.py policy ...`, `tools/changed_inputs.py` is `core/wsc.py ci inputs`, `tools/ci_notify.py` is `core/wsc.py ci notify`; the old files are deleted, no shim. The workflows are rendered from `ci/*.in` (`python3 core/wsc.py ci render`; the core's `ci_render` gate fails on a difference) and keep their job names, so the required checks (`gates`, `proxy`, `harness-windows`, `policy`) are unchanged. `docs/REVIEW.md` is now this game's addendum over `core/docs/REVIEW.md`. D21, D32, D33 and D36 stand; only the commands in them changed.",
+  "reversible": "yes"
+}

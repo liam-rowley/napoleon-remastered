@@ -1,0 +1,7 @@
+{
+  "id": "D29",
+  "date": "2026-10-29",
+  "who": "agent (J5), for Liam's review",
+  "decision": "warscape-core is **public**, not private as D18 says (GitHub API, 2026-10-29: `private: false`; both repos public). Replaces the \"(private)\" in D18. The D20 token is no longer needed to read the core, but the workflow still passes it: do not delete the secret without changing the workflow.",
+  "reversible": "yes"
+}

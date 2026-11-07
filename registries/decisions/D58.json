@@ -1,0 +1,7 @@
+{
+  "id": "D58",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**Liam's answers, second batch (2026-11-04).** (1) Core W35 `agent-settings` safe list for napoleon, to be set as `[agent_settings] safe` in `wsc.toml` at the pin bump that brings W35 (the pin-bump job reads this row; no separate row): read-only only: `Bash(git status:*)`, `Bash(git diff:*)`, `Bash(git log:*)`, `Bash(git show:*)`, `Bash(python3 core/wsc.py find:*)`, `Bash(python3 core/wsc.py jobs view:*)`, `Bash(gh pr view:*)`, `Bash(gh pr checks:*)`, `Bash(gh run view:*)`; nothing that writes, pushes, merges, runs gates or touches the PC. (2) J81 open question 1: uninstall does not offer to empty `_to_delete`; only `Clean.cmd` deletes, after the player types y. (3) J81 open question 2: a Steam-update difference does not need to exist in the pre-install snapshot; any difference outside the owned and backed-up paths is listed as the update's (as built).",
+  "reversible": "yes"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "D63",
+  "date": "2026-11-06",
+  "who": "Liam (J25's open questions)",
+  "decision": "**Cascades are wanted, not J24's 8192 map alone: J26 goes ahead.** Without them shadows are either short range and crisp or long range and blobby. D12's \"blob shadows\" means the sun-behind collapse, which cascades fix; imposter blobs are not part of it and stay with J27's LOD distance. The cascades budget in `perf/budgets.md` stays PROPOSED until Liam agrees it.",
+  "reversible": "yes"
+}

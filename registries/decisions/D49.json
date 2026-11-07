@@ -1,0 +1,7 @@
+{
+  "id": "D49",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**J24's three shadow release values are approved.** `gfx.shadow_extrusion` (extrusion -75 to -150 m), `gfx.shadow_height_cutoff` (fit height cutoff 100 to 200 m) and `gfx.shadow_map_large` (shadow map 2048 to 8192 at quality 3 and 4) ship on, as J24 proposed (`jobs/J24/report.md`, \"Proposed release values\"); J24's other keys stay off. Raised by the 2026-11-03 audit (R2, `docs/audits/AUDIT_2026-11-03.md`): J24 merged `release_value: true` for these three while its report left them to Liam. J77 adds an `approved_by` field that the release gate requires and stamps D49 on these rows. Liam's words: \"Approve all three\".",
+  "reversible": "yes"
+}

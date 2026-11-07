@@ -5,9 +5,16 @@ Row values are never committed: decoded rows go to `/extract/napoleon/db/`.
 
 Schema: `https://github.com/Frodo45127/rpfm-schemas/blob/29024e92f634c1da38c845c064bdcb0fd6492f67/schema_nap.ron` at `29024e92f634` (sha256 `faa826ad909ee96a…`, MIT (Copyright (c) 2020 Ismael Gutierrez Gonzalez)).
 
-| Table files | Decoded byte-exact | Not decoded | Versions |
-|---|---|---|---|
-| 310 | 306 | 4 | v0: 288, v1: 16, v2: 2, v3: 2, v4: 1, v5: 1 |
+| Table files | Decoded byte-exact | Not decoded | Empty tables | Versions |
+|---|---|---|---|---|
+| 310 | 306 | 4 | 26 (1 with a schema, 25 without) | v0: 288, v1: 16, v2: 2, v3: 2, v4: 1, v5: 1 |
+
+## Empty tables
+
+Declared rows 0: nothing to decode, so a table here counts as decoded with or without a schema.
+
+- With a schema: technology_required_building_levels_junctions
+- Without a schema: agent_spawning_to_building_chains, agent_spawning_to_policies, agent_to_building_levels, ancillary_to_ability_effects, ancillary_to_attribute_situation_effects, building_culture_gov_type_variants, building_research_thread_junction, building_resources_junction, campaign_map_famous_battles, commodity_slot_junction, empires_regions_junct, events_effect_group_junct, events_hist_chars_junct, events_to_policies_junction, groupings_cultures_junct, groupings_empires_junct, groupings_regions_junct, groupings_subcultures_junct, trade_theatre_commodities, trait_ability_effects, trait_attribute_situation_effects, trait_to_excluded_cultures, trigger_event_to_excluded_agent_types, units_to_gov_types_conversion_jcts, units_to_special_editions_juncs
 
 ## Not decoded
 

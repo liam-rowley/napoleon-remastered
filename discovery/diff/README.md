@@ -153,6 +153,6 @@ Every row whose verdict is not `same`; the `same` rows are counted per area. Ful
 | exe | pe strings_6plus | 37545 | 41970 | adapter |  | detail.*_pe |
 | exe | pe time_date_stamp | 0x6421f11c | 0x645e917f | adapter |  | detail.*_pe |
 | exe | signatures cfg_site | 26 signatures | 6 multiple, 20 none | new | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
-| exe | signatures function | 2854 signatures | 1159 unique, 33 shared, 468 multiple, 1190 none, 4 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
+| exe | signatures function | 2854 signatures | 1236 unique, 28 shared, 516 multiple, 1071 none, 3 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
 | exe | signatures guard_site | 23 signatures | 6 unique, 2 multiple, 15 none | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |
 | exe | signatures patch_site | 26 signatures | 2 unique, 4 multiple, 19 none, 1 unsearchable | adapter | unique hits are candidates for J9 (open facts), not engine sites | detail.signatures |

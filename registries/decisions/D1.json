@@ -1,0 +1,7 @@
+{
+  "id": "D1",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "Goals: modern battle controls (Alt+drag moves the selection, Alt+Ctrl+drag rotates it), UI that scales from 1080p to 4K and stays crisp, imposter and LOD distances pushed out (buildings, trees, ships, …), better shadows, DXVK for performance. `docs/plans/PLAN.md` section 1.",
+  "reversible": "yes"
+}

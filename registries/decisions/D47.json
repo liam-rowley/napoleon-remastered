@@ -1,0 +1,7 @@
+{
+  "id": "D47",
+  "date": "2026-11-03",
+  "who": "Liam",
+  "decision": "**Ray tracing stays out (the moonshot record's drafted D50, signed as recommended).** J71 measured that the 32-bit NVIDIA Vulkan ICD on the project PC exposes none of the ray-tracing extensions (`VK_KHR_ray_query`, `VK_KHR_acceleration_structure`, `VK_KHR_ray_tracing_pipeline` and the rest) to a 32-bit process, while the 64-bit ICD of the same driver exposes all of them (fact `napoleon.vulkan.rt_32bit` refuted 2026-11-03, driver 617.14, run `harness/runs/20261103_j71pc`). So the draft's \"if absent\" branch applies: ray-traced shadows and AO are deferred indefinitely, and PLAN section 2's \"64-bit bridge\" exclusion stands. No re-probe is scheduled; rerun J71 only if an NVIDIA release note mentions 32-bit Vulkan ray tracing, or before anyone reopens this. Liam's words: \"Follow recs for all questions\".",
+  "reversible": "yes"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "D31",
+  "date": "2026-10-29",
+  "who": "agent (planning chat), for Liam's review",
+  "decision": "Local proxy builds use D22's toolchain unchanged inside Docker Desktop (`ubuntu:24.04`, the same apt packages as CI), so a local DLL is byte-identical to CI's for the same commit; this replaces the \"cloud container\" half of D22 (CI unchanged). Fallback: the CI artifact through `gh run download`. Proved in J20.",
+  "reversible": "yes"
+}

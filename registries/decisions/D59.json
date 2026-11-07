@@ -1,0 +1,7 @@
+{
+  "id": "D59",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**At most 4 background sessions at once (replaces D34's \"no fixed cap\").** Every agent session runs on Liam's PC: about 20 sessions (350-850 MB each) plus WSL/Docker (~5 GB) left 4.6 GB of 31 GB free on 2026-11-04 and Claude Code killed J64's gate run for low memory. So at most 4 background sessions or subagents (builds, briefs, reviews, fixes, merge helpers) run at once, not counting the orchestrating session and Liam's own interactive sessions; a PC job counts as one. Finished or idle background sessions are stopped, not left running. Enforced in code by core W41 (`[jobs] max_sessions`, which `wsc jobs view --serve`/`--auto` and the orchestrator's launches check); until it lands, the orchestrator counts `claude agents --json` before every spawn. Also: hold new spawns while a 20-pass acceptance run is going (a new window on the virtual display spoils its shots, J64 run 20261104_j64pc4).",
+  "reversible": "yes"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "D22",
+  "date": "2026-10-28",
+  "who": "agent (proxy job), for Liam's review",
+  "decision": "Proxy release build = mingw-w64 i686 on Linux (cloud container and CI `ubuntu-24.04`, same toolchain); MSVC on the Windows runner is the fallback. `proxy/README.md` \"Build\".",
+  "reversible": "yes"
+}

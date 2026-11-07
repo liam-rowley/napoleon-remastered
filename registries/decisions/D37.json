@@ -1,0 +1,7 @@
+{
+  "id": "D37",
+  "date": "2026-10-31",
+  "who": "Liam",
+  "decision": "**Review viewer route (J31, S1 and S2).** The review viewer is RmlUi 6.3 + FreeType 2.13.3 + Lua 5.1.1 (float32 numbers) built to WebAssembly in the `emscripten/emsdk` image pinned by digest, through Docker Desktop on the PC and by the same command in CI; no Emscripten on the PC. `viewer/pins.json` is the one pin file, and the in-game host (J30) builds from it. Review pages are private Claude Artifacts staged by `viewer/core/render.py --stage-only`, with art as PNG or JPEG. Gates render through the same wasm and host page in headless Chromium and compare pixels by `rgba_sha256`. GitHub Pages stays unused. Detail: `docs/plans/UI_PIPELINE.md` section 4, `jobs/J31/review.md`.",
+  "reversible": "yes"
+}

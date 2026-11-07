@@ -1,0 +1,7 @@
+{
+  "id": "D33",
+  "date": "2026-10-29",
+  "who": "Liam",
+  "decision": "**A brief merges itself on green CI.** The writer of a brief, after pushing `brief/J<n>`, runs `python3 tools/pr_policy.py --branch brief/J<n> --base origin/main` (must say ok), opens the pull request and runs `gh pr merge brief/J<n> --auto --squash`: GitHub merges only when every required check passes, and the `policy` check limits the branch to `jobs/J<n>/brief.md` and row J<n> (`queued` with its brief). No agent waits or polls. Replaces \"`brief/` branches still wait for Liam\" in D32; `plan/` and `meta/` still wait for Liam. Liam can still edit or close the pull request before CI finishes.",
+  "reversible": "yes"
+}

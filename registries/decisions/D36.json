@@ -1,0 +1,7 @@
+{
+  "id": "D36",
+  "date": "2026-10-31",
+  "who": "Liam",
+  "decision": "**Automatic review cycle.** A job that sets status=review gets a fresh reviewer session; a non-merge verdict starts a fix session on the branch, then a new review round; at most 3 rounds, then the job is blocked for Liam. Driven by an autopilot loop in `wsc jobs view --serve --auto` (harness side, no cap: D34). plan/ and meta/ still wait for Liam. J52.",
+  "reversible": "yes"
+}

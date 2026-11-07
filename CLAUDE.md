@@ -3,7 +3,8 @@
 **The repo is the single source of truth.** If it isn't in the repo, the next chat can't see it and it doesn't exist.
 
 ## Before you start
-1. `git pull`. Read `README.md`, `docs/DECISIONS.md`, and the plan doc for your area (`docs/plans/`).
+1. `git pull`. Read `README.md`, the decisions (`python3 core/wsc.py find <words>`, or `python3 core/wsc.py reg render decisions`, then
+   `_scratch/registries/decisions.md`) and the plan doc for your area (`docs/plans/`). A brief that says docs/DECISIONS.md means these rows.
 2. Look things up before rediscovering them: the registries (tools, scenarios, assets, UI elements, engine sites, config keys,
    hotkeys, engine facts) once they exist (`docs/plans/PLAN.md` section 3). Until then, `empire-remastered` holds the evidence:
    `docs/learnings/` and `docs/plans/PIPELINE_V2.md`. Napoleon is the same engine lineage, but every Empire fact about the exe,
@@ -47,7 +48,7 @@
   wrote the report).
 - **All work goes through the queue (D21).** The branch name decides what a pull request may change; the kinds and their files are
   the docstring of `core/warscape/policy.py`, which `python3 core/wsc.py policy` (CI's `policy` check) runs (run it locally before opening a pull request). Work Liam asks
-  for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself.
+  for that isn't in the queue becomes a `needs_brief` row on a `plan/` branch first. Reviewer fixes go on the job branch itself. A `merge` over such a fix needs a newer round from a fresh session (core rule A, `reviewer_code`).
 - **Rule 79 and history edits (J45):** the DLL build id is a hash of the DLL inputs' content (`core/proxy/tools/build_id.py`), so a reword,
   rebase or merge of `main` after the 20-pass run keeps the passes when it leaves those inputs unchanged; when `main` brings in a
   change to them, the branch needs a new run either way. Rebase or merge as you like.
@@ -57,6 +58,8 @@
   is merged by its independent reviewer on green CI (D32, `docs/REVIEW.md`), a `brief/` branch by its writer on green CI
   (D33); `plan/` by its writer on green CI (D62), `meta/` by Liam only (D50). A `plan/` branch queues its own merge like `brief/`: after pushing, `python3 core/wsc.py policy --branch plan/<name> --base origin/main` (must say ok), open the pull request, then `gh pr merge plan/<name> --auto --squash`, no waiting or polling. End every job with a report: what was built, evidence
   (run ids), deviations from the brief and why, open questions (`wsc jobs check` checks the headings).
+- **A decision is a row file:** `python3 core/wsc.py reg add decisions --mint who=... decision=... reversible=yes|no` draws an id no other branch can take;
+  a row never changes, and a reversal is a new row with `replaces` (core W43, J105).
 - **A learning becomes code first.** When something bites (a timing, a trap, a wrong default), fix it in the tool, its default, a
   guard or a gate so the next agent cannot hit it. Write prose only when it cannot be coded, and then into the doc that owns the topic.
 - **Exe stays vanilla on disk** (D2). Runtime patches and detours go in the proxy DLL, every engine address in the engine-sites

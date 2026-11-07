@@ -1,0 +1,7 @@
+{
+  "id": "D40",
+  "date": "2026-11-02",
+  "who": "Liam",
+  "decision": "**UI scale stop-gap now: the vanilla UI scaled by data packs, ported from Empire.** At 4K the vanilla UI is drawn at its 1080p pixel size and is too small to play (\"We need the stop-gap port ASAP\"). Before the RmlUi screens (D6) exist, the vanilla layouts, `uied.templates`, fonts and UI art are rebuilt at a fixed factor and installed with J53's play install, ported from empire-remastered `ui_scale_mod` (main and branch `ui/multiscale`). J66 does 2x for 4K (layouts incl. V039 keyframes, templates, fonts, 2x art resampled from the 2.5x masters); J67 the Lua pixel constants, 1.25x/1.5x for 1440p and the screens J66 leaves. A fixed factor chosen at install, not D5's slider; each screen's stop-gap ends when its RmlUi screen ships. No exe patch (D2).",
+  "reversible": "yes"
+}

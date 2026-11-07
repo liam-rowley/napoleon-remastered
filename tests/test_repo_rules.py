@@ -4,10 +4,11 @@
   one non-ASCII character in a .ps1 corrupts strings or breaks parsing); data files are UTF-8 without a BOM.
 - proxy/README.md "DXVK": binaries are never committed (the build and kits are generated; .gitignore refuses *.dll).
 - J5 rules for fixes: a gate is never silenced by `[gates] skip` or a new exemption glob without a dated decision naming it (J94: one
-  docs/DECISIONS.md table row that names wsc.toml and quotes both the section and the value).
+  row of registries/decisions/, read as its table line, that names wsc.toml and quotes both the section and the value).
 - J22: a test or tool never runs a bare `bash`: on Windows that can be the WSL launcher (other paths, other python3; J6 saw 10 test
   failures on the PC). It takes the path from tools/verbs/setup.py git_bash() (tests: bash_for_tests()).
 """
+import json
 import subprocess
 import tomllib
 import re
@@ -183,7 +184,7 @@ class Fixtures(unittest.TestCase):
         self.assertEqual(text_problems('a.json', '{"n": "café"}'.encode(), False), [])
 
 
-# Exemptions that predate J5, each with its reason; anything else in wsc.toml needs a docs/DECISIONS.md row that quotes it.
+# Exemptions that predate J5, each with its reason; anything else in wsc.toml needs a decision row (registries/decisions/) that quotes it.
 GRANDFATHERED = {('tools', 'exempt', 'tests/**'): 'host tests are not tools (core C8)',
                  ('tools', 'exempt', '**/runs/**'): 'dated run evidence, not tools'}
 
@@ -219,7 +220,10 @@ PURPOSE_QUOTE_ALLOWED = {
 class ThisRepo(unittest.TestCase):
     def test_no_gate_silenced_without_a_decision(self):
         cfg = tomllib.loads((ROOT / 'wsc.toml').read_text(encoding='utf-8'))
-        self.assertEqual(silenced(cfg, (ROOT / 'docs' / 'DECISIONS.md').read_text(encoding='utf-8')), [])
+        rows = [json.loads(p.read_text(encoding='utf-8')) for p in sorted((ROOT / 'registries' / 'decisions').glob('*.json'))]
+        self.assertTrue(rows, 'no decision rows read: this test would pass on nothing')
+        lines = ['| ' + ' | '.join(str(r[k]) for k in ('id', 'date', 'who', 'decision', 'reversible')) + ' |' for r in rows]
+        self.assertEqual(silenced(cfg, '\n'.join(lines)), [])
 
     def test_harness_sources_are_ascii_and_data_has_no_bom(self):
         errs = []

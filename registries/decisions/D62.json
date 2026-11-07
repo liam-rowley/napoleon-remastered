@@ -1,0 +1,7 @@
+{
+  "id": "D62",
+  "date": "2026-11-05",
+  "who": "Liam",
+  "decision": "**`plan/` branches merge themselves on green CI, like `brief/` (D33); this replaces D50's `plan/` half.** `meta/` stays Liam's. J84 makes the hook stop denying it; until J84 merges, D50's guard still applies. J84 is cut to that hook change alone, so this does not wait for J78. The audit's narrowed rules (`plan/` loses `CLAUDE.md`, `docs/REVIEW.md` and the core's docs; row edits limited) move to J103 after J78. Accepted meanwhile: a `plan/` branch can change those files with no human review, on green CI alone. Liam's words: \"I also don't need to be approving plan prs, they can be automatic\".",
+  "reversible": "yes"
+}

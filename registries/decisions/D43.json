@@ -1,0 +1,7 @@
+{
+  "id": "D43",
+  "date": "2026-11-02",
+  "who": "Liam",
+  "decision": "**Napoleon design language (J33): Engraved Plate with full faction tint.** Liam played the three directions (A Staff Map, B Regimental Facings, C Engraved Plate) and answered in chat, in his words: \"C, Engraved Plate\" to \"Which direction becomes the Napoleon design language?\", and \"Full tint\" to \"Should the chrome show faction colour?\" (\"Header band, selected tab, primary button and bars take the faction colour.\"). So the language is C's palette, type, ornament, density and iconography with B-style full faction tinting instead of C's keyline. Rules and tokens: `design/napoleon/LANGUAGE.md`, `design/napoleon/tokens.draft.json`; the review record is `design/napoleon/directions/` and `design/napoleon/previews/`. J34 turns it into RCSS tokens. New art it asks for (about 24 sprites) needs Liam's acceptance under D14.",
+  "reversible": "yes"
+}

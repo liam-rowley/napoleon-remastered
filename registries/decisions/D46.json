@@ -1,0 +1,7 @@
+{
+  "id": "D46",
+  "date": "2026-11-02",
+  "who": "J38 (as its brief requires), for Liam's review",
+  "decision": "**The player ini omits the dev keys.** It lists only the keys a player may change; the dev, headless, proof and exe-guard keys are left out because every omitted key's DLL default equals its release value (gate: `tests/test_release.py`, `release/core/build_release.py` `value_problems`; dev, proof and test keys are off, `proxy.exe_guard` is 1, `proxy.exe_guard_force_mismatch` is 0, `proxy.minidump` is 2: J1 open question 1 closed). The UI scale stop-gap (D42) needs `dev.file_rules` until a DLL job gives it a player key (rule 79 forbids doing it here), so its component adds that one key to the player ini.",
+  "reversible": "yes"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "D20",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "The core is a git submodule at `core/` pinned to a release tag (v0.1.0 first), repeated in `wsc.toml`; CI reads it with the `WARSCAPE_CORE_TOKEN` secret (`core/docs/CONSUMING.md`).",
+  "reversible": "yes"
+}
