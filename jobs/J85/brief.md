@@ -68,7 +68,7 @@ Check each again before relying on it; the pin may have moved (J88).
    else leave the commit local and log it. A `fail`, or the flake allowance spent, **consumes the request**: no retry until a new commit asks again.
 10. **A tick that finds its own state file with no live process** (reboot, crash, logoff) cleans up what that run owned, by the same route, then commits what it finds. It touches nothing it did not install.
 11. **Logs and state** go to `job.sh scratch acceptance-auto`. `<state>/liam_present` is only ever read, and made by Liam by hand. One `last_result.json` says what the last tick or run did and why.
-12. **The task:** `task install`, `task remove`, `task enable`, `task disable` verbs, by `Register-ScheduledTask` for the current user (no admin), interactive logon, `MultipleInstances IgnoreNew`, every 30 minutes. **It installs disabled.** It starts one hidden console that every child
+12. **The task:** `task install`, `task remove`, `task enable`, `task disable` verbs, by `Register-ScheduledTask` for the current user (no admin), interactive logon, `MultipleInstances IgnoreNew`, every 30 minutes. **It installs disabled, and only Liam runs `task enable`, after reading the report.** A disabled task cannot be fired, so the proof uses its own task: `task install --proof` registers a second task with no time trigger, bound to `scratch/j85-proof`, and `task remove --proof` takes it away. Either task starts one hidden console that every child
     inherits, the way `spawn_detached.ps1` does, because a child console on the virtual display fails a pass.
 13. **This tool never:** force-pushes, uses `--no-verify`, edits `baseline.json` or a limit, writes `report.md`, sets a row, merges, or runs `git` in a game folder or the state folder.
 14. **The next step after a green run stays with a person or a session:** a finish session writes the evidence into `report.md` and sets `status=review`, as J78's second session did.
@@ -83,26 +83,27 @@ Check each again before relying on it; the pin may have moved (J88).
 5. `python3 core/wsc.py gates` green, `build_id.py` the same before and after.
 
 ## PC test
-Needs Liam: a window with nothing else running, on layout M, and his yes before the task is registered (open question 4). The proof branch is `scratch/j85-proof`, cut from `job/J85` with one harmless change under `harness/` so rule 79 fails on it, and a request on it. **Its ledger lines never reach `job/J85`, and the branch stays until review.**
+Needs Liam: a window with nothing else running, on layout M. The proof branch is `scratch/j85-proof`, cut from `job/J85` with one harmless change under `harness/` so rule 79 fails on it, and a request on it. **Its ledger lines never reach `job/J85`, and the branch stays until review.**
 A `--passes N` and `--branch` override exist for this proof only. Preflight first, each result in the report:
 1. `python3 core/proxy/tools/pc_deploy.py status` (exe vanilla, no foreign files, nothing installed from another job) and `bash core/harness/job.sh status` (watcher matches the core, `not_running`, no lock). `python3 core/wsc.py find <scenario>` for the rows in the adapter's `acceptance.order`.
    The game is launched and killed only through `job.sh`. Answer the three "not known" facts above; **a wrong answer changes the guards, so settle them before step 2.**
 2. `tick --dry-run` from Git Bash, then with a test `--present-file` under the scratch folder: it refuses and nothing changes.
-3. `task install`, then fire it with `Start-ScheduledTask`, with the observer running (J78's rect for M). A 3-pass run on the proof branch, fired by the scheduler and not by a shell, because its environment is the thing under test. **The observer must show no window from the runner.** Log the idle reading once a minute: this answers the `SetCursorPos` question.
+3. `task install` (it stays disabled and you never enable it), `task install --proof`, then fire the proof task with `Start-ScheduledTask`, with the observer running (J78's rect for M). A 3-pass run on the proof branch, fired by the scheduler and not by a shell, because its environment is the thing under test. **The observer must show no window from the runner.** Log the idle reading once a minute: this answers the `SetCursorPos` question.
 4. Stop and resume: put the test present file down during pass 2. It must stop after that pass's line, leave no game, lock or active profile, and uninstall. Remove the file, fire again: same kit, `dll_sha256` unchanged, the streak continues.
 5. `update kit=<id>` with a kit equal to the installed watcher: exit 4, nothing to do. A real update only if the versions differ by then.
 6. **One full run, 20 passes, unattended, on the proof branch, ending in `acceptance.py streak` saying 20.** This is the row's title. Leave it to the task and end your turn; a background shell brings you back. Say which layout held, and look at the shots of at least one pass and say so.
-7. At the end: `task disable`, `pc_deploy.py status` says vanilla, no lock. Every `failed` ctl result in a cited run is named under `## Deviations`.
+7. At the end: `task remove --proof`, the real task still disabled, `pc_deploy.py status` says vanilla, no lock. Every `failed` ctl result in a cited run is named under `## Deviations`.
 
 ## Out of scope
 Any change under `core/`, including a stop flag for `acceptance.py` or the autopilot holding back non-PC sessions (write those as W rows in the report, no build). The cause of the crash and anything about D (J101). Changing a display or starting Docker. Telling anyone about a result beyond the pushed evidence and `last_result.json`.
 Starting a finish session after a green run (W46's area). Real job branches: no run for a real job in this job.
 
 ## Open questions
-1. The row says any branch whose rule 79 fails; this brief asks for a request file, because a branch still being built would waste a 2.7-hour run and most `job/*` branches are long merged. recommended: the request file, as Decisions say. default after: 2026-11-14
-2. How long must Liam be idle before a run starts? recommended: 30 minutes, a constant in the tool. default after: 2026-11-14. taste
-3. Should a run start on layout D? Nights look like D, so refusing it may leave few hours when the task can run at all, until J101 reports. recommended: refuse D until J101 reports, because a failure there says nothing about the DLL. default after: 2026-11-14. risk
-4. Registering the task, and later `task enable`: a program that runs on Liam's PC and pushes while he is away. recommended: yes to registering it disabled for the proof, and Liam alone runs `task enable` after reading the report. risk
+All four answered by Liam on 2026-11-07, "Yes follow recs". They are recorded here because `docs/DECISIONS.md` has no room until J105 brings row files. Start on these; none is open.
+1. The row says any branch whose rule 79 fails. **Answer: a run needs the request file**, because a branch still being built would waste a 2.7-hour run and most `job/*` branches are long merged.
+2. How long must Liam be idle before a run starts? **Answer: 30 minutes, a constant in the tool.**
+3. Should a run start on layout D? **Answer: no, refuse D until J101 reports**, because a failure there says nothing about the DLL. Nights look like D, so the hours the task can run may be few: the report's refused-tick count is what shows this.
+4. Registering the task, and enabling it. **Answer: register it disabled; Liam alone runs `task enable`, after reading the report.** The proof runs on its own on-demand task (decision 12).
 
 ## Kill criteria
 - `build_id.py` differs before and after the job, or a deliverable needs a change under `proxy/`, `core/` or a counted `harness/` path: stop, commit, report (the job would then carry 20 passes and a W row).
