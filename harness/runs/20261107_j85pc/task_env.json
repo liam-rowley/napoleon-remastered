@@ -1,0 +1,28 @@
+{
+ "utc": "2026-11-07T15:37:34Z",
+ "python": "C:\\Users\\liamr\\AppData\\Local\\Python\\pythoncore-3.15-64\\pythonw.exe",
+ "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.12.101-hotspot\\bin;C:\\Python314\\Scripts\\;C:\\Python314\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR;C:\\Program Files\\nodejs\\;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\GitHub CLI\\;C:\\Program Files\\dotnet\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;C:\\Program Files\\Git LFS;C:\\Program Files\\CMake\\bin;C:\\Program Files\\Git\\cmd;C:\\Users\\liamr\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\;C:\\Users\\liamr\\AppData\\Local\\Programs\\Python\\Python312\\;C:\\Users\\liamr\\AppData\\Local\\pnpm;C:\\Users\\liamr\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\liamr\\AppData\\Roaming\\npm;C:\\Users\\liamr\\AppData\\Local\\Programs\\Microsoft VS Code Insiders\\bin;C:\\Users\\liamr\\.local\\bin;C:\\Users\\liamr\\.dotnet\\tools;C:\\Users\\liamr\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin;C:\\Users\\liamr\\AppData\\Local\\Microsoft\\WinGet\\Links;C:\\Users\\liamr\\AppData\\Local\\Microsoft\\WinGet\\Packages\\x64dbg.x64dbg_Microsoft.Winget.Source_8wekyb3d8bbwe\\release;C:\\Users\\liamr\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Xmake-io.Xmake_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\\Users\\liamr\\AppData\\Local\\Python\\bin;C:\\Users\\liamr\\AppData\\Local\\Microsoft\\WinGet\\Packages\\jqlang.jq_Microsoft.Winget.Source_8wekyb3d8bbwe",
+ "pillow": true,
+ "which": {
+  "python3": "C:\\Users\\liamr\\AppData\\Local\\Microsoft\\WindowsApps\\python3.EXE",
+  "git": "C:\\Program Files\\Git\\cmd\\git.EXE",
+  "bash": "C:\\Users\\liamr\\AppData\\Local\\Microsoft\\WindowsApps\\bash.EXE",
+  "claude": "C:\\Users\\liamr\\.local\\bin\\claude.EXE",
+  "docker": "C:\\Users\\liamr\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.EXE"
+ },
+ "idle_s": 3297.266,
+ "user": "liamr",
+ "args": [
+  "tick",
+  "--branch",
+  "scratch/j85-proof",
+  "--job",
+  "J85",
+  "--present-file",
+  "C:\\napoleon_remastered_pc\\_scratch\\acceptance-auto\\test_present",
+  "--passes",
+  "3",
+  "--ignore-session",
+  "0280ca96-6ae4-4807-ae31-4e3119d8e245"
+ ]
+}
