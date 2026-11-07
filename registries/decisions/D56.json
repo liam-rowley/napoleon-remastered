@@ -1,0 +1,7 @@
+{
+  "id": "D56",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**Liam's answers to the open questions of the 2026-11-04 briefs.** J95: the seven discovery code fixes go as one warscape-core PR inside J95, then a pin bump (not core backlog lines). J75: an edit to `baseline.json` is priced (it costs a 20-pass run), not forbidden; J80 owns the content rule. All other open questions in the J75, J93, J94, J95, J96 and J97 briefs take the brief's recommended default: J75 Q2 sha check off with a report note until a pin carries W9; J95 `MIN_FIXED_BYTES` 6; J96 cursors stay out, asset order unchanged, `native_cap` tested on the source size unless the 4800 px probe says refused (Liam judges after the run); J97 the script owns prune, no auto-prune; J93 the lock check in `pc_deploy` stays with core B79.",
+  "reversible": "yes"
+}

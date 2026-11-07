@@ -1,0 +1,7 @@
+{
+  "id": "D3",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "Tooling first: fast game load, a ready library of battles, sieges, naval battles and saves agents can load quickly, and scripted camera control are built before feature work, not grown per job as on Empire.",
+  "reversible": "yes"
+}

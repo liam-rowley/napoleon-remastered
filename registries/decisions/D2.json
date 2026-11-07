@@ -1,0 +1,7 @@
+{
+  "id": "D2",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "**No-touch:** `Napoleon.exe` is never modified on disk. Runtime patching and detours from the proxy DLL are allowed.",
+  "reversible": "no"
+}

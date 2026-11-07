@@ -1,0 +1,7 @@
+{
+  "id": "D24",
+  "date": "2026-10-28",
+  "who": "agent (proxy job), for Liam's review",
+  "decision": "Engine-site byte layout: `anchor_bytes` at `rva`, `stock_bytes` (what a patch or hook changes) right after; checked by `proxy/tools/gen_tables.py`.",
+  "reversible": "yes"
+}

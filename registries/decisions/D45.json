@@ -1,0 +1,7 @@
+{
+  "id": "D45",
+  "date": "2026-11-02",
+  "who": "J38 (as its brief requires), for Liam's review",
+  "decision": "**Player installer state and route.** The player installer is `release/core/installer/rr.ps1` (Windows PowerShell 5.1 plus `.cmd` entry points, no Python or Git). Its snapshot, backups, `install.json` and moved-aside files live in `%LOCALAPPDATA%\\napoleon_remastered\\` (outside the game folder, D25), not in `C:\\napoleon_remastered_pc`. Behaviour parity with `pc_deploy.py` (checks, record, snapshot diff) is held by `tests/test_release_installer.py`, which installs and uninstalls a synthetic game folder with both. A release is `Napoleon Remastered <MAJOR.MINOR.PATCH>` (D38: 0.1.0 first), recorded in `release/napoleon/releases.json` when it is handed out. `release/README.md`.",
+  "reversible": "yes"
+}

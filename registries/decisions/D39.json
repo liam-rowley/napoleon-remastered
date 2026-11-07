@@ -1,0 +1,7 @@
+{
+  "id": "D39",
+  "date": "2026-11-01",
+  "who": "Liam",
+  "decision": "**Open questions of the J10 and J28 briefs settled as recommended; ship orders added to scope.** J10: engine-drawn items are `ui_elements` rows (`engine.*`) with the route in `description` (a queryable `route` field is a warscape-core backlog item); the atlas's routes for the radar, banners, campaign map and 3D previews are the default for J35 and J37, reviewed when J35 is briefed; units reachable only with Liam or an event stay `static_only` with the reason and are captured in the contract stage. J28: C++ reads the selection the card manager's update fills, the cards route the fallback; deployment-phase orders are measured only and J29 keeps them inert unless the numbers show units walk; J29 depends on J46 (its 40-unit walk needs `land_40`). Naval ship orders are in scope (adds to D1's battle controls, D14): job J60 on J28's route.",
+  "reversible": "yes"
+}

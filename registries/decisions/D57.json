@@ -1,0 +1,7 @@
+{
+  "id": "D57",
+  "date": "2026-11-04",
+  "who": "J79 (as its brief requires, from audit G8)",
+  "decision": "**No GPOS fallback for the 2x fonts.** Replaces the part of D42 (2) that keeps \"the GPOS reader as the fallback\": `uiscale/core/cuf_encode.py` refuses to encode without `uharfbuzz` (a `RuntimeError` naming `upscale/requirements.txt`), because the fallback kerning gives a different fonts pack than the golden one (`uiscale/napoleon/font_golden.json`, pack `5f510b27...`). The `Gpos` reader stays only as a test cross-check. Both packages are hash-locked in `upscale/requirements-ci.txt` (CI and `upscale/pc/setup_env.cmd`).",
+  "reversible": "yes"
+}
