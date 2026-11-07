@@ -50,6 +50,10 @@ usage_from = 106                       # core W31 (J88): reports from this job o
 dirs = ["tools/gates"]                 # tools/gates/pipeline.py: found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75); core W13
 run_refs_since = "2026-11-04"          # core W12 (0.24.0): 12 references in run READMEs dated before the J64 bump do not resolve (moved paths, PC-side paths, non-file names); dated records stay as written
 
+[tests]
+workers = 4                            # J109: CI's cpu_count (read from the `timing:` line of a gates log); `first` is the slowest modules of run m1, jobs/J109/report.md
+first = ["test_proxy_host", "test_release_installer", "test_job_sh", "test_build_id", "test_jobs_hooks", "test_play", "test_pc_deploy"]
+
 [discovery]
 adapter = "discovery/napoleon"         # games.json, gate.json and the other adapter files; the passes themselves are core/discovery (core W4, v0.15.0)
 

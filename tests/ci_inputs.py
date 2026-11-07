@@ -14,6 +14,11 @@ from warscape.repo import load_config  # noqa: E402
 
 class ci:
     SETS = _ci.input_sets(load_config(ROOT)['ci'])
+    git = staticmethod(_ci._git)
+
+    @staticmethod
+    def tests_timeout_s():
+        return load_config(ROOT)['tests']['timeout_s']
 
     @staticmethod
     def classify(files):
