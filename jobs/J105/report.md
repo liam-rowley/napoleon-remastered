@@ -58,4 +58,4 @@ For core or `meta/` rows, left as the brief says:
 2. `wsc.toml` `ref_models` still says D15. recommended: point it at `D261107-5dc6` on a `meta/` branch.
 3. **`wsc.toml` `[jobs] models` is still `["sonnet", "opus"]`, found here.** `launch_argv` in `core/warscape/jobq.py` takes the first entry for a brief, so a brief started from the `jobs view` page runs on Sonnet against `D261107-5dc6`. recommended: swap the order on the same `meta/` branch as 2.
 
-Usage: 12 tool calls for steps 4 and 5; the earlier steps were not counted.
+Usage: about 8 tool calls for steps 4 and 5; the earlier steps were not counted.
