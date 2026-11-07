@@ -249,7 +249,7 @@
     "empire_unique": true,
     "empire_va": "0x103E39E",
     "len": 33,
-    "masked": 19,
+    "masked": 20,
     "name": "naval sea RT size (exe_sea_sim)",
     "napoleon_rva": [],
     "source": "cfg_site"
@@ -269,7 +269,7 @@
     "empire_unique": true,
     "empire_va": "0x112883F",
     "len": 33,
-    "masked": 18,
+    "masked": 20,
     "name": "sky env cube edge a (exe_sky_env_cube)",
     "napoleon_rva": [],
     "source": "cfg_site"
@@ -289,27 +289,27 @@
     "empire_unique": true,
     "empire_va": "0x11288AF",
     "len": 33,
-    "masked": 17,
+    "masked": 19,
     "name": "sky target edge a (case 0) (exe_sky_cube)",
     "napoleon_rva": [],
     "source": "cfg_site"
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x1128919",
     "len": 33,
-    "masked": 13,
+    "masked": 15,
     "name": "sky target edge a (case 1) (exe_sky_cube)",
     "napoleon_rva": [],
     "source": "cfg_site"
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x1128983",
     "len": 33,
-    "masked": 13,
+    "masked": 15,
     "name": "sky target edge a (case 2/3) (exe_sky_cube)",
     "napoleon_rva": [],
     "source": "cfg_site"
@@ -369,7 +369,7 @@
     "empire_unique": true,
     "empire_va": "0x10E18DC",
     "len": 34,
-    "masked": 23,
+    "masked": 20,
     "name": "sprite frame time (case 3) (exe_sprite_frame_s)",
     "napoleon_rva": [],
     "source": "cfg_site"
@@ -399,7 +399,7 @@
     "empire_unique": true,
     "empire_va": "0x10E18D0",
     "len": 35,
-    "masked": 26,
+    "masked": 24,
     "name": "sprite page size (default/q3) (exe_sprite_page)",
     "napoleon_rva": [],
     "source": "cfg_site"
@@ -457,13 +457,16 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116be8f",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "<lambda_0be4ab1c2a6918fda4e39227d83ea893>::operator()",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe72232",
+     "0xe722f1"
+    ],
     "source": "function"
    },
    {
@@ -583,13 +586,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01193418",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "<lambda_ae742caa10f662c28703da3d2ea5e57e>::operator()",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe995f8"
+    ],
     "source": "function"
    },
    {
@@ -629,23 +634,28 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116bf4e",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "<lambda_be68057ced330f874c40fe9612235e36>::operator()",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe72232",
+     "0xe722f1"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01181a13",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "<lambda_ca71763b3c0644891230e4f79ea54fa6>::operator()",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe87dde"
+    ],
     "source": "function"
    },
    {
@@ -705,14 +715,13 @@
     "source": "function"
    },
    {
-    "class": "multiple",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x005f54c0",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "BattleUI_BattleEditorVisibleState",
     "napoleon_rva": [
-     "0x71750",
      "0x1ce2d0"
     ],
     "source": "function"
@@ -1616,7 +1625,7 @@
     "empire_unique": true,
     "empire_va": "0x005f7370",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "BattleUI_DeploymentFinishYesStart",
     "napoleon_rva": [],
     "source": "function"
@@ -1686,7 +1695,7 @@
     "empire_unique": true,
     "empire_va": "0x005f74f0",
     "len": 32,
-    "masked": 14,
+    "masked": 15,
     "name": "BattleUI_DisableGabionade",
     "napoleon_rva": [],
     "source": "function"
@@ -1842,7 +1851,7 @@
     "empire_unique": true,
     "empire_va": "0x005f78c0",
     "len": 32,
-    "masked": 13,
+    "masked": 16,
     "name": "BattleUI_ExitBattle",
     "napoleon_rva": [],
     "source": "function"
@@ -2101,7 +2110,7 @@
     "empire_unique": true,
     "empire_va": "0x005f8510",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "BattleUI_IsTutorial",
     "napoleon_rva": [],
     "source": "function"
@@ -2723,7 +2732,7 @@
     "empire_unique": true,
     "empire_va": "0x005fc3b0",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "BattleUI_TickPeriod",
     "napoleon_rva": [],
     "source": "function"
@@ -2917,7 +2926,7 @@
     "empire_unique": true,
     "empire_va": "0x005fce40",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "BattleUI_Update_Land_Radar",
     "napoleon_rva": [],
     "source": "function"
@@ -3749,7 +3758,7 @@
     "empire_unique": true,
     "empire_va": "0x00b05e30",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "CampaignUI_ClosestRegionToCamera",
     "napoleon_rva": [],
     "source": "function"
@@ -3992,7 +4001,7 @@
     "empire_unique": true,
     "empire_va": "0x00b06cb0",
     "len": 32,
-    "masked": 10,
+    "masked": 13,
     "name": "CampaignUI_EntityTypeSelected",
     "napoleon_rva": [],
     "source": "function"
@@ -4022,7 +4031,7 @@
     "empire_unique": true,
     "empire_va": "0x00b07480",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "CampaignUI_FactionsUniversities",
     "napoleon_rva": [],
     "source": "function"
@@ -4088,7 +4097,7 @@
     "empire_unique": true,
     "empire_va": "0x00b090c0",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "CampaignUI_FinalisePendingAction",
     "napoleon_rva": [],
     "source": "function"
@@ -4173,7 +4182,7 @@
     "empire_unique": true,
     "empire_va": "0x00b09730",
     "len": 32,
-    "masked": 7,
+    "masked": 10,
     "name": "CampaignUI_GovernorshipList",
     "napoleon_rva": [],
     "source": "function"
@@ -4235,13 +4244,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00b09d80",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "CampaignUI_InitialiseCharacterDetails",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x5e5300"
+    ],
     "source": "function"
    },
    {
@@ -4281,7 +4292,7 @@
     "empire_unique": true,
     "empire_va": "0x00b0fd80",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "CampaignUI_InitialiseTechDetails",
     "napoleon_rva": [],
     "source": "function"
@@ -4343,7 +4354,7 @@
     "empire_unique": true,
     "empire_va": "0x00b11160",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "CampaignUI_IsAudioPlaying",
     "napoleon_rva": [],
     "source": "function"
@@ -4475,7 +4486,7 @@
     "empire_unique": true,
     "empire_va": "0x00b11900",
     "len": 32,
-    "masked": 14,
+    "masked": 16,
     "name": "CampaignUI_MPSaveGame",
     "napoleon_rva": [],
     "source": "function"
@@ -4644,7 +4655,7 @@
     "empire_unique": true,
     "empire_va": "0x00b12d90",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "CampaignUI_MultiplayerTurnTimer",
     "napoleon_rva": [],
     "source": "function"
@@ -4662,13 +4673,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00b12f40",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "CampaignUI_MultiplayerUnlimitedTurnBeginConfirm",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x5ee7c0"
+    ],
     "source": "function"
    },
    {
@@ -4853,10 +4866,10 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x00b13500",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "CampaignUI_PlayersCulture",
     "napoleon_rva": [],
     "source": "function"
@@ -4875,10 +4888,10 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x00b135c0",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "CampaignUI_PlayersFactionKey",
     "napoleon_rva": [],
     "source": "function"
@@ -5013,7 +5026,7 @@
     "empire_unique": true,
     "empire_va": "0x00b13a80",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "CampaignUI_PromoteUnits",
     "napoleon_rva": [],
     "source": "function"
@@ -5374,7 +5387,7 @@
     "empire_unique": true,
     "empire_va": "0x00b19150",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "CampaignUI_RetrieveVisibleEnitityDetails",
     "napoleon_rva": [],
     "source": "function"
@@ -6017,7 +6030,7 @@
     "empire_unique": true,
     "empire_va": "0x00b20a50",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "CampaignUI_UnitSelectionChanged",
     "napoleon_rva": [],
     "source": "function"
@@ -6201,7 +6214,7 @@
     "empire_unique": true,
     "empire_va": "0x00f37040",
     "len": 32,
-    "masked": 11,
+    "masked": 12,
     "name": "Component_CallByAddress",
     "napoleon_rva": [],
     "source": "function"
@@ -6211,7 +6224,7 @@
     "empire_unique": true,
     "empire_va": "0x00f35630",
     "len": 32,
-    "masked": 5,
+    "masked": 6,
     "name": "Component_CollectGarbage",
     "napoleon_rva": [],
     "source": "function"
@@ -6251,7 +6264,7 @@
     "empire_unique": true,
     "empire_va": "0x00f37380",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "Component_CursorPosition",
     "napoleon_rva": [],
     "source": "function"
@@ -6283,7 +6296,7 @@
     "empire_unique": true,
     "empire_va": "0x00f35640",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "Component_GetProperty",
     "napoleon_rva": [],
     "source": "function"
@@ -6420,7 +6433,7 @@
     "empire_unique": true,
     "empire_va": "0x00f36f20",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "Component_ShaderTechniqueSet",
     "napoleon_rva": [],
     "source": "function"
@@ -6438,13 +6451,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f36fc0",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "Component_ShaderVarsGet",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc18280"
+    ],
     "source": "function"
    },
    {
@@ -6532,7 +6547,7 @@
     "empire_unique": true,
     "empire_va": "0x00f4b190",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "DirectoryUtils_DeleteFiles",
     "napoleon_rva": [],
     "source": "function"
@@ -6710,7 +6725,7 @@
     "empire_unique": false,
     "empire_va": "0x011858b3",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "FID_conflict:__msize_base",
     "napoleon_rva": [
      "0xe87ced",
@@ -6724,7 +6739,7 @@
     "empire_unique": false,
     "empire_va": "0x01179e3c",
     "len": 32,
-    "masked": 9,
+    "masked": 11,
     "name": "FID_conflict:__rmdir",
     "napoleon_rva": [
      "0xe7e0b8",
@@ -6903,7 +6918,7 @@
     "empire_unique": true,
     "empire_va": "0x0045f080",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "FrontEnd_BattleTypeString",
     "napoleon_rva": [],
     "source": "function"
@@ -6972,10 +6987,10 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x00461090",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "FrontEnd_CampaignSavesExist",
     "napoleon_rva": [],
     "source": "function"
@@ -7159,7 +7174,7 @@
     "empire_unique": true,
     "empire_va": "0x00463590",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "FrontEnd_FormatMinutesString",
     "napoleon_rva": [],
     "source": "function"
@@ -7314,10 +7329,10 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x00465400",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "FrontEnd_MPCampaignSavesExist",
     "napoleon_rva": [],
     "source": "function"
@@ -7593,13 +7608,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x004692d0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "FrontEnd_MPReadyForLogOn",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x75790"
+    ],
     "source": "function"
    },
    {
@@ -7895,7 +7912,7 @@
     "empire_unique": true,
     "empire_va": "0x0046cf50",
     "len": 32,
-    "masked": 13,
+    "masked": 16,
     "name": "FrontEnd_TimeOfDayOptionsString",
     "napoleon_rva": [],
     "source": "function"
@@ -7999,7 +8016,7 @@
     "empire_unique": true,
     "empire_va": "0x00a722f0",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "GAME_add_exclusion_zone",
     "napoleon_rva": [],
     "source": "function"
@@ -8059,7 +8076,7 @@
     "empire_unique": true,
     "empire_va": "0x00a73a90",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "GAME_add_unit_model_overrides",
     "napoleon_rva": [],
     "source": "function"
@@ -8159,7 +8176,7 @@
     "empire_unique": true,
     "empire_va": "0x00a72460",
     "len": 32,
-    "masked": 7,
+    "masked": 6,
     "name": "GAME_disable_movement_for_ai_under_shroud",
     "napoleon_rva": [],
     "source": "function"
@@ -8473,13 +8490,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00a715b0",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "GAME_set_zoom_limit",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x577cb0"
+    ],
     "source": "function"
    },
    {
@@ -8499,7 +8518,7 @@
     "empire_unique": true,
     "empire_va": "0x00a71440",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "GAME_spawn_town_level",
     "napoleon_rva": [],
     "source": "function"
@@ -8539,7 +8558,7 @@
     "empire_unique": true,
     "empire_va": "0x00a716f0",
     "len": 32,
-    "masked": 13,
+    "masked": 12,
     "name": "GAME_trigger_custom_mission",
     "napoleon_rva": [],
     "source": "function"
@@ -8651,7 +8670,7 @@
     "empire_unique": true,
     "empire_va": "0x011349c0",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "ImposterManager_generate_imposters",
     "napoleon_rva": [],
     "source": "function"
@@ -8731,19 +8750,28 @@
     "empire_unique": true,
     "empire_va": "0x00d110d0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "MPAvatar_SetComponentTexture",
     "napoleon_rva": [],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x00581b70",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "OAW_command_ctor",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x198eb0",
+     "0x198f20",
+     "0x198fd0",
+     "0x199060",
+     "0x1990d0",
+     "0x199140",
+     "0x199190",
+     "0x199200"
+    ],
     "source": "function"
    },
    {
@@ -8869,13 +8897,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f38430",
     "len": 32,
-    "masked": 7,
+    "masked": 10,
     "name": "UICardManager_FindContainingGroupID",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc19380"
+    ],
     "source": "function"
    },
    {
@@ -8965,13 +8995,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f38690",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "UICardManager_RemoveFromGroup",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc195c0"
+    ],
     "source": "function"
    },
    {
@@ -9215,7 +9247,7 @@
     "empire_unique": true,
     "empire_va": "0x00f349f0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "UIComponent_ForceEvent",
     "napoleon_rva": [],
     "source": "function"
@@ -9255,7 +9287,7 @@
     "empire_unique": true,
     "empire_va": "0x00f33180",
     "len": 32,
-    "masked": 10,
+    "masked": 11,
     "name": "UIComponent_GetTooltipText",
     "napoleon_rva": [],
     "source": "function"
@@ -9283,13 +9315,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f34ac0",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "UIComponent_Highlight",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc15ed0"
+    ],
     "source": "function"
    },
    {
@@ -9376,7 +9410,7 @@
     "empire_unique": true,
     "empire_va": "0x00f32e20",
     "len": 32,
-    "masked": 16,
+    "masked": 14,
     "name": "UIComponent_LuaCall",
     "napoleon_rva": [],
     "source": "function"
@@ -9396,19 +9430,21 @@
     "empire_unique": true,
     "empire_va": "0x00f34040",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "UIComponent_Parent",
     "napoleon_rva": [],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f34a70",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "UIComponent_PopulateTextures",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc15e80"
+    ],
     "source": "function"
    },
    {
@@ -9495,13 +9531,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f34ab0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "UIComponent_RunScript",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc15ec0"
+    ],
     "source": "function"
    },
    {
@@ -9599,13 +9637,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f34210",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "UIComponent_SetImageRotation",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc15570"
+    ],
     "source": "function"
    },
    {
@@ -9641,13 +9681,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f32360",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "UIComponent_SetProperty",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc136c0"
+    ],
     "source": "function"
    },
    {
@@ -9748,7 +9790,7 @@
     "empire_unique": true,
     "empire_va": "0x00f34980",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "UIComponent_StealInputFocus",
     "napoleon_rva": [
      "0xc15dc0"
@@ -9760,7 +9802,7 @@
     "empire_unique": true,
     "empire_va": "0x00f347f0",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "UIComponent_StealShortcutKey",
     "napoleon_rva": [],
     "source": "function"
@@ -9793,7 +9835,7 @@
     "empire_unique": true,
     "empire_va": "0x00f33c10",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "UIComponent_TextShaderVarsSet",
     "napoleon_rva": [
      "0xc14f00"
@@ -9969,7 +10011,7 @@
     "empire_unique": true,
     "empire_va": "0x00f31a10",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "UIImage_Dimensions",
     "napoleon_rva": [
      "0xc19bd0"
@@ -10023,7 +10065,7 @@
     "empire_unique": true,
     "empire_va": "0x0043f490",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "UIMPInterface_AddAiBot",
     "napoleon_rva": [],
     "source": "function"
@@ -10050,10 +10092,10 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x0043f6b0",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "UIMPInterface_DeclareReady",
     "napoleon_rva": [],
     "source": "function"
@@ -10202,10 +10244,10 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x0043fe30",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "UIMPInterface_SetArmyIndex",
     "napoleon_rva": [],
     "source": "function"
@@ -10251,13 +10293,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f31750",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "UIPaletisedImage_Dimensions",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc19910"
+    ],
     "source": "function"
    },
    {
@@ -10528,7 +10572,7 @@
     "empire_unique": true,
     "empire_va": "0x00d01390",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "UIPrefsInterface_EnumerateSoundProviders",
     "napoleon_rva": [],
     "source": "function"
@@ -10586,13 +10630,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00d05700",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "UIPrefsInterface_ModifierUsed",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x9a4710"
+    ],
     "source": "function"
    },
    {
@@ -10963,7 +11009,7 @@
     "empire_unique": true,
     "empire_va": "0x00450bb0",
     "len": 32,
-    "masked": 12,
+    "masked": 13,
     "name": "VersionedFileOut::~VersionedFileOut",
     "napoleon_rva": [],
     "source": "function"
@@ -10973,7 +11019,7 @@
     "empire_unique": true,
     "empire_va": "0x0118b0df",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "_AdjustExceptionResult",
     "napoleon_rva": [
      "0xe9129e"
@@ -11005,13 +11051,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0119fd32",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "_CallDestructExceptionObject",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea6143"
+    ],
     "source": "function"
    },
    {
@@ -11353,7 +11401,7 @@
     "empire_unique": true,
     "empire_va": "0x0118b8fa",
     "len": 32,
-    "masked": 16,
+    "masked": 18,
     "name": "_SetPniOperation",
     "napoleon_rva": [
      "0xe91ab9"
@@ -11507,7 +11555,7 @@
     "empire_unique": true,
     "empire_va": "0x0119e141",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__CatchGuardHandler",
     "napoleon_rva": [
      "0xea455b"
@@ -11555,7 +11603,7 @@
     "empire_unique": true,
     "empire_va": "0x011d6165",
     "len": 32,
-    "masked": 5,
+    "masked": 4,
     "name": "__EH_prolog3",
     "napoleon_rva": [
      "0xedc605"
@@ -11567,7 +11615,7 @@
     "empire_unique": false,
     "empire_va": "0x011d6199",
     "len": 32,
-    "masked": 5,
+    "masked": 4,
     "name": "__EH_prolog3_GS",
     "napoleon_rva": [
      "0xedc639",
@@ -11580,7 +11628,7 @@
     "empire_unique": false,
     "empire_va": "0x011d61d0",
     "len": 32,
-    "masked": 5,
+    "masked": 4,
     "name": "__EH_prolog3_catch",
     "napoleon_rva": [
      "0xedc639",
@@ -11707,13 +11755,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011d6981",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "__Getcvt",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xedce21"
+    ],
     "source": "function"
    },
    {
@@ -11777,7 +11827,7 @@
     "empire_unique": true,
     "empire_va": "0x011d6260",
     "len": 32,
-    "masked": 11,
+    "masked": 10,
     "name": "__IsNonwritableInCurrentImage",
     "napoleon_rva": [],
     "source": "function"
@@ -11989,7 +12039,7 @@
     "empire_unique": true,
     "empire_va": "0x01178c54",
     "len": 32,
-    "masked": 16,
+    "masked": 17,
     "name": "__UpdateResult",
     "napoleon_rva": [
      "0xe7f2e7"
@@ -12001,7 +12051,7 @@
     "empire_unique": true,
     "empire_va": "0x0119ff80",
     "len": 32,
-    "masked": 11,
+    "masked": 10,
     "name": "__ValidateEH3RN",
     "napoleon_rva": [],
     "source": "function"
@@ -12023,7 +12073,7 @@
     "empire_unique": true,
     "empire_va": "0x01191d15",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__Wcsftime_l",
     "napoleon_rva": [
      "0xe98128"
@@ -12155,7 +12205,7 @@
     "empire_unique": true,
     "empire_va": "0x01196b69",
     "len": 32,
-    "masked": 13,
+    "masked": 10,
     "name": "___acrt_DownlevelLCIDToLocaleName",
     "napoleon_rva": [
      "0xe9d3b0"
@@ -12347,7 +12397,7 @@
     "empire_unique": false,
     "empire_va": "0x01186863",
     "len": 32,
-    "masked": 24,
+    "masked": 25,
     "name": "___acrt_eagerly_load_locale_apis",
     "napoleon_rva": [],
     "source": "function"
@@ -12477,7 +12527,7 @@
     "empire_unique": true,
     "empire_va": "0x0118ed7c",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "___acrt_fp_strflt_to_string",
     "napoleon_rva": [
      "0xe951f3"
@@ -12671,13 +12721,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01194721",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "___acrt_locale_free_monetary",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe9a901"
+    ],
     "source": "function"
    },
    {
@@ -12733,7 +12785,7 @@
     "empire_unique": true,
     "empire_va": "0x0119481f",
     "len": 32,
-    "masked": 7,
+    "masked": 4,
     "name": "___acrt_locale_initialize_monetary",
     "napoleon_rva": [
      "0xe9a9ff"
@@ -12895,7 +12947,7 @@
     "empire_unique": true,
     "empire_va": "0x01192008",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "___acrt_stdio_allocate_buffer_nolock",
     "napoleon_rva": [
      "0xe9841b"
@@ -12907,7 +12959,7 @@
     "empire_unique": true,
     "empire_va": "0x01186d35",
     "len": 32,
-    "masked": 13,
+    "masked": 14,
     "name": "___acrt_stdio_begin_temporary_buffering_nolock",
     "napoleon_rva": [
      "0xe8c89a"
@@ -12915,13 +12967,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01186de8",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "___acrt_stdio_end_temporary_buffering_nolock",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe8c94d"
+    ],
     "source": "function"
    },
    {
@@ -12997,7 +13051,7 @@
     "empire_unique": true,
     "empire_va": "0x0118596f",
     "len": 32,
-    "masked": 12,
+    "masked": 13,
     "name": "___acrt_unlock",
     "napoleon_rva": [
      "0xe8e530"
@@ -13186,13 +13240,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011d71c1",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "___crtLCMapStringA",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xedd661"
+    ],
     "source": "function"
    },
    {
@@ -13282,7 +13338,7 @@
     "empire_unique": true,
     "empire_va": "0x0117b71e",
     "len": 32,
-    "masked": 12,
+    "masked": 10,
     "name": "___getgmtimebuf",
     "napoleon_rva": [
      "0xe81d4e"
@@ -13442,7 +13498,7 @@
     "empire_unique": true,
     "empire_va": "0x011688f5",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "___scrt_fastfail",
     "napoleon_rva": [
      "0xe6eed5"
@@ -13474,13 +13530,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011678e0",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "___scrt_initialize_onexit_tables",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe6e10c"
+    ],
     "source": "function"
    },
    {
@@ -13530,13 +13588,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01167a18",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "___scrt_uninitialize_crt",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe6e244"
+    ],
     "source": "function"
    },
    {
@@ -13576,7 +13636,7 @@
     "empire_unique": true,
     "empire_va": "0x0119ea30",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "___std_exception_copy",
     "napoleon_rva": [
      "0xea4e40"
@@ -13625,7 +13685,7 @@
     "empire_unique": true,
     "empire_va": "0x0116eca6",
     "len": 32,
-    "masked": 0,
+    "masked": 2,
     "name": "___stdio_common_vsnprintf_s",
     "napoleon_rva": [
      "0xe75049"
@@ -13843,7 +13903,7 @@
     "empire_unique": true,
     "empire_va": "0x011a03b4",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "___vcrt_getptd_noexit",
     "napoleon_rva": [
      "0xea67c4"
@@ -13877,7 +13937,7 @@
     "empire_unique": true,
     "empire_va": "0x011a0446",
     "len": 32,
-    "masked": 16,
+    "masked": 17,
     "name": "___vcrt_initialize_ptd",
     "napoleon_rva": [
      "0xea6856"
@@ -13982,7 +14042,7 @@
     "empire_unique": true,
     "empire_va": "0x0117f978",
     "len": 32,
-    "masked": 11,
+    "masked": 10,
     "name": "__acrt_convert_wcs_mbs_cp<wchar_t,char,class_<lambda_0fec1a7b3f42a53036604e18c2d5e07e>,struct___crt_win32_buffer_no_resizing>",
     "napoleon_rva": [
      "0xe85f38"
@@ -14438,7 +14498,7 @@
     "empire_unique": true,
     "empire_va": "0x011888a8",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__close",
     "napoleon_rva": [
      "0xe8f917"
@@ -14474,7 +14534,7 @@
     "empire_unique": true,
     "empire_va": "0x01188a73",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__commit",
     "napoleon_rva": [
      "0xe8fae2"
@@ -14642,7 +14702,7 @@
     "empire_unique": true,
     "empire_va": "0x0117fda1",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "__crt_mbstring::__wcsrtombs_utf8",
     "napoleon_rva": [
      "0xe86368"
@@ -14654,7 +14714,7 @@
     "empire_unique": true,
     "empire_va": "0x011903c4",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__crt_mbstring::return_illegal_sequence",
     "napoleon_rva": [
      "0xe96874"
@@ -14895,14 +14955,16 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116a8f8",
     "len": 32,
-    "masked": 16,
+    "masked": 17,
     "name": "__crt_seh_guarded_call<void>::operator()<class_<lambda_03b1d95aef87969028cfba75ccab2455>,class_<lambda_6e4b09c48022b2350581041d5f6b0c4c>&,class_<lambda_22bdf7517842c4b3e53723af5aa32b9e>_>",
     "napoleon_rva": [
-     "0xe7d863"
+     "0xe7d863",
+     "0xe8a26d",
+     "0xe995ab"
     ],
     "source": "function"
    },
@@ -14978,14 +15040,16 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011840ae",
     "len": 32,
-    "masked": 16,
+    "masked": 17,
     "name": "__crt_seh_guarded_call<void>::operator()<class_<lambda_4fdada1b837b2abbf20876fac97688ad>,class_<lambda_b57350f2640456a0859d250846f69caf>&,class_<lambda_eed5e4f92b5b7d55fa22c48c484aaa54>_>",
     "napoleon_rva": [
-     "0xe8a26d"
+     "0xe7d863",
+     "0xe8a26d",
+     "0xe995ab"
     ],
     "source": "function"
    },
@@ -15014,13 +15078,15 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011933cb",
     "len": 32,
-    "masked": 16,
+    "masked": 17,
     "name": "__crt_seh_guarded_call<void>::operator()<class_<lambda_ceb1ee4838e85a9d631eb091e2fbe199>,class_<lambda_ae742caa10f662c28703da3d2ea5e57e>&,class_<lambda_cd08b5d6af4937fe54fc07d0c9bf6b37>_>",
     "napoleon_rva": [
+     "0xe7d863",
+     "0xe8a26d",
      "0xe995ab"
     ],
     "source": "function"
@@ -15181,7 +15247,7 @@
     "empire_unique": true,
     "empire_va": "0x01176fd9",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__crt_stdio_input::format_string_parser<char>::validate",
     "napoleon_rva": [
      "0xe7d38b"
@@ -15349,7 +15415,7 @@
     "empire_unique": false,
     "empire_va": "0x01175829",
     "len": 32,
-    "masked": 11,
+    "masked": 12,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::stream_input_adapter<char>_>::is_character_allowed_in_string",
     "napoleon_rva": [
      "0xe7bbd9",
@@ -15420,13 +15486,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01175fe6",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::stream_input_adapter<char>_>::process_state",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7c398"
+    ],
     "source": "function"
    },
    {
@@ -15434,7 +15502,7 @@
     "empire_unique": true,
     "empire_va": "0x011760ac",
     "len": 32,
-    "masked": 14,
+    "masked": 17,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::stream_input_adapter<char>_>::process_string_specifier",
     "napoleon_rva": [
      "0xe7c45e"
@@ -15510,7 +15578,7 @@
     "empire_unique": false,
     "empire_va": "0x01175879",
     "len": 32,
-    "masked": 11,
+    "masked": 12,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::string_input_adapter<char>_>::is_character_allowed_in_string",
     "napoleon_rva": [
      "0xe7bbd9",
@@ -15548,7 +15616,7 @@
     "empire_unique": true,
     "empire_va": "0x01175c02",
     "len": 32,
-    "masked": 13,
+    "masked": 10,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::string_input_adapter<char>_>::process_conversion_specifier",
     "napoleon_rva": [
      "0xe7bfb4"
@@ -15635,14 +15703,15 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x01176028",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::string_input_adapter<char>_>::process_state",
     "napoleon_rva": [
-     "0xe7c3da"
+     "0xe7c3da",
+     "0xe7c41c"
     ],
     "source": "function"
    },
@@ -15651,7 +15720,7 @@
     "empire_unique": false,
     "empire_va": "0x011760f4",
     "len": 32,
-    "masked": 14,
+    "masked": 17,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::string_input_adapter<char>_>::process_string_specifier",
     "napoleon_rva": [
      "0xe7c4a6",
@@ -15711,23 +15780,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01172975",
     "len": 32,
-    "masked": 7,
+    "masked": 6,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::string_input_adapter<char>_>::write_floating_point<double>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78d18"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011728d3",
     "len": 32,
-    "masked": 7,
+    "masked": 6,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::string_input_adapter<char>_>::write_floating_point<float>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78c76"
+    ],
     "source": "function"
    },
    {
@@ -15735,7 +15808,7 @@
     "empire_unique": true,
     "empire_va": "0x0117720f",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__crt_stdio_input::input_processor<char,class___crt_stdio_input::string_input_adapter<char>_>::write_integer",
     "napoleon_rva": [
      "0xe7d5c1"
@@ -15785,7 +15858,7 @@
     "empire_unique": true,
     "empire_va": "0x01175c76",
     "len": 32,
-    "masked": 13,
+    "masked": 10,
     "name": "__crt_stdio_input::input_processor<wchar_t,class___crt_stdio_input::string_input_adapter<wchar_t>_>::process_conversion_specifier",
     "napoleon_rva": [
      "0xe7c028"
@@ -15860,13 +15933,14 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0117606a",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "__crt_stdio_input::input_processor<wchar_t,class___crt_stdio_input::string_input_adapter<wchar_t>_>::process_state",
     "napoleon_rva": [
+     "0xe7c3da",
      "0xe7c41c"
     ],
     "source": "function"
@@ -15876,7 +15950,7 @@
     "empire_unique": false,
     "empire_va": "0x0117613c",
     "len": 32,
-    "masked": 14,
+    "masked": 17,
     "name": "__crt_stdio_input::input_processor<wchar_t,class___crt_stdio_input::string_input_adapter<wchar_t>_>::process_string_specifier",
     "napoleon_rva": [
      "0xe7c4a6",
@@ -15923,23 +15997,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011729af",
     "len": 32,
-    "masked": 7,
+    "masked": 6,
     "name": "__crt_stdio_input::input_processor<wchar_t,class___crt_stdio_input::string_input_adapter<wchar_t>_>::write_floating_point<double>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78d52"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01172907",
     "len": 32,
-    "masked": 7,
+    "masked": 6,
     "name": "__crt_stdio_input::input_processor<wchar_t,class___crt_stdio_input::string_input_adapter<wchar_t>_>::write_floating_point<float>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78caa"
+    ],
     "source": "function"
    },
    {
@@ -15947,7 +16025,7 @@
     "empire_unique": true,
     "empire_va": "0x0117727d",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__crt_stdio_input::input_processor<wchar_t,class___crt_stdio_input::string_input_adapter<wchar_t>_>::write_integer",
     "napoleon_rva": [
      "0xe7d62f"
@@ -16039,23 +16117,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01172841",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "__crt_stdio_input::skip_whitespace<class___crt_stdio_input::string_input_adapter,char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78be4"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01172870",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "__crt_stdio_input::skip_whitespace<class___crt_stdio_input::string_input_adapter,wchar_t>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78c13"
+    ],
     "source": "function"
    },
    {
@@ -16123,7 +16205,7 @@
     "empire_unique": true,
     "empire_va": "0x01177016",
     "len": 32,
-    "masked": 10,
+    "masked": 9,
     "name": "__crt_stdio_input::string_input_adapter<wchar_t>::validate",
     "napoleon_rva": [
      "0xe7d3c8"
@@ -16231,7 +16313,7 @@
     "empire_unique": true,
     "empire_va": "0x0116b81d",
     "len": 32,
-    "masked": 7,
+    "masked": 5,
     "name": "__crt_stdio_output::formatting_buffer::ensure_buffer_is_big_enough<char>",
     "napoleon_rva": [
      "0xe71bc0"
@@ -16243,7 +16325,7 @@
     "empire_unique": true,
     "empire_va": "0x0116b89a",
     "len": 32,
-    "masked": 7,
+    "masked": 5,
     "name": "__crt_stdio_output::formatting_buffer::ensure_buffer_is_big_enough<wchar_t>",
     "napoleon_rva": [
      "0xe71c3d"
@@ -16279,7 +16361,7 @@
     "empire_unique": true,
     "empire_va": "0x0116b918",
     "len": 32,
-    "masked": 12,
+    "masked": 13,
     "name": "__crt_stdio_output::is_wide_character_specifier<char>",
     "napoleon_rva": [
      "0xe71cbb"
@@ -16372,7 +16454,7 @@
     "empire_unique": false,
     "empire_va": "0x0116c9d7",
     "len": 32,
-    "masked": 15,
+    "masked": 13,
     "name": "__crt_stdio_output::output_processor<char,class___crt_stdio_output::stream_output_adapter<char>,class___crt_stdio_output::standard_base<char,class___crt_stdio_output::stream_output_adapter<char>_>_>::state_case_normal",
     "napoleon_rva": [
      "0xe72d7a",
@@ -16416,7 +16498,7 @@
     "empire_unique": false,
     "empire_va": "0x0116c9f6",
     "len": 32,
-    "masked": 15,
+    "masked": 13,
     "name": "__crt_stdio_output::output_processor<char,class___crt_stdio_output::string_output_adapter<char>,class___crt_stdio_output::format_validation_base<char,class___crt_stdio_output::string_output_adapter<char>_>_>::state_case_normal",
     "napoleon_rva": [
      "0xe72d7a",
@@ -16477,7 +16559,7 @@
     "empire_unique": false,
     "empire_va": "0x0116ca15",
     "len": 32,
-    "masked": 15,
+    "masked": 13,
     "name": "__crt_stdio_output::output_processor<wchar_t,class___crt_stdio_output::stream_output_adapter<wchar_t>,class___crt_stdio_output::standard_base<wchar_t,class___crt_stdio_output::stream_output_adapter<wchar_t>_>_>::state_case_normal",
     "napoleon_rva": [
      "0xe72d7a",
@@ -16521,7 +16603,7 @@
     "empire_unique": true,
     "empire_va": "0x0116ca34",
     "len": 32,
-    "masked": 15,
+    "masked": 13,
     "name": "__crt_stdio_output::output_processor<wchar_t,class___crt_stdio_output::string_output_adapter<wchar_t>,class___crt_stdio_output::format_validation_base<wchar_t,class___crt_stdio_output::string_output_adapter<wchar_t>_>_>::state_case_normal",
     "napoleon_rva": [
      "0xe72dd7"
@@ -16563,7 +16645,7 @@
     "empire_unique": true,
     "empire_va": "0x0116e4c0",
     "len": 32,
-    "masked": 15,
+    "masked": 13,
     "name": "__crt_stdio_output::stream_output_adapter<char>::validate",
     "napoleon_rva": [
      "0xe74863"
@@ -16723,7 +16805,7 @@
     "empire_unique": true,
     "empire_va": "0x0116bc86",
     "len": 32,
-    "masked": 0,
+    "masked": 3,
     "name": "__crt_stdio_output::write_multiple_characters<class___crt_stdio_output::string_output_adapter<wchar_t>,char>",
     "napoleon_rva": [
      "0xe72029"
@@ -16831,7 +16913,7 @@
     "empire_unique": true,
     "empire_va": "0x0117cf10",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__crt_strtox::c_string_character_source<char>::unget",
     "napoleon_rva": [
      "0xe83540"
@@ -16855,7 +16937,7 @@
     "empire_unique": true,
     "empire_va": "0x0116e4e1",
     "len": 32,
-    "masked": 11,
+    "masked": 9,
     "name": "__crt_strtox::c_string_character_source<wchar_t>::validate",
     "napoleon_rva": [
      "0xe74884"
@@ -17173,7 +17255,7 @@
     "empire_unique": true,
     "empire_va": "0x0117dbfb",
     "len": 32,
-    "masked": 7,
+    "masked": 4,
     "name": "__crt_strtox::parse_floating_point_possible_infinity<char,class___crt_strtox::c_string_character_source<char>,char_const*>",
     "napoleon_rva": [],
     "source": "function"
@@ -17329,7 +17411,7 @@
     "empire_unique": true,
     "empire_va": "0x01171093",
     "len": 32,
-    "masked": 10,
+    "masked": 11,
     "name": "__crt_strtox::parse_floating_point_write_result<double>",
     "napoleon_rva": [
      "0xe77436"
@@ -17599,7 +17681,7 @@
     "empire_unique": true,
     "empire_va": "0x01190489",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "__ctrandisp2",
     "napoleon_rva": [
      "0xe96939"
@@ -17752,7 +17834,7 @@
     "empire_unique": true,
     "empire_va": "0x011778a4",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__fclose_nolock",
     "napoleon_rva": [
      "0xe7e34b"
@@ -17788,7 +17870,7 @@
     "empire_unique": true,
     "empire_va": "0x0117b176",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__fgetc_nolock",
     "napoleon_rva": [
      "0xe817a6"
@@ -17800,7 +17882,7 @@
     "empire_unique": true,
     "empire_va": "0x0117a7c6",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__fileno",
     "napoleon_rva": [
      "0xe80df6"
@@ -17860,7 +17942,7 @@
     "empire_unique": true,
     "empire_va": "0x01177ce1",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "__flushall",
     "napoleon_rva": [
      "0xe7e730"
@@ -17904,13 +17986,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01177f9c",
     "len": 32,
-    "masked": 0,
+    "masked": 2,
     "name": "__fread_nolock_s",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7e9eb"
+    ],
     "source": "function"
    },
    {
@@ -17930,7 +18014,7 @@
     "empire_unique": true,
     "empire_va": "0x01191e98",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__freea_crt",
     "napoleon_rva": [
      "0xe982ab"
@@ -17980,7 +18064,7 @@
     "empire_unique": false,
     "empire_va": "0x0118e4d9",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__get_daylight",
     "napoleon_rva": [
      "0xe8a0ef",
@@ -17995,7 +18079,7 @@
     "empire_unique": false,
     "empire_va": "0x0118e505",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__get_dstbias",
     "napoleon_rva": [
      "0xe8a0ef",
@@ -18010,7 +18094,7 @@
     "empire_unique": false,
     "empire_va": "0x01183f2f",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__get_fmode",
     "napoleon_rva": [
      "0xe8a0ef",
@@ -18025,7 +18109,7 @@
     "empire_unique": true,
     "empire_va": "0x0118d0d0",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__get_osfhandle",
     "napoleon_rva": [
      "0xe9328f"
@@ -18059,7 +18143,7 @@
     "empire_unique": false,
     "empire_va": "0x0118e531",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__get_timezone",
     "napoleon_rva": [
      "0xe8a0ef",
@@ -18183,7 +18267,7 @@
     "empire_unique": true,
     "empire_va": "0x0116ada2",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "__invoke_watson",
     "napoleon_rva": [
      "0xe7dd0d"
@@ -18223,7 +18307,7 @@
     "empire_unique": true,
     "empire_va": "0x01196c3f",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__isatty",
     "napoleon_rva": [
      "0xe9ccf9"
@@ -18243,13 +18327,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011801cc",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "__iscntrl_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe86793"
+    ],
     "source": "function"
    },
    {
@@ -18265,13 +18351,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01180202",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "__isdigit_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe867c9"
+    ],
     "source": "function"
    },
    {
@@ -18299,43 +18387,56 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01180238",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "__islower_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe867ff"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118026e",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "__ispunct_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe86835"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011802a4",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "__isspace_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe8686b"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011802da",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "__isupper_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe86793",
+     "0xe867c9",
+     "0xe867ff",
+     "0xe86835",
+     "0xe8686b",
+     "0xe868a1"
+    ],
     "source": "function"
    },
    {
@@ -18471,7 +18572,7 @@
     "empire_unique": true,
     "empire_va": "0x0119cc0b",
     "len": 32,
-    "masked": 0,
+    "masked": 1,
     "name": "__math_exit",
     "napoleon_rva": [
      "0xea2b7b"
@@ -18491,13 +18592,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011d92c0",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "__mbsrchr_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xedf730"
+    ],
     "source": "function"
    },
    {
@@ -18529,7 +18632,7 @@
     "empire_unique": false,
     "empire_va": "0x01177611",
     "len": 32,
-    "masked": 9,
+    "masked": 11,
     "name": "__mkdir",
     "napoleon_rva": [
      "0xe7e0b8",
@@ -18560,13 +18663,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011d7b27",
     "len": 32,
-    "masked": 14,
+    "masked": 13,
     "name": "__pclose",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeddfc7"
+    ],
     "source": "function"
    },
    {
@@ -18628,13 +18733,17 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x01189a41",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "__read",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7fd29",
+     "0xe8c163",
+     "0xe90063"
+    ],
     "source": "function"
    },
    {
@@ -18666,7 +18775,7 @@
     "empire_unique": true,
     "empire_va": "0x01193fc3",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__recalloc_base",
     "napoleon_rva": [
      "0xe9a1a3"
@@ -18702,7 +18811,7 @@
     "empire_unique": true,
     "empire_va": "0x01168064",
     "len": 32,
-    "masked": 20,
+    "masked": 18,
     "name": "__scrt_common_main_seh",
     "napoleon_rva": [
      "0xe6e654"
@@ -18736,7 +18845,7 @@
     "empire_unique": true,
     "empire_va": "0x01183d20",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "__set_errno_from_matherr",
     "napoleon_rva": [
      "0xe89ee0"
@@ -18756,13 +18865,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01183f5c",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "__set_fmode",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe8a11c"
+    ],
     "source": "function"
    },
    {
@@ -18778,13 +18889,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011857ba",
     "len": 32,
-    "masked": 6,
+    "masked": 7,
     "name": "__set_new_mode",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe8b979"
+    ],
     "source": "function"
    },
    {
@@ -18824,13 +18937,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118e029",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "__sopen_nolock",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe941e8"
+    ],
     "source": "function"
    },
    {
@@ -18923,7 +19038,7 @@
     "empire_unique": false,
     "empire_va": "0x0117f5a5",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__stricmp",
     "napoleon_rva": [
      "0xe84b8f",
@@ -18937,7 +19052,7 @@
     "empire_unique": true,
     "empire_va": "0x0117f5ee",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__stricmp_l",
     "napoleon_rva": [
      "0xe84bd8"
@@ -18949,7 +19064,7 @@
     "empire_unique": true,
     "empire_va": "0x01197274",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__strnicmp",
     "napoleon_rva": [
      "0xe9d486"
@@ -18961,7 +19076,7 @@
     "empire_unique": false,
     "empire_va": "0x011972e1",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__strnicmp_l",
     "napoleon_rva": [
      "0xe885c6",
@@ -18974,7 +19089,7 @@
     "empire_unique": true,
     "empire_va": "0x0119c21f",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__strnicoll",
     "napoleon_rva": [
      "0xea262f"
@@ -18994,23 +19109,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118155a",
     "len": 32,
-    "masked": 6,
+    "masked": 7,
     "name": "__tolower_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe945c0"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118165e",
     "len": 32,
-    "masked": 6,
+    "masked": 8,
     "name": "__toupper_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe946c4"
+    ],
     "source": "function"
    },
    {
@@ -19026,13 +19145,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01192a09",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "__towlower_l",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe98be9"
+    ],
     "source": "function"
    },
    {
@@ -19209,7 +19330,7 @@
     "empire_unique": false,
     "empire_va": "0x0118251d",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__wcsicmp",
     "napoleon_rva": [
      "0xe84b8f",
@@ -19223,7 +19344,7 @@
     "empire_unique": true,
     "empire_va": "0x01182566",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__wcsicmp_l",
     "napoleon_rva": [
      "0xe8871f"
@@ -19235,7 +19356,7 @@
     "empire_unique": false,
     "empire_va": "0x011823c1",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__wcsnicmp",
     "napoleon_rva": [
      "0xe84b8f",
@@ -19249,7 +19370,7 @@
     "empire_unique": false,
     "empire_va": "0x0118240d",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "__wcsnicmp_l",
     "napoleon_rva": [
      "0xe885c6",
@@ -19345,23 +19466,29 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118d6ce",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "__wrename",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe9388d"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x01189269",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "__write",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7fd29",
+     "0xe8c163",
+     "0xe90063"
+    ],
     "source": "function"
    },
    {
@@ -19369,7 +19496,7 @@
     "empire_unique": true,
     "empire_va": "0x0118935b",
     "len": 32,
-    "masked": 0,
+    "masked": 2,
     "name": "__write_nolock",
     "napoleon_rva": [
      "0xe8c255"
@@ -19381,7 +19508,7 @@
     "empire_unique": true,
     "empire_va": "0x01184aae",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "__wsetlocale",
     "napoleon_rva": [
      "0xe8ac6d"
@@ -19489,7 +19616,7 @@
     "empire_unique": true,
     "empire_va": "0x01167a6d",
     "len": 32,
-    "masked": 10,
+    "masked": 11,
     "name": "_atexit",
     "napoleon_rva": [],
     "source": "function"
@@ -19640,7 +19767,7 @@
     "empire_unique": true,
     "empire_va": "0x0117791b",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "_fclose",
     "napoleon_rva": [
      "0xe7e3c2"
@@ -19652,7 +19779,7 @@
     "empire_unique": false,
     "empire_va": "0x0117799f",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "_feof",
     "napoleon_rva": [
      "0xe70e23",
@@ -19665,7 +19792,7 @@
     "empire_unique": false,
     "empire_va": "0x011779cb",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "_ferror",
     "napoleon_rva": [
      "0xe70e23",
@@ -19690,7 +19817,7 @@
     "empire_unique": true,
     "empire_va": "0x0117b1bd",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "_fgetc",
     "napoleon_rva": [
      "0xe817ed"
@@ -19702,7 +19829,7 @@
     "empire_unique": false,
     "empire_va": "0x01181922",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "_fgetpos",
     "napoleon_rva": [
      "0xe87ced",
@@ -19768,7 +19895,7 @@
     "empire_unique": true,
     "empire_va": "0x01177eb2",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "_fputs",
     "napoleon_rva": [
      "0xe7e901"
@@ -19814,7 +19941,7 @@
     "empire_unique": false,
     "empire_va": "0x0118197d",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "_fsetpos",
     "napoleon_rva": [
      "0xe87ced",
@@ -19892,7 +20019,7 @@
     "empire_unique": true,
     "empire_va": "0x0118e55d",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "_isindst_nolock",
     "napoleon_rva": [
      "0xe94985"
@@ -20011,7 +20138,7 @@
     "empire_unique": true,
     "empire_va": "0x0117dfc3",
     "len": 32,
-    "masked": 0,
+    "masked": 3,
     "name": "_mbrtowc_s_l",
     "napoleon_rva": [
      "0xe85b84"
@@ -20023,7 +20150,7 @@
     "empire_unique": true,
     "empire_va": "0x0118a4fd",
     "len": 32,
-    "masked": 0,
+    "masked": 3,
     "name": "_mbstowcs_l_helper",
     "napoleon_rva": [
      "0xe906bc"
@@ -20072,7 +20199,7 @@
     "empire_unique": true,
     "empire_va": "0x0119ecc7",
     "len": 32,
-    "masked": 11,
+    "masked": 13,
     "name": "_memcmp",
     "napoleon_rva": [
      "0xea50d8"
@@ -20132,7 +20259,7 @@
     "empire_unique": true,
     "empire_va": "0x011d878a",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "_rand",
     "napoleon_rva": [
      "0xe7fb28"
@@ -20164,13 +20291,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01181ae0",
     "len": 32,
     "masked": 6,
     "name": "_setvbuf",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe87eab"
+    ],
     "source": "function"
    },
    {
@@ -20206,13 +20335,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0117f7c9",
     "len": 32,
-    "masked": 0,
+    "masked": 1,
     "name": "_strcpy_s",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe859c3"
+    ],
     "source": "function"
    },
    {
@@ -20306,7 +20437,7 @@
     "empire_unique": true,
     "empire_va": "0x011818af",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "_strtok_s",
     "napoleon_rva": [
      "0xe87c7a"
@@ -20384,13 +20515,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011800e7",
     "len": 32,
-    "masked": 17,
+    "masked": 16,
     "name": "_ungetc",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe866ae"
+    ],
     "source": "function"
    },
    {
@@ -20673,23 +20806,29 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x0064f6d0",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "battle_building_capacity",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x215f00",
+     "0x215fa0"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x0064f680",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "battle_building_currently_garrisoned",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x215f00",
+     "0x215fa0"
+    ],
     "source": "function"
    },
    {
@@ -20715,13 +20854,16 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x0064f630",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "battle_building_is_garrisoned",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x215f00",
+     "0x215fa0"
+    ],
     "source": "function"
    },
    {
@@ -20907,7 +21049,7 @@
     "empire_unique": true,
     "empire_va": "0x0064eb80",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "battle_commandevent_get_unit",
     "napoleon_rva": [
      "0x215750"
@@ -20951,13 +21093,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0064f740",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "battle_marker_set_position",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x215fe0"
+    ],
     "source": "function"
    },
    {
@@ -20965,7 +21109,7 @@
     "empire_unique": false,
     "empire_va": "0x0064f860",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "battle_marker_set_rotation",
     "napoleon_rva": [
      "0x2160d0",
@@ -20978,7 +21122,7 @@
     "empire_unique": false,
     "empire_va": "0x0064f830",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "battle_marker_set_scale",
     "napoleon_rva": [
      "0x2160d0",
@@ -21066,23 +21210,34 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00652230",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "battle_ship_controller_attack_ship_q",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x214410"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x006530a0",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_blow_up_ship",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
+    ],
     "source": "function"
    },
    {
@@ -21208,13 +21363,22 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x00653160",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_destroy_mast",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
+    ],
     "source": "function"
    },
    {
@@ -21251,14 +21415,21 @@
     "source": "function"
    },
    {
-    "class": "shared",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x0064ea20",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_force_surrender",
     "napoleon_rva": [
-     "0x2133b0"
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
     ],
     "source": "function"
    },
@@ -21309,57 +21480,98 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x006530e0",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_ignite_deck",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
+    ],
     "source": "function"
    },
    {
-    "class": "shared",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x00653120",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_ignite_sails",
     "napoleon_rva": [
-     "0x2133b0"
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
     ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x00652fe0",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_morale_behavior_default",
-    "napoleon_rva": [],
-    "source": "function"
-   },
-   {
-    "class": "shared",
-    "empire_unique": false,
-    "empire_va": "0x00653020",
-    "len": 32,
-    "masked": 8,
-    "name": "battle_ship_controller_morale_behavior_fearless",
     "napoleon_rva": [
-     "0x2133b0"
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
     ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
+    "empire_unique": false,
+    "empire_va": "0x00653020",
+    "len": 32,
+    "masked": 9,
+    "name": "battle_ship_controller_morale_behavior_fearless",
+    "napoleon_rva": [
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
+    ],
+    "source": "function"
+   },
+   {
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x00653060",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_morale_behavior_rout",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
+    ],
     "source": "function"
    },
    {
@@ -21406,13 +21618,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00652cb0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "battle_ship_controller_rotate_q",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x214e90"
+    ],
     "source": "function"
    },
    {
@@ -21430,14 +21644,21 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x00652870",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_ship_controller_sink",
     "napoleon_rva": [
-     "0x212f00"
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
     ],
     "source": "function"
    },
@@ -21618,7 +21839,7 @@
     "empire_unique": true,
     "empire_va": "0x00650030",
     "len": 32,
-    "masked": 7,
+    "masked": 4,
     "name": "battle_sound_effect_play3D",
     "napoleon_rva": [],
     "source": "function"
@@ -22089,14 +22310,21 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x00651640",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_unit_controller_kill",
     "napoleon_rva": [
-     "0x212ec0"
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
     ],
     "source": "function"
    },
@@ -22117,40 +22345,58 @@
    },
    {
     "class": "multiple",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x00651150",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_unit_controller_morale_behavior_default",
     "napoleon_rva": [
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
      "0x2151c0",
-     "0x2152c0"
+     "0x215200",
+     "0x215240"
     ],
     "source": "function"
    },
    {
     "class": "multiple",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x00651190",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_unit_controller_morale_behavior_fearless",
     "napoleon_rva": [
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
      "0x215200",
-     "0x215300"
+     "0x215240"
     ],
     "source": "function"
    },
    {
     "class": "multiple",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x006511d0",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_unit_controller_morale_behavior_rout",
     "napoleon_rva": [
-     "0x215240",
-     "0x215340"
+     "0x212ec0",
+     "0x212f00",
+     "0x212f40",
+     "0x2133b0",
+     "0x214a50",
+     "0x2151c0",
+     "0x215200",
+     "0x215240"
     ],
     "source": "function"
    },
@@ -22231,7 +22477,7 @@
     "empire_unique": true,
     "empire_va": "0x00651210",
     "len": 32,
-    "masked": 16,
+    "masked": 15,
     "name": "battle_unit_controller_set_invincible",
     "napoleon_rva": [
      "0x212f80"
@@ -22546,23 +22792,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0064ef20",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "battle_vector_set",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x215af0"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0064ed10",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "battle_vector_set_x",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x2158e0"
+    ],
     "source": "function"
    },
    {
@@ -22590,43 +22840,57 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0064eee0",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "battle_vector_to_screen_position",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x215ab0"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0064f9e0",
     "len": 32,
     "masked": 10,
     "name": "battle_weather_add_dust",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x2161b0",
+     "0x216280",
+     "0x216350"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0064f910",
     "len": 32,
     "masked": 10,
     "name": "battle_weather_add_rain",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x2161b0",
+     "0x216280",
+     "0x216350"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0064fab0",
     "len": 32,
     "masked": 10,
     "name": "battle_weather_add_snow",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x2161b0",
+     "0x216280",
+     "0x216350"
+    ],
     "source": "function"
    },
    {
@@ -22640,13 +22904,17 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011a8410",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "bit_arshift",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeae7e0",
+     "0xeae830",
+     "0xeae880"
+    ],
     "source": "function"
    },
    {
@@ -22654,7 +22922,7 @@
     "empire_unique": false,
     "empire_va": "0x011a8280",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "bit_band",
     "napoleon_rva": [
      "0xeae6f0",
@@ -22680,7 +22948,7 @@
     "empire_unique": false,
     "empire_va": "0x011a82d0",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "bit_bor",
     "napoleon_rva": [
      "0xeae6f0",
@@ -22694,7 +22962,7 @@
     "empire_unique": false,
     "empire_va": "0x011a8320",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "bit_bxor",
     "napoleon_rva": [
      "0xeae6f0",
@@ -22716,23 +22984,31 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011a8370",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "bit_lshift",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeae7e0",
+     "0xeae830",
+     "0xeae880"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011a83c0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "bit_rshift",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeae7e0",
+     "0xeae830",
+     "0xeae880"
+    ],
     "source": "function"
    },
    {
@@ -22883,10 +23159,10 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x008de7e0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "campaign_cmd_register",
     "napoleon_rva": [],
     "source": "function"
@@ -22932,23 +23208,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00954b40",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "ccmd_kill_character",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x554ee0"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0095e590",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "ccmd_offer_aoo",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x559f20"
+    ],
     "source": "function"
    },
    {
@@ -22968,7 +23248,7 @@
     "empire_unique": true,
     "empire_va": "0x0091b570",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "ccmd_selection_noop",
     "napoleon_rva": [],
     "source": "function"
@@ -23144,7 +23424,7 @@
     "empire_unique": true,
     "empire_va": "0x0117d6c6",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "common_atof_l<>",
     "napoleon_rva": [
      "0xe83cf6"
@@ -23216,7 +23496,7 @@
     "empire_unique": true,
     "empire_va": "0x011d91a5",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "common_fdopen<char>",
     "napoleon_rva": [
      "0xedf615"
@@ -23228,7 +23508,7 @@
     "empire_unique": true,
     "empire_va": "0x01177d3f",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "common_fgets<char>",
     "napoleon_rva": [
      "0xe7e78e"
@@ -23236,13 +23516,17 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011796f9",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "common_filelength<long>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7fd29",
+     "0xe8c163",
+     "0xe90063"
+    ],
     "source": "function"
    },
    {
@@ -23306,33 +23590,40 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118a09a",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "common_flush_and_write_nolock<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe8c437"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118a1af",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "common_flush_and_write_nolock<wchar_t>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe8c54c"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0117a867",
     "len": 32,
     "masked": 14,
     "name": "common_fseek",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe80e97",
+     "0xe8110f"
+    ],
     "source": "function"
    },
    {
@@ -23352,7 +23643,7 @@
     "empire_unique": true,
     "empire_va": "0x0117a9cb",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "common_fseek_nolock",
     "napoleon_rva": [
      "0xe80ffb"
@@ -23360,43 +23651,54 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0117767b",
     "len": 32,
-    "masked": 14,
+    "masked": 13,
     "name": "common_fsopen<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7e122",
+     "0xe7e1d9"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x01177732",
     "len": 32,
-    "masked": 14,
+    "masked": 13,
     "name": "common_fsopen<wchar_t>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7e122",
+     "0xe7e1d9"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0117ab50",
     "len": 32,
     "masked": 14,
     "name": "common_ftell<__int64>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe81180"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0117aadf",
     "len": 32,
     "masked": 14,
     "name": "common_ftell<long>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe80e97",
+     "0xe8110f"
+    ],
     "source": "function"
    },
    {
@@ -23404,7 +23706,7 @@
     "empire_unique": true,
     "empire_va": "0x0117abfb",
     "len": 32,
-    "masked": 12,
+    "masked": 10,
     "name": "common_ftell_nolock<__int64>",
     "napoleon_rva": [
      "0xe8122b"
@@ -23440,7 +23742,7 @@
     "empire_unique": true,
     "empire_va": "0x0117af3e",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "common_ftell_translated_utf8_nolock",
     "napoleon_rva": [
      "0xe8156e"
@@ -23472,23 +23774,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0119aa6e",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "common_getdcwd<wchar_t>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea0c4e"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0119af25",
     "len": 32,
-    "masked": 14,
+    "masked": 13,
     "name": "common_getenv<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea1338"
+    ],
     "source": "function"
    },
    {
@@ -23532,7 +23838,7 @@
     "empire_unique": true,
     "empire_va": "0x011d8c35",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "common_getpath<char>",
     "napoleon_rva": [
      "0xedf0a5"
@@ -23612,13 +23918,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118d13a",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "common_lseek<__int64>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe932f9"
+    ],
     "source": "function"
    },
    {
@@ -23650,7 +23958,7 @@
     "empire_unique": true,
     "empire_va": "0x0118d246",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "common_lseek_nolock<long>",
     "napoleon_rva": [
      "0xe93405"
@@ -23696,13 +24004,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011d7579",
     "len": 32,
     "masked": 14,
     "name": "common_popen<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xedda19"
+    ],
     "source": "function"
    },
    {
@@ -23722,7 +24032,7 @@
     "empire_unique": true,
     "empire_va": "0x01189f05",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "common_refill_and_read_nolock<char>",
     "napoleon_rva": [
      "0xe90527"
@@ -23734,7 +24044,7 @@
     "empire_unique": true,
     "empire_va": "0x01193c5b",
     "len": 32,
-    "masked": 6,
+    "masked": 5,
     "name": "common_set_variable_in_environment_nolock<char>",
     "napoleon_rva": [
      "0xe99e3b"
@@ -23742,23 +24052,29 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0118d99b",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "common_sopen_dispatch<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe93b5a",
+     "0xe93c1b"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0118da5c",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "common_sopen_dispatch<wchar_t>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe93b5a",
+     "0xe93c1b"
+    ],
     "source": "function"
    },
    {
@@ -23766,7 +24082,7 @@
     "empire_unique": true,
     "empire_va": "0x011d9533",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "common_spawnv<char>",
     "napoleon_rva": [
      "0xedf9a3"
@@ -23803,7 +24119,7 @@
     "empire_unique": true,
     "empire_va": "0x01179fc6",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "common_stat<struct__stat64i32>",
     "napoleon_rva": [
      "0xe805f6"
@@ -23893,23 +24209,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011784be",
     "len": 32,
-    "masked": 0,
+    "masked": 2,
     "name": "common_tcsncpy_s<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe7fb5b"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0119417c",
     "len": 32,
-    "masked": 0,
+    "masked": 2,
     "name": "common_tcsncpy_s<wchar_t>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe9a35c"
+    ],
     "source": "function"
    },
    {
@@ -23917,7 +24237,7 @@
     "empire_unique": true,
     "empire_va": "0x0117bc78",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "common_timespec_get<struct__timespec64>",
     "napoleon_rva": [
      "0xe822a8"
@@ -23925,13 +24245,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011d7efd",
     "len": 32,
-    "masked": 12,
+    "masked": 14,
     "name": "common_tmpfile",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xede39d"
+    ],
     "source": "function"
    },
    {
@@ -23939,7 +24261,7 @@
     "empire_unique": true,
     "empire_va": "0x011d7f79",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "common_tmpfile_nolock",
     "napoleon_rva": [
      "0xede419"
@@ -23947,13 +24269,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011d7c09",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "common_tmpnam<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xede0a9"
+    ],
     "source": "function"
    },
    {
@@ -23973,7 +24297,7 @@
     "empire_unique": true,
     "empire_va": "0x0116b008",
     "len": 32,
-    "masked": 11,
+    "masked": 9,
     "name": "common_vsnprintf_s<char>",
     "napoleon_rva": [
      "0xe713ab"
@@ -24045,7 +24369,7 @@
     "empire_unique": false,
     "empire_va": "0x0116b6fa",
     "len": 32,
-    "masked": 11,
+    "masked": 9,
     "name": "common_vsprintf_s<char>",
     "napoleon_rva": [
      "0xe71a9d",
@@ -24058,7 +24382,7 @@
     "empire_unique": false,
     "empire_va": "0x0116b772",
     "len": 32,
-    "masked": 11,
+    "masked": 9,
     "name": "common_vsprintf_s<wchar_t>",
     "napoleon_rva": [
      "0xe71a9d",
@@ -24067,13 +24391,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0116ee4b",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "common_vsscanf<char>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe751ee"
+    ],
     "source": "function"
    },
    {
@@ -24081,7 +24407,7 @@
     "empire_unique": true,
     "empire_va": "0x0116eeff",
     "len": 32,
-    "masked": 11,
+    "masked": 9,
     "name": "common_vsscanf<wchar_t>",
     "napoleon_rva": [
      "0xe752a2"
@@ -24604,7 +24930,7 @@
     "empire_unique": false,
     "empire_va": "0x00517340",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_BattlePlayerAlliancePercentageOfClassAndCategory",
     "napoleon_rva": [],
     "source": "function"
@@ -24644,7 +24970,7 @@
     "empire_unique": false,
     "empire_va": "0x005178c0",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_BattlePlayerAlliancePercentageOfUnitCategory",
     "napoleon_rva": [],
     "source": "function"
@@ -24654,7 +24980,7 @@
     "empire_unique": false,
     "empire_va": "0x00517aa0",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_BattlePlayerAlliancePercentageOfUnitClass",
     "napoleon_rva": [],
     "source": "function"
@@ -24672,16 +24998,13 @@
     "source": "function"
    },
    {
-    "class": "multiple",
+    "class": "none",
     "empire_unique": false,
     "empire_va": "0x00517f00",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_BattlePlayerDefendingFort",
-    "napoleon_rva": [
-     "0x12cd40",
-     "0x12d6a0"
-    ],
+    "napoleon_rva": [],
     "source": "function"
    },
    {
@@ -24699,7 +25022,7 @@
     "empire_unique": true,
     "empire_va": "0x00518110",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_BattlePlayerDirectionOfMissileAttack",
     "napoleon_rva": [],
     "source": "function"
@@ -24785,16 +25108,13 @@
     "source": "function"
    },
    {
-    "class": "multiple",
+    "class": "none",
     "empire_unique": false,
     "empire_va": "0x00518a00",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_BattlePlayerUnitEngaged",
-    "napoleon_rva": [
-     "0x12cd40",
-     "0x12d6a0"
-    ],
+    "napoleon_rva": [],
     "source": "function"
    },
    {
@@ -25076,7 +25396,7 @@
     "empire_unique": true,
     "empire_va": "0x008671c0",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "cond_CanGenerateHistoricalCharacter",
     "napoleon_rva": [],
     "source": "function"
@@ -25112,15 +25432,13 @@
     "source": "function"
    },
    {
-    "class": "unique",
+    "class": "none",
     "empire_unique": true,
     "empire_va": "0x00867680",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_CharacterCapturedEnemyShip",
-    "napoleon_rva": [
-     "0x49c190"
-    ],
+    "napoleon_rva": [],
     "source": "function"
    },
    {
@@ -25224,7 +25542,7 @@
     "empire_unique": true,
     "empire_va": "0x00867fc0",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_CharacterFoughtCulture",
     "napoleon_rva": [],
     "source": "function"
@@ -25250,23 +25568,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x008682b0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "cond_CharacterInBuildingOfChain",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x12a4e0"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "shared",
     "empire_unique": false,
     "empire_va": "0x00868460",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "cond_CharacterInBuildingType",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x12a4e0"
+    ],
     "source": "function"
    },
    {
@@ -25406,15 +25728,13 @@
     "source": "function"
    },
    {
-    "class": "shared",
+    "class": "none",
     "empire_unique": false,
     "empire_va": "0x00869050",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_CharacterTrait",
-    "napoleon_rva": [
-     "0x4a2380"
-    ],
+    "napoleon_rva": [],
     "source": "function"
    },
    {
@@ -25492,7 +25812,7 @@
     "empire_unique": true,
     "empire_va": "0x00869560",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_CommanderAncillary",
     "napoleon_rva": [],
     "source": "function"
@@ -25528,7 +25848,7 @@
     "empire_unique": true,
     "empire_va": "0x008699a0",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_CommanderTrait",
     "napoleon_rva": [],
     "source": "function"
@@ -25588,7 +25908,7 @@
     "empire_unique": true,
     "empire_va": "0x00869dd0",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "cond_FactionBuildingExists",
     "napoleon_rva": [],
     "source": "function"
@@ -25644,13 +25964,16 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x0086a6c0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "cond_FactionHasAllies",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x49f710",
+     "0x4a22d0"
+    ],
     "source": "function"
    },
    {
@@ -25684,15 +26007,13 @@
     "source": "function"
    },
    {
-    "class": "shared",
+    "class": "none",
     "empire_unique": false,
     "empire_va": "0x0086a900",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_FactionLeadersAttribute",
-    "napoleon_rva": [
-     "0x4a2380"
-    ],
+    "napoleon_rva": [],
     "source": "function"
    },
    {
@@ -25740,7 +26061,7 @@
     "empire_unique": true,
     "empire_va": "0x0086ad20",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_FactionTaxLevel",
     "napoleon_rva": [],
     "source": "function"
@@ -25750,7 +26071,7 @@
     "empire_unique": true,
     "empire_va": "0x0086af40",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_FactionTechExists",
     "napoleon_rva": [],
     "source": "function"
@@ -26176,13 +26497,16 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "multiple",
     "empire_unique": false,
     "empire_va": "0x0086d200",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "cond_OnAWarFooting",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x49f710",
+     "0x4a22d0"
+    ],
     "source": "function"
    },
    {
@@ -26196,15 +26520,13 @@
     "source": "function"
    },
    {
-    "class": "shared",
+    "class": "none",
     "empire_unique": false,
     "empire_va": "0x0086d2b0",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_PercentageUnspentIncome",
-    "napoleon_rva": [
-     "0x4a2380"
-    ],
+    "napoleon_rva": [],
     "source": "function"
    },
    {
@@ -26318,15 +26640,13 @@
     "source": "function"
    },
    {
-    "class": "shared",
+    "class": "none",
     "empire_unique": false,
     "empire_va": "0x0086db70",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_RegionGovernorAttribute",
-    "napoleon_rva": [
-     "0x4a2380"
-    ],
+    "napoleon_rva": [],
     "source": "function"
    },
    {
@@ -26822,13 +27142,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x008702e0",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "cond_TradeRouteIsEnemy",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0x4a53b0"
+    ],
     "source": "function"
    },
    {
@@ -26948,7 +27270,7 @@
     "empire_unique": true,
     "empire_va": "0x00870d50",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "cond_UnitInTheatre",
     "napoleon_rva": [],
     "source": "function"
@@ -26996,7 +27318,7 @@
     "empire_unique": true,
     "empire_va": "0x00871350",
     "len": 32,
-    "masked": 9,
+    "masked": 8,
     "name": "cond_UnitTrait",
     "napoleon_rva": [],
     "source": "function"
@@ -27254,7 +27576,7 @@
     "empire_unique": true,
     "empire_va": "0x011a2130",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "coroutine_create",
     "napoleon_rva": [
      "0xea85a0"
@@ -27303,7 +27625,7 @@
     "empire_unique": true,
     "empire_va": "0x011a2190",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "coroutine_wrap",
     "napoleon_rva": [
      "0xea8600"
@@ -27447,7 +27769,7 @@
     "empire_unique": true,
     "empire_va": "0x011a6f60",
     "len": 32,
-    "masked": 22,
+    "masked": 20,
     "name": "debug_debug",
     "napoleon_rva": [
      "0xead3d0"
@@ -27503,13 +27825,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a6960",
     "len": 32,
     "masked": 14,
     "name": "debug_getmetatable",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeacdd0"
+    ],
     "source": "function"
    },
    {
@@ -27529,7 +27853,7 @@
     "empire_unique": true,
     "empire_va": "0x011a6dc0",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "debug_getupvalue",
     "napoleon_rva": [
      "0xead230"
@@ -27541,7 +27865,7 @@
     "empire_unique": true,
     "empire_va": "0x011a6a00",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "debug_setfenv",
     "napoleon_rva": [
      "0xeace70"
@@ -27589,7 +27913,7 @@
     "empire_unique": true,
     "empire_va": "0x011a6dd0",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "debug_setupvalue",
     "napoleon_rva": [
      "0xead240"
@@ -27625,7 +27949,7 @@
     "empire_unique": true,
     "empire_va": "0x0118de05",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "decode_options",
     "napoleon_rva": [
      "0xe93fc4"
@@ -27823,7 +28147,7 @@
     "empire_unique": true,
     "empire_va": "0x0064f160",
     "len": 32,
-    "masked": 15,
+    "masked": 12,
     "name": "empire_battle_out",
     "napoleon_rva": [],
     "source": "function"
@@ -28006,7 +28330,7 @@
     "empire_unique": true,
     "empire_va": "0x0064f730",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "empire_battle_ui_component",
     "napoleon_rva": [],
     "source": "function"
@@ -28171,7 +28495,7 @@
     "empire_unique": true,
     "empire_va": "0x011d9723",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "execute_command<char>",
     "napoleon_rva": [
      "0xedfb93"
@@ -28261,35 +28585,39 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x01193f63",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "find_in_environment_nolock<char>",
-    "napoleon_rva": [],
-    "source": "function"
-   },
-   {
-    "class": "unique",
-    "empire_unique": true,
-    "empire_va": "0x0116c06d",
-    "len": 32,
-    "masked": 4,
-    "name": "find_next_state",
     "napoleon_rva": [
-     "0xe72410"
+     "0xe9a143"
     ],
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
-    "empire_va": "0x0116c0aa",
+    "class": "multiple",
+    "empire_unique": false,
+    "empire_va": "0x0116c06d",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "find_next_state",
     "napoleon_rva": [
+     "0xe72410",
+     "0xe7244d"
+    ],
+    "source": "function"
+   },
+   {
+    "class": "multiple",
+    "empire_unique": false,
+    "empire_va": "0x0116c0aa",
+    "len": 32,
+    "masked": 7,
+    "name": "find_next_state",
+    "napoleon_rva": [
+     "0xe72410",
      "0xe7244d"
     ],
     "source": "function"
@@ -28299,7 +28627,7 @@
     "empire_unique": false,
     "empire_va": "0x0116c0ea",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "find_next_state",
     "napoleon_rva": [
      "0xe7248d",
@@ -28312,7 +28640,7 @@
     "empire_unique": false,
     "empire_va": "0x0116c129",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "find_next_state",
     "napoleon_rva": [
      "0xe7248d",
@@ -28613,7 +28941,7 @@
     "empire_unique": true,
     "empire_va": "0x01192632",
     "len": 32,
-    "masked": 16,
+    "masked": 17,
     "name": "get_global_action_nolock",
     "napoleon_rva": [
      "0xe98812"
@@ -28727,23 +29055,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0117d3a2",
     "len": 32,
-    "masked": 0,
+    "masked": 2,
     "name": "internal_to_string",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe83bbb"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a3090",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "io_close",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea9500"
+    ],
     "source": "function"
    },
    {
@@ -28773,24 +29105,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a32d0",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "io_lines",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea9740"
+    ],
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011a3180",
     "len": 32,
     "masked": 16,
     "name": "io_open",
     "napoleon_rva": [
-     "0xea95f0"
+     "0xea95f0",
+     "0xea9650"
     ],
     "source": "function"
    },
@@ -28807,13 +29142,14 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011a31e0",
     "len": 32,
     "masked": 16,
     "name": "io_popen",
     "napoleon_rva": [
+     "0xea95f0",
      "0xea9650"
     ],
     "source": "function"
@@ -28848,7 +29184,7 @@
     "empire_unique": true,
     "empire_va": "0x011a2ff0",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "io_type",
     "napoleon_rva": [
      "0xea9460"
@@ -28872,7 +29208,7 @@
     "empire_unique": true,
     "empire_va": "0x011a34d0",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "iof_flush",
     "napoleon_rva": [
      "0xea9940"
@@ -28880,13 +29216,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a30d0",
     "len": 32,
-    "masked": 14,
+    "masked": 17,
     "name": "iof_gc",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea9540"
+    ],
     "source": "function"
    },
    {
@@ -28915,13 +29253,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a33d0",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "iof_seek",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea9840"
+    ],
     "source": "function"
    },
    {
@@ -28929,7 +29269,7 @@
     "empire_unique": true,
     "empire_va": "0x011a3440",
     "len": 32,
-    "masked": 16,
+    "masked": 14,
     "name": "iof_setvbuf",
     "napoleon_rva": [
      "0xea98b0"
@@ -29108,7 +29448,7 @@
     "empire_unique": true,
     "empire_va": "0x011a1dd0",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "luaB_assert",
     "napoleon_rva": [],
     "source": "function"
@@ -29118,7 +29458,7 @@
     "empire_unique": true,
     "empire_va": "0x011a1b90",
     "len": 32,
-    "masked": 16,
+    "masked": 14,
     "name": "luaB_collectgarbage",
     "napoleon_rva": [
      "0xea8000"
@@ -29138,13 +29478,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a1890",
     "len": 32,
-    "masked": 16,
+    "masked": 14,
     "name": "luaB_error",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea7cf0"
+    ],
     "source": "function"
    },
    {
@@ -29172,23 +29514,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a18f0",
     "len": 32,
     "masked": 14,
     "name": "luaB_getmetatable",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea7d50"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a1d30",
     "len": 32,
-    "masked": 16,
+    "masked": 19,
     "name": "luaB_load",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea81a0"
+    ],
     "source": "function"
    },
    {
@@ -29202,13 +29548,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a1cc0",
     "len": 32,
-    "masked": 10,
+    "masked": 11,
     "name": "luaB_loadstring",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea8130"
+    ],
     "source": "function"
    },
    {
@@ -29224,13 +29572,15 @@
     "source": "function"
    },
    {
-    "class": "unsearchable",
-    "empire_unique": false,
+    "class": "unique",
+    "empire_unique": true,
     "empire_va": "0x011a2710",
     "len": 32,
-    "masked": 20,
+    "masked": 16,
     "name": "luaB_newproxy",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea8b80"
+    ],
     "source": "function"
    },
    {
@@ -29238,7 +29588,7 @@
     "empire_unique": false,
     "empire_va": "0x011a1c80",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "luaB_next",
     "napoleon_rva": [
      "0xea80f0",
@@ -29307,13 +29657,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a75f0",
     "len": 32,
-    "masked": 14,
+    "masked": 16,
     "name": "luaB_require",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeada60"
+    ],
     "source": "function"
    },
    {
@@ -29321,7 +29673,7 @@
     "empire_unique": true,
     "empire_va": "0x011a1ea0",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "luaB_select",
     "napoleon_rva": [
      "0xea8310"
@@ -29333,7 +29685,7 @@
     "empire_unique": true,
     "empire_va": "0x011a1a10",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "luaB_setfenv",
     "napoleon_rva": [
      "0xea7e70"
@@ -29353,13 +29705,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a1770",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "luaB_tonumber",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea7bd0"
+    ],
     "source": "function"
    },
    {
@@ -29379,7 +29733,7 @@
     "empire_unique": true,
     "empire_va": "0x011a1c50",
     "len": 32,
-    "masked": 18,
+    "masked": 17,
     "name": "luaB_type",
     "napoleon_rva": [
      "0xea80c0"
@@ -29391,7 +29745,7 @@
     "empire_unique": true,
     "empire_va": "0x011a1e20",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "luaB_unpack",
     "napoleon_rva": [
      "0xea8290"
@@ -29403,7 +29757,7 @@
     "empire_unique": true,
     "empire_va": "0x011a1f70",
     "len": 32,
-    "masked": 16,
+    "masked": 12,
     "name": "luaB_xpcall",
     "napoleon_rva": [
      "0xea83e0"
@@ -29545,7 +29899,7 @@
     "empire_unique": true,
     "empire_va": "0x00f086d0",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "luaL_checkinteger",
     "napoleon_rva": [
      "0xbea240"
@@ -29581,7 +29935,7 @@
     "empire_unique": true,
     "empire_va": "0x00f08880",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "luaL_checktype",
     "napoleon_rva": [
      "0xbea3f0"
@@ -29713,7 +30067,7 @@
     "empire_unique": true,
     "empire_va": "0x00f0faa0",
     "len": 32,
-    "masked": 0,
+    "masked": 2,
     "name": "luaV_gettable",
     "napoleon_rva": [
      "0xbf1610"
@@ -29745,13 +30099,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x00f76d40",
     "len": 32,
-    "masked": 12,
+    "masked": 13,
     "name": "lua_arg_reader",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xc58750"
+    ],
     "source": "function"
    },
    {
@@ -29785,7 +30141,7 @@
     "empire_unique": true,
     "empire_va": "0x00f07480",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "lua_getmetatable",
     "napoleon_rva": [
      "0xbe8ff0"
@@ -29817,14 +30173,15 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x00f075e0",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "lua_isnumber",
     "napoleon_rva": [
-     "0xbe9150"
+     "0xbe9150",
+     "0xbe9c00"
     ],
     "source": "function"
    },
@@ -29833,7 +30190,7 @@
     "empire_unique": true,
     "empire_va": "0x00f73fd0",
     "len": 32,
-    "masked": 6,
+    "masked": 9,
     "name": "lua_push_table_wrapper",
     "napoleon_rva": [],
     "source": "function"
@@ -29855,7 +30212,7 @@
     "empire_unique": true,
     "empire_va": "0x00f078f0",
     "len": 32,
-    "masked": 5,
+    "masked": 8,
     "name": "lua_pushcclosure",
     "napoleon_rva": [
      "0xbe9460"
@@ -30091,7 +30448,7 @@
     "empire_unique": true,
     "empire_va": "0x00f08150",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "lua_tonumber",
     "napoleon_rva": [
      "0xbe9cc0"
@@ -30175,7 +30532,7 @@
     "empire_unique": true,
     "empire_va": "0x011a3a80",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "luaopen_io",
     "napoleon_rva": [
      "0xea9ef0"
@@ -30213,19 +30570,21 @@
     "empire_unique": true,
     "empire_va": "0x011a7df0",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "luaopen_package",
     "napoleon_rva": [],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a54e0",
     "len": 32,
-    "masked": 17,
+    "masked": 19,
     "name": "luaopen_string",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeab950"
+    ],
     "source": "function"
    },
    {
@@ -30458,13 +30817,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a65e0",
     "len": 32,
-    "masked": 12,
+    "masked": 15,
     "name": "math_ldexp",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeaca50"
+    ],
     "source": "function"
    },
    {
@@ -30510,7 +30871,7 @@
     "empire_unique": false,
     "empire_va": "0x011a66a0",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "math_max",
     "napoleon_rva": [
      "0xeaca90",
@@ -30523,7 +30884,7 @@
     "empire_unique": false,
     "empire_va": "0x011a6620",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "math_min",
     "napoleon_rva": [
      "0xeaca90",
@@ -30672,7 +31033,7 @@
     "empire_unique": true,
     "empire_va": "0x00604e30",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "men_inside_the_battle_bounds",
     "napoleon_rva": [
      "0x1dae50"
@@ -30766,7 +31127,7 @@
     "empire_unique": true,
     "empire_va": "0x011a3f80",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "os_clock",
     "napoleon_rva": [
      "0xeaa3f0"
@@ -30790,7 +31151,7 @@
     "empire_unique": true,
     "empire_va": "0x011a4280",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "os_difftime",
     "napoleon_rva": [
      "0xeaa6f0"
@@ -30850,7 +31211,7 @@
     "empire_unique": true,
     "empire_va": "0x011a3ec0",
     "len": 32,
-    "masked": 16,
+    "masked": 14,
     "name": "os_rename",
     "napoleon_rva": [
      "0xeaa330"
@@ -30898,7 +31259,7 @@
     "empire_unique": true,
     "empire_va": "0x011a7580",
     "len": 32,
-    "masked": 16,
+    "masked": 14,
     "name": "package_loadlib",
     "napoleon_rva": [
      "0xead9f0"
@@ -30910,7 +31271,7 @@
     "empire_unique": true,
     "empire_va": "0x011a78c0",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "package_seeall",
     "napoleon_rva": [
      "0xeadd30"
@@ -31214,7 +31575,7 @@
     "empire_unique": true,
     "empire_va": "0x01175b8e",
     "len": 32,
-    "masked": 13,
+    "masked": 10,
     "name": "process_conversion_specifier",
     "napoleon_rva": [
      "0xe7bf3e"
@@ -31296,7 +31657,7 @@
     "empire_unique": false,
     "empire_va": "0x00574590",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "queue_Push",
     "napoleon_rva": [],
     "source": "function"
@@ -31334,13 +31695,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x010adde0",
     "len": 32,
-    "masked": 14,
+    "masked": 13,
     "name": "rs_set_default_states",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xd9cff0"
+    ],
     "source": "function"
    },
    {
@@ -31386,13 +31749,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0118261e",
     "len": 32,
-    "masked": 8,
+    "masked": 10,
     "name": "scale_count",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe887d7"
+    ],
     "source": "function"
    },
    {
@@ -31448,7 +31813,7 @@
     "empire_unique": true,
     "empire_va": "0x011935af",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "setSBUpLow",
     "napoleon_rva": [
      "0xe9978f"
@@ -31576,7 +31941,7 @@
     "empire_unique": true,
     "empire_va": "0x011480b0",
     "len": 32,
-    "masked": 11,
+    "masked": 8,
     "name": "sky_cubes_bind",
     "napoleon_rva": [],
     "source": "function"
@@ -31684,25 +32049,27 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116cafc",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "state_case_normal_tchar",
     "napoleon_rva": [
-     "0xe72e9f"
+     "0xe72e9f",
+     "0xe72f0c"
     ],
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116cb69",
     "len": 32,
-    "masked": 10,
+    "masked": 12,
     "name": "state_case_normal_tchar",
     "napoleon_rva": [
+     "0xe72e9f",
      "0xe72f0c"
     ],
     "source": "function"
@@ -31732,25 +32099,27 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116cc1a",
     "len": 32,
-    "masked": 10,
+    "masked": 13,
     "name": "state_case_size",
     "napoleon_rva": [
-     "0xe72fbd"
+     "0xe72fbd",
+     "0xe7310b"
     ],
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116cd68",
     "len": 32,
-    "masked": 10,
+    "masked": 13,
     "name": "state_case_size",
     "napoleon_rva": [
+     "0xe72fbd",
      "0xe7310b"
     ],
     "source": "function"
@@ -31958,13 +32327,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0116a134",
     "len": 32,
-    "masked": 5,
+    "masked": 6,
     "name": "std::exception::exception",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe70704"
+    ],
     "source": "function"
    },
    {
@@ -32223,7 +32594,7 @@
     "empire_unique": true,
     "empire_va": "0x011a4890",
     "len": 32,
-    "masked": 8,
+    "masked": 9,
     "name": "string_char",
     "napoleon_rva": [
      "0xeaad00"
@@ -32245,7 +32616,7 @@
     "empire_unique": true,
     "empire_va": "0x011a4930",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "string_dump",
     "napoleon_rva": [
      "0xeaada0"
@@ -32269,7 +32640,7 @@
     "empire_unique": true,
     "empire_va": "0x011a4b80",
     "len": 32,
-    "masked": 0,
+    "masked": 1,
     "name": "string_format",
     "napoleon_rva": [
      "0xeaaff0"
@@ -32289,13 +32660,15 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a49c0",
     "len": 32,
-    "masked": 16,
+    "masked": 17,
     "name": "string_gmatch",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xeaae30"
+    ],
     "source": "function"
    },
    {
@@ -32303,7 +32676,7 @@
     "empire_unique": true,
     "empire_va": "0x011a4a20",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "string_gsub",
     "napoleon_rva": [
      "0xeaae90"
@@ -32473,7 +32846,7 @@
     "empire_unique": true,
     "empire_va": "0x011a56ed",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "switchD_011a565a::caseD_2a",
     "napoleon_rva": [
      "0xeabb5d"
@@ -32514,22 +32887,24 @@
    },
    {
     "class": "none",
-    "empire_unique": true,
+    "empire_unique": false,
     "empire_va": "0x00f6a090",
     "len": 32,
-    "masked": 4,
+    "masked": 7,
     "name": "system_cmd_register",
     "napoleon_rva": [],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a2ba0",
     "len": 32,
-    "masked": 4,
+    "masked": 6,
     "name": "table_concat",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea9010"
+    ],
     "source": "function"
    },
    {
@@ -32549,7 +32924,7 @@
     "empire_unique": true,
     "empire_va": "0x011a2860",
     "len": 32,
-    "masked": 14,
+    "masked": 12,
     "name": "table_foreachi",
     "napoleon_rva": [
      "0xea8cd0"
@@ -32561,7 +32936,7 @@
     "empire_unique": true,
     "empire_va": "0x011a2a20",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "table_getn",
     "napoleon_rva": [
      "0xea8e90"
@@ -32569,23 +32944,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a2a80",
     "len": 32,
     "masked": 14,
     "name": "table_insert",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea8ef0"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x011a2980",
     "len": 32,
-    "masked": 8,
+    "masked": 11,
     "name": "table_maxn",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea8df0"
+    ],
     "source": "function"
    },
    {
@@ -32593,7 +32972,7 @@
     "empire_unique": true,
     "empire_va": "0x011a2b20",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "table_remove",
     "napoleon_rva": [
      "0xea8f90"
@@ -32601,13 +32980,17 @@
     "source": "function"
    },
    {
-    "class": "none",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x011a2a50",
     "len": 32,
     "masked": 18,
     "name": "table_setn",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xea8b40",
+     "0xea8c60",
+     "0xea8ec0"
+    ],
     "source": "function"
    },
    {
@@ -32615,7 +32998,7 @@
     "empire_unique": true,
     "empire_va": "0x011a2c80",
     "len": 32,
-    "masked": 18,
+    "masked": 16,
     "name": "table_sort",
     "napoleon_rva": [
      "0xea90f0"
@@ -33199,25 +33582,27 @@
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116baaf",
     "len": 32,
-    "masked": 0,
+    "masked": 3,
     "name": "type_case_integer_parse_into_buffer<>",
     "napoleon_rva": [
-     "0xe71e52"
+     "0xe71e52",
+     "0xe71ee0"
     ],
     "source": "function"
    },
    {
-    "class": "unique",
-    "empire_unique": true,
+    "class": "multiple",
+    "empire_unique": false,
     "empire_va": "0x0116bb3d",
     "len": 32,
-    "masked": 0,
+    "masked": 3,
     "name": "type_case_integer_parse_into_buffer<>",
     "napoleon_rva": [
+     "0xe71e52",
      "0xe71ee0"
     ],
     "source": "function"
@@ -33227,7 +33612,7 @@
     "empire_unique": true,
     "empire_va": "0x0116e2b3",
     "len": 32,
-    "masked": 11,
+    "masked": 9,
     "name": "type_case_n",
     "napoleon_rva": [
      "0xe74656"
@@ -33263,7 +33648,7 @@
     "empire_unique": true,
     "empire_va": "0x0116e365",
     "len": 32,
-    "masked": 7,
+    "masked": 4,
     "name": "type_case_p",
     "napoleon_rva": [
      "0xe74708"
@@ -33489,7 +33874,7 @@
     "empire_unique": true,
     "empire_va": "0x004b77c0",
     "len": 32,
-    "masked": 4,
+    "masked": 5,
     "name": "ustring_from_cstr",
     "napoleon_rva": [],
     "source": "function"
@@ -33509,7 +33894,7 @@
     "empire_unique": true,
     "empire_va": "0x01176ff5",
     "len": 32,
-    "masked": 10,
+    "masked": 8,
     "name": "validate",
     "napoleon_rva": [
      "0xe7d3a7"
@@ -33521,7 +33906,7 @@
     "empire_unique": true,
     "empire_va": "0x0116e4fc",
     "len": 32,
-    "masked": 11,
+    "masked": 9,
     "name": "validate_and_update_state_at_end_of_format_string",
     "napoleon_rva": [
      "0xe7489f"
@@ -33637,23 +34022,27 @@
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0117289f",
     "len": 32,
-    "masked": 7,
+    "masked": 6,
     "name": "write_floating_point<>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78c42"
+    ],
     "source": "function"
    },
    {
-    "class": "none",
+    "class": "unique",
     "empire_unique": true,
     "empire_va": "0x0117293b",
     "len": 32,
-    "masked": 7,
+    "masked": 6,
     "name": "write_floating_point<>",
-    "napoleon_rva": [],
+    "napoleon_rva": [
+     "0xe78cde"
+    ],
     "source": "function"
    },
    {
@@ -33661,7 +34050,7 @@
     "empire_unique": true,
     "empire_va": "0x011771a1",
     "len": 32,
-    "masked": 6,
+    "masked": 4,
     "name": "write_integer",
     "napoleon_rva": [
      "0xe7d553"
@@ -34188,7 +34577,7 @@
     "empire_unique": true,
     "empire_va": "0x5867A4",
     "len": 36,
-    "masked": 16,
+    "masked": 17,
     "name": "low shared pose (exe_sprite_dist[3])",
     "napoleon_rva": [],
     "source": "patch_site"
@@ -34615,7 +35004,7 @@
    "empire": "2854 signatures",
    "evidence": "detail.signatures",
    "item": "signatures function",
-   "napoleon": "1159 unique, 33 shared, 468 multiple, 1190 none, 4 unsearchable",
+   "napoleon": "1236 unique, 28 shared, 516 multiple, 1071 none, 3 unsearchable",
    "verdict": "adapter"
   },
   {
