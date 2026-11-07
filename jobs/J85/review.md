@@ -16,7 +16,7 @@ Both of round 1's fixes are correct, checked against what `acceptance.py` really
 ### Round 1's findings
 **A `fail` during a stop (456c0ec5): fixed.** I ran `stop_point` on each line shape from `core/harness/acceptance.py` `cmd_run`, lines 641 to 653: a `pass` line and `flake 1 of 1 allowed` stop; `FAIL`, `FLAKE`, `flake 2 of 1`, `flake 1 of 0` and both `acceptance: stopped` lines do not. Those last paths reach `return 1`, which `supervise` reads as `consumed`. The flake line prints after the `FLAKE` line, so waiting for it loses nothing. Putting the old `PASS_LINE` back fails the three new `Run` tests, so they do test the fix.
 
-**The proof still covers the stop.** The tool changed after the proof, but the real line in `tick_step3_4.log`, `acceptance pass 2: pass (harness/runs/20261107_j85auto1/pass_02.json)`, is a line `stop_point` stops on.
+**The proof still covers the stop.** The tool changed after the proof, but the real line in `tick_step3_4.log`, `stop after: acceptance pass 2: pass (...)` at 15:36:34, is a line `stop_point` stops on.
 
 **A stop on a covered flake resumes correctly.** This is the path the fix keeps, and the proof never took it. I followed it through `flakes_in_streak`, `acceptance_problems` and `max_flakes_of`. A flake inside the streak takes the resumed run's allowance to 0, `--max-flakes 0` is accepted (`cli is not None`), and the gate reads each flake's own `flakes_allowed`, so the flake stays covered. A flake older than the streak's oldest pass is not counted, and it does no harm: the gate reaches 20 before it ends there. Read and traced, not run on the PC, as the ledger has no flake line yet.
 
