@@ -116,5 +116,14 @@ measure --run <id>` writes `harness/acceptance/baseline.json` from two passes; `
 the baseline and appends one ledger line per pass with its committed evidence `harness/runs/<id>/pass_NN.json` (rule 79, `tools/gates/pipeline.py`). The ledger's `build_id` is the DLL inputs' content hash
 (`core/proxy/tools/build_id.py`, J45; lines before J45 carry the old commit-hash ids as a record).
 
+## Unattended acceptance (J85)
+`tools/acceptance_auto.py` runs a job's 20 passes with nobody at the PC, from a scheduled task (`task install` registers it disabled; only Liam runs `task enable`, every 30 minutes after that).
+- **A builder asks:** on the final build, `python3 tools/acceptance_auto.py request --job J<n>`, commit `jobs/J<n>/acceptance_request.json`, push, leave the row at `queued` or `fix`, end the session. A branch with no request is never run.
+- **A tick checks, cheapest first:** `<state>\liam_present`; 30 minutes idle; lock, profile and game (`job.sh status`); `pc_deploy.py status`; a working session in `claude agents --json`; 8 GB free; then the row on `main` is not `done`, the row on the branch is `queued` or `fix`, the request's build and watcher are head's, and rule 79 still fails; Docker only when a build is needed. A refusal is one line in `tick.log`, nothing touched. It starts neither Docker nor a display, and it installs a watcher `update` but never `watch.cmd`.
+- **Liam holds it off:** create `<state>\liam_present`, by hand. It also stops a run at the next `acceptance pass N:` line, as any input or a layout change does: the game goes through `job.sh`, the kit is uninstalled, the lines are pushed. The next free tick reinstalls the same kit and runs 20 minus the streak under a new run id.
+- **After a `fail`,** or the flake allowance spent: the request is used up and the evidence is pushed. Read `last_result.json` and the run's pass files; a run needs a new commit of the request.
+- **After a green run** nothing happens by itself: a person or a finish session writes the evidence into `report.md` and sets `status=review`.
+- Everything it writes is in `<state>\_scratch\acceptance-auto\`: `tick.log`, `last_result.json`, `state.json`, `<run>.out`, `<run>.idle.log`, `task_env.json`. `python3 tools/acceptance_auto.py status` prints them. A commit it could not push stays at `refs/acceptance-auto/<run>`.
+
 ## Open questions
 See `jobs/J2/report.md` and `jobs/J13/report.md` (open questions). Prefs file format: fact `napoleon.config.preferences_format`.

@@ -1,0 +1,11 @@
+{
+  "id": "tools.acceptance_auto",
+  "kind": "script",
+  "path": "tools/acceptance_auto.py",
+  "purpose": "a plain script, fired by a scheduled task, that takes one job branch with a committed acceptance request, checks the PC is free, brings the watcher to the branch's core, builds and installs its DLL, runs core/harness/acceptance.py, stops between passes when Liam comes back, uninstalls, and commits and pushes the ledger lines and evidence",
+  "usage": "acceptance_auto.py tick [--dry-run] [--present-file F] [--branch B --job J<n> --passes N --ignore-session ID] | request --job J<n> | status | task install|remove|enable|disable [--proof [--passes N]] | launch <tick args>   (--branch, --passes and --ignore-session are for scratch/ proof branches only)",
+  "when": "a builder whose final build needs its 20 passes runs `request` on the job branch, commits, pushes and ends; the task then fires `tick` every 30 minutes once Liam has run `task enable`; harness/README.md, \"Unattended acceptance",
+  "not_a_verb": "a PC runner on top of core/harness/acceptance.py and job.sh, started by the Task Scheduler with no session around it; it reads the rule 79 gate, it is not a registry operation",
+  "status": "live",
+  "last_used": "2026-11-07"
+}
