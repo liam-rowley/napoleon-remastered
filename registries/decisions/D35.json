@@ -1,0 +1,7 @@
+{
+  "id": "D35",
+  "date": "2026-10-31",
+  "who": "Liam",
+  "decision": "**J36 UI art look approved.** Liam reviewed the J36 contact sheets (`upscale/sheets/`, all 13 roles and the hard-case crops) and approved the look: \"Contact sheets look good to me\". The models pinned in `upscale/napoleon/models.json` (2xHFA2kCompact, 2xNomosUni_esrgan_multijpg) and the per-role choice stand for the remaining roles; no 4x side by side is needed first. In-game loading is still J50's to prove.",
+  "reversible": "yes"
+}

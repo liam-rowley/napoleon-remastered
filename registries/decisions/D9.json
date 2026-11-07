@@ -1,0 +1,7 @@
+{
+  "id": "D9",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "RmlUi again, with a reworked concept-to-build process (`docs/plans/UI_PIPELINE.md`). Liam reviews designs by playing them (clicking, switching tabs), rarely by editing, so the design canvas becomes a review surface and agents own the source.",
+  "reversible": "yes"
+}

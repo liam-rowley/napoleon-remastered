@@ -1,0 +1,7 @@
+{
+  "id": "D32",
+  "date": "2026-10-29",
+  "who": "Liam",
+  "decision": "**The reviewer merges a job on green CI.** A review with the verdict `merge` ends with `gh pr merge job/J<n> --auto --squash`: GitHub merges only when every required check (`gates`, `proxy`, `harness-windows`, `policy`) passes on the pushed commit, and no agent waits or polls. Other verdicts are never merged; `brief/`, `plan/` and `meta/` branches still wait for Liam. Replaces \"a merge Liam approves\" for job branches (D21 unchanged otherwise). `docs/REVIEW.md` \"Output\".",
+  "reversible": "yes"
+}

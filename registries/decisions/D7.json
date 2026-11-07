@@ -1,0 +1,7 @@
+{
+  "id": "D7",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "Fonts are handled the same way as on Empire (RmlUi screens use TTFs through FreeType; see `docs/plans/UI_PIPELINE.md` for engine-drawn text).",
+  "reversible": "yes"
+}

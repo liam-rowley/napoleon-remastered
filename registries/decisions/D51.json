@@ -1,0 +1,7 @@
+{
+  "id": "D51",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**The decisions left for Liam's review are accepted as written.** D22 and D31 (the proxy toolchain: mingw-w64 i686 on Linux, the same toolchain in Docker locally), D23 (the exe-identity guard, fail closed), D24 (the engine-site byte layout), D25 and D45 (install state outside the game folder; the player installer `rr.ps1`), D29 (warscape-core stays public), D41 (freetype-py 2.5.1 in the art-build Python), D44 (the job pipeline lives in the core) and D46 (the player ini omits the dev keys; `dev.file_rules` until the core's W33 gives a player key). Raised by the 2026-11-03 audit (`docs/audits/AUDIT_2026-11-03.md`, the Liam lane). Liam's answer to each: \"Accept\" (D29: \"Accept, stay public\").",
+  "reversible": "yes"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "D34",
+  "date": "2026-10-29",
+  "who": "Liam",
+  "decision": "**No fixed agent cap.** Liam decides how many agents and sessions run at once; `wsc jobs view --serve` no longer refuses a launch for the count (it still refuses a second session of the same name). Replaces \"at most 2 agents\" in D15; the rest of D15 stands.",
+  "reversible": "yes"
+}

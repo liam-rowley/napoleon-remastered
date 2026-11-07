@@ -1,0 +1,7 @@
+{
+  "id": "D14",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "**Scope is D1 and nothing else**: everything not named there is out of scope. Keep it tight and release fast-ish.",
+  "reversible": "no"
+}

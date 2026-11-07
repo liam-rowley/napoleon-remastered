@@ -1,0 +1,7 @@
+{
+  "id": "D42",
+  "date": "2026-11-02",
+  "who": "Liam",
+  "decision": "**J66 open questions settled.** (1) Vendor the Lora face at `uiscale/fonts/Lora-Variable.ttf` (SIL OFL, text beside it). (2) `uharfbuzz==0.56.4` joins the art_build Python for the pair kerning, Empire's route; the slot fonts come out byte-identical to Empire's in-game-proven 2x fonts (the GPOS reader stays as the fallback). (3) The 2x text is Lora, not Napoleon's own font art. (4) The UI scale stop-gap ships in 0.1.0 (J38 packages it).",
+  "reversible": "yes"
+}

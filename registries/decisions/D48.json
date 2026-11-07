@@ -1,0 +1,7 @@
+{
+  "id": "D48",
+  "date": "2026-11-03",
+  "who": "Liam",
+  "decision": "**Napoleon smoke backported to Empire: a restart-list candidate, stripped file first (J72's recommendation, taken).** J72's effects diff (fact `napoleon.diff.effects`, `discovery/diff/effects.json`) shows every gunpowder smoke group changed or new and written with one tag and 16 attribute names Empire.exe has no string for (`napoleon.diff.effects.empire_exe_names`). The backport stays on the Empire restart list (D11: no Empire work runs beside Napoleon's), and its first proof, one volley captured on Empire, tries Napoleon's `landbattle.xml` with the new tag and attributes stripped before the file as shipped. No Napoleon job comes from this. Liam's words: \"Follow recs for all questions\".",
+  "reversible": "yes"
+}

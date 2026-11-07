@@ -1,0 +1,7 @@
+{
+  "id": "D4",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "The repo is the single source of truth; deterministic gates wherever possible; registries (tools, assets, UI elements, …) each carry extra fields (tools: when to use; UI elements: status synced with the design review).",
+  "reversible": "no"
+}

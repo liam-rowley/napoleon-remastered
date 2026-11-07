@@ -1,0 +1,7 @@
+{
+  "id": "D50",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**Only Liam merges `plan/` and `meta/` branches, for now.** `CLAUDE.md`'s \"or the orchestrator, once there is one\" no longer applies to these two kinds. J76's hook will deny an agent's `gh pr merge` on them (audit P6: the rule was prose only, and agents run `gh` under Liam's login). J84 can later let `plan/` merge itself under narrowed rules, through a new line that replaces this one's `plan/` half; `meta/` stays Liam's. Liam's words: \"Only you, for now\".",
+  "reversible": "yes"
+}

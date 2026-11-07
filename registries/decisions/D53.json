@@ -1,0 +1,7 @@
+{
+  "id": "D53",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**`plan/` may merge itself on green CI, under narrowed rules (J84).** No `CLAUDE.md`, `docs/REVIEW.md` or `core/docs` change, and row edits only as new `needs_brief` rows or changes to a row's title, description and `depends_on`, compared row by row. This replaces D50's `plan/` half once J84's policy is merged; until then D50 holds. `meta/` stays Liam's. Liam's words: \"Allow, narrowed\".",
+  "reversible": "yes"
+}

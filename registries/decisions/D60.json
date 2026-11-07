@@ -1,0 +1,7 @@
+{
+  "id": "D60",
+  "date": "2026-11-04",
+  "who": "J64 (Liam answered its open questions 2026-11-04: follow the recommendations)",
+  "decision": "**The core pin moves to v0.22.0; the effects pass stays Napoleon's; watcher 1.3.0 is the acceptance baseline.** The pin commit also moves the discovery passes to `core/discovery` (verb `wsc discovery` is the core's) and `tools/jobs_hooks.py` to the gate module `tools/gates/pipeline.py`. `discovery/napoleon/effects.py` (J72) stays here until a warscape-core row promotes the pass and its `diff/README.md` area, so the generated `discovery/diff/README.md` has no effects rows meanwhile (the data, `effects.json` and the facts, are untouched). The acceptance baseline run is on watcher 1.3.0 and the DLL build id of the J64 inputs. v0.24.0 (W12) was not taken: its `run_refs` gate fails on 11 stale paths in old run READMEs, so it comes with J78. Reversible (the previous pin, v0.10.0, and the folders are in history).",
+  "reversible": "yes"
+}

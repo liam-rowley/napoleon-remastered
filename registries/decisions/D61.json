@@ -1,0 +1,7 @@
+{
+  "id": "D61",
+  "date": "2026-11-04",
+  "who": "Liam (J64 re-scope)",
+  "decision": "**The core pin moves to v0.30.0, the newest tag, replacing D60's v0.22.0; watcher 1.4.0 is the acceptance baseline.** v0.22.0 fails CI's `proxy` smoke (runs 41801657509, 41804261931) and its fix (core W37, with the `controls.gestures` row J64 adds) is first in v0.28.0, so J64 takes the newest tag and absorbs what it forces: W12's `run_refs` (`[gates] run_refs_since` is the bump date), W23's base-judged policy (`ci/policy.yml.in` on `pull_request_target`, with a `pull_request` bootstrap for J64's own pull request; the policy stage of `tools/gates/pipeline.py` reads the head by sha at the clone), W24's pinned toolchain in CI and W10's session-owned lock. The rest of D60 stands (the effects pass stays Napoleon's). Reversible (the previous pins are in history).",
+  "reversible": "yes"
+}
