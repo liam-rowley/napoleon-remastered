@@ -1,0 +1,7 @@
+{
+  "id": "D38",
+  "date": "2026-11-01",
+  "who": "Liam",
+  "decision": "**Open questions of the 2026-11-01 brief batch settled as recommended.** J9 stays one job (priority order and cut line as in its brief; no J9a/J9b split). J23 baselines the scenarios that exist now; J59 re-runs it on J46's rows and re-agrees the budgets; the visible-window comparison stays in the one Liam-present sitting; cold and warm loads are reported apart. J30 UI frame-cost budget: 1 ms p50 for the test document at 4K and 0.1 ms for the idle host (2 ms stays the hard stop); the builder proposes the `viewer/core` promotion row. J38 name \"Napoleon Remastered\" and first version `0.1.0`; the PowerShell installer kept in step with `pc_deploy.py` by parity tests stays (no frozen exe). The unofficial-mod statement and the licence of our own code are still open: Liam's call, not covered here. J46 keeps the campaign rows out of the acceptance order; \"scene stages the row's save\" is proposed as a warscape-core backlog item, not built first. J48 moves the restore record aside when the virtual display is missing (exit 3). J49 headlines tokens and tool calls; cost is shown as an estimate. J53 installs the proxy with the play packs (`--no-proxy` only as a later follow-up); DXT outputs that are not a multiple of 4 and outputs over 4096 px stay out until a probe shows they draw. J57 keeps the `scratch/j57-changes-fail` CI run as the proof of problem 2.",
+  "reversible": "yes"
+}

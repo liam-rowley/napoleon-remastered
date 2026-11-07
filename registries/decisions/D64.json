@@ -1,0 +1,7 @@
+{
+  "id": "D64",
+  "date": "2026-11-06",
+  "who": "Liam (J25's open question)",
+  "decision": "**The cascades budget is agreed as proposed: +1.5 ms p50, +2.0 ms p99, 50 MB VA peak, 50 MB commit, 768 MB VRAM.** J26 is held to it, and marks the row in `perf/budgets.json` (`plan/` cannot change `perf/`). Only this row: the other rows of `perf/budgets.json` stay PROPOSED, and J59 re-agrees them all once J46's battles are measured (D38). J25 measured about a tenth of it, on a 4090 in CPU-bound deployment scenes, so J26's check on a smaller card stands.",
+  "reversible": "yes"
+}

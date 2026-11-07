@@ -1,0 +1,7 @@
+{
+  "id": "D54",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**Of the Empire learnings PIPELINE_V2 dropped without a decision (audit, \"Empire learnings\"), only nightly visual regression is kept (J86).** The GPU tester kit, the weekly retro, onboarding and the checker budget reserve are dropped. The other two items on the audit's list are already queue work: defaults for unanswered decisions (core W32) and the per-report usage line (core W31, J87). Liam's words: \"Keep only nightly VR\".",
+  "reversible": "yes"
+}

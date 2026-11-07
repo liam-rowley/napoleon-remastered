@@ -1,0 +1,7 @@
+{
+  "id": "D23",
+  "date": "2026-10-28",
+  "who": "agent (proxy job), for Liam's review",
+  "decision": "Exe-identity guard: identity = exe file sha1 + PE TimeDateStamp + SizeOfImage; an adapter with no pin runs as pass-through (fails closed, unlike Empire). `proxy/README.md` \"Exe-identity guard\".",
+  "reversible": "yes"
+}

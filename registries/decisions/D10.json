@@ -1,0 +1,7 @@
+{
+  "id": "D10",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "**Shared core repo now.** Napoleon builds on it from the start; Empire is not modified yet and is refactored onto the core later, at a quiet time.",
+  "reversible": "yes"
+}

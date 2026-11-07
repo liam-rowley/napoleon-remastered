@@ -1,0 +1,7 @@
+{
+  "id": "D21",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "**All work goes through the job queue**, enforced at merge: branch protection on `main` (pull requests only, required checks) and the CI `policy` check (`tools/pr_policy.py`): `job/J<n>` merges only with a report and a `merge` review, `brief/J<n>`, `plan/*` and `meta/*` are limited to their files, any other branch is refused.",
+  "reversible": "yes"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "D55",
+  "date": "2026-11-04",
+  "who": "Liam (delegated)",
+  "decision": "**UI library vanilla-first, and the proving screens.** (1) Liam builds the component library by looking at vanilla and iterating, not from scratch: J99 (new) builds a private vanilla reference page (all 300 atlas surfaces composited from the atlas plus J10's live shots, and every reusable vanilla kind beside its J34 library twin); J69 is briefed now as Liam-present sittings that walk those kinds, and the library may grow to vanilla's reusable set (J34's three-screen limit lifted for kinds in J99's inventory). (2) Proving screens (`docs/plans/UI_PIPELINE.md` section 2.6, its open question 1): `campaign.entity_lists` (panel: tabbed, list-heavy, reached live, replacing J10's `campaign.region_details`, which has no proven safe route), `common.unit_information` (popup) and `battle.land_battle_orders` (HUD). Liam's words: \"To build the component library I need to see vanilla screens and iterate over them. I can't come up with components from scratch\"; the rest delegated: \"For any decisions go with defaults or your recommendation unless it's critical\".",
+  "reversible": "yes"
+}

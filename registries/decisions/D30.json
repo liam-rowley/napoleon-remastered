@@ -1,0 +1,7 @@
+{
+  "id": "D30",
+  "date": "2026-10-29",
+  "who": "Liam",
+  "decision": "**Agents run in Claude Code on Liam's PC** (native Windows, Git Bash; clones under `%USERPROFILE%\\repos\\`), not in claude.ai cloud sessions: the cloud container and the device bridge (device VM, `device_commit_files`, staging) are retired. The PC watcher stays the only way to launch, kill or profile the game. `CLAUDE.md` \"Where agents run\"; the switch-over is J20.",
+  "reversible": "yes"
+}

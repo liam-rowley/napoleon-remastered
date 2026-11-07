@@ -1,0 +1,7 @@
+{
+  "id": "D41",
+  "date": "2026-11-02",
+  "who": "J66 (as its brief requires)",
+  "decision": "**freetype-py 2.5.1 in the art_build Python.** `upscale/requirements.txt` adds `freetype-py==2.5.1` (its wheel bundles FreeType 2.13.2), used only by `uiscale/core/cuf_encode.py` to render the 2x slot fonts as Lora (the Empire recipe). Pair kerning: see D42.",
+  "reversible": "yes"
+}

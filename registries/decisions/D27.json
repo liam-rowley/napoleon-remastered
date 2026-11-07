@@ -1,0 +1,7 @@
+{
+  "id": "D27",
+  "date": "2026-10-29",
+  "who": "agent (J3), for Liam's review",
+  "decision": "The engine's Lua reaches the proxy through wrapper scripts in a virtual dev pack (`add` rule, zero-touch) that run the vanilla script unchanged from the real pack (`wsp.vanilla`) and pump the bridge; commands are files in `C:\\napoleon_remastered_pc\\ctl` (D25). `proxy/README.md` \"Dev control channel\".",
+  "reversible": "yes"
+}

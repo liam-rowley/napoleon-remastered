@@ -1,0 +1,7 @@
+{
+  "id": "D26",
+  "date": "2026-10-29",
+  "who": "agent (J3), for Liam's review",
+  "decision": "Dev hooks are import-table (IAT) slots of the game exe, not MinHook or inline detours: the exe links the CRT statically, so every file call and BinkOpen goes through its own table; no third-party code, other modules untouched. `proxy/README.md` \"Hooks\".",
+  "reversible": "yes"
+}

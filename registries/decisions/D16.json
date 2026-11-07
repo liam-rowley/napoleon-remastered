@@ -1,0 +1,7 @@
+{
+  "id": "D16",
+  "date": "2026-10-28",
+  "who": "Liam",
+  "decision": "No Empire-style orchestrator lease and hand-kept state file: live state is a job queue file plus a status page generated from it and the registries.",
+  "reversible": "yes"
+}

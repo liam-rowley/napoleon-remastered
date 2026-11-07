@@ -1,0 +1,7 @@
+{
+  "id": "D52",
+  "date": "2026-11-04",
+  "who": "Liam",
+  "decision": "**The model rule of D15: Opus for builds, Sonnet for reviews and briefs.** Replaces D15's \"Sonnet medium default, Opus only with a stated reason\", which J70 and core W1 had overridden with \"Opus at high effort across the board\" and no D line (audit R3). A job's build runs on Opus; its review rounds and the writing of briefs run on Sonnet. The rest of D15 stands: at most 2 agents, a call budget and a kill criterion per job, no polling by agents. Liam's words: \"Opus for builds, Sonnet for reviews and briefs\".",
+  "reversible": "yes"
+}

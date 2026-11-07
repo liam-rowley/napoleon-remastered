@@ -12,6 +12,7 @@ config_keys = "core:config_keys"
 hotkeys = "core:hotkeys"
 engine_facts = "core:engine_facts"
 jobs = "core:jobs"                          # the job queue (D16); the schema is the core's since J62
+decisions = "core:decisions"                # one file per row (core W43, J105)
 
 [core]
 version = "v0.47.0"
@@ -34,7 +35,7 @@ verb_dirs = ["tools/verbs"]   # game-specific verbs (same contract as core/warsc
 commit = false              # views are written to _scratch/registries/ (git-ignored), never committed (J55)
 
 [storage]
-dir = ["jobs", "tools", "engine_facts"]
+dir = ["jobs", "tools", "engine_facts", "decisions"]
 
 # ---- the job pipeline (napoleon J62): the core runs it, this file configures it, tools/gates/pipeline.py holds the game-specific rules
 [jobs]
@@ -69,7 +70,8 @@ brief_model = "jobs/J1/brief.md"
 brief_notes = '''How a brief cites (row 80, J11): game-side things by registry id (python3 core/wsc.py find <words>), never a path you searched for. `wsc jobs check` refuses the extract store, pack-form paths (backslashes), any path under a game folder that is not an assets or ui_elements id, and a layout or script path a ui_elements unit holds (cite the unit id). A thing with no row goes under `## Registry gaps` as `- path: <path>; owner: <job id or liam>; reason: <why no row>`; a quotation is marked `Quoted, not a citation:`.'''
 
 [policy]
-decisions = "docs/DECISIONS.md"
+decisions = "registry:decisions"
+decisions_retired = "docs/DECISIONS.md"
 decision_prefix = "D"
 session_trailer = "Claude-Session"
 commit_msg_hook = true                 # core W12: the commit-msg hook refuses a commit with no session trailer
