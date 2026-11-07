@@ -1,6 +1,6 @@
 # Run 20261107_j85pc: J85's PC test
 
-Session `5589c70a-4722-444e-a364-10b33a6296b4`, 2026-11-07, layout D throughout (`DELL S2721DGF` and `VDD by MTT` by `WmiMonitorID`; `DEL41DB*` and `MTT1337` from the tool's own reading). **Partial: steps 1 to 5 are done. Steps 6 and 7 are not, see the end.** Steps 3 and 4 were driven by session `0280ca96-6ae4-4807-ae31-4e3119d8e245`, which carried on after the first session ended.
+Session `5589c70a-4722-444e-a364-10b33a6296b4`, 2026-11-07, layout D throughout (`DELL S2721DGF` and `VDD by MTT` by `WmiMonitorID`; `DEL41DB*` and `MTT1337` from the tool's own reading). Steps 1, 2 and 5 were driven by that session; steps 3, 4, 6 and 7 by session `0280ca96-6ae4-4807-ae31-4e3119d8e245`, which carried on after the first session ended. All seven steps are done.
 
 ## Step 1: preflight and the "not known" facts
 Before anything: `pc_deploy.py status` exe vanilla (sha1 `9aebcd2172f2`), nothing installed, no foreign files; `job.sh status` watcher 1.5.0, `not_running`, no lock; 22 GB free of 31.1.
@@ -28,9 +28,34 @@ Also read that minute: `watcher_diff` against the real installed files is empty,
 ## Step 4: stop and resume
 `test_present` put down at 15:30:55 UTC, in pass 2. `tick_step3_4.log`: stop wanted 15:30:57, `stop after: acceptance pass 2: pass` 15:36:34, pushed and stopped 15:37:12. `last_result.json` said `vanilla` and `clean`; `pc_deploy.py status` not installed, exe vanilla; `job.sh status` `not_running`, no lock. File removed, fired again: `3 passes after a streak of 2`, kit `kit_20261107T151922Z_d5c6378c11aa` (reused). `dll_sha256_logged` is `5dac94823fc5...` in pass 1 of the first run and pass 3 of the second.
 
-## Deaths so far (layout D, Docker up)
-**0 deaths in 30 launches:** `watcher_step3_4.log` has 30 `launch:` lines for 5 passes, 6 per pass, so no attempt was retried, and no line names a death. Load from `observer_step3.log`, 48 readings: free memory 18.7 GB average, 17.6 GB lowest, CPU 57% average with the game running. This is a small sample; step 6 adds to it.
+## Step 6: 20 passes, unattended
+`task install --proof` with no `--passes` runs `20 - streak`. `Start-ScheduledTask` at 16:06:39 UTC, run `20261107_j85auto3`: 15 passes after a streak of 5, same kit, ended 17:52:29 with `complete: every pass ran` (`tick_step6.log`, `20261107_j85auto3.out`, `last_result_step6.json`). Evidence commit on `scratch/j85-proof`: `242b38e3`.
 
-## Not done
-- **Steps 6 and 7.** `task install --proof` with no `--passes` runs `20 - streak`, so 15 more passes on this kit would end at 20.
-- `pc_deploy.py status` and `job.sh status` were clean after step 1's uninstall: identical to the pre-install snapshot, 1564 files, no lock, no profile.
+- **20 ledger lines on the proof branch, all `pass`:** 2 + 3 + 15 across the three runs, one `dll_sha256` (`5dac94823fc5`), one `watcher_sha`.
+- **Rule 79 is satisfied.** `tick --dry-run --branch scratch/j85-proof --job J85`, 17:55:42 UTC: `skip scratch/j85-proof: rule 79 is satisfied`. That is `acceptance_problems`' own answer.
+- **`acceptance.py streak` says 40, not 20.** It reads build and watcher but no branch, so it adds J78's 20 lines on the same build. The ledger holds 20 on each of `job/J78` and `scratch/j85-proof`.
+- **Layout D throughout:** `layout=D` on all 101 lines of `20261107_j85auto3.idle.log`.
+- **Nobody touched the PC:** `last_input=25197562` on all 101 lines. No session worked during the passes: J105's last push ended at 16:10:03, and pass 1 started at 16:11:47.
+- **No window from the runner:** `observer_step6.log`, rect 2560,1440 3840x2160, 16:06:29 to 17:53:06. Explorer's own shell windows and nothing else.
+- **Load:** 104 readings in `observer_step6.log`. Free memory 18.2 GB average, 17.5 GB lowest. CPU 85% average, 100% highest.
+- **Shots looked at:** all 20 of passes 8 and 10 of `20261107_j85auto3`, the two passes that lost a launch, by eye on 2026-11-07. Each is the scene its name says: the campaign map and nine battles, nothing black or broken. The pass's own shot step only checks that the file was written.
+
+## Lost launches, counted from `watcher.log`
+| Runs | Passes | Launches | Deaths | Healthy game killed |
+|---|---|---|---|---|
+| `20261107_j85auto1`, `20261107_j85auto2` (`watcher_step3_4.log`) | 5 | 30 | 0 | 0 |
+| `20261107_j85auto3` (`watcher_step6.log`) | 15 | 92 | 1 | 1 |
+| **All** | **20** | **122** | **1** | **1** |
+
+Both lost launches were retried by `ctl.py` and the pass went on. **Neither shows in a pass file:** `pass_08.json` and `pass_10.json` list 6 launches and no retry, which is why this table comes from `watcher.log` (J78 open question 1).
+
+- **The death: pass 10's first launch, pid 2816, 17:12:24 UTC.** It exited 4 s after launch, `the game exited before reporting on_virtual (last status: starting DllMain)`. WER: `c0000374`, `StackHash_1892`, the same signature as the dump of 2026-11-06 20:36 UTC. Dump `Napoleon.exe.2816.dmp` in `CrashDumps/napoleon_remastered` under local AppData, 190 MB, left there for J101.
+- **The kill: pass 8's last launch, pid 21688, 17:02:16 UTC. This was not a death.** The watcher logged `no on_virtual status for pid 21688 within 180 s (last: (no status yet)); the game was killed (fail closed)`. But the game had written `on_virtual`, `first frame presented there at 1.2 s`, at 17:02:18.669, two seconds after launch. The write went to VirtualStore, where the watcher does not read, and the guard moved it aside at the next launch: `virtualstore_status_pid21688.json`. That is `napoleon.harness.uac_virtualstore`, which J47 owns.
+- **The same thing happened once before:** pid 11832, 2026-11-06 02:28 UTC, on J25 (`virtualstore_status_pid11832.json`). `watcher.log` has 2 `no on_virtual status` lines and 2 VirtualStore moves, and they are these two pairs.
+
+**Deaths on D, quiet PC, J78's DLL: 1 in 122 (0.8%).** J101's table has D at 32/135 from 2026-11-05 on, and J78 had 2 in 122 on M. So D on its own does not bring the high rate. This run cannot say why: the PC was quiet and the DLL has W33, and both differ from most of that 32/135.
+
+## Step 7: the end state
+`task remove --proof` at 17:54 UTC, then `Get-ScheduledTask`: `napoleon_remastered acceptance-auto` Disabled, the proof task gone. `pc_deploy.py status`: not installed by this tool, exe vanilla (`9aebcd2172f2`), no `.git`. `job.sh status`: watcher 1.5.0, `not_running`, `lock` null, `profile_active` null.
+
+`scratch/j85-proof` stays until review.
