@@ -3,7 +3,7 @@
   "description": "Audit 2026-11-03 (docs/audits/AUDIT_2026-11-03.md) automation 5. A scheduled PC task that runs acceptance.py for any branch whose rule 79 check fails, under guards: the game lock owner is the session id (core W10); it refuses while Liam is active (GetLastInputInfo idle time, or a liam_present file in the state folder); it refuses when the running watcher differs from HEAD's kit (core W9's preflight); unique run ids; W9's flake rule, so one B60 relaunch does not cost a 2.7-hour restart; it commits the ledger lines and evidence with the trailer and pushes. Pair it with the watcher updating itself from a kit when the version differs. After J78 (audit train 1 on the PC) and J75.",
   "title": "Unattended 20-pass acceptance on the PC",
   "phase": 1,
-  "status": "fix",
+  "status": "review",
   "model": "opus",
   "needs_pc": true,
   "depends_on": [

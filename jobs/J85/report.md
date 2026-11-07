@@ -87,3 +87,13 @@ Usage: 106 tool calls in session `5589c70a-4722-444e-a364-10b33a6296b4`, counted
    - A stop flag in `acceptance.py`, so a stop does not have to end the process (out of scope here).
    - The autopilot holds back non-PC sessions during a run (out of scope here).
 5. **`scratch/j85-proof` stays until review,** then the reviewer or Liam deletes it.
+
+## Fix round 1
+Session `0280ca96-6ae4-4807-ae31-4e3119d8e245`, the session that wrote this report. The reviewer made both fixes on the branch, so this round read them and changed no code. A fresh round has to review both commits (rule A).
+
+1. **A `fail` during a stop did not consume the request:** fixed in `456c0ec5`. A wanted stop now ends the run only after `acceptance pass N: pass`, or after a flake the allowance covers. I read it against `acceptance.py`: the `pass` line matches as it did, so the stop path the proof exercised has not changed. The `FAIL` and spent-flake paths have host tests only. They have not run on the PC.
+2. **The action-line trap was prose:** fixed in `b22be54d`. `task enable` now refuses a task whose action is in a worktree, or one it cannot read. Open question 1's steps stand, and the tool now enforces them.
+
+**Left, with the reviewer's agreement that none is needed for a merge:** the six `later` items. None blocks a game-facing job, and item 5 is simply read when the first real request runs. Item 6, the `task enable` allow rule, is Liam's to decide.
+
+The proof covers the tool as it stood at `844c4905`, not these two commits. Rule 79 does not apply: no DLL or counted harness input changed, and the build id is still `96722f4b8d52`.
