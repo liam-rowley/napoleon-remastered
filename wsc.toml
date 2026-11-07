@@ -43,6 +43,7 @@ dir = "jobs"
 models = ["sonnet", "opus"]
 legacy = "jobs/legacy.json"            # frozen id sets exempt from the round rules and the brief hooks (D36, J11)
 ledgers = "jobs/*/rules.md"            # J5 audit ledgers: their `CL` rows name the job whose brief must cover them
+usage_from = 106                       # core W31 (J88): reports from this job on need a `Usage:` line; 106 sits above every written report without one, J105's on its branch included
 
 [gates]
 dirs = ["tools/gates"]                 # tools/gates/pipeline.py: found-path rule (row 80), rule 76, rule 79, the PC line of the page (rule 75); core W13
@@ -73,6 +74,8 @@ decisions = "docs/DECISIONS.md"
 decision_prefix = "D"
 session_trailer = "Claude-Session"
 commit_msg_hook = true                 # core W12: the commit-msg hook refuses a commit with no session trailer
+decisions_cite_job = true              # core W27 rule F (J88): a decisions row added on job/<id> names <id>
+reviewer_code = "error"                # core W27 rule A, W40 (J88, Liam 2026-11-07): a `merge` over a reviewer's own change needs a newer round from a fresh session
 plan = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "registries/decisions/*", "README.md", "CLAUDE.md"]
 meta = ["docs/*", "docs/**", "jobs/*/brief.md", "registries/jobs/*", "registries/decisions/*", "README.md", "CLAUDE.md", ".github/**", "ci/**", "tools/*", "tools/**",
         "tests/*", "tests/**", "schemas/*", "wsc.toml", ".gitattributes", ".gitignore", ".gitmodules", "design/napoleon/LANGUAGE.md"]
