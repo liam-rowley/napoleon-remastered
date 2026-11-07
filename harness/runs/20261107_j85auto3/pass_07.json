@@ -1,0 +1,893 @@
+{
+ "schema": 2,
+ "pass": 7,
+ "start_utc": "2026-11-07T16:49:26Z",
+ "end_utc": "2026-11-07T16:55:57Z",
+ "result": "pass",
+ "passed": true,
+ "build_id": "96722f4b8d52",
+ "build_source": "proxy.log",
+ "watcher": "1.5.0",
+ "kit": "kit_20261107T151922Z_d5c6378c11aa",
+ "steps": {
+  "exe_sha1": {
+   "ok": true,
+   "compared": "the game exe sha1 against the pin (rule 28)",
+   "expected": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+   "got": "9aebcd2172f2878d781b079f7feb45b0e12e0250"
+  },
+  "hist_dresden:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 7.3,
+   "got_s": 7.0,
+   "limit_s": 18.25,
+   "path": {
+    "launch": null,
+    "via": "autostart"
+   }
+  },
+  "hist_dresden:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 675.7,
+      "got": 675.7,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 59.7,
+      "got": 59.6999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": 529.2,
+      "got": 529.2,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -137.37,
+      "got": -137.37003415822983,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -20.36,
+      "got": -20.359877195645666,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0003479681712048266,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_dresden:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 98234,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\hist_dresden_deploy.jpg",
+   "sha256": "339894d808df5e6b201fded6def47a73efd47d6b07115c299289188c7eb4aef0",
+   "bytes": 98234
+  },
+  "hist_dresden:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 4.09,
+   "threshold": 7.8
+  },
+  "hist_nile:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 4.2,
+   "got_s": 4.2,
+   "limit_s": 10.5,
+   "path": {
+    "launch": null,
+    "relaunch": {
+     "exit": "exit",
+     "size": "1920x1080",
+     "keys_set": [],
+     "launch_s": 9.6
+    },
+    "via": "autostart"
+   }
+  },
+  "hist_nile:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 255.7,
+      "got": 255.7,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 61.5,
+      "got": 61.4999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -685.7,
+      "got": -685.6998,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -20.82,
+      "got": -20.82006871345873,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -4.57,
+      "got": -4.56991924606761,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0004202807990760581,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_nile:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 93843,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\hist_nile_deploy.jpg",
+   "sha256": "47a20819689f71644d5cf9acc86f7cc2ff24c2564615472c442d91c2d7345fd9",
+   "bytes": 93843
+  },
+  "hist_nile:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 5.191,
+   "threshold": 10.29
+  },
+  "hist_lodi:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 5.9,
+   "got_s": 5.8,
+   "limit_s": 14.75,
+   "path": {
+    "launch": null,
+    "relaunch": {
+     "exit": "exit",
+     "size": "1920x1080",
+     "keys_set": [],
+     "launch_s": 9.6
+    },
+    "via": "autostart"
+   }
+  },
+  "hist_lodi:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 480.1,
+      "got": 480.1,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 63.3,
+      "got": 63.3001,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -247.5,
+      "got": -247.4999,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": -38.64,
+      "got": -38.64008601453689,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -16.28,
+      "got": -16.280046553401615,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.00041719681229019956,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "hist_lodi:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 77122,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\hist_lodi_deploy.jpg",
+   "sha256": "149eb2f17b1cd81e3bd6ca072d1947d9e95710513db4d0483787fc9e06f93b89",
+   "bytes": 77122
+  },
+  "hist_lodi:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 2.422,
+   "threshold": 4.0
+  },
+  "campaign_start:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 2.7,
+   "got_s": 2.6,
+   "limit_s": 6.75,
+   "path": {
+    "launch": null,
+    "relaunch": {
+     "exit": "exit",
+     "size": "1920x1080",
+     "keys_set": [],
+     "launch_s": 9.1
+    },
+    "via": "autostart"
+   }
+  },
+  "campaign_start:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 153867,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\campaign_start_default.jpg",
+   "sha256": "01c85b00a2a451578846f22be480b702ec9df001da0e8d0e80f2db1e88644fc8",
+   "bytes": 153867
+  },
+  "naval_small:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 3.7,
+   "got_s": 3.3,
+   "limit_s": 9.25,
+   "path": {
+    "launch": null,
+    "relaunch": {
+     "exit": "exit",
+     "size": "1920x1080",
+     "keys_set": [],
+     "launch_s": 9.0
+    },
+    "via": "autostart"
+   }
+  },
+  "naval_small:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": -0.0,
+      "got": -0.0002,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 80.0,
+      "got": 80.0,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -1297.11,
+      "got": -1297.1099,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": 0.0,
+      "got": 0.00027599338153052347,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -25.0,
+      "got": -25.000164501356913,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0009837240997845728,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "naval_small:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 73468,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\naval_small_deploy.jpg",
+   "sha256": "d38bdd57990c64db4ec0218f1786141a740ab3021de6986247d9a172a7023848",
+   "bytes": 73468
+  },
+  "naval_small:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 4.462,
+   "threshold": 8.93
+  },
+  "naval_large:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 5.0,
+   "got_s": 4.7,
+   "limit_s": 12.5,
+   "path": {
+    "launch": null,
+    "via": "reset"
+   }
+  },
+  "naval_large:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": -0.0,
+      "got": 0.0,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 150.0,
+      "got": 150.0,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -1447.23,
+      "got": -1447.2303,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": 0.0,
+      "got": 1.0728836059570315e-06,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -25.0,
+      "got": -25.000159383889052,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0002782960748290725,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "naval_large:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 74625,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\naval_large_deploy.jpg",
+   "sha256": "3f295b20fdf1d9ae8d497df46cae64dba8b6884a11dee9eee1c07501abd3d2e4",
+   "bytes": 74625
+  },
+  "naval_large:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 5.065,
+   "threshold": 10.18
+  },
+  "naval_storm:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 3.6,
+   "got_s": 3.4,
+   "limit_s": 9.0,
+   "path": {
+    "launch": null,
+    "via": "reset"
+   }
+  },
+  "naval_storm:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": -0.0,
+      "got": -0.0002,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 80.0,
+      "got": 80.0,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -1297.11,
+      "got": -1297.1099,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": 0.0,
+      "got": 0.00027599338153052347,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -25.0,
+      "got": -25.000164501356913,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0009837240997845728,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "naval_storm:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 72049,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\naval_storm_deploy.jpg",
+   "sha256": "039855dcf521c9e5704a31f77d4d1d8dcab1d04ed2969e81a6a5bf8c9943b5a1",
+   "bytes": 72049
+  },
+  "naval_storm:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 4.597,
+   "threshold": 9.02
+  },
+  "siege_small:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 5.6,
+   "got_s": 5.2,
+   "limit_s": 14.0,
+   "path": {
+    "launch": null,
+    "via": "reset"
+   }
+  },
+  "siege_small:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": 0.0,
+      "got": 0.0001,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 122.89,
+      "got": 122.886,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": -746.14,
+      "got": -746.1401,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": 0.0,
+      "got": -0.00013617860983765998,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -25.0,
+      "got": -25.00009352967518,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0005387064675868676,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "siege_small:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 131485,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\siege_small_deploy.jpg",
+   "sha256": "5b91edb6ab1a9add285005355dca91b7b66eb06565738a782641aba0268abf07",
+   "bytes": 131485
+  },
+  "siege_small:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 1.378,
+   "threshold": 4.0
+  },
+  "land_small:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 4.2,
+   "got_s": 3.9,
+   "limit_s": 10.5,
+   "path": {
+    "launch": null,
+    "via": "reset"
+   }
+  },
+  "land_small:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": -0.08,
+      "got": -0.08,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 59.02,
+      "got": 59.0198,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": 446.14,
+      "got": 446.14,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": 179.91,
+      "got": 179.91001302003866,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -25.0,
+      "got": -24.999985621617174,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.0002781421471397587,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "land_small:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 110364,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\land_small_deploy.jpg",
+   "sha256": "b829a865e0067fdcca89b833b709344aef87c7a25075d50bae31a8fef5f19708",
+   "bytes": 110364
+  },
+  "land_small:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 1.648,
+   "threshold": 4.0
+  },
+  "land_40:load": {
+   "ok": true,
+   "compared": "load time",
+   "baseline_s": 4.9,
+   "got_s": 4.5,
+   "limit_s": 12.25,
+   "path": {
+    "launch": null,
+    "via": "reset"
+   }
+  },
+  "land_40:cam": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "the pose asked against the pose read back (BackProjectPosition fit)",
+    "fields": {
+     "x": {
+      "expected": -0.08,
+      "got": -0.08,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "y": {
+      "expected": 61.39,
+      "got": 61.3857,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "z": {
+      "expected": 451.38,
+      "got": 451.38,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "yaw": {
+      "expected": 179.91,
+      "got": 179.90999746322635,
+      "tolerance": 0.05,
+      "within": true
+     },
+     "pitch": {
+      "expected": -25.0,
+      "got": -24.99989869560598,
+      "tolerance": 0.05,
+      "within": true
+     }
+    },
+    "fit": {
+     "rms_px": 0.000379246868209092,
+     "max_rms_px": 0.05,
+     "points": 27
+    },
+    "ok": true
+   }
+  },
+  "land_40:shot": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "shot file written",
+    "expected": "size > 0",
+    "got": 115618,
+    "ok": true
+   },
+   "shot": "C:\\napoleon_remastered_pc\\acceptance\\20261107_j85auto3\\pass_07\\land_40_deploy.jpg",
+   "sha256": "941c94f7958b791b60b5db130da0809538dd7b77aa40116904bbdda0ae363b71",
+   "bytes": 115618
+  },
+  "land_40:shot_match": {
+   "ok": true,
+   "compared": "shot against the baseline shot",
+   "mean_abs_diff": 1.592,
+   "threshold": 4.0
+  },
+  "perf": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "frames recorded and a positive median",
+    "expected": "frames > 0, p50 > 0",
+    "got": {
+     "frames": 4164,
+     "p50": 2.299
+    },
+    "ok": true,
+    "vram": {
+     "expected": "the game process has dedicated GPU memory",
+     "got": 981.3
+    }
+   }
+  },
+  "warm_reset": {
+   "ok": true,
+   "reason": "",
+   "check": {
+    "compared": "scene after reset",
+    "expected": "battle:hist_dresden",
+    "got": "battle",
+    "ok": true
+   }
+  },
+  "build_stable": {
+   "ok": true,
+   "compared": "the build each launch logged in proxy.log (pid-matched), all equal and present",
+   "launches": [
+    "96722f4b8d52",
+    "96722f4b8d52",
+    "96722f4b8d52",
+    "96722f4b8d52",
+    "96722f4b8d52",
+    "96722f4b8d52"
+   ]
+  },
+  "dll_hash": {
+   "ok": true,
+   "compared": "the DLL sha256 the launches logged against the installed d3d9.dll",
+   "file": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+   "logged": [
+    "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440"
+   ]
+  },
+  "settings_identical": {
+   "ok": true,
+   "compared": "settings files after the exit",
+   "changed": []
+  }
+ },
+ "evidence": {
+  "exe_sha1": "9aebcd2172f2878d781b079f7feb45b0e12e0250",
+  "baseline_sha256": "9c14f42d9b1f4c51a346626b5542529a4e90b47dcc3c47178023efe56adad7f3",
+  "kit_sha256": "bddfffb5083cf22fb17b6f36d991f750d68d564ea04cc075b1d9b3c409a9fe5b",
+  "dll_sha256": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+  "dll_sha256_logged": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+  "watcher_sha256": "a3f99a8a99235ba80d32f34853eed6167c7146bef3518866307908fdd1f01c93",
+  "watcher_kit_sha256": "a3f99a8a99235ba80d32f34853eed6167c7146bef3518866307908fdd1f01c93",
+  "launches": [
+   {
+    "pid": 21096,
+    "build": "96722f4b8d52",
+    "dll_sha256_logged": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+    "utc": "2026-11-07T16:49:37.567Z"
+   },
+   {
+    "pid": 4112,
+    "build": "96722f4b8d52",
+    "dll_sha256_logged": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+    "utc": "2026-11-07T16:50:20.013Z"
+   },
+   {
+    "pid": 12812,
+    "build": "96722f4b8d52",
+    "dll_sha256_logged": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+    "utc": "2026-11-07T16:50:58.178Z"
+   },
+   {
+    "pid": 3856,
+    "build": "96722f4b8d52",
+    "dll_sha256_logged": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+    "utc": "2026-11-07T16:51:37.993Z"
+   },
+   {
+    "pid": 21984,
+    "build": "96722f4b8d52",
+    "dll_sha256_logged": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+    "utc": "2026-11-07T16:52:06.861Z"
+   },
+   {
+    "pid": 12132,
+    "build": "96722f4b8d52",
+    "dll_sha256_logged": "5dac94823fc531a4eaa51c45b5b268e09662dd41056176390b1c1e2aa89e6440",
+    "utc": "2026-11-07T16:55:50.708Z"
+   }
+  ],
+  "shots": {
+   "hist_dresden": {
+    "sha256": "339894d808df5e6b201fded6def47a73efd47d6b07115c299289188c7eb4aef0",
+    "bytes": 98234,
+    "baseline_sha256": "c3237bf138299d019ca9a9c72721f2c5429eb65265a6f39814ca99162fa65091"
+   },
+   "hist_nile": {
+    "sha256": "47a20819689f71644d5cf9acc86f7cc2ff24c2564615472c442d91c2d7345fd9",
+    "bytes": 93843,
+    "baseline_sha256": "6ef8e4a5a8ffbc921d7a236f7e5d895fcc8480b4062d5859e3fce20ab1ad5383"
+   },
+   "hist_lodi": {
+    "sha256": "149eb2f17b1cd81e3bd6ca072d1947d9e95710513db4d0483787fc9e06f93b89",
+    "bytes": 77122,
+    "baseline_sha256": "bd7c642c9fc174d683ccc5622caf9df63160e4bb74053a5a1caa4c524b546805"
+   },
+   "campaign_start": {
+    "sha256": "01c85b00a2a451578846f22be480b702ec9df001da0e8d0e80f2db1e88644fc8",
+    "bytes": 153867
+   },
+   "naval_small": {
+    "sha256": "d38bdd57990c64db4ec0218f1786141a740ab3021de6986247d9a172a7023848",
+    "bytes": 73468,
+    "baseline_sha256": "45edb476a909b6bf44d7b054c5ca92ccf9e683980e2ade787d323d99fc1f958f"
+   },
+   "naval_large": {
+    "sha256": "3f295b20fdf1d9ae8d497df46cae64dba8b6884a11dee9eee1c07501abd3d2e4",
+    "bytes": 74625,
+    "baseline_sha256": "650dfce1e52cc8cc25cb5c969c68c1a1e9b8710c42004ce93515153be864be8c"
+   },
+   "naval_storm": {
+    "sha256": "039855dcf521c9e5704a31f77d4d1d8dcab1d04ed2969e81a6a5bf8c9943b5a1",
+    "bytes": 72049,
+    "baseline_sha256": "fbc629d4485b8b11e4f6137144c08004e558f23a0c4b686ab1622b94e0eaec63"
+   },
+   "siege_small": {
+    "sha256": "5b91edb6ab1a9add285005355dca91b7b66eb06565738a782641aba0268abf07",
+    "bytes": 131485,
+    "baseline_sha256": "e9c5a1a598177eb948af741f2591c13ed7af7f192a275b5722a8153b130e6bef"
+   },
+   "land_small": {
+    "sha256": "b829a865e0067fdcca89b833b709344aef87c7a25075d50bae31a8fef5f19708",
+    "bytes": 110364,
+    "baseline_sha256": "49705c797a75e55563908ddf402355a27c5b9af59e28780a5f79dedae1ea5374"
+   },
+   "land_40": {
+    "sha256": "941c94f7958b791b60b5db130da0809538dd7b77aa40116904bbdda0ae363b71",
+    "bytes": 115618,
+    "baseline_sha256": "ed80d356414a621b954d4f94c236bb10a1166ff9e77f42b29d44024b2a9bd065"
+   }
+  }
+ }
+}
