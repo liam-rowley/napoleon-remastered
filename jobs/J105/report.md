@@ -3,12 +3,21 @@
 Step log for the later sessions; the required sections come at Finish.
 
 ## Step 1: `meta/decisions-glob`
-- Pull request #227, opened ready, cut from `origin/main` at `ef8ca7e9`, head `bc116974`. Waiting for Liam's merge (D50). Merge commit: not yet.
+- Pull request #227, opened ready, cut from `origin/main` at `ef8ca7e9`, head `bc116974`. Merged by Liam (D50). Merge commit: `62d4f416`.
 - `policy --branch meta/decisions-glob --base origin/main`: ok (1 files changed), judged with `origin/main` at `ef8ca7e9d90a` (core 0.47.0).
 - `gates --fast`: 14 ok, 1 warn (`hooks`, this worktree's path form), 0 failed. `tests.test_repo_rules`: 13 tests, OK. `jobs check`: 110 rows, ok.
 - `build_id.py`: `96722f4b8d52` on `bc116974` and on `origin/main` at `ef8ca7e9`, each with a clean tree.
 - `gh pr list --state open` before opening: nothing open.
 - Session note: the worktree isolation check refuses a Bash call that chains git commands with variables or heredocs, so commits went as plain separate commands with the message in a file. Not a repo rule, nothing to fix here.
+
+## Step 2: `meta/decisions-registry`
+- Pull request #230, opened ready, cut from `origin/main` at `62d4f416`, head `e2a10465`. Waiting for Liam's merge (D50). Merge commit: not yet.
+- `wsc.toml` first, then the migrate, as the brief says. `reg migrate decisions --from-md docs/DECISIONS.md`: added 66 rows, 0 already there. `--check`: "docs/DECISIONS.md: 66 rows, every one in registries/decisions", exit 0.
+- `docs/DECISIONS.md` identical to `origin/main`. No `registries/decisions.jsonl`, no committed view. 67 files changed: `wsc.toml` and 66 rows.
+- `policy --branch meta/decisions-registry --base origin/main`: ok (67 files changed), judged with `origin/main` at `62d4f4167489` (core 0.47.0).
+- `gates --fast`: 14 ok, 1 warn (`hooks`, this worktree's path form), 0 failed. `tests.test_repo_rules`: 13 tests, OK. `jobs check`: 110 rows, ok. These three ran on the staged tree, before a commit refused for its missing `--trailer` flag was repeated with it; the content is the same.
+- `build_id.py`: `96722f4b8d52` on `e2a10465` and on `origin/main` at `62d4f416`, each with a clean tree.
+- `gh pr list --state open` before opening: nothing open, so no open branch changes the file's table.
 
 ## Deviations from the brief and why
 - The brief says to append each step's lines to this file, but `jobs check` (and so the pre-push hook) refuses a `report.md` whose row has no `report=` or that lacks this section and the next. So the row has `report=` already, with its status still `queued`, and these two headings exist from step 1. Status goes to `review` only at Finish, as the brief says. No hook was bypassed.
