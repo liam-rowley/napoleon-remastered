@@ -7,7 +7,7 @@ Before anything: `pc_deploy.py status` exe vanilla (sha1 `9aebcd2172f2`), nothin
 
 - **Does a pass move `GetLastInputInfo`? No, for the path that was the question.** `idle_step1.log`: a logger once a second across one headless launch through `ctl.py scene land_small` and `job.sh`, on kit `kit_20261106T180846Z_6e96ce56fed1` (J78's). The cursor moved at both mode changes (launch at 11:43:04, restore at 11:43:49, to 1024,576 and back), and `last_input` stayed 13313078 from 11:42:32 to the end. **`SetCursorPos` does not move it.** One launch and one scene, not a whole pass: step 3's `<run>.idle.log` is the full reading.
 - **Does the PC sleep when idle? Not on mains:** `powercfg` `STANDBYIDLE` AC index 0 (DC 600 s). The run still holds it awake with `SetThreadExecutionState`.
-- **Which Python and `PATH` a scheduled task gets:** `task_env.json`, written by the task at 15:13:45 UTC: `pythonw.exe` from `pythoncore-3.15-64`, Pillow present, user `liamr`. `bash` on that `PATH` is the WSL launcher in `WindowsApps`; the tool runs `gitbash.git_bash()`, so it did not matter (`build.sh` ran under `C:\Program Files\Gitbinbash.exe`).
+- **Which Python and `PATH` a scheduled task gets:** `task_env.json`, written by the task at 15:13:45 UTC: `pythonw.exe` from `pythoncore-3.15-64`, Pillow present, user `liamr`. `bash` on that `PATH` is the WSL launcher in `WindowsApps`; the tool runs `gitbash.git_bash()`, so it did not matter (`build.sh` ran under `C:/Program Files/Git/bin/bash.exe`).
 
 ## Step 2: dry run
 From Git Bash, 11:45:19 UTC. `tick --dry-run` refused on idle (1246 s), `tick --dry-run --present-file <scratch>\test_present` refused on the file. Exit 0 both times and `_scratch\acceptance-auto` was empty before and after.
