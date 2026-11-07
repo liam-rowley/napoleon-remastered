@@ -50,7 +50,7 @@ PROOF_BRANCH, PROOF_JOB = 'scratch/j85-proof', 'J85'
 SCRATCH_OWNER = 'acceptance-auto'
 RUNNABLE_ROWS = ('queued', 'fix')   # decision 3: so the autopilot starts no review before the passes
 QUIET_SESSION = ('idle', 'done', 'blocked', 'stopped', 'failed')   # any other state counts as working: an unknown word refuses
-PASS_LINE = re.compile(r'^acceptance pass \d+: ')
+STOP_LINE = re.compile(r'^acceptance pass \d+: pass\b|^acceptance: flake (\d+) of (\d+) allowed')
 STREAK_RX = re.compile(r'holds (\d+) consecutive acceptance passes')
 KIT_RX = re.compile(r'^pc_deploy kit: (.+?) \(\d+ files', re.M)
 UPDATE_LOG_RX = re.compile(r'log: (\S.*?update\.log)')
@@ -124,6 +124,12 @@ def flakes_in_streak(ledger, n):
         seen += r == 'pass'
         flakes += r == 'flake'
     return flakes
+
+
+def stop_point(line):
+    """Where a wanted stop may end the run: after a pass, or a flake the allowance covers. A FAIL, or the flake that spends the allowance, goes on to acceptance.py's own exit 1, so it consumes the request (decision 9)."""
+    m = STOP_LINE.match(line)
+    return bool(m) and (m.group(1) is None or int(m.group(1)) <= int(m.group(2)))
 
 
 def commit_message(job, run_id, outcome, session):
@@ -723,7 +729,7 @@ class Tick:
                 break
             if line:
                 self.s.append_text(out_file, line + '\n')
-                if wanted and PASS_LINE.match(line):
+                if wanted and stop_point(line):
                     self.log(f'stop after: {line}')
                     proc.stop()
                     proc.wait()

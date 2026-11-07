@@ -442,6 +442,29 @@ class Run(Base):
         self.assertIn('pc_deploy uninstall', f.kinds())
         self.assertTrue(any(a[:2] == ('git', 'push') for a in f.acts), 'the evidence of a fail goes home')
 
+    def during_a_stop(self, lines, rc):
+        f = Fake()
+        f.proc = Proc(['starting', 'noise', *lines], rc=rc, after={'starting': lambda: f.files.__setitem__(f'{STATE}/liam_present', b'')})
+        tick(f)
+        return f
+
+    def test_a_fail_during_a_stop_still_consumes_the_request(self):
+        f = self.during_a_stop(['acceptance pass 1: FAIL (x)', 'acceptance: stopped at the first failure: a: b'], 1)
+        self.assertFalse(f.proc.stopped, 'acceptance.py ends by itself after a fail')
+        self.assertEqual(f.result()['action'], 'consumed')
+        self.assertEqual(f.state_doc()['consumed'], {'job/J85': [BLOB]})
+
+    def test_the_flake_that_spends_the_allowance_during_a_stop_consumes_the_request(self):
+        f = self.during_a_stop(['acceptance pass 2: FLAKE (x)', 'acceptance: flake 2 of 1 allowed (x)', 'acceptance: stopped: the flake allowance is spent'], 1)
+        self.assertEqual(f.result()['action'], 'consumed')
+
+    def test_a_flake_the_allowance_covers_is_a_stop_point(self):
+        f = self.during_a_stop(['acceptance pass 1: FLAKE (x)', 'acceptance: flake 1 of 1 allowed (x)', 'acceptance pass 2: pass (x)'], 0)
+        self.assertTrue(f.proc.stopped)
+        self.assertEqual(f.proc.lines, ['acceptance pass 2: pass (x)'])
+        self.assertEqual(f.result()['action'], 'stopped')
+        self.assertNotIn('consumed', f.state_doc())
+
     def test_a_build_id_other_than_the_request_stops_before_the_pc(self):
         f = Fake()
         f.built_id = 'dddddddddddd-dirty'
