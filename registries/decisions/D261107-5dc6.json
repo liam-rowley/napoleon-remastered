@@ -1,0 +1,10 @@
+{
+  "id": "D261107-5dc6",
+  "date": "2026-11-06",
+  "who": "Liam",
+  "decision": "**Opus across the board: builds, reviews, fixes and briefs (replaces D52).** Every background session runs on Opus; a row or brief that says Sonnet does not override this. Effort stays medium unless a brief asks for more. The rest stands: a call budget and a kill criterion per job, no polling by agents, at most 4 background sessions (D59). Liam, 2026-11-06: \"Opus across the board\". Recorded by J105.",
+  "reversible": "yes",
+  "replaces": [
+    "D52"
+  ]
+}
